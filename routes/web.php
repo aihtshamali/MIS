@@ -39,6 +39,11 @@ Route::get('/admin',function()
     return view('admindashboard');
 });
 Route::resource('/profile','ProfileController');
+// For Executive
+Route::prefix('executive')->group(function () {
+  Route::get('/','ExecutiveController@index');
+});
+
 Route::get('/assignproject','ProjectAssignController@index');
 Route::post('/assignproject','ProjectAssignController@store');
 });
