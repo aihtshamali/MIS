@@ -64,11 +64,11 @@
               <div class="form-group">
                 <label>Users</label>
 
-                <select class="form-control select2" name="users[]" multiple="multiple" data-placeholder="Select Permissions"
+                <select class="form-control select2" name="users[]" multiple="multiple" data-placeholder="Select Users"
                         style="width: 100%;">
 
                         @foreach($users as $user)
-                          <option value="{{$user->id}}">{{$user->name}}</option>
+                          <option value="{{$user->id}}">{{$user->first_name}} {{$user->last_name}}</option>
                         @endforeach
                 </select>
               </div>
@@ -110,10 +110,10 @@
           <div class="col-md-6">
               <div class="form-group">
                 <label>Users</label>
-                <select class="form-control select2" name="users[]" multiple="multiple" data-placeholder="Select Permissions"
+                <select class="form-control select2" name="users[]" multiple="multiple" data-placeholder="Select Users"
                         style="width: 100%;">
                         @foreach($users as $user)
-                        <option value="{{$user->id}}">{{$user->name}}</option>
+                        <option value="{{$user->id}}">{{$user->first_name}} {{$user->last_name}}</option>
                         @endforeach
                 </select>
               </div>

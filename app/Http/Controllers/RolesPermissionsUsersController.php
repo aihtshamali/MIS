@@ -14,6 +14,7 @@ class RolesPermissionsUsersController extends Controller
         $roles = Role::all();
         $permissions = Permission::all();
         $users = User::all();
+
         return view('roles_permissions_users.rolespermissionsusers',compact('roles','permissions','users'));
     }
 

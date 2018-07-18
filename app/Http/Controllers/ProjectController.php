@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\Project;
 use App\ProjectDetail;
-use App\SponsorAgency;
+use App\SponsoringAgency;
 use App\ExecutingAgency;
 use DB;
 use Auth;
@@ -21,10 +21,10 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        
-        $projects=Project::select('projects.*','project_assigned.user_id','project_details.attachments')
+
+        $projects=Project::select('projects.*','assigned_projects.user_id','project_details.attachments')
         ->leftJoin('project_details','project_details.project_id','projects.id')
-        ->leftJoin('project_assigned','project_assigned.project_id','projects.id')
+        ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
         ->orderBy('projects.status')
         ->get();
         // dd(Auth::user()->roles()->get());
@@ -39,7 +39,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        $sponosoring_agencies=SponsorAgency::all();
+        $sponosoring_agencies=SponsoringAgency::all();
         $executing_agencies=ExecutingAgency::all();
         $users=User::all();
         return view('projects.create',['users'=>$users,'sponosoring_agencies'=>$sponosoring_agencies,'executing_agencies'=>$executing_agencies]);

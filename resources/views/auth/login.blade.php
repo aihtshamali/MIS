@@ -13,7 +13,7 @@
 					</span>
 					<div class="wrap-input100 validate-input m-t-40 m-b-35" data-validate = "Enter username">
 						<input class="input100" type="text" id="username" name="username" value="{{ old('username') }}">
-                <span class="focus-input100" data-placeholder="Email"></span>
+                <span class="focus-input100" data-placeholder="UserName"></span>
                 @if ($errors->has('username'))
                      <span class="help-block">
                         <strong>{{ $errors->first('username') }}</strong>
