@@ -13,35 +13,44 @@
                     <div class="row">
                    <div class="col-md-6">
                     <div class="wrap-input100 validate-input m-t-30 m-b-35" data-validate = "Enter First Name">
-						<input class="input100" type="text" id="name" name="name" value="{{ old('name') }}">
+						<input class="input100" type="text" id="first_name" name="first_name" value="{{ old('first_name') }}">
 						<span class="focus-input100" data-placeholder="First Name"></span>
-						@if ($errors->has('name'))
+						@if ($errors->has('first_name'))
                             <span class="help-block">
-                                <strong>{{ $errors->first('name') }}</strong>
+                                <strong>{{ $errors->first('first_name') }}</strong>
                             </span>
                         @endif
 					</div>
                    </div>
                     <div class="col-md-6">
                         <div class="wrap-input100 validate-input m-t-30 m-b-35" data-validate = "Enter Last Name">
-                        <input class="input100" type="text" name="Lastname" value="{{old('Lastname')}}">
+                        <input class="input100" type="text" name="last_name" value="{{old('last_name')}}">
                             <span class="focus-input100" data-placeholder="Last Name"></span>
-                            @if ($errors->has('Lastname'))
+                            @if ($errors->has('last_name'))
                             <span class="help-block">
-                                <strong>{{ $errors->first('Lastname') }}</strong>
+                                <strong>{{ $errors->first('last_name') }}</strong>
                             </span>
                         @endif
                         </div>
                     </div>
                    </div>
-                    <div class="wrap-input100 validate-input m-b-30" data-validate="Enter Email">
+                    <div class="wrap-input100 validate-input m-b-30" data-validate="Enter Username">
+						<input class="input100" id="username" type="text" name="username" value="{{ old('username') }}">
+						<span class="focus-input100" data-placeholder="Enter UserName"></span>
+						@if ($errors->has('username'))
+                  <span class="help-block">
+                      <strong>{{ $errors->first('username') }}</strong>
+                  </span>
+            @endif
+					</div>
+          <div class="wrap-input100 validate-input m-b-30" data-validate="Enter Email">
 						<input class="input100" id="email" type="email" name="email" value="{{ old('email') }}">
 						<span class="focus-input100" data-placeholder="Email Here"></span>
 						@if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
+                  <span class="help-block">
+                      <strong>{{ $errors->first('email') }}</strong>
+                  </span>
+            @endif
 					</div>
 					<div class="wrap-input100 validate-input m-b-30" data-validate="Enter password">
 						<input class="input100" id="password" type="password" name="password">
