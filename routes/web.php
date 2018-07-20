@@ -43,7 +43,16 @@ Route::resource('/profile','ProfileController');
 Route::prefix('executive')->group(function () {
   Route::get('/','ExecutiveController@index')->name('Exec_home');
   Route::get('/pems_tab','ExecutiveController@pems_index')->name('Exec_pems_tab');
+  Route::get('/pmms_tab','ExecutiveController@pmms_index')->name('Exec_pmms_tab');
+  Route::get('/tpv_tab','ExecutiveController@tpv_index')->name('Exec_tpv_tab');
+  Route::get('/specialAssign_tab','ExecutiveController@specialassign_index')->name('Exec_special_tab');
+  Route::get('/inquiry','ExecutiveController@inquiry_index')->name('Exec_inquiry_tab');
+  Route::get('/other_tab','ExecutiveController@other_index')->name('Exec_other_tab');
+
+
   Route::get('/evaluation_tab','ExecutiveController@evaluation_index')->name('Exec_evaluation_tab');
+  Route::get('/evaluation_assigned','ExecutiveController@evaluation_assignedprojects')->name('Exec_evaluation_assigned');
+  Route::get('/evaluation_completed','ExecutiveController@evaluation_completedprojects')->name('Exec_evaluation_completed');
 });
 
 Route::get('/assignproject','ProjectAssignController@index');
