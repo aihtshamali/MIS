@@ -35,8 +35,13 @@
 
         @role('executive')
         {{--  /Home  --}}
+<<<<<<< HEAD
         <li class="treeview">
           <a href="{{url('/executive')}}">
+=======
+        <li >
+          <a href="{{route('Exec_home')}}">
+>>>>>>> 801bb376b0b7221e28c0caf1c4b121995a0b2039
             <i class="fa fa-home"></i>
             <span>Home</span>
           </a>
@@ -54,11 +59,11 @@
             <li><a href="{{route('Exec_evaluation_tab')}}"><i class="fa fa-circle-o"></i> Un- Assigned <span class="pull-right-container">
               <span class="label label-primary pull-right">new</span>
             </span></a></li>
-            <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o"></i> In Progress
+            <li>
+              <a href="{{route('Exec_evaluation_assigned')}}"><i class="fa fa-circle-o"></i> In Progress
               </a>
             </li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li>
+            <li><a href="{{route('Exec_evaluation_completed')}}"><i class="fa fa-circle-o"></i> Completed</a></li>
           </ul>
         </li>
         {{--  monitoring  --}}

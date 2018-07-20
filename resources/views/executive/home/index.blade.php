@@ -33,7 +33,7 @@
        
               <div class="col-lg-3 col-xs-6">
                           <!-- small box -->
-                          <div class="small-box " style="background-color:rgb(102, 102, 102);">
+                          <div class="small-box " style="background-color:rgb(153, 153, 153);">
                             <div class="inner">
                               <h3>10<sup style="font-size: 20px">%</sup></h3>
                               <b style="font-size:20px;">H R M S</b>
@@ -65,7 +65,7 @@
               {{-- /BOX 2 --}}
               <div class="col-lg-3 col-xs-6">
                       <!-- small box -->
-                      <div class="small-box " style="background-color:rgb(179, 179, 179);">
+                      <div class="small-box " style="background-color:rgb(153, 153, 153);">
                         <div class="inner">
                           <h3>65<sup style="font-size: 20px">%</sup></h3>
             
@@ -81,7 +81,7 @@
               </div>
                {{-- /BOX 3 --}}
                <div class="col-lg-3 col-xs-6">
-                  <div class="small-box " style="background-color:	rgb(230, 230, 230);">
+                  <div class="small-box " style="background-color:rgb(153, 153, 153);">
                     <div class="inner">
                       <h3>75<sup style="font-size: 20px">%</sup></h3>
         
@@ -140,7 +140,7 @@
                         <div class="icon">
                           <i class="ion ion-stats-bars"></i>
                         </div>
-                        <a href="#" class="small-box-footer">
+                        <a href="{{route('Exec_pmms_tab')}}" class="small-box-footer">
                           More info <i class="fa fa-arrow-circle-right"></i>
                         </a>
                       </div>
@@ -148,7 +148,7 @@
               {{-- /BOX 6 --}}
               <div class="col-lg-3 col-xs-6">
                       <!-- small box -->
-                      <div class="small-box bg-aqua">
+                      <div class="small-box " style="background-color:skyblue !important;">
                         <div class="inner">
                           <h3>65<sup style="font-size: 20px">%</sup></h3>
             
@@ -157,7 +157,7 @@
                         <div class="icon">
                           <i class="ion ion-pie-graph"></i>
                         </div>
-                        <a href="#" class="small-box-footer">
+                        <a href="{{route('Exec_tpv_tab')}}"  class="small-box-footer">
                           More info <i class="fa fa-arrow-circle-right"></i>
                         </a>
                       </div>
@@ -165,7 +165,7 @@
                 {{-- /BOX 7 --}}
              <div class="col-lg-3 col-xs-6">
                 <!-- small box -->
-                <div class="small-box bg-lime-active">
+                <div class="small-box "  style="background-color:lightgreen !important;" >
                   <div class="inner">
                     <h3>44<sup style="font-size: 20px">%</sup></h3>
       
@@ -174,7 +174,7 @@
                   <div class="icon">
                     <i class="ion ion-person-add"></i>
                   </div>
-                  <a href="#" class="small-box-footer">
+                  <a href="{{route('Exec_inquiry_tab')}}"  class="small-box-footer">
                     More info <i class="fa fa-arrow-circle-right"></i>
                   </a>
                 </div>
@@ -189,7 +189,7 @@
       
               <div class="col-lg-3 col-xs-6">
                       <!-- small box -->
-                      <div class="small-box bg-purple">
+                      <div class="small-box "style="background-color:tan !important;">
                         <div class="inner">
                           <h3>10<sup style="font-size: 20px">%</sup></h3>
                           <b style="font-size:20px;"> SPECIAL</br> ASSIGNEMENT</b>
@@ -197,7 +197,7 @@
                         <div class="icon">
                           <i class="fa fa-user-secret"></i>
                         </div>
-                        <a href="#" class="small-box-footer">
+                        <a href="{{route('Exec_special_tab')}}"  class="small-box-footer">
                           More info <i class="fa fa-arrow-circle-right"></i>
                         </a>
                       </div>
@@ -206,7 +206,7 @@
              
               <div class="col-lg-3 col-xs-6">
                       <!-- small box -->
-                      <div class="small-box bg-maroon">
+                      <div class="small-box" style="background-color:yellow !important;">
                         <div class="inner">
                           <h3>53<sup style="font-size: 20px">%</sup></h3>
             
@@ -215,7 +215,7 @@
                         <div class="icon">
                           <i class="fa fa-cog"></i>
                         </div>
-                        <a href="#" class="small-box-footer">
+                        <a href="{{route('Exec_other_tab')}}"  class="small-box-footer">
                           More info <i class="fa fa-arrow-circle-right"></i>
                         </a>
                       </div>
