@@ -15,6 +15,12 @@
       position: relative;
       width: 100%;
     }
+    .priority{
+      /* background: #fff; */
+   opacity: .4;
+   color:black;
+   font-weight: bold;
+    }
     .child-right {
       background:green;
       height: 100%;
@@ -29,7 +35,7 @@
 <div class="content-wrapper">
 <!-- SELECT2 EXAMPLE -->
 <div class="box box-default">
-        <div class="box-header with-border">
+        {{-- <div class="box-header with-border">
           <h3 class="box-title header-content">Un-assigned Projects</h3>
           <h3 class="box-title header-content">Assigned Projects</h3>
           <h3 class="box-title header-content">Completed Projects</h3>
@@ -37,16 +43,17 @@
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
           </div>
-        </div>
+        </div> --}}
         <!-- /.box-header -->
         <div class="box-body">
-            <form action="/assignproject" method="POST">
+          <form action="/assignproject" method="POST">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
           <div class="container">
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
                 <label>Un-Assigned Projects</label>
+                <form class="" action="{{route('assignproject.create')}}" method="get">
                 <table class="table table-responsive table-bordered projects">
                   <thead>
                     <th>Project No.</th>
@@ -65,20 +72,14 @@
                           <td>{{$project->ProjectType->name}}</td>
                           <td>{{$project->created_at}}</td>
                           <td>
-                            <div class="row">
-                                <div class="col-md-3 veryHigh">
-                                  Very High
-                                </div>
-                                <div class="col-md-3 high">
-                                  High
-                                </div>
-                                <div class="col-md-3 normal">
-                                  Normal
-                                </div>
-                                <div class="col-md-3 low">
-                                  Low
-                                </div>
-                            </div>
+                            <input type="hidden" name="priority" value="">
+                            <input type="hidden" name="project_id" value="{{$project->id}}">
+                            <button type="button" class="btn btn-md priority" style="background-color:red; ">High Priority</button>
+                            <button type="button"  class="btn btn-md priority"style="background-color:green; ">Normal Priority</button>
+                            <button type="button" class="btn btn-md priority" style="background-color:yellow; ">Low Priority</button>
+                            {{-- <button class="btn btn-md " style="background-color:lightgreen; color:black;">I | 5%</button>
+                            <button class="btn btn-md "style="background-color:tan; color:black;">SA| 35%</button>
+                            <buttom  class="btn btn-md "style="background-color:yellow; color:black;">O | 15%</button> --}}
                           </td>
                           <td><input type="submit" name="submit" value="Assign" class="btn btn-info"></td>
                         </tr>
@@ -86,6 +87,7 @@
                   @endforeach
                 </tbody>
                 </table>
+              </form>
               </div>
             <!-- /.col -->
           </div>
@@ -95,12 +97,6 @@
         </div>
           <!-- /.container -->
           </div>
-        <div class="row col-sm-6">
-            <textarea class="textarea" name="remarks" placeholder="Write Some Remarks Here" style="width: 619px; height: 61px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-        </div>
-        <div class="row">
-            <button type="submit" class="btn btn-success pull-right" style="margin-right:20px;">Submit</button>
-        </div>
       </form>
         </div>
 </div>
@@ -109,10 +105,10 @@
 @section('scripttags')
 
 <script>
-        $(function () {
-          //Initialize Select2 Elements
-          $('.select2').select2()
-
-});
-      </script>
+          $('.priority').on('click',function(){
+            $('.priority').css('opacity','0.4');
+            $('input[name="priority"]').val($(this).text().toLowerCase().replace(' ','_'));
+            $(this).css('opacity','unset').css('color','black');
+          });
+</script>
 @endsection

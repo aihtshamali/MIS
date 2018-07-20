@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Project;
 use App\User;
 use Auth;
+use Carbon\Carbon;
 class ProjectAssignController extends Controller
 {
     /**
@@ -17,7 +18,7 @@ class ProjectAssignController extends Controller
      public function index()
      {
          $projects = Project::all();
-         
+
          $users = User::all();
          return view('project_assigned.index',compact('projects','users'));
      }
@@ -26,9 +27,9 @@ class ProjectAssignController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+      dd($request);
     }
 
     /**
@@ -40,6 +41,7 @@ class ProjectAssignController extends Controller
 
      public function store(Request $request)
      {
+       dd($request);
          $projects = $request->projects;
          $users = $request->users;
          $remarks = $request->remarks;

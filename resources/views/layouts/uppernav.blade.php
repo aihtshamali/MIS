@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html>
-
-<!-- Mirrored from adminlte.io/themes/AdminLTE/index2.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jul 2018 04:55:40 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,8 +18,7 @@
 
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('css/AdminLTE/AdminLTE.min.css')}}"/>
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
+  <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="{{ asset('css/AdminLTE/_all-skins.min.css')}}"/>
   <link rel="stylesheet" href="{{asset('css/AdminLTE/select2.min.css')}}">
   <link rel="stylesheet" href="{{asset('css/AdminLTE/all.css')}}">
@@ -30,7 +26,7 @@
 
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!-- WARNING: Respond.js doesnt work if you view the page via file:// -->
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -322,7 +318,13 @@
   </header>
 
 
+  @role('admin')
   @include('inc.sidenav')
+  @endrole
+
+  @role('executive')
+  @include('inc.executive_sidenav')
+  @endrole
 
   @include('inc.sidebar')
 

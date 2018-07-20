@@ -41,7 +41,9 @@ Route::get('/admin',function()
 Route::resource('/profile','ProfileController');
 // For Executive
 Route::prefix('executive')->group(function () {
-  Route::get('/','ExecutiveController@index');
+  Route::get('/','ExecutiveController@index')->name('Exec_home');
+  Route::get('/pems_tab','ExecutiveController@pems_index')->name('Exec_pems_tab');
+  Route::get('/evaluation_tab','ExecutiveController@evaluation_index')->name('Exec_evaluation_tab');
 });
 
 Route::resource('assignproject','ProjectAssignController');
