@@ -44,6 +44,5 @@ Route::prefix('executive')->group(function () {
   Route::get('/','ExecutiveController@index');
 });
 
-Route::get('/assignproject','ProjectAssignController@index');
-Route::post('/assignproject','ProjectAssignController@store');
+Route::resource('assignproject','ProjectAssignController');
 });
