@@ -55,6 +55,4 @@ Route::prefix('executive')->group(function () {
   Route::get('/evaluation_completed','ExecutiveController@evaluation_completedprojects')->name('Exec_evaluation_completed');
 });
 
-Route::get('/assignproject','ProjectAssignController@index');
-Route::post('/assignproject','ProjectAssignController@store');
 });
