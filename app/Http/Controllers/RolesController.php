@@ -57,7 +57,7 @@ class RolesController extends Controller
      */
     public function show($id)
     {
-        
+
     }
 
     /**
@@ -91,7 +91,7 @@ class RolesController extends Controller
      */
     public function destroy($id)
     {
-        
+
         Role::destroy($id);
         return redirect()->route('roles.index');
     }

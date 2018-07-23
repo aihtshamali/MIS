@@ -22,7 +22,7 @@
               <td>{{$project->ProjectType->project_type_name}}</td>
             @endif
             @if (isset($project->user))
-              <td>{{$project->user->name}}</td>
+              <td>{{$project->user_id}}</td>
             @else
               <td>Unassigned</td>
             @endif

@@ -35,13 +35,8 @@
 
         @role('executive')
         {{--  /Home  --}}
-<<<<<<< HEAD
-        <li class="treeview">
-          <a href="{{url('/executive')}}">
-=======
-        <li >
+        <li class="">
           <a href="{{route('Exec_home')}}">
->>>>>>> 801bb376b0b7221e28c0caf1c4b121995a0b2039
             <i class="fa fa-home"></i>
             <span>Home</span>
           </a>

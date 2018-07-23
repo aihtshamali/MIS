@@ -32,9 +32,12 @@ class CreateUsersTable extends Migration
             $table->integer('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('profile_pic')->nullable();
-            $table->string('cnic')->nullable();
+            $table->string('father_name')->nullable();
+            $table->bigInteger('cnic')->nullable();
             $table->integer('grade')->nullable();
             $table->string('contract_type')->nullable();
+            $table->integer('sector_id')->unsigned()->index();
+            $table->foreign('sector_id')->references('id')->on('sectors')->onDelete('cascade');
             $table->string('city')->nullable();
             $table->string('address')->nullable();
             $table->string('phone_no')->nullable();

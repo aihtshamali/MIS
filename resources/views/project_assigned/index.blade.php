@@ -1,5 +1,5 @@
 @extends('layouts.uppernav')
-@section('styletag')
+@section('styletags')
   <style media="screen">
     .header-content{
       padding:10px;
@@ -46,14 +46,13 @@
         </div> --}}
         <!-- /.box-header -->
         <div class="box-body">
-          <form action="/assignproject" method="POST">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
           <div class="container">
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
                 <label>Un-Assigned Projects</label>
-                <form class="" action="{{route('assignproject.create')}}" method="get">
+                <form class="" action="{{route('assignprojects.create')}}" method="POST">
+                  {{ csrf_field() }}
                 <table class="table table-responsive table-bordered projects">
                   <thead>
                     <th>Project No.</th>
@@ -103,12 +102,11 @@
 </div>
 @endsection
 @section('scripttags')
-
 <script>
-          $('.priority').on('click',function(){
-            $('.priority').css('opacity','0.4');
-            $('input[name="priority"]').val($(this).text().toLowerCase().replace(' ','_'));
-            $(this).css('opacity','unset').css('color','black');
-          });
+    $('.priority').on('click',function(){
+      $('.priority').css('opacity','0.4');
+      $('input[name="priority"]').val($(this).text().toLowerCase().replace(' ','_'));
+      $(this).css('opacity','unset').css('color','black');
+    });
 </script>
 @endsection

@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Project;
+use App\User;
 class ExecutiveController extends Controller
 {
   //  HOME FOLDER
@@ -37,7 +38,20 @@ class ExecutiveController extends Controller
     }
 // EVALUATION FOLDER
     public function evaluation_index(){
-      return view('executive.evaluation.consultant_assign');
+      $managers=User::select('roles.*','role_user.*','users.*')
+      ->leftJoin('role_user','role_user.user_id','users.id')
+      ->leftJoin('roles','roles.id','role_user.role_id')
+      ->where('roles.name','manager')
+      ->get();
+      $officers=User::select('roles.*','role_user.*','users.*')
+      ->leftJoin('role_user','role_user.user_id','users.id')
+      ->leftJoin('roles','roles.id','role_user.role_id')
+      ->where('roles.name','officer')
+      ->get();
+      $projects = Project::all();
+      $users = User::all();
+
+      return view('project_assigned.index',['officers'=>$officers,'managers'=>$managers,'projects'=>$projects,'users'=>$users]);
     }
 
     public function evaluation_assignedprojects(){
@@ -47,6 +61,6 @@ class ExecutiveController extends Controller
       return view('executive.evaluation.completed');
     }
 
-   
+
 
 }

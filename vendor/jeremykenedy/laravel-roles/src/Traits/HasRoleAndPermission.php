@@ -182,7 +182,7 @@ trait HasRoleAndPermission
      *
      * @return Builder
      */
-      public function rolePermissions()
+    public function rolePermissions()
     {
         $permissionModel = app(config('roles.models.permission'));
 
