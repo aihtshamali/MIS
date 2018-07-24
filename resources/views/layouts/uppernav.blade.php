@@ -29,6 +29,7 @@
 
 
 
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -39,7 +40,7 @@
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  @yield('styletag')  
+  @yield('styletag')
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -77,7 +78,7 @@
                   <li><!-- start message -->
                     <a href="#">
                       <div class="pull-left">
-                        <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        <img src="#" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         Support Team
@@ -90,7 +91,7 @@
                   <li>
                     <a href="#">
                       <div class="pull-left">
-                        <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+                        <img src="#" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         AdminLTE Design Team
@@ -102,7 +103,7 @@
                   <li>
                     <a href="#">
                       <div class="pull-left">
-                        <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
+                        <img src="#" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         Developers
@@ -114,7 +115,7 @@
                   <li>
                     <a href="#">
                       <div class="pull-left">
-                        <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+                        <img src="#" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         Sales Department
@@ -126,7 +127,7 @@
                   <li>
                     <a href="#">
                       <div class="pull-left">
-                        <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
+                        <img src="#" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         Reviewers
@@ -271,7 +272,7 @@
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="#" class="img-circle" alt="User Image">
 
                 <p>
                   Alexander Pierce - Web Developer
@@ -361,6 +362,7 @@
 <script src="{{asset('js/AdminLTE/jquery.inputmask.js')}}"></script>
 <script src="{{asset('js/AdminLTE/jquery.inputmask.date.extensions.js')}}"></script>
 <script src="{{asset('js/AdminLTE/jquery.inputmask.extensions.js')}}"></script>
+
 @yield('scripttags')
 
 
