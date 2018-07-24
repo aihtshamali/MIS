@@ -49,11 +49,15 @@ Route::prefix('executive')->group(function () {
   Route::get('/specialAssign_tab','ExecutiveController@specialassign_index')->name('Exec_special_tab');
   Route::get('/inquiry','ExecutiveController@inquiry_index')->name('Exec_inquiry_tab');
   Route::get('/other_tab','ExecutiveController@other_index')->name('Exec_other_tab');
+<<<<<<< HEAD
 
+=======
+>>>>>>> 17df0899a37d3c0fee0108d6b7db6c2607965dab
   Route::get('/evaluation_tab','ExecutiveController@evaluation_index')->name('Exec_evaluation_tab');
   Route::get('/evaluation_assigned','ExecutiveController@evaluation_assignedprojects')->name('Exec_evaluation_assigned');
   Route::get('/evaluation_completed','ExecutiveController@evaluation_completedprojects')->name('Exec_evaluation_completed');
 });
+<<<<<<< HEAD
 
 //officers
 Route::prefix('officer')->group(function () {
@@ -69,4 +73,8 @@ Route::prefix('officer')->group(function () {
 
 });
 
+=======
+Route::resource('assignproject','ProjectAssignController');
+Route::post('assignprojects','ProjectAssignController@creates')->name('assignprojects.create');
+>>>>>>> 17df0899a37d3c0fee0108d6b7db6c2607965dab
 });

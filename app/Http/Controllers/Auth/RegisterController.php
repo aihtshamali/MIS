@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\UserDetail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -50,6 +51,8 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
+            'father_name' => 'required|string|max:255',
+            // 'cnic' => 'required|integer|max:13',
             'email' => 'required|string|email|max:255|unique:users',
             'username' => 'required|string|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
@@ -65,7 +68,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
 
-        return User::create([
+        $user = User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
@@ -74,5 +77,12 @@ class RegisterController extends Controller
             'admin_password'=> str_random(60),
             'api_token'=> str_random(60),
         ]);
+        $user_detail = new UserDetail();
+        $user_detail->cnic=$data['cnic'];
+        $user_detail->father_name=$data['father_name'];
+        $user_detail->sector_id=$data['sector_id'];
+        $user_detail->user_id=$user->id;
+        $user_detail->save();
+        return $user;
     }
 }

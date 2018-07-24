@@ -12,4 +12,8 @@ class Project extends Model
     public function projectAssigned(){
         return $this->belongsTo('App/ProjectAssigned');
     }
+    public function ProjectType(){
+      return $this->belongsTo('App\ProjectType');
+    }
+    
 }

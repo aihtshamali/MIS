@@ -35,7 +35,7 @@
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  @yield('styletag')
+  @yield('styletags')
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -259,8 +259,12 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+<<<<<<< HEAD
               @auth
               
+=======
+            @auth
+>>>>>>> 17df0899a37d3c0fee0108d6b7db6c2607965dab
               <img src="{{asset('uploads/userprofile/'.Auth::user()->profilepic)}}" class="user-image" alt="User Image">
               <span class="hidden-xs">{{ Auth::user()->name }}</span>
             @endauth
@@ -330,7 +334,7 @@
   @role('executive')
   @include('inc.executive_sidenav')
   @endrole
-  
+
   @include('inc.sidebar')
 
   @yield('content')

@@ -35,10 +35,10 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Navigations</li>
-        
+
         @role('executive')
         {{--  /Home  --}}
-        <li >
+        <li class="">
           <a href="{{route('Exec_home')}}">
             <i class="fa fa-home"></i>
             <span>Home</span>
@@ -51,7 +51,7 @@
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
-            
+
           </a>
           <ul class="treeview-menu">
             <li><a href="{{route('Exec_evaluation_tab')}}"><i class="fa fa-circle-o"></i> Un- Assigned <span class="pull-right-container">
@@ -71,7 +71,7 @@
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
-            
+
           </a>
           <ul class="treeview-menu">
             <li><a href="#"><i class="fa fa-circle-o"></i> Un- Assigned <span class="pull-right-container">
@@ -91,7 +91,7 @@
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
-            
+
           </a>
           <ul class="treeview-menu">
             <li><a href="#"><i class="fa fa-circle-o"></i> Un- Assigned <span class="pull-right-container">
@@ -111,7 +111,7 @@
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
-            
+
           </a>
           <ul class="treeview-menu">
             <li><a href="#"><i class="fa fa-circle-o"></i> Un- Assigned <span class="pull-right-container">
@@ -131,7 +131,7 @@
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
-            
+
           </a>
           <ul class="treeview-menu">
             <li><a href="#"><i class="fa fa-circle-o"></i> Un- Assigned <span class="pull-right-container">
@@ -151,7 +151,7 @@
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
-              
+
             </a>
             <ul class="treeview-menu">
               <li><a href="#"><i class="fa fa-circle-o"></i> Un- Assigned <span class="pull-right-container">
@@ -164,7 +164,7 @@
               <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li>
             </ul>
           </li>
-       
+
          {{--  HRMS  --}}
         <li class="treeview">
             <a href="#">
@@ -172,7 +172,7 @@
               <span>H R M S</span>
           </a>
         </li>
-         
+
         {{--  Calender  --}}
         <li>
           <a href="calender">
@@ -189,16 +189,16 @@
               <i class="fa fa-car"></i>
               <span>V M S</span>
             </a>
-          </li> 
+          </li>
         {{--  FMS  --}}
         <li class="treeview">
           <a href="#">
             <i class="fa fa-money"></i>
             <span>F M I S</span>
           </a>
-         </li> 
+         </li>
         @endrole
-        
+
       </ul>
     </section>
     <!-- /.sidebar -->
