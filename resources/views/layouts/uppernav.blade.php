@@ -260,6 +260,7 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               @auth
+              
               <img src="{{asset('uploads/userprofile/'.Auth::user()->profilepic)}}" class="user-image" alt="User Image">
               <span class="hidden-xs">{{ Auth::user()->name }}</span>
             @endauth
@@ -320,6 +321,10 @@
 
   @role('admin')
   @include('inc.sidenav')
+  @endrole
+
+  @role('officer')
+  @include('inc.officer_sidenav')
   @endrole
 
   @role('executive')

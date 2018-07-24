@@ -8,6 +8,9 @@
           <img src="{{asset('logo.jpg')}}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
+          @role('executive')
+            <p>Executive Dashboard</p>
+          @endrole
           @role('admin')
             <p>Admin Dashboard</p>
           @endrole
