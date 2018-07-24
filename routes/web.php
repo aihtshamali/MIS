@@ -64,7 +64,7 @@ Route::prefix('officer')->group(function () {
   Route::post('/submitActivities','OfficerController@activitiesSubmit')->name('activitiesSubmit');
 
   Route::get('/inprogress_evaluation','OfficerController@evaluation_inprogress')->name('inprogress_evaluation');
-  Route::get('/activities_evaluation','OfficerController@evaluation_activities')->name('evaluation_activities');
+  Route::get('/activities_evaluation/{project_id}','OfficerController@evaluation_activities')->name('evaluation_activities');
   Route::get('/completed_evaluation','OfficerController@evaluation_completed')->name('completed_evaluation');
 
 });

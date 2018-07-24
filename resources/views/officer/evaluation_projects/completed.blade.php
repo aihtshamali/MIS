@@ -51,7 +51,7 @@
                             @foreach($officer as $o)
                             <tr >
                             <td> {{$o->project_id}} </td>
-                            <td><a href="{{route('evaluation_activities')}}">{{$o->getProject($o->project_id)->title}}</a> </td>
+                            <td><a href="{{route('evaluation_activities',$o->id)}}">{{$o->getProject($o->project_id)->title}}</a> </td>
                             <td>
                               @if($o->progress==95)
                               <label class="label label-success"> Completed {{$o->progress}}%</label>

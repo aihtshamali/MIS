@@ -8,8 +8,9 @@
     <section class="content-header">
         <h1>
          New Assigned Evaluations Projects 
-
+         @if($officer->count())
          <span class="label label-danger">{{$officer->count()}}</span>
+         @endif
         </h1>
           
         <ol class="breadcrumb">

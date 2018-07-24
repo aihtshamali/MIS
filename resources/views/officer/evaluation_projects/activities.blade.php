@@ -58,7 +58,7 @@
                 </p>
                
                 <p>  
-                   Project Members :<b> {{$team_mem[0]->getUser($team_mem[0]->user_id)->first_name}} </b></br>  
+                   Project Members :<b> {{$project_data[0]->getUser($project_data[0]->user_id)->first_name}} </b></br>  
                 </p>
   
 

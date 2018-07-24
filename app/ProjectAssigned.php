@@ -17,5 +17,8 @@ class ProjectAssigned extends Model
     public function getProject($id){
         return Project::where('id',$id)->first();
     }
+    public function getUser($id){
+        return User::where('id',$id)->first();
+    }
 }
 

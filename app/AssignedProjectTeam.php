@@ -12,8 +12,6 @@ class AssignedProjectTeam extends Model
     public function projectAssigned(){
         return $this->belongsTo('App/ProjectAssigned');
     }
-        public function getUser($id){
-            return User::where('id',$id)->first();
-        }
+        
     
 }
