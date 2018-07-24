@@ -124,6 +124,7 @@ class DataEntryController extends Controller
       $month = strtok($request->planned_start_date,"/");
       $day = strtok("/");
       $year = strtok("/");
+      
       $project_detail->planned_start_date = $year."-".$month."-".$day;
       $month = strtok($request->planned_end_date,"/");
       $day = strtok("/");
