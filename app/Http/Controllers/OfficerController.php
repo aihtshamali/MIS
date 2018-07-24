@@ -22,7 +22,9 @@ class OfficerController extends Controller
   public function activitiesSubmit(Request $request)
    {
     $data=ProjectAssigned::find($request->id);
+  
     $data->complete='1';
+
     $data->save();
     return redirect('officer/inprogress_evaluation');  
    }
