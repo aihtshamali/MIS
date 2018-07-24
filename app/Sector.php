@@ -9,4 +9,8 @@ class Sector extends Model
     public function user(){
       return $this->hasMany('App\UserDetail');
     }
+    public function subsectors()
+    {
+      return $this->hasMany('App\SubSector');
+    }
 }

@@ -72,3 +72,13 @@ Route::prefix('officer')->group(function () {
 Route::resource('assignproject','ProjectAssignController');
 Route::post('assignprojects','ProjectAssignController@creates')->name('assignprojects.create');
 });
+Route::resource('project_type','ProjectTypeController');
+Route::resource('evaluation_type','EvaluationTypeController');
+Route::resource('sub_sector','SubSectorController');
+Route::resource('sector','SectorController');
+Route::get('createproject','DataEntryController@create_project');
+Route::post('/onchangefunction','DataEntryController@onSubSectorSelect');
+Route::post('project/store','DataEntryController@store')->name('project.store');
+Route::get('project/form','DataEntryController@form')->name('project.form');
+Route::post('/onsectorselect','DataEntryController@onSectorSelect');
+Route::post('/onnewprojectselect','DataEntryController@newproject');
