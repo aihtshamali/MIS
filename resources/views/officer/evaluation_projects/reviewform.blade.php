@@ -40,9 +40,34 @@
 
                               </tr>
                               <tr>
-                                  <td><b>Project Type</b></td>
-                                  <td><b>Project Name</b></td>
+                                  <td style="text-align:center;"><b>Project Type</b></td>
+                                  
                               </tr>
+                              <tr>
+                                    <td style="text-align:center;"><b>Project Name</b></td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                        <td style="text-align:center;"><b>GS NO.</b></td>
+                                        
+                                    </tr>
+                                    <tr>
+                                            <td style="text-align:center;"><b>Project Type</b></td>
+                                            
+                                        </tr>
+                                        <tr>
+                                                <td style="text-align:center;"><b>Project Type</b></td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                    <td style="text-align:center;"><b>Project Type</b></td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td style="text-align:center;"><b>Project Type</b></td>
+                                                        
+                                                    </tr>
                           </table>
                             </form>
                     </div>
