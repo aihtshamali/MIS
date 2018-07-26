@@ -5,7 +5,7 @@ namespace Illuminate\Foundation\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
-
+use App\Sector;
 trait RegistersUsers
 {
     use RedirectsUsers;
@@ -17,7 +17,8 @@ trait RegistersUsers
      */
     public function showRegistrationForm()
     {
-        return view('auth.register');
+      $sectors = Sector::where('status','1')->get();
+        return view('auth.register')->with('sectors',$sectors);
     }
 
     /**

@@ -30,7 +30,7 @@
       <header>
           <h2>H R I S</h2>
           <h3>Human Resource Managment System</h3>
-          <p class="sub-heading">That's why you always leave a note! I care deeply for nature. I'm half machine. I'm a monster.</p>
+          <p class="sub-heading">Thats why you always leave a note! I care deeply for nature. Im half machine. Im a monster.</p>
       </header>
 
       <div class="row">
@@ -80,7 +80,7 @@
             <div class="hexagon hexagon2"><div class="hexagon-in1"><div class="hexagon-pic6"></div></div></div>
           </a>
           <h3>Image</h3>
-          <p class="proj-desc">I don't understand the question, and I won't respond to it.</p>
+          <p class="proj-desc">I dont understand the question, and I wont respond to it.</p>
         </div> <!-- /.col-md-3 -->
 
         <div class="col-md-3 col-sm-6">
@@ -88,7 +88,7 @@
             <div class="hexagon hexagon2"><div class="hexagon-in1"><div class="hexagon-pic7"></div></div></div>
           </a>
           <h3>Single work</h3>
-          <p class="proj-desc">I don't understand the question, and I won't respond to it.</p>
+          <p class="proj-desc">I dont understand the question and I wont respond to it.</p>
         </div> <!-- /.col-md-3 -->
 
         <div class="col-md-3 col-sm-6">
@@ -96,7 +96,7 @@
             <div class="hexagon hexagon2"><div class="hexagon-in1"><div class="hexagon-pic8"></div></div></div>
           </a>
           <h3>Image</h3>
-          <p class="proj-desc">I don't understand the question, and I won't respond to it.</p>
+          <p class="proj-desc">I dont understand the question and I wont respond to it.</p>
         </div> <!-- /.col-md-3 -->
       </div> <!-- /.row -->
 

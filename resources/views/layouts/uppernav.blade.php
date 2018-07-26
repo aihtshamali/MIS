@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html>
-
-<!-- Mirrored from adminlte.io/themes/AdminLTE/index2.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jul 2018 04:55:40 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,17 +18,16 @@
 
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('css/AdminLTE/AdminLTE.min.css')}}"/>
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
+  <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="{{ asset('css/AdminLTE/_all-skins.min.css')}}"/>
   <link rel="stylesheet" href="{{asset('css/AdminLTE/select2.min.css')}}">
   <link rel="stylesheet" href="{{asset('css/AdminLTE/all.css')}}">
 
-
+@yield('styletag')
 
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!-- WARNING: Respond.js doesnt work if you view the page via file:// -->
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -40,15 +36,15 @@
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  @yield('styletag')
+  @yield('styletags')
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
   <header class="main-header">
 
-    <!-- Logo -->
-    <a href="{{url('/home')}}" class="logo">
+      <!-- Logo -->
+      <a href="{{url('/home')}}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>DG</b>ME</span>
       <!-- logo for regular state and mobile devices -->
@@ -264,7 +260,7 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              @auth
+            @auth
               <img src="{{asset('uploads/userprofile/'.Auth::user()->profilepic)}}" class="user-image" alt="User Image">
               <span class="hidden-xs">{{ Auth::user()->name }}</span>
             @endauth
@@ -323,7 +319,17 @@
   </header>
 
 
+  @role('dataEntry')
   @include('inc.sidenav')
+  @endrole
+
+  @role('officer')
+  @include('inc.officer_sidenav')
+  @endrole
+
+  @role('executive')
+  @include('inc.executive_sidenav')
+  @endrole
 
   @include('inc.sidebar')
 

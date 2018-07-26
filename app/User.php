@@ -44,4 +44,11 @@ class User extends Authenticatable
     {
       return $this->hasMany('App\ProjectRemarks');
     }
+    public function AssignedProjectTeam()
+    {
+      return $this->hasMany('App\AssignedProjectTeam');
+    }
+    public function sector(){
+      return $this->belongsTo('App\Sector');
+    }
 }
