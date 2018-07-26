@@ -123,7 +123,7 @@ class ProjectAssignController extends Controller
          //     $project_to_change->save();
          //
          // }
-         return redirect()->route('projects.index');
+         return redirect('/executive');
      }
 
     /**

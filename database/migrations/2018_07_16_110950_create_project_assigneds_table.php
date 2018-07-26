@@ -21,6 +21,8 @@ class CreateProjectAssignedsTable extends Migration
             $table->date('completion_date')->nullable();
             $table->integer('priority')->default(0);
             $table->integer('progress')->default(0);
+            $table->boolean('acknowledge')->default(0);
+            $table->boolean('complete')->default(0);
             $table->date('assumed_completion_date')->nullable();
             $table->integer('assigned_by')->unsigned()->index();
             $table->foreign('assigned_by')->references('id')->on('users')->onDelete('cascade');

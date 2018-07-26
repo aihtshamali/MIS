@@ -43,7 +43,7 @@
                 <div class="col-md-12 col-xs-6">
               
                     <div class="table-responsive">
-                        <form action="{{route('assignProjectAcknowledged')}}" method="POST">
+                        <form action="{{route('review_form')}}" method="POST">
                       
                       <table class="table table-hover table-striped">
                         <thead >
@@ -58,7 +58,7 @@
                             <td> {{$o->project_id}} </td>
                             <td>{{$o->getProject($o->project_id)->title}}  </td> 
                               <input type="hidden" name="id" value="{{$o->id}}">
-                              <td><button type="submit" class="btn btn-xs btn-success"> Acknowledge</button></td>   
+                              <td><button type="submit" class="btn btn-xs btn-success"> Review</button></td>   
                             </tr>
                             @endforeach
                         </tbody>

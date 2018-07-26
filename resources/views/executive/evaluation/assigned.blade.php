@@ -15,7 +15,7 @@
      
     </ol>
   </section>
-{{dd($officers)}}
+{{--  {{dd($officers)}}  --}}
   <section class="content">
       {{--  sekect consulatants  --}}
       <div class="row">

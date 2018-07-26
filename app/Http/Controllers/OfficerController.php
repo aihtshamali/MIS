@@ -47,6 +47,14 @@ class OfficerController extends Controller
        return view('inc.officer_sidenav')->with('officer',$officer);
    }
 
+   public function review_forms()
+   {
+      $officer=ProjectAssigned::all();
+      
+       return view('officer.evaluation_projects.reviewform')->with('officer',$officer);
+   }
+
+
     public function evaluation_index()
     {
        $officer=ProjectAssigned::where('acknowledge','0')->get();

@@ -76,16 +76,17 @@
                             <button type="button" class="btn btn-md priority" style="background-color:red; ">High Priority</button>
                             <button type="button"  class="btn btn-md priority"style="background-color:green; ">Normal Priority</button>
                             <button type="button" class="btn btn-md priority" style="background-color:yellow; ">Low Priority</button>
-                            {{-- <button class="btn btn-md " style="background-color:lightgreen; color:black;">I | 5%</button>
-                            <button class="btn btn-md "style="background-color:tan; color:black;">SA| 35%</button>
-                            <buttom  class="btn btn-md "style="background-color:yellow; color:black;">O | 15%</button> --}}
+                           
                           </td>
                           <td><input type="submit" name="submit" value="Assign" class="btn btn-info"></td>
                         </tr>
+                        
                     @endif
                   @endforeach
+                  
                 </tbody>
                 </table>
+               
               </form>
               </div>
             <!-- /.col -->

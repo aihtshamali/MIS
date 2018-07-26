@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="{{asset('css/AdminLTE/select2.min.css')}}">
   <link rel="stylesheet" href="{{asset('css/AdminLTE/all.css')}}">
 
-
+@yield('styletag')
 
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -319,7 +319,7 @@
   </header>
 
 
-  @role('admin')
+  @role('dataEntry')
   @include('inc.sidenav')
   @endrole
 
