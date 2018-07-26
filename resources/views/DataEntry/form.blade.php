@@ -298,6 +298,28 @@ div>span>label{
 
   <script src="{{asset('js/AdminLTE/bootstrap-datepicker.min.js')}}"></script>
 <script>
+// $('input , select').on('change',function(){
+//   console.log('I am here');
+//   var class_value = $(this).attr("id");
+//   var opt = $(this).val();
+//   $("#label_summary_" + class_value).show("slow");
+//   $("#summary_"+class_value).empty();
+//   $("#summary_"+class_value).append("<label class=\"control-label\">"+opt+"</label>");
+// });
+
+$('input, select').on('input',function(){
+  var class_value = $(this).attr("id");
+  var opt = $(this).val();
+  if(opt == ""){
+    $("#label_summary_" + class_value).hide("slow");
+  }
+  else{
+    $("#label_summary_" + class_value).show("slow");
+  }
+  $("#summary_"+class_value).empty();
+  $("#summary_"+class_value).append("<label class=\"control-label\">"+opt+"</label>");
+});
+
 $(function () {
   //Initialize Select2 Elements
   $('.select2').select2()
@@ -306,164 +328,176 @@ $(function () {
   $( "#planned_end_date" ).datepicker();
   // $('#example1').DataTable()
 })
-$('#title').on('input',function(e){
-    var opt = $(this).val();
-    if(opt == ""){
-      $("#label_summary_title").hide();
-    }
-    else{
-      $("#label_summary_title").show();
-    }
-    $("#summary_title").empty();
-    $("#summary_title").append("<label class=\"control-label\">"+opt+"</label>");
-});
+// $('#title').on('input',function(e){
+//     var opt = $(this).val();
+//     if(opt == ""){
+//       $("#label_summary_title").hide();
+//     }
+//     else{
+//       $("#label_summary_title").show();
+//     }
+//     $("#summary_title").empty();
+//     $("#summary_title").append("<label class=\"control-label\">"+opt+"</label>");
+// });
+// $('#ADP').on('input',function(e){
+//     var opt = $(this).val();
+//     if(opt == ""){
+//       $("#label_summary_ADP").hide();
+//     }
+//     else{
+//       $("#label_summary_ADP").show();
+//     }
+//     $("#summary_ADP").empty();
+//     $("#summary_ADP").append("<label class=\"control-label\">"+opt+"</label>");
+// });
 
-$('#ADP').on('input',function(e){
-    var opt = $(this).val();
-    if(opt == ""){
-      $("#label_summary_ADP").hide();
-    }
-    else{
-      $("#label_summary_ADP").show();
-    }
-    $("#summary_ADP").empty();
-    $("#summary_ADP").append("<label class=\"control-label\">"+opt+"</label>");
-});
+// $('#currency').on('change',function(e){
+//     var opt = $(this).val();
+//     console.log(opt);
+//     $("#label_summary_currency").show();
+//     $("#summary_currency").empty();
+//     $("#summary_currency").append("<label class=\"control-label\">"+opt+"</label>");
+// });
 
-$('#currency').on('change',function(e){
-    var opt = $(this).val();
-    console.log(opt);
-    $("#label_summary_currency").show();
-    $("#summary_currency").empty();
-    $("#summary_currency").append("<label class=\"control-label\">"+opt+"</label>");
-});
+// $('#original_cost').on('input',function(e){
+//     var opt = $(this).val();
+//     if(opt == ""){
+//       $("#label_summary_original_cost").hide();
+//     }
+//     else{
+//       $("#label_summary_original_cost").show();
+//     }
+//     $("#summary_original_cost").empty();
+//     $("#summary_original_cost").append("<label class=\"control-label\">"+opt+" Million"+"</label>");
+// });
+//
+// $('#approved_cost').on('input',function(e){
+//     var opt = $(this).val();
+//     if(opt == ""){
+//       $("#label_summary_approved_cost").hide();
+//     }
+//     else{
+//       $("#label_summary_approved_cost").show();
+//     }
+//     $("#summary_approved_cost").empty();
+//     $("#summary_approved_cost").append("<label class=\"control-label\">"+opt+" Million"+"</label>");
+// });
 
-$('#original_cost').on('input',function(e){
-    var opt = $(this).val();
-    if(opt == ""){
-      $("#label_summary_original_cost").hide();
-    }
-    else{
-      $("#label_summary_original_cost").show();
-    }
-    $("#summary_original_cost").empty();
-    $("#summary_original_cost").append("<label class=\"control-label\">"+opt+" Million"+"</label>");
-});
+// $('#planned_start_date').on('change',function(e){
+//     var opt = $(this).val();
+//     if(opt == ""){
+//       $("#label_summary_planned_start_date").hide();
+//     }
+//     else{
+//       $("#label_summary_planned_start_date").show();
+//     }
+//     $("#summary_planned_start_date").empty();
+//     $("#summary_planned_start_date").append("<label class=\"control-label\">"+opt+"</label>");
+// });
+//
+// $('#planned_end_date').on('change',function(e){
+//     var opt = $(this).val();
+//     if(opt == ""){
+//       $("#label_summary_planned_end_date").hide();
+//     }
+//     else{
+//       $("#label_summary_planned_end_date").show();
+//     }
+//     $("#summary_planned_end_date").empty();
+//     $("#summary_planned_end_date").append("<label class=\"control-label\">"+opt+"</label>");
+// });
+//
+// $('#revised_start_date').on('change',function(e){
+//     var opt = $(this).val();
+//     if(opt == ""){
+//       $("#label_summary_revised_start_date").hide();
+//     }
+//     else{
+//       $("#label_summary_revised_start_date").show();
+//     }
+//     $("#summary_revised_start_date").empty();
+//     $("#summary_revised_start_date").append("<label class=\"control-label\">"+opt+"</label>");
+// });
+//
+// $('#districts').on('change',function(e){
+//     var opt = $(this).val();
+//     var values = "";
+//     if(opt == ""){
+//       $("#label_summary_districts").hide();
+//     }
+//     else{
+//       $("#label_summary_districts").show();
+//     }
+//     $("#summary_districts").empty();
+//     values = $(this).find(':selected').text();
+//     $("#summary_districts").append("<label class=\"control-label\">"+values+"</label>");
+// });
+// $('#sponsoring_departments').on('change',function(e){
+//     var opt = $(this).val();
+//     var values = "";
+//     if(opt == ""){
+//       $("#label_summary_sponsoring_department").hide();
+//     }
+//     else{
+//       $("#label_summary_sponsoring_department").show();
+//     }
+//     $("#summary_sponsoring_department").empty();
+//     values = $(this).find(':selected').text();
+//     $("#summary_sponsoring_department").append("<label class=\"control-label\">"+values+"</label>");
+// });
+// $('#executing_departments').on('change',function(e){
+//     var opt = $(this).val();
+//     var values = "";
+//     if(opt == ""){
+//       $("#label_summary_executing_department").hide();
+//     }
+//     else{
+//       $("#label_summary_executing_department").show();
+//     }
+//     $("#summary_executing_department").empty();
+//     values = $(this).find(':selected').text();
+//     $("#summary_executing_department").append("<label class=\"control-label\">"+values+"</label>");
+// });
+// $('#assigning_forums').on('change',function(e){
+//     var opt = $(this).val();
+//     var values = "";
+//     if(opt == ""){
+//       $("#label_summary_assingning_forums").hide();
+//     }
+//     else{
+//       $("#label_summary_assingning_forums").show();
+//     }
+//     $("#summary_assingning_forums").empty();
+//     values = $(this).find(':selected').text();
+//     $("#summary_assingning_forums").append("<label class=\"control-label\">"+values+"</label>");
+// });
+// $('#sectors').on('change',function(e){
+//     var opt = $(this).val();
+//     var values = "";
+//     if(opt == ""){
+//       $("#label_summary_sectors").hide();
+//     }
+//     else{
+//       $("#label_summary_sectors").show();
+//     }
+//     $("#summary_sectors").empty();
+//     values = $(this).find(':selected').text();
+//     $("#summary_sectors").append("<label class=\"control-label\">"+values+"</label>");
+// });
 
-$('#approved_cost').on('input',function(e){
-    var opt = $(this).val();
-    if(opt == ""){
-      $("#label_summary_approved_cost").hide();
-    }
-    else{
-      $("#label_summary_approved_cost").show();
-    }
-    $("#summary_approved_cost").empty();
-    $("#summary_approved_cost").append("<label class=\"control-label\">"+opt+" Million"+"</label>");
-});
-
-$('#planned_start_date').on('change',function(e){
-    var opt = $(this).val();
-    if(opt == ""){
-      $("#label_summary_planned_start_date").hide();
-    }
-    else{
-      $("#label_summary_planned_start_date").show();
-    }
-    $("#summary_planned_start_date").empty();
-    $("#summary_planned_start_date").append("<label class=\"control-label\">"+opt+"</label>");
-});
-
-$('#planned_end_date').on('change',function(e){
-    var opt = $(this).val();
-    if(opt == ""){
-      $("#label_summary_planned_end_date").hide();
-    }
-    else{
-      $("#label_summary_planned_end_date").show();
-    }
-    $("#summary_planned_end_date").empty();
-    $("#summary_planned_end_date").append("<label class=\"control-label\">"+opt+"</label>");
-});
-
-$('#revised_start_date').on('change',function(e){
-    var opt = $(this).val();
-    if(opt == ""){
-      $("#label_summary_revised_start_date").hide();
-    }
-    else{
-      $("#label_summary_revised_start_date").show();
-    }
-    $("#summary_revised_start_date").empty();
-    $("#summary_revised_start_date").append("<label class=\"control-label\">"+opt+"</label>");
-});
-
-$('#districts').on('change',function(e){
-    var opt = $(this).val();
-    var values = "";
-    if(opt == ""){
-      $("#label_summary_districts").hide();
-    }
-    else{
-      $("#label_summary_districts").show();
-    }
-    $("#summary_districts").empty();
-    values = $(this).find(':selected').text();
-    $("#summary_districts").append("<label class=\"control-label\">"+values+"</label>");
-});
-$('#sponsoring_departments').on('change',function(e){
-    var opt = $(this).val();
-    var values = "";
-    if(opt == ""){
-      $("#label_summary_sponsoring_department").hide();
-    }
-    else{
-      $("#label_summary_sponsoring_department").show();
-    }
-    $("#summary_sponsoring_department").empty();
-    values = $(this).find(':selected').text();
-    $("#summary_sponsoring_department").append("<label class=\"control-label\">"+values+"</label>");
-});
-$('#executing_departments').on('change',function(e){
-    var opt = $(this).val();
-    var values = "";
-    if(opt == ""){
-      $("#label_summary_executing_department").hide();
-    }
-    else{
-      $("#label_summary_executing_department").show();
-    }
-    $("#summary_executing_department").empty();
-    values = $(this).find(':selected').text();
-    $("#summary_executing_department").append("<label class=\"control-label\">"+values+"</label>");
-});
-$('#assigning_forums').on('change',function(e){
-    var opt = $(this).val();
-    var values = "";
-    if(opt == ""){
-      $("#label_summary_assingning_forums").hide();
-    }
-    else{
-      $("#label_summary_assingning_forums").show();
-    }
-    $("#summary_assingning_forums").empty();
-    values = $(this).find(':selected').text();
-    $("#summary_assingning_forums").append("<label class=\"control-label\">"+values+"</label>");
-});
-$('#sectors').on('change',function(e){
-    var opt = $(this).val();
-    var values = "";
-    if(opt == ""){
-      $("#label_summary_sectors").hide();
-    }
-    else{
-      $("#label_summary_sectors").show();
-    }
-    $("#summary_sectors").empty();
-    values = $(this).find(':selected').text();
-    $("#summary_sectors").append("<label class=\"control-label\">"+values+"</label>");
-});
-
+// $('#sub_sectors').on('change',function(e){
+//   var opt = $(this).val();
+//   var values = "";
+//   if(opt == ""){
+//     $("#label_summary_sub_sectors").hide("slow");
+//   }
+//   else{
+//     $("#label_summary_sub_sectors").show("slow");
+//   }
+//   $("#summary_sub_sectors").empty();
+//   values = $(this).find(':selected').text();
+//   $("#summary_sub_sectors").append("<label class=\"control-label\">"+values+"</label>");
+// });
 $(document).on('change', '#sectors', function() {
   var opt = $(this).val()
   // console.log(opt);
@@ -485,19 +519,6 @@ $(document).on('change', '#sectors', function() {
         console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
     }
 });
-});
-$('#sub_sectors').on('change',function(e){
-    var opt = $(this).val();
-    var values = "";
-    if(opt == ""){
-      $("#label_summary_sub_sectors").hide();
-    }
-    else{
-      $("#label_summary_sub_sectors").show();
-    }
-    $("#summary_sub_sectors").empty();
-    values = $(this).find(':selected').text();
-    $("#summary_sub_sectors").append("<label class=\"control-label\">"+values+"</label>");
 });
 $(document).ready(function(){
   var next = 1;
