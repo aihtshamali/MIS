@@ -51,7 +51,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label>Un-Assigned Projects</label>
-                <form class="" action="{{route('assignprojects.create')}}" method="POST">
+                <form class="" action="{{route('assignproject.create')}}" method="GET">
                   {{ csrf_field() }}
                 <table class="table table-responsive table-bordered projects">
                   <thead>
@@ -63,8 +63,8 @@
                     <th>Action</th>
                   </thead>
                   <tbody>
+                    {{-- {{dd($projects)}} --}}
                   @foreach($projects as $project)
-                    @if($project->status == 0)
                         <tr>
                           <td>{{$project->project_no}}</td>
                           <td>{{$project->title}}</td>
@@ -76,17 +76,14 @@
                             <button type="button" class="btn btn-md priority" style="background-color:red; ">High Priority</button>
                             <button type="button"  class="btn btn-md priority"style="background-color:green; ">Normal Priority</button>
                             <button type="button" class="btn btn-md priority" style="background-color:yellow; ">Low Priority</button>
-                           
+
                           </td>
                           <td><input type="submit" name="submit" value="Assign" class="btn btn-info"></td>
                         </tr>
-                        
-                    @endif
                   @endforeach
-                  
                 </tbody>
                 </table>
-               
+
               </form>
               </div>
             <!-- /.col -->
