@@ -329,20 +329,17 @@ class ComposerStaticInit55c1f85fd9fa01a6cf3b909416bd240d
     );
 
     public static $classMap = array (
-<<<<<<< HEAD
         'App\\ApprovingForum' => __DIR__ . '/../..' . '/app/ApprovingForum.php',
         'App\\AssignedDepartment' => __DIR__ . '/../..' . '/app/AssignedDepartment.php',
         'App\\AssignedDistrict' => __DIR__ . '/../..' . '/app/AssignedDistrict.php',
         'App\\AssignedExecutingAgency' => __DIR__ . '/../..' . '/app/AssignedExecutingAgency.php',
         'App\\AssignedProjectActivity' => __DIR__ . '/../..' . '/app/AssignedProjectActivity.php',
         'App\\AssignedProjectLog' => __DIR__ . '/../..' . '/app/AssignedProjectLog.php',
-=======
         'App\\AssignedDepartment' => __DIR__ . '/../..' . '/app/AssignedDepartment.php',
         'App\\AssignedExecutingAgency' => __DIR__ . '/../..' . '/app/AssignedExecutingAgency.php',
         'App\\AssignedProjectActivity' => __DIR__ . '/../..' . '/app/AssignedProjectActivity.php',
         'App\\AssignedProjectLog' => __DIR__ . '/../..' . '/app/AssignedProjectLog.php',
         'App\\AssignedProjectManager' => __DIR__ . '/../..' . '/app/AssignedProjectManager.php',
->>>>>>> ab0435cc5735e5b2a431e98c853fc6999178929c
         'App\\AssignedProjectTeam' => __DIR__ . '/../..' . '/app/AssignedProjectTeam.php',
         'App\\AssignedSponsoringAgency' => __DIR__ . '/../..' . '/app/AssignedSponsoringAgency.php',
         'App\\AssigningForum' => __DIR__ . '/../..' . '/app/AssigningForum.php',
