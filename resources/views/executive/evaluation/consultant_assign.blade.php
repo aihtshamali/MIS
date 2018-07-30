@@ -94,16 +94,14 @@
       </div>
     </div>
         {{--choose team lead    --}}
-    <div class="row">
+    <div class="row TeamLead" style="display:none">
       <div class="col-md-6">
         <div class="box box-primary">
           <div class="box-header with-border">
             <h3 class="box-title">Select Team Lead</h3>
-
             <div class="box-tools pull-right">
               <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
               </button>
-              <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
             </div>
           </div>
           <div class="box-body">
@@ -111,15 +109,10 @@
                     <table class="table table-hover table-striped">
                       <thead>
                         <th>Officer Name</th>
-                        <th>Designation</th>
                         <th>Pick Team Leader</th>
                       </thead>
-                      <tbody>
-                      <tr>
-                        <td ><a href="#">Aymun Saif</a></td>
-                        <td ><a href="#">Software Consultant</a></td>
-                        <td><input type="checkbox"></td>
-                      </tr>
+                      <tbody class="team_lead">
+
                       </tbody>
                     </table>
                 </div>
@@ -132,7 +125,7 @@
       <div class="col-md-6"></div>
       <div class="col-md-6"></div>
       <div class="col-md-5"></div>
-      <div class="col-md-6">
+      <div class="col-md-7">
         <div class="box-tools pull-right">
             <button type="submit" class="btn btn-success" > Make Assignment
             </button>
@@ -148,12 +141,24 @@
 $(document).ready(function() {
   $('input[name="assign_to"]').on('change',function(){
     if($(this).val()=='manager'){
-      $('div.officer').hide();
-      $('div.manager').show();
+      $('div.officer').hide('top');
+      $('div.manager').show('left');
     }
     else if($(this).val()=='officer'){
-      $('div.officer').show();
-      $('div.manager').hide();
+      $('div.officer').show('left');
+      $('div.manager').hide('top');
+    }
+  });
+  $('select[name="officer_id[]"]').on('change',function(){
+    $('tbody.team_lead').find('tr').remove();
+    if($(this).val().length>1){
+      $( "select[name='officer_id[]'] option:selected" ).each(function(e) {
+      $('tbody.team_lead').append('<tr><td><label class="">'+$(this).text()+'</a></td><td><input name="team_lead" value="'+$(this).val()+'" type="radio"></td></tr>');
+    });
+      $('.TeamLead').show('left');
+    }
+    else{
+      $('.TeamLead').hide('right');
     }
   });
 });

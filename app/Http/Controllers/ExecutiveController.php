@@ -37,22 +37,24 @@ class ExecutiveController extends Controller
       return view('executive.home.other_tab');
     }
 // EVALUATION FOLDER
-    public function evaluation_index(){
-      $managers=User::select('roles.*','role_user.*','users.*')
-      ->leftJoin('role_user','role_user.user_id','users.id')
-      ->leftJoin('roles','roles.id','role_user.role_id')
-      ->where('roles.name','manager')
-      ->get();
-      $officers=User::select('roles.*','role_user.*','users.*')
-      ->leftJoin('role_user','role_user.user_id','users.id')
-      ->leftJoin('roles','roles.id','role_user.role_id')
-      ->where('roles.name','officer')
-      ->get();
-      $projects = Project::all();
-      $users = User::all();
-
-      return view('project_assigned.index',['officers'=>$officers,'managers'=>$managers,'projects'=>$projects,'users'=>$users]);
-    }
+    // public function evaluation_index(){
+    //   $managers=User::select('roles.*','role_user.*','users.*')
+    //   ->leftJoin('role_user','role_user.user_id','users.id')
+    //   ->leftJoin('roles','roles.id','role_user.role_id')
+    //   ->where('roles.name','manager')
+    //   ->get();
+    //   $officers=User::select('roles.*','role_user.*','users.*')
+    //   ->leftJoin('role_user','role_user.user_id','users.id')
+    //   ->leftJoin('roles','roles.id','role_user.role_id')
+    //   ->where('roles.name','officer')
+    //   ->get();
+    //   $projects = Project::select('projects.*')
+    //   ->rightJoin('assigned_projects','assigned_projects.project_id','projects.id')
+    //   ->get();
+    //   dd($projects);
+    //   $users = User::all();
+    //   return view('project_assigned.index',['officers'=>$officers,'managers'=>$managers,'projects'=>$projects,'users'=>$users]);
+    // }
 
     public function evaluation_assignedprojects(){
       return view('executive.evaluation.assigned');

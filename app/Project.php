@@ -33,19 +33,6 @@ class Project extends Model
     public function EvaluationType(){
         return $this->belongsTo('App\EvaluationType');
     }
-    public function getProjectType($id){
-        return ProjectType::where('id',$id)->first();
-    }
-    public function getSponsoringAgency($id){
-        return SponsoringAgency::where('id',$id)->first();
-    }
-    public function getExecutingAgency($id){
-        return ExecutingAgency::where('id',$id)->first();
-    }
-    public function getEvaluationType($id){
-        return EvaluationType::where('id',$id)->first();
-    }
-
     public function RevisedApprovedCost()
     {
       return $this->hasMany('App\RevisedApprovedCost');

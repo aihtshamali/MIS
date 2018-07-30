@@ -12,6 +12,7 @@ return array(
     'App\\AssignedExecutingAgency' => $baseDir . '/app/AssignedExecutingAgency.php',
     'App\\AssignedProjectActivity' => $baseDir . '/app/AssignedProjectActivity.php',
     'App\\AssignedProjectLog' => $baseDir . '/app/AssignedProjectLog.php',
+    'App\\AssignedProjectManager' => $baseDir . '/app/AssignedProjectManager.php',
     'App\\AssignedProjectTeam' => $baseDir . '/app/AssignedProjectTeam.php',
     'App\\AssignedSponsoringAgency' => $baseDir . '/app/AssignedSponsoringAgency.php',
     'App\\AssigningForum' => $baseDir . '/app/AssigningForum.php',

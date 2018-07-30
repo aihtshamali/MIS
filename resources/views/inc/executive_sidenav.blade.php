@@ -54,7 +54,7 @@
 
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{route('Exec_evaluation_tab')}}"><i class="fa fa-circle-o"></i> Un- Assigned <span class="pull-right-container">
+            <li><a href="{{route('assignproject.index')}}"><i class="fa fa-circle-o"></i> Un- Assigned <span class="pull-right-container">
               <span class="label label-primary pull-right">new</span>
             </span></a></li>
             <li>
