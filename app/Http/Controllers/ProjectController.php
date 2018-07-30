@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
 use Auth;
-use App\User;
-use App\ProjectRemarks;
+use App\ProjectRemark;
 use App\ProjectType;
 use App\EvaluationType;
 use App\SubSector;
@@ -28,6 +27,7 @@ use App\RevisedApprovedCost;
 use App\RevisedEndDate;
 use App\AssignedDistrict;
 use Illuminate\Support\Str;
+use App\User;
 class ProjectController extends Controller
 {
     /**
@@ -39,14 +39,15 @@ class ProjectController extends Controller
     {
       $projects = Project::all();
 
-        // $projects=Project::select('projects.*','assigned_projects.user_id','project_details.attachments')
+        $projects=Project::
         // ->leftJoin('project_details','project_details.project_id','projects.id')
-        // ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
-        // ->orderBy('projects.status')
-        // ->get();
+        // ->leftJoin('users','users.id','user_id')
+        where('user_id',Auth::id())
+        ->orderBy('projects.created_at')
+        ->get();
         // dd(Auth::user()->roles()->get());
         // dd($projects);
-        return view('projects.index',['projects'=>$projects]);
+        return view('projects.index',compact('projects'));
     }
 
     /**
@@ -123,7 +124,7 @@ class ProjectController extends Controller
       $project->ADP = $request->ADP;
       $project->project_type_id = $request->type_of_project;
       $project->status = 0;
-      $project->user_id = Auth()::id();
+      $project->user_id = Auth::id();
       $project->save();
       $project_id = Project::latest()->first()->id;
       $project_detail = new ProjectDetail();
@@ -201,12 +202,14 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-      $projects=Project::select('projects.*','project_assigned.*','project_details.*')
-      ->leftJoin('project_details','project_details.project_id','projects.id')
-      ->leftJoin('project_assigned','project_assigned.project_id','projects.id')
-      ->where('projects.id',$id)
+      $projects=Project::
+      where('projects.id',$id)
+      // select('projects.*','project_assigned.*','project_details.*')
+      // ->leftJoin('project_details','project_details.project_id','projects.id')
+      // ->leftJoin('project_assigned','project_assigned.project_id','projects.id')
       ->first();
-      $remarks=ProjectRemarks::where('project_id',$id)->orderBy('created_at','DESC')->get();
+      $id = $projects->id;
+      $remarks=ProjectRemark::where('project_id',$id)->orderBy('created_at','DESC')->get();
       // dd($projects);
       return view('projects.show',compact('projects','remarks'));
     }

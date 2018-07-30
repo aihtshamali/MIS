@@ -11,7 +11,7 @@
   <p>Starting Date &#58; {{$projects->starting_date}}</p>
   <p>Ending Date &#58; {{$projects->ending_date}}</p>
   <p>Planned Start Date &#58; {{$projects->planned_start_date}}</p>
-  <p>Spnosor Agency Name &#58; {{$projects->SponsorAgency->sponsor_agency_name}}</p>
+  <p>Spnosor Agency Name &#58; {{$projects->SponsorAgency->name}}</p>
   <p>Executing Agency Name &#58; {{$projects->ExecutingAgency->name}}</p>
   <p>Project Created By &#58; {{$projects->getUser($projects->created_by)->name}}</p>
   <p>Totol Cost &#58; {{$projects->total_cost}}</p>
@@ -43,7 +43,7 @@
           <!-- /.comment-text -->
         </div>
       @endforeach
-        
+
         </div>
   </div>
   </div>
