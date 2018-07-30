@@ -8,12 +8,9 @@ class ProjectDetail extends Model
 {
 
     public function project(){
-        return $this->hasOne('App/Project');
+        return $this->belongsTo('App/Project');
     }
 
-    public function AssigningForum(){
-        return $this->belongsTo('App/AssigningForum');
-    }
 
     public function District(){
         return $this->belongsTo('App/District');
@@ -23,7 +20,11 @@ class ProjectDetail extends Model
         return District::where('id',$id)->first();
     }
 
-    public function getAssigningForum($id){
-        return AssigningForum::where('id',$id)->first();
+    public function AssigningForum(){
+      return $this->belongsTo('App\AssigningForum');
+    }
+    public function ApprovingForum()
+    {
+      return $this->belongsTo('App\ApprovingForum');
     }
 }

@@ -202,16 +202,9 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-      $projects=Project::
-      where('projects.id',$id)
-      // select('projects.*','project_assigned.*','project_details.*')
-      // ->leftJoin('project_details','project_details.project_id','projects.id')
-      // ->leftJoin('project_assigned','project_assigned.project_id','projects.id')
-      ->first();
-      $id = $projects->id;
-      $remarks=ProjectRemark::where('project_id',$id)->orderBy('created_at','DESC')->get();
-      // dd($projects);
-      return view('projects.show',compact('projects','remarks'));
+      $project = Project::find($id);
+      return view('projects.show',compact('project'));
+
     }
 
     /**
@@ -222,12 +215,12 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
-   
-    
+
+
     $project=Project::where('id',$id)->first();
-  
+
     $projectdetails=ProjectDetail::where('project_id',$id)->first();
-   
+
     //dd($projectdetails);
     $districts = District::all();
       $sectors  = Sector::all();
@@ -247,7 +240,7 @@ class ProjectController extends Controller
       foreach ($assigning_forums as $assigning_forum) {
         $assigning_forum->name = $assigning_forum->name . "/";
       }
-      
+
      return view('projects.edit',compact('districts','projectdetails','project','sectors','sponsoring_departments','executing_departments','assigning_forums','project_no'));
     //   // return view('projects.edit',['project'=>$project]);
     }
