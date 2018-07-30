@@ -21,12 +21,12 @@
             @if (isset($project->ProjectType->project_type_name))
               <td>{{$project->ProjectType->project_type_name}}</td>
             @endif
-            @if (isset($project->user))
-              <td>{{$project->user_id}}</td>
-            @else
+            {{-- @if (isset($project->user)) --}}
+              {{-- <td>{{$project->user_id}}</td> --}}
+            {{-- @else
               <td>Unassigned</td>
-            @endif
-              <td>{{$project->getUser($project->created_by)->name}}</td>
+            @endif --}}
+              {{-- <td>{{$project->getUser($project->created_by)->name}}</td> --}}
               <td>{{$project->created_at}}</td>
               <td><a href="{{asset('storage/uploads/projects/'.$project->attachments)}}" download>Excel File</a></td>
           </tr>
