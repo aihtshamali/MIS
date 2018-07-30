@@ -1,28 +1,6 @@
 @extends('layouts.uppernav')
 
 @section('content')
-<style>
-        {{--  .popup {
-            display: inline-block;
-        {{--  }  --}}
-        .popup .popuptext {
-            visibility: hidden;
-            background-color: inherit;
-            color:black;
-            position:relative;
-            
-        }
-        .popup .show {
-            visibility: visible;
-            -webkit-animation: fadeIn 1s;
-            animation: fadeIn 1s;
-        }  
-        .popclose .showclose {
-            visibility: hidden;
-           
-        }  
-        
-</style>
 
 <div class="content-wrapper">
     {{-- <!-- Content Header (Page header) --> --}}
@@ -76,8 +54,8 @@
                 <div class="progress">
                   
                         <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar"
-                        aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:5%">
-                        5% Complete 
+                        aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:1%">
+                        0% Complete 
                         </div>
                       </div>
               </div>
@@ -87,43 +65,43 @@
                
                
                     <div class="table-responsive">
-                <form action="{{route('activitiesSubmit')}}" method="POST">
+                <form action="#" method="POST">
                         {{csrf_field()}}
                       <table class="table table-hover table-striped">
                             <b>ACTIVITY CHART</b>
                         <thead >
                             <th style="text-align:center;" >No.</th>
                             <th style="text-align:center;">Activity Name</th>
-                            <th style="text-align:center;">Activity Attachments</th>
+                           
                             <th style="text-align:center;">Activity Progress</th>
-                            <th style="text-align:center;">Problematic?</th>
+                            <th style="text-align:center;">Remarks</th>
                         </thead>
                         <tbody style="text-align:center;">
                             @foreach($activities as $activity)
                             <tr>
                             <td> {{$activity->id}} </td>
                             <td> {{$activity->name}} </td>
-                            <td><input type="file" name="img"  multiple> 
-                            </td>
                             <td>
                             
                               <div class="progress">
                                 <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar"
-                                aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:15%">
+                                aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:1%">
                                 {{$activity->weightage}}% Complete
                                 </div>
                                 </div>
                             </td>
-                            <td><a href="#" onclick="pop()">Comment Here</a> 
+                            <td>
+                                
+                            <a href="#commentModal"  class="btn btn-primary commentModal"  data-toggle="modal" data-id="{{$activity->id}}">Problematic?</a>
                             
-                            </td>   
+                        </td>   
                             
                            
                             </tr>
                             @endforeach
                         </tbody>
                       </table>
-                      <input type="hidden" name="id" value="{{$project_data[0]->id}}">
+                      <input type="hidden" name="id" value="{{$project_data[0]->project_id}}">
                       <button type="submit" class="btn btn-success pull-right" >Submit
                       </button>
                 </form>
@@ -139,22 +117,53 @@
        </div>
    
     
-    </section>    
+    </section>  
+
 </div>
-<script> 
-    /*        {{--  <div class="popup">
-                                            <span class="popuptext" id="myPopup">
-                                            Enter Comments: <input type="text" />
-                                            <button type="submit" onclick="popclose()" id="closepop" class=" btn btn-xs btn-success">submit</button> 
-                                            </span>
-                                        </div>    --}}*/
-    function pop() {
-            var popup = document.getElementById('myPopup');
-            popup.classList.toggle('show');
-        }
-        function popclose() {
-            var popclose = document.getElementById('closepop'); 
-          
-        }
+
+// Modal Box
+
+
+<div class="modal" data-keyboard="false" data-backdrop="static" id ="commentModal" tabindex="=-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" >&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <form action="{{route('Problematicremarks.store')}}" method="POST">
+             {{csrf_field()}}
+            <div class="modal-body">
+               
+                    <div class="form-group">
+                        <input  type=hidden name="activity_id" value="">
+                        <input type=hidden name="project_id" value="{{$project_id}}">
+
+                        <label for="inputcomments"> Write Here</label>
+                        <input class="form-control" placeholder="Your Comments" type="text" id="inputcomments">
+
+                    </div>
+              
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary"> Submit</button>
+
+            </div>
+        </form>
+        </div>
+
+    </div>
+
+</div>
+
+@endsection
+
+@section('scripttags')
+<script>
+$(".commentModal").on("click", function () {
+    var myBookId = $(this).data('id');
+    $('input[name="activity_id"]').val( myBookId );
+});
 </script>
 @endsection

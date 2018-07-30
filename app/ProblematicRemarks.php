@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ApprovingForum extends Model
+class ProblematicRemarks extends Model
 {
-   
+    //
 }

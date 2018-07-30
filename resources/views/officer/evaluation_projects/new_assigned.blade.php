@@ -41,9 +41,9 @@
               <div class="box-body">
                <div class="row" >
                 <div class="col-md-12 col-xs-6">
-              
+         
                     <div class="table-responsive">
-                        <form action="{{route('review_form')}}" method="POST">
+                       
                       
                       <table class="table table-hover table-striped">
                         <thead >
@@ -52,18 +52,18 @@
                             <th style="text-align:center;">Action</th>
                         </thead>
                         <tbody style="text-align:center;">
-                            {{csrf_field()}}
-                          @foreach($officer as $o)
+                           
+                            @foreach($officer as $o)
                             <tr>
                             <td> {{$o->project_id}} </td>
                             <td>{{$o->getProject($o->project_id)->title}}  </td> 
                               <input type="hidden" name="id" value="{{$o->id}}">
-                              <td><button type="submit" class="btn btn-xs btn-success"> Review</button></td>   
+                              <td><a href="{{route('review_form',$o->project_id)}}"><button class="btn btn-success">Review</button></a> </td>   
                             </tr>
                             @endforeach
                         </tbody>
                       </table>
-                    </form>
+                    
                     </div>
               
                       </div>

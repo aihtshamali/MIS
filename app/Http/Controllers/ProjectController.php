@@ -222,7 +222,34 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
-        //
+   
+    
+    $project=Project::where('id',$id)->first();
+  
+    $projectdetails=ProjectDetail::where('project_id',$id)->first();
+   
+    //dd($projectdetails);
+    $districts = District::all();
+      $sectors  = Sector::all();
+      $sponsoring_departments = SponsoringAgency::all();
+      $executing_departments = ExecutingAgency::all();
+      $assigning_forums = AssigningForum::all();
+      $project_no = Str::random();
+      foreach ($sectors as $sector) {
+        $sector->name = $sector->name . "/";
+      }
+      foreach ($sponsoring_departments as $sponsoring_department) {
+        $sponsoring_department->name = $sponsoring_department->name . "/";
+      }
+      foreach ($executing_departments as $executing_department) {
+        $executing_department->name = $executing_department->name . "/";
+      }
+      foreach ($assigning_forums as $assigning_forum) {
+        $assigning_forum->name = $assigning_forum->name . "/";
+      }
+      
+     return view('projects.edit',compact('districts','projectdetails','project','sectors','sponsoring_departments','executing_departments','assigning_forums','project_no'));
+    //   // return view('projects.edit',['project'=>$project]);
     }
 
     /**
@@ -234,7 +261,7 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd($request->all());
     }
 
     /**

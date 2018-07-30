@@ -53,6 +53,7 @@ return array(
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Other' => $baseDir . '/app/Other.php',
+    'App\\ProblematicRemarks' => $baseDir . '/app/ProblematicRemarks.php',
     'App\\Project' => $baseDir . '/app/Project.php',
     'App\\ProjectActivity' => $baseDir . '/app/ProjectActivity.php',
     'App\\ProjectAssigned' => $baseDir . '/app/ProjectAssigned.php',
