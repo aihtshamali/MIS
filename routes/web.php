@@ -60,16 +60,16 @@ Route::prefix('officer')->group(function () {
   Route::get('/main','OfficerController@evaluation_main')->name('main_page');
   Route::get('/','OfficerController@evaluation_index')->name('new_evaluation');
 
-  Route::post('/acknowledged','OfficerController@assignProjectAcknowledged')->name('assignProjectAcknowledged');
+  // Route::post('/acknowledged','OfficerController@assignProjectAcknowledged')->name('assignProjectAcknowledged');
   Route::post('/submitActivities','OfficerController@activitiesSubmit')->name('activitiesSubmit');
 
   Route::get('/inprogress_evaluation','OfficerController@evaluation_inprogress')->name('inprogress_evaluation');
   Route::get('/activities_evaluation/{project_id}','OfficerController@evaluation_activities')->name('evaluation_activities');
   Route::get('/completed_evaluation','OfficerController@evaluation_completed')->name('completed_evaluation');
-  Route::post('/review_form','OfficerController@review_forms')->name('review_form');
+  Route::get('/review_form/{project_id}','OfficerController@review_form')->name('review_form');
 
 });
-
+Route::resource('Problematicremarks','ProblematicRemarks');
 Route::resource('assignproject','ProjectAssignController');
 Route::post('assignprojects','ProjectAssignController@creates')->name('assignprojects.create');
 });

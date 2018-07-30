@@ -6,44 +6,45 @@
   <!-- Content Header (Page header) -->
   <div class="row">
       <div class="col-md-offset-3 col-md-6">
-        <h2>Enter Project Details</h2>
+        <h2>Edit Project Details</h2>
         <div class="progress">
           <div class="progress-bar progress-bar-striped progress-bar-info active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:0%">
             0%
           </div>
         </div>
-        <form action="{{route('projects.store')}}" method="post" enctype="multipart/form-data">
-          {{ csrf_field() }}
+        <form action="#" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="_method" value="PUT">  
+        {{ csrf_field() }}
         <center style="font-size:10px"><b>Form Submition Progress<b></center>
 
         <section id="formslide"class="form1 col-md-12">
 
         <div class="form-group">
           <label for="">Project Name</label>
-          <input type="text" class="form-control" name="title" value="">
+          <input type="text" class="form-control" name="title" placeholder="Enter Title" value="{{$project->title}}">
         </div>
         <div class="form-group">
             <label for="">Project Type</label>
-            <select name="project_type" id="" class="form-control">
-              <option value="">Select Project Type</option>
+            <select name="project_type" id="" class="form-control" >
+              <option value=""> {{$project->EvaluationType->name}}</option>
               <option value="1">Monitoring</option>
               <option value="2">Evaluation</option>
             </select>
         </div>
         <div class="form-group">
           <label for="">Starting Date</label>
-          <input type="date" class="form-control" name="starting_date" value="">
+          <input type="date" class="form-control" name="starting_date" value="{{$projectdetails->planned_start_date}}">
         </div>
         <div class="form-group">
           <label for="">Ending Date</label>
-          <input type="date" class="form-control" name="ending_date" value="">
+          <input type="date" class="form-control" name="ending_date" value="{{$projectdetails->planned_end_date}}">
         </div>
         <div class="form-group">
           <label for="">Sponsoring Agency</label>
           <select name="sponsor_agency_id" id="" class="form-control">
-            <option value="">Select Sponsoring Agency</option>
-            @foreach ($sponosoring_agencies as $sp)
-              <option value="{{$sp->id}}">{{$sp->sponsor_agency_name}}</option>
+            <option value="">{{$sponsoring_departments[0]->name}}</option>
+            @foreach ($sponsoring_departments as $sp)
+              <option value="{{$sp->id}}">{{$sp->name}}</option>
             @endforeach
             {{-- <option value="">C &amp; W Department</option> --}}
             {{-- <option value="">City District Government</option> --}}
@@ -52,8 +53,8 @@
         <div class="form-group">
             <label for="">Executing Agency</label>
             <select name="executing_agency_id" id="" class="form-control">
-              <option value="">Select Executing Agency</option>
-              @foreach ($executing_agencies as $sp)
+              <option value="">{{$sp->name}}</option>
+              @foreach ($executing_departments as $sp)
                 <option value="{{$sp->id}}">{{$sp->name}}</option>
               @endforeach
             </select>
@@ -122,10 +123,8 @@
 <!-- /.content-wrapper -->
 
 <footer class="main-footer">
-  <div class="pull-right hidden-xs">
-    <b>Version</b> 2.4.0
-  </div>
-
+  
+  
 </footer>
 @endsection
 @section('scripttags')

@@ -6,11 +6,21 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Project;
+use App\ProjectType;
+use App\EvaluationType;
+use App\Subsector;
 use App\ProjectDetail;
 use App\SponsoringAgency;
 use App\ExecutingAgency;
+use App\Department;
+use App\AssignedDepartment;
+use App\District;
+use App\Sector;
+use App\AssigningForum;
+use App\SubProjectType;
 use DB;
 use Auth;
+use Illuminate\Support\Str;
 use App\ProjectRemarks;
 class ProjectController extends Controller
 {
@@ -75,22 +85,22 @@ class ProjectController extends Controller
         $project->created_by=Auth::id();
         $project->save();
         if($project->id){
-            $project_detail=new ProjectDetail();
-            $project_detail->project_id = $project->id;
-            $project_detail->revenue_cost = $request->revenue_cost;
-            $project_detail->capital_cost = $request->capital_cost;
-            $project_detail->total_cost = $request->capital_cost+$request->revenue_cost;
-            $project_detail->country = $request->country;
-            $project_detail->city = $request->city;
-            $project_detail->address = $request->address;
-            $project_detail->SNE_cost = $request->SNE_cost;
-            $project_detail->SNE_staff = $request->SNE_staff;
-            $project_detail->SNE_both = $request->SNE_both;
-            if($request->hasFile('attachments')){
-              $request->file('attachments')->store('public/uploads/projects/');
-              $file_name = $request->file('attachments')->hashName();
-              $project_detail->attachments=$file_name;
-            }
+        $project_detail=new ProjectDetail();
+        $project_detail->project_id = $project->id;
+        $project_detail->revenue_cost = $request->revenue_cost;
+        $project_detail->capital_cost = $request->capital_cost;
+        $project_detail->total_cost = $request->capital_cost+$request->revenue_cost;
+        $project_detail->country = $request->country;
+        $project_detail->city = $request->city;
+        $project_detail->address = $request->address;
+        $project_detail->SNE_cost = $request->SNE_cost;
+        $project_detail->SNE_staff = $request->SNE_staff;
+        $project_detail->SNE_both = $request->SNE_both;
+        if($request->hasFile('attachments')){
+            $request->file('attachments')->store('public/uploads/projects/');
+            $file_name = $request->file('attachments')->hashName();
+            $project_detail->attachments=$file_name;
+        }
 
             $project_detail->save();
         }
@@ -123,7 +133,34 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
-        //
+   
+    
+    $project=Project::where('id',$id)->first();
+  
+    $projectdetails=ProjectDetail::where('project_id',$id)->first();
+   
+    //dd($projectdetails);
+    $districts = District::all();
+      $sectors  = Sector::all();
+      $sponsoring_departments = SponsoringAgency::all();
+      $executing_departments = ExecutingAgency::all();
+      $assigning_forums = AssigningForum::all();
+      $project_no = Str::random();
+      foreach ($sectors as $sector) {
+        $sector->name = $sector->name . "/";
+      }
+      foreach ($sponsoring_departments as $sponsoring_department) {
+        $sponsoring_department->name = $sponsoring_department->name . "/";
+      }
+      foreach ($executing_departments as $executing_department) {
+        $executing_department->name = $executing_department->name . "/";
+      }
+      foreach ($assigning_forums as $assigning_forum) {
+        $assigning_forum->name = $assigning_forum->name . "/";
+      }
+      
+     return view('projects.edit',compact('districts','projectdetails','project','sectors','sponsoring_departments','executing_departments','assigning_forums','project_no'));
+    //   // return view('projects.edit',['project'=>$project]);
     }
 
     /**
@@ -135,7 +172,7 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd($request->all());
     }
 
     /**
