@@ -10,4 +10,13 @@ class SubSector extends Model
   {
     return $this->belongsTo('App\Sector');
   }
+
+  public function sponsoring_departments()
+  {
+    return $this->hasMany('App\SponsoringAgency');
+  }
+  public function departments()
+  {
+    return $this->hasMany('App\Department');
+  }
 }

@@ -16,6 +16,8 @@ class CreateSponsoringAgenciesTable extends Migration
         Schema::create('sponsoring_agencies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->integer('sub_sector_id')->unsigned()->index();
+            $table->foreign('sub_sector_id')->references('id')->on('sub_sectors')->onDelete('cascade');
             $table->boolean('status')->default(1);
             $table->timestamps();
         });
