@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
 use App\Sector;
+use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
+use jeremykenedy\LaravelRoles\Models\Role;
+
+
 trait RegistersUsers
 {
     use RedirectsUsers;
@@ -17,8 +21,9 @@ trait RegistersUsers
      */
     public function showRegistrationForm()
     {
-      $sectors = Sector::where('status','1')->get();
-        return view('auth.register')->with('sectors',$sectors);
+        $roles = Role::all();
+        $sectors = Sector::where('status','1')->get();
+        return view('auth.register',['sectors'=>$sectors,'roles'=>$roles]);
     }
 
     /**

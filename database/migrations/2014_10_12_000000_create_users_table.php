@@ -36,7 +36,7 @@ class CreateUsersTable extends Migration
             $table->bigInteger('cnic')->nullable();
             $table->integer('grade')->nullable();
             $table->string('contract_type')->nullable();
-            $table->integer('sector_id')->unsigned()->index();
+            $table->integer('sector_id')->unsigned()->index()->nullable();
             $table->foreign('sector_id')->references('id')->on('sectors')->onDelete('cascade');
             $table->string('city')->nullable();
             $table->string('address')->nullable();

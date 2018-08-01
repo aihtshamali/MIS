@@ -5,6 +5,8 @@
 <head>
 	<title>Login</title>
 	<meta charset="UTF-8">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
+	
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!--===============================================================================================-->
 		<link rel="icon" type="image/png" style="width:50%" href="logo.jpg"/>
@@ -36,4 +38,6 @@
 @yield('content')
 
 </body>
+<script src="{{ asset('js/app.js') }}"></script>
+@yield('scripttags')
 </html>
