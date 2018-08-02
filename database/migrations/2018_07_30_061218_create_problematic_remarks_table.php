@@ -16,8 +16,8 @@ class CreateProblematicRemarksTable extends Migration
         Schema::create('problematic_remarks', function (Blueprint $table) {
             $table->increments('id');
             $table->string('remarks');
-            $table->integer('activity_id')->unsigned()->index();
-            $table->foreign('activity_id')->references('id')->on('activities')->onDelete('cascade');
+            $table->integer('project_activity_id')->unsigned()->index();
+            $table->foreign('project_activity_id')->references('id')->on('project_activities')->onDelete('cascade');
             $table->integer('project_id')->unsigned()->index();
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
             $table->integer('from_user_id')->unsigned()->index();

@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
 use Auth;
-use App\User;
-use App\ProjectRemarks;
+use App\ProjectRemark;
 use App\ProjectType;
 use App\EvaluationType;
 use App\SubSector;
@@ -28,6 +27,7 @@ use App\RevisedApprovedCost;
 use App\RevisedEndDate;
 use App\AssignedDistrict;
 use Illuminate\Support\Str;
+use App\User;
 class ProjectController extends Controller
 {
     /**
@@ -39,14 +39,15 @@ class ProjectController extends Controller
     {
       $projects = Project::all();
 
-        // $projects=Project::select('projects.*','assigned_projects.user_id','project_details.attachments')
+        $projects=Project::
         // ->leftJoin('project_details','project_details.project_id','projects.id')
-        // ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
-        // ->orderBy('projects.status')
-        // ->get();
+        // ->leftJoin('users','users.id','user_id')
+        where('user_id',Auth::id())
+        ->orderBy('projects.created_at')
+        ->get();
         // dd(Auth::user()->roles()->get());
         // dd($projects);
-        return view('projects.index',['projects'=>$projects]);
+        return view('projects.index',compact('projects'));
     }
 
     /**
@@ -123,7 +124,7 @@ class ProjectController extends Controller
       $project->ADP = $request->ADP;
       $project->project_type_id = $request->type_of_project;
       $project->status = 0;
-      $project->user_id = Auth()::id();
+      $project->user_id = Auth::id();
       $project->save();
       $project_id = Project::latest()->first()->id;
       $project_detail = new ProjectDetail();
@@ -201,14 +202,9 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-      $projects=Project::select('projects.*','project_assigned.*','project_details.*')
-      ->leftJoin('project_details','project_details.project_id','projects.id')
-      ->leftJoin('project_assigned','project_assigned.project_id','projects.id')
-      ->where('projects.id',$id)
-      ->first();
-      $remarks=ProjectRemarks::where('project_id',$id)->orderBy('created_at','DESC')->get();
-      // dd($projects);
-      return view('projects.show',compact('projects','remarks'));
+      $project = Project::find($id);
+      return view('projects.show',compact('project'));
+
     }
 
     /**
@@ -219,59 +215,34 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
-        $project = Project::find($id)->first();
-        // dump($projects);
-        $projectdetails = ProjectDetail::find($id)->first();
-        // /dump($projectdetails);
-        $project_types = ProjectType::all();
-    
-        $evaluation_types = EvaluationType::all();
 
-        $sub_sectors = SubSector::all();   
-        $sectors  = Sector::all();
 
-        $districts = District::all();
-       
-        $sponsoring_departments = SponsoringAgency::all();
-      
-        $assigned_sp_departments=AssignedSponsoringAgency::where('project_id',$id)->get();
-       
-        $executing_departments = ExecutingAgency::all();
+    $project=Project::where('id',$id)->first();
 
-        $assigned_exe_departments=AssignedExecutingAgency::where('project_id',$id)->get();
+    $projectdetails=ProjectDetail::where('project_id',$id)->first();
 
-        $assigning_forums = AssigningForum::all();
-        $approving_forums = ApprovingForum::all();
-        
-        
-        $current_year = date('Y');
-      
-        $sub_project_types = SubProjectType::all();
-        $projectfor_no=Project::select('projects.project_no')->latest()->first();
-        if($projectfor_no){
-        $projectNo=explode('-',$projectfor_no->project_no);
-        $project_no=$projectNo[0].'-'.($projectNo[1]+1);
-        }
-        else {
-          $project_no = "PRO-1";
-        }
-        foreach ($districts as $district) {
-          $district->name = $district->name . "/";
-        }
-        foreach ($sectors as $sector) {
-          $sector->name = $sector->name . "/";
-        }
-        foreach ($sponsoring_departments as $sponsoring_department) {
-          $sponsoring_department->name = $sponsoring_department->name . "/";
-        }
-        foreach ($executing_departments as $executing_department) {
-          $executing_department->name = $executing_department->name . "/";
-        }
-        foreach ($assigning_forums as $assigning_forum) {
-          $assigning_forum->name = $assigning_forum->name . "/";
-        }
-       return view('projects.edit',compact('projectdetails','sub_project_types','districts','sectors','sponsoring_departments','executing_departments','assigning_forums','project_no','current_year','approving_forums','evaluation_types','project_types','sub_sectors','project'));    //   // return view('projects.edit',['project'=>$project]);
-   
+    //dd($projectdetails);
+    $districts = District::all();
+      $sectors  = Sector::all();
+      $sponsoring_departments = SponsoringAgency::all();
+      $executing_departments = ExecutingAgency::all();
+      $assigning_forums = AssigningForum::all();
+      $project_no = Str::random();
+      foreach ($sectors as $sector) {
+        $sector->name = $sector->name . "/";
+      }
+      foreach ($sponsoring_departments as $sponsoring_department) {
+        $sponsoring_department->name = $sponsoring_department->name . "/";
+      }
+      foreach ($executing_departments as $executing_department) {
+        $executing_department->name = $executing_department->name . "/";
+      }
+      foreach ($assigning_forums as $assigning_forum) {
+        $assigning_forum->name = $assigning_forum->name . "/";
+      }
+
+     return view('projects.edit',compact('districts','projectdetails','project','sectors','sponsoring_departments','executing_departments','assigning_forums','project_no'));
+    //   // return view('projects.edit',['project'=>$project]);
     }
 
     /**

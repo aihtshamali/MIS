@@ -9,4 +9,5 @@ class AssigningForum extends Model
     public function ProjectDetail(){
         return $this->hasOne('App\ProjectDetail');
       }
+
 }

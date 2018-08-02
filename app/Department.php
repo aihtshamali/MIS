@@ -6,8 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Department extends Model
 {
-    public function subsector()
+    public function SubSector()
     {
       return $this->belongsTo('App\SubSector');
+    }
+    public function AssignedDepartments()
+    {
+      return $this->hasMany('App\AssignedDepartment');
     }
 }

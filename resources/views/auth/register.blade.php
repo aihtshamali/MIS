@@ -1,3 +1,6 @@
+@section('title')
+	Register
+@endsection
 @extends('layouts.auth')
 @section('content')
 	<div class="limiter">
@@ -58,8 +61,22 @@
 							</div>
 						</div>
 					</div>
-					<div class="wrap-input100 validate-input m-b-30" data-validate="Select Sector">
-						<select class="form-control select2" name="sector_id">
+					<div class="wrap-input100 validate-input m-b-30" data-validate="Select Role">
+						<select class="form-control select2 roleSelect" name="role_id" data-placeholder="Select Role">
+							<option value="" selected>Select Role</option>
+							@foreach ($roles as $role)
+								<option value="{{$role->id}}">{{$role->name}}</option>
+							@endforeach
+						</select>
+						@if ($errors->has('role_id'))
+							<span class="help-block">
+								<strong>{{ $errors->first('role_id') }}</strong>
+							</span>
+						@endif
+					</div>
+					<div class="wrap-input100 validate-input m-b-30 sectorSelect" data-validate="Select Sector" style="display:none">
+						<select class="form-control select2" name="sector_id" data-placeholder="Select Sector">
+							<option value="" ></option>
 							@foreach ($sectors as $sector)
 								<option value="{{$sector->id}}">{{$sector->name}}</option>
 							@endforeach
@@ -122,4 +139,15 @@
 		</div>
 	</div>
 </div>
+@endsection
+@section('scripttags')
+	<script type="text/javascript">
+			$(document).ready(function() {
+				$('.roleSelect').change(function(){
+					if($('.roleSelect option:selected').text()=='officer'){
+						$('.sectorSelect').show('top');
+					}
+				});
+			});
+	</script>
 @endsection

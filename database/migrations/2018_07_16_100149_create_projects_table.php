@@ -24,7 +24,7 @@ class CreateProjectsTable extends Migration
             $table->foreign('evaluation_type_id')->references('id')->on('evaluation_types')->onDelete('cascade');
             $table->integer('status')->default(0);
             $table->integer('user_id')->unsigned()->index();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('no action');
             $table->timestamps();
         });
         Schema::create('project_details', function (Blueprint $table) {

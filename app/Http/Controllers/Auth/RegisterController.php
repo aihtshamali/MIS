@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\RoleUser;
 use App\UserDetail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use jeremykenedy\LaravelRoles\Models\Role;
 
 class RegisterController extends Controller
 {
@@ -83,6 +85,12 @@ class RegisterController extends Controller
         $user_detail->sector_id=$data['sector_id'];
         $user_detail->user_id=$user->id;
         $user_detail->save();
+
+        $user_role=new RoleUser();
+        $user_role->role_id=$data['role_id'];
+        $user_role->user_id=$user->id;
+        $user_role->save();
         return $user;
+
     }
 }

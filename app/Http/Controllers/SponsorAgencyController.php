@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\SponsorAgency;
+use App\SponsoringAgency;
 class SponsorAgencyController extends Controller
 {
     /**
@@ -14,7 +14,7 @@ class SponsorAgencyController extends Controller
      */
     public function index()
     {
-        $SponsorAgency=SponsorAgency::all();
+        $SponsorAgency=SponsoringAgency::all();
         return view('SponsorAgency.index',['SponsorAgency'=>$SponsorAgency]);
     }
 
@@ -39,8 +39,8 @@ class SponsorAgencyController extends Controller
       // dd($request->all());
       foreach ($request->SponsorAgency as $sp) {
         // code...
-        $s= new SponsorAgency();
-        $s->sponsor_agency_name=$sp;
+        $s= new SponsoringAgency();
+        $s->name=$sp;
         // dd($s);
         $s->save();
       }
