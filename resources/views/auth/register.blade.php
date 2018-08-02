@@ -147,6 +147,9 @@
 					if($('.roleSelect option:selected').text()=='officer'){
 						$('.sectorSelect').show('top');
 					}
+					else{
+						$('.sectorSelect').hide('top');
+					}
 				});
 			});
 	</script>
