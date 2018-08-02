@@ -219,34 +219,59 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
-   
+        $project = Project::find($id)->first();
+        // dump($projects);
+        $projectdetails = ProjectDetail::find($id)->first();
+        // /dump($projectdetails);
+        $project_types = ProjectType::all();
     
-    $project=Project::where('id',$id)->first();
-  
-    $projectdetails=ProjectDetail::where('project_id',$id)->first();
-   
-    //dd($projectdetails);
-    $districts = District::all();
-      $sectors  = Sector::all();
-      $sponsoring_departments = SponsoringAgency::all();
-      $executing_departments = ExecutingAgency::all();
-      $assigning_forums = AssigningForum::all();
-      $project_no = Str::random();
-      foreach ($sectors as $sector) {
-        $sector->name = $sector->name . "/";
-      }
-      foreach ($sponsoring_departments as $sponsoring_department) {
-        $sponsoring_department->name = $sponsoring_department->name . "/";
-      }
-      foreach ($executing_departments as $executing_department) {
-        $executing_department->name = $executing_department->name . "/";
-      }
-      foreach ($assigning_forums as $assigning_forum) {
-        $assigning_forum->name = $assigning_forum->name . "/";
-      }
+        $evaluation_types = EvaluationType::all();
+
+        $sub_sectors = SubSector::all();   
+        $sectors  = Sector::all();
+
+        $districts = District::all();
+       
+        $sponsoring_departments = SponsoringAgency::all();
       
-     return view('projects.edit',compact('districts','projectdetails','project','sectors','sponsoring_departments','executing_departments','assigning_forums','project_no'));
-    //   // return view('projects.edit',['project'=>$project]);
+        $assigned_sp_departments=AssignedSponsoringAgency::where('project_id',$id)->get();
+       
+        $executing_departments = ExecutingAgency::all();
+
+        $assigned_exe_departments=AssignedExecutingAgency::where('project_id',$id)->get();
+
+        $assigning_forums = AssigningForum::all();
+        $approving_forums = ApprovingForum::all();
+        
+        
+        $current_year = date('Y');
+      
+        $sub_project_types = SubProjectType::all();
+        $projectfor_no=Project::select('projects.project_no')->latest()->first();
+        if($projectfor_no){
+        $projectNo=explode('-',$projectfor_no->project_no);
+        $project_no=$projectNo[0].'-'.($projectNo[1]+1);
+        }
+        else {
+          $project_no = "PRO-1";
+        }
+        foreach ($districts as $district) {
+          $district->name = $district->name . "/";
+        }
+        foreach ($sectors as $sector) {
+          $sector->name = $sector->name . "/";
+        }
+        foreach ($sponsoring_departments as $sponsoring_department) {
+          $sponsoring_department->name = $sponsoring_department->name . "/";
+        }
+        foreach ($executing_departments as $executing_department) {
+          $executing_department->name = $executing_department->name . "/";
+        }
+        foreach ($assigning_forums as $assigning_forum) {
+          $assigning_forum->name = $assigning_forum->name . "/";
+        }
+       return view('projects.edit',compact('projectdetails','sub_project_types','districts','sectors','sponsoring_departments','executing_departments','assigning_forums','project_no','current_year','approving_forums','evaluation_types','project_types','sub_sectors','project'));    //   // return view('projects.edit',['project'=>$project]);
+   
     }
 
     /**

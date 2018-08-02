@@ -13,7 +13,7 @@ class Project extends Model
         return $this->belongsTo('App/ProjectAssigned');
     }
     public function projectDetails(){
-        return $this->belongsTo('App/ProjectDetail');
+        return $this->hasOne('App/ProjectDetail');
     }
     public function ProjectType(){
       return $this->belongsTo('App\ProjectType');

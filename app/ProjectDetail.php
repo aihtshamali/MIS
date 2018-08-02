@@ -8,7 +8,7 @@ class ProjectDetail extends Model
 {
 
     public function project(){
-        return $this->hasOne('App/Project');
+        return $this->belongsTo('App/Project');
     }
 
     public function AssigningForum(){

@@ -77,6 +77,7 @@
                                         
                                                 <div class="col-md-4">
                                                 <b>Sponsoring Agency(s) :</b>
+                                                
                                                 {{$project_data[0]->getSponsoringAgency($project_data[0]->sponsoring_agency_id)->name}}
                                                 </div>
                                                 <div class="col-md-4">
