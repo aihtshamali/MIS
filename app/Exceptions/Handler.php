@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Response;
 
 class Handler extends ExceptionHandler
 {
@@ -55,14 +56,16 @@ class Handler extends ExceptionHandler
 
         if ($userLevelCheck) {
 
+          // dd($request->expectsJson());
             if ($request->expectsJson()) {
-                return Response::json(array(
+
+                return \Response::json(array(
                     'error'    =>  403,
                     'message'   =>  'Unauthorized.'
                 ), 403);
             }
 
-            abort(403);
+            return redirect('403');
         }
 
         return parent::render($request, $exception);
