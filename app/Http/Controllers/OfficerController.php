@@ -30,12 +30,12 @@ class OfficerController extends Controller
   public function activitiesSubmit(Request $request)
    {
     $data=ProjectAssigned::find($request->id);
-  
+
     $data->complete='1';
 
     $data->save();
-    
-    return redirect('officer/activities_evaluation');  
+
+    return redirect('officer/activities_evaluation');
    }
 
 
@@ -47,9 +47,9 @@ class OfficerController extends Controller
   //   $data->acknowledge='1';
   //   $data->save();
   //   dd($data);
-  //   return redirect()->back();  
+  //   return redirect()->back();
   //  }
-    
+
    public function evaluation_index_officersidenav()
    {
       $officer=ProjectAssigned::where('acknowledge','0')->get();
@@ -60,28 +60,25 @@ class OfficerController extends Controller
     {
 
        $officer=ProjectAssigned::where('acknowledge','0')->get();
-  
+
         return view('officer.evaluation_projects.new_assigned')->with('officer',$officer);
     }
 
-    
+
     public function review_form($id)
     {
-      $project_data=Project::select('projects.*','assigned_projects.id as assigned_projects_id','assigned_projects.*','assigned_sponsoring_agencies.*','assigned_executing_agencies.*')
-      ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
-      ->leftJoin('assigned_sponsoring_agencies','assigned_sponsoring_agencies.project_id','projects.id')
-      ->leftJoin('assigned_executing_agencies','assigned_executing_agencies.project_id','projects.id')
-      ->where('assigned_projects.acknowledge','0')->where('assigned_projects.project_id',$id)
-      ->get();
-      
-  
-      $projectdetails_data=ProjectDetail::select('project_details.*','projects.*')
-      ->leftJoin('projects','project_details.project_id','projects.id')
-      ->where('project_details.project_id',$id)
-      ->get();
 
-    
-      return view('officer.evaluation_projects.reviewform',['project_data'=>$project_data,'projectdetails_data'=> $projectdetails_data]);
+      $project_data=ProjectAssigned::where('assigned_projects.acknowledge','0')
+      ->where('assigned_projects.project_id',$id)
+      ->first();
+      
+      // dd($project_data->project);
+      // $projectdetails_data=ProjectDetail::select('project_details.*','projects.*')
+      // ->leftJoin('projects','project_details.project_id','projects.id')
+      // ->where('project_details.project_id',$id)
+      // ->get();
+
+      return view('officer.evaluation_projects.reviewform',['project_data'=>$project_data]);
     }
 
 
@@ -91,8 +88,8 @@ class OfficerController extends Controller
       // dd($officer);
       return view('officer.evaluation_projects.inprogress')->with('officer',$officer);
     }
-    
-    
+
+
     public function evaluation_activities($id){
 
       $activities=ProjectActivity::all();
@@ -102,20 +99,20 @@ class OfficerController extends Controller
       ->get();
       // dd($project_data);
       // $team_mem= AssignedProjectTeam::where('project_id')get();
-     
+
       // dd( $project_data);
       return view('officer.evaluation_projects.activities',['activities'=>$activities,'project_data'=>$project_data,'project_id'=>$id]);
     }
 
     public function evaluation_completed(){
       $officer=ProjectAssigned::where('complete','1')->where('acknowledge','1')->get();
-     
+
       return view('officer.evaluation_projects.completed')->with('officer',$officer);
     }
-    
 
-   
 
-   
+
+
+
 
 }

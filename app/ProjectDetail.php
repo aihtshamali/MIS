@@ -10,14 +10,8 @@ class ProjectDetail extends Model
     public function project(){
         return $this->belongsTo('App/Project');
     }
-
-
     public function District(){
         return $this->belongsTo('App/District');
-    }
-
-    public function getDistrict($id){
-        return District::where('id',$id)->first();
     }
 
     public function AssigningForum(){
