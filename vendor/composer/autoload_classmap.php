@@ -58,7 +58,7 @@ return array(
     'App\\ProblematicRemarks' => $baseDir . '/app/ProblematicRemarks.php',
     'App\\Project' => $baseDir . '/app/Project.php',
     'App\\ProjectActivity' => $baseDir . '/app/ProjectActivity.php',
-    'App\\ProjectAssigned' => $baseDir . '/app/ProjectAssigned.php',
+    'App\\AssignedProject' => $baseDir . '/app/AssignedProject.php',
     'App\\ProjectAttachmentLog' => $baseDir . '/app/ProjectAttachmentLog.php',
     'App\\ProjectDetail' => $baseDir . '/app/ProjectDetail.php',
     'App\\ProjectProgressLog' => $baseDir . '/app/ProjectProgressLog.php',

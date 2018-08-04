@@ -36,9 +36,9 @@ class User extends Authenticatable
     {
       return $this->hasMany('App\Project');
     }
-    public function ProjectAssigned()
+    public function AssignedProject()
     {
-      return $this->hasMany('App\ProjectAssigned');
+      return $this->hasMany('App\AssignedProject');
     }
     public function ProjectRemarks()
     {
@@ -50,5 +50,9 @@ class User extends Authenticatable
     }
     public function sector(){
       return $this->belongsTo('App\Sector');
+    }
+    public function UserDetail()
+    {
+      return $this->hasOne('App\UserDetail');
     }
 }

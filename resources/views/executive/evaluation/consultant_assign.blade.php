@@ -39,7 +39,7 @@
           <div class="box-header with-border">
             <h3 class="box-title">Assign To : </h3>
             <span style="margin-left:20px;"></span>
-            <b> <input type="radio" name="assign_to" value="manager"> Manager</b>
+            <b> <input type="radio" name="assign_to" value="manager"> Executive</b>
           <span style="margin-left:20px;"></span>
             <b><input type="radio" name="assign_to" value="officer"> Officer</b>
             <div class="box-tools pull-right">

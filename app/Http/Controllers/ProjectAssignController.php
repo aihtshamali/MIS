@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Project;
-use App\ProjectAssigned;
+use App\AssignedProject;
 use App\AssignedProjectTeam;
 use App\AssignedProjectManager;
 use App\User;
@@ -67,7 +67,7 @@ class ProjectAssignController extends Controller
       ->leftJoin('role_user','role_user.user_id','users.id')
       ->leftJoin('roles','roles.id','role_user.role_id')
       ->orderBy('roles.name','ASC')
-      ->where('roles.name','manager')
+      ->where('roles.name','executive')
       ->get();
       $officers=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
       ->leftJoin('user_details','user_details.user_id','users.id')
@@ -76,6 +76,8 @@ class ProjectAssignController extends Controller
       ->orderBy('roles.name','ASC')
       ->where('roles.name','officer')
       ->get();
+      // dd($officer);
+      // dd()
       // dd($officers);
       // $Officers=
       return view('executive.evaluation.consultant_assign',['priority'=>$request->priority,'project_id'=>$request->project_id,'officers'=>$officers,'managers'=>$managers]);
@@ -90,7 +92,7 @@ class ProjectAssignController extends Controller
 
      public function store(Request $request)
      {
-        dd($request->all());
+        // dd($request->all());
         if($request->priority=='high_priority'){
           $priority=3;
         }
@@ -105,7 +107,7 @@ class ProjectAssignController extends Controller
         if($request->assign_to=="officer"){
           $users = $request->users;
          // dd($current_time);
-         $assignProject= new ProjectAssigned();
+         $assignProject= new AssignedProject();
          $assignProject->project_id=$request->project_id;
          $assignProject->assigned_date=$current_time;
          $assignProject->priority=$priority;
@@ -129,7 +131,7 @@ class ProjectAssignController extends Controller
            $assignedProjectManager->save();
          }
        }
-         return redirect('/executive');
+         return redirect('/dashboard');
      }
 
     /**

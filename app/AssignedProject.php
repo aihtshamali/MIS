@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ProjectAssigned extends Model
+class AssignedProject extends Model
 {
     protected $table="assigned_projects";
 
@@ -13,6 +13,9 @@ class ProjectAssigned extends Model
     }
     public function project(){
         return $this->belongsTo('App\Project');
+    }
+    public function AssignedProjectTeam(){
+      return $this->hasMany('App\AssignedProjectTeam');
     }
     // public function getProject($id){
     //     return Project::where('id',$id)->first();

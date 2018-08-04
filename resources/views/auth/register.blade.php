@@ -121,7 +121,7 @@
 					<div>  <ul class="login-more p-t-5 m-b-10">
 
 						<span class="txt1">
-							<input type="checkbox" > I Accept the
+							<input type="checkbox" required > I Accept the
 						</span>
 						<b><a href="#" class="txt2">Terms of Use  </a></b>
 						<span class="txt1">

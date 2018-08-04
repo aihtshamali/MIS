@@ -43,7 +43,7 @@ vertical-align: super;
 #table1{
   display: none;
 }
-#section2{
+#section1{
   display: none;
 }
   </style>
@@ -52,107 +52,8 @@ vertical-align: super;
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-  <form class="form-horizontal" action="{{route('projects.store')}}" method="POST" enctype="multipart/form-data">
+  <form class="form-horizontal" action="{{route('projects.edit',$project->id)}}" method="POST" enctype="multipart/form-data">
     {{csrf_field()}}
-  <section id="section1">
-    <div id="outerbox" class="box box-default">
-      <div  class="box-header with-border">
-        <h3 class="box-title">Select Project Type</h3>
-
-        {{-- <div class="box-tools pull-right">
-          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-        </div> --}}
-      </div>
-      <!-- /.box-header -->
-      <div class="box-body">
-        <div class="row">
-          <div id="inner_items" class="col-md-6">
-            <div class="form-group">
-              <label>Type of Projects</label>
-              <select id="type_of_project" name="type_of_project" class="form-control select2" style="width: 100%;">
-                <option>Select Project Type</option>
-                @foreach ($project_types as $project_type)
-                  @if($project_type->status == 1)
-                    <option value="{{$project_type->id}}">{{$project_type->name}}</option>
-                  @endif
-                @endforeach
-
-              </select>
-            </div>
-
-            <div id="second" class="form-group">
-              <label>Phase of Evaluation</label>
-              <select id="phase_of_evaluation" name="phase_of_evaluation" class="form-control select2" style="width: 100%;">
-                <option>Select Evaluation Type</option>
-                @foreach ($sub_project_types as $sub_project_type)
-                  <option value="{{$sub_project_type->id}}">{{$sub_project_type->name}}</option>
-                @endforeach
-              </select>
-            </div>
-            <div id="monitoring_second" class="form-group">
-              <label>Phase of Monitoring</label>
-              <select id="phase_of_monitoring" name="phase_of_monitoring" class="form-control select2" style="width: 100%;">
-                <option>Select Monitoring Type</option>
-                @foreach ($sub_project_types as $sub_project_type)
-                  <option value="{{$sub_project_type->id}}">{{$sub_project_type->name}}</option>
-                @endforeach
-              </select>
-            </div>
-
-
-
-            <div id="fourth" class="form-group">
-              <label>Search ADP or GS #</label>
-              <select class="form-control select2" name="ADP" placeholder="ADP or GS #"  style="width: 100%;">
-              <option value="">Select Project</option>
-                @foreach ($projects as $project)
-                  <option value="{{$project->ADP}}">{{$project->ADP}} &rarr; {{$project->title}}</option>
-                @endforeach
-              </select>
-              <label >Select a Sub-Sector</label>
-              <select id="sub-sectors" class="form-control select2" multiple="multiple"  style="width: 100%;">
-                @foreach ($sub_sectors as $sub_sector)
-                  @if($sub_sector->status == 1)
-                    <option value="{{$sub_sector->id}}">{{$sub_sector->name}}</option>
-                  @endif
-                @endforeach
-              </select>
-            </div>
-            <div id="monitoring_fourth" class="form-group">
-              <label>Search ADP or GS #</label>
-              <select  class="form-control select2" name="ADP" placeholder="ADP or GS #"  style="width: 100%;">
-              <option value="">Select Project</option>
-                @foreach ($projects as $project)
-                  <option value="{{$project->ADP}}">{{$project->ADP}} &rarr; {{$project->title}}</option>
-                @endforeach
-              </select>
-              <label >Select a Sub-Sector</label>
-              <select id="sub-sectors" class="form-control select2" multiple="multiple"   style="width: 100%;">
-                @foreach ($sub_sectors as $sub_sector)
-                  @if($sub_sector->status == 1)
-                    <option value="{{$sub_sector->id}}">{{$sub_sector->name}}</option>
-                  @endif
-                @endforeach
-              </select>
-            </div>
-
-            <div id="table1"class="form-group">
-              <label >Select a Project</label>
-              <select id="projects" class="form-control select2"  style="width: 100%;">
-              </select>
-              <input type="submit" class="btn btn-success pull-right" style="margin-top:5%;" value="ADD Project">
-            </div>
-            <!-- /.form-group -->
-          </div>
-          <!-- /.col -->
-        </div>
-        <!-- /.row -->
-      </div>
-      <!-- /.box-body -->
-    </div>
-    <!-- /.box -->
-  </section>
   <section id="section2">
 
   <div class="modal-body row">
@@ -166,11 +67,11 @@ vertical-align: super;
       <div class="form-group">
         <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Type of Evaluation</label>
         <div class="col-sm-8">
-        <select id="evaluation_type" name="evaluation_type" class="form-control select2" style="width: 100%;" required>
-          <option value="">Select Evaluation Type</option>
+        <select id="evaluation_type" name="evaluation_type" class="form-control select2" style="width: 100%;">
+          <option>Select Evaluation Type</option>
           @foreach ($evaluation_types as $evaluation_type)
             @if($evaluation_type->status == 1)
-              <option value="{{$evaluation_type->id}}">{{$evaluation_type->name}}</option>
+              <option value="{{$evaluation_type->id}}" {{$project->evaluation_type_id}} == {{$evaluation_type->id}} ? 'selected' : '' >{{$evaluation_type->name}}</option>
             @endif
           @endforeach
         </select>
@@ -179,32 +80,39 @@ vertical-align: super;
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Name of Project</label>
       <div class="col-sm-8">
-        <input id="title" autocomplete="off" type="text" name="title" class="form-control" placeholder="Title" required>
+        <input id="title" type="text" name="title" class="form-control" placeholder="Title" value="{{$project->title}}">
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Project #</label>
       <div class="col-sm-8">
-        <input id="project_no" type="text" name="project_no" value="{{$project_no}}"  class="form-control" required >
+        <input id="project_no" type="text" name="project_no" value="{{$project->project_no}}"  class="form-control" >
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>GS #</label>
       <div class="col-sm-3">
-        <input type="number" disabled class="form-control" value="{{$current_year}}">
+        <input type="text" disabled class="form-control" value="{{$current_year}}">
       </div>
       <label class="col-sm-1" style="font-size:20px">-</label>
       <div class="col-sm-4">
-        <input type="number" id="ADP" name="ADP" class="form-control" placeholder="GS #" required>
+        <input type="text" id="ADP" name="ADP" class="form-control" placeholder="GS #" value={{$project->ADP}}>
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Sector</label>
       <div class="col-sm-8">
-        <select id="sectors" name="sectors[]" class="form-control select2" multiple="multiple" data-placeholder="Sectors" required style="width: 100%;">
+        <?php $Dptflag=false; ?>
+        <select id="sectors" name="sectors[]" class="form-control select2" multiple="multiple" data-placeholder="Sectors"  style="width: 100%;">
           @foreach ($sectors as $sector)
-            @if($sector->status == 1)
-              <option value="{{$sector->id}}">{{$sector->name}}</option>
+            @foreach ($project->AssignedDepartments as $assignDpt )
+              @if ($assignDpt->Department->SubSector->Sector->id==$sector->id)
+                <?php $Dptflag=true; ?>
+                <option value="{{$sector->id}}" selected>{{$sector->name}}</option>
+              @endif
+            @endforeach
+            @if ($Dptflag==false)
+              <option value="{{$sector->id}}" >{{$sector->name}}</option>
             @endif
           @endforeach
         </select>
@@ -213,31 +121,74 @@ vertical-align: super;
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Sub Sector</label>
       <div class="col-sm-8">
-        <select id="sub_sectors" name="sub-sectors[]" class="form-control select2" required multiple="multiple" data-placeholder="Sub Sectors"  style="width: 100%;">
+        <?php $Dptflag=false; ?>
+        <select id="sub_sectors" name="sub-sectors[]" class="form-control select2" multiple="multiple" data-placeholder="Sub Sectors"  style="width: 100%;">
+          @foreach ($sub_sectors as $sub_sector)
+            @foreach ($project->AssignedDepartments as $assignDpt )
+              @if ($assignDpt->Department->SubSector->id==$sub_sector->id)
+                <?php $Dptflag=true; ?>
+                <option value="{{$sub_sector->id}}" selected>{{$sub_sector->name}}</option>
+              @endif
+            @endforeach
+            @if ($Dptflag==false)
+              <option value="{{$sub_sector->id}}" >{{$sub_sector->name}}</option>
+            @endif
+          @endforeach
         </select>
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Departments</label>
       <div class="col-sm-8">
-        <select id="departments" name="departments[]" required class="form-control select2" multiple="multiple" data-placeholder="Departments"  style="width: 100%;">
+        <?php $Dptflag=false; ?>
+        <select id="departments" name="departments[]" class="form-control select2" multiple="multiple" data-placeholder="Departments"  style="width: 100%;">
+          @foreach ($departments as $department)
+            @foreach ($project->AssignedDepartments as $assignDpt )
+              @if ($assignDpt->Department->id==$department->id)
+                <?php $Dptflag=true; ?>
+                <option value="{{$department->id}}" selected>{{$department->name}}</option>
+              @endif
+            @endforeach
+            @if ($Dptflag==false)
+              <option value="{{$department->id}}" >{{$department->name}}</option>
+            @endif
+          @endforeach
         </select>
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Select Sponsoring Department</label>
       <div class="col-sm-8">
-        <select id="sponsoring_departments" required name="sponsoring_departments[]" class="form-control select2" multiple="multiple" data-placeholder="Sponsoring Department"  style="width: 100%;">
+        <?php $Dptflag=false; ?>
+        <select id="sponsoring_departments" name="sponsoring_departments[]" class="form-control select2" multiple="multiple" data-placeholder="Sponsoring Department"  style="width: 100%;">
+          @foreach ($sponsoring_departments as $sponsoring_department)
+            @foreach ($project->AssignedSponsoringAgencies as $assignsa )
+              @if ($assignsa->SponsoringAgency->id==$sponsoring_department->id)
+                <?php $Dptflag=true; ?>
+                <option value="{{$sponsoring_department->id}}" selected>{{$sponsoring_department->name}}</option>
+              @endif
+            @endforeach
+            @if ($Dptflag==false)
+              <option value="{{$sponsoring_department->id}}" >{{$sponsoring_department->name}}</option>
+            @endif
+          @endforeach
         </select>
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Select Executing Department</label>
       <div class="col-sm-8">
-        <select id="executing_departments" required name="executing_departments[]" class="form-control select2" multiple="multiple" data-placeholder="Executing Department"  style="width: 100%;">
+        <?php $Dptflag=false; ?>
+        <select id="executing_departments" name="executing_departments[]" class="form-control select2" multiple="multiple" data-placeholder="Executing Department"  style="width: 100%;">
           @foreach ($executing_departments as $executing_department)
-            @if($executing_department->status == 1)
-              <option value="{{$executing_department->id}}">{{$executing_department->name}}</option>
+            @foreach ($project->AssignedExecutingAgencies as $assignea )
+              @if ($assignea->ExecutingAgency->id==$executing_department->id)
+                <?php $Dptflag=true; ?>
+                <option value="{{$executing_department->id}}" selected>{{$executing_department->name}}</option>
+              @endif
+            @endforeach
+            @if ($Dptflag==false)
+              <option value="{{$executing_department->id}}" >{{$executing_department->name}}</option>
             @endif
           @endforeach
         </select>
@@ -246,11 +197,15 @@ vertical-align: super;
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Select Assingning Forum</label>
       <div class="col-sm-8">
-        <select id="assigning_forums" required name="assigning_forum" class="form-control select2"  style="width: 100%;">
+        <select id="assigning_forums" name="assigning_forum" class="form-control select2"  style="width: 100%;">
           <option value="">Select Assigning Forum</option>
           @foreach ($assigning_forums as $assigning_forum)
             @if($assigning_forum->status == 1)
+              @if($assigning_forum->id == $project->ProjectDetail->AssigningForum->id)
+              <option value="{{$assigning_forum->id}}" selected>{{$assigning_forum->name}}</option>
+            @else
               <option value="{{$assigning_forum->id}}">{{$assigning_forum->name}}</option>
+            @endif
             @endif
           @endforeach
         </select>
@@ -259,11 +214,15 @@ vertical-align: super;
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Select Approving Forum</label>
       <div class="col-sm-8">
-        <select id="approving_forums" required name="approving_forum" class="form-control select2"  style="width: 100%;">
+        <select id="approving_forums" name="approving_forum" class="form-control select2"  style="width: 100%;">
           <option value="">Select Approving Forum</option>
           @foreach ($approving_forums as $approving_forum)
             @if($approving_forum->status == 1)
+              @if($approving_forum->id == $project->ProjectDetail->ApprovingForum->id)
+                <option value="{{$approving_forum->id}}" selected>{{$approving_forum->name}}</option>
+            @else
               <option value="{{$approving_forum->id}}">{{$approving_forum->name}}</option>
+            @endif
             @endif
           @endforeach
         </select>
@@ -272,31 +231,41 @@ vertical-align: super;
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Currency</label>
       <div class="col-sm-8">
-        <select class="form-control" required name="currency" id="currency">
-          <option data-symbol="$" data-placeholder="0.00">$ USD</option>
-          <option data-symbol="Rs" data-placeholder="0.00" selected>Rs PKR</option>
-          <option data-symbol="€" data-placeholder="0.00">€ EUR</option>
-          <option data-symbol="£" data-placeholder="0.00">£ GBP</option>
-          <option data-symbol="¥" data-placeholder="0">¥ JPY</option>
-          <option data-symbol="$" data-placeholder="0.00">$ CAD</option>
+        {{-- {{dd($project->ProjectDetail->currency == "€ EUR" ? "selected":"")}} --}}
+        <select class="form-control" name="currency" id="currency">
+          <option data-symbol="$" data-placeholder="0.00" {{$project->ProjectDetail->currency}} == "$ USD" ? selected :"">$ USD</option>
+          <option data-symbol="Rs" data-placeholder="0.00" {{$project->ProjectDetail->currency}} == "Rs PKR" ? selected :"">Rs PKR</option>
+          <option data-symbol="€" data-placeholder="0.00"  {{$project->ProjectDetail->currency}} == "€ EUR" ? selected :"">€ EUR</option>
+          <option data-symbol="£" data-placeholder="0.00" {{$project->ProjectDetail->currency}} == "£ GBP" ? selected :"">£ GBP</option>
+          <option data-symbol="¥" data-placeholder="0" {{$project->ProjectDetail->currency}} == "¥ JPY" ? selected :"">¥ JPY</option>
+          <option data-symbol="$" data-placeholder="0.00" {{$project->ProjectDetail->currency}} == "$ CAD" ? selected :"">$ CAD</option>
         </select>
       </div>
     </div>
     <section style="background-color:lightgray;padding:8px">
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Original Approved Cost in Millions</label>
+{{-- {{dd($project->ProjectDetail->origina?l_cost)}} --}}
       <div class="col-sm-8">
-        <input type="number" required id="original_cost" step="0.01" name="original_cost" class="form-control" placeholder="Cost">
+        <input type="number" step="0.01" id="original_cost" name="original_cost" class="form-control" placeholder="Cost" value="{{$project->ProjectDetail->orignal_cost}}">
       </div>
     </div>
     <div class="form-group" id="field">
       <span class="firstspan">
-      <label class="col-sm-4 control-label"></i>Revised Approved Cost in Millions</label>
-      <div class="col-sm-8">
-      <input autocomplete="off" name="revised_approved_costs[]" id="field1" type="number" step="0.01" class="form-control input" data-items="8">
-      <button id="b1" class="btn btn-success add-more pull-right" style="    position: relative;
-      top: -34px;" type="button">+</button>
-      </div>
+        <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Revised Approved Cost in Millions</label>
+        <div class="col-sm-8">
+          <input autocomplete="off" name="revised_approved_costs[]" id="field1" type="text" class="form-control input"value="" data-items="8" value="{{$project->ProjectDetail->original_cost}}">
+          <button id="b1" class="btn btn-success add-more pull-right" style="    position: relative;
+          top: -34px;" type="button">+</button>
+        </div>
+      <?php $c=1 ?>
+      @foreach($project->RevisedApprovedCost as $revised_cost)
+        <div class="added{{$c}}" ><label class="col-sm-4 control-label">Revised Approved Cost {{$c}} in Millions</label>
+          <div class="col-sm-8"><input name="revised_approved_costs[]" autocomplete="off" class="input form-control" id="field{{$c}}" value="{{$revised_cost->cost}}" type="number" step="0.01">
+            <button id="remove{{$c}}" class="btn btn-danger remove-me pull-right" style="    position: relative;top: -34px;" >-</button>
+          </div>
+          <?php $c = $c+1?>
+      @endforeach
       </span>
     </div>
   </section>
@@ -305,7 +274,7 @@ vertical-align: super;
     <div class="form-group" id="datepick" style="margin-top:10px">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Planned Start Date</label>
       <div class='input-group col-sm-8 date' id='planned_start_my_date' >
-           <input type='text' id="planned_start_date" required name="planned_start_date" class="form-control" />
+           <input type='text' id="planned_start_date" name="planned_start_date" class="form-control" />
            <span class="input-group-addon">
                <span class="glyphicon glyphicon-calendar"></span>
            </span>
@@ -314,7 +283,7 @@ vertical-align: super;
     <div class="form-group" id="datepick">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Planned End Date</label>
       <div class='input-group col-sm-8 date' id='planned_end_my_date' >
-           <input type='text' required id="planned_end_date" name="planned_end_date" class="form-control" />
+           <input type='text' id="planned_end_date" name="planned_end_date" class="form-control" />
            <span class="input-group-addon">
                <span class="glyphicon glyphicon-calendar"></span>
            </span>
@@ -323,7 +292,7 @@ vertical-align: super;
   <div class="form-group">
     <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Planned Gestation Period</label>
     <div class="col-sm-8">
-    <input name="gestation_period" required id="planned_gestation_period" type="text" class="form-control input" disabled>
+    <input name="gestation_period" id="planned_gestation_period" type="text" class="form-control input" disabled>
     </div>
     </span>
   </div>
@@ -331,7 +300,7 @@ vertical-align: super;
 
 <section style="background-color:lightgray;padding:8px;margin-top:10px;" id="field_second">
   <div class="form-group" id="datepick" style="margin-top:10px">
-    <label class="datepick col-sm-4 control-label">Revised Start Date</label>
+    <label class="datepick col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Revised Start Date</label>
     <div class='input-group col-sm-8 date' id='revised_start_my_date' >
          <input type='text' id="revised_start_date" name="revised_start_date" class="form-control" />
          <span class="input-group-addon">
@@ -341,7 +310,7 @@ vertical-align: super;
   </div>
   <span class="secondspan"></span>
   <div class="form-group" >
-    <label class="col-sm-4 control-label"></i>Revised EndDate</label>
+    <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Revised EndDate</label>
     <div class="input-group col-sm-8 date" id="revised_end_my_date">
     <input name="revised_end_dates[]" id="date0" class="form-control" >
     <span class="input-group-addon">
@@ -364,7 +333,7 @@ vertical-align: super;
     <div class="form-group" style="margin-top:10px">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Select District</label>
       <div class="col-sm-8">
-        <select id="districts" name="districts[]" required multiple="multiple" class="form-control select2" data-placeholder="Select District" style="width: 100%;">
+        <select id="districts" name="districts[]" multiple="multiple" class="form-control select2" data-placeholder="Select District" style="width: 100%;">
           {{-- <option value=""></option> --}}
           @foreach ($districts as $district)
             @if($district->status == 1)
@@ -410,8 +379,8 @@ vertical-align: super;
     </div>
   </div>
   <div class="form-group">
-    <label id="label_summary_ADP" style="display:none;" class="col-sm-6 control-label">GS #</label>
-    <div id="summary_ADP" class="col-sm-6">
+    <label id="label_summary_ADP" style="display:none;" class="col-sm-3 control-label">GS #</label>
+    <div id="summary_ADP" class="col-sm-4">
     </div>
   </div>
   <div class="form-group">
@@ -470,7 +439,7 @@ vertical-align: super;
     </div>
   </div>
   <div class="form-group">
-    <label id="label_summary_gestation_period" style="display:none;" class="col-sm-6 control-label">Gestation Period</label>
+    <label id="label_summary_gestaiton_period" style="display:none;" class="col-sm-6 control-label">Gestation Period</label>
     <div id="summary_gestation_period" class="col-sm-6">
     </div>
   </div>
@@ -525,9 +494,6 @@ $('div').on('dp.change',function(){
       var month = Math.abs(second[1]-first[1]);
       var days = Math.abs(second[0]-first[0]);
       $("#planned_gestation_period").val(year + " Years "+month+" Months "+days+" Days");
-      $('#summary_gestation_period').empty();
-      $('#summary_gestation_period').append("<label>"+year + " Years "+month+" Months "+days+" Days" + "</label>");
-      $('#label_summary_gestation_period').show('slow');
     }
   }
   if(opt == ""){
@@ -550,7 +516,6 @@ $('div').on('dp.change',function(){
           var days = Math.abs(second[0]-first[0]);
           $("#revised_gestation_period").val(year + " Years "+month+" Months "+days+" Days");
 
-
         }
         else{
           var revised_start = $("#planned_start_date").val();
@@ -562,10 +527,6 @@ $('div').on('dp.change',function(){
                 var days = Math.abs(second[0]-first[0]);
                 $("#revised_gestation_period").val(year + " Years "+month+" Months "+days+" Days");
         }
-        $('#summary_revised_gestation_period').empty();
-        $('#summary_revised_gestation_period').append("<label>"+year + " Years "+month+" Months "+days+" Days" + "</label>");
-        $('#label_summary_revised_gestation_period').show('slow');
-
   }
 
 });
@@ -618,7 +579,7 @@ $('input').on('input',function(){
 $(function () {
   //Initialize Select2 Elements
   $('.select2').select2();
-  $("#section2").hide();
+  //$("#section2").hide();
   $('#planned_start_my_date').datetimepicker({
                 viewMode: 'years',
                 format: 'DD/MM/YYYY'
@@ -690,13 +651,13 @@ $(document).on('change', '#sub_sectors', function() {
 
 
 $(document).ready(function(){
-  var next = 1;
+  var next = {{$project->RevisedApprovedCost->count()}}+1;
   $(".add-more").click(function(e){
       e.preventDefault();
       var addto = "#field" + next;
       var addRemove = "#field" + (next);
       next = next + 1;
-      var newIn = '<div class="added'+(next-1)+'" ><label class="col-sm-4 control-label">Revised Approved Cost '+(next-1)+' in Millions</label><div class="col-sm-8"><input name="revised_approved_costs[]" autocomplete="off" class="input form-control" id="field'+ next +'" value="'+$('input#field1').val()+'" type="number" step="0.01"> ';
+      var newIn = '<div class="added'+(next-1)+'" ><label class="col-sm-4 control-label">Revised Approved Cost '+(next-1)+' in Millions</label><div class="col-sm-8"><input name="revised_approved_costs[]" autocomplete="off" class="input form-control" id="field'+ next +'" value="'+$('input#field1').val()+'" type="text"> ';
     //   var newInput = $(newIn);
       var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me pull-right" style="    position: relative;top: -34px;" >-</button></div> ';
     //   var removeButton = $(removeBtn);

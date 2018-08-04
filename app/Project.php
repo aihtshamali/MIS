@@ -9,8 +9,8 @@ class Project extends Model
     public function user(){
         return $this->belongsTo('App/User');
     }
-    public function projectAssigned(){
-        return $this->hasOne('App\ProjectAssigned');
+    public function AssignedProject(){
+        return $this->hasOne('App\AssignedProject');
     }
     public function ProjectDetail(){
         return $this->hasOne('App\ProjectDetail');

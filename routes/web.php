@@ -39,7 +39,7 @@ Route::group(['middleware' => ['role:admin']], function () {
 });
 
 // For Executive
-Route::prefix('executive')->middleware('role:executive')->group(function () {
+Route::prefix('manager')->middleware('role:manager')->group(function () {
   Route::get('/','ExecutiveController@index')->name('Exec_home');
   Route::get('/pems_tab','ExecutiveController@pems_index')->name('Exec_pems_tab');
   Route::get('/pmms_tab','ExecutiveController@pmms_index')->name('Exec_pmms_tab');
@@ -67,7 +67,6 @@ Route::prefix('officer')->middleware('role:officer')->group(function () {
 
 //For DataEntry
 Route::group(['middleware' => ['role:dataentry']],function () {
-Route::resource('projects','ProjectController');
 Route::post('/onchangefunction','DataEntryController@onSubSectorSelect');
 Route::post('/onsectorselect','DataEntryController@onSectorSelect');
 Route::post('/onsubsectorselect','DataEntryController@onSub_SectorSelect');
@@ -83,7 +82,12 @@ Route::group(['middleware'=>['permission:can.view.profile']],function(){
 Route::group(['middleware'=>['permission:can.problematicremark']],function(){
   Route::resource('Problematicremarks','ProblematicRemarks');
 });
-
+Route::group(['middleware' => ['permission:can.edit.project|can.view.project']],function(){
+  Route::resource('projects','ProjectController');
+});
+Route::get('/dashboard',function(){
+  return view('dashboard');
+});
 Route::get('/403',function(){
   return view('403');
 });

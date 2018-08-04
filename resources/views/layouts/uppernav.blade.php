@@ -74,7 +74,7 @@
                   <li><!-- start message -->
                     <a href="#">
                       <div class="pull-left">
-                        <img src="#" class="img-circle" alt="User Image">
+                        <img src="{{asset('logo.jpg')}}" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         Support Team
@@ -261,17 +261,21 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             @auth
-              <img src="{{asset('uploads/userprofile/'.Auth::user()->profilepic)}}" class="user-image" alt="User Image">
+              {{-- {{dd(Auth::user()->UserDetail)}} --}}
+              @if(Auth::user()->UserDetail->profile_pic)
+              <img src="{{asset('uploads/userprofile/'.Auth::user()->UserDetail->profile_pic)}}" class="user-image" alt="User Image">
+            @else
+              <img src="{{asset('logo.jpg')}}" style="width:10%;" class="img-circle" alt="User Image">
+            @endif
               <span class="hidden-xs">{{ Auth::user()->name }}</span>
             @endauth
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="#" class="img-circle" alt="User Image">
-
+                <img src="{{asset('logo.jpg')}}" class="img-circle" alt="User Image">
                 <p>
-                  Alexander Pierce - Web Developer
+                Dashboard Person
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>
@@ -319,7 +323,7 @@
   </header>
 
 
-  @role('dataEntry')
+  @role('dataentry')
   @include('inc.sidenav')
   @endrole
 
@@ -327,8 +331,11 @@
   @include('inc.officer_sidenav')
   @endrole
 
-  @role('executive')
+  @role('manager')
   @include('inc.executive_sidenav')
+  @endrole
+  @role('admin')
+  @include('inc.sidenav')
   @endrole
 
   @include('inc.sidebar')

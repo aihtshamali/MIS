@@ -12,7 +12,7 @@
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-backward" ></i>Back</a></li>
       <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li>
-     
+
     </ol>
   </section>
 {{--  {{dd($officers)}}  --}}
@@ -24,26 +24,40 @@
           <div class="box box-warning">
             <div class="box-header with-border">
               <h3 class="box-title">ASSIGNED PROJECTS</h3>
-  
+
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
               </div>
             </div>
-
             <div class="box-body">
-                <div class="table-responsive">
+                <div class="table-responsive">                
                   <table class="table table-hover table-striped">
                     <tbody>
-                        <tr >
+                        <thead>
                             <th>Project Number</th>
                             <th>Project Name</th>
                             <th>Project Officers</th>
-                            <th>Date &amp; Time</th>
+                            <th>Assigned Date</th>
                             <th>Progress</th>
                             <th>Comments</th>
-                          </tr>
+                          </thead>
+                          <tbody>
+                            @foreach ($projects as $project)
+                              <tr>
+                                <td>{{$project->project->project_no}}</td>
+                                <td>{{$project->project->title}}</td>
+                                <td>
+                                  @foreach ($project->AssignedProjectTeam as $team)
+                                    {{$team->user->first_name}}
+                                  @endforeach
+                                </td>
+                                <td>{{$project->created_at}}</td>
+                                <td>{{$project->progress}}</td>
+                              </tr>
+                            @endforeach
+                          </tbody>
                     </tbody>
                   </table>
                 </div>

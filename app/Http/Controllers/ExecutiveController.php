@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Project;
+use App\AssignedProject;
 use App\User;
 class ExecutiveController extends Controller
 {
@@ -57,7 +58,9 @@ class ExecutiveController extends Controller
     // }
 
     public function evaluation_assignedprojects(){
-      return view('executive.evaluation.assigned');
+      $projects=AssignedProject::all();
+      // dd($projects);
+      return view('executive.evaluation.assigned',['projects'=>$projects]);
     }
     public function evaluation_completedprojects(){
       return view('executive.evaluation.completed');
