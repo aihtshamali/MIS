@@ -43,18 +43,117 @@ vertical-align: super;
 #table1{
   display: none;
 }
-
+#section2{
+  display: none;
+}
   </style>
 @endsection
 @section('content')
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-  <form class="form-horizontal" action="{{route('projects.update',$project->id)}}" method="POST" enctype="multipart/form-data">
+  <form class="form-horizontal" action="{{route('projects.store')}}" method="POST" enctype="multipart/form-data">
     {{csrf_field()}}
+  <section id="section1">
+    <div id="outerbox" class="box box-default">
+      <div  class="box-header with-border">
+        <h3 class="box-title">Select Project Type</h3>
 
-  
-<section id="section2">
+        {{-- <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+        </div> --}}
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <div class="row">
+          <div id="inner_items" class="col-md-6">
+            <div class="form-group">
+              <label>Type of Projects</label>
+              <select id="type_of_project" name="type_of_project" class="form-control select2" style="width: 100%;">
+                <option>Select Project Type</option>
+                @foreach ($project_types as $project_type)
+                  @if($project_type->status == 1)
+                    <option value="{{$project_type->id}}">{{$project_type->name}}</option>
+                  @endif
+                @endforeach
+
+              </select>
+            </div>
+
+            <div id="second" class="form-group">
+              <label>Phase of Evaluation</label>
+              <select id="phase_of_evaluation" name="phase_of_evaluation" class="form-control select2" style="width: 100%;">
+                <option>Select Evaluation Type</option>
+                @foreach ($sub_project_types as $sub_project_type)
+                  <option value="{{$sub_project_type->id}}">{{$sub_project_type->name}}</option>
+                @endforeach
+              </select>
+            </div>
+            <div id="monitoring_second" class="form-group">
+              <label>Phase of Monitoring</label>
+              <select id="phase_of_monitoring" name="phase_of_monitoring" class="form-control select2" style="width: 100%;">
+                <option>Select Monitoring Type</option>
+                @foreach ($sub_project_types as $sub_project_type)
+                  <option value="{{$sub_project_type->id}}">{{$sub_project_type->name}}</option>
+                @endforeach
+              </select>
+            </div>
+
+
+
+            <div id="fourth" class="form-group">
+              <label>Search ADP or GS #</label>
+              <select class="form-control select2" name="ADP" placeholder="ADP or GS #"  style="width: 100%;">
+              <option value="">Select Project</option>
+                @foreach ($projects as $project)
+                  <option value="{{$project->ADP}}">{{$project->ADP}} &rarr; {{$project->title}}</option>
+                @endforeach
+              </select>
+              <label >Select a Sub-Sector</label>
+              <select id="sub-sectors" class="form-control select2" multiple="multiple"  style="width: 100%;">
+                @foreach ($sub_sectors as $sub_sector)
+                  @if($sub_sector->status == 1)
+                    <option value="{{$sub_sector->id}}">{{$sub_sector->name}}</option>
+                  @endif
+                @endforeach
+              </select>
+            </div>
+            <div id="monitoring_fourth" class="form-group">
+              <label>Search ADP or GS #</label>
+              <select  class="form-control select2" name="ADP" placeholder="ADP or GS #"  style="width: 100%;">
+              <option value="">Select Project</option>
+                @foreach ($projects as $project)
+                  <option value="{{$project->ADP}}">{{$project->ADP}} &rarr; {{$project->title}}</option>
+                @endforeach
+              </select>
+              <label >Select a Sub-Sector</label>
+              <select id="sub-sectors" class="form-control select2" multiple="multiple"   style="width: 100%;">
+                @foreach ($sub_sectors as $sub_sector)
+                  @if($sub_sector->status == 1)
+                    <option value="{{$sub_sector->id}}">{{$sub_sector->name}}</option>
+                  @endif
+                @endforeach
+              </select>
+            </div>
+
+            <div id="table1"class="form-group">
+              <label >Select a Project</label>
+              <select id="projects" class="form-control select2"  style="width: 100%;">
+              </select>
+              <input type="submit" class="btn btn-success pull-right" style="margin-top:5%;" value="ADD Project">
+            </div>
+            <!-- /.form-group -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+  </section>
+  <section id="section2">
 
   <div class="modal-body row">
   <div class="col-md-6">
@@ -69,30 +168,24 @@ vertical-align: super;
         <div class="col-sm-8">
         <select id="evaluation_type" name="evaluation_type" class="form-control select2" style="width: 100%;">
           <option>Select Evaluation Type</option>
-          
           @foreach ($evaluation_types as $evaluation_type)
-          @if($evaluation_type->id == $project->evaluation_type_id)
-          <option value="{{$evaluation_type->id}}" selected>{{$evaluation_type->name}}</option>
-         @else
-          @if($evaluation_type->status == 1)
+            @if($evaluation_type->status == 1)
               <option value="{{$evaluation_type->id}}">{{$evaluation_type->name}}</option>
             @endif
-            @endif
           @endforeach
-
         </select>
       </div>
       </div>
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Name of Project</label>
       <div class="col-sm-8">
-        <input id="title" type="text" name="title" class="form-control" value="{{$project->title}}">
+        <input id="title" type="text" name="title" class="form-control" placeholder="Title">
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Project #</label>
       <div class="col-sm-8">
-        <input id="project_no" type="text" name="project_no" value="{{$project->project_no}}"  class="form-control" >
+        <input id="project_no" type="text" name="project_no" value="{{$project_no}}"  class="form-control" >
       </div>
     </div>
     <div class="form-group">
@@ -102,7 +195,7 @@ vertical-align: super;
       </div>
       <label class="col-sm-1" style="font-size:20px">-</label>
       <div class="col-sm-4">
-        <input type="text" id="ADP" name="ADP" class="form-control" value="{{$project->ADP}}">
+        <input type="text" id="ADP" name="ADP" class="form-control" placeholder="GS #">
       </div>
     </div>
     <div class="form-group">
@@ -135,12 +228,6 @@ vertical-align: super;
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Select Sponsoring Department</label>
       <div class="col-sm-8">
         <select id="sponsoring_departments" name="sponsoring_departments[]" class="form-control select2" multiple="multiple" data-placeholder="Sponsoring Department"  style="width: 100%;">
-            @foreach ($sponsoring_departments as $sponsoring_department)
-            
-            @if($sponsoring_department->status == 1)
-              <option value="{{$sponsoring_department->id}}">{{$sponsoring_department->name}}</option>
-            @endif
-          @endforeach
         </select>
       </div>
     </div>
@@ -186,9 +273,8 @@ vertical-align: super;
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Currency</label>
       <div class="col-sm-8">
         <select class="form-control" name="currency" id="currency">
-          <option data-symbol="$" data-placeholder="0.00" selected>{{$projectdetails->currency}}</option>
           <option data-symbol="$" data-placeholder="0.00">$ USD</option>
-          <option data-symbol="Rs" data-placeholder="0.00" >Rs PKR</option>
+          <option data-symbol="Rs" data-placeholder="0.00" selected>Rs PKR</option>
           <option data-symbol="€" data-placeholder="0.00">€ EUR</option>
           <option data-symbol="£" data-placeholder="0.00">£ GBP</option>
           <option data-symbol="¥" data-placeholder="0">¥ JPY</option>
@@ -200,7 +286,7 @@ vertical-align: super;
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Original Approved Cost in Millions</label>
       <div class="col-sm-8">
-        <input type="number" id="original_cost" name="original_cost" class="form-control" placeholder="Cost" value="{{$projectdetails->orignal_cost}}">
+        <input type="number" id="original_cost" name="original_cost" class="form-control" placeholder="Cost">
       </div>
     </div>
     <div class="form-group" id="field">
@@ -307,13 +393,6 @@ vertical-align: super;
           </div>
   <div class="form-horizontal">
   <div class="box-body">
-     
-  <div class="form-group">
-      <label id="type_of_project" style="display:none;" class="col-sm-6 control-label">Project Type</label>
-      <div id="summary_evaluation_type" class="col-sm-6">
-          
-      </div>
-    </div>
     <div class="form-group">
       <label id="label_summary_evaluation_type" style="display:none;" class="col-sm-6 control-label">Evaluation Type</label>
       <div id="summary_evaluation_type" class="col-sm-6">
@@ -531,7 +610,7 @@ $('input').on('input',function(){
 $(function () {
   //Initialize Select2 Elements
   $('.select2').select2();
-
+  $("#section2").hide();
   $('#planned_start_my_date').datetimepicker({
                 viewMode: 'years',
                 format: 'DD/MM/YYYY'
@@ -706,9 +785,9 @@ $.ajax({
     "_token": "{{ csrf_token() }}",
     'data' : opt}, // a JSON object to send back
   success: function(response){ // What to do if we succeed
-    $("#project").empty();
+    $("#projects").empty();
     $.each(response, function () {
-        $('#project').append("<option value=\""+this.id+"\">"+this.ADP +" &rarr; " +this.title+"</option>");
+        $('#projects').append("<option value=\""+this.id+"\">"+this.ADP +" &rarr; " +this.title+"</option>");
     });
   },
   error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail

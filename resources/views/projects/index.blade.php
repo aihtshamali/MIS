@@ -30,7 +30,7 @@
               {{-- <td>{{$project->getUser($project->created_by)->name}}</td> --}}
               <td>User</td>
               <td>{{$project->created_at}}</td>
-              <td><a href="{{asset('storage/uploads/projects/'.$project->project_details->project_attachements)}}" download>File</a></td>
+              <td><a href="{{asset('storage/uploads/projects/'.$project->ProjectDetail->project_attachements)}}" download>File</a></td>
           </tr>
         @endforeach
       </tbody>

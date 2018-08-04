@@ -10,14 +10,10 @@ class Project extends Model
         return $this->belongsTo('App/User');
     }
     public function projectAssigned(){
-        return $this->belongsTo('App\ProjectAssigned');
+        return $this->hasOne('App\ProjectAssigned');
     }
-<<<<<<< HEAD
     public function projectDetails(){
         return $this->hasOne('App/ProjectDetail');
-=======
-    public function project_details(){
-        return $this->hasOne('App\ProjectDetail');
     }
     public function AssignedSponsoringAgencies(){
         return $this->hasMany('App\AssignedSponsoringAgency');
@@ -25,12 +21,18 @@ class Project extends Model
     public function AssignedExecutingAgencies(){
         return $this->hasMany('App\AssignedExecutingAgency');
     }
+    public function AssignedApprovingForum(){
+        return $this->hasMany('App\ApprovingForum');
+    }
+    public function AssignedAssigningForum(){
+        return $this->hasMany('App\AssigningForum');
+    }
+
     public function AssignedDistricts(){
         return $this->hasMany('App\AssignedDistrict');
     }
     public function AssignedDepartments(){
         return $this->hasMany('App\AssignedDepartment');
->>>>>>> 52ecd0652e76b3d11f63e3bdac40716060f690e1
     }
     public function ProjectType(){
       return $this->belongsTo('App\ProjectType');

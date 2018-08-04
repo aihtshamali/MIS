@@ -217,17 +217,31 @@ class ProjectController extends Controller
     {
 
 
-    $project=Project::where('id',$id)->first();
-
-    $projectdetails=ProjectDetail::where('project_id',$id)->first();
-
-    //dd($projectdetails);
-    $districts = District::all();
+      $project_types = ProjectType::all();
+      $evaluation_types = EvaluationType::all();
+      $sub_sectors = SubSector::all();
+      $projects = Project::all();
+      $evaluation_types = EvaluationType::all();
+      $districts = District::all();
       $sectors  = Sector::all();
       $sponsoring_departments = SponsoringAgency::all();
       $executing_departments = ExecutingAgency::all();
       $assigning_forums = AssigningForum::all();
-      $project_no = Str::random();
+      // $project_no = Str::random();
+      $current_year = date('Y');
+      $approving_forums = ApprovingForum::all();
+      $sub_project_types = SubProjectType::all();
+      $projectfor_no=Project::select('projects.project_no')->latest()->first();
+      if($projectfor_no){
+      $projectNo=explode('-',$projectfor_no->project_no);
+      $project_no=$projectNo[0].'-'.($projectNo[1]+1);
+      }
+      else {
+        $project_no = "PRO-1";
+      }
+      foreach ($districts as $district) {
+        $district->name = $district->name . "/";
+      }
       foreach ($sectors as $sector) {
         $sector->name = $sector->name . "/";
       }
@@ -240,9 +254,7 @@ class ProjectController extends Controller
       foreach ($assigning_forums as $assigning_forum) {
         $assigning_forum->name = $assigning_forum->name . "/";
       }
-
-     return view('projects.edit',compact('districts','projectdetails','project','sectors','sponsoring_departments','executing_departments','assigning_forums','project_no'));
-    //   // return view('projects.edit',['project'=>$project]);
+      return view('projects.edit',compact('sub_project_types','districts','sectors','sponsoring_departments','executing_departments','assigning_forums','project_no','current_year','approving_forums','evaluation_types','project_types','evaluation_types','sub_sectors','projects'));
     }
 
     /**
