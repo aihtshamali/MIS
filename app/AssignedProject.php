@@ -14,6 +14,9 @@ class AssignedProject extends Model
     public function project(){
         return $this->belongsTo('App\Project');
     }
+    public function ProjectLog(){
+        return $this->hasOne('App\ProjectLog');
+    }
     public function AssignedProjectTeam(){
       return $this->hasMany('App\AssignedProjectTeam');
     }
