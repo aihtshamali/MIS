@@ -9,7 +9,10 @@ use App\AssignedProject;
 use App\AssignedProjectTeam;
 use App\AssignedProjectManager;
 use App\User;
+use App\Notification;
 use Auth;
+use App\Events\ProjectAssignedEvent;
+use App\Events\ProjectAssignedManagerEvent;
 use jeremykenedy\LaravelRoles\Models\Role;
 use Carbon\Carbon;
 use DB;
@@ -22,6 +25,15 @@ class ProjectAssignController extends Controller
      */
      public function index()
      {
+       $unassigned=Project::select('projects.*')
+      ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+      ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
+      ->whereNull('assigned_project_managers.project_id')
+      ->whereNull('assigned_projects.project_id')
+      ->get();
+      // dd($unassigned);
+       $assigned=AssignedProject::all();
+       $assignedtoManager=AssignedProjectManager::all();
        $managers=User::select('roles.*','role_user.*','users.*')
          ->leftJoin('role_user','role_user.user_id','users.id')
          ->leftJoin('roles','roles.id','role_user.role_id')
@@ -44,12 +56,11 @@ class ProjectAssignController extends Controller
          // ->get();
          $projects=Project::select('projects.*')
         ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+        ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
+        ->whereNull('assigned_project_managers.project_id')
         ->whereNull('assigned_projects.project_id')
         ->get();
-         // dd($projects);
-         // $users = User::all();
-         // dd($projects);
-         return view('project_assigned.index',['officers'=>$officers,'managers'=>$managers,'projects'=>$projects,'users'=>$users]);
+         return view('project_assigned.index',['unassigned'=>$unassigned,'assignedtoManager'=>$assignedtoManager,'assigned'=>$assigned,'officers'=>$officers,'managers'=>$managers,'projects'=>$projects,'users'=>$users]);
      }
      /**
       * Show a newly created resource in storage.
@@ -59,6 +70,16 @@ class ProjectAssignController extends Controller
       */
     public function create(Request $request)
     {
+      $unassigned=Project::select('projects.*')
+     ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+     ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
+     ->whereNull('assigned_project_managers.project_id')
+     ->whereNull('assigned_projects.project_id')
+     ->get();
+     // dd($unassigned);
+      $assigned=AssignedProject::all();
+      $assignedtoManager=AssignedProjectManager::all();
+
       if(!($request->priority && $request->project_id)){
         return redirect()->route('assignproject.index')->withMessage('Please select the Priority');
       }
@@ -76,11 +97,7 @@ class ProjectAssignController extends Controller
       ->orderBy('roles.name','ASC')
       ->where('roles.name','officer')
       ->get();
-      // dd($officer);
-      // dd()
-      // dd($officers);
-      // $Officers=
-      return view('executive.evaluation.consultant_assign',['priority'=>$request->priority,'project_id'=>$request->project_id,'officers'=>$officers,'managers'=>$managers]);
+      return view('executive.evaluation.consultant_assign',['priority'=>$request->priority,'assignedtoManager'=>$assignedtoManager,'project_id'=>$request->project_id,'officers'=>$officers,'managers'=>$managers,'assigned'=>$assigned,'unassigned'=>$unassigned]);
     }
 
     /**
@@ -92,7 +109,6 @@ class ProjectAssignController extends Controller
 
      public function store(Request $request)
      {
-        // dd($request->all());
         if($request->priority=='high_priority'){
           $priority=3;
         }
@@ -106,13 +122,15 @@ class ProjectAssignController extends Controller
         $projects = $request->projects;
         if($request->assign_to=="officer"){
           $users = $request->users;
-         // dd($current_time);
+
          $assignProject= new AssignedProject();
          $assignProject->project_id=$request->project_id;
          $assignProject->assigned_date=$current_time;
          $assignProject->priority=$priority;
          $assignProject->assigned_by=Auth::id();
          $assignProject->save();
+         $table_name='assigned_projects';
+         $table_id=$assignProject->id;
 
          foreach ($request->officer_id as $officer) {
            $assignedProjectTeam = new AssignedProjectTeam();
@@ -123,6 +141,15 @@ class ProjectAssignController extends Controller
            }
            $assignedProjectTeam->save();
          }
+
+         $notification = new Notification();
+         $notification->user_id=Auth::id();
+         $notification->text= 'Assigned to '.$request->assign_to.' with '.$request->priority;
+         $notification->table_name=$table_name;
+         $notification->table_id=$table_id;
+         $notification->save();
+         broadcast(new ProjectAssignedEvent(AssignedProject::where('project_id',$request->project_id)->first(),$notification))->toOthers();
+
        }else if($request->assign_to=='manager'){
          foreach ($request->manager_id as $manager) {
            $assignedProjectManager = new AssignedProjectManager();
@@ -130,6 +157,15 @@ class ProjectAssignController extends Controller
            $assignedProjectManager->user_id=$manager;
            $assignedProjectManager->save();
          }
+         $table_name='assigned_project_managers';
+         $table_id=$assignedProjectManager->id;
+         $notification = new Notification();
+         $notification->user_id=Auth::id();
+         $notification->text= 'Assigned to '.$request->assign_to.' with '.$request->priority;
+         $notification->table_name=$table_name;
+         $notification->table_id=$table_id;
+         $notification->save();
+         broadcast(new ProjectAssignedManagerEvent(AssignedProjectManager::where('project_id',$request->project_id)->first(),$notification))->toOthers();
        }
          return redirect('/dashboard');
      }

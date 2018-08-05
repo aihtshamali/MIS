@@ -32,16 +32,16 @@
               </div>
             </div>
             <div class="box-body">
-                <div class="table-responsive">                
+                <div class="table-responsive">
                   <table class="table table-hover table-striped">
                     <tbody>
                         <thead>
                             <th>Project Number</th>
                             <th>Project Name</th>
                             <th>Project Officers</th>
+                            <th>Priority</th>
                             <th>Assigned Date</th>
                             <th>Progress</th>
-                            <th>Comments</th>
                           </thead>
                           <tbody>
                             @foreach ($projects as $project)
@@ -50,16 +50,62 @@
                                 <td>{{$project->project->title}}</td>
                                 <td>
                                   @foreach ($project->AssignedProjectTeam as $team)
-                                    {{$team->user->first_name}}
+                                    @if ($team->team_lead==1)
+                                      <span style="color:green">{{$team->user->first_name}}</span>
+                                    @else
+                                      <span class="">{{$team->user->first_name}}</span>
+                                    @endif
                                   @endforeach
                                 </td>
+                                <td>
+                                  @if ($project->priority==3)
+                                    High
+                                  @elseif ($project->priority==2)
+                                    Normal
+                                  @else
+                                    Low
+                                  @endif
+                                </td>
                                 <td>{{$project->created_at}}</td>
-                                <td>{{$project->progress}}</td>
+                                <td>{{$project->progress}}%</td>
                               </tr>
                             @endforeach
                           </tbody>
                     </tbody>
                   </table>
+                <h3 class="box-title">ASSIGNED PROJECTS</h3>
+                  <table class="table table-hover table-striped">
+                    <tbody>
+                        <thead>
+                            <th>Project Number</th>
+                            <th>Project Name</th>
+                            <th>Assigned To</th>
+                            <th>Priority</th>
+                            <th>Assigned Date</th>
+                          </thead>
+                          <tbody>
+
+                  @foreach ($managerProjects as $project)
+                    <tr>
+                      <td>{{$project->project->project_no}}</td>
+                      <td>{{$project->project->title}}</td>
+                      <td>
+                        <span class="">{{$project->user->first_name}}</span>
+                      </td>
+                      <td>
+                        @if ($project->priority==3)
+                          High
+                        @elseif ($project->priority==2)
+                          Normal
+                        @else
+                          Low
+                        @endif
+                      </td>
+                      <td>{{$project->created_at}}</td>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table>
                 </div>
           </div>
 

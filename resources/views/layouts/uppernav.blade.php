@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>DGME</title>
+
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -138,16 +140,16 @@
             </ul>
           </li>
           <!-- Notifications: style can be found in dropdown.less -->
-          <li class="dropdown notifications-menu">
+          <li class="dropdown notifications-menu ">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
+              <span class="label label-warning notificationCount">10</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
+              <li class="header">You have <span class="notificationCount">10</span> notifications</li>
               <li>
                 <!-- inner menu: contains the actual data -->
-                <ul class="menu">
+                <ul class="notification_menu menu">
                   <li>
                     <a href="#">
                       <i class="fa fa-users text-aqua"></i> 5 new members joined today
@@ -259,7 +261,7 @@
           </li>
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <a  class="dropdown-toggle" data-toggle="dropdown">
             @auth
               {{-- {{dd(Auth::user()->UserDetail)}} --}}
               @if(Auth::user()->UserDetail->profile_pic)
@@ -275,8 +277,8 @@
               <li class="user-header">
                 <img src="{{asset('logo.jpg')}}" class="img-circle" alt="User Image">
                 <p>
-                Dashboard Person
-                  <small>Member since Nov. 2012</small>
+                {{Auth::user()->first_name}}
+                  <small>Member since {{date('M Y',strtotime(Auth::user()->created_at))}}</small>
                 </p>
               </li>
               <!-- Menu Body -->
@@ -337,9 +339,9 @@
   @role('admin')
   @include('inc.sidenav')
   @endrole
-
   @include('inc.sidebar')
 
+  {{-- {{dd(\App\AssignedProjectTeam::where('assigned_project_id','1')->where('user_id','2002')->first())}} --}}
   @yield('content')
 
 </div>
@@ -375,8 +377,57 @@
 <script src="{{asset('js/AdminLTE/jquery.inputmask.js')}}"></script>
 <script src="{{asset('js/AdminLTE/jquery.inputmask.date.extensions.js')}}"></script>
 <script src="{{asset('js/AdminLTE/jquery.inputmask.extensions.js')}}"></script>
+<script src="{{asset('js/Customvue.min.js')}}"></script>
 
 @yield('scripttags')
+
+  <script>
+  const app = new Vue({
+    el: '.notifications-menu',
+    data: {
+      notifications: {},
+      user_id: {!! Auth::check() ? Auth::id() : 'null' !!}
+    },
+    mounted() {
+      this.getNotifications();
+      this.listen();
+    },
+    methods: {
+      getNotifications() {
+        axios.get('/api/notifications')
+              .then((response) => {
+                this.notifications = response.data
+                console.log(response.data);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+      },
+      listen() {
+        Echo.private('projectAssigned.'+this.user_id)
+            .listen('ProjectAssignedEvent', (notification) => {
+              this.notifications.unshift(notification);
+              console.log(notification);
+            });
+            Echo.private('projectAssignedManager.'+this.user_id)
+                .listen('ProjectAssignedManagerEvent', (notification) => {
+                  this.notifications.unshift(notification);
+                  console.log(notification);
+                });
+            // Echo.private('chats.'+this.user_id)
+            //     .listen('ChatEvent', (message) => {
+            //       this.messages.unshift(message);
+            //       console.log(message);
+            //       console.log('message');
+            //     })
+
+      }
+    }
+  })
+
+    </script>
+
+
 
 
 <!-- Mirrored from adminlte.io/themes/AdminLTE/index2.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jul 2018 04:56:24 GMT -->

@@ -73,19 +73,7 @@
               <select class="form-control select2" multiple="multiple" data-placeholder="Select Manager"
                       style="width: 100%;" name="manager_id[]">
                   @foreach ($managers as $manager)
-                    @php
-                      $head='';
-                    @endphp
-                    @if($manager->sector->name!=$head)
-                    <optgroup label = "{{$manager->sector->name}}">
-                    @endif
                       <option value="{{$manager->id}}">{{$manager->first_name}}</option>
-                    @if($manager->sector->name!=$head && $head!='')
-                    </optgroup>
-                        @php
-                        $head=$manager->sector->name;
-                        @endphp
-                    @endif
                   @endforeach
               </select>
             </div>

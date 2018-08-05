@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 
 
 Route::get('/chats','ChatController@index');
+Route::get('/notifications','NotificationController@index');
 // dd(Auth);
 Route::post('/chats', 'ChatController@store');
 Route::middleware('auth:api')->group(function () {
