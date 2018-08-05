@@ -13,4 +13,7 @@ class AssignedProjectManager extends Model
         return $this->belongsTo('App\AssignedProject');
     }
 
+    public function Project(){
+      return $this->belongsTo('App\Project');
+    }
 }

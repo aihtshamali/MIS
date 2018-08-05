@@ -155,7 +155,11 @@
 
                   </div>
                   <div class="col-md-1">
-                    <button type="Reviewed" class="btn btn-success pull-right"> Reviewed</button>
+                    <form class="" action="{{route('review_forms')}}" method="post">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="assigned_project_id" value="{{$project_data->id}}">
+                      <button type="submit" class="btn btn-success pull-right"> Reviewed</button>
+                    </form>
                   </div>
                 </div>
 

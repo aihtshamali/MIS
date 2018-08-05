@@ -42,7 +42,7 @@ class DirectorController extends Controller
         ->leftjoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
         ->where('user_id',Auth::id())
         ->get();
-        dd($projects);
+      
         return view('Director.SSR_D.Evaluation_projects.assigned',['projects'=>$projects]);
       }
     /**

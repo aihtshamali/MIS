@@ -75,6 +75,7 @@ Route::prefix('officer')->middleware('role:officer')->group(function () {
   Route::get('/activities_evaluation/{project_id}','OfficerController@evaluation_activities')->name('evaluation_activities');
   Route::get('/completed_evaluation','OfficerController@evaluation_completed')->name('completed_evaluation');
   Route::get('/review_form/{project_id}','OfficerController@review_form')->name('review_form');
+  Route::post('/review_form','OfficerController@review_forms')->name('review_forms');
 
 });
 
@@ -95,9 +96,9 @@ Route::group(['middleware'=>['permission:can.view.profile']],function(){
 Route::group(['middleware'=>['permission:can.problematicremark']],function(){
   Route::resource('Problematicremarks','ProblematicRemarks');
 });
-Route::group(['middleware' => ['permission:can.edit.project|can.view.project']],function(){
+// Route::group(['middleware' => ['permission:can.edit.project|can.view.project']],function(){
   Route::resource('projects','ProjectController');
-});
+// });
 Route::get('/dashboard',function(){
   return view('dashboard');
 });

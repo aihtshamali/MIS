@@ -65,14 +65,23 @@
               <li><a href="{{route('new_evaluation')}}"><i class="fa fa-circle-o"></i> New Assignments
                {{--  dd($officer);
                 @if($officer->count()>0)  --}}
-
                   <span class="pull-right-container">
-                    <span class="label label-danger pull-right">new</span>
-                </span>
+                    @if (isset($officerAssignedCount))
+                      <span class="label label-danger pull-right">{{$officerAssignedCount}}</span>
+                    @endif
+                  </span>
 
               {{--  @endif  --}}
             </a></li>
-              <li><a href="{{route('inprogress_evaluation')}}"><i class="fa fa-circle-o"></i> In-Progress</a></li>
+              <li><a href="{{route('inprogress_evaluation')}}"><i class="fa fa-circle-o"></i> In-Progress
+                <span class="pull-right-container">
+                  @if (isset($officerInProgressCount))
+                    <span class="label label-danger pull-right">{{$officerInProgressCount}}</span>
+                  @endif
+
+                </span>
+
+              </a></li>
               <li><a href="{{route('completed_evaluation')}}"><i class="fa fa-circle-o"></i> Completed</a></li>
             </ul>
           </li>

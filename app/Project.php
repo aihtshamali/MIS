@@ -31,6 +31,9 @@ class Project extends Model
     public function AssignedDistricts(){
         return $this->hasMany('App\AssignedDistrict');
     }
+    public function AssignedProjectManager(){
+        return $this->hasMany('App\AssignedProjectManager');
+    }
     public function AssignedDepartments(){
         return $this->hasMany('App\AssignedDepartment');
     }
