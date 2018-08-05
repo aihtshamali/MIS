@@ -391,6 +391,7 @@
     el: '.notifications-menu',
     data: {
       notifications: {},
+      user: {!! Auth::user() !!},
       user_id: {!! Auth::check() ? Auth::id() : 'null' !!}
     },
     mounted() {
@@ -399,7 +400,7 @@
     },
     methods: {
       getNotifications() {
-        axios.get('/api/notifications')
+        axios.get('/notifications',{'user' :this.user})
               .then((response) => {
                 this.notifications = response.data
                 console.log(response.data);

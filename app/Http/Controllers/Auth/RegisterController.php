@@ -40,15 +40,6 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-      if (Auth::user()->hasRole('executive')) {
-        $this->redirectTo='/executive';
-      }
-      else if (Auth::user()->hasRole('officer')) {
-        $this->redirectTo='/officer';
-      }
-      else if (Auth::user()->hasRole('manager')) {
-        $this->redirectTo='/manager';
-      }
         // $this->middleware('guest');
     }
 
