@@ -12,7 +12,7 @@
             <p>Admin Dashboard</p>
           @endrole
           @role('dataentry')
-            <p>User Dashboard</p>
+            <p>Data Entry Dashboard</p>
           @endrole
           {{-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> --}}
         </div>

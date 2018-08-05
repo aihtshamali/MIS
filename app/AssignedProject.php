@@ -20,6 +20,9 @@ class AssignedProject extends Model
     public function AssignedProjectTeam(){
       return $this->hasMany('App\AssignedProjectTeam');
     }
+    public function AssignedProjectManager(){
+        return $this->hasOne('App\AssignedProjectManager');
+      }
     // public function getProject($id){
     //     return Project::where('id',$id)->first();
     // }

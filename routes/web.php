@@ -38,7 +38,7 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::resource('sector','SectorController');
 });
 
-// For Executive
+// For Manager
 Route::prefix('manager')->middleware('role:manager')->group(function () {
   Route::get('/','ExecutiveController@index')->name('Exec_home');
   Route::get('/pems_tab','ExecutiveController@pems_index')->name('Exec_pems_tab');
@@ -50,6 +50,19 @@ Route::prefix('manager')->middleware('role:manager')->group(function () {
   Route::get('/evaluation_assigned','ExecutiveController@evaluation_assignedprojects')->name('Exec_evaluation_assigned');
   Route::get('/evaluation_completed','ExecutiveController@evaluation_completedprojects')->name('Exec_evaluation_completed');
   Route::resource('assignproject','ProjectAssignController');
+});
+
+
+// For Executive
+Route::prefix('executive')->middleware('role:executive')->group(function () {
+  //for ssr&d
+  Route::get('/','DirectorController@index')->name('RnD_home'); 
+  Route::get('/pems_tab','DirectorController@pems_index')->name('RnD_pems_tab');
+  Route::get('/pmms_tab','DirectorController@pmms_index')->name('RnD_pmms_tab');
+  Route::get('/tpv_tab','DirectorController@tpv_index')->name('RnD_tpv_tab'); 
+  Route::get('/inquiry','DirectorController@inquiry_index')->name('RnD_inquiry_tab');
+  Route::get('/evaluation_assigned','DirectorController@evaluation_assignedprojects')->name('RnD_evaluation_assigned');
+  
 });
 
 //officers

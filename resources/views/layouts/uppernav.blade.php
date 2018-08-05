@@ -331,9 +331,14 @@
   @include('inc.officer_sidenav')
   @endrole
 
+  @role('executive')
+  @include('inc.director_RND_sidenav')
+  @endrole
+
   @role('manager')
   @include('inc.executive_sidenav')
   @endrole
+
   @role('admin')
   @include('inc.sidenav')
   @endrole

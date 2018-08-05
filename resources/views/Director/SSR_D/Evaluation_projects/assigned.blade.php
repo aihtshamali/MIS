@@ -7,7 +7,7 @@
 
   <section class="content-header">
     <h1>
-    ASSIGNED EVALUATION PROJECTS
+    ASSIGNED EVALUATION PROJECTS <button class="btn btn-danger" style="color:white;font-weight:bold font-size:20px;">{{$projects->count()}}</button>
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-backward" ></i>Back</a></li>
@@ -38,7 +38,7 @@
                         <thead>
                             <th>Project Number</th>
                             <th>Project Name</th>
-                          
+                            <th>Project Officers</th>
                             <th>Assigned Date</th>
                             <th>Progress</th>
                             <th>Comments</th>
@@ -48,7 +48,11 @@
                               <tr>
                                 <td>{{$project->project->project_no}}</td>
                                 <td>{{$project->project->title}}</td>
-                                
+                                <td>
+                                  @foreach ($project->AssignedProjectTeam as $team)
+                                    {{$team->user->first_name}}
+                                  @endforeach
+                                </td>
                                 <td>{{$project->created_at}}</td>
                                 <td>{{$project->progress}}</td>
                               </tr>

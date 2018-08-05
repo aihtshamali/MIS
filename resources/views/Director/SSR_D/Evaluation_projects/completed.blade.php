@@ -12,10 +12,10 @@
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-backward" ></i>Back</a></li>
       <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li>
-
+     
     </ol>
   </section>
-{{--  {{dd($officers)}}  --}}
+
   <section class="content">
       {{--  sekect consulatants  --}}
       <div class="row">
@@ -23,37 +23,28 @@
           {{--  Chart 1  --}}
           <div class="box box-warning">
             <div class="box-header with-border">
-              <h3 class="box-title">ASSIGNED PROJECTS</h3>
-
+              <h3 class="box-title">Completed PROJECTS</h3>
+  
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
               </div>
             </div>
+
             <div class="box-body">
-                <div class="table-responsive">                
+                <div class="table-responsive">
                   <table class="table table-hover table-striped">
                     <tbody>
-                        <thead>
+                        <tr >
                             <th>Project Number</th>
                             <th>Project Name</th>
-                          
-                            <th>Assigned Date</th>
-                            <th>Progress</th>
+                            <th>Project Officers</th>
+                            <th>Date Start</th>
+                            <th>Date End</th>
                             <th>Comments</th>
-                          </thead>
-                          <tbody>
-                            @foreach ($projects as $project)
-                              <tr>
-                                <td>{{$project->project->project_no}}</td>
-                                <td>{{$project->project->title}}</td>
-                                
-                                <td>{{$project->created_at}}</td>
-                                <td>{{$project->progress}}</td>
-                              </tr>
-                            @endforeach
-                          </tbody>
+                            <th>Progress</th>
+                          </tr>
                     </tbody>
                   </table>
                 </div>
