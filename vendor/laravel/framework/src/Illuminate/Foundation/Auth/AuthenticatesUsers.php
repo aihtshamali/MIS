@@ -5,7 +5,6 @@ namespace Illuminate\Foundation\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
-
 trait AuthenticatesUsers
 {
     use RedirectsUsers, ThrottlesLogins;
@@ -98,7 +97,6 @@ trait AuthenticatesUsers
     protected function sendLoginResponse(Request $request)
     {
         $request->session()->regenerate();
-
         $this->clearLoginAttempts($request);
 
         return $this->authenticated($request, $this->guard()->user())
@@ -114,7 +112,7 @@ trait AuthenticatesUsers
      */
     protected function authenticated(Request $request, $user)
     {
-        //
+      
     }
 
     /**

@@ -77,7 +77,7 @@ class ProjectAssignController extends Controller
      ->whereNull('assigned_project_managers.project_id')
      ->whereNull('assigned_projects.project_id')
      ->get();
-    
+
       $assigned=AssignedProject::all();
       $assignedtoManager=AssignedProjectManager::all();
 
@@ -123,54 +123,64 @@ class ProjectAssignController extends Controller
         $projects = $request->projects;
         if($request->assign_to=="officer"){
           $users = $request->users;
-
          $assignProject= new AssignedProject();
          $assignProject->project_id=$request->project_id;
          $assignProject->assigned_date=$current_time;
          $assignProject->priority=$priority;
          $assignProject->assigned_by=Auth::id();
+         // dd($assignProject->project);
          $assignProject->save();
          $table_name='assigned_projects';
          $table_id=$assignProject->id;
-
+         $notif_officers='';
          foreach ($request->officer_id as $officer) {
            $assignedProjectTeam = new AssignedProjectTeam();
            $assignedProjectTeam->assigned_project_id=$assignProject->id;
            $assignedProjectTeam->user_id=$officer;
+           if($notif_officers!=''){
+             $notif_officers=$notif_officers.' , ';
+           }
+           $notif_officers= $notif_officers . $assignedProjectTeam->user->first_name ;
            if($officer==$request->team_lead){
              $assignedProjectTeam->team_lead=true;
+             $notif_officers= $notif_officers. ' as Team Lead';
            }
            $assignedProjectTeam->save();
          }
-
          $notification = new Notification();
          $notification->user_id=Auth::id();
-         $notification->text= 'Assigned to '.$request->assign_to.' with '.$request->priority;
+         $notification->text= $assignProject->project->title.' project assigned to '.$notif_officers.' with '.$request->priority;
          $notification->table_name=$table_name;
          $notification->table_id=$table_id;
          $notification->save();
          broadcast(new ProjectAssignedEvent(AssignedProject::where('project_id',$request->project_id)->first(),$notification))->toOthers();
 
        }else if($request->assign_to=='manager'){
+         $notif_manager='';
          foreach ($request->manager_id as $manager) {
            $assignedProjectManager = new AssignedProjectManager();
 
            $assignedProjectManager->project_id=$request->project_id;
            $assignedProjectManager->priority=$priority;
+           $assignedProjectManager->assigned_by=Auth::id();
            $assignedProjectManager->user_id=$manager;
+           if($notif_manager!='')
+              $notif_manager= $notif_manager . ', ';
+           $notif_manager= $notif_manager . $assignedProjectManager->user->first_name ;
+
            $assignedProjectManager->save();
          }
          $table_name='assigned_project_managers';
          $table_id=$assignedProjectManager->id;
          $notification = new Notification();
          $notification->user_id=Auth::id();
-         $notification->text= 'Assigned to '.$request->assign_to.' with '.$request->priority;
+         $notification->text= $assignProject->project->title.' project assigned to '.$notif_manager.' with '.$request->priority;
          $notification->table_name=$table_name;
          $notification->table_id=$table_id;
          $notification->save();
          broadcast(new ProjectAssignedManagerEvent(AssignedProjectManager::where('project_id',$request->project_id)->first(),$notification))->toOthers();
        }
-         return redirect('/dashboard');
+         return redirect()->route('Exec_evaluation_assigned');
      }
 
     /**
