@@ -121,6 +121,10 @@ class ExecutiveController extends Controller
       return view('executive.evaluation.completed',['assigned'=>$assigned,'unassigned'=>$unassigned]);
     }
 
+    public function reviewed_projects()
+    {
+      return view('executive.evaluation.reviewed_projects');
+    }
 
 
 }

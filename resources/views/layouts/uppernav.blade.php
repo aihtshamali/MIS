@@ -143,10 +143,10 @@
           <li class="dropdown notifications-menu ">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
-              <span class="label label-warning notificationCount" v-model="topCount">0</span>
+              <span class="label label-warning notificationCount" >@{{topCount}}</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have <span v-model="NotificationsCount"></span> notifications</li>
+              <li class="header">You have <span>@{{topCount}}</span> notifications</li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="notification_menu menu" >
@@ -407,7 +407,7 @@
               .then((response) => {
                 this.notifications = response.data;
                 this.topCount=response.data.length;
-                console.log(response.data);
+                console.log(this.notifications);
               })
               .catch(function (error) {
                 console.log(error);

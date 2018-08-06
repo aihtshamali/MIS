@@ -50,6 +50,7 @@ Route::prefix('manager')->middleware('role:manager')->group(function () {
   Route::get('/evaluation_assigned','ExecutiveController@evaluation_assignedprojects')->name('Exec_evaluation_assigned');
   Route::get('/evaluation_completed','ExecutiveController@evaluation_completedprojects')->name('Exec_evaluation_completed');
   Route::resource('assignproject','ProjectAssignController');
+  Route::get('/evaluation_reviewed','ExecutiveController@reviewed_projects');
 });
 
 

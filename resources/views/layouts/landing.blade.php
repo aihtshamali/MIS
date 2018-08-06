@@ -87,10 +87,19 @@
            <div class="pull-right" style="margin-top:14px">
              @auth
                @role('admin')
+               <a href="{{ url('/admin') }}">Home</a>
+               @endrole
+               @role('executive')
+               <a href="{{ url('/executive') }}">Home</a>
+               @endrole
+               @role('manager')
+               <a href="{{ url('/manager') }}">Home</a>
+               @endrole
+               @role('dataentry')
                <a href="{{ route('projects.index') }}">Home</a>
                @endrole
                @role('user')
-               <a href="{{ route('projects.create') }}">Home</a>
+               <a href="{{ route('projects.index') }}">Home</a>
                @endrole
                <li><strong><a href="{{ route('logout') }}"
                       onclick="event.preventDefault();

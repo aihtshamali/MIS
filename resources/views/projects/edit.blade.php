@@ -283,7 +283,7 @@ vertical-align: super;
     </div>
     </div>
   </div>
-  <input type="submit" id="btn-confirm" class="btn btn-success pull-right" data-toggle="modal" data-target="#myModal" style="margin-top:10px" value="Confirm Changes">
+  <input type="button" id="btn-confirm" class="btn btn-success pull-right" style="margin-top:10px" value="Confirm Changes">
 
 </div>
 </div>
@@ -437,10 +437,10 @@ vertical-align: super;
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
+        <h4 class="modal-title">Save Changes</h4>
       </div>
       <div class="modal-body">
-        <p>Some text in the modal.</p>
+        <p>Are you Sure?</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" id="confirmedbtn" data-dismiss="modal">Save Changes</button>
@@ -461,6 +461,12 @@ vertical-align: super;
 <script>
 $('#confirmedbtn').click(function(){
   $('#projectForm').submit();
+});
+
+$('#btn-confirm').on('click',function(){
+  $('#myModal').modal({
+    show:true
+  });
 });
 $('div').on('dp.change',function(){
   var class_value = $(this).find('input').attr('id');

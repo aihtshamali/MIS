@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use DB;
 use Auth;
 use App\ProjectRemark;
+use App\Notification;
 use App\ProjectType;
 use App\EvaluationType;
 use App\SubSector;
@@ -198,6 +199,13 @@ class ProjectController extends Controller
         $assigned_district->district_id = $district;
         $assigned_district->save();
       }
+
+      $notification = new Notification();
+      $notification->user_id=Auth::id();
+      $notification->text= $project->title.' has been created by '.$project->user->first_name;
+      $notification->table_name='projects';
+      $notification->table_id=$project->id;
+      $notification->save();
       return redirect()->route('projects.index');
     }
 
@@ -265,6 +273,7 @@ class ProjectController extends Controller
       foreach ($departments as $department) {
         $department->name = $department->name . "/";
       }
+
       return view('projects.edit',compact('departments','sub_project_types','districts','sectors','sponsoring_departments','executing_departments','assigning_forums','project_no','current_year','approving_forums','evaluation_types','project_types','evaluation_types','sub_sectors','project'));
     }
 
@@ -321,7 +330,6 @@ class ProjectController extends Controller
         $assigned_department->save();
       }
       }
-
       if($request->sponsoring_departments)
       foreach($request->sponsoring_departments as $sponsoring_department_id){
         if($sponsoring_department_id != NULL){
@@ -331,7 +339,6 @@ class ProjectController extends Controller
         $sponosoring_agency->save();
       }
       }
-
       if($request->executing_departments)
       foreach($request->executing_departments as $executing_department_id){
         if($executing_department_id != NULL){
@@ -369,6 +376,16 @@ class ProjectController extends Controller
           $assigned_district->save();
       }
       }
+      $notification = new Notification();
+      $notification->user_id=Auth::id();
+        $proje_title=Project::find($id);
+      if($proje_title!= NULL){
+          $proje_title=$proje_title->title;
+      }
+      $notification->text= 'Requested generated for edit a project : Title '.$proje_title;
+      $notification->table_name='project_logs';
+      $notification->table_id=$project->id;
+      $notification->save();
       return redirect()->route('new_evaluation');
     }
 

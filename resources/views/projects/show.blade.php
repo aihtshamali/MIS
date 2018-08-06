@@ -161,14 +161,15 @@
 
                                         <input type="hidden" name="id" value=" {{$project->id}}">
 
+                                        @if(!Auth::user()->hasRole('dataentry'))
+                                          <a href="{{route('projects.edit',$project->id)}}"
+                                           style="width:38%;margin-right:5px;" class="btn  btn-primary pull-right">Edit</a>
 
-                                        <a href="{{route('projects.edit',$project->id)}}"
-                                         style="width:38%;margin-right:5px;" class="btn  btn-primary pull-right">Edit</a>
-
-                                        </div>
-                                        <div class="col-md-1">
-                                        <button type="Reviewed" class="btn btn-success pull-right"> Reviewed</button>
-                                        </div>
+                                          </div>
+                                          <div class="col-md-1">
+                                          <button type="Reviewed" class="btn btn-success pull-right"> Reviewed</button>
+                                          </div>
+                                        @endif
                                         </div>
 
 
