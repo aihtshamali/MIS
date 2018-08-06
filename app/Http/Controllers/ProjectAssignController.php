@@ -83,7 +83,7 @@ class ProjectAssignController extends Controller
       // $assignedtoManager=AssignedProjectManager::all();
 
       if(!($request->priority && $request->project_id)){
-        return redirect()->route('assignproject.index')->withMessage('Please select the Priority');
+        return redirect()->back()->with('error','Please select the Priority');
       }
       $managers=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
       ->leftJoin('user_details','user_details.user_id','users.id')
@@ -116,7 +116,7 @@ class ProjectAssignController extends Controller
       $assignedtoManager=AssignedProjectManager::all();
      
       if(!($request->priority && $request->project_id)){
-        return redirect()->route('assignproject.index')->withMessage('Please select the Priority');
+        return redirect()->back()->with('error','Please select the Priority');
       }
       
       $officers=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
@@ -271,7 +271,7 @@ class ProjectAssignController extends Controller
          $table_id=$assignedProjectManager->id;
          $notification = new Notification();
          $notification->user_id=Auth::id();
-         $notification->text= $assignProject->project->title.' project assigned to '.$notif_manager.' with '.$request->priority;
+         $notification->text= $assignedProjectManager->project->title.' project assigned to '.$notif_manager.' with '.$request->priority;
          $notification->table_name=$table_name;
          $notification->table_id=$table_id;
          $notification->save();

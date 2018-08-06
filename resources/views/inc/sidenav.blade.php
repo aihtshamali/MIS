@@ -62,8 +62,8 @@
             <li><a href="{{route('roles.index')}}"><i class="fa fa-circle-o"></i>View</a></li>
           </ul>
         </li>
-        <li class="treeview">
-          <a href="#">
+        <li class="">
+          <a href="{{url('register')}}">
             <i class="fa fa-files-o"></i>
             <span>User</span>
 
@@ -155,8 +155,8 @@
           <ul class="treeview-menu">
             <li><a href="{{route('projects.create')}}"><i class="fa fa-circle-o"></i>Add New Project</a></li>
             {{-- @endpermission --}}
-            {{-- <li><a href="{{url('/assignproject')}}"><i class="fa fa-circle-o"></i>Assign Projects</a></li>
-            <li><a href="{{route('projects.index')}}"><i class="fa fa-circle-o"></i>View All Projects</a></li> --}}
+            {{-- <li><a href="{{url('/assignproject')}}"><i class="fa fa-circle-o"></i>Assign Projects</a></li> --}}
+            <li><a href="{{route('projects.index')}}"><i class="fa fa-circle-o"></i>View All Projects</a></li> 
           </ul>
         </li>
         @endrole

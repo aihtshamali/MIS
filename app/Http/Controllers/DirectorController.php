@@ -47,6 +47,20 @@ class DirectorController extends Controller
         
         return view('Director.SSR_D.Evaluation_projects.project_assigned_by_manager',['projects'=>$projects]);
       }
+
+      public function evaluation_Inprogressprojects(){
+        $unassigned=Project::select('projects.*','assigned_project_managers.user_id as manager_id')
+        ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+        ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
+        ->whereNull('assigned_project_managers.project_id')
+        ->whereNull('assigned_projects.project_id')
+        ->where('assigned_project_managers.user_id',Auth::id())
+        ->get();
+        
+         $assigned=AssignedProject::where('assigned_by',Auth::id())->get();
+         $assignedtoManager=AssignedProjectManager::all();   
+         return view('Director.SSR_D.Evaluation_projects.assigned',['assigned'=>$assigned,'unassigned'=>$unassigned]);
+      }
     /**
      * Show the form for creating a new resource.
      *

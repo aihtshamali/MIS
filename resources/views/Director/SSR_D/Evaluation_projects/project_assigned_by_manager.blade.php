@@ -33,13 +33,15 @@
 @endsection
 @section('content')
 <div class="content-wrapper">
-<!-- SELECT2 EXAMPLE -->
+  
+  <!-- SELECT2 EXAMPLE -->
 <div class="box box-default">
         <!-- /.box-header -->
         <div class="box-body">
           <div class="container">
           <div class="row">
             <div class="col-md-12">
+                @include('inc.msgs')
               <div class="form-group">
                 <label>Un-Assigned Projects</label>
                
@@ -62,7 +64,7 @@
                           <td>{{$project->Project->project_no}}</td>
                           <td>{{$project->Project->title}}</td>
                           <td>{{$project->Project->ProjectType->name}}</td>
-                          <td>{{$project->created_at}}</td>
+                        
                           <td>
                             <input type="hidden" name="priority" value="">
                             <input type="hidden" name="project_id" value="{{$project->project_id}}">

@@ -19,7 +19,7 @@ class NotificationController extends Controller
         ->where('notifications.status',1)
         ->where('assigned_project_teams.user_id',$user)
         ->where('notifications.user_id','!=',$user)
-        ->get();
+        ->get()->toArray();
 
         $notifications=Notification::select('notifications.*','assigned_project_managers.user_id as assigned_user')
         ->leftJoin('assigned_project_managers','assigned_project_managers.id','notifications.table_id')
@@ -27,14 +27,19 @@ class NotificationController extends Controller
         ->where('notifications.status',1)
         ->where('assigned_project_managers.user_id',$user)
         ->where('notifications.user_id','!=',$user)
-        ->get();
+        ->get()->toArray();
 
-            $notifications->push($notification1);
+            // $notifications->push($notification1);
         //   }
         // else{
         //   $notifications=$notification1;
         // }
-        return response()->json($notifications);
+        // return response()->json($notifications);
+        if($notifications!=NULL)
+            return response()->json(array($notifications,'officer'));
+        else{
+            return response()->json(array($notification1,'executive'));
+        }
     }
     public function store(Request $request){
 

@@ -7,7 +7,7 @@
 
   <section class="content-header">
     <h1>
-    ASSIGNED EVALUATION PROJECTS <button class="btn btn-danger" style="color:white;font-weight:bold font-size:20px;">{{$projects->count()}}</button>
+    ASSIGNED EVALUATION PROJECTS <button class="btn btn-danger" style="color:white;font-weight:bold font-size:20px;">@if(isset($assigned)){{$assigned->count()}}@endif</button>
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-backward" ></i>Back</a></li>
@@ -38,19 +38,39 @@
                         <thead>
                             <th>Project Number</th>
                             <th>Project Name</th>
-                           
+                           <th>Team Members</th>
+                            <th>Priority</th>
                             <th>Assigned Date</th>
                             <th>Progress</th>
                             <th>Comments</th>
                           </thead>
                           <tbody>
-                            @foreach ($projects as $project)
+                            @foreach ($assigned as $assigned)
                               <tr>
-                                <td>{{$project->project->project_no}}</td>
-                                <td>{{$project->project->title}}</td>
-                                
-                                <td>{{$project->created_at}}</td>
-                                <td>{{$project->progress}}</td>
+                                <td>{{$assigned->project->project_no}}</td>
+                                <td>{{$assigned->project->title}}</td>
+                                <td>
+                                    @foreach ($assigned->AssignedProjectTeam as $team)
+                                    @if ($team->team_lead==1)
+                                      <span style="font-weight:bold;color:blue">{{$team->user->first_name}}  {{$team->user->last_name}} -</span>
+                                    @else
+                                      <span class="">{{$team->user->first_name}} {{$team->user->last_name}}</span>
+                                    @endif
+                                  @endforeach
+
+                                </td>
+                                <td>
+                                    @if ($assigned->priority==3)
+                                    High
+                                  @elseif ($assigned->priority==2)
+                                    Normal
+                                  @else
+                                    Low
+                                  @endif
+
+                                </td>
+                                <td>{{$assigned->created_at}}</td>
+                                <td>{{$assigned->progress}}</td>
                               </tr>
                             @endforeach
                           </tbody>
