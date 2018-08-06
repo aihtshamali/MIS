@@ -36,6 +36,8 @@ use App\AssignedProject;
 use App\AssignedDistrict;
 use Illuminate\Support\Str;
 use App\User;
+use App\RevisedApprovedCostProjectLog;
+use App\RevisedEndDateProjectLog;
 class ProjectController extends Controller
 {
     /**
@@ -306,7 +308,7 @@ class ProjectController extends Controller
       if($request->planned_start_date != NULL)
         $project->planned_start_date = date('Y-m-d',strtotime($request->planned_start_date));
       if($request->planned_end_date != NULL)
-        $project->planned_end_date = $request->planned_end_date;
+        $project->planned_end_date = date('Y-m-d',strtotime($request->planned_end_date));
       if($request->revised_start_date != NULL)
         $project->revised_start_date = $request->revised_start_date;
       if($request->assigning_forum != NULL)
@@ -324,8 +326,8 @@ class ProjectController extends Controller
       foreach($request->departments as $department_id){
         if($department != NULL){
         $assigned_department = new AssignedDepartmentProjectLog();
-        $assigned_department->assproject_id = $project_id;
-        $assigned_department->project_id = $project_id;
+        $assigned_department->assproject_id = $id;
+        $assigned_department->project_id = $id;
         $assigned_department->department_id = $department_id;
         $assigned_department->save();
       }
@@ -334,7 +336,7 @@ class ProjectController extends Controller
       foreach($request->sponsoring_departments as $sponsoring_department_id){
         if($sponsoring_department_id != NULL){
         $sponosoring_agency = new AssignedSponsoringAgencyProjectLog();
-        $sponosoring_agency->project_id = $project_id;
+        $sponosoring_agency->project_id = $id;
         $sponosoring_agency->sponsoring_agency_id = $sponsoring_department_id;
         $sponosoring_agency->save();
       }
@@ -343,7 +345,7 @@ class ProjectController extends Controller
       foreach($request->executing_departments as $executing_department_id){
         if($executing_department_id != NULL){
         $executing_agency = new AssignedExecutingAgencyProjectLog();
-        $executing_agency->project_id = $project_id;
+        $executing_agency->project_log_id = ProjectLog::latest()->first()->id;
         $executing_agency->executing_agency_id = $executing_department_id;
         $executing_agency->save();
       }
@@ -352,7 +354,7 @@ class ProjectController extends Controller
       foreach($request->revised_approved_costs as $revised_approved_cost){
         if($revised_approved_cost != NULL){
         $revised_approved_cost_save = new RevisedApprovedCostProjectLog();
-        $revised_approved_cost_save->project_id = $project_id;
+        $revised_approved_cost_save->project_log_id = ProjectLog::latest()->first()->id;
         $revised_approved_cost_save->cost = $revised_approved_cost;
         $revised_approved_cost_save->save();
       }
@@ -361,8 +363,8 @@ class ProjectController extends Controller
         foreach($request->revised_end_dates as $revised_end_date){
             if($revised_end_date != NULL){
               $revised_end_date = new RevisedEndDateProjectLog();
-              $revised_end_date->project_id = $project_id;
-              $revised_end_date->end_date = date('Y-m-d',strtotime($revised_end_date));
+              $revised_end_date->project_log_id = ProjectLog::latest()->first()->id;
+      $revised_end_date->end_date = date('Y-m-d',strtotime($revised_end_date));
               $revised_end_date->save();
           }
         }
@@ -371,7 +373,7 @@ class ProjectController extends Controller
       foreach($request->districts as $district){
         if($district != NULL){
           $assigned_district = new AssignedDistrictProjectLog();
-          $assigned_district->project_id = $project_id;
+          $assigned_district->project_log_id = ProjectLog::latest()->first()->id;
           $assigned_district->district_id = $district;
           $assigned_district->save();
       }

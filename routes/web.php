@@ -63,6 +63,10 @@ Route::prefix('executive')->middleware('role:executive')->group(function () {
   Route::get('/tpv_tab','DirectorController@tpv_index')->name('RnD_tpv_tab');
   Route::get('/inquiry','DirectorController@inquiry_index')->name('RnD_inquiry_tab');
   Route::get('/evaluation_assigned','DirectorController@evaluation_assignedprojects')->name('RnD_evaluation_assigned');
+  Route::get('/evaluation_inprogress','DirectorController@evaluation_Inprogressprojects')->name('RnD_evaluation_Inprogressprojects');
+  // Route::resource('assignproject','ProjectAssignController');
+  Route::get('assignproject','ProjectAssignController@create_from_director')->name('create_from_director');
+  Route::post('assignproject','ProjectAssignController@store_from_director')->name('store_from_director');
 
 });
 

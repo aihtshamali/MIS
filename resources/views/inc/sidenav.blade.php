@@ -62,8 +62,8 @@
             <li><a href="{{route('roles.index')}}"><i class="fa fa-circle-o"></i>View</a></li>
           </ul>
         </li>
-        <li class="treeview">
-          <a href="#">
+        <li class="">
+          <a href="{{url('register')}}">
             <i class="fa fa-files-o"></i>
             <span>User</span>
 

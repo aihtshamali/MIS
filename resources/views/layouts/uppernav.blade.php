@@ -143,14 +143,21 @@
           <li class="dropdown notifications-menu ">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
+<<<<<<< HEAD
               <span class="label label-warning notificationCount" >@{{topCount}}</span>
             </a>
             <ul class="dropdown-menu">
               <li class="header">You have <span>@{{topCount}}</span> notifications</li>
+=======
+              <span class="label label-warning notificationCount">@{{tc}}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">You have <span>@{{tc}}</span> notifications</li>
+>>>>>>> 0a928a843470fd7fa443ec965b2c9c8f482c3fb3
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="notification_menu menu" >
-                  <li v-for="notification in notifications[0]">
+                  <li v-for="notification in notifications">
                     <a href="#">
                       <i class="fa fa-users text-aqua"></i>   @{{notification.text}}
                     </a>
@@ -328,6 +335,7 @@
 
   @role('dataentry')
   @include('inc.sidenav')
+
   @endrole
 
   @role('officer')
@@ -335,6 +343,7 @@
   @endrole
 
   @role('executive')
+
   @include('inc.director_RND_sidenav')
   @endrole
 
@@ -392,7 +401,7 @@
     el: '.notifications-menu',
     data: {
       notifications: {},
-      topCount: 0,
+      tc: 0,
       NotificationsCount: 0,
       user: {!! Auth::user() !!},
       user_id: {!! Auth::check() ? Auth::id() : 'null' !!}
@@ -405,9 +414,15 @@
       getNotifications() {
         axios.get('/api/notifications/'+this.user_id)
               .then((response) => {
-                this.notifications = response.data;
-                this.topCount=response.data.length;
-                console.log(this.notifications);
+                    //TODO
+                    if(response.data[1]=='officer'){
+                      this.notifications = response.data[0];
+                    }
+                    else{
+                      this.notifications = response.data[0];
+                    }
+                    if(this.notifications[0].text)
+                        this.tc=response.data.length-1;
               })
               .catch(function (error) {
                 console.log(error);
@@ -417,7 +432,6 @@
         Echo.private('projectAssigned.'+this.user_id)
             .listen('ProjectAssignedEvent', (notification) => {
               this.notifications.unshift(notification);
-              console.log(notification);
             });
             Echo.private('projectAssignedManager.'+this.user_id)
                 .listen('ProjectAssignedManagerEvent', (notification) => {

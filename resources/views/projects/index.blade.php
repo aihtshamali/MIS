@@ -28,7 +28,7 @@
               {{-- <td>Unassigned</td> --}}
             {{-- @endif --}}
               {{-- <td>{{$project->getUser($project->created_by)->name}}</td> --}}
-              <td>User</td>
+              <td>{{$project->user->username}}</td>
               <td>{{$project->created_at}}</td>
               <td><a href="{{asset('storage/uploads/projects/'.$project->ProjectDetail->project_attachements)}}" download>File</a></td>
           </tr>

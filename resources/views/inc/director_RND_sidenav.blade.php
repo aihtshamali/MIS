@@ -14,6 +14,7 @@
         <div class="pull-left info">
 
           @role('executive')
+         
             <p> SS R & D Dashboard</p>
           @endrole
         
@@ -47,7 +48,7 @@
               <span class="label label-primary pull-right">new</span>
             </span></a></li>
             <li>
-              <a href="{{route('Exec_evaluation_assigned')}}"><i class="fa fa-circle-o"></i> In Progress
+              <a href="{{route('RnD_evaluation_Inprogressprojects')}}"><i class="fa fa-circle-o"></i> In Progress
               </a>
             </li>
             <li><a href="{{route('Exec_evaluation_completed')}}"><i class="fa fa-circle-o"></i> Completed</a></li>
