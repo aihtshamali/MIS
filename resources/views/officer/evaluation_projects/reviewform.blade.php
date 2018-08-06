@@ -120,12 +120,14 @@
               <div class="row" >
                 <div style="text-align: center;"><h3><b>COST</b></h3></div> </br>
                 <div class="col-md-4"><b>Original Approved Cost : </b> {{$project_data->project->ProjectDetail->orignal_cost}} -/{{$project_data->project->ProjectDetail->currency}} </div>
-
+                <div class="col-md-4"></div>
                 <div class="col-md-4">
-
+                    
+                  
                   @foreach ($project_data->project->RevisedApprovedCost as $cost)
-                    <b>Revised Original  : </b>{{$cost->cost}} -/{{$project_data->project->ProjectDetail->currency}}
+                    <b>    <b>Revised Original: </b> </b>{{$cost->cost}} -/{{$project_data->project->ProjectDetail->currency}} </br>
                   @endforeach
+                 
                 </div>
               </div>
               <hr/>

@@ -35,15 +35,6 @@
 <div class="content-wrapper">
 <!-- SELECT2 EXAMPLE -->
 <div class="box box-default">
-        {{-- <div class="box-header with-border">
-          <h3 class="box-title header-content">Un-assigned Projects</h3>
-          <h3 class="box-title header-content">Assigned Projects</h3>
-          <h3 class="box-title header-content">Completed Projects</h3>
-
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-          </div>
-        </div> --}}
         <!-- /.box-header -->
         <div class="box-body">
           <div class="container">
@@ -51,40 +42,43 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label>Un-Assigned Projects</label>
-                <form class="" action="{{route('assignproject.create')}}" method="GET">
-                  {{ csrf_field() }}
+               
                 <table class="table table-responsive table-bordered projects">
                   <thead>
                     <th>Project No.</th>
                     <th>Project Name</th>
                     <th>Project Type</th>
-                    <th>Created At</th>
+         
                     <th colspan="1" >Project Priority</th>
                     <th>Action</th>
                   </thead>
                   <tbody>
-                    {{-- {{dd($projects)}} --}}
+                    {{-- {{dd($projects)}}/ --}}
                   @foreach($projects as $project)
+                  
                         <tr>
-                          <td>{{$project->project_no}}</td>
-                          <td>{{$project->title}}</td>
-                          <td>{{$project->ProjectType->name}}</td>
+                            <form class="" action="{{route('create_from_director')}}" method="GET">
+                                {{ csrf_field() }}
+                          <td>{{$project->Project->project_no}}</td>
+                          <td>{{$project->Project->title}}</td>
+                          <td>{{$project->Project->ProjectType->name}}</td>
                           <td>{{$project->created_at}}</td>
                           <td>
                             <input type="hidden" name="priority" value="">
-                            <input type="hidden" name="project_id" value="{{$project->id}}">
+                            <input type="hidden" name="project_id" value="{{$project->project_id}}">
                             <button type="button" class="btn btn-md priority" style="background-color:red; ">High Priority</button>
                             <button type="button"  class="btn btn-md priority"style="background-color:green; ">Normal Priority</button>
                             <button type="button" class="btn btn-md priority" style="background-color:yellow; ">Low Priority</button>
 
                           </td>
                           <td><input type="submit" name="submit" value="Assign" class="btn btn-info"></td>
+                        </form>
                         </tr>
                   @endforeach
                 </tbody>
                 </table>
 
-              </form>
+             
               </div>
             <!-- /.col -->
           </div>
