@@ -56,15 +56,16 @@ Route::prefix('manager')->middleware('role:manager')->group(function () {
 // For Executive
 Route::prefix('executive')->middleware('role:executive')->group(function () {
   //for ssr&d
-  Route::get('/','DirectorController@index')->name('RnD_home'); 
+  Route::get('/','DirectorController@index')->name('RnD_home');
   Route::get('/pems_tab','DirectorController@pems_index')->name('RnD_pems_tab');
   Route::get('/pmms_tab','DirectorController@pmms_index')->name('RnD_pmms_tab');
-  Route::get('/tpv_tab','DirectorController@tpv_index')->name('RnD_tpv_tab'); 
+  Route::get('/tpv_tab','DirectorController@tpv_index')->name('RnD_tpv_tab');
   Route::get('/inquiry','DirectorController@inquiry_index')->name('RnD_inquiry_tab');
   Route::get('/evaluation_assigned','DirectorController@evaluation_assignedprojects')->name('RnD_evaluation_assigned');
   // Route::resource('assignproject','ProjectAssignController');
   Route::get('assignproject','ProjectAssignController@create_from_director')->name('create_from_director  ');
   Route::post('assignproject','ProjectAssignController@store_from_director')->name('store_from_director');
+
 });
 
 //officers
@@ -82,11 +83,11 @@ Route::prefix('officer')->middleware('role:officer')->group(function () {
 });
 
 //For DataEntry
-Route::group(['middleware' => ['role:dataentry']],function () {
-Route::post('/onchangefunction','DataEntryController@onSubSectorSelect');
 Route::post('/onsectorselect','DataEntryController@onSectorSelect');
 Route::post('/onsubsectorselect','DataEntryController@onSub_SectorSelect');
+Route::post('/onchangefunction','DataEntryController@onSubSectorSelect');
 Route::post('/onnewprojectselect','DataEntryController@newproject');
+Route::group(['middleware' => ['role:dataentry | role:officer | role: manager | role:executive']],function () {
 });
 
 Route::group(['middleware'=>['permission:can.chat']],function(){
@@ -104,6 +105,7 @@ Route::group(['middleware'=>['permission:can.problematicremark']],function(){
 Route::get('/dashboard',function(){
   return view('dashboard');
 });
+
 Route::get('/403',function(){
   return view('403');
 });

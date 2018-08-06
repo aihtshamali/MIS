@@ -283,10 +283,7 @@ vertical-align: super;
     </div>
     </div>
   </div>
-
-
-
-  <input type="button" id="btn-confirm" class="btn btn-success pull-right" data-toggle="modal" data-target="#myModal" style="margin-top:10px" value="Confirm Changes">
+  <input type="submit" id="btn-confirm" class="btn btn-success pull-right" data-toggle="modal" data-target="#myModal" style="margin-top:10px" value="Confirm Changes">
 
 </div>
 </div>
@@ -418,8 +415,14 @@ vertical-align: super;
       <label>{{$district->District->name}} / </label>
     @endforeach
   </div>
-  </div>
 
+</div>
+<div class="form-group">
+  <label id="label_fixed_summary_attachments"  class="col-sm-6 control-label">Project Attachment</label>
+  <div id="fixed_summary_attachment" class="col-sm-6">
+        <label><a href="{{asset('/uploads/projects/'.$project->ProjectDetail->project_attachements)}}" download>Project File(Click to Download)</a>
+        </label>
+  </div>
 </div>
 </div>
 </div>

@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use jeremykenedy\LaravelRoles\Models\Role;
-
+use Auth;
 class RegisterController extends Controller
 {
     /*
@@ -30,6 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
+
     protected $redirectTo = '/dashboard';
 
     /**

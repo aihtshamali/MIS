@@ -64,6 +64,9 @@ class User extends Authenticatable
     {
       return $this->hasOne('App\User');
     }
+    public function Notifications(){
+      return $this->hasMany('App\Notification');
+    }
     public function isManager(){
       if(Auth::user()->hasRole('manager'))
         return true;
