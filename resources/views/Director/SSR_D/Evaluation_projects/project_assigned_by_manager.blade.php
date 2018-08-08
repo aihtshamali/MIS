@@ -33,7 +33,7 @@
 @endsection
 @section('content')
 <div class="content-wrapper">
-  
+
   <!-- SELECT2 EXAMPLE -->
 <div class="box box-default">
         <!-- /.box-header -->
@@ -44,27 +44,31 @@
                 @include('inc.msgs')
               <div class="form-group">
                 <label>Un-Assigned Projects</label>
-               
+
                 <table class="table table-responsive table-bordered projects">
                   <thead>
                     <th>Project No.</th>
                     <th>Project Name</th>
+                    <th>Assigned By</th>
+                    <th>Priority</th>
                     <th>Project Type</th>
-         
+
                     <th colspan="1" >Project Priority</th>
                     <th>Action</th>
                   </thead>
                   <tbody>
                     {{-- {{dd($projects)}}/ --}}
                   @foreach($projects as $project)
-                  
+
                         <tr>
                             <form class="" action="{{route('create_from_director')}}" method="GET">
                                 {{ csrf_field() }}
                           <td>{{$project->Project->project_no}}</td>
                           <td>{{$project->Project->title}}</td>
+                          <td>{{$project->priority}}</td>
+                          <td>{{$project->AssignedBy->first_name}}</td>
                           <td>{{$project->Project->ProjectType->name}}</td>
-                        
+
                           <td>
                             <input type="hidden" name="priority" value="">
                             <input type="hidden" name="project_id" value="{{$project->project_id}}">
@@ -80,7 +84,7 @@
                 </tbody>
                 </table>
 
-             
+
               </div>
             <!-- /.col -->
           </div>

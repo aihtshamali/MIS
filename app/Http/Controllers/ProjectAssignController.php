@@ -71,7 +71,7 @@ class ProjectAssignController extends Controller
       */
     public function create(Request $request)
     {
-      
+
       $unassigned=Project::select('projects.*')
      ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
      ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
@@ -82,9 +82,12 @@ class ProjectAssignController extends Controller
       $assigned=AssignedProject::all();
       // $assignedtoManager=AssignedProjectManager::all();
 
-      if(!($request->priority && $request->project_id)){
-        return redirect()->back()->with('error','Please select the Priority');
+      if(!( $request->project_id)){
+        return redirect()->back()->with('error','Project is not Selected');
       }
+      $priority = 'low_priority'
+      if(isset($request->priority))
+        $priority = $request->priority;
       $managers=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
       ->leftJoin('user_details','user_details.user_id','users.id')
       ->leftJoin('role_user','role_user.user_id','users.id')
@@ -99,10 +102,10 @@ class ProjectAssignController extends Controller
       ->orderBy('roles.name','ASC')
       ->where('roles.name','officer')
       ->get();
-      return view('executive.evaluation.consultant_assign',['priority'=>$request->priority,'project_id'=>$request->project_id,'officers'=>$officers,'managers'=>$managers,'assigned'=>$assigned,'unassigned'=>$unassigned]);
+      return view('executive.evaluation.consultant_assign',['priority'=>$priority,'project_id'=>$request->project_id,'officers'=>$officers,'managers'=>$managers,'assigned'=>$assigned,'unassigned'=>$unassigned]);
     }
 
-    
+
     public function create_from_director(Request $request)
     {
       $unassigned=Project::select('projects.*')
@@ -111,14 +114,17 @@ class ProjectAssignController extends Controller
      ->whereNull('assigned_project_managers.project_id')
      ->whereNull('assigned_projects.project_id')
      ->get();
-    
+
       $assigned=AssignedProject::all();
       $assignedtoManager=AssignedProjectManager::all();
-     
-      if(!($request->priority && $request->project_id)){
-        return redirect()->back()->with('error','Please select the Priority');
+
+      if(!( $request->project_id)){
+        return redirect()->back()->with('error','Project is not Selected');
       }
-      
+      $priority = 'low_priority'
+      if(isset($request->priority))
+        $priority = $request->priority;
+
       $officers=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
       ->leftJoin('user_details','user_details.user_id','users.id')
       ->leftJoin('role_user','role_user.user_id','users.id')
@@ -126,7 +132,7 @@ class ProjectAssignController extends Controller
       ->orderBy('roles.name','ASC')
       ->where('roles.name','officer')
       ->get();
-      return view('Director.SSR_D.Evaluation_projects.consultant_assign',['priority'=>$request->priority,'project_id'=>$request->project_id,'officers'=>$officers,'assigned'=>$assigned,'unassigned'=>$unassigned,'assignedtoManager'=>$assignedtoManager]);
+      return view('Director.SSR_D.Evaluation_projects.consultant_assign',['priority'=>$priority,'project_id'=>$request->project_id,'officers'=>$officers,'assigned'=>$assigned,'unassigned'=>$unassigned,'assignedtoManager'=>$assignedtoManager]);
     }
 
     /**
@@ -138,8 +144,8 @@ class ProjectAssignController extends Controller
 
     public function store_from_director(Request $request)
     {
-      
-     
+
+
        if($request->priority=='high_priority'){
          $priority=3;
        }
@@ -206,7 +212,7 @@ class ProjectAssignController extends Controller
 
      public function store(Request $request)
      {
-      
+
         if($request->priority=='high_priority'){
           $priority=3;
         }

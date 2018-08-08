@@ -455,7 +455,7 @@ vertical-align: super;
     </div>
   </div>
   <div class="form-group">
-    <label id="label_summary_field1" style="display:none;" class="col-sm-6 control-label">Revised Approved Cost in Millions</label>
+    <label id="label_summary_field1" style="display:none;" class="col-sm-6 control-label">Revised Final Approved Cost in Millions</label>
     <div id="summary_field1" class="col-sm-6">
     </div>
   </div>

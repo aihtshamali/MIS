@@ -32,13 +32,13 @@
               </div>
             </div>
             <div class="box-body">
-                <div class="table-responsive">                
+                <div class="table-responsive">
                   <table class="table table-hover table-striped">
                     <tbody>
                         <thead>
                             <th>Project Number</th>
                             <th>Project Name</th>
-                           <th>Team Members</th>
+                            <th>Team Members</th>
                             <th>Priority</th>
                             <th>Assigned Date</th>
                             <th>Progress</th>
