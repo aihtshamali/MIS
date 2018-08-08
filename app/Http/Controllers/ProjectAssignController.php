@@ -168,20 +168,25 @@ class ProjectAssignController extends Controller
         $assignProject->save();
         $table_name='assigned_projects';
         $table_id=$assignProject->id;
-
+        $notif_officers='';
         foreach ($request->officer_id as $officer) {
           $assignedProjectTeam = new AssignedProjectTeam();
           $assignedProjectTeam->assigned_project_id=$assignProject->id;
           $assignedProjectTeam->user_id=$officer;
+          if($notif_officers!=''){
+            $notif_officers=$notif_officers.' , ';
+          }
+          $notif_officers= $notif_officers . $assignedProjectTeam->user->first_name ;
           if($officer==$request->team_lead){
             $assignedProjectTeam->team_lead=true;
+            $notif_officers= $notif_officers. ' as Team Lead';
           }
           $assignedProjectTeam->save();
         }
 
         $notification = new Notification();
         $notification->user_id=Auth::id();
-        $notification->text= 'Assigned to '.$request->assign_to.' with '.$request->priority;
+        $notification->text= $assignProject->project->title.' project assigned to '.$notif_officers.' with '.$request->priority;
         $notification->table_name=$table_name;
         $notification->table_id=$table_id;
         $notification->save();

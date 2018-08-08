@@ -15,7 +15,7 @@ div>label{
 div>span>label{
   text-align: left !important;
 }
-i{
+i.fa-asterisk{
   font-size: 6px !important;
 vertical-align: super;
 }

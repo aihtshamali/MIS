@@ -55,10 +55,14 @@
 
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
+
+
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
       </a>
+      <button class="btn btn-warning " style="margin-top:10px;"> VERSION 1.0 </button>
+
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
@@ -275,7 +279,8 @@
               @if(Auth::user()->UserDetail->profile_pic)
               <img src="{{asset('uploads/userprofile/'.Auth::user()->UserDetail->profile_pic)}}" class="user-image" alt="User Image">
             @else
-              <img src="{{asset('logo.jpg')}}" style="width:10%;" class="img-circle" alt="User Image">
+              <i class="fa fa-user" style="font-size:20px"></i>
+              {{-- <img src="{{asset('logo.jpg')}}" style="width:10%;" class="img-circle" alt="User Image"> --}}
             @endif
               <span class="hidden-xs">{{ Auth::user()->name }}</span>
             @endauth

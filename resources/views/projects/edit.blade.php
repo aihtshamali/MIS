@@ -15,7 +15,7 @@ div>label{
 div>span>label{
   text-align: left !important;
 }
-i{
+i.fa-asterisk{
   font-size: 6px !important;
 vertical-align: super;
 }
@@ -330,7 +330,7 @@ vertical-align: super;
   <div class="form-group">
     <label id="label_fixed_summary_sub_sectors"  class="col-sm-6 control-label">Sub Sectors</label>
     <div id="fixed_summary_sub_sectors" class="col-sm-6">
-      @foreach ($project->AssignedDepartments as $assignDpt )
+        @foreach ($project->AssignedDepartments as $assignDpt )
           <label>{{$assignDpt->Department->SubSector->name}}</label>
       @endforeach
     </div>
@@ -420,7 +420,7 @@ vertical-align: super;
 <div class="form-group">
   <label id="label_fixed_summary_attachments"  class="col-sm-6 control-label">Project Attachment</label>
   <div id="fixed_summary_attachment" class="col-sm-6">
-        <label><a href="{{asset('/uploads/projects/'.$project->ProjectDetail->project_attachements)}}" download>Project File(Click to Download)</a>
+        <label><a href="{{asset('/storage/uploads/projects/'.$project->ProjectDetail->project_attachements)}}" download>Project File(Click to Download)</a>
         </label>
   </div>
 </div>

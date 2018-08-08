@@ -49,6 +49,7 @@
           <div class="container">
           <div class="row">
             <div class="col-md-12">
+                @include('inc.msgs')
               <div class="form-group">
                 <label>Un-Assigned Projects</label>
               
