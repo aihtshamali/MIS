@@ -19,6 +19,7 @@ use App\AssignedProjectTeam;
 use App\ProjectType;
 use App\Notification;
 use App\EvaluationType;
+use App\AssignedProjectActivity;
 use Illuminate\Support\Facades\Redirect;
 
 class OfficerController extends Controller
@@ -123,7 +124,7 @@ class OfficerController extends Controller
 
     public function evaluation_activities($id){
 
-      $activities=ProjectActivity::all();
+      $activities=Project::find($id)->AssignedProjectActivity;
       $officerAssignedCount=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
       ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
       ->where('acknowledge','0')
@@ -150,6 +151,18 @@ class OfficerController extends Controller
       $officer=AssignedProject::where('complete','1')->where('acknowledge','1')->get();
 
       return view('officer.evaluation_projects.completed')->with('officer',$officer);
+    }
+
+    public function save_percentage(Request $request)
+    {
+      $data =  $request['data'];
+      $percentage = strtok($data,",");
+      $project_id = strtok(",");
+      $activity_id = strtok(",");
+      $assigned_project_activity = AssignedProjectActivity::find($activity_id);
+      $assigned_project_activity->progress = $percentage;
+      $assigned_project_activity->save();
+      return 'Done';
     }
 
 

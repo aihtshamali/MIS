@@ -440,11 +440,7 @@ vertical-align: super;
         <h4 class="modal-title">Save Changes</h4>
       </div>
       <div class="modal-body">
-<<<<<<< HEAD
-        <p>Are you Sure?</p>
-=======
         <p>Are you sure?</p>
->>>>>>> 0a928a843470fd7fa443ec965b2c9c8f482c3fb3
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" id="confirmedbtn" data-dismiss="modal">Save Changes</button>

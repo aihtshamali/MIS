@@ -52,4 +52,9 @@ class Project extends Model
       return $this->hasMany('App\RevisedEndDate');
     }
 
+    public function AssignedProjectActivity()
+    {
+      return $this->hasMany('App\AssignedProjectActivity');
+    }
+
 }
