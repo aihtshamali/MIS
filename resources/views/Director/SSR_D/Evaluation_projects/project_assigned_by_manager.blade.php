@@ -65,8 +65,14 @@
                                 {{ csrf_field() }}
                           <td>{{$project->Project->project_no}}</td>
                           <td>{{$project->Project->title}}</td>
-                          <td>{{$project->priority}}</td>
-                          <td>{{$project->AssignedBy->first_name}}</td>
+                          <td>{{$project->AssignedBy($project->assigned_by)->first_name}}</td>
+                          @if($project->priority == 3)
+                          <td>High Priority</td>
+                          @elseif($project->priority == 2)
+                          <td>Normal Priority</td>
+                          @else
+                          <td>Low Priority</td>
+                          @endif
                           <td>{{$project->Project->ProjectType->name}}</td>
 
                           <td>

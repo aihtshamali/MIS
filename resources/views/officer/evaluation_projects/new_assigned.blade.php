@@ -49,6 +49,7 @@
                         <thead >
                             <th style="text-align:center;" >Project Number</th>
                             <th style="text-align:center;">Project Name</th>
+                            <th style="text-align:center;">Priority</th>
                             <th style="text-align:center;">Action</th>
                         </thead>
                         <tbody style="text-align:center;">
@@ -57,6 +58,15 @@
                             <tr>
                             <td> {{$o->project->project_no}} </td>
                             <td>{{$o->project->title}}  </td>
+                            <td>
+                              @if ($o->priority==3)
+                                High
+                              @elseif ($o->priority==2)
+                                Normal
+                              @else
+                                Low
+                              @endif
+                            </td>
                               <input type="hidden" name="id" value="{{$o->id}}">
                               <td><a href="{{route('review_form',$o->project_id)}}"><button class="btn btn-success">Review</button></a> </td>
                             </tr>

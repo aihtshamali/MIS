@@ -330,6 +330,7 @@ class ComposerStaticInit55c1f85fd9fa01a6cf3b909416bd240d
 
     public static $classMap = array (
         'App\\ApprovingForum' => __DIR__ . '/../..' . '/app/ApprovingForum.php',
+        'App\\AssignedActivityAttachment' => __DIR__ . '/../..' . '/app/AssignedActivityAttachment.php',
         'App\\AssignedDepartment' => __DIR__ . '/../..' . '/app/AssignedDepartment.php',
         'App\\AssignedDepartmentProjectLog' => __DIR__ . '/../..' . '/app/AssignedDepartmentProjectLog.php',
         'App\\AssignedDistrict' => __DIR__ . '/../..' . '/app/AssignedDistrict.php',

@@ -40,6 +40,7 @@
                             <th>Project Number</th>
                             <th>Project Name</th>
                             <th>Project Officers</th>
+                            <th>Project Priority</th>
                             <th>Date Start</th>
                             <th>Date End</th>
                             <th>Comments</th>

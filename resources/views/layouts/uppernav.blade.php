@@ -147,17 +147,11 @@
           <li class="dropdown notifications-menu ">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
-<<<<<<< HEAD
-              <span class="label label-warning notificationCount" >@{{topCount}}</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have <span>@{{topCount}}</span> notifications</li>
-=======
+
               <span class="label label-warning notificationCount">@{{tc}}</span>
             </a>
             <ul class="dropdown-menu">
               <li class="header">You have <span>@{{tc}}</span> notifications</li>
->>>>>>> 0a928a843470fd7fa443ec965b2c9c8f482c3fb3
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="notification_menu menu" >
@@ -275,13 +269,14 @@
           <li class="dropdown user user-menu">
             <a  class="dropdown-toggle" data-toggle="dropdown">
             @auth
-              {{-- {{dd(Auth::user()->UserDetail)}} --}}
+              @if(Auth::user()->UserDetail)
               @if(Auth::user()->UserDetail->profile_pic)
               <img src="{{asset('uploads/userprofile/'.Auth::user()->UserDetail->profile_pic)}}" class="user-image" alt="User Image">
-            @else
+              @else
               <i class="fa fa-user" style="font-size:20px"></i>
               {{-- <img src="{{asset('logo.jpg')}}" style="width:10%;" class="img-circle" alt="User Image"> --}}
-            @endif
+              @endif
+              @endif
               <span class="hidden-xs">{{ Auth::user()->name }}</span>
             @endauth
             </a>

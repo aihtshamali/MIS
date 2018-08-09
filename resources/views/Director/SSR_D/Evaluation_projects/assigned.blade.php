@@ -40,7 +40,7 @@
                             <th>Project Name</th>
                             <th>Team Members</th>
                             <th>Priority</th>
-                            <th>Assigned Date</th>
+                            <th>Assigned Duration</th>
                             <th>Progress</th>
                             <th>Comments</th>
                           </thead>
@@ -69,7 +69,17 @@
                                   @endif
 
                                 </td>
-                                <td>{{$assigned->created_at}}</td>
+
+                                <td>
+                                  @php
+                                    $interval = date_diff(date_create(date('Y-m-d h:i:s',strtotime($assigned->created_at))), date_create(date('Y-m-d h:i:s')))->format('%m Month %d Day %h Hours');
+                                    // $duration=$interval->format();
+                                  @endphp
+                                  {{-- {{$assigned->created_at}} --}}
+                                  {{$interval}}
+                                  {{-- {{dd($interval)}} --}}
+                                  {{-- {{$duration}} --}}
+                                </td>
                                 <td>{{$assigned->progress}}</td>
                               </tr>
                             @endforeach

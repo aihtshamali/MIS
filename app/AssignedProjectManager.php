@@ -12,9 +12,9 @@ class AssignedProjectManager extends Model
     public function assignedProject(){
         return $this->belongsTo('App\AssignedProject');
     }
-    public function AssignedBy()
+    public function AssignedBy($id)
     {
-      return $this->belongsTo('App\User');
+      return User::find($id);
     }
 
     public function Project(){
