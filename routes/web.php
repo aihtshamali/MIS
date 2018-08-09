@@ -31,11 +31,16 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::post('/rolesandpermissions','RolesPermissionsUsersController@rolesandpermissionsstore');
     Route::post('/usersandroles','RolesPermissionsUsersController@rolesandusersstore');
     Route::post('/usersandpermissions','RolesPermissionsUsersController@usersandpermissionstore');
+
     Route::get('/rolespermissionsusers/view','RolesPermissionsUsersController@index');
     Route::resource('project_type','ProjectTypeController');
     Route::resource('evaluation_type','EvaluationTypeController');
     Route::resource('sub_sector','SubSectorController');
     Route::resource('sector','SectorController');
+    Route::resource('district','DistrictController');
+    Route::resource('assigning_forum','AssigningForumController');
+    Route::resource('approving_forum','ApprovingForumController');
+ 
 });
 
 // For Manager
@@ -111,3 +116,4 @@ Route::get('/dashboard',function(){
 Route::get('/403',function(){
   return view('403');
 });
+

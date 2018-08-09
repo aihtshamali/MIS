@@ -98,6 +98,58 @@
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-files-o"></i>
+                <span>Sectors</span>
+                <span class="pull-right-container">
+                  {{-- <span class="label label-primary pull-right">Add new Project</span> --}}
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{route('sector.create')}}"><i class="fa fa-circle-o"></i>Add New Sector</a></li>
+                <li><a href="{{route('sector.index')}}"><i class="fa fa-circle-o"></i>View Sectors</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                  <i class="fa fa-files-o"></i>
+                  <span>Sub-Sectors</span>
+                  <span class="pull-right-container">
+                    {{-- <span class="label label-primary pull-right">Add new Project</span> --}}
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="{{route('sub_sector.create')}}"><i class="fa fa-circle-o"></i>Add New Sub-Sector</a></li>
+                  <li><a href="{{route('sub_sector.index')}}"><i class="fa fa-circle-o"></i>View Sub-Sectors</a></li>
+                </ul>
+              </li>
+              <li class="treeview">
+                  <a href="#">
+                    <i class="fa fa-files-o"></i>
+                    <span>Assigning Forum</span>
+                    <span class="pull-right-container">
+                      {{-- <span class="label label-primary pull-right">Add new Project</span> --}}
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                    <li><a href="{{route('assigning_forum.create')}}"><i class="fa fa-circle-o"></i>Add</a></li>
+                    <li><a href="{{route('assigning_forum.index')}}"><i class="fa fa-circle-o"></i>View</a></li>
+                  </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                      <i class="fa fa-files-o"></i>
+                      <span>Approving Forum</span>
+                      <span class="pull-right-container">
+                        {{-- <span class="label label-primary pull-right">Add new Project</span> --}}
+                      </span>
+                    </a>
+                    <ul class="treeview-menu">
+                      <li><a href="{{route('approving_forum.create')}}"><i class="fa fa-circle-o"></i>Add</a></li>
+                      <li><a href="{{route('approving_forum.index')}}"><i class="fa fa-circle-o"></i>View</a></li>
+                    </ul>
+                  </li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-files-o"></i>
                 <span>Sponsor Agencies</span>
                 <span class="pull-right-container">
                   {{-- <span class="label label-primary pull-right">Add new Project</span> --}}
@@ -121,24 +173,21 @@
                 <li><a href="{{route('ExecutingAgency.index')}}"><i class="fa fa-circle-o"></i>View Executing Agencies</a></li>
               </ul>
             </li>
-            {{-- @permission('can.add.project') --}}
-            {{-- @role('user') --}}
+
             <li class="treeview">
-              <a href="#">
-                <i class="fa fa-files-o"></i>
-                <span>Projects</span>
-                <span class="pull-right-container">
-                  {{-- <span class="label label-primary pull-right">Add new Project</span> --}}
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="{{route('projects.create')}}"><i class="fa fa-circle-o"></i>Add New Project</a></li>
-                {{-- @endpermission --}}
-                <li><a href="{{url('/assignproject')}}"><i class="fa fa-circle-o"></i>Assign Projects</a></li>
-                <li><a href="{{route('projects.index')}}"><i class="fa fa-circle-o"></i>View All Projects</a></li>
-              </ul>
-            </li>
-            {{-- @endrole --}}
+                <a href="#">
+                  <i class="fa fa-files-o"></i>
+                  <span>Districts</span>
+                  <span class="pull-right-container">
+                    {{-- <span class="label label-primary pull-right">Add new Project</span> --}}
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="{{route('district.create')}}"><i class="fa fa-circle-o"></i>Add New District</a></li>
+                  <li><a href="{{route('district.index')}}"><i class="fa fa-circle-o"></i>View District</a></li>
+                </ul>
+              </li>
+         
 
 
         @endrole

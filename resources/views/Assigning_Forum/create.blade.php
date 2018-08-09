@@ -10,27 +10,22 @@
                 <!-- Horizontal Form -->
                 <div class="box box-info">
                   <div class="box-header with-border">
-                    <h3 class="box-title">New SubSector Types</h3>
+                    <h3 class="box-title"> <b>Add Approving Forums</b></h3>
                   </div>
                   <!-- /.box-header -->
                   <!-- form start -->
-                <form class="form-horizontal" method="POST" action="{{route('sub_sector.store')}}" >
+                <form class="form-horizontal" method="POST" action="{{route('approving_forum.store')}}" >
                     {{csrf_field()}}
                     <div class="box-body">
                         <div class="form-group col-md-12" id="field">
-                            <span class="firstspan">
-                              <label for="">Select Sector </label>
-                              <select class="form-control" name="sector_id">
-                                @foreach ($sectors as $sector)
-                                  <option value="{{$sector->id}}">{{$sector->name}}</option>
-                                @endforeach
-                              </select>
-                            </br>
-                                <label for="" >SubSector </label>
-                                <input autocomplete="off" name="sub_sectors[]" id="field1" type="text" class="form-control input"value="" data-items="8">
+                         
+                              
+                        </br>
+                                <label for="" style="font-size:20px;">Add new Forum </label>
+                                <input autocomplete="off" name="approving_forums[]" id="field1" type="text" class="form-control input"value="" data-items="20">
                                 <button id="b1" class="btn add-more pull-right" style="    position: relative;
                                 top: -34px;" type="button">+</button>
-                                </span>
+                               
                         </div>
                     </div>
                     <div class="box-footer">
@@ -40,29 +35,6 @@
                   </form>
                 </div>
         </div>
-
-
-{{--
-    <div class="col-md-10" style="margin-top:20px">
-     <!-- Input addon -->
-     <div class="box box-info" style="max-width:50%;">
-            <div class="box-header with-border">
-              <h3 class="box-title">New Role</h3>
-            </div>
-            <div class="box-body">
-                <label class="col-md-2" style="margin-top:8px">Role</label>
-              <div class="input-group" id="field">
-                <input type="text" class="form-control">
-                <span class="input-group-addon"><i class="fa fa-check add-more" id="b1"></i></span>
-              </div>
-              <br>
-            </div>
-            <div class="box-footer">
-                    <button type="submit" class="btn btn-default">Cancel</button>
-                    <button type="submit" class="btn btn-info pull-right">Add Roles</button>
-                  </div>
-     </div>
-    </div> --}}
 </div>
 
 @endsection
@@ -79,7 +51,7 @@
               console.log(addto);
               var addRemove = "#field" + (next);
               next = next + 1;
-              var newIn = '<div class="added'+(next-1)+'" > <label for="">SubSector </label><input name="sub_sectors[]" autocomplete="off" class="input form-control" id="field'+ next +'" value="'+$('input#field1').val()+'" type="text"> ';
+              var newIn = '<div class="added'+(next-1)+'" > <label for="">D </label><input name="approving_forums[]" autocomplete="off" class="input form-control" id="field'+ next +'" value="'+$('input#field1').val()+'" type="text"> ';
             //   var newInput = $(newIn);
               var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me pull-right" style="    position: relative;top: -34px;" >-</div> ';
             //   var removeButton = $(removeBtn);

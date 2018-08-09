@@ -85,7 +85,7 @@ class ProjectAssignController extends Controller
       if(!( $request->project_id)){
         return redirect()->back()->with('error','Project is not Selected');
       }
-      $priority = 'low_priority'
+      $priority = 'low_priority';
       if(isset($request->priority))
         $priority = $request->priority;
       $managers=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
@@ -121,7 +121,7 @@ class ProjectAssignController extends Controller
       if(!( $request->project_id)){
         return redirect()->back()->with('error','Project is not Selected');
       }
-      $priority = 'low_priority'
+      $priority = 'low_priority';
       if(isset($request->priority))
         $priority = $request->priority;
 
