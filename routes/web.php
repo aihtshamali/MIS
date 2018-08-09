@@ -85,11 +85,11 @@ Route::prefix('officer')->middleware('role:officer')->group(function () {
 });
 
 //For DataEntry
+Route::group(['middleware' => ['role:dataentry|officer|manager|executive']],function () {
 Route::post('/onsectorselect','DataEntryController@onSectorSelect');
 Route::post('/onsubsectorselect','DataEntryController@onSub_SectorSelect');
 Route::post('/onchangefunction','DataEntryController@onSubSectorSelect');
 Route::post('/onnewprojectselect','DataEntryController@newproject');
-Route::group(['middleware' => ['role:dataentry | role:officer | role: manager | role:executive']],function () {
 });
 
 Route::group(['middleware'=>['permission:can.chat']],function(){
