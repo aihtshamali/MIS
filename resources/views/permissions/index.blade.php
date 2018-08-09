@@ -19,16 +19,13 @@
             @else
             <span class="info-box-text">Description &rarr; NULL</span>
             @endif
-            <span class="info-box-number">Model &rarr; {{$permission->model}}</span>
           </div>
-          <!-- /.info-box-content -->
+        
           
         </div>
-        <!-- /.info-box -->
+     
       </div>
       @endforeach
-      
-      <!-- /.col -->
 </div>
         
         
