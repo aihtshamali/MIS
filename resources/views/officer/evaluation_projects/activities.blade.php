@@ -29,7 +29,7 @@
               <div class="box-header with-border">
 
                 <p>
-                   Project Number : <b> {{$project_data[0]->project_no}} </b></br>
+                   Project Number : <b> {{$project_data[0]->project->project_no}} </b></br>
                 </p>
                 <p >
                    Project Name :<b> {{$project_data[0]->project->title}}  </b></br>
@@ -53,9 +53,9 @@
 
                 <div class="progress">
 
-                        <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar"
-                        aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:1%">
-                        0% Complete
+                        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:10%">
+                        10% Complete
                         </div>
                       </div>
               </div>
@@ -84,8 +84,8 @@
                             <td>
 
                               <div class="progress">
-                                <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar"
-                                aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:1%">
+                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:25%">
                                 {{$activity->weightage}}% Complete
                                 </div>
                                 </div>
@@ -101,8 +101,18 @@
                             @endforeach
                         </tbody>
                       </table>
-                      <input type="hidden" name="id" value="{{$project_data[0]->project_id}}">
-                      <button type="submit" class="btn btn-success pull-right" >Submit
+                      <div class="form-group">
+                      <select name="attachment_activity" id="" class="select2 form-control" style="display:inline">
+                          <option value="">Select Activity For Attachments</option>
+                          @foreach($activities as $activity){
+                            <option value="{{$activity->id}}">{{$activity->name}}</option>
+                          @endforeach
+                      </select>
+                      <input type="file" name="activity_attachments">
+                    </div>
+
+                      <input type="hidden" name="id" style="display:inline;float:right" value="{{$project_data[0]->project_id}}">
+                      <button type="button" class="btn btn-success pull-right" >Submit
                       </button>
                 </form>
                     </div>
