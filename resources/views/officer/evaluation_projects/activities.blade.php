@@ -2,10 +2,10 @@
 
 @section('styletag')
   <style media="screen">
-    a{
+    .progressbar a{
       color: unset;
     }
-    a:hover{
+    .progressbar a:hover{
       color: unset !important;
       cursor: pointer !important;
     }
@@ -23,7 +23,7 @@
         position: relative;
         text-align: center;
         text-transform: uppercase;
-        color: #7d7d7d;
+        color: #5b0303;
     }
     .progressbar li:before {
         width: 30px;
@@ -31,7 +31,7 @@
         content: counter(step);
         counter-increment: step;
         line-height: 30px;
-        border: 2px solid #7d7d7d;
+        border: 2px solid #5b0303;
         display: block;
         text-align: center;
         margin: 0 auto 10px auto;
@@ -43,7 +43,7 @@
         height: 2px;
         content: '';
         position: absolute;
-        background-color: #7d7d7d;
+        background-color: #5b0303;
         top: 15px;
         left: -50%;
         z-index: -1;
@@ -217,34 +217,43 @@
                             </td>
                             <td>
 
-                            <a href="#commentModal"  class="btn btn-primary commentModal"  data-toggle="modal" data-id="{{$activity->id}}">Problematic?</a>
-
+                            <a data-target="#commentModal"  class="btn btn-primary commentModal"  data-toggle="modal" data-id="{{$activity->id}}">Problematic?</a>
                         </td>
-
-
                             </tr>
                             @endforeach
                         </tbody>
                       </table>
-                      <div class="form-group">
-                      <select name="attachment_activity" id="" class="select2 form-control" style="display:inline">
-                          <option value="">Select Activity For Attachments</option>
-                          @foreach($activities as $activity){
-                            <option value="{{$activity->id}}">{{$activity->name}}</option>
-                          @endforeach
-                      </select>
-                      <input type="file" name="activity_attachments">
-                    </div>
-
                       <input type="hidden" name="id" style="display:inline;float:right" value="{{$project_data[0]->project_id}}">
-                      <button type="button" class="btn btn-success pull-right" >Submit
+                      <button type="button" class="btn btn-success pull-right" >Project Completed
                       </button>
                 </form>
 
-                    </div>
-
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="form-group col-md-12 col-xs-6">
+                    <form class="" action="{{route('saveActivityAttachment')}}" method="POST" enctype="multipart/form-data">
+                      {{csrf_field()}}
+                      <div class="col-md-4">
+                        <select name="attachment_activity" id="" class="select2 form-control">
+                          <option value="">Select Activity For Attachments</option>
+                          @foreach($activities as $activity){
+                            <option value="{{$activity->id}}">{{$activity->ProjectActivity->name}}</option>
+                          @endforeach
+                        </select>
                       </div>
-
+                      <div class="col-md-4">
+                        <input type="text" name="attachment_name" class="form-control"  placeholder="Enter Attachment Name">
+                      </div>
+                      <div class="col-md-4">
+                        <input type="file" style="" class="form-control" name="activity_attachment">
+                      </div>
+                    </form>
+                    <br>
+                    <input type="submit" name="Submit" value="Save Attachment" class="btn btn-success pull-right">
+                  </div>
+                </div>
+                </div>
                </div>
               </div>
           </div>
@@ -256,8 +265,6 @@
     </section>
 
 </div>
-
-// Modal Box
 
 
 <div class="modal" data-keyboard="false" data-backdrop="static" id ="commentModal" tabindex="=-1">
@@ -273,10 +280,11 @@
 
                     <div class="form-group">
                         <input  type=hidden name="activity_id" value="">
+                        <input  type=hidden name="assigned_by" value="{{$activity->assigned_by}}">
                         <input type=hidden name="project_id" value="{{$project_id}}">
 
                         <label for="inputcomments"> Write Here</label>
-                        <input class="form-control" placeholder="Your Comments" type="text" id="inputcomments">
+                        <input name="remarks" class="form-control" placeholder="Your Comments" type="text" id="inputcomments">
 
                     </div>
 
@@ -323,11 +331,11 @@ function saveData(id,number){
 });
 }
 
-$('#btn-confirm').on('click',function(){
-  $('#myModal').modal({
-    show:true
-  });
-});
+// $('#btn-confirm').on('click',function(){
+//   $('#myModal').modal({
+//     show:true
+//   });
+// });
 
 $(document).ready(function(){
 
@@ -339,35 +347,6 @@ $(document).ready(function(){
 
 
 });
-// $('.popoverbtn').popover();
-//
-// $('.popoverbtn').on('click',function(e){
-//   var d=$(this).data('value');
-// console.log(d);
-// $('.popoverbtn').not(this).popover('hide');
-//
-// $('.popoverbtn').popover({
-//        placement : 'bottom',
-//        html : true,
-//        live : true,
-//        title : ' Confirmation Tab<a href="#" class="close" data-dismiss="alert">&times;</a>',
-//        content : '<div class="media"><form action="{{route('Problematicremarks.store')}}" method="POST">\
-//         {{csrf_field()}}\
-//        <div class="modal-body">\
-//                <div class="form-group">\
-//                    <input  type=hidden name="activity_id" value="">\
-//                    <input type=hidden name="project_id" value="{{$project_id}}">\
-//                    <label for="inputcomments"> Write Here</label>\
-//                    <input class="form-control" placeholder="Your Comments" type="text" id="inputcomments">\
-//                </div></div>\
-//        <div class="modal-footer">\
-//            <button class="btn btn-primary"> Submit</button>\
-//        </div></form></div>'
-//    });
-//  });
-   // $(document).on("click", ".popover .close" , function(){
-   //     $(this).parents(".popover").popover('hide');
-   // });
 
 </script>
 @endsection

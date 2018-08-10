@@ -8,6 +8,7 @@ use App\User;
 use Auth;
 use App\AssignedProject;
 use App\ProjectDetail;
+use App\AssignedActivityAttachment;
 use App\Project;
 use App\AssigningForum;
 use App\SponsoringAgency;
@@ -41,11 +42,26 @@ class OfficerController extends Controller
    }
    public function review_forms(Request $request)
    {
-     // dd($request->assigned_project_id);
+     // dd($request->all());
     $data=AssignedProject::find($request->assigned_project_id);
     $data->acknowledge='1';
     // dd($data);
     $data->save();
+    return redirect()->route('inprogress_evaluation');
+   }
+   public function saveActivityAttachment(Request $request)
+   {
+     // dd($request->all());
+    if($request->hasFile('activity_attachment')){
+      $data =new AssignedActivityAttachment();
+      $request->file('activity_attachment')->store('public/uploads/projects/project_activities');
+      $file_name = $request->file('activity_attachment')->hashName();
+      $data->project_attachements=$file_name;
+      $data->assigned_project_activities_id=$request->attachment_activity;
+      $data->attachment_name=$request->attachment_name;
+      $data->save();
+    }
+    // dd($data);
     return redirect()->route('inprogress_evaluation');
    }
 
