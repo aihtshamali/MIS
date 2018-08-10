@@ -12,6 +12,9 @@ class AssigningForum extends Model
     public function ProjectLog(){
       return $this->hasOne('App\Project');
     }
+    public function AssigningForumSubList(){
+      return $this->hasMany('App\AssigningForumSubList');
+    }
     public function ProjectDetail(){
         return $this->hasOne('App\ProjectDetail');
       }

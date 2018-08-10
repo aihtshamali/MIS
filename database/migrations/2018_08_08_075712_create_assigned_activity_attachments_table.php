@@ -17,6 +17,7 @@ class CreateAssignedActivityAttachmentsTable extends Migration
             $table->increments('id');
             $table->integer('assigned_project_activities_id')->unsigned()->index();
             $table->foreign('assigned_project_activities_id')->references('id')->on('assigned_project_activities')->onDelete('cascade');
+            $table->string('attachment_name')->nullable();
             $table->string('project_attachements')->nullable();
             $table->timestamps();
         });

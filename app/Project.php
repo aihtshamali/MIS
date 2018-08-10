@@ -15,6 +15,9 @@ class Project extends Model
     public function ProjectDetail(){
         return $this->hasOne('App\ProjectDetail');
     }
+    public function AssigningForumSubList(){
+        return $this->belongsTo('App\AssigningForumSubList');
+    }
     public function AssignedSponsoringAgencies(){
         return $this->hasMany('App\AssignedSponsoringAgency');
     }
@@ -34,9 +37,12 @@ class Project extends Model
     public function AssignedProjectManager(){
         return $this->hasMany('App\AssignedProjectManager');
     }
-    public function AssignedDepartments(){
-        return $this->hasMany('App\AssignedDepartment');
+    public function AssignedSubSectors(){
+        return $this->hasMany('App\AssignedSubSector');
     }
+    // public function AssignedDepartments(){
+    //     return $this->hasMany('App\AssignedDepartment');
+    // }
     public function ProjectType(){
       return $this->belongsTo('App\ProjectType');
     }

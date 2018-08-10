@@ -115,17 +115,17 @@ vertical-align: super;
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Sub Sector</label>
       <div class="col-sm-8">
-        <select id="sub_sectors" name="sub-sectors[]" class="form-control select2"  multiple="multiple" data-placeholder="Sub Sectors"  style="width: 100%;">
+        <select id="sub_sectors" name="sub_sectors[]" class="form-control select2"  multiple="multiple" data-placeholder="Sub Sectors"  style="width: 100%;">
         </select>
       </div>
     </div>
-    <div class="form-group">
+    {{-- <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Departments</label>
       <div class="col-sm-8">
         <select id="departments" name="departments[]"  class="form-control select2" multiple="multiple" data-placeholder="Departments"  style="width: 100%;">
         </select>
       </div>
-    </div>
+    </div> --}}
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Select Sponsoring Department</label>
       <div class="col-sm-8">
@@ -155,6 +155,13 @@ vertical-align: super;
               <option value="{{$assigning_forum->id}}">{{$assigning_forum->name}}</option>
             @endif
           @endforeach
+        </select>
+      </div>
+    </div>
+    <div class="form-group" style="display:none" id="assigning_forumSubListDiv">
+      <label class="col-sm-4 control-label">Select Assingning Forum SubList</label>
+      <div class="col-sm-8">
+        <select id="assigning_forumSubList" name="assigning_forumSubList" class="form-control select2"  style="width: 100%;">
         </select>
       </div>
     </div>
@@ -322,27 +329,27 @@ vertical-align: super;
   <div class="form-group">
     <label id="label_fixed_summary_sectors"  class="col-sm-6 control-label">Sectors</label>
     <div id="fixed_summary_sectors" class="col-sm-6">
-      @foreach ($project->AssignedDepartments as $assignDpt )
-          <label>{{$assignDpt->Department->SubSector->Sector->name}}</label>
+      @foreach ($project->AssignedSubSectors as $assignSbSct )
+          <label>{{$assignSbSct->SubSector->Sector->name}}</label>
       @endforeach
     </div>
   </div>
   <div class="form-group">
     <label id="label_fixed_summary_sub_sectors"  class="col-sm-6 control-label">Sub Sectors</label>
     <div id="fixed_summary_sub_sectors" class="col-sm-6">
-        @foreach ($project->AssignedDepartments as $assignDpt )
-          <label>{{$assignDpt->Department->SubSector->name}}</label>
+        @foreach ($project->AssignedSubSectors as $assignSbSct )
+          <label>{{$assignSbSct->SubSector->name}}</label>
       @endforeach
     </div>
   </div>
-  <div class="form-group">
+  {{-- <div class="form-group">
     <label id="label_fixed_summary_sponsoring_departments"  class="col-sm-6 control-label">Sponsoring Departments</label>
     <div id="fixed_summary_sponsoring_departments" class="col-sm-6">
       @foreach ($project->AssignedDepartments as $assignDpt )
           <label>{{$assignDpt->Department->name}}</label>
       @endforeach
     </div>
-  </div>
+  </div> --}}
   <div class="form-group">
     <label id="label_fixed_summary_executing_departments"  class="col-sm-6 control-label">Executing Departments</label>
     <div id="fixed_summary_executing_departments" class="col-sm-6">
@@ -355,6 +362,15 @@ vertical-align: super;
     <label id="label_fixed_summary_assigning_forums"  class="col-sm-6 control-label">Assigning Forums</label>
     <div id="fixed_summary_assigning_forums" class="col-sm-6">
         <label>{{$project->ProjectDetail->AssigningForum->name}}</label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label id="label_fixed_summary_assigning_forums"  class="col-sm-6 control-label">Assigning Forum Sub List</label>
+    <div id="fixed_summary_assigning_forums" class="col-sm-6">
+        <label>
+          {{$project->AssigningForumSubList->name}}
+        </label>
     </div>
   </div>
   <div class="form-group">
@@ -440,11 +456,7 @@ vertical-align: super;
         <h4 class="modal-title">Save Changes</h4>
       </div>
       <div class="modal-body">
-<<<<<<< HEAD
         <p>Are you Sure?</p>
-=======
-        <p>Are you sure?</p>
->>>>>>> 0a928a843470fd7fa443ec965b2c9c8f482c3fb3
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" id="confirmedbtn" data-dismiss="modal">Save Changes</button>
@@ -621,26 +633,30 @@ $(document).on('change', '#sectors', function() {
     }
 });
 });
-$(document).on('change', '#sub_sectors', function() {
+$(document).on('change', '#assigning_forums', function() {
   var opt = $(this).val()
   // console.log(opt);
   $.ajax({
     method: 'POST', // Type of response and matches what we said in the route
-    url: '/onsubsectorselect', // This is the url we gave in the route
+    url: '/onAssigningForumselect', // This is the url we gave in the route
     data: {
       "_token": "{{ csrf_token() }}",
-      'data' : opt}, // a JSON object to send back
+      'data' : opt
+    }, // a JSON object to send back
     success: function(response){ // What to do if we succeed
-      $("#sponsoring_departments").empty();
-      $("#departments").empty();
-      $.each(response[0], function () {
-          $('#sponsoring_departments').append("<option value=\""+this.id+"\">"+this.name+"</option>");
+      $("#assigning_forumSubList").empty();
+      $.each(response, function () {
+
+              $('#assigning_forumSubList').append("<option value=\""+this.id+"\">"+this.name+"</option>");
+
       });
-      $.each(response[1], function () {
-        $.each(this,function () {
-          $('#departments').append("<option value=\""+this.id+"\">"+this.name+"</option>");
-        });
-      });
+      if(response.length>0 && !response.error)
+        {
+          $('div#assigning_forumSubListDiv').show();
+        }
+        else{
+          $('div#assigning_forumSubListDiv').hide();
+        }
     },
     error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
         console.log(JSON.stringify(jqXHR));
@@ -648,6 +664,33 @@ $(document).on('change', '#sub_sectors', function() {
     }
 });
 });
+// $(document).on('change', '#sub_sectors', function() {
+//   var opt = $(this).val()
+//   // console.log(opt);
+//   $.ajax({
+//     method: 'POST', // Type of response and matches what we said in the route
+//     url: '/onsubsectorselect', // This is the url we gave in the route
+//     data: {
+//       "_token": "{ csrf_token() }}",
+//       'data' : opt}, // a JSON object to send back
+//     success: function(response){ // What to do if we succeed
+//       $("#sponsoring_departments").empty();
+//       $("#departments").empty();
+//       $.each(response[0], function () {
+//           $('#sponsoring_departments').append("<option value=\""+this.id+"\">"+this.name+"</option>");
+//       });
+//       $.each(response[1], function () {
+//         $.each(this,function () {
+//           $('#departments').append("<option value=\""+this.id+"\">"+this.name+"</option>");
+//         });
+//       });
+//     },
+//     error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+//         console.log(JSON.stringify(jqXHR));
+//         console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+//     }
+// });
+// });
 
 
 

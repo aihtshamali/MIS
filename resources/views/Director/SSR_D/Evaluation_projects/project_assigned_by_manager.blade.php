@@ -64,7 +64,7 @@
                             <form class="" action="{{route('create_from_director')}}" method="GET">
                                 {{ csrf_field() }}
                           <td>{{$project->Project->project_no}}</td>
-                          <td>{{$project->Project->title}}</td>
+                          <td><a href="{{route('projects.show',$project->project_id)}}">{{$project->Project->title}}</a></td>
                           <td>{{$project->AssignedBy($project->assigned_by)->first_name}}</td>
                           @if($project->priority == 3)
                           <td>High Priority</td>

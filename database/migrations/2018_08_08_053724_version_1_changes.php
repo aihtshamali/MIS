@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Version1.0Changes extends Migration
+class Version1Changes extends Migration
 {
     /**
      * Run the migrations.
@@ -14,13 +14,13 @@ class Version1.0Changes extends Migration
     public function up()
     {
       Schema::table('sponsoring_agencies', function(Blueprint $table){
-         $table->dropForeign('sponsoring_agencies_sub_sector_id_foreign');
+         $table->dropIndex('[sub_sector_id]');
          $table->dropColumn('sub_sector_id');
-       }
+       });
        Schema::table('others', function(Blueprint $table){
          $table->integer('user_id')->unsigned()->index();
          $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-        }
+       });
     }
 
     /**

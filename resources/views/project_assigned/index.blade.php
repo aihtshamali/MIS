@@ -52,7 +52,7 @@
                 @include('inc.msgs')
               <div class="form-group">
                 <label>Un-Assigned Projects</label>
-              
+
                 <table class="table table-responsive table-bordered projects">
                   <thead>
                     <th>Project No.</th>
@@ -69,7 +69,7 @@
                             <form class="" action="{{route('assignproject.create')}}" method="GET">
                                 {{ csrf_field() }}
                           <td>{{$project->project_no}}</td>
-                          <td>{{$project->title}}</td>
+                          <td><a href="{{route('projects.show',$project->id)}}">{{$project->title}}</a></td>
                           <td>{{$project->ProjectType->name}}</td>
                           <td>{{$project->created_at}}</td>
                           <td>

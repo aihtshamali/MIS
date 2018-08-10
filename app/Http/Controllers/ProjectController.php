@@ -15,8 +15,10 @@ use App\Project;
 use App\ProjectLog;
 use App\ProjectDetail;
 use App\Department;
-use App\AssignedDepartment;
-use App\AssignedDepartmentProjectLog;
+use App\AssignedSubSector;
+// use App\AssignedDepartment;
+use App\AssignedSubSectorLog;
+// use App\AssignedDepartmentProjectLog;
 use App\District;
 use App\Sector;
 use App\SponsoringAgency;
@@ -67,16 +69,17 @@ class ProjectController extends Controller
      */
     public function create()
     {
-      $project_types = ProjectType::all();
-      $evaluation_types = EvaluationType::all();
-      $sub_sectors = SubSector::all();
-      $projects = Project::all();
-      $evaluation_types = EvaluationType::all();
-      $districts = District::all();
-      $sectors  = Sector::all();
-      $sponsoring_departments = SponsoringAgency::all();
-      $executing_departments = ExecutingAgency::all();
-      $assigning_forums = AssigningForum::all();
+      $project_types = ProjectType::where('status','1')->get();
+      $evaluation_types = EvaluationType::where('status','1')->get();
+      $sub_sectors = SubSector::where('status','1')->get();
+      $projects = Project::where('status','1')->get();
+      $evaluation_types = EvaluationType::where('status','1')->get();
+      $districts = District::where('status','1')->get();
+      $sectors  = Sector::where('status','1')->get();
+      $sponsoring_departments = SponsoringAgency::where('status','1')->get();
+      $executing_departments = ExecutingAgency::where('status','1')->get();
+      $assigning_forums = AssigningForum::where('status','1')->get();
+      // $assigning_forumList = AssigningForumSubList::where('status','1')->get();
       // $project_no = Str::random();
       $current_year = date('Y');
       $approving_forums = ApprovingForum::all();
@@ -133,6 +136,7 @@ class ProjectController extends Controller
       $project->evaluation_type_id = $request->evaluation_type;
       $project->ADP = $request->ADP;
       $project->project_type_id = $request->type_of_project;
+      $project->assigning_forum_sub_list_id = $request->assigning_forumSubList;
       $project->status = 0;
       $project->user_id = Auth::id();
       $project->save();
@@ -155,18 +159,24 @@ class ProjectController extends Controller
       $project_detail->revised_start_date = $project_detail->planned_start_date;
       $project_detail->assigning_forum_id = $request->assigning_forum;
       $project_detail->approving_forum_id = $request->approving_forum;
-      $project_detail->sub_project_type_id = 1;//change
+      $project_detail->sub_project_type_id = $request->phase_of_evaluation;//change
       if($request->hasFile('attachments')){
         $request->file('attachments')->store('public/uploads/projects/');
         $file_name = $request->file('attachments')->hashName();
         $project_detail->project_attachements=$file_name;
       }
       $project_detail->save();
-      foreach($request->departments as $department_id){
-        $assigned_department = new AssignedDepartment();
-        $assigned_department->project_id = $project_id;
-        $assigned_department->department_id = $department_id;
-        $assigned_department->save();
+      // foreach($request->departments as $department_id){
+      //   $assigned_department = new AssignedDepartment();
+      //   $assigned_department->project_id = $project_id;
+      //   $assigned_department->department_id = $department_id;
+      //   $assigned_department->save();
+      // }
+      foreach($request->sub_sectors as $sub_sector){
+        $Assignedsub_sector = new AssignedSubSector();
+        $Assignedsub_sector->project_id = $project_id;
+        $Assignedsub_sector->sub_sector_id = $sub_sector;
+        $Assignedsub_sector->save();
       }
       foreach($request->sponsoring_departments as $sponsoring_department_id){
         $sponosoring_agency = new AssignedSponsoringAgency();
@@ -234,25 +244,24 @@ class ProjectController extends Controller
     {
       $project = Project::find($id);
       // dd($project);
-      $project_types = ProjectType::all();
-      $evaluation_types = EvaluationType::all();
-      $sub_sectors = SubSector::all();
+      $project_types = ProjectType::where('status','1')->get();
+      $evaluation_types = EvaluationType::where('status','1')->get();
+      $sub_sectors = SubSector::where('status','1')->get();
 
-      $evaluation_types = EvaluationType::all();
-      $districts = District::all();
+      $evaluation_types = EvaluationType::where('status','1')->get();
+      $districts = District::where('status','1')->get();
       $sectors  = Sector::where('status','1')->get();
-      $departments  = Department::where('status','1')->get();
+      // $departments  = Department::where('status','1')->get();
       $sponsoring_departments = SponsoringAgency::all();
       $executing_departments = ExecutingAgency::all();
       $assigning_forums = AssigningForum::all();
-      // $project_no = Str::random();
       $current_year = date('Y');
       $approving_forums = ApprovingForum::all();
       $sub_project_types = SubProjectType::all();
       $projectfor_no=Project::select('projects.project_no')->latest()->first();
       if($projectfor_no){
-      $projectNo=explode('-',$projectfor_no->project_no);
-      $project_no=$projectNo[0].'-'.($projectNo[1]+1);
+        $projectNo=explode('-',$projectfor_no->project_no);
+        $project_no=$projectNo[0].'-'.($projectNo[1]+1);
       }
       else {
         $project_no = "PRO-1";
@@ -272,11 +281,11 @@ class ProjectController extends Controller
       foreach ($assigning_forums as $assigning_forum) {
         $assigning_forum->name = $assigning_forum->name . "/";
       }
-      foreach ($departments as $department) {
-        $department->name = $department->name . "/";
-      }
+      // foreach ($departments as $department) {
+      //   $department->name = $department->name . "/";
+      // }
 
-      return view('projects.edit',compact('departments','sub_project_types','districts','sectors','sponsoring_departments','executing_departments','assigning_forums','project_no','current_year','approving_forums','evaluation_types','project_types','evaluation_types','sub_sectors','project'));
+      return view('projects.edit',compact('sub_project_types','districts','sectors','sponsoring_departments','executing_departments','assigning_forums','project_no','current_year','approving_forums','evaluation_types','project_types','evaluation_types','sub_sectors','project'));
     }
 
     /**
@@ -305,6 +314,8 @@ class ProjectController extends Controller
         $project->currency = $request->currency;
       if($request->original_cost != NULL)
         $project->orignal_cost = $request->original_cost;
+      if($request->assigning_forumSubList != NULL)
+        $project->assigning_forum_sub_list_id = $request->assigning_forumSubList;
       if($request->planned_start_date != NULL)
         $project->planned_start_date = date('Y-m-d',strtotime($request->planned_start_date));
       if($request->planned_end_date != NULL)
@@ -322,16 +333,26 @@ class ProjectController extends Controller
       }
       if($project!=NULL)
         $project->save();
-      if($request->departments)
-      foreach($request->departments as $department_id){
+      // if($request->departments)
+      // foreach($request->departments as $department_id){
+      //   if($department != NULL){
+      //   $assigned_department = new AssignedDepartmentProjectLog();
+      //   $assigned_department->assproject_id = $id;
+      //   $assigned_department->project_id = $id;
+      //   $assigned_department->department_id = $department_id;
+      //   $assigned_department->save();
+      // }
+      // }
+      if($request->sub_sectors)
+      foreach($request->sub_sectors as $sub_sector){
         if($department != NULL){
-        $assigned_department = new AssignedDepartmentProjectLog();
-        $assigned_department->assproject_id = $id;
-        $assigned_department->project_id = $id;
-        $assigned_department->department_id = $department_id;
-        $assigned_department->save();
+        $Assignedsub_sector = new AssignedSubSectorLog();
+        $Assignedsub_sector->project_id = $id;
+        $Assignedsub_sector->department_id = $sub_sector;
+        $Assignedsub_sector->save();
       }
       }
+
       if($request->sponsoring_departments)
       foreach($request->sponsoring_departments as $sponsoring_department_id){
         if($sponsoring_department_id != NULL){

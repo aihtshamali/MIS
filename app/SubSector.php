@@ -15,8 +15,12 @@ class SubSector extends Model
   {
     return $this->hasMany('App\SponsoringAgency');
   }
-  public function departments()
+  public function AssignedSubSectors()
   {
-    return $this->hasMany('App\Department');
+    return $this->hasMany('App\AssignedSubSector');
   }
+  // public function departments()
+  // {
+  //   return $this->hasMany('App\Department');
+  // }
 }

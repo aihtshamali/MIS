@@ -56,23 +56,23 @@
 
                 <div class="col-md-4">
                   <b>Sector :</b>
-                  @foreach ($project_data->project->AssignedDepartments as $dpt)
-                  {{$dpt->Department->SubSector->Sector->name}}
+                  @foreach ($project_data->project->AssignedSubSectors as $sbsect)
+                  {{$sbsect->SubSector->Sector->name}}
                   @endforeach
                 </div>
                 <div class="col-md-4">
                   <b>Sub-Sectors:</b>
-                  @foreach ($project_data->project->AssignedDepartments as $dpt)
-                  {{$dpt->Department->SubSector->name}}
+                  @foreach ($project_data->project->AssignedSubSectors as $sbsect)
+                  {{$sbsect->SubSector->name}}
                   @endforeach
 
                 </div>
-                <div class="col-md-4">
+                {{-- <div class="col-md-4">
                   <b>Department :</b>
                   @foreach ($project_data->project->AssignedDepartments as $dpt)
                   {{$dpt->Department->name}}
                   @endforeach
-                </div>
+                </div> --}}
 
               </div>
               <hr/>
@@ -122,12 +122,12 @@
                 <div class="col-md-4"><b>Original Approved Cost : </b> {{$project_data->project->ProjectDetail->orignal_cost}} -/{{$project_data->project->ProjectDetail->currency}} </div>
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
-                    
-                  
+
+
                   @foreach ($project_data->project->RevisedApprovedCost as $cost)
                     <b>    <b>Revised Original: </b> </b>{{$cost->cost}} -/{{$project_data->project->ProjectDetail->currency}} </br>
                   @endforeach
-                 
+
                 </div>
               </div>
               <hr/>
