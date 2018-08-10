@@ -61,22 +61,22 @@
 
                                                 <div class="col-md-4">
                                                 <b>Sector :</b>
-                                                @foreach ($project->AssignedDepartments as $department)
-                                                  {{$department->Department->SubSector->Sector->name}}
+                                                @foreach ($project->AssignedSubSectors as $subsct)
+                                                  {{$subsct->SubSector->Sector->name}}
                                                 @endforeach
                                                 </div>
                                                 <div class="col-md-4">
                                                 <b>Sub-Sectors:</b>
-                                                @foreach ($project->AssignedDepartments as $department)
-                                                  {{$department->Department->SubSector->name}}
+                                                @foreach ($project->AssignedSubSectors as $subsct)
+                                                  {{$subsct->SubSector->name}}
                                                 @endforeach
                                                 </div>
-                                                <div class="col-md-4">
+                                                {{-- <div class="col-md-4">
                                                 <b>Department :</b>
                                                 @foreach ($project->AssignedDepartments as $department)
                                                   {{$department->Department->name}}
                                                 @endforeach
-                                                </div>
+                                                </div> --}}
 
                                         </div>
                                         <hr/>
@@ -166,9 +166,11 @@
                                            style="width:38%;margin-right:5px;" class="btn  btn-primary pull-right">Edit</a>
 
                                           </div>
+                                        @if(Auth::user()->hasRole('officer'))
                                           <div class="col-md-1">
                                           <button type="Reviewed" class="btn btn-success pull-right"> Reviewed</button>
                                           </div>
+                                        @endif
                                         @endif
                                         </div>
 

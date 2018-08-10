@@ -213,21 +213,24 @@ vertical-align: super;
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Sub Sector</label>
       <div class="col-sm-8">
-        <select id="sub_sectors" name="sub-sectors[]" class="form-control select2" required multiple="multiple" data-placeholder="Sub Sectors"  style="width: 100%;">
+        <select id="sub_sectors" name="sub_sectors[]" class="form-control select2" required multiple="multiple" data-placeholder="Sub Sectors"  style="width: 100%;">
         </select>
       </div>
     </div>
-    <div class="form-group">
+    {{-- <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Departments</label>
       <div class="col-sm-8">
         <select id="departments" name="departments[]" required class="form-control select2" multiple="multiple" data-placeholder="Departments"  style="width: 100%;">
         </select>
       </div>
-    </div>
+    </div> --}}
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Select Sponsoring Department</label>
       <div class="col-sm-8">
         <select id="sponsoring_departments" required name="sponsoring_departments[]" class="form-control select2" multiple="multiple" data-placeholder="Sponsoring Department"  style="width: 100%;">
+          @foreach ($sponsoring_departments as $sponsoring_department)
+              <option value="{{$sponsoring_department->id}}">{{$sponsoring_department->name}}</option>
+          @endforeach
         </select>
       </div>
     </div>
@@ -236,9 +239,7 @@ vertical-align: super;
       <div class="col-sm-8">
         <select id="executing_departments" required name="executing_departments[]" class="form-control select2" multiple="multiple" data-placeholder="Executing Department"  style="width: 100%;">
           @foreach ($executing_departments as $executing_department)
-            @if($executing_department->status == 1)
               <option value="{{$executing_department->id}}">{{$executing_department->name}}</option>
-            @endif
           @endforeach
         </select>
       </div>
@@ -256,15 +257,20 @@ vertical-align: super;
         </select>
       </div>
     </div>
+    <div class="form-group" style="display:none" id="assigning_forumSubListDiv">
+      <label class="col-sm-4 control-label">Select Assingning Forum SubList</label>
+      <div class="col-sm-8">
+        <select id="assigning_forumSubList" name="assigning_forumSubList" class="form-control select2"  style="width: 100%;">
+        </select>
+      </div>
+    </div>
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Select Approving Forum</label>
       <div class="col-sm-8">
         <select id="approving_forums" required name="approving_forum" class="form-control select2"  style="width: 100%;">
           <option value="">Select Approving Forum</option>
           @foreach ($approving_forums as $approving_forum)
-            @if($approving_forum->status == 1)
               <option value="{{$approving_forum->id}}">{{$approving_forum->name}}</option>
-            @endif
           @endforeach
         </select>
       </div>
@@ -437,6 +443,11 @@ vertical-align: super;
   <div class="form-group">
     <label id="label_summary_assigning_forums" style="display:none;" class="col-sm-6 control-label">Assigning Forums</label>
     <div id="summary_assigning_forums" class="col-sm-6">
+    </div>
+  </div>
+  <div class="form-group">
+    <label id="label_summary_assigning_forums" style="display:none;" class="col-sm-6 control-label">Assigning Forum Sub List</label>
+    <div id="summary_assigning_forum_sublist" class="col-sm-6">
     </div>
   </div>
   <div class="form-group">
@@ -659,26 +670,30 @@ $(document).on('change', '#sectors', function() {
     }
 });
 });
-$(document).on('change', '#sub_sectors', function() {
+$(document).on('change', '#assigning_forums', function() {
   var opt = $(this).val()
   // console.log(opt);
   $.ajax({
     method: 'POST', // Type of response and matches what we said in the route
-    url: '/onsubsectorselect', // This is the url we gave in the route
+    url: '/onAssigningForumselect', // This is the url we gave in the route
     data: {
       "_token": "{{ csrf_token() }}",
-      'data' : opt}, // a JSON object to send back
+      'data' : opt
+    }, // a JSON object to send back
     success: function(response){ // What to do if we succeed
-      $("#sponsoring_departments").empty();
-      $("#departments").empty();
-      $.each(response[0], function () {
-          $('#sponsoring_departments').append("<option value=\""+this.id+"\">"+this.name+"</option>");
+      $("#assigning_forumSubList").empty();
+      $.each(response, function () {
+
+              $('#assigning_forumSubList').append("<option value=\""+this.id+"\">"+this.name+"</option>");
+
       });
-      $.each(response[1], function () {
-        $.each(this,function () {
-          $('#departments').append("<option value=\""+this.id+"\">"+this.name+"</option>");
-        });
-      });
+      if(response.length>0 && !response.error)
+        {
+          $('div#assigning_forumSubListDiv').show();
+        }
+        else{
+          $('div#assigning_forumSubListDiv').hide();
+        }
     },
     error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
         console.log(JSON.stringify(jqXHR));
@@ -686,6 +701,33 @@ $(document).on('change', '#sub_sectors', function() {
     }
 });
 });
+// $(document).on('change', '#sub_sectors', function() {
+//   var opt = $(this).val()
+//   // console.log(opt);
+//   $.ajax({
+//     method: 'POST', // Type of response and matches what we said in the route
+//     url: '/onsubsectorselect', // This is the url we gave in the route
+//     data: {
+//       "_token": "{ csrf_token() }}",
+//       'data' : opt}, // a JSON object to send back
+//     success: function(response){ // What to do if we succeed
+//       $("#sponsoring_departments").empty();
+//       $("#departments").empty();
+//       $.each(response[0], function () {
+//           $('#sponsoring_departments').append("<option value=\""+this.id+"\">"+this.name+"</option>");
+//       });
+//       $.each(response[1], function () {
+//         $.each(this,function () {
+//           $('#departments').append("<option value=\""+this.id+"\">"+this.name+"</option>");
+//         });
+//       });
+//     },
+//     error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+//         console.log(JSON.stringify(jqXHR));
+//         console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+//     }
+// });
+// });
 
 
 

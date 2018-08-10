@@ -40,7 +40,7 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::resource('district','DistrictController');
     Route::resource('assigning_forum','AssigningForumController');
     Route::resource('approving_forum','ApprovingForumController');
- 
+
 });
 
 // For Manager
@@ -93,6 +93,7 @@ Route::prefix('officer')->middleware('role:officer')->group(function () {
 Route::group(['middleware' => ['role:dataentry|officer|manager|executive']],function () {
 Route::post('/onsectorselect','DataEntryController@onSectorSelect');
 Route::post('/onsubsectorselect','DataEntryController@onSub_SectorSelect');
+Route::post('/onAssigningForumselect','DataEntryController@onAssigningForumselect');
 Route::post('/onchangefunction','DataEntryController@onSubSectorSelect');
 Route::post('/onnewprojectselect','DataEntryController@newproject');
 Route::resource('projects','ProjectController');
@@ -116,4 +117,3 @@ Route::get('/dashboard',function(){
 Route::get('/403',function(){
   return view('403');
 });
-
