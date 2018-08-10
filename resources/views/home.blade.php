@@ -25,7 +25,7 @@
 
 
   <section id="work" class="page-section">
-    <div class="container">
+    {{-- <div class="container">
 
       <header>
           <h2>H R I S</h2>
@@ -106,16 +106,16 @@
   </div> <!-- /.call-to-action -->
 
 
-    </div> <!-- /-.container -->
+    </div> <!-- /-.container --> --}}
 
     <!-- Nav animation hook -->
-    <section class="ha-waypoint" data-animate-down="ha-header-rotate" data-animate-up="ha-header-rotateBack"></section>
+    {{-- <section class="ha-waypoint" data-animate-down="ha-header-rotate" data-animate-up="ha-header-rotateBack"></section> --}}
 
-  </section> <!-- /#work -->
+  {{-- </section> <!-- /#work --> --}}
 
 
-  <section id="services" class="page-section">
-    <div class="container">
+  {{-- <section id="services" class="page-section"> --}}
+    {{-- <div class="container">
 
       <header>
           <h2>V M S</h2>
@@ -158,7 +158,7 @@
             <p>I'm a monster. Now, when you do this without getting punched in the chest, you'll have more fun.</p>
           </div> <!-- /.service -->
         </div> <!-- /.col-md-3 -->
-      </div> <!-- /.row -->
+      </div> <!-- /.row --> --}}
 
 {{--
       <div class="pricing-tables">
@@ -223,13 +223,13 @@
         </div> <!-- /.row -->
       </div> <!-- /.pricing-tables --> --}}
 
-    </div> <!-- /.container -->
-  </section> <!-- /#services -->
+    {{-- </div> <!-- /.container --> --}}
+  {{-- </section> <!-- /#services --> --}}
 
 
 
-  <section id="about" class="page-section">
-    <div class="container">
+  {{-- <section id="about" class="page-section"> --}}
+    {{-- <div class="container">
 
       <header>
           <h2>F M I S</h2>
@@ -260,7 +260,7 @@
       <div class="clearfix"></div>
 
 
-    </div> <!-- /.container -->
-  </section> <!-- /#about -->
+    </div> <!-- /.container --> --}}
+  {{-- </section> <!-- /#about --> --}}
 
 @endsection

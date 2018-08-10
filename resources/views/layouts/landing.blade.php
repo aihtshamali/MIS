@@ -6,8 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <link rel="icon" type="image/png" style="width:50%" href="logo.png"/>
-  <title>Float HTML Template</title>
+  {{-- <link rel="icon" type="image/png" style="width:50%" href=""/> --}}
+  <title>DGME MIS</title>
 
   <!-- Favicon -->
   <link href="{{asset('landingAssets/favicon.ico')}}" rel="shortcut icon" />
@@ -188,18 +188,18 @@
 
         <div class="col-md-3">
           <h4>Email</h4>
-          <p>your@example.com</p>
+          <p>mis.dgme.gov.pk:8080</p>
         </div> <!-- /.col-md-3 -->
 
         <div class="col-md-3">
           <h4>Telephone</h4>
-          <p>+123 456 789</p>
+          <p>+92-42-99233187-91</p>
         </div> <!-- /.col-md-3 -->
 
         <div class="col-md-3">
           <h4>Address</h4>
-          <p>767 Fifth Ave.<br />
-            New York, NY 10153</p>
+          <p>Directorate General Monitoring & Evaluation P&D Department, 65-Trade Centre Block<br />
+             M.A Johar Town, Lahore (Punjab), Pakistan.</p>
         </div> <!-- /.col-md-3 -->
 
         <div class="col-md-3">
@@ -244,7 +244,7 @@
         </div> <!-- /.row -->
       </form>
 
-      <p class="copyright">Copyright &copy; 2016 Copyright Holder All Rights Reserved.</p>
+      <p class="copyright">Copyright &copy; 2018 IT Team All Rights Reserved.</p>
 
     </div> <!-- /.container -->
   </div> <!-- /.footer-content -->
