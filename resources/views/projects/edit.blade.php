@@ -365,6 +365,8 @@ vertical-align: super;
     </div>
   </div>
 
+
+  @if(isset($project->AssigningForumSubList->name))
   <div class="form-group">
     <label id="label_fixed_summary_assigning_forums"  class="col-sm-6 control-label">Assigning Forum Sub List</label>
     <div id="fixed_summary_assigning_forums" class="col-sm-6">
@@ -373,6 +375,7 @@ vertical-align: super;
         </label>
     </div>
   </div>
+@endif
   <div class="form-group">
     <label id="label_fixed_summary_approving_forums"  class="col-sm-6 control-label">Approving Forums</label>
     <div id="fixed_summary_approving_forums" class="col-sm-6">

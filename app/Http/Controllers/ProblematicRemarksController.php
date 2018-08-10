@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\ProblematicRemarks;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use Auth;
 class ProblematicRemarksController extends Controller
 {
     /**
@@ -36,7 +36,15 @@ class ProblematicRemarksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      // dd($request->all());
+        $problematicRemarks=new ProblematicRemarks();
+        $problematicRemarks->remarks = $request->remarks;
+        $problematicRemarks->project_activity_id = $request->activity_id;
+        $problematicRemarks->project_id = $request->project_id;
+        $problematicRemarks->from_user_id = Auth::id();
+        $problematicRemarks->to_user_id = $request->assigned_by;
+        $problematicRemarks->save();
+        return back();
     }
 
     /**

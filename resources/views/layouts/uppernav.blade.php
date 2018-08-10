@@ -305,7 +305,7 @@
                 <!-- /.row -->
               </li>
               <!-- Menu Footer-->
-              <li class="user-footer">
+              <li class="user-footer" style="background-color:#3c8dbc">
                 <div class="pull-left">
                   <a href="/profile" class="btn btn-default btn-flat">Profile</a>
                 </div>
