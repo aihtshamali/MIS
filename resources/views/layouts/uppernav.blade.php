@@ -309,6 +309,9 @@
                 <div class="pull-left">
                   <a href="/profile" class="btn btn-default btn-flat">Profile</a>
                 </div>
+                  <div class="pull-left" style="margin-left:1.5px">
+                    <a href="/reset_password" class="btn btn-default btn-flat">Reset Password</a>
+                  </div>
                 <div class="pull-right">
                     <a href="{{ route('logout') }}"
                     onclick="event.preventDefault();

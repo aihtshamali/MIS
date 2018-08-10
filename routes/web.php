@@ -20,6 +20,11 @@ Route::get('/home', function(){
   return view('home');
 });
 
+Route::group(['middleware' => ['auth']],function(){
+  Route::get('/reset_password','HomeController@reset_password');
+  Route::post('/reset_store','HomeController@reset_store');
+});
+
 //For Admin
 Route::group(['middleware' => ['role:admin']], function () {
   Route::resource('/accountRequest','AccountRequestController');
