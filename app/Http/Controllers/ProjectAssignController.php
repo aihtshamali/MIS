@@ -16,6 +16,8 @@ use App\Events\ProjectAssignedManagerEvent;
 use jeremykenedy\LaravelRoles\Models\Role;
 use Carbon\Carbon;
 use DB;
+use App\ProjectActivity;
+use App\AssignedProjectActivity;
 class ProjectAssignController extends Controller
 {
     /**
@@ -144,8 +146,6 @@ class ProjectAssignController extends Controller
 
     public function store_from_director(Request $request)
     {
-
-
        if($request->priority=='high_priority'){
          $priority=3;
        }
@@ -184,6 +184,29 @@ class ProjectAssignController extends Controller
           $assignedProjectTeam->save();
         }
 
+        $project_activities = ProjectActivity::all();
+        foreach ($project_activities as $project_activity) {
+          $assigned_project_activity = new AssignedProjectActivity();
+          $assigned_project_activity->project_id = $request->project_id;
+          $assigned_project_activity->project_activity_id = $project_activity->id;
+          if(count($request->officer_id) > 1){
+            foreach ($request->officer_id as $officer) {
+                if($officer==$request->team_lead){
+                  $assigned_project_activity->user_id = $officer;
+                  break;
+                }
+            }
+          }
+            else{
+              foreach ($request->officer_id as $officer) {
+                    $assigned_project_activity->user_id = $officer;
+              }
+            }
+            $assigned_project_activity->assigned_by = Auth::id();
+            $assigned_project_activity->save();
+        }
+
+
         $notification = new Notification();
         $notification->user_id=Auth::id();
         $notification->text= $assignProject->project->title.' project assigned to '.$notif_officers.' with '.$request->priority;
@@ -191,7 +214,6 @@ class ProjectAssignController extends Controller
         $notification->table_id=$table_id;
         $notification->save();
         broadcast(new ProjectAssignedEvent(AssignedProject::where('project_id',$request->project_id)->first(),$notification))->toOthers();
-
       }else if($request->assign_to=='manager'){
         foreach ($request->manager_id as $manager) {
           $assignedProjectManager = new AssignedProjectManager();
@@ -211,6 +233,8 @@ class ProjectAssignController extends Controller
         $notification->save();
         broadcast(new ProjectAssignedManagerEvent(AssignedProjectManager::where('project_id',$request->project_id)->first(),$notification))->toOthers();
       }
+
+
         return redirect()->route('RnD_evaluation_assigned');
     }
 

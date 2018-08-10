@@ -31,11 +31,16 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::post('/rolesandpermissions','RolesPermissionsUsersController@rolesandpermissionsstore');
     Route::post('/usersandroles','RolesPermissionsUsersController@rolesandusersstore');
     Route::post('/usersandpermissions','RolesPermissionsUsersController@usersandpermissionstore');
+
     Route::get('/rolespermissionsusers/view','RolesPermissionsUsersController@index');
     Route::resource('project_type','ProjectTypeController');
     Route::resource('evaluation_type','EvaluationTypeController');
     Route::resource('sub_sector','SubSectorController');
     Route::resource('sector','SectorController');
+    Route::resource('district','DistrictController');
+    Route::resource('assigning_forum','AssigningForumController');
+    Route::resource('approving_forum','ApprovingForumController');
+ 
 });
 
 // For Manager
@@ -72,10 +77,10 @@ Route::prefix('executive')->middleware('role:executive')->group(function () {
 
 //officers
 Route::prefix('officer')->middleware('role:officer')->group(function () {
+  Route::post('/save_percentage','OfficerController@save_percentage')->name('save_percentage');
   Route::get('/main','OfficerController@evaluation_main')->name('main_page');
   Route::get('/','OfficerController@evaluation_index')->name('new_evaluation');
   Route::post('/submitActivities','OfficerController@activitiesSubmit')->name('activitiesSubmit');
-
   Route::get('/inprogress_evaluation','OfficerController@evaluation_inprogress')->name('inprogress_evaluation');
   Route::get('/activities_evaluation/{project_id}','OfficerController@evaluation_activities')->name('evaluation_activities');
   Route::get('/completed_evaluation','OfficerController@evaluation_completed')->name('completed_evaluation');
@@ -112,3 +117,4 @@ Route::get('/dashboard',function(){
 Route::get('/403',function(){
   return view('403');
 });
+

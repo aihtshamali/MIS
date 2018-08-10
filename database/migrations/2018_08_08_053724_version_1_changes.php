@@ -13,10 +13,14 @@ class Version1Changes extends Migration
      */
     public function up()
     {
+      Schema::disableForeignKeyConstraints();
       Schema::table('sponsoring_agencies', function(Blueprint $table){
-         $table->dropIndex('[sub_sector_id]');
+        $table->dropIndex(['sub_sector_id']);
+         $table->dropForeign(['sub_sector_id']);
          $table->dropColumn('sub_sector_id');
+
        });
+       Schema::enableForeignKeyConstraints();
        Schema::table('others', function(Blueprint $table){
          $table->integer('user_id')->unsigned()->index();
          $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
