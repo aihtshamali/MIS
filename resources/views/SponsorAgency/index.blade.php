@@ -7,7 +7,7 @@
         <div class="info-box" style="margin-top:20px">
           <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
           <div class="info-box-content">
-            <span class="info-box-number">{{$sp->sponsor_agency_name}}</span>
+            <span class="info-box-number">{{$sp->name}}</span>
             <form action="{{route('SponsorAgency.destroy',$sp->id)}}" method="POST">
                 {{csrf_field()}}
               <input type="hidden" name="_method" value="DELETE">
