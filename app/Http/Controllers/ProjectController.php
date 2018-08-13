@@ -184,6 +184,7 @@ class ProjectController extends Controller
         $executing_agency->executing_agency_id = $executing_department_id;
         $executing_agency->save();
       }
+      if($request->revised_approved_costs)
       foreach($request->revised_approved_costs as $revised_approved_cost){
         $revised_approved_cost_save = new RevisedApprovedCost();
         $revised_approved_cost_save->project_id = $project_id;
