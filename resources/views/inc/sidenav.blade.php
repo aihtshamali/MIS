@@ -11,10 +11,10 @@
           @role('admin')
             <p>Admin Dashboard</p>
           @endrole
-          @role('user')
-            <p>User Dashboard</p>
+          @role('dataentry')
+            <p>Data Entry Dashboard</p>
           @endrole
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          {{-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> --}}
         </div>
       </div>
       <!-- search form -->
@@ -44,27 +44,40 @@
           </ul>
         </li> --}}
         {{-- @permission('can.do.anything') --}}
+        <li>
+          <a href="{{url('/dashboard')}}">
+            <i class="fa fa-user"></i>
+            <span>Home</span>
+          </a>
+        </li>
         @role('admin')
         <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
             <span>Roles</span>
-            <span class="pull-right-container">
-              <span class="label label-primary pull-right">new</span>
-            </span>
+
           </a>
           <ul class="treeview-menu">
             <li><a href="{{route('roles.create')}}"><i class="fa fa-circle-o"></i>Create</a></li>
             <li><a href="{{route('roles.index')}}"><i class="fa fa-circle-o"></i>View</a></li>
           </ul>
         </li>
+        <li class="">
+          <a href="{{url('register')}}">
+            <i class="fa fa-files-o"></i>
+            <span>User</span>
+
+          </a>
+          <ul class="treeview-menu">
+            {{-- <li><a href="{{route('register')}}"><i class="fa fa-circle-o"></i>Create</a></li> --}}
+            {{-- <li><a href="{{route('roles.index')}}"><i class="fa fa-circle-o"></i>View</a></li> --}}
+          </ul>
+        </li>
         <li class="treeview">
             <a href="#">
               <i class="fa fa-files-o"></i>
               <span>Permissions</span>
-              <span class="pull-right-container">
-                <span class="label label-primary pull-right">new</span>
-              </span>
+
             </a>
             <ul class="treeview-menu">
               <li><a href="{{route('permissions.create')}}"><i class="fa fa-circle-o"></i>Create</a></li>
@@ -75,15 +88,65 @@
               <a href="#">
                 <i class="fa fa-files-o"></i>
                 <span>Roles Permissions Users</span>
-                <span class="pull-right-container">
-                  <span class="label label-primary pull-right">new</span>
-                </span>
+
               </a>
               <ul class="treeview-menu">
                 <li><a href="{{url('/rolespermissionsusers/create')}}"><i class="fa fa-circle-o"></i>Create</a></li>
                 <li><a href="{{url('/rolespermissionsusers/view')}}"><i class="fa fa-circle-o"></i>View</a></li>
               </ul>
             </li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-files-o"></i>
+                <span>Sectors</span>
+                <span class="pull-right-container">
+                  {{-- <span class="label label-primary pull-right">Add new Project</span> --}}
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{route('sector.create')}}"><i class="fa fa-circle-o"></i>Add New Sector</a></li>
+                <li><a href="{{route('sector.index')}}"><i class="fa fa-circle-o"></i>View Sectors</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                  <i class="fa fa-files-o"></i>
+                  <span>Sub-Sectors</span>
+                  <span class="pull-right-container">
+                    {{-- <span class="label label-primary pull-right">Add new Project</span> --}}
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="{{route('sub_sector.create')}}"><i class="fa fa-circle-o"></i>Add New Sub-Sector</a></li>
+                  <li><a href="{{route('sub_sector.index')}}"><i class="fa fa-circle-o"></i>View Sub-Sectors</a></li>
+                </ul>
+              </li>
+              <li class="treeview">
+                  <a href="#">
+                    <i class="fa fa-files-o"></i>
+                    <span>Assigning Forum</span>
+                    <span class="pull-right-container">
+                      {{-- <span class="label label-primary pull-right">Add new Project</span> --}}
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                    <li><a href="{{route('assigning_forum.create')}}"><i class="fa fa-circle-o"></i>Add</a></li>
+                    <li><a href="{{route('assigning_forum.index')}}"><i class="fa fa-circle-o"></i>View</a></li>
+                  </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                      <i class="fa fa-files-o"></i>
+                      <span>Approving Forum</span>
+                      <span class="pull-right-container">
+                        {{-- <span class="label label-primary pull-right">Add new Project</span> --}}
+                      </span>
+                    </a>
+                    <ul class="treeview-menu">
+                      <li><a href="{{route('approving_forum.create')}}"><i class="fa fa-circle-o"></i>Add</a></li>
+                      <li><a href="{{route('approving_forum.index')}}"><i class="fa fa-circle-o"></i>View</a></li>
+                    </ul>
+                  </li>
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-files-o"></i>
@@ -110,105 +173,26 @@
                 <li><a href="{{route('ExecutingAgency.index')}}"><i class="fa fa-circle-o"></i>View Executing Agencies</a></li>
               </ul>
             </li>
-            {{-- @permission('can.add.project') --}}
-            {{-- @role('user') --}}
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-files-o"></i>
-                <span>Projects</span>
-                <span class="pull-right-container">
-                  {{-- <span class="label label-primary pull-right">Add new Project</span> --}}
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="{{route('projects.create')}}"><i class="fa fa-circle-o"></i>Add New Project</a></li>
-                {{-- @endpermission --}}
-                <li><a href="{{url('/assignproject')}}"><i class="fa fa-circle-o"></i>Assign Projects</a></li>
-                <li><a href="{{route('projects.index')}}"><i class="fa fa-circle-o"></i>View All Projects</a></li>
-              </ul>
-            </li>
-            {{-- @endrole --}}
 
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-laptop"></i>
-            <span>UI Elements</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>
-            <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
-            <li><a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
-            <li><a href="pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
-            <li><a href="pages/UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
-            <li><a href="pages/UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="calender">
-            <i class="fa fa-calendar"></i> <span>Calendar</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-red">3</small>
-              <small class="label pull-right bg-blue">17</small>
-            </span>
-          </a>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-folder"></i> <span>Examples</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-            <li><a href="/profile"><i class="fa fa-circle-o"></i> Profile</a></li>
-            <li><a href="pages/examples/login.html"><i class="fa fa-circle-o"></i> Login</a></li>
-            <li><a href="pages/examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li>
-            <li><a href="pages/examples/lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
-            <li><a href="pages/examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
-            <li><a href="pages/examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
-            <li><a href="pages/examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
-            <li><a href="pages/examples/pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-share"></i> <span>Multilevel</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
             <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o"></i> Level One
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o"></i> Level Two
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-          </ul>
-        </li>
+                <a href="#">
+                  <i class="fa fa-files-o"></i>
+                  <span>Districts</span>
+                  <span class="pull-right-container">
+                    {{-- <span class="label label-primary pull-right">Add new Project</span> --}}
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="{{route('district.create')}}"><i class="fa fa-circle-o"></i>Add New District</a></li>
+                  <li><a href="{{route('district.index')}}"><i class="fa fa-circle-o"></i>View District</a></li>
+                </ul>
+              </li>
+         
+
+
         @endrole
-        @role('user')
+        @role('dataentry')
+
         <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
@@ -220,8 +204,8 @@
           <ul class="treeview-menu">
             <li><a href="{{route('projects.create')}}"><i class="fa fa-circle-o"></i>Add New Project</a></li>
             {{-- @endpermission --}}
-            {{-- <li><a href="{{url('/assignproject')}}"><i class="fa fa-circle-o"></i>Assign Projects</a></li>
-            <li><a href="{{route('projects.index')}}"><i class="fa fa-circle-o"></i>View All Projects</a></li> --}}
+            {{-- <li><a href="{{url('/assignproject')}}"><i class="fa fa-circle-o"></i>Assign Projects</a></li>--}}
+            <li><a href="{{route('projects.index')}}"><i class="fa fa-circle-o"></i>View All Projects</a></li>
           </ul>
         </li>
         @endrole

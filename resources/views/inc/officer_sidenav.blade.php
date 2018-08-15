@@ -8,16 +8,11 @@
           <img src="{{asset('logo.jpg')}}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-         @role('executive')
-           <p>Executive Dashboard</p>
-          @endrole
-          @role('admin')
-            <p>Admin Dashboard</p>
-          @endrole
+
           @role('officer')
             <p>Officer Dashboard</p>
           @endrole
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          {{-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> --}}
         </div>
       </div>
       <!-- search form -->
@@ -35,19 +30,19 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Navigations</li>
-        
+
         @role('officer')
         {{--  /Profile  --}}
-        <li >
+        {{-- <li >
           <a href="#">
             <i class="fa fa-user"></i>
             <span>My Profile</span>
           </a>
-        </li>
+        </li> --}}
          {{--  /dashboard  --}}
         <li>
-          <a href="{{route('main_page')}}">
-          <i class="fa fa-home"></i><span>My Dashboard</span>
+          <a href="{{url('/dashboard')}}">
+          <i class="fa fa-home"></i><span>Home</span>
           </a>
         </li>
          {{-- Projects --}}
@@ -65,20 +60,29 @@
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
             </a>
-            
+
             <ul class="treeview-menu">
               <li><a href="{{route('new_evaluation')}}"><i class="fa fa-circle-o"></i> New Assignments
                {{--  dd($officer);
                 @if($officer->count()>0)  --}}
-                
                   <span class="pull-right-container">
-                    <span class="label label-danger pull-right">new</span>
-                </span>
-              
+                    @if (isset($officerAssignedCount))
+                      <span class="label label-danger pull-right">{{$officerAssignedCount}}</span>
+                    @endif
+                  </span>
+
               {{--  @endif  --}}
             </a></li>
-              <li><a href="{{route('inprogress_evaluation')}}"><i class="fa fa-circle-o"></i> In-Progress</a></li>
-              <li><a href="{{route('completed_evaluation')}}"><i class="fa fa-circle-o"></i> Completed</a></li> 
+              <li><a href="{{route('inprogress_evaluation')}}"><i class="fa fa-circle-o"></i> In-Progress
+                <span class="pull-right-container">
+                  @if (isset($officerInProgressCount))
+                    <span class="label label-danger pull-right">{{$officerInProgressCount}}</span>
+                  @endif
+
+                </span>
+
+              </a></li>
+              <li><a href="{{route('completed_evaluation')}}"><i class="fa fa-circle-o"></i> Completed</a></li>
             </ul>
           </li>
           {{-- Monitoring --}}
@@ -93,14 +97,14 @@
                     <span class="pull-right-container">
                         <span class="label label-primary pull-right">new</span>
                     </span></a></li>
-  
+
                   <li><a href="#"><i class="fa fa-circle-o"></i> In-Progress</a></li>
-                  <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li> 
+                  <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li>
               </ul>
             </li>
           {{-- TPVS --}}
           <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o"></i> Third Party Validations 
+              <a href="#"><i class="fa fa-circle-o"></i> Third Party Validations
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
@@ -110,9 +114,9 @@
                     <span class="pull-right-container">
                         <span class="label label-primary pull-right">new</span>
                     </span></a></li>
-  
+
                   <li><a href="#"><i class="fa fa-circle-o"></i> In-Progress</a></li>
-                  <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li> 
+                  <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li>
               </ul>
             </li>
             {{-- INQUIRY --}}
@@ -128,9 +132,9 @@
                       <span class="pull-right-container">
                           <span class="label label-primary pull-right">new</span>
                       </span></a></li>
-    
+
                     <li><a href="#"><i class="fa fa-circle-o"></i> In-Progress</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li> 
+                    <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li>
                 </ul>
               </li>
               {{-- OTHER --}}
@@ -145,9 +149,9 @@
                         <span class="pull-right-container">
                             <span class="label label-primary pull-right">new</span>
                         </span></a></li>
-      
+
                       <li><a href="#"><i class="fa fa-circle-o"></i> In-Progress</a></li>
-                      <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li> 
+                      <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li>
                   </ul>
                 </li>
                 {{-- SPECIAL --}}
@@ -162,9 +166,9 @@
                           <span class="pull-right-container">
                               <span class="label label-primary pull-right">new</span>
                           </span></a></li>
-        
+
                         <li><a href="#"><i class="fa fa-circle-o"></i> In-Progress</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li>  
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li>
                     </ul>
                   </li>
         </ul>
@@ -181,15 +185,15 @@
           </a>
           <ul class="treeview-menu">
             <li>
-              <a href="#"><i class="fa fa-circle-o"></i> 
+              <a href="#"><i class="fa fa-circle-o"></i>
                Schedule A New
                 <span class="pull-right-container">
                   <span class="label label-primary pull-right">new</span>
                 </span></a></li>
                 <li><a href="#"><i class="fa fa-circle-o"></i> View All Visited</a></li>
           </ul>
-      </li> 
-        
+      </li>
+
         {{--  HRMS  --}}
       <li class="treeview">
         <a href="#">
@@ -201,16 +205,16 @@
             </a>
               <ul class="treeview-menu">
                   <li>
-                    <a href="#"><i class="fa fa-circle-o"></i> 
+                    <a href="#"><i class="fa fa-circle-o"></i>
                       Credentials
                     </a>
                   </li>
                   <li><a href="#"><i class="fa fa-circle-o"></i> Leave Record</a></li>
                   <li><a href="#"><i class="fa fa-circle-o"></i> ----</a></li>
                 </ul>
-       
+
       </li>
-         
+
         {{--  Calender  --}}
         <li>
           <a href="calender">
@@ -221,16 +225,16 @@
             </span>
           </a>
         </li>
-       
+
         {{--  FMS  --}}
         <li class="treeview">
           <a href="#">
             <i class="fa fa-money"></i>
             <span>F M I S</span>
           </a>
-         </li> 
+         </li>
         @endrole
-        
+
       </ul>
     </section>
     <!-- /.sidebar -->

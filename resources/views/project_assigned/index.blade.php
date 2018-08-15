@@ -49,10 +49,10 @@
           <div class="container">
           <div class="row">
             <div class="col-md-12">
+                @include('inc.msgs')
               <div class="form-group">
                 <label>Un-Assigned Projects</label>
-                <form class="" action="{{route('assignproject.create')}}" method="GET">
-                  {{ csrf_field() }}
+
                 <table class="table table-responsive table-bordered projects">
                   <thead>
                     <th>Project No.</th>
@@ -66,8 +66,10 @@
                     {{-- {{dd($projects)}} --}}
                   @foreach($projects as $project)
                         <tr>
+                            <form class="" action="{{route('assignproject.create')}}" method="GET">
+                                {{ csrf_field() }}
                           <td>{{$project->project_no}}</td>
-                          <td>{{$project->title}}</td>
+                          <td><a href="{{route('projects.show',$project->id)}}">{{$project->title}}</a></td>
                           <td>{{$project->ProjectType->name}}</td>
                           <td>{{$project->created_at}}</td>
                           <td>
@@ -79,12 +81,12 @@
 
                           </td>
                           <td><input type="submit" name="submit" value="Assign" class="btn btn-info"></td>
+                            </form>
                         </tr>
                   @endforeach
                 </tbody>
                 </table>
 
-              </form>
               </div>
             <!-- /.col -->
           </div>

@@ -39,7 +39,7 @@
           <div class="box-header with-border">
             <h3 class="box-title">Assign To : </h3>
             <span style="margin-left:20px;"></span>
-            <b> <input type="radio" name="assign_to" value="manager"> Manager</b>
+            <b> <input type="radio" name="assign_to" value="manager"> Executive</b>
           <span style="margin-left:20px;"></span>
             <b><input type="radio" name="assign_to" value="officer"> Officer</b>
             <div class="box-tools pull-right">
@@ -73,19 +73,7 @@
               <select class="form-control select2" multiple="multiple" data-placeholder="Select Manager"
                       style="width: 100%;" name="manager_id[]">
                   @foreach ($managers as $manager)
-                    @php
-                      $head='';
-                    @endphp
-                    @if($manager->sector->name!=$head)
-                    <optgroup label = "{{$manager->sector->name}}">
-                    @endif
-                      <option value="{{$manager->id}}">{{$manager->first_name}}</option>
-                    @if($manager->sector->name!=$head && $head!='')
-                    </optgroup>
-                        @php
-                        $head=$manager->sector->name;
-                        @endphp
-                    @endif
+                      <option value="{{$manager->id}}">Director SSR&amp;D {{$manager->first_name}}{{$manager->last_name}}</option>
                   @endforeach
               </select>
             </div>

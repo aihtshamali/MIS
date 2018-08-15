@@ -5,36 +5,77 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Project;
+use App\AssignedProject;
+use App\AssignedProjectManager;
 use App\User;
 class ExecutiveController extends Controller
 {
   //  HOME FOLDER
     public function index(){
-      return view('executive.home.index');
+      $unassigned=Project::select('projects.*')
+     ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+     ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
+     ->whereNull('assigned_project_managers.project_id')
+     ->whereNull('assigned_projects.project_id')
+     ->get();
+      $assigned=AssignedProject::all();
+      $assignedtoManager=AssignedProjectManager::all();
+      return view('executive.home.index',['unassigned'=>$unassigned,'assignedtoManager'=>$assignedtoManager,'assigned'=>$assigned]);
     }
 
     public function pems_index(){
-      return view('executive.home.pems_tab');
+      $unassigned=Project::select('projects.*')
+     ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+     ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
+     ->whereNull('assigned_project_managers.project_id')
+     ->whereNull('assigned_projects.project_id')
+     ->get();
+      $assigned=AssignedProject::all();
+      $assignedtoManager=AssignedProjectManager::all();
+      return view('executive.home.pems_tab',['assigned'=>$assigned,'assignedtoManager'=>$assignedtoManager,'unassigned'=>$unassigned]);
     }
 
     public function pmms_index(){
-      return view('executive.home.pmms_tab');
+      $unassigned=Project::select('projects.*')
+     ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+     ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
+     ->whereNull('assigned_project_managers.project_id')
+     ->whereNull('assigned_projects.project_id')
+     ->get();
+      $assigned=AssignedProject::all();
+      $assignedtoManager=AssignedProjectManager::all();
+      return view('executive.home.pmms_tab',['assigned'=>$assigned,'assignedtoManager'=>$assignedtoManager,'unassigned'=>$unassigned]);
     }
 
     public function tpv_index(){
-      return view('executive.home.tpv_tab');
+      $unassigned=Project::select('projects.*')
+     ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+     ->whereNull('assigned_projects.project_id')
+     ->get();
+      $assigned=$projects=AssignedProject::all();
+      return view('executive.home.tpv_tab',['assigned'=>$assigned,'unassigned'=>$unassigned]);
     }
 
     public function specialassign_index(){
-      return view('executive.home.specialassign_tab');
+      return view('executive.home.specialassign_tab',['assigned'=>$assigned,'unassigned'=>$unassigned]);
     }
 
     public function inquiry_index(){
-      return view('executive.home.inquiry_tab');
+      $unassigned=Project::select('projects.*')
+     ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+     ->whereNull('assigned_projects.project_id')
+     ->get();
+      $assigned=AssignedProject::all();
+      return view('executive.home.inquiry_tab',['assigned'=>$assigned,'unassigned'=>$unassigned]);
     }
 
     public function other_index(){
-      return view('executive.home.other_tab');
+      $unassigned=Project::select('projects.*')
+     ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+     ->whereNull('assigned_projects.project_id')
+     ->get();
+      $assigned=$projects=AssignedProject::all();
+      return view('executive.home.other_tab',['assigned'=>$assigned,'unassigned'=>$unassigned]);
     }
 // EVALUATION FOLDER
     // public function evaluation_index(){
@@ -57,12 +98,33 @@ class ExecutiveController extends Controller
     // }
 
     public function evaluation_assignedprojects(){
-      return view('executive.evaluation.assigned');
+      $unassigned=Project::select('projects.*')
+     ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+     ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
+     ->whereNull('assigned_project_managers.project_id')
+     ->whereNull('assigned_projects.project_id')
+     ->get();
+      $assigned=AssignedProject::all();
+      $assignedtoManager=AssignedProjectManager::all();
+
+      $projects=AssignedProject::all();
+      $managerProjects=AssignedProjectManager::all();
+      // dd($projects);
+      return view('executive.evaluation.assigned',['projects'=>$projects,'managerProjects'=>$managerProjects,'assignedtoManager'=>$assignedtoManager,'assigned'=>$assigned,'unassigned'=>$unassigned]);
     }
     public function evaluation_completedprojects(){
-      return view('executive.evaluation.completed');
+      $unassigned=Project::select('projects.*')
+     ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+     ->whereNull('assigned_projects.project_id')
+     ->get();
+      $assigned=AssignedProject::all();
+      return view('executive.evaluation.completed',['assigned'=>$assigned,'unassigned'=>$unassigned]);
     }
 
+    public function reviewed_projects()
+    {
+      return view('executive.evaluation.reviewed_projects');
+    }
 
 
 }

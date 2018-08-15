@@ -8,6 +8,19 @@
         <h1>
          GLOBAL PROGRESS
         </h1>
+        <p class="" style="text-align:center;margin:0">
+          <label for="" style="color:yellowgreen;margin-right:10px;" >  Un-assigned Projects:  @if (isset($unassigned)) {{$unassigned->count()}} @endif </label>
+          <label for="" style="color:blueviolet">  Assigned Projects:  
+            <?php $count=0; ?>
+            @if (isset($assigned))
+             <?php  $count=$count+$assigned->count();?> 
+            @endif
+            @if(isset($assignedtoManager)) 
+              <?php $count=$count+$assignedtoManager->count() ?>
+            @endif 
+            {{$count}}
+          </label>
+        </p>
         <ol class="breadcrumb">
           <li><a href="#"><i class="fa fa-backward" ></i>Back</a></li>
           <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li>

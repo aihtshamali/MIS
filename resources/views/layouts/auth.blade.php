@@ -3,7 +3,7 @@
 
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <head>
-	<title>Login</title>
+	<title>@yield('title')</title>
 	<meta charset="UTF-8">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	

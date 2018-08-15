@@ -56,29 +56,29 @@
 
                 <div class="col-md-4">
                   <b>Sector :</b>
-                  @foreach ($project_data->project->AssignedDepartments as $dpt)
-                  {{$dpt->Department->SubSector->Sector->name}}
+                  @foreach ($project_data->project->AssignedSubSectors as $sbsect)
+                  {{$sbsect->SubSector->Sector->name}}
                   @endforeach
                 </div>
                 <div class="col-md-4">
                   <b>Sub-Sectors:</b>
-                  @foreach ($project_data->project->AssignedDepartments as $dpt)
-                  {{$dpt->Department->SubSector->name}}
+                  @foreach ($project_data->project->AssignedSubSectors as $sbsect)
+                  {{$sbsect->SubSector->name}}
                   @endforeach
 
                 </div>
-                <div class="col-md-4">
+                {{-- <div class="col-md-4">
                   <b>Department :</b>
                   @foreach ($project_data->project->AssignedDepartments as $dpt)
                   {{$dpt->Department->name}}
                   @endforeach
-                </div>
+                </div> --}}
 
               </div>
               <hr/>
 
               <div class="row" >
-                {{-- {{dd($project_data->projectAssigned)}} --}}
+                {{-- {{dd($project_data->AssignedProject)}} --}}
                 <div class="col-md-4">
                   <b>Sponsoring Agency(s) :</b>
                   @foreach ($project_data->project->AssignedSponsoringAgencies as $sa)
@@ -120,28 +120,30 @@
               <div class="row" >
                 <div style="text-align: center;"><h3><b>COST</b></h3></div> </br>
                 <div class="col-md-4"><b>Original Approved Cost : </b> {{$project_data->project->ProjectDetail->orignal_cost}} -/{{$project_data->project->ProjectDetail->currency}} </div>
-
+                <div class="col-md-4"></div>
                 <div class="col-md-4">
 
+
                   @foreach ($project_data->project->RevisedApprovedCost as $cost)
-                    <b>Revised Original  : </b>{{$cost->cost}} -/{{$project_data->project->ProjectDetail->currency}}
+                    <b>    <b>Revised Original: </b> </b>{{$cost->cost}} -/{{$project_data->project->ProjectDetail->currency}} </br>
                   @endforeach
+
                 </div>
               </div>
               <hr/>
               <div class="row" >
                 <div style="text-align: center;"><h3><b>TIME</b></h3></div> </br>
-                <div class="col-md-4"><b>Planned Start Date : </b>{{$project_data->project->ProjectDetail->planned_start_date}} </div>
-                <div class="col-md-4"> <b>Planned End Date : </b>{{$project_data->project->ProjectDetail->planned_end_date}}</div>
-                <div class="col-md-4"> <b>Gestation period : </b> </div>        </br>
+                <div class="col-md-4" id="planned_start_date"><b>Planned Start Date : </b><label>{{$project_data->project->ProjectDetail->planned_start_date}}</label></div>
+                <div class="col-md-4" id="planned_end_date"> <b>Planned End Date : </b><label>{{$project_data->project->ProjectDetail->planned_end_date}}</label></div>
+                <div class="col-md-4" id="gestation_period"> <b>Gestation period : </b> </div>        </br>
                 <hr/>
-                <div class="col-md-4"><b>Revised Start Date : </b>{{$project_data->project->ProjectDetail->revised_start_date}} </div>
+                <div class="col-md-4" id="revised_start_date"><b>Revised Start Date : </b><label >{{$project_data->project->ProjectDetail->revised_start_date}}</label> </div>
                 <div class="col-md-4">
                   @foreach ($project_data->project->RevisedEndDate as $endDate)
                     <b>Revised End Date : </b>{{$endDate->end_date}}
                   @endforeach
                 </div>
-                <div class="col-md-4"> <b>Revised Gestation period : </b> <span class="revised"></span> </div>
+                <div class="col-md-4" id="revised_gestation_period"> <b>Revised Gestation period : </b> <span class="revised"></span> </div>
               </div>
               <hr/>
               <div class="row">
@@ -155,7 +157,11 @@
 
                   </div>
                   <div class="col-md-1">
-                    <button type="Reviewed" class="btn btn-success pull-right"> Reviewed</button>
+                    <form class="" action="{{route('review_forms')}}" method="post">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="assigned_project_id" value="{{$project_data->id}}">
+                      <button type="submit" class="btn btn-success pull-right"> Reviewed</button>
+                    </form>
                   </div>
                 </div>
 
@@ -169,4 +175,30 @@
       </div>
     </section>
   </div>
+
+@endsection
+@section('scripttags')
+  <script type="text/javascript">
+
+  $(function () {
+    var first_val = $('#planned_start_date').find('label').text();
+    var second_value = $('#planned_end_date').find('label').text();
+    var first = first_val.split('-');
+    var second = second_value.split('-');
+    var year = second[0]-first[0];
+    var month = Math.abs(second[1]-first[1]);
+    var days = Math.abs(second[2]-first[2]);
+    $('#gestation_period').append('<b>  '+year + ' Years '+month+' Months '+days+' Days</b>');
+
+    var revised_start = $("#revised_start_date").find('label').text();
+        if(revised_start != ""){
+          var first = revised_start.split('-');
+          var year = second[0]-first[0];
+          var month = Math.abs(second[1]-first[1]);
+          var days = Math.abs(second[2]-first[2]);
+          $("#revised_gestation_period").append('<b>  '+year + ' Years '+month+' Months '+days+' Days</b>');
+        }
+
+  });
+</script>
 @endsection

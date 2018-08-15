@@ -2,6 +2,10 @@
 
 @section('content')
 <div class="content-wrapper">
+    <section class="content-header">
+       
+      </section>
+    <div class="col-md-3"> </div>
         <div class="col-md-6">
                 <!-- Horizontal Form -->
                 <div class="box box-info">
@@ -15,12 +19,13 @@
                     <div class="box-body">
                         <div class="form-group col-md-12" id="field">
                             <span class="firstspan">
-                              <label for="" >Select Sector </label>
+                              <label for="">Select Sector </label>
                               <select class="form-control" name="sector_id">
                                 @foreach ($sectors as $sector)
                                   <option value="{{$sector->id}}">{{$sector->name}}</option>
                                 @endforeach
                               </select>
+                            </br>
                                 <label for="" >SubSector </label>
                                 <input autocomplete="off" name="sub_sectors[]" id="field1" type="text" class="form-control input"value="" data-items="8">
                                 <button id="b1" class="btn add-more pull-right" style="    position: relative;

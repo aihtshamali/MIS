@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -36,9 +37,9 @@ class User extends Authenticatable
     {
       return $this->hasMany('App\Project');
     }
-    public function ProjectAssigned()
+    public function AssignedProject()
     {
-      return $this->hasMany('App\ProjectAssigned');
+      return $this->hasMany('App\AssignedProject');
     }
     public function ProjectRemarks()
     {
@@ -48,7 +49,28 @@ class User extends Authenticatable
     {
       return $this->hasMany('App\AssignedProjectTeam');
     }
+    public function AssignedProjectManager()
+    {
+      return $this->hasMany('App\AssignedProjectManager');
+    }
     public function sector(){
       return $this->belongsTo('App\Sector');
+    }
+    public function UserDetail()
+    {
+      return $this->hasOne('App\UserDetail');
+    }
+    public function User()
+    {
+      return $this->hasOne('App\User');
+    }
+    public function Notifications(){
+      return $this->hasMany('App\Notification');
+    }
+    public function isManager(){
+      if(Auth::user()->hasRole('manager'))
+        return true;
+
+      return false;
     }
 }

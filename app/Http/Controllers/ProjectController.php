@@ -7,27 +7,40 @@ use App\Http\Controllers\Controller;
 use DB;
 use Auth;
 use App\ProjectRemark;
+use App\Notification;
 use App\ProjectType;
 use App\EvaluationType;
 use App\SubSector;
 use App\Project;
+use App\ProjectLog;
 use App\ProjectDetail;
 use App\Department;
-use App\AssignedDepartment;
+use App\AssignedSubSector;
+
+// use App\AssignedDepartment;
+use App\AssignedSubSectorLog;
+// use App\AssignedDepartmentProjectLog;
 use App\District;
 use App\Sector;
 use App\SponsoringAgency;
+use App\AssignedSponsoringAgencyProjectLog;
 use App\AssignedSponsoringAgency;
 use App\ExecutingAgency;
+use App\AssignedExecutingAgencyProjectLog;
 use App\AssignedExecutingAgency;
+use App\AssigningForumProjectLog;
 use App\AssigningForum;
 use App\SubProjectType;
 use App\ApprovingForum;
 use App\RevisedApprovedCost;
 use App\RevisedEndDate;
+use App\AssignedDistrictProjectLog;
+use App\AssignedProject;
 use App\AssignedDistrict;
 use Illuminate\Support\Str;
 use App\User;
+use App\RevisedApprovedCostProjectLog;
+use App\RevisedEndDateProjectLog;
 class ProjectController extends Controller
 {
     /**
@@ -57,16 +70,17 @@ class ProjectController extends Controller
      */
     public function create()
     {
-      $project_types = ProjectType::all();
-      $evaluation_types = EvaluationType::all();
-      $sub_sectors = SubSector::all();
-      $projects = Project::all();
-      $evaluation_types = EvaluationType::all();
-      $districts = District::all();
-      $sectors  = Sector::all();
-      $sponsoring_departments = SponsoringAgency::all();
-      $executing_departments = ExecutingAgency::all();
-      $assigning_forums = AssigningForum::all();
+      $project_types = ProjectType::where('status','1')->get();
+      $evaluation_types = EvaluationType::where('status','1')->get();
+      $sub_sectors = SubSector::where('status','1')->get();
+      $projects = Project::where('status','1')->get();
+      $evaluation_types = EvaluationType::where('status','1')->get();
+      $districts = District::where('status','1')->get();
+      $sectors  = Sector::where('status','1')->get();
+      $sponsoring_departments = SponsoringAgency::where('status','1')->get();
+      $executing_departments = ExecutingAgency::where('status','1')->get();
+      $assigning_forums = AssigningForum::where('status','1')->get();
+      // $assigning_forumList = AssigningForumSubList::where('status','1')->get();
       // $project_no = Str::random();
       $current_year = date('Y');
       $approving_forums = ApprovingForum::all();
@@ -109,6 +123,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+      // dd($plan_end_date);
       $projectfor_no=Project::select('projects.project_no')->latest()->first();
       if($projectfor_no){
       $project_no=explode('-',$projectfor_no->project_no);
@@ -123,6 +138,7 @@ class ProjectController extends Controller
       $project->evaluation_type_id = $request->evaluation_type;
       $project->ADP = $request->ADP;
       $project->project_type_id = $request->type_of_project;
+      $project->assigning_forum_sub_list_id = $request->assigning_forumSubList;
       $project->status = 0;
       $project->user_id = Auth::id();
       $project->save();
@@ -131,32 +147,30 @@ class ProjectController extends Controller
       $project_detail->project_id = $project_id;
       $project_detail->currency = $request->currency;
       $project_detail->orignal_cost = $request->original_cost;
-      $day = strtok($request->planned_start_date,"/");
-      $month = strtok("/");
-      $year = strtok("/");
-      $project_detail->planned_start_date = $year."-".$month."-".$day;
-      $day = strtok($request->planned_end_date,"/");
-      $month = strtok("/");
-      $year = strtok("/");
-      $project_detail->planned_end_date = $year."-".$month."-".$day;
-      $day = strtok($request->revised_start_date,"/");
-      $month = strtok("/");
-      $year = strtok("/");
-      $project_detail->revised_start_date = $project_detail->planned_start_date;//change
+      $project_detail->planned_start_date = date('Y-m-d',strtotime($request->planned_start_date));
+      $project_detail->planned_end_date = date('Y-m-d',strtotime($request->planned_end_date));
+      if($request->revised_start_date != NULL)
+        $project_detail->revised_start_date = date('Y-m-d',strtotime($request->revised_start_date));
       $project_detail->assigning_forum_id = $request->assigning_forum;
       $project_detail->approving_forum_id = $request->approving_forum;
-      $project_detail->sub_project_type_id = 1;//change
+      $project_detail->sub_project_type_id = $request->phase_of_evaluation;//change
       if($request->hasFile('attachments')){
         $request->file('attachments')->store('public/uploads/projects/');
         $file_name = $request->file('attachments')->hashName();
         $project_detail->project_attachements=$file_name;
       }
       $project_detail->save();
-      foreach($request->departments as $department_id){
-        $assigned_department = new AssignedDepartment();
-        $assigned_department->project_id = $project_id;
-        $assigned_department->department_id = $department_id;
-        $assigned_department->save();
+      // foreach($request->departments as $department_id){
+      //   $assigned_department = new AssignedDepartment();
+      //   $assigned_department->project_id = $project_id;
+      //   $assigned_department->department_id = $department_id;
+      //   $assigned_department->save();
+      // }
+      foreach($request->sub_sectors as $sub_sector){
+        $Assignedsub_sector = new AssignedSubSector();
+        $Assignedsub_sector->project_id = $project_id;
+        $Assignedsub_sector->sub_sector_id = $sub_sector;
+        $Assignedsub_sector->save();
       }
       foreach($request->sponsoring_departments as $sponsoring_department_id){
         $sponosoring_agency = new AssignedSponsoringAgency();
@@ -170,19 +184,18 @@ class ProjectController extends Controller
         $executing_agency->executing_agency_id = $executing_department_id;
         $executing_agency->save();
       }
+      if($request->revised_approved_costs[0])
       foreach($request->revised_approved_costs as $revised_approved_cost){
         $revised_approved_cost_save = new RevisedApprovedCost();
         $revised_approved_cost_save->project_id = $project_id;
         $revised_approved_cost_save->cost = $revised_approved_cost;
         $revised_approved_cost_save->save();
       }
+      if($request->revised_end_dates[0])
       foreach($request->revised_end_dates as $revised_end_date){
-        $day = strtok($revised_end_date,"/");
-        $month = strtok("/");
-        $year = strtok("/");
         $revised_end_date = new RevisedEndDate();
         $revised_end_date->project_id = $project_id;
-        $revised_end_date->end_date = $year."-".$month."-".$day;
+        $revised_end_date->end_date = date('Y-m-d',strtotime($revised_end_date));
         $revised_end_date->save();
       }
       foreach($request->districts as $district){
@@ -191,6 +204,130 @@ class ProjectController extends Controller
         $assigned_district->district_id = $district;
         $assigned_district->save();
       }
+
+      $notification = new Notification();
+      $notification->user_id=Auth::id();
+      $notification->text= $project->title.' has been created by '.$project->user->first_name;
+      $notification->table_name='projects';
+      $notification->table_id=$project->id;
+      $notification->save();
+
+      //Project Log Entry
+
+
+      $project = new ProjectLog();
+      // $project->assigned_project_id=AssignedProject::where('project_id',$id)->first()->id;
+      if($request->title != NULL)
+        $project->title = $request->title;
+      if($request->evaluation_type != NULL)
+        $project->evaluation_type_id = $request->evaluation_type;
+      if($request->ADP != NULL)
+        $project->ADP = $request->ADP;
+      $project->user_id = Auth::id();
+      $project->status = 0;
+
+      if($request->currency)
+        $project->currency = $request->currency;
+      if($request->original_cost != NULL)
+        $project->orignal_cost = $request->original_cost;
+      if($request->assigning_forumSubList != NULL)
+        $project->assigning_forum_sub_list_id = $request->assigning_forumSubList;
+      if($request->planned_start_date != NULL)
+        $project->planned_start_date = date('Y-m-d',strtotime($request->planned_start_date));
+      if($request->planned_end_date != NULL)
+        $project->planned_end_date = date('Y-m-d',strtotime($request->planned_end_date));
+        if($request->revised_start_date != NULL)
+          $project->revised_start_date = date('Y-m-d',strtotime($request->revised_start_date));
+      if($request->assigning_forum != NULL)
+        $project->assigning_forum_id = $request->assigning_forum;
+      if($request->approving_forum != NULL)
+        $project->approving_forum_id = $request->approving_forum;
+      if($request->hasFile('attachments')){
+        $request->file('attachments')->store('public/uploads/projects/');
+        $file_name = $request->file('attachments')->hashName();
+        $project->project_attachements=$file_name;
+      }
+      if($project!=NULL){
+        $project->save();
+      }
+      // if($request->departments)
+      // foreach($request->departments as $department_id){
+      //   if($department != NULL){
+      //   $assigned_department = new AssignedDepartmentProjectLog();
+      //   $assigned_department->assproject_id = $id;
+      //   $assigned_department->project_id = $id;
+      //   $assigned_department->department_id = $department_id;
+      //   $assigned_department->save();
+      // }
+      // }
+      if($request->sub_sectors){
+      foreach($request->sub_sectors as $sub_sector){
+        $Assignedsub_sector = new AssignedSubSectorLog();
+        $Assignedsub_sector->project_log_id = ProjectLog::latest()->first()->id;
+        $Assignedsub_sector->sub_sector_id = $sub_sector;
+        $Assignedsub_sector->save();
+      }
+    }
+
+      if($request->sponsoring_departments){
+      foreach($request->sponsoring_departments as $sponsoring_department_id){
+        if($sponsoring_department_id != NULL){
+        $sponosoring_agency = new AssignedSponsoringAgencyProjectLog();
+        $sponosoring_agency->project_log_id = ProjectLog::latest()->first()->id;
+        $sponosoring_agency->sponsoring_agency_id = $sponsoring_department_id;
+        $sponosoring_agency->save();
+      }
+      }
+    }
+      if($request->executing_departments)
+      foreach($request->executing_departments as $executing_department_id){
+        if($executing_department_id != NULL){
+        $executing_agency = new AssignedExecutingAgencyProjectLog();
+        $executing_agency->project_log_id = ProjectLog::latest()->first()->id;
+        $executing_agency->executing_agency_id = $executing_department_id;
+        $executing_agency->save();
+      }
+      }
+      if(count($request->revised_approved_costs) > 0)
+      foreach($request->revised_approved_costs as $revised_approved_cost){
+        if($revised_approved_cost != NULL){
+        $revised_approved_cost_save = new RevisedApprovedCostProjectLog();
+        $revised_approved_cost_save->project_log_id = ProjectLog::latest()->first()->id;
+        $revised_approved_cost_save->cost = $revised_approved_cost;
+        $revised_approved_cost_save->save();
+      }
+      }
+      if(count($request->revised_end_dates) > 0)
+        foreach($request->revised_end_dates as $revised_end_date){
+            if($revised_end_date != NULL){
+              $revised_end_date = new RevisedEndDateProjectLog();
+              $revised_end_date->project_log_id = ProjectLog::latest()->first()->id;
+      $revised_end_date->end_date = date('Y-m-d',strtotime($revised_end_date));
+              $revised_end_date->save();
+          }
+        }
+
+      if($request->districts)
+      foreach($request->districts as $district){
+        if($district != NULL){
+          $assigned_district = new AssignedDistrictProjectLog();
+          $assigned_district->project_log_id = ProjectLog::latest()->first()->id;
+          $assigned_district->district_id = $district;
+          $assigned_district->save();
+      }
+      }
+      // $notification = new Notification();
+      // $notification->user_id=Auth::id();
+      //   $proje_title=Project::find($project_id);
+      // if($proje_title!= NULL){
+      //     $proje_title=$proje_title->title;
+      // }
+      // $notification->text= 'Requested generated for edit a project : Title '.$proje_title;
+      // $notification->table_name='project_logs';
+      // $notification->table_id=$project->id;
+      // $notification->save();
+      // return redirect()->route('new_evaluation');
+
       return redirect()->route('projects.index');
     }
 
@@ -215,26 +352,26 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
+      $project = Project::find($id);
+      // dd($project);
+      $project_types = ProjectType::where('status','1')->get();
+      $evaluation_types = EvaluationType::where('status','1')->get();
+      $sub_sectors = SubSector::where('status','1')->get();
 
-
-      $project_types = ProjectType::all();
-      $evaluation_types = EvaluationType::all();
-      $sub_sectors = SubSector::all();
-      $projects = Project::all();
-      $evaluation_types = EvaluationType::all();
-      $districts = District::all();
-      $sectors  = Sector::all();
+      $evaluation_types = EvaluationType::where('status','1')->get();
+      $districts = District::where('status','1')->get();
+      $sectors  = Sector::where('status','1')->get();
+      // $departments  = Department::where('status','1')->get();
       $sponsoring_departments = SponsoringAgency::all();
       $executing_departments = ExecutingAgency::all();
       $assigning_forums = AssigningForum::all();
-      // $project_no = Str::random();
       $current_year = date('Y');
       $approving_forums = ApprovingForum::all();
       $sub_project_types = SubProjectType::all();
       $projectfor_no=Project::select('projects.project_no')->latest()->first();
       if($projectfor_no){
-      $projectNo=explode('-',$projectfor_no->project_no);
-      $project_no=$projectNo[0].'-'.($projectNo[1]+1);
+        $projectNo=explode('-',$projectfor_no->project_no);
+        $project_no=$projectNo[0].'-'.($projectNo[1]+1);
       }
       else {
         $project_no = "PRO-1";
@@ -254,7 +391,11 @@ class ProjectController extends Controller
       foreach ($assigning_forums as $assigning_forum) {
         $assigning_forum->name = $assigning_forum->name . "/";
       }
-      return view('projects.edit',compact('sub_project_types','districts','sectors','sponsoring_departments','executing_departments','assigning_forums','project_no','current_year','approving_forums','evaluation_types','project_types','evaluation_types','sub_sectors','projects'));
+      // foreach ($departments as $department) {
+      //   $department->name = $department->name . "/";
+      // }
+
+      return view('projects.edit',compact('sub_project_types','districts','sectors','sponsoring_departments','executing_departments','assigning_forums','project_no','current_year','approving_forums','evaluation_types','project_types','evaluation_types','sub_sectors','project'));
     }
 
     /**
@@ -266,7 +407,120 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request->all());
+      // $plan_end_date = explode('/', $request->planned_end_date);
+      // dd($plan_end_date);
+      // dd($request->all());
+      $project = new ProjectLog();
+      $project->assigned_project_id=AssignedProject::where('project_id',$id)->first()->id;
+      if($request->title != NULL)
+        $project->title = $request->title;
+      if($request->evaluation_type != NULL)
+        $project->evaluation_type_id = $request->evaluation_type;
+      if($request->ADP != NULL)
+        $project->ADP = $request->ADP;
+      $project->user_id = Auth::id();
+      $project->status = 0;
+
+      if($request->currency)
+        $project->currency = $request->currency;
+      if($request->original_cost != NULL)
+        $project->orignal_cost = $request->original_cost;
+      if($request->assigning_forumSubList != NULL)
+        $project->assigning_forum_sub_list_id = $request->assigning_forumSubList;
+      if($request->planned_start_date != NULL)
+        $project->planned_start_date = date('Y-m-d',strtotime($request->planned_start_date));
+      if($request->planned_end_date != NULL)
+        $project->planned_end_date = date('Y-m-d',strtotime($request->planned_end_date));
+      if($request->revised_start_date != NULL)
+        $project->revised_start_date = $request->revised_start_date;
+      if($request->assigning_forum != NULL)
+        $project->assigning_forum_id = $request->assigning_forum;
+      if($request->approving_forum != NULL)
+        $project->approving_forum_id = $request->approving_forum;
+      if($request->hasFile('attachments')){
+        $request->file('attachments')->store('public/uploads/projects/');
+        $file_name = $request->file('attachments')->hashName();
+        $project->project_attachements=$file_name;
+      }
+      if($project!=NULL)
+        $project->save();
+      // if($request->departments)
+      // foreach($request->departments as $department_id){
+      //   if($department != NULL){
+      //   $assigned_department = new AssignedDepartmentProjectLog();
+      //   $assigned_department->assproject_id = $id;
+      //   $assigned_department->project_id = $id;
+      //   $assigned_department->department_id = $department_id;
+      //   $assigned_department->save();
+      // }
+      // }
+      if($request->sub_sectors)
+      foreach($request->sub_sectors as $sub_sector){
+        // if($department != NULL){
+        $Assignedsub_sector = new AssignedSubSectorLog();
+        $Assignedsub_sector->project_log_id = $id;
+        $Assignedsub_sector->sub_sector_id = $sub_sector;
+        $Assignedsub_sector->save();
+      // }
+      }
+
+      if($request->sponsoring_departments)
+      foreach($request->sponsoring_departments as $sponsoring_department_id){
+        if($sponsoring_department_id != NULL){
+        $sponosoring_agency = new AssignedSponsoringAgencyProjectLog();
+        $sponosoring_agency->project_log_id = $id;
+        $sponosoring_agency->sponsoring_agency_id = $sponsoring_department_id;
+        $sponosoring_agency->save();
+      }
+      }
+      if($request->executing_departments)
+      foreach($request->executing_departments as $executing_department_id){
+        if($executing_department_id != NULL){
+        $executing_agency = new AssignedExecutingAgencyProjectLog();
+        $executing_agency->project_log_id = ProjectLog::latest()->first()->id;
+        $executing_agency->executing_agency_id = $executing_department_id;
+        $executing_agency->save();
+      }
+      }
+      if(count($request->revised_approved_costs) > 0)
+      foreach($request->revised_approved_costs as $revised_approved_cost){
+        if($revised_approved_cost != NULL){
+        $revised_approved_cost_save = new RevisedApprovedCostProjectLog();
+        $revised_approved_cost_save->project_log_id = ProjectLog::latest()->first()->id;
+        $revised_approved_cost_save->cost = $revised_approved_cost;
+        $revised_approved_cost_save->save();
+      }
+      }
+      if(count($request->revised_end_dates) > 0)
+        foreach($request->revised_end_dates as $revised_end_date){
+            if($revised_end_date != NULL){
+              $revised_end_date = new RevisedEndDateProjectLog();
+              $revised_end_date->project_log_id = ProjectLog::latest()->first()->id;
+      $revised_end_date->end_date = date('Y-m-d',strtotime($revised_end_date));
+              $revised_end_date->save();
+          }
+        }
+
+      if($request->districts)
+      foreach($request->districts as $district){
+        if($district != NULL){
+          $assigned_district = new AssignedDistrictProjectLog();
+          $assigned_district->project_log_id = ProjectLog::latest()->first()->id;
+          $assigned_district->district_id = $district;
+          $assigned_district->save();
+      }
+      }
+      $notification = new Notification();
+      $notification->user_id=Auth::id();
+        $proje_title=Project::find($id);
+      if($proje_title!= NULL){
+          $proje_title=$proje_title->title;
+      }
+      $notification->text= 'Requested generated for edit a project : Title '.$proje_title;
+      $notification->table_name='project_logs';
+      $notification->table_id=$project->id;
+      $notification->save();
+      return redirect()->route('new_evaluation');
     }
 
     /**

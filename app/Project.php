@@ -7,13 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model
 {
     public function user(){
-        return $this->belongsTo('App/User');
+        return $this->belongsTo('App\User');
     }
-    public function projectAssigned(){
-        return $this->hasOne('App\ProjectAssigned');
+    public function AssignedProject(){
+        return $this->hasOne('App\AssignedProject');
     }
     public function projectDetails(){
         return $this->hasOne('App/ProjectDetail');
+    }
+    public function AssigningForumSubList(){
+        return $this->belongsTo('App\AssigningForumSubList');
     }
     public function AssignedSponsoringAgencies(){
         return $this->hasMany('App\AssignedSponsoringAgency');
@@ -31,9 +34,15 @@ class Project extends Model
     public function AssignedDistricts(){
         return $this->hasMany('App\AssignedDistrict');
     }
-    public function AssignedDepartments(){
-        return $this->hasMany('App\AssignedDepartment');
+    public function AssignedProjectManager(){
+        return $this->hasMany('App\AssignedProjectManager');
     }
+    public function AssignedSubSectors(){
+        return $this->hasMany('App\AssignedSubSector');
+    }
+    // public function AssignedDepartments(){
+    //     return $this->hasMany('App\AssignedDepartment');
+    // }
     public function ProjectType(){
       return $this->belongsTo('App\ProjectType');
     }
@@ -47,6 +56,11 @@ class Project extends Model
     public function RevisedEndDate()
     {
       return $this->hasMany('App\RevisedEndDate');
+    }
+
+    public function AssignedProjectActivity()
+    {
+      return $this->hasMany('App\AssignedProjectActivity');
     }
 
 }

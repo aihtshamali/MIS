@@ -15,7 +15,7 @@ div>label{
 div>span>label{
   text-align: left !important;
 }
-i{
+i.fa-asterisk{
   font-size: 6px !important;
 vertical-align: super;
 }
@@ -43,116 +43,18 @@ vertical-align: super;
 #table1{
   display: none;
 }
-#section2{
-  display: none;
-}
   </style>
 @endsection
 @section('content')
 
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-  <form class="form-horizontal" action="{{route('projects.store')}}" method="POST" enctype="multipart/form-data">
+
+  <form class="form-horizontal" id="projectForm" action="{{route('projects.update',$project->id)}}" method="POST" enctype="multipart/form-data">
     {{csrf_field()}}
-  <section id="section1">
-    <div id="outerbox" class="box box-default">
-      <div  class="box-header with-border">
-        <h3 class="box-title">Select Project Type</h3>
+<input name="_method" type="hidden" value="PUT">
 
-        {{-- <div class="box-tools pull-right">
-          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-        </div> --}}
-      </div>
-      <!-- /.box-header -->
-      <div class="box-body">
-        <div class="row">
-          <div id="inner_items" class="col-md-6">
-            <div class="form-group">
-              <label>Type of Projects</label>
-              <select id="type_of_project" name="type_of_project" class="form-control select2" style="width: 100%;">
-                <option>Select Project Type</option>
-                @foreach ($project_types as $project_type)
-                  @if($project_type->status == 1)
-                    <option value="{{$project_type->id}}">{{$project_type->name}}</option>
-                  @endif
-                @endforeach
-
-              </select>
-            </div>
-
-            <div id="second" class="form-group">
-              <label>Phase of Evaluation</label>
-              <select id="phase_of_evaluation" name="phase_of_evaluation" class="form-control select2" style="width: 100%;">
-                <option>Select Evaluation Type</option>
-                @foreach ($sub_project_types as $sub_project_type)
-                  <option value="{{$sub_project_type->id}}">{{$sub_project_type->name}}</option>
-                @endforeach
-              </select>
-            </div>
-            <div id="monitoring_second" class="form-group">
-              <label>Phase of Monitoring</label>
-              <select id="phase_of_monitoring" name="phase_of_monitoring" class="form-control select2" style="width: 100%;">
-                <option>Select Monitoring Type</option>
-                @foreach ($sub_project_types as $sub_project_type)
-                  <option value="{{$sub_project_type->id}}">{{$sub_project_type->name}}</option>
-                @endforeach
-              </select>
-            </div>
-
-
-
-            <div id="fourth" class="form-group">
-              <label>Search ADP or GS #</label>
-              <select class="form-control select2" name="ADP" placeholder="ADP or GS #"  style="width: 100%;">
-              <option value="">Select Project</option>
-                @foreach ($projects as $project)
-                  <option value="{{$project->ADP}}">{{$project->ADP}} &rarr; {{$project->title}}</option>
-                @endforeach
-              </select>
-              <label >Select a Sub-Sector</label>
-              <select id="sub-sectors" class="form-control select2" multiple="multiple"  style="width: 100%;">
-                @foreach ($sub_sectors as $sub_sector)
-                  @if($sub_sector->status == 1)
-                    <option value="{{$sub_sector->id}}">{{$sub_sector->name}}</option>
-                  @endif
-                @endforeach
-              </select>
-            </div>
-            <div id="monitoring_fourth" class="form-group">
-              <label>Search ADP or GS #</label>
-              <select  class="form-control select2" name="ADP" placeholder="ADP or GS #"  style="width: 100%;">
-              <option value="">Select Project</option>
-                @foreach ($projects as $project)
-                  <option value="{{$project->ADP}}">{{$project->ADP}} &rarr; {{$project->title}}</option>
-                @endforeach
-              </select>
-              <label >Select a Sub-Sector</label>
-              <select id="sub-sectors" class="form-control select2" multiple="multiple"   style="width: 100%;">
-                @foreach ($sub_sectors as $sub_sector)
-                  @if($sub_sector->status == 1)
-                    <option value="{{$sub_sector->id}}">{{$sub_sector->name}}</option>
-                  @endif
-                @endforeach
-              </select>
-            </div>
-
-            <div id="table1"class="form-group">
-              <label >Select a Project</label>
-              <select id="projects" class="form-control select2"  style="width: 100%;">
-              </select>
-              <input type="submit" class="btn btn-success pull-right" style="margin-top:5%;" value="ADD Project">
-            </div>
-            <!-- /.form-group -->
-          </div>
-          <!-- /.col -->
-        </div>
-        <!-- /.row -->
-      </div>
-      <!-- /.box-body -->
-    </div>
-    <!-- /.box -->
-  </section>
   <section id="section2">
 
   <div class="modal-body row">
@@ -166,8 +68,8 @@ vertical-align: super;
       <div class="form-group">
         <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Type of Evaluation</label>
         <div class="col-sm-8">
-        <select id="evaluation_type" name="evaluation_type" class="form-control select2" style="width: 100%;">
-          <option>Select Evaluation Type</option>
+        <select id="evaluation_type" name="evaluation_type" class="form-control select2" style="width: 100%;" >
+          <option value="">Select Evaluation Type</option>
           @foreach ($evaluation_types as $evaluation_type)
             @if($evaluation_type->status == 1)
               <option value="{{$evaluation_type->id}}">{{$evaluation_type->name}}</option>
@@ -179,23 +81,23 @@ vertical-align: super;
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Name of Project</label>
       <div class="col-sm-8">
-        <input id="title" type="text" name="title" class="form-control" placeholder="Title">
+        <input id="title" autocomplete="off" type="text" name="title" class="form-control" placeholder="Title" >
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Project #</label>
       <div class="col-sm-8">
-        <input id="project_no" type="text" name="project_no" value="{{$project_no}}"  class="form-control" >
+        <input id="project_no" type="text" name="project_no" value="{{$project_no}}"  class="form-control"  >
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>GS #</label>
       <div class="col-sm-3">
-        <input type="text" disabled class="form-control" value="{{$current_year}}">
+        <input type="number" disabled class="form-control" value="{{$current_year}}">
       </div>
       <label class="col-sm-1" style="font-size:20px">-</label>
       <div class="col-sm-4">
-        <input type="text" id="ADP" name="ADP" class="form-control" placeholder="GS #">
+        <input type="number" id="ADP" name="ADP" class="form-control" placeholder="GS #" >
       </div>
     </div>
     <div class="form-group">
@@ -213,28 +115,28 @@ vertical-align: super;
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Sub Sector</label>
       <div class="col-sm-8">
-        <select id="sub_sectors" name="sub-sectors[]" class="form-control select2" multiple="multiple" data-placeholder="Sub Sectors"  style="width: 100%;">
+        <select id="sub_sectors" name="sub_sectors[]" class="form-control select2"  multiple="multiple" data-placeholder="Sub Sectors"  style="width: 100%;">
         </select>
       </div>
     </div>
-    <div class="form-group">
+    {{-- <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Departments</label>
       <div class="col-sm-8">
-        <select id="departments" name="departments[]" class="form-control select2" multiple="multiple" data-placeholder="Departments"  style="width: 100%;">
+        <select id="departments" name="departments[]"  class="form-control select2" multiple="multiple" data-placeholder="Departments"  style="width: 100%;">
         </select>
       </div>
-    </div>
+    </div> --}}
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Select Sponsoring Department</label>
       <div class="col-sm-8">
-        <select id="sponsoring_departments" name="sponsoring_departments[]" class="form-control select2" multiple="multiple" data-placeholder="Sponsoring Department"  style="width: 100%;">
+        <select id="sponsoring_departments"  name="sponsoring_departments[]" class="form-control select2" multiple="multiple" data-placeholder="Sponsoring Department"  style="width: 100%;">
         </select>
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Select Executing Department</label>
       <div class="col-sm-8">
-        <select id="executing_departments" name="executing_departments[]" class="form-control select2" multiple="multiple" data-placeholder="Executing Department"  style="width: 100%;">
+        <select id="executing_departments"  name="executing_departments[]" class="form-control select2" multiple="multiple" data-placeholder="Executing Department"  style="width: 100%;">
           @foreach ($executing_departments as $executing_department)
             @if($executing_department->status == 1)
               <option value="{{$executing_department->id}}">{{$executing_department->name}}</option>
@@ -246,7 +148,7 @@ vertical-align: super;
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Select Assingning Forum</label>
       <div class="col-sm-8">
-        <select id="assigning_forums" name="assigning_forum" class="form-control select2"  style="width: 100%;">
+        <select id="assigning_forums"  name="assigning_forum" class="form-control select2"  style="width: 100%;">
           <option value="">Select Assigning Forum</option>
           @foreach ($assigning_forums as $assigning_forum)
             @if($assigning_forum->status == 1)
@@ -256,10 +158,17 @@ vertical-align: super;
         </select>
       </div>
     </div>
+    <div class="form-group" style="display:none" id="assigning_forumSubListDiv">
+      <label class="col-sm-4 control-label">Select Assingning Forum SubList</label>
+      <div class="col-sm-8">
+        <select id="assigning_forumSubList" name="assigning_forumSubList" class="form-control select2"  style="width: 100%;">
+        </select>
+      </div>
+    </div>
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Select Approving Forum</label>
       <div class="col-sm-8">
-        <select id="approving_forums" name="approving_forum" class="form-control select2"  style="width: 100%;">
+        <select id="approving_forums"  name="approving_forum" class="form-control select2"  style="width: 100%;">
           <option value="">Select Approving Forum</option>
           @foreach ($approving_forums as $approving_forum)
             @if($approving_forum->status == 1)
@@ -272,7 +181,7 @@ vertical-align: super;
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Currency</label>
       <div class="col-sm-8">
-        <select class="form-control" name="currency" id="currency">
+        <select class="form-control"  name="currency" id="currency">
           <option data-symbol="$" data-placeholder="0.00">$ USD</option>
           <option data-symbol="Rs" data-placeholder="0.00" selected>Rs PKR</option>
           <option data-symbol="€" data-placeholder="0.00">€ EUR</option>
@@ -286,14 +195,14 @@ vertical-align: super;
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Original Approved Cost in Millions</label>
       <div class="col-sm-8">
-        <input type="number" id="original_cost" name="original_cost" class="form-control" placeholder="Cost">
+        <input type="number"  id="original_cost" step="0.01" name="original_cost" class="form-control" placeholder="Cost">
       </div>
     </div>
     <div class="form-group" id="field">
       <span class="firstspan">
-      <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Revised Approved Cost in Millions</label>
+      <label class="col-sm-4 control-label"></i>Revised Approved Cost in Millions</label>
       <div class="col-sm-8">
-      <input autocomplete="off" name="revised_approved_costs[]" id="field1" type="text" class="form-control input"value="" data-items="8">
+      <input autocomplete="off" name="revised_approved_costs[]" id="field1" type="number" step="0.01" class="form-control input" data-items="8">
       <button id="b1" class="btn btn-success add-more pull-right" style="    position: relative;
       top: -34px;" type="button">+</button>
       </div>
@@ -305,7 +214,7 @@ vertical-align: super;
     <div class="form-group" id="datepick" style="margin-top:10px">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Planned Start Date</label>
       <div class='input-group col-sm-8 date' id='planned_start_my_date' >
-           <input type='text' id="planned_start_date" name="planned_start_date" class="form-control" />
+           <input type='text' id="planned_start_date"  name="planned_start_date" class="form-control" />
            <span class="input-group-addon">
                <span class="glyphicon glyphicon-calendar"></span>
            </span>
@@ -314,7 +223,7 @@ vertical-align: super;
     <div class="form-group" id="datepick">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Planned End Date</label>
       <div class='input-group col-sm-8 date' id='planned_end_my_date' >
-           <input type='text' id="planned_end_date" name="planned_end_date" class="form-control" />
+           <input type='text'  id="planned_end_date" name="planned_end_date" class="form-control" />
            <span class="input-group-addon">
                <span class="glyphicon glyphicon-calendar"></span>
            </span>
@@ -323,7 +232,7 @@ vertical-align: super;
   <div class="form-group">
     <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Planned Gestation Period</label>
     <div class="col-sm-8">
-    <input name="gestation_period" id="planned_gestation_period" type="text" class="form-control input" disabled>
+    <input name="gestation_period"  id="planned_gestation_period" type="text" class="form-control input" disabled>
     </div>
     </span>
   </div>
@@ -331,7 +240,7 @@ vertical-align: super;
 
 <section style="background-color:lightgray;padding:8px;margin-top:10px;" id="field_second">
   <div class="form-group" id="datepick" style="margin-top:10px">
-    <label class="datepick col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Revised Start Date</label>
+    <label class="datepick col-sm-4 control-label">Revised Start Date</label>
     <div class='input-group col-sm-8 date' id='revised_start_my_date' >
          <input type='text' id="revised_start_date" name="revised_start_date" class="form-control" />
          <span class="input-group-addon">
@@ -341,7 +250,7 @@ vertical-align: super;
   </div>
   <span class="secondspan"></span>
   <div class="form-group" >
-    <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Revised EndDate</label>
+    <label class="col-sm-4 control-label"></i>Revised EndDate</label>
     <div class="input-group col-sm-8 date" id="revised_end_my_date">
     <input name="revised_end_dates[]" id="date0" class="form-control" >
     <span class="input-group-addon">
@@ -364,7 +273,7 @@ vertical-align: super;
     <div class="form-group" style="margin-top:10px">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Select District</label>
       <div class="col-sm-8">
-        <select id="districts" name="districts[]" multiple="multiple" class="form-control select2" data-placeholder="Select District" style="width: 100%;">
+        <select id="districts" name="districts[]"  multiple="multiple" class="form-control select2" data-placeholder="Select District" style="width: 100%;">
           {{-- <option value=""></option> --}}
           @foreach ($districts as $district)
             @if($district->status == 1)
@@ -381,7 +290,7 @@ vertical-align: super;
     </div>
     </div>
   </div>
-  <input type="submit" class="btn btn-success pull-right" style="margin-top:10px" value="ADD Project">
+  <input type="button" id="btn-confirm" class="btn btn-success pull-right" style="margin-top:10px" value="Confirm Changes">
 
 </div>
 </div>
@@ -394,113 +303,172 @@ vertical-align: super;
   <div class="form-horizontal">
   <div class="box-body">
     <div class="form-group">
-      <label id="label_summary_evaluation_type" style="display:none;" class="col-sm-6 control-label">Evaluation Type</label>
-      <div id="summary_evaluation_type" class="col-sm-6">
+      <label id="label_fixed_summary_evaluation_type" class="col-sm-6 control-label">Evaluation Type</label>
+      <div id="fixed_summary_evaluation_type" class="col-sm-6">
+        <label>{{$project->EvaluationType->name}}</label>
       </div>
     </div>
   <div class="form-group">
-    <label id="label_summary_title" style="display:none;" class="col-sm-6 control-label">Title</label>
-    <div id="summary_title" class="col-sm-6">
+    <label id="label_fixed__summary_title" class="col-sm-6 control-label">Title</label>
+    <div id="fixed_summary_title" class="col-sm-6">
+      <label>{{$project->title}}</label>
     </div>
   </div>
   <div class="form-group">
-    <label id="label_summary_project_no" class="col-sm-6 control-label pull-left">Project #</label>
-    <div id="summary_project_no" class="col-sm-6">
+    <label id="label_fixed_summary_project_no" class="col-sm-6 control-label pull-left">Project #</label>
+    <div id="fixed_summary_project_no" class="col-sm-6">
       <label>{{$project_no}}</label>
     </div>
   </div>
   <div class="form-group">
-    <label id="label_summary_ADP" style="display:none;" class="col-sm-3 control-label">GS #</label>
-    <div id="summary_ADP" class="col-sm-4">
+    <label id="label_fixed_summary_ADP"  class="col-sm-6 control-label">GS #</label>
+    <div id="fixed_summary_ADP" class="col-sm-6">
+      <label>2018-{{$project->ADP}}</label>
     </div>
   </div>
   <div class="form-group">
-    <label id="label_summary_sectors" style="display:none;" class="col-sm-6 control-label">Sectors</label>
-    <div id="summary_sectors" class="col-sm-6">
+    <label id="label_fixed_summary_sectors"  class="col-sm-6 control-label">Sectors</label>
+    <div id="fixed_summary_sectors" class="col-sm-6">
+      @foreach ($project->AssignedSubSectors as $assignSbSct )
+          <label>{{$assignSbSct->SubSector->Sector->name}}</label>
+      @endforeach
     </div>
   </div>
   <div class="form-group">
-    <label id="label_summary_sub_sectors" style="display:none;" class="col-sm-6 control-label">Sub Sectors</label>
-    <div id="summary_sub_sectors" class="col-sm-6">
+    <label id="label_fixed_summary_sub_sectors"  class="col-sm-6 control-label">Sub Sectors</label>
+    <div id="fixed_summary_sub_sectors" class="col-sm-6">
+        @foreach ($project->AssignedSubSectors as $assignSbSct )
+          <label>{{$assignSbSct->SubSector->name}}</label>
+      @endforeach
+    </div>
+  </div>
+  {{-- <div class="form-group">
+    <label id="label_fixed_summary_sponsoring_departments"  class="col-sm-6 control-label">Sponsoring Departments</label>
+    <div id="fixed_summary_sponsoring_departments" class="col-sm-6">
+      @foreach ($project->AssignedDepartments as $assignDpt )
+          <label>{{$assignDpt->Department->name}}</label>
+      @endforeach
+    </div>
+  </div> --}}
+  <div class="form-group">
+    <label id="label_fixed_summary_executing_departments"  class="col-sm-6 control-label">Executing Departments</label>
+    <div id="fixed_summary_executing_departments" class="col-sm-6">
+      @foreach ($project->AssignedExecutingAgencies as $ed)
+        <label>{{$ed->ExecutingAgency->name}}</label>
+      @endforeach
     </div>
   </div>
   <div class="form-group">
-    <label id="label_summary_sponsoring_departments" style="display:none;" class="col-sm-6 control-label">Sponsoring Departments</label>
-    <div id="summary_sponsoring_departments" class="col-sm-6">
-    </div>
-  </div>
-  <div class="form-group">
-    <label id="label_summary_executing_departments" style="display:none;" class="col-sm-6 control-label">Executing Departments</label>
-    <div id="summary_executing_departments" class="col-sm-6">
-    </div>
-  </div>
-  <div class="form-group">
-    <label id="label_summary_assigning_forums" style="display:none;" class="col-sm-6 control-label">Assigning Forums</label>
-    <div id="summary_assigning_forums" class="col-sm-6">
-    </div>
-  </div>
-  <div class="form-group">
-    <label id="label_summary_approving_forums" style="display:none;" class="col-sm-6 control-label">Approving Forums</label>
-    <div id="summary_approving_forums" class="col-sm-6">
-    </div>
-  </div>
-  <div class="form-group">
-    <label id="label_summary_currency" style="display:none;" class="col-sm-6 control-label">Currency</label>
-    <div id="summary_currency" class="col-sm-6">
-    </div>
-  </div>
-  <div class="form-group">
-    <label id="label_summary_original_cost" style="display:none;" class="col-sm-6 control-label">Original Approved Cost in Millions</label>
-    <div id="summary_original_cost" class="col-sm-6">
-    </div>
-  </div>
-  <div class="form-group">
-    <label id="label_summary_field1" style="display:none;" class="col-sm-6 control-label">Revised Approved Cost in Millions</label>
-    <div id="summary_field1" class="col-sm-6">
-    </div>
-  </div>
-  <div class="form-group">
-    <label id="label_summary_planned_start_date" style="display:none;" class="col-sm-6 control-label">Planned Start Date</label>
-    <div id="summary_planned_start_date" class="col-sm-6">
-    </div>
-  </div>
-  <div class="form-group">
-    <label id="label_summary_planned_end_date" style="display:none;" class="col-sm-6 control-label">Planned End Date</label>
-    <div id="summary_planned_end_date" class="col-sm-6">
-    </div>
-  </div>
-  <div class="form-group">
-    <label id="label_summary_gestaiton_period" style="display:none;" class="col-sm-6 control-label">Gestation Period</label>
-    <div id="summary_gestation_period" class="col-sm-6">
-    </div>
-  </div>
-  <div class="form-group">
-    <label id="label_summary_revised_start_date" style="display:none;" class="col-sm-6 control-label">Revised Start Date</label>
-    <div id="summary_revised_start_date" class="col-sm-6">
-    </div>
-  </div>
-  <div class="form-group">
-    <label id="label_summary_revised_end_date" style="display:none;" class="col-sm-6 control-label">Revised End Date</label>
-    <div id="summary_revised_end_date" class="col-sm-6">
-    </div>
-  </div>
-  <div class="form-group">
-    <label id="label_summary_revised_gestation_period" style="display:none;" class="col-sm-6 control-label">Revised Gestation Period</label>
-    <div id="summary_revised_gestation_period" class="col-sm-6">
-    </div>
-  </div>
-  <div class="form-group">
-    <label id="label_summary_districts" style="display:none;" class="col-sm-6 control-label">Districts</label>
-    <div id="summary_districts" class="col-sm-6">
+    <label id="label_fixed_summary_assigning_forums"  class="col-sm-6 control-label">Assigning Forums</label>
+    <div id="fixed_summary_assigning_forums" class="col-sm-6">
+        <label>{{$project->ProjectDetail->AssigningForum->name}}</label>
     </div>
   </div>
 
+
+  @if(isset($project->AssigningForumSubList->name))
+  <div class="form-group">
+    <label id="label_fixed_summary_assigning_forums"  class="col-sm-6 control-label">Assigning Forum Sub List</label>
+    <div id="fixed_summary_assigning_forums" class="col-sm-6">
+        <label>
+          {{$project->AssigningForumSubList->name}}
+        </label>
+    </div>
+  </div>
+@endif
+  <div class="form-group">
+    <label id="label_fixed_summary_approving_forums"  class="col-sm-6 control-label">Approving Forums</label>
+    <div id="fixed_summary_approving_forums" class="col-sm-6">
+      <label>{{$project->ProjectDetail->ApprovingForum->name}}</label>
+    </div>
+  </div>
+  <div class="form-group">
+    <label id="label_fixed_summary_currency" class="col-sm-6 control-label">Currency</label>
+    <div id="fixed_summary_currency" class="col-sm-6">
+      <label>{{$project->ProjectDetail->currency}}</label>
+    </div>
+  </div>
+  <div class="form-group">
+    <label id="label_fixed_summary_original_cost"  class="col-sm-6 control-label">Original Approved Cost in Millions</label>
+    <div id="fixed_summary_original_cost" class="col-sm-6">
+      <label>{{$project->ProjectDetail->orignal_cost}}</label>
+    </div>
+  </div>
+  <div class="form-group">
+    <label id="label_fixed_summary_field1"  class="col-sm-6 control-label">Revised Approved Cost in Millions</label>
+    <div id="fixed_summary_field1" class="col-sm-6">
+      @foreach ($project->RevisedApprovedCost as $rac)
+        <label>{{$rac->cost}} / </label>
+      @endforeach
+    </div>
+  </div>
+  <div class="form-group">
+    <label id="label_fixed_summary_planned_start_date"  class="col-sm-6 control-label">Planned Start Date</label>
+    <div id="fixed_summary_planned_start_date" class="col-sm-6">
+      <label>{{{$project->ProjectDetail->planned_start_date}}}</label>
+    </div>
+  </div>
+  <div class="form-group">
+    <label id="label_fixed__summary_planned_end_date" class="col-sm-6 control-label">Planned End Date</label>
+    <div id="fixed_summary_planned_end_date" class="col-sm-6">
+      <label>{{{$project->ProjectDetail->planned_end_date}}}</label>
+    </div>
+  </div>
+  <div class="form-group">
+    <label id="label_fixed_summary_revised_start_date"  class="col-sm-6 control-label">Revised Start Date</label>
+    <div id="fixed_summary_revised_start_date" class="col-sm-6">
+      <label>{{{$project->ProjectDetail->revised_start_date}}}</label>
+    </div>
+  </div>
+  <div class="form-group">
+    <label id="label_fixed_summary_revised_end_date"  class="col-sm-6 control-label">Revised End Date</label>
+    <div id="fixed_summary_revised_end_date" class="col-sm-6">
+    </div>@foreach ($project->RevisedEndDate as $red)
+      <label>{{$red->end_date}} / </label>
+    @endforeach
+  </div>
+  <div class="form-group">
+    <label id="label_fixed_summary_districts"  class="col-sm-6 control-label">Districts</label>
+    <div id="fixed_summary_districts" class="col-sm-6">
+    @foreach ($project->AssignedDistricts as $district)
+      <label>{{$district->District->name}} / </label>
+    @endforeach
+  </div>
+
+</div>
+<div class="form-group">
+  <label id="label_fixed_summary_attachments"  class="col-sm-6 control-label">Project Attachment</label>
+  <div id="fixed_summary_attachment" class="col-sm-6">
+        <label><a href="{{asset('/storage/uploads/projects/'.$project->ProjectDetail->project_attachements)}}" download>Project File(Click to Download)</a>
+        </label>
+  </div>
 </div>
 </div>
 </div>
 </div>
 </section>
 </form>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog" style="left:unset !important">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Save Changes</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you Sure?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" id="confirmedbtn" data-dismiss="modal">Save Changes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 </div>
 @endsection
 @section('scripttags')
@@ -510,6 +478,15 @@ vertical-align: super;
   <script type="text/javascript" src="{{asset('bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')}}"></script>
 {{-- <script src="{{asset('js/AdminLTE/bootstrap-datepicker.min.js')}}"></script> --}}
 <script>
+$('#confirmedbtn').click(function(){
+  $('#projectForm').submit();
+});
+
+$('#btn-confirm').on('click',function(){
+  $('#myModal').modal({
+    show:true
+  });
+});
 $('div').on('dp.change',function(){
   var class_value = $(this).find('input').attr('id');
   var opt = $("#"+class_value).val();
@@ -525,6 +502,9 @@ $('div').on('dp.change',function(){
       var month = Math.abs(second[1]-first[1]);
       var days = Math.abs(second[0]-first[0]);
       $("#planned_gestation_period").val(year + " Years "+month+" Months "+days+" Days");
+      $('#summary_gestation_period').empty();
+      $('#summary_gestation_period').append("<label>"+year + " Years "+month+" Months "+days+" Days" + "</label>");
+      $('#label_summary_gestation_period').show('slow');
     }
   }
   if(opt == ""){
@@ -547,6 +527,7 @@ $('div').on('dp.change',function(){
           var days = Math.abs(second[0]-first[0]);
           $("#revised_gestation_period").val(year + " Years "+month+" Months "+days+" Days");
 
+
         }
         else{
           var revised_start = $("#planned_start_date").val();
@@ -558,6 +539,10 @@ $('div').on('dp.change',function(){
                 var days = Math.abs(second[0]-first[0]);
                 $("#revised_gestation_period").val(year + " Years "+month+" Months "+days+" Days");
         }
+        $('#summary_revised_gestation_period').empty();
+        $('#summary_revised_gestation_period').append("<label>"+year + " Years "+month+" Months "+days+" Days" + "</label>");
+        $('#label_summary_revised_gestation_period').show('slow');
+
   }
 
 });
@@ -610,7 +595,7 @@ $('input').on('input',function(){
 $(function () {
   //Initialize Select2 Elements
   $('.select2').select2();
-  $("#section2").hide();
+  // $("#section2").hide();
   $('#planned_start_my_date').datetimepicker({
                 viewMode: 'years',
                 format: 'DD/MM/YYYY'
@@ -651,26 +636,30 @@ $(document).on('change', '#sectors', function() {
     }
 });
 });
-$(document).on('change', '#sub_sectors', function() {
+$(document).on('change', '#assigning_forums', function() {
   var opt = $(this).val()
   // console.log(opt);
   $.ajax({
     method: 'POST', // Type of response and matches what we said in the route
-    url: '/onsubsectorselect', // This is the url we gave in the route
+    url: '/onAssigningForumselect', // This is the url we gave in the route
     data: {
       "_token": "{{ csrf_token() }}",
-      'data' : opt}, // a JSON object to send back
+      'data' : opt
+    }, // a JSON object to send back
     success: function(response){ // What to do if we succeed
-      $("#sponsoring_departments").empty();
-      $("#departments").empty();
-      $.each(response[0], function () {
-          $('#sponsoring_departments').append("<option value=\""+this.id+"\">"+this.name+"</option>");
+      $("#assigning_forumSubList").empty();
+      $.each(response, function () {
+
+              $('#assigning_forumSubList').append("<option value=\""+this.id+"\">"+this.name+"</option>");
+
       });
-      $.each(response[1], function () {
-        $.each(this,function () {
-          $('#departments').append("<option value=\""+this.id+"\">"+this.name+"</option>");
-        });
-      });
+      if(response.length>0 && !response.error)
+        {
+          $('div#assigning_forumSubListDiv').show();
+        }
+        else{
+          $('div#assigning_forumSubListDiv').hide();
+        }
     },
     error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
         console.log(JSON.stringify(jqXHR));
@@ -678,6 +667,33 @@ $(document).on('change', '#sub_sectors', function() {
     }
 });
 });
+// $(document).on('change', '#sub_sectors', function() {
+//   var opt = $(this).val()
+//   // console.log(opt);
+//   $.ajax({
+//     method: 'POST', // Type of response and matches what we said in the route
+//     url: '/onsubsectorselect', // This is the url we gave in the route
+//     data: {
+//       "_token": "{ csrf_token() }}",
+//       'data' : opt}, // a JSON object to send back
+//     success: function(response){ // What to do if we succeed
+//       $("#sponsoring_departments").empty();
+//       $("#departments").empty();
+//       $.each(response[0], function () {
+//           $('#sponsoring_departments').append("<option value=\""+this.id+"\">"+this.name+"</option>");
+//       });
+//       $.each(response[1], function () {
+//         $.each(this,function () {
+//           $('#departments').append("<option value=\""+this.id+"\">"+this.name+"</option>");
+//         });
+//       });
+//     },
+//     error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+//         console.log(JSON.stringify(jqXHR));
+//         console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+//     }
+// });
+// });
 
 
 
@@ -688,7 +704,7 @@ $(document).ready(function(){
       var addto = "#field" + next;
       var addRemove = "#field" + (next);
       next = next + 1;
-      var newIn = '<div class="added'+(next-1)+'" ><label class="col-sm-4 control-label">Revised Approved Cost '+(next-1)+' in Millions</label><div class="col-sm-8"><input name="revised_approved_costs[]" autocomplete="off" class="input form-control" id="field'+ next +'" value="'+$('input#field1').val()+'" type="text"> ';
+      var newIn = '<div class="added'+(next-1)+'" ><label class="col-sm-4 control-label">Revised Approved Cost '+(next-1)+' in Millions</label><div class="col-sm-8"><input name="revised_approved_costs[]" autocomplete="off" class="input form-control" id="field'+ next +'" value="'+$('input#field1').val()+'" type="number" step="0.01"> ';
     //   var newInput = $(newIn);
       var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me pull-right" style="    position: relative;top: -34px;" >-</button></div> ';
     //   var removeButton = $(removeBtn);
@@ -785,9 +801,9 @@ $.ajax({
     "_token": "{{ csrf_token() }}",
     'data' : opt}, // a JSON object to send back
   success: function(response){ // What to do if we succeed
-    $("#projects").empty();
+    $("#project").empty();
     $.each(response, function () {
-        $('#projects').append("<option value=\""+this.id+"\">"+this.ADP +" &rarr; " +this.title+"</option>");
+        $('#project').append("<option value=\""+this.id+"\">"+this.ADP +" &rarr; " +this.title+"</option>");
     });
   },
   error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
@@ -801,5 +817,7 @@ if(opt == ""){
 }else
 $('#table1').show("slow");
 });
+
+
 </script>
 @endsection

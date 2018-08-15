@@ -23,7 +23,7 @@
                                         <div class="row" >
                                         <div class="col-md-4 ">
                                                         <b>Project Document :</b>
-                                                        {{$project->project_details->project_attachements}}
+                                                        {{$project->ProjectDetail->project_attachements}}
                                                         </div>
                                                 <div class="col-md-4">
                                                 </div>
@@ -61,22 +61,22 @@
 
                                                 <div class="col-md-4">
                                                 <b>Sector :</b>
-                                                @foreach ($project->AssignedDepartments as $department)
-                                                  {{$department->Department->SubSector->Sector->name}}
+                                                @foreach ($project->AssignedSubSectors as $subsct)
+                                                  {{$subsct->SubSector->Sector->name}}
                                                 @endforeach
                                                 </div>
                                                 <div class="col-md-4">
                                                 <b>Sub-Sectors:</b>
-                                                @foreach ($project->AssignedDepartments as $department)
-                                                  {{$department->Department->SubSector->name}}
+                                                @foreach ($project->AssignedSubSectors as $subsct)
+                                                  {{$subsct->SubSector->name}}
                                                 @endforeach
                                                 </div>
-                                                <div class="col-md-4">
+                                                {{-- <div class="col-md-4">
                                                 <b>Department :</b>
                                                 @foreach ($project->AssignedDepartments as $department)
                                                   {{$department->Department->name}}
                                                 @endforeach
-                                                </div>
+                                                </div> --}}
 
                                         </div>
                                         <hr/>
@@ -110,22 +110,22 @@
 
                                                 <div class="col-md-4">
                                                 <b>Approving Forum :</b>
-                                                {{$project->project_details->ApprovingForum->name}}
-                                                {{-- {{$project->project_details->getApprovingForum($project->project_details->approving_forum_id)->name}} --}}
+                                                {{$project->ProjectDetail->ApprovingForum->name}}
+                                                {{-- {{$project->ProjectDetail->getApprovingForum($project->ProjectDetail->approving_forum_id)->name}} --}}
                                                 </div>
                                                 <div class="col-md-4"></div>
 
                                                 <div class="col-md-4">
                                                 <b>Assigning Forum :</b>
-                                                {{$project->project_details->AssigningForum->name}}
-                                                {{-- {{$project->project_details->getAssigningForum($project->project_details->assigning_forum_id)->name}} --}}
+                                                {{$project->ProjectDetail->AssigningForum->name}}
+                                                {{-- {{$project->ProjectDetail->getAssigningForum($project->ProjectDetail->assigning_forum_id)->name}} --}}
                                                 </div>
 
                                         </div>
                                         <hr/>
                                         <div class="row" >
                                                 <div style="text-align: center;"><h3><b>COST</b></h3></div> </br>
-                                                <div class="col-md-4"> <b>Original Approved : </b>{{$project->project_details->orignal_cost}} -/{{$project->project_details->currency}}</div>
+                                                <div class="col-md-4"> <b>Original Approved : </b>{{$project->ProjectDetail->orignal_cost}} -/{{$project->ProjectDetail->currency}}</div>
                                                 <div class="col-md-4">   <b>Revised Original : </b>
                                                   @foreach ($project->RevisedApprovedCost as $revised_cost)
                                                     {{$revised_cost->cost}}
@@ -133,16 +133,16 @@
                                                       ,
                                                     @endif
                                                   @endforeach
-                                                -/{{$project->project_details->currency}}    </div>
+                                                -/{{$project->ProjectDetail->currency}}    </div>
                                         </div>
                                         <hr/>
                                         <div class="row" >
                                                 <div style="text-align: center;"><h3><b>TIME</b></h3></div> </br>
-                                                <div class="col-md-4" id="planned_start_date"><b>Planned Start Date : </b><label>{{$project->project_details->planned_start_date}}</label> </div>
-                                                <div class="col-md-4" id="planned_end_date"> <b>Planned End Date : </b><label>{{$project->project_details->planned_end_date}}</label></div>
+                                                <div class="col-md-4" id="planned_start_date"><b>Planned Start Date : </b><label>{{$project->ProjectDetail->planned_start_date}}</label> </div>
+                                                <div class="col-md-4" id="planned_end_date"> <b>Planned End Date : </b><label>{{$project->ProjectDetail->planned_end_date}}</label></div>
                                                 <div class="col-md-4" id="gestation_period"> <b>Gestation period : </b> </div>        </br>
                                                 <hr/>
-                                                <div class="col-md-4" id="revised_start_date"><b>Revised Start Date : </b><label>{{$project->project_details->revised_start_date}}</label></div>
+                                                <div class="col-md-4" id="revised_start_date"><b>Revised Start Date : </b><label>{{$project->ProjectDetail->revised_start_date}}</label></div>
                                                 <div class="col-md-4"> <b>Revised End Date : </b>
                                                   @foreach ($project->RevisedEndDate as $revised_date)
                                                     {{$revised_date->end_date}}
@@ -159,16 +159,21 @@
                                                         <div class="col-md-4"></div>
                                                         <div class="col-md-3">
 
-                                        <input type="hidden" name="id" value=" {{$project->id}}">
 
+                                        @if(!Auth::user()->hasRole('dataentry'))
+                                          <a href="{{route('projects.edit',$project->id)}}"
+                                           style="width:38%;margin-right:5px;" class="btn  btn-primary pull-right">Edit</a>
 
-                                        <a href="{{route('projects.edit',$project->id)}}"
-                                         style="width:38%;margin-right:5px;" class="btn  btn-primary pull-right">Edit</a>
-
-                                        </div>
-                                        <div class="col-md-1">
-                                        <button type="Reviewed" class="btn btn-success pull-right"> Reviewed</button>
-                                        </div>
+                                          </div>
+                                        @if(Auth::user()->hasRole('officer'))
+                                          {{-- <form class="" action="{{route('review_forms')}}" method="post">
+                                          <input type="hidden" name="id" value=" {{$project->id}}">
+                                          <div class="col-md-1">
+                                            <button type="submit" class="btn btn-success pull-right"> Reviewed</button>
+                                          </div>
+                                        </form> --}}
+                                        @endif
+                                        @endif
                                         </div>
 
 
@@ -181,11 +186,14 @@
 </div>
 </section>
 </div>
+
+@endsection
 @section('scripttags')
   <script type="text/javascript">
 
   $(function () {
     var first_val = $('#planned_start_date').find('label').text();
+
     var second_value = $('#planned_end_date').find('label').text();
     var first = first_val.split('-');
     var second = second_value.split('-');
@@ -205,5 +213,4 @@
 
   });
 </script>
-@endsection
 @endsection

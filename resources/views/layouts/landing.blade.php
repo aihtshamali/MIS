@@ -6,8 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <link rel="icon" type="image/png" style="width:50%" href="logo.png"/>
-  <title>Float HTML Template</title>
+  {{-- <link rel="icon" type="image/png" style="width:50%" href=""/> --}}
+  <title>DGME MIS</title>
 
   <!-- Favicon -->
   <link href="{{asset('landingAssets/favicon.ico')}}" rel="shortcut icon" />
@@ -53,7 +53,7 @@
       <div class="ha-header-front" style="overflow:unset !important">
         <ul class="firstnav" style="margin:3px;padding:5px">
             <!-- <li><img class="logo-img" src="logo.png" style=" margin-top: -20px " width="80" height="61"  ALT="align box" Align=Left></li>  -->
-
+        <button class="btn btn-warning ">VERSION 1.0</button>
           <li class="dropdown ">
             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Projects <span class="caret"></span>
@@ -87,10 +87,19 @@
            <div class="pull-right" style="margin-top:14px">
              @auth
                @role('admin')
+               <a href="{{ url('/admin') }}">Home</a>
+               @endrole
+               @role('executive')
+               <a href="{{ url('/executive') }}">Home</a>
+               @endrole
+               @role('manager')
+               <a href="{{ url('/manager') }}">Home</a>
+               @endrole
+               @role('dataentry')
                <a href="{{ route('projects.index') }}">Home</a>
                @endrole
                @role('user')
-               <a href="{{ route('projects.create') }}">Home</a>
+               <a href="{{ route('projects.index') }}">Home</a>
                @endrole
                <li><strong><a href="{{ route('logout') }}"
                       onclick="event.preventDefault();
@@ -101,7 +110,7 @@
                     </form></li>
              @else
             <li><strong><a href="{{route('login')}}" >Login</a></strong></li>
-            <li><strong><a href="{{route('register')}}">Register</a></strong></li>
+            {{-- <li><strong><a href="{{route('register')}}">Register</a></strong></li> --}}
             @endauth
 
           </div>
@@ -179,18 +188,18 @@
 
         <div class="col-md-3">
           <h4>Email</h4>
-          <p>your@example.com</p>
+          <p>mis.dgme.gov.pk:8080</p>
         </div> <!-- /.col-md-3 -->
 
         <div class="col-md-3">
           <h4>Telephone</h4>
-          <p>+123 456 789</p>
+          <p>+92-42-99233187-91</p>
         </div> <!-- /.col-md-3 -->
 
         <div class="col-md-3">
           <h4>Address</h4>
-          <p>767 Fifth Ave.<br />
-            New York, NY 10153</p>
+          <p>Directorate General Monitoring & Evaluation P&D Department, 65-Trade Centre Block<br />
+             M.A Johar Town, Lahore (Punjab), Pakistan.</p>
         </div> <!-- /.col-md-3 -->
 
         <div class="col-md-3">
@@ -235,7 +244,7 @@
         </div> <!-- /.row -->
       </form>
 
-      <p class="copyright">Copyright &copy; 2016 Copyright Holder All Rights Reserved.</p>
+      <p class="copyright">Copyright &copy; 2018 IT Team All Rights Reserved.</p>
 
     </div> <!-- /.container -->
   </div> <!-- /.footer-content -->

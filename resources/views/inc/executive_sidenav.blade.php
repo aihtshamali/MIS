@@ -5,11 +5,15 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
+          @if(Auth::user()->UserDetail->profile_pic)
+            <img src="{{asset('logo.jpg')}}" class="img-circle" alt="User Image">
+        @else
           <img src="{{asset('logo.jpg')}}" class="img-circle" alt="User Image">
+        @endif
         </div>
         <div class="pull-left info">
-          @role('executive')
-            <p>Executive Dashboard</p>
+          @role('manager')
+            <p>Manager Dashboard</p>
           @endrole
           @role('admin')
             <p>Admin Dashboard</p>
@@ -17,7 +21,7 @@
           @role('user')
             <p>User Dashboard</p>
           @endrole
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          {{-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> --}}
         </div>
       </div>
       <!-- search form -->
@@ -36,7 +40,7 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Navigations</li>
 
-        @role('executive')
+        @role('manager')
         {{--  /Home  --}}
         <li class="">
           <a href="{{route('Exec_home')}}">
@@ -55,10 +59,18 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="{{route('assignproject.index')}}"><i class="fa fa-circle-o"></i> Un- Assigned <span class="pull-right-container">
-              <span class="label label-primary pull-right">new</span>
+              @if (isset($unassigned))
+                <span class="label label-primary pull-right">{{$unassigned->count()}}</span>
+              @endif
             </span></a></li>
             <li>
               <a href="{{route('Exec_evaluation_assigned')}}"><i class="fa fa-circle-o"></i> In Progress
+                @if (isset($assigned))
+                  <span class="label label-primary pull-right">{{$assigned->count()}}</span>
+                @endif
+                @if (isset($assignedtoManager))
+                  <span class="label label-warning pull-right">{{$assignedtoManager->count()}}</span>
+                @endif
               </a>
             </li>
             <li><a href="{{route('Exec_evaluation_completed')}}"><i class="fa fa-circle-o"></i> Completed</a></li>

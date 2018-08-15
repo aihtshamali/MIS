@@ -37,12 +37,10 @@ class ChatEvent implements ShouldBroadcastNow
        $channels = [];
             array_push($channels, new PrivateChannel('chats.'.$this->message->to_user_id));
             array_push($channels, new PrivateChannel('chats.'.$this->message->user_id));
-            // dd($channels);
         return $channels;
      }
      public function broadcastWith()
      {
-       // dd($this->message->toArray());
        return $this->message->toArray();
      }
 }
