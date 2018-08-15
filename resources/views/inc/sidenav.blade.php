@@ -9,10 +9,10 @@
         </div>
         <div class="pull-left info">
           @role('admin')
-            <p>Admin Dashboard</p>
+          <p>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</p>
           @endrole
           @role('dataentry')
-            <p>Data Entry Dashboard</p>
+          <p>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</p>
           @endrole
           {{-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> --}}
         </div>

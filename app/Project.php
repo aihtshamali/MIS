@@ -12,8 +12,8 @@ class Project extends Model
     public function AssignedProject(){
         return $this->hasOne('App\AssignedProject');
     }
-    public function projectDetails(){
-        return $this->hasOne('App/ProjectDetail');
+    public function ProjectDetail(){
+        return $this->hasOne('App\ProjectDetail');
     }
     public function AssigningForumSubList(){
         return $this->belongsTo('App\AssigningForumSubList');

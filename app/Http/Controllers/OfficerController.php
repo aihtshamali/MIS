@@ -141,6 +141,7 @@ class OfficerController extends Controller
     public function evaluation_activities($id){
 
       $activities=Project::find($id)->AssignedProjectActivity;
+      // dd($id);
       $officerAssignedCount=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
       ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
       ->where('acknowledge','0')

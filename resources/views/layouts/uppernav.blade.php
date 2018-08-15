@@ -32,6 +32,7 @@
   <!-- WARNING: Respond.js doesnt work if you view the page via file:// -->
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 
@@ -346,9 +347,9 @@
   @endrole
 
  
-  @role('executive|executivemonitor')
+  @role('directormonitoring|directorevaluation')
 
-  @include('inc.director_RND_sidenav')
+  @include('inc.director_sidenav')
   @endrole
 
   @role('manager')

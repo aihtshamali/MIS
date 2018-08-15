@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Director;
+use App\DirectorEvaluation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Project;
@@ -10,8 +10,10 @@ use App\AssignedProject;
 use App\AssignedProjectManager;
 use App\User;
 use Auth;
-class DirectorController extends Controller
+use jeremykenedy\LaravelRoles\Models\Role;
+class DirectorEvaluationController extends Controller
 {
+   
     /**
      * Display a listing of the resource.
      *
@@ -19,23 +21,26 @@ class DirectorController extends Controller
      */
     public function index()
     {
-       return view('Director.SSR_D.home.index');
+        return view('Director.Evaluation.home.index');
+  
     }
     public function pems_index(){
-        return view('Director.SSR_D.home.pems_tab');
+      
+        return view('Director.Evaluation.home.pems_tab');
       }
   
       public function pmms_index(){
-        return view('Director.SSR_D.home.pmms_tab');
+          
+        return view('Director.Evaluation.home.pmms_tab');
       }
   
       public function tpv_index(){
-        return view('Director.SSR_D.home.tpv_tab');
+        return view('Director.Evaluation.home.tpv_tab');
       }
   
     
       public function inquiry_index(){
-        return view('Director.SSR_D.home.inquiry_tab');
+        return view('Director.Evaluation.home.inquiry_tab');
       }
 
       public function evaluation_assignedprojects(){
@@ -45,7 +50,7 @@ class DirectorController extends Controller
         ->whereNull('assigned_projects.project_id')
         ->get();
         
-        return view('Director.SSR_D.Evaluation_projects.project_assigned_by_manager',['projects'=>$projects]);
+        return view('Director.Evaluation.Evaluation_projects.project_assigned_by_manager',['projects'=>$projects]);
       }
 
       public function evaluation_Inprogressprojects(){
@@ -59,7 +64,7 @@ class DirectorController extends Controller
         
          $assigned=AssignedProject::where('assigned_by',Auth::id())->get();
          $assignedtoManager=AssignedProjectManager::all();   
-         return view('Director.SSR_D.Evaluation_projects.assigned',['assigned'=>$assigned,'unassigned'=>$unassigned]);
+         return view('Director.Evaluation.Evaluation_projects.assigned',['assigned'=>$assigned,'unassigned'=>$unassigned]);
       }
     /**
      * Show the form for creating a new resource.

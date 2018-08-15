@@ -13,14 +13,9 @@
         </div>
         <div class="pull-left info">
           @role('manager')
-            <p>Manager Dashboard</p>
+          <p>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</p>
           @endrole
-          @role('admin')
-            <p>Admin Dashboard</p>
-          @endrole
-          @role('user')
-            <p>User Dashboard</p>
-          @endrole
+          
           {{-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> --}}
         </div>
       </div>

@@ -19,8 +19,8 @@ class RedirectIfAuthenticated
     {
         if (Auth::guard($guard)->check()) {
           if(Auth::user()){
-            if (Auth::user()->hasRole('executive')) {
-              return redirect('/executive');
+            if (Auth::user()->hasRole('directorevaluation')) {
+              return redirect('/director_evaluation');
             }
             elseif(Auth::user()->hasRole('officer')) {
               return redirect('/officer');
