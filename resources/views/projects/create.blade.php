@@ -530,8 +530,8 @@ $('div').on('dp.change',function(){
     var first_val = $("#planned_start_date").val();
     if(first_val != ""){
       var second_value = $(this).find('input').val();
-      var first = first_val.split('/');
-      var second = second_value.split('/');
+      var first = first_val.split('-');
+      var second = second_value.split('-');
       var year = second[2]-first[2];
       var month = Math.abs(second[1]-first[1]);
       var days = Math.abs(second[0]-first[0]);
@@ -554,8 +554,8 @@ $('div').on('dp.change',function(){
     var revised_start = $("#revised_start_date").val();
         if(revised_start != ""){
           var revised_second_value = opt;
-          var first = revised_start.split('/');
-          var second = revised_second_value.split('/');
+          var first = revised_start.split('-');
+          var second = revised_second_value.split('-');
           var year = second[2]-first[2];
           var month = Math.abs(second[1]-first[1]);
           var days = Math.abs(second[0]-first[0]);
@@ -566,8 +566,8 @@ $('div').on('dp.change',function(){
         else{
           var revised_start = $("#planned_start_date").val();
                 var revised_second_value = opt;
-                var first = revised_start.split('/');
-                var second = revised_second_value.split('/');
+                var first = revised_start.split('-');
+                var second = revised_second_value.split('-');
                 var year = second[2]-first[2];
                 var month = Math.abs(second[1]-first[1]);
                 var days = Math.abs(second[0]-first[0]);
@@ -632,19 +632,19 @@ $(function () {
   $("#section2").hide();
   $('#planned_start_my_date').datetimepicker({
                 viewMode: 'years',
-                format: 'DD/MM/YYYY'
+                format: 'DD-MM-YYYY'
   });
   $('#planned_end_my_date').datetimepicker({
                 viewMode: 'years',
-                format: 'DD/MM/YYYY'
+                format: 'DD-MM-YYYY'
   });
   $('#revised_start_my_date').datetimepicker({
                 viewMode: 'years',
-                format: 'DD/MM/YYYY'
+                format: 'DD-MM-YYYY'
   });
   $('#revised_end_my_date').datetimepicker({
                 viewMode: 'years',
-                format: 'DD/MM/YYYY'
+                format: 'DD-MM-YYYY'
   });
 });
 

@@ -16,6 +16,7 @@ use App\ProjectLog;
 use App\ProjectDetail;
 use App\Department;
 use App\AssignedSubSector;
+
 // use App\AssignedDepartment;
 use App\AssignedSubSectorLog;
 // use App\AssignedDepartmentProjectLog;
@@ -122,7 +123,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-      // dd($request->all());
+      // dd($plan_end_date);
       $projectfor_no=Project::select('projects.project_no')->latest()->first();
       if($projectfor_no){
       $project_no=explode('-',$projectfor_no->project_no);
@@ -150,7 +151,6 @@ class ProjectController extends Controller
       $project_detail->planned_end_date = date('Y-m-d',strtotime($request->planned_end_date));
       if($request->revised_start_date != NULL)
         $project_detail->revised_start_date = date('Y-m-d',strtotime($request->revised_start_date));
-      $project_detail->revised_start_date = $project_detail->planned_start_date;
       $project_detail->assigning_forum_id = $request->assigning_forum;
       $project_detail->approving_forum_id = $request->approving_forum;
       $project_detail->sub_project_type_id = $request->phase_of_evaluation;//change
@@ -191,7 +191,7 @@ class ProjectController extends Controller
         $revised_approved_cost_save->cost = $revised_approved_cost;
         $revised_approved_cost_save->save();
       }
-      if(count($request->revised_end_dates) > 0)
+      if($request->revised_end_dates[0])
       foreach($request->revised_end_dates as $revised_end_date){
         $revised_end_date = new RevisedEndDate();
         $revised_end_date->project_id = $project_id;
@@ -407,6 +407,8 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
+      // $plan_end_date = explode('/', $request->planned_end_date);
+      // dd($plan_end_date);
       // dd($request->all());
       $project = new ProjectLog();
       $project->assigned_project_id=AssignedProject::where('project_id',$id)->first()->id;
