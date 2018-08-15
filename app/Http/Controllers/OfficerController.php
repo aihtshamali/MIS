@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Auth;
 use App\AssignedProject;
+use App\AssignedProjectActivityProgressLog;
 use App\ProjectDetail;
 use App\AssignedActivityAttachment;
 use App\Project;
@@ -179,6 +180,11 @@ class OfficerController extends Controller
       $assigned_project_activity = AssignedProjectActivity::find($activity_id);
       $assigned_project_activity->progress = $percentage;
       $assigned_project_activity->save();
+      $assigned_project_activities_id = $assigned_project_activity->id;
+      $assigned_project_activities_progress_log = new AssignedProjectActivityProgressLog();
+      $assigned_project_activities_progress_log->assigned_project_activities_id = $assigned_project_activities_id;
+      $assigned_project_activities_progress_log->progress = $percentage;
+      $assigned_project_activities_progress_log->save();
       return 'Done';
     }
 
