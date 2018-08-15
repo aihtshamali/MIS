@@ -353,6 +353,7 @@ class ComposerStaticInit55c1f85fd9fa01a6cf3b909416bd240d
         'App\\AssignedExecutingAgencyProjectLog' => __DIR__ . '/../..' . '/app/AssignedExecutingAgencyProjectLog.php',
         'App\\AssignedProject' => __DIR__ . '/../..' . '/app/AssignedProject.php',
         'App\\AssignedProjectActivity' => __DIR__ . '/../..' . '/app/AssignedProjectActivity.php',
+        'App\\AssignedProjectActivityProgressLog' => __DIR__ . '/../..' . '/app/AssignedProjectActivityProgressLog.php',
         'App\\AssignedProjectLog' => __DIR__ . '/../..' . '/app/AssignedProjectLog.php',
         'App\\AssignedProjectManager' => __DIR__ . '/../..' . '/app/AssignedProjectManager.php',
         'App\\AssignedProjectTeam' => __DIR__ . '/../..' . '/app/AssignedProjectTeam.php',

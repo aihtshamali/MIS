@@ -16,6 +16,7 @@ return array(
     'App\\AssignedExecutingAgencyProjectLog' => $baseDir . '/app/AssignedExecutingAgencyProjectLog.php',
     'App\\AssignedProject' => $baseDir . '/app/AssignedProject.php',
     'App\\AssignedProjectActivity' => $baseDir . '/app/AssignedProjectActivity.php',
+    'App\\AssignedProjectActivityProgressLog' => $baseDir . '/app/AssignedProjectActivityProgressLog.php',
     'App\\AssignedProjectLog' => $baseDir . '/app/AssignedProjectLog.php',
     'App\\AssignedProjectManager' => $baseDir . '/app/AssignedProjectManager.php',
     'App\\AssignedProjectTeam' => $baseDir . '/app/AssignedProjectTeam.php',

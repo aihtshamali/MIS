@@ -15,4 +15,9 @@ class AssignedProjectActivity extends Model
     {
       return $this->belongsTo('App\ProjectActivity');
     }
+
+    public function AssignedProjectActivityProgressLog()
+    {
+      return $this->hasOne('App\AssignedProjectActivityProgressLog');
+    }
 }
