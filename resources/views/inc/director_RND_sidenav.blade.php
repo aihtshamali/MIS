@@ -17,6 +17,10 @@
          
             <p> SS R & D Dashboard</p>
           @endrole
+          @role('executivemonitor')
+         
+          <p>D P M Dashboard</p>
+        @endrole
         
           {{-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> --}}
         </div>
@@ -26,7 +30,7 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Navigations</li>
 
-        @role('executive')
+        @role('executive|executivemonitor')
         {{--  /Home  --}}
         <li class="">
           <a href="{{route('RnD_home')}}">
@@ -34,7 +38,8 @@
             <span>Home</span>
           </a>
         </li>
-        {{--  /evaluation  --}}
+         {{--  /evaluation  --}}
+        @role('executive')
         <li class="treeview">
           <a href="#">
             <i class="fa fa-share"></i> <span>Evaluation</span>
@@ -54,7 +59,10 @@
             <li><a href="{{route('Exec_evaluation_completed')}}"><i class="fa fa-circle-o"></i> Completed</a></li>
           </ul>
         </li>
+        @endrole
+
         {{--  monitoring  --}}
+        @role('executivemonitor')
         <li class="treeview">
           <a href="#">
             <i class="fa fa-share"></i> <span>Monitoring</span>
@@ -74,6 +82,7 @@
             <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li>
           </ul>
         </li>
+        @endrole
         {{--  tpvs  --}}
         <li class="treeview">
           <a href="#">

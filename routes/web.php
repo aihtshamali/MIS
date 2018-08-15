@@ -65,7 +65,7 @@ Route::prefix('manager')->middleware('role:manager')->group(function () {
 
 
 // For Executive
-Route::prefix('executive')->middleware('role:executive')->group(function () {
+Route::prefix('executive')->middleware('role:executive|executivemonitor')->group(function () {
   //for ssr&d
   Route::get('/','DirectorController@index')->name('RnD_home');
   Route::get('/pems_tab','DirectorController@pems_index')->name('RnD_pems_tab');
@@ -79,6 +79,10 @@ Route::prefix('executive')->middleware('role:executive')->group(function () {
   Route::post('assignproject','ProjectAssignController@store_from_director')->name('store_from_director');
 
 });
+
+
+
+
 
 //officers
 Route::prefix('officer')->middleware('role:officer')->group(function () {

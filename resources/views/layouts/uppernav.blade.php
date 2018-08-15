@@ -345,7 +345,8 @@
   @include('inc.officer_sidenav')
   @endrole
 
-  @role('executive')
+ 
+  @role('executive|executivemonitor')
 
   @include('inc.director_RND_sidenav')
   @endrole
