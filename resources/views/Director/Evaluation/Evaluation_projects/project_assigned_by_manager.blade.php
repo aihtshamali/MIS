@@ -74,7 +74,7 @@
                           <td>Low Priority</td>
                           @endif
                           <td>{{$project->Project->ProjectType->name}}</td>
-
+                            <input type="hidden" name="inheritPriority" value="{{$project->priority}}">
                           <td>
                             <input type="hidden" name="priority" value="">
                             <input type="hidden" name="project_id" value="{{$project->project_id}}">

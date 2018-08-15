@@ -95,7 +95,8 @@ class ProjectAssignController extends Controller
       ->leftJoin('role_user','role_user.user_id','users.id')
       ->leftJoin('roles','roles.id','role_user.role_id')
       ->orderBy('roles.name','ASC')
-      ->where('roles.name','executive')
+      ->Where('roles.name','directorevaluation')
+      ->orWhere('roles.name','directormonitoring')
       ->get();
       $officers=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
       ->leftJoin('user_details','user_details.user_id','users.id')
@@ -126,7 +127,15 @@ class ProjectAssignController extends Controller
       $priority = 'low_priority';
       if(isset($request->priority))
         $priority = $request->priority;
+      if(!$request->priority){
+          if($request->inheritPriority==3)  
+            $priority='high_priority';
+          elseif($request->inheritPriority==2)
+            $priority='normal_priority';
+          elseif($request->inheritPriority==1)
+            $priority='low_priority';
 
+        }
       $officers=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
       ->leftJoin('user_details','user_details.user_id','users.id')
       ->leftJoin('role_user','role_user.user_id','users.id')
@@ -134,7 +143,7 @@ class ProjectAssignController extends Controller
       ->orderBy('roles.name','ASC')
       ->where('roles.name','officer')
       ->get();
-      return view('Director.SSR_D.Evaluation_projects.consultant_assign',['priority'=>$priority,'project_id'=>$request->project_id,'officers'=>$officers,'assigned'=>$assigned,'unassigned'=>$unassigned,'assignedtoManager'=>$assignedtoManager]);
+      return view('Director.Evaluation.Evaluation_projects.consultant_assign',['priority'=>$priority,'project_id'=>$request->project_id,'officers'=>$officers,'assigned'=>$assigned,'unassigned'=>$unassigned,'assignedtoManager'=>$assignedtoManager]);
     }
 
     /**
@@ -155,6 +164,7 @@ class ProjectAssignController extends Controller
        else if($request->priority=='low_priority'){
          $priority=1;
        }
+       
        $current_time = Carbon::now()->toDateString();
        $projects = $request->projects;
        if($request->assign_to=="officer"){
@@ -235,7 +245,7 @@ class ProjectAssignController extends Controller
       }
 
 
-        return redirect()->route('RnD_evaluation_assigned');
+        return redirect()->route('Evaluation_evaluation_assigned');
     }
 
 

@@ -48,7 +48,7 @@ class NotificationController extends Controller
         if($notifications!=NULL)
             return response()->json(array($notifications,'officer'));
         else{
-            return response()->json(array($notification1,'executive'));
+            return response()->json(array($notification1,'directorevaluation'));
         }
     }
     public function store(Request $request){

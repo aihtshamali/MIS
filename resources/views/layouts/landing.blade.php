@@ -89,8 +89,11 @@
                @role('admin')
                <a href="{{ url('/admin') }}">Home</a>
                @endrole
-               @role('executive')
-               <a href="{{ url('/executive') }}">Home</a>
+               @role('directorevaluation')
+               <a href="{{ url('/director_evaluation') }}">Home</a>
+               @endrole
+               @role('directormonitoring')
+               <a href="{{ url('/director_Monitor') }}">Home</a>
                @endrole
                @role('manager')
                <a href="{{ url('/manager') }}">Home</a>

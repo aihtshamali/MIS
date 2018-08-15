@@ -64,20 +64,28 @@ Route::prefix('manager')->middleware('role:manager')->group(function () {
 });
 
 
-// For Executive
-Route::prefix('executive')->middleware('role:executive|executivemonitor')->group(function () {
-  //for ssr&d
-  Route::get('/','DirectorController@index')->name('RnD_home');
-  Route::get('/pems_tab','DirectorController@pems_index')->name('RnD_pems_tab');
-  Route::get('/pmms_tab','DirectorController@pmms_index')->name('RnD_pmms_tab');
-  Route::get('/tpv_tab','DirectorController@tpv_index')->name('RnD_tpv_tab');
-  Route::get('/inquiry','DirectorController@inquiry_index')->name('RnD_inquiry_tab');
-  Route::get('/evaluation_assigned','DirectorController@evaluation_assignedprojects')->name('RnD_evaluation_assigned');
-  Route::get('/evaluation_inprogress','DirectorController@evaluation_Inprogressprojects')->name('RnD_evaluation_Inprogressprojects');
-  // Route::resource('assignproject','ProjectAssignController');
+// For Director
+Route::prefix('director_evaluation')->middleware('role:directorevaluation')->group(function () {
+    //for Evaluation Director
+  Route::get('/','DirectorEvaluationController@index')->name('Evaluation_home');
+  Route::get('/pems_tab','DirectorEvaluationController@pems_index')->name('Evaluation_pems_tab');
+  Route::get('/pmms_tab','DirectorEvaluationController@pmms_index')->name('Evaluation_pmms_tab');
+  Route::get('/tpv_tab','DirectorEvaluationController@tpv_index')->name('Evaluation_tpv_tab');
+  Route::get('/inquiry','DirectorEvaluationController@inquiry_index')->name('Evaluation_inquiry_tab');
+  Route::get('/evaluation_assigned','DirectorEvaluationController@evaluation_assignedprojects')->name('Evaluation_evaluation_assigned');
+  Route::get('/evaluation_inprogress','DirectorEvaluationController@evaluation_Inprogressprojects')->name('Evaluation_evaluation_Inprogressprojects');
+ 
   Route::get('assignproject','ProjectAssignController@create_from_director')->name('create_from_director');
   Route::post('assignproject','ProjectAssignController@store_from_director')->name('store_from_director');
 
+});
+  //for Monitoring Director
+Route::prefix('director_Monitor')->middleware('role:directormonitoring')->group(function () {
+    Route::get('/','DirectorMonitoringController@index')->name('Monitoring_home');
+    Route::get('/pems_tab','DirectorMonitoringController@pems_index')->name('Monitoring_pems_tab');
+    Route::get('/pmms_tab','DirectorMonitoringController@pmms_index')->name('Monitoring_pmms_tab');
+    Route::get('/tpv_tab','DirectorMonitoringController@tpv_index')->name('Monitoring_tpv_tab');
+    Route::get('/inquiry','DirectorMonitoringController@inquiry_index')->name('Monitoring_inquiry_tab');
 });
 
 
@@ -99,7 +107,7 @@ Route::prefix('officer')->middleware('role:officer')->group(function () {
 });
 
 //For DataEntry
-Route::group(['middleware' => ['role:dataentry|officer|manager|executive']],function () {
+Route::group(['middleware' => ['role:dataentry|officer|manager|directormonitoring|directorevaluation']],function () {
 Route::post('/onsectorselect','DataEntryController@onSectorSelect');
 Route::post('/onsubsectorselect','DataEntryController@onSub_SectorSelect');
 Route::post('/onAssigningForumselect','DataEntryController@onAssigningForumselect');

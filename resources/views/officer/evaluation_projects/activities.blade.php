@@ -124,15 +124,14 @@
                 <div class="progress">
 
                         <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
-                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:10%">
-                        10% Complete
+                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:1%">
+                        1% Complete
                         </div>
                       </div>
               </div>
               <div class="box-body">
                <div class="row" >
                 <div class="col-md-12 col-xs-6">
-
 
                     <div class="table-responsive">
                 <form action="#" method="POST">
@@ -248,9 +247,10 @@
                       <div class="col-md-4">
                         <input type="file" style="" class="form-control" name="activity_attachment">
                       </div>
+                      <br>
+                      <input type="submit" name="Submit" value="Save Attachment" class="btn btn-success pull-right">
+  
                     </form>
-                    <br>
-                    <input type="submit" name="Submit" value="Save Attachment" class="btn btn-success pull-right">
                   </div>
                 </div>
                 </div>

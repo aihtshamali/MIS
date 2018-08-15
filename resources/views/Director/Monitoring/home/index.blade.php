@@ -2,7 +2,12 @@
 
 @section('content')
 <style>
-  
+a {
+  color:white;
+}
+a:hover {
+  color:black;
+}
 </style>
 
 <div class="content-wrapper">
@@ -37,14 +42,14 @@
                    
                     <div class="small-box" style="background-color:salmon !important;">
                         
-                      <div class="inner"><a  href="{{route('RnD_pems_tab')}}">
+                      <div class="inner"><a  href="{{route('Monitoring_pems_tab')}}">
                         <h3>20<sup style="font-size: 20px">%</sup></h3>
                         <b style="font-size:20px;"> P E M S</b>
                       </div>
                       <div class="icon">
                         <i class="fa fa-balance-scale"></i>
                       </div>
-                      <a  href="{{route('RnD_pems_tab')}} " class="small-box-footer">
+                      <a  href="{{route('Monitoring_pems_tab')}} " class="small-box-footer">
                         More info <i class="fa fa-arrow-circle-right"></i>
                       </a>
                     </a>
@@ -56,7 +61,7 @@
               <div class="col-lg-3 col-xs-6">
                       <!-- small box -->
                       <div class="small-box" style="background-color:mediumorchid !important">
-                        <div class="inner"> <a href="{{route('RnD_pmms_tab')}}" >
+                        <div class="inner"> <a href="{{route('Monitoring_pmms_tab')}}" >
                           <h3>53<sup style="font-size: 20px">%</sup></h3>
             
                           <b style="font-size:20px;">P M M S</b>
@@ -64,7 +69,7 @@
                         <div class="icon">
                           <i class="ion ion-stats-bars"></i>
                         </div>
-                        <a href="{{route('RnD_pmms_tab')}}" class="small-box-footer">
+                        <a href="{{route('Monitoring_pmms_tab')}}" class="small-box-footer">
                           More info <i class="fa fa-arrow-circle-right"></i>
                         </a>
                       </a>
@@ -79,7 +84,7 @@
                       <!-- small box -->
                       <div class="small-box " style="background-color:skyblue !important;">
                      
-                        <div class="inner">     <a href="{{route('RnD_tpv_tab')}}">
+                        <div class="inner">     <a href="{{route('Monitoring_tpv_tab')}}">
                         
                           <h3>65<sup style="font-size: 20px">%</sup></h3>
             
@@ -88,7 +93,7 @@
                         <div class="icon">
                           <i class="ion ion-pie-graph"></i>
                         </div>
-                        <a href="{{route('RnD_tpv_tab')}}"  class="small-box-footer">
+                        <a href="{{route('Monitoring_tpv_tab')}}"  class="small-box-footer">
                           More info <i class="fa fa-arrow-circle-right"></i>
                         </a>
                       </a>
@@ -99,7 +104,7 @@
              <div class="col-lg-3 col-xs-6">
                 <!-- small box -->
                 <div class="small-box "  style="background-color:lightgreen !important;" >
-                  <div class="inner"> <a href="{{route('RnD_inquiry_tab')}}" >
+                  <div class="inner"> <a href="{{route('Monitoring_inquiry_tab')}}" >
                     <h3>44<sup style="font-size: 20px">%</sup></h3>
       
                     <b style="font-size:20px;">INQUIRY</b>
@@ -107,7 +112,7 @@
                   <div class="icon">
                     <i class="ion ion-person-add"></i>
                   </div>
-                  <a href="{{route('RnD_inquiry_tab')}}"  class="small-box-footer">
+                  <a href="{{route('Monitoring_inquiry_tab')}}"  class="small-box-footer">
                     More info <i class="fa fa-arrow-circle-right"></i>
                   </a>
                 </a>
@@ -122,40 +127,7 @@
               <div class="col-lg-3 col-xs-6">
                 </div>
       
-              <div class="col-lg-3 col-xs-6">
-                      <!-- small box -->
-                      <div class="small-box "style="background-color:tan !important;">
-                        <div class="inner">
-                          <h3>10<sup style="font-size: 20px">%</sup></h3>
-                          <b style="font-size:20px;"> SPECIAL</br> ASSIGNEMENT</b>
-                        </div>
-                        <div class="icon">
-                          <i class="fa fa-user-secret"></i>
-                        </div>
-                        <a href="{{route('Exec_special_tab')}}"  class="small-box-footer">
-                          More info <i class="fa fa-arrow-circle-right"></i>
-                        </a>
-                      </div>
-              </div>
-              {{--/ BOX 5 --}}
              
-              <div class="col-lg-3 col-xs-6">
-                      <!-- small box -->
-                      <div class="small-box" style="background-color:yellow !important;">
-                        <div class="inner">
-                          <h3>53<sup style="font-size: 20px">%</sup></h3>
-            
-                          <b style="font-size:20px;">OTHER </br>ASSIGNMENT</b>
-                        </div>
-                        <div class="icon">
-                          <i class="fa fa-cog"></i>
-                        </div>
-                        <a href="{{route('Exec_other_tab')}}"  class="small-box-footer">
-                          More info <i class="fa fa-arrow-circle-right"></i>
-                        </a>
-                      </div>
-                </div>
-              {{-- /BOX 6 --}}
           </div>
         </div>
           

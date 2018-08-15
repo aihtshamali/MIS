@@ -23,7 +23,7 @@
               <div class="row" >
                 <div class="col-md-4 ">
                   <b>Project Document :</b>
-                  {{$project_data->project_attachements}}
+                  {{$project_data->project->ProjectDetail->project_attachements}}
                 </div>
                 <div class="col-md-4">
                 </div>

@@ -10,7 +10,7 @@
         <div class="pull-left info">
 
           @role('officer')
-            <p>Officer Dashboard</p>
+          <p>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</p>
           @endrole
           {{-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> --}}
         </div>

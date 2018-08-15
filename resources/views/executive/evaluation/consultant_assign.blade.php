@@ -39,9 +39,9 @@
           <div class="box-header with-border">
             <h3 class="box-title">Assign To : </h3>
             <span style="margin-left:20px;"></span>
-            <b> <input type="radio" name="assign_to" value="manager"> Executive</b>
+            <b> <input type="radio" name="assign_to" value="manager"> Directors</b>
           <span style="margin-left:20px;"></span>
-            <b><input type="radio" name="assign_to" value="officer"> Officer</b>
+            <b><input type="radio" name="assign_to" value="officer"> Officers</b>
             <div class="box-tools pull-right">
               <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
               </button>
@@ -52,19 +52,9 @@
               <select class="form-control select2" multiple="multiple" data-placeholder="Select an Officer"
                       style="width: 100%;" name="officer_id[]">
                   @foreach ($officers as $officer)
-                    @php
-                      $head='';
-                    @endphp
-                    @if($officer->sector->name!=$head)
-                    <optgroup label = "{{$officer->sector->name}}">
-                    @endif
-                      <option value="{{$officer->id}}">{{$officer->first_name}}</option>
-                    @if($officer->sector->name!=$head && $head!='')
-                    </optgroup>
-                        @php
-                        $head=$officer->sector->name;
-                        @endphp
-                    @endif
+                   
+                      <option value="{{$officer->id}}" style="font-weight:bold">{{$officer->first_name}} {{$officer->last_name}}  - <span style="font-weight:bolder">{{$officer->sector->name}} </span></option>
+
 
                   @endforeach
               </select>
@@ -73,7 +63,7 @@
               <select class="form-control select2" multiple="multiple" data-placeholder="Select Manager"
                       style="width: 100%;" name="manager_id[]">
                   @foreach ($managers as $manager)
-                      <option value="{{$manager->id}}">Director SSR&amp;D {{$manager->first_name}}{{$manager->last_name}}</option>
+                      <option value="{{$manager->id}}"> <b>Director</b> {{$manager->first_name}} {{$manager->last_name}}</option>
                   @endforeach
               </select>
             </div>
