@@ -41,7 +41,7 @@
           <div class="box-header with-border">
             <h3 class="box-title">Assign To : </h3>
             <span style="margin-left:20px;"></span>
-           
+
             <b><input type="radio" name="assign_to" value="officer"> Officer</b>
             <div class="box-tools pull-right">
               <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -59,7 +59,7 @@
                     @if($officer->sector->name!=$head)
                     <optgroup label = "{{$officer->sector->name}}">
                     @endif
-                      <option value="{{$officer->id}}">{{$officer->first_name}}</option>
+                      <option value="{{$officer->id}}">{{$officer->first_name}} {{$officer->last_name}}</option>
                     @if($officer->sector->name!=$head && $head!='')
                     </optgroup>
                         @php
@@ -70,8 +70,8 @@
                   @endforeach
               </select>
             </div>
-            
-            
+
+
           </div>
         </div>
       </div>
