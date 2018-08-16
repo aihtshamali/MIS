@@ -48,6 +48,8 @@
                             <th style="text-align:center;">Project Priority</th>
                             <th style="text-align:center;">Assigned Duration</th>
                             <th style="text-align:center;">Global Progress</th>
+                            <th style="text-align:center;">Edit Project Details</th>
+
                         </thead>
                         <tbody style="text-align:center;">
                           {{-- {{dd($officer)}} --}}
@@ -82,6 +84,10 @@
                                     </div>
                                   </div>
                             </td>
+                            <td>
+                              <a href="{{route('projects.edit',$o->project_id)}}">Review Project</a>
+                            </td>
+
                             </tr>
                             @endforeach
                         </tbody>
