@@ -598,19 +598,19 @@ $(function () {
   // $("#section2").hide();
   $('#planned_start_my_date').datetimepicker({
                 viewMode: 'years',
-                format: 'DD/MM/YYYY'
+                format: 'DD-MM-YYYY'
   });
   $('#planned_end_my_date').datetimepicker({
                 viewMode: 'years',
-                format: 'DD/MM/YYYY'
+                format: 'DD-MM-YYYY'
   });
   $('#revised_start_my_date').datetimepicker({
                 viewMode: 'years',
-                format: 'DD/MM/YYYY'
+                format: 'DD-MM-YYYY'
   });
   $('#revised_end_my_date').datetimepicker({
                 viewMode: 'years',
-                format: 'DD/MM/YYYY'
+                format: 'DD-MM-YYYY'
   });
 });
 
