@@ -507,7 +507,7 @@ class ProjectController extends Controller
           if($sponsoring_department_id != NULL){
             $AssignedSponsoringAgency = new AssignedSponsoringAgency();
             $sponosoring_agency = new AssignedSponsoringAgencyProjectLog();
-            $sponosoring_agency->project_log_id = $id;
+            $sponosoring_agency->project_log_id = ProjectLog::latest()->first()->id;
             $AssignedSponsoringAgency->project_id = $id;
             $sponosoring_agency->sponsoring_agency_id = $sponsoring_department_id;
             $AssignedSponsoringAgency->sponsoring_agency_id = $sponsoring_department_id;
