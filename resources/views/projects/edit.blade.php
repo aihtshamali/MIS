@@ -130,6 +130,11 @@ vertical-align: super;
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Select Sponsoring Department</label>
       <div class="col-sm-8">
         <select id="sponsoring_departments"  name="sponsoring_departments[]" class="form-control select2" multiple="multiple" data-placeholder="Sponsoring Department"  style="width: 100%;">
+          @foreach ($sponsoring_departments as $sponsoring_department)
+            @if($sponsoring_department->status == 1)
+              <option value="{{$sponsoring_department->id}}">{{$sponsoring_department->name}}</option>
+            @endif
+          @endforeach
         </select>
       </div>
     </div>
