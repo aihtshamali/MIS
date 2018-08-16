@@ -490,7 +490,7 @@ class ProjectController extends Controller
         foreach($request->sub_sectors as $sub_sector){
           $AssignedSubSector = new AssignedSubSector();
           $Assignedsub_sector = new AssignedSubSectorLog();
-          $Assignedsub_sector->project_log_id = $id;
+          $Assignedsub_sector->project_log_id = ProjectLog::latest()->first()->id;
           $AssignedSubSector->project_id = $id;
           $Assignedsub_sector->sub_sector_id = $sub_sector;
           $AssignedSubSector->sub_sector_id = $sub_sector;
