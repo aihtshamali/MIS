@@ -32,7 +32,7 @@
   <!-- WARNING: Respond.js doesnt work if you view the page via file:// -->
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  
+
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 
@@ -346,7 +346,7 @@
   @include('inc.officer_sidenav')
   @endrole
 
- 
+
   @role('directormonitoring|directorevaluation')
 
   @include('inc.director_sidenav')
@@ -400,6 +400,46 @@
 <script src="{{asset('js/Customvue.min.js')}}"></script>
 
 @yield('scripttags')
+  <script>
+  (function(){
+    axios.post('{{route("unassignedCounter")}}',{
+        user:"{{Auth::user()}}"
+        })
+        .then((response) => {
+          console.log(response.data);
+          $('.'+response.data.role+'_unassigned_counter').text(response.data.unassigned);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      })();
+      (function(){
+        axios.post('{{route("inProgressCounter")}}',{
+            user:"{{Auth::user()}}"
+        })
+        .then((response) => {
+          var role=response.data.role;
+          $('.'+role+'_inprogress_counter').text(response.data.assigned);
+          if(role=='manager')
+            $('.'+role+'_Managerinprogress_counter').text(response.data.manager);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      })();
+      (function(){
+        axios.post('{{route("assignedCounter")}}',{
+            user:"{{Auth::user()}}"
+            })
+            .then((response) => {
+              var role=response.data.role;
+              $('.'+role+'_assigned_counter').text(response.data.assigned);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+          })();
+  </script>
 
   <script>
   const app = new Vue({

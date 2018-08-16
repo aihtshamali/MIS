@@ -111,13 +111,6 @@ class OfficerController extends Controller
       $project_data=AssignedProject::where('assigned_projects.acknowledge','0')
       ->where('assigned_projects.project_id',$id)
       ->first();
-
-      // dd($project_data);
-      // $projectdetails_data=ProjectDetail::select('project_details.*','projects.*')
-      // ->leftJoin('projects','project_details.project_id','projects.id')
-      // ->where('project_details.project_id',$id)
-      // ->get();
-
       return view('officer.evaluation_projects.reviewform',['project_data'=>$project_data,'officerInProgressCount'=>$officerInProgressCount,'officerAssignedCount'=>$officerAssignedCount]);
     }
 
