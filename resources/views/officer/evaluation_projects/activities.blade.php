@@ -216,7 +216,7 @@
                             </td>
                             <td>
 
-                            <a data-target="#commentModal"  class="btn btn-primary commentModal"  data-toggle="modal" data-id="{{$activity->id}}">Problematic?</a>
+                            <a data-target="#1commentModal"  class="btn btn-primary 1commentModal"  data-toggle="modal" data-id="{{$activity->id}}" disabled>Problematic?</a>
                         </td>
                             </tr>
                             @endforeach
@@ -249,7 +249,7 @@
                       </div>
                       <br>
                       <input type="submit" name="Submit" value="Save Attachment" class="btn btn-success pull-right">
-  
+
                     </form>
                   </div>
                 </div>
