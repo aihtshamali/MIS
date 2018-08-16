@@ -6,6 +6,7 @@
     <div class="intro-content">
       <div class="container">
           <img class="logo-img" src="{{asset('logo.jpg')}}" style=" margin-top: -142px "  ALT="align box" Align=center>
+          <h2 style="font-size: 50px;color:red">TEST DATABASE</h2>
         <h2 style="font-size: 50px;">Directorate General M &amp; E Projects</h2>
         <p>Fiscal strains, ever-rising expectations from ordinary citizens, accountability pressures from civil society and parliaments, desire for curbing and controlling corruption and other leakages, and burgeoning requirements from international donors provide a continuous impetus to governments for enhancing the quantity and quality of government services. Constrained development budget leaves quality improvement.</p>
         <!-- <ul class="social list-inline list-unstyled">
