@@ -21,6 +21,7 @@ use App\AssignedProjectTeam;
 use App\ProjectType;
 use App\Notification;
 use App\EvaluationType;
+use App\ProblematicRemarks;
 use App\AssignedProjectActivity;
 use Illuminate\Support\Facades\Redirect;
 
@@ -147,15 +148,22 @@ class OfficerController extends Controller
       ->where('acknowledge','1')
       ->count();
 
-      $project_data=AssignedProject::select('assigned_projects.*','assigned_project_teams.*')
-      ->leftJoin('assigned_project_teams','assigned_projects.id','assigned_project_teams.assigned_project_id')
-      ->where('assigned_projects.acknowledge','1')->where('assigned_projects.project_id',$id)
+      $problematicRemarks=ProblematicRemarks::select('problematic_remarks.*','users.first_name','users.last_name','profile_pic')
+      ->leftJoin('users','users.id','problematic_remarks.from_user_id')
+      ->leftJoin('user_details','user_details.user_id','users.id')
+      ->where('project_id',$id)
+      ->orderBy('problematic_remarks.created_at','DESC')
+      ->orderBy('problematic_remarks.assigned_project_activity_id','ASC')
       ->get();
+      // dd($problematicRemarks);
+      $project_data=AssignedProject::select('assigned_projects.*')
+      ->where('assigned_projects.acknowledge','1')->where('assigned_projects.project_id',$id)
+      ->first();
       // dd($project_data);
       // $team_mem= AssignedProjectTeam::where('project_id')get();
 
       // dd( $project_data);
-      return view('officer.evaluation_projects.activities',['activities'=>$activities,'project_data'=>$project_data,'project_id'=>$id,'officerInProgressCount'=>$officerInProgressCount,'officerAssignedCount'=>$officerAssignedCount]);
+      return view('officer.evaluation_projects.activities',['activities'=>$activities,'problematicRemarks'=>$problematicRemarks,'project_data'=>$project_data,'project_id'=>$id,'officerInProgressCount'=>$officerInProgressCount,'officerAssignedCount'=>$officerAssignedCount]);
     }
 
     public function evaluation_completed(){

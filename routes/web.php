@@ -125,8 +125,8 @@ Route::group(['middleware'=>['permission:can.chat']],function(){
 Route::group(['middleware'=>['permission:can.view.profile']],function(){
   Route::resource('/profile','ProfileController');
 });
+Route::resource('Problematicremarks','ProblematicRemarksController');
 Route::group(['middleware'=>['permission:can.problematicremark']],function(){
-  Route::resource('Problematicremarks','ProblematicRemarksController');
 });
 // Route::group(['middleware' => ['permission:can.edit.project|can.view.project']],function(){
 // });
