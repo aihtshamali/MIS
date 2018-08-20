@@ -15,13 +15,11 @@ class AssignedProjectActivity extends Model
     {
       return $this->belongsTo('App\ProjectActivity');
     }
-<<<<<<< HEAD
     public function AssignedActivityAttachments(){
       return $this->hasMany('App\AssignedActivityAttachment');
-=======
+    }
     public function ProblematicRemarks(){
       return $this->hasMany('App\ProblematicRemarks');
->>>>>>> 68395ee59cce49eae68c11148c19f7442068276b
     }
     public function AssignedProjectActivityProgressLog()
     {
