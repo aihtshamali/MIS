@@ -130,6 +130,11 @@ vertical-align: super;
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Select Sponsoring Department</label>
       <div class="col-sm-8">
         <select id="sponsoring_departments"  name="sponsoring_departments[]" class="form-control select2" multiple="multiple" data-placeholder="Sponsoring Department"  style="width: 100%;">
+          @foreach ($sponsoring_departments as $sponsoring_department)
+            @if($sponsoring_department->status == 1)
+              <option value="{{$sponsoring_department->id}}">{{$sponsoring_department->name}}</option>
+            @endif
+          @endforeach
         </select>
       </div>
     </div>
@@ -195,14 +200,14 @@ vertical-align: super;
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Original Approved Cost in Millions</label>
       <div class="col-sm-8">
-        <input type="number"  id="original_cost" step="0.01" name="original_cost" class="form-control" placeholder="Cost">
+        <input type="number"  id="original_cost" step="0.001" name="original_cost" class="form-control" placeholder="Cost">
       </div>
     </div>
     <div class="form-group" id="field">
       <span class="firstspan">
       <label class="col-sm-4 control-label"></i>Revised Approved Cost in Millions</label>
       <div class="col-sm-8">
-      <input autocomplete="off" name="revised_approved_costs[]" id="field1" type="number" step="0.01" class="form-control input" data-items="8">
+      <input autocomplete="off" name="revised_approved_costs[]" id="field1" type="number" step="0.001" class="form-control input" data-items="8">
       <button id="b1" class="btn btn-success add-more pull-right" style="    position: relative;
       top: -34px;" type="button">+</button>
       </div>
@@ -598,19 +603,19 @@ $(function () {
   // $("#section2").hide();
   $('#planned_start_my_date').datetimepicker({
                 viewMode: 'years',
-                format: 'DD/MM/YYYY'
+                format: 'DD-MM-YYYY'
   });
   $('#planned_end_my_date').datetimepicker({
                 viewMode: 'years',
-                format: 'DD/MM/YYYY'
+                format: 'DD-MM-YYYY'
   });
   $('#revised_start_my_date').datetimepicker({
                 viewMode: 'years',
-                format: 'DD/MM/YYYY'
+                format: 'DD-MM-YYYY'
   });
   $('#revised_end_my_date').datetimepicker({
                 viewMode: 'years',
-                format: 'DD/MM/YYYY'
+                format: 'DD-MM-YYYY'
   });
 });
 
@@ -704,7 +709,7 @@ $(document).ready(function(){
       var addto = "#field" + next;
       var addRemove = "#field" + (next);
       next = next + 1;
-      var newIn = '<div class="added'+(next-1)+'" ><label class="col-sm-4 control-label">Revised Approved Cost '+(next-1)+' in Millions</label><div class="col-sm-8"><input name="revised_approved_costs[]" autocomplete="off" class="input form-control" id="field'+ next +'" value="'+$('input#field1').val()+'" type="number" step="0.01"> ';
+      var newIn = '<div class="added'+(next-1)+'" ><label class="col-sm-4 control-label">Revised Approved Cost '+(next-1)+' in Millions</label><div class="col-sm-8"><input name="revised_approved_costs[]" autocomplete="off" class="input form-control" id="field'+ next +'" value="'+$('input#field1').val()+'" type="number" step="0.001"> ';
     //   var newInput = $(newIn);
       var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me pull-right" style="    position: relative;top: -34px;" >-</button></div> ';
     //   var removeButton = $(removeBtn);

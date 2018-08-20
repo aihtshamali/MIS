@@ -66,23 +66,24 @@
                {{--  dd($officer);
                 @if($officer->count()>0)  --}}
                   <span class="pull-right-container">
-                    @if (isset($officerAssignedCount))
-                      <span class="label label-danger pull-right">{{$officerAssignedCount}}</span>
-                    @endif
+                      <span class="label label-danger pull-right officer_assigned_counter">0</span>
                   </span>
 
               {{--  @endif  --}}
             </a></li>
               <li><a href="{{route('inprogress_evaluation')}}"><i class="fa fa-circle-o"></i> In-Progress
                 <span class="pull-right-container">
-                  @if (isset($officerInProgressCount))
-                    <span class="label label-danger pull-right">{{$officerInProgressCount}}</span>
-                  @endif
+                    <span class="label label-danger pull-right officer_inprogress_counter">0</span>
 
                 </span>
 
               </a></li>
-              <li><a href="{{route('completed_evaluation')}}"><i class="fa fa-circle-o"></i> Completed</a></li>
+              <li><a href="{{route('completed_evaluation')}} "><i class="fa fa-circle-o"></i> Completed
+                <span class="pull-right-container">
+                  <span class="label label-danger pull-right officer_completed_counter">0</span>
+
+                </span>
+              </a></li>
             </ul>
           </li>
           {{-- Monitoring --}}

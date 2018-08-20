@@ -292,14 +292,14 @@ vertical-align: super;
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Original Approved Cost in Millions</label>
       <div class="col-sm-8">
-        <input type="number" required id="original_cost" step="0.01" name="original_cost" class="form-control" placeholder="Cost">
+        <input type="number" required id="original_cost" step="0.001" name="original_cost" class="form-control" placeholder="Cost">
       </div>
     </div>
     <div class="form-group" id="field">
       <span class="firstspan">
       <label class="col-sm-4 control-label"></i>Revised Approved Cost in Millions</label>
       <div class="col-sm-8">
-      <input autocomplete="off" name="revised_approved_costs[]" id="field1" type="number" step="0.01" class="form-control input" data-items="8">
+      <input autocomplete="off" name="revised_approved_costs[]" id="field1" type="number" step="0.001" class="form-control input" data-items="8">
       <button id="b1" class="btn btn-success add-more pull-right" style="    position: relative;
       top: -34px;" type="button">+</button>
       </div>
@@ -738,7 +738,7 @@ $(document).ready(function(){
       var addto = "#field" + next;
       var addRemove = "#field" + (next);
       next = next + 1;
-      var newIn = '<div class="added'+(next-1)+'" ><label class="col-sm-4 control-label">Revised Approved Cost '+(next-1)+' in Millions</label><div class="col-sm-8"><input name="revised_approved_costs[]" autocomplete="off" class="input form-control" id="field'+ next +'" value="'+$('input#field1').val()+'" type="number" step="0.01"> ';
+      var newIn = '<div class="added'+(next-1)+'" ><label class="col-sm-4 control-label">Revised Approved Cost '+(next-1)+' in Millions</label><div class="col-sm-8"><input name="revised_approved_costs[]" autocomplete="off" class="input form-control" id="field'+ next +'" value="'+$('input#field1').val()+'" type="number" step="0.001"> ';
     //   var newInput = $(newIn);
       var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me pull-right" style="    position: relative;top: -34px;" >-</button></div> ';
     //   var removeButton = $(removeBtn);

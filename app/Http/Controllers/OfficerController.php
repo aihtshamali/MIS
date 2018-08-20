@@ -21,6 +21,7 @@ use App\AssignedProjectTeam;
 use App\ProjectType;
 use App\Notification;
 use App\EvaluationType;
+use App\ProblematicRemarks;
 use App\AssignedProjectActivity;
 use Illuminate\Support\Facades\Redirect;
 
@@ -111,13 +112,6 @@ class OfficerController extends Controller
       $project_data=AssignedProject::where('assigned_projects.acknowledge','0')
       ->where('assigned_projects.project_id',$id)
       ->first();
-
-      // dd($project_data);
-      // $projectdetails_data=ProjectDetail::select('project_details.*','projects.*')
-      // ->leftJoin('projects','project_details.project_id','projects.id')
-      // ->where('project_details.project_id',$id)
-      // ->get();
-
       return view('officer.evaluation_projects.reviewform',['project_data'=>$project_data,'officerInProgressCount'=>$officerInProgressCount,'officerAssignedCount'=>$officerAssignedCount]);
     }
 
@@ -167,9 +161,12 @@ class OfficerController extends Controller
       ->where('acknowledge','1')
       ->count();
 
-      $project_data=AssignedProject::select('assigned_projects.*','assigned_project_teams.*')
-      ->leftJoin('assigned_project_teams','assigned_projects.id','assigned_project_teams.assigned_project_id')
-      ->where('assigned_projects.acknowledge','1')->where('assigned_projects.project_id',$id)
+      $problematicRemarks=ProblematicRemarks::select('problematic_remarks.*','users.first_name','users.last_name','profile_pic')
+      ->leftJoin('users','users.id','problematic_remarks.from_user_id')
+      ->leftJoin('user_details','user_details.user_id','users.id')
+      ->where('project_id',$id)
+      ->orderBy('problematic_remarks.created_at','DESC')
+      ->orderBy('problematic_remarks.assigned_project_activity_id','ASC')
       ->get();
       $icons = [
                 'pdf' => 'pdf',

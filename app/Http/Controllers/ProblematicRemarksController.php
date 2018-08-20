@@ -39,12 +39,12 @@ class ProblematicRemarksController extends Controller
       // dd($request->all());
         $problematicRemarks=new ProblematicRemarks();
         $problematicRemarks->remarks = $request->remarks;
-        $problematicRemarks->project_activity_id = $request->activity_id;
+        $problematicRemarks->assigned_project_activity_id = $request->activity_id;
         $problematicRemarks->project_id = $request->project_id;
         $problematicRemarks->from_user_id = Auth::id();
         $problematicRemarks->to_user_id = $request->assigned_by;
         $problematicRemarks->save();
-        return back();
+        return redirect()->back();
     }
 
     /**
