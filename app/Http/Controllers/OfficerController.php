@@ -58,12 +58,12 @@ class OfficerController extends Controller
       $request->file('activity_attachment')->store('public/uploads/projects/project_activities');
       $file_name = $request->file('activity_attachment')->hashName();
       $data->project_attachements=$file_name;
-      $data->assigned_project_activities_id=$request->attachment_activity;
+      $data->assigned_project_activity_id=$request->attachment_activity;
       $data->attachment_name=$request->attachment_name;
       $data->save();
     }
     // dd($data);
-    return redirect()->route('inprogress_evaluation');
+    return redirect()->back();
    }
 
    public function evaluation_index_officersidenav()
@@ -142,7 +142,20 @@ class OfficerController extends Controller
     public function evaluation_activities($id){
 
       $activities=Project::find($id)->AssignedProjectActivity;
-      // dd($id);
+      $sum=0;
+      $per_activity=(1/$activities->count()*100)/4;
+      $average_progress=0;
+     foreach ($activities as $act) {
+       if($act->progress > 0)
+       {
+         $sum=$sum+$per_activity*($act->progress/100);
+       }
+
+       }
+       $average_progress=$sum;
+       // dd($sum);
+       // if($activities->count()!=0)
+       // $average_progress=$sum/$activities->count();
       $officerAssignedCount=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
       ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
       ->where('acknowledge','0')
@@ -158,11 +171,20 @@ class OfficerController extends Controller
       ->leftJoin('assigned_project_teams','assigned_projects.id','assigned_project_teams.assigned_project_id')
       ->where('assigned_projects.acknowledge','1')->where('assigned_projects.project_id',$id)
       ->get();
-      // dd($project_data);
-      // $team_mem= AssignedProjectTeam::where('project_id')get();
-
-      // dd( $project_data);
-      return view('officer.evaluation_projects.activities',['activities'=>$activities,'project_data'=>$project_data,'project_id'=>$id,'officerInProgressCount'=>$officerInProgressCount,'officerAssignedCount'=>$officerAssignedCount]);
+      $icons = [
+                'pdf' => 'pdf',
+                'doc' => 'word',
+                'docx' => 'word',
+                'xls' => 'excel',
+                'xlsx' => 'excel',
+                'ppt' => 'powerpoint',
+                'pptx' => 'powerpoint',
+                'txt' => 'text',
+                'png' => 'image',
+                'jpg' => 'image',
+                'jpeg' => 'image',
+            ];
+      return view('officer.evaluation_projects.activities',['activities'=>$activities,'icons'=>$icons,'average_progress'=> $average_progress,'project_data'=>$project_data,'project_id'=>$id,'officerInProgressCount'=>$officerInProgressCount,'officerAssignedCount'=>$officerAssignedCount]);
     }
 
     public function evaluation_completed(){

@@ -122,10 +122,13 @@
                 </b>
 
                 <div class="progress">
-
+                    <?php $progress=0;
+                    if(isset($average_progress))
+                      $progress=(int)$average_progress;
+                     ?>
                         <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
-                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:1%">
-                        1% Complete
+                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $progress; ?>%">
+                        <?php echo $progress; ?>% Complete
                         </div>
                       </div>
               </div>
@@ -141,6 +144,7 @@
                         <thead >
                             <th style="text-align:center;" >No.</th>
                             <th style="text-align:center;">Activity Name</th>
+                            <th style="text-align:center;">Activity Attachments</th>
                             <th style="text-align:center;">Activity Progress</th>
                             <th style="text-align:center;">Remarks</th>
                         </thead>
@@ -150,6 +154,14 @@
                             <tr>
                             <td> {{$activity->ProjectActivity->id}} </td>
                             <td> {{$activity->ProjectActivity->name}} </td>
+                            <td>
+                              @foreach ($activity->AssignedActivityAttachments as $attachment)
+                                <?php
+                                 $ext= explode('.',$attachment->project_attachements ) ?>
+                                   <a href="{{ asset('storage/uploads/projects/project_activities/'.$attachment->project_attachements) }}"  download><i class="fa fa-file-{{$icons[$ext[1]]}}-o fa-1x text-center" title="{{ $attachment->attachment_name }}" /></i></a>
+
+                              @endforeach
+                            </td>
                             <td>
                               <div>
                                 <ul class="progressbar">
@@ -249,7 +261,7 @@
                       </div>
                       <br>
                       <input type="submit" name="Submit" value="Save Attachment" class="btn btn-success pull-right">
-  
+
                     </form>
                   </div>
                 </div>
