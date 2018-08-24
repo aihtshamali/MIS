@@ -147,9 +147,7 @@ class OfficerController extends Controller
 
        }
        $average_progress=$sum;
-       // dd($sum);
-       // if($activities->count()!=0)
-       // $average_progress=$sum/$activities->count();
+  
       $officerAssignedCount=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
       ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
       ->where('acknowledge','0')
@@ -160,6 +158,10 @@ class OfficerController extends Controller
       ->where('user_id',Auth::id())
       ->where('acknowledge','1')
       ->count();
+      $project_data=AssignedProject::select('assigned_projects.*','assigned_project_teams.*')
+      ->leftJoin('assigned_project_teams','assigned_projects.id','assigned_project_teams.assigned_project_id')
+      ->where('assigned_projects.acknowledge','1')->where('assigned_projects.project_id',$id)
+      ->get();
 
       $problematicRemarks=ProblematicRemarks::select('problematic_remarks.*','users.first_name','users.last_name','profile_pic')
       ->leftJoin('users','users.id','problematic_remarks.from_user_id')
@@ -181,7 +183,7 @@ class OfficerController extends Controller
                 'jpg' => 'image',
                 'jpeg' => 'image',
             ];
-      return view('officer.evaluation_projects.activities',['activities'=>$activities,'icons'=>$icons,'average_progress'=> $average_progress,'project_data'=>$project_data,'project_id'=>$id,'officerInProgressCount'=>$officerInProgressCount,'officerAssignedCount'=>$officerAssignedCount]);
+      return view('officer.evaluation_projects.activities',['activities'=>$activities,'icons'=>$icons,'average_progress'=>$average_progress,'project_data'=>$project_data,'project_id'=>$id,'officerInProgressCount'=>$officerInProgressCount,'officerAssignedCount'=>$officerAssignedCount]);
     }
 
     public function evaluation_completed(){
