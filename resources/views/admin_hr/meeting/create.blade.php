@@ -6,19 +6,7 @@
 
   <link rel="stylesheet" href="{{asset('css/AdminLTE/dataTables.bootstrap.min.css')}}">
   <style>
-#column{
-  text-align: center;
-}
-div>label{
-  text-align: left !important;
-}
-div>span>label{
-  text-align: left !important;
-}
-i.fa-asterisk{
-  font-size: 6px !important;
-vertical-align: super;
-}
+
 #outerbox{
   width: 50%;
   text-align: center;
@@ -32,20 +20,14 @@ vertical-align: super;
   left: 25%;
 }
 
-#second,#monitoring_second{
+#second_specialmeetings,#second_regularmeetings{
+  margin-top: 25px;
+  background-color:lightblue;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   display:none;
-}#third{
-  display: none;
 }
-#fourth,#monitoring_fourth{
-  display: none;
-}
-#table1{
-  display: none;
-}
-#section2{
-  display: none;
-}
+
+
   </style>
 @endsection
 
@@ -83,37 +65,24 @@ vertical-align: super;
                   <div id="inner_items" class="col-md-6">
                     <div class="form-group">
                       <label>Type of Meeting</label>
-                      <select id="type_of_project" name="type_of_project" class="form-control select2" style="width: 100%;">
+                      <select id="type_of_meetings" name="type_of_meeting" class="form-control select2" style="width: 100%;">
                         <option >Select Meeting Type</option>
                         <option value="1">Special Meeting</option>
                         <option value="2">Regular Meeting</option>
-                        {{-- @foreach ($project_types as $project_type)
-                          @if($project_type->status == 1)
-                            <option value="{{$project_type->id}}">{{$project_type->name}}</option>
-                          @endif
-                        @endforeach --}}
-        
                       </select>
                     </div>
+                    <div id="second_specialmeetings" class="form-group">
+                        <label>Special Meeting <span id="d" style="background-color:ivory;color:red;"></span></label>
+                        
+                      </div>
+                      <div id="second_regularmeetings" class="form-group">
+                        <label>Regular Meeting</label>
+                        
+                      </div>
                   </div>
-                    <div id="second" class="form-group">
-                      <label>Phase of Evaluation</label>
-                      <select id="phase_of_evaluation" name="phase_of_evaluation" class="form-control select2" style="width: 100%;">
-                        <option>Select Evaluation Type</option>
-                        {{-- @foreach ($sub_project_types as $sub_project_type)
-                          <option value="{{$sub_project_type->id}}">{{$sub_project_type->name}}</option>
-                        @endforeach --}}
-                      </select>
-                    </div>
-                    <div id="monitoring_second" class="form-group">
-                      <label>Phase of Monitoring</label>
-                      <select id="phase_of_monitoring" name="phase_of_monitoring" class="form-control select2" style="width: 100%;">
-                        <option>Select Monitoring Type</option>
-                        {{-- @foreach ($sub_project_types as $sub_project_type)
-                          <option value="{{$sub_project_type->id}}">{{$sub_project_type->name}}</option>
-                        @endforeach --}}
-                      </select>
-                    </div>
+               
+                   
+                
                 </div>
               </div>
             </div>
@@ -129,21 +98,23 @@ vertical-align: super;
   <script type="text/javascript" src="{{asset('bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')}}"></script>
 {{-- <script src="{{asset('js/AdminLTE/bootstrap-datepicker.min.js')}}"></script> --}}
 <script>
-        $(document).on('change', '#type_of_project', function() {
+    var d = new Date();
+    document.getElementById("d").innerHTML = d.toLocaleDateString("en-US");
+    </script>
+<script>
+    
+        
+        $(document).on('change', '#type_of_meetings', function() {
             var opt = $(this).find(':selected').text();
             if(opt == "Special Meeting"){
-              $("#second").show('slow');
-              $("#monitoring_second").hide();
-              $("#monitoring_fourth").hide();
-              $('#table1').hide("slow");
+              $("#second_specialmeetings").show('slow');
+              $("#second_regularmeetings").hide('slow');
           
           
             }
             else if(opt == "Regular Meeting"){
-              $("#monitoring_second").show('slow');
-              $("#second").hide();
-              $("#fourth").hide();
-              $('#table1').hide("slow");
+              $("#second_regularmeetings").show('slow');
+              $("#second_specialmeetings").hide('slow');
           
             }
           });

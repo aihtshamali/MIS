@@ -157,7 +157,7 @@ class OfficerController extends Controller
        }
 
        }
-       $average_progress='10';
+       $average_progress=(int)$sum;
 
        //saving progress
        $assigned_progress=Project::find($id)->AssignedProject;
