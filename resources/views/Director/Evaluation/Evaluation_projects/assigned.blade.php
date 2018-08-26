@@ -80,7 +80,13 @@
                                   {{-- {{dd($interval)}} --}}
                                   {{-- {{$duration}} --}}
                                 </td>
-                                <td>{{$assigned->progress}}</td>
+                                <td><div class="progress">
+                                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+                                      aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo 20+$assigned->progress; ?>% ">
+                                    {{$assigned->progress }}% Complete
+                                      </div>
+                                    
+                                    </div></td>
                               </tr>
                             @endforeach
                           </tbody>
