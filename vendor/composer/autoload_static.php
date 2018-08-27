@@ -402,6 +402,7 @@ class ComposerStaticInit55c1f85fd9fa01a6cf3b909416bd240d
         'App\\Http\\Controllers\\ProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfileController.php',
         'App\\Http\\Controllers\\ProjectAssignController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProjectAssignController.php',
         'App\\Http\\Controllers\\ProjectController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProjectController.php',
+        'App\\Http\\Controllers\\ProjectCounterController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProjectCounterController.php',
         'App\\Http\\Controllers\\ProjectTypeController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProjectTypeController.php',
         'App\\Http\\Controllers\\RolesController' => __DIR__ . '/../..' . '/app/Http/Controllers/RolesController.php',
         'App\\Http\\Controllers\\RolesPermissionsUsersController' => __DIR__ . '/../..' . '/app/Http/Controllers/RolesPermissionsUsersController.php',

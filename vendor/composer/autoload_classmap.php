@@ -65,6 +65,7 @@ return array(
     'App\\Http\\Controllers\\ProfileController' => $baseDir . '/app/Http/Controllers/ProfileController.php',
     'App\\Http\\Controllers\\ProjectAssignController' => $baseDir . '/app/Http/Controllers/ProjectAssignController.php',
     'App\\Http\\Controllers\\ProjectController' => $baseDir . '/app/Http/Controllers/ProjectController.php',
+    'App\\Http\\Controllers\\ProjectCounterController' => $baseDir . '/app/Http/Controllers/ProjectCounterController.php',
     'App\\Http\\Controllers\\ProjectTypeController' => $baseDir . '/app/Http/Controllers/ProjectTypeController.php',
     'App\\Http\\Controllers\\RolesController' => $baseDir . '/app/Http/Controllers/RolesController.php',
     'App\\Http\\Controllers\\RolesPermissionsUsersController' => $baseDir . '/app/Http/Controllers/RolesPermissionsUsersController.php',
