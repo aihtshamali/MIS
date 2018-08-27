@@ -7,7 +7,9 @@
 /public/storage/uploads/projects/project_activities/*
 
 #ENV File
-*.env
+.env
 
 #HOME.sBLADE
 /resources/views/home.blade.php
+
+.phpunit.result.cache
