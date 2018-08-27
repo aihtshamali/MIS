@@ -1,0 +1,15 @@
+
+
+# exclude everything except directory uploads/projects/ && uploads/projects/project_activites/
+!/public/storage/uploads/projects
+!/public/storage/uploads/projects/project_activities
+/public/storage/uploads/projects/*
+/public/storage/uploads/projects/project_activities/*
+
+#ENV File
+.env
+
+#HOME.sBLADE
+/resources/views/home.blade.php
+
+.phpunit.result.cache
