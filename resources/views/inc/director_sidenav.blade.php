@@ -14,19 +14,19 @@
         <div class="pull-left info">
 
           @role('directorevaluation')
-         
+
           <p>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</p>
           @endrole
           @role('directormonitoring')
-         
+
           <p>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</p>
         @endrole
-        
-        
+
+
           {{-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> --}}
         </div>
       </div>
-      
+
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Navigations</li>
@@ -34,15 +34,15 @@
        @role('directorevaluation')
         {{--  /Home  --}}
         <li class="">
-     
+
           <a href="{{route('Evaluation_home')}}">
             <i class="fa fa-home"></i>
             <span>Home</span>
           </a>
-      
+
         </li>
          {{--  /evaluation  --}}
-      
+
         <li class="treeview">
           <a href="#">
             <i class="fa fa-share"></i> <span>Evaluation</span>
@@ -52,17 +52,23 @@
 
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{route('Evaluation_evaluation_assigned')}}"><i class="fa fa-circle-o"></i> Un- Assigned <span class="pull-right-container">
-              <span class="label label-primary pull-right">new</span>
+            <li>
+              <a href="{{route('Evaluation_evaluation_assigned')}}"><i class="fa fa-circle-o"></i> Un- Assigned <span class="pull-right-container">
+              <span class="label label-primary pull-right directorE_assigned_counter">0</span>
             </span></a></li>
             <li>
               <a href="{{route('Evaluation_evaluation_Inprogressprojects')}}"><i class="fa fa-circle-o"></i> In Progress
+                <span class="label label-primary pull-right directorE_inprogress_counter">0</span>
+              </span>
               </a>
             </li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Completed
+              <span class="label label-primary pull-right directorE_completed_counter">0</span>
+            </span>
+            </a></li>
           </ul>
         </li>
-      
+
         {{--  tpvs  --}}
         <li class="treeview">
           <a href="#">
@@ -179,7 +185,7 @@
         @endrole
 
 
-        
+
        @role('directormonitoring')
        {{--  /Home  --}}
        <li class="">
@@ -188,9 +194,9 @@
            <span>Home</span>
          </a>
        </li>
-       
+
        {{--  monitoring  --}}
-       
+
        <li class="treeview">
          <a href="#">
            <i class="fa fa-share"></i> <span>Monitoring</span>
@@ -210,7 +216,7 @@
            <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li>
          </ul>
        </li>
-      
+
        {{--  tpvs  --}}
        <li class="treeview">
          <a href="#">

@@ -23,8 +23,8 @@
       {{-- row 1 --}}
 
       <div class="row">
-        <div class="col-md-2 col-xs-2" ></div>
-        <div class="col-md-8 col-xs-4" >
+        <div class="col-md-1 col-xs-2" ></div>
+        <div class="col-md-10 col-xs-4" >
             <div class="box box-warning">
 
               <div class="box-header with-border">
@@ -45,19 +45,21 @@
                         <thead >
                             <th style="text-align:center;" >Project Number</th>
                             <th style="text-align:center;">Project Name</th>
+                            <th style="text-align:center;">Assigned By</th>
                             <th style="text-align:center;">Project Priority</th>
                             <th style="text-align:center;">Assigned Duration</th>
                             <th style="text-align:center;">Global Progress</th>
-                            <th style="text-align:center;">Edit Project Details</th>
+                            <th style="text-align:center;">Actions</th>
 
                         </thead>
-                        <tbody style="text-align:center;">
+                        <tbody style="text-align:center; font-size:16px;">
                           {{-- {{dd($officer)}} --}}
                           @foreach($officer as $o)
                           <tr >
 
-                            <td> {{$o->project_id}} </td>
+                            <td> {{$o->project->project_no}} </td>
                             <td><a href="{{route('evaluation_activities',$o->project_id)}}">{{$o->project->title}}</a> </td>
+                            <td>Sir {{$o->getassignedperson($o->assigned_by)->first_name}} {{$o->getassignedperson($o->assigned_by)->last_name}}</td>
                             <td>
                               @if ($o->priority==3)
                               High
@@ -77,15 +79,18 @@
                             </td>
 
                             <td>
+                              
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar"
-                                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:10%">
-                                    {{$o->progress}}% Complete
+                                  <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo 10+  $o->progress; ?>% ">
+                                  {{$o->progress }}% Complete
                                     </div>
+                                  
                                   </div>
                             </td>
                             <td>
-                              <a href="{{route('projects.edit',$o->project_id)}}">Review Project</a>
+                              <a href="{{route('projects.edit',$o->project_id)}}" class="btn btn-primary" style="margin-bottom:3px;">Review Project</a></br>
+                              <a href="{{route('evaluation_activities',$o->project_id)}}" class="btn btn-danger" >Go to Activities</a>
                             </td>
 
                             </tr>
@@ -99,7 +104,7 @@
               </div>
           </div>
         </div>
-        <div class="col-md-2 col-xs-2" ></div>
+        <div class="col-md-1 col-xs-2" ></div>
        </div>
 
 

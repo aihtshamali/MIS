@@ -11,6 +11,9 @@
           @role('admin')
           <p>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</p>
           @endrole
+          @role('adminhr')
+          <p>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</p>
+          @endrole
           @role('dataentry')
           <p>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</p>
           @endrole
@@ -32,18 +35,6 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Navigations</li>
-        {{-- <li class="active treeview menu-open">
-          <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-          </ul>
-        </li> --}}
-        {{-- @permission('can.do.anything') --}}
         <li>
           <a href="{{url('/dashboard')}}">
             <i class="fa fa-user"></i>
@@ -206,6 +197,25 @@
             {{-- @endpermission --}}
             {{-- <li><a href="{{url('/assignproject')}}"><i class="fa fa-circle-o"></i>Assign Projects</a></li>--}}
             <li><a href="{{route('projects.index')}}"><i class="fa fa-circle-o"></i>View All Projects</a></li>
+          </ul>
+        </li>
+        @endrole
+
+        @role('adminhr')
+
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-files-o"></i>
+            <span>Projects</span>
+            <span class="pull-right-container">
+              {{-- <span class="label label-primary pull-right">Add new Project</span> --}}
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{route('create_meeting')}}"><i class="fa fa-circle-o"></i>Add PDWP MEETING</a></li>
+            {{-- @endpermission --}}
+            {{-- <li><a href="{{url('/assignproject')}}"><i class="fa fa-circle-o"></i>Assign Projects</a></li>--}}
+            <li><a href="#"><i class="fa fa-circle-o"></i>View All </a></li>
           </ul>
         </li>
         @endrole

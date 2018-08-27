@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\ProblematicRemarks;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Auth;
-class ProblematicRemarksController extends Controller
+
+class AdminHumanResourceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,7 +24,7 @@ class ProblematicRemarksController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin_hr.meeting.create');
     }
 
     /**
@@ -36,24 +35,16 @@ class ProblematicRemarksController extends Controller
      */
     public function store(Request $request)
     {
-      // dd($request->all());
-        $problematicRemarks=new ProblematicRemarks();
-        $problematicRemarks->remarks = $request->remarks;
-        $problematicRemarks->assigned_project_activity_id = $request->activity_id;
-        $problematicRemarks->project_id = $request->project_id;
-        $problematicRemarks->from_user_id = Auth::id();
-        $problematicRemarks->to_user_id = $request->assigned_by;
-        $problematicRemarks->save();
-        return redirect()->back();
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\ProblematicRemarks  $problematicRemarks
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(ProblematicRemarks $problematicRemarks)
+    public function show($id)
     {
         //
     }
@@ -61,10 +52,10 @@ class ProblematicRemarksController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\ProblematicRemarks  $problematicRemarks
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProblematicRemarks $problematicRemarks)
+    public function edit($id)
     {
         //
     }
@@ -73,10 +64,10 @@ class ProblematicRemarksController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ProblematicRemarks  $problematicRemarks
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProblematicRemarks $problematicRemarks)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -84,10 +75,10 @@ class ProblematicRemarksController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\ProblematicRemarks  $problematicRemarks
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProblematicRemarks $problematicRemarks)
+    public function destroy($id)
     {
         //
     }

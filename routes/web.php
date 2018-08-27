@@ -74,7 +74,7 @@ Route::prefix('director_evaluation')->middleware('role:directorevaluation')->gro
   Route::get('/inquiry','DirectorEvaluationController@inquiry_index')->name('Evaluation_inquiry_tab');
   Route::get('/evaluation_assigned','DirectorEvaluationController@evaluation_assignedprojects')->name('Evaluation_evaluation_assigned');
   Route::get('/evaluation_inprogress','DirectorEvaluationController@evaluation_Inprogressprojects')->name('Evaluation_evaluation_Inprogressprojects');
- 
+
   Route::get('assignproject','ProjectAssignController@create_from_director')->name('create_from_director');
   Route::post('assignproject','ProjectAssignController@store_from_director')->name('store_from_director');
 
@@ -108,6 +108,9 @@ Route::prefix('officer')->middleware('role:officer')->group(function () {
 
 //For DataEntry
 Route::group(['middleware' => ['role:dataentry|officer|manager|directormonitoring|directorevaluation']],function () {
+Route::post('/getunassignedProjectCounter','ProjectCounterController@getUnassignedProjectCounter')->name('unassignedCounter');
+Route::post('/getinProgressProjectCounter','ProjectCounterController@getInProgressCounter')->name('inProgressCounter');
+Route::post('/getAssignedProjectCounter','ProjectCounterController@getAssignedProjectCounter')->name('assignedCounter');
 Route::post('/onsectorselect','DataEntryController@onSectorSelect');
 Route::post('/onsubsectorselect','DataEntryController@onSub_SectorSelect');
 Route::post('/onAssigningForumselect','DataEntryController@onAssigningForumselect');
@@ -116,14 +119,19 @@ Route::post('/onnewprojectselect','DataEntryController@newproject');
 Route::resource('projects','ProjectController');
 });
 
+//for adminhr
+Route::prefix('hr')->middleware('role:adminhr')->group(function () {
+  Route::get('/admin','AdminHumanResourceController@create')->name('create_meeting');
+  
+});
 Route::group(['middleware'=>['permission:can.chat']],function(){
   Route::get('/conversations/{id}', 'ChatController@show');
 });
 Route::group(['middleware'=>['permission:can.view.profile']],function(){
   Route::resource('/profile','ProfileController');
 });
+Route::resource('Problematicremarks','ProblematicRemarksController');
 Route::group(['middleware'=>['permission:can.problematicremark']],function(){
-  Route::resource('Problematicremarks','ProblematicRemarksController');
 });
 // Route::group(['middleware' => ['permission:can.edit.project|can.view.project']],function(){
 // });
