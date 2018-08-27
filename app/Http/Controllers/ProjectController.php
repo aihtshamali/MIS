@@ -554,14 +554,14 @@ class ProjectController extends Controller
         foreach ($project_original->RevisedEndDate as $RevisedEndDateSingle) {
           $RevisedEndDateSingle->delete();
         }
-        foreach($request->revised_end_dates as $revised_end_date){
-            if($revised_end_date != NULL){
-              $RevisedEndDate = new RevisedEndDateSingle();
+        foreach($request->revised_end_dates as $end_date){
+            if($end_date != NULL){
+              $RevisedEndDate = new RevisedEndDate();
               $revised_end_date = new RevisedEndDateProjectLog();
               $revised_end_date->project_log_id = ProjectLog::latest()->first()->id;
               $RevisedEndDate->project_id = $id;
-              $revised_end_date->end_date = date('Y-m-d',strtotime($revised_end_date));
-              $RevisedEndDate->end_date = date('Y-m-d',strtotime($revised_end_date));
+              $revised_end_date->end_date = date('Y-m-d',strtotime($end_date));
+              $RevisedEndDate->end_date = $revised_end_date->end_date;
               $revised_end_date->save();
               $RevisedEndDate->save();
           }
