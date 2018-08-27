@@ -63,6 +63,7 @@ class DirectorEvaluationController extends Controller
         ->get();
         
          $assigned=AssignedProject::where('assigned_by',Auth::id())->get();
+        
          $assignedtoManager=AssignedProjectManager::all();   
          return view('Director.Evaluation.Evaluation_projects.assigned',['assigned'=>$assigned,'unassigned'=>$unassigned]);
       }

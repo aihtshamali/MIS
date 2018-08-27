@@ -15,7 +15,7 @@
           @role('manager')
           <p>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</p>
           @endrole
-          
+
           {{-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> --}}
         </div>
       </div>
@@ -53,22 +53,24 @@
 
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{route('assignproject.index')}}"><i class="fa fa-circle-o"></i> Un- Assigned <span class="pull-right-container">
-              @if (isset($unassigned))
-                <span class="label label-primary pull-right">{{$unassigned->count()}}</span>
-              @endif
-            </span></a></li>
             <li>
-              <a href="{{route('Exec_evaluation_assigned')}}"><i class="fa fa-circle-o"></i> In Progress
-                @if (isset($assigned))
-                  <span class="label label-primary pull-right">{{$assigned->count()}}</span>
-                @endif
-                @if (isset($assignedtoManager))
-                  <span class="label label-warning pull-right">{{$assignedtoManager->count()}}</span>
-                @endif
+              <a href="{{route('assignproject.index')}}"><i class="fa fa-circle-o"></i> Un- Assigned
+                <span class="pull-right-container">
+                  <span class="label label-primary pull-right executive_unassigned_counter">0</span>
+                </span>
               </a>
             </li>
-            <li><a href="{{route('Exec_evaluation_completed')}}"><i class="fa fa-circle-o"></i> Completed</a></li>
+            <li>
+              <a href="{{route('Exec_evaluation_assigned')}}"><i class="fa fa-circle-o"></i> In Progress
+                  <span class="label label-primary pull-right executive_inprogress_counter">0</span>
+                  <span class="label label-warning pull-right executive_Managerinprogress_counter">0</span>
+              </a>
+            </li>
+            <li><a href="{{route('Exec_evaluation_completed')}}"><i class="fa fa-circle-o"></i> Completed
+              <span class="pull-right-container">
+                <span class="label label-success pull-right executive_completed_counter">0</span>
+              </span>
+            </a></li>
           </ul>
         </li>
         {{--  monitoring  --}}

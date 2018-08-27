@@ -62,5 +62,9 @@ class Project extends Model
     {
       return $this->hasMany('App\AssignedProjectActivity');
     }
+    public function ProblematicRemarks()
+    {
+      return $this->hasMany('App\ProblematicRemarks');
+    }
 
 }

@@ -106,7 +106,6 @@ class ExecutiveController extends Controller
      ->get();
       $assigned=AssignedProject::all();
       $assignedtoManager=AssignedProjectManager::all();
-
       $projects=AssignedProject::all();
       $managerProjects=AssignedProjectManager::all();
       // dd($projects);
