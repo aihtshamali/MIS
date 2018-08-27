@@ -342,6 +342,11 @@
 
   @endrole
 
+  @role('adminhr')
+  @include('inc.sidenav')
+
+  @endrole
+
   @role('officer')
   @include('inc.officer_sidenav')
   @endrole

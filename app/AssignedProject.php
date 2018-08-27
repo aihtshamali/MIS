@@ -23,11 +23,15 @@ class AssignedProject extends Model
     public function AssignedProjectManager(){
         return $this->hasOne('App\AssignedProjectManager');
       }
+      public function AssignedProjectActivity()
+      {
+        return $this->hasMany('App\AssignedProjectActivity');
+      }
     // public function getProject($id){
     //     return Project::where('id',$id)->first();
     // }
-    // public function getUser($id){
-    //     return User::where('id',$id)->first();
-    // }
+    public function getassignedperson($id){
+        return User::where('id',$id)->first();
+    }
 
 }

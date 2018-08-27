@@ -49,6 +49,7 @@
                         <thead >
                             <th style="text-align:center;" >Project Number</th>
                             <th style="text-align:center;">Project Name</th>
+                            <th style="text-align:center;">Assigned By</th>
                             <th style="text-align:center;">Priority</th>
                             <th style="text-align:center;">Action</th>
                         </thead>
@@ -58,6 +59,8 @@
                             <tr>
                             <td> {{$o->project->project_no}} </td>
                             <td>{{$o->project->title}}  </td>
+                           
+                            <td>Sir {{$o->getassignedperson($o->assigned_by)->first_name}} {{$o->getassignedperson($o->assigned_by)->last_name}}</td>
                             <td>
                               @if ($o->priority==3)
                                 High

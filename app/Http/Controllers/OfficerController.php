@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\User;
 use Auth;
+use App\AssignedProjectManager;
 use App\AssignedProject;
 use App\AssignedProjectActivityProgressLog;
 use App\ProjectDetail;
@@ -59,12 +60,12 @@ class OfficerController extends Controller
       $request->file('activity_attachment')->store('public/uploads/projects/project_activities');
       $file_name = $request->file('activity_attachment')->hashName();
       $data->project_attachements=$file_name;
-      $data->assigned_project_activities_id=$request->attachment_activity;
+      $data->assigned_project_activity_id=$request->attachment_activity;
       $data->attachment_name=$request->attachment_name;
       $data->save();
     }
     // dd($data);
-    return redirect()->route('inprogress_evaluation');
+    return redirect()->back();
    }
 
    public function evaluation_index_officersidenav()
@@ -92,6 +93,7 @@ class OfficerController extends Controller
        ->where('acknowledge','0')
        ->where('user_id',Auth::id())
        ->get();
+     
        // dd($officer);
         return view('officer.evaluation_projects.new_assigned',['officerInProgressCount'=>$officerInProgressCount,'officerAssignedCount'=>$officerAssignedCount,'officer'=>$officer]);
     }
@@ -118,6 +120,7 @@ class OfficerController extends Controller
 
     public function evaluation_inprogress()
     {
+     
       $officerAssignedCount=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
       ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
       ->where('acknowledge','0')
@@ -128,15 +131,40 @@ class OfficerController extends Controller
       ->where('user_id',Auth::id())
       ->where('acknowledge','1')
       ->get();
-      // dd($officer);
-      return view('officer.evaluation_projects.inprogress',['officer'=>$officer,'officerInProgressCount'=>$officer->count(),'officerAssignedCount'=>$officerAssignedCount]);
+ 
+      $progress=AssignedProject::select('assigned_projects.*','assigned_project_activities.*')
+      ->leftjoin('assigned_project_activities ','assigned_project_activities.project_id','assigned_projects.project_id')
+      ->where('user_id',Auth::id())
+      ->get();
+     
+    
+      return view('officer.evaluation_projects.inprogress',['progress'=> $progress,'officer'=>$officer,'officerInProgressCount'=>$officer->count(),'officerAssignedCount'=>$officerAssignedCount]);
     }
 
 
     public function evaluation_activities($id){
-
+      
       $activities=Project::find($id)->AssignedProjectActivity;
-      // dd($id);
+      $sum=0;
+      $per_activity=1;
+      if(isset($activities[0]) && $activities!=null)
+        $per_activity=(1/$activities->count()*100)/4;
+      $average_progress=0;
+     foreach ($activities as $act) {
+       if($act->progress > 0)
+       {
+         $sum=$sum+$per_activity*($act->progress/100);
+       }
+
+       }
+       $average_progress=(int)$sum;
+
+       //saving progress
+       $assigned_progress=Project::find($id)->AssignedProject;
+      
+       $assigned_progress->progress=$average_progress;
+       $assigned_progress->save();
+    
       $officerAssignedCount=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
       ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
       ->where('acknowledge','0')
@@ -147,6 +175,10 @@ class OfficerController extends Controller
       ->where('user_id',Auth::id())
       ->where('acknowledge','1')
       ->count();
+      $project_data=AssignedProject::select('assigned_projects.*','assigned_project_teams.*')
+      ->leftJoin('assigned_project_teams','assigned_projects.id','assigned_project_teams.assigned_project_id')
+      ->where('assigned_projects.acknowledge','1')->where('assigned_projects.project_id',$id)
+      ->get()->first();
 
       $problematicRemarks=ProblematicRemarks::select('problematic_remarks.*','users.first_name','users.last_name','profile_pic')
       ->leftJoin('users','users.id','problematic_remarks.from_user_id')
@@ -155,15 +187,22 @@ class OfficerController extends Controller
       ->orderBy('problematic_remarks.created_at','DESC')
       ->orderBy('problematic_remarks.assigned_project_activity_id','ASC')
       ->get();
-      // dd($problematicRemarks);
-      $project_data=AssignedProject::select('assigned_projects.*')
-      ->where('assigned_projects.acknowledge','1')->where('assigned_projects.project_id',$id)
-      ->first();
-      // dd($project_data);
-      // $team_mem= AssignedProjectTeam::where('project_id')get();
-
-      // dd( $project_data);
-      return view('officer.evaluation_projects.activities',['activities'=>$activities,'problematicRemarks'=>$problematicRemarks,'project_data'=>$project_data,'project_id'=>$id,'officerInProgressCount'=>$officerInProgressCount,'officerAssignedCount'=>$officerAssignedCount]);
+     
+      $icons = [
+                'pdf' => 'pdf',
+                'doc' => 'word',
+                'docx' => 'word',
+                'xls' => 'excel',
+                'xlsx' => 'excel',
+                'ppt' => 'powerpoint',
+                'pptx' => 'powerpoint',
+                'txt' => 'text',
+                'png' => 'image',
+                'jpg' => 'image',
+                'jpeg' => 'image',
+            ];
+          
+      return view('officer.evaluation_projects.activities',['activities'=>$activities,'icons'=>$icons,'average_progress'=>$average_progress,'project_data'=>$project_data,'project_id'=>$id,'officerInProgressCount'=>$officerInProgressCount,'officerAssignedCount'=>$officerAssignedCount]);
     }
 
     public function evaluation_completed(){
