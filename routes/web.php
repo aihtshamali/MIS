@@ -119,14 +119,19 @@ Route::post('/onnewprojectselect','DataEntryController@newproject');
 Route::resource('projects','ProjectController');
 });
 
+//for adminhr
+Route::prefix('hr')->middleware('role:adminhr')->group(function () {
+  Route::get('/admin','AdminHumanResourceController@create')->name('create_meeting');
+  
+});
 Route::group(['middleware'=>['permission:can.chat']],function(){
   Route::get('/conversations/{id}', 'ChatController@show');
 });
 Route::group(['middleware'=>['permission:can.view.profile']],function(){
   Route::resource('/profile','ProfileController');
 });
+Route::resource('Problematicremarks','ProblematicRemarksController');
 Route::group(['middleware'=>['permission:can.problematicremark']],function(){
-  Route::resource('Problematicremarks','ProblematicRemarksController');
 });
 // Route::group(['middleware' => ['permission:can.edit.project|can.view.project']],function(){
 // });
