@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 @extends('layouts.landing')
 
 @section('content')
@@ -265,7 +264,6 @@
   {{-- </section> <!-- /#about --> --}}
 
 @endsection
-=======
 @extends('layouts.landing')
 
 @section('content')
@@ -532,4 +530,3 @@
   {{-- </section> <!-- /#about --> --}}
 
 @endsection
->>>>>>> 1c58a9e6ba68f34cde9f7fa017a39c060eaf4f17
