@@ -142,59 +142,149 @@
               <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
               </button>
 
-               
-              </div>
-              <div class="box-body1">
-               <div class="row" >
-                <div class="col-md-12 col-xs-6">
             </div>
             <hr/>
             <b>
               GLOBAL PROGRESS
             </b>
-            <div class="progress">
-              <?php $progress=0;
-              if(isset($average_progress))
-                $progress=(int)$average_progress;
-               ?>
-                  <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
-                  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $progress; ?>%">
-                  <?php echo $progress; ?>% Complete
-                  </div>
-                </div>
 
+            <div class="progress">
+
+              <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+              aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:1%">
+              1% Complete
+            </div>
+          </div>
         </div>
         <div class="box-body1">
-              <!--/.direct-chat -->
+          {{--direct chat  --}}
+          <div class="row">
+            <div class="col-md-offset-8 col-md-3">
+              <div class="box box-danger direct-chat direct-chat-danger collapsed-box">
+              <div class="box-header with-border">
+                <h3 class="box-title" style="font-size: 15px">Problematic Remarks</h3>
+
+                <div class="box-tools pull-right">
+                  {{-- <span data-toggle="tooltip" title="" class="badge bg-red" data-original-title="0 New Messages">0</span> --}}
+                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                  </button>
+                  <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="" data-widget="chat-pane-toggle" data-original-title="Contacts">
+                    <i class="fa fa-comments"></i></button>
+                  <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body" style="display: none;">
+                <!-- Conversations are loaded here -->
+                <div class="direct-chat-messages">
+                  <!-- Message. Default to the left -->
+                  @foreach ($problematicRemarks as $remarks)
+                    @if ($remarks->from_user_id==Auth::id())
+                      <!-- Message to the right -->
+                      <div class="direct-chat-msg right">
+                        <div class="direct-chat-info clearfix">
+                          <span class="direct-chat-name pull-right">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</span>
+                          <span class="direct-chat-timestamp pull-left">{{date('d M h:m',strtotime($remarks->created_at))}}</span>
+                        </div>
+                        <!-- /.direct-chat-info -->
+                        <img class="direct-chat-img" src="{{asset('user.png')}}" alt="Message User Image"><!-- /.direct-chat-img -->
+                        <div class="direct-chat-text">
+                          {{$remarks->remarks}}
+                        </div>
+                        <!-- /.direct-chat-text -->
+                      </div>
+                      <!-- /.direct-chat-msg -->
+                    @else
+                      <div class="direct-chat-msg">
+                        <div class="direct-chat-info clearfix">
+                          <span class="direct-chat-name pull-left">{{$remarks->getUser($remarks->from_user_id)->first_name}} {{$remarks->getUser($remarks->from_user_id)->last_name}}</span>
+                          <span class="direct-chat-timestamp pull-right">{{date('d M h:m',strtotime($remarks->created_at))}}</span>
+                        </div>
+                        <!-- /.direct-chat-info -->
+                        <img class="direct-chat-img" src="{{asset('user.png')}}" alt="Message User Image"><!-- /.direct-chat-img -->
+                        <div class="direct-chat-text">
+                          {{$remarks->remarks}}
+                        </div>
+                        <!-- /.direct-chat-text -->
+                      </div>
+                    @endif
+                  <!-- /.direct-chat-msg -->
+                @endforeach
+
+                </div>
+                <!--/.direct-chat-messages-->
+
+                <!-- Contacts are loaded here -->
+                <div class="direct-chat-contacts">
+                  <ul class="contacts-list">
+                    @foreach ($project_data->AssignedProjectTeam as $team)
+                    <li>
+                      <a href="#">
+                        <img class="contacts-list-img" src="{{asset('user.png')}}" alt="User Image">
+
+                        <div class="contacts-list-info">
+
+                              <span class="contacts-list-name">
+                                {{$team->User->first_name}} {{$team->User->last_name}}
+                                {{-- <small class="contacts-list-date pull-right">{{date('Y-m-d')}}</small> --}}
+                              </span>
+                          {{-- <span class="contacts-list-msg">How have you been? I was...</span> --}}
+                        </div>
+                        <!-- /.contacts-list-info -->
+                      </a>
+                    </li>
+                  @endforeach
+                    <!-- End Contact Item -->
+                  </ul>
+                  <!-- /.contatcts-list -->
+                </div>
+                <!-- /.direct-chat-pane -->
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer" style="display: none;">
+                <form action="#" method="post">
+                  <div class="form-group">
+                    <select class="form-control" name="activity_id">
+                      @foreach ($activities as $activity)
+                        <option value="{{$activity->ProjectActivity->id}}">{{$activity->ProjectActivity->name}}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                  <div class="input-group">
+                    <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+                        <span class="input-group-btn">
+                          <button type="submit" class="btn btn-danger btn-flat">Send</button>
+                        </span>
+                  </div>
+                </form>
+              </div>
+              <!-- /.box-footer-->
+            </div>
+            </div>
+          </div>
+          <!--/.direct-chat -->
           <div class="row" >
             <div class="col-md-12 col-xs-12">
               <div class="table-responsive">
                 <form action="#" method="POST">
-                        {{csrf_field()}}
-                      <table class="table table-hover table-striped">
-                            <b>ACTIVITY CHART</b>
-                        <thead >
-                            <th style="text-align:center;" >No.</th>
-                            <th style="text-align:center;">Activity Name</th>
-                            <th style="text-align:center;">Activity Attachments</th>
-                            <th style="text-align:center;">Activity Progress</th>
-                            <th style="text-align:center;">Remarks</th>
-                        </thead>
-                        <tbody style="text-align:center;">
-                          @foreach($activities as $activity)
-                          <tr>
-                            <td> {{$activity->ProjectActivity->id}} </td>
-                            <td> {{$activity->ProjectActivity->name}} </td>
-                            <td>
-                              @foreach ($activity->AssignedActivityAttachments as $attachment)
-                              <?php
-                                 $ext= explode('.',$attachment->project_attachements ) ?>
-                                   <a href="{{ asset('storage/uploads/projects/project_activities/'.$attachment->project_attachements) }}"  download><i class="fa fa-file-{{$icons[$ext[1]]}}-o fa-1x text-center" title="{{ $attachment->attachment_name }}" /></i></a>
-                              @endforeach
-                            </td>
-                            <td>
-                              <div>
-                                <ul class="progressbar">
+                  {{csrf_field()}}
+                  <table class="table table-hover table-striped">
+                    <b>ACTIVITY CHART</b>
+                    <thead >
+                      <th style="text-align:center;" >No.</th>
+                      <th style="text-align:center;">Activity Name</th>
+                      <th style="text-align:center;">Activity Progress</th>
+                      {{-- <th style="text-align:center;">Remarks</th> --}}
+                    </thead>
+                    <tbody style="text-align:center;">
+
+                      @foreach($activities as $activity)
+                        <tr>
+                          <td> {{$activity->ProjectActivity->id}} </td>
+                          <td> {{$activity->ProjectActivity->name}} </td>
+                          <td>
+                            <div>
+                              <ul class="progressbar">
                                 @if($activity->progress >= 25.0)
                                   <a class="btn" >
                                     <input type="hidden" class="{{$activity->id}}" name="percent" value="25,{{$project_data->project->id}},{{$activity->id}}">
@@ -204,100 +294,90 @@
                               @else
                                 <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},25)'>Save</button>">
                                   <input type="hidden" class="25_{{$activity->id}}" name="percent" value="25,{{$project_data->project->id}},{{$activity->id}}">
-                                    <li>25%</li>
-                                  </input>
-                                </a>
-                              @endif
-                              @if ($activity->progress >= 50.0)
-                                <a class="btn" >
-                                  <input type="hidden" class="{{$activity->id}}" name="percent" value="50,{{$project_data->project->id}},{{$activity->id}}">
-                                    <li class="active">50%</li>
-                                  </input>
-                                </a>
-                              @else
-                                <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},50)'>Save</button>">
-                                  <input type="hidden" class="50_{{$activity->id}}" name="percent" value="50,{{$project_data->project->id}},{{$activity->id}}">
-                                    <li>50%</li>
-                                  </input>
-                                </a>
-                              @endif
-                              @if ($activity->progress >= 75.0)
-                                <a class="btn" >
-                                  <input type="hidden" class="{{$activity->id}}" name="percent" value="75,{{$project_data->project->id}},{{$activity->id}}">
-                                    <li class="active">75%</li>
-                                  </input>
-                                </a>
-                              @else
-                                <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},75)'>Save</button>">
-                                  <input type="hidden" class="75_{{$activity->id}}" name="percent" value="75,{{$project_data->project->id}},{{$activity->id}}">
-                                    <li>75%</li>
-                                  </input>
-                                </a>
-                              @endif
-                              @if ($activity->progress >= 100.0)
-                                <a class="btn" >
-                                  <input type="hidden" class="{{$activity->id}}" name="percent" value="100,{{$project_data->project->id}},{{$activity->id}}">
-                                    <li class="active">100%</li>
-                                  </input>
-                                </a>
-                              @else
-                                <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},100)'>Save</button>">
-                                  <input type="hidden" class="100_{{$activity->id}}" name="percent" value="100,{{$project_data->project->id}},{{$activity->id}}">
-                                    <li>100%</li>
-                                  </input>
-                                </a>
-                              @endif
-                              </ul>
-                            </div>
-                          </td>
-                          <td>
-                            <a data-target="#commentModal"  class="btn btn-danger commentModal"  data-toggle="modal" data-id="{{$activity->id}}">Problematic?</a>
-                          </td>
-                             
-                        </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
-                    <input type="hidden" name="id" style="display:inline;float:right" value="{{$project_data->project_id}}">
-                    <button type="button" class="btn btn-success pull-right"  disabled >Project Completed
-                    </button>
-                </form>
+                                  <li>25%</li>
+                                </input>
+                              </a>
+                            @endif
+                            @if ($activity->progress >= 50.0)
+                              <a class="btn" >
+                                <input type="hidden" class="{{$activity->id}}" name="percent" value="50,{{$project_data->project->id}},{{$activity->id}}">
+                                <li class="active">50%</li>
+                              </input>
+                            </a>
+                          @else
+                            <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},50)'>Save</button>">
+                              <input type="hidden" class="50_{{$activity->id}}" name="percent" value="50,{{$project_data->project->id}},{{$activity->id}}">
+                              <li>50%</li>
+                            </input>
+                          </a>
+                        @endif
+                        @if ($activity->progress >= 75.0)
+                          <a class="btn" >
+                            <input type="hidden" class="{{$activity->id}}" name="percent" value="75,{{$project_data->project->id}},{{$activity->id}}">
+                            <li class="active">75%</li>
+                          </input>
+                        </a>
+                      @else
+                        <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},75)'>Save</button>">
+                          <input type="hidden" class="75_{{$activity->id}}" name="percent" value="75,{{$project_data->project->id}},{{$activity->id}}">
+                          <li>75%</li>
+                        </input>
+                      </a>
+                    @endif
+                    @if ($activity->progress >= 100.0)
+                      <a class="btn" >
+                        <input type="hidden" class="{{$activity->id}}" name="percent" value="100,{{$project_data->project->id}},{{$activity->id}}">
+                        <li class="active">100%</li>
+                      </input>
+                    </a>
+                  @else
+                    <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},100)'>Save</button>">
+                      <input type="hidden" class="100_{{$activity->id}}" name="percent" value="100,{{$project_data->project->id}},{{$activity->id}}">
+                      <li>100%</li>
+                    </input>
+                  </a>
+                @endif
+              </ul>
+            </div>
+          </td>
+        </tr>
+      @endforeach
+    </tbody>
+  </table>
+  <input type="hidden" name="id" style="display:inline;float:right" value="{{$project_data->project_id}}">
+  <button type="button" class="btn btn-success pull-right" >Project Completed
+  </button>
+</form>
+</div>
+</div>
+</div>
+{{-- End row --}}
+<hr>
+<div class="row">
+  <div class="form-group col-md-10 col-xs-12">
+    <form class="" action="{{route('saveActivityAttachment')}}" method="POST" enctype="multipart/form-data">
+      {{csrf_field()}}
+      <div class="col-md-4">
+        <select name="attachment_activity" id="" class="select2 form-control">
+          <option value="">Select Activity For Attachments</option>
+          @foreach($activities as $activity){
+            <option value="{{$activity->id}}">{{$activity->ProjectActivity->name}}</option>
+          @endforeach
+        </select>
+      </div>
+      <div class="col-md-4">
+        <input type="text" name="attachment_name" class="form-control"  placeholder="Enter Attachment Name">
+      </div>
+      <div class="col-md-4">
+        <input type="file" style="" class="form-control" name="activity_attachment">
+      </div>
+      <br>
+      <input type="submit" name="Submit" value="Save Attachment" class="btn btn-success pull-right">
 
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="form-group col-md-12 col-xs-6">
-                   <label><strong>Upload Documents</strong> </label>
-                    <form class="" action="{{route('saveActivityAttachment')}}" method="POST" enctype="multipart/form-data">
-                      {{csrf_field()}}
-                      <div class="col-md-3">
-                        <select name="attachment_activity" id="" class="select2 form-control">
-                          <option value="">Select Activity For Attachments</option>
-                          @foreach($activities as $activity){
-                            <option value="{{$activity->id}}">{{$activity->ProjectActivity->name}}</option>
-                          @endforeach
-                        </select>
-                      </div>
-                      <div class="col-md-3">
-                        <input type="text" name="attachment_name" class="form-control"  placeholder="Enter Attachment Name">
-                      </div>
-                      <div class="col-md-3">
-                        <input type="file" style="" class="form-control" name="activity_attachment">
-                      </div>
-                      
-                      <div class="col-md-3">
-                      <input type="submit" name="Submit" value="Save Attachment" class="btn btn-primary pull-right">
-                      </div>
-                    </form>
-                  </div>
-                </div>
-                </div>
-               </div>
-              </div>
-          </div>
-        </div>
-  
-  
+    </form>
+  </div>
+</div>
+
 </div>
 </div>
 </div>
@@ -351,5 +431,5 @@
 
     });
 
-  </script>
-@endsection
+    </script>
+  @endsection
