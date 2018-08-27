@@ -5,6 +5,7 @@ namespace Illuminate\Foundation\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Mail;
 trait AuthenticatesUsers
 {
     use RedirectsUsers, ThrottlesLogins;
@@ -112,7 +113,15 @@ trait AuthenticatesUsers
      */
     protected function authenticated(Request $request, $user)
     {
-      
+      $user->ip_address = $request->ip();
+      $user->save();
+      //TODO
+      // $data = array('name'=>$user->first_name, "body" => "Test mail");
+      // Mail::send('emails.mail', $data, function($message) use ($user){
+  	  //   $message->to($user->email, 'Artisans Web')
+      //   ->subject('Artisans Web Testing Mail');
+  	  //   $message->from('dgmepunjabgov@gmail.ok','DGME PUNJAB');
+      // });
     }
 
     /**
