@@ -27,6 +27,20 @@
 
 </head>
 <style>
+
+    .dropdown{
+        width:18%;
+        text-align:center;
+    }
+
+    .dropbtn{
+        width:18%;
+        text-align:center;
+    }
+
+    test{
+        
+    }
     body {
         font-family: Ubuntu, Arial, Helvetica, sans-serif;
         font-size: 16px;
@@ -134,6 +148,11 @@
   		scrollTop: position
   	},1000);
   });
+
+ $("li").click(function(e) {
+     $(".test").show();
+ }
+);
 
 </script>
 </body>

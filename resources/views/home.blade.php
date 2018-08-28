@@ -4,13 +4,9 @@
 
 
     <div class="wrapper">
-
-        <!-- Page Content Holder -->
-        <div id="content">
-
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div style="position:fixed; width:100vw;">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
-
 
                     <button style="margin-left:0px !important; " class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,7 +14,7 @@
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ml-auto" style="margin-left: 0 !important; align-items: center;">
+                        <ul class="nav navbar-nav ml-auto" style="margin-left: 0 !important; align-items: center; width:100%;">
                             <li><img src="{!! asset('dgme.png') !!}" style="height:60px;"></li>
                             <li class="dropbtn nav-item active">
                                 <a class="nav-link" href="#">HOME</a>
@@ -27,41 +23,41 @@
                                 <li class="nav-item">
                                     <a id="PEMS" class="nav-link" href="#evaluation">PEMS</a>
                                 </li>
-                                <div class="dropdown-content">
+                                <!-- <div class="dropdown-content">
                                     <a href="#">Link 1</a>
                                     <a href="#">Link 2</a>
                                     <a href="#">Link 3</a>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="dropdown">
                                 <li class="nav-item">
                                     <a id="PMMS" class="nav-link" href="#monitoring">PMMS</a>
                                 </li>
-                                <div class="dropdown-content">
+                                <!-- <div class="dropdown-content">
                                     <a href="#">Link 1</a>
                                     <a href="#">Link 2</a>
                                     <a href="#">Link 3</a>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="dropdown">
                                 <li class="nav-item">
                                     <a id="TPV" class="nav-link" href="#validation">TPV's</a>
                                 </li>
-                                <div class="dropdown-content">
+                                <!-- <div class="dropdown-content">
                                     <a href="#">Link 1</a>
                                     <a href="#">Link 2</a>
                                     <a href="#">Link 3</a>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="dropdown">
                                 <li class="nav-item">
                                     <a id="SPECIAL" class="nav-link" href="#specialAssignment">SPECIAL ASSIGNMENT</a>
                                 </li>
-                                <div class="dropdown-content">
+                                <!-- <div class="dropdown-content">
                                     <a href="#">Link 1</a>
                                     <a href="#">Link 2</a>
                                     <a href="#">Link 3</a>
-                                </div>
+                                </div> -->
                             </div>
 
                         </ul>
@@ -98,14 +94,19 @@
                      {{-- <li><strong><a href="{{route('register')}}">Register</a></strong></li> --}}
                      @endauth
 
-                    <button type="button" id="sidebarCollapse" class="navbar-btn">
+                    <!-- <button type="button" id="sidebarCollapse" class="navbar-btn">
                         <span></span>
                         <span></span>
                         <span></span>
-                    </button>
+                    </button> -->
                 </div>
 
             </nav>
+        </div>
+        <!-- Page Content Holder -->
+        <div id="content" style="margin-top:100px;">
+
+            
 
             <h2><b>DIRECTORATE GENERAL MONITORING AND EVALUATION</b></h2>
             <p>Welcome to the official INTRANET website of Directorate General Monitoring & Evaluation, Punjab. We invite you to get to know our organization by exploring this site on which you will learn about our mission,
@@ -150,7 +151,7 @@
         </div>
 
         <!-- Sidebar Holder -->
-        <nav id="sidebar">
+        <nav id="sidebar" style="position:sticky;top:0;">
             <div class="ideaboxNews in-easing" id="idx1" style="color:black;">
                     <h3>UPCOMING EVENTS</h3>
                 <ul>
@@ -188,7 +189,9 @@
                             <span>01 SEPTEMBER 2018, SATURDAY</span>
                             <div>
                             WORKFLOW
-                            <p>No Details Yet</p>
+                            <p>Welcome to the official INTRANET website of Directorate General Monitoring & Evaluation, Punjab. We invite you to get to know our organization by exploring this site on which you will learn about our mission,
+             vision and objectives. The site also provides information about different projects and provides access to valuable statistics. We hope…</p>
+            
                             </div>
                         </div>
                     </li>
@@ -205,19 +208,7 @@
                             </div>
                         </div>
                     </li>
-                    <li>
-                        <div class="in-image">
-                            <img src="trash/img15.jpg">
-                            <span class="in-purple"><h6>Read more</h6></span>
-                        </div>
-                        <div class="in-content">
-                            <h2>tellus augue tempus tellus</h2>
-                            <span>12 APRIL 2015, SUNDAY</span>
-                            <div>
-                                 Morbi pulvinar, metus in interdum elementum, tellus augue tempus tellus, eu condimentum quam leo in arcu. Donec urna felis, fringilla eu enim nec, elementum fermentum ex. Donec placerat, ante eget tempus aliquam, magna magna placerat dolor, vestibulum hendrerit velit nunc facilisis ligula. Integer nec diam justo. Etiam id tincidunt magna. Duis efficitur non massa et aliquet. Nullam vestibulum sem a convallis sollicitudin. Vestibulum finibus maximus ligula, vel tincidunt leo lobortis eget. Integer gravida scelerisque urna quis tristique.
-                            </div>
-                        </div>
-                    </li>
+                  
                     <li>
                         <div class="in-image">
                             <img src="trash/img16.jpg">
@@ -271,14 +262,14 @@
                         </div>
                     </li>
                 </ul>
-                <div class="in-viewer">
-                    <div class="in-viewer-header">
+                <div class="in-viewer test" >
+                    <!-- <div class="in-viewer-header">
                         <img src="trash/img1.jpg">
                         <div>
                             <h2>no title...</h2>
                             <span>no date...</span>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="in-viewer-content">
                         no content...
                     </div>
@@ -331,61 +322,7 @@
                             </div>
                         </div>
                     </li>
-                    <li>
-                        <div class="in-image">
-                            <img src="trash/img7.jpg">
-                            <span class="in-yellow"><h6>Read more</h6></span>
-                        </div>
-                        <div class="in-content">
-                            <h2>text of the printing</h2>
-                            <span>12 APRIL 2015, SUNDAY</span>
-                            <div>
-                            Aenean id rutrum libero, eu elementum enim. Quisque cursus mattis velit. Donec ac ex luctus, blandit ante vel, feugiat magna. Maecenas vitae nisi nulla.<br><br> Sed nibh risus, maximus in imperdiet in, auctor eget nisl. Nullam venenatis ac nunc a feugiat. Pellentesque nulla est, scelerisque id ligula non, convallis euismod odio. Proin tortor est, tincidunt ac libero consequat, venenatis pulvinar purus. Maecenas a feugiat velit<
-                            /div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="in-image">
-                            <img src="trash/img10.jpg">
-                            <span class="in-orange"><h6>Read more</h6></span>
-                        </div>
-                        <div class="in-content">
-                            <h2>porttitor eu dui</h2>
-                            <span>12 APRIL 2015, SUNDAY</span>
-                            <div>
-                            Sed dictum, nisl at condimentum mattis, lectus nisl rutrum dolor, vitae dictum erat nunc id ex. Ut ipsum lorem, auctor eu interdum vel, mollis eget felis. Aliquam faucibus ullamcorper nibh, a vestibulum tellus rhoncus a. Sed eros odio, porttitor eu dui tempor, tempus rhoncus elit.
-                            </div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="in-image">
-                            <img src="trash/img16.jpg">
-                            <span class="in-yellow"><h6>Read more</h6></span>
-                        </div>
-                        <div class="in-content">
-                            <h2>senectus et netus et malesuada</h2>
-                            <span>12 APRIL 2015, SUNDAY</span>
-                            <div>
-                                 Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi pulvinar, metus in interdum elementum, tellus augue tempus tellus, eu condimentum quam leo in arcu. Donec urna felis, fringilla eu enim nec, elementum fermentum ex.
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="in-image">
-                            <img src="trash/img17.jpg">
-                            <span class="in-green"><h6>Read more</h6></span>
-                        </div>
-                        <div class="in-content">
-                            <h2>Fusce eu quam</h2>
-                            <span>12 APRIL 2015, SUNDAY</span>
-                            <div>
-                                 Nullam id varius nulla, a varius eros. Fusce eu quam ac velit venenatis molestie vel eu libero. In hac habitasse platea dictumst. Suspendisse sagittis eget leo non porta.
-                            </div>
-                        </div>
-                    </li>
-                    <li>
+                       <li>
                         <div class="in-image">
                             <img src="trash/img18.jpg">
                             <span class="in-orange"><h6>Read more</h6></span>
