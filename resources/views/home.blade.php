@@ -3,7 +3,7 @@
 @section('content')
     <div class="wrapper">
         <div style="position:fixed; width:100vw;">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color:#043808!important">
                 <div class="container-fluid">
 
                     <button style="margin-left:0px !important; " class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
@@ -104,7 +104,7 @@
         <!-- Page Content Holder -->
         <div id="content" style="margin-top:100px;">
 
-            
+
 
             <h2><b>DIRECTORATE GENERAL MONITORING AND EVALUATION</b></h2>
             <p>Welcome to the official INTRANET website of Directorate General Monitoring & Evaluation, Punjab. We invite you to get to know our organization by exploring this site on which you will learn about our mission,
@@ -189,7 +189,7 @@
                             WORKFLOW
                             <p>Welcome to the official INTRANET website of Directorate General Monitoring & Evaluation, Punjab. We invite you to get to know our organization by exploring this site on which you will learn about our mission,
              vision and objectives. The site also provides information about different projects and provides access to valuable statistics. We hope…</p>
-            
+
                             </div>
                         </div>
                     </li>
@@ -206,7 +206,7 @@
                             </div>
                         </div>
                     </li>
-                  
+
                     <li>
                         <div class="in-image">
                             <img src="trash/img16.jpg">
