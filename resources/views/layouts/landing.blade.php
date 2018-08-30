@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Collapsible sidebar using Bootstrap 4</title>
+    <title>DGME MIS</title>
 
     <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,700&amp;subset=latin-ext' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{{ asset('landingAssets/css/ideaboxNews.css') }}" />
@@ -38,8 +38,11 @@
         text-align:center;
     }
 
-    test{
-        
+    .navbar-light .navbar-nav .nav-link{
+      color:white;!important;
+    }
+    .navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link{
+      color: white;!important;
     }
     body {
         font-family: Ubuntu, Arial, Helvetica, sans-serif;
