@@ -119,12 +119,11 @@
           <div class="box1 box-warning">
 
             <div class="box-header with-border">
-
               <p>
-                Project Number : <b> {{$project_data->project->project_no}} </b></br>
+                Project Number : <b> {{$project_data->Project->project_no}} </b></br>
               </p>
               <p >
-                Project Name :<b> {{$project_data->project->title}}  </b></br>
+                Project Name :<b> {{$project_data->Project->title}}  </b></br>
               </p>
 
               <p>
@@ -158,7 +157,7 @@
         </div>
         <div class="box-body1">
           {{--direct chat  --}}
-          <div class="row">
+          <div class="row problematicremark">
             <div class="col-md-offset-8 col-md-3">
               <div class="box box-danger direct-chat direct-chat-danger collapsed-box">
               <div class="box-header with-border">
@@ -176,41 +175,38 @@
               <!-- /.box-header -->
               <div class="box-body" style="display: none;">
                 <!-- Conversations are loaded here -->
-                <div class="direct-chat-messages">
+                <div class="direct-chat-messages" >
                   <!-- Message. Default to the left -->
-                  @foreach ($problematicRemarks as $remarks)
-                    @if ($remarks->from_user_id==Auth::id())
+                  <span v-for="message in problematicRemarks">
                       <!-- Message to the right -->
-                      <div class="direct-chat-msg right">
+                      <div class="direct-chat-msg right" v-if="message.user.id == auth_id">
                         <div class="direct-chat-info clearfix">
                           <span class="direct-chat-name pull-right">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</span>
-                          <span class="direct-chat-timestamp pull-left">{{date('d M h:m',strtotime($remarks->created_at))}}</span>
+                          <span class="direct-chat-timestamp pull-left">@{{message.created_at}}</span>
                         </div>
                         <!-- /.direct-chat-info -->
                         <img class="direct-chat-img" src="{{asset('user.png')}}" alt="Message User Image"><!-- /.direct-chat-img -->
                         <div class="direct-chat-text">
-                          {{$remarks->remarks}}
+                          @{{message.remarks}}
                         </div>
                         <!-- /.direct-chat-text -->
                       </div>
                       <!-- /.direct-chat-msg -->
-                    @else
-                      <div class="direct-chat-msg">
+
+                      <div class="direct-chat-msg" v-else>
                         <div class="direct-chat-info clearfix">
-                          <span class="direct-chat-name pull-left">{{$remarks->getUser($remarks->from_user_id)->first_name}} {{$remarks->getUser($remarks->from_user_id)->last_name}}</span>
-                          <span class="direct-chat-timestamp pull-right">{{date('d M h:m',strtotime($remarks->created_at))}}</span>
+                          <span class="direct-chat-name pull-left">@{{message.user.first_name}} @{{message.user.last_name}}</span>
+                          <span class="direct-chat-timestamp pull-right">@{{message.created_at}}</span>
                         </div>
                         <!-- /.direct-chat-info -->
                         <img class="direct-chat-img" src="{{asset('user.png')}}" alt="Message User Image"><!-- /.direct-chat-img -->
                         <div class="direct-chat-text">
-                          {{$remarks->remarks}}
+                          @{{message.remarks}}
                         </div>
                         <!-- /.direct-chat-text -->
                       </div>
-                    @endif
                   <!-- /.direct-chat-msg -->
-                @endforeach
-
+                  </span>
                 </div>
                 <!--/.direct-chat-messages-->
 
@@ -242,18 +238,22 @@
               </div>
               <!-- /.box-body -->
               <div class="box-footer" style="display: none;">
-                <form action="#" method="post">
+                <form action="{{route('Problematicremarks.store')}}" class="problematicRemarkForm" method="post">
+                  {{ csrf_field() }}
                   <div class="form-group">
-                    <select class="form-control" name="activity_id">
+                    <input type="hidden" name="assigned_by" ref="assigned" value="{{$project_data->assigned_by}}" >
+                    <input type="hidden" name="project_id" value="{{$project_data->Project->id}}" ref="project_id">
+                    <select class="form-control" name="activity_id" v-model="activity_id">
+                      <option value="">Select an Activity</option>
                       @foreach ($activities as $activity)
-                        <option value="{{$activity->ProjectActivity->id}}">{{$activity->ProjectActivity->name}}</option>
+                        <option value="{{$activity->id}}">{{$activity->ProjectActivity->name}}</option>
                       @endforeach
                     </select>
                   </div>
                   <div class="input-group">
-                    <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+                    <input type="text" name="message" v-model="message" placeholder="Type Message ..." class="form-control">
                         <span class="input-group-btn">
-                          <button type="submit" class="btn btn-danger btn-flat">Send</button>
+                          <button type="button" v-on:click="submitProblematic" class="btn btn-danger btn-flat">Send</button>
                         </span>
                   </div>
                 </form>
@@ -392,6 +392,71 @@
 @endsection
 
 @section('scripttags')
+
+  <script type="text/javascript">
+    new Vue({
+    el: '.problematicremark',
+    data: {
+      problematicRemarks: {},
+      activity_id: '',
+      message: '',
+      project_id: '',
+      assigned: '',
+      auth_id: {!! Auth::check() ? Auth::id() : 'null' !!}
+    },
+    created(){
+      this.project_id=document.querySelector("input[name=project_id]").value;
+      this.assigned=document.querySelector("input[name=assigned_by]").value;
+
+    },
+    mounted() {
+      console.log('entered');
+      this.getProblematicRemarks();
+      this.listen();
+    },
+    // define methods under the `methods` object
+    methods: {
+      submitProblematic: function (event) {
+        if(this.activity_id!=null && this.activity_id!=''){
+        axios.post('/Problematicremarks',
+          {
+            api_token: this.api_token,
+            remarks: this.message,
+            activity_id: this.activity_id,
+            assigned_by: this.assigned,
+            project_id:this.project_id
+          })
+          .then((response) => {
+            console.log(response);
+            this.problematicRemarks.push(response.data);
+            this.message = '';
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+          }else{
+            alert('Please Select the Activity');
+          }
+      },
+
+    getProblematicRemarks () {
+      axios.get("/Problematicremarks/"+this.project_id)
+            .then((response) => {
+              this.problematicRemarks = response.data
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+    },
+    listen() {
+      Echo.private('problematicremarks.'+this.project_id)
+          .listen('ProblematicEvent', (message) => {
+            this.problematicRemarks.push(message);
+          });
+        }
+    }
+  })
+  </script>
   <script>
   function saveData(id,number){
     console.log(number);

@@ -181,7 +181,7 @@ class OfficerController extends Controller
       ->first();
 
       $problematicRemarks=ProblematicRemarks::select('problematic_remarks.*','users.first_name','users.last_name','profile_pic')
-      ->leftJoin('users','users.id','problematic_remarks.from_user_id')
+      ->leftJoin('users','users.id','problematic_remarks.user_id')
       ->leftJoin('user_details','user_details.user_id','users.id')
       ->where('project_id',$id)
       ->orderBy('problematic_remarks.created_at','DESC')

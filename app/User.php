@@ -64,6 +64,9 @@ class User extends Authenticatable
     {
       return $this->hasOne('App\User');
     }
+    public function ProblematicRemarks(){
+      return $this->hasMany('App\ProblematicRemarks');
+    }
     public function Notifications(){
       return $this->hasMany('App\Notification');
     }

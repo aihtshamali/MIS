@@ -23,7 +23,7 @@ Route::get('/home', function(){
 Route::group(['middleware' => ['auth']],function(){
   Route::get('/reset_password','HomeController@reset_password');
   Route::post('/reset_store','HomeController@reset_store');
-});
+
 
 //For Admin
 Route::group(['middleware' => ['role:admin']], function () {
@@ -122,7 +122,7 @@ Route::resource('projects','ProjectController');
 //for adminhr
 Route::prefix('hr')->middleware('role:adminhr')->group(function () {
   Route::get('/admin','AdminHumanResourceController@create')->name('create_meeting');
-  
+
 });
 Route::group(['middleware'=>['permission:can.chat']],function(){
   Route::get('/conversations/{id}', 'ChatController@show');
@@ -141,4 +141,5 @@ Route::get('/dashboard',function(){
 
 Route::get('/403',function(){
   return view('403');
+});
 });
