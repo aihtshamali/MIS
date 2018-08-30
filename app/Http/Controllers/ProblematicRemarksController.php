@@ -41,6 +41,9 @@ class ProblematicRemarksController extends Controller
       // return $request->all();
         $problematicRemarks=new ProblematicRemarks();
         $problematicRemarks->remarks = $request->remarks;
+        if($request->activity_id)
+          $problematicRemarks->assigned_project_activity_id = $request->activity_id;
+        else
         $problematicRemarks->assigned_project_activity_id = ProblematicRemarks::latest()->first()->assigned_project_activity_id;
         $problematicRemarks->project_id = $request->project_id;
         $problematicRemarks->user_id = Auth::id();

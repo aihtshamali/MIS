@@ -61,7 +61,7 @@
                             <th>Priority</th>
                             <th>Assigned Duration</th>
                             <th>Progress</th>
-                            <th>Comments</th>
+                            <th></th>
                           </thead>
                           <tbody>
                             @foreach ($assigned as $assigned)
@@ -106,12 +106,13 @@
                                       </div>
 
                                     </div></td>
+
                               </tr>
                               <tr>
-                                <td colspan="2">
+                                <td colspan="6">
                                   {{--direct chat  --}}
                                   <div class="row problematicremark">
-                                    <div class="col-md-12">
+                                    <div class="col-md-4 col-md-offset-8">
                                       <div class="box box-danger direct-chat direct-chat-danger collapsed-box">
                                       <div class="box-header with-border">
                                         <h3 class="box-title" style="font-size: 15px">Problematic Remarks</h3>
