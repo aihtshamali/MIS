@@ -1,8 +1,6 @@
 @extends('layouts.landing')
 
 @section('content')
-
-
     <div class="wrapper">
         <div style="position:fixed; width:100vw;">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
