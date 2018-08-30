@@ -193,7 +193,7 @@
                                       </div>
                                       <!-- /.box-body -->
                                       <div class="box-footer" style="display: none;">
-                                        <form action="{{route('Problematicremarks.store')}}" class="problematicRemarkForm" method="post">
+                                        <form action="#"  v-on:submit.prevent="submitProblematic" class="problematicRemarkForm" method="post">
                                           {{ csrf_field() }}
                                           <div class="form-group">
                                             <input type="hidden" name="assigned_by" ref="assigned" value="{{$assigned->assigned_by}}" >

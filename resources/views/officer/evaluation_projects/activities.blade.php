@@ -238,7 +238,7 @@
               </div>
               <!-- /.box-body -->
               <div class="box-footer" style="display: none;">
-                <form action="{{route('Problematicremarks.store')}}" class="problematicRemarkForm" method="post">
+                <form action="#" v-on:submit.prevent="submitProblematic" class="problematicRemarkForm" method="post">
                   {{ csrf_field() }}
                   <div class="form-group">
                     <input type="hidden" name="assigned_by" ref="assigned" value="{{$project_data->assigned_by}}" >
@@ -253,7 +253,7 @@
                   <div class="input-group">
                     <input type="text" name="message" v-model="message" placeholder="Type Message ..." class="form-control">
                         <span class="input-group-btn">
-                          <button type="button" v-on:click="submitProblematic" class="btn btn-danger btn-flat">Send</button>
+                          <button type="submit" v-on:submit.prevent="submitProblematic" class="btn btn-danger btn-flat">Send</button>
                         </span>
                   </div>
                 </form>
