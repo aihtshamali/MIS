@@ -6,6 +6,8 @@ use App\ProblematicRemarks;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use App\AssignedProjectActivity;
+use App\Events\ProblematicEvent;
 class ProblematicRemarksController extends Controller
 {
     /**
@@ -36,15 +38,34 @@ class ProblematicRemarksController extends Controller
      */
     public function store(Request $request)
     {
-      // dd($request->all());
+      // return $request->all();
         $problematicRemarks=new ProblematicRemarks();
         $problematicRemarks->remarks = $request->remarks;
-        $problematicRemarks->assigned_project_activity_id = $request->activity_id;
+        if($request->activity_id)
+          $problematicRemarks->assigned_project_activity_id = $request->activity_id;
+        else
+        $problematicRemarks->assigned_project_activity_id = ProblematicRemarks::latest()->first()->assigned_project_activity_id;
         $problematicRemarks->project_id = $request->project_id;
-        $problematicRemarks->from_user_id = Auth::id();
+        $problematicRemarks->user_id = Auth::id();
         $problematicRemarks->to_user_id = $request->assigned_by;
-        $problematicRemarks->save();
-        return redirect()->back();
+        // return $problematicRemarks->save();
+
+        if($problematicRemarks->save()){
+          // $remarks = $problematicRemarks;
+
+          $remarks=collect(ProblematicRemarks::find($problematicRemarks->id));
+          $remarks->put('user',ProblematicRemarks::find($problematicRemarks->id)->User);
+          $remarks->put('activity_name',ProblematicRemarks::find($problematicRemarks->id)->AssignedProjectActivity->ProjectActivity->name);
+          $remarks= $remarks->toArray();
+          broadcast(new ProblematicEvent($remarks))->toOthers();
+          return $remarks;
+          // return 'Sent';
+        }else {
+          return null;
+          // return reponse()->json({'status':'Failed'});
+          // return 'Message Sending Failed';
+        }
+
     }
 
     /**
@@ -53,9 +74,15 @@ class ProblematicRemarksController extends Controller
      * @param  \App\ProblematicRemarks  $problematicRemarks
      * @return \Illuminate\Http\Response
      */
-    public function show(ProblematicRemarks $problematicRemarks)
+    public function show($id)
     {
-        //
+      $remarks= ProblematicRemarks::select('problematic_remarks.*','project_activities.name as activity_name')
+            ->leftJoin('assigned_project_activities','problematic_remarks.assigned_project_activity_id','assigned_project_activities.id')
+            ->leftJoin('project_activities','assigned_project_activities.project_activity_id','project_activities.id')
+            ->where('problematic_remarks.project_id',$id)->with('user')
+             ->orderBy('created_at','ASC')
+             ->get();
+      return $remarks->toJson();
     }
 
     /**
