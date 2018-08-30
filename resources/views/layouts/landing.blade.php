@@ -152,8 +152,14 @@
   	},1000);
   });
 
- $("li").click(function(e) {
+
+ $("#idx1 > ul > li").click(function(e) {
      $(".test").show();
+ }
+);
+
+$("#idx2 > ul > li").click(function(e) {
+     $(".test2").show();
  }
 );
 
