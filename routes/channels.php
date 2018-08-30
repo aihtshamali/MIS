@@ -18,6 +18,11 @@ Broadcast::channel('chats.{id}', function ($user, $id) {
        // return (int) $user->id === (int) $id;
        return true;
 });
+Broadcast::channel('problematicremarks.{id}', function ($user, $id) {
+
+       // return (int) $user->id === (int) $id;
+       return true;
+});
 Broadcast::channel('projectAssigned.{id}', function ($user, $id) {
       // $pro=\App\AssignedProjectTeam::where('user_id',$user->id)->latest();
       if($user->id ==  $id){
