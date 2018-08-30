@@ -63,24 +63,27 @@
                     </div>
                       @auth
                         @role('admin')
-                        <a class="btn btn-md btn-outline-info" style="margin-right:10px;opacity: 0.7;" href="{{ url('/admin') }}">Home</a>
+                        <a class="btn btn-md btn-light" style="margin-right:10px;opacity: 0.7;" href="{{ url('/admin') }}">Home</a>
                         @endrole
                         @role('directorevaluation')
-                        <a class="btn btn-md btn-outline-info" style="margin-right:10px;opacity: 0.7;" href="{{ url('/director_evaluation') }}">Home</a>
+                        <a class="btn btn-md btn-light" style="margin-right:10px;opacity: 0.7;" href="{{ url('/director_evaluation') }}">Home</a>
                         @endrole
                         @role('directormonitoring')
-                        <a class="btn btn-md btn-outline-info" style="margin-right:10px;opacity: 0.7;" href="{{ url('/director_Monitor') }}">Home</a>
+                        <a class="btn btn-md btn-light" style="margin-right:10px;opacity: 0.7;" href="{{ url('/director_Monitor') }}">Home</a>
                         @endrole
                         @role('manager')
-                        <a class="btn btn-md btn-outline-info" style="margin-right:10px;opacity: 0.7;" href="{{ url('/manager') }}">Home</a>
+                        <a class="btn btn-md btn-light" style="margin-right:10px;opacity: 0.7;" href="{{ url('/manager') }}">Home</a>
+                        @endrole
+                        @role('adminhr')
+                        <a class="btn btn-md btn-light" style="margin-right:10px;opacity: 0.7;" href="#">Home</a>
                         @endrole
                         @role('dataentry')
-                        <a class="btn btn-md btn-outline-info" style="margin-right:10px;opacity: 0.7;" href="{{ route('projects.index') }}">Home</a>
+                        <a class="btn btn-md btn-light" style="margin-right:10px;opacity: 0.7;" href="{{ route('projects.index') }}">Home</a>
                         @endrole
                         @role('officer')
-                        <a class="btn btn-md btn-outline-info" style="margin-right:10px;opacity: 0.7;" href="{{ url('/officer') }}">Home</a>
+                        <a class="btn btn-md btn-light" style="margin-right:10px;opacity: 0.7;" href="{{ url('/officer') }}">Home</a>
                         @endrole
-                        <strong><a class="btn btn-md btn-outline-dark" style="margin-right:10px;opacity: 0.7;" href="{{ route('logout') }}"
+                        <strong><a class="btn btn-md btn-light" style="margin-right:10px;opacity: 0.7;" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">Sign out
                              </a></strong>
@@ -88,7 +91,7 @@
                                  {{ csrf_field() }}
                              </form>
                       @else
-                     <strong><a class="btn btn-md btn-outline-success" style="margin-right:10px;opacity: 0.7; " href="{{route('login')}}" >Login</a></strong>
+                     <strong><a class="btn btn-md btn-light" style="margin-right:10px;opacity: 0.7; " href="{{route('login')}}" >Login</a></strong>
                      {{-- <li><strong><a href="{{route('register')}}">Register</a></strong></li> --}}
                      @endauth
 
