@@ -131,6 +131,7 @@ Route::group(['middleware'=>['permission:can.view.profile']],function(){
   Route::resource('/profile','ProfileController');
 });
 Route::resource('Problematicremarks','ProblematicRemarksController');
+Route::post('ReadProblematicremarks','ProblematicRemarksController@readMessages');
 Route::group(['middleware'=>['permission:can.problematicremark']],function(){
 });
 // Route::group(['middleware' => ['permission:can.edit.project|can.view.project']],function(){

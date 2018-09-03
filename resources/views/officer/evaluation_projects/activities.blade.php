@@ -2,6 +2,10 @@
 
 @section('styletag')
   <style media="screen">
+  .direct-chat-messages{
+    max-height: 250px;
+    overflow-y: scroll
+  }
   body{
     overflow-x: scroll;
   }
@@ -164,8 +168,8 @@
                 <h3 class="box-title" style="font-size: 15px">Problematic Remarks</h3>
 
                 <div class="box-tools pull-right">
-                  {{-- <span data-toggle="tooltip" title="" class="badge bg-red" data-original-title="0 New Messages">0</span> --}}
-                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                  <span data-toggle="tooltip" title="" class="badge bg-red" data-original-title="0 New Messages">0</span>
+                  <button type="button" class="btn btn-box-tool expand" data-widget="collapse"><i class="fa fa-plus"></i>
                   </button>
                   <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="" data-widget="chat-pane-toggle" data-original-title="Contacts">
                     <i class="fa fa-comments"></i></button>
@@ -175,7 +179,7 @@
               <!-- /.box-header -->
               <div class="box-body" style="display: none;">
                 <!-- Conversations are loaded here -->
-                <div class="direct-chat-messages" >
+                <div class="direct-chat-messages" v-chat-scroll>
                   <!-- Message. Default to the left -->
                   <span v-for="message in problematicRemarks">
                       <!-- Message to the right -->
@@ -251,7 +255,7 @@
                     </select>
                   </div>
                   <div class="input-group">
-                    <input type="text" name="message" v-model="message" placeholder="Type Message ..." class="form-control">
+                    <input type="text" name="message" v-model="message" placeholder="Type Message ..." class="form-control textmessage">
                         <span class="input-group-btn">
                           <button type="submit" v-on:submit.prevent="submitProblematic" class="btn btn-danger btn-flat">Send</button>
                         </span>
@@ -392,8 +396,8 @@
 @endsection
 
 @section('scripttags')
-
   <script type="text/javascript">
+
     new Vue({
     el: '.problematicremark',
     data: {
@@ -407,10 +411,8 @@
     created(){
       this.project_id=document.querySelector("input[name=project_id]").value;
       this.assigned=document.querySelector("input[name=assigned_by]").value;
-
     },
     mounted() {
-      console.log('entered');
       this.getProblematicRemarks();
       this.listen();
     },
@@ -486,6 +488,20 @@
     // });
 
     $(document).ready(function(){
+      $('.expand').on('click',function(){
+        if($('.expand').children('.fa-plus').length){
+        axios.post('/ReadProblematicremarks',
+          {
+            api_token: '{{ csrf_field() }}',
+            project_id: $('input[name="project_id"]').val()
+          }).then((response) => {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+        }
+      });
 
       $('.btn').popover();
 

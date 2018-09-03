@@ -67,6 +67,23 @@ class ProblematicRemarksController extends Controller
         }
 
     }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function readMessages(Request $request)
+    {
+      // return $request->all();
+      $problematicRemarks=ProblematicRemarks::where('project_id',$request->project_id)
+                            ->where('to_user_id',Auth::id())->get();
+        foreach ($problematicRemarks as $remark) {
+          $remark->read=1;
+          $remark->save();
+        }
+
+    }
 
     /**
      * Display the specified resource.

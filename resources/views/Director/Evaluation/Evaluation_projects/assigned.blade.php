@@ -118,7 +118,7 @@
                                         <h3 class="box-title" style="font-size: 15px">Problematic Remarks</h3>
 
                                         <div class="box-tools pull-right">
-                                          {{-- <span data-toggle="tooltip" title="" class="badge bg-red" data-original-title="0 New Messages">0</span> --}}
+                                          <span data-toggle="tooltip" title="" class="badge bg-red" data-original-title="0 New Messages">0</span>
                                           <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
                                           </button>
                                           <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="" data-widget="chat-pane-toggle" data-original-title="Contacts">
@@ -248,6 +248,7 @@
     mounted() {
       console.log('entered');
       this.getProblematicRemarks();
+      $(".direct-chat-messages").stop().animate({ scrollTop: $(".direct-chat-messages")[0].scrollHeight}, 1000);
       this.listen();
     },
     // define methods under the `methods` object
