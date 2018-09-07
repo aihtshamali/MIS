@@ -61,6 +61,8 @@ Route::prefix('manager')->middleware('role:manager')->group(function () {
   Route::get('/evaluation_completed','ExecutiveController@evaluation_completedprojects')->name('Exec_evaluation_completed');
   Route::resource('assignproject','ProjectAssignController');
   Route::get('/evaluation_reviewed','ExecutiveController@reviewed_projects');
+  Route::get('/conduct_pdwp_meeting','ExecutiveController@conduct_pdwp_meeting')->name('Conduct_PDWP_Meeting');
+  Route::get('/list_agendas','ExecutiveController@list_agendas')->name('List_Agendas');
 });
 
 
@@ -120,8 +122,10 @@ Route::resource('projects','ProjectController');
 });
 
 //for adminhr
-Route::prefix('hr')->middleware('role:adminhr')->group(function () {
-  Route::get('/admin','AdminHumanResourceController@create')->name('create_meeting');
+Route::prefix('hr')->middleware('role:adminhr|manager')->group(function () {
+  Route::resource('admin','AdminHumanResourceController');
+  // Route::get('/','inHumanResourceController@index')->name('index_meeting');
+  // Route::get('/admin','AdminHumanResourceController@create')->name('create_meeting');
 
 });
 Route::group(['middleware'=>['permission:can.chat']],function(){

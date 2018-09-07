@@ -6,6 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\AdminHumanResource' => $baseDir . '/app/AdminHumanResource.php',
+    'App\\AgendaType' => $baseDir . '/app/AgendaType.php',
     'App\\ApprovingForum' => $baseDir . '/app/ApprovingForum.php',
     'App\\AssignedActivityAttachment' => $baseDir . '/app/AssignedActivityAttachment.php',
     'App\\AssignedDepartment' => $baseDir . '/app/AssignedDepartment.php',
@@ -34,13 +36,19 @@ return array(
     'App\\District' => $baseDir . '/app/District.php',
     'App\\EvaluationType' => $baseDir . '/app/EvaluationType.php',
     'App\\Events\\ChatEvent' => $baseDir . '/app/Events/ChatEvent.php',
+    'App\\Events\\ProblematicEvent' => $baseDir . '/app/Events/ProblematicEvent.php',
     'App\\Events\\ProjectAssignedEvent' => $baseDir . '/app/Events/ProjectAssignedEvent.php',
     'App\\Events\\ProjectAssignedManagerEvent' => $baseDir . '/app/Events/ProjectAssignedManagerEvent.php',
     'App\\Events\\ProjectEvent' => $baseDir . '/app/Events/ProjectEvent.php',
     'App\\Excel' => $baseDir . '/app/Excel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\ExecutingAgency' => $baseDir . '/app/ExecutingAgency.php',
+    'App\\HrAgenda' => $baseDir . '/app/HrAgenda.php',
+    'App\\HrAttachment' => $baseDir . '/app/HrAttachment.php',
+    'App\\HrMeetingPDWP' => $baseDir . '/app/HrMeetingPDWP.php',
+    'App\\HrMeetingType' => $baseDir . '/app/HrMeetingType.php',
     'App\\Http\\Controllers\\AccountRequestController' => $baseDir . '/app/Http/Controllers/AccountRequestController.php',
+    'App\\Http\\Controllers\\AdminHumanResourceController' => $baseDir . '/app/Http/Controllers/AdminHumanResourceController.php',
     'App\\Http\\Controllers\\ApprovingForumController' => $baseDir . '/app/Http/Controllers/ApprovingForumController.php',
     'App\\Http\\Controllers\\AssigningForumController' => $baseDir . '/app/Http/Controllers/AssigningForumController.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',

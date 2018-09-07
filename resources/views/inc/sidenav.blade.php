@@ -212,10 +212,10 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{route('create_meeting')}}"><i class="fa fa-circle-o"></i>Add PDWP MEETING</a></li>
+            <li><a href="{{route('admin.create')}}"><i class="fa fa-circle-o"></i>Add PDWP MEETING</a></li>
             {{-- @endpermission --}}
             {{-- <li><a href="{{url('/assignproject')}}"><i class="fa fa-circle-o"></i>Assign Projects</a></li>--}}
-            <li><a href="#"><i class="fa fa-circle-o"></i>View All </a></li>
+          <li><a href="{{route('admin.index')}}"><i class="fa fa-circle-o"></i>View All </a></li>
           </ul>
         </li>
         @endrole

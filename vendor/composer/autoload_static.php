@@ -343,6 +343,8 @@ class ComposerStaticInit55c1f85fd9fa01a6cf3b909416bd240d
     );
 
     public static $classMap = array (
+        'App\\AdminHumanResource' => __DIR__ . '/../..' . '/app/AdminHumanResource.php',
+        'App\\AgendaType' => __DIR__ . '/../..' . '/app/AgendaType.php',
         'App\\ApprovingForum' => __DIR__ . '/../..' . '/app/ApprovingForum.php',
         'App\\AssignedActivityAttachment' => __DIR__ . '/../..' . '/app/AssignedActivityAttachment.php',
         'App\\AssignedDepartment' => __DIR__ . '/../..' . '/app/AssignedDepartment.php',
@@ -371,13 +373,19 @@ class ComposerStaticInit55c1f85fd9fa01a6cf3b909416bd240d
         'App\\District' => __DIR__ . '/../..' . '/app/District.php',
         'App\\EvaluationType' => __DIR__ . '/../..' . '/app/EvaluationType.php',
         'App\\Events\\ChatEvent' => __DIR__ . '/../..' . '/app/Events/ChatEvent.php',
+        'App\\Events\\ProblematicEvent' => __DIR__ . '/../..' . '/app/Events/ProblematicEvent.php',
         'App\\Events\\ProjectAssignedEvent' => __DIR__ . '/../..' . '/app/Events/ProjectAssignedEvent.php',
         'App\\Events\\ProjectAssignedManagerEvent' => __DIR__ . '/../..' . '/app/Events/ProjectAssignedManagerEvent.php',
         'App\\Events\\ProjectEvent' => __DIR__ . '/../..' . '/app/Events/ProjectEvent.php',
         'App\\Excel' => __DIR__ . '/../..' . '/app/Excel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\ExecutingAgency' => __DIR__ . '/../..' . '/app/ExecutingAgency.php',
+        'App\\HrAgenda' => __DIR__ . '/../..' . '/app/HrAgenda.php',
+        'App\\HrAttachment' => __DIR__ . '/../..' . '/app/HrAttachment.php',
+        'App\\HrMeetingPDWP' => __DIR__ . '/../..' . '/app/HrMeetingPDWP.php',
+        'App\\HrMeetingType' => __DIR__ . '/../..' . '/app/HrMeetingType.php',
         'App\\Http\\Controllers\\AccountRequestController' => __DIR__ . '/../..' . '/app/Http/Controllers/AccountRequestController.php',
+        'App\\Http\\Controllers\\AdminHumanResourceController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminHumanResourceController.php',
         'App\\Http\\Controllers\\ApprovingForumController' => __DIR__ . '/../..' . '/app/Http/Controllers/ApprovingForumController.php',
         'App\\Http\\Controllers\\AssigningForumController' => __DIR__ . '/../..' . '/app/Http/Controllers/AssigningForumController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
