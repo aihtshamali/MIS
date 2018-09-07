@@ -34,7 +34,7 @@ class AdminHumanResourceController extends Controller
      */
     public function create()
     {
-        $adp = AdpProject::all();
+        $adp = AdpProject::orderBy('gs_no')->get();
         $sectors = HrSector::all();
         $meeting_types = HrMeetingType::all();
         $agenda_types = AgendaType::all();
@@ -63,6 +63,7 @@ class AdminHumanResourceController extends Controller
         }
         // dd($hr_meeting);
         $hr_meeting->scheduled_date =  date('Y-m-d',strtotime($request->my_date));
+        $hr_meeting->status = 1;
         $hr_meeting->save();
         $i = 0;
         $j=0;

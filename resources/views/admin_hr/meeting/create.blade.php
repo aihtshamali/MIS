@@ -189,9 +189,9 @@
                               @for ($i = 9; $i < 12; $i++)
                                 @for($j = 0; $j <= 45; $j+=15)  
                                   @if($j == 0)  
-                                  <option value="{{$i . ' : ' . $j.'0' }}"> {{$i . " : " . $j .'0'}} AM</option>
+                                  <option value="{{$i . ' : ' . $j.'0' .' AM'}}"> {{$i . " : " . $j .'0'}} AM</option>
                                   @else
-                                  <option value="{{$i . ' : ' . $j }}"> {{$i . " : " . $j }} AM </option>
+                                  <option value="{{$i . ' : ' . $j . ' AM'}}"> {{$i . " : " . $j }} AM </option>
                                   @endif
                                 @endfor
                               @endfor
@@ -202,9 +202,9 @@
                               @for ($i = 1; $i <= 5; $i++)
                                 @for($j = 0; $j <= 45; $j+=15)  
                                   @if($j == 0)  
-                                  <option value="{{$i . ' : ' . $j.'0' }}"> {{$i . " : " . $j .'0'}} PM</option>
+                                  <option value="{{$i . ' : ' . $j.'0' . ' PM' }}"> {{$i . " : " . $j .'0'}} PM</option>
                                   @else
-                                  <option value="{{$i . ' : ' . $j }}"> {{$i . " : " . $j }} PM </option>
+                                  <option value="{{$i . ' : ' . $j .' PM' }}"> {{$i . " : " . $j }} PM </option>
                                   @endif
                                 @endfor
                               @endfor
@@ -247,9 +247,9 @@
                                   @for ($i = 9; $i < 12; $i++)
                                     @for($j = 0; $j <= 45; $j+=15)  
                                       @if($j == 0)  
-                                      <option value="{{$i . ' : ' . $j.'0' }}"> {{$i . " : " . $j .'0'}} AM</option>
+                                      <option value="{{$i . ' : ' . $j.'0' . ' AM' }}"> {{$i . " : " . $j .'0'}} AM</option>
                                       @else
-                                      <option value="{{$i . ' : ' . $j }}"> {{$i . " : " . $j }} AM </option>
+                                      <option value="{{$i . ' : ' . $j . ' AM' }}"> {{$i . " : " . $j }} AM </option>
                                       @endif
                                     @endfor
                                   @endfor
@@ -260,9 +260,9 @@
                                   @for ($i = 1; $i <= 5; $i++)
                                     @for($j = 0; $j <= 45; $j+=15)  
                                       @if($j == 0)  
-                                      <option value="{{$i . ' : ' . $j.'0' }}"> {{$i . " : " . $j .'0'}} PM</option>
+                                      <option value="{{$i . ' : ' . $j.'0' . ' PM' }}"> {{$i . " : " . $j .'0'}} PM</option>
                                       @else
-                                      <option value="{{$i . ' : ' . $j }}"> {{$i . " : " . $j }} PM </option>
+                                      <option value="{{$i . ' : ' . $j . ' PM'}}"> {{$i . " : " . $j }} PM </option>
                                       @endif
                                     @endfor
                                   @endfor

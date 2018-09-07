@@ -44,6 +44,9 @@ input{
   width: 100%;
 }
 
+div{
+    text-align: center;
+}
 .list-group-item{
   border: none;
 }
@@ -65,14 +68,17 @@ input{
     </ol>
   </section>
 
-  <section class="content col-md-12">
+  <section class="col-md-12 initial">
         <?php $var = 1; $c = count($agendas)?>
         <div class="box yewali_1 box-default">
             <div  class="box-header with-border">
                 <ul class="list-group" id="isme">
                     @foreach ($agendas as $agenda)
-                        <li class="list-group-item col-md-12" id="field">
+                      @if($agenda->agenda_type_id == 2 || $agenda->agenda_type_id == 1)
+                        <li class="list-group-item col-md-12" id="field" style="border-bottom: 2px solid gray ">
                             <div class="form-group row">
+                            <div class="form-group row" style="display:flex;justify-content:center;">
+
                                 <div class="col-md-1">
                                     <label>Agenda</label>
                                     <input type="text" disabled class="form-control" value="{{$var++}}">
@@ -89,7 +95,7 @@ input{
                                     </div>
                                     <div class="row" style="padding:0 !important">
                                         <div class="col-md-6"style="padding:0 !important">
-                                            2017-18/
+                                           <div style="font-size:18px;"> 2017-18/ </div>
                                         </div>
                                         <div class="col-md-6"style="padding:0 !important">
                                             <input disabled value="{{$agenda->adp_no}}"class="form-control" id="ex2" name="adp_no[]" type="text"style="text-align:center;">
@@ -97,17 +103,19 @@ input{
                                     </div>
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label for="name_of_scheme">Name Of the Scheme</label>
                                     <input disabled value="{{$agenda->scheme_name}}" class="form-control" id="name_of_scheme" name="name_of_scheme[]" type="text"style="text-align:center;">
                                 </div>
+                            </div>
+                            <div class="form-group row"style="display:flex;justify-content:center;">
 
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <label >Sector</label>
-                                    <input disabled value="{{$agenda->HrSector->name}}" class="form-control" id="name_of_scheme" name="name_of_scheme[]" type="text"style="text-align:center;">
+                                    <input disabled value="{{$agenda->HrSector->name}}" class="form-control" id="name_of_scheme" name="sector[]" type="text"style="text-align:center;">
                                 </div>
 
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <label for="estimated_cost">Estimated Cost</label>
                                     <input disabled value="{{$agenda->estimated_cost}}" class="form-control" id="estimated_cost" name="estimated_cost[]" type="number" step = "0.01" style="text-align:center;">
                                 </div>
@@ -115,16 +123,86 @@ input{
                                     <label for="adp_allocation">ADP Allocation</label>
                                     <input disabled value="{{$agenda->adp_allocation}}" class="form-control" id="adp_allocation" name="adp_allocation[]" type="number" step = "0.01"style="text-align:center;">
                                 </div>
+                                <div class="col-md-2">
+                                    <label for="adp_allocation">Start Time</label>
+                                    <input disabled value="{{$agenda->start_timeofagenda}}" class="form-control" id="adp_allocation" name="start_timeofagenda[]" type="text" style="text-align:center;">
+                                </div>
+                            </div>
+                                
+
                             </div>
                         </li>
+                @else
+                <li class="list-group-item col-md-12" id="field" style="border-bottom: 2px solid gray ">
+                        <div class="form-group row">
+                        <div class="form-group row"style="display:flex;justify-content:center;">
+
+                            <div class="col-md-1">
+                                <label>Agenda</label>
+                                <input type="text" disabled class="form-control" value="{{$var++}}">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label>Type</label>
+                                <input type="text" disabled class="form-control" value="{{$agenda->AgendaType->name}}">
+                            </div>
+
+                            {{-- <div class="col-md-2">
+                                <div class="row">
+                                        <label for="ex2">ADP No.</label>
+                                </div>
+                                <div class="row" style="padding:0 !important">
+                                    <div class="col-md-6"style="padding:0 !important">
+                                       <div style="font-size:18px;"> 2017-18/ </div>
+                                    </div>
+                                    <div class="col-md-6"style="padding:0 !important">
+                                        <input disabled value="{{$agenda->adp_no}}"class="form-control" id="ex2" name="adp_no[]" type="text"style="text-align:center;">
+                                    </div>
+                                </div>
+                            </div> --}}
+
+                            <div class="col-md-6">
+                                <label for="name_of_scheme">Topic Name</label>
+                                <input disabled value="{{$agenda->scheme_name}}" class="form-control" id="name_of_scheme" name="name_of_scheme[]" type="text"style="text-align:center;">
+                            </div>
+                        </div>
+                        <div class="form-group row"style="display:flex;justify-content:center;">
+
+                            <div class="col-md-4">
+                                <label >Sector</label>
+                                <input disabled value="{{$agenda->HrSector->name}}" class="form-control" id="name_of_scheme" name="sector[]" type="text"style="text-align:center;">
+                            </div>
+
+                            {{-- <div class="col-md-3">
+                                <label for="estimated_cost">Estimated Cost</label>
+                                <input disabled value="{{$agenda->estimated_cost}}" class="form-control" id="estimated_cost" name="estimated_cost[]" type="number" step = "0.01" style="text-align:center;">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="adp_allocation">ADP Allocation</label>
+                                <input disabled value="{{$agenda->adp_allocation}}" class="form-control" id="adp_allocation" name="adp_allocation[]" type="number" step = "0.01"style="text-align:center;">
+                            </div> --}}
+                            <div class="col-md-2">
+                                <label for="adp_allocation">Start Time</label>
+                                <input disabled value="{{$agenda->start_timeofagenda}}" class="form-control" id="adp_allocation" name="start_timeofagenda[]" type="text"style="text-align:center;">
+                            </div>
+                        </div>
+                            
+
+                        </div>
+                    </li>
+                    @endif
                     @endforeach
                 </ul>
+
             </div>
+            <button  class="btn btn-success pull-right conduct"  type="button">Conduct the meeting</button>
+            <button  class="btn btn-success pull-left"  type="button">Add New Agenda</button>
+
         </div>
         
   </section>
 
-  <section class="content">
+  <section class="">
           <?php $var = 1; $c = count($agendas)?>
           
           @foreach ($agendas as $agenda)
@@ -327,6 +405,7 @@ input{
             @endif
           @endforeach
   </section>
+
 </div>
 @endsection
 @section('scripttags')
@@ -349,7 +428,10 @@ input{
     //     console.log('workis');
         
     // });
-
+    $('.conduct').on('click',function(){
+        $('.initial').hide();
+        $('#section_1').show('slow');
+    });
     $('.add-more').on('click',function(){
         var id = $(this).parent().attr('id');        
         $('#section_'+(id-1)).hide();
