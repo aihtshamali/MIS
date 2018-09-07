@@ -13,6 +13,7 @@ use Carbon;
 use App\AgendaType;
 use App\HrProjectType;
 use App\AdpProject;
+use JavaScript;
 
 class AdminHumanResourceController extends Controller
 {
@@ -39,7 +40,10 @@ class AdminHumanResourceController extends Controller
         $meeting_types = HrMeetingType::all();
         $agenda_types = AgendaType::all();
         $agenda_statuses = HrProjectType::all();
-
+        \JavaScript::put([
+            'projects' => $adp
+        ]);
+    
         return view('admin_hr.meeting.create',compact('sectors','meeting_types','agenda_types','agenda_statuses','adp'));
     }
 

@@ -146,7 +146,13 @@
                         </div>
                         <div class="col-md-12" style="padding:0 !important">
                             <div class="col-md-5" style="padding:0 !important">
-                          <input class="form-control" type="text"style="text-align:center;" name="financial_year" value="2017-2018">
+                                <select class="form-control  select2 " name="financial_year" id="financial_year">
+                                    <option value="0">Select Financial Year </option>
+                                    @for($i = 11 ; $i <= 30 ; $i++ )
+                                <option value="20{{$i}}-{{$i+1}}">20{{$i}}-{{$i+1}}</option>
+                              @endfor    
+                              </select>
+                          {{-- <input class="form-control" type="text"style="text-align:center;" name="financial_year" value="2017-2018"> --}}
                         </div>
                         <div class="col-md-2">
                           <label for="" style="font-size:25px">/</label>
@@ -154,8 +160,10 @@
                         <div class="col-md-5" style="padding:0 !important">
                             <select class="form-control  select2 " name="adp_no[]" id="adp">
                                 <option value="0">Select GS #</option>
+                                <?php $counting = 0?>
                                 @foreach ($adp as $a)
-                                    <option value="{{$a->gs_no.','.$a->name_of_scheme.','.$a->type.','.$a->total_cost.','.$a->sector.','.$a->{'Allocation-2017-18'}.','.$a->est_cost_faid}}">{{$a->gs_no}}</option>
+                                    <option value="{{$a->gs_no}},<?php echo $counting?>">{{$a->gs_no}}</option>
+                                    <?php $counting += 1?>
                                 @endforeach
                               </select>
                           {{-- <input class="form-control" id="ex2" name="adp_no[]" type="text"style="text-align:center;"> --}}
@@ -274,7 +282,7 @@
                       
                         <div style="margin-top:20px">
                             {{-- <input type="file" id="attachment" class="pull-left" name="attachments" value=""> --}}
-                            <button  class="btn btn-success pull-left"  type="button">Scan Document</button>
+                            <button  class="btn btn-success pull-left scan" onclick="scan()"  type="button">Scan Document</button>
                             <button id="b3" class="btn btn-success add-more"  type="button">Next</button>
                             <button id="finish_btn" class="btn btn-info pull-right"  type="submit">Finish</button>
                         </div>
@@ -290,7 +298,9 @@
 </div>
 @endsection
 @section('scripttags')
-  {{-- <script type="text/javascript" src="{{asset('bower_components/jquery/jquery.min.js')}}"></script> --}}
+  {{-- <script src="bower_components/scanner/dist/scanner.js"></script> --}}
+
+{{-- <script type="text/javascript" src="{{asset('bower_components/jquery/jquery.min.js')}}"></script> --}}
   <script type="text/javascript" src="{{asset('bower_components/moment/min/moment.min.js')}}"></script>
   {{-- <script type="text/javascript" src="{{asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script> --}}
   <script type="text/javascript" src="{{asset('bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')}}"></script>
@@ -298,12 +308,16 @@
 <script>
     var d = new Date();
     document.getElementById("d").innerHTML = d.toLocaleDateString("en-US");
+    
     </script>
 <script>
 
   var next = 1;
   var items = []
   var attachments = []
+  $(document).ready(function(){
+    $("#financial_year").val('2018-19');
+  });
 $(document).on('click','.add-more',function(e){
       // console.log("jeer");
       
@@ -438,27 +452,44 @@ $(document).on('click','.add-more',function(e){
           
           $(document).on('change','#adp',function(){
             var arr = $(this).val().split(',')
-            console.log(arr);
+            console.log(projects[arr[1]]);
 
             if($('#agenda_type').val() == 1 || $('#agenda_type').val() == 2 ){
               
-              $("#first_section"+next+" > div > input#name_of_scheme").val(arr[1]);
-              $("#first_section"+next+" > div > #sector_val").val(arr[5]);
-              $("#first_section"+next+" > div > #estimated_cost").val(arr[7]);
-              console.log(arr[2]);
-              if(arr[3] == "NEW SCHEMES")
-                {$("#first_section"+next+" > div > #agenda_status").val(0);}
-              else
+              $("#first_section"+next+" > div > input#name_of_scheme").val(projects[arr[1]].name_of_scheme);
+              // $("#first_section"+next+" > div > #sector_val")(projects[arr[1]].sector);
+              $("#first_section"+next+" > div > #sector_val").val($("#first_section"+next+" > div > #sector_val option").filter(function () { return $(this).html() == projects[arr[1]].sector; }).val());
+              $("#first_section"+next+" > div > #estimated_cost").val(projects[arr[1]].total_cost);
+              // $("#first_section"+next+" > div > #agenda_status").val(projects[arr[1]].type_of_project);
+              // console.log(arr[2]);
+              if(projects[arr[1]].type_of_project == "NEW SCHEMES")
                 {$("#first_section"+next+" > div > #agenda_status").val(1);}
+              else
+                {$("#first_section"+next+" > div > #agenda_status").val(2);}
 
 
 
             }
-            else{
-              $("#second_section"+next+" > div > #topic").val(arr[1]);
-            }
+            // else{
+            //   $("#second_section"+next+" > div > #topic").val(projects[arr[1]].name_of_scheme);
+            // }
           });
+          // var scanRequest = {
+          //     "use_asprise_dialog": true, // Whether to use Asprise Scanning Dialog
+          //     "show_scanner_ui": false, // Whether scanner UI should be shown
+          //     "twain_cap_setting": { // Optional scanning settings
+          //         "ICAP_PIXELTYPE": "TWPT_RGB" // Color
+          //     },
+          //     "output_settings": [{
+          //         "type": "return-base64",
+          //         "format": "jpg"
+          //     }]
+          // };
 
-
+          // scan(){
+          //   console.log('works');
+          //   scanner.scan(displayImagesOnPage, scanRequest);
+          // }
+          
 </script>
 @endsection

@@ -17,6 +17,7 @@ class ComposerStaticInit55c1f85fd9fa01a6cf3b909416bd240d
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
+        '6292c1671f9440c89e0af20a0f78754a' => __DIR__ . '/..' . '/laracasts/utilities/src/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -81,6 +82,7 @@ class ComposerStaticInit55c1f85fd9fa01a6cf3b909416bd240d
         array (
             'League\\Flysystem\\' => 17,
             'Laravel\\Tinker\\' => 15,
+            'Laracasts\\Utilities\\JavaScript\\' => 31,
         ),
         'I' => 
         array (
@@ -245,6 +247,10 @@ class ComposerStaticInit55c1f85fd9fa01a6cf3b909416bd240d
         array (
             0 => __DIR__ . '/..' . '/laravel/tinker/src',
         ),
+        'Laracasts\\Utilities\\JavaScript\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laracasts/utilities/src',
+        ),
         'Illuminate\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate',
@@ -344,6 +350,7 @@ class ComposerStaticInit55c1f85fd9fa01a6cf3b909416bd240d
 
     public static $classMap = array (
         'App\\AdminHumanResource' => __DIR__ . '/../..' . '/app/AdminHumanResource.php',
+        'App\\AdpProject' => __DIR__ . '/../..' . '/app/AdpProject.php',
         'App\\AgendaType' => __DIR__ . '/../..' . '/app/AgendaType.php',
         'App\\ApprovingForum' => __DIR__ . '/../..' . '/app/ApprovingForum.php',
         'App\\AssignedActivityAttachment' => __DIR__ . '/../..' . '/app/AssignedActivityAttachment.php',
@@ -384,6 +391,8 @@ class ComposerStaticInit55c1f85fd9fa01a6cf3b909416bd240d
         'App\\HrAttachment' => __DIR__ . '/../..' . '/app/HrAttachment.php',
         'App\\HrMeetingPDWP' => __DIR__ . '/../..' . '/app/HrMeetingPDWP.php',
         'App\\HrMeetingType' => __DIR__ . '/../..' . '/app/HrMeetingType.php',
+        'App\\HrProjectType' => __DIR__ . '/../..' . '/app/HrProjectType.php',
+        'App\\HrSector' => __DIR__ . '/../..' . '/app/HrSector.php',
         'App\\Http\\Controllers\\AccountRequestController' => __DIR__ . '/../..' . '/app/Http/Controllers/AccountRequestController.php',
         'App\\Http\\Controllers\\AdminHumanResourceController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminHumanResourceController.php',
         'App\\Http\\Controllers\\ApprovingForumController' => __DIR__ . '/../..' . '/app/Http/Controllers/ApprovingForumController.php',
@@ -2135,6 +2144,17 @@ class ComposerStaticInit55c1f85fd9fa01a6cf3b909416bd240d
         'JakubOnderka\\PhpConsoleColor\\InvalidStyleException' => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src/JakubOnderka/PhpConsoleColor/InvalidStyleException.php',
         'JakubOnderka\\PhpConsoleHighlighter\\Highlighter' => __DIR__ . '/..' . '/jakub-onderka/php-console-highlighter/src/JakubOnderka/PhpConsoleHighlighter/Highlighter.php',
         'JsonSerializable' => __DIR__ . '/..' . '/nesbot/carbon/src/JsonSerializable.php',
+        'Laracasts\\Utilities\\JavaScript\\JavaScriptFacade' => __DIR__ . '/..' . '/laracasts/utilities/src/JavaScriptFacade.php',
+        'Laracasts\\Utilities\\JavaScript\\JavaScriptServiceProvider' => __DIR__ . '/..' . '/laracasts/utilities/src/JavaScriptServiceProvider.php',
+        'Laracasts\\Utilities\\JavaScript\\LaravelViewBinder' => __DIR__ . '/..' . '/laracasts/utilities/src/LaravelViewBinder.php',
+        'Laracasts\\Utilities\\JavaScript\\Transformers\\ArrayTransformer' => __DIR__ . '/..' . '/laracasts/utilities/src/Transformers/ArrayTransformer.php',
+        'Laracasts\\Utilities\\JavaScript\\Transformers\\BooleanTransformer' => __DIR__ . '/..' . '/laracasts/utilities/src/Transformers/BooleanTransformer.php',
+        'Laracasts\\Utilities\\JavaScript\\Transformers\\NullTransformer' => __DIR__ . '/..' . '/laracasts/utilities/src/Transformers/NullTransformer.php',
+        'Laracasts\\Utilities\\JavaScript\\Transformers\\NumericTransformer' => __DIR__ . '/..' . '/laracasts/utilities/src/Transformers/NumericTransformer.php',
+        'Laracasts\\Utilities\\JavaScript\\Transformers\\ObjectTransformer' => __DIR__ . '/..' . '/laracasts/utilities/src/Transformers/ObjectTransformer.php',
+        'Laracasts\\Utilities\\JavaScript\\Transformers\\StringTransformer' => __DIR__ . '/..' . '/laracasts/utilities/src/Transformers/StringTransformer.php',
+        'Laracasts\\Utilities\\JavaScript\\Transformers\\Transformer' => __DIR__ . '/..' . '/laracasts/utilities/src/Transformers/Transformer.php',
+        'Laracasts\\Utilities\\JavaScript\\ViewBinder' => __DIR__ . '/..' . '/laracasts/utilities/src/ViewBinder.php',
         'Laravel\\Tinker\\ClassAliasAutoloader' => __DIR__ . '/..' . '/laravel/tinker/src/ClassAliasAutoloader.php',
         'Laravel\\Tinker\\Console\\TinkerCommand' => __DIR__ . '/..' . '/laravel/tinker/src/Console/TinkerCommand.php',
         'Laravel\\Tinker\\TinkerCaster' => __DIR__ . '/..' . '/laravel/tinker/src/TinkerCaster.php',
