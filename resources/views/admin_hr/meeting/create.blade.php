@@ -152,7 +152,7 @@
                           <label for="" style="font-size:25px">/</label>
                         </div>
                         <div class="col-md-5" style="padding:0 !important">
-                            <select class="form-control  select2 " name="adp" id="adp">
+                            <select class="form-control  select2 " name="adp_no[]" id="adp">
                                 <option value="0">Select GS #</option>
                                 @foreach ($adp as $a)
                                     <option value="{{$a->gs_no.','.$a->name_of_scheme.','.$a->type.','.$a->total_cost.','.$a->sector.','.$a->{'Allocation-2017-18'}.','.$a->est_cost_faid}}">{{$a->gs_no}}</option>
@@ -221,7 +221,7 @@
                           <div>
                           <div>
                               <label for="">Agenda Status</label>
-                              <select class="form-control required select2 " name="agenda_status[]" id="agenda_status">
+                              <select class="form-control required select2 " name="section2_agenda_status[]" id="agenda_status">
                                 <option value="0">Select Agenda Status</option>
                                 @foreach ($agenda_statuses as $agenda_status)
                                     <option value="{{$agenda_status->id}}">{{$agenda_status->projecttypename}}</option>
@@ -242,7 +242,7 @@
                           </div>
                           <div class="form-group" style="margin-top:10px">
                               <label for="">Time</label>
-                              <select  name="my_time[]" class="form-control select2" style="text-align: center !important" id="">
+                              <select  name="section2_my_time[]" class="form-control select2" style="text-align: center !important" id="">
                                   <option value="">Select Time</option>                              
                                   @for ($i = 9; $i < 12; $i++)
                                     @for($j = 0; $j <= 45; $j+=15)  

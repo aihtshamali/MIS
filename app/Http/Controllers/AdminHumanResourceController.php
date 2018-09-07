@@ -71,9 +71,9 @@ class AdminHumanResourceController extends Controller
             // dd($agenda_type);
             $hr_agenda = new HrAgenda();
             $hr_agenda->hr_meeting_p_d_w_p_id = $hr_meeting->id;
-            $hr_agenda->hr_project_type_id = $request->agenda_status[$i];
             $hr_agenda->agenda_type_id = $agenda_type;
             if($agenda_type == 1 || $agenda_type == 2){
+                $hr_agenda->hr_project_type_id = $request->agenda_status[$i];
                 $hr_agenda->scheme_name = $request->name_of_scheme[$i];
                 $hr_agenda->adp_no = $request->adp_no[$i];
                 $hr_agenda->financial_year = $request->financial_year; 
@@ -82,6 +82,7 @@ class AdminHumanResourceController extends Controller
                 $hr_agenda->hr_sector_id = $request->sector[$i];
                 $hr_agenda->start_timeofagenda = $request->my_time[$i];
             }else{
+                $hr_agenda->hr_project_type_id = $request->section2_agenda_status[$i];
                 $hr_agenda->scheme_name = $request->topic[$i];
                 $hr_agenda->hr_sector_id = $request->section2_sector[$i];
                 $hr_agenda->start_timeofagenda = $request->section2_my_time[$i];

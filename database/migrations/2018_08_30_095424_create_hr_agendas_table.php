@@ -33,7 +33,7 @@ class CreateHrAgendasTable extends Migration
       
             $table->double('estimated_cost')->nullable();
             $table->double('adp_allocation')->nullable();
-            $table->dateTime('start_timeofagenda');
+            $table->string('start_timeofagenda');
         
             $table->string('comments')->nullable();
 
