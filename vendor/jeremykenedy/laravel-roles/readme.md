@@ -1,4 +1,4 @@
-# Roles And Permissions For Laravel,Supports Laravel 5.3, 5.4, 5.5, and 5.6.
+# Roles And Permissions For Laravel,Supports Laravel 5.3, 5.4, 5.5, 5.6, and 5.7.
 
 [![Total Downloads](https://poser.pugx.org/jeremykenedy/laravel-roles/d/total.svg)](https://packagist.org/packages/jeremykenedy/laravel-roles)
 [![Latest Stable Version](https://poser.pugx.org/jeremykenedy/laravel-roles/v/stable.svg)](https://packagist.org/packages/jeremykenedy/laravel-roles)
@@ -561,13 +561,16 @@ This package is an adaptation of [romanbican/roles](https://github.com/romanbica
 
 ## Opening an Issue
 Before opening an issue there are a couple of considerations:
-* Read the instructions and make sure all steps were followed correctly.
-* Check that the issue is not specific to your development environment setup.
-* Provide duplication steps.
-* Attempt to look into the issue, and if you have a solution, make a pull request.
-* Show that you have made an attempt to look into the issue.
-* Check to see if the issue you are reporting is a duplicate of a previous reported issue.
-* If you did not star this repo I will close your issue immediatly without consideration. My time is valuable.
+* If you did not **star this repo** *I will close your issue immediatly without consideration.*
+* **Read the instructions** and make sure all steps were *followed correctly*.
+* **Check** that the issue is not *specific to your development environment* setup.
+* **Provide** *duplication steps*.
+* **Attempt to look into the issue**, and if you *have a solution, make a pull request*.
+* **Show that you have made an attempt** to *look into the issue*.
+* **Check** to see if the issue you are *reporting is a duplicate* of a previous reported issue.
+* **Following these instructions show me that you have tried.**
+* If you have a questions send me an email to jeremykenedy@gmail.com
+* Please be considerate that this is an open source project that I provide to the community for FREE when opening an issue. 
 
 ## License
 This package is free software distributed under the terms of the MIT license.

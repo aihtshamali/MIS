@@ -51,7 +51,8 @@ trait HasRoleAndPermission
      * Check if the user has a role or roles.
      *
      * @param int|string|array $role
-     * @param bool $all
+     * @param bool             $all
+     *
      * @return bool
      */
     public function hasRole($role, $all = false)
@@ -71,6 +72,7 @@ trait HasRoleAndPermission
      * Check if the user has at least one of the given roles.
      *
      * @param int|string|array $role
+     *
      * @return bool
      */
     public function hasOneRole($role)
@@ -88,6 +90,7 @@ trait HasRoleAndPermission
      * Check if the user has all roles.
      *
      * @param int|string|array $role
+     *
      * @return bool
      */
     public function hasAllRoles($role)
@@ -105,6 +108,7 @@ trait HasRoleAndPermission
      * Check if the user has role.
      *
      * @param int|string $role
+     *
      * @return bool
      */
     public function checkRole($role)
@@ -118,6 +122,7 @@ trait HasRoleAndPermission
      * Attach role to a user.
      *
      * @param int|Role $role
+     *
      * @return null|bool
      */
     public function attachRole($role)
@@ -126,6 +131,7 @@ trait HasRoleAndPermission
             return true;
         }
         $this->roles = null;
+
         return $this->roles()->attach($role);
     }
 
@@ -133,6 +139,7 @@ trait HasRoleAndPermission
      * Detach role from a user.
      *
      * @param int|Role $role
+     *
      * @return int
      */
     public function detachRole($role)
@@ -158,6 +165,7 @@ trait HasRoleAndPermission
      * Sync roles for a user.
      *
      * @param array|\jeremykenedy\LaravelRoles\Models\Role[]|\Illuminate\Database\Eloquent\Collection $roles
+     *
      * @return array
      */
     public function syncRoles($roles)
@@ -196,7 +204,7 @@ trait HasRoleAndPermission
             ->join('roles', 'roles.id', '=', 'permission_role.role_id')
             ->whereIn('roles.id', $this->getRoles()->pluck('id')->toArray())
             ->orWhere('roles.level', '<', $this->level())
-            ->groupBy(['permissions.id', 'permissions.name', 'permissions.slug', 'permissions.description', 'permissions.model', 'permissions.created_at', 'permissions.updated_at', 'permission_role.updated_at', 'permission_role.created_at'])->get();
+            ->groupBy(['permissions.id', 'permissions.name', 'permissions.slug', 'permissions.description', 'permissions.model', 'permissions.created_at', 'permissions.updated_at', 'pivot_created_at', 'pivot_updated_at']);
     }
 
     /**
@@ -216,20 +224,19 @@ trait HasRoleAndPermission
      */
     public function getPermissions()
     {
-      // dd($this->rolePermissions()->merge($this->userPermissions()->get()));
-        return (!$this->permissions) ? $this->permissions = $this->rolePermissions()->merge($this->userPermissions()->get()) : $this->permissions;
+        return (!$this->permissions) ? $this->permissions = $this->rolePermissions()->get()->merge($this->userPermissions()->get()) : $this->permissions;
     }
 
     /**
      * Check if the user has a permission or permissions.
      *
      * @param int|string|array $permission
-     * @param bool $all
+     * @param bool             $all
+     *
      * @return bool
      */
     public function hasPermission($permission, $all = false)
     {
-      // dd($this->hasOnePermission($permission));
         if ($this->isPretendEnabled()) {
             return $this->pretend('hasPermission');
         }
@@ -245,11 +252,11 @@ trait HasRoleAndPermission
      * Check if the user has at least one of the given permissions.
      *
      * @param int|string|array $permission
+     *
      * @return bool
      */
     public function hasOnePermission($permission)
     {
-      // dd(checkPermission($permission));
         foreach ($this->getArrayFrom($permission) as $permission) {
             if ($this->checkPermission($permission)) {
                 return true;
@@ -263,6 +270,7 @@ trait HasRoleAndPermission
      * Check if the user has all permissions.
      *
      * @param int|string|array $permission
+     *
      * @return bool
      */
     public function hasAllPermissions($permission)
@@ -280,12 +288,12 @@ trait HasRoleAndPermission
      * Check if the user has a permission.
      *
      * @param int|string $permission
+     *
      * @return bool
      */
     public function checkPermission($permission)
     {
         return $this->getPermissions()->contains(function ($value) use ($permission) {
-          // dd($value);
             return $permission == $value->id || Str::is($permission, $value->slug);
         });
     }
@@ -294,9 +302,10 @@ trait HasRoleAndPermission
      * Check if the user is allowed to manipulate with entity.
      *
      * @param string $providedPermission
-     * @param Model $entity
-     * @param bool $owner
+     * @param Model  $entity
+     * @param bool   $owner
      * @param string $ownerColumn
+     *
      * @return bool
      */
     public function allowed($providedPermission, Model $entity, $owner = true, $ownerColumn = 'user_id')
@@ -316,7 +325,8 @@ trait HasRoleAndPermission
      * Check if the user is allowed to manipulate with provided entity.
      *
      * @param string $providedPermission
-     * @param Model $entity
+     * @param Model  $entity
+     *
      * @return bool
      */
     protected function isAllowed($providedPermission, Model $entity)
@@ -336,6 +346,7 @@ trait HasRoleAndPermission
      * Attach permission to a user.
      *
      * @param int|Permission $permission
+     *
      * @return null|bool
      */
     public function attachPermission($permission)
@@ -344,6 +355,7 @@ trait HasRoleAndPermission
             return true;
         }
         $this->permissions = null;
+
         return $this->userPermissions()->attach($permission);
     }
 
@@ -351,6 +363,7 @@ trait HasRoleAndPermission
      * Detach permission from a user.
      *
      * @param int|Permission $permission
+     *
      * @return int
      */
     public function detachPermission($permission)
@@ -376,6 +389,7 @@ trait HasRoleAndPermission
      * Sync permissions for a user.
      *
      * @param array|\jeremykenedy\LaravelRoles\Models\Permission[]|\Illuminate\Database\Eloquent\Collection $permissions
+     *
      * @return array
      */
     public function syncPermissions($permissions)
@@ -399,17 +413,19 @@ trait HasRoleAndPermission
      * Allows to pretend or simulate package behavior.
      *
      * @param string $option
+     *
      * @return bool
      */
     private function pretend($option)
     {
-        return (bool) config('roles.pretend.options.' . $option);
+        return (bool) config('roles.pretend.options.'.$option);
     }
 
     /**
      * Get an array from argument.
      *
      * @param int|string|array $argument
+     *
      * @return array
      */
     private function getArrayFrom($argument)
