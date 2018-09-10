@@ -43,7 +43,7 @@ class AdminHumanResourceController extends Controller
         \JavaScript::put([
             'projects' => $adp
         ]);
-    
+
         return view('admin_hr.meeting.create',compact('sectors','meeting_types','agenda_types','agenda_statuses','adp'));
     }
 
@@ -59,13 +59,10 @@ class AdminHumanResourceController extends Controller
         $hr_meeting = new HrMeetingPDWP();
         $hr_meeting->hr_meeting_type_id = $request->type_of_meeting;
         $mytime = Carbon\Carbon::now();
-        // dd($mytime->toDateTimeString());
-        $mytime = "05-09-2018";
         $hr_meeting->start_time =  date('Y-m-d',strtotime($mytime));
         if($request->meeting_no){
         $hr_meeting->meeting_no = $request->meeting_no;
         }
-        // dd($hr_meeting);
         $hr_meeting->scheduled_date =  date('Y-m-d',strtotime($request->my_date));
         $hr_meeting->status = 1;
         $hr_meeting->save();
@@ -73,15 +70,14 @@ class AdminHumanResourceController extends Controller
         $j=0;
         $agenda_items = explode(',',$request->agenda_type_items[0]);
         foreach($agenda_items as $agenda_type){
-            // dd($agenda_type);
             $hr_agenda = new HrAgenda();
             $hr_agenda->hr_meeting_p_d_w_p_id = $hr_meeting->id;
             $hr_agenda->agenda_type_id = $agenda_type;
             if($agenda_type == 1 || $agenda_type == 2){
                 $hr_agenda->hr_project_type_id = $request->agenda_status[$i];
                 $hr_agenda->scheme_name = $request->name_of_scheme[$i];
-                $hr_agenda->adp_no = $request->adp_no[$i];
-                $hr_agenda->financial_year = $request->financial_year; 
+                $hr_agenda->adp_no = explode(',',$request->adp_no[$i])[0];
+                $hr_agenda->financial_year = $request->financial_year;
                 $hr_agenda->estimated_cost = $request->estimated_cost[$i];
                 $hr_agenda->adp_allocation = $request->adp_allocation[$i];
                 $hr_agenda->hr_sector_id = $request->sector[$i];
@@ -101,7 +97,7 @@ class AdminHumanResourceController extends Controller
             // $hr_attachment->attachments = $request->attachments[$i];
             // $hr_attachment->save();
         }
-        return redirect()->route('admin.index');
+        return redirect()->route('admin.show',$hr_meeting->id);
 
     }
 
