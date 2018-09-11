@@ -175,7 +175,7 @@ class OfficerController extends Controller
       ->where('user_id',Auth::id())
       ->where('acknowledge','1')
       ->count();
-      $project_data=AssignedProject::select('assigned_projects.*','assigned_project_teams.*')
+      $project_data=AssignedProject::select('assigned_projects.*')
       ->leftJoin('assigned_project_teams','assigned_projects.id','assigned_project_teams.assigned_project_id')
       ->where('assigned_projects.acknowledge','1')->where('assigned_projects.project_id',$id)
       ->get()->first();

@@ -160,19 +160,17 @@
                                                         <div class="col-md-3">
 
 
-                                        @if(!Auth::user()->hasRole('dataentry'))
+                                        @if(Auth::user()->hasRole('officer'))
                                           <a href="{{route('projects.edit',$project->id)}}"
                                            style="width:38%;margin-right:5px;" class="btn  btn-primary pull-right">Edit</a>
 
                                           </div>
-                                        @if(Auth::user()->hasRole('officer'))
                                           {{-- <form class="" action="{{route('review_forms')}}" method="post">
                                           <input type="hidden" name="id" value=" {{$project->id}}">
                                           <div class="col-md-1">
                                             <button type="submit" class="btn btn-success pull-right"> Reviewed</button>
                                           </div>
                                         </form> --}}
-                                        @endif
                                         @endif
                                         </div>
 
