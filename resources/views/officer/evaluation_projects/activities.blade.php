@@ -2,6 +2,10 @@
 
 @section('styletag')
   <style media="screen">
+  .direct-chat-messages{
+    max-height: 250px;
+    overflow-y: scroll
+  }
   body{
     overflow-x: scroll;
   }
@@ -57,7 +61,7 @@
     display: block;
     text-align: center;
     margin: 0 auto 10px auto;
-    border-radius: 50%;
+    /* border-radius: 50%; */
     background-color: white;
   }
   .progressbar li:after {
@@ -89,6 +93,10 @@
     position: relative;
     bottom: 3px;
   }
+  .table tr td .progress {
+    margin-top: 10px;
+    height: 30px;
+  }
 
   </style>
 @endsection
@@ -119,12 +127,11 @@
           <div class="box1 box-warning">
 
             <div class="box-header with-border">
-
               <p>
-                Project Number : <b> {{$project_data->project->project_no}} </b></br>
+                Project Number : <b> {{$project_data->Project->project_no}} </b></br>
               </p>
               <p >
-                Project Name :<b> {{$project_data->project->title}}  </b></br>
+                Project Name :<b> {{$project_data->Project->title}}  </b></br>
               </p>
 
               <p>
@@ -142,162 +149,306 @@
               <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
               </button>
 
-               
-              </div>
-              <div class="box-body1">
-               <div class="row" >
-                <div class="col-md-12 col-xs-6">
             </div>
             <hr/>
             <b>
               GLOBAL PROGRESS
             </b>
-            <div class="progress">
-              <?php $progress=0;
-              if(isset($average_progress))
-                $progress=(int)$average_progress;
-               ?>
-                  <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
-                  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $progress; ?>%">
-                  <?php echo $progress; ?>% Complete
-                  </div>
-                </div>
 
+            <div class="progress">
+
+              <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+              aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:1%">
+              1% Complete
+            </div>
+          </div>
         </div>
         <div class="box-body1">
-              <!--/.direct-chat -->
+          {{--direct chat  --}}
+          <div class="row problematicremark">
+            <div class="col-md-offset-8 col-md-3">
+              <div class="box box-danger direct-chat direct-chat-danger collapsed-box">
+              <div class="box-header with-border">
+                <h3 class="box-title" style="font-size: 15px">Problematic Remarks</h3>
+
+                <div class="box-tools pull-right">
+                  <span data-toggle="tooltip" title="" class="badge bg-red" data-original-title="0 New Messages" v-text="messagecount">0</span>
+                  <button type="button" class="btn btn-box-tool expand" data-widget="collapse"><i class="fa fa-plus"></i>
+                  </button>
+                  <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="" data-widget="chat-pane-toggle" data-original-title="Contacts">
+                    <i class="fa fa-comments"></i></button>
+                  <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body" style="display: none;">
+                <!-- Conversations are loaded here -->
+                <div class="direct-chat-messages" v-chat-scroll>
+                  <!-- Message. Default to the left -->
+                  <span v-for="message in problematicRemarks">
+                      <!-- Message to the right -->
+                      <div class="direct-chat-msg right" v-if="message.user.id == auth_id">
+                        <div class="direct-chat-info clearfix">
+                          <span class="direct-chat-name pull-right">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</span>
+                          <span class="direct-chat-timestamp pull-left" v-text="message.created_at"></span>
+                        </div>
+                        <!-- /.direct-chat-info -->
+                        <img class="direct-chat-img" src="{{asset('user.png')}}" alt="Message User Image"><!-- /.direct-chat-img -->
+                        <div class="direct-chat-text" v-text="message.remarks">
+                        </div>
+                        <!-- /.direct-chat-text -->
+                      </div>
+                      <!-- /.direct-chat-msg -->
+
+                      <div class="direct-chat-msg" v-else>
+                        <div class="direct-chat-info clearfix">
+                          <span class="direct-chat-name pull-left">@{{message.user.first_name}} @{{message.user.last_name}}</span>
+                          <span class="direct-chat-timestamp pull-right">@{{message.created_at}}</span>
+                        </div>
+                        <!-- /.direct-chat-info -->
+                        <img class="direct-chat-img" src="{{asset('user.png')}}" alt="Message User Image"><!-- /.direct-chat-img -->
+                        <div class="direct-chat-text">
+                          @{{message.remarks}}
+                        </div>
+                        <!-- /.direct-chat-text -->
+                      </div>
+                  <!-- /.direct-chat-msg -->
+                  </span>
+                </div>
+                <!--/.direct-chat-messages-->
+
+                <!-- Contacts are loaded here -->
+                <div class="direct-chat-contacts">
+                  <ul class="contacts-list">
+                    @foreach ($project_data->AssignedProjectTeam as $team)
+                    <li>
+                      <a href="#">
+                        <img class="contacts-list-img" src="{{asset('user.png')}}" alt="User Image">
+
+                        <div class="contacts-list-info">
+
+                              <span class="contacts-list-name">
+                                {{$team->User->first_name}} {{$team->User->last_name}}
+                                {{-- <small class="contacts-list-date pull-right">{{date('Y-m-d')}}</small> --}}
+                              </span>
+                          {{-- <span class="contacts-list-msg">How have you been? I was...</span> --}}
+                        </div>
+                        <!-- /.contacts-list-info -->
+                      </a>
+                    </li>
+                  @endforeach
+                    <!-- End Contact Item -->
+                  </ul>
+                  <!-- /.contatcts-list -->
+                </div>
+                <!-- /.direct-chat-pane -->
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer" style="display: none;">
+                <form action="#" v-on:submit.prevent="submitProblematic" class="problematicRemarkForm" method="post">
+                  {{ csrf_field() }}
+                  <div class="form-group">
+                    <input type="hidden" name="assigned_by" ref="assigned" value="{{$project_data->assigned_by}}" >
+                    <input type="hidden" name="project_id" value="{{$project_data->Project->id}}" ref="project_id">
+                    <select class="form-control" name="activity_id" v-model="activity_id">
+                      <option value="">Select an Activity</option>
+                      @foreach ($activities as $activity)
+                        <option value="{{$activity->id}}">{{$activity->ProjectActivity->name}}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                  <div class="input-group">
+                    <input type="text" name="message" v-model="message" placeholder="Type Message ..." class="form-control textmessage">
+                        <span class="input-group-btn">
+                          <button type="submit" v-on:submit.prevent="submitProblematic" class="btn btn-danger btn-flat">Send</button>
+                        </span>
+                  </div>
+                </form>
+              </div>
+              <!-- /.box-footer-->
+            </div>
+            </div>
+          </div>
+          <!--/.direct-chat -->
           <div class="row" >
             <div class="col-md-12 col-xs-12">
               <div class="table-responsive">
                 <form action="#" method="POST">
-                        {{csrf_field()}}
-                      <table class="table table-hover table-striped">
-                            <b>ACTIVITY CHART</b>
-                        <thead >
-                            <th style="text-align:center;" >No.</th>
-                            <th style="text-align:center;">Activity Name</th>
-                            <th style="text-align:center;">Activity Attachments</th>
-                            <th style="text-align:center;">Activity Progress</th>
-                            <th style="text-align:center;">Remarks</th>
-                        </thead>
-                        <tbody style="text-align:center;">
-                          @foreach($activities as $activity)
-                          <tr>
-                            <td> {{$activity->ProjectActivity->id}} </td>
-                            <td> {{$activity->ProjectActivity->name}} </td>
-                            <td>
-                              @foreach ($activity->AssignedActivityAttachments as $attachment)
-                              <?php
-                                 $ext= explode('.',$attachment->project_attachements ) ?>
-                                   <a href="{{ asset('storage/uploads/projects/project_activities/'.$attachment->project_attachements) }}"  download><i class="fa fa-file-{{$icons[$ext[1]]}}-o fa-1x text-center" title="{{ $attachment->attachment_name }}" /></i></a>
-                              @endforeach
-                            </td>
-                            <td>
-                              <div>
-                                <ul class="progressbar">
-                                @if($activity->progress >= 25.0)
-                                  <a class="btn" >
-                                    <input type="hidden" class="{{$activity->id}}" name="percent" value="25,{{$project_data->project->id}},{{$activity->id}}">
-                                    <li class="active">25%</li>
-                                  </input>
-                                </a>
-                              @else
-                                <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},25)'>Save</button>">
-                                  <input type="hidden" class="25_{{$activity->id}}" name="percent" value="25,{{$project_data->project->id}},{{$activity->id}}">
+                  {{csrf_field()}}
+                  <table class="table table-hover table-striped">
+                    <b>ACTIVITY CHART</b>
+                    <thead >
+                      <th style="text-align:center;" >No.</th>
+                      <th style="text-align:center;">Activity Name</th>
+                      <th style="text-align:center;">Activity Progress</th>
+                      {{-- <th style="text-align:center;">Remarks</th> --}}
+                    </thead>
+                    <tbody style="text-align:center;">
+
+                      @foreach($activities as $activity)
+                        <tr>
+                          <td> {{$activity->ProjectActivity->id}} </td>
+                          <td> {{$activity->ProjectActivity->name}} </td>
+                          <td>
+                            <div>
+                              <ul class="progressbar">
+                                @if($activity->progress != 0.0)
+                                  <div class="progress">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100"
+                                    aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                                    @if($activity->progress == 25.0)
+                                      <label style="padding:5px;min-width:60px">
+                                        {{ $activity->progress }} %
+                                      </label>
+                                    @elseif($activity->progress == 50.0)
+                                      <label style="padding:5px;min-width:120px">
+                                        {{ $activity->progress }} %
+                                      </label>
+                                    @elseif($activity->progress == 75.0)
+                                      <label style="padding:5px;min-width:180px">
+                                        {{ $activity->progress }} %
+                                      </label>
+                                    @else
+                                      <label style="padding:5px;min-width:240px">
+                                        {{ $activity->progress }} %
+                                      </label>
+                                    @endif
+                                    </div>
+                                  </div>
+                                @endif
+                                @if($activity->progress < 25.0)
+                                  <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},25)'>Save</button>">
+                                    <input type="hidden" class="25_{{$activity->id}}" name="percent" value="25,{{$project_data->project->id}},{{$activity->id}}">
                                     <li>25%</li>
-                                  </input>
-                                </a>
-                              @endif
-                              @if ($activity->progress >= 50.0)
-                                <a class="btn" >
-                                  <input type="hidden" class="{{$activity->id}}" name="percent" value="50,{{$project_data->project->id}},{{$activity->id}}">
-                                    <li class="active">50%</li>
-                                  </input>
-                                </a>
-                              @else
-                                <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},50)'>Save</button>">
-                                  <input type="hidden" class="50_{{$activity->id}}" name="percent" value="50,{{$project_data->project->id}},{{$activity->id}}">
+                                    </input>
+                                  </a>
+                                @endif
+                                @if($activity->progress < 50.0)
+                                  <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},50)'>Save</button>">
+                                    <input type="hidden" class="50_{{$activity->id}}" name="percent" value="50,{{$project_data->project->id}},{{$activity->id}}">
                                     <li>50%</li>
                                   </input>
                                 </a>
-                              @endif
-                              @if ($activity->progress >= 75.0)
-                                <a class="btn" >
-                                  <input type="hidden" class="{{$activity->id}}" name="percent" value="75,{{$project_data->project->id}},{{$activity->id}}">
-                                    <li class="active">75%</li>
-                                  </input>
-                                </a>
-                              @else
-                                <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},75)'>Save</button>">
-                                  <input type="hidden" class="75_{{$activity->id}}" name="percent" value="75,{{$project_data->project->id}},{{$activity->id}}">
+                                @endif
+                                @if ($activity->progress < 75.0)
+                                  <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},75)'>Save</button>">
+                                    <input type="hidden" class="75_{{$activity->id}}" name="percent" value="75,{{$project_data->project->id}},{{$activity->id}}">
                                     <li>75%</li>
                                   </input>
                                 </a>
                               @endif
-                              @if ($activity->progress >= 100.0)
-                                <a class="btn" >
-                                  <input type="hidden" class="{{$activity->id}}" name="percent" value="100,{{$project_data->project->id}},{{$activity->id}}">
-                                    <li class="active">100%</li>
-                                  </input>
-                                </a>
-                              @else
+                              @if ($activity->progress < 100.0)
                                 <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},100)'>Save</button>">
                                   <input type="hidden" class="100_{{$activity->id}}" name="percent" value="100,{{$project_data->project->id}},{{$activity->id}}">
-                                    <li>100%</li>
+                                  <li>100%</li>
+                                </input>
+                              </a>
+                            @endif
+
+                                {{-- @if($activity->progress >= 25.0)
+                                  <div class="progress">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100"
+                                    aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                                    <label style="margin-top:5px;">
+                                      25%
+                                    </label>
+                                    </div>
+                                  </div>
+                                @else
+                                <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},25)'>Save</button>">
+                                  <input type="hidden" class="25_{{$activity->id}}" name="percent" value="25,{{$project_data->project->id}},{{$activity->id}}">
+                                  <li>25%</li>
                                   </input>
                                 </a>
-                              @endif
-                              </ul>
-                            </div>
-                          </td>
-                          <td>
-                            <a data-target="#commentModal"  class="btn btn-danger commentModal"  data-toggle="modal" data-id="{{$activity->id}}">Problematic?</a>
-                          </td>
-                             
-                        </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
-                    <input type="hidden" name="id" style="display:inline;float:right" value="{{$project_data->project_id}}">
-                    <button type="button" class="btn btn-success pull-right"  disabled >Project Completed
-                    </button>
-                </form>
+                                @endif
+                                @if ($activity->progress >= 50.0)
+                              <div class="progress">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100"
+                                aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                                <label style="margin-top:5px;">
+                                  50%
+                                </label>
+                                </div>
+                              </div>
+                              <a class="btn" >
+                                <input type="hidden" class="{{$activity->id}}" name="percent" value="50,{{$project_data->project->id}},{{$activity->id}}">
+                                <li class="active">50%</li>
+                              </input>
+                            </a>
+                          @else
+                            <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},50)'>Save</button>">
+                              <input type="hidden" class="50_{{$activity->id}}" name="percent" value="50,{{$project_data->project->id}},{{$activity->id}}">
+                              <li>50%</li>
+                            </input>
+                          </a>
+                        @endif
+                        @if ($activity->progress >= 75.0)
+                          <a class="btn" >
+                            <input type="hidden" class="{{$activity->id}}" name="percent" value="75,{{$project_data->project->id}},{{$activity->id}}">
+                            <li class="active">75%</li>
+                          </input>
+                        </a>
+                      @else
+                        <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},75)'>Save</button>">
+                          <input type="hidden" class="75_{{$activity->id}}" name="percent" value="75,{{$project_data->project->id}},{{$activity->id}}">
+                          <li>75%</li>
+                        </input>
+                      </a>
+                    @endif
+                    @if ($activity->progress >= 100.0)
+                      <a class="btn" >
+                        <input type="hidden" class="{{$activity->id}}" name="percent" value="100,{{$project_data->project->id}},{{$activity->id}}">
+                        <li class="active">100%</li>
+                      </input>
+                    </a>
+                    @else
+                    <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},100)'>Save</button>">
+                      <input type="hidden" class="100_{{$activity->id}}" name="percent" value="100,{{$project_data->project->id}},{{$activity->id}}">
+                      <li>100%</li>
+                    </input>
+                  </a>
+                @endif --}}
+              </ul>
+            </div>
+          </td>
+        </tr>
+      @endforeach
+    </tbody>
+  </table>
+  <input type="hidden" name="id" style="display:inline;float:right" value="{{$project_data->project_id}}">
+  <button type="button" class="btn btn-success pull-right" >Project Completed
+  </button>
+</form>
+</div>
+</div>
+</div>
+{{-- End row --}}
+<hr>
+<div class="row">
+  <div class="form-group col-md-10 col-xs-12">
+    <form class="" action="{{route('saveActivityAttachment')}}" method="POST" enctype="multipart/form-data">
+      {{csrf_field()}}
+      <div class="col-md-4">
+        <select name="attachment_activity" id="" class="select2 form-control">
+          <option value="">Select Activity For Attachments</option>
+          @foreach($activities as $activity){
+            <option value="{{$activity->id}}">{{$activity->ProjectActivity->name}}</option>
+          @endforeach
+        </select>
+      </div>
+      <div class="col-md-4">
+        <input type="text" name="attachment_name" class="form-control"  placeholder="Enter Attachment Name">
+      </div>
+      <div class="col-md-4">
+        <input type="file" style="" class="form-control" name="activity_attachment">
+      </div>
+      <br>
+      <input type="submit" name="Submit" value="Save Attachment" class="btn btn-success pull-right">
 
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="form-group col-md-12 col-xs-6">
-                   <label><strong>Upload Documents</strong> </label>
-                    <form class="" action="{{route('saveActivityAttachment')}}" method="POST" enctype="multipart/form-data">
-                      {{csrf_field()}}
-                      <div class="col-md-3">
-                        <select name="attachment_activity" id="" class="select2 form-control">
-                          <option value="">Select Activity For Attachments</option>
-                          @foreach($activities as $activity){
-                            <option value="{{$activity->id}}">{{$activity->ProjectActivity->name}}</option>
-                          @endforeach
-                        </select>
-                      </div>
-                      <div class="col-md-3">
-                        <input type="text" name="attachment_name" class="form-control"  placeholder="Enter Attachment Name">
-                      </div>
-                      <div class="col-md-3">
-                        <input type="file" style="" class="form-control" name="activity_attachment">
-                      </div>
-                      
-                      <div class="col-md-3">
-                      <input type="submit" name="Submit" value="Save Attachment" class="btn btn-primary pull-right">
-                      </div>
-                    </form>
-                  </div>
-                </div>
-                </div>
-               </div>
-              </div>
-          </div>
-        </div>
-  
-  
+    </form>
+  </div>
+</div>
+
 </div>
 </div>
 </div>
@@ -312,6 +463,83 @@
 @endsection
 
 @section('scripttags')
+  <script type="text/javascript">
+
+    new Vue({
+    el: '.problematicremark',
+    data: {
+      problematicRemarks: {},
+      activity_id: '',
+      message: '',
+      project_id: '',
+      assigned: '',
+      messagecount:0,
+      auth_id: {!! Auth::check() ? Auth::id() : 'null' !!}
+    },
+    created(){
+      this.project_id=document.querySelector("input[name=project_id]").value;
+      this.assigned=document.querySelector("input[name=assigned_by]").value;
+    },
+    mounted() {
+      this.getUnreadCount();
+      this.getProblematicRemarks();
+      this.listen();
+    },
+    // define methods under the `methods` object
+    methods: {
+      submitProblematic: function (event) {
+        if(this.activity_id!=null && this.activity_id!=''){
+        axios.post('/Problematicremarks',
+          {
+            api_token: this.api_token,
+            remarks: this.message,
+            activity_id: this.activity_id,
+            assigned_by: this.assigned,
+            project_id:this.project_id
+          })
+          .then((response) => {
+            console.log(response);
+            this.problematicRemarks.push(response.data);
+            this.message = '';
+            this.getUnreadCount();
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+          }else{
+            alert('Please Select the Activity');
+          }
+      },
+    getUnreadCount () {
+      axios.get("/GetUnreadCount/"+this.project_id)
+            .then((response) => {
+              console.log(response);
+              this.messagecount = response.data;
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+    },
+    getProblematicRemarks () {
+      axios.get("/Problematicremarks/"+this.project_id)
+            .then((response) => {
+              this.problematicRemarks = response.data
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+    },
+    listen() {
+      Echo.private('problematicremarks.'+this.project_id)
+          .listen('ProblematicEvent', (message) => {
+            console.log(message);
+            this.problematicRemarks.push(message);
+            this.getUnreadCount();
+          });
+        }
+    }
+  })
+  </script>
   <script>
   function saveData(id,number){
     console.log(number);
@@ -341,6 +569,20 @@
     // });
 
     $(document).ready(function(){
+      // $('.expand').on('click',function(){
+      //   if($('.expand').children('.fa-plus').length){
+      //   axios.post('/ReadProblematicremarks',
+      //     {
+      //       api_token: '{csrf_field() }}',
+      //       project_id: $('input[name="project_id"]').val()
+      //     }).then((response) => {
+      //       console.log(response);
+      //     })
+      //     .catch(function (error) {
+      //       console.log(error);
+      //     });
+      //   }
+      // });
 
       $('.btn').popover();
 
@@ -351,5 +593,5 @@
 
     });
 
-  </script>
-@endsection
+    </script>
+  @endsection

@@ -13,6 +13,9 @@ class ProblematicRemarks extends Model
     public function AssignedProjectActivity(){
       return $this->belongsTo('App\AssignedProjectActivity');
     }
+    public function User(){
+      return $this->belongsTo('App\User');
+    }
     public function getUser($id){
       return User::find($id);
     }

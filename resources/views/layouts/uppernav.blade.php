@@ -396,7 +396,7 @@
         user:"{{Auth::user()}}"
         })
         .then((response) => {
-          console.log(response.data);
+          // console.log(response.data);
           $('.'+response.data.role+'_unassigned_counter').text(response.data.unassigned);
         })
         .catch(function (error) {
@@ -471,7 +471,7 @@
             Echo.private('projectAssignedManager.'+this.user_id)
                 .listen('ProjectAssignedManagerEvent', (notification) => {
                   this.notifications.unshift(notification);
-                  console.log(notification);
+                  // console.log(notification);
                 });
             // Echo.private('chats.'+this.user_id)
             //     .listen('ChatEvent', (message) => {
