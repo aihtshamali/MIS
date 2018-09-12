@@ -2,6 +2,10 @@
 
 @section('styletag')
   <style media="screen">
+  .direct-chat-messages{
+    max-height: 250px;
+    overflow-y: scroll
+  }
   body{
     overflow-x: scroll;
   }
@@ -168,8 +172,8 @@
                 <h3 class="box-title" style="font-size: 15px">Problematic Remarks</h3>
 
                 <div class="box-tools pull-right">
-                  {{-- <span data-toggle="tooltip" title="" class="badge bg-red" data-original-title="0 New Messages">0</span> --}}
-                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                  <span data-toggle="tooltip" title="" class="badge bg-red" data-original-title="0 New Messages" v-text="messagecount">0</span>
+                  <button type="button" class="btn btn-box-tool expand" data-widget="collapse"><i class="fa fa-plus"></i>
                   </button>
                   <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="" data-widget="chat-pane-toggle" data-original-title="Contacts">
                     <i class="fa fa-comments"></i></button>
@@ -179,19 +183,18 @@
               <!-- /.box-header -->
               <div class="box-body" style="display: none;">
                 <!-- Conversations are loaded here -->
-                <div class="direct-chat-messages" >
+                <div class="direct-chat-messages" v-chat-scroll>
                   <!-- Message. Default to the left -->
                   <span v-for="message in problematicRemarks">
                       <!-- Message to the right -->
                       <div class="direct-chat-msg right" v-if="message.user.id == auth_id">
                         <div class="direct-chat-info clearfix">
                           <span class="direct-chat-name pull-right">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</span>
-                          <span class="direct-chat-timestamp pull-left">@{{message.created_at}}</span>
+                          <span class="direct-chat-timestamp pull-left" v-text="message.created_at"></span>
                         </div>
                         <!-- /.direct-chat-info -->
                         <img class="direct-chat-img" src="{{asset('user.png')}}" alt="Message User Image"><!-- /.direct-chat-img -->
-                        <div class="direct-chat-text">
-                          @{{message.remarks}}
+                        <div class="direct-chat-text" v-text="message.remarks">
                         </div>
                         <!-- /.direct-chat-text -->
                       </div>
@@ -255,7 +258,7 @@
                     </select>
                   </div>
                   <div class="input-group">
-                    <input type="text" name="message" v-model="message" placeholder="Type Message ..." class="form-control">
+                    <input type="text" name="message" v-model="message" placeholder="Type Message ..." class="form-control textmessage">
                         <span class="input-group-btn">
                           <button type="submit" v-on:submit.prevent="submitProblematic" class="btn btn-danger btn-flat">Send</button>
                         </span>
@@ -461,8 +464,8 @@
 @endsection
 
 @section('scripttags')
-
   <script type="text/javascript">
+
     new Vue({
     el: '.problematicremark',
     data: {
@@ -471,15 +474,15 @@
       message: '',
       project_id: '',
       assigned: '',
+      messagecount:0,
       auth_id: {!! Auth::check() ? Auth::id() : 'null' !!}
     },
     created(){
       this.project_id=document.querySelector("input[name=project_id]").value;
       this.assigned=document.querySelector("input[name=assigned_by]").value;
-
     },
     mounted() {
-      console.log('entered');
+      this.getUnreadCount();
       this.getProblematicRemarks();
       this.listen();
     },
@@ -499,6 +502,7 @@
             console.log(response);
             this.problematicRemarks.push(response.data);
             this.message = '';
+            this.getUnreadCount();
             })
             .catch(function (error) {
                 console.log(error);
@@ -507,7 +511,16 @@
             alert('Please Select the Activity');
           }
       },
-
+    getUnreadCount () {
+      axios.get("/GetUnreadCount/"+this.project_id)
+            .then((response) => {
+              console.log(response);
+              this.messagecount = response.data;
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+    },
     getProblematicRemarks () {
       axios.get("/Problematicremarks/"+this.project_id)
             .then((response) => {
@@ -520,7 +533,9 @@
     listen() {
       Echo.private('problematicremarks.'+this.project_id)
           .listen('ProblematicEvent', (message) => {
+            console.log(message);
             this.problematicRemarks.push(message);
+            this.getUnreadCount();
           });
         }
     }
@@ -555,6 +570,20 @@
     // });
 
     $(document).ready(function(){
+      // $('.expand').on('click',function(){
+      //   if($('.expand').children('.fa-plus').length){
+      //   axios.post('/ReadProblematicremarks',
+      //     {
+      //       api_token: '{csrf_field() }}',
+      //       project_id: $('input[name="project_id"]').val()
+      //     }).then((response) => {
+      //       console.log(response);
+      //     })
+      //     .catch(function (error) {
+      //       console.log(error);
+      //     });
+      //   }
+      // });
 
       $('.btn').popover();
 
