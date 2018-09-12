@@ -57,7 +57,7 @@
     display: block;
     text-align: center;
     margin: 0 auto 10px auto;
-    border-radius: 50%;
+    /* border-radius: 50%; */
     background-color: white;
   }
   .progressbar li:after {
@@ -88,6 +88,10 @@
   .popover-title .close{
     position: relative;
     bottom: 3px;
+  }
+  .table tr td .progress {
+    margin-top: 10px;
+    height: 30px;
   }
 
   </style>
@@ -285,20 +289,85 @@
                           <td>
                             <div>
                               <ul class="progressbar">
-                                @if($activity->progress >= 25.0)
-                                  <a class="btn" >
-                                    <input type="hidden" class="{{$activity->id}}" name="percent" value="25,{{$project_data->project->id}},{{$activity->id}}">
-                                    <li class="active">25%</li>
+                                @if($activity->progress != 0.0)
+                                  <div class="progress">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100"
+                                    aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                                    @if($activity->progress == 25.0)
+                                      {{ dd('Here') }}
+                                      <label style="padding:5px;min-width:60px">
+                                        {{ $activity->progress }} %
+                                      </label>
+                                    @elseif($activity->progress == 50.0)
+                                      <label style="padding:5px;min-width:120px">
+                                        {{ $activity->progress }} %
+                                      </label>
+                                    @elseif($activity->progress == 75.0)
+                                      <label style="padding:5px;min-width:180px">
+                                        {{ $activity->progress }} %
+                                      </label>
+                                    @else
+                                      <label style="padding:5px;min-width:240px">
+                                        {{ $activity->progress }} %
+                                      </label>
+                                    @endif
+                                    </div>
+                                  </div>
+                                @endif
+                                @if($activity->progress < 25.0)
+                                  <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},25)'>Save</button>">
+                                    <input type="hidden" class="25_{{$activity->id}}" name="percent" value="25,{{$project_data->project->id}},{{$activity->id}}">
+                                    <li>25%</li>
+                                    </input>
+                                  </a>
+                                @endif
+                                @if($activity->progress < 50.0)
+                                  <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},50)'>Save</button>">
+                                    <input type="hidden" class="50_{{$activity->id}}" name="percent" value="50,{{$project_data->project->id}},{{$activity->id}}">
+                                    <li>50%</li>
                                   </input>
                                 </a>
-                              @else
-                                <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},25)'>Save</button>">
-                                  <input type="hidden" class="25_{{$activity->id}}" name="percent" value="25,{{$project_data->project->id}},{{$activity->id}}">
-                                  <li>25%</li>
+                                @endif
+                                @if ($activity->progress < 75.0)
+                                  <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},75)'>Save</button>">
+                                    <input type="hidden" class="75_{{$activity->id}}" name="percent" value="75,{{$project_data->project->id}},{{$activity->id}}">
+                                    <li>75%</li>
+                                  </input>
+                                </a>
+                              @endif
+                              @if ($activity->progress < 100.0)
+                                <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},100)'>Save</button>">
+                                  <input type="hidden" class="100_{{$activity->id}}" name="percent" value="100,{{$project_data->project->id}},{{$activity->id}}">
+                                  <li>100%</li>
                                 </input>
                               </a>
                             @endif
-                            @if ($activity->progress >= 50.0)
+
+                                {{-- @if($activity->progress >= 25.0)
+                                  <div class="progress">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100"
+                                    aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                                    <label style="margin-top:5px;">
+                                      25%
+                                    </label>
+                                    </div>
+                                  </div>
+                                @else
+                                <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},25)'>Save</button>">
+                                  <input type="hidden" class="25_{{$activity->id}}" name="percent" value="25,{{$project_data->project->id}},{{$activity->id}}">
+                                  <li>25%</li>
+                                  </input>
+                                </a>
+                                @endif
+                                @if ($activity->progress >= 50.0)
+                              <div class="progress">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100"
+                                aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                                <label style="margin-top:5px;">
+                                  50%
+                                </label>
+                                </div>
+                              </div>
                               <a class="btn" >
                                 <input type="hidden" class="{{$activity->id}}" name="percent" value="50,{{$project_data->project->id}},{{$activity->id}}">
                                 <li class="active">50%</li>
@@ -330,13 +399,13 @@
                         <li class="active">100%</li>
                       </input>
                     </a>
-                  @else
+                    @else
                     <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},100)'>Save</button>">
                       <input type="hidden" class="100_{{$activity->id}}" name="percent" value="100,{{$project_data->project->id}},{{$activity->id}}">
                       <li>100%</li>
                     </input>
                   </a>
-                @endif
+                @endif --}}
               </ul>
             </div>
           </td>
