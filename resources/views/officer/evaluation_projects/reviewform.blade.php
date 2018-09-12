@@ -185,7 +185,7 @@
     var second_value = $('#planned_end_date').find('label').text();
     var first = first_val.split('-');
     var second = second_value.split('-');
-    var year = second[0]-first[0];
+    var year = Math.abs(second[0]-first[0]);
     var month = Math.abs(second[1]-first[1]);
     var days = Math.abs(second[2]-first[2]);
     $('#gestation_period').append('<b>  '+year + ' Years '+month+' Months '+days+' Days</b>');
@@ -193,7 +193,7 @@
     var revised_start = $("#revised_start_date").find('label').text();
         if(revised_start != ""){
           var first = revised_start.split('-');
-          var year = second[0]-first[0];
+          var year = Math.abs(second[0]-first[0]);
           var month = Math.abs(second[1]-first[1]);
           var days = Math.abs(second[2]-first[2]);
           $("#revised_gestation_period").append('<b>  '+year + ' Years '+month+' Months '+days+' Days</b>');

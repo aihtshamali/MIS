@@ -59,7 +59,7 @@
 
                             <td> {{$o->project->project_no}} </td>
                             <td><a href="{{route('evaluation_activities',$o->project_id)}}">{{$o->project->title}}</a> </td>
-                            <td>Sir {{$o->getassignedperson($o->assigned_by)->first_name}} {{$o->getassignedperson($o->assigned_by)->last_name}}</td>
+                            <td>{{$o->getassignedperson($o->assigned_by)->first_name}} {{$o->getassignedperson($o->assigned_by)->last_name}}</td>
                             <td>
                               @if ($o->priority==3)
                               High
@@ -79,13 +79,13 @@
                             </td>
 
                             <td>
-                              
+
                                 <div class="progress">
                                   <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
                                     aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo 10+  $o->progress; ?>% ">
                                   {{$o->progress }}% Complete
                                     </div>
-                                  
+
                                   </div>
                             </td>
                             <td>

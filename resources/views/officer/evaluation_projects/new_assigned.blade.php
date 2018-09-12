@@ -59,8 +59,8 @@
                             <tr>
                             <td> {{$o->project->project_no}} </td>
                             <td>{{$o->project->title}}  </td>
-                           
-                            <td>Sir {{$o->getassignedperson($o->assigned_by)->first_name}} {{$o->getassignedperson($o->assigned_by)->last_name}}</td>
+
+                            <td>{{$o->getassignedperson($o->assigned_by)->first_name}} {{$o->getassignedperson($o->assigned_by)->last_name}}</td>
                             <td>
                               @if ($o->priority==3)
                                 High
