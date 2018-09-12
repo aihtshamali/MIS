@@ -168,7 +168,7 @@
                 <h3 class="box-title" style="font-size: 15px">Problematic Remarks</h3>
 
                 <div class="box-tools pull-right">
-                  <span data-toggle="tooltip" title="" class="badge bg-red" data-original-title="0 New Messages">0</span>
+                  <span data-toggle="tooltip" title="" class="badge bg-red" data-original-title="0 New Messages" v-text="messagecount">0</span>
                   <button type="button" class="btn btn-box-tool expand" data-widget="collapse"><i class="fa fa-plus"></i>
                   </button>
                   <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="" data-widget="chat-pane-toggle" data-original-title="Contacts">
@@ -186,12 +186,11 @@
                       <div class="direct-chat-msg right" v-if="message.user.id == auth_id">
                         <div class="direct-chat-info clearfix">
                           <span class="direct-chat-name pull-right">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</span>
-                          <span class="direct-chat-timestamp pull-left">@{{message.created_at}}</span>
+                          <span class="direct-chat-timestamp pull-left" v-text="message.created_at"></span>
                         </div>
                         <!-- /.direct-chat-info -->
                         <img class="direct-chat-img" src="{{asset('user.png')}}" alt="Message User Image"><!-- /.direct-chat-img -->
-                        <div class="direct-chat-text">
-                          @{{message.remarks}}
+                        <div class="direct-chat-text" v-text="message.remarks">
                         </div>
                         <!-- /.direct-chat-text -->
                       </div>
@@ -406,6 +405,7 @@
       message: '',
       project_id: '',
       assigned: '',
+      messagecount:0,
       auth_id: {!! Auth::check() ? Auth::id() : 'null' !!}
     },
     created(){
@@ -413,6 +413,7 @@
       this.assigned=document.querySelector("input[name=assigned_by]").value;
     },
     mounted() {
+      this.getUnreadCount();
       this.getProblematicRemarks();
       this.listen();
     },
@@ -432,6 +433,7 @@
             console.log(response);
             this.problematicRemarks.push(response.data);
             this.message = '';
+            this.getUnreadCount();
             })
             .catch(function (error) {
                 console.log(error);
@@ -440,7 +442,16 @@
             alert('Please Select the Activity');
           }
       },
-
+    getUnreadCount () {
+      axios.get("/GetUnreadCount/"+this.project_id)
+            .then((response) => {
+              console.log(response);
+              this.messagecount = response.data;
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+    },
     getProblematicRemarks () {
       axios.get("/Problematicremarks/"+this.project_id)
             .then((response) => {
@@ -453,7 +464,9 @@
     listen() {
       Echo.private('problematicremarks.'+this.project_id)
           .listen('ProblematicEvent', (message) => {
+            console.log(message);
             this.problematicRemarks.push(message);
+            this.getUnreadCount();
           });
         }
     }
@@ -488,20 +501,20 @@
     // });
 
     $(document).ready(function(){
-      $('.expand').on('click',function(){
-        if($('.expand').children('.fa-plus').length){
-        axios.post('/ReadProblematicremarks',
-          {
-            api_token: '{{ csrf_field() }}',
-            project_id: $('input[name="project_id"]').val()
-          }).then((response) => {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-        }
-      });
+      // $('.expand').on('click',function(){
+      //   if($('.expand').children('.fa-plus').length){
+      //   axios.post('/ReadProblematicremarks',
+      //     {
+      //       api_token: '{csrf_field() }}',
+      //       project_id: $('input[name="project_id"]').val()
+      //     }).then((response) => {
+      //       console.log(response);
+      //     })
+      //     .catch(function (error) {
+      //       console.log(error);
+      //     });
+      //   }
+      // });
 
       $('.btn').popover();
 

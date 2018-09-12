@@ -118,7 +118,7 @@
                                         <h3 class="box-title" style="font-size: 15px">Problematic Remarks</h3>
 
                                         <div class="box-tools pull-right">
-                                          <span data-toggle="tooltip" title="" class="badge bg-red" data-original-title="0 New Messages">0</span>
+                                          <span data-toggle="tooltip" title="" class="badge bg-red" data-original-title="0 New Messages" v-text="messagecount"></span>
                                           <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
                                           </button>
                                           <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="" data-widget="chat-pane-toggle" data-original-title="Contacts">
@@ -237,16 +237,15 @@
       activity_id: '',
       message: '',
       project_id: '',
+      messagecount:0,
       assigned: '',
       auth_id: {!! Auth::check() ? Auth::id() : 'null' !!}
     },
     created(){
       this.project_id=document.querySelector("input[name=project_id]").value;
       this.assigned=document.querySelector("input[name=assigned_by]").value;
-
     },
     mounted() {
-      console.log('entered');
       this.getProblematicRemarks();
       $(".direct-chat-messages").stop().animate({ scrollTop: $(".direct-chat-messages")[0].scrollHeight}, 1000);
       this.listen();
@@ -264,6 +263,7 @@
           })
           .then((response) => {
             this.problematicRemarks.push(response.data);
+            this.getUnreadCount();
             // console.log(response);
             this.message = '';
             })
@@ -272,7 +272,16 @@
             })
 
       },
-
+      getUnreadCount () {
+        axios.get("/GetUnreadCount/"+this.project_id)
+              .then((response) => {
+                console.log(response);
+                this.messagecount = response.data;
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+      },
     getProblematicRemarks () {
       axios.get("/Problematicremarks/"+this.project_id)
             .then((response) => {
@@ -286,6 +295,7 @@
       Echo.private('problematicremarks.'+this.project_id)
           .listen('ProblematicEvent', (message) => {
             this.problematicRemarks.push(message);
+            this.getUnreadCount();
           });
         }
     }

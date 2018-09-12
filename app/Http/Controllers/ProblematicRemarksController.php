@@ -39,12 +39,20 @@ class ProblematicRemarksController extends Controller
     public function store(Request $request)
     {
       // return $request->all();
+      $problematicRema=ProblematicRemarks::where('project_id',$request->project_id)
+                            ->where('to_user_id',Auth::id())
+                            ->where('read',0)->get();
+        foreach ($problematicRema as $remark) {
+          $remark->read=1;
+          $remark->save();
+        }
+
         $problematicRemarks=new ProblematicRemarks();
         $problematicRemarks->remarks = $request->remarks;
         if($request->activity_id)
           $problematicRemarks->assigned_project_activity_id = $request->activity_id;
         else
-        $problematicRemarks->assigned_project_activity_id = ProblematicRemarks::latest()->first()->assigned_project_activity_id;
+          $problematicRemarks->assigned_project_activity_id = ProblematicRemarks::latest()->first()->assigned_project_activity_id;
         $problematicRemarks->project_id = $request->project_id;
         $problematicRemarks->user_id = Auth::id();
         $problematicRemarks->to_user_id = $request->assigned_by;
@@ -57,6 +65,7 @@ class ProblematicRemarksController extends Controller
           $remarks->put('user',ProblematicRemarks::find($problematicRemarks->id)->User);
           $remarks->put('activity_name',ProblematicRemarks::find($problematicRemarks->id)->AssignedProjectActivity->ProjectActivity->name);
           $remarks= $remarks->toArray();
+
           broadcast(new ProblematicEvent($remarks))->toOthers();
           return $remarks;
           // return 'Sent';
@@ -77,7 +86,9 @@ class ProblematicRemarksController extends Controller
     {
       // return $request->all();
       $problematicRemarks=ProblematicRemarks::where('project_id',$request->project_id)
-                            ->where('to_user_id',Auth::id())->get();
+                            ->where('to_user_id',Auth::id())
+                            ->where('read',0)
+                            ->get();
         foreach ($problematicRemarks as $remark) {
           $remark->read=1;
           $remark->save();
@@ -91,6 +102,16 @@ class ProblematicRemarksController extends Controller
      * @param  \App\ProblematicRemarks  $problematicRemarks
      * @return \Illuminate\Http\Response
      */
+     public function getUnreadCount($id){
+       $count=ProblematicRemarks::select('problematic_remarks.*','project_activities.name as activity_name')
+             ->leftJoin('assigned_project_activities','problematic_remarks.assigned_project_activity_id','assigned_project_activities.id')
+             ->leftJoin('project_activities','assigned_project_activities.project_activity_id','project_activities.id')
+             ->where('problematic_remarks.read',0)
+             // ->where('problematic_remarks.to_user_id',Auth::id())
+             ->where('problematic_remarks.project_id',$id)
+              ->count();
+          return $count;
+     }
     public function show($id)
     {
       $remarks= ProblematicRemarks::select('problematic_remarks.*','project_activities.name as activity_name')
