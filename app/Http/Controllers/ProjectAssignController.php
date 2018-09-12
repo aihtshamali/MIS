@@ -128,7 +128,7 @@ class ProjectAssignController extends Controller
       if(isset($request->priority))
         $priority = $request->priority;
       if(!$request->priority){
-          if($request->inheritPriority==3)  
+          if($request->inheritPriority==3)
             $priority='high_priority';
           elseif($request->inheritPriority==2)
             $priority='normal_priority';
@@ -164,7 +164,7 @@ class ProjectAssignController extends Controller
        else if($request->priority=='low_priority'){
          $priority=1;
        }
-       
+
        $current_time = Carbon::now()->toDateString();
        $projects = $request->projects;
        if($request->assign_to=="officer"){
@@ -289,6 +289,29 @@ class ProjectAssignController extends Controller
            }
            $assignedProjectTeam->save();
          }
+
+         $project_activities = ProjectActivity::all();
+         foreach ($project_activities as $project_activity) {
+           $assigned_project_activity = new AssignedProjectActivity();
+           $assigned_project_activity->project_id = $request->project_id;
+           $assigned_project_activity->project_activity_id = $project_activity->id;
+           if(count($request->officer_id) > 1){
+             foreach ($request->officer_id as $officer) {
+                 if($officer==$request->team_lead){
+                   $assigned_project_activity->user_id = $officer;
+                   break;
+                 }
+             }
+           }
+             else{
+               foreach ($request->officer_id as $officer) {
+                     $assigned_project_activity->user_id = $officer;
+               }
+             }
+             $assigned_project_activity->assigned_by = Auth::id();
+             $assigned_project_activity->save();
+         }
+
          $notification = new Notification();
          $notification->user_id=Auth::id();
          $notification->text= $assignProject->project->title.' project assigned to '.$notif_officers.' with '.$request->priority;
