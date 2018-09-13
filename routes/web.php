@@ -143,6 +143,9 @@ Route::get('/dashboard',function(){
   return view('dashboard');
 });
 
+Route::post('/printerfunction','AdminHumanResourceController@printer');
+
+
 Route::get('/403',function(){
   return view('403');
 });

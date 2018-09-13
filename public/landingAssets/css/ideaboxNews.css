@@ -55,12 +55,15 @@ time.icon div
 	position: relative;
 	display: none;
 }
+p{
+	color:black;
+}
 .ideaboxNews>h3 {
 	font-size: 18px;
 	font-weight: bold;
 	margin: 0;
 	display: block;
-	padding: 16px;
+	padding: 5px;
 	box-sizing: border-box;
 	background: rgb(104, 104, 104) !important;
 	color: #FFF;

@@ -6133,6 +6133,10 @@ sax@^1.2.4, sax@~1.2.1, sax@~1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
 
+scanner-js@^2.10.3:
+  version "2.10.3"
+  resolved "https://registry.yarnpkg.com/scanner-js/-/scanner-js-2.10.3.tgz#bd259033363776f201e49a335e31f44d1e58aba5"
+
 schema-utils@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/schema-utils/-/schema-utils-0.3.0.tgz#f5877222ce3e931edae039f17eb3716e7137f8cf"
