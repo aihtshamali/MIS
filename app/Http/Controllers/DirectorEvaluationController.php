@@ -13,7 +13,7 @@ use Auth;
 use jeremykenedy\LaravelRoles\Models\Role;
 class DirectorEvaluationController extends Controller
 {
-   
+
     /**
      * Display a listing of the resource.
      *
@@ -22,23 +22,23 @@ class DirectorEvaluationController extends Controller
     public function index()
     {
         return view('Director.Evaluation.home.index');
-  
+
     }
     public function pems_index(){
-      
+
         return view('Director.Evaluation.home.pems_tab');
       }
-  
+
       public function pmms_index(){
-          
+
         return view('Director.Evaluation.home.pmms_tab');
       }
-  
+
       public function tpv_index(){
         return view('Director.Evaluation.home.tpv_tab');
       }
-  
-    
+
+
       public function inquiry_index(){
         return view('Director.Evaluation.home.inquiry_tab');
       }
@@ -49,7 +49,7 @@ class DirectorEvaluationController extends Controller
         ->where('user_id',Auth::id())
         ->whereNull('assigned_projects.project_id')
         ->get();
-        
+
         return view('Director.Evaluation.Evaluation_projects.project_assigned_by_manager',['projects'=>$projects]);
       }
 
@@ -61,11 +61,41 @@ class DirectorEvaluationController extends Controller
         ->whereNull('assigned_projects.project_id')
         ->where('assigned_project_managers.user_id',Auth::id())
         ->get();
-        
+
          $assigned=AssignedProject::where('assigned_by',Auth::id())->get();
-        
-         $assignedtoManager=AssignedProjectManager::all();   
-         return view('Director.Evaluation.Evaluation_projects.assigned',['assigned'=>$assigned,'unassigned'=>$unassigned]);
+
+         // $officers;
+         // $role = Role::where('name','officer')->get();
+         // $offciers = $role->User;
+         $officers = User::all();
+         // ->hasRole('officer');
+         // dd($officers);
+
+         $assignedtoManager=AssignedProjectManager::all();
+         return view('Director.Evaluation.Evaluation_projects.assigned',['assigned'=>$assigned,'unassigned'=>$unassigned,'officers'=>$officers]);
+      }
+
+      public function searchOfficer(Request $request){
+        // dd($request->officer_id);
+        $unassigned=Project::select('projects.*','assigned_project_managers.user_id as manager_id')
+        ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+        ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
+        ->whereNull('assigned_project_managers.project_id')
+        ->whereNull('assigned_projects.project_id')
+        ->where('assigned_project_managers.user_id',Auth::id())
+        ->get();
+
+         $assigned=AssignedProject::where('assigned_by',Auth::id())->get();
+
+         // $officers;
+         // $role = Role::where('name','officer')->get();
+         // $offciers = $role->User;
+         $officers = User::all();
+         // ->hasRole('officer');
+         // dd($officers);
+
+         $assignedtoManager=AssignedProjectManager::all();
+         return view('Director.Evaluation.Evaluation_projects.assigned',['assigned'=>$assigned,'unassigned'=>$unassigned,'officers'=>$officers,'officer_id_special'=>$request->officer_id]);
       }
     /**
      * Show the form for creating a new resource.
