@@ -278,9 +278,31 @@
                 </div>
             </div>
 
-            <div class="ideaboxNews in-easing" id="idx1" style="color:black; position: none;">
+            <div class="ideaboxNews in-easing" id="idx2" style="color:black; position: none;">
                     <h3>LATEST NEWS</h3>
                 <ul>
+                    <li>
+                        <div class="in-image">
+                            <!-- <img src="trash/img1.jpg"> -->
+                            <time datetime="2018-08-30" class="icon">
+                                    <em>Wednesday</em>
+                                    <strong>September</strong>
+                                    <div>12</div>
+                                  </time>
+                            <span class="in-red"><h6>Read more</h6></span>
+                        </div>
+                        <div class="in-content">
+                            <h2>Support Doc</h2>
+                            <div>
+                            <p style="color:black;">Kinldy download the support doc by clicking 
+                                <b style="color:green;">
+                                    <a href="/DGME MIS GUIDELINES.docx")}}>here.</a>
+                                </b>
+                            </p>
+                            </div>
+                        </div>
+                    </li>
+
                     <li>
                         <div class="in-image">
                             <img src="trash/img1.jpg">
@@ -350,14 +372,14 @@
                         </div>
                     </li>
                 </ul>
-                <div class="in-viewer">
-                    <div class="in-viewer-header">
+                <div class="in-viewer test2" style="overflow-y:scroll;">
+                    <!-- <div class="in-viewer-header">
                         <img src="trash/img1.jpg">
                         <div>
                             <h2>no title...</h2>
                             <span>no date...</span>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="in-viewer-content">
                         no content...
                     </div>
