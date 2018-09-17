@@ -179,13 +179,13 @@ class OfficerController extends Controller
       ->where('assigned_projects.acknowledge','1')->where('assigned_projects.project_id',$id)
       ->first();
 
-      $problematicRemarks=ProblematicRemarks::select('problematic_remarks.*','users.first_name','users.last_name','profile_pic')
-      ->leftJoin('users','users.id','problematic_remarks.user_id')
-      ->leftJoin('user_details','user_details.user_id','users.id')
-      ->where('project_id',$id)
-      ->orderBy('problematic_remarks.created_at','DESC')
-      ->orderBy('problematic_remarks.assigned_project_activity_id','ASC')
-      ->get();
+      // // $problematicRemarks=ProblematicRemarks::select('problematic_remarks.*','users.first_name','users.last_name','profile_pic')
+      // // ->leftJoin('users','users.id','problematic_remarks.user_id')
+      // // ->leftJoin('user_details','user_details.user_id','users.id')
+      // // ->where('project_id',$id)
+      // // ->orderBy('problematic_remarks.created_at','DESC')
+      // // ->orderBy('problematic_remarks.assigned_project_activity_id','ASC')
+      // ->get();
 
       $icons = [
                 'pdf' => 'pdf',
@@ -201,7 +201,7 @@ class OfficerController extends Controller
                 'jpeg' => 'image',
             ];
 
-      return view('officer.evaluation_projects.activities',['problematicRemarks'=>$problematicRemarks,'activities'=>$activities,'icons'=>$icons,'average_progress'=>$average_progress,'project_data'=>$project_data,'project_id'=>$id,'officerInProgressCount'=>$officerInProgressCount,'officerAssignedCount'=>$officerAssignedCount]);
+      return view('officer.evaluation_projects.activities',['activities'=>$activities,'icons'=>$icons,'average_progress'=>$average_progress,'project_data'=>$project_data,'project_id'=>$id,'officerInProgressCount'=>$officerInProgressCount,'officerAssignedCount'=>$officerAssignedCount]);
     }
 
     public function evaluation_completed(){

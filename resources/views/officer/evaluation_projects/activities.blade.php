@@ -280,6 +280,7 @@
                     <thead >
                       <th style="text-align:center;" >No.</th>
                       <th style="text-align:center;">Activity Name</th>
+                      <th style="text-align:center;">Activity Attachments</th>
                       <th style="text-align:center;">Activity Progress</th>
                       {{-- <th style="text-align:center;">Remarks</th> --}}
                     </thead>
@@ -289,6 +290,13 @@
                         <tr>
                           <td> {{$activity->ProjectActivity->id}} </td>
                           <td> {{$activity->ProjectActivity->name}} </td>
+                          <td>
+                              @foreach ($activity->AssignedActivityAttachments as $attachment)
+                                <?php
+                                 $ext= explode('.',$attachment->project_attachements ) ?>
+                                   <a href="{{ asset('storage/uploads/projects/project_activities/'.$attachment->project_attachements) }}"  download><i class="fa fa-file-{{$icons[$ext[1]]}}-o fa-1x text-center" title="{{ $attachment->attachment_name }}" /></i></a>
+                              @endforeach
+                            </td>
                           <td>
                             <div>
                               <ul class="progressbar">
