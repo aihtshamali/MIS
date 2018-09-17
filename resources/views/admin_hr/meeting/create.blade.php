@@ -297,9 +297,11 @@
                   </div>
                     
                   <div style="margin-top:20px">
-                      <button  class="btn btn-success pull-left scan" type="button">Scan Document</button>
-                      {{-- <button type="button" id="THE-REAPER" style="display:block;">O.O</button> --}}
-                      
+                      {{-- <button  class="btn btn-success pull-left scan" type="button">Scan Document</button> --}}
+                      <a class="btn btn-success pull-left" href="hassan:">Scan Document</a> 
+                      {{-- <button  class="btn btn-success pull-left testexe" type="button">test exe</button> --}}
+
+                      {{-- <button type="button" id="THE-REAPER" style="display:block;">Choose File</button> --}}
                       {{-- <button id="previous" class="btn btn-success" type="button">Previous</button> --}}
                       <button id="b3" class="btn btn-success add-more"  type="button">Next</button>
                       <button id="finish_btn" class="btn btn-info pull-right"  type="submit">Finish</button>
@@ -632,9 +634,15 @@ $(document).on('click','.scan',function(){
   
 });
 
-// $(document).on('click','#THE-REAPER',function(){
-//   console.log('Reaper called',$(this));
-//   $("#attachmentt").click();
-// })
+  $(document).on('click','#THE-REAPER',function(){
+    console.log('Reaper called',$(this));
+    $("#attachmentt").click();
+  })
+
+
+  // $(document).on('click','.testexe',function(){
+  //   window.open("hassan:");
+  //   console.log('bad me')
+  // });
 </script>
 @endsection
