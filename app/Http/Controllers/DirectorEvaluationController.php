@@ -95,7 +95,7 @@ class DirectorEvaluationController extends Controller
          // dd($officers);
 
          $assignedtoManager=AssignedProjectManager::all();
-         return view('Director.Evaluation.Evaluation_projects.assigned',['assigned'=>$assigned,'unassigned'=>$unassigned,'officers'=>$officers,'officer_id_special'=>$request->officer_id]);
+         return view('Director.Evaluation.Evaluation_projects.search',['assigned'=>$assigned,'unassigned'=>$unassigned,'officers'=>$officers,'officer_id_special'=>$request->officer_id]);
       }
     /**
      * Show the form for creating a new resource.

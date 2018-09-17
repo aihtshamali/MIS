@@ -26,7 +26,7 @@
 
   <section class="content-header">
     <h1>
-    ASSIGNED EVALUATION PROJECTS <button class="btn btn-danger" style="color:white;font-weight:bold font-size:20px;">@if(isset($data)){{count($data)}}@endif</button>
+    ASSIGNED EVALUATION PROJECTS <button class="btn btn-danger" style="color:white;font-weight:bold font-size:20px;">@if(isset($assigned)){{$assigned->count()}}@endif</button>
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-backward" ></i>Back</a></li>
@@ -96,7 +96,7 @@
                         <thead>
                             <th>Project Number</th>
                             <th>Project Name</th>
-                            <th>Searched Against</th>
+                            <th>Team Members</th>
                             <th>Priority</th>
                             <th>Assigned Duration</th>
                             <th>Progress</th>
@@ -104,27 +104,79 @@
                           </thead>
                           <tbody>
 
-                            @foreach ($data as $d)
+                            @foreach ($assigned as $assigned)
+                              <?php $var = 0?>
+                              @if(isset($officer_id_special))
+                                @foreach ($assigned->AssignedProjectTeam as $team)
+                                @if($team->user->id == $officer_id_special)
+                                  <?php $var = 1?>
+                                @endif
+                              @endforeach
+                              @if($var == 1)
+                                <?php $var = 0?>
+                                <tr>
+                                  <td>{{$assigned->project->project_no}}</td>
+                                  <td>{{$assigned->project->title}}</td>
+                                  <td>
+                                      @foreach ($assigned->AssignedProjectTeam as $team)
+                                      @if ($team->team_lead==1)
+                                        <span style="font-weight:bold;color:blue">{{$team->user->first_name}}  {{$team->user->last_name}} -</span>
+                                      @else
+                                        <span class="">{{$team->user->first_name}} {{$team->user->last_name}}</span>
+                                      @endif
+                                    @endforeach
+
+                                  </td>
+                                  <td>
+                                      @if ($assigned->priority==3)
+                                      High
+                                    @elseif ($assigned->priority==2)
+                                      Normal
+                                    @else
+                                      Low
+                                    @endif
+
+                                  </td>
+
+                                  <td>
+                                    @php
+                                      $interval = date_diff(date_create(date('Y-m-d h:i:s',strtotime($assigned->created_at))), date_create(date('Y-m-d h:i:s')))->format('%m Month %d Day %h Hours');
+                                      // $duration=$interval->format();
+                                    @endphp
+                                    {{-- {{$assigned->created_at}} --}}
+                                    {{$interval}}
+                                    {{-- {{dd($interval)}} --}}
+                                    {{-- {{$duration}} --}}
+                                  </td>
+                                  <td><div class="progress">
+                                      <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo 20+$assigned->progress; ?>% ">
+                                      {{$assigned->progress }}% Complete
+                                        </div>
+
+                                      </div></td>
+
+                                </tr>
+                                
+                              @endif
+                              @else
                               <tr>
-                                <td>{{$d->project_no}}</td>
-                                <td>{{$d->title}}</td>
+                                <td>{{$assigned->project->project_no}}</td>
+                                <td>{{$assigned->project->title}}</td>
                                 <td>
-                                  <?php $u = App\User::find($d->current_user)?>
-                                  {{ $u->first_name }}
-                                  {{ $u->last_name }}
-                                    {{-- @foreach ($assigned->AssignedProjectTeam as $team)
+                                    @foreach ($assigned->AssignedProjectTeam as $team)
                                     @if ($team->team_lead==1)
                                       <span style="font-weight:bold;color:blue">{{$team->user->first_name}}  {{$team->user->last_name}} -</span>
                                     @else
                                       <span class="">{{$team->user->first_name}} {{$team->user->last_name}}</span>
                                     @endif
-                                  @endforeach --}}
+                                  @endforeach
 
                                 </td>
                                 <td>
-                                    @if ($d->priority==3)
+                                    @if ($assigned->priority==3)
                                     High
-                                  @elseif ($d->priority==2)
+                                  @elseif ($assigned->priority==2)
                                     Normal
                                   @else
                                     Low
@@ -134,7 +186,7 @@
 
                                 <td>
                                   @php
-                                    $interval = date_diff(date_create(date('Y-m-d h:i:s',strtotime($d->created_at))), date_create(date('Y-m-d h:i:s')))->format('%m Month %d Day %h Hours');
+                                    $interval = date_diff(date_create(date('Y-m-d h:i:s',strtotime($assigned->created_at))), date_create(date('Y-m-d h:i:s')))->format('%m Month %d Day %h Hours');
                                     // $duration=$interval->format();
                                   @endphp
                                   {{-- {{$assigned->created_at}} --}}
@@ -144,8 +196,8 @@
                                 </td>
                                 <td><div class="progress">
                                     <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
-                                      aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo 20+$d->progress; ?>% ">
-                                    {{$d->progress }}% Complete
+                                      aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo 20+$assigned->progress; ?>% ">
+                                    {{$assigned->progress }}% Complete
                                       </div>
 
                                     </div></td>
@@ -211,23 +263,23 @@
                                         <!-- Contacts are loaded here -->
                                         <div class="direct-chat-contacts">
                                           <ul class="contacts-list">
-                                            {{-- @foreach ($assigned->AssignedProjectTeam as $team) --}}
-                                            {{-- <li> --}}
-                                              {{-- <a href="#"> --}}
-                                                {{-- <img class="contacts-list-img" src="{{asset('user.png')}}" alt="User Image"> --}}
+                                            @foreach ($assigned->AssignedProjectTeam as $team)
+                                            <li>
+                                              <a href="#">
+                                                <img class="contacts-list-img" src="{{asset('user.png')}}" alt="User Image">
 
-                                                {{-- <div class="contacts-list-info"> --}}
+                                                <div class="contacts-list-info">
 
-                                                      {{-- <span class="contacts-list-name"> --}}
-                                                        {{-- {{$team->User->first_name}} {{$team->User->last_name}} --}}
+                                                      <span class="contacts-list-name">
+                                                        {{$team->User->first_name}} {{$team->User->last_name}}
                                                         {{-- <small class="contacts-list-date pull-right">{{date('Y-m-d')}}</small> --}}
-                                                      {{-- </span> --}}
+                                                      </span>
                                                   {{-- <span class="contacts-list-msg">How have you been? I was...</span> --}}
-                                                {{-- </div> --}}
+                                                </div>
                                                 <!-- /.contacts-list-info -->
-                                              {{-- </a> --}}
-                                            {{-- </li> --}}
-                                          {{-- @endforeach --}}
+                                              </a>
+                                            </li>
+                                          @endforeach
                                             <!-- End Contact Item -->
                                           </ul>
                                           <!-- /.contatcts-list -->
@@ -239,8 +291,8 @@
                                         <form action="#"  v-on:submit.prevent="submitProblematic" class="problematicRemarkForm" method="post">
                                           {{ csrf_field() }}
                                           <div class="form-group">
-                                            <input type="hidden" name="assigned_by" ref="assigned" value="{{$d->assigned_by}}" >
-                                            <input type="hidden" name="project_id" value="{{$d->project_id}}" ref="project_id">
+                                            <input type="hidden" name="assigned_by" ref="assigned" value="{{$assigned->assigned_by}}" >
+                                            <input type="hidden" name="project_id" value="{{$assigned->Project->id}}" ref="project_id">
                                           </div>
                                           <div class="input-group">
                                             <input type="text" name="message" v-model="message" placeholder="Type Message ..." class="form-control">
@@ -257,6 +309,7 @@
                                   <!--/.direct-chat -->
                                 </td>
                               </tr>
+                            @endif
 
                             @endforeach
                           </tbody>
@@ -277,84 +330,8 @@
 
   $(function () {
     //Initialize Select2 Elements
-    $('.select2').select2();
+    $('.select2').select2()
   });
-  $( document ).ready(function() {
-
-    if(document.getElementsByClassName("problematicremark").length){
-    console.log('sda');
-    new Vue({
-    el: '.problematicremark',
-    data: {
-      problematicRemarks: {},
-      activity_id: '',
-      message: '',
-      project_id: '',
-      messagecount:0,
-      assigned: '',
-      auth_id: {!! Auth::check() ? Auth::id() : 'null' !!}
-    },
-    created(){
-      this.project_id=document.querySelector("input[name=project_id]").value;
-      this.assigned=document.querySelector("input[name=assigned_by]").value;
-    },
-    mounted() {
-      this.getProblematicRemarks();
-      $(".direct-chat-messages").stop().animate({ scrollTop: $(".direct-chat-messages")[0].scrollHeight}, 1000);
-      this.listen();
-    },
-    // define methods under the `methods` object
-    methods: {
-      submitProblematic: function (event) {
-        axios.post('/Problematicremarks',
-          {
-            api_token: this.api_token,
-            remarks: this.message,
-            activity_id: this.activity_id,
-            assigned_by: this.assigned,
-            project_id:this.project_id
-          })
-          .then((response) => {
-            this.problematicRemarks.push(response.data);
-            this.getUnreadCount();
-            // console.log(response);
-            this.message = '';
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
-
-      },
-      getUnreadCount () {
-        axios.get("/GetUnreadCount/"+this.project_id)
-              .then((response) => {
-                console.log(response);
-                this.messagecount = response.data;
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
-      },
-    getProblematicRemarks () {
-      axios.get("/Problematicremarks/"+this.project_id)
-            .then((response) => {
-              this.problematicRemarks = response.data
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
-    },
-    listen() {
-      Echo.private('problematicremarks.'+this.project_id)
-          .listen('ProblematicEvent', (message) => {
-            this.problematicRemarks.push(message);
-            this.getUnreadCount();
-          });
-        }
-    }
-  })
-}
-})
   </script>
 
   @endsection
