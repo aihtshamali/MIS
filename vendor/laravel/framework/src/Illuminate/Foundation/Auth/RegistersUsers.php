@@ -5,6 +5,8 @@ namespace Illuminate\Foundation\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
+use jeremykenedy\LaravelRoles\Models\Role;
+use App\Sector;
 
 trait RegistersUsers
 {
@@ -17,7 +19,9 @@ trait RegistersUsers
      */
     public function showRegistrationForm()
     {
-        return view('auth.register');
+        $roles = Role::all();
+        $sectors = Sector::all();
+        return view('auth.register',compact('roles','sectors'));
     }
 
     /**

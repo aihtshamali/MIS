@@ -28,6 +28,6 @@ class CreateHrSectorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hr_sectors');
+        // Schema::dropIfExists('hr_sectors');
     }
 }

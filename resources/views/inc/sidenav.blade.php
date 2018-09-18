@@ -54,7 +54,7 @@
           </ul>
         </li>
         <li class="">
-          <a href="{{url('register')}}">
+          <a href="{{route('register')}}">
             <i class="fa fa-files-o"></i>
             <span>User</span>
 
@@ -178,7 +178,7 @@
                   <li><a href="{{route('district.index')}}"><i class="fa fa-circle-o"></i>View District</a></li>
                 </ul>
               </li>
-         
+
 
 
         @endrole
