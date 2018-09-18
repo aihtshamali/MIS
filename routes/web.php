@@ -125,6 +125,7 @@ Route::resource('projects','ProjectController');
 
 //for adminhr
 Route::prefix('hr')->middleware('role:adminhr|manager')->group(function () {
+  Route::post('/save_moms','AdminHumanResourceController@saveMoms')->name('save_moms');
   Route::resource('admin','AdminHumanResourceController');
   // Route::get('/','inHumanResourceController@index')->name('index_meeting');
   // Route::get('/admin','AdminHumanResourceController@create')->name('create_meeting');

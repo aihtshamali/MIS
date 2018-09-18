@@ -79,6 +79,9 @@
               <th>
                 Attachment
             </th>
+            <th>
+              Attach MOMs
+            </th>
           </tr>
           @foreach ($meetings as $meeting)
               <tr>
@@ -94,7 +97,7 @@
                       @endif
                     </a>
                   </td>
-                
+
                   <td>
                       {{$meeting->HrMeetingType->meeting_name}}
                   </td>
@@ -103,7 +106,24 @@
                   </td>
                   <td>
                   <a href="{{asset('storage/uploads/projects/pdwp_meeting/'.$meeting->attachment)}}" download>{{$meeting->attachment}}</a>
-                    
+
+                  </td>
+                  <td>
+                    @if (isset($meeting->HrMom->attachment))
+                      <a href="{{asset('/storage/uploads/projects/meetings_mom/'.$meeting->HrMom->attachment)}}"> download{{$meeting->HrMom->attachment}}</a>
+                    @else
+                      <a class="btn btn-success pull-left" href="hassan:" style="margin-bottom:5px;">Scan Document</a>
+                      <div>
+                        <form class="attach_moms_form" action="{{route('save_moms')}}" method="post" enctype="multipart/form-data">
+                          {{ csrf_field() }}
+                          <input type="hidden" name="meeting_id" value={{$meeting->id}}>
+                          <input type="file" id="attachmentt" class="attach_moms pull-left" name="attach_moms">
+                          <input type="submit" class="btn btn-success"  name="Submit" value="Submit">
+                        </form>
+                      </div>
+                    @endif
+                      {{-- <a class="btn btn-success pull-left" id="testread">Test</a> --}}
+
                   </td>
               </tr>
           @endforeach
@@ -112,6 +132,4 @@
 </div>
 @endsection
 @section('scripttags')
-
-          
 @endsection

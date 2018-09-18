@@ -13,4 +13,7 @@ class HrMeetingPDWP extends Model
     public function HrAgenda(){
         return $this->hasMany('App\HrAgenda');
     }
+    public function HrMom(){
+      return $this->hasOne('App\HrMom');
+    }
 }
