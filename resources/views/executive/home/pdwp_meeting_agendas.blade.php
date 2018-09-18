@@ -403,8 +403,10 @@ li div{
 
   <section class="">
           <?php $var = 1; $c = count($agendas)?>
-
+          <form class="" action="{{route('store_agenda_comments')}}" method="post">
+            {{ csrf_field() }}
           @foreach ($agendas as $agenda)
+            <input type="hidden" name="hr_meeting_id" value="{{$meeting->id}}">
           @if($agenda->agenda_type_id == 2 || $agenda->agenda_type_id == 1)
             <section id="section_<?php echo $var?>" class="content col-md-12" style="display:none;">
                 <div id="outerbox" class="box yewali_1 box-default">
@@ -457,7 +459,7 @@ li div{
                                         <label for="adp_allocation">ADP Allocation</label>
                                         <input disabled value="{{$agenda->adp_allocation}}" class="form-control" id="adp_allocation" name="adp_allocation[]" type="number" step = "0.01"style="text-align:center;">
                                     </div>
-
+                                    <input type="hidden" name="agenda_id[]" value="{{$agenda->id}}">
                                     <div class="form-group" id="datepick" style="margin-top:10px">
                                         <label for="">Start Time</label>
                                         <input disabled value="{{$agenda->start_timeofagenda}}" class="form-control" id="adp_allocation" name="adp_allocation[]" type="text"style="text-align:center;">
@@ -466,7 +468,7 @@ li div{
                                     <div class="form-group" id="datepick" style="margin-top:10px">
                                         <label for="">Actual Start Time</label>
                                         <div class='input-group col-sm-12 date get_time' id='my_time' style="padding: 0 !important">
-                                            <input type='text' id="my_time"  name="my_time[]" class="form-control" />
+                                            <input type='text' id="my_time"  name="actual_start_time[]" class="form-control" />
                                             <span class="input-group-addon ">
                                                 <span class="glyphicon glyphicon-time"></span>
                                             </span>
@@ -476,7 +478,7 @@ li div{
                                     <div class="form-group" id="datepick" style="margin-top:10px">
                                         <label for="">Actual End Time</label>
                                         <div class='input-group col-sm-12 date get_time' id='my_time' style="padding: 0 !important">
-                                            <input type='text' id="my_time"  name="my_time[]" class="form-control" />
+                                            <input type='text' id="my_time"  name="actual_end_time[]" class="form-control" />
                                             <span class="input-group-addon ">
                                                 <span class="glyphicon glyphicon-time"></span>
                                             </span>
@@ -485,18 +487,17 @@ li div{
 
                                     <div>
                                         <label >Decision</label>
-                                        <select  name="section2_decision" class="form-control select2" style="text-align: center !important" id="">
-                                            <option value="Approved">Approved</option>
-                                            <option value="Deffered">Deffered</option>
-                                            <option value="Rejected">Not Approved</option>
-                                            <option value="Get Clearance">Cost Clearance</option>
-                                            <option value="Withdrawn">Withdrawn</option>
+                                        <select  name="agenda_decision[]" class="form-control select2" style="text-align: center !important" id="">
+                                          <option value="">Select Decision</option>
+                                            @foreach ($hr_decisions as $decision)
+                                              <option value="{{$decision->id}}">{{$decision->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
 
                                     <div>
                                         <label >Comments</label>
-                                        <textarea rows="4" value="" class="form-control" id="name_of_scheme" name="name_of_scheme[]" type="text"></textarea>
+                                        <textarea rows="4" value="" class="form-control" id="name_of_scheme" name="agenda_comments[]"></textarea>
                                     </div>
 
                                     <div  id="<?php echo $var?>" style="margin-top:20px">
@@ -505,16 +506,15 @@ li div{
                                             <button class="btn btn-success add-more pull-right"  type="button">Next</button>
                                         @endif
                                         @if($var > $c)
-                                            <button class="btn btn-success end pull-right"  type="button">Finish</button>
+                                            <button class="btn btn-success end pull-right"  type="submit">Finish</button>
                                         @endif
                                         @if($var > 2)
-                                            <button class="btn btn-info pull-left remove-more"  type="submit">Previous</button>
+                                            <button class="btn btn-info pull-left remove-more"  type="button">Previous</button>
                                         @endif
                                         @if($var <= 2)
-                                            <button class="btn btn-info pull-left back-more"  type="submit">Back to Summary</button>
+                                            <button class="btn btn-info pull-left back-more"  type="button">Back to Summary</button>
                                         @endif
                                     </div>
-
                                 </div>
                             </li>
                         </ul>
@@ -560,7 +560,7 @@ li div{
                                     <div class="form-group" id="datepick" style="margin-top:10px">
                                         <label for="">Actual Start Time</label>
                                         <div class='input-group col-sm-12 date get_time' id='my_time' style="padding: 0 !important" >
-                                            <input type='text' id="my_time"  name="my_time[]" class="form-control" />
+                                            <input type='text' id="my_time"  name="actual_start_time[]" class="form-control" />
                                             <span class="input-group-addon ">
                                                 <span class="glyphicon glyphicon-time"></span>
                                             </span>
@@ -570,7 +570,7 @@ li div{
                                     <div class="form-group" id="datepick" style="margin-top:10px">
                                         <label for="">Actual End Time</label>
                                         <div class='input-group col-sm-12 date get_time' id='my_time' style="padding: 0 !important">
-                                            <input type='text' id="my_time"  name="my_time[]" class="form-control" />
+                                            <input type='text' id="my_time"  name="actual_end_time[]" class="form-control" />
                                             <span class="input-group-addon ">
                                                 <span class="glyphicon glyphicon-time"></span>
                                             </span>
@@ -579,18 +579,17 @@ li div{
 
                                     <div>
                                         <label >Decision</label>
-                                        <select  name="section2_decision" class="form-control select2" style="text-align: center !important" id="">
-                                            <option value="Approved">Approved</option>
-                                            <option value="Deffered">Deffered</option>
-                                            <option value="Rejected">Not Approved</option>
-                                            <option value="Get Clearance">Cost Clearance</option>
-                                            <option value="Withdrawn">Withdrawn</option>
+                                        <select  name="agenda_decision[]" class="form-control select2" style="text-align: center !important" id="">
+                                          <option value="">Select Decision</option>
+                                          @foreach ($hr_decisions as $decision)
+                                            <option value="{{$decision->id}}">{{$decision->name}}</option>
+                                          @endforeach
                                         </select>
                                     </div>
 
                                     <div>
                                         <label >Comments</label>
-                                        <textarea rows="4" value="" class="form-control" id="name_of_scheme" name="name_of_scheme[]" type="text"></textarea>
+                                        <textarea rows="4" value="" class="form-control" id="" name="agenda_comments[]"></textarea>
                                     </div>
 
                                     <div id="<?php echo $var?>" style="margin-top:20px">
@@ -598,13 +597,13 @@ li div{
                                             <button class="btn btn-success add-more pull-right"  type="button">Next</button>
                                         @endif
                                         @if($var > $c)
-                                            <button class="btn btn-success end pull-right"  type="button">Finish</button>
+                                            <button class="btn btn-success end pull-right"  type="submit">Finish</button>
                                         @endif
                                         @if($var > 2)
-                                            <button class="btn btn-info pull-left remove-more"  type="submit">Previous</button>
+                                            <button class="btn btn-info pull-left remove-more"  type="button">Previous</button>
                                         @endif
                                         @if($var <= 2)
-                                            <button class="btn btn-info pull-left back-more"  type="submit">Back to Summary</button>
+                                            <button class="btn btn-info pull-left back-more"  type="button">Back to Summary</button>
                                         @endif
                                     </div>
                                 </div>
@@ -615,6 +614,8 @@ li div{
             </section>
             @endif
           @endforeach
+        </form>
+
   </section>
 
 </div>
