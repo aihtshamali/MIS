@@ -96,7 +96,7 @@
                     No ADP
                     @endif
                   </td>
-                
+
                   <td>
                     {{$agenda->scheme_name}}
                   </td>
@@ -109,7 +109,9 @@
                   <td>
                     {{-- <input type="file" name="attachments" class="form-control"> --}}
                     {{-- {{dd($agenda->HrMeetingPDWP)}} --}}
+                    @if(isset($agenda->HrAttachment->attachments))
                   <a href="{{asset('storage/uploads/projects/project_agendas/'.$agenda->HrAttachment->attachments)}}" download>{{$agenda->HrAttachment->attachments}}</a>
+                  @endif
                   </td>
               </tr>
           @endforeach
@@ -119,5 +121,5 @@
 @endsection
 @section('scripttags')
 
-          
+
 @endsection

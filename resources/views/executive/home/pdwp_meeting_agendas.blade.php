@@ -81,7 +81,7 @@ li div{
                     @foreach ($agendas as $agenda)
                       @if($agenda->agenda_type_id == 2 || $agenda->agenda_type_id == 1)
                         @if($color === 0)
-                            <?php $color++ ?>                            
+                            <?php $color++ ?>
                             <li class="list-group-item col-md-12" id="field" style="border-bottom: 2px solid gray ">
                         @elseif($color === 1)
                             <?php $color-- ?>
@@ -139,13 +139,13 @@ li div{
                                     <input disabled value="{{$agenda->start_timeofagenda}}" class="form-control" id="adp_allocation" name="start_timeofagenda[]" type="text" style="text-align:center;">
                                 </div>
                             </div>
-                                
+
 
                             </div>
                         </li>
                 @else
                         @if($color === 0)
-                            <?php $color++ ?>                            
+                            <?php $color++ ?>
                             <li class="list-group-item col-md-12" id="field" style="border-bottom: 2px solid gray ">
                         @elseif($color === 1)
                             <?php $color-- ?>
@@ -203,7 +203,7 @@ li div{
                                 <input disabled value="{{$agenda->start_timeofagenda}}" class="form-control" id="adp_allocation" name="start_timeofagenda[]" type="text"style="text-align:center;">
                             </div>
                         </div>
-                            
+
 
                         </div>
                     </li>
@@ -215,7 +215,7 @@ li div{
             <button  class="btn btn-success pull-right conduct"  type="button">Conduct the meeting</button>
             <button  class="btn btn-success pull-left add-agenda"  type="button">Add New Agenda</button>
         </div>
-        
+
         <section id="section_agenda" class="content col-md-12" style="display:none;">
             <div id="outerbox" class="box yewali_1 box-default">
                 <div  class="box-header with-border">
@@ -287,8 +287,8 @@ li div{
                             <div>
                                 <label >Sector</label>
                                 <select  name="sector[]" class="form-control select2" style="text-align: center !important" id="sector_val">
-                                    <option value="">Select Sector</option>                              
-                                    @foreach ($sectors as $sector)    
+                                    <option value="">Select Sector</option>
+                                    @foreach ($sectors as $sector)
                                     <option value="{{$sector->id}}">{{$sector->name}}</option>
                                     @endforeach
                                 </select>
@@ -304,10 +304,10 @@ li div{
                             <div class="form-group" id="datepick" style="margin-top:10px">
                                 <label for="">Time</label>
                                 <select  name="my_time[]" class="form-control select2" style="text-align: center !important" id="">
-                                    <option value="">Select Time</option>                              
+                                    <option value="">Select Time</option>
                                     @for ($i = 9; $i < 12; $i++)
-                                    @for($j = 0; $j <= 45; $j+=15)  
-                                        @if($j == 0)  
+                                    @for($j = 0; $j <= 45; $j+=15)
+                                        @if($j == 0)
                                         <option value="{{$i . ' : ' . $j.'0' .' AM'}}"> {{$i . " : " . $j .'0'}} AM</option>
                                         @else
                                         <option value="{{$i . ' : ' . $j . ' AM'}}"> {{$i . " : " . $j }} AM </option>
@@ -319,15 +319,15 @@ li div{
                                     <option value="12 : 30 PM">12 : 30 PM</option>
                                     <option value="12 : 45 PM">12 : 45 PM</option>
                                     @for ($i = 1; $i <= 5; $i++)
-                                    @for($j = 0; $j <= 45; $j+=15)  
-                                        @if($j == 0)  
+                                    @for($j = 0; $j <= 45; $j+=15)
+                                        @if($j == 0)
                                         <option value="{{$i . ' : ' . $j.'0' . ' PM' }}"> {{$i . " : " . $j .'0'}} PM</option>
                                         @else
                                         <option value="{{$i . ' : ' . $j .' PM' }}"> {{$i . " : " . $j }} PM </option>
                                         @endif
                                     @endfor
                                     @endfor
-        
+
                                 </select>
                             </div>
                             <div>
@@ -351,8 +351,8 @@ li div{
                             </div>
                             <label >Sector</label>
                             <select  name="section2_sector[]" class="form-control select2" style="text-align: center !important" id="">
-                                <option value="">Select Sector</option>                              
-                                @foreach ($sectors as $sector)    
+                                <option value="">Select Sector</option>
+                                @foreach ($sectors as $sector)
                                 <option value="{{$sector->id}}">{{$sector->name}}</option>
                                 @endforeach
                             </select>
@@ -364,10 +364,10 @@ li div{
                             <div class="form-group" style="margin-top:10px">
                                 <label for="">Time</label>
                                 <select  name="section2_my_time[]" class="form-control select2" style="text-align: center !important" id="">
-                                    <option value="">Select Time</option>                              
+                                    <option value="">Select Time</option>
                                     @for ($i = 9; $i < 12; $i++)
-                                    @for($j = 0; $j <= 45; $j+=15)  
-                                        @if($j == 0)  
+                                    @for($j = 0; $j <= 45; $j+=15)
+                                        @if($j == 0)
                                         <option value="{{$i . ' : ' . $j.'0' . ' AM' }}"> {{$i . " : " . $j .'0'}} AM</option>
                                         @else
                                         <option value="{{$i . ' : ' . $j . ' AM' }}"> {{$i . " : " . $j }} AM </option>
@@ -379,15 +379,15 @@ li div{
                                     <option value="12 : 30 PM">12 : 30 PM</option>
                                     <option value="12 : 45 PM">12 : 45 PM</option>
                                     @for ($i = 1; $i <= 5; $i++)
-                                    @for($j = 0; $j <= 45; $j+=15)  
-                                        @if($j == 0)  
+                                    @for($j = 0; $j <= 45; $j+=15)
+                                        @if($j == 0)
                                         <option value="{{$i . ' : ' . $j.'0' . ' PM' }}"> {{$i . " : " . $j .'0'}} PM</option>
                                         @else
                                         <option value="{{$i . ' : ' . $j . ' PM'}}"> {{$i . " : " . $j }} PM </option>
                                         @endif
                                     @endfor
                                     @endfor
-    
+
                                 </select>
                             </div>
                         <div>
@@ -403,7 +403,7 @@ li div{
 
   <section class="">
           <?php $var = 1; $c = count($agendas)?>
-          
+
           @foreach ($agendas as $agenda)
           @if($agenda->agenda_type_id == 2 || $agenda->agenda_type_id == 1)
             <section id="section_<?php echo $var?>" class="content col-md-12" style="display:none;">
@@ -412,7 +412,7 @@ li div{
                         <ul class="list-group" id="isme">
                             <li class="list-group-item " id="field">
                                 <div class="form-group row" style="margin-left:20px;margin-right:20px" id="main">
-                                    
+
                                     <div>
                                         <label for="">Agenda Item</label>
                                         <input type="text" disabled class="form-control" value="<?php echo $var++?>">
@@ -486,11 +486,11 @@ li div{
                                     <div>
                                         <label >Decision</label>
                                         <select  name="section2_decision" class="form-control select2" style="text-align: center !important" id="">
-                                            <option value="Approved">Approved</option>     
-                                            <option value="Deffered">Deffered</option>                              
-                                            <option value="Rejected">Not Approved</option>                              
-                                            <option value="Get Clearance">Cost Clearance</option>                              
-                                            <option value="Withdrawn">Withdrawn</option>                              
+                                            <option value="Approved">Approved</option>
+                                            <option value="Deffered">Deffered</option>
+                                            <option value="Rejected">Not Approved</option>
+                                            <option value="Get Clearance">Cost Clearance</option>
+                                            <option value="Withdrawn">Withdrawn</option>
                                         </select>
                                     </div>
 
@@ -500,7 +500,7 @@ li div{
                                     </div>
 
                                     <div  id="<?php echo $var?>" style="margin-top:20px">
-                                        
+
                                         @if($var <= $c)
                                             <button class="btn btn-success add-more pull-right"  type="button">Next</button>
                                         @endif
@@ -546,7 +546,7 @@ li div{
                                         <label for="name_of_scheme">Topic</label>
                                         <input disabled value="{{$agenda->scheme_name}}" class="form-control" id="name_of_scheme" name="name_of_scheme[]" type="text"style="text-align:center;">
                                     </div>
-    
+
                                     <div>
                                         <label >Sector</label>
                                         <input disabled value="{{$agenda->HrSector->name}}" class="form-control" id="name_of_scheme" name="name_of_scheme[]" type="text"style="text-align:center;">
@@ -580,11 +580,11 @@ li div{
                                     <div>
                                         <label >Decision</label>
                                         <select  name="section2_decision" class="form-control select2" style="text-align: center !important" id="">
-                                            <option value="Approved">Approved</option>     
-                                            <option value="Deffered">Deffered</option>                              
-                                            <option value="Rejected">Not Approved</option>                              
-                                            <option value="Get Clearance">Cost Clearance</option>                              
-                                            <option value="Withdrawn">Withdrawn</option>                              
+                                            <option value="Approved">Approved</option>
+                                            <option value="Deffered">Deffered</option>
+                                            <option value="Rejected">Not Approved</option>
+                                            <option value="Get Clearance">Cost Clearance</option>
+                                            <option value="Withdrawn">Withdrawn</option>
                                         </select>
                                     </div>
 
@@ -592,7 +592,7 @@ li div{
                                         <label >Comments</label>
                                         <textarea rows="4" value="" class="form-control" id="name_of_scheme" name="name_of_scheme[]" type="text"></textarea>
                                     </div>
-                                   
+
                                     <div id="<?php echo $var?>" style="margin-top:20px">
                                         @if($var <= $c)
                                             <button class="btn btn-success add-more pull-right"  type="button">Next</button>
@@ -630,14 +630,14 @@ li div{
 
         $(this).find('input').val(time);
         console.log('some shit');
-        
+
     });
 
     // $(document).ready(function(){
     //     // $('section').hide();
     //     $('#section_1').show();
     //     console.log('workis');
-        
+
     // });
     $('.conduct').on('click',function(){
         $('.initial').hide();
@@ -649,26 +649,26 @@ li div{
     });
 
     $('.add-more').on('click',function(){
-        var id = $(this).parent().attr('id');        
+        var id = $(this).parent().attr('id');
         $('#section_'+(id-1)).hide();
         $('#section_'+id).show('slow');
     });
 
     $('.end').on('click',function(){
-        
+
     });
 
     $('.remove-more').on('click',function(){
-        var id = $(this).parent().attr('id');        
+        var id = $(this).parent().attr('id');
         $('#section_'+(id-1)).hide();
         $('#section_'+(id-2)).show('slow');
     });
-    
+
     $('.back-more').on('click',function(){
-        var id = $(this).parent().attr('id');        
+        var id = $(this).parent().attr('id');
         $('#section_'+(id-1)).hide();
         $('.initial').show('slow');
     });
 </script>
-          
+
 @endsection

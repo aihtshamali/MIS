@@ -52,7 +52,7 @@
 
   <section class="content-header">
     <h1>
-    Add New PDWP Meeting 
+    Add New PDWP Meeting
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-backward" ></i>Back</a></li>
@@ -69,7 +69,7 @@
         <div id="outerbox" class="box box-default">
           <div  class="box-header with-border">
             <h3 class="box-title">Select Meeting Type</h3>
-    
+
             {{-- <div class="box-tools pull-right">
               <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
               <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
@@ -105,10 +105,11 @@
                   <div>
                       <input  style="margin-bottom:10px;" type="file" id="meeting_attachment" class="pull-left" name="meeting_attachment" value="">
                   </div>
+                  <a class="btn btn-success pull-left" href="hassan:">Scan Document</a> 
                   <button id="next" class="btn btn-success" type="button">Next</button>
                 </div>
               </div>
-              
+
             </div>
           </div>
         </div>
@@ -187,8 +188,8 @@
                       <div>
                           <label >Sector</label>
                           <select  name="sector[]" class="form-control select2" style="text-align: center !important" id="sector_val">
-                              <option value="">Select Sector</option>                              
-                              @foreach ($sectors as $sector)    
+                              <option value="">Select Sector</option>
+                              @foreach ($sectors as $sector)
                             <option value="{{$sector->id}}">{{$sector->name}}</option>
                             @endforeach
                           </select>
@@ -204,10 +205,10 @@
                       <div class="form-group" id="datepick" style="margin-top:10px">
                         <label for="">Time</label>
                         <select  name="my_time[]" class="form-control select2" style="text-align: center !important" id="">
-                            <option value="">Select Time</option>                              
+                            <option value="">Select Time</option>
                             @for ($i = 9; $i < 12; $i++)
-                              @for($j = 0; $j <= 45; $j+=15)  
-                                @if($j == 0)  
+                              @for($j = 0; $j <= 45; $j+=15)
+                                @if($j == 0)
                                 <option value="{{$i . ' : ' . $j.'0' .' AM'}}"> {{$i . " : " . $j .'0'}} AM</option>
                                 @else
                                 <option value="{{$i . ' : ' . $j . ' AM'}}"> {{$i . " : " . $j }} AM </option>
@@ -219,8 +220,8 @@
                             <option value="12 : 30 PM">12 : 30 PM</option>
                             <option value="12 : 45 PM">12 : 45 PM</option>
                             @for ($i = 1; $i <= 5; $i++)
-                              @for($j = 0; $j <= 45; $j+=15)  
-                                @if($j == 0)  
+                              @for($j = 0; $j <= 45; $j+=15)
+                                @if($j == 0)
                                 <option value="{{$i . ' : ' . $j.'0' . ' PM' }}"> {{$i . " : " . $j .'0'}} PM</option>
                                 @else
                                 <option value="{{$i . ' : ' . $j .' PM' }}"> {{$i . " : " . $j }} PM </option>
@@ -251,8 +252,8 @@
                           </div>
                           <label >Sector</label>
                           <select  name="section2_sector[]" class="form-control select2" style="text-align: center !important" id="">
-                              <option value="">Select Sector</option>                              
-                              @foreach ($sectors as $sector)    
+                              <option value="">Select Sector</option>
+                              @foreach ($sectors as $sector)
                             <option value="{{$sector->id}}">{{$sector->name}}</option>
                             @endforeach
                           </select>
@@ -264,10 +265,10 @@
                         <div class="form-group" style="margin-top:10px">
                             <label for="">Time</label>
                             <select  name="section2_my_time[]" class="form-control select2" style="text-align: center !important" id="">
-                                <option value="">Select Time</option>                              
+                                <option value="">Select Time</option>
                                 @for ($i = 9; $i < 12; $i++)
-                                  @for($j = 0; $j <= 45; $j+=15)  
-                                    @if($j == 0)  
+                                  @for($j = 0; $j <= 45; $j+=15)
+                                    @if($j == 0)
                                     <option value="{{$i . ' : ' . $j.'0' . ' AM' }}"> {{$i . " : " . $j .'0'}} AM</option>
                                     @else
                                     <option value="{{$i . ' : ' . $j . ' AM' }}"> {{$i . " : " . $j }} AM </option>
@@ -279,8 +280,8 @@
                                 <option value="12 : 30 PM">12 : 30 PM</option>
                                 <option value="12 : 45 PM">12 : 45 PM</option>
                                 @for ($i = 1; $i <= 5; $i++)
-                                  @for($j = 0; $j <= 45; $j+=15)  
-                                    @if($j == 0)  
+                                  @for($j = 0; $j <= 45; $j+=15)
+                                    @if($j == 0)
                                     <option value="{{$i . ' : ' . $j.'0' . ' PM' }}"> {{$i . " : " . $j .'0'}} PM</option>
                                     @else
                                     <option value="{{$i . ' : ' . $j . ' PM'}}"> {{$i . " : " . $j }} PM </option>
@@ -291,14 +292,14 @@
                             </select>
                         </div>
                         <div>
-                          <input type="file" id="attachmentt" class="pull-left" name="section2_attachments[]" value="" style="display:none;">
+                          <input type="file" id="attachmentt" class="pull-left" name="section2_attachments[]" value="" >
                       </div>
                     </section>
                   </div>
-                    
+
                   <div style="margin-top:20px">
                       {{-- <button  class="btn btn-success pull-left scan" type="button">Scan Document</button> --}}
-                      <a class="btn btn-success pull-left" href="hassan:">Scan Document</a> 
+                      <a class="btn btn-success pull-left" href="hassan:">Scan Document</a>
                       {{-- <button  class="btn btn-success pull-left testexe" type="button">test exe</button> --}}
 
                       {{-- <button type="button" id="THE-REAPER" style="display:block;">Choose File</button> --}}
@@ -307,7 +308,7 @@
                       <button id="finish_btn" class="btn btn-info pull-right"  type="submit">Finish</button>
                   </div>
             {{-- <button id="b9" class="btn btn-success pull-left"  type="button">Scan Documents</button> --}}
-            
+
                </li>
             </ul>
         </div>
@@ -328,7 +329,7 @@
 <script>
     var d = new Date();
     document.getElementById("d").innerHTML = d.toLocaleDateString("en-US");
-    
+
     </script>
 <script>
 
@@ -341,7 +342,7 @@
     $("#financial_year").val('2017-18');
   });
 $(document).on('click','.add-more',function(e){
-  
+
       if(pre == 0)
       {
         $('#field').find('section').hide();
@@ -363,8 +364,8 @@ $(document).on('click','.add-more',function(e){
         $('#field').find('section').hide();
 
         pre = pre - 1;
-        
-        if(pre == 0)        
+
+        if(pre == 0)
         $('#agenda_type').val(temp);
         else
         $('#agenda_type').val(items[next - pre - 1]);
@@ -378,9 +379,9 @@ $(document).on('click','.add-more',function(e){
           $('#field').find('#first_section'+(next - pre)).hide();
         }
         $('#agenda_type').prop('disabled', true);
-        
+
   console.log('pre',pre);
-        
+
       }
   });
 
@@ -422,7 +423,7 @@ $(document).on('click','.add-more',function(e){
         // $('.yewali_'+next).find('#second_section').show('slow');
       }
     });
-        
+
     $('#type_of_meetings').on('change',function(){
       // console.log();
       if($(this).val() == 2){
@@ -440,7 +441,7 @@ $(document).on('click','.add-more',function(e){
       $('#section1').hide('slow');
       $('#section2').show('slow');
       $('.yewali_'+next).find("#ex1").val(""+next);
-      
+
     });
 
     $('#my_date').datetimepicker({
@@ -461,24 +462,24 @@ $(document).on('click','.add-more',function(e){
     items.push($('#agenda_type').val());
       attachments.push($('#attachment').val());
       console.log(items);
-      
+
     $("#agenda_type_items").val(items);
     // $("#attachment").val(attachments);
     $("#form_send").submit();
   });
-    
+
         $(document).on('change', '#type_of_meetings', function() {
             var opt = $(this).find(':selected').text();
             if(opt == "Special Meeting"){
               $("#second_specialmeetings").show('slow');
               $("#second_regularmeetings").hide('slow');
-          
-          
+
+
             }
             else if(opt == "Regular Meeting"){
               $("#second_regularmeetings").show('slow');
               $("#second_specialmeetings").hide('slow');
-          
+
             }
           });
           $(document).on('change', '#phase_of_evaluation', function() {
@@ -494,7 +495,7 @@ $(document).on('click','.add-more',function(e){
             $("#fourth").show('slow');
           }
           });
-          
+
           $(document).on('change', '#phase_of_monitoring', function() {
           var opt = $(this).find(':selected').text();
           if(opt == "New Monitoring"){
@@ -508,10 +509,10 @@ $(document).on('click','.add-more',function(e){
             $("#fourth").hide();
           }
           });
-          
+
           $(document).on('change','#nonadp',function(){
             // console.log($('#nonadp').is(':checked'),$('#nonadp'));
-            
+
             if($('#nonadp').is(':checked') == true)
               {
                 $('#adpdiv *').prop('disabled',true);
@@ -520,14 +521,14 @@ $(document).on('click','.add-more',function(e){
             else
               $('#adpdiv *').prop('disabled',false);
               $('#nonadp').prop('disabled',false);
-          });          
+          });
 
           $(document).on('change','#adp',function(){
             var arr = $(this).val().split(',')
             console.log(projects[arr[1]]);
 
             if($('#agenda_type').val() == 1 || $('#agenda_type').val() == 2 ){
-              
+
               $("#first_section"+next+" > div > input#name_of_scheme").val(projects[arr[1]].name_of_scheme);
               // $("#first_section"+next+" > div > #sector_val")(projects[arr[1]].sector);
               $("#first_section"+next+" > div > #sector_val").val($("#first_section"+next+" > div > #sector_val option").filter(function () { return $(this).html() == projects[arr[1]].sector; }).val());
@@ -622,16 +623,16 @@ $(document).on('click','.scan',function(){
     'data' : 'nothing'}, // a JSON object to send back
   success: function(response){ // What to do if we succeed
     console.log(response,'yahi hai');
-    
+
   },
   error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
       console.log(JSON.stringify(jqXHR));
       console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
   }
   })
-  // 
+  //
   // console.log('nope');
-  
+
 });
 
   $(document).on('click','#THE-REAPER',function(){
