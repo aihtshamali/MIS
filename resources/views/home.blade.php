@@ -263,7 +263,7 @@
                         </div>
                     </li>
                 </ul>
-                <div class="in-viewer test" >
+                <div class="in-viewer test" style="overflow-y:scroll;">
                     <!-- <div class="in-viewer-header">
                         <img src="trash/img1.jpg">
                         <div>
@@ -514,7 +514,7 @@
                         </div>
                     </li>
                 </ul>
-                <div class="in-viewer">
+                <div class="in-viewer test3">
                     <div class="in-viewer-header">
                         <img src="trash/img1.jpg">
                         <div>

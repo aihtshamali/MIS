@@ -8,9 +8,25 @@ use App\Project;
 use App\AssignedProject;
 use App\AssignedProjectManager;
 use App\User;
+use App\HrMeetingPDWP;
 class ExecutiveController extends Controller
 {
   //  HOME FOLDER
+    public function conduct_pdwp_meeting(){
+      $meetings = HrMeetingPDWP::where('status',1)->orderBy('updated_at', 'desc')->get();
+      return view('executive.home.pdwp_meeting',compact('meetings'));
+    }
+
+    public function list_agendas(Request $req){
+      // dd($req->all());
+      $meeting = HrMeetingPDWP::find($req->meeting_no);
+      // dd($meeting);
+      $agendas = $meeting->HrAgenda;
+      // dd($agendas);
+      return view('executive.home.pdwp_meeting_agendas',compact('agendas'));
+
+    }
+
     public function index(){
       $unassigned=Project::select('projects.*')
      ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
