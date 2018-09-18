@@ -104,6 +104,7 @@
                   </div>
                   <div>
                       <input  style="margin-bottom:10px;" type="file" id="meeting_attachment" class="pull-left" name="meeting_attachment" value="">
+                      
                   </div>
                   <a class="btn btn-success pull-left" href="hassan:">Scan Document</a> 
                   <button id="next" class="btn btn-success" type="button">Next</button>
@@ -298,11 +299,8 @@
                   </div>
 
                   <div style="margin-top:20px">
-                      {{-- <button  class="btn btn-success pull-left scan" type="button">Scan Document</button> --}}
-                      <a class="btn btn-success pull-left" href="hassan:">Scan Document</a>
-                      {{-- <button  class="btn btn-success pull-left testexe" type="button">test exe</button> --}}
-
-                      {{-- <button type="button" id="THE-REAPER" style="display:block;">Choose File</button> --}}
+                      <a class="btn btn-success pull-left" href="hassan:">Scan Document</a> 
+                      <a class="btn btn-success pull-left" href="hassanduplex:">Duplex Scan</a>
                       {{-- <button id="previous" class="btn btn-success" type="button">Previous</button> --}}
                       <button id="b3" class="btn btn-success add-more"  type="button">Next</button>
                       <button id="finish_btn" class="btn btn-info pull-right"  type="submit">Finish</button>
