@@ -82,6 +82,10 @@
                 <th>
                   Attachments
                 </th>
+                <th>
+                    MOM's
+                </th>
+                  
           </tr>
           <?php $var = 1?>
           @foreach ($agendas as $agenda)
@@ -111,13 +115,25 @@
                     {{-- {{dd($agenda->HrMeetingPDWP)}} --}}
                   <a href="{{asset('storage/uploads/projects/project_agendas/'.$agenda->HrAttachment->attachments)}}" download>{{$agenda->HrAttachment->attachments}}</a>
                   </td>
+                  <td>
+                      <a class="btn btn-success pull-left" href="hassan:" style="margin-bottom:5px;">Scan Document</a>
+                      <div>
+                          <input type="file" id="attachmentt" class="pull-left" name="section2_attachments[]" value="">
+                      </div>
+                      {{-- <a class="btn btn-success pull-left" id="testread">Test</a> --}}
+
+                  </td>
               </tr>
           @endforeach
       </table>
+      <div class="col-md-7">
+          <button id="finish_btn" class="btn btn-info pull-right"  type="submit">Save Changes</button>
+      </div>
   </section>
 </div>
 @endsection
 @section('scripttags')
-
+<script>
+</script>
           
 @endsection
