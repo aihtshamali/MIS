@@ -15,4 +15,7 @@ class HrAgenda extends Model
     public function AgendaType(){
         return $this->belongsTo('App\AgendaType');
     }
+    public function HrAttachment(){
+        return $this->hasOne('App\HrAttachment');
+    }
 }

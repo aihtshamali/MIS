@@ -78,7 +78,7 @@ class AdminHumanResourceController extends Controller
         if($request->hasFile('meeting_attachment')){
             $meeting_filename = "PDWP-".$temp_meeting_no;
             $request->file('meeting_attachment')->storeAs('public/uploads/projects/pdwp_meeting',$meeting_filename.'.'.$request->file('meeting_attachment')->getClientOriginalExtension());
-            $hr_meeting->attachment = $meeting_filename;
+            $hr_meeting->attachment = $meeting_filename.'.'.$request->file('meeting_attachment')->getClientOriginalExtension();
         }
         $hr_meeting->scheduled_date =  date('Y-m-d',strtotime($request->my_date));
         $hr_meeting->status = 1;
@@ -120,14 +120,14 @@ class AdminHumanResourceController extends Controller
                     $hr_attachment = new HrAttachment();
                     $hr_attachment->hr_agenda_id = $hr_agenda->id;
                     $request->file('attachments.'.$i)->storeAs('public/uploads/projects/project_agendas',$filename.'.'.$request->file('attachments.'.$i)->getClientOriginalExtension());
-                    $hr_attachment->attachments = $request->file('attachments.'. $i)->hashName();
+                    $hr_attachment->attachments = $filename.'.'.$request->file('attachments.'.$i)->getClientOriginalExtension();
                     $hr_attachment->save();  
                 }  
                 if($request->hasFile('section2_attachments.'. $i)){
                     $hr_attachment = new HrAttachment();
                     $hr_attachment->hr_agenda_id = $hr_agenda->id;
                     $request->file('section2_attachments.'.$i)->storeAs('public/uploads/projects/project_agendas',$filename.'.'.$request->file('section2_attachments.'.$i)->getClientOriginalExtension());
-                    $hr_attachment->attachments = $request->file('section2_attachments.'. $i)->hashName();
+                    $hr_attachment->attachments = $filename.'.'.$request->file('section2_attachments.'.$i)->getClientOriginalExtension();
                     $hr_attachment->save();  
                 }
             $i += 1;

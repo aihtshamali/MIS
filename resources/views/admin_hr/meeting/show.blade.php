@@ -107,7 +107,8 @@
                     {{$agenda->adp_allocation}}
                   </td>
                   <td>
-                    <input type="file" name="attachments" class="form-control">
+                    {{-- <input type="file" name="attachments" class="form-control"> --}}
+                  <a href="{{asset('storage/uploads/projects/pdwp_meetings'.$agenda->HrMeetingPDWP->attachment)}}"></a>
                   </td>
               </tr>
           @endforeach
