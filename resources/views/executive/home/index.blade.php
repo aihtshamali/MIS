@@ -136,7 +136,7 @@
                       <div class="icon">
                         <i class="fa fa-balance-scale"></i>
                       </div>
-                      <a href="{{route('Exec_pems_tab')}}" class="small-box-footer">
+                      <a href="{{route('Exec_evms_all')}}" class="small-box-footer">
                         More info <i class="fa fa-arrow-circle-right"></i>
                       </a>
                     </div>

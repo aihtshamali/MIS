@@ -51,6 +51,7 @@ Route::group(['middleware' => ['role:admin']], function () {
 // For Manager
 Route::prefix('manager')->middleware('role:manager')->group(function () {
   Route::get('/','ExecutiveController@index')->name('Exec_home');
+  Route::get('/tabs_evms','ExecutiveController@evms_tabs')->name('Exec_evms_all');
   Route::get('/pems_tab','ExecutiveController@pems_index')->name('Exec_pems_tab');
   Route::get('/pmms_tab','ExecutiveController@pmms_index')->name('Exec_pmms_tab');
   Route::get('/tpv_tab','ExecutiveController@tpv_index')->name('Exec_tpv_tab');

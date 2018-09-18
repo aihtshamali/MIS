@@ -38,6 +38,9 @@ class ExecutiveController extends Controller
       $assignedtoManager=AssignedProjectManager::all();
       return view('executive.home.index',['unassigned'=>$unassigned,'assignedtoManager'=>$assignedtoManager,'assigned'=>$assigned]);
     }
+    public function evms_tabs(){
+      return view('executive.home.evaluation_tabs');
+    }
 
     public function pems_index(){
       $unassigned=Project::select('projects.*')
