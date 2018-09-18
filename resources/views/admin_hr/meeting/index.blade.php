@@ -76,6 +76,9 @@
               <th>
                   Date
               </th>
+              <th>
+                Attachment
+            </th>
           </tr>
           @foreach ($meetings as $meeting)
               <tr>
@@ -97,6 +100,10 @@
                   </td>
                   <td>
                       {{$meeting->scheduled_date}}
+                  </td>
+                  <td>
+                  <a href="{{asset('storage/uploads/projects/pdwp_meeting/'.$meeting->attachment)}}" download>{{$meeting->attachment}}</a>
+                    
                   </td>
               </tr>
           @endforeach

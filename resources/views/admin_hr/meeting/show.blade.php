@@ -108,7 +108,8 @@
                   </td>
                   <td>
                     {{-- <input type="file" name="attachments" class="form-control"> --}}
-                  <a href="{{asset('storage/uploads/projects/pdwp_meetings'.$agenda->HrMeetingPDWP->attachment)}}"></a>
+                    {{-- {{dd($agenda->HrMeetingPDWP)}} --}}
+                  <a href="{{asset('storage/uploads/projects/project_agendas/'.$agenda->HrAttachment->attachments)}}" download>{{$agenda->HrAttachment->attachments}}</a>
                   </td>
               </tr>
           @endforeach
