@@ -54,6 +54,7 @@
     <h1>
     All Meetings
     </h1>
+    <a class="btn btn-success pull-right" href="hassan:" style="margin-bottom:5px;">Scan Document</a>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-backward" ></i>Back</a></li>
       <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li>
@@ -112,13 +113,12 @@
                     @if (isset($meeting->HrMom->attachment))
                       <a href="{{asset('/storage/uploads/projects/meetings_mom/'.$meeting->HrMom->attachment)}}"> download{{$meeting->HrMom->attachment}}</a>
                     @else
-                      <a class="btn btn-success pull-left" href="hassan:" style="margin-bottom:5px;">Scan Document</a>
                       <div>
                         <form class="attach_moms_form" action="{{route('save_moms')}}" method="post" enctype="multipart/form-data">
                           {{ csrf_field() }}
                           <input type="hidden" name="meeting_id" value={{$meeting->id}}>
                           <input type="file" id="attachmentt" class="attach_moms pull-left" name="attach_moms">
-                          <input type="submit" class="btn btn-success"  name="Submit" value="Submit">
+                          <input type="submit" class="btn btn-success"  name="Submit" value="Attach">
                         </form>
                       </div>
                     @endif

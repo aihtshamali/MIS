@@ -305,7 +305,7 @@
                       <button id="b3" class="btn btn-success add-more"  type="button">Next</button>
                       <button id="finish_btn" class="btn btn-info pull-right"  type="submit">Finish</button>
                   </div>
-            {{-- <button id="b9" class="btn btn-success pull-left"  type="button">Scan Documents</button> --}}
+            {{-- <button id="b9" class="btn btn-success pull-left" type="button">Scan Documents</button> --}}
 
                </li>
             </ul>
