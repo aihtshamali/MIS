@@ -104,9 +104,9 @@
                   </div>
                   <div>
                       <input  style="margin-bottom:10px;" type="file" id="meeting_attachment" class="pull-left" name="meeting_attachment" value="">
-                      
+
                   </div>
-                  <a class="btn btn-success pull-left" href="hassan:">Scan Document</a> 
+                  <a class="btn btn-success pull-left" href="hassan:">Scan Document</a>
                   <button id="next" class="btn btn-success" type="button">Next</button>
                 </div>
               </div>
@@ -299,7 +299,7 @@
                   </div>
 
                   <div style="margin-top:20px">
-                      <a class="btn btn-success pull-left" href="hassan:">Scan Document</a> 
+                      <a class="btn btn-success pull-left" href="hassan:">Single Scan</a> 
                       <a class="btn btn-success pull-left" href="hassanduplex:">Duplex Scan</a>
                       {{-- <button id="previous" class="btn btn-success" type="button">Previous</button> --}}
                       <button id="b3" class="btn btn-success add-more"  type="button">Next</button>
