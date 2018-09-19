@@ -8,9 +8,67 @@ use App\Project;
 use App\AssignedProject;
 use App\AssignedProjectManager;
 use App\User;
+use App\HrMeetingPDWP;
+use App\HrSector;
+use App\HrAgenda;
+use App\HrMeetingType;
+use App\AgendaType;
+use App\HrProjectType;
+use App\HrProjectDecision;
+use App\ProjectDecision;
+use App\AdpProject;
+use App\HrDecision;
 class ExecutiveController extends Controller
 {
   //  HOME FOLDER
+    public function conduct_pdwp_meeting(){
+      $meetings = HrMeetingPDWP::where('status',1)->orderBy('updated_at', 'desc')->get();
+      return view('executive.home.pdwp_meeting',compact('meetings'));
+    }
+
+    public function list_agendas(Request $req){
+      // dd($req->all());
+      $meeting = HrMeetingPDWP::find($req->meeting_no);
+      // dd($meeting);
+      $agendas = $meeting->HrAgenda;
+      // dd($agendas);
+      $adp = AdpProject::orderBy('gs_no')->get();
+      $sectors = HrSector::all();
+      $hr_decisions=HrDecision::where('status',1)->get();
+      $meeting_types = HrMeetingType::all();
+      $agenda_types = AgendaType::all();
+      $agenda_statuses = HrProjectType::all();
+      \JavaScript::put([
+          'projects' => $adp
+      ]);
+
+      return view('executive.home.pdwp_meeting_agendas',compact('meeting','agendas','hr_decisions','sectors','meeting_types','agenda_types','agenda_statuses','adp'));
+
+    }
+    public function CommentAgenda(Request $req ){
+      // dd($req->all());
+      $i=0;
+      foreach ($req->agenda_id as $agenda_id) {
+        $agenda= HrAgenda::find($agenda_id);
+        if(isset($req->actual_start_time[$i]) && $req->actual_start_time[$i]!=""){
+          $agenda->agenda_actual_start_time=$req->actual_start_time[$i];
+        }
+        if(isset($req->actual_end_time[$i]) && $req->actual_end_time[$i]){
+          $agenda->agenda_actual_end_time=$req->actual_end_time[$i];
+        }
+        $agenda->save();
+        if(isset($req->agenda_decision[$i]) && $req->agenda_decision[$i]!=""){
+          $agendaDecision= new HrProjectDecision();
+          $agendaDecision->hr_meeting_p_d_w_p_id=$req->hr_meeting_id;
+          $agendaDecision->hr_decision_id=$req->agenda_decision[$i];
+          $agendaDecision->comments=$req->agenda_comments[$i];
+          $agendaDecision->hr_agenda_id=$agenda_id;
+          $agendaDecision->save();
+        }
+        $i++;
+      }
+      return redirect()->route('Conduct_PDWP_Meeting');
+    }
     public function index(){
       $unassigned=Project::select('projects.*')
      ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')

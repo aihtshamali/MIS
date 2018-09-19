@@ -193,10 +193,10 @@ class ProjectController extends Controller
       }
       if($request->revised_end_dates[0])
       foreach($request->revised_end_dates as $revised_end_date){
-        $revised_end_date = new RevisedEndDate();
-        $revised_end_date->project_id = $project_id;
-        $revised_end_date->end_date = date('Y-m-d',strtotime($revised_end_date));
-        $revised_end_date->save();
+        $revised_end_dat = new RevisedEndDate();
+        $revised_end_dat->project_id = $project_id;
+        $revised_end_dat->end_date = date('Y-m-d',strtotime($revised_end_date));
+        $revised_end_dat->save();
       }
       foreach($request->districts as $district){
         $assigned_district = new AssignedDistrict();

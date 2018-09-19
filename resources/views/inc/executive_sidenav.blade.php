@@ -113,6 +113,8 @@
             <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li>
           </ul>
         </li>
+
+        
          {{--  Inquiry  --}}
          <li class="treeview">
           <a href="#">
@@ -173,7 +175,21 @@
               <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li>
             </ul>
           </li>
+          {{-- PDWP MEETING --}}
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-share"></i> <span>PDWP Meeting</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
 
+            </a>
+            <ul class="treeview-menu">
+            <li><a href="{{route('Conduct_PDWP_Meeting')}}"><i class="fa fa-circle-o"></i> Conduct Meeting <span class="pull-right-container">
+                <span class="label label-primary pull-right">new</span>
+              </span></a></li>
+            </ul>
+          </li>
          {{--  HRMS  --}}
         <li class="treeview">
             <a href="#">
