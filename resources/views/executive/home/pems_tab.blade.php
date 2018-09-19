@@ -1,16 +1,50 @@
 @extends('layouts.uppernav')
 @section('styletag')
 <style>
-.box-body { background-color: #30303d; color: #fff; }
 #chartdiv {
-  width: 100%;
-  height: 500px;
+	width		: 100%;
+	height		: 90%;
+	font-size	: 5px;
+}
+#chartdiv2 {
+	width		: 100%;
+	height		: 90%;
+	font-size	: 5px;
+}
+#chartdiv3 {
+	width		: 100%;
+	height		: 90%;
+	font-size	: 5px;
+}
+.card{
+  /* width:250px; */
+  background:white;
+  margin: 15px;
+  border-radius: 5px;
+  height: 200px;
+  -webkit-box-shadow: 11px 15px 42px 3px rgba(0,0,0,0.38);
+-moz-box-shadow: 11px 15px 42px 3px rgba(0,0,0,0.38);
+box-shadow: 11px 15px 42px 3px rgba(0,0,0,0.38);
+}
+.card-header{
+  height:10%;
+  text-align: center;
+}
+a{
+  color: black;
 }
 
-.amcharts-export-menu-top-right {
-  top: 10px;
-  right: 0;
+.card:hover{
+  /* width:357px; */
+  background:white;
+  margin: 15px;
+  border-radius: 5px;
+  height: 200px;
+  -webkit-box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
+-moz-box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
+box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
 }
+
 </style>
 <link rel="stylesheet" href="{{asset('css/charts/export.css')}}" type="text/css" media="all" />
 
@@ -36,95 +70,50 @@
     <!-- Main content -->
     <section class="content">
       <div class="row">
-        <div class="col-md-6"  id="chart1">
-          {{--  Chart 1  --}}
-          <div class="box box-warning">
-            <div class="box-header with-border">
-              <h3 class="box-title">Status of Activities</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button id="chart1-expand" type="button" class="btn btn-box-tool" ><i class="fa fa-angle-double-right"></i></button>
-              </div>
-            </div>
-            <div class="box-body" >
-                <div id="chartdiv"></div>
-              {{-- <div class="chart">
-                <canvas id="areaChart" style="height:250px"></canvas>
-              </div> --}}
-            </div>
-            <!-- /.box-body -->
+     
+        <div class="col-md-12">
+        <div class="col-md-1" style="width:10%;"></div>   
+        {{-- chart1 --}}
+        <a href="{{route('Exec_evms_all')}}">
+        <div class="card col-md-2" >
+            <div class="card-header">
+                <label for="">Histogram of Projects</label>
+              </div> 
+          <div id="chartdiv"></div>
           </div>
+        </a>
 
+        {{-- chart2 --}}
+        <div class="card col-md-2">
+          <div class="card-header">
+              <label for="">Histogram of Assigned Projects</label>
+            </div> 
+            <div id="chartdiv2"></div>
         </div>
 
-        <!-- /.col (LEFT) -->
-
-        <div class="col-md-6">
-         {{--  Chart 4 --}}
-          <div class="box box-warning">
-            <div class="box-header with-border">
-              <h3 class="box-title">Recieved Incomplete Projects</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
-            </div>
-            <div class="box-body">
-              <div class="chart">
-                <canvas id="lineChart" style="height:250px"></canvas>
-              </div>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          
-
-         {{--  Chart 5--}}
-          <div class="box box-warning">
-            <div class="box-header with-border">
-              <h3 class="box-title">Problematic and System Generated Projects </h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
-            </div>
-            <div class="box-body">
-              <div class="chart">
-                <canvas id="barChart" style="height:250px"></canvas>
-              </div>
-            </div>
-            <!-- /.box-body -->
+        {{-- chart 3 --}}
+        <div class="card col-md-2">
+          <div class="card-header">
+            <label for="">Histogram of Inprogress Projects</label>
+          </div> 
+            <div id="chartdiv3"></div>
           </div>
 
-        {{--  Chart 6--}}
-          <div class="box box-warning">
-                <div class="box-header with-border">
-                  <h3 class="box-title">Average MIN &amp; MAX Time For Activities </h3>
-    
-                  <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fas fa-arrows-alt-h"></i></button>
-                  </div>
-                </div>
-                <div class="box-body">
-                  <div class="chart">
-                    <canvas id="barChart" style="height:250px"></canvas>
-                  </div>
-                </div>
-                <!-- /.box-body -->
-              </div>
+        {{-- chart4 --}}
+        <div class="card col-md-2">
+          <div class="card-header">
+            <label for="">Histogram of Completed Projects</label>
+          </div> 
+            <div id="chartdiv4"></div>
+          </div>
+        </div>
+
+        <div class="col-md-1"></div>
+      
+        <!-- /.row -->
 
         </div>
-        <!-- /.col (RIGHT) -->
-      </div>
-      <!-- /.row -->
-
+      
     </section>
     <!-- /.content -->
   </div>
@@ -133,8 +122,16 @@
 @section('scripttags')
 <script src="{{asset('js/charts/amcharts.js')}}"></script>
 <script src="{{asset('js/charts/serial.js')}}"></script>
+<script src="{{asset('js/charts/fabric.min.js')}}"></script>
+<script src="{{asset('js/charts/FileSaver.min.js')}}"></script>
+<script src="{{asset('js/charts/jszip.min.js')}}"></script>
+<script src="{{asset('js/charts/pdfmake.min.js')}}"></script>
 <script src="{{asset('js/charts/export.min.js')}}"></script>
 <script src="{{asset('js/charts/dark.js')}}"></script>
+<script src="{{asset('js/charts/black.js')}}"></script>
+<script src="{{asset('js/charts/chalk.js')}}"></script>
+<script src="{{asset('js/charts/light.js')}}"></script>
+<script src="{{asset('js/charts/patterns.js')}}"></script>
 <script>
   $('#chart1-expand').on('click',function(){
     if($("#chart1-expand > i").hasClass('fa-angle-double-right')){
@@ -155,88 +152,158 @@
   }
     });
 </script>
-<script>
-  var chart = AmCharts.makeChart("chartdiv", {
+ <script>
+  var chart = AmCharts.makeChart( "chartdiv", {
   "type": "serial",
-  "theme": "dark",
-  "marginRight": 70,
-  "dataProvider": [{
-    "country": "USA",
-    "visits": 3025,
-    "color": "#FF0F00"
+  "theme": "light",
+  "dataProvider": [ {
+    "Type": "Total\nProjects",
+    "Number of Projects": total_projects
   }, {
-    "country": "China",
-    "visits": 1882,
-    "color": "#FF6600"
+    "Type": "Assigned\nProjects",
+    "Number of Projects": total_assigned_projects 
   }, {
-    "country": "Japan",
-    "visits": 1809,
-    "color": "#FF9E01"
+    "Type": "Inprogress\nProjects",
+    "Number of Projects": inprogress_projects
   }, {
-    "country": "Germany",
-    "visits": 1322,
-    "color": "#FCD202"
-  }, {
-    "country": "UK",
-    "visits": 1122,
-    "color": "#F8FF01"
-  }, {
-    "country": "France",
-    "visits": 1114,
-    "color": "#B0DE09"
-  }, {
-    "country": "India",
-    "visits": 984,
-    "color": "#04D215"
-  }, {
-    "country": "Spain",
-    "visits": 711,
-    "color": "#0D8ECF"
-  }, {
-    "country": "Netherlands",
-    "visits": 665,
-    "color": "#0D52D1"
-  }, {
-    "country": "Russia",
-    "visits": 580,
-    "color": "#2A0CD0"
-  }, {
-    "country": "South Korea",
-    "visits": 443,
-    "color": "#8A0CCF"
-  }, {
-    "country": "Canada",
-    "visits": 441,
-    "color": "#CD0D74"
-  }],
-  "valueAxes": [{
-    "axisAlpha": 0,
-    "position": "left",
-    "title": "Visitors from country"
-  }],
+    "Type": "Completed\nProjects",
+    "Number of Projects": completed_projects
+  } ],
+  "valueAxes": [ {
+    "gridColor": "#FFFFFF",
+    "gridAlpha": 0.2,
+    "dashLength": 0
+  } ],
+  "gridAboveGraphs": true,
   "startDuration": 1,
-  "graphs": [{
-    "balloonText": "<b>[[category]]: [[value]]</b>",
-    "fillColorsField": "color",
-    "fillAlphas": 0.9,
+  "graphs": [ {
+    "balloonText": "[[category]]: <b>[[value]]</b>",
+    "fillAlphas": 0.8,
     "lineAlpha": 0.2,
     "type": "column",
-    "valueField": "visits"
-  }],
+    "labelText": "[[value]]",
+    "valueField": "Number of Projects"
+  } ],
   "chartCursor": {
     "categoryBalloonEnabled": false,
     "cursorAlpha": 0,
     "zoomable": false
   },
-  "categoryField": "country",
+  "categoryField": "Type",
   "categoryAxis": {
-    "gridPosition": "start",
-    "labelRotation": 45
+    "gridPosition": "middle",
+    "gridAlpha": 0,
+    "tickPosition": "middle",
+    "tickLength": 5,
+    "labelRotation":30,
+    // "ignoreAxisWidth": true,
+    "autoWrap": true
   },
   "export": {
     "enabled": true
   }
 
-});
+} );
 </script>
+<script>
+    var st = [];
+    $i = 0;
+    officers.forEach(element => {
+      st.push ({ 
+        "Name":element.first_name,
+        "Number of Projects": assigned_projects[$i]
+      });
+      $i++;
+    });
+    var chart = AmCharts.makeChart( "chartdiv2", {
+    "type": "serial",
+    "theme": "light",
+    "dataProvider":st,
+    "valueAxes": [ {
+      "gridColor": "#FFFFFF",
+      "gridAlpha": 0.2,
+      "dashLength": 0
+    } ],
+    "gridAboveGraphs": true,
+    "startDuration": 1,
+    "graphs": [ {
+      "balloonText": "[[category]]: <b>[[value]]</b>",
+      "fillAlphas": 0.8,
+      "lineAlpha": 0.2,
+      "type": "column",
+      "labelText": "[[value]]",
+      "valueField": "Number of Projects"
+    } ],
+    "chartCursor": {
+      "categoryBalloonEnabled": false,
+      "cursorAlpha": 0,
+      "zoomable": false
+    },
+    "categoryField": "Name",
+    "categoryAxis": {
+      "gridPosition": "middle",
+      "gridAlpha": 0,
+      "tickPosition": "middle",
+      "tickLength": 5,
+      "labelRotation":30,
+      // "ignoreAxisWidth": true,
+      "autoWrap": true
+    },
+    "export": {
+      "enabled": true
+    }
+
+  } );
+</script>
+<script>
+   var st = [];
+    $i = 0;
+    officers.forEach(element => {
+      st.push ({ 
+        "Name":element.first_name,
+        "Number of Projects": assigned_projects[$i]
+      });
+      $i++;
+    });
+    var chart = AmCharts.makeChart( "chartdiv3", {
+    "type": "serial",
+    "theme": "light",
+    "dataProvider":st,
+    "valueAxes": [ {
+      "gridColor": "#FFFFFF",
+      "gridAlpha": 0.2,
+      "dashLength": 0
+    } ],
+    "gridAboveGraphs": true,
+    "startDuration": 1,
+    "graphs": [ {
+      "balloonText": "[[category]]: <b>[[value]]</b>",
+      "fillAlphas": 0.8,
+      "lineAlpha": 0.2,
+      "type": "column",
+      "labelText": "[[value]]",
+      "valueField": "Number of Projects"
+    } ],
+    "chartCursor": {
+      "categoryBalloonEnabled": false,
+      "cursorAlpha": 0,
+      "zoomable": false
+    },
+    "categoryField": "Name",
+    "categoryAxis": {
+      "gridPosition": "middle",
+      "gridAlpha": 0,
+      "tickPosition": "middle",
+      "tickLength": 5,
+      "labelRotation":30,
+      // "ignoreAxisWidth": true,
+      "autoWrap": true
+    },
+    "export": {
+      "enabled": true
+    }
+
+  } );
+</script>
+
 @endsection

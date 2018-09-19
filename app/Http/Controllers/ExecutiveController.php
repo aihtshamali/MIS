@@ -9,6 +9,8 @@ use App\AssignedProject;
 use App\AssignedProjectManager;
 use App\User;
 use App\HrMeetingPDWP;
+use JavaScript;
+use DB;
 class ExecutiveController extends Controller
 {
   //  HOME FOLDER
@@ -43,15 +45,35 @@ class ExecutiveController extends Controller
     }
 
     public function pems_index(){
-      $unassigned=Project::select('projects.*')
-     ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
-     ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
-     ->whereNull('assigned_project_managers.project_id')
-     ->whereNull('assigned_projects.project_id')
-     ->get();
-      $assigned=AssignedProject::all();
-      $assignedtoManager=AssignedProjectManager::all();
-      return view('executive.home.pems_tab',['assigned'=>$assigned,'assignedtoManager'=>$assignedtoManager,'unassigned'=>$unassigned]);
+      $total_projects = count(Project::all());
+      $total_assigned_projects = count(AssignedProject::all());
+      $inprogress_projects = count(AssignedProject::where('acknowledge',1)->get());
+      $completed_projects = count(AssignedProject::where('complete',1)->get());
+      $model = new User();
+      $officers = $model->hydrate(
+        DB::select(
+          'getAllOfficers'
+        )
+        );
+        $assigned_projects = [];
+        foreach($officers as $officer){
+          
+      $data = DB::select(
+        'getOfficersAssignedProjectById' .' '.$officer->id
+      );
+          array_push($assigned_projects,count($data));
+        }
+        // dd($assigned_projects);
+      // $officers=count();
+      \JavaScript::put([
+        'total_projects' => $total_projects,
+        'total_assigned_projects' => $total_assigned_projects,
+        'inprogress_projects' => $inprogress_projects,
+        'completed_projects' => $completed_projects,
+        'officers' => $officers,
+        'assigned_projects' => $assigned_projects
+    ]);
+      return view('executive.home.pems_tab');
     }
 
     public function pmms_index(){
