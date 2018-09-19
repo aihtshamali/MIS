@@ -53,6 +53,7 @@ Route::prefix('manager')->middleware('role:manager')->group(function () {
   Route::get('/','ExecutiveController@index')->name('Exec_home');
   Route::get('/pems_tab','ExecutiveController@pems_index')->name('Exec_pems_tab');
   Route::get('/pmms_tab','ExecutiveController@pmms_index')->name('Exec_pmms_tab');
+  Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
   Route::get('/tpv_tab','ExecutiveController@tpv_index')->name('Exec_tpv_tab');
   Route::get('/specialAssign_tab','ExecutiveController@specialassign_index')->name('Exec_special_tab');
   Route::get('/inquiry','ExecutiveController@inquiry_index')->name('Exec_inquiry_tab');
