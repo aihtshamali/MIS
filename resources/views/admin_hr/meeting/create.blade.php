@@ -134,7 +134,7 @@
                       <section id="first_section1" style="display:none">
                       <div>
                         <label for="ex1">Agenda item</label>
-                      <input disabled class="form-control" value="" style="text-align:center;" name="agenda_item[]" id="ex1" type="number">
+                      <input class="form-control" value="" style="text-align:center;" name="agenda_item[]" id="ex1" type="number">
                       </div>
                       <div>
                           <label for="">Agenda Status</label>
@@ -239,7 +239,7 @@
                     <section id="second_section1" style="display:none">
                         <div>
                             <label for="ex1">Agenda item</label>
-                          <input disabled class="form-control" value="" style="text-align:center;" name="agenda_item[]" id="ex1" type="number">
+                          <input class="form-control" value="" style="text-align:center;" name="agenda_item[]" id="ex1" type="number">
                           </div>
                         <div>
                         <div>

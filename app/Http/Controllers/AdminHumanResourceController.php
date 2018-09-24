@@ -100,6 +100,7 @@ class AdminHumanResourceController extends Controller
         $agenda_items = explode(',',$request->agenda_type_items[0]);
         foreach($agenda_items as $agenda_type){
             $hr_agenda = new HrAgenda();
+            $hr_agenda->agenda_item = $request->agenda_item[$i];
             $hr_agenda->hr_meeting_p_d_w_p_id = $hr_meeting->id;
             $hr_agenda->agenda_type_id = $agenda_type;
             if($agenda_type == 1 || $agenda_type == 2){

@@ -87,7 +87,7 @@
           @foreach ($agendas as $agenda)
               <tr>
                   <td>
-                    <?php echo $var++?>
+                    {{$agenda->agenda_item}}
                   </td>
                   <td>
                     @if($agenda->adp_no)

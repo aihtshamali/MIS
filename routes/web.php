@@ -92,6 +92,7 @@ Route::prefix('director_Monitor')->middleware('role:directormonitoring')->group(
     Route::get('/tpv_tab','DirectorMonitoringController@tpv_index')->name('Monitoring_tpv_tab');
     Route::get('/inquiry','DirectorMonitoringController@inquiry_index')->name('Monitoring_inquiry_tab');
 });
+Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
 
 
 
