@@ -392,6 +392,7 @@ class ComposerStaticInit55c1f85fd9fa01a6cf3b909416bd240d
         'App\\HrDecision' => __DIR__ . '/../..' . '/app/HrDecision.php',
         'App\\HrMeetingPDWP' => __DIR__ . '/../..' . '/app/HrMeetingPDWP.php',
         'App\\HrMeetingType' => __DIR__ . '/../..' . '/app/HrMeetingType.php',
+        'App\\HrMom' => __DIR__ . '/../..' . '/app/HrMom.php',
         'App\\HrProjectDecision' => __DIR__ . '/../..' . '/app/HrProjectDecision.php',
         'App\\HrProjectType' => __DIR__ . '/../..' . '/app/HrProjectType.php',
         'App\\HrSector' => __DIR__ . '/../..' . '/app/HrSector.php',

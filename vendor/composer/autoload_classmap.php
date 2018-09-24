@@ -49,6 +49,7 @@ return array(
     'App\\HrDecision' => $baseDir . '/app/HrDecision.php',
     'App\\HrMeetingPDWP' => $baseDir . '/app/HrMeetingPDWP.php',
     'App\\HrMeetingType' => $baseDir . '/app/HrMeetingType.php',
+    'App\\HrMom' => $baseDir . '/app/HrMom.php',
     'App\\HrProjectDecision' => $baseDir . '/app/HrProjectDecision.php',
     'App\\HrProjectType' => $baseDir . '/app/HrProjectType.php',
     'App\\HrSector' => $baseDir . '/app/HrSector.php',

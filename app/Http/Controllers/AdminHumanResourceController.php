@@ -15,7 +15,7 @@ use App\AgendaType;
 use App\HrProjectType;
 use App\AdpProject;
 use JavaScript;
-
+use App\HrMomAttachment;
 class AdminHumanResourceController extends Controller
 {
     /**
@@ -49,9 +49,9 @@ class AdminHumanResourceController extends Controller
     }
     public function saveMoms(Request $request){
       if($request->hasFile('attach_moms')){
-      $HRamiG=new HrMom();
-      $HRamiG->hr_meeting_p_d_w_p_id=$request->meeting_id;
-      $meeting_filename = "PDWP-MOM-".$request->meeting_id;
+      $HRamiG=new HrMomAttachment();
+      $HRamiG->hr_agenda_id=$request->hr_agenda_id;
+      $meeting_filename = "PDWP-MOM-".$request->$request->hr_agenda_id;
       $request->file('attach_moms')->storeAs('public/uploads/projects/meetings_mom',$meeting_filename.'.'.$request->file('attach_moms')->getClientOriginalExtension());
       $HRamiG->attachment = $meeting_filename.'.'.$request->file('attach_moms')->getClientOriginalExtension();
       $HRamiG->save();
@@ -160,7 +160,7 @@ class AdminHumanResourceController extends Controller
         // dd($meeting);
         $agendas = $meeting->HrAgenda;
         // dd($agendas);
-        return view('admin_hr.meeting.show',compact('agendas'));
+        return view('admin_hr.meeting.show',compact('agendas','meeting'));
 
     }
 
