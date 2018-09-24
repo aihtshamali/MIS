@@ -82,6 +82,9 @@
                 <th>
                   Attachments
                 </th>
+                <th>
+                    Attach MOMs
+                </th>
           </tr>
           <?php $var = 1?>
           @foreach ($agendas as $agenda)
@@ -113,12 +116,30 @@
                   <a href="{{asset('storage/uploads/projects/project_agendas/'.$agenda->HrAttachment->attachments)}}" download>{{$agenda->HrAttachment->attachments}}</a>
                   @endif
                   </td>
+                  <td>
+                    {{-- {{dd($agenda->HrMomAttachment->attachment)}} --}}
+                      @if (isset($agenda->HrMomAttachment->attachment))
+                        <a href="{{asset('/storage/uploads/projects/meetings_mom/'.$agenda->HrMomAttachment->attachment)}}" download> {{$agenda->HrMomAttachment->attachment}}</a>
+                      @else
+                        <div>
+                          <form class="attach_moms_form" action="{{route('save_moms')}}" method="post" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="meeting_id" value={{$meeting->id}}>
+                            <input type="hidden" name="hr_agenda_id" value={{$agenda->id}}>
+                            <input type="file" id="attachmentt" class="attach_moms pull-left" name="attach_moms">
+                            <input type="submit"  class="btn btn-success" value="Attach">
+                          </form>
+                        </div>
+                      @endif
+                        {{-- <a class="btn btn-success pull-left" id="testread">Test</a> --}}
+  
+                    </td>
               </tr>
           @endforeach
       </table>
-      <div class="col-md-7">
+      {{-- <div class="col-md-7">
           <button id="finish_btn" class="btn btn-info pull-right"  type="submit">Save Changes</button>
-      </div>
+      </div> --}}
   </section>
 </div>
 @endsection
