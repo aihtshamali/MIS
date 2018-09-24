@@ -128,10 +128,10 @@
 
             <div class="box-header with-border">
               <p>
-                Project Number : <b> {{$project_data->Project->project_no}} </b></br>
+                Project Number : <b> {{$project_data->Project->project_no}} </b><br>
               </p>
               <p >
-                Project Name :<b> {{$project_data->Project->title}}  </b></br>
+                Project Name :<b> {{$project_data->Project->title}}  </b><br>
               </p>
 
               <p>
@@ -140,7 +140,7 @@
                     {{$member->User->first_name}} {{$member->User->last_name}},
                   @endforeach
                 </b>
-              </br>
+              <br>
             </p>
 
 
