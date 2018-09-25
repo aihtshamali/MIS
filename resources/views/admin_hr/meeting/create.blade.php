@@ -62,6 +62,12 @@
   </section>
 
   <section class="content">
+    <div style="clear:both;max-height:100%;max-width:28%;position: absolute;top: 11.5%;left: 5%;">
+      <iframe id="viewer" frameborder="0" scrolling="no" style="width: 100%;height: 100%;"></iframe>
+    {{-- <input type="button" value="Preview" onclick="PreviewImage();" /> --}}
+
+    </div>
+    
   <form class="form-horizontal" id="form_send" action="{{route('admin.store')}}" method="POST" enctype="multipart/form-data">
         {{csrf_field()}}
         <input type="hidden" name="agenda_type_items[]" id="agenda_type_items" value="">
@@ -293,7 +299,7 @@
                             </select>
                         </div>
                         <div>
-                          <input type="file" id="attachmentt" class="pull-left" name="section2_attachments[]" value="" >
+                          <input type="file" id="attachmentt" class="pull-left" name="section2_attachments[]" >
                       </div>
                     </section>
                   </div>
@@ -328,9 +334,24 @@
     var d = new Date();
     document.getElementById("d").innerHTML = d.toLocaleDateString("en-US");
 
-    </script>
+</script>
 <script>
+          function PreviewImage() {
+                pdffile=document.getElementById("attachmentt").files[0];
+                pdffile_url=URL.createObjectURL(pdffile);
+                $('#viewer').attr('src',pdffile_url);
+              }
+              $("document").ready(function(){
 
+              $("#attachmentt").change(function() {
+                console.log('asdn sanfjsdnvjkndvndsnkjx sjkx ds');
+              });
+              });
+              $(document).on('change','#attachmentt',function(){
+                console.log('asdn sanfjsdnvjkndvndsnkjx sjkx ds');
+                
+                PreviewImage();
+              })
   var next = 1;
   var items = []
   var attachments = []
