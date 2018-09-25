@@ -110,9 +110,9 @@
                   </div>
                   <div>
                       <input  style="margin-bottom:10px;" type="file" id="meeting_attachment" class="pull-left" name="meeting_attachment" value="">
-                      
+
                   </div>
-                  <a class="btn btn-success pull-left" href="hassan:">Scan Document</a> 
+                  <a class="btn btn-success pull-left" href="hassan:">Scan Document</a>
                   <button id="next" class="btn btn-success" type="button">Next</button>
                 </div>
               </div>
@@ -140,12 +140,12 @@
                       <section id="first_section1" style="display:none">
                       <div>
                         <label for="ex1">Agenda item</label>
-                      <input disabled class="form-control" value="" style="text-align:center;" name="agenda_item[]" id="ex1" type="number">
+                      <input class="form-control" value="" style="text-align:center;" name="agenda_item[]" id="ex1" type="number">
                       </div>
                       <div>
                           <label for="">Agenda Status</label>
                           <select class="form-control required select2 " name="agenda_status[]" id="agenda_status">
-                            <option value="0">Select Agenda Status</option>
+                            <option value="">Select Agenda Status</option>
                             @foreach ($agenda_statuses as $agenda_status)
                                 <option value="{{$agenda_status->id}}">{{$agenda_status->projecttypename}}</option>
                             @endforeach
@@ -245,7 +245,7 @@
                     <section id="second_section1" style="display:none">
                         <div>
                             <label for="ex1">Agenda item</label>
-                          <input disabled class="form-control" value="" style="text-align:center;" name="agenda_item[]" id="ex1" type="number">
+                          <input class="form-control" value="" style="text-align:center;" name="agenda_item[]" id="ex1" type="number">
                           </div>
                         <div>
                         <div>

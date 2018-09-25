@@ -80,7 +80,15 @@ class ExecutiveController extends Controller
       $assignedtoManager=AssignedProjectManager::all();
       return view('executive.home.index',['unassigned'=>$unassigned,'assignedtoManager'=>$assignedtoManager,'assigned'=>$assigned]);
     }
-
+    public function getSectorWise(){
+      $projects=AssignedProject::select('assigned_projects.*')
+      ->leftJoin('assigned_sub_sectors','assigned_sub_sectors.project_id','assigned_projects.project_id')
+      ->leftJoin('sub_sectors','assigned_sub_sectors.sub_sector_id','sub_sectors.id')
+      ->leftJoin('sectors','sub_sectors.sector_id','sectors.id')
+      ->orderBy('sectors.id')->get();
+      // dd($projects);
+      return view('executive.evaluation.allSectors',['projects'=>$projects]);
+    }
     public function pems_index(){
       $unassigned=Project::select('projects.*')
      ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
