@@ -54,6 +54,7 @@
     <h1>
     All Meetings
     </h1>
+    {{-- <a class="btn btn-success pull-right" href="hassan:" style="margin-bottom:5px;">Scan Document</a> --}}
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-backward" ></i>Back</a></li>
       <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li>
@@ -79,6 +80,7 @@
               <th>
                 Attachment
             </th>
+            
           </tr>
           @foreach ($meetings as $meeting)
               <tr>
@@ -94,7 +96,7 @@
                       @endif
                     </a>
                   </td>
-                
+
                   <td>
                       {{$meeting->HrMeetingType->meeting_name}}
                   </td>
@@ -103,8 +105,9 @@
                   </td>
                   <td>
                   <a href="{{asset('storage/uploads/projects/pdwp_meeting/'.$meeting->attachment)}}" download>{{$meeting->attachment}}</a>
-                    
+
                   </td>
+                  
               </tr>
           @endforeach
       </table>
@@ -112,6 +115,4 @@
 </div>
 @endsection
 @section('scripttags')
-
-          
 @endsection

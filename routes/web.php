@@ -70,6 +70,7 @@ Route::prefix('manager')->middleware('role:manager')->group(function () {
   Route::get('/evaluation_reviewed','ExecutiveController@reviewed_projects');
   Route::get('/conduct_pdwp_meeting','ExecutiveController@conduct_pdwp_meeting')->name('Conduct_PDWP_Meeting');
   Route::get('/list_agendas','ExecutiveController@list_agendas')->name('List_Agendas');
+  Route::post('/agenda_comment_store','ExecutiveController@CommentAgenda')->name('store_agenda_comments');
 });
 
 
@@ -131,6 +132,7 @@ Route::resource('projects','ProjectController');
 
 //for adminhr
 Route::prefix('hr')->middleware('role:adminhr|manager')->group(function () {
+  Route::post('/save_moms','AdminHumanResourceController@saveMoms')->name('save_moms');
   Route::resource('admin','AdminHumanResourceController');
   // Route::get('/','inHumanResourceController@index')->name('index_meeting');
   // Route::get('/admin','AdminHumanResourceController@create')->name('create_meeting');

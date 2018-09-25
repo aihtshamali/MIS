@@ -104,6 +104,7 @@
                   </div>
                   <div>
                       <input  style="margin-bottom:10px;" type="file" id="meeting_attachment" class="pull-left" name="meeting_attachment" value="">
+                      
                   </div>
                   <a class="btn btn-success pull-left" href="hassan:">Scan Document</a> 
                   <button id="next" class="btn btn-success" type="button">Next</button>
@@ -298,16 +299,13 @@
                   </div>
 
                   <div style="margin-top:20px">
-                      {{-- <button  class="btn btn-success pull-left scan" type="button">Scan Document</button> --}}
-                      <a class="btn btn-success pull-left" href="hassan:">Scan Document</a>
-                      {{-- <button  class="btn btn-success pull-left testexe" type="button">test exe</button> --}}
-
-                      {{-- <button type="button" id="THE-REAPER" style="display:block;">Choose File</button> --}}
-                      {{-- <button id="previous" class="btn btn-success" type="button">Previous</button> --}}
+                      <a class="btn btn-success pull-left" href="hassan:">Single Scan</a> 
+                      <a class="btn btn-success pull-left" href="hassanduplex:">Duplex Scan</a>
+                      <button id="previous" class="btn btn-success" type="button">Previous</button>
                       <button id="b3" class="btn btn-success add-more"  type="button">Next</button>
                       <button id="finish_btn" class="btn btn-info pull-right"  type="submit">Finish</button>
                   </div>
-            {{-- <button id="b9" class="btn btn-success pull-left"  type="button">Scan Documents</button> --}}
+            {{-- <button id="b9" class="btn btn-success pull-left" type="button">Scan Documents</button> --}}
 
                </li>
             </ul>
@@ -345,8 +343,9 @@ $(document).on('click','.add-more',function(e){
 
       if(pre == 0)
       {
+        console.log('if')
         $('#field').find('section').hide();
-      $('#agenda_type').prop('disabled', false);
+        $('#agenda_type').prop('disabled', false);
 
         items.push($('#agenda_type').val());
         attachments.push($('#attachment').val());
@@ -358,12 +357,19 @@ $(document).on('click','.add-more',function(e){
         $('#field').find('#second_section'+(next-1)).clone().attr('id','second_section'+next).find("input:text").val("").end().appendTo("#main");
         $('#field').find('#first_section'+(next)).find("input:file").val('');
         $('#field').find('#second_section'+(next)).find("input:file").val('');
+
+        $('#field').find('#first_section'+(next)).find("#financial_year").val('2017-18');
+        $('#field').find('#second_section'+(next)).find("#financial_year").val('2017-18');
+
         $('#agenda_type').val(0);
+        $('html,body').animate({scrollTop:0},0);
       }
       else{
+
         $('#field').find('section').hide();
 
         pre = pre - 1;
+        console.log('else',items)
 
         if(pre == 0)
         $('#agenda_type').val(temp);
@@ -528,17 +534,18 @@ $(document).on('click','.add-more',function(e){
             console.log(projects[arr[1]]);
 
             if($('#agenda_type').val() == 1 || $('#agenda_type').val() == 2 ){
-
-              $("#first_section"+next+" > div > input#name_of_scheme").val(projects[arr[1]].name_of_scheme);
+              console.log(next,pre);
+              
+              $("#first_section"+(next-pre)+" > div > input#name_of_scheme").val(projects[arr[1]].name_of_scheme);
               // $("#first_section"+next+" > div > #sector_val")(projects[arr[1]].sector);
-              $("#first_section"+next+" > div > #sector_val").val($("#first_section"+next+" > div > #sector_val option").filter(function () { return $(this).html() == projects[arr[1]].sector; }).val());
-              $("#first_section"+next+" > div > #estimated_cost").val(projects[arr[1]].total_cost);
-              // $("#first_section"+next+" > div > #agenda_status").val(projects[arr[1]].type_of_project);
+              $("#first_section"+(next-pre)+" > div > #sector_val").val($("#first_section"+(next-pre)+" > div > #sector_val option").filter(function () { return $(this).html() == projects[arr[1]].sector; }).val());
+              $("#first_section"+(next-pre)+" > div > #estimated_cost").val(projects[arr[1]].total_cost);
+              // $("#first_section"+(next-pre)+" > div > #agenda_status").val(projects[arr[1]].type_of_project);
               // console.log(arr[2]);
               if(projects[arr[1]].type_of_project == "NEW SCHEMES")
-                {$("#first_section"+next+" > div > #agenda_status").val(1);}
+                {$("#first_section"+(next-pre)+" > div > #agenda_status").val(1);}
               else
-                {$("#first_section"+next+" > div > #agenda_status").val(2);}
+                {$("#first_section"+(next-pre)+" > div > #agenda_status").val(2);}
 
 
 

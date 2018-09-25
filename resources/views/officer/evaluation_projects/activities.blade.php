@@ -97,7 +97,9 @@
     margin-top: 10px;
     height: 30px;
   }
-
+  .fileprogress{display: none}
+  .bar { background-color: #B4F5B4; width:0%; height:20px; border-radius: 3px; }
+  .percent { position:absolute; display:inline-block; top:3px; left:48%; }
   </style>
 @endsection
 @section('content')
@@ -434,7 +436,7 @@
 <hr>
 <div class="row">
   <div class="form-group col-md-10 col-xs-12">
-    <form class="" action="{{route('saveActivityAttachment')}}" method="POST" enctype="multipart/form-data">
+    <form class="saveActivityAttachment" action="{{route('saveActivityAttachment')}}" method="POST" enctype="multipart/form-data">
       {{csrf_field()}}
       <div class="col-md-4">
         <select name="attachment_activity" id="" class="select2 form-control">
@@ -450,10 +452,21 @@
       <div class="col-md-4">
         <input type="file" style="" class="form-control" name="activity_attachment">
       </div>
+
       <br>
       <input type="submit" name="Submit" value="Save Attachment" class="btn btn-success pull-right">
 
     </form>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="fileprogress progress-bar progress-bar-success progress-bar-striped"role="progressbar"
+        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:1%">
+        0%
+      </div>
+      <div id="status"></div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -471,7 +484,49 @@
 @endsection
 
 @section('scripttags')
+  <script src="http://malsup.github.com/jquery.form.js"></script>
+
   <script type="text/javascript">
+  $(document).ready(function(){
+    (function() {
+
+    var bar = $('.fileprogress');
+    var percent = $('.percent');
+    var status = $('#status');
+
+    $('form.saveActivityAttachment').ajaxForm({
+        beforeSend: function() {
+            status.empty();
+            bar.show();
+            var percentVal = '0%';
+            bar.css('width',percentVal);
+            $('.fileprogress').html(percentVal);
+        },
+        uploadProgress: function(event, position, total, percentComplete) {
+            var percentVal = percentComplete + '%';
+            bar.width(percentVal)
+            bar.html(percentVal);
+    		//console.log(percentVal, position, total);
+        },
+        success: function() {
+            var percentVal = '100% Completed';
+            bar.css('width',percentVal);
+            bar.width(percentVal)
+            bar.html(percentVal);
+        },
+    	complete: function(xhr) {
+        if(xhr.statusText=="OK"){
+          status.html('File Upload SuccessFully')
+          location.reload();
+        }else{
+            status.html(xhr.responseText)
+        }
+            		// status.html(xhr.responseText);
+    	}
+    });
+
+    })();
+  });
 
     new Vue({
     el: '.problematicremark',

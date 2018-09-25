@@ -16,4 +16,5 @@ class HrProjectDecision extends Model
     public function HrMeetingPDWP(){
         return $this->belongsTo('App\HrMeetingPDWP');
     }
+    //
 }

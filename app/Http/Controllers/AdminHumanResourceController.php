@@ -8,13 +8,14 @@ use App\HrSector;
 use App\HrMeetingType;
 use App\HrMeetingPDWP;
 use App\HrAgenda;
+use App\HrMom;
 use App\HrAttachment;
 use Carbon;
 use App\AgendaType;
 use App\HrProjectType;
 use App\AdpProject;
 use JavaScript;
-
+use App\HrMomAttachment;
 class AdminHumanResourceController extends Controller
 {
     /**
@@ -45,6 +46,17 @@ class AdminHumanResourceController extends Controller
         ]);
 
         return view('admin_hr.meeting.create',compact('sectors','meeting_types','agenda_types','agenda_statuses','adp'));
+    }
+    public function saveMoms(Request $request){
+      if($request->hasFile('attach_moms')){
+      $HRamiG=new HrMomAttachment();
+      $HRamiG->hr_agenda_id=$request->hr_agenda_id;
+      $meeting_filename = "PDWP-MOM-".$request->$request->hr_agenda_id;
+      $request->file('attach_moms')->storeAs('public/uploads/projects/meetings_mom',$meeting_filename.'.'.$request->file('attach_moms')->getClientOriginalExtension());
+      $HRamiG->attachment = $meeting_filename.'.'.$request->file('attach_moms')->getClientOriginalExtension();
+      $HRamiG->save();
+    }
+    return redirect()->back();
     }
 
     /**
@@ -110,7 +122,7 @@ class AdminHumanResourceController extends Controller
                 $j += 1;
 
             }
-            
+
                 // if($request->$attachments){
                 //     dd($request->attachments[$i]);
                 // }
@@ -121,14 +133,14 @@ class AdminHumanResourceController extends Controller
                     $hr_attachment->hr_agenda_id = $hr_agenda->id;
                     $request->file('attachments.'.$i)->storeAs('public/uploads/projects/project_agendas',$filename.'.'.$request->file('attachments.'.$i)->getClientOriginalExtension());
                     $hr_attachment->attachments = $filename.'.'.$request->file('attachments.'.$i)->getClientOriginalExtension();
-                    $hr_attachment->save();  
-                }  
+                    $hr_attachment->save();
+                }
                 if($request->hasFile('section2_attachments.'. $i)){
                     $hr_attachment = new HrAttachment();
                     $hr_attachment->hr_agenda_id = $hr_agenda->id;
                     $request->file('section2_attachments.'.$i)->storeAs('public/uploads/projects/project_agendas',$filename.'.'.$request->file('section2_attachments.'.$i)->getClientOriginalExtension());
                     $hr_attachment->attachments = $filename.'.'.$request->file('section2_attachments.'.$i)->getClientOriginalExtension();
-                    $hr_attachment->save();  
+                    $hr_attachment->save();
                 }
             $i += 1;
         }
@@ -148,7 +160,7 @@ class AdminHumanResourceController extends Controller
         // dd($meeting);
         $agendas = $meeting->HrAgenda;
         // dd($agendas);
-        return view('admin_hr.meeting.show',compact('agendas'));
+        return view('admin_hr.meeting.show',compact('agendas','meeting'));
 
     }
 
@@ -187,7 +199,7 @@ class AdminHumanResourceController extends Controller
     }
 
     public function printer(Request $req){
-        exec("C:\Program Files (x86)\HP\Digital Imaging\bin\hpqkygrp.exe");  
-        return "Done";      
+        exec("C:\Program Files (x86)\HP\Digital Imaging\bin\hpqkygrp.exe");
+        return "Done";
     }
 }
