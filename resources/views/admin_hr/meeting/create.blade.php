@@ -139,7 +139,7 @@
                       <div>
                           <label for="">Agenda Status</label>
                           <select class="form-control required select2 " name="agenda_status[]" id="agenda_status">
-                            <option value="0">Select Agenda Status</option>
+                            <option value="">Select Agenda Status</option>
                             @foreach ($agenda_statuses as $agenda_status)
                                 <option value="{{$agenda_status->id}}">{{$agenda_status->projecttypename}}</option>
                             @endforeach
