@@ -26,6 +26,7 @@
 	width		: 100%;
 	height		: 90%;
 	font-size	: 5px;
+  margin-left:-5px;
 }
 #chartdiv6 {
 	width		: 100%;
@@ -160,7 +161,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
           {{-- chart2 --}}
           <div class="card col-md-2">
           <div class="card-header">
-          <label for="">Histogram of Assigned Projects</label>
+          <label for="">Activities Progress w.r.t Projects</label>
           </div> 
           <div id="chartdiv6"></div>
           </div>
@@ -168,7 +169,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
           {{-- chart 3 --}}
           <div class="card col-md-2">
           <div class="card-header">
-          <label for="">Histogram of Inprogress Projects</label>
+          <label for="">Sector Wise Progress of Projects</label>
           </div> 
           <div id="chartdiv7"></div>
           </div>
@@ -176,7 +177,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
           {{-- chart4 --}}
           <div class="card col-md-2">
           <div class="card-header">
-          <label for="">Histogram of Completed Projects</label>
+          <label for="">P & D Sector Wise Progress</label>
           </div> 
           <div id="chartdiv8"></div>
           </div>
@@ -202,26 +203,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
 <script src="{{asset('js/charts/chalk.js')}}"></script>
 <script src="{{asset('js/charts/light.js')}}"></script>
 <script src="{{asset('js/charts/patterns.js')}}"></script>
-{{-- <script>
-  $('#chart1-expand').on('click',function(){
-    if($("#chart1-expand > i").hasClass('fa-angle-double-right')){
-    $('#chart1').hide();
-    $('#chart1').addClass('col-md-12');
-    $('#chart1').removeClass('col-md-6');
-    $('#chart1').show('slow');
-    $("#chart1-expand > i").removeClass('fa fa-angle-double-right');
-    $("#chart1-expand > i").addClass('fa fa-angle-double-left');
-  }
-  else{
-    $('#chart1').hide();
-    $('#chart1').addClass('col-md-6');
-    $('#chart1').removeClass('col-md-12');
-    $('#chart1').show('slow');
-    $("#chart1-expand > i").removeClass('fa fa-angle-double-left');
-    $("#chart1-expand > i").addClass('fa fa-angle-double-right');
-  }
-    });
-</script> --}}
+
 {{-- row1 --}}
 <script>
     var chart = AmCharts.makeChart( "chartdiv", {
@@ -428,57 +410,6 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
 </script>
 
 {{-- row 2 --}}
-{{-- <script>
-    var st = [];
-      $i = 0;
-      officers.forEach(element => {
-        st.push ({ 
-          "Name": element.first_name,
-          "Progress": assigned_current_projects[$i]
-        });
-        $i++;
-      });
-    var chart = AmCharts.makeChart("chartdiv5", {
-    "type": "serial",
-    "theme": "none",
-    "dataProvider":st,
-    "categoryField": "Name",
-    "rotate": true,
-    "startDuration": 1,
-    "categoryAxis": {
-      "gridPosition": "start",
-      "position": "left"
-    },
-    "trendLines": [],
-    "graphs": [
-      {
-        "balloonText": "Progress:[[value]]",
-        "fillAlphas": 0.8,
-        "id": "AmGraph-1",
-        "lineAlpha": 0.2,
-        "title": "Progress",
-        "type": "column",
-        "valueField": "Progress"
-      }
-    ],
-    "guides": [],
-    "valueAxes": [
-      {
-        "id": "ValueAxis-1",
-        "position": "bottom",
-        "axisAlpha": 0
-      }
-    ],
-    "allLabels": [],
-    "balloon": {},
-    "titles": [],
-
-    "export": {
-        "enabled": true
-        }
-
-    });  
-</script> --}}
 <script>
     var st = [];
     $i = 0;
@@ -532,5 +463,55 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
     }
 
     });
+</script>
+<script>
+  var st = [];
+   $i = 0;
+   officers.forEach(element => {
+     st.push ({ 
+       "Name":element.first_name,
+       "Number of Projects": assigned_completed_projects[$i]
+     });
+     $i++;
+   });
+   var chart = AmCharts.makeChart( "chartdiv6", {
+   "type": "serial",
+   "theme": "light",
+   "dataProvider":st,
+   "valueAxes": [ {
+     "gridColor": "#FFFFFF",
+     "gridAlpha": 0.2,
+     "dashLength": 0
+   } ],
+   "gridAboveGraphs": true,
+   "startDuration": 1,
+   "graphs": [ {
+     "balloonText": "[[category]]: <b>[[value]]</b>",
+     "fillAlphas": 0.8,
+     "lineAlpha": 0.2,
+     "type": "column",
+     "labelText": "[[value]]",
+     "valueField": "Number of Projects"
+   } ],
+   "chartCursor": {
+     "categoryBalloonEnabled": false,
+     "cursorAlpha": 0,
+     "zoomable": false
+   },
+   "categoryField": "Name",
+   "categoryAxis": {
+     "gridPosition": "middle",
+     "gridAlpha": 0,
+     "tickPosition": "middle",
+     "tickLength": 5,
+     "labelRotation":30,
+     // "ignoreAxisWidth": true,
+     "autoWrap": true
+   },
+   "export": {
+     "enabled": true
+   }
+
+ } );
 </script>
 @endsection

@@ -8,8 +8,10 @@ use App\Project;
 use App\AssignedProject;
 use App\AssignedProjectManager;
 use App\User;
+use App\ProjectActivity;
 use App\HrMeetingPDWP;
 use JavaScript;
+
 use DB;
 class ExecutiveController extends Controller
 {
@@ -42,6 +44,7 @@ class ExecutiveController extends Controller
     }
     // Evaluation charts
     public function pems_index(){
+      $activities= ProjectActivity::all();
       $total_projects = count(Project::all());
       $total_assigned_projects = count(AssignedProject::all());
       $inprogress_projects = count(AssignedProject::where('acknowledge',1)->get());
@@ -56,39 +59,42 @@ class ExecutiveController extends Controller
         $assigned_inprogress_projects = [];
         $assigned_completed_projects = [];
         $assigned_current_projects =[];
+        $projects_activities_progress =[];
 
-        foreach($officers as $officer){
-          
-      $data = DB::select(
-        'getOfficersAssignedProjectById' .' '.$officer->id
-      );
-      $data_2 = DB::select(
-        'getOfficersInProgressProjectsById' .' '.$officer->id
-      );
-      $data_3 = DB::select(
-        'getOfficersCompletedProjectsById' .' '.$officer->id
-      );
-      $data_4 = DB::select(
-        'getOfficersCurrentProjectProgressById' .' '.$officer->id
-      );
-      $sum = 0;
+          foreach($officers as $officer)
+           {                
+            $data = DB::select(
+            'getOfficersAssignedProjectById' .' '.$officer->id
+            );
+            $data_2 = DB::select(
+            'getOfficersInProgressProjectsById' .' '.$officer->id
+            );
+            $data_3 = DB::select(
+            'getOfficersCompletedProjectsById' .' '.$officer->id
+            );
+            $data_4 = DB::select(
+            'getOfficersCurrentProjectProgressById' .' '.$officer->id
+            );
+            $sum = 0;
+
+            array_push($assigned_projects,count($data));
+            array_push($assigned_inprogress_projects,count($data_2));
+            array_push($assigned_completed_projects,count($data_3));
+            if(count($data_4)>0){
+            foreach($data_4 as $val)
+            {
+              $sum += $val->current_user_progress;
+            }
+            array_push($assigned_current_projects, $sum / count($data_4));
+            }
+            else{
+              array_push($assigned_current_projects, 0);
+            }
+          }
+
+        
      
-          array_push($assigned_projects,count($data));
-          array_push($assigned_inprogress_projects,count($data_2));
-          array_push($assigned_completed_projects,count($data_3));
-          if(count($data_4)>0){
-          foreach($data_4 as $val)
-          {
-            $sum += $val->current_user_progress;
-          }
-          array_push($assigned_current_projects, $sum / count($data_4));
-          }
-          else{
-            array_push($assigned_current_projects, 0);
-          }
-        }
-
-      \JavaScript::put([
+          \JavaScript::put([
         'total_projects' => $total_projects,
         'total_assigned_projects' => $total_assigned_projects,
         'inprogress_projects' => $inprogress_projects,

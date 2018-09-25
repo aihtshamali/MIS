@@ -158,8 +158,8 @@
             <div class="progress">
 
               <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
-              aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:1%">
-              1% Complete
+            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:{{$average_progress}}%">
+            {{$average_progress}}% Complete
             </div>
           </div>
         </div>
@@ -550,8 +550,8 @@
   </script>
   <script>
   function saveData(id,number){
-    console.log(number);
-    console.log($('.'+number+'_'+id).val());
+    // console.log(number);
+    // console.log($('.'+number+'_'+id).val());
     opt = $('.'+number+'_'+id).val();
     $.ajax({
       method: 'POST', // Type of response and matches what we said in the route
@@ -560,7 +560,7 @@
         "_token": "{{ csrf_token() }}",
         'data' : opt}, // a JSON object to send back
         success: function(response){ // What to do if we succeed
-          // console.log(response);
+          console.log(response);
           location.reload();
         },
         error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
