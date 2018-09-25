@@ -114,65 +114,57 @@
 <script src="{{asset('js/charts/light.js')}}"></script>
 <script src="{{asset('js/charts/patterns.js')}}"></script>
 <script>
-        var st = [];
-        $i = 0;
-    
-        officers.forEach(element => {
-        st.push ({ 
-          "Name": element.first_name +' '+ element.last_name,
-          "Progress": assigned_current_projects[$i]
-        });
-        $i++;
-        });
-    
-        var chart = AmCharts.makeChart("chartdiv5", {
-        "type": "serial",
-        "theme": "none",
-        "dataProvider": st,
-        "categoryField": "Name",
-    
-        "rotate": true,
-        "startDuration": 1,
-        "categoryAxis": {
-            "autoGridCount": false,
-      "equalSpacing": true,
-      "gridCount": 1000,
-        "gridPosition": "start",
-        "autoWrap": true,
-        "position": "left"
-        },
-        "trendLines": [],
-        "graphs": [
-        {
-        "balloonText": "Progress:[[value]]%",
-        "labelText":"[[value]]%",
-        "fillAlphas": 0.8,
-        "id": "AmGraph-1",
-        "lineAlpha": 0.2,
-        "title": "Progress",
-        "type": "column",
-        "valueField": "Progress"
-        }
-        ],
-        "guides": [
-            "label":"[[value]]%"
-        ],
-        "valueAxes": [
-        {
-        // "recalculateToPercents":true,     
-        "id": "ValueAxis-1",
-                
-        "position": "bottom",
-        "axisAlpha": 0
-        }
-        ],
-        "allLabels": [],
-        "balloon": {},
-        "titles": [],
-        "export": {
-        "enabled": true
-        }
-    
-        });
+  var st = [];
+  $i = 0;
+
+  officers.forEach(element => {
+  st.push ({ 
+    "Name": element.first_name,
+    "Progress": assigned_current_projects[$i]
+  });
+  $i++;
+  });
+
+  var chart = AmCharts.makeChart("chartdiv5", {
+  "type": "serial",
+  "theme": "none",
+  "dataProvider": st,
+  "categoryField": "Name",
+
+  "rotate": true,
+  "startDuration": 1,
+  "categoryAxis": {
+  "gridPosition": "start",
+  "autoWrap": true,
+  "position": "left"
+  },
+  "trendLines": [],
+  "graphs": [
+  {
+  "balloonText": "Progress:[[value]]",
+  "fillAlphas": 0.8,
+  "id": "AmGraph-1",
+  "lineAlpha": 0.2,
+  "title": "Progress",
+  "type": "column",
+  "valueField": "Progress"
+  }
+  ],
+  "guides": [],
+  "valueAxes": [
+  {
+  "id": "ValueAxis-1",
+  "position": "bottom",
+  "axisAlpha": 0
+  }
+  ],
+  "allLabels": [],
+  "balloon": {},
+  "titles": [],
+  "export": {
+  "enabled": true
+  }
+
+  });
     </script>
 @endsection

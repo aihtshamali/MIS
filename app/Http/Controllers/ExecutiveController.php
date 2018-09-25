@@ -10,11 +10,9 @@ use App\AssignedProjectManager;
 use App\User;
 use App\ProjectActivity;
 use App\HrMeetingPDWP;
-<<<<<<< HEAD
 use JavaScript;
 
 use DB;
-=======
 use App\HrSector;
 use App\HrAgenda;
 use App\HrMeetingType;
@@ -24,7 +22,6 @@ use App\HrProjectDecision;
 use App\ProjectDecision;
 use App\AdpProject;
 use App\HrDecision;
->>>>>>> 18876d996982af057ab090e28827f25475f899ee
 class ExecutiveController extends Controller
 {
   //  HOME FOLDER
@@ -137,6 +134,15 @@ class ExecutiveController extends Controller
             }
           }
 
+          foreach($activities as $act)
+        {
+          $activities_data = DB::select(
+            'getActiviesProgress' .' '.$act->id
+            );
+            array_push($projects_activities_progress,count($activities_data));
+
+        }
+
         
      
           \JavaScript::put([
@@ -145,10 +151,12 @@ class ExecutiveController extends Controller
         'inprogress_projects' => $inprogress_projects,
         'completed_projects' => $completed_projects,
         'officers' => $officers,
+        'activities'=> $activities,
         'assigned_projects' => $assigned_projects,
         'assigned_inprogress_projects' => $assigned_inprogress_projects,
         'assigned_completed_projects' => $assigned_completed_projects,
-        'assigned_current_projects'=>$assigned_current_projects
+        'assigned_current_projects'=>$assigned_current_projects,
+        'projects_activities_progress'=>$projects_activities_progress
       ]);
       return view('executive.home.pems_tab');
     }

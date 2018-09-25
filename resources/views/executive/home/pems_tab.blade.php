@@ -464,13 +464,13 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
 
     });
 </script>
-<script>
+{{-- <script>
   var st = [];
    $i = 0;
-   officers.forEach(element => {
+   $activities.forEach(element => {
      st.push ({ 
-       "Name":element.first_name,
-       "Number of Projects": assigned_completed_projects[$i]
+       "Name":element.name,
+       "Number of Activities": projects_activities_progress[$i]
      });
      $i++;
    });
@@ -491,7 +491,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
      "lineAlpha": 0.2,
      "type": "column",
      "labelText": "[[value]]",
-     "valueField": "Number of Projects"
+     "valueField": "Number of Activities"
    } ],
    "chartCursor": {
      "categoryBalloonEnabled": false,
@@ -513,5 +513,5 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
    }
 
  } );
-</script>
+</script> --}}
 @endsection
