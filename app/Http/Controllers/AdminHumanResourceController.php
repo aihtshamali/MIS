@@ -79,7 +79,7 @@ class AdminHumanResourceController extends Controller
         $hr_meeting = new HrMeetingPDWP();
         $hr_meeting->hr_meeting_type_id = $request->type_of_meeting;
         // $mytime = Carbon\Carbon::now();
-        $hr_meeting->start_time =  date('d-m-Y',strtotime($request->my_date));
+        $hr_meeting->start_time =  date('Y-m-d',strtotime($request->my_date));
         if($request->meeting_no){
             $temp_meeting_no = $request->meeting_no.'-'.$hr_meeting->start_time;
         }
