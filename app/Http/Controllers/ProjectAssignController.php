@@ -197,7 +197,7 @@ class ProjectAssignController extends Controller
         $project_activities = ProjectActivity::all();
         foreach ($project_activities as $project_activity) {
           $assigned_project_activity = new AssignedProjectActivity();
-          $assigned_project_activity->project_id = $request->project_id;
+          $assigned_project_activity->project_id = $assignProject->id;
           $assigned_project_activity->project_activity_id = $project_activity->id;
           if(count($request->officer_id) > 1){
             foreach ($request->officer_id as $officer) {
@@ -216,14 +216,6 @@ class ProjectAssignController extends Controller
             $assigned_project_activity->save();
         }
 
-
-        $notification = new Notification();
-        $notification->user_id=Auth::id();
-        $notification->text= $assignProject->project->title.' project assigned to '.$notif_officers.' with '.$request->priority;
-        $notification->table_name=$table_name;
-        $notification->table_id=$table_id;
-        $notification->save();
-        broadcast(new ProjectAssignedEvent(AssignedProject::where('project_id',$request->project_id)->first(),$notification))->toOthers();
       }else if($request->assign_to=='manager'){
         foreach ($request->manager_id as $manager) {
           $assignedProjectManager = new AssignedProjectManager();
@@ -235,13 +227,7 @@ class ProjectAssignController extends Controller
         }
         $table_name='assigned_project_managers';
         $table_id=$assignedProjectManager->id;
-        $notification = new Notification();
-        $notification->user_id=Auth::id();
-        $notification->text= 'Assigned to '.$request->assign_to.' with '.$request->priority;
-        $notification->table_name=$table_name;
-        $notification->table_id=$table_id;
-        $notification->save();
-        broadcast(new ProjectAssignedManagerEvent(AssignedProjectManager::where('project_id',$request->project_id)->first(),$notification))->toOthers();
+
       }
 
 
@@ -312,13 +298,6 @@ class ProjectAssignController extends Controller
              $assigned_project_activity->save();
          }
 
-         $notification = new Notification();
-         $notification->user_id=Auth::id();
-         $notification->text= $assignProject->project->title.' project assigned to '.$notif_officers.' with '.$request->priority;
-         $notification->table_name=$table_name;
-         $notification->table_id=$table_id;
-         $notification->save();
-         broadcast(new ProjectAssignedEvent(AssignedProject::where('project_id',$request->project_id)->first(),$notification))->toOthers();
 
        }else if($request->assign_to=='manager'){
          $notif_manager='';
@@ -337,13 +316,7 @@ class ProjectAssignController extends Controller
          }
          $table_name='assigned_project_managers';
          $table_id=$assignedProjectManager->id;
-         $notification = new Notification();
-         $notification->user_id=Auth::id();
-         $notification->text= $assignedProjectManager->project->title.' project assigned to '.$notif_manager.' with '.$request->priority;
-         $notification->table_name=$table_name;
-         $notification->table_id=$table_id;
-         $notification->save();
-         broadcast(new ProjectAssignedManagerEvent(AssignedProjectManager::where('project_id',$request->project_id)->first(),$notification))->toOthers();
+
        }
          return redirect()->route('Exec_evaluation_assigned');
      }

@@ -148,7 +148,7 @@ class OfficerController extends Controller
        //saving progress
        $assigned_progress=Project::find($id)->AssignedProject;
       //  dd($assigned_progress);
-       $average_progress=$assigned_progress->progress;
+       $average_progress=round($assigned_progress->progress, 0, PHP_ROUND_HALF_UP);
       //  $assigned_progress->save();
 
       $officerAssignedCount=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
@@ -190,10 +190,19 @@ class OfficerController extends Controller
 
       return view('officer.evaluation_projects.activities',['activities'=>$activities,'average_progress'=>$average_progress,'icons'=>$icons,'project_data'=>$project_data,'project_id'=>$id,'officerInProgressCount'=>$officerInProgressCount,'officerAssignedCount'=>$officerAssignedCount]);
     }
-
+    public function projectCompleted(Request $request){
+      $projectCompleted = AssignedProject::find($request->assigned_project_id);
+      if($projectCompleted){
+        $projectCompleted->complete= True;
+        $projectCompleted->completion_date=date('Y-m-d');
+        $projectCompleted->save();
+      }
+      return redirect()->route('completed_evaluation');
+    }
     public function evaluation_completed(){
-      $officer=AssignedProject::where('complete','1')->where('acknowledge','1')->get();
 
+      $officer=AssignedProject::where('complete','True')->where('acknowledge','1')->get();
+      // dd($officer);
       return view('officer.evaluation_projects.completed')->with('officer',$officer);
     }
 
@@ -222,7 +231,7 @@ class OfficerController extends Controller
       $i = 0;
       foreach($project_activities as $pa){
         $total_progress = ($total_progress  +  ( ($pa->progress/100.0) * $percentage_array[$i] ));
-        
+
         // print_r( ($pa->progress/100.0) * $percentage_array[$i].' ');
         $i += 1;
 

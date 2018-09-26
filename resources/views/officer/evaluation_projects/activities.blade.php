@@ -275,7 +275,7 @@
           <div class="row" >
             <div class="col-md-12 col-xs-12">
               <div class="table-responsive">
-                <form action="#" method="POST">
+                <form action="{{route('projectCompleted')}}" method="POST">
                   {{csrf_field()}}
                   <table class="table table-hover table-striped">
                     <b>ACTIVITY CHART</b>
@@ -425,8 +425,8 @@
       @endforeach
     </tbody>
   </table>
-  <input type="hidden" name="id" style="display:inline;float:right" value="{{$project_data->project_id}}">
-  <button type="button" class="btn btn-success pull-right" >Project Completed
+  <input type="hidden" name="assigned_project_id" style="display:inline;float:right" value="{{$project_data->id}}">
+  <button type="submit" class="btn btn-success pull-right" >Project Completed
   </button>
 </form>
 </div>

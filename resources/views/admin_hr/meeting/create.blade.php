@@ -271,7 +271,7 @@
                         </select>
                       </div>
                       <div>
-                        <input type="file" id="attachment" class="pull-left" name="attachments[]" value="">
+                        <input type="file" id="attachment" onchange='PreviewImage(this)' class="pull-left" name="attachments[]" value="">
                       </div>
                     </section>`;
     var section2 = `<section id="second_section" style="display:none;">
@@ -331,11 +331,14 @@
                             </select>
                         </div>
                         <div>
-                          <input type="file" id="attachmentt" class="pull-left" name="section2_attachments[]" >
+                          <input type="file" id="attachmentt" onchange='PreviewImage(this)' class="pull-left" name="section2_attachments[]" >
                       </div>
                     </section>`;
-          function PreviewImage() {
-                pdffile=document.getElementById("attachmentt").files[0];
+          function PreviewImage(e) {
+              console.log('sad Life',$(e).files);
+                console.log($(e));
+                pdffile=$(e)[0].files[0];
+                console.log(pdffile);
                 pdffile_url=URL.createObjectURL(pdffile);
                 $('#viewer').attr('src',pdffile_url);
               }
