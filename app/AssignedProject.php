@@ -25,7 +25,7 @@ class AssignedProject extends Model
       }
       public function AssignedProjectActivity()
       {
-        return $this->hasMany('App\AssignedProjectActivity');
+        return $this->hasMany('App\AssignedProjectActivity','project_id');
       }
     // public function getProject($id){
     //     return Project::where('id',$id)->first();

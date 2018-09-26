@@ -49,7 +49,16 @@ return array(
     'App\\HrDecision' => $baseDir . '/app/HrDecision.php',
     'App\\HrMeetingPDWP' => $baseDir . '/app/HrMeetingPDWP.php',
     'App\\HrMeetingType' => $baseDir . '/app/HrMeetingType.php',
+<<<<<<< HEAD
     'App\\HrMom' => $baseDir . '/app/HrMom.php',
+=======
+<<<<<<< HEAD
+    'App\\HrMomAttachment' => $baseDir . '/app/HrMomAttachment.php',
+    'App\\HrMoms' => $baseDir . '/app/HrMoms.php',
+=======
+    'App\\HrMom' => $baseDir . '/app/HrMom.php',
+>>>>>>> 18876d996982af057ab090e28827f25475f899ee
+>>>>>>> 49d720e2ee8ad2a5097a42d4690b71112e5acb81
     'App\\HrProjectDecision' => $baseDir . '/app/HrProjectDecision.php',
     'App\\HrProjectType' => $baseDir . '/app/HrProjectType.php',
     'App\\HrSector' => $baseDir . '/app/HrSector.php',
@@ -72,6 +81,16 @@ return array(
     'App\\Http\\Controllers\\ExecutingAgencyController' => $baseDir . '/app/Http/Controllers/ExecutingAgencyController.php',
     'App\\Http\\Controllers\\ExecutiveController' => $baseDir . '/app/Http/Controllers/ExecutiveController.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
+    'App\\Http\\Controllers\\HrAgendaController' => $baseDir . '/app/Http/Controllers/HrAgendaController.php',
+    'App\\Http\\Controllers\\HrAttachmentController' => $baseDir . '/app/Http/Controllers/HrAttachmentController.php',
+    'App\\Http\\Controllers\\HrDecisionController' => $baseDir . '/app/Http/Controllers/HrDecisionController.php',
+    'App\\Http\\Controllers\\HrMeetingPDWPController' => $baseDir . '/app/Http/Controllers/HrMeetingPDWPController.php',
+    'App\\Http\\Controllers\\HrMeetingTypeController' => $baseDir . '/app/Http/Controllers/HrMeetingTypeController.php',
+    'App\\Http\\Controllers\\HrMomAttachmentController' => $baseDir . '/app/Http/Controllers/HrMomAttachmentController.php',
+    'App\\Http\\Controllers\\HrMomsController' => $baseDir . '/app/Http/Controllers/HrMomsController.php',
+    'App\\Http\\Controllers\\HrProjectDecisionController' => $baseDir . '/app/Http/Controllers/HrProjectDecisionController.php',
+    'App\\Http\\Controllers\\HrProjectTypeController' => $baseDir . '/app/Http/Controllers/HrProjectTypeController.php',
+    'App\\Http\\Controllers\\HrSectorController' => $baseDir . '/app/Http/Controllers/HrSectorController.php',
     'App\\Http\\Controllers\\NotificationController' => $baseDir . '/app/Http/Controllers/NotificationController.php',
     'App\\Http\\Controllers\\OfficerController' => $baseDir . '/app/Http/Controllers/OfficerController.php',
     'App\\Http\\Controllers\\PermissionsController' => $baseDir . '/app/Http/Controllers/PermissionsController.php',

@@ -51,6 +51,13 @@ Route::group(['middleware' => ['role:admin']], function () {
 // For Manager
 Route::prefix('manager')->middleware('role:manager')->group(function () {
   Route::get('/','ExecutiveController@index')->name('Exec_home');
+  // PEMS GRAPHS
+  Route::get('/chart_one','ExecutiveController@chart_one')->name('chart_one');
+  Route::get('/chart_two','ExecutiveController@chart_two')->name('chart_two');
+  Route::get('/chart_three','ExecutiveController@chart_three')->name('chart_three');
+  Route::get('/chart_four','ExecutiveController@chart_four')->name('chart_four');
+  Route::get('/chart_five','ExecutiveController@chart_five')->name('chart_five');
+
   Route::get('/pems_tab','ExecutiveController@pems_index')->name('Exec_pems_tab');
   Route::get('/pmms_tab','ExecutiveController@pmms_index')->name('Exec_pmms_tab');
   Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
@@ -106,6 +113,7 @@ Route::prefix('officer')->middleware('role:officer')->group(function () {
   Route::get('/inprogress_evaluation','OfficerController@evaluation_inprogress')->name('inprogress_evaluation');
   Route::get('/activities_evaluation/{project_id}','OfficerController@evaluation_activities')->name('evaluation_activities');
   Route::get('/completed_evaluation','OfficerController@evaluation_completed')->name('completed_evaluation');
+  Route::post('/project_completed','OfficerController@projectCompleted')->name('projectCompleted');
   Route::get('/review_form/{project_id}','OfficerController@review_form')->name('review_form');
   Route::post('/review_form','OfficerController@review_forms')->name('review_forms');
   Route::post('/saveActivityAttachment','OfficerController@saveActivityAttachment')->name('saveActivityAttachment');
