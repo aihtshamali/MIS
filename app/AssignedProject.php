@@ -9,7 +9,7 @@ class AssignedProject extends Model
     protected $table="assigned_projects";
 
     public function user(){
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User','assigned_by');
     }
     public function project(){
         return $this->belongsTo('App\Project');
