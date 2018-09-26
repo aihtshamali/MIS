@@ -16,10 +16,7 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/home', function(){
-  return view('home');
-});
-
+Route::get('/home','HomeController@index');
 Route::group(['middleware' => ['auth']],function(){
   Route::get('/reset_password','HomeController@reset_password');
   Route::post('/reset_store','HomeController@reset_store');

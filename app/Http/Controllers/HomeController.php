@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use App\AssignedProject;
+use App\AssignedProjectActivity;
 use Auth;
+use Illuminate\Support\Facades\Schema;
+
 
 class HomeController extends Controller
 {
@@ -26,7 +30,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+      // $activity = AssignedProjectActivity::all();
+      // Schema::disableForeignKeyConstraints();
+      //   foreach ($activity as $value) {
+      //     if(isset($value->Project->AssignedProject->id))
+      //     $value->project_id = $value->Project->AssignedProject->id;
+      //     $value->save();
+      //   }
+
+      return view('home');
     }
 
     public function reset_password()
