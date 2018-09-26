@@ -16,8 +16,8 @@
     <table class="table table-responsive table-striped">
       <thead>
         <th>Sr.#</th>
-        <th>Name</th>
         <th>GS#</th>
+        <th>Name</th>
         <th>Cost</th>
         <th>Sector</th>
       </thead>
@@ -28,8 +28,8 @@
         @foreach ($projects as $project)
           <tr>
             <td>{{$i++}}</td>
-            <td>{{$project->Project->title}}</td>
             <td>{{$project->Project->ADP}}</td>
+            <td>{{$project->Project->title}}</td>
             <td>{{round($project->Project->ProjectDetail->orignal_cost,2)}} Million {{$project->Project->ProjectDetail->currency}}</td>
             <td>{{$project->Project->AssignedSubSectors[0]->SubSector->Sector->name}}</td>
           </tr>

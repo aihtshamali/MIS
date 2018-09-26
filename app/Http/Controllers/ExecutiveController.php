@@ -93,6 +93,7 @@ class ExecutiveController extends Controller
       // dd($projects);
       return view('executive.evaluation.allSectors',['projects'=>$projects]);
     }
+    // Evaluation charts
     public function pems_index(){
       $activities= ProjectActivity::all();
       $total_projects = count(Project::all());
@@ -310,7 +311,7 @@ class ExecutiveController extends Controller
       \JavaScript::put([
         'officers' => $officers,
         'assigned_current_projects'=>$assigned_current_projects
-        
+
         ]);
       return view('executive.home.chart_five',['officers' => $officers ,'assigned_current_projects'=>$assigned_current_projects]);
     }

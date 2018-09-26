@@ -16,10 +16,7 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/home', function(){
-  return view('home');
-});
-
+Route::get('/home','HomeController@index');
 Route::group(['middleware' => ['auth']],function(){
   Route::get('/reset_password','HomeController@reset_password');
   Route::post('/reset_store','HomeController@reset_store');
@@ -99,6 +96,7 @@ Route::prefix('director_Monitor')->middleware('role:directormonitoring')->group(
     Route::get('/tpv_tab','DirectorMonitoringController@tpv_index')->name('Monitoring_tpv_tab');
     Route::get('/inquiry','DirectorMonitoringController@inquiry_index')->name('Monitoring_inquiry_tab');
 });
+Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
 
 
 
