@@ -85,6 +85,16 @@ class ExecutiveController extends Controller
       $assignedtoManager=AssignedProjectManager::all();
       return view('executive.home.index',['unassigned'=>$unassigned,'assignedtoManager'=>$assignedtoManager,'assigned'=>$assigned]);
     }
+    public function getSectorWise(){
+      $projects=AssignedProject::select('assigned_projects.*')
+      ->leftJoin('assigned_sub_sectors','assigned_sub_sectors.project_id','assigned_projects.project_id')
+      ->leftJoin('sub_sectors','assigned_sub_sectors.sub_sector_id','sub_sectors.id')
+      ->leftJoin('sectors','sub_sectors.sector_id','sectors.id')
+      ->orderBy('sectors.id')->get();
+      // dd($projects);
+      return view('executive.evaluation.allSectors',['projects'=>$projects]);
+    }
+    
     // Evaluation charts
     public function pems_index(){
       $activities= ProjectActivity::all();
@@ -109,7 +119,7 @@ class ExecutiveController extends Controller
         $projects_wrt_sectors =[];
 
           foreach($officers as $officer)
-           {                
+           {
             $data = DB::select(
             'getOfficersAssignedProjectById' .' '.$officer->id
             );
@@ -157,7 +167,8 @@ class ExecutiveController extends Controller
          
             array_push($projects_wrt_sectors,$subsectors_data);
         }
-     
+
+
           \JavaScript::put([
         'total_projects' => $total_projects,
         'total_assigned_projects' => $total_assigned_projects,
@@ -187,14 +198,14 @@ class ExecutiveController extends Controller
           'getAllOfficers'
         )
         );
-        
+
       \JavaScript::put([
         'total_projects' => $total_projects,
         'total_assigned_projects' => $total_assigned_projects,
         'inprogress_projects' => $inprogress_projects,
         'completed_projects' => $completed_projects,
         'officers' => $officers,
-        
+
         ]);
       return view('executive.home.chart_one',['total_projects'=>$total_projects ,'total_assigned_projects'=>$total_assigned_projects ,'inprogress_projects'=>$inprogress_projects ,'completed_projects'=>$completed_projects]);
     }
@@ -212,17 +223,17 @@ class ExecutiveController extends Controller
         );
         $assigned_projects = [];
         foreach($officers as $officer){
-          
+
           $data = DB::select(
             'getOfficersAssignedProjectById' .' '.$officer->id
           );
           array_push($assigned_projects,count($data));
         }
-        
+
       \JavaScript::put([
         'officers' => $officers,
         'assigned_projects' => $assigned_projects,
-        
+
         ]);
       return view('executive.home.chart_two',['officers' => $officers,'assigned_projects' => $assigned_projects]);
     }
@@ -241,17 +252,17 @@ class ExecutiveController extends Controller
         );
         $assigned_inprogress_projects = [];
         foreach($officers as $officer){
-          
+
           $data_2 = DB::select(
             'getOfficersInProgressProjectsById' .' '.$officer->id
           );
           array_push($assigned_inprogress_projects,count($data_2));
         }
-        
+
       \JavaScript::put([
         'officers' => $officers,
         'assigned_inprogress_projects' => $assigned_inprogress_projects,
-        
+
         ]);
       return view('executive.home.chart_three',['officers' => $officers, 'assigned_inprogress_projects' => $assigned_inprogress_projects]);
     }
@@ -270,17 +281,17 @@ class ExecutiveController extends Controller
         );
         $assigned_completed_projects = [];
         foreach($officers as $officer){
-          
+
           $data_3 = DB::select(
             'getOfficersCompletedProjectsById' .' '.$officer->id
           );
           array_push($assigned_completed_projects,count($data_3));
         }
-        
+
       \JavaScript::put([
         'officers' => $officers,
         'assigned_completed_projects' => $assigned_completed_projects,
-        
+
         ]);
       return view('executive.home.chart_four',['officers' => $officers,'assigned_completed_projects' => $assigned_completed_projects]);
     }
@@ -313,11 +324,11 @@ class ExecutiveController extends Controller
               array_push($assigned_current_projects, 0);
             }
           }
-        
+
       \JavaScript::put([
         'officers' => $officers,
         'assigned_current_projects'=>$assigned_current_projects
-        
+
         ]);
       return view('executive.home.chart_five',['officers' => $officers ,'assigned_current_projects'=>$assigned_current_projects]);
     }

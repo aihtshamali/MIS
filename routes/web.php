@@ -16,10 +16,7 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/home', function(){
-  return view('home');
-});
-
+Route::get('/home','HomeController@index');
 Route::group(['middleware' => ['auth']],function(){
   Route::get('/reset_password','HomeController@reset_password');
   Route::post('/reset_store','HomeController@reset_store');
@@ -61,6 +58,7 @@ Route::prefix('manager')->middleware('role:manager')->group(function () {
   Route::get('/chart_seven','ExecutiveController@chart_seven')->name('chart_seven');
   Route::get('/pems_tab','ExecutiveController@pems_index')->name('Exec_pems_tab');
   Route::get('/pmms_tab','ExecutiveController@pmms_index')->name('Exec_pmms_tab');
+  Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
   Route::get('/tpv_tab','ExecutiveController@tpv_index')->name('Exec_tpv_tab');
   Route::get('/specialAssign_tab','ExecutiveController@specialassign_index')->name('Exec_special_tab');
   Route::get('/inquiry','ExecutiveController@inquiry_index')->name('Exec_inquiry_tab');
@@ -86,7 +84,7 @@ Route::prefix('director_evaluation')->middleware('role:directorevaluation')->gro
   Route::get('/evaluation_assigned','DirectorEvaluationController@evaluation_assignedprojects')->name('Evaluation_evaluation_assigned');
   Route::get('/evaluation_inprogress','DirectorEvaluationController@evaluation_Inprogressprojects')->name('Evaluation_evaluation_Inprogressprojects');
 
-  Route::post('/search','DirectorEvaluationController@searchOfficer')->name('search_officer');
+  Route::get('/search','DirectorEvaluationController@searchOfficer')->name('search_officer');
   Route::get('assignproject','ProjectAssignController@create_from_director')->name('create_from_director');
   Route::post('assignproject','ProjectAssignController@store_from_director')->name('store_from_director');
 
@@ -99,6 +97,7 @@ Route::prefix('director_Monitor')->middleware('role:directormonitoring')->group(
     Route::get('/tpv_tab','DirectorMonitoringController@tpv_index')->name('Monitoring_tpv_tab');
     Route::get('/inquiry','DirectorMonitoringController@inquiry_index')->name('Monitoring_inquiry_tab');
 });
+Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
 
 
 
@@ -113,6 +112,7 @@ Route::prefix('officer')->middleware('role:officer')->group(function () {
   Route::get('/inprogress_evaluation','OfficerController@evaluation_inprogress')->name('inprogress_evaluation');
   Route::get('/activities_evaluation/{project_id}','OfficerController@evaluation_activities')->name('evaluation_activities');
   Route::get('/completed_evaluation','OfficerController@evaluation_completed')->name('completed_evaluation');
+  Route::post('/project_completed','OfficerController@projectCompleted')->name('projectCompleted');
   Route::get('/review_form/{project_id}','OfficerController@review_form')->name('review_form');
   Route::post('/review_form','OfficerController@review_forms')->name('review_forms');
   Route::post('/saveActivityAttachment','OfficerController@saveActivityAttachment')->name('saveActivityAttachment');
