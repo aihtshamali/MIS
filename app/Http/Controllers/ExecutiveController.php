@@ -11,7 +11,7 @@ use App\User;
 use App\ProjectActivity;
 use App\HrMeetingPDWP;
 use JavaScript;
-
+use App\AssignedSubSector;
 use DB;
 use App\HrSector;
 use App\HrAgenda;
@@ -22,6 +22,7 @@ use App\HrProjectDecision;
 use App\ProjectDecision;
 use App\AdpProject;
 use App\HrDecision;
+use App\SubSector;
 class ExecutiveController extends Controller
 {
   //  HOME FOLDER
@@ -87,8 +88,11 @@ class ExecutiveController extends Controller
     // Evaluation charts
     public function pems_index(){
       $activities= ProjectActivity::all();
+      $sub_Sectors=SubSector::all();
+     
       $total_projects = count(Project::all());
       $total_assigned_projects = count(AssignedProject::all());
+      
       $inprogress_projects = count(AssignedProject::where('acknowledge',1)->get());
       $completed_projects = count(AssignedProject::where('complete',1)->get());
       $model = new User();
@@ -102,6 +106,7 @@ class ExecutiveController extends Controller
         $assigned_completed_projects = [];
         $assigned_current_projects =[];
         $projects_activities_progress =[];
+        $projects_wrt_sectors =[];
 
           foreach($officers as $officer)
            {                
@@ -136,14 +141,22 @@ class ExecutiveController extends Controller
 
           foreach($activities as $act)
         {
-          $activities_data = DB::select(
-            'getActiviesProgress' .' '.$act->id
+             $activities_data = DB::select(
+            'getActiviesProgress' .' '. $act->id
             );
-            array_push($projects_activities_progress,count($activities_data));
+          
 
+            array_push($projects_activities_progress,$activities_data);
+          
         }
-
-        
+        foreach($sub_Sectors  as $ss)
+        {  
+          $subsectors_data=DB::select(
+           
+            'getProjectsSector' .' '. $ss->id);
+         
+            array_push($projects_wrt_sectors,$subsectors_data);
+        }
      
           \JavaScript::put([
         'total_projects' => $total_projects,
@@ -156,7 +169,9 @@ class ExecutiveController extends Controller
         'assigned_inprogress_projects' => $assigned_inprogress_projects,
         'assigned_completed_projects' => $assigned_completed_projects,
         'assigned_current_projects'=>$assigned_current_projects,
-        'projects_activities_progress'=>$projects_activities_progress
+        'projects_activities_progress'=>$projects_activities_progress,
+        'projects_wrt_sectors'=>$projects_wrt_sectors,
+        'sub_Sectors'=>$sub_Sectors 
       ]);
       return view('executive.home.pems_tab');
     }
@@ -305,6 +320,53 @@ class ExecutiveController extends Controller
         
         ]);
       return view('executive.home.chart_five',['officers' => $officers ,'assigned_current_projects'=>$assigned_current_projects]);
+    }
+    // chart 6
+    public function chart_six(){
+      $activities= ProjectActivity::all();
+    
+    
+      $projects_activities_progress =[];
+      
+      foreach($activities as $act)
+      {
+           $activities_data = DB::select(
+          'getActiviesProgress' .' '. $act->id
+          );
+          array_push($projects_activities_progress,$activities_data);
+        
+      }
+        
+      \JavaScript::put([
+        'activities' => $activities,
+        'projects_activities_progress'=>$projects_activities_progress
+        
+        ]);
+      return view('executive.home.chart_six',[ 'activities' => $activities ,'projects_activities_progress'=>$projects_activities_progress]);
+    }
+
+    // chart7
+    public function chart_seven(){
+      $sub_Sectors=SubSector::all();
+    
+    
+      $projects_wrt_sectors =[];
+      
+      foreach($sub_Sectors  as $ss)
+        {  
+          $subsectors_data=DB::select(
+           
+            'getProjectsSector' .' '. $ss->id);
+         
+            array_push($projects_wrt_sectors,$subsectors_data);
+        }
+        
+      \JavaScript::put([
+        'sub_Sectors' => $sub_Sectors,
+        'projects_wrt_sectors'=>$projects_wrt_sectors
+        
+        ]);
+      return view('executive.home.chart_seven',['sub_Sectors' => $sub_Sectors, 'projects_wrt_sectors'=>$projects_wrt_sectors]);
     }
 
 

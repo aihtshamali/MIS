@@ -26,12 +26,13 @@
 	width		: 100%;
 	height		: 90%;
 	font-size	: 5px;
-  margin-left:-5px;
+
 }
 #chartdiv6 {
 	width		: 100%;
 	height		: 90%;
 	font-size	: 5px;
+  margin-top:10px;
 }
 #chartdiv7 {
 	width		: 100%;
@@ -159,20 +160,24 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
           </a>
 
           {{-- chart2 --}}
+          <a href="{{route('chart_six')}}">
           <div class="card col-md-2">
           <div class="card-header">
           <label for="">Activities Progress w.r.t Projects</label>
           </div> 
           <div id="chartdiv6"></div>
           </div>
+          </a>
 
           {{-- chart 3 --}}
+          <a href="{{route('chart_seven')}}">
           <div class="card col-md-2">
           <div class="card-header">
-          <label for="">Sector Wise Progress of Projects</label>
+          <label for="">SubSector Wise Progress of Projects</label>
           </div> 
           <div id="chartdiv7"></div>
           </div>
+          </a>
 
           {{-- chart4 --}}
           <div class="card col-md-2">
@@ -464,13 +469,15 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
 
     });
 </script>
-{{-- <script>
+<script>
   var st = [];
    $i = 0;
-   $activities.forEach(element => {
+   activities.forEach(element => {
+    //  console.log(projects_activities_progress[$i][0].eachActivitycount);
+     
      st.push ({ 
        "Name":element.name,
-       "Number of Activities": projects_activities_progress[$i]
+       "Number of Activities": projects_activities_progress[$i][0].eachActivitycount
      });
      $i++;
    });
@@ -486,7 +493,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
    "gridAboveGraphs": true,
    "startDuration": 1,
    "graphs": [ {
-     "balloonText": "[[category]]: <b>[[value]]</b>",
+     "balloonText": "Number Of Activities:[[value]]",
      "fillAlphas": 0.8,
      "lineAlpha": 0.2,
      "type": "column",
@@ -513,5 +520,175 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
    }
 
  } );
+</script>
+<script>
+    var st = [];
+     $i = 0;
+     sub_Sectors.forEach(element => {
+      //  console.log(projects_activities_progress[$i][0].eachActivitycount);
+       
+       st.push ({ 
+         "Name":element.name,
+         "Number of projects": projects_wrt_sectors[$i][0].eachSectorcount
+       });
+       $i++;
+     });
+     var chart = AmCharts.makeChart( "chartdiv7", {
+     "type": "serial",
+     "theme": "light",
+     "dataProvider":st,
+     "valueAxes": [ {
+       "gridColor": "#FFFFFF",
+       "gridAlpha": 0.2,
+       "dashLength": 0
+     } ],
+     "gridAboveGraphs": true,
+     "startDuration": 1,
+     "graphs": [ {
+       "balloonText": "Number of projects:[[value]]",
+       "fillAlphas": 0.8,
+       "lineAlpha": 0.2,
+       "type": "column",
+       "labelText": "[[value]]",
+       "valueField": "Number of projects"
+     } ],
+     "chartCursor": {
+       "categoryBalloonEnabled": false,
+       "cursorAlpha": 0,
+       "zoomable": false
+     },
+     "categoryField": "Name",
+     "categoryAxis": {
+       "gridPosition": "middle",
+       "gridAlpha": 0,
+       "tickPosition": "middle",
+       "tickLength": 5,
+       "labelRotation":30,
+       // "ignoreAxisWidth": true,
+       "autoWrap": true
+     },
+     "export": {
+       "enabled": true
+     }
+  
+   } );
+  </script>
+{{-- <script>
+  var chart = AmCharts.makeChart("chartdiv7", {
+    "type": "serial",
+    "theme": "light",
+    "legend": {
+        "autoMargins": false,
+        "borderAlpha": 0.2,
+        "equalWidths": false,
+        "horizontalGap": 10,
+        "markerSize": 10,
+        "useGraphSettings": true,
+        "valueAlign": "left",
+        "valueWidth": 0
+    },
+    "dataProvider": [{
+        "year": "2003",
+        "europe": 2.5,
+        "namerica": 2.5,
+        "asia": 2.1,
+        "lamerica": 0.3,
+        "meast": 0.2,
+        "africa": 0.1
+    }, {
+        "year": "2004",
+        "europe": 2.6,
+        "namerica": 2.7,
+        "asia": 2.2,
+        "lamerica": 0.3,
+        "meast": 0.3,
+        "africa": 0.1
+    }, {
+        "year": "2005",
+        "europe": 2.8,
+        "namerica": 2.9,
+        "asia": 2.4,
+        "lamerica": 0.3,
+        "meast": 0.3,
+        "africa": 0.1
+    }],
+    "valueAxes": [{
+        "stackType": "100%",
+        "axisAlpha": 0,
+        "gridAlpha": 0,
+        "labelsEnabled": false,
+        "position": "left"
+    }],
+    "graphs": [{
+        "balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
+        "fillAlphas": 0.9,
+        "fontSize": 11,
+        "labelText": "[[percents]]%",
+        "lineAlpha": 0.5,
+        "title": "Europe",
+        "type": "column",
+        "valueField": "europe"
+    }, {
+        "balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
+        "fillAlphas": 0.9,
+        "fontSize": 11,
+        "labelText": "[[percents]]%",
+        "lineAlpha": 0.5,
+        "title": "North America",
+        "type": "column",
+        "valueField": "namerica"
+    }, {
+        "balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
+        "fillAlphas": 0.9,
+        "fontSize": 11,
+        "labelText": "[[percents]]%",
+        "lineAlpha": 0.5,
+        "title": "Asia-Pacific",
+        "type": "column",
+        "valueField": "asia"
+    }, {
+        "balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
+        "fillAlphas": 0.9,
+        "fontSize": 11,
+        "labelText": "[[percents]]%",
+        "lineAlpha": 0.5,
+        "title": "Latin America",
+        "type": "column",
+        "valueField": "lamerica"
+    }, {
+        "balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
+        "fillAlphas": 0.9,
+        "fontSize": 11,
+        "labelText": "[[percents]]%",
+        "lineAlpha": 0.5,
+        "title": "Middle-East",
+        "type": "column",
+        "valueField": "meast"
+    }, {
+        "balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
+        "fillAlphas": 0.9,
+        "fontSize": 11,
+        "labelText": "[[percents]]%",
+        "lineAlpha": 0.5,
+        "title": "Africa",
+        "type": "column",
+        "valueField": "africa"
+    }],
+    "marginTop": 30,
+    "marginRight": 0,
+    "marginLeft": 0,
+    "marginBottom": 40,
+    "autoMargins": false,
+    "categoryField": "year",
+    "categoryAxis": {
+        "gridPosition": "start",
+        "axisAlpha": 0,
+        "gridAlpha": 0
+    },
+    "export": {
+    	"enabled": true
+     }
+
+});
 </script> --}}
 @endsection
