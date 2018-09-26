@@ -55,9 +55,10 @@
     Meeting No {{$agendas[0]->HrMeetingPDWP->id}}
     </h1>
     <ol class="breadcrumb">
+      <a class="btn btn-success pull-left" href="hassan:" style="margin-top: -10px;">Single Scan</a> 
+      <a class="btn btn-success pull-left" href="hassanduplex:" style="margin-top: -10px;" >Duplex Scan</a>
       <li><a href="#"><i class="fa fa-backward" ></i>Back</a></li>
       <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li>
-
     </ol>
   </section>
 

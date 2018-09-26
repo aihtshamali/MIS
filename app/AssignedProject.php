@@ -9,7 +9,7 @@ class AssignedProject extends Model
     protected $table="assigned_projects";
 
     public function user(){
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User','assigned_by');
     }
     public function project(){
         return $this->belongsTo('App\Project');
@@ -25,7 +25,7 @@ class AssignedProject extends Model
       }
       public function AssignedProjectActivity()
       {
-        return $this->hasMany('App\AssignedProjectActivity');
+        return $this->hasMany('App\AssignedProjectActivity','project_id');
       }
     // public function getProject($id){
     //     return Project::where('id',$id)->first();

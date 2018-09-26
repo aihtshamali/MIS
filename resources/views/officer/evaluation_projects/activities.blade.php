@@ -130,10 +130,10 @@
 
             <div class="box-header with-border">
               <p>
-                Project Number : <b> {{$project_data->Project->project_no}} </b></br>
+                Project Number : <b> {{$project_data->Project->project_no}} </b><br>
               </p>
               <p >
-                Project Name :<b> {{$project_data->Project->title}}  </b></br>
+                Project Name :<b> {{$project_data->Project->title}}  </b><br>
               </p>
 
               <p>
@@ -142,7 +142,7 @@
                     {{$member->User->first_name}} {{$member->User->last_name}},
                   @endforeach
                 </b>
-              </br>
+              <br>
             </p>
 
 
@@ -160,8 +160,8 @@
             <div class="progress">
 
               <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
-              aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:1%">
-              1% Complete
+            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:{{$average_progress}}%">
+            {{$average_progress}}% Complete
             </div>
           </div>
         </div>
@@ -275,7 +275,7 @@
           <div class="row" >
             <div class="col-md-12 col-xs-12">
               <div class="table-responsive">
-                <form action="#" method="POST">
+                <form action="{{route('projectCompleted')}}" method="POST">
                   {{csrf_field()}}
                   <table class="table table-hover table-striped">
                     <b>ACTIVITY CHART</b>
@@ -425,8 +425,8 @@
       @endforeach
     </tbody>
   </table>
-  <input type="hidden" name="id" style="display:inline;float:right" value="{{$project_data->project_id}}">
-  <button type="button" class="btn btn-success pull-right" >Project Completed
+  <input type="hidden" name="assigned_project_id" style="display:inline;float:right" value="{{$project_data->id}}">
+  <button type="submit" class="btn btn-success pull-right" >Project Completed
   </button>
 </form>
 </div>
@@ -605,8 +605,8 @@
   </script>
   <script>
   function saveData(id,number){
-    console.log(number);
-    console.log($('.'+number+'_'+id).val());
+    // console.log(number);
+    // console.log($('.'+number+'_'+id).val());
     opt = $('.'+number+'_'+id).val();
     $.ajax({
       method: 'POST', // Type of response and matches what we said in the route
@@ -615,7 +615,7 @@
         "_token": "{{ csrf_token() }}",
         'data' : opt}, // a JSON object to send back
         success: function(response){ // What to do if we succeed
-          // console.log(response);
+          console.log(response);
           location.reload();
         },
         error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail

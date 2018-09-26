@@ -62,6 +62,12 @@
   </section>
 
   <section class="content">
+    <div style="clear:both;max-height:100%;max-width:28%;position: absolute;top: 11.5%;left: 5%;">
+      <iframe id="viewer" frameborder="0" scrolling="no" style="width: 100%;height: 100%;"></iframe>
+    {{-- <input type="button" value="Preview" onclick="PreviewImage();" /> --}}
+
+    </div>
+    
   <form class="form-horizontal" id="form_send" action="{{route('admin.store')}}" method="POST" enctype="multipart/form-data">
         {{csrf_field()}}
         <input type="hidden" name="agenda_type_items[]" id="agenda_type_items" value="">
@@ -131,7 +137,39 @@
                             @endforeach
                           </select>
                       </div>
-                      <section id="first_section1" style="display:none">
+                      {{-- Insertion Point --}}
+                  </div>
+
+                  <div style="margin-top:20px">
+                      <a class="btn btn-success pull-left" href="hassan:">Single Scan</a> 
+                      <a class="btn btn-success pull-left" href="hassanduplex:">Duplex Scan</a>
+                      <button id="previous" class="btn btn-success" type="button">Previous</button>
+                      <button id="b3" class="btn btn-success add-more"  type="button">Next</button>
+                      <button id="finish_btn" class="btn btn-info pull-right"  type="submit">Finish</button>
+                  </div>
+            {{-- <button id="b9" class="btn btn-success pull-left" type="button">Scan Documents</button> --}}
+
+               </li>
+            </ul>
+        </div>
+      </div>
+    </section>
+  </form>
+
+</div>
+@endsection
+@section('scripttags')
+  {{-- <script src="{{asset('bower_components/jquery/dist/scanner.js')}}"></script> --}}
+
+{{-- <script type="text/javascript" src="{{asset('bower_components/jquery/jquery.min.js')}}"></script> --}}
+  <script type="text/javascript" src="{{asset('bower_components/moment/min/moment.min.js')}}"></script>
+  {{-- <script type="text/javascript" src="{{asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script> --}}
+  <script type="text/javascript" src="{{asset('bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')}}"></script>
+{{-- <script src="{{asset('js/AdminLTE/bootstrap-datepicker.min.js')}}"></script> --}}
+<script>
+    // var d = new Date();
+    // document.getElementById("d").innerHTML = d.toLocaleDateString("en-US");
+    var section1 = `<section id="first_section" style="display:none;">
                       <div>
                         <label for="ex1">Agenda item</label>
                       <input class="form-control" value="" style="text-align:center;" name="agenda_item[]" id="ex1" type="number">
@@ -233,10 +271,10 @@
                         </select>
                       </div>
                       <div>
-                        <input type="file" id="attachment" class="pull-left" name="attachments[]" value="">
+                        <input type="file" id="attachment" onchange='PreviewImage(this)' class="pull-left" name="attachments[]" value="">
                       </div>
-                    </section>
-                    <section id="second_section1" style="display:none">
+                    </section>`;
+    var section2 = `<section id="second_section" style="display:none;">
                         <div>
                             <label for="ex1">Agenda item</label>
                           <input class="form-control" value="" style="text-align:center;" name="agenda_item[]" id="ex1" type="number">
@@ -293,49 +331,34 @@
                             </select>
                         </div>
                         <div>
-                          <input type="file" id="attachmentt" class="pull-left" name="section2_attachments[]" value="" >
+                          <input type="file" id="attachmentt" onchange='PreviewImage(this)' class="pull-left" name="section2_attachments[]" >
                       </div>
-                    </section>
-                  </div>
+                    </section>`;
+          function PreviewImage(e) {
+              console.log('sad Life',$(e).files);
+                console.log($(e));
+                pdffile=$(e)[0].files[0];
+                console.log(pdffile);
+                pdffile_url=URL.createObjectURL(pdffile);
+                $('#viewer').attr('src',pdffile_url);
+              }
+              $("document").ready(function(){
 
-                  <div style="margin-top:20px">
-                      <a class="btn btn-success pull-left" href="hassan:">Single Scan</a> 
-                      <a class="btn btn-success pull-left" href="hassanduplex:">Duplex Scan</a>
-                      <button id="previous" class="btn btn-success" type="button">Previous</button>
-                      <button id="b3" class="btn btn-success add-more"  type="button">Next</button>
-                      <button id="finish_btn" class="btn btn-info pull-right"  type="submit">Finish</button>
-                  </div>
-            {{-- <button id="b9" class="btn btn-success pull-left" type="button">Scan Documents</button> --}}
-
-               </li>
-            </ul>
-        </div>
-      </div>
-    </section>
-  </form>
-
-</div>
-@endsection
-@section('scripttags')
-  {{-- <script src="{{asset('bower_components/jquery/dist/scanner.js')}}"></script> --}}
-
-{{-- <script type="text/javascript" src="{{asset('bower_components/jquery/jquery.min.js')}}"></script> --}}
-  <script type="text/javascript" src="{{asset('bower_components/moment/min/moment.min.js')}}"></script>
-  {{-- <script type="text/javascript" src="{{asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script> --}}
-  <script type="text/javascript" src="{{asset('bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')}}"></script>
-{{-- <script src="{{asset('js/AdminLTE/bootstrap-datepicker.min.js')}}"></script> --}}
-<script>
-    var d = new Date();
-    document.getElementById("d").innerHTML = d.toLocaleDateString("en-US");
-
-    </script>
-<script>
-
+              $("#attachmentt").change(function() {
+                console.log('asdn sanfjsdnvjkndvndsnkjx sjkx ds');
+              });
+              });
+              $(document).on('change','#attachmentt',function(){
+                console.log('asdn sanfjsdnvjkndvndsnkjx sjkx ds');
+                
+                PreviewImage();
+              })
   var next = 1;
   var items = []
   var attachments = []
   var pre = 0;
-  var temp = 0;
+  var temp;
+  var current;
   $(document).ready(function(){
     $("#financial_year").val('2017-18');
   });
@@ -346,88 +369,71 @@ $(document).on('click','.add-more',function(e){
         console.log('if')
         $('#field').find('section').hide();
         $('#agenda_type').prop('disabled', false);
-
         items.push($('#agenda_type').val());
         attachments.push($('#attachment').val());
-
-        $('#field').find('#first_section'+next).hide();
-        $('#field').find('#second_section'+next).hide();
+        $('#main').children().last().hide('slow');
         next = next+1;
-        $('#field').find('#first_section'+(next-1)).clone().attr('id','first_section'+next).find("input:text").val("").end().appendTo("#main");
-        $('#field').find('#second_section'+(next-1)).clone().attr('id','second_section'+next).find("input:text").val("").end().appendTo("#main");
-        $('#field').find('#first_section'+(next)).find("input:file").val('');
-        $('#field').find('#second_section'+(next)).find("input:file").val('');
-
-        $('#field').find('#first_section'+(next)).find("#financial_year").val('2017-18');
-        $('#field').find('#second_section'+(next)).find("#financial_year").val('2017-18');
-
         $('#agenda_type').val(0);
         $('html,body').animate({scrollTop:0},0);
       }
       else{
-
-        $('#field').find('section').hide();
-
         pre = pre - 1;
-        console.log('else',items)
-
+        current.hide();
+        current = current.next();
+        current.show('slow');
         if(pre == 0)
-        $('#agenda_type').val(temp);
+        {
+          $('#agenda_type').val(temp);
+          $('#agenda_type').prop('disabled', false);
+        }
         else
-        $('#agenda_type').val(items[next - pre - 1]);
-        // console.log('this',items[next - pre - 1],next,pre,items);
-        if(items[next-pre -1] == 1 || items[next-pre -1] == 2){
-          $('#field').find('#second_section'+(next - pre)).hide();
-          $('#field').find('#first_section'+(next - pre)).show('slow');
-        }
-        else{
-          $('#field').find('#second_section'+(next - pre)).show('slow');
-          $('#field').find('#first_section'+(next - pre)).hide();
-        }
-        $('#agenda_type').prop('disabled', true);
-
-  console.log('pre',pre);
-
+          $('#agenda_type').val(items[next-1 -pre])
+         console.log('pre',pre);
       }
   });
 
   $(document).on('click','#previous',function(e){
-    $('#field').find('section').hide();
     pre = pre + 1;
-    console.log('ye',items[next - pre - 1],next,pre);
-    $('#agenda_type').val(items[next - pre - 1]);
+    current.hide();
+    current = current.prev();
+    console.log(items[next-1 -pre]);
+    $('#agenda_type').val(items[next-1 -pre])
     $('#agenda_type').prop('disabled', true);
-
-    if(items[next-pre -1] == 1 || items[next-pre -1] == 2){
-      $('#field').find('#first_section'+next).hide();
-        $('#field').find('#second_section'+next).hide();
-      $('#field').find('#second_section'+(next - pre)).hide();
-      $('#field').find('#first_section'+(next - pre)).show('slow');
-    }
-    else{
-      $('#field').find('#first_section'+next).hide();
-        $('#field').find('#second_section'+next).hide();
-      $('#field').find('#second_section'+(next - pre)).show('slow');
-      $('#field').find('#first_section'+(next - pre)).hide();
-    }
+    current.show('slow');
   });
 
    $('#agenda_type').on('change',function(){
-     temp = $(this).val();
+
+     if(pre == 0){
       if($(this).val() == 2 || $(this).val() == 1){
-        $('#field').find('#second_section'+next).hide();
-        $('#field').find('#first_section'+next).show('slow');
-        $('#field').find('#first_section'+next).find("#ex1").val(next);
-        // $('#second_section').hide();
-        // $('.yewali_'+next).find('#first_section').show('slow');
+        if($('#main').children().last().attr('id') != 'first_section'+next)
+        {
+          if($('#main').children().last().attr('id') == 'second_section'+next){
+            $('#main').children().last().remove()
+          }
+          var item = $(section1).attr('id','first_section'+next)
+          item.find("#financial_year").val('2017-18');
+          $('#main').append(item).children().last().show('slow');
+          temp = $('#agenda_type').val()
+        }
       }
       else{
-        $('#field').find('#first_section'+next).hide();
-        $('#field').find('#second_section'+next).show('slow');
-        $('#field').find('#second_section'+next).find("#ex1").val(next);
-        // $('.yewali_'+next).find('#first_section').hide();
-        // $('.yewali_'+next).find('#second_section').show('slow');
+        if($('#main').children().last().attr('id') != 'second_section'+next){
+
+          if($('#main').children().last().attr('id') == 'first_section'+next){
+            $('#main').children().last().remove()
+          }
+          var item = $(section2).attr('id','second_section'+next)
+          item.find("#financial_year").val('2017-18');
+          $('#main').append(item).children().last().show('slow');
+          temp = $('#agenda_type').val()    
+        }
       }
+      current = $('#main').children().last();
+     }
+     else{
+
+     }
     });
 
     $('#type_of_meetings').on('change',function(){
@@ -444,10 +450,14 @@ $(document).on('click','.add-more',function(e){
     });
 
     $('#next').on('click',function(){
+      if ($("input:invalid").length) {
+        alert('Enter Date');
+      }
+      else{
       $('#section1').hide('slow');
       $('#section2').show('slow');
       $('.yewali_'+next).find("#ex1").val(""+next);
-
+      }
     });
 
     $('#my_date').datetimepicker({
@@ -519,14 +529,14 @@ $(document).on('click','.add-more',function(e){
           $(document).on('change','#nonadp',function(){
             // console.log($('#nonadp').is(':checked'),$('#nonadp'));
 
-            if($('#nonadp').is(':checked') == true)
+            if(current.find('#nonadp').is(':checked') == true)
               {
-                $('#adpdiv *').prop('disabled',true);
+                current.find('#adpdiv *').prop('disabled',true);
                 console.log('test');
               }
             else
-              $('#adpdiv *').prop('disabled',false);
-              $('#nonadp').prop('disabled',false);
+              current.find('#adpdiv *').prop('disabled',false);
+            current.find('#nonadp').prop('disabled',false);
           });
 
           $(document).on('change','#adp',function(){
