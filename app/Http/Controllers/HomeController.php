@@ -30,13 +30,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-      // $activity = AssignedProjectActivity::all();
-      // Schema::disableForeignKeyConstraints();
-      //   foreach ($activity as $value) {
-      //     if(isset($value->Project->AssignedProject->id))
-      //     $value->project_id = $value->Project->AssignedProject->id;
-      //     $value->save();
-      //   }
+      $activity = AssignedProjectActivity::all();
+      Schema::disableForeignKeyConstraints();
+        foreach ($activity as $value) {
+          if(isset($value->Project->AssignedProject->id))
+          $value->project_id = $value->Project->AssignedProject->id;
+          $value->save();
+        }
 
       return view('home');
     }

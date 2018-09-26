@@ -111,6 +111,7 @@ Route::prefix('officer')->middleware('role:officer')->group(function () {
   Route::get('/inprogress_evaluation','OfficerController@evaluation_inprogress')->name('inprogress_evaluation');
   Route::get('/activities_evaluation/{project_id}','OfficerController@evaluation_activities')->name('evaluation_activities');
   Route::get('/completed_evaluation','OfficerController@evaluation_completed')->name('completed_evaluation');
+  Route::post('/project_completed','OfficerController@projectCompleted')->name('projectCompleted');
   Route::get('/review_form/{project_id}','OfficerController@review_form')->name('review_form');
   Route::post('/review_form','OfficerController@review_forms')->name('review_forms');
   Route::post('/saveActivityAttachment','OfficerController@saveActivityAttachment')->name('saveActivityAttachment');
