@@ -93,6 +93,7 @@ class ExecutiveController extends Controller
       // dd($projects);
       return view('executive.evaluation.allSectors',['projects'=>$projects]);
     }
+    
     // Evaluation charts
     public function pems_index(){
       $activities= ProjectActivity::all();
