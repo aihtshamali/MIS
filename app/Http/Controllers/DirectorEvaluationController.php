@@ -10,6 +10,9 @@ use App\AssignedProject;
 use App\AssignedProjectManager;
 use App\User;
 use Auth;
+use DB;
+use App\AssignedProjectTeam;
+use Illuminate\Database\Eloquent\Collection;
 use jeremykenedy\LaravelRoles\Models\Role;
 class DirectorEvaluationController extends Controller
 {
@@ -54,48 +57,31 @@ class DirectorEvaluationController extends Controller
       }
 
       public function evaluation_Inprogressprojects(){
-        $unassigned=Project::select('projects.*','assigned_project_managers.user_id as manager_id')
-        ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
-        ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
-        ->whereNull('assigned_project_managers.project_id')
-        ->whereNull('assigned_projects.project_id')
-        ->where('assigned_project_managers.user_id',Auth::id())
-        ->get();
-
          $assigned=AssignedProject::where('assigned_by',Auth::id())->get();
-
-         // $officers;
-         // $role = Role::where('name','officer')->get();
-         // $offciers = $role->User;
          $officers = User::all();
-         // ->hasRole('officer');
-         // dd($officers);
-
-         $assignedtoManager=AssignedProjectManager::all();
-         return view('Director.Evaluation.Evaluation_projects.assigned',['assigned'=>$assigned,'unassigned'=>$unassigned,'officers'=>$officers]);
+         $projects = AssignedProject::all();
+         return view('Director.Evaluation.Evaluation_projects.assigned',['assigned'=>$assigned,'officers'=>$officers,'projects'=>$projects]);
       }
 
       public function searchOfficer(Request $request){
-        // dd($request->officer_id);
-        $unassigned=Project::select('projects.*','assigned_project_managers.user_id as manager_id')
-        ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
-        ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
-        ->whereNull('assigned_project_managers.project_id')
-        ->whereNull('assigned_projects.project_id')
-        ->where('assigned_project_managers.user_id',Auth::id())
-        ->get();
+        $assigned = Collection::make(new AssignedProject);
+        if(isset($request->officer_id)){
+          $model = new AssignedProject();
+          $assigned = $model->hydrate(
+            DB::select(
+              'getOfficersAssignedProjectById'.' '.$request->officer_id
+              )
+          );
+        }
+        if(isset($request->project_id)){
+          $answer = Project::find($request->project_id)->AssignedProject;
 
-         $assigned=AssignedProject::where('assigned_by',Auth::id())->get();
-
-         // $officers;
-         // $role = Role::where('name','officer')->get();
-         // $offciers = $role->User;
+          if(!$assigned->contains($answer))
+            $assigned->add($answer);
+        }
          $officers = User::all();
-         // ->hasRole('officer');
-         // dd($officers);
-
-         $assignedtoManager=AssignedProjectManager::all();
-         return view('Director.Evaluation.Evaluation_projects.search',['assigned'=>$assigned,'unassigned'=>$unassigned,'officers'=>$officers,'officer_id_special'=>$request->officer_id]);
+         $projects = AssignedProject::all();
+         return view('Director.Evaluation.Evaluation_projects.search',['assigned'=>$assigned,'officers'=>$officers,'projects'=>$projects]);
       }
     /**
      * Show the form for creating a new resource.

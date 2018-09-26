@@ -41,7 +41,7 @@
         <div class="col-md-12">
           <div class="box box-default">
             <div class="box-header with-border">
-              <h3 class="box-title">Search Employees</h3>
+              <h3 class="box-title">Search Projects</h3>
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
@@ -49,14 +49,14 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <form class="form" action="{!! route('search_officer') !!}" method="post">
+              <form class="form" action="{!! route('search_officer') !!}" method="get">
                 {{ csrf_field() }}
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Select Officer</label>
                     <select class="form-control select2" name="officer_id" style="width: 100%;">
-                      <option selected="selected" >Select A Officer</option>
+                      <option selected="selected" value="" >Select A Officer</option>
                       @foreach($officers as $officer)
                         @if($officer->hasRole('officer'))
                         <option value="{{ $officer->id }}">{{ $officer->first_name }}  {{ $officer->last_name }} - {{ $officer->UserDetail->sector->name }}</option>
@@ -65,10 +65,36 @@
                     </select>
                   </div>
                 </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Select Project</label>
+                  <select class="form-control select2" name="project_id" style="width: 100%;">
+                    <option selected="selected" value="" >Select A Project</option>
+                    @foreach($projects as $project)
+                      <option value="{{ $project->Project->id }}">{{ $project->Project->title }}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+              <div class="row" style="margin-top:10px">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <button  class="btn btn-success pull-right" type="submit" name="button">Search</button>
+                    <label>Date range button:</label>
+                    <div class="input-group pull-right">
+                      <button type="button" class="btn btn-default pull-right" id="daterange-btn">
+                        <span>
+                          <i class="fa fa-calendar"></i> Date range picker
+                        </span>
+                        <i class="fa fa-caret-down"></i>
+                      </button>
+                    </div>
                   </div>
+                </div>
+              </div>
+              <div class="row" style="margin-top:10px">
+                <div class="col-md-6">
+                  <button  class="btn btn-success pull-right" type="submit" name="button">Search</button>
                 </div>
               </div>
             </form>
@@ -148,7 +174,7 @@
                                     </div></td>
 
                               </tr>
-                              
+
                             @endforeach
                           </tbody>
                     </tbody>
@@ -164,82 +190,35 @@
 @endsection
 @section('scripttags')
 
+  <script type="text/javascript" src="{!! asset('js/AdminLTE/moment.js') !!}"></script>
+  <script type="text/javascript" src="{!! asset('js/AdminLTE/moment.min.js') !!}"></script>
+  <script type="text/javascript" src="{!! asset('js/AdminLTE/daterangepicker.js') !!}"></script>
   <script type="text/javascript">
 
   $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()
   });
-    new Vue({
-    el: '.problematicremark',
-    data: {
-      problematicRemarks: {},
-      activity_id: '',
-      message: '',
-      project_id: '',
-      messagecount:0,
-      assigned: '',
-      auth_id: {!! Auth::check() ? Auth::id() : 'null' !!}
-    },
-    created(){
-      this.project_id=document.querySelector("input[name=project_id]").value;
-      this.assigned=document.querySelector("input[name=assigned_by]").value;
-    },
-    mounted() {
-      this.getProblematicRemarks();
-      $(".direct-chat-messages").stop().animate({ scrollTop: $(".direct-chat-messages")[0].scrollHeight}, 1000);
-      this.listen();
-    },
-    // define methods under the `methods` object
-    methods: {
-      submitProblematic: function (event) {
-        axios.post('/Problematicremarks',
-          {
-            api_token: this.api_token,
-            remarks: this.message,
-            activity_id: this.activity_id,
-            assigned_by: this.assigned,
-            project_id:this.project_id
-          })
-          .then((response) => {
-            this.problematicRemarks.push(response.data);
-            this.getUnreadCount();
-            // console.log(response);
-            this.message = '';
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
 
+  $('#daterange-btn').daterangepicker(
+    {
+      ranges   : {
+        'Today'       : [moment(), moment()],
+        'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+        'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+        'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+        'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
       },
-      getUnreadCount () {
-        axios.get("/GetUnreadCount/"+this.project_id)
-              .then((response) => {
-                console.log(response);
-                this.messagecount = response.data;
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
-      },
-    getProblematicRemarks () {
-      axios.get("/Problematicremarks/"+this.project_id)
-            .then((response) => {
-              this.problematicRemarks = response.data
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
+      startDate: moment().subtract(29, 'days'),
+      endDate  : moment()
     },
-    listen() {
-      Echo.private('problematicremarks.'+this.project_id)
-          .listen('ProblematicEvent', (message) => {
-            this.problematicRemarks.push(message);
-            this.getUnreadCount();
-          });
-        }
+    function (start, end) {
+      $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
     }
-  })
+  );
+
   </script>
+
 
   @endsection
