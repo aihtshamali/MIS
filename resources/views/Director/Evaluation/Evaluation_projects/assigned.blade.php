@@ -192,7 +192,7 @@
                                 <td><div class="progress">
                                     <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
                                       aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo 20+$assigned->progress; ?>% ">
-                                    {{$assigned->progress }}% Complete
+                                    {{round($assigned->progress, 0, PHP_ROUND_HALF_UP) }}% Complete
                                       </div>
 
                                     </div></td>
@@ -223,7 +223,7 @@
     //Initialize Select2 Elements
     $('.select2').select2()
   });
-  // 
+  //
   // $('#daterange-btn').daterangepicker(
   //   {
   //     ranges   : {
