@@ -112,7 +112,7 @@
                       <input  style="margin-bottom:10px;" type="file" id="meeting_attachment" class="pull-left" name="meeting_attachment" value="">
 
                   </div>
-                  <a class="btn btn-success pull-left" href="hassan:">Scan Document</a>
+                  <a class="btn btn-success pull-left" href="hassan:" onclick="stop(this)" >Scan Document</a>
                   <button id="next" class="btn btn-success" type="button">Next</button>
                 </div>
               </div>
@@ -141,10 +141,6 @@
                   </div>
 
                   <div style="margin-top:20px">
-                      <a class="btn btn-success pull-left" href="hassan:">Single Scan</a>
-                      <a class="btn btn-success pull-left" href="hassanduplex:">Duplex Scan</a>
-                      <button id="previous" class="btn btn-success" type="button">Previous</button>
-                      <button id="b3" class="btn btn-success add-more"  type="button">Next</button>
                       <button id="finish_btn" class="btn btn-info pull-right"  type="submit">Finish</button>
                   </div>
             {{-- <button id="b9" class="btn btn-success pull-left" type="button">Scan Documents</button> --}}
@@ -273,6 +269,12 @@
                       <div>
                         <input type="file" id="attachment" onchange='PreviewImage(this)' class="pull-left" name="attachments[]" value="">
                       </div>
+                      <div class="col-md-12" style="margin-top:20px;">
+                          <a class="btn btn-success pull-left" href="hassan:" onclick="stop(this)">Single Scan</a>
+                          <a class="btn btn-success pull-left" href="hassanduplex:" onclick="stop(this)">Duplex Scan</a>
+                          <button id="previous" class="btn btn-success" type="button">Previous</button>
+                          <button id="b3" class="btn btn-success add-more"  type="button">Next</button>
+                      </div>
                     </section>`;
     var section2 = `<section id="second_section" style="display:none;">
                         <div>
@@ -333,7 +335,20 @@
                         <div>
                           <input type="file" id="attachmentt" onchange='PreviewImage(this)' class="pull-left" name="section2_attachments[]" >
                       </div>
+                      <div class="col-md-12" style="margin-top:20px;">
+                          <a class="btn btn-success pull-left" href="hassan:"  onclick="stop(this)" >Single Scan</a>
+                          <a class="btn btn-success pull-left" href="hassanduplex:"  onclick="stop(this)">Duplex Scan</a>
+                          <button id="previous" class="btn btn-success" type="button">Previous</button>
+                          <button id="b3" class="btn btn-success add-more"  type="button">Next</button>
+                      </div>
                     </section>`;
+          function stop(e){
+            $(e).attr('disabled',true)
+            setTimeout(()=>{
+              $(e).attr('disabled',false)
+            // console.log('or are we here????')
+            },10000)
+          }
           function PreviewImage(e) {
               console.log('sad Life',$(e).files);
                 console.log($(e));
@@ -560,74 +575,7 @@ $(document).on('click','.add-more',function(e){
 
 
             }
-            // else{
-            //   $("#second_section"+next+" > div > #topic").val(projects[arr[1]].name_of_scheme);
-            // }
-          });
-          // var scanRequest = {
-          //     "use_asprise_dialog": false, // Whether to use Asprise Scanning Dialog
-          //     "show_scanner_ui": true, // Whether scanner UI should be shown
-          //     // "twain_cap_setting": { // Optional scanning settings
-          //     //     "ICAP_PIXELTYPE": "TWPT_RGB" // Color
-          //     // },
-          //     "output_settings": [{
-          //         "type": "return-base64",
-          //         "format": "jpg"
-          //     }]
-          // };
-
-        //   $(document).on('click','.scan',function(){
-        //     console.log('works');
-        //     // fun();
-        //     // $.get("/public/test_exe.php");
-        //     var opt = '';
-        //     $.ajax({
-        //     method: 'POST', // Type of response and matches what we said in the route
-        //     url: '/printerfunction', // This is the url we gave in the route
-        //     data: {
-        //       "_token": "{{ csrf_token() }}",
-        //       'data' : opt}, // a JSON object to send back
-        //     success: function(response){ // What to do if we succeed
-        //       // $("#projects").empty();
-        //       console.log(response);
-        //     }
-        //       // $.each(response, function () {
-        //           // $('#projects').append("<option value=\""+this.id+"\">"+this.ADP +" &rarr; " +this.title+"</option>");
-        //       });
-        //     },
-        //     error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
-        //         console.log(JSON.stringify(jqXHR));
-        //         console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
-        //     }
-        // });
-
-
-            // scanner.scan(displayImagesOnPage, scanRequest);
-          // });
-
-          // function displayImagesOnPage(successful, mesg, response) {
-          //   if (!successful) { // On error
-          //       console.error('Failed: ' + mesg);
-          //       return;
-          //   }
-          //   if (successful && mesg != null && mesg.toLowerCase().indexOf('user cancel') >= 0) { // User cancelled.
-          //       console.info('User cancelled');
-          //       return;
-          //   }
-          //   var scannedImages = scanner.getScannedImages(response, true, false); // returns an array of ScannedImage
-          //   for (var i = 0;
-          //       (scannedImages instanceof Array) && i < scannedImages.length; i++) {
-          //       var scannedImage = scannedImages[i];
-          //       var elementImg = scanner.createDomElementFromModel({
-          //           'name': 'img',
-          //           'attributes': {
-          //               'class': 'scanned',
-          //               'src': scannedImage.src
-          //           }
-          //       });
-          //       (document.getElementById('images') ? document.getElementById('images') : document.body).appendChild(elementImg);
-          //   }
-// }
+      });
 
 $(document).on('click','.scan',function(){
   console.log('works');
