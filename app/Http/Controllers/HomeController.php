@@ -30,13 +30,30 @@ class HomeController extends Controller
      */
     public function index()
     {
-      $activity = AssignedProjectActivity::all();
-      Schema::disableForeignKeyConstraints();
-        foreach ($activity as $value) {
-          if(isset($value->Project->AssignedProject->id))
-          $value->project_id = $value->Project->AssignedProject->id;
-          $value->save();
-        }
+      // $project = AssignedProject::find($assigned_project_activity->project_id);
+      // $percentage_array = [15.26,8.26,10.05,6.99,8.03,8.16,14.79,8.23,2.77,9.35,4.17,3.94];
+      // $projects = AssignedProject::all();
+      // $i = 0;
+      // foreach ($projects as $pro) {
+      //   $i=0;
+      //   $total_progress = 0;
+      //   foreach ($pro->AssignedProjectActivity as $activity) {
+      //     $total_progress = ($total_progress  +  ( ($activity->progress/100.0) * $percentage_array[$i] ));
+      //     $i+=1;
+      //   }
+      //   $pro->progress = $total_progress;
+      //   $pro->save();
+      // }
+      // $project_activities = $project->AssignedProjectActivity;
+      // return $project_activities;
+      // foreach($project_activities as $pa){
+
+        // print_r( ($pa->progress/100.0) * $percentage_array[$i].' ');
+      //   $i += 1;
+      //
+      // }
+      // return $total_progress;
+
 
       return view('home');
     }
