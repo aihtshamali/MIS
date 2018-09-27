@@ -51,9 +51,11 @@ class AdminHumanResourceController extends Controller
       if($request->hasFile('attach_moms')){
       $HRamiG=new HrMomAttachment();
       $HRamiG->hr_agenda_id=$request->hr_agenda_id;
-      $meeting_filename = "PDWP-MOM-".$request->$request->hr_agenda_id;
+      $meeting_filename = "PDWP-MOM-".$request->hr_agenda_id;
       $request->file('attach_moms')->storeAs('public/uploads/projects/meetings_mom',$meeting_filename.'.'.$request->file('attach_moms')->getClientOriginalExtension());
       $HRamiG->attachment = $meeting_filename.'.'.$request->file('attach_moms')->getClientOriginalExtension();
+      dd($HRamiG);
+
       $HRamiG->save();
     }
     return redirect()->back();
@@ -167,9 +169,14 @@ class AdminHumanResourceController extends Controller
     {
         $meeting = HrMeetingPDWP::find($id);
         // dd($meeting);
+        $agenda_statuses = HrProjectType::all();
+        $adp = AdpProject::orderBy('gs_no')->get();
+        $sectors = HrSector::all();
+        $meeting_types = HrMeetingType::all();
+        $agenda_types = AgendaType::all();
         $agendas = $meeting->HrAgenda;
         // dd($agendas);
-        return view('admin_hr.meeting.show',compact('agendas','meeting'));
+        return view('admin_hr.meeting.show',compact('agendas','meeting','agenda_statuses','adp','sectors','meeting_types','agenda_types'));
 
     }
 
