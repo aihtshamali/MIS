@@ -106,13 +106,17 @@ class AdminHumanResourceController extends Controller
             if($agenda_type == 1 || $agenda_type == 2){
                 $hr_agenda->hr_project_type_id = $request->agenda_status[$i];
                 $hr_agenda->scheme_name = $request->name_of_scheme[$i];
-                $hr_agenda->adp_no = explode(',',$request->adp_no[$i])[0];
+                if(isset($request->adp_no[$i]))
+                  $hr_agenda->adp_no = explode(',',$request->adp_no[$i])[0];
                 $hr_agenda->financial_year = $request->financial_year;
                 $hr_agenda->estimated_cost = $request->estimated_cost[$i];
                 $hr_agenda->adp_allocation = $request->adp_allocation[$i];
                 $hr_agenda->hr_sector_id = $request->sector[$i];
                 $hr_agenda->start_timeofagenda = $request->my_time[$i];
-                $filename = 'WP-'.$temp_meeting_no.'-'.$hr_agenda->adp_no;
+                if(isset($request->adp_no[$i]))
+                  $filename = 'WP-'.$temp_meeting_no.'-'.$hr_agenda->adp_no;
+                else
+                $filename = 'WP-'.$temp_meeting_no;
                 $hr_agenda->save();
                 if($request->hasFile('attachments.'. $i)){
                     $hr_attachment = new HrAttachment();
@@ -144,10 +148,10 @@ class AdminHumanResourceController extends Controller
                 //     dd($request->attachments[$i]);
                 // }
                 // dd($request);
-                
-                
-                
-            
+
+
+
+
         }
         return redirect()->route('admin.show',$hr_meeting->id);
 
