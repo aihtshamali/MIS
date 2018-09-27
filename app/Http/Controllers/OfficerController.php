@@ -227,7 +227,7 @@ class OfficerController extends Controller
       $project_activities = $project->AssignedProjectActivity;
       // return $project_activities;
       $total_progress = 0;
-      $percentage_array = [15.26,8.26,10.05,6.99,8.03,8.16,14.79,8.23,2.77,9.35,4.17,3.95];
+      $percentage_array = [15.26,8.26,10.05,6.99,8.03,8.16,14.79,8.23,2.77,9.35,4.17,3.94];
       $i = 0;
       foreach($project_activities as $pa){
         $total_progress = ($total_progress  +  ( ($pa->progress/100.0) * $percentage_array[$i] ));
