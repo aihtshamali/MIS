@@ -275,7 +275,7 @@
           <div class="row" >
             <div class="col-md-12 col-xs-12">
               <div class="table-responsive">
-                <form action="#" method="POST">
+                <form action="{{route('projectCompleted')}}" method="POST">
                   {{csrf_field()}}
                   <table class="table table-hover table-striped">
                     <b>ACTIVITY CHART</b>
@@ -326,21 +326,21 @@
                                     </div>
                                   </div>
                                 @endif
-                                @if($activity->progress < 25.0)
+                                @if($activity->progress < 25.0 && $activity->ProjectActivity->id < 7 &&  $activity->ProjectActivity->name!='Site Visits')
                                   <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},25)'>Save</button>">
                                     <input type="hidden" class="25_{{$activity->id}}" name="percent" value="25,{{$project_data->project->id}},{{$activity->id}}">
                                     <li>25%</li>
                                     </input>
                                   </a>
                                 @endif
-                                @if($activity->progress < 50.0)
+                                @if($activity->progress < 50.0 && $activity->ProjectActivity->id < 7 )
                                   <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},50)'>Save</button>">
                                     <input type="hidden" class="50_{{$activity->id}}" name="percent" value="50,{{$project_data->project->id}},{{$activity->id}}">
                                     <li>50%</li>
                                   </input>
                                 </a>
                                 @endif
-                                @if ($activity->progress < 75.0)
+                                @if ($activity->progress < 75.0 && $activity->ProjectActivity->id < 7 &&  $activity->ProjectActivity->name!='Site Visits')
                                   <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},75)'>Save</button>">
                                     <input type="hidden" class="75_{{$activity->id}}" name="percent" value="75,{{$project_data->project->id}},{{$activity->id}}">
                                     <li>75%</li>
@@ -425,8 +425,8 @@
       @endforeach
     </tbody>
   </table>
-  <input type="hidden" name="id" style="display:inline;float:right" value="{{$project_data->project_id}}">
-  <button type="button" class="btn btn-success pull-right" >Project Completed
+  <input type="hidden" name="assigned_project_id" style="display:inline;float:right" value="{{$project_data->id}}">
+  <button type="submit" class="btn btn-success pull-right" >Project Completed
   </button>
 </form>
 </div>

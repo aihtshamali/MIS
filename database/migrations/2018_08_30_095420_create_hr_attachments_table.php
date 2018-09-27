@@ -13,15 +13,15 @@ class CreateHrAttachmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('hr_attachments', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('hr_meeting_p_d_w_p_id')->unsigned()->index();
-            $table->foreign('hr_meeting_p_d_w_p_id')->references('id')->on('hr_meeting_p_d_w_ps')->onDelete('no action');
-            $table->string('attachments')->nullable();
-            $table->boolean('status')->default(1);
-
-            $table->timestamps();
-        });
+        // Schema::create('hr_attachments', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->integer('hr_meeting_p_d_w_p_id')->unsigned()->index();
+        //     $table->foreign('hr_meeting_p_d_w_p_id')->references('id')->on('hr_meeting_p_d_w_ps')->onDelete('no action');
+        //     $table->string('attachments')->nullable();
+        //     $table->boolean('status')->default(1);
+        //
+        //     $table->timestamps();
+        // });
     }
 
     /**
