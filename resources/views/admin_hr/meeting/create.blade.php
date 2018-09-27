@@ -67,7 +67,7 @@
     {{-- <input type="button" value="Preview" onclick="PreviewImage();" /> --}}
 
     </div>
-    
+
   <form class="form-horizontal" id="form_send" action="{{route('admin.store')}}" method="POST" enctype="multipart/form-data">
         {{csrf_field()}}
         <input type="hidden" name="agenda_type_items[]" id="agenda_type_items" value="">
@@ -141,7 +141,7 @@
                   </div>
 
                   <div style="margin-top:20px">
-                      <a class="btn btn-success pull-left" href="hassan:">Single Scan</a> 
+                      <a class="btn btn-success pull-left" href="hassan:">Single Scan</a>
                       <a class="btn btn-success pull-left" href="hassanduplex:">Duplex Scan</a>
                       <button id="previous" class="btn btn-success" type="button">Previous</button>
                       <button id="b3" class="btn btn-success add-more"  type="button">Next</button>
@@ -210,7 +210,7 @@
                       </div>
                       <div class="col-md-4" style="padding:0 !important">
                           <select class="form-control  select2 " name="adp_no[]" id="adp">
-                              <option value="0">Select GS #</option>
+                              <option value="" selected>Select GS #</option>
                               <?php $counting = 0?>
                               @foreach ($adp as $a)
                                   <option value="{{$a->gs_no}},<?php echo $counting?>">{{$a->gs_no}}</option>
@@ -350,7 +350,7 @@
               });
               $(document).on('change','#attachmentt',function(){
                 console.log('asdn sanfjsdnvjkndvndsnkjx sjkx ds');
-                
+
                 PreviewImage();
               })
   var next = 1;
@@ -426,7 +426,7 @@ $(document).on('click','.add-more',function(e){
           var item = $(section2).attr('id','second_section'+next)
           item.find("#financial_year").val('2017-18');
           $('#main').append(item).children().last().show('slow');
-          temp = $('#agenda_type').val()    
+          temp = $('#agenda_type').val()
         }
       }
       current = $('#main').children().last();
@@ -545,7 +545,7 @@ $(document).on('click','.add-more',function(e){
 
             if($('#agenda_type').val() == 1 || $('#agenda_type').val() == 2 ){
               console.log(next,pre);
-              
+
               $("#first_section"+(next-pre)+" > div > input#name_of_scheme").val(projects[arr[1]].name_of_scheme);
               // $("#first_section"+next+" > div > #sector_val")(projects[arr[1]].sector);
               $("#first_section"+(next-pre)+" > div > #sector_val").val($("#first_section"+(next-pre)+" > div > #sector_val option").filter(function () { return $(this).html() == projects[arr[1]].sector; }).val());
