@@ -66,7 +66,7 @@ class DirectorEvaluationController extends Controller
       }
 
       public function searchOfficer(Request $request){
-        dd($request->all());
+        // dd($request->all());
         $assigned = Collection::make(new AssignedProject);
         if(isset($request->officer_id)){
           $model = new AssignedProject();
