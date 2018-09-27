@@ -138,13 +138,198 @@
               </tr>
           @endforeach
       </table>
-      {{-- <div class="col-md-7">
-          <button id="finish_btn" class="btn btn-info pull-right"  type="submit">Save Changes</button>
-      </div> --}}
+      <div class="col-md-7">
+          <button id="add_agenda" class="btn btn-info pull-right"  type="submit">Add Agenda</button>
+      </div>
   </section>
 </div>
 @endsection
 @section('scripttags')
+<script>
+    var section1 = `<section id="first_section" style="display:none;">
+                      <div>
+                        <label for="ex1">Agenda item</label>
+                      <input class="form-control" value="" style="text-align:center;" name="agenda_item[]" id="ex1" type="number">
+                      </div>
+                      <div>
+                          <label for="">Agenda Status</label>
+                          <select class="form-control required select2 " name="agenda_status[]" id="agenda_status">
+                            <option value="">Select Agenda Status</option>
+                            @foreach ($agenda_statuses as $agenda_status)
+                                <option value="{{$agenda_status->id}}">{{$agenda_status->projecttypename}}</option>
+                            @endforeach
+                          </select>
+                      </div>
+                      <div class="col-md-12">
+                          <label for="ex2">ADP No.</label>
+                      </div>
+                      <div class="col-md-12" id="adpdiv" style="padding:0 !important">
+                          <div class="checkbox col-md-3" style="padding-left:0;padding-right:0;">
+                            <label><input id="nonadp" type="checkbox" value="">Non ADP</label>
+                          </div>
+                          <div class="col-md-4" style="padding:0 !important">
+                              <select class="form-control  select2" name="financial_year" id="financial_year">
+                                    <option value="0">Select Financial Year </option>
+                                  @for($i = 2 ; $i <= 30 ; $i++)
+                                    @if($i == 9)
+                                      <option value="200{{$i}}-{{$i+1}}">200{{$i}}-{{$i+1}}</option>
+                                    @elseif($i > 9)
+                                      <option value="20{{$i}}-{{$i+1}}">20{{$i}}-{{$i+1}}</option>
+                                    @else
+                                      <option value="200{{$i}}-0{{$i+1}}">200{{$i}}-0{{$i+1}}</option>
+                                    @endif
+                                  @endfor
+                            </select>
+                        {{-- <input class="form-control" type="text"style="text-align:center;" name="financial_year" value="2017-2018"> --}}
+                      </div>
+                      <div class="col-md-1">
+                        <label for="" style="font-size:25px">/</label>
+                      </div>
+                      <div class="col-md-4" style="padding:0 !important">
+                          <select class="form-control  select2 " name="adp_no[]" id="adp">
+                              <option value="0">Select GS #</option>
+                              <?php $counting = 0?>
+                              @foreach ($adp as $a)
+                                  <option value="{{$a->gs_no}},<?php echo $counting?>">{{$a->gs_no}}</option>
+                                  <?php $counting += 1?>
+                              @endforeach
+                            </select>
+                        {{-- <input class="form-control" id="ex2" name="adp_no[]" type="text"style="text-align:center;"> --}}
+                      </div>
+                      </div>
+                      <div>
+                        <label for="name_of_scheme">Name Of the Scheme</label>
+                        <input class="form-control" id="name_of_scheme" name="name_of_scheme[]" type="text"style="text-align:center;">
+                      </div>
+                      <div>
+                          <label >Sector</label>
+                          <select  name="sector[]" class="form-control select2" style="text-align: center !important" id="sector_val">
+                              <option value="">Select Sector</option>
+                              @foreach ($sectors as $sector)
+                            <option value="{{$sector->id}}">{{$sector->name}}</option>
+                            @endforeach
+                          </select>
+                      </div>
+                      <div>
+                        <label for="estimated_cost">Estimated Cost</label>
+                        <input class="form-control" id="estimated_cost" name="estimated_cost[]" type="number" step = "0.01" style="text-align:center;">
+                      </div>
+                      <div>
+                        <label for="adp_allocation">ADP Allocation</label>
+                        <input class="form-control" id="adp_allocation" name="adp_allocation[]" type="number" step = "0.01"style="text-align:center;">
+                      </div>
+                      <div class="form-group" id="datepick" style="margin-top:10px">
+                        <label for="">Time</label>
+                        <select  name="my_time[]" class="form-control select2" style="text-align: center !important" id="">
+                            <option value="">Select Time</option>
+                            @for ($i = 9; $i < 12; $i++)
+                              @for($j = 0; $j <= 45; $j+=15)
+                                @if($j == 0)
+                                <option value="{{$i . ' : ' . $j.'0' .' AM'}}"> {{$i . " : " . $j .'0'}} AM</option>
+                                @else
+                                <option value="{{$i . ' : ' . $j . ' AM'}}"> {{$i . " : " . $j }} AM </option>
+                                @endif
+                              @endfor
+                            @endfor
+                            <option value="12 : 00 PM">12 : 00 PM</option>
+                            <option value="12 : 15 PM">12 : 15 PM</option>
+                            <option value="12 : 30 PM">12 : 30 PM</option>
+                            <option value="12 : 45 PM">12 : 45 PM</option>
+                            @for ($i = 1; $i <= 5; $i++)
+                              @for($j = 0; $j <= 45; $j+=15)
+                                @if($j == 0)
+                                <option value="{{$i . ' : ' . $j.'0' . ' PM' }}"> {{$i . " : " . $j .'0'}} PM</option>
+                                @else
+                                <option value="{{$i . ' : ' . $j .' PM' }}"> {{$i . " : " . $j }} PM </option>
+                                @endif
+                              @endfor
+                            @endfor
 
+                        </select>
+                      </div>
+                      <div>
+                        <input type="file" id="attachment" onchange='PreviewImage(this)' class="pull-left" name="attachments[]" value="">
+                      </div>
+                    </section>`;
+    var section2 = `<section id="second_section" style="display:none;">
+                        <div>
+                            <label for="ex1">Agenda item</label>
+                          <input class="form-control" value="" style="text-align:center;" name="agenda_item[]" id="ex1" type="number">
+                          </div>
+                        <div>
+                        <div>
+                            <label for="">Agenda Status</label>
+                            <select class="form-control required select2 " name="section2_agenda_status[]" id="agenda_status">
+                              <option value="0">Select Agenda Status</option>
+                              @foreach ($agenda_statuses as $agenda_status)
+                                  <option value="{{$agenda_status->id}}">{{$agenda_status->projecttypename}}</option>
+                              @endforeach
+                            </select>
+                          </div>
+                          <label >Sector</label>
+                          <select  name="section2_sector[]" class="form-control select2" style="text-align: center !important" id="">
+                              <option value="">Select Sector</option>
+                              @foreach ($sectors as $sector)
+                            <option value="{{$sector->id}}">{{$sector->name}}</option>
+                            @endforeach
+                          </select>
+                        </div>
+                        <div>
+                          <label >Topic</label>
+                          <input class="form-control" name="topic[]" id="topic" type="text"style="text-align:center;">
+                        </div>
+                        <div class="form-group" style="margin-top:10px">
+                            <label for="">Time</label>
+                            <select  name="section2_my_time[]" class="form-control select2" style="text-align: center !important" id="">
+                                <option value="">Select Time</option>
+                                @for ($i = 9; $i < 12; $i++)
+                                  @for($j = 0; $j <= 45; $j+=15)
+                                    @if($j == 0)
+                                    <option value="{{$i . ' : ' . $j.'0' . ' AM' }}"> {{$i . " : " . $j .'0'}} AM</option>
+                                    @else
+                                    <option value="{{$i . ' : ' . $j . ' AM' }}"> {{$i . " : " . $j }} AM </option>
+                                    @endif
+                                  @endfor
+                                @endfor
+                                <option value="12 : 00 PM">12 : 00 PM</option>
+                                <option value="12 : 15 PM">12 : 15 PM</option>
+                                <option value="12 : 30 PM">12 : 30 PM</option>
+                                <option value="12 : 45 PM">12 : 45 PM</option>
+                                @for ($i = 1; $i <= 5; $i++)
+                                  @for($j = 0; $j <= 45; $j+=15)
+                                    @if($j == 0)
+                                    <option value="{{$i . ' : ' . $j.'0' . ' PM' }}"> {{$i . " : " . $j .'0'}} PM</option>
+                                    @else
+                                    <option value="{{$i . ' : ' . $j . ' PM'}}"> {{$i . " : " . $j }} PM </option>
+                                    @endif
+                                  @endfor
+                                @endfor
 
+                            </select>
+                        </div>
+                        <div>
+                          <input type="file" id="attachmentt" onchange='PreviewImage(this)' class="pull-left" name="section2_attachments[]" >
+                      </div>
+              </section>`;
+    function PreviewImage(e) {
+        console.log('sad Life',$(e).files);
+          console.log($(e));
+          pdffile=$(e)[0].files[0];
+          console.log(pdffile);
+          pdffile_url=URL.createObjectURL(pdffile);
+          $('#viewer').attr('src',pdffile_url);
+        }
+        $("document").ready(function(){
+
+        $("#attachmentt").change(function() {
+          console.log('asdn sanfjsdnvjkndvndsnkjx sjkx ds');
+        });
+        });
+        $(document).on('change','#attachmentt',function(){
+          console.log('asdn sanfjsdnvjkndvndsnkjx sjkx ds');
+          
+          PreviewImage();
+        })
+  
+</script>
 @endsection
