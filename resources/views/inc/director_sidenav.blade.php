@@ -66,6 +66,10 @@
               <span class="label label-primary pull-right directorE_completed_counter">0</span>
             </span>
             </a></li>
+            <li><a href="{!! route('Re_Assign') !!}"><i class="fa fa-circle-o"></i> Re Assign
+              <span class="label label-primary pull-right directorE_completed_counter">0</span>
+            </span>
+            </a></li>
           </ul>
         </li>
 
