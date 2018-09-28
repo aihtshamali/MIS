@@ -117,6 +117,12 @@ class DirectorEvaluationController extends Controller
          $sectors = Sector::all();
          return view('Director.Evaluation.Evaluation_projects.search',compact('assigned','officers','projects','sectors'));
       }
+
+      public function re_assign(){
+        $projects = AssignedProject::all();
+        return view('Director.Evaluation.Evaluation_projects.re_assign',compact('projects'));
+      }
+
     /**
      * Show the form for creating a new resource.
      *
