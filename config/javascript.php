@@ -13,7 +13,7 @@ return [
     | Example: 'footer' or ['footer', 'bottom']
     |
     */
-    'bind_js_vars_to_this_view' => ['admin_hr/meeting/create','executive/home/pems_tab','executive/home/chart_one','executive/home/chart_two','executive/home/chart_three','executive/home/chart_four','executive/home/chart_five','executive/home/chart_six','executive/home/chart_seven'],
+    'bind_js_vars_to_this_view' => ['admin_hr/meeting/create','executive/home/pems_tab','executive/home/chart_one','executive/home/chart_two','executive/home/chart_three','executive/home/chart_four','executive/home/chart_five','executive/home/chart_six','executive/home/chart_seven','executive/home/chart_eight','executive/home/chart_nine','executive/home/chart_ten'],
 
     /*
     |--------------------------------------------------------------------------

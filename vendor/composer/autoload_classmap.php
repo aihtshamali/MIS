@@ -49,22 +49,9 @@ return array(
     'App\\HrDecision' => $baseDir . '/app/HrDecision.php',
     'App\\HrMeetingPDWP' => $baseDir . '/app/HrMeetingPDWP.php',
     'App\\HrMeetingType' => $baseDir . '/app/HrMeetingType.php',
-<<<<<<< HEAD
-<<<<<<< HEAD
-    'App\\HrMom' => $baseDir . '/app/HrMom.php',
-=======
-<<<<<<< HEAD
-    'App\\HrMomAttachment' => $baseDir . '/app/HrMomAttachment.php',
-    'App\\HrMoms' => $baseDir . '/app/HrMoms.php',
-=======
-    'App\\HrMom' => $baseDir . '/app/HrMom.php',
->>>>>>> 18876d996982af057ab090e28827f25475f899ee
->>>>>>> 49d720e2ee8ad2a5097a42d4690b71112e5acb81
-=======
     'App\\HrMom' => $baseDir . '/app/HrMom.php',
     'App\\HrMomAttachment' => $baseDir . '/app/HrMomAttachment.php',
     'App\\HrMoms' => $baseDir . '/app/HrMoms.php',
->>>>>>> 6b8d9e7608875c211286bfaa09635ff394968c44
     'App\\HrProjectDecision' => $baseDir . '/app/HrProjectDecision.php',
     'App\\HrProjectType' => $baseDir . '/app/HrProjectType.php',
     'App\\HrSector' => $baseDir . '/app/HrSector.php',

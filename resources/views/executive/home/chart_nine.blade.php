@@ -3,7 +3,7 @@
 
 <link rel="stylesheet" href="{{asset('css/charts/export.css')}}" type="text/css" media="all" />
 <style>
-#chartdiv7 {
+#chartdiv9 {
   width		: 100%;
   height	: 90%;
   font-size	: 15px;
@@ -21,35 +21,6 @@
   .card-header{
   height:10%;
   text-align: center;
-  }
-  .lightblue{
-    font-size: 0px;
-    background-color: #0D8ECF;
-    padding: 9px;
-    margin: 2px;
-    color:#0D8ECF;
-  }
-  .blue{
-    font-size: 0px;
-    background-color:#0D52D1;
-    padding: 9px;
-    margin: 2px;
-    color:#0D52D1;
-  }
-  .darkblue{
-    font-size: 0px;
-    background-color:#2A0CD0;
-    padding: 9px;
-    margin: 2px;
-    color:#2A0CD0;
-  }
-  .purple{
-    color:#8A0CCF;
-    font-size: 0px;
-    background-color:#8A0CCF;
-    padding: 9px;
-    margin: 2px;
-
   }
   
   a{
@@ -75,7 +46,7 @@
 
     <section class="content-header">
         <h1>
-        
+        Time Against Each Activity
          
         </h1>
         <ol class="breadcrumb">
@@ -91,7 +62,7 @@
                     <div class="card col-md-12" >
                         <div class="card-header">
                         </div> 
-                        <div id="chartdiv7"></div>
+                        <div id="chartdiv9"></div>
                     </div>
                     <div class="col-md-1"></div>
                 </div>
@@ -113,60 +84,56 @@
 <script src="{{asset('js/charts/chalk.js')}}"></script>
 <script src="{{asset('js/charts/light.js')}}"></script>
 <script src="{{asset('js/charts/patterns.js')}}"></script>
-
 <script>
     var st = [];
-        $i = 0;
-        sub_Sectors.forEach(element => {
-        //  console.log(projects_activities_progress[$i][0].eachActivitycount);
-        
-        st.push ({ 
-            "Name":element.name,
-            "Number of projects": projects_wrt_sectors[$i][0].eachSectorcount
-        });
-        $i++;
-        });
-        var chart = AmCharts.makeChart( "chartdiv7", {
-        "type": "serial",
-        "theme": "light",
-        "dataProvider":st,
-        "valueAxes": [ {
-        "gridColor": "#FFFFFF",
-        "gridAlpha": 0.2,
-        "dashLength": 0
-        } ],
-        "gridAboveGraphs": true,
-        "startDuration": 1,
-        "graphs": [ {
-        "balloonText": "Number of projects:[[value]]",
-        "fillAlphas": 0.8,
-        "lineAlpha": 0.2,
-        "type": "column",
-        "labelText": "[[value]]",
-        "valueField": "Number of projects"
-        } ],
-        "chartCursor": {
-        "categoryBalloonEnabled": false,
-        "cursorAlpha": 0,
-        "zoomable": false
-        },
-        "categoryField": "Name",
-        "categoryAxis": {
-        "autoGridCount": false,
-        "equalSpacing": true,
-        "gridCount": 1000,
-        "gridPosition": "middle",
-        "gridAlpha": 0,
-        "tickPosition": "middle",
-        "tickLength": 5,
-        "labelRotation":50,
-       
-        "autoWrap": true
-        },
-        "export": {
-        "enabled": true
-        }
-    
+    $i = 0;
+    activities.forEach(element => {
+    st.push ({ 
+    "Name":element.name,
+    "Time": time_against_activities[$i]
+    });
+    $i++;
+    });
+    var chart = AmCharts.makeChart("chartdiv9", {
+    "type": "serial",
+    "theme": "light",
+    "dataProvider":st,
+    "valueAxes": [ {
+    "gridColor": "#FFFFFF",
+    "gridAlpha": 0.2,
+    "dashLength": 0
+    } ],
+    "gridAboveGraphs": true,
+    "startDuration": 1,
+    "graphs": [ {
+    "balloonText": "Time:[[value]] days",
+    "fillAlphas": 0.8,
+    "lineAlpha": 0.2,
+    "type": "column",
+    "labelText": "[[value]] Days",
+    "valueField": "Time"
+    } ],
+    "chartCursor": {
+    "categoryBalloonEnabled": false,
+    "cursorAlpha": 0,
+    "zoomable": false
+    },
+    "categoryField": "Name",
+    "categoryAxis": {
+    "autoGridCount": false,
+    "equalSpacing": true,
+    "gridCount": 1000,
+    "gridPosition": "middle",
+    "gridAlpha": 0,
+    "tickPosition": "middle",
+    "tickLength": 5,
+    // "labelRotation":30,
+    // "ignoreAxisWidth": true,
+    "autoWrap": true
+    },
+    "export": {
+    "enabled": true
+    } 
     } );
 </script>
 @endsection

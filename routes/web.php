@@ -56,6 +56,10 @@ Route::prefix('manager')->middleware('role:manager')->group(function () {
   Route::get('/chart_five','ExecutiveController@chart_five')->name('chart_five');
   Route::get('/chart_six','ExecutiveController@chart_six')->name('chart_six');
   Route::get('/chart_seven','ExecutiveController@chart_seven')->name('chart_seven');
+  Route::get('/chart_eight','ExecutiveController@chart_eight')->name('chart_eight');
+  Route::get('/chart_nine','ExecutiveController@chart_nine')->name('chart_nine');
+  Route::get('/chart_ten','ExecutiveController@chart_ten')->name('chart_ten');
+  
   Route::get('/pems_tab','ExecutiveController@pems_index')->name('Exec_pems_tab');
   Route::get('/pmms_tab','ExecutiveController@pmms_index')->name('Exec_pmms_tab');
   Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');

@@ -32,7 +32,6 @@
 	width		: 100%;
 	height		: 90%;
 	font-size	: 5px;
-  margin-top:10px;
 }
 #chartdiv7 {
 	width		: 100%;
@@ -40,6 +39,21 @@
 	font-size	: 5px;
 }
 #chartdiv8 {
+	width		: 100%;
+	height		: 90%;
+	font-size	: 5px;
+}
+#chartdiv9 {
+	width		: 100%;
+	height		: 90%;
+	font-size	: 5px;
+}
+#chartdiv10 {
+	width		: 100%;
+	height		: 90%;
+	font-size	: 5px;
+}
+#chartdiv11 {
 	width		: 100%;
 	height		: 90%;
 	font-size	: 5px;
@@ -149,7 +163,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
       <div class="row">
           <div class="col-md-12">
           <div class="col-md-1" style="width:10%;"></div>   
-          {{-- chart1 --}}
+          {{-- chart 5 --}}
           <a href="{{route('chart_five')}}">
           <div class="card col-md-2" >
           <div class="card-header">
@@ -159,7 +173,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
           </div>
           </a>
 
-          {{-- chart2 --}}
+          {{-- chart 6--}}
           <a href="{{route('chart_six')}}">
           <div class="card col-md-2">
           <div class="card-header">
@@ -169,7 +183,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
           </div>
           </a>
 
-          {{-- chart 3 --}}
+          {{-- chart 7 --}}
           <a href="{{route('chart_seven')}}">
           <div class="card col-md-2">
           <div class="card-header">
@@ -179,16 +193,52 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
           </div>
           </a>
 
-          {{-- chart4 --}}
+          {{-- chart 9 --}}
+          <a href="{{route('chart_nine')}}">
           <div class="card col-md-2">
           <div class="card-header">
-          <label for="">P & D Sector Wise Progress</label>
+          <label for="">Time Against Activities</label>
           </div> 
-          <div id="chartdiv8"></div>
+          <div id="chartdiv9"></div>
           </div>
+          </a>
           <div class="col-md-1"></div>
           </div>
         <!-- /.row -->
+      </div>
+
+      {{-- row 3 --}}
+      <div class="row">
+          <div class="col-md-12">
+          <div class="col-md-1" style="width:10%;"></div> 
+
+          {{-- chart 8 --}}
+          <a href="{{route('chart_eight')}}">
+            <div class="card col-md-4" style="width:36%;">
+            <div class="card-header">
+            <label for="">Sector Wise Progress</label>
+            </div> 
+            <div id="chartdiv8"></div>
+            </div>
+            </a>
+            <a href="{{route('chart_ten')}}">
+              <div class="card col-md-2">
+              <div class="card-header">
+              <label for=""> Minimum and Maximum time on each Activity</label>
+              </div> 
+              <div id="chartdiv10"></div>
+              </div>
+            </a>
+            <a href="">
+                <div class="card col-md-2">
+                <div class="card-header">
+                <label for=""> Logins Time</label>
+                </div> 
+                <div id="chartdiv11"></div>
+                </div>
+              </a>
+          <div class="col-md-1" style="width:10%;"></div> 
+          </div>
       </div>
     </section>
     <!-- /.content -->
@@ -470,57 +520,56 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
     });
 </script>
 <script>
-  var st = [];
-   $i = 0;
-   activities.forEach(element => {
-    //  console.log(projects_activities_progress[$i][0].eachActivitycount);
-     
-     st.push ({ 
-       "Name":element.name,
-       "Number of Activities": projects_activities_progress[$i][0].eachActivitycount
+    var st = [];
+     $i = 0;
+     activities.forEach(element => {
+       st.push ({ 
+         "Name":element.name,
+         "Number of projects": projects_activities_progress[$i][0].eachActivitycount,
+        
+       });
+       $i++;
      });
-     $i++;
-   });
-   var chart = AmCharts.makeChart( "chartdiv6", {
-   "type": "serial",
-   "theme": "light",
-   "dataProvider":st,
-   "valueAxes": [ {
-     "gridColor": "#FFFFFF",
-     "gridAlpha": 0.2,
-     "dashLength": 0
-   } ],
-   "gridAboveGraphs": true,
-   "startDuration": 1,
-   "graphs": [ {
-     "balloonText": "Number Of Activities:[[value]]",
-     "fillAlphas": 0.8,
-     "lineAlpha": 0.2,
-     "type": "column",
-     "labelText": "[[value]]",
-     "valueField": "Number of Activities"
-   } ],
-   "chartCursor": {
-     "categoryBalloonEnabled": false,
-     "cursorAlpha": 0,
-     "zoomable": false
-   },
-   "categoryField": "Name",
-   "categoryAxis": {
-     "gridPosition": "middle",
-     "gridAlpha": 0,
-     "tickPosition": "middle",
-     "tickLength": 5,
-     "labelRotation":30,
-     // "ignoreAxisWidth": true,
-     "autoWrap": true
-   },
-   "export": {
-     "enabled": true
-   }
-
- } );
-</script>
+     var chart = AmCharts.makeChart( "chartdiv6", {
+     "type": "serial",
+     "theme": "light",
+     "dataProvider":st,
+     "valueAxes": [ {
+       "gridColor": "#FFFFFF",
+       "gridAlpha": 0.2,
+       "dashLength": 0
+     } ],
+     "gridAboveGraphs": true,
+     "startDuration": 1,
+     "graphs": [ {
+       "balloonText": "Number Of projects:[[value]]",
+       "fillAlphas": 0.8,
+       "lineAlpha": 0.2,
+       "type": "column",
+       "labelText": "[[value]]",
+       "valueField": "Number of projects"
+     } ],
+     "chartCursor": {
+       "categoryBalloonEnabled": false,
+       "cursorAlpha": 0,
+       "zoomable": false
+     },
+     "categoryField": "Name",
+     "categoryAxis": {
+       
+       "gridPosition": "middle",
+       "gridAlpha": 0,
+       "tickPosition": "middle",
+       "tickLength": 5,
+       "labelRotation":30,
+       // "ignoreAxisWidth": true,
+      //  "autoWrap": true
+     },
+     "export": {
+       "enabled": true
+     }
+   } );
+   </script>
 <script>
     var st = [];
      $i = 0;
@@ -572,123 +621,203 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
      }
   
    } );
-  </script>
-{{-- <script>
-  var chart = AmCharts.makeChart("chartdiv7", {
+</script>
+<script>
+  var st = [];
+  $i = 0;
+  activities.forEach(element => {
+  st.push ({ 
+  "Name":element.name,
+  "Time": time_against_activities[$i]
+  });
+  $i++;
+  });
+  var chart = AmCharts.makeChart("chartdiv9", {
+  "type": "serial",
+  "theme": "light",
+  "dataProvider":st,
+  "valueAxes": [ {
+  "gridColor": "#FFFFFF",
+  "gridAlpha": 0.2,
+  "dashLength": 0
+  } ],
+  "gridAboveGraphs": true,
+  "startDuration": 1,
+  "graphs": [ {
+  "balloonText": "Time:[[value]]",
+  "fillAlphas": 0.8,
+  "lineAlpha": 0.2,
+  "type": "column",
+  "labelText": "[[value]]",
+  "valueField": "Time"
+  } ],
+  "chartCursor": {
+  "categoryBalloonEnabled": false,
+  "cursorAlpha": 0,
+  "zoomable": false
+  },
+  "categoryField": "Name",
+  "categoryAxis": {
+  "gridPosition": "middle",
+  "gridAlpha": 0,
+  "tickPosition": "middle",
+  "tickLength": 5,
+   "labelRotation":30,
+  // "ignoreAxisWidth": true,
+  "autoWrap": true
+  },
+  "export": {
+  "enabled": true
+  }
+
+  } );
+</script>
+
+{{-- row3 --}}
+<script>
+    var st = [];
+    $i = 0;
+    sectors.forEach(element => {
+    st.push ({ 
+    "Name":element.name,
+    "Total Projects":totalprojects_wrt_sectors[$i][0].eachtotalproject,
+    "Assigned Projects": assignedprojects_wrt_sectors[$i][0].eachproject,
+    "Inprogress Projects": inprogressprojects_wrt_sectors[$i][0].eachinprogressproject,
+    "Completed Projects": completedprojects_wrt_sectors[$i][0].eachcompletedproject
+    });
+    $i++;
+    });
+    console.log(st);
+
+    var chart = AmCharts.makeChart("chartdiv8", {
     "type": "serial",
     "theme": "light",
     "legend": {
-        "autoMargins": false,
-        "borderAlpha": 0.2,
-        "equalWidths": false,
-        "horizontalGap": 10,
-        "markerSize": 10,
-        "useGraphSettings": true,
-        "valueAlign": "left",
-        "valueWidth": 0
+    "horizontalGap": 10,
+    "maxColumns": 1,
+    "position": "right",
+    "useGraphSettings": true,
+    "markerSize": 10
     },
-    "dataProvider": [{
-        "year": "2003",
-        "europe": 2.5,
-        "namerica": 2.5,
-        "asia": 2.1,
-        "lamerica": 0.3,
-        "meast": 0.2,
-        "africa": 0.1
-    }, {
-        "year": "2004",
-        "europe": 2.6,
-        "namerica": 2.7,
-        "asia": 2.2,
-        "lamerica": 0.3,
-        "meast": 0.3,
-        "africa": 0.1
-    }, {
-        "year": "2005",
-        "europe": 2.8,
-        "namerica": 2.9,
-        "asia": 2.4,
-        "lamerica": 0.3,
-        "meast": 0.3,
-        "africa": 0.1
-    }],
+    "dataProvider": st,
     "valueAxes": [{
-        "stackType": "100%",
-        "axisAlpha": 0,
-        "gridAlpha": 0,
-        "labelsEnabled": false,
-        "position": "left"
+    "stackType": "regular",
+    "axisAlpha": 0.5,
+    "gridAlpha": 0
     }],
-    "graphs": [{
-        "balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
-        "fillAlphas": 0.9,
-        "fontSize": 11,
-        "labelText": "[[percents]]%",
-        "lineAlpha": 0.5,
-        "title": "Europe",
-        "type": "column",
-        "valueField": "europe"
-    }, {
-        "balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
-        "fillAlphas": 0.9,
-        "fontSize": 11,
-        "labelText": "[[percents]]%",
-        "lineAlpha": 0.5,
-        "title": "North America",
-        "type": "column",
-        "valueField": "namerica"
-    }, {
-        "balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
-        "fillAlphas": 0.9,
-        "fontSize": 11,
-        "labelText": "[[percents]]%",
-        "lineAlpha": 0.5,
-        "title": "Asia-Pacific",
-        "type": "column",
-        "valueField": "asia"
-    }, {
-        "balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
-        "fillAlphas": 0.9,
-        "fontSize": 11,
-        "labelText": "[[percents]]%",
-        "lineAlpha": 0.5,
-        "title": "Latin America",
-        "type": "column",
-        "valueField": "lamerica"
-    }, {
-        "balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
-        "fillAlphas": 0.9,
-        "fontSize": 11,
-        "labelText": "[[percents]]%",
-        "lineAlpha": 0.5,
-        "title": "Middle-East",
-        "type": "column",
-        "valueField": "meast"
-    }, {
-        "balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
-        "fillAlphas": 0.9,
-        "fontSize": 11,
-        "labelText": "[[percents]]%",
-        "lineAlpha": 0.5,
-        "title": "Africa",
-        "type": "column",
-        "valueField": "africa"
+    "graphs": [ {
+    "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
+    "fillAlphas": 0.8,
+    "labelText": "[[value]]",
+    "lineAlpha": 0.3,
+    "title": "Total Projects",
+    "type": "column",
+    "color": "#000000",
+    "valueField": "Total Projects"
+    },{
+    "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
+    "fillAlphas": 0.8,
+    "labelText": "[[value]]",
+    "lineAlpha": 0.3,
+    "title": "Assigned Projects",
+    "type": "column",
+    "color": "#000000",
+    "valueField": "Assigned Projects"
+    },{
+    "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
+    "fillAlphas": 0.8,
+    "labelText": "[[value]]",
+    "lineAlpha": 0.3,
+    "title": "Inprogress Projects",
+    "type": "column",
+    "color": "#000000",
+    "valueField": "Inprogress Projects"
+    },{
+    "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
+    "fillAlphas": 0.8,
+    "labelText": "[[value]]",
+    "lineAlpha": 0.3,
+    "title": "Completed Projects",
+    "type": "column",
+    "color": "#000000",
+    "valueField": "Completed Projects"
     }],
-    "marginTop": 30,
-    "marginRight": 0,
-    "marginLeft": 0,
-    "marginBottom": 40,
-    "autoMargins": false,
-    "categoryField": "year",
+    "rotate": true,
+    "categoryField": "Name",
     "categoryAxis": {
-        "gridPosition": "start",
-        "axisAlpha": 0,
-        "gridAlpha": 0
+    "gridPosition": "start",
+    "axisAlpha": 0,
+    "gridAlpha": 0,
+    "position": "left"
     },
     "export": {
-    	"enabled": true
-     }
+    "enabled": true
+    }
+    });
+</script>
+<script>
+  var st = [];
+   $i = 0;
+  activities.forEach(element => {
+  st.push ({ 
+  "Name":element.name,
+  "Min Time": min_time_against_activities[$i],
+  "Average Time": time_against_activities[$i],
+  "Max Time": max_time_against_activities[$i]
+  });
+  $i++;
+  });
+   
+  var chart = AmCharts.makeChart( "chartdiv10", {
+  "type": "serial",
+  "theme": "light",
+  "dataProvider": st,
+  "valueAxes": [ {
+    "gridColor": "#FFFFFF",
+    "gridAlpha": 0.2,
+    "dashLength": 0
+  } ],
+  "gridAboveGraphs": true,
+  "startDuration": 1,
+  "graphs": [ {
+    "balloonText": "Min Time: <b>[[value]]</b>",
+    "fillAlphas": 0.8,
+    "lineAlpha": 0.2,
+    "type": "column",
+    "title":"Min Time",
+    "valueField": "Min Time"
+  } ,{
+    "balloonText": "Average Time:[[value]]",
+    "fillAlphas": 0.8,
+    "lineAlpha": 0.2,
+    "type": "column",
+		"title":"Average Time",
+    "valueField": "Average Time"
+  } ,{
+    "balloonText": "Max Time: [[value]]",
+    "fillAlphas": 0.8,
+    "lineAlpha": 0.2,
+    "type": "column",
+		"title":"Max Time",
+    "valueField": "Max Time"
+  } ],
+  "chartCursor": {
+    "categoryBalloonEnabled": false,
+    "cursorAlpha": 0,
+    "zoomable": false
+  },
+  "categoryField": "Name",
+  "categoryAxis": {
+    "gridPosition": "start",
+    "gridAlpha": 0,
+    "tickPosition": "start",
+    "tickLength": 20,
+    "labelRotation":30
+  },
+  "export": {
+    "enabled": true
+  }
 
-});
-</script> --}}
+} );
+</script>
 @endsection
