@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Project;
 use App\AssignedProject;
 use App\AssignedProjectTeam;
+use App\AssignedProjectTeamLog;
 use App\AssignedProjectManager;
 use App\User;
 use App\Notification;
@@ -155,6 +156,35 @@ class ProjectAssignController extends Controller
 
     public function store_from_director(Request $request)
     {
+      $check = AssignedProject::where('project_id',$request->project_id)->first();
+      if(isset($check)){
+        $team = $check->AssignedProjectTeam;
+        foreach ($team as $t) {
+          $team_log = new AssignedProjectTeamLog();
+          $team_log->assigned_project_id=$t->assigned_project_id;
+          $team_log->user_id=$t->user_id;
+          $team_log->team_lead=$t->team_lead;
+          $team_log->save();
+          $t->delete();
+        }
+        foreach ($request->officer_id as $officer) {
+          $assignedProjectTeam = new AssignedProjectTeam();
+          $assignedProjectTeam->assigned_project_id=$check->id;
+          $assignedProjectTeam->user_id=$officer;
+          $notif_officers='';
+          if($notif_officers!=''){
+            $notif_officers=$notif_officers.' , ';
+          }
+          $notif_officers= $notif_officers . $assignedProjectTeam->user->first_name ;
+          if($officer==$request->team_lead){
+            $assignedProjectTeam->team_lead=true;
+            $notif_officers= $notif_officers. ' as Team Lead';
+          }
+          $assignedProjectTeam->save();
+        }
+      }
+      else{
+
        if($request->priority=='high_priority'){
          $priority=3;
        }
@@ -229,6 +259,7 @@ class ProjectAssignController extends Controller
         $table_id=$assignedProjectManager->id;
 
       }
+    }
 
 
         return redirect()->route('Evaluation_evaluation_assigned');

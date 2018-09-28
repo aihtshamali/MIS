@@ -23,6 +23,7 @@ return array(
     'App\\AssignedProjectLog' => $baseDir . '/app/AssignedProjectLog.php',
     'App\\AssignedProjectManager' => $baseDir . '/app/AssignedProjectManager.php',
     'App\\AssignedProjectTeam' => $baseDir . '/app/AssignedProjectTeam.php',
+    'App\\AssignedProjectTeamLog' => $baseDir . '/app/AssignedProjectTeamLog.php',
     'App\\AssignedSponsoringAgency' => $baseDir . '/app/AssignedSponsoringAgency.php',
     'App\\AssignedSponsoringAgencyProjectLog' => $baseDir . '/app/AssignedSponsoringAgencyProjectLog.php',
     'App\\AssignedSubSector' => $baseDir . '/app/AssignedSubSector.php',

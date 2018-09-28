@@ -75,6 +75,8 @@ Route::prefix('manager')->middleware('role:manager')->group(function () {
 // For Director
 Route::prefix('director_evaluation')->middleware('role:directorevaluation')->group(function () {
     //for Evaluation Director
+  // Route::get('/re_assign_store','DirectorEvaluationController@re_assign_store')->name('Re_Assign_Store');
+  Route::get('/re_assign','DirectorEvaluationController@re_assign')->name('Re_Assign');
   Route::get('/','DirectorEvaluationController@index')->name('Evaluation_home');
   Route::get('/pems_tab','DirectorEvaluationController@pems_index')->name('Evaluation_pems_tab');
   Route::get('/pmms_tab','DirectorEvaluationController@pmms_index')->name('Evaluation_pmms_tab');
