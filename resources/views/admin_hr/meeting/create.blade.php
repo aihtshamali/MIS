@@ -266,7 +266,7 @@
 
                         </select>
                       </div>
-                      <div>
+                      <div class="myAttachment">
                         <input type="file" id="attachment" onchange='PreviewImage(this)' class="pull-left" name="attachments[]" value="">
                       </div>
                       <div class="col-md-12" style="margin-top:20px;">
@@ -332,7 +332,7 @@
 
                             </select>
                         </div>
-                        <div>
+                        <div class="myAttachment">
                           <input type="file" id="attachmentt" onchange='PreviewImage(this)' class="pull-left" name="section2_attachments[]" >
                       </div>
                       <div class="col-md-12" style="margin-top:20px;">
@@ -350,10 +350,7 @@
             },10000)
           }
           function PreviewImage(e) {
-              console.log('sad Life',$(e).files);
-                console.log($(e));
                 pdffile=$(e)[0].files[0];
-                console.log(pdffile);
                 pdffile_url=URL.createObjectURL(pdffile);
                 $('#viewer').attr('src',pdffile_url);
               }
@@ -395,6 +392,9 @@ $(document).on('click','.add-more',function(e){
         pre = pre - 1;
         current.hide();
         current = current.next();
+        pdffile=current.children('.myAttachment').children()[0].files[0];
+        pdffile_url=URL.createObjectURL(pdffile);
+        $('#viewer').attr('src',pdffile_url);
         current.show('slow');
         if(pre == 0)
         {
@@ -411,7 +411,13 @@ $(document).on('click','.add-more',function(e){
     pre = pre + 1;
     current.hide();
     current = current.prev();
-    console.log(items[next-1 -pre]);
+    // console.log(current.prev());
+    // TODO
+    // console.log(current);
+    console.log(current.children('.myAttachment').children()[0].files[0]);
+      pdffile=current.children('.myAttachment').children()[0].files[0];
+      pdffile_url=URL.createObjectURL(pdffile);
+      $('#viewer').attr('src',pdffile_url);
     $('#agenda_type').val(items[next-1 -pre])
     $('#agenda_type').prop('disabled', true);
     current.show('slow');
