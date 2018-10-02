@@ -577,11 +577,8 @@ $(document).on('click','.add-more',function(e){
                 {$("#first_section"+(next-pre)+" > div > #agenda_status").val(1);}
               else
                 {$("#first_section"+(next-pre)+" > div > #agenda_status").val(2);}
-
-
-
             }
-      });
+          });
 
 $(document).on('click','.scan',function(){
   console.log('works');
