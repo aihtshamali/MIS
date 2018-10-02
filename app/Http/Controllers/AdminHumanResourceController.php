@@ -108,9 +108,9 @@ class AdminHumanResourceController extends Controller
                 $hr_agenda->hr_sector_id = $request->sector[$i];
                 $hr_agenda->start_timeofagenda = $request->my_time[$i];
                 if(isset($request->adp_no[$i]))
-                  $filename = 'WP-'.$temp_meeting_no.'-'.$hr_agenda->adp_no;
+                  $filename = 'WP-'.$hr_meeting->id.'-'. date('Y-m-d',strtotime($request->my_date)).'-'.$hr_agenda->adp_no;
                 else
-                $filename = 'WP-'.$temp_meeting_no;
+                $filename = 'WP-'. date('Y-m-d',strtotime($request->my_date)).'-'.$hr_meeting->id;
                 $hr_agenda->save();
                 if($request->hasFile('attachments.'. $i)){
                     $hr_attachment = new HrAttachment();
@@ -197,9 +197,9 @@ class AdminHumanResourceController extends Controller
             $hr_agenda->hr_sector_id = $request->sector;
             $hr_agenda->start_timeofagenda = $request->my_time;
             if(isset($request->adp_no))
-              $filename = 'WP-'.$request->meeting_id.'-'.$hr_agenda->adp_no . date('Y-m-d-i-s',$mytime->toDateTimeString());
+              $filename = 'WP-'.$request->meeting_id.'-'.$hr_agenda->adp_no .'-'. date('Y-m-d',$mytime->toDateTimeString());
             else
-            $filename = 'WP-'.$request->meeting_id . date('Y-m-d-i-s',$mytime->toDateTimeString());
+            $filename = 'WP-'.$request->meeting_id .'-'. date('Y-m-d',$mytime->toDateTimeString());
             // dd($hr_agenda);
             $hr_agenda->save();
             if($request->hasFile('attachments')){
@@ -211,7 +211,7 @@ class AdminHumanResourceController extends Controller
             }
         }else{
             // dd($mytime->format('Y-m-d H:i:s'));
-            $filename = 'WP-'.$request->meeting_id.$hr_agenda->agenda_item;
+            $filename = 'WP-'.$request->meeting_id.'-'.$mytime->format('Y-m-d').'-'.$hr_agenda->agenda_item;
             $hr_agenda->hr_project_type_id = $request->section2_agenda_status;
             $hr_agenda->scheme_name = $request->topic;
             $hr_agenda->hr_sector_id = $request->section2_sector;
