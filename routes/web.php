@@ -54,7 +54,12 @@ Route::prefix('manager')->middleware('role:manager')->group(function () {
   Route::get('/chart_three','ExecutiveController@chart_three')->name('chart_three');
   Route::get('/chart_four','ExecutiveController@chart_four')->name('chart_four');
   Route::get('/chart_five','ExecutiveController@chart_five')->name('chart_five');
-
+  Route::get('/chart_six','ExecutiveController@chart_six')->name('chart_six');
+  Route::get('/chart_seven','ExecutiveController@chart_seven')->name('chart_seven');
+  Route::get('/chart_eight','ExecutiveController@chart_eight')->name('chart_eight');
+  Route::get('/chart_nine','ExecutiveController@chart_nine')->name('chart_nine');
+  Route::get('/chart_ten','ExecutiveController@chart_ten')->name('chart_ten');
+  
   Route::get('/pems_tab','ExecutiveController@pems_index')->name('Exec_pems_tab');
   Route::get('/pmms_tab','ExecutiveController@pmms_index')->name('Exec_pmms_tab');
   Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
@@ -137,6 +142,7 @@ Route::prefix('hr')->middleware('role:adminhr|manager')->group(function () {
   Route::post('/save_moms','AdminHumanResourceController@saveMoms')->name('save_moms');
   Route::resource('admin','AdminHumanResourceController');
   Route::post('/save_agendax','AdminHumanResourceController@save_agendax')->name('agendax');
+  // Route::get('/search_agendas','AdminHumanResourceController@search_agendas')->name('search_agendas');
   // Route::get('/','inHumanResourceController@index')->name('index_meeting');
   // Route::get('/admin','AdminHumanResourceController@create')->name('create_meeting');
 
