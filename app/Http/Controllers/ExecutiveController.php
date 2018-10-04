@@ -11,7 +11,7 @@ use App\User;
 use App\ProjectActivity;
 use App\HrMeetingPDWP;
 use JavaScript;
-
+use App\AssignedSubSector;
 use DB;
 use App\HrSector;
 use App\HrAgenda;
@@ -22,6 +22,10 @@ use App\HrProjectDecision;
 use App\ProjectDecision;
 use App\AdpProject;
 use App\HrDecision;
+use App\SubSector;
+use App\Sector;
+use \DateTime;
+use \DateTimeZone;
 class ExecutiveController extends Controller
 {
   //  HOME FOLDER
@@ -95,10 +99,15 @@ class ExecutiveController extends Controller
     }
     
     // Evaluation charts
-    public function pems_index(){
+    public function pems_index()
+    {
       $activities= ProjectActivity::all();
+      $sub_Sectors=SubSector::all();
+      $sectors=Sector::all(); 
+     
       $total_projects = count(Project::all());
       $total_assigned_projects = count(AssignedProject::all());
+      
       $inprogress_projects = count(AssignedProject::where('acknowledge',1)->get());
       $completed_projects = count(AssignedProject::where('complete',1)->get());
       $model = new User();
@@ -112,6 +121,15 @@ class ExecutiveController extends Controller
         $assigned_completed_projects = [];
         $assigned_current_projects =[];
         $projects_activities_progress =[];
+        $projects_wrt_sectors =[];
+        $assignedprojects_wrt_sectors =[];
+        $inprogressprojects_wrt_sectors =[];
+        $totalprojects_wrt_sectors =[];
+        $completedprojects_wrt_sectors =[];
+        $time_against_activities=[];
+        $min_time_against_activities=[];
+        $max_time_against_activities=[];
+   
 
           foreach($officers as $officer)
            {
@@ -145,16 +163,109 @@ class ExecutiveController extends Controller
           }
 
           foreach($activities as $act)
-        {
-          $activities_data = DB::select(
-            'getActiviesProgress' .' '.$act->id
-            );
-            array_push($projects_activities_progress,count($activities_data));
+           {
+              $activities_data = DB::select(
+              'getActiviesProgress' .' '. $act->id
+              );
 
-        }
+              $time_against_activities_data = DB::select(
+              'timeAgainstActivities' .' '. $act->id
+              );
+
+              // $min_time_against_activities_data = DB::select(
+              // 'MintimeAgainstActivities' .' '. $act->id
+              // );
+
+              // $max_time_against_activities_data = DB::select(
+              // 'MaxtimeAgainstActivities' .' '. $act->id
+              // );   
+               
+
+              // difference of times
+              $time_sum = 0;
+              $loop = 0;
+              $min = 0;
+              $max = 0;
+              foreach($time_against_activities_data as $time){
+                $CA = new DateTime(date('Y-m-d',strtotime($time->CA)));
+                $OCA = new DateTime(date('Y-m-d',strtotime($time->OCA)));
+                $FT = $OCA->diff($CA);
+                $time_sum += $FT->format('%a');
+                if($loop == 0){
+                  $min = $FT->format('%a');
+                  $max = $FT->format('%a');
+                }
+                else{
+                  if($min > $FT->format('%a')){
+                    $min = $FT->format('%a');
+                  }
+                  if($max < $FT->format('%a')){
+                    $max = $FT->format('%a');
+                  }
+                }
+                $loop++;
+              }
+           
+              $ave = $time_sum/count($time_against_activities_data);
+              $ave = (int)round($ave,0,PHP_ROUND_HALF_UP);
+             
+              // diffrence of minimum time
+         
+              // $min_CA = new DateTime($min_time_against_activities_data[0]->MIN_CA);
+              // $min_OCA = new DateTime($min_time_against_activities_data[0]->MIN_OCA);  
+              // $min_diff = $min_OCA->diff($min_CA);
+              // $min_time = $min_diff->format('%a');      
+              // array_push($min_time_against_activities, $min_time);
+
+              // difference of max time
+              // $max_CA = new DateTime($max_time_against_activities_data[0]->MAX_CA);
+              
+              // $max_OCA = new DateTime($max_time_against_activities_data[0]->MAX_OCA);  
+              // $max_diff = $max_OCA->diff($max_CA);
+              // $max_time = $max_diff->format('%a');      
+              
+              array_push($min_time_against_activities, $min);
+              array_push($max_time_against_activities, $max);
+              array_push($time_against_activities,$ave);
+              array_push($projects_activities_progress,$activities_data);
 
 
+          }
+          foreach($sub_Sectors  as $ss)
+           {  
+            $subsectors_data=DB::select(
+            
+              'getProjectsSector' .' '. $ss->id);
+          
+              array_push($projects_wrt_sectors,$subsectors_data);
+          }
 
+          foreach($sectors  as $sec)
+           {
+            $assignedsectors_data=DB::select(
+            
+            'getAllSectorProjects' .' '. $sec->id);
+           
+            $inprogresssectors_data=DB::select(
+            
+            'getAllSectorInprogressProjects' .' '. $sec->id);
+          
+            $sectors_data_totalProjects=DB::select(
+            
+            'getAllSectorProjectsTotal' .' '. $sec->id);
+            $sectors_data_completedProjects=DB::select(
+            
+              'getAllSectorCompletedProjects' .' '. $sec->id);
+            
+          
+            array_push($assignedprojects_wrt_sectors,$assignedsectors_data);
+            array_push($inprogressprojects_wrt_sectors,$inprogresssectors_data);
+            array_push($totalprojects_wrt_sectors,$sectors_data_totalProjects);
+            array_push($completedprojects_wrt_sectors,$sectors_data_completedProjects);
+
+          } 
+
+          // dd($inprogressprojects_wrt_sectors);
           \JavaScript::put([
         'total_projects' => $total_projects,
         'total_assigned_projects' => $total_assigned_projects,
@@ -166,7 +277,18 @@ class ExecutiveController extends Controller
         'assigned_inprogress_projects' => $assigned_inprogress_projects,
         'assigned_completed_projects' => $assigned_completed_projects,
         'assigned_current_projects'=>$assigned_current_projects,
-        'projects_activities_progress'=>$projects_activities_progress
+        'projects_activities_progress'=>$projects_activities_progress,
+        'projects_wrt_sectors'=>$projects_wrt_sectors,
+        'sub_Sectors'=>$sub_Sectors,
+        'sectors'=>$sectors,
+        'assignedsectors_data' => $assignedsectors_data,
+        'inprogressprojects_wrt_sectors'=>$inprogressprojects_wrt_sectors,
+        'totalprojects_wrt_sectors'=>$totalprojects_wrt_sectors,
+        'assignedprojects_wrt_sectors'=>$assignedprojects_wrt_sectors,
+        'completedprojects_wrt_sectors'=>$completedprojects_wrt_sectors,
+        'time_against_activities'=>$time_against_activities,
+        'min_time_against_activities'=>$min_time_against_activities,
+        'max_time_against_activities'=>$max_time_against_activities 
       ]);
       return view('executive.home.pems_tab');
     }
@@ -315,6 +437,202 @@ class ExecutiveController extends Controller
 
         ]);
       return view('executive.home.chart_five',['officers' => $officers ,'assigned_current_projects'=>$assigned_current_projects]);
+    }
+    // chart 6
+    public function chart_six(){
+      $activities= ProjectActivity::all();
+    
+    
+      $projects_activities_progress =[];
+      
+      foreach($activities as $act)
+      {
+           $activities_data = DB::select(
+          'getActiviesProgress' .' '. $act->id
+          );
+          array_push($projects_activities_progress,$activities_data);
+        
+      }
+        
+      \JavaScript::put([
+        'activities' => $activities,
+        'projects_activities_progress'=>$projects_activities_progress
+        
+        ]);
+      return view('executive.home.chart_six',[ 'activities' => $activities ,'projects_activities_progress'=>$projects_activities_progress]);
+    }
+
+    // chart7
+    public function chart_seven(){
+      $sub_Sectors=SubSector::all();
+    
+    
+      $projects_wrt_sectors =[];
+      
+      foreach($sub_Sectors  as $ss)
+        {  
+          $subsectors_data=DB::select(
+           
+            'getProjectsSector' .' '. $ss->id);
+         
+            array_push($projects_wrt_sectors,$subsectors_data);
+        }
+        
+      \JavaScript::put([
+        'sub_Sectors' => $sub_Sectors,
+        'projects_wrt_sectors'=>$projects_wrt_sectors
+        
+        ]);
+      return view('executive.home.chart_seven',['sub_Sectors' => $sub_Sectors, 'projects_wrt_sectors'=>$projects_wrt_sectors]);
+    }
+
+    // chart8
+    public function chart_eight(){
+      $sectors=Sector::all(); 
+      $assignedprojects_wrt_sectors=[];
+      $inprogressprojects_wrt_sectors =[];
+      $totalprojects_wrt_sectors =[];
+      $completedprojects_wrt_sectors =[];
+      foreach($sectors  as $sec)
+       {
+        $assignedsectors_data=DB::select(
+        
+        'getAllSectorProjects' .' '. $sec->id);
+       
+        $inprogresssectors_data=DB::select(
+        
+        'getAllSectorInprogressProjects' .' '. $sec->id);
+      
+        $sectors_data_totalProjects=DB::select(
+        
+        'getAllSectorProjectsTotal' .' '. $sec->id);
+        $sectors_data_completedProjects=DB::select(
+        
+          'getAllSectorCompletedProjects' .' '. $sec->id);
+        
+      
+        array_push($assignedprojects_wrt_sectors,$assignedsectors_data);
+        array_push($inprogressprojects_wrt_sectors,$inprogresssectors_data);
+        array_push($totalprojects_wrt_sectors,$sectors_data_totalProjects);
+        array_push($completedprojects_wrt_sectors,$sectors_data_completedProjects);
+
+      }
+      \JavaScript::put([
+        'sectors'=>$sectors,
+        'assignedprojects_wrt_sectors'=>$assignedprojects_wrt_sectors,
+        'inprogressprojects_wrt_sectors'=>$inprogressprojects_wrt_sectors,
+        'totalprojects_wrt_sectors'=>$totalprojects_wrt_sectors,
+        'completedprojects_wrt_sectors'=>$completedprojects_wrt_sectors 
+        
+        ]);
+      return view('executive.home.chart_eight' ,['sectors'=>$sectors, 'assignedprojects_wrt_sectors'=>$assignedprojects_wrt_sectors,  'inprogressprojects_wrt_sectors'=>$inprogressprojects_wrt_sectors,
+      'totalprojects_wrt_sectors'=>$totalprojects_wrt_sectors,'completedprojects_wrt_sectors'=>$completedprojects_wrt_sectors]);
+    }
+
+    // chart 9
+    public function chart_nine(){
+      $activities= ProjectActivity::all();
+      $time_against_activities=[];
+      foreach($activities as $act)
+      {
+       $time_against_activities_data = DB::select(
+         'timeAgainstActivities' .' '. $act->id
+         );
+
+         // difference of times
+         $time_sum = 0;
+         foreach($time_against_activities_data as $time){
+           $CA = new DateTime(date('Y-m-d',strtotime($time->CA)));
+           $OCA = new DateTime(date('Y-m-d',strtotime($time->OCA)));
+           $FT = $OCA->diff($CA);
+           $time_sum += $FT->format('%a');
+         }
+         $ave = $time_sum/count($time_against_activities_data);
+         $ave = (int)round($ave,0,PHP_ROUND_HALF_UP);
+       array_push($time_against_activities,$ave);
+
+     }
+     \JavaScript::put([
+      'activities'=> $activities,'time_against_activities'=>$time_against_activities
+      
+      ]);
+    
+      return view('executive.home.chart_nine' ,['activities'=> $activities,'time_against_activities'=>$time_against_activities]);
+    }
+
+    // chart 10
+    public function chart_ten(){
+      $activities= ProjectActivity::all();
+      $time_against_activities=[];
+      $min_time_against_activities=[];
+      $max_time_against_activities=[];
+      
+      foreach($activities as $act)
+      {
+        $time_against_activities_data = DB::select(
+        'timeAgainstActivities' .' '. $act->id
+        );
+
+        // $min_time_against_activities_data = DB::select(
+        // 'MintimeAgainstActivities' .' '. $act->id
+        // );
+
+        // $max_time_against_activities_data = DB::select(
+        // 'MaxtimeAgainstActivities' .' '. $act->id
+        // );   
+
+        // difference of times
+         $time_sum = 0;
+         $loop = 0;
+         $min = 0;
+         $max = 0;
+        foreach($time_against_activities_data as $time){
+          $CA = new DateTime(date('Y-m-d',strtotime($time->CA)));
+          $OCA = new DateTime(date('Y-m-d',strtotime($time->OCA)));
+          $FT = $OCA->diff($CA);
+          $time_sum += $FT->format('%a');
+          if($loop == 0){
+            $min = $FT->format('%a');
+            $max = $FT->format('%a');
+          }
+          else{
+            if($min > $FT->format('%a')){
+              $min = $FT->format('%a');
+            }
+            if($max < $FT->format('%a')){
+              $max = $FT->format('%a');
+            }
+          }
+          $loop++;
+        }
+     
+        $ave = $time_sum/count($time_against_activities_data);
+        $ave = (int)round($ave,0,PHP_ROUND_HALF_UP);
+       
+        // diffrence of minimum time
+   
+        // $min_CA = new DateTime($min_time_against_activities_data[0]->MIN_CA);
+        // $min_OCA = new DateTime($min_time_against_activities_data[0]->MIN_OCA);  
+        // $min_diff = $min_OCA->diff($min_CA);
+        // $min_time = $min_diff->format('%a');      
+        // difference of max time
+        // $max_CA = new DateTime($max_time_against_activities_data[0]->MAX_CA);
+        
+        // $max_OCA = new DateTime($max_time_against_activities_data[0]->MAX_OCA);  
+        // $max_diff = $max_OCA->diff($max_CA);
+        // $max_time = $max_diff->format('%a');      
+
+        array_push($min_time_against_activities, $min);
+        array_push($time_against_activities,$ave);
+        array_push($max_time_against_activities, $max);
+      }
+        \JavaScript::put([
+          'activities'=> $activities,
+          'time_against_activities'=>$time_against_activities,
+          'min_time_against_activities'=>$min_time_against_activities,
+          'max_time_against_activities'=>$max_time_against_activities 
+          ]);
+       return view('executive.home.chart_ten',['activities'=> $activities,'time_against_activities'=>$time_against_activities,'min_time_against_activities'=>$min_time_against_activities,'max_time_against_activities'=>$max_time_against_activities]);
     }
 
 

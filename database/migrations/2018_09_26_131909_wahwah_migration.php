@@ -13,11 +13,11 @@ class WahwahMigration extends Migration
      */
     public function up()
     {
-      Schema::disableForeignKeyConstraints();
-      Schema::table('assigned_project_activities',function(Blueprint $table){
-        $table->dropForeign('assigned_project_activities_project_id_foreign');
-      });
-      Schema::enableForeignKeyConstraints();
+      // Schema::disableForeignKeyConstraints();
+      // Schema::table('assigned_project_activities',function(Blueprint $table){
+      //   $table->dropForeign('assigned_project_activities_project_id_foreign');
+      // });
+      // Schema::enableForeignKeyConstraints();
 
       Schema::table('assigned_project_activities',function(Blueprint $table){
         $table->foreign('project_id')->references('id')->on('assigned_projects');

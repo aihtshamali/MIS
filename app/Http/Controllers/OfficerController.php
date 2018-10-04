@@ -123,12 +123,14 @@ class OfficerController extends Controller
       $officerAssignedCount=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
       ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
       ->where('acknowledge','0')
+      ->where('complete',0)
       ->where('user_id',Auth::id())
       ->count();
       $officer=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
       ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
       ->where('user_id',Auth::id())
       ->where('acknowledge','1')
+      ->where('complete',0)
       ->get();
 
       $progress=AssignedProject::select('assigned_projects.*','assigned_project_activities.*')
