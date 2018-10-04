@@ -26,7 +26,8 @@ class AdminHumanResourceController extends Controller
     public function index()
     {
         $meetings = HrMeetingPDWP::all();
-        return view('admin_hr.meeting.index',compact('meetings'));
+        $agendas=HrAgenda::all();
+        return view('admin_hr.meeting.index',compact('meetings','agendas'));
     }
 
     /**
@@ -47,6 +48,13 @@ class AdminHumanResourceController extends Controller
 
         return view('admin_hr.meeting.create',compact('sectors','meeting_types','agenda_types','agenda_statuses','adp'));
     }
+    // public function search_agendas(){
+    //     // dd('hell');
+
+    //     $agendas=HrAgenda::all();
+    //     // dd($agendas);   
+    //     return view('admin_hr.meeting',compact('agendas'));
+    // }
     public function saveMoms(Request $request){
       if($request->hasFile('attach_moms')){
       $HRamiG=new HrMomAttachment();
