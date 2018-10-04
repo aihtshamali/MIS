@@ -80,6 +80,8 @@ Route::prefix('manager')->middleware('role:manager')->group(function () {
 // For Director
 Route::prefix('director_evaluation')->middleware('role:directorevaluation')->group(function () {
     //for Evaluation Director
+  // Route::get('/re_assign_store','DirectorEvaluationController@re_assign_store')->name('Re_Assign_Store');
+  Route::get('/re_assign','DirectorEvaluationController@re_assign')->name('Re_Assign');
   Route::get('/','DirectorEvaluationController@index')->name('Evaluation_home');
   Route::get('/pems_tab','DirectorEvaluationController@pems_index')->name('Evaluation_pems_tab');
   Route::get('/pmms_tab','DirectorEvaluationController@pmms_index')->name('Evaluation_pmms_tab');
@@ -139,6 +141,8 @@ Route::resource('projects','ProjectController');
 Route::prefix('hr')->middleware('role:adminhr|manager')->group(function () {
   Route::post('/save_moms','AdminHumanResourceController@saveMoms')->name('save_moms');
   Route::resource('admin','AdminHumanResourceController');
+  Route::post('/save_agendax','AdminHumanResourceController@save_agendax')->name('agendax');
+  // Route::get('/search_agendas','AdminHumanResourceController@search_agendas')->name('search_agendas');
   // Route::get('/','inHumanResourceController@index')->name('index_meeting');
   // Route::get('/admin','AdminHumanResourceController@create')->name('create_meeting');
 

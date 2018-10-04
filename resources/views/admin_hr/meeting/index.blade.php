@@ -49,6 +49,7 @@
 @section('content')
 <div class="content-wrapper">
 
+    
 
   <section class="content-header">
     <h1>
@@ -63,6 +64,15 @@
   </section>
 
   <section class="content">
+      <div>
+          <label >Search Schemes</label>
+          <select  name="agenda_name" class="form-control select2 searchAgenda" style="text-align: center !important" id="agenda_name">
+              <option value="">Enter Scheme Name to Search...</option>
+              @foreach ($agendas as $agenda)
+          <option value="{{$agenda->HrMeetingPDWP->id}}">{{$agenda->scheme_name}}</option>
+              @endforeach
+          </select>
+      </div>
       <table class="table table-borderd">
           <tr>
               <th>
@@ -115,4 +125,11 @@
 </div>
 @endsection
 @section('scripttags')
+<script>
+    $('.select2').select2();
+    $('.searchAgenda').on('change',function(){
+        console.log($(this).val());
+        location="/hr/admin/"+$(this).val();
+    });
+</script>
 @endsection

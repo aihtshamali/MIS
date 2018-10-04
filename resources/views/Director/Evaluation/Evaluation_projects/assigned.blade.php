@@ -77,7 +77,30 @@
                   </select>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Select Sector</label>
+                  <select class="form-control select2" name="sector_id" style="width: 100%;">
+                    <option selected="selected" value="" >Select A Sector</option>
+                    @foreach($sectors as $sector)
+                      <option value="{{ $sector->id }}">{{ $sector->name }}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
               <div class="row" style="margin-top:10px">
+                <div class="col-md-6">
+                  <div class="col-md-6">
+                    <label for="">Starting Cost in Million</label>
+                    <input class="form-control" type="number" name="starting_cost" value="">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="">Ending Cost in Million</label>
+                    <input class="form-control" type="number" name="ending_cost" value="">
+                  </div>
+                </div>
+              </div>
+              {{-- <div class="row" style="margin-top:10px">
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Date range button:</label>
@@ -91,7 +114,8 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> --}}
+
               <div class="row" style="margin-top:10px">
                 <div class="col-md-6">
                   <button  class="btn btn-success pull-right" type="submit" name="button">Search</button>
@@ -168,7 +192,7 @@
                                 <td><div class="progress">
                                     <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
                                       aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo 20+$assigned->progress; ?>% ">
-                                    {{$assigned->progress }}% Complete
+                                    {{round($assigned->progress, 0, PHP_ROUND_HALF_UP) }}% Complete
                                       </div>
 
                                     </div></td>
@@ -199,24 +223,25 @@
     //Initialize Select2 Elements
     $('.select2').select2()
   });
-
-  $('#daterange-btn').daterangepicker(
-    {
-      ranges   : {
-        'Today'       : [moment(), moment()],
-        'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-        'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-        'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-        'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-      },
-      startDate: moment().subtract(29, 'days'),
-      endDate  : moment()
-    },
-    function (start, end) {
-      $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-    }
-  );
+  //
+  // $('#daterange-btn').daterangepicker(
+  //   {
+  //     ranges   : {
+  //       'Today'       : [moment(), moment()],
+  //       'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+  //       'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+  //       'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+  //       'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+  //       'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+  //     },
+  //     startDate: moment().subtract(29, 'days'),
+  //     endDate  : moment()
+  //   },
+  //   function (start, end) {
+  //     // $('#daterange-btn').parent().append('<input type="hidden" valu')
+  //     $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+  //   }
+  // );
 
   </script>
 
