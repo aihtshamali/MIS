@@ -109,24 +109,27 @@
        "gridAboveGraphs": true,
        "startDuration": 1,
        "graphs": [ {
-         "balloonText": "Min Time: <b>[[value]] Days</b>",
+         "balloonText": "Min Time: [[value]] Days",
          "fillAlphas": 0.8,
          "lineAlpha": 0.2,
+    "labelText": "[[value]]",
          "type": "column",
          "title":"Min Time",
          "valueField": "Min Time"
        } ,{
          "balloonText": "Average Time:[[value]] Days",
          "fillAlphas": 0.8,
+          "labelText": "[[value]]",
          "lineAlpha": 0.2,
          "type": "column",
-             "title":"Average Time",
+          "title":"Average Time",
          "valueField": "Average Time"
        } ,{
          "balloonText": "Max Time: [[value]] Days",
          "fillAlphas": 0.8,
          "lineAlpha": 0.2,
          "type": "column",
+         "labelText": "[[value]]",
         "title":"Max Time",
          "valueField": "Max Time"
        } ],
@@ -142,7 +145,7 @@
         "gridCount": 1000,
          "gridPosition": "start",
          "gridAlpha": 0,
-         "tickPosition": "start",
+         "tickPosition": "middle",
          "tickLength": 20,
          "autoWrap": true
        },

@@ -761,9 +761,9 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
   activities.forEach(element => {
   st.push ({ 
   "Name":element.name,
-  "Min Time": min_time_against_activities[$i],
-  "Average Time": time_against_activities[$i],
-  "Max Time": max_time_against_activities[$i]
+  // "Min Time": min_time_against_activities[$i],
+  "Average Time": time_against_activities[$i]
+  // "Max Time": max_time_against_activities[$i]
   });
   $i++;
   });
@@ -779,28 +779,15 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
   } ],
   "gridAboveGraphs": true,
   "startDuration": 1,
-  "graphs": [ {
-    "balloonText": "Min Time: <b>[[value]]</b>",
+  "graphs": [{
+    "balloonText": "Average Time:[[value]] days",
     "fillAlphas": 0.8,
     "lineAlpha": 0.2,
     "type": "column",
-    "title":"Min Time",
-    "valueField": "Min Time"
-  } ,{
-    "balloonText": "Average Time:[[value]]",
-    "fillAlphas": 0.8,
-    "lineAlpha": 0.2,
-    "type": "column",
+    "labelText": "[[value]]",
 		"title":"Average Time",
     "valueField": "Average Time"
-  } ,{
-    "balloonText": "Max Time: [[value]]",
-    "fillAlphas": 0.8,
-    "lineAlpha": 0.2,
-    "type": "column",
-		"title":"Max Time",
-    "valueField": "Max Time"
-  } ],
+  }],
   "chartCursor": {
     "categoryBalloonEnabled": false,
     "cursorAlpha": 0,
