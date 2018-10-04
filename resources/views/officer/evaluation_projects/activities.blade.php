@@ -454,7 +454,7 @@
       </div>
 
       <br>
-      <input type="submit" name="Submit" value="Save Attachment" class="btn btn-success pull-right">
+      {{-- <input type="submit" name="Submit" value="Save Attachment" class="btn btn-success pull-right"> --}}
 
     </form>
     <div class="row">
