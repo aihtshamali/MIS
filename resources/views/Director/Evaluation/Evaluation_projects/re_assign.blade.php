@@ -59,6 +59,7 @@
             <th>Project #</th>
             <th>Project Name</th>
             <th>Department</th>
+            <th>Assigned To</th>
             <th>Assigned By</th>
             <th>ReAssign</th>
           </tr>

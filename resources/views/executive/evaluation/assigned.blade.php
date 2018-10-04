@@ -69,14 +69,14 @@
                                   @endif
                                 </td>
                                 <td>{{$project->created_at}}</td>
-                               
+
                                 <td>
                                     <div class="progress">
                                       <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
                                         aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo 10+ $project->progress;?>% ">
-                                      {{$project->progress}}% Complete
+                                      {{round($project->progress, 0, PHP_ROUND_HALF_UP) }}% Complete
                                         </div>
-                                      
+
                                       </div></td>
                               </tr>
                             @endforeach
