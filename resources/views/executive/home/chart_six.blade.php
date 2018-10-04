@@ -3,7 +3,7 @@
 
 <link rel="stylesheet" href="{{asset('css/charts/export.css')}}" type="text/css" media="all" />
 <style>
-#chartdiv5 {
+#chartdiv6 {
   width		: 100%;
   height	: 90%;
   font-size	: 15px;
@@ -91,7 +91,7 @@
                     <div class="card col-md-12" >
                         <div class="card-header">
                         </div> 
-                        <div id="chartdiv5"></div>
+                        <div id="chartdiv6"></div>
                     </div>
                     <div class="col-md-1"></div>
                 </div>
@@ -113,61 +113,61 @@
 <script src="{{asset('js/charts/chalk.js')}}"></script>
 <script src="{{asset('js/charts/light.js')}}"></script>
 <script src="{{asset('js/charts/patterns.js')}}"></script>
+
 <script>
-  var st = [];
-  $i = 0;
-
-  officers.forEach(element => {
-  st.push ({ 
-    "Name": element.first_name + ' ' + element.last_name,
-    "Progress": assigned_current_projects[$i]
-  });
-  $i++;
-  });
-
-  var chart = AmCharts.makeChart("chartdiv5", {
-  "type": "serial",
-  "theme": "none",
-  "dataProvider": st,
-  "categoryField": "Name",
-
-  "rotate": true,
-  "startDuration": 1,
-  "categoryAxis": {
-    "autoGridCount": false,
-  "equalSpacing": true,
-  "gridCount": 1000,
-  "gridPosition": "start",
-  "autoWrap": true,
-  "position": "left"
-  },
-  "trendLines": [],
-  "graphs": [
-  {
-  "balloonText": "Progress:[[value]]",
-  "fillAlphas": 0.8,
-  "id": "AmGraph-1",
-  "lineAlpha": 0.2,
-  "title": "Progress",
-  "type": "column",
-  "valueField": "Progress"
-  }
-  ],
-  "guides": [],
-  "valueAxes": [
-  {
-  "id": "ValueAxis-1",
-  "position": "bottom",
-  "axisAlpha": 0
-  }
-  ],
-  "allLabels": [],
-  "balloon": {},
-  "titles": [],
-  "export": {
-  "enabled": true
-  }
-
-  });
-    </script>
+    var st = [];
+     $i = 0;
+     activities.forEach(element => {
+      //  console.log(projects_activities_progress[$i][0].eachActivitycount);
+       
+       st.push ({ 
+         "Name":element.name,
+         "Number of projects": projects_activities_progress[$i][0].eachActivitycount,
+        
+       });
+       $i++;
+     });
+     var chart = AmCharts.makeChart( "chartdiv6", {
+     "type": "serial",
+     "theme": "light",
+     "dataProvider":st,
+     "valueAxes": [ {
+       "gridColor": "#FFFFFF",
+       "gridAlpha": 0.2,
+       "dashLength": 0
+     } ],
+     "gridAboveGraphs": true,
+     "startDuration": 1,
+     "graphs": [ {
+       "balloonText": "Number Of projects:[[value]]",
+       "fillAlphas": 0.8,
+       "lineAlpha": 0.2,
+       "type": "column",
+       "labelText": "[[value]]",
+       "valueField": "Number of projects"
+     } ],
+     "chartCursor": {
+       "categoryBalloonEnabled": false,
+       "cursorAlpha": 0,
+       "zoomable": false
+     },
+     "categoryField": "Name",
+     "categoryAxis": {
+        "autoGridCount": false,
+"equalSpacing": true,
+"gridCount": 1000,
+       "gridPosition": "middle",
+       "gridAlpha": 0,
+       "tickPosition": "middle",
+       "tickLength": 5,
+    //    "labelRotation":30,
+       // "ignoreAxisWidth": true,
+       "autoWrap": true
+     },
+     "export": {
+       "enabled": true
+     }
+  
+   } );
+  </script>
 @endsection
