@@ -1,7 +1,15 @@
 @extends('layouts.uppernav')
 
 @section('content')
+<style>
+  a,a:active {
+    color:black;
+  }
+  a:hover {
+    color:white;
+  }
 
+</style>
 
 <div class="content-wrapper">
     <section class="content-header">
@@ -46,8 +54,9 @@
        
               <div class="col-lg-3 col-xs-6">
                           <!-- small box -->
+                          
                           <div class="small-box " style="background-color:rgb(153, 153, 153);">
-                            <div class="inner">
+                            <div class="inner"><a href="#">
                               <h3>10<sup style="font-size: 20px">%</sup></h3>
                               <b style="font-size:20px;">H R M S</b>
                             </div>
@@ -57,12 +66,14 @@
                             <a href="#" class="small-box-footer">
                               More info <i class="fa fa-arrow-circle-right"></i>
                             </a>
+                          </a>
                           </div>
+                        
                 </div>
               {{--/ BOX 1 --}}
               <div class="col-lg-3 col-xs-6">
                 <div class="small-box "style="background-color:rgb(153, 153, 153);">
-                  <div class="inner">
+                  <div class="inner"><a href="#">
                     <h3>53<sup style="font-size: 20px">%</sup></h3>
       
                     <b style="font-size:20px;">V M I S</b>
@@ -72,14 +83,14 @@
                   </div>
                   <a href="#" class="small-box-footer">
                     More info <i class="fa fa-arrow-circle-right"></i>
-                  </a>
+                  </a></a>
                 </div>
               </div>
               {{-- /BOX 2 --}}
               <div class="col-lg-3 col-xs-6">
                       <!-- small box -->
                       <div class="small-box " style="background-color:rgb(153, 153, 153);">
-                        <div class="inner">
+                        <div class="inner"><a href="#">
                           <h3>65<sup style="font-size: 20px">%</sup></h3>
             
                           <b style="font-size:20px;">F M I S</b>
@@ -89,13 +100,13 @@
                         </div>
                         <a href="#" class="small-box-footer">
                           More info <i class="fa fa-arrow-circle-right"></i>
-                        </a>
+                        </a></a>
                       </div>
               </div>
                {{-- /BOX 3 --}}
                <div class="col-lg-3 col-xs-6">
                   <div class="small-box " style="background-color:rgb(153, 153, 153);">
-                    <div class="inner">
+                    <div class="inner"><a href="#">
                       <h3>75<sup style="font-size: 20px">%</sup></h3>
         
                       <b style="font-size:20px;">ATTENDENCE</b>
@@ -105,7 +116,7 @@
                     </div>
                     <a href="#" class="small-box-footer">
                       More info <i class="fa fa-arrow-circle-right"></i>
-                    </a>
+                    </a></a>
                   </div></div>
              
       
@@ -129,7 +140,7 @@
             <div class="col-lg-3 col-xs-6">
                     <!-- small box -->
                     <div class="small-box" style="background-color:salmon !important;">
-                      <div class="inner">
+                      <div class="inner"><a href="{{route('Exec_pems_tab')}}">
                         <h3>20<sup style="font-size: 20px">%</sup></h3>
                         <b style="font-size:20px;"> P E M S</b>
                       </div>
@@ -138,14 +149,14 @@
                       </div>
                       <a href="{{route('Exec_pems_tab')}}" class="small-box-footer">
                         More info <i class="fa fa-arrow-circle-right"></i>
-                      </a>
+                      </a></a>
                     </div>
               </div>
               {{--/ BOX 5 --}}
               <div class="col-lg-3 col-xs-6">
                       <!-- small box -->
                       <div class="small-box" style="background-color:mediumorchid !important">
-                        <div class="inner">
+                        <div class="inner"><a href="{{route('Exec_pmms_tab')}}">
                           <h3>53<sup style="font-size: 20px">%</sup></h3>
             
                           <b style="font-size:20px;">P M M S</b>
@@ -155,14 +166,14 @@
                         </div>
                         <a href="{{route('Exec_pmms_tab')}}" class="small-box-footer">
                           More info <i class="fa fa-arrow-circle-right"></i>
-                        </a>
+                        </a></a>
                       </div>
                 </div>
               {{-- /BOX 6 --}}
               <div class="col-lg-3 col-xs-6">
                       <!-- small box -->
                       <div class="small-box " style="background-color:skyblue !important;">
-                        <div class="inner">
+                        <div class="inner"><a href="{{route('Exec_tpv_tab')}}"></a>
                           <h3>65<sup style="font-size: 20px">%</sup></h3>
             
                           <b style="font-size:20px;">T P V S</b>
@@ -179,7 +190,7 @@
              <div class="col-lg-3 col-xs-6">
                 <!-- small box -->
                 <div class="small-box "  style="background-color:lightgreen !important;" >
-                  <div class="inner">
+                <div class="inner"><a href="{{route('Exec_inquiry_tab')}}">
                     <h3>44<sup style="font-size: 20px">%</sup></h3>
       
                     <b style="font-size:20px;">INQUIRY</b>
@@ -189,7 +200,7 @@
                   </div>
                   <a href="{{route('Exec_inquiry_tab')}}"  class="small-box-footer">
                     More info <i class="fa fa-arrow-circle-right"></i>
-                  </a>
+                  </a></a>
                 </div>
               </div>
               {{-- /BOX8 --}}
@@ -203,9 +214,9 @@
               <div class="col-lg-3 col-xs-6">
                       <!-- small box -->
                       <div class="small-box "style="background-color:tan !important;">
-                        <div class="inner">
+                        <div class="inner"><a href="{{route('Exec_special_tab')}}"></a>
                           <h3>10<sup style="font-size: 20px">%</sup></h3>
-                          <b style="font-size:20px;"> SPECIAL</br> ASSIGNEMENT</b>
+                          <b style="font-size:20px;"> SPECIAL<br> ASSIGNEMENT</b>
                         </div>
                         <div class="icon">
                           <i class="fa fa-user-secret"></i>
@@ -220,17 +231,17 @@
               <div class="col-lg-3 col-xs-6">
                       <!-- small box -->
                       <div class="small-box" style="background-color:yellow !important;">
-                        <div class="inner">
+                        <div class="inner"><a href="{{route('Exec_other_tab')}}">
                           <h3>53<sup style="font-size: 20px">%</sup></h3>
             
-                          <b style="font-size:20px;">OTHER </br>ASSIGNMENT</b>
+                          <b style="font-size:20px;">OTHER <br>ASSIGNMENT</b>
                         </div>
                         <div class="icon">
                           <i class="fa fa-cog"></i>
                         </div>
                         <a href="{{route('Exec_other_tab')}}"  class="small-box-footer">
                           More info <i class="fa fa-arrow-circle-right"></i>
-                        </a>
+                        </a></a>
                       </div>
                 </div>
               {{-- /BOX 6 --}}
