@@ -118,7 +118,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
           <a href="{{route('chart_one')}}">
           <div class="card col-md-2" >
           <div class="card-header">
-          <label for="">Histogram of Projects</label>
+          <label for="">Total Projects</label>
           </div> 
           <div id="chartdiv"></div>
           </div>
@@ -128,7 +128,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
           <a href="{{route('chart_two')}}">
           <div class="card col-md-2">
           <div class="card-header">
-          <label for="">Histogram of Assigned Projects</label>
+          <label for="">Assigned Projects</label>
           </div> 
           <div id="chartdiv2"></div>
           </div>
@@ -138,7 +138,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
           <a href="{{route('chart_three')}}">
           <div class="card col-md-2">
           <div class="card-header">
-          <label for="">Histogram of Inprogress Projects</label>
+          <label for="">Inprogress Projects</label>
           </div> 
           <div id="chartdiv3"></div>
           </div>
@@ -148,7 +148,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
           <a href="{{route('chart_four')}}">
           <div class="card col-md-2">
           <div class="card-header">
-          <label for="">Histogram of Completed Projects</label>
+          <label for="">Completed Projects</label>
           </div> 
           <div id="chartdiv4"></div>
           </div>
