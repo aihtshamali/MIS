@@ -102,6 +102,11 @@ Route::prefix('director_Monitor')->middleware('role:directormonitoring')->group(
     Route::get('/pmms_tab','DirectorMonitoringController@pmms_index')->name('Monitoring_pmms_tab');
     Route::get('/tpv_tab','DirectorMonitoringController@tpv_index')->name('Monitoring_tpv_tab');
     Route::get('/inquiry','DirectorMonitoringController@inquiry_index')->name('Monitoring_inquiry_tab');
+    Route::get('/monitoring_unassigned','DirectorMonitoringController@monitoring_unassignedprojects')->name('Monitoring_unassigned_projects');
+    Route::get('/assignproject_M','ProjectAssignController@DPM_AssignToConsultant')->name('DPM_AssignToConsultant');
+    Route::get('/monitoring_inprogress','DirectorMonitoringController@monitoring_inprogressprojects')->name('Monitoring_inprogress_projects');
+    Route::get('/monitoring_complete','DirectorMonitoringController@monitoring_completeprojects')->name('Monitoring_complete_projects');
+
 });
 Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
 

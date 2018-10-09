@@ -19,7 +19,7 @@
         <p class="" style="text-align:center;margin:0">
           <label for="" style="color:yellowgreen;margin-right:10px;" >  Un-assigned Projects:  @if (isset($unassigned)) {{$unassigned->count()}} @endif </label>
           <label for="" style="color:blueviolet">  Assigned Projects:  
-            <?php $count=0; ?>
+            <?php $count=0; ?>  
             @if (isset($assigned))
              <?php  $count=$count+$assigned->count();?> 
             @endif
