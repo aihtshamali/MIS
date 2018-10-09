@@ -59,7 +59,7 @@ Route::prefix('manager')->middleware('role:manager')->group(function () {
   Route::get('/chart_eight','ExecutiveController@chart_eight')->name('chart_eight');
   Route::get('/chart_nine','ExecutiveController@chart_nine')->name('chart_nine');
   Route::get('/chart_ten','ExecutiveController@chart_ten')->name('chart_ten');
-  
+
   Route::get('/pems_tab','ExecutiveController@pems_index')->name('Exec_pems_tab');
   Route::get('/pmms_tab','ExecutiveController@pmms_index')->name('Exec_pmms_tab');
   Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
@@ -129,6 +129,7 @@ Route::group(['middleware' => ['role:dataentry|officer|manager|directormonitorin
 Route::post('/getunassignedProjectCounter','ProjectCounterController@getUnassignedProjectCounter')->name('unassignedCounter');
 Route::post('/getinProgressProjectCounter','ProjectCounterController@getInProgressCounter')->name('inProgressCounter');
 Route::post('/getAssignedProjectCounter','ProjectCounterController@getAssignedProjectCounter')->name('assignedCounter');
+Route::post('/getCompletedCounter','ProjectCounterController@getCompletedCounter')->name('completedCounter');
 Route::post('/onsectorselect','DataEntryController@onSectorSelect');
 Route::post('/onsubsectorselect','DataEntryController@onSub_SectorSelect');
 Route::post('/onAssigningForumselect','DataEntryController@onAssigningForumselect');
