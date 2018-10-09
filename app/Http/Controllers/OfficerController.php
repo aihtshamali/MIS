@@ -194,8 +194,12 @@ class OfficerController extends Controller
       return redirect()->route('completed_evaluation');
     }
     public function evaluation_completed(){
-
-      $officer=AssignedProject::where('complete','True')->where('acknowledge','1')->get();
+      // dd(Auth::user()->AssignedProjectTeam);
+      $officer=AssignedProject::select('assigned_projects.*')
+      ->leftjoin('assigned_project_teams','assigned_projects.id','assigned_project_teams.assigned_project_id')
+      ->where('assigned_project_teams.user_id',Auth::id())
+      ->where('complete','True')->where('acknowledge','1')
+      ->get();
       return view('officer.evaluation_projects.completed')->with('officer',$officer);
     }
 
