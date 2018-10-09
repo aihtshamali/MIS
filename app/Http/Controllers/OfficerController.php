@@ -53,18 +53,16 @@ class OfficerController extends Controller
    }
    public function saveActivityAttachment(Request $request)
    {
-     // dd($request->all());
     if($request->hasFile('activity_attachment')){
       $data =new AssignedActivityAttachment();
-      $request->file('activity_attachment')->store('public/uploads/projects/project_activities');
-      $file_name = $request->file('activity_attachment')->hashName();
-      $data->project_attachements=$file_name;
+      $file_path = $request->file('activity_attachment')->path();
+      $file_extension = $request->file('activity_attachment')->getClientOriginalExtension();
+      $data->project_attachements=base64_encode(file_get_contents($file_path));
       $data->assigned_project_activity_id=$request->attachment_activity;
+      $data->type = $file_extension;
       $data->attachment_name=$request->attachment_name;
       $data->save();
     }
-    // dd($data);
-    return redirect()->back();
    }
 
    public function evaluation_index_officersidenav()
@@ -92,8 +90,6 @@ class OfficerController extends Controller
        ->where('acknowledge','0')
        ->where('user_id',Auth::id())
        ->get();
-
-       // dd($officer);
         return view('officer.evaluation_projects.new_assigned',['officerInProgressCount'=>$officerInProgressCount,'officerAssignedCount'=>$officerAssignedCount,'officer'=>$officer]);
     }
 
@@ -144,15 +140,20 @@ class OfficerController extends Controller
 
 
     public function evaluation_activities($id){
-
+      if (!is_dir('storage/uploads/projects/project_activities/'.Auth::user()->username)) {
+        // dir doesn't exist, make it
+        mkdir('storage/uploads/projects/project_activities/'.Auth::user()->username);
+      }
+      //storing files of current project in folder
       $activities=Project::find($id)->AssignedProject->AssignedProjectActivity;
-
+      foreach ($activities as $act) {
+        foreach ($act->AssignedActivityAttachments as $attachment) {
+          file_put_contents('storage/uploads/projects/project_activities/'.Auth::user()->username.'/'.$attachment->attachment_name.'.'.$attachment->type,base64_decode($attachment->project_attachements));
+        }
+      }
        //saving progress
        $assigned_progress=Project::find($id)->AssignedProject;
-      //  dd($assigned_progress);
        $average_progress=round($assigned_progress->progress, 0, PHP_ROUND_HALF_UP);
-      //  $assigned_progress->save();
-
       $officerAssignedCount=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
       ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
       ->where('acknowledge','0')
@@ -167,15 +168,6 @@ class OfficerController extends Controller
       ->leftJoin('assigned_project_teams','assigned_projects.id','assigned_project_teams.assigned_project_id')
       ->where('assigned_projects.acknowledge','1')->where('assigned_projects.project_id',$id)
       ->first();
-
-      // // $problematicRemarks=ProblematicRemarks::select('problematic_remarks.*','users.first_name','users.last_name','profile_pic')
-      // // ->leftJoin('users','users.id','problematic_remarks.user_id')
-      // // ->leftJoin('user_details','user_details.user_id','users.id')
-      // // ->where('project_id',$id)
-      // // ->orderBy('problematic_remarks.created_at','DESC')
-      // // ->orderBy('problematic_remarks.assigned_project_activity_id','ASC')
-      // ->get();
-
       $icons = [
                 'pdf' => 'pdf',
                 'doc' => 'word',
@@ -204,7 +196,6 @@ class OfficerController extends Controller
     public function evaluation_completed(){
 
       $officer=AssignedProject::where('complete','True')->where('acknowledge','1')->get();
-      // dd($officer);
       return view('officer.evaluation_projects.completed')->with('officer',$officer);
     }
 
@@ -224,19 +215,13 @@ class OfficerController extends Controller
       $assigned_project_activities_progress_log->save();
       //Saving GLobal Percentage
       $project = AssignedProject::find($assigned_project_activity->project_id);
-      // $project = $project->AssignedProject;
-      // return $project->AssignedProjectActivity;
       $project_activities = $project->AssignedProjectActivity;
-      // return $project_activities;
       $total_progress = 0;
       $percentage_array = [15.26,8.26,10.05,6.99,8.03,8.16,14.79,8.23,2.77,9.35,4.17,3.94];
       $i = 0;
       foreach($project_activities as $pa){
         $total_progress = ($total_progress  +  ( ($pa->progress/100.0) * $percentage_array[$i] ));
-
-        // print_r( ($pa->progress/100.0) * $percentage_array[$i].' ');
         $i += 1;
-
       }
       // return $total_progress;
       $project->progress = $total_progress;
