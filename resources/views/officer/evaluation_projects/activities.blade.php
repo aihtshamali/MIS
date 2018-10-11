@@ -135,6 +135,9 @@
               <p >
                 Project Name :<b> {{$project_data->Project->title}}  </b><br>
               </p>
+              <p>
+                Project Score :<b> {{ round($project_data->Project->score,2,PHP_ROUND_HALF_UP) }}
+              </p>
 
               <p>
                 Project Members :<b>
@@ -294,9 +297,10 @@
                           <td> {{$activity->ProjectActivity->name}} </td>
                           <td>
                               @foreach ($activity->AssignedActivityAttachments as $attachment)
-                                <?php
-                                 $ext= explode('.',$attachment->project_attachements ) ?>
-                                   <a href="{{ asset('storage/uploads/projects/project_activities/'.$attachment->project_attachements) }}"  download><i class="fa fa-file-{{$icons[$ext[1]]}}-o fa-1x text-center" title="{{ $attachment->attachment_name }}" /></i></a>
+                                {{-- {{ dd(file_put_contents('temp'.'.'.$attachment->type,base64_decode($attachment->project_attachements))) }} --}}
+                                <a href="{{asset("storage/uploads/projects/project_activities/".Auth::user()->username."/".$attachment->attachment_name.".".$attachment->type)}}" download><i class="fa fa-file-{{$icons[$attachment->type]}}-o fa-1x text-center" title="{{ $attachment->attachment_name }}" /></i></a>
+                                  {{-- $ext= explode('.',$attachment->project_attachements ) --}}
+                                   {{-- <a href="data:image/{{ $attachment->type }};base64,{{$attachment->project_attachements}}"  download><i class="fa fa-file-{{$icons[$attachment->type]}}-o fa-1x text-center" title="{{ $attachment->attachment_name }}" /></i></a> --}}
                               @endforeach
                             </td>
                           <td>
@@ -454,7 +458,7 @@
       </div>
 
       <br>
-      {{-- <input type="submit" name="Submit" value="Save Attachment" class="btn btn-success pull-right"> --}}
+      <input type="submit" name="Submit" value="Save Attachment" class="btn btn-success pull-right">
 
     </form>
     <div class="row">
@@ -515,6 +519,7 @@
             bar.html(percentVal);
         },
     	complete: function(xhr) {
+        console.log(xhr);
         if(xhr.statusText=="OK"){
           status.html('File Upload SuccessFully')
           location.reload();

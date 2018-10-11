@@ -60,6 +60,7 @@
                     <th>Project Type</th>
                     <th>Created At</th>
                     <th colspan="1" >Project Priority</th>
+                    <th>Project Score</th>
                     <th>Action</th>
                   </thead>
                   <tbody>
@@ -75,11 +76,9 @@
                           <td>
                             <input type="hidden" name="priority" value="">
                             <input type="hidden" name="project_id" value="{{$project->id}}">
-                            <button type="button" class="btn btn-md priority" style="background-color:red; ">High Priority</button>
-                            <button type="button"  class="btn btn-md priority"style="background-color:green; ">Normal Priority</button>
-                            <button type="button" class="btn btn-md priority" style="background-color:yellow; ">Low Priority</button>
-
+                            {{ $project->ProjectDetail->AssigningForum->name }}
                           </td>
+                          <td>{{ round($project->score,2,PHP_ROUND_HALF_UP) }}</td>
                           <td><input type="submit" name="submit" value="Assign" class="btn btn-info"></td>
                             </form>
                         </tr>
