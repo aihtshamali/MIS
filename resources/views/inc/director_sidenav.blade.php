@@ -54,7 +54,7 @@
           <ul class="treeview-menu">
             <li>
               <a href="{{route('Evaluation_evaluation_assigned')}}"><i class="fa fa-circle-o"></i> Un- Assigned <span class="pull-right-container">
-              <span class="label label-primary pull-right directorE_assigned_counter">0</span>
+              <span class="label label-primary pull-right directorE_unassigned_counter">0</span>
             </span></a></li>
             <li>
               <a href="{{route('Evaluation_evaluation_Inprogressprojects')}}"><i class="fa fa-circle-o"></i> In Progress
@@ -67,7 +67,7 @@
             </span>
             </a></li>
             <li><a href="{!! route('Re_Assign') !!}"><i class="fa fa-circle-o"></i> Re Assign
-              <span class="label label-primary pull-right directorE_completed_counter">0</span>
+              <span class="label label-primary pull-right directorE_ReAssign_counter">0</span>
             </span>
             </a></li>
           </ul>

@@ -396,4 +396,110 @@ class ProjectAssignController extends Controller
     {
         //
     }
+
+    public function AddScore($id){
+      // return $req->id;
+      $assigned_project = Project::find($id);
+      if($assigned_project == null)
+        return 0;
+      $cost_constant = 0.272483627;
+      $effort_constant = 0.183131766;
+      $distance_constant = 0.152764717;
+      $coverage_constant = 0.190562889;
+      $priority_constant = 0.201057001;
+
+      $cost = $assigned_project->ProjectDetail->orignal_cost;
+      $assigned_districts = $assigned_project->AssignedDistricts;
+      $assigning_forum = $assigned_project->ProjectDetail->AssigningForum;
+      $coverage = count($assigned_districts);
+
+      $cost_total = 0;
+      $effort_total = 0;
+      $distance_total = 0;
+      $coverage_total = 0;
+      $priority_total = 0;
+
+      //Cost Calculation
+      if($cost < 200){
+        $cost_total = 0.3;
+      }
+      else if($cost < 400){
+        $cost_total = 0.5;
+      }
+      else if($cost < 2000){
+        $cost_total = 0.6;
+      }
+      else if($cost < 10000){
+        $cost_total = 0.8;
+      }
+      else{
+        $cost_total = 1.0;
+      }
+      $cost_total *= $cost_constant;
+
+      //Effort Calculation
+      if($cost < 200){
+        $effort_total = 0.37;
+      }
+      else if($cost < 400){
+        $effort_total = 0.5;
+      }
+      else if($cost < 2000){
+        $effort_total = 0.62;
+      }
+      else if($cost < 10000){
+        $effort_total = 0.76;
+      }
+      else{
+        $effort_total = 1.0;
+      }
+      $effort_total *= $effort_constant;
+
+      //Distance Calculation
+      $max = $assigned_districts[0]->District->distance;
+      foreach ($assigned_districts as $district) {
+        if($district->District->distance > $max){
+          $max = $district->District->distance;
+        }
+      }
+      if($max < 200){
+        $distance_total = 0.4;
+      }
+      else if($max < 400){
+        $distance_total = 0.7;
+      }
+      else{
+        $distance_total = 1;
+      }
+
+      $distance_total *= $distance_constant;
+
+      //Coverage Calculation
+      if($coverage < 2){
+        $coverage_total = 0.2;
+      }
+      else if($coverage < 4){
+        $coverage_total = 0.35;
+      }
+      else if($coverage < 6){
+        $coverage_total = 0.5;
+      }
+      else if($coverage < 8){
+        $coverage_total = 0.75;
+      }
+      else{
+        $coverage_total = 1.0;
+      }
+
+      $coverage_total *= $coverage_constant;
+
+      //Priority Calculation
+      $priority_total = $assigning_forum->score;
+      $priority_total *= $priority_constant;
+
+      //Sum
+      $score = $cost_total + $effort_total + $distance_total + $coverage_total + $priority_total;
+      $score *= 100;
+      return $score;
+    }
 }
