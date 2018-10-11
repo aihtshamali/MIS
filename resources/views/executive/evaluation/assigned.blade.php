@@ -42,6 +42,7 @@
                             <th>Project Name</th>
                             <th>Project Officers</th>
                             <th>Priority</th>
+                            <th>Project Score</th>
                             <th>Assigned Date</th>
                             <th>Progress</th>
                           </thead>
@@ -60,13 +61,10 @@
                                   @endforeach
                                 </td>
                                 <td>
-                                  @if ($project->priority==3)
-                                    High
-                                  @elseif ($project->priority==2)
-                                    Normal
-                                  @else
-                                    Low
-                                  @endif
+                                  {{ $project->Project->ProjectDetail->AssigningForum->name }}
+                                </td>
+                                <td>
+                                  {{ round($project->Project->score,2,PHP_ROUND_HALF_UP) }}
                                 </td>
                                 <td>{{$project->created_at}}</td>
 

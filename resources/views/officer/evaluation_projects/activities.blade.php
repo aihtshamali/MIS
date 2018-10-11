@@ -135,6 +135,9 @@
               <p >
                 Project Name :<b> {{$project_data->Project->title}}  </b><br>
               </p>
+              <p>
+                Project Score :<b> {{ round($project_data->Project->score,2,PHP_ROUND_HALF_UP) }}
+              </p>
 
               <p>
                 Project Members :<b>
