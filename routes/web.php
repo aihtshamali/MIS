@@ -48,7 +48,7 @@ Route::group(['middleware' => ['role:admin']], function () {
 // For Manager
 Route::prefix('manager')->middleware('role:manager')->group(function () {
   Route::get('/','ExecutiveController@index')->name('Exec_home');
-  // PEMS GRAPHS
+  // PEMS GRAPHS -EVALUATION MODULE
   Route::get('/chart_one','ExecutiveController@chart_one')->name('chart_one');
   Route::get('/chart_two','ExecutiveController@chart_two')->name('chart_two');
   Route::get('/chart_three','ExecutiveController@chart_three')->name('chart_three');
@@ -71,9 +71,17 @@ Route::prefix('manager')->middleware('role:manager')->group(function () {
   Route::get('/evaluation_completed','ExecutiveController@evaluation_completedprojects')->name('Exec_evaluation_completed');
   Route::resource('assignproject','ProjectAssignController');
   Route::get('/evaluation_reviewed','ExecutiveController@reviewed_projects');
+  
+  // PDWP MEETING MODULE
   Route::get('/conduct_pdwp_meeting','ExecutiveController@conduct_pdwp_meeting')->name('Conduct_PDWP_Meeting');
   Route::get('/list_agendas','ExecutiveController@list_agendas')->name('List_Agendas');
   Route::post('/agenda_comment_store','ExecutiveController@CommentAgenda')->name('store_agenda_comments');
+
+  // MONITORING MODULE
+  Route::get('/m_unassignedprojects','ExecutiveController@monitoring_unassigned')->name('monitoring_unassigned');
+  Route::get('/m_inprogressprojects','ExecutiveController@monitoring_inprogress')->name('monitoring_inprogress');
+  Route::get('/m_completedprojects','ExecutiveController@monitoring_completed')->name('monitoring_completed');
+
 });
 
 
@@ -116,6 +124,7 @@ Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSecto
 
 //officers
 Route::prefix('officer')->middleware('role:officer')->group(function () {
+  // Evaluation Module Routes
   Route::post('/save_percentage','OfficerController@save_percentage')->name('save_percentage');
   Route::get('/main','OfficerController@evaluation_main')->name('main_page');
   Route::get('/','OfficerController@evaluation_index')->name('new_evaluation');
@@ -127,6 +136,13 @@ Route::prefix('officer')->middleware('role:officer')->group(function () {
   Route::get('/review_form/{project_id}','OfficerController@review_form')->name('review_form');
   Route::post('/review_form','OfficerController@review_forms')->name('review_forms');
   Route::post('/saveActivityAttachment','OfficerController@saveActivityAttachment')->name('saveActivityAttachment');
+
+  // Monitoring Module Routes
+  Route::get('/monitoring_newAssignment','OfficerController@monitoring_newAssignments')->name('Monitoring_newAssignments');
+  Route::get('/monitoring_inprogressAssignment','OfficerController@monitoring_inprogressAssignments')->name('Monitoring_inprogressAssignments');
+  Route::get('/monitoring_completedAssignment','OfficerController@monitoring_completedAssignments')->name('Monitoring_completedAssignments');
+  Route::get('/monitoring_stages','OfficerController@monitoring_Stages')->name('Monitoring_stages');
+
 });
 
 //For DataEntry

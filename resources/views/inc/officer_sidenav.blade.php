@@ -94,13 +94,13 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                  <li><a href="#"><i class="fa fa-circle-o"></i> New Assignments
+              <li><a href="{{route('Monitoring_newAssignments')}}"><i class="fa fa-circle-o"></i> New Assignments
                     <span class="pull-right-container">
                         <span class="label label-primary pull-right">new</span>
                     </span></a></li>
 
-                  <li><a href="#"><i class="fa fa-circle-o"></i> In-Progress</a></li>
-                  <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li>
+                  <li><a href="{{route('Monitoring_inprogressAssignments')}}"><i class="fa fa-circle-o"></i> In-Progress</a></li>
+                  <li><a href="{{route('Monitoring_completedAssignments')}}"><i class="fa fa-circle-o"></i> Completed</a></li>
               </ul>
             </li>
           {{-- TPVS --}}
