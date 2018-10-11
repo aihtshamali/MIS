@@ -84,7 +84,8 @@ class ProjectController extends Controller
       // $project_no = Str::random();
       $current_year = date('Y');
       $approving_forums = ApprovingForum::all();
-      $sub_project_types = SubProjectType::all();
+      $sub_project_types = SubProjectType::where('project_type_id',1)->get();
+      $m_sub_project_types = SubProjectType::where('project_type_id',2)->get();
       $projectfor_no=Project::select('projects.project_no')->latest()->first();
       if($projectfor_no){
       $projectNo=explode('-',$projectfor_no->project_no);
@@ -108,7 +109,7 @@ class ProjectController extends Controller
       foreach ($assigning_forums as $assigning_forum) {
         $assigning_forum->name = $assigning_forum->name . "/";
       }
-      return view('projects.create',compact('sub_project_types','districts','sectors','sponsoring_departments','executing_departments','assigning_forums','project_no','current_year','approving_forums','evaluation_types','project_types','evaluation_types','sub_sectors','projects'));
+      return view('projects.create',compact('sub_project_types','m_sub_project_types','districts','sectors','sponsoring_departments','executing_departments','assigning_forums','project_no','current_year','approving_forums','evaluation_types','project_types','evaluation_types','sub_sectors','projects'));
         // $sponosoring_agencies=SponsoringAgency::all();
         // $executing_agencies=ExecutingAgency::all();
         // $users=User::all();
@@ -123,25 +124,32 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-      // dd($plan_end_date);
-      $projectfor_no=Project::select('projects.project_no')->latest()->first();
-      if($projectfor_no){
-      $project_no=explode('-',$projectfor_no->project_no);
-      $projectNo=$project_no[0].'-'.($project_no[1]+1);
-      }
-      else {
-        $projectNo = "PRO-1";
-      }
+      // dd($request->all());
+      $projectfor_no=SubProjectType::select('projects.project_no','projects.created_at')
+      ->where('sub_project_types.project_type_id','1')
+      ->leftJoin('projects','projects.project_type_id','sub_project_types.project_type_id')
+      ->latest()->first();
+      // if($projectfor_no && isset($projectfor_no->project_no) && $projectfor_no->project_no){
+      // $project_no=explode('-',$projectfor_no->project_no);
+      // $projectNo=$project_no[0].'-'.($project_no[1]+1);
+      // }
+      // else {
+      //   $projectNo = "PRO-1";
+      // }
+      $projectNo=$request->project_no;
       $project = new Project();
       $project->title = $request->title;
       $project->project_no = $projectNo;
-      $project->evaluation_type_id = $request->evaluation_type;
+      if(isset($request->evaluation_type) && $request->evaluation_type)
+        $project->evaluation_type_id = $request->evaluation_type;
       $project->ADP = $request->ADP;
       $project->project_type_id = $request->type_of_project;
       $project->assigning_forum_sub_list_id = $request->assigning_forumSubList;
       $project->status = 0;
       $project->user_id = Auth::id();
+
       $project->save();
+
       $project_id = Project::latest()->first()->id;
       $project_detail = new ProjectDetail();
       $project_detail->project_id = $project_id;
@@ -153,7 +161,14 @@ class ProjectController extends Controller
         $project_detail->revised_start_date = date('Y-m-d',strtotime($request->revised_start_date));
       $project_detail->assigning_forum_id = $request->assigning_forum;
       $project_detail->approving_forum_id = $request->approving_forum;
-      $project_detail->sub_project_type_id = $request->phase_of_evaluation;//change
+      // TODO:
+      if($request->phase_of_evaluation!='' && $request->phase_of_evaluation!=NULL)
+      {
+        // dd('as');
+          $project_detail->sub_project_type_id = $request->phase_of_evaluation;//change
+      }
+      else
+        $project_detail->sub_project_type_id = $request->phase_of_monitoring;//change
       if($request->hasFile('attachments')){
         $request->file('attachments')->store('public/uploads/projects/');
         $file_name = $request->file('attachments')->hashName();
@@ -219,7 +234,7 @@ class ProjectController extends Controller
       // $project->assigned_project_id=AssignedProject::where('project_id',$id)->first()->id;
       if($request->title != NULL)
         $project->title = $request->title;
-      if($request->evaluation_type != NULL)
+      if(isset($request->evaluation_type) &&$request->evaluation_type != NULL )
         $project->evaluation_type_id = $request->evaluation_type;
       if($request->ADP != NULL)
         $project->ADP = $request->ADP;

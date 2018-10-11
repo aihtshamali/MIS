@@ -84,7 +84,7 @@ vertical-align: super;
             <div id="second" class="form-group">
               <label>Phase of Evaluation</label>
               <select id="phase_of_evaluation" name="phase_of_evaluation" class="form-control select2" style="width: 100%;">
-                <option>Select Evaluation Type</option>
+                <option value="">Select Evaluation Type</option>
                 @foreach ($sub_project_types as $sub_project_type)
                   <option value="{{$sub_project_type->id}}">{{$sub_project_type->name}}</option>
                 @endforeach
@@ -93,8 +93,8 @@ vertical-align: super;
             <div id="monitoring_second" class="form-group">
               <label>Phase of Monitoring</label>
               <select id="phase_of_monitoring" name="phase_of_monitoring" class="form-control select2" style="width: 100%;">
-                <option>Select Monitoring Type</option>
-                @foreach ($sub_project_types as $sub_project_type)
+                <option value="">Select Monitoring Type</option>
+                @foreach ($m_sub_project_types as $sub_project_type)
                   <option value="{{$sub_project_type->id}}">{{$sub_project_type->name}}</option>
                 @endforeach
               </select>
@@ -786,8 +786,6 @@ $(document).on('change', '#type_of_project', function() {
     $("#monitoring_second").hide();
     $("#monitoring_fourth").hide();
     $('#table1').hide("slow");
-
-
   }
   else if(opt == "Monitoring"){
     $("#monitoring_second").show('slow');
@@ -817,6 +815,24 @@ if(opt == "New Monitoring"){
   $("#monitoring_fourth").hide();
   $('#table1').hide("slow");
   $("#section1").hide('slow');
+  $('#evaluation_type').parent().parent().remove();
+  // FEtching Monitoring Project Number From Database
+  $.ajax({
+    method: 'POST', // Type of response and matches what we said in the route
+    url: '/getMonitoringProjectNumber', // This is the url we gave in the route
+    data: {
+      "_token": "{{ csrf_token() }}",
+      'project_type_id' : $(this).val()}, // a JSON object to send back
+    success: function(response){ // What to do if we succeed
+      // console.log(response);
+      $('#project_no').val(response);
+    },
+    error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+        console.log(JSON.stringify(jqXHR));
+        console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+    }
+  });
+
   $("#section2").show('slow');
 }
 else if (opt == "RE Monitoring") {

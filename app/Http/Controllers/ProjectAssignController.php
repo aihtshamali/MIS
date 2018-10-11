@@ -62,6 +62,7 @@ class ProjectAssignController extends Controller
         ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
         ->whereNull('assigned_project_managers.project_id')
         ->whereNull('assigned_projects.project_id')
+        ->where('projects.project_type_id','1')
         ->get();
         // dd($projects);
          return view('project_assigned.index',['unassigned'=>$unassigned,'assignedtoManager'=>$assignedtoManager,'assigned'=>$assigned,'officers'=>$officers,'managers'=>$managers,'projects'=>$projects,'users'=>$users]);
