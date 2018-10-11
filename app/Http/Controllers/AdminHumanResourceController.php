@@ -52,7 +52,7 @@ class AdminHumanResourceController extends Controller
     //     // dd('hell');
 
     //     $agendas=HrAgenda::all();
-    //     // dd($agendas);   
+    //     // dd($agendas);
     //     return view('admin_hr.meeting',compact('agendas'));
     // }
     public function saveMoms(Request $request){
@@ -205,9 +205,9 @@ class AdminHumanResourceController extends Controller
             $hr_agenda->hr_sector_id = $request->sector;
             $hr_agenda->start_timeofagenda = $request->my_time;
             if(isset($request->adp_no))
-              $filename = 'WP-'.$request->meeting_id.'-'.$hr_agenda->adp_no .'-'. date('Y-m-d',$mytime->toDateTimeString());
+              $filename = 'WP-'.$request->meeting_id.'-'.$hr_agenda->adp_no .'-'. date('Y-m-d',strtotime($mytime->toDateTimeString()));
             else
-            $filename = 'WP-'.$request->meeting_id .'-'. date('Y-m-d',$mytime->toDateTimeString());
+              $filename = 'WP-'.$request->meeting_id .'-'. date('Y-m-d',strtotime($mytime->toDateTimeString()));
             // dd($hr_agenda);
             $hr_agenda->save();
             if($request->hasFile('attachments')){

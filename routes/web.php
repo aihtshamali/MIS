@@ -153,6 +153,7 @@ Route::post('/getAssignedProjectCounter','ProjectCounterController@getAssignedPr
 Route::post('/getCompletedCounter','ProjectCounterController@getCompletedCounter')->name('completedCounter');
 Route::post('/onsectorselect','DataEntryController@onSectorSelect');
 Route::post('/onsubsectorselect','DataEntryController@onSub_SectorSelect');
+Route::post('/getMonitoringProjectNumber','DataEntryController@getMonitoringProjectData');
 Route::post('/onAssigningForumselect','DataEntryController@onAssigningForumselect');
 Route::post('/onchangefunction','DataEntryController@onSubSectorSelect');
 Route::post('/onnewprojectselect','DataEntryController@newproject');

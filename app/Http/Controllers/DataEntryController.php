@@ -132,4 +132,23 @@ class DataEntryController extends Controller
       $result = $request->all();
       return $result['data'];
     }
+    // Monitoring section
+
+    public function getMonitoringProjectData(Request $request){
+      $projectfor_no=SubProjectType::select('projects.project_no','projects.created_at')
+      ->where('sub_project_types.project_type_id',$request->project_type_id)
+      ->leftJoin('projects','projects.project_type_id','sub_project_types.project_type_id')
+      ->latest()->first();
+      if($projectfor_no && isset($projectfor_no->project_no) && $projectfor_no->project_no){
+        $projectNo=explode('-',$projectfor_no->project_no);
+        $project_no=$projectNo[0].'-'.$projectNo[1].'-'.($projectNo[2]+1);
+      }
+      else {
+        $project_no = "PRO-M-1";
+      }
+      return $project_no;
+    }
+
+
+
 }
