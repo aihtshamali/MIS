@@ -1,57 +1,112 @@
 @extends('layouts.uppernav')
-
+@section('styletags')
+  <style media="screen">
+    .header-content{
+      padding:10px;
+    }
+    table.projects th , td{
+      text-align: center !important;
+    }
+    .veryHigh{
+      height: 100%;
+    }
+    .parent {
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+    }
+    .priority{
+      /* background: #fff; */
+   opacity: .4;
+   color:black;
+   font-weight: bold;
+    }
+    .child-right {
+      background:green;
+      height: 100%;
+      width: 50%;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  </style>
+@endsection
 @section('content')
-<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-  <!-- Content Header (Page header) -->
+<!-- SELECT2 EXAMPLE -->
+<div class="box box-default">
+        {{-- <div class="box-header with-border">
+          <h3 class="box-title header-content">Un-assigned Projects</h3>
+          <h3 class="box-title header-content">Assigned Projects</h3>
+          <h3 class="box-title header-content">Completed Projects</h3>
 
-  <section class="content-header">
-    <h1>
-    ASSIGNED MONITORING PROJECTS
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-backward" ></i>Back</a></li>
-      <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li>
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+          </div>
+        </div> --}}
+        <!-- /.box-header -->
+        <div class="box-body">
+          <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+                @include('inc.msgs')
+              <div class="form-group">
+                <label>Un-Assigned Projects</label>
 
-    </ol>
-  </section>
-{{--  {{dd($officers)}}  --}}
-  <section class="content">
-      {{--  sekect consulatants  --}}
-      <div class="row">
-        <div class="col-md-12">
-          {{--  Chart 1  --}}
-          <div class="box box-warning">
-            <div class="box-header with-border">
-              <h3 class="box-title">ASSIGNED PROJECTS - OFFICERS</h3>
+                <table class="table table-responsive table-bordered projects">
+                  <thead>
+                    <th>Project No.</th>
+                    <th>Project Name</th>
+                    <th>Project Type</th>
+                    <th>Created At</th>
+                    <th colspan="1" >Project Priority</th>
+                    <th>Action</th>
+                  </thead>
+                  <tbody>
+                    {{-- {{dd($projects)}} --}}
+                  @foreach($projects as $project)
+                        <tr>
+                            <form class="" action="{{route('assignproject.create')}}" method="GET">
+                                {{ csrf_field() }}
+                          <td>{{$project->project_no}}</td>
+                          <td><a href="{{route('projects.show',$project->id)}}">{{$project->title}}</a></td>
+                          <td>{{$project->ProjectType->name}}</td>
+                          <td>{{$project->created_at}}</td>
+                          <td>
+                            <input type="hidden" name="priority" value="">
+                            <input type="hidden" name="project_id" value="{{$project->id}}">
+                            <button type="button" class="btn btn-md priority" style="background-color:red; ">High Priority</button>
+                            <button type="button"  class="btn btn-md priority"style="background-color:green; ">Normal Priority</button>
+                            <button type="button" class="btn btn-md priority" style="background-color:yellow; ">Low Priority</button>
 
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
+                          </td>
+                          <td><input type="submit" name="submit" value="Assign" class="btn btn-info"></td>
+                            </form>
+                        </tr>
+                  @endforeach
+                </tbody>
+                </table>
 
               </div>
-            </div>
-            <div class="box-body">
-                {{-- Chat --}}
-                {{-- EndChat --}}
-                <div class="table-responsive">
-                  <table class="table table-hover table-striped">
-                   
-                        <thead>
-                            <th>Project Number</th>
-                            <th>Project Name</th>
-                            <th>Project Officers</th>
-                            <th>Priority</th>
-                            <th>Assigned Date</th>
-                            <th>Progress</th>
-                          </thead>
-                          <tbody>
-                    </tbody>
-                  </table>
-                </div>
-            </div>
+            <!-- /.col -->
           </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
         </div>
-      </div>
-  </section>
-  @endsection
+          <!-- /.container -->
+          </div>
+      </form>
+        </div>
+</div>
+</div>
+@endsection
+@section('scripttags')
+<script>
+    $('.priority').on('click',function(){
+      $('.priority').css('opacity','0.4');
+      $('input[name="priority"]').val($(this).text().toLowerCase().replace(' ','_'));
+      $(this).css('opacity','unset').css('color','black');
+    });
+</script>
+@endsection
