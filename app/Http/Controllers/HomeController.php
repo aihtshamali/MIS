@@ -31,6 +31,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+      // $score = app('App\Http\Controllers\ProjectAssignController')->AddScore(1025);
+
         // $projects = Project::all();
         // foreach($projects as $project){
         //   $score = app('App\Http\Controllers\ProjectAssignController')->AddScore($project->id);

@@ -62,7 +62,9 @@ class ProjectAssignController extends Controller
         ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
         ->whereNull('assigned_project_managers.project_id')
         ->whereNull('assigned_projects.project_id')
-        ->get();
+        ->where('projects.project_type_id','1')
+        ->get();        
+
         // dd($projects);
          return view('project_assigned.index',['unassigned'=>$unassigned,'assignedtoManager'=>$assignedtoManager,'assigned'=>$assigned,'officers'=>$officers,'managers'=>$managers,'projects'=>$projects,'users'=>$users]);
      }
@@ -457,9 +459,13 @@ class ProjectAssignController extends Controller
 
       //Distance Calculation
       $max = $assigned_districts[0]->District->distance;
+      if($assigned_districts[0]->District->name == "ALL")
+        $coverage = 8;
       foreach ($assigned_districts as $district) {
         if($district->District->distance > $max){
           $max = $district->District->distance;
+          if($assigned_districts[0]->District->name == "ALL")
+            $coverage = 8;
         }
       }
       if($max < 200){
@@ -469,7 +475,7 @@ class ProjectAssignController extends Controller
         $distance_total = 0.7;
       }
       else{
-        $distance_total = 1;
+        $distance_total = 1.0;
       }
 
       $distance_total *= $distance_constant;
