@@ -47,11 +47,20 @@
 
                   <table class="table table-responsive table-bordered projects">
                   <thead>
+<<<<<<< HEAD
                   <th>Project No.</th>
                   <th>Project Name</th>
                   <th>Assigned By</th>
                   <th>Priority</th>
                   <th>Project Type</th>
+=======
+                    <th>Project No.</th>
+                    <th>Project Name</th>
+                    <th>Assigned By</th>
+                    <th>Priority</th>
+                    <th>Project Score</th>
+                    <th>Project Type</th>
+>>>>>>> c48370bf099fb1b587fef4e037cfad536839f98f
 
                   <th colspan="1" >Project Priority</th>
                   <th>Action</th>
@@ -60,6 +69,7 @@
                   {{-- {{dd($projects)}}/ --}}
                   @foreach($projects as $project)
 
+<<<<<<< HEAD
                   <tr>
                   <form class="" action="{{route('create_from_director')}}" method="GET">
                   {{ csrf_field() }}
@@ -86,6 +96,27 @@
                   <td><input type="submit" name="submit" value="Assign" class="btn btn-info"></td>
                   </form>
                   </tr>
+=======
+                        <tr>
+                            <form class="" action="{{route('create_from_director')}}" method="GET">
+                                {{ csrf_field() }}
+                          <td>{{$project->Project->project_no}}</td>
+                          <td><a href="{{route('projects.show',$project->project_id)}}">{{$project->Project->title}}</a></td>
+                          <td>{{$project->AssignedBy($project->assigned_by)->first_name}} </td>
+                          <td>{{ $project->Project->ProjectDetail->AssigningForum->name }}</td>
+                          <td>{{ round($project->Project->score,2,PHP_ROUND_HALF_UP) }}</td>
+                          <td>{{$project->Project->ProjectType->name}}</td>
+                            <input type="hidden" name="inheritPriority" value="{{$project->priority}}">
+                          <td>
+                            <input type="hidden" name="priority" value="">
+                            <input type="hidden" name="project_id" value="{{$project->project_id}}">
+                            {{ $project->Project->ProjectDetail->AssigningForum->name }}
+                          </td>
+                          <td>{{ $project->Project->score }}</td>
+                          <td><input type="submit" name="submit" value="Assign" class="btn btn-info"></td>
+                        </form>
+                        </tr>
+>>>>>>> c48370bf099fb1b587fef4e037cfad536839f98f
                   @endforeach
                   </tbody>
                   </table>

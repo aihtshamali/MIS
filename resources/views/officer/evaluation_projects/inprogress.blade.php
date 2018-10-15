@@ -47,6 +47,7 @@
                             <th style="text-align:center;">Project Name</th>
                             <th style="text-align:center;">Assigned By</th>
                             <th style="text-align:center;">Project Priority</th>
+                            <th style="text-align:center;">Project Score</th>
                             <th style="text-align:center;">Assigned Duration</th>
                             <th style="text-align:center;">Global Progress</th>
                             <th style="text-align:center;">Actions</th>
@@ -61,13 +62,10 @@
                             <td><a href="{{route('evaluation_activities',$o->project_id)}}">{{$o->project->title}}</a> </td>
                             <td>{{$o->getassignedperson($o->assigned_by)->first_name}} {{$o->getassignedperson($o->assigned_by)->last_name}}</td>
                             <td>
-                              @if ($o->priority==3)
-                              High
-                            @elseif ($o->priority==2)
-                              Normal
-                            @else
-                              Low
-                            @endif
+                              {{ $o->project->ProjectDetail->AssigningForum->name }}
+                            </td>
+                            <td>
+                              {{ round($o->project->score,2,PHP_ROUND_HALF_UP) }}
                             </td>
                             <td>
                               @php

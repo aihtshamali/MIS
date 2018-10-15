@@ -349,6 +349,9 @@ class ProjectController extends Controller
       // $notification->save();
       // return redirect()->route('new_evaluation');
 
+      $score = app('App\Http\Controllers\ProjectAssignController')->AddScore($project->id);
+      $project->score = $score;
+      $project->save();
       return redirect()->route('projects.index');
     }
 
