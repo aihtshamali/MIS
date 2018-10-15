@@ -148,6 +148,7 @@
                             <th>Project Name</th>
                             <th>Team Members</th>
                             <th>Priority</th>
+                            <th>Score</th>
                             <th>Assigned Duration</th>
                             <th>Progress</th>
                             <th></th>
@@ -169,14 +170,10 @@
 
                                 </td>
                                 <td>
-                                    @if ($assigned->priority==3)
-                                    High
-                                  @elseif ($assigned->priority==2)
-                                    Normal
-                                  @else
-                                    Low
-                                  @endif
-
+                                  {{ $assigned->project->ProjectDetail->AssigningForum->name }}
+                                </td>
+                                <td>
+                                  {{ round($assigned->project->score,2,PHP_ROUND_HALF_UP) }}
                                 </td>
 
                                 <td>

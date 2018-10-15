@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\AssignedProject;
+use App\Project;
 use App\AssignedProjectActivity;
 use Auth;
 use Illuminate\Support\Facades\Schema;
@@ -30,6 +31,14 @@ class HomeController extends Controller
      */
     public function index()
     {
+      // $score = app('App\Http\Controllers\ProjectAssignController')->AddScore(1025);
+
+        // $projects = Project::all();
+        // foreach($projects as $project){
+        //   $score = app('App\Http\Controllers\ProjectAssignController')->AddScore($project->id);
+        //   $project->score = $score;
+        //   $project->save();
+        // }
       // $project = AssignedProject::find($assigned_project_activity->project_id);
       // $percentage_array = [15.26,8.26,10.05,6.99,8.03,8.16,14.79,8.23,2.77,9.35,4.17,3.94];
       // $projects = AssignedProject::all();
