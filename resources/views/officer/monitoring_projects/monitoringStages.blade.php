@@ -170,7 +170,7 @@
                 </div>
                 <hr/>
                 <div class="panel-group">
-                        @foreach($activities as $activity)
+                        {{-- @foreach($activities as $activity) --}}
                     <div class="panel" >
                     <div class="panel-heading" style="background-color:#4A6066 !important; color:white;" ><b>STAGE I : </b> DOCUMENTS</div>
                     <div class="panel-body">
@@ -326,7 +326,7 @@
                          </ol>
                     </div>
                 </div>  
-                @endforeach
+                {{-- @endforeach --}}
             </div>
             <a href="#" class="btn btn-success btn-md pull-right">DONE </a>
          

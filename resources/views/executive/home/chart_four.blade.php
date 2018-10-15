@@ -75,8 +75,8 @@
 
     <section class="content-header">
         <h1>
-          Histogram of Completed Projects
-          <small>Global Progress</small>
+         Completed Projects
+   
         </h1>
         <ol class="breadcrumb">
         <li><a href="{{route('Exec_pems_tab')}}"><i class="fa fa-backward" ></i>Back</a></li>

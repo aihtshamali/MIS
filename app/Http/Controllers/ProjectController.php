@@ -15,6 +15,7 @@ use App\Project;
 use App\ProjectLog;
 use App\ProjectDetail;
 use App\Department;
+use App\AdpProject;
 use App\AssignedSubSector;
 
 // use App\AssignedDepartment;
@@ -87,13 +88,15 @@ class ProjectController extends Controller
       $sub_project_types = SubProjectType::where('project_type_id',1)->get();
       $m_sub_project_types = SubProjectType::where('project_type_id',2)->get();
       $projectfor_no=Project::select('projects.project_no')->latest()->first();
-      if($projectfor_no){
-      $projectNo=explode('-',$projectfor_no->project_no);
-      $project_no=$projectNo[0].'-'.($projectNo[1]+1);
-      }
-      else {
-        $project_no = "PRO-1";
-      }
+      $adp = AdpProject::orderBy('gs_no')->get();
+      // if($projectfor_no){
+      // $projectNo=explode('-',$projectfor_no->project_no);
+      // $project_no=$projectNo[0].'-'.($projectNo[1]+1);
+      // }
+      // else {
+      //   $project_no = "PRO-1";
+      // }
+      $project_no='';
       foreach ($districts as $district) {
         $district->name = $district->name . "/";
       }
@@ -109,7 +112,10 @@ class ProjectController extends Controller
       foreach ($assigning_forums as $assigning_forum) {
         $assigning_forum->name = $assigning_forum->name . "/";
       }
-      return view('projects.create',compact('sub_project_types','m_sub_project_types','districts','sectors','sponsoring_departments','executing_departments','assigning_forums','project_no','current_year','approving_forums','evaluation_types','project_types','evaluation_types','sub_sectors','projects'));
+      \JavaScript::put([
+        'projects' => $adp
+    ]);
+      return view('projects.create',compact('sub_project_types','m_sub_project_types','adp','districts','sectors','sponsoring_departments','executing_departments','assigning_forums','project_no','current_year','approving_forums','evaluation_types','project_types','evaluation_types','sub_sectors','projects'));
         // $sponosoring_agencies=SponsoringAgency::all();
         // $executing_agencies=ExecutingAgency::all();
         // $users=User::all();

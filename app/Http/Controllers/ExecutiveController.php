@@ -735,10 +735,7 @@ class ExecutiveController extends Controller
                   ->leftJoin('roles','roles.id','role_user.role_id')
                   ->where('roles.name','officer')
                   ->get();
-           // $projects = Project::select('projects.*')
-           // ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
-           // // ->where('assigned_projects.project_id','!=','projects.id')
-           // ->get();
+          
            $projects=Project::select('projects.*')
           ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
           ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')

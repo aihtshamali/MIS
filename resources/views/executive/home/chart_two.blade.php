@@ -75,8 +75,8 @@
 
     <section class="content-header">
         <h1>
-          Histogram of Assigned Projects
-          <small>Global Progress</small>
+          Assigned Projects
+    
         </h1>
         <ol class="breadcrumb">
         <li><a href="{{route('Exec_pems_tab')}}"><i class="fa fa-backward" ></i>Back</a></li>
@@ -90,27 +90,9 @@
                     
                     <div class="card col-md-12" >
                         <div class="card-header">
-                        {{-- <label for="">Histogram of Projects</label> --}}
+                     
                         </div> 
                         <div id="chartdiv2"></div>
-                        {{-- <div class="card-footer" >
-                            <div style="padding:5px;display:inline-block;">
-                            <span class="lightblue">-</span> 
-                            <label style="vertical-align:-webkit-baseline-middle;">{{$total_projects}} Total Projects</label> 
-                            </div>
-                            <div style="padding:5px; display:inline-block;">
-                            <span class="blue">-</span> 
-                            <label style="vertical-align:-webkit-baseline-middle;">{{$total_assigned_projects}} Total Assigned Projects</label> 
-                            </div>
-                            <div style="padding:5px; display:inline-block;">
-                            <span class="darkblue">-</span> 
-                            <label style="vertical-align:-webkit-baseline-middle;">{{$inprogress_projects}} Total InProgress Projects</label> 
-                            </div>
-                            <div style="padding:5px; display:inline-block;">
-                            <span class="purple">-</span> 
-                            <label style="vertical-align:-webkit-baseline-middle;">{{$completed_projects}} Completed Projects</label> 
-                            </div>   
-                        </div> --}}
                     </div>
                     <div class="col-md-1"></div>
                 </div>
