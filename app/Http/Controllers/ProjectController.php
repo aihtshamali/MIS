@@ -87,13 +87,14 @@ class ProjectController extends Controller
       $sub_project_types = SubProjectType::where('project_type_id',1)->get();
       $m_sub_project_types = SubProjectType::where('project_type_id',2)->get();
       $projectfor_no=Project::select('projects.project_no')->latest()->first();
-      if($projectfor_no){
-      $projectNo=explode('-',$projectfor_no->project_no);
-      $project_no=$projectNo[0].'-'.($projectNo[1]+1);
-      }
-      else {
-        $project_no = "PRO-1";
-      }
+      $project_no='';
+      // if($projectfor_no){
+      // $projectNo=explode('-',$projectfor_no->project_no);
+      // $project_no=$projectNo[0].'-'.($projectNo[1]+1);
+      // }
+      // else {
+      //   $project_no = "PRO-1";
+      // }
       foreach ($districts as $district) {
         $district->name = $district->name . "/";
       }
