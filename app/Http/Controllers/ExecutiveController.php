@@ -345,7 +345,8 @@ class ExecutiveController extends Controller
     }
 
     // chart3
-    public function chart_three(){
+    public function chart_three()
+    {
       $total_projects = count(Project::all());
       $total_assigned_projects = count(AssignedProject::all());
       $inprogress_projects = count(AssignedProject::where('acknowledge',1)->get());

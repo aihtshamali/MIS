@@ -20,7 +20,10 @@
   }
   .card-header{
   height:10%;
-  text-align: center;
+  text-align: left;
+  font-weight: bold;
+  padding: 10px;
+  text-decoration: underline;
   }
   .lightblue{
     font-size: 0px;
@@ -90,9 +93,10 @@
                     
                     <div class="card col-md-12" >
                         <div class="card-header">
-                     
+                          
                         </div> 
                         <div id="chartdiv2"></div>
+                       
                     </div>
                     <div class="col-md-1"></div>
                 </div>

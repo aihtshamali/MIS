@@ -60,6 +60,10 @@ Route::prefix('manager')->middleware('role:manager')->group(function () {
   Route::get('/chart_nine','ExecutiveController@chart_nine')->name('chart_nine');
   Route::get('/chart_ten','ExecutiveController@chart_ten')->name('chart_ten');
 
+  // chart details
+  // Route::get('/chart_two_details','ExecutiveController@chart_two')->name('chart_two_details');
+
+  // 
   Route::get('/pems_tab','ExecutiveController@pems_index')->name('Exec_pems_tab');
   Route::get('/pmms_tab','ExecutiveController@pmms_index')->name('Exec_pmms_tab');
   Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
@@ -101,6 +105,12 @@ Route::prefix('director_evaluation')->middleware('role:directorevaluation')->gro
   Route::get('/search','DirectorEvaluationController@searchOfficer')->name('search_officer');
   Route::get('assignproject','ProjectAssignController@create_from_director')->name('create_from_director');
   Route::post('assignproject','ProjectAssignController@store_from_director')->name('store_from_director');
+
+  // 
+  Route::post('getAssignedProjects','DirectorEvaluationController@getAssignedProjects')->name('getofficersassigned');
+
+  Route::get('/projects_assigned','DirectorEvaluationController@totalProjectAssigned')->name('totalProjectAssignedtoOfficers');
+
 
 });
   //for Monitoring Director
