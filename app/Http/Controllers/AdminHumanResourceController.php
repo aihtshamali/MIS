@@ -62,7 +62,7 @@ class AdminHumanResourceController extends Controller
       $meeting_filename = "PDWP-MOM-".$request->hr_agenda_id;
       $request->file('attach_moms')->storeAs('public/uploads/projects/meetings_mom',$meeting_filename.'.'.$request->file('attach_moms')->getClientOriginalExtension());
       $HRamiG->attachment = $meeting_filename.'.'.$request->file('attach_moms')->getClientOriginalExtension();
-      dd($HRamiG);
+    //   dd($HRamiG);
 
       $HRamiG->save();
     }
