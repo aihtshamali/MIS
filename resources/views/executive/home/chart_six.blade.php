@@ -76,7 +76,7 @@
     <section class="content-header">
         <h1>
           Officer's Progress on Current/Inprogress Projects
-          <small>Global Progress</small>
+       
         </h1>
         <ol class="breadcrumb">
         <li><a href="{{route('Exec_pems_tab')}}"><i class="fa fa-backward" ></i>Back</a></li>

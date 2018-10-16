@@ -3,7 +3,7 @@
 
 <link rel="stylesheet" href="{{asset('css/charts/export.css')}}" type="text/css" media="all" />
 <style>
-#chartdiv5 {
+    #chartdiv2 {
   width		: 100%;
   height	: 90%;
   font-size	: 15px;
@@ -20,7 +20,10 @@
   }
   .card-header{
   height:10%;
-  text-align: center;
+  text-align: left;
+  font-weight: bold;
+  padding: 10px;
+  text-decoration: underline;
   }
   .lightblue{
     font-size: 0px;
@@ -75,8 +78,8 @@
 
     <section class="content-header">
         <h1>
-          Officer's Progress on Current/Inprogress Projects
-         
+          Assigned Projects
+    
         </h1>
         <ol class="breadcrumb">
         <li><a href="{{route('Exec_pems_tab')}}"><i class="fa fa-backward" ></i>Back</a></li>
@@ -90,8 +93,10 @@
                     
                     <div class="card col-md-12" >
                         <div class="card-header">
+                  
                         </div> 
-                        <div id="chartdiv5"></div>
+                        <div id="chartdiv2"></div>
+                       
                     </div>
                     <div class="col-md-1"></div>
                 </div>
@@ -99,75 +104,4 @@
     </section>
     
 </div>
-@endsection
-@section('scripttags')
-<script src="{{asset('js/charts/amcharts.js')}}"></script>
-<script src="{{asset('js/charts/serial.js')}}"></script>
-<script src="{{asset('js/charts/fabric.min.js')}}"></script>
-<script src="{{asset('js/charts/FileSaver.min.js')}}"></script>
-<script src="{{asset('js/charts/jszip.min.js')}}"></script>
-<script src="{{asset('js/charts/pdfmake.min.js')}}"></script>
-<script src="{{asset('js/charts/export.min.js')}}"></script>
-<script src="{{asset('js/charts/dark.js')}}"></script>
-<script src="{{asset('js/charts/black.js')}}"></script>
-<script src="{{asset('js/charts/chalk.js')}}"></script>
-<script src="{{asset('js/charts/light.js')}}"></script>
-<script src="{{asset('js/charts/patterns.js')}}"></script>
-<script>
-  var st = [];
-  $i = 0;
-
-  officers.forEach(element => {
-  st.push ({ 
-    "Name": element.first_name + ' ' + element.last_name,
-    "Progress": assigned_current_projects[$i]
-  });
-  $i++;
-  });
-
-  var chart = AmCharts.makeChart("chartdiv5", {
-  "type": "serial",
-  "theme": "none",
-  "dataProvider": st,
-  "categoryField": "Name",
-
-  "rotate": true,
-  "startDuration": 1,
-  "categoryAxis": {
-    "autoGridCount": false,
-  "equalSpacing": true,
-  "gridCount": 1000,
-  "gridPosition": "start",
-  "autoWrap": true,
-  "position": "left"
-  },
-  "trendLines": [],
-  "graphs": [
-  {
-  "balloonText": "Progress:[[value]]",
-  "fillAlphas": 0.8,
-  "id": "AmGraph-1",
-  "lineAlpha": 0.2,
-  "title": "Progress",
-  "type": "column",
-  "valueField": "Progress"
-  }
-  ],
-  "guides": [],
-  "valueAxes": [
-  {
-  "id": "ValueAxis-1",
-  "position": "bottom",
-  "axisAlpha": 0
-  }
-  ],
-  "allLabels": [],
-  "balloon": {},
-  "titles": [],
-  "export": {
-  "enabled": true
-  }
-
-  });
-    </script>
 @endsection

@@ -52,7 +52,7 @@ class AdminHumanResourceController extends Controller
     //     // dd('hell');
 
     //     $agendas=HrAgenda::all();
-    //     // dd($agendas);   
+    //     // dd($agendas);
     //     return view('admin_hr.meeting',compact('agendas'));
     // }
     public function saveMoms(Request $request){

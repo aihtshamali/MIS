@@ -345,7 +345,8 @@ class ExecutiveController extends Controller
     }
 
     // chart3
-    public function chart_three(){
+    public function chart_three()
+    {
       $total_projects = count(Project::all());
       $total_assigned_projects = count(AssignedProject::all());
       $inprogress_projects = count(AssignedProject::where('acknowledge',1)->get());
@@ -680,12 +681,13 @@ class ExecutiveController extends Controller
     }
 
     public function evaluation_assignedprojects(){
-      $unassigned=Project::select('projects.*')
-     ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
-     ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
-     ->whereNull('assigned_project_managers.project_id')
-     ->whereNull('assigned_projects.project_id')
-     ->get();
+      $projects=Project::select('projects.*')
+      ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+      ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
+      ->whereNull('assigned_project_managers.project_id')
+      ->whereNull('assigned_projects.project_id')
+      ->where('projects.project_type_id','1')
+      ->get();
       $assigned=AssignedProject::all();
       $assignedtoManager=AssignedProjectManager::all();
       $projects=AssignedProject::all();
@@ -707,5 +709,51 @@ class ExecutiveController extends Controller
         return view('executive.evaluation.reviewed_projects');
       }
 
+      public function monitoring_unassigned()
+      {
+        $unassigned=Project::select('projects.*')
+        ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+        ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
+        ->whereNull('assigned_project_managers.project_id')
+        ->whereNull('assigned_projects.project_id')
+        ->get();
+        // dd($unassigned);
+         $assigned=AssignedProject::all();
+         $assignedtoManager=AssignedProjectManager::all();
+         $managers=User::select('roles.*','role_user.*','users.*')
+           ->leftJoin('role_user','role_user.user_id','users.id')
+           ->leftJoin('roles','roles.id','role_user.role_id')
+           ->where('roles.name','manager')
+           ->get();
+           $officers=User::select('roles.*','role_user.*','users.*')
+           ->leftJoin('role_user','role_user.user_id','users.id')
+           ->leftJoin('roles','roles.id','role_user.role_id')
+           ->where('roles.name','officer')
+           ->get();
+  
+           $users = User::select('users.*')
+                  ->leftJoin('role_user','role_user.user_id','users.id')
+                  ->leftJoin('roles','roles.id','role_user.role_id')
+                  ->where('roles.name','officer')
+                  ->get();
+          
+           $projects=Project::select('projects.*')
+          ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+          ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
+          ->whereNull('assigned_project_managers.project_id')
+          ->whereNull('assigned_projects.project_id')
+          ->where('projects.project_type_id','2')
+          ->get();
+          // dd($projects);
+           return view('executive.monitoring.unassigned',['unassigned'=>$unassigned,'assignedtoManager'=>$assignedtoManager,'assigned'=>$assigned,'officers'=>$officers,'managers'=>$managers,'projects'=>$projects,'users'=>$users]);
+      }
+      public function monitoring_inprogress()
+      {
+        return view('executive.monitoring.inprogress');
+      }
+      public function monitoring_completed()
+      {
+        return view('executive.monitoring.completed');
+      }
 
 }
