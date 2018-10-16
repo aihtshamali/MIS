@@ -637,20 +637,7 @@
     // });
 
     $(document).ready(function(){
-      // $('.expand').on('click',function(){
-      //   if($('.expand').children('.fa-plus').length){
-      //   axios.post('/ReadProblematicremarks',
-      //     {
-      //       api_token: '{csrf_field() }}',
-      //       project_id: $('input[name="project_id"]').val()
-      //     }).then((response) => {
-      //       console.log(response);
-      //     })
-      //     .catch(function (error) {
-      //       console.log(error);
-      //     });
-      //   }
-      // });
+     
 
       $('.btn').popover();
 

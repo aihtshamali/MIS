@@ -118,7 +118,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
           <a href="{{route('chart_one')}}">
           <div class="card col-md-2" >
           <div class="card-header">
-          <label for="">Total Projects</label>
+          <label for="">Evaluation Total Projects</label>
           </div> 
           <div id="chartdiv"></div>
           </div>

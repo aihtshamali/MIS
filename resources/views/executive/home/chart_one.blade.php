@@ -78,8 +78,8 @@
 
     <section class="content-header">
         <h1>
-          Histogram of Projects
-          <small>Global Progress</small>
+            Evaluation Total Projects
+         
         </h1>
         <ol class="breadcrumb">
         <li><a href="{{route('Exec_pems_tab')}}"><i class="fa fa-backward" ></i>Back</a></li>
@@ -93,7 +93,7 @@
                     
                     <div class="card col-md-12" >
                         <div class="card-header">
-                        <label for="">Histogram of Projects</label>
+                        <label for=""></label>
                         </div> 
                         <div id="chartdiv"></div>
                         <div class="card-footer" >

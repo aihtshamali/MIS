@@ -83,14 +83,14 @@
 
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Un- Assigned <span class="pull-right-container">
+          <li><a href="{{route('monitoring_unassigned')}}"><i class="fa fa-circle-o"></i> Un- Assigned <span class="pull-right-container">
               <span class="label label-primary pull-right">new</span>
             </span></a></li>
             <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o"></i> In Progress
+              <a href="{{route('monitoring_inprogress')}}"><i class="fa fa-circle-o"></i> In Progress
               </a>
             </li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li>
+            <li><a href="{{route('monitoring_completed')}}"><i class="fa fa-circle-o"></i> Completed</a></li>
           </ul>
         </li>
         {{--  tpvs  --}}
