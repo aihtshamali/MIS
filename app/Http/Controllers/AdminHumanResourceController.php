@@ -60,10 +60,9 @@ class AdminHumanResourceController extends Controller
       $HRamiG=new HrMomAttachment();
       $HRamiG->hr_agenda_id=$request->hr_agenda_id;
       $meeting_filename = "PDWP-MOM-".$request->hr_agenda_id;
-      $request->file('attach_moms')->storeAs('public/uploads/projects/meetings_mom',$meeting_filename.'.'.$request->file('attach_moms')->getClientOriginalExtension());
+      $file_path = $request->file('attach_moms')->path();
+      $HRamiG->attachment_file = base64_encode(file_get_contents($file_path));
       $HRamiG->attachment = $meeting_filename.'.'.$request->file('attach_moms')->getClientOriginalExtension();
-    //   dd($HRamiG);
-
       $HRamiG->save();
     }
     return redirect()->back();
@@ -170,14 +169,17 @@ class AdminHumanResourceController extends Controller
     public function show($id)
     {
         $meeting = HrMeetingPDWP::find($id);
-        // dd($meeting);
+        $agendas = $meeting->HrAgenda;
+        foreach($agendas as $agenda){
+            if($agenda->HrMomAttachment)
+            file_put_contents('storage/uploads/projects/meetings_mom/'.$agenda->HrMomAttachment->attachment,base64_decode($agenda->HrMomAttachment->attachment_file));
+        }
         $agenda_statuses = HrProjectType::all();
         $adp = AdpProject::orderBy('gs_no')->get();
         $sectors = HrSector::all();
         $meeting_types = HrMeetingType::all();
         $agenda_types = AgendaType::all();
         $agendas = $meeting->HrAgenda;
-        // dd($agendas);
         \JavaScript::put([
             'projects' => $adp
         ]);
@@ -205,9 +207,9 @@ class AdminHumanResourceController extends Controller
             $hr_agenda->hr_sector_id = $request->sector;
             $hr_agenda->start_timeofagenda = $request->my_time;
             if(isset($request->adp_no))
-              $filename = 'WP-'.$request->meeting_id.'-'.$hr_agenda->adp_no .'-'. date('Y-m-d',$mytime->toDateTimeString());
+              $filename = 'WP-'.$request->meeting_id.'-'. date('Y-m-d',strtotime($mytime)).'-'.$hr_agenda->adp_no ;
             else
-            $filename = 'WP-'.$request->meeting_id .'-'. date('Y-m-d',$mytime->toDateTimeString());
+            $filename = 'WP-'.$request->meeting_id .'-'. date('Y-m-d',strtotime($mytime));
             // dd($hr_agenda);
             $hr_agenda->save();
             if($request->hasFile('attachments')){
