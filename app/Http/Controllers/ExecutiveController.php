@@ -693,7 +693,7 @@ class ExecutiveController extends Controller
       $projects=AssignedProject::all();
       $managerProjects=AssignedProjectManager::all();
       // dd($projects);
-      return view('executive.evaluation.assigned',['projects'=>$projects,'managerProjects'=>$managerProjects,'assignedtoManager'=>$assignedtoManager,'assigned'=>$assigned,'unassigned'=>$unassigned]);
+      return view('executive.evaluation.assigned',['projects'=>$projects,'managerProjects'=>$managerProjects,'assignedtoManager'=>$assignedtoManager,'assigned'=>$assigned]);
     }
     public function evaluation_completedprojects(){
       $unassigned=Project::select('projects.*')
