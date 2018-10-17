@@ -124,7 +124,7 @@
               <td>
               {{$assigned_completed_projects[$i]}}
               </td>
-              <td> <button type="button"  class=" seelist btn btn-warning" data-id="{{$officer->id}}" data-name="{{$officer->first_name}} {{$officer->last_name}}">
+              <td> <button type="button"  class=" seelist2 btn btn-warning" data-id="{{$officer->id}}" data-name="{{$officer->first_name}} {{$officer->last_name}}">
               See Project List
               </button></td>
               @php
@@ -135,7 +135,7 @@
               </table>
               </div>
               </tbody>
-              <div class="modal fade" id="mymodal">
+              <div class="modal fade" id="mymodalcompleted">
               <div class="modal-dialog">
               <div class="modal-content">
               <div class="modal-header">
@@ -199,9 +199,40 @@
     });
 
   });
-function officer($id)
-{
-  alert
-}
+
+  $('.seelist2').click(function(){
+   
+   $("#mymodalcompleted").modal({
+   backdrop: 'static',
+   keyboard: false
+  }); 
+  var id=$(this).data('id');
+  var name=$(this).data('name');
+  
+  $('.modal-body > ol').children().remove();
+  $('.modal-title > b ').text('');
+  $('.modal-title >b').append(name)
+
+  $.ajax
+  ({
+   method: 'POST', // Type of response and matches what we said in the route
+   url: 'getCompletedProjects',
+   data: {
+     "_token": "{{ csrf_token() }}",
+     'data' : id
+     }, // a JSON object to send back
+       async: false,
+       success: function(data){
+         data.forEach(element => {
+           $('.modal-body > ol').append('<li>'+element.title+'</li><hr>')
+         });
+       },
+       error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+       console.log(JSON.stringify(jqXHR));
+       console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+       }
+   });
+
+ });
 </script>
 @endsection

@@ -688,6 +688,7 @@ class ExecutiveController extends Controller
       ->whereNull('assigned_projects.project_id')
       ->where('projects.project_type_id','1')
       ->get();
+      
       $assigned=AssignedProject::all();
       $assignedtoManager=AssignedProjectManager::all();
       $projects=AssignedProject::all();
