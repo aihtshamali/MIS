@@ -60,8 +60,13 @@
                             <tr>
                             <td> {{$o->project->project_no}} </td>
                             <td>{{$o->project->title}}  </td>
-
-                            <td>{{$o->getassignedperson($o->assigned_by)->first_name}} {{$o->getassignedperson($o->assigned_by)->last_name}}</td>
+                            @if(($o->getassignedperson($o->assigned_by))->hasRole("directorevaluation"))
+                            <td><span style="background-color:#E8971E; padding:5px; margin:px; color:white; font-weight:bold">{{$o->getassignedperson($o->assigned_by)->first_name}} {{$o->getassignedperson($o->assigned_by)->last_name}}</span></td>
+                            @elseif(($o->getassignedperson($o->assigned_by))->hasRole("directormonitoring"))
+                            <td><span style="background-color:#7906A1; padding:5px; margin:px; color:white; font-weight:bold">{{$o->getassignedperson($o->assigned_by)->first_name}} {{$o->getassignedperson($o->assigned_by)->last_name}}</span></td>
+                            @elseif(($o->getassignedperson($o->assigned_by))->hasRole("manager"))
+                            <td><span style="background-color:#B20013; padding:5px; margin:px; color:white; font-weight:bold">{{$o->getassignedperson($o->assigned_by)->first_name}} {{$o->getassignedperson($o->assigned_by)->last_name}}</span></td>
+                            @endif
                             <td>
                               {{ $o->project->ProjectDetail->AssigningForum->name }}
                             </td>
