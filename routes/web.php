@@ -108,6 +108,7 @@ Route::prefix('director_evaluation')->middleware('role:directorevaluation')->gro
 
   // 
   Route::post('getAssignedProjects','DirectorEvaluationController@getAssignedProjects')->name('getofficersassigned');
+  Route::post('getCompletedProjects','DirectorEvaluationController@getCompletedProjects')->name('getofficerscompleted');
 
   Route::get('/projects_assigned','DirectorEvaluationController@totalProjectAssigned')->name('totalProjectAssignedtoOfficers');
 
