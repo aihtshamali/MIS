@@ -18,14 +18,17 @@ class ChnagesinProjectTypeForMonitoring extends Migration
         $table->foreign('project_type_id')->references('id')->on('project_types')->onDelete('no action');
       });
       Schema::disableForeignKeyConstraints();
-      Schema::table('projects',function(Blueprint $table){
-        $table->dropIndex(['evaluation_type_id']);
-        // $table->dropColumn(['evaluation_type_id']);
-      });
-      Schema::table('projects',function(Blueprint $table){
-        $table->integer('evaluation_type_id')->unsigned()->index()->nullable();
-        $table->foreign('evaluation_type_id')->references('id')->on('evaluation_types')->onDelete('no action');
-      });
+      // Schema::table('projects',function(Blueprint $table){
+      //   $table->dropIndex(['evaluation_type_id']);
+      //   // $table->dropColumn(['evaluation_type_id']);
+      // });
+      // Schema::table('projects',function(Blueprint $table){
+      //   $table->dropColumn('evaluation_type_id');
+      // });
+      // Schema::table('projects',function(Blueprint $table){
+      //   $table->integer('evaluation_type_id')->unsigned()->index()->nullable();
+      //   $table->foreign('evaluation_type_id')->references('id')->on('evaluation_types')->onDelete('no action');
+      // });
       Schema::enableForeignKeyConstraints();
     }
 
