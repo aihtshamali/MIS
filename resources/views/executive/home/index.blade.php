@@ -22,8 +22,13 @@
               {{ count($unassigned) }}
              @endif </label>
           <label for="" style="color:blueviolet">  Assigned Projects:  
-            {{ count($assigned) }}
+            {{ count($assignedtoManager) }}
           </label>
+        </p>
+        <p class="" style="text-align:center;margin:0">
+          <label for="" style="color:green">  Completed Projects:  
+              {{ count($completed) }}
+            </label>
         </p>
         <ol class="breadcrumb">
           <li><a href="#"><i class="fa fa-backward" ></i>Back</a></li>

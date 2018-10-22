@@ -87,7 +87,8 @@ class ExecutiveController extends Controller
      ->get();
       $assigned=AssignedProject::all();
       $assignedtoManager=AssignedProjectManager::all();
-      return view('executive.home.index',['unassigned'=>$unassigned,'assignedtoManager'=>$assignedtoManager,'assigned'=>$assigned]);
+      $completed=AssignedProject::where('complete','1')->get();
+      return view('executive.home.index',['unassigned'=>$unassigned,'completed'=>$completed,'assignedtoManager'=>$assignedtoManager,'assigned'=>$assigned]);
     }
     public function getSectorWise(){
       $projects=AssignedProject::select('assigned_projects.*')

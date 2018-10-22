@@ -165,6 +165,7 @@ class ProjectController extends Controller
 
       $project_id = Project::latest()->first()->id;
       $project_detail = new ProjectDetail();
+      $project_detail->sne = $request->sne;
       $project_detail->project_id = $project_id;
       $project_detail->currency = $request->currency;
       $project_detail->orignal_cost = $request->original_cost;
@@ -450,6 +451,10 @@ class ProjectController extends Controller
       if($request->title != NULL){
         $project->title = $request->title;
         $project_original->title = $request->title;
+      }
+      if($request->sne){
+        $project_original->ProjectDetail->sne = $request->sne;
+        $project_original->ProjectDetail->save();
       }
       if($request->evaluation_type != NULL){
         $project->evaluation_type_id = $request->evaluation_type;
