@@ -367,7 +367,7 @@ vertical-align: super;
   </div>
   <span class="secondspan"></span>
   <div class="form-group" >
-    <label class="col-sm-4 control-label"></i>Revised EndDate</label>
+    <label class="col-sm-4 control-label"></i>Revised End Date</label>
     <div class="input-group col-sm-8 date" id="revised_end_my_date">
     <input name="revised_end_dates[]" id="date0" class="form-control" >
     <span class="input-group-addon">
