@@ -194,9 +194,7 @@ Route::group(['middleware'=>['permission:can.problematicremark']],function(){
 });
 // Route::group(['middleware' => ['permission:can.edit.project|can.view.project']],function(){
 // });
-Route::get('/dashboard',function(){
-  return view('dashboard');
-});
+Route::get('/dashboard',"HomeController@dashboard");
 
 Route::post('/printerfunction','AdminHumanResourceController@printer');
 

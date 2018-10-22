@@ -102,4 +102,37 @@ class HomeController extends Controller
 
       return redirect('/dashboard');
     }
+
+    public function dashboard(){
+      $officers = User::all();
+      $total = [];
+      $person = [];
+      $sum = 0;
+      foreach($officers as $officer){
+        $sum = 0;
+        if($officer->hasRole('officer')){
+          if($officer->AssignedProjectTeam){
+          $assigned_project = $officer->AssignedProjectTeam;
+          foreach($assigned_project as $assign){
+              $sum += $assign->assignedProject->project->score*($assign->assignedProject->progress/100);
+            }
+            array_push($total,$sum);
+            array_push($person,$officer->id);
+          }
+        }
+      }
+      $maxs = array_keys($total, max($total));
+      $per = array_search(Auth::id(),$person);
+      $current_score = round($total[$per],0,PHP_ROUND_HALF_UP);
+      $max_score = round($total[$maxs[0]],0,PHP_ROUND_HALF_UP);
+      
+      if($current_score == $max_score){
+        $current_score = 100;
+      }
+      else{
+        $current_score = round($current_score/$max_score*100,0,PHP_ROUND_HALF_UP);
+      }
+      $max_score = 100;
+      return view('dashboard',compact('max_score','current_score'));
+    }
 }
