@@ -13,6 +13,7 @@ use App\HrMeetingPDWP;
 use JavaScript;
 use App\AssignedSubSector;
 use DB;
+use Auth;
 use App\HrSector;
 use App\HrAgenda;
 use App\HrMeetingType;
@@ -86,7 +87,8 @@ class ExecutiveController extends Controller
      ->get();
       $assigned=AssignedProject::all();
       $assignedtoManager=AssignedProjectManager::all();
-      return view('executive.home.index',['unassigned'=>$unassigned,'assignedtoManager'=>$assignedtoManager,'assigned'=>$assigned]);
+      $completed=AssignedProject::where('complete','1')->get();
+      return view('executive.home.index',['unassigned'=>$unassigned,'completed'=>$completed,'assignedtoManager'=>$assignedtoManager,'assigned'=>$assigned]);
     }
     public function getSectorWise(){
       $projects=AssignedProject::select('assigned_projects.*')
@@ -412,10 +414,6 @@ class ExecutiveController extends Controller
     }
     // chart5
     public function chart_five(){
-      $total_projects = count(Project::all());
-      $total_assigned_projects = count(AssignedProject::all());
-      $inprogress_projects = count(AssignedProject::where('acknowledge',1)->get());
-      $completed_projects = count(AssignedProject::where('complete',1)->get());
       $model = new User();
       $officers = $model->hydrate(
         DB::select(
@@ -423,26 +421,64 @@ class ExecutiveController extends Controller
         )
         );
         $assigned_current_projects = [];
-        foreach($officers as $officer){
-          $data_4 = DB::select(
-            'getOfficersCurrentProjectProgressById' .' '.$officer->id
-          );
-          $sum = 0;
-          if(count($data_4)>0){
-            foreach($data_4 as $val)
-            {
-              $sum += $val->current_user_progress;
+        // $officers = User::all();
+      $total = [];
+      $person = [];
+      $sum = 0;
+      foreach($officers as $officer){
+        if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad")
+        {
+          $officer->first_name = "M.";
+        }
+        $sum = 0;
+        if($officer->hasRole('officer')){
+          if($officer->AssignedProjectTeam){
+          $assigned_project = $officer->AssignedProjectTeam;
+          foreach($assigned_project as $assign){
+              $sum += $assign->assignedProject->project->score*($assign->assignedProject->progress/100);
             }
-            array_push($assigned_current_projects, $sum / count($data_4));
-            }
-            else{
-              array_push($assigned_current_projects, 0);
-            }
+            $sum = round($sum,0,PHP_ROUND_HALF_UP);
+            array_push($total,$sum);
+            array_push($person,$officer);
           }
+        }
+      }
+      // $maxs = array_keys($total, max($total));
+      // $per = array_search(Auth::id(),$person);
+      // $current_score = round($total[$per],0,PHP_ROUND_HALF_UP);
+      // $max_score = round($total[$maxs[0]],0,PHP_ROUND_HALF_UP);
+      
+      // if($current_score == $max_score){
+      //   $current_score = 100;
+      // }
+      // else{
+      //   $current_score = round($current_score/$max_score*100,0,PHP_ROUND_HALF_UP);
+      // }
+      // $max_score = 100;
+        // foreach($officers as $officer){
+        //   if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad")
+        // {
+        //   $officer->first_name = "M.";
+        // }
+          // $data_4 = DB::select(
+          //   'getOfficersCurrentProjectProgressById' .' '.$officer->id
+          // );
+          // $sum = 0;
+          // if(count($data_4)>0){
+          //   foreach($data_4 as $val)
+          //   {
+          //     $sum += $val->current_user_progress;
+          //   }
+          //   array_push($assigned_current_projects, $sum / count($data_4));
+          //   }
+          //   else{
+          //     array_push($assigned_current_projects, 0);
+          //   }
+          // }
 
       \JavaScript::put([
-        'officers' => $officers,
-        'assigned_current_projects'=>$assigned_current_projects
+        'officers' => $person,
+        'assigned_current_projects'=>$total
 
         ]);
       return view('executive.home.chart_five',['officers' => $officers ,'assigned_current_projects'=>$assigned_current_projects]);

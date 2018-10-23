@@ -308,6 +308,16 @@ vertical-align: super;
         </select>
       </div>
     </div>
+    <div class="form-group">
+      <label class="col-sm-4">SNE</label>
+      <div class="col-sm-8">
+        <select class="form-control" required name="sne">
+          <option value="True">True</option>
+          <option value="False">False</option>
+          <option value="Both">Both</option>
+        </select>
+      </div>
+    </div>
     <section style="background-color:lightgray;padding:8px">
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Original Approved Cost in Millions</label>
