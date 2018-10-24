@@ -15,6 +15,7 @@ use App\Project;
 use App\ProjectLog;
 use App\ProjectDetail;
 use App\Department;
+use App\AdpProject;
 use App\AssignedSubSector;
 
 // use App\AssignedDepartment;
@@ -87,7 +88,7 @@ class ProjectController extends Controller
       $sub_project_types = SubProjectType::where('project_type_id',1)->get();
       $m_sub_project_types = SubProjectType::where('project_type_id',2)->get();
       $projectfor_no=Project::select('projects.project_no')->latest()->first();
-      $project_no='';
+      $adp = AdpProject::orderBy('gs_no')->get();
       // if($projectfor_no){
       // $projectNo=explode('-',$projectfor_no->project_no);
       // $project_no=$projectNo[0].'-'.($projectNo[1]+1);
@@ -95,6 +96,14 @@ class ProjectController extends Controller
       // else {
       //   $project_no = "PRO-1";
       // }
+      $project_no=Project::latest()->first()->project_no;
+      if($project_no){
+      $projectNo=explode('-',$project_no);
+      $project_no=$projectNo[0].'-'.($projectNo[1]+1);
+      }
+      else {
+        $project_no = "PRO-1";
+      }
       foreach ($districts as $district) {
         $district->name = $district->name . "/";
       }
@@ -110,7 +119,10 @@ class ProjectController extends Controller
       foreach ($assigning_forums as $assigning_forum) {
         $assigning_forum->name = $assigning_forum->name . "/";
       }
-      return view('projects.create',compact('sub_project_types','m_sub_project_types','districts','sectors','sponsoring_departments','executing_departments','assigning_forums','project_no','current_year','approving_forums','evaluation_types','project_types','evaluation_types','sub_sectors','projects'));
+      \JavaScript::put([
+        'projects' => $adp
+    ]);
+      return view('projects.create',compact('sub_project_types','m_sub_project_types','adp','districts','sectors','sponsoring_departments','executing_departments','assigning_forums','project_no','current_year','approving_forums','evaluation_types','project_types','evaluation_types','sub_sectors','projects'));
         // $sponosoring_agencies=SponsoringAgency::all();
         // $executing_agencies=ExecutingAgency::all();
         // $users=User::all();
@@ -143,7 +155,7 @@ class ProjectController extends Controller
       $project->project_no = $projectNo;
       if(isset($request->evaluation_type) && $request->evaluation_type)
         $project->evaluation_type_id = $request->evaluation_type;
-      $project->ADP = $request->ADP;
+      $project->ADP = explode(',',$request->adp_no[0])[0];
       $project->project_type_id = $request->type_of_project;
       $project->assigning_forum_sub_list_id = $request->assigning_forumSubList;
       $project->status = 0;
@@ -153,6 +165,7 @@ class ProjectController extends Controller
 
       $project_id = Project::latest()->first()->id;
       $project_detail = new ProjectDetail();
+      $project_detail->sne = $request->sne;
       $project_detail->project_id = $project_id;
       $project_detail->currency = $request->currency;
       $project_detail->orignal_cost = $request->original_cost;
@@ -227,6 +240,10 @@ class ProjectController extends Controller
       $notification->table_name='projects';
       $notification->table_id=$project->id;
       $notification->save();
+
+      $score = app('App\Http\Controllers\ProjectAssignController')->AddScore($project->id);
+      $project->score = $score;
+      $project->save();
 
       //Project Log Entry
 
@@ -344,9 +361,7 @@ class ProjectController extends Controller
       // $notification->save();
       // return redirect()->route('new_evaluation');
 
-      $score = app('App\Http\Controllers\ProjectAssignController')->AddScore($project->id);
-      $project->score = $score;
-      $project->save();
+
       return redirect()->route('projects.index');
     }
 
@@ -436,6 +451,10 @@ class ProjectController extends Controller
       if($request->title != NULL){
         $project->title = $request->title;
         $project_original->title = $request->title;
+      }
+      if($request->sne){
+        $project_original->ProjectDetail->sne = $request->sne;
+        $project_original->ProjectDetail->save();
       }
       if($request->evaluation_type != NULL){
         $project->evaluation_type_id = $request->evaluation_type;

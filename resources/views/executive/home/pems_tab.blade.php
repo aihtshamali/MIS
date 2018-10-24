@@ -105,7 +105,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-backward" ></i>Back</a></li>
         <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li>
-       
+
       </ol>
     </section>
 
@@ -113,13 +113,13 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
     <section class="content">
       <div class="row">
           <div class="col-md-12">
-          <div class="col-md-1" style="width:10%;"></div>   
+          <div class="col-md-1" style="width:10%;"></div>
           {{-- chart1 --}}
           <a href="{{route('chart_one')}}">
           <div class="card col-md-2" >
           <div class="card-header">
-          <label for="">Total Projects</label>
-          </div> 
+          <label for="">Evaluation Total Projects</label>
+          </div>
           <div id="chartdiv"></div>
           </div>
           </a>
@@ -129,7 +129,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
           <div class="card col-md-2">
           <div class="card-header">
           <label for="">Assigned Projects</label>
-          </div> 
+          </div>
           <div id="chartdiv2"></div>
           </div>
           </a>
@@ -139,7 +139,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
           <div class="card col-md-2">
           <div class="card-header">
           <label for="">Inprogress Projects</label>
-          </div> 
+          </div>
           <div id="chartdiv3"></div>
           </div>
           </a>
@@ -149,7 +149,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
           <div class="card col-md-2">
           <div class="card-header">
           <label for="">Completed Projects</label>
-          </div> 
+          </div>
           <div id="chartdiv4"></div>
           </div>
           </a>
@@ -157,18 +157,18 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
           </div>
         <!-- /.row -->
       </div>
-      
+
       {{-- row 2 --}}
 
       <div class="row">
           <div class="col-md-12">
-          <div class="col-md-1" style="width:10%;"></div>   
+          <div class="col-md-1" style="width:10%;"></div>
           {{-- chart 5 --}}
           <a href="{{route('chart_five')}}">
           <div class="card col-md-2" >
           <div class="card-header">
           <label for="">Officer's Progress on Current Projects</label>
-          </div> 
+          </div>
           <div id="chartdiv5"></div>
           </div>
           </a>
@@ -178,7 +178,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
           <div class="card col-md-2">
           <div class="card-header">
           <label for="">Activities Progress w.r.t Projects</label>
-          </div> 
+          </div>
           <div id="chartdiv6"></div>
           </div>
           </a>
@@ -188,7 +188,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
           <div class="card col-md-2">
           <div class="card-header">
           <label for="">SubSector Wise Progress of Projects</label>
-          </div> 
+          </div>
           <div id="chartdiv7"></div>
           </div>
           </a>
@@ -198,7 +198,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
           <div class="card col-md-2">
           <div class="card-header">
           <label for="">Time Against Activities</label>
-          </div> 
+          </div>
           <div id="chartdiv9"></div>
           </div>
           </a>
@@ -210,14 +210,14 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
       {{-- row 3 --}}
       <div class="row">
           <div class="col-md-12">
-          <div class="col-md-1" style="width:10%;"></div> 
+          <div class="col-md-1" style="width:10%;"></div>
 
           {{-- chart 8 --}}
           <a href="{{route('chart_eight')}}">
             <div class="card col-md-4" style="width:36%;">
             <div class="card-header">
             <label for="">Sector Wise Progress</label>
-            </div> 
+            </div>
             <div id="chartdiv8"></div>
             </div>
             </a>
@@ -225,7 +225,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
               <div class="card col-md-2">
               <div class="card-header">
               <label for=""> Minimum and Maximum time on each Activity</label>
-              </div> 
+              </div>
               <div id="chartdiv10"></div>
               </div>
             </a>
@@ -233,11 +233,11 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
                 <div class="card col-md-2">
                 <div class="card-header">
                 <label for=""> Logins Time</label>
-                </div> 
+                </div>
                 <div id="chartdiv11"></div>
                 </div>
               </a>
-          <div class="col-md-1" style="width:10%;"></div> 
+          <div class="col-md-1" style="width:10%;"></div>
           </div>
       </div>
     </section>
@@ -268,8 +268,8 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
       "Type": "Total\nProjects",
       "Number of Projects": total_projects
     }, {
-      "Type": "Assigned\nProjects",
-      "Number of Projects": total_assigned_projects 
+      "Type": "UnAssigned\nProjects",
+      "Number of Projects": total_assigned_projects
     }, {
       "Type": "Inprogress\nProjects",
       "Number of Projects": inprogress_projects
@@ -317,7 +317,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
     var st = [];
     $i = 0;
     officers.forEach(element => {
-      st.push ({ 
+      st.push ({
         "Name":element.first_name,
         "Number of Projects": assigned_projects[$i]
       });
@@ -367,7 +367,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
    var st = [];
     $i = 0;
     officers.forEach(element => {
-      st.push ({ 
+      st.push ({
         "Name":element.first_name,
         "Number of Projects": assigned_inprogress_projects[$i]
       });
@@ -417,7 +417,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
   var st = [];
    $i = 0;
    officers.forEach(element => {
-     st.push ({ 
+     st.push ({
        "Name":element.first_name,
        "Number of Projects": assigned_completed_projects[$i]
      });
@@ -470,7 +470,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
     $i = 0;
 
     officers.forEach(element => {
-    st.push ({ 
+    st.push ({
       "Name": element.first_name,
       "Progress": assigned_current_projects[$i]
     });
@@ -523,10 +523,10 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
     var st = [];
      $i = 0;
      activities.forEach(element => {
-       st.push ({ 
+       st.push ({
          "Name":element.name,
          "Number of projects": projects_activities_progress[$i][0].eachActivitycount,
-        
+
        });
        $i++;
      });
@@ -556,7 +556,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
      },
      "categoryField": "Name",
      "categoryAxis": {
-       
+
        "gridPosition": "middle",
        "gridAlpha": 0,
        "tickPosition": "middle",
@@ -575,8 +575,8 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
      $i = 0;
      sub_Sectors.forEach(element => {
       //  console.log(projects_activities_progress[$i][0].eachActivitycount);
-       
-       st.push ({ 
+
+       st.push ({
          "Name":element.name,
          "Number of projects": projects_wrt_sectors[$i][0].eachSectorcount
        });
@@ -619,14 +619,14 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
      "export": {
        "enabled": true
      }
-  
+
    } );
 </script>
 <script>
   var st = [];
   $i = 0;
   activities.forEach(element => {
-  st.push ({ 
+  st.push ({
   "Name":element.name,
   "Time": time_against_activities[$i]
   });
@@ -678,7 +678,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
     var st = [];
     $i = 0;
     sectors.forEach(element => {
-    st.push ({ 
+    st.push ({
     "Name":element.name,
     "Total Projects":totalprojects_wrt_sectors[$i][0].eachtotalproject,
     "Assigned Projects": assignedprojects_wrt_sectors[$i][0].eachproject,
@@ -759,7 +759,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
   var st = [];
    $i = 0;
   activities.forEach(element => {
-  st.push ({ 
+  st.push ({
   "Name":element.name,
   // "Min Time": min_time_against_activities[$i],
   "Average Time": time_against_activities[$i]
@@ -767,7 +767,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
   });
   $i++;
   });
-   
+
   var chart = AmCharts.makeChart( "chartdiv10", {
   "type": "serial",
   "theme": "light",

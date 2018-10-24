@@ -109,7 +109,7 @@
 
 
 
-            <h2><b style="color:red">DIRECTORATE GENERAL MONITORING AND EVALUATION</b></h2>
+            <h2><b>DIRECTORATE GENERAL MONITORING AND EVALUATION</b></h2>
             <p>Welcome to the official INTRANET website of Directorate General Monitoring & Evaluation, Punjab. We invite you to get to know our organization by exploring this site on which you will learn about our mission,
              vision and objectives. The site also provides information about different projects and provides access to valuable statistics. We hope…</p>
             <br>
@@ -294,7 +294,7 @@
                         <div class="in-content">
                             <h2>Support Doc</h2>
                             <div>
-                            <p style="color:black;">Kinldy download the support doc by clicking 
+                            <p style="color:black;">Kinldy download the support doc by clicking
                                 <b style="color:green;">
                                     <a href="/DGME MIS GUIDELINES.docx")}}>here.</a>
                                 </b>

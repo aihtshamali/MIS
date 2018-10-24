@@ -84,10 +84,9 @@ class ProjectCounterController extends Controller
     public function getCompletedCounter(Request $request){
       $assigned=0;$assignedtoManager=0;$role='';
         if($request->user()->hasRole('manager')){
-          $assigned=AssignedProject::all()->count();
+          $assigned=AssignedProject::where('complete','1')->count();
           $role='executive';
-          $assignedtoManager=AssignedProjectManager::all()->count();
-        }
+          }
         elseif($request->user()->hasRole('directorevaluation')){
           $assigned=AssignedProject::where('assigned_by',$request->user()->id)
           ->where('acknowledge','1')

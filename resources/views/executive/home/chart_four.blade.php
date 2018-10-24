@@ -51,7 +51,7 @@
     margin: 2px;
 
   }
-  
+
   a{
   color: black;
   }
@@ -68,36 +68,36 @@
   }
 
 </style>
-    
+
 @endsection
 @section('content')
 <div class="content-wrapper">
 
     <section class="content-header">
         <h1>
-          Histogram of Completed Projects
-          <small>Global Progress</small>
+         Completed Projects
+
         </h1>
         <ol class="breadcrumb">
         <li><a href="{{route('Exec_pems_tab')}}"><i class="fa fa-backward" ></i>Back</a></li>
-          {{-- <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li> --}}    
+          {{-- <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li> --}}
         </ol>
     </section>
-    
+
     <section class="content">
             <div class="row">
                 <div class="col-md-12">
-                    
+
                     <div class="card col-md-12" >
                         <div class="card-header">
-                        </div> 
+                        </div>
                         <div id="chartdiv4"></div>
                     </div>
                     <div class="col-md-1"></div>
                 </div>
             </div>
     </section>
-    
+
 </div>
 @endsection
 @section('scripttags')
@@ -118,8 +118,8 @@
   var st = [];
     $i = 0;
     officers.forEach(element => {
-      st.push ({ 
-        "Name":element.first_name,
+      st.push ({
+        "Name":element.first_name + " "+ element.last_name,
         "Number of Projects": assigned_completed_projects[$i]
       });
       $i++;

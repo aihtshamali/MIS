@@ -71,55 +71,55 @@
   }
 
 </style>
-    
+
 @endsection
 @section('content')
 <div class="content-wrapper">
 
     <section class="content-header">
         <h1>
-          Histogram of Projects
-          <small>Global Progress</small>
+            Evaluation Total Projects
+
         </h1>
         <ol class="breadcrumb">
         <li><a href="{{route('Exec_pems_tab')}}"><i class="fa fa-backward" ></i>Back</a></li>
-          {{-- <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li> --}}    
+          {{-- <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li> --}}
         </ol>
     </section>
-    
+
     <section class="content">
             <div class="row">
                 <div class="col-md-12">
-                    
+
                     <div class="card col-md-12" >
                         <div class="card-header">
-                        <label for="">Histogram of Projects</label>
-                        </div> 
+                        <label for=""></label>
+                        </div>
                         <div id="chartdiv"></div>
                         <div class="card-footer" >
                           <div style="padding:5px;display:inline-block;">
-                            <span class="lightblue">-</span> 
-                            <label style="vertical-align:-webkit-baseline-middle;">{{$total_projects}} Total Projects</label> 
+                            <span class="lightblue">-</span>
+                            <label style="vertical-align:-webkit-baseline-middle;">{{$total_projects}} Total Projects</label>
                         </div>
                         <div style="padding:5px; display:inline-block;">
-                            <span class="blue">-</span> 
-                            <label style="vertical-align:-webkit-baseline-middle;">{{$total_assigned_projects}} Total Assigned Projects</label> 
+                            <span class="blue">-</span>
+                            <label style="vertical-align:-webkit-baseline-middle;">{{$total_assigned_projects}} Total Assigned Projects</label>
                         </div>
                         <div style="padding:5px; display:inline-block;">
-                                <span class="darkblue">-</span> 
-                                <label style="vertical-align:-webkit-baseline-middle;">{{$inprogress_projects}} Total InProgress Projects</label> 
+                                <span class="darkblue">-</span>
+                                <label style="vertical-align:-webkit-baseline-middle;">{{$inprogress_projects}} Total InProgress Projects</label>
                             </div>
                         <div style="padding:5px; display:inline-block;">
-                                <span class="purple">-</span> 
-                                <label style="vertical-align:-webkit-baseline-middle;">{{$completed_projects}} Completed Projects</label> 
-                            </div>   
+                                <span class="purple">-</span>
+                                <label style="vertical-align:-webkit-baseline-middle;">{{$completed_projects}} Completed Projects</label>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-1"></div>
                 </div>
             </div>
     </section>
-    
+
 </div>
 @endsection
 @section('scripttags')
@@ -142,19 +142,19 @@
     "theme": "light",
     "dataProvider": [ {
       "Type": "Total\nProjects",
-      "Number of Projects": total_projects,
+      "Number of Projects": total_projects/total_projects*100,
       "color": "#0D8ECF"
     }, {
-      "Type": "Assigned\nProjects",
-      "Number of Projects": total_assigned_projects,
-      "color": "#0D52D1"
+      "Type": "UnAssigned\nProjects",
+      "Number of Projects": Math.round(total_assigned_projects/total_projects*100),
+      "color": "#162A3D"
     }, {
       "Type": "Inprogress\nProjects",
-      "Number of Projects": inprogress_projects,
+      "Number of Projects": Math.round(inprogress_projects/total_projects*100),
       "color": "#2A0CD0"
     }, {
       "Type": "Completed\nProjects",
-      "Number of Projects": completed_projects,
+      "Number of Projects": Math.round(completed_projects/total_projects*100),
       "color": "#8A0CCF"
     } ],
     "valueAxes": [ {
@@ -165,11 +165,11 @@
     "gridAboveGraphs": true,
     "startDuration": 1,
     "graphs": [ {
-      "balloonText": "[[category]]: <b>[[value]]</b>",
+      "balloonText": "[[category]]: <b>[[value]] %</b>",
       "fillAlphas": 0.8,
       "lineAlpha": 0.2,
       "type": "column",
-      "labelText": "[[value]]",
+      "labelText": "[[value]] %",
       "fillColorsField": "color",
       "valueField": "Number of Projects"
     } ],

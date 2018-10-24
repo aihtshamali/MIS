@@ -9,6 +9,7 @@ use App\AssignedProject;
 use App\Project;
 use App\AssignedProjectActivity;
 use Auth;
+use App\HrMomAttachment;
 use Illuminate\Support\Facades\Schema;
 
 
@@ -31,6 +32,23 @@ class HomeController extends Controller
      */
     public function index()
     {
+      //Converting Mom To Base64
+      // $files = scandir('C:\\xampp\\htdocs\\DGME_MIS_TEST\\storage\\app\\public\\uploads\\projects\\meetings_mom\\');
+      // foreach($files as $file) {
+        
+      //   $file_path  = "C:\\xampp\\htdocs\\DGME_MIS_TEST\\storage\\app\\public\\uploads\\projects\\meetings_mom\\".$file;
+      //   if($file != '.' && $file != '..'){
+      //     $row = HrMomAttachment::where('attachment',$file)->first();
+      //     if($row){
+      //   // dd($row);
+      //     $row->attachment_file = base64_encode(file_get_contents($file_path));
+      //     $row->save();
+      //     }
+      //   }
+      //   //do your work here
+      // }
+
+
       // $score = app('App\Http\Controllers\ProjectAssignController')->AddScore(1025);
 
         // $projects = Project::all();
@@ -83,5 +101,38 @@ class HomeController extends Controller
       $user->save();
 
       return redirect('/dashboard');
+    }
+
+    public function dashboard(){
+      $officers = User::all();
+      $total = [];
+      $person = [];
+      $sum = 0;
+      foreach($officers as $officer){
+        $sum = 0;
+        if($officer->hasRole('officer')){
+          if($officer->AssignedProjectTeam){
+          $assigned_project = $officer->AssignedProjectTeam;
+          foreach($assigned_project as $assign){
+              $sum += $assign->assignedProject->project->score*($assign->assignedProject->progress/100);
+            }
+            array_push($total,$sum);
+            array_push($person,$officer->id);
+          }
+        }
+      }
+      $maxs = array_keys($total, max($total));
+      $per = array_search(Auth::id(),$person);
+      $current_score = round($total[$per],0,PHP_ROUND_HALF_UP);
+      $max_score = round($total[$maxs[0]],0,PHP_ROUND_HALF_UP);
+      
+      if($current_score == $max_score){
+        $current_score = 100;
+      }
+      else{
+        $current_score = round($current_score/$max_score*100,0,PHP_ROUND_HALF_UP);
+      }
+      $max_score = 100;
+      return view('dashboard',compact('max_score','current_score'));
     }
 }

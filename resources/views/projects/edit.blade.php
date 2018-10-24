@@ -72,7 +72,7 @@ vertical-align: super;
           <option value="">Select Evaluation Type</option>
           @foreach ($evaluation_types as $evaluation_type)
             @if($evaluation_type->status == 1)
-              <option value="{{$evaluation_type->id}}">{{$evaluation_type->name}}</option>
+              <option value="{{$evaluation_type->id}}" {{ $evaluation_type->id == $project->evaluation_type_id  ? 'selected' : '' }}>{{$evaluation_type->name}}</option>
             @endif
           @endforeach
         </select>
@@ -81,13 +81,13 @@ vertical-align: super;
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Name of Project</label>
       <div class="col-sm-8">
-        <input id="title" autocomplete="off" type="text" name="title" class="form-control" placeholder="Title" >
+        <input id="title" autocomplete="off" type="text" value="{{ $project->title }}" name="title" class="form-control" placeholder="Title" >
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Project #</label>
       <div class="col-sm-8">
-        <input id="project_no" type="text" name="project_no" value="{{$project_no}}"  class="form-control"  >
+        <input id="project_no" type="text" disabled name="project_no" value="{{$project_no}}"  class="form-control"  >
       </div>
     </div>
     <div class="form-group">
@@ -155,9 +155,10 @@ vertical-align: super;
       <div class="col-sm-8">
         <select id="assigning_forums"  name="assigning_forum" class="form-control select2"  style="width: 100%;">
           <option value="">Select Assigning Forum</option>
+      
           @foreach ($assigning_forums as $assigning_forum)
             @if($assigning_forum->status == 1)
-              <option value="{{$assigning_forum->id}}">{{$assigning_forum->name}}</option>
+              <option value="{{$assigning_forum->id}}" {{ $project->ProjectDetail->AssigningForum->id == $assigning_forum->id ? 'selected' : ''}}>{{$assigning_forum->name}}</option>
             @endif
           @endforeach
         </select>
@@ -177,7 +178,7 @@ vertical-align: super;
           <option value="">Select Approving Forum</option>
           @foreach ($approving_forums as $approving_forum)
             @if($approving_forum->status == 1)
-              <option value="{{$approving_forum->id}}">{{$approving_forum->name}}</option>
+              <option value="{{$approving_forum->id}}" {{ $project->ProjectDetail->ApprovingForum->id == $approving_forum->id ? 'selected' : ''}}>{{$approving_forum->name}}</option>
             @endif
           @endforeach
         </select>
@@ -187,20 +188,30 @@ vertical-align: super;
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Currency</label>
       <div class="col-sm-8">
         <select class="form-control"  name="currency" id="currency">
-          <option data-symbol="$" data-placeholder="0.00">$ USD</option>
-          <option data-symbol="Rs" data-placeholder="0.00" selected>Rs PKR</option>
-          <option data-symbol="€" data-placeholder="0.00">€ EUR</option>
-          <option data-symbol="£" data-placeholder="0.00">£ GBP</option>
-          <option data-symbol="¥" data-placeholder="0">¥ JPY</option>
-          <option data-symbol="$" data-placeholder="0.00">$ CAD</option>
+          <option data-symbol="$" data-placeholder="0.00" {{ $project->ProjectDetail->currency=="$ USD" ? 'selected' : '' }}>$ USD</option>
+          <option data-symbol="Rs" data-placeholder="0.00" {{ $project->ProjectDetail->currency=="Rs PKR" ? 'selected' : '' }}>Rs PKR</option>
+          <option data-symbol="€" data-placeholder="0.00" {{ $project->ProjectDetail->currency=="€ EUR" ? 'selected' : '' }}>€ EUR</option>
+          <option data-symbol="£" data-placeholder="0.00" {{ $project->ProjectDetail->currency=="£ GBP" ? 'selected' : '' }}>£ GBP</option>
+          <option data-symbol="¥" data-placeholder="0" {{ $project->ProjectDetail->currency=="¥ JPY" ? 'selected' : '' }}>¥ JPY</option>
+          <option data-symbol="$" data-placeholder="0.00" {{ $project->ProjectDetail->currency=="$ CAD" ? 'selected' : '' }}>$ CAD</option>
         </select>
       </div>
     </div>
+    <div class="form-group">
+        <label class="col-sm-4">SNE</label>
+        <div class="col-sm-8">
+          <select class="form-control" required name="sne">
+            <option value="True">True</option>
+            <option value="False">False</option>
+            <option value="Both">Both</option>
+          </select>
+        </div>
+      </div>
     <section style="background-color:lightgray;padding:8px">
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Original Approved Cost in Millions</label>
       <div class="col-sm-8">
-        <input type="number"  id="original_cost" step="0.001" name="original_cost" class="form-control" placeholder="Cost">
+        <input type="number"  id="original_cost" step="0.001" name="original_cost" class="form-control" placeholder="Cost" value="{{ $project->ProjectDetail->orignal_cost }}">
       </div>
     </div>
     <div class="form-group" id="field">
@@ -219,7 +230,7 @@ vertical-align: super;
     <div class="form-group" id="datepick" style="margin-top:10px">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Planned Start Date</label>
       <div class='input-group col-sm-8 date' id='planned_start_my_date' >
-           <input type='text' id="planned_start_date"  name="planned_start_date" class="form-control" />
+           <input type='text' id="planned_start_date" value="{{ date('d-m-Y',strtotime($project->ProjectDetail->planned_start_date)) }}"  name="planned_start_date" class="form-control" />
            <span class="input-group-addon">
                <span class="glyphicon glyphicon-calendar"></span>
            </span>
@@ -228,7 +239,7 @@ vertical-align: super;
     <div class="form-group" id="datepick">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Planned End Date</label>
       <div class='input-group col-sm-8 date' id='planned_end_my_date' >
-           <input type='text'  id="planned_end_date" name="planned_end_date" class="form-control" />
+           <input type='text'  id="planned_end_date" name="planned_end_date" value="{{ date('d-m-Y',strtotime($project->ProjectDetail->planned_end_date)) }}" class="form-control" />
            <span class="input-group-addon">
                <span class="glyphicon glyphicon-calendar"></span>
            </span>
@@ -247,7 +258,7 @@ vertical-align: super;
   <div class="form-group" id="datepick" style="margin-top:10px">
     <label class="datepick col-sm-4 control-label">Revised Start Date</label>
     <div class='input-group col-sm-8 date' id='revised_start_my_date' >
-         <input type='text' id="revised_start_date" name="revised_start_date" class="form-control" />
+         <input type='text' id="revised_start_date" name="revised_start_date" value="{{ date('d-m-Y',strtotime($project->ProjectDetail->revised_start_date)) }}" class="form-control" />
          <span class="input-group-addon">
              <span class="glyphicon glyphicon-calendar"></span>
          </span>
@@ -347,14 +358,14 @@ vertical-align: super;
       @endforeach
     </div>
   </div>
-  {{-- <div class="form-group">
+  <div class="form-group">
     <label id="label_fixed_summary_sponsoring_departments"  class="col-sm-6 control-label">Sponsoring Departments</label>
     <div id="fixed_summary_sponsoring_departments" class="col-sm-6">
-      @foreach ($project->AssignedDepartments as $assignDpt )
-          <label>{{$assignDpt->Department->name}}</label>
-      @endforeach
+          @foreach ($project->AssignedSponsoringAgencies as $assignSbSct )
+            <label>{{$assignSbSct->SponsoringAgency->name}}</label>
+          @endforeach
     </div>
-  </div> --}}
+  </div>
   <div class="form-group">
     <label id="label_fixed_summary_executing_departments"  class="col-sm-6 control-label">Executing Departments</label>
     <div id="fixed_summary_executing_departments" class="col-sm-6">
@@ -410,19 +421,19 @@ vertical-align: super;
   <div class="form-group">
     <label id="label_fixed_summary_planned_start_date"  class="col-sm-6 control-label">Planned Start Date</label>
     <div id="fixed_summary_planned_start_date" class="col-sm-6">
-      <label>{{{$project->ProjectDetail->planned_start_date}}}</label>
+      <label>{{ $project->ProjectDetail->planned_start_date}}</label>
     </div>
   </div>
   <div class="form-group">
     <label id="label_fixed__summary_planned_end_date" class="col-sm-6 control-label">Planned End Date</label>
     <div id="fixed_summary_planned_end_date" class="col-sm-6">
-      <label>{{{$project->ProjectDetail->planned_end_date}}}</label>
+      <label>{{$project->ProjectDetail->planned_end_date}}</label>
     </div>
   </div>
   <div class="form-group">
     <label id="label_fixed_summary_revised_start_date"  class="col-sm-6 control-label">Revised Start Date</label>
     <div id="fixed_summary_revised_start_date" class="col-sm-6">
-      <label>{{{$project->ProjectDetail->revised_start_date}}}</label>
+      <label>{{$project->ProjectDetail->revised_start_date}}</label>
     </div>
   </div>
   <div class="form-group">
