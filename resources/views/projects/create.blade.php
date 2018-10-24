@@ -185,7 +185,7 @@ vertical-align: super;
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Project #</label>
       <div class="col-sm-8">
-        <input id="project_no" type="text" name="project_no" value="{{$project_no}}"  class="form-control" required >
+        <input id="project_no" type="text" disabled name="project_no" value="{{$project_no}}"  class="form-control" required >
       </div>
     </div>
     <div class="form-group">
@@ -193,7 +193,7 @@ vertical-align: super;
       <div class="col-sm-3">
         {{-- <input type="number" disabled class="form-control" value="{{$current_year}}"> --}}
         <select class="form-control  select2" name="financial_year" id="financial_year">
-          <option value="0">2017-18 </option>
+          <option value="2017-18">2017-18</option>
         @for($i = 2 ; $i <= 30 ; $i++)
           @if($i == 9)
             <option value="200{{$i}}-{{$i+1}}">200{{$i}}-{{$i+1}}</option>
@@ -305,6 +305,16 @@ vertical-align: super;
           <option data-symbol="£" data-placeholder="0.00">£ GBP</option>
           <option data-symbol="¥" data-placeholder="0">¥ JPY</option>
           <option data-symbol="$" data-placeholder="0.00">$ CAD</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-4">SNE</label>
+      <div class="col-sm-8">
+        <select class="form-control" required name="sne">
+          <option value="True">True</option>
+          <option value="False">False</option>
+          <option value="Both">Both</option>
         </select>
       </div>
     </div>
@@ -542,16 +552,18 @@ vertical-align: super;
 {{-- <script src="{{asset('js/AdminLTE/bootstrap-datepicker.min.js')}}"></script> --}}
 <script>
  $(document).on('change','#adp',function(){
-            var arr = $(this).val().split(',')
-            console.log(projects[arr[1]]);
-            $('#titleproject').val(projects[arr[1]].name_of_scheme);
-            $('#original_cost').val(projects[arr[1]].total_cost);
-            // $('#districts').val(projects[arr[1]].district);
-            $("#districts").val($("#districts option").filter(function () { return $(this).html() == projects[arr[1]].district; }).val());
-      
-
-          
-          });
+    var arr = $(this).val().split(',')
+    if($('#financial_year').val() == projects[arr[1]].financial_year){
+      $('#titleproject').val(projects[arr[1]].name_of_scheme);
+      $('#original_cost').val(projects[arr[1]].total_cost);
+      $("#districts").val($("#districts option").filter(function () { return $(this).html() == projects[arr[1]].district; }).val());
+    }
+    else{
+      $('#titleproject').val('');
+      $('#original_cost').val('');
+      $("#districts").val('').trigger('change');
+    }
+});
 
 $('div').on('dp.change',function(){
   var class_value = $(this).find('input').attr('id');
