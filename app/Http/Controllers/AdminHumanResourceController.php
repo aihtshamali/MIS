@@ -115,9 +115,9 @@ class AdminHumanResourceController extends Controller
                 $hr_agenda->hr_sector_id = $request->sector[$i];
                 $hr_agenda->start_timeofagenda = $request->my_time[$i];
                 if(isset($request->adp_no[$i]))
-                  $filename = 'WP-'.$hr_meeting->id.'-'. date('Y-m-d',strtotime($request->my_date)).'-'.$hr_agenda->adp_no;
+                    $filename = 'WP-'.$hr_meeting->id.'-'. date('Y-m-d',strtotime($request->my_date)).'-'.$hr_agenda->adp_no;
                 else
-                $filename = 'WP-'. date('Y-m-d',strtotime($request->my_date)).'-'.$hr_meeting->id;
+                    $filename = 'WP-'. date('Y-m-d',strtotime($request->my_date)).'-'.$hr_meeting->id.'-'.$request->agenda_item[$c];
                 $hr_agenda->save();
                 if($request->hasFile('attachments.'. $i)){
                     $hr_attachment = new HrAttachment();
@@ -209,7 +209,7 @@ class AdminHumanResourceController extends Controller
             if(isset($request->adp_no))
               $filename = 'WP-'.$request->meeting_id.'-'. date('Y-m-d',strtotime($mytime)).'-'.$hr_agenda->adp_no ;
             else
-            $filename = 'WP-'.$request->meeting_id .'-'. date('Y-m-d',strtotime($mytime));
+            $filename = 'WP-'.$request->meeting_id .'-'. date('Y-m-d',strtotime($mytime)).'-'. $request->agenda_item;
             // dd($hr_agenda);
             $hr_agenda->save();
             if($request->hasFile('attachments')){
