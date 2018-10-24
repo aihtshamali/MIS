@@ -99,6 +99,8 @@
   .fileprogress{display: none}
   .bar { background-color: #B4F5B4; width:0%; height:20px; border-radius: 3px; }
   .percent { position:absolute; display:inline-block; top:3px; left:48%; }
+  .percentBox{border: 2px solid #790d0d;text-align: center;width: 30px;height: 25px;}
+  .percentBox p{margin: 0px !important; padding: 0px !important;}
   </style>
 @endsection
 @section('content')
@@ -352,28 +354,40 @@
                                 @if($activity->progress < 50.0 && $activity->ProjectActivity->id < 7 && $activity->ProjectActivity->id > 3 )
                                   <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},50)'>Save</button>">
                                     <input type="hidden" class="25_{{$activity->id}}" name="percent" value="25,{{$project_data->project->id}},{{$activity->id}}">
-                                    <li>25%</li>
-                                  </input>
-                                </a>
+                                    <div class="percentBox">
+                                      <p>1</p>
+                                    </div>
+                                    <span>25%</span>
+                                    </input>
+                                  </a>
                                 @endif
                                 @if($activity->progress < 50.0 && $activity->ProjectActivity->id < 7 && $activity->ProjectActivity->id > 3)
                                   <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},50)'>Save</button>">
                                     <input type="hidden" class="50_{{$activity->id}}" name="percent" value="50,{{$project_data->project->id}},{{$activity->id}}">
-                                    <li>50%</li>
+                                    <div class="percentBox">
+                                      <p>2</p>
+                                    </div>
+                                    <span>50%</span>
                                   </input>
                                 </a>
                                 @endif
                                 @if ($activity->progress < 75.0 && $activity->ProjectActivity->id < 7 && $activity->ProjectActivity->id > 3 &&  $activity->ProjectActivity->name!='Site Visits')
                                   <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},75)'>Save</button>">
                                     <input type="hidden" class="75_{{$activity->id}}" name="percent" value="75,{{$project_data->project->id}},{{$activity->id}}">
-                                    <li>75%</li>
+                                    <div class="percentBox">
+                                      <p>3</p>
+                                    </div>
+                                    <span>75%</span>
                                   </input>
                                 </a>
                               @endif
                               @if ($activity->progress < 100.0 && $activity->ProjectActivity->id > 3)
                                 <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},100)'>Save</button>">
                                   <input type="hidden" class="100_{{$activity->id}}" name="percent" value="100,{{$project_data->project->id}},{{$activity->id}}">
-                                  <li>100%</li>
+                                  <div class="percentBox">
+                                    <p>4</p>
+                                  </div>
+                                  <span>100%</span>
                                 </input>
                               </a>
                             @endif
