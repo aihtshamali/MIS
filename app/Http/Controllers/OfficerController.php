@@ -23,6 +23,8 @@ use App\Notification;
 use App\EvaluationType;
 use App\ProblematicRemarks;
 use App\AssignedProjectActivity;
+use App\ActivityDocument;
+use App\AssignedActivityDocument;
 use Illuminate\Support\Facades\Redirect;
 
 class OfficerController extends Controller
@@ -168,6 +170,7 @@ class OfficerController extends Controller
       ->leftJoin('assigned_project_teams','assigned_projects.id','assigned_project_teams.assigned_project_id')
       ->where('assigned_projects.acknowledge','1')->where('assigned_projects.project_id',$id)
       ->first();
+      $activity_documents=ActivityDocument::where('status',1)->get();
       $icons = [
                 'pdf' => 'pdf',
                 'doc' => 'word',
@@ -181,8 +184,9 @@ class OfficerController extends Controller
                 'jpg' => 'image',
                 'jpeg' => 'image',
             ];
+        $assignedDocuments=AssignedActivityDocument::where('assigned_project_id',$project_data->id)->get();
 
-      return view('officer.evaluation_projects.activities',['activities'=>$activities,'average_progress'=>$average_progress,'icons'=>$icons,'project_data'=>$project_data,'project_id'=>$id,'officerInProgressCount'=>$officerInProgressCount,'officerAssignedCount'=>$officerAssignedCount]);
+      return view('officer.evaluation_projects.activities',['assignedDocuments'=>$assignedDocuments,'activity_documents'=>$activity_documents,'activities'=>$activities,'average_progress'=>$average_progress,'icons'=>$icons,'project_data'=>$project_data,'project_id'=>$id,'officerInProgressCount'=>$officerInProgressCount,'officerAssignedCount'=>$officerAssignedCount]);
     }
     public function projectCompleted(Request $request){
       $projectCompleted = AssignedProject::find($request->assigned_project_id);
@@ -202,7 +206,15 @@ class OfficerController extends Controller
       ->get();
       return view('officer.evaluation_projects.completed')->with('officer',$officer);
     }
-
+    public function AssignActivityDocument(Request $request){
+      foreach ($request->activity_document_id as $activity) {
+        $assignActivityDocument=new AssignedActivityDocument();
+        $assignActivityDocument->activity_document_id=$activity;
+        $assignActivityDocument->assigned_project_activity_id=$request->assigned_activity_id;
+        $assignActivityDocument->save();
+      }
+      return redirect()->back();
+    }
     public function save_percentage(Request $request)
     {
       $data =  $request['data'];

@@ -6,11 +6,13 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\ActivityDocument' => $baseDir . '/app/ActivityDocument.php',
     'App\\AdminHumanResource' => $baseDir . '/app/AdminHumanResource.php',
     'App\\AdpProject' => $baseDir . '/app/AdpProject.php',
     'App\\AgendaType' => $baseDir . '/app/AgendaType.php',
     'App\\ApprovingForum' => $baseDir . '/app/ApprovingForum.php',
     'App\\AssignedActivityAttachment' => $baseDir . '/app/AssignedActivityAttachment.php',
+    'App\\AssignedActivityDocument' => $baseDir . '/app/AssignedActivityDocument.php',
     'App\\AssignedDepartment' => $baseDir . '/app/AssignedDepartment.php',
     'App\\AssignedDepartmentProjectLog' => $baseDir . '/app/AssignedDepartmentProjectLog.php',
     'App\\AssignedDistrict' => $baseDir . '/app/AssignedDistrict.php',
