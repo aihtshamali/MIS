@@ -59,8 +59,8 @@ class DirectorEvaluationController extends Controller
       //   'assigned_projects' => $assigned_projects,
 
       //   ]);
-   
-      
+
+
       return view('Director.Evaluation.home.pems_tab',['officers' => $officers,'assigned_projects' => $assigned_projects,'assigned_completed_projects'=>$assigned_completed_projects]);
       }
 
@@ -94,6 +94,11 @@ class DirectorEvaluationController extends Controller
          $projects = AssignedProject::all();
          $sectors = Sector::all();
          return view('Director.Evaluation.Evaluation_projects.assigned',compact('assigned','officers','projects','sectors'));
+      }
+
+      public function evaluation_Completedprojects(){
+         $projects = AssignedProject::where('complete',1)->get();
+         return view('Director.Evaluation.Evaluation_projects.completed',compact('projects'));
       }
 
       public function searchOfficer(Request $request){
@@ -155,7 +160,7 @@ class DirectorEvaluationController extends Controller
       }
 
     public function getAssignedProjects(Request $request){
-        
+
       $projects = DB::select(
           'getOfficersAssignedProjectById'.' '.$request->data
         );
@@ -163,7 +168,7 @@ class DirectorEvaluationController extends Controller
         return response($projects);
     }
     public function getCompletedProjects(Request $request){
-       
+
       $projects = DB::select(
         'getOfficersCompletedProjectsById' .' '.$request->data
         );
@@ -203,7 +208,7 @@ class DirectorEvaluationController extends Controller
         ]);
 
       // dd($assigned_projects);
-      
+
       return view('Director.Evaluation.home.pems_tab',['officers' => $officers,'assigned_projects' => $assigned_projects,
       'assigned_completed_projects'=>$assigned_completed_projects
       ]);
