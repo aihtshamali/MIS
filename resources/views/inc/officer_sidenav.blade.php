@@ -186,12 +186,21 @@
           </a>
           <ul class="treeview-menu">
             <li>
-              <a href="#"><i class="fa fa-circle-o"></i>
-               Schedule A New
+              <a href="{{route('new_trip')}}"><i class="fa fa-circle-o"></i>
+               New Trip
                 <span class="pull-right-container">
                   <span class="label label-primary pull-right">new</span>
-                </span></a></li>
-                <li><a href="#"><i class="fa fa-circle-o"></i> View All Visited</a></li>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href="{{route('view_trips')}}"><i class="fa fa-circle-o"></i>
+                 View All
+                 <span class="pull-right-container">
+                    <span class="label label-primary pull-right">new</span>
+                  </span>
+              </a>
+            </li>
           </ul>
       </li>
 

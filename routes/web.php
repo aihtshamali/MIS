@@ -117,6 +117,9 @@ Route::prefix('officer')->middleware('role:officer')->group(function () {
   Route::get('/review_form/{project_id}','OfficerController@review_form')->name('review_form');
   Route::post('/review_form','OfficerController@review_forms')->name('review_forms');
   Route::post('/saveActivityAttachment','OfficerController@saveActivityAttachment')->name('saveActivityAttachment');
+  Route::get('/new_trip','SiteVisitController@create')->name('new_trip');
+  Route::get('/view_trips','SiteVisitController@view')->name('view_trips');
+
 });
 
 //For DataEntry
@@ -159,10 +162,22 @@ Route::get('/dashboard',function(){
   return view('dashboard');
 });
 
+//TO
+Route::prefix('to')->middleware('role:to')->group(function () {
+
+});
+
+
 Route::post('/printerfunction','AdminHumanResourceController@printer');
 
 
 Route::get('/403',function(){
   return view('403');
+});
+Route::get('/dgv',function(){
+  return view('hassan.dg');
+});
+Route::get('/ps',function(){
+  return view('hassan.ps');
 });
 });
