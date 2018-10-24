@@ -444,7 +444,7 @@
     </tbody>
   </table>
   <input type="hidden" name="assigned_project_id" style="display:inline;float:right" value="{{$project_data->id}}">
-  <button type="submit" class="btn btn-success pull-right" >Project Completed
+  <button type="submit" class="btn btn-success pull-right" @if($project_data->progress != 100) disabled @endif >Project Completed
   </button>
 </form>
 </div>
