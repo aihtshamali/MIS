@@ -349,11 +349,13 @@ class ComposerStaticInit55c1f85fd9fa01a6cf3b909416bd240d
     );
 
     public static $classMap = array (
+        'App\\ActivityDocument' => __DIR__ . '/../..' . '/app/ActivityDocument.php',
         'App\\AdminHumanResource' => __DIR__ . '/../..' . '/app/AdminHumanResource.php',
         'App\\AdpProject' => __DIR__ . '/../..' . '/app/AdpProject.php',
         'App\\AgendaType' => __DIR__ . '/../..' . '/app/AgendaType.php',
         'App\\ApprovingForum' => __DIR__ . '/../..' . '/app/ApprovingForum.php',
         'App\\AssignedActivityAttachment' => __DIR__ . '/../..' . '/app/AssignedActivityAttachment.php',
+        'App\\AssignedActivityDocument' => __DIR__ . '/../..' . '/app/AssignedActivityDocument.php',
         'App\\AssignedDepartment' => __DIR__ . '/../..' . '/app/AssignedDepartment.php',
         'App\\AssignedDepartmentProjectLog' => __DIR__ . '/../..' . '/app/AssignedDepartmentProjectLog.php',
         'App\\AssignedDistrict' => __DIR__ . '/../..' . '/app/AssignedDistrict.php',

@@ -339,7 +339,7 @@
                                 @endphp
                                 @foreach ($assignedDocuments as $docs)
                                   @if($activity->ProjectActivity->id < 7 && $activity->progress != (100/$i)  &&  $activity->ProjectActivity->name!='Site Visits' && $activity->ProjectActivity->id < 4)
-                                    <a class="btn" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},25)'>Save</button>">
+                                    <a class="btn" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},{{100/$i}})'>Save</button>">
                                       <input type="hidden" class="{{100/$i}}_{{$activity->id}}" name="percent" value="{{100/$i}},{{$project_data->project->id}},{{$activity->id}}">
                                         <li>{{100/$i}}%</li>
                                       </input>
@@ -627,7 +627,7 @@
     });
 
     $(document).ready(function(){
-     
+
 
       $('.btn').popover();
 
