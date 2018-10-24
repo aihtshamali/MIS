@@ -62,7 +62,7 @@
               </span>
               </a>
             </li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Completed
+            <li><a href="{!! route('Evaluation_evaluation_Completed') !!}"><i class="fa fa-circle-o"></i> Completed
               <span class="label label-primary pull-right directorE_completed_counter">0</span>
             </span>
             </a></li>
