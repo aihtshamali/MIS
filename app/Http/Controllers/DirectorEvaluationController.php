@@ -89,7 +89,9 @@ class DirectorEvaluationController extends Controller
       }
 
       public function evaluation_Inprogressprojects(){
-         $assigned=AssignedProject::where('assigned_by',Auth::id())->get();
+         $assigned=AssignedProject::where('assigned_by',Auth::id())
+         ->where('complete',0)
+         ->get();
          $officers = User::all();
          $projects = AssignedProject::all();
          $sectors = Sector::all();
@@ -149,7 +151,7 @@ class DirectorEvaluationController extends Controller
             }
         }
          $officers = User::all();
-         $projects = AssignedProject::all();
+         $projects = AssignedProject::where('complete',0)->get();
          $sectors = Sector::all();
          return view('Director.Evaluation.Evaluation_projects.search',compact('assigned','officers','projects','sectors'));
       }
