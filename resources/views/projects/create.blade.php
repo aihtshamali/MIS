@@ -312,9 +312,10 @@ vertical-align: super;
       <label class="col-sm-4">SNE</label>
       <div class="col-sm-8">
         <select class="form-control" required name="sne">
-          <option value="True">True</option>
-          <option value="False">False</option>
-          <option value="Both">Both</option>
+          <option value="NO">NO</option>
+          <option value="COST">COST</option>
+          <option value="STAFF">STAFF</option>
+          <option value="BOTH">BOTH</option>
         </select>
       </div>
     </div>
