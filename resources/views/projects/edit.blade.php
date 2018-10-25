@@ -201,9 +201,10 @@ vertical-align: super;
         <label class="col-sm-4">SNE</label>
         <div class="col-sm-8">
           <select class="form-control" required name="sne">
-            <option value="True" {{ $project->ProjectDetail->sne == "True"? "selected":"" }}>True</option>
-            <option value="False" {{ $project->ProjectDetail->sne == "False"? "selected":"" }}>False</option>
-            <option value="Both" {{ $project->ProjectDetail->sne == "Both"? "selected":"" }}>Both</option>
+            <option value="True" {{ $project->ProjectDetail->sne == "NO"? "selected":"" }}>NO</option>
+            <option value="False" {{ $project->ProjectDetail->sne == "COST"? "selected":"" }}>COST</option>
+            <option value="Both" {{ $project->ProjectDetail->sne == "STAFF"? "selected":"" }}>STAFF</option>
+            <option value="Both" {{ $project->ProjectDetail->sne == "BOTH"? "selected":"" }}>BOTH</option>
           </select>
         </div>
       </div>
