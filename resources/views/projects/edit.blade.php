@@ -155,7 +155,7 @@ vertical-align: super;
       <div class="col-sm-8">
         <select id="assigning_forums"  name="assigning_forum" class="form-control select2"  style="width: 100%;">
           <option value="">Select Assigning Forum</option>
-      
+
           @foreach ($assigning_forums as $assigning_forum)
             @if($assigning_forum->status == 1)
               <option value="{{$assigning_forum->id}}" {{ $project->ProjectDetail->AssigningForum->id == $assigning_forum->id ? 'selected' : ''}}>{{$assigning_forum->name}}</option>
@@ -201,9 +201,9 @@ vertical-align: super;
         <label class="col-sm-4">SNE</label>
         <div class="col-sm-8">
           <select class="form-control" required name="sne">
-            <option value="True">True</option>
-            <option value="False">False</option>
-            <option value="Both">Both</option>
+            <option value="True" {{ $project->ProjectDetail->sne == "True"? "selected":"" }}>True</option>
+            <option value="False" {{ $project->ProjectDetail->sne == "False"? "selected":"" }}>False</option>
+            <option value="Both" {{ $project->ProjectDetail->sne == "Both"? "selected":"" }}>Both</option>
           </select>
         </div>
       </div>
