@@ -28,10 +28,12 @@
                                                 <div class="col-md-4">
                                                 </div>
 
+                                                @if (isset($project->EvaluationType->name))
                                                 <div class="col-md-4">
                                                 <b>Project Type :</b>
-                                                {{$project->EvaluationType->name}}
+                                                  {{$project->EvaluationType->name}}
                                                 </div>
+                                              @endif
                                         </div>
                                 <hr/>
                                         <div class="row" >
@@ -125,8 +127,8 @@
                                         <hr/>
                                         <div class="row" >
                                                 <div style="text-align: center;"><h3><b>COST</b></h3></div> </br>
-                                                <div class="col-md-4"> <b>Original Approved : </b>{{$project->ProjectDetail->orignal_cost}} -/{{$project->ProjectDetail->currency}}</div>
-                                                <div class="col-md-4">   <b>Revised Original : </b>
+                                                <div class="col-md-4"> <b>Original Approved Cost(Million): </b>{{$project->ProjectDetail->orignal_cost}} -/{{$project->ProjectDetail->currency}}</div>
+                                                <div class="col-md-4">   <b>Revised Original Cost(Million) : </b>
                                                   @foreach ($project->RevisedApprovedCost as $revised_cost)
                                                     {{$revised_cost->cost}}
                                                     @if(last($project->RevisedApprovedCost->toArray())['id'] != $revised_cost->id)

@@ -124,8 +124,12 @@ return array(
     'App\\Http\\Middleware\\TrimStrings' => $baseDir . '/app/Http/Middleware/TrimStrings.php',
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
+<<<<<<< HEAD
     'App\\Issue' => $baseDir . '/app/Issue.php',
     'App\\Members' => $baseDir . '/app/Members.php',
+=======
+    'App\\MonitoringProjectActivity' => $baseDir . '/app/MonitoringProjectActivity.php',
+>>>>>>> 166748b3615c139f1afcb5bb926fd9bcd771ccd2
     'App\\Notification' => $baseDir . '/app/Notification.php',
     'App\\Other' => $baseDir . '/app/Other.php',
     'App\\ProblematicRemarks' => $baseDir . '/app/ProblematicRemarks.php',

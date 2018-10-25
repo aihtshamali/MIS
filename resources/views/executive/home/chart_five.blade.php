@@ -76,7 +76,7 @@
     <section class="content-header">
         <h1>
           Officer's Progress on Current/Inprogress Projects
-          <small>Global Progress</small>
+         
         </h1>
         <ol class="breadcrumb">
         <li><a href="{{route('Exec_pems_tab')}}"><i class="fa fa-backward" ></i>Back</a></li>
@@ -119,7 +119,7 @@
 
   officers.forEach(element => {
   st.push ({ 
-    "Name": element.first_name,
+    "Name": element.first_name + ' ' + element.last_name,
     "Progress": assigned_current_projects[$i]
   });
   $i++;
@@ -134,6 +134,9 @@
   "rotate": true,
   "startDuration": 1,
   "categoryAxis": {
+    "autoGridCount": false,
+  "equalSpacing": true,
+  "gridCount": 1000,
   "gridPosition": "start",
   "autoWrap": true,
   "position": "left"

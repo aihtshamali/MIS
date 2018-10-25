@@ -26,7 +26,7 @@
 	width		: 100%;
 	height		: 90%;
 	font-size	: 5px;
-  margin-left:-5px;
+
 }
 #chartdiv6 {
 	width		: 100%;
@@ -39,6 +39,21 @@
 	font-size	: 5px;
 }
 #chartdiv8 {
+	width		: 100%;
+	height		: 90%;
+	font-size	: 5px;
+}
+#chartdiv9 {
+	width		: 100%;
+	height		: 90%;
+	font-size	: 5px;
+}
+#chartdiv10 {
+	width		: 100%;
+	height		: 90%;
+	font-size	: 5px;
+}
+#chartdiv11 {
 	width		: 100%;
 	height		: 90%;
 	font-size	: 5px;
@@ -67,7 +82,7 @@ a{
   margin: 15px;
   border-radius: 5px;
   height: 200px;
-  -webkit-box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
+ -webkit-box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
 -moz-box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
 box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
 }
@@ -103,7 +118,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
           <a href="{{route('chart_one')}}">
           <div class="card col-md-2" >
           <div class="card-header">
-          <label for="">Histogram of Projects</label>
+          <label for="">Evaluation Total Projects</label>
           </div> 
           <div id="chartdiv"></div>
           </div>
@@ -113,7 +128,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
           <a href="{{route('chart_two')}}">
           <div class="card col-md-2">
           <div class="card-header">
-          <label for="">Histogram of Assigned Projects</label>
+          <label for="">Assigned Projects</label>
           </div> 
           <div id="chartdiv2"></div>
           </div>
@@ -123,7 +138,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
           <a href="{{route('chart_three')}}">
           <div class="card col-md-2">
           <div class="card-header">
-          <label for="">Histogram of Inprogress Projects</label>
+          <label for="">Inprogress Projects</label>
           </div> 
           <div id="chartdiv3"></div>
           </div>
@@ -133,7 +148,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
           <a href="{{route('chart_four')}}">
           <div class="card col-md-2">
           <div class="card-header">
-          <label for="">Histogram of Completed Projects</label>
+          <label for="">Completed Projects</label>
           </div> 
           <div id="chartdiv4"></div>
           </div>
@@ -148,7 +163,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
       <div class="row">
           <div class="col-md-12">
           <div class="col-md-1" style="width:10%;"></div>   
-          {{-- chart1 --}}
+          {{-- chart 5 --}}
           <a href="{{route('chart_five')}}">
           <div class="card col-md-2" >
           <div class="card-header">
@@ -158,32 +173,72 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
           </div>
           </a>
 
-          {{-- chart2 --}}
+          {{-- chart 6--}}
+          <a href="{{route('chart_six')}}">
           <div class="card col-md-2">
           <div class="card-header">
           <label for="">Activities Progress w.r.t Projects</label>
           </div> 
           <div id="chartdiv6"></div>
           </div>
+          </a>
 
-          {{-- chart 3 --}}
+          {{-- chart 7 --}}
+          <a href="{{route('chart_seven')}}">
           <div class="card col-md-2">
           <div class="card-header">
-          <label for="">Sector Wise Progress of Projects</label>
+          <label for="">SubSector Wise Progress of Projects</label>
           </div> 
           <div id="chartdiv7"></div>
           </div>
+          </a>
 
-          {{-- chart4 --}}
+          {{-- chart 9 --}}
+          <a href="{{route('chart_nine')}}">
           <div class="card col-md-2">
           <div class="card-header">
-          <label for="">P & D Sector Wise Progress</label>
+          <label for="">Time Against Activities</label>
           </div> 
-          <div id="chartdiv8"></div>
+          <div id="chartdiv9"></div>
           </div>
+          </a>
           <div class="col-md-1"></div>
           </div>
         <!-- /.row -->
+      </div>
+
+      {{-- row 3 --}}
+      <div class="row">
+          <div class="col-md-12">
+          <div class="col-md-1" style="width:10%;"></div> 
+
+          {{-- chart 8 --}}
+          <a href="{{route('chart_eight')}}">
+            <div class="card col-md-4" style="width:36%;">
+            <div class="card-header">
+            <label for="">Sector Wise Progress</label>
+            </div> 
+            <div id="chartdiv8"></div>
+            </div>
+            </a>
+            <a href="{{route('chart_ten')}}">
+              <div class="card col-md-2">
+              <div class="card-header">
+              <label for=""> Minimum and Maximum time on each Activity</label>
+              </div> 
+              <div id="chartdiv10"></div>
+              </div>
+            </a>
+            <a href="">
+                <div class="card col-md-2">
+                <div class="card-header">
+                <label for=""> Logins Time</label>
+                </div> 
+                <div id="chartdiv11"></div>
+                </div>
+              </a>
+          <div class="col-md-1" style="width:10%;"></div> 
+          </div>
       </div>
     </section>
     <!-- /.content -->
@@ -464,54 +519,292 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
 
     });
 </script>
-{{-- <script>
+<script>
+    var st = [];
+     $i = 0;
+     activities.forEach(element => {
+       st.push ({ 
+         "Name":element.name,
+         "Number of projects": projects_activities_progress[$i][0].eachActivitycount,
+        
+       });
+       $i++;
+     });
+     var chart = AmCharts.makeChart( "chartdiv6", {
+     "type": "serial",
+     "theme": "light",
+     "dataProvider":st,
+     "valueAxes": [ {
+       "gridColor": "#FFFFFF",
+       "gridAlpha": 0.2,
+       "dashLength": 0
+     } ],
+     "gridAboveGraphs": true,
+     "startDuration": 1,
+     "graphs": [ {
+       "balloonText": "Number Of projects:[[value]]",
+       "fillAlphas": 0.8,
+       "lineAlpha": 0.2,
+       "type": "column",
+       "labelText": "[[value]]",
+       "valueField": "Number of projects"
+     } ],
+     "chartCursor": {
+       "categoryBalloonEnabled": false,
+       "cursorAlpha": 0,
+       "zoomable": false
+     },
+     "categoryField": "Name",
+     "categoryAxis": {
+       
+       "gridPosition": "middle",
+       "gridAlpha": 0,
+       "tickPosition": "middle",
+       "tickLength": 5,
+       "labelRotation":30,
+       // "ignoreAxisWidth": true,
+      //  "autoWrap": true
+     },
+     "export": {
+       "enabled": true
+     }
+   } );
+   </script>
+<script>
+    var st = [];
+     $i = 0;
+     sub_Sectors.forEach(element => {
+      //  console.log(projects_activities_progress[$i][0].eachActivitycount);
+       
+       st.push ({ 
+         "Name":element.name,
+         "Number of projects": projects_wrt_sectors[$i][0].eachSectorcount
+       });
+       $i++;
+     });
+     var chart = AmCharts.makeChart( "chartdiv7", {
+     "type": "serial",
+     "theme": "light",
+     "dataProvider":st,
+     "valueAxes": [ {
+       "gridColor": "#FFFFFF",
+       "gridAlpha": 0.2,
+       "dashLength": 0
+     } ],
+     "gridAboveGraphs": true,
+     "startDuration": 1,
+     "graphs": [ {
+       "balloonText": "Number of projects:[[value]]",
+       "fillAlphas": 0.8,
+       "lineAlpha": 0.2,
+       "type": "column",
+       "labelText": "[[value]]",
+       "valueField": "Number of projects"
+     } ],
+     "chartCursor": {
+       "categoryBalloonEnabled": false,
+       "cursorAlpha": 0,
+       "zoomable": false
+     },
+     "categoryField": "Name",
+     "categoryAxis": {
+       "gridPosition": "middle",
+       "gridAlpha": 0,
+       "tickPosition": "middle",
+       "tickLength": 5,
+       "labelRotation":30,
+       // "ignoreAxisWidth": true,
+       "autoWrap": true
+     },
+     "export": {
+       "enabled": true
+     }
+  
+   } );
+</script>
+<script>
+  var st = [];
+  $i = 0;
+  activities.forEach(element => {
+  st.push ({ 
+  "Name":element.name,
+  "Time": time_against_activities[$i]
+  });
+  $i++;
+  });
+  var chart = AmCharts.makeChart("chartdiv9", {
+  "type": "serial",
+  "theme": "light",
+  "dataProvider":st,
+  "valueAxes": [ {
+  "gridColor": "#FFFFFF",
+  "gridAlpha": 0.2,
+  "dashLength": 0
+  } ],
+  "gridAboveGraphs": true,
+  "startDuration": 1,
+  "graphs": [ {
+  "balloonText": "Time:[[value]]",
+  "fillAlphas": 0.8,
+  "lineAlpha": 0.2,
+  "type": "column",
+  "labelText": "[[value]]",
+  "valueField": "Time"
+  } ],
+  "chartCursor": {
+  "categoryBalloonEnabled": false,
+  "cursorAlpha": 0,
+  "zoomable": false
+  },
+  "categoryField": "Name",
+  "categoryAxis": {
+  "gridPosition": "middle",
+  "gridAlpha": 0,
+  "tickPosition": "middle",
+  "tickLength": 5,
+   "labelRotation":30,
+  // "ignoreAxisWidth": true,
+  "autoWrap": true
+  },
+  "export": {
+  "enabled": true
+  }
+
+  } );
+</script>
+
+{{-- row3 --}}
+<script>
+    var st = [];
+    $i = 0;
+    sectors.forEach(element => {
+    st.push ({ 
+    "Name":element.name,
+    "Total Projects":totalprojects_wrt_sectors[$i][0].eachtotalproject,
+    "Assigned Projects": assignedprojects_wrt_sectors[$i][0].eachproject,
+    "Inprogress Projects": inprogressprojects_wrt_sectors[$i][0].eachinprogressproject,
+    "Completed Projects": completedprojects_wrt_sectors[$i][0].eachcompletedproject
+    });
+    $i++;
+    });
+    console.log(st);
+
+    var chart = AmCharts.makeChart("chartdiv8", {
+    "type": "serial",
+    "theme": "light",
+    "legend": {
+    "horizontalGap": 10,
+    "maxColumns": 1,
+    "position": "right",
+    "useGraphSettings": true,
+    "markerSize": 10
+    },
+    "dataProvider": st,
+    "valueAxes": [{
+    "stackType": "regular",
+    "axisAlpha": 0.5,
+    "gridAlpha": 0
+    }],
+    "graphs": [ {
+    "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
+    "fillAlphas": 0.8,
+    "labelText": "[[value]]",
+    "lineAlpha": 0.3,
+    "title": "Total Projects",
+    "type": "column",
+    "color": "#000000",
+    "valueField": "Total Projects"
+    },{
+    "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
+    "fillAlphas": 0.8,
+    "labelText": "[[value]]",
+    "lineAlpha": 0.3,
+    "title": "Assigned Projects",
+    "type": "column",
+    "color": "#000000",
+    "valueField": "Assigned Projects"
+    },{
+    "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
+    "fillAlphas": 0.8,
+    "labelText": "[[value]]",
+    "lineAlpha": 0.3,
+    "title": "Inprogress Projects",
+    "type": "column",
+    "color": "#000000",
+    "valueField": "Inprogress Projects"
+    },{
+    "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
+    "fillAlphas": 0.8,
+    "labelText": "[[value]]",
+    "lineAlpha": 0.3,
+    "title": "Completed Projects",
+    "type": "column",
+    "color": "#000000",
+    "valueField": "Completed Projects"
+    }],
+    "rotate": true,
+    "categoryField": "Name",
+    "categoryAxis": {
+    "gridPosition": "start",
+    "axisAlpha": 0,
+    "gridAlpha": 0,
+    "position": "left"
+    },
+    "export": {
+    "enabled": true
+    }
+    });
+</script>
+<script>
   var st = [];
    $i = 0;
-   $activities.forEach(element => {
-     st.push ({ 
-       "Name":element.name,
-       "Number of Activities": projects_activities_progress[$i]
-     });
-     $i++;
-   });
-   var chart = AmCharts.makeChart( "chartdiv6", {
-   "type": "serial",
-   "theme": "light",
-   "dataProvider":st,
-   "valueAxes": [ {
-     "gridColor": "#FFFFFF",
-     "gridAlpha": 0.2,
-     "dashLength": 0
-   } ],
-   "gridAboveGraphs": true,
-   "startDuration": 1,
-   "graphs": [ {
-     "balloonText": "[[category]]: <b>[[value]]</b>",
-     "fillAlphas": 0.8,
-     "lineAlpha": 0.2,
-     "type": "column",
-     "labelText": "[[value]]",
-     "valueField": "Number of Activities"
-   } ],
-   "chartCursor": {
-     "categoryBalloonEnabled": false,
-     "cursorAlpha": 0,
-     "zoomable": false
-   },
-   "categoryField": "Name",
-   "categoryAxis": {
-     "gridPosition": "middle",
-     "gridAlpha": 0,
-     "tickPosition": "middle",
-     "tickLength": 5,
-     "labelRotation":30,
-     // "ignoreAxisWidth": true,
-     "autoWrap": true
-   },
-   "export": {
-     "enabled": true
-   }
+  activities.forEach(element => {
+  st.push ({ 
+  "Name":element.name,
+  // "Min Time": min_time_against_activities[$i],
+  "Average Time": time_against_activities[$i]
+  // "Max Time": max_time_against_activities[$i]
+  });
+  $i++;
+  });
+   
+  var chart = AmCharts.makeChart( "chartdiv10", {
+  "type": "serial",
+  "theme": "light",
+  "dataProvider": st,
+  "valueAxes": [ {
+    "gridColor": "#FFFFFF",
+    "gridAlpha": 0.2,
+    "dashLength": 0
+  } ],
+  "gridAboveGraphs": true,
+  "startDuration": 1,
+  "graphs": [{
+    "balloonText": "Average Time:[[value]] days",
+    "fillAlphas": 0.8,
+    "lineAlpha": 0.2,
+    "type": "column",
+    "labelText": "[[value]]",
+		"title":"Average Time",
+    "valueField": "Average Time"
+  }],
+  "chartCursor": {
+    "categoryBalloonEnabled": false,
+    "cursorAlpha": 0,
+    "zoomable": false
+  },
+  "categoryField": "Name",
+  "categoryAxis": {
+    "gridPosition": "start",
+    "gridAlpha": 0,
+    "tickPosition": "start",
+    "tickLength": 20,
+    "labelRotation":30
+  },
+  "export": {
+    "enabled": true
+  }
 
- } );
-</script> --}}
+} );
+</script>
 @endsection

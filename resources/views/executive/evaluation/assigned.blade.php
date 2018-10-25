@@ -42,6 +42,7 @@
                             <th>Project Name</th>
                             <th>Project Officers</th>
                             <th>Priority</th>
+                            <th>Project Score</th>
                             <th>Assigned Date</th>
                             <th>Progress</th>
                           </thead>
@@ -60,23 +61,20 @@
                                   @endforeach
                                 </td>
                                 <td>
-                                  @if ($project->priority==3)
-                                    High
-                                  @elseif ($project->priority==2)
-                                    Normal
-                                  @else
-                                    Low
-                                  @endif
+                                  {{ $project->Project->ProjectDetail->AssigningForum->name }}
+                                </td>
+                                <td>
+                                  {{ round($project->Project->score,2,PHP_ROUND_HALF_UP) }}
                                 </td>
                                 <td>{{$project->created_at}}</td>
-                               
+
                                 <td>
                                     <div class="progress">
                                       <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
                                         aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo 10+ $project->progress;?>% ">
-                                      {{$project->progress}}% Complete
+                                      {{round($project->progress, 0, PHP_ROUND_HALF_UP) }}% Complete
                                         </div>
-                                      
+
                                       </div></td>
                               </tr>
                             @endforeach

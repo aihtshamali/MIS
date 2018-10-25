@@ -47,7 +47,7 @@
   <header class="main-header">
 
       <!-- Logo -->
-      <a href="{{url('/home')}}" class="logo">
+      <a href="{{url('/predashboard')}}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>DG</b>ME</span>
       <!-- logo for regular state and mobile devices -->
@@ -71,10 +71,10 @@
           <li class="dropdown messages-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
-              <span class="label label-success">4</span>
+              <span class="label label-success">0</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 4 messages</li>
+              <li class="header">You have 0 messages</li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
@@ -192,10 +192,10 @@
           <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-flag-o"></i>
-              <span class="label label-danger">9</span>
+              <span class="label label-danger">0</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 9 tasks</li>
+              <li class="header">You have 0 tasks</li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
@@ -396,6 +396,7 @@
         user:"{{Auth::user()}}"
         })
         .then((response) => {
+          console.log(response.data);
           // console.log(response.data);
           $('.'+response.data.role+'_unassigned_counter').text(response.data.unassigned);
         })
@@ -429,6 +430,18 @@
               console.log(error);
             });
           })();
+          (function(){
+            axios.post('{{route("completedCounter")}}',{
+                user:"{{Auth::user()}}"
+                })
+                .then((response) => {
+                  var role=response.data.role;
+                  $('.'+role+'_completed_counter').text(response.data.assigned);
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+            })();
   </script>
 
   <script>

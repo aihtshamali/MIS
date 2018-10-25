@@ -41,23 +41,24 @@
           <div class="container">
           <div class="row">
             <div class="col-md-12">
-                @include('inc.msgs')
-              <div class="form-group">
-                <label>Un-Assigned Projects</label>
+                  @include('inc.msgs')
+                  <div class="form-group">
+                  <label>Un-Assigned Projects</label>
 
-                <table class="table table-responsive table-bordered projects">
+                  <table class="table table-responsive table-bordered projects">
                   <thead>
                     <th>Project No.</th>
                     <th>Project Name</th>
                     <th>Assigned By</th>
                     <th>Priority</th>
+                    <th>Project Score</th>
                     <th>Project Type</th>
 
-                    <th colspan="1" >Project Priority</th>
-                    <th>Action</th>
+                  <th colspan="1" >Project Priority</th>
+                  <th>Action</th>
                   </thead>
                   <tbody>
-                    {{-- {{dd($projects)}}/ --}}
+                  {{-- {{dd($projects)}}/ --}}
                   @foreach($projects as $project)
 
                         <tr>
@@ -66,32 +67,24 @@
                           <td>{{$project->Project->project_no}}</td>
                           <td><a href="{{route('projects.show',$project->project_id)}}">{{$project->Project->title}}</a></td>
                           <td>{{$project->AssignedBy($project->assigned_by)->first_name}} </td>
-                          @if($project->priority == 3)
-                          <td>High Priority</td>
-                          @elseif($project->priority == 2)
-                          <td>Normal Priority</td>
-                          @else
-                          <td>Low Priority</td>
-                          @endif
+                          <td>{{ $project->Project->ProjectDetail->AssigningForum->name }}</td>
+                          <td>{{ round($project->Project->score,2,PHP_ROUND_HALF_UP) }}</td>
                           <td>{{$project->Project->ProjectType->name}}</td>
                             <input type="hidden" name="inheritPriority" value="{{$project->priority}}">
                           <td>
                             <input type="hidden" name="priority" value="">
                             <input type="hidden" name="project_id" value="{{$project->project_id}}">
-                            <button type="button" class="btn btn-md priority" style="background-color:red; ">High Priority</button>
-                            <button type="button"  class="btn btn-md priority"style="background-color:green; ">Normal Priority</button>
-                            <button type="button" class="btn btn-md priority" style="background-color:yellow; ">Low Priority</button>
-
+                            {{ $project->Project->ProjectDetail->AssigningForum->name }}
                           </td>
+                          <td>{{ $project->Project->score }}</td>
                           <td><input type="submit" name="submit" value="Assign" class="btn btn-info"></td>
                         </form>
                         </tr>
                   @endforeach
-                </tbody>
-                </table>
+                  </tbody>
+                  </table>
 
-
-              </div>
+               </div>
             <!-- /.col -->
           </div>
             <!-- /.col -->
