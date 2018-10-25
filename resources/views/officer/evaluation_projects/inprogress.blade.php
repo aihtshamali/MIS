@@ -49,6 +49,7 @@
                             <th style="text-align:center;">Project Priority</th>
                             <th style="text-align:center;">Project Score</th>
                             <th style="text-align:center;">Assigned Duration</th>
+                            <th style="text-align:center;">SNE</th>
                             <th style="text-align:center;">Global Progress</th>
                             <th style="text-align:center;">Actions</th>
 
@@ -75,7 +76,13 @@
                               {{-- {{$assigned->created_at}} --}}
                               {{$interval}}
                             </td>
-
+                            <td>
+                              @if ($o->project->ProjectDetail->sne)
+                                {{ $o->project->ProjectDetail->sne }}
+                              @else
+                                <span style="color:red">Not Added</span>
+                              @endif
+                            </td>
                             <td>
 
                                 <div class="progress">
