@@ -96,7 +96,14 @@ class ProjectController extends Controller
       // else {
       //   $project_no = "PRO-1";
       // }
-      $project_no='';
+      $project_no=Project::latest()->first()->project_no;
+      if($project_no){
+      $projectNo=explode('-',$project_no);
+      $project_no=$projectNo[0].'-'.($projectNo[1]+1);
+      }
+      else {
+        $project_no = "PRO-1";
+      }
       foreach ($districts as $district) {
         $district->name = $district->name . "/";
       }
@@ -148,7 +155,8 @@ class ProjectController extends Controller
       $project->project_no = $projectNo;
       if(isset($request->evaluation_type) && $request->evaluation_type)
         $project->evaluation_type_id = $request->evaluation_type;
-      $project->ADP = $request->ADP;
+      $project->ADP = explode(',',$request->adp_no[0])[0];
+      $project->financial_year = $request->financial_year;
       $project->project_type_id = $request->type_of_project;
       $project->assigning_forum_sub_list_id = $request->assigning_forumSubList;
       $project->status = 0;
@@ -158,6 +166,7 @@ class ProjectController extends Controller
 
       $project_id = Project::latest()->first()->id;
       $project_detail = new ProjectDetail();
+      $project_detail->sne = $request->sne;
       $project_detail->project_id = $project_id;
       $project_detail->currency = $request->currency;
       $project_detail->orignal_cost = $request->original_cost;
@@ -443,6 +452,10 @@ class ProjectController extends Controller
       if($request->title != NULL){
         $project->title = $request->title;
         $project_original->title = $request->title;
+      }
+      if($request->sne){
+        $project_original->ProjectDetail->sne = $request->sne;
+        $project_original->ProjectDetail->save();
       }
       if($request->evaluation_type != NULL){
         $project->evaluation_type_id = $request->evaluation_type;
