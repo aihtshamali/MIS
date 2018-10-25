@@ -335,21 +335,27 @@
                                   </div>
                                 @endif
                                 @php
+                                //     100/3 100/3 100/1
                                   $total=100;
-                                  $count=4;
+                                  $count=1;
                                   $i=$assignedDocuments->count();
+                                  $counter=100/$i;
+                                  $temp=$counter;
                                 @endphp
                                 @foreach ($assignedDocuments as $docs)
-                                  @if($activity->ProjectActivity->id < 7 && $activity->progress != (100/$i)  &&  $activity->ProjectActivity->name!='Site Visits' && $activity->ProjectActivity->id < 4)
-                                    <a class="btn" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},{{100/$i}})'>Save</button>">
-                                      <input type="hidden" class="{{100/$i}}_{{$activity->id}}" name="percent" value="{{100/$i}},{{$project_data->project->id}},{{$activity->id}}">
-                                        <li>{{100/$i}}%</li>
+                                  @if($activity->ProjectActivity->id < 7 && $activity->progress != round($temp,0,PHP_ROUND_HALF_UP)  &&  $activity->ProjectActivity->name!='Site Visits' && $activity->ProjectActivity->id < 4)
+                                    <a class="btn" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<input type='file' name='document_attachment'><button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},{{round($temp,0,PHP_ROUND_HALF_UP)}},this,{{$docs->id}},{{$docs->ActivityDocument->id}})'>Save</button>">
+                                      <input type="hidden" class="{{round($temp,0,PHP_ROUND_HALF_UP)}}_{{$activity->id}}" name="percent" value="{{round($temp,0,PHP_ROUND_HALF_UP)}},{{$project_data->project->id}},{{$activity->id}}">
+                                      <div class="percentBox">
+                                        <p>{{$docs->ActivityDocument->name}}</p>
+                                      </div>
+                                      <span>{{round($temp,0,PHP_ROUND_HALF_UP)}}%</span>
+                                      @php
+                                        $temp+=$counter;
+                                      @endphp
                                       </input>
                                     </a>
                                   @endif
-                                  @php
-                                  $i--;
-                                  @endphp
                                 @endforeach
                                 @if($activity->progress < 50.0 && $activity->ProjectActivity->id < 7 && $activity->ProjectActivity->id > 3 )
                                   <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},50)'>Save</button>">
@@ -463,6 +469,7 @@
       <form class="" action="{{route('AssignActivityDocument')}}" method="post">
       <div class="modal-body">
           {{ csrf_field() }}
+          <input type="hidden" name="assigned_project_id" value="{{$project_data->id}}">
           <input type="hidden" id="modal_assigned_activity_id" name="assigned_activity_id">
         @foreach ($activity_documents as $docs)
           <div>
@@ -493,7 +500,6 @@
 
 @section('scripttags')
   <script src="http://malsup.github.com/jquery.form.js"></script>
-
   <script type="text/javascript">
   $(document).ready(function(){
     $('.select2').select2();
@@ -524,7 +530,6 @@
             bar.html(percentVal);
         },
     	complete: function(xhr) {
-        console.log(xhr);
         if(xhr.statusText=="OK"){
           status.html('File Upload SuccessFully')
           location.reload();
@@ -614,34 +619,54 @@
   })
   </script>
   <script>
-  function saveData(id,number){
-    // console.log(number);
+  function saveData(id,number,objthis=null,Assigned_document_id=null,document_id=null){
+    var rout='/officer/save_percentage';
     // console.log($('.'+number+'_'+id).val());
+    var form_data = new FormData();
     opt = $('.'+number+'_'+id).val();
+    if(objthis){ // objthis is only for DocsAttachment
+      rout='{{route("saveDocAttachment")}}';
+      var file_data = $(objthis).siblings()[0].files[0];
+      form_data.append('activity_attachment', file_data);
+      form_data.append('activity_document_id', document_id);
+      form_data.append('assigned_project_activity_id', id);
+      form_data.append('assigned_activity_document_id', Assigned_document_id);
+    }
+    form_data.append('data', opt);
+    for (var value of form_data.values()) {
+      console.log(value);
+    }
+    form_data.append('csrf-token', "{{ csrf_token() }}");
     $.ajax({
       method: 'POST', // Type of response and matches what we said in the route
-      url: '/officer/save_percentage', // This is the url we gave in the route
-      data: {
-        "_token": "{{ csrf_token() }}",
-        'data' : opt}, // a JSON object to send back
-        success: function(response){ // What to do if we succeed
-          console.log(response);
+      headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      url: rout, // This is the url we gave in the route
+      // dataType: 'text',  // what to expect back from the PHP script, if anything
+      cache: false,
+      contentType: false,
+      processData: false,
+      data: form_data, // a JSON object to send back
+      success: function(response){ // What to do if we succeed
+        console.log(response);
           location.reload();
-        },
-        error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+      },
+      error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+          console.log('hello');
           console.log(JSON.stringify(jqXHR));
           console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
-        }
+      }
       });
-    }
+
+  }
 
     $('.activity_docs').click(function(){
-      console.log($(this).data('id'));
+
       $("#modal_assigned_activity_id").val($(this).data('id'));
     });
 
     $(document).ready(function(){
-
 
       $('.btn').popover();
 

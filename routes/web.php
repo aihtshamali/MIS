@@ -63,7 +63,7 @@ Route::prefix('manager')->middleware('role:manager')->group(function () {
   // chart details
   // Route::get('/chart_two_details','ExecutiveController@chart_two')->name('chart_two_details');
 
-  // 
+  //
   Route::get('/pems_tab','ExecutiveController@pems_index')->name('Exec_pems_tab');
   Route::get('/pmms_tab','ExecutiveController@pmms_index')->name('Exec_pmms_tab');
   Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
@@ -75,7 +75,7 @@ Route::prefix('manager')->middleware('role:manager')->group(function () {
   Route::get('/evaluation_completed','ExecutiveController@evaluation_completedprojects')->name('Exec_evaluation_completed');
   Route::resource('assignproject','ProjectAssignController');
   Route::get('/evaluation_reviewed','ExecutiveController@reviewed_projects');
-  
+
   // PDWP MEETING MODULE
   Route::get('/conduct_pdwp_meeting','ExecutiveController@conduct_pdwp_meeting')->name('Conduct_PDWP_Meeting');
   Route::get('/list_agendas','ExecutiveController@list_agendas')->name('List_Agendas');
@@ -106,7 +106,7 @@ Route::prefix('director_evaluation')->middleware('role:directorevaluation')->gro
   Route::get('assignproject','ProjectAssignController@create_from_director')->name('create_from_director');
   Route::post('assignproject','ProjectAssignController@store_from_director')->name('store_from_director');
 
-  // 
+  //
   Route::post('getAssignedProjects','DirectorEvaluationController@getAssignedProjects')->name('getofficersassigned');
   Route::post('getCompletedProjects','DirectorEvaluationController@getCompletedProjects')->name('getofficerscompleted');
 
@@ -148,6 +148,7 @@ Route::prefix('officer')->middleware('role:officer')->group(function () {
   Route::post('/review_form','OfficerController@review_forms')->name('review_forms');
   Route::post('/AssignActivityDocuments','OfficerController@AssignActivityDocument')->name('AssignActivityDocument');
   Route::post('/saveActivityAttachment','OfficerController@saveActivityAttachment')->name('saveActivityAttachment');
+  Route::post('/saveDocAttachment','OfficerController@saveDocAttachments')->name('saveDocAttachment');
 
   // Monitoring Module Routes
   Route::get('/monitoring_newAssignment','OfficerController@monitoring_newAssignments')->name('Monitoring_newAssignments');

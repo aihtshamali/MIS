@@ -190,6 +190,75 @@ class OfficerController extends Controller
 
       return view('officer.evaluation_projects.activities',['assignedDocuments'=>$assignedDocuments,'activity_documents'=>$activity_documents,'activities'=>$activities,'average_progress'=>$average_progress,'icons'=>$icons,'project_data'=>$project_data,'project_id'=>$id,'officerInProgressCount'=>$officerInProgressCount,'officerAssignedCount'=>$officerAssignedCount]);
     }
+    public function AssignActivityDocument(Request $request){
+      // dd($request->all());
+      foreach ($request->activity_document_id as $docs) {
+        $assignedDocuments=new AssignedActivityDocument();
+        $assignedDocuments->assigned_project_activity_id=$request->assigned_activity_id;
+        $assignedDocuments->activity_document_id=$docs;
+        $assignedDocuments->assigned_project_id=$request->assigned_project_id;
+        $assignedDocuments->save();
+      }
+    }
+    public function saveDocAttachments(Request $request){
+      // print_r($request->hasFile('activity_attachment'));
+      if($request->activity_attachment){
+        $data =  $request['data'];
+        $percentage = strtok($data,",");
+        $project_id = strtok(",");
+        $activity_id = strtok(",");
+        $assigned_project_activity = AssignedProjectActivity::find($activity_id);
+        $assigned_project_activity->progress = $percentage;
+        if(!$assigned_project_activity->start_date){
+          $assigned_project_activity->start_date=date('Y-m-d');
+          $assigned_project_activity1 = AssignedProjectActivity::find(($activity_id+1));
+          $assigned_project_activity1->start_date=date('Y-m-d');
+        }
+        if($percentage==100)
+          $assigned_project_activity->end_date=date('Y-m-d');
+        $assigned_project_activity->save();
+        //
+
+        // $document= new AssignedActivityDocument();
+        // $document->activity_document_id=$request->activity_document_id;
+        // $document->assigned_project_activity_id=$request->assigned_project_activity_id;
+        // $document->assigned_project_id=$assigned_project_activity->project_id;
+        // $document->save();
+        //
+        // print_r($request->all());
+        $attach=ActivityDocument::find($request->activity_document_id);
+        $data =new AssignedActivityAttachment();
+        $file_path = $request->file('activity_attachment')->path();
+        $file_extension = $request->file('activity_attachment')->getClientOriginalExtension();
+        $data->project_attachements=base64_encode(file_get_contents($file_path));
+        $data->assigned_project_activity_id=$request->attachment_activity;
+        $data->type = $file_extension;
+        $data->attachment_name=$attach->name;
+        $data->assigned_project_activity_id=$request->assigned_project_activity_id;
+        $data->assigned_activity_document_id=$request->assigned_activity_document_id;
+        $data->save();
+      //
+        $assigned_project_activities_id = $assigned_project_activity->id;
+        $assigned_project_activities_progress_log = new AssignedProjectActivityProgressLog();
+        $assigned_project_activities_progress_log->assigned_project_activities_id = $assigned_project_activities_id;
+        $assigned_project_activities_progress_log->progress = $percentage;
+        $assigned_project_activities_progress_log->save();
+        //Saving GLobal Percentage
+        $project = AssignedProject::find($assigned_project_activity->project_id);
+        $project_activities = $project->AssignedProjectActivity;
+        $total_progress = 0;
+        $percentage_array = [15.26,8.26,10.05,6.99,8.03,8.16,14.79,8.23,2.77,9.35,4.17,3.94];
+        $i = 0;
+        foreach($project_activities as $pa){
+          $total_progress = ($total_progress  +  ( ($pa->progress/100.0) * $percentage_array[$i] ));
+          $i += 1;
+        }
+        // return $total_progress;
+        $project->progress = $total_progress;
+        $project->save();
+        return 'Done';
+      }
+    }
       public function projectCompleted(Request $request)
       {
         $projectCompleted = AssignedProject::find($request->assigned_project_id);
