@@ -99,7 +99,7 @@
   .fileprogress{display: none}
   .bar { background-color: #B4F5B4; width:0%; height:20px; border-radius: 3px; }
   .percent { position:absolute; display:inline-block; top:3px; left:48%; }
-  .percentBox{border: 2px solid #790d0d;text-align: center;width: 30px;height: 25px;}
+  .percentBox{border: 2px solid #790d0d;text-align: center;width: 30px;overflow: hidden;height: 25px;}
   .percentBox p{margin: 0px !important; padding: 0px !important;}
   </style>
 @endsection
