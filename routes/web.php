@@ -21,9 +21,9 @@ Route::get('/predashboard',function(){
 });
 
 // EvaluationDashbaord
-Route::get('/dashboard',function(){
-  return view('dashboard');
-})->name("evaluation_dashboard");
+// Route::get('/dashboard',function(){
+//   return view('dashboard');
+// })->name("evaluation_dashboard");
 
 // MonitoringDashbaord
 Route::get('/monitoring_dashboard',function(){
@@ -219,7 +219,7 @@ Route::group(['middleware'=>['permission:can.problematicremark']],function(){
 });
 // Route::group(['middleware' => ['permission:can.edit.project|can.view.project']],function(){
 // });
-Route::get('/dashboard',"HomeController@dashboard");
+Route::get('/dashboard',"HomeController@dashboard")->name("evaluation_dashboard");
 
 Route::post('/printerfunction','AdminHumanResourceController@printer');
 
