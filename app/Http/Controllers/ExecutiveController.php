@@ -710,10 +710,10 @@ class ExecutiveController extends Controller
         return view('executive.evaluation.reviewed_projects');
       }
 
-      public function monitoring_unassigned()
-      {
-        return view('_Monitoring._Manager.unassigned');
-      }
+    public function monitoring_unassigned()
+    {
+      return view('_Monitoring._Manager.unassigned');
+    }
      
 
 }

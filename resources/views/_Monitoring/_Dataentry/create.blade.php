@@ -195,7 +195,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-12">
                                                 <label><b >Planned Start Date</b></label> 
-                                                <input type='date' id="planned_start_date" required name="psd" onkeyup="" class="form-control" />                                                 
+                                                <input type='text' id="planned_start_date" required name="psd" onkeyup="" class="form-control" />                                                 
                                             </div>
                                         </div>
                                         <div class="form-group row">

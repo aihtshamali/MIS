@@ -2,14 +2,15 @@
 <link rel="stylesheet" href="{{ asset('_monitoring/css/icon/simple-line-icons/css/simple-line-icons.css')}}"/>
 @section('styleTags')
 <style>
+
 .openpage{
   border: 1px solid lavender;
  
 }
 .openpage:hover{
   background: lavender;
- 
 }
+
 </style>
 @endsection
 @section('content') 
@@ -30,8 +31,10 @@
                                 <a class="accordion-msg" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                     TITLE OF PROJECT 1  
                                 </a>        
-                                <button class="btn btn-sm btn-warning btn-outline-warning" style=" margin-top: -30px; margin-bottom: 10px; margin-left: 60%;"><i class="icofont icofont-info-square"></i>Assign Project</button> 
-                                </h3>
+                            <form action="{{route('assign_To_consultant')}}">
+                                <button  type="submit" class=" assignButton btn btn-sm btn-warning btn-outline-warning" style=" margin-top: -30px; margin-bottom: 10px; margin-left: 60%;color:#fe9365"><i class="icofont icofont-info-square"></i>Assign Project</button>
+                                </form>    
+                            </h3>
                             </div>
                             <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                             {{-- <a href="{{route('monitoring_inprogressSingle')}}"> --}}
@@ -66,7 +69,9 @@
                                     aria-controls="collapseTwo">
                                     TITLE OF PROJECT 2
                                 </a>
-                                <button class="btn btn-sm btn-warning btn-outline-warning" style=" margin-top: -30px; margin-bottom: 10px; margin-left: 60%;"><i class="icofont icofont-info-square"></i>Assign Project</button> 
+                                <form action="{{route('assign_To_consultant')}}">
+                                        <button  type="submit" class=" assignButton btn btn-sm btn-warning btn-outline-warning" style=" margin-top: -30px; margin-bottom: 10px; margin-left: 60%;color:#fe9365"><i class="icofont icofont-info-square"></i>Assign Project</button>
+                                        </form>   
                             </h3>
                             </div>
                             <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
@@ -102,7 +107,9 @@
                                     aria-controls="collapseThree">
                                     TITLE OF PROJECT 2
                                 </a>
-                                <button class="btn btn-sm btn-warning btn-outline-warning" style=" margin-top: -30px; margin-bottom: 10px; margin-left: 60%;"><i class="icofont icofont-info-square"></i>Assign Project</button> 
+                                <form action="{{route('assign_To_consultant')}}">
+                                        <button  type="submit" class=" assignButton btn btn-sm btn-warning btn-outline-warning" style=" margin-top: -30px; margin-bottom: 10px; margin-left: 60%;color:#fe9365"><i class="icofont icofont-info-square"></i>Assign Project</button>
+                                        </form>  
                             </h3>
                             </div>
                             <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
