@@ -63,7 +63,7 @@ class ProjectAssignController extends Controller
         ->whereNull('assigned_project_managers.project_id')
         ->whereNull('assigned_projects.project_id')
         ->where('projects.project_type_id','1')
-        ->get();        
+        ->get();
 
         // dd($projects);
          return view('project_assigned.index',['unassigned'=>$unassigned,'assignedtoManager'=>$assignedtoManager,'assigned'=>$assigned,'officers'=>$officers,'managers'=>$managers,'projects'=>$projects,'users'=>$users]);
@@ -266,7 +266,7 @@ class ProjectAssignController extends Controller
 
         return redirect()->route('Evaluation_evaluation_assigned');
     }
-    
+
     public function DPM_AssignToConsultant(Request $request)
     {  $directors=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
       ->leftJoin('user_details','user_details.user_id','users.id')
@@ -325,7 +325,6 @@ class ProjectAssignController extends Controller
     }
     public function DPM_StoreProjectData(Request $request)
     {
-     
     }
 
      public function store(Request $request)
@@ -411,7 +410,7 @@ class ProjectAssignController extends Controller
          $table_id=$assignedProjectManager->id;
 
        }
-         return redirect()->route('Exec_evaluation_assigned');
+         return redirect('manager/assignproject');
      }
 
     /**

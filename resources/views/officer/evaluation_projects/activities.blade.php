@@ -100,6 +100,8 @@
   .fileprogress{display: none}
   .bar { background-color: #B4F5B4; width:0%; height:20px; border-radius: 3px; }
   .percent { position:absolute; display:inline-block; top:3px; left:48%; }
+  .percentBox{border: 2px solid #790d0d;text-align: center;width: 30px;height: 25px;}
+  .percentBox p{margin: 0px !important; padding: 0px !important;}
   </style>
 @endsection
 @section('content')
@@ -136,16 +138,22 @@
                 Project Name :<b> {{$project_data->Project->title}}  </b><br>
               </p>
               <p>
-                Project Score :<b> {{ round($project_data->Project->score,2,PHP_ROUND_HALF_UP) }}
+                Project Score :<b> {{ round($project_data->Project->score,2,PHP_ROUND_HALF_UP) }}</b>
               </p>
 
               <p>
-                Project Members :<b>
+                Project Members :
+                <b>
                   @foreach ($project_data->AssignedProjectTeam as $member)
                     {{$member->User->first_name}} {{$member->User->last_name}},
                   @endforeach
                 </b>
               <br>
+            </p>
+            <p style="background:red;color:white">
+              SNE : <b>
+                {{ $project_data->Project->ProjectDetail->sne }}
+              </b>
             </p>
 
 
@@ -333,28 +341,40 @@
                                 @if($activity->progress < 25.0 && $activity->ProjectActivity->id < 7 &&  $activity->ProjectActivity->name!='Site Visits')
                                   <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},25)'>Save</button>">
                                     <input type="hidden" class="25_{{$activity->id}}" name="percent" value="25,{{$project_data->project->id}},{{$activity->id}}">
-                                    <li>25%</li>
+                                    <div class="percentBox">
+                                      <p>1</p>
+                                    </div>
+                                    <span>25%</span>
                                     </input>
                                   </a>
                                 @endif
                                 @if($activity->progress < 50.0 && $activity->ProjectActivity->id < 7 )
                                   <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},50)'>Save</button>">
                                     <input type="hidden" class="50_{{$activity->id}}" name="percent" value="50,{{$project_data->project->id}},{{$activity->id}}">
-                                    <li>50%</li>
+                                    <div class="percentBox">
+                                      <p>2</p>
+                                    </div>
+                                    <span>50%</span>
                                   </input>
                                 </a>
                                 @endif
                                 @if ($activity->progress < 75.0 && $activity->ProjectActivity->id < 7 &&  $activity->ProjectActivity->name!='Site Visits')
                                   <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},75)'>Save</button>">
                                     <input type="hidden" class="75_{{$activity->id}}" name="percent" value="75,{{$project_data->project->id}},{{$activity->id}}">
-                                    <li>75%</li>
+                                    <div class="percentBox">
+                                      <p>3</p>
+                                    </div>
+                                    <span>75%</span>
                                   </input>
                                 </a>
                               @endif
                               @if ($activity->progress < 100.0)
                                 <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},100)'>Save</button>">
                                   <input type="hidden" class="100_{{$activity->id}}" name="percent" value="100,{{$project_data->project->id}},{{$activity->id}}">
-                                  <li>100%</li>
+                                  <div class="percentBox">
+                                    <p>4</p>
+                                  </div>
+                                  <span>100%</span>
                                 </input>
                               </a>
                             @endif
@@ -430,7 +450,7 @@
     </tbody>
   </table>
   <input type="hidden" name="assigned_project_id" style="display:inline;float:right" value="{{$project_data->id}}">
-  <button type="submit" class="btn btn-success pull-right" >Project Completed
+  <button type="submit" class="btn btn-success pull-right" @if($project_data->progress != 100) disabled @endif >Project Completed
   </button>
 </form>
 </div>
@@ -637,7 +657,7 @@
     // });
 
     $(document).ready(function(){
-     
+
 
       $('.btn').popover();
 

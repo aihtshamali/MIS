@@ -435,6 +435,7 @@
                 user:"{{Auth::user()}}"
                 })
                 .then((response) => {
+                  console.log(response,'sad');                  
                   var role=response.data.role;
                   $('.'+role+'_completed_counter').text(response.data.assigned);
                 })
