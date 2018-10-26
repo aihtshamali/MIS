@@ -135,7 +135,7 @@
                     <li class="user-profile header-notification">
                         <div class="dropdown-primary dropdown">
                             <div class="dropdown-toggle" data-toggle="dropdown">
-                                <img src={{asset('_monitoring/css/images/avatar-7.jpg')}} class="img-radius" alt="User-Profile-Image">
+                                <img src={{asset('_monitoring/css/images/avatar-0.jpg')}} class="img-radius" alt="User-Profile-Image">
                                 <span>
                                     @auth
                                     {{Auth::user()->first_name}} {{Auth::user()->last_name}}

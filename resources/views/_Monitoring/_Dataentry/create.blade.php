@@ -52,6 +52,18 @@
                         </div>
                     </div>
                 <div class="form-group row">
+                        <div class="col-md-12">
+                            <b><label for="sectors">SNE </label></b>
+                            <select class="form-control form-control-warning" required name="sne" id="sne">
+                                    <option value="" selected="selected" disabled>Select SNE</option>
+                                    <option value="NO">NO</option>
+                                    <option value="COST">COST</option>
+                                    <option value="STAFF">STAFF</option>
+                                    <option value="BOTH">BOTH</option>
+                                  </select>
+                        </div>
+                    </div>
+                <div class="form-group row">
                         <div class="col-md-6">
                         <label for=""><b>Financial Year</b></label>
                             <select class="form-control form-control-info" name="financial_year" id="financial_year">
@@ -267,6 +279,14 @@
 
                     </div>
                 </div>
+                <div class="form-group row">
+                        <div class="col-md-4">
+                            <label><b>SNE:</b></label>
+                        </div>
+                        <div class="col-md-6" id="summary_sne">
+    
+                        </div>
+                    </div>
                 <div class="form-group row">
                     <div class="col-md-4">
                         <label><b>GS # :</b></label>

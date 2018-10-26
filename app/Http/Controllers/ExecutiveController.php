@@ -714,6 +714,14 @@ class ExecutiveController extends Controller
     {
       return view('_Monitoring._Manager.unassigned');
     }
+    public function monitoring_inprogress()
+    {
+      return view('_Monitoring._Manager.inprogress');
+    }
+    public function monitoring_completed()
+    {
+      return view('_Monitoring._Manager.completed');
+    }
      
 
 }

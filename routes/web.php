@@ -99,9 +99,8 @@ Route::prefix('manager')->middleware('role:manager')->group(function () {
   // MONITORING MODULE
   Route::get('/m_unassignedprojects','ExecutiveController@monitoring_unassigned')->name('monitoring_unassigned');
   Route::get('/m_assigntoconsultant','ProjectAssignController@assignToConsultant')->name('assign_To_consultant');
-
-  // Route::get('/m_inprogressprojects','ExecutiveController@monitoring_inprogress')->name('monitoring_inprogress');
-  // Route::get('/m_completedprojects','ExecutiveController@monitoring_completed')->name('monitoring_completed');
+  Route::get('/m_inprogressprojects','ExecutiveController@monitoring_inprogress')->name('monitoring_inprogress');
+  Route::get('/m_completedprojects','ExecutiveController@monitoring_completed')->name('monitoring_completed');
 
 });
 
@@ -142,7 +141,9 @@ Route::prefix('director_Monitor')->middleware('role:directormonitoring')->group(
     Route::get('/assignproject_M','ProjectAssignController@DPM_AssignToConsultant')->name('DPM_AssignToConsultant');
     Route::get('/monitoring_inprogress','DirectorMonitoringController@monitoring_inprogressprojects')->name('Monitoring_inprogress_projects');
     Route::get('/monitoring_complete','DirectorMonitoringController@monitoring_completeprojects')->name('Monitoring_complete_projects');
-
+    Route::get('/monitoring_assigntoconsultant','ProjectAssignController@DPM_AssignToConsultant')->name('Monitoring_assignToconsultant');
+    
+    
 });
 Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
 

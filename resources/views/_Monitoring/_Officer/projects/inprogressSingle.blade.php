@@ -912,8 +912,9 @@ box-shadow: 0px -1px 79px 14px rgba(189,187,189,1);
 <!-- Multiselect js -->
 <script src="{{asset('_monitoring/js/bootstrap-multiselect/js/bootstrap-multiselect.js')}}"></script>
 <script src="{{asset('_monitoring/js/multiselect/js/jquery.multi-select.js')}}"></script>
-<script src="{{asset('_monitoring/css/js/jquery.quicksearch.js')}}"></script>
 <script src="{{asset('_monitoring/css/pages/advance-elements/select2-custom.js')}}"></script>
+<script src="{{asset('_monitoring/css/js/jquery.quicksearch.js')}}"></script>
+
 {{-- date dropper --}}
 
 <script src="{{asset('_monitoring/css/pages/advance-elements/moment-with-locales.min.js')}}"></script>

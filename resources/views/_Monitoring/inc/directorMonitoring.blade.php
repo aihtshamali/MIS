@@ -15,154 +15,49 @@
                                         <span class="pcoded-mtext">Home</span>
                                     </a>
                                 </li>
-                                {{-- <li class="">
+                                <li class="#">
                                     <a href="dashboard-crm.html">
                                         <span class="pcoded-mtext">CRM</span>
                                     </a>
                                 </li>
-                                <li class=" ">
+                                <li class="#">
                                     <a href="dashboard-analytics.html">
                                         <span class="pcoded-mtext">Analytics</span>
                                         <span class="pcoded-badge label label-info ">NEW</span>
                                     </a>
-                                </li> --}}
-                            </ul>
-                        </li>
-                        {{-- <li class="pcoded-hasmenu">
-                            <a href="javascript:void(0)">
-                                <span class="pcoded-micon"><i class="feather icon-sidebar"></i></span>
-                                <span class="pcoded-mtext">Page layouts</span>
-                                <span class="pcoded-badge label label-warning">NEW</span>
-                            </a>
-                            <ul class="pcoded-submenu">
-                                <li class=" pcoded-hasmenu">
-                                    <a href="javascript:void(0)">
-                                        <span class="pcoded-mtext">Vertical</span>
-                                    </a>
-                                    <ul class="pcoded-submenu">
-                                        <li class=" ">
-                                            <a href="menu-static.html">
-                                                <span class="pcoded-mtext" >Static Layout</span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="menu-header-fixed.html">
-                                                <span class="pcoded-mtext" >Header Fixed</span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="menu-compact.html">
-                                                <span class="pcoded-mtext" >Compact</span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="menu-sidebar.html">
-                                                <span class="pcoded-mtext">Sidebar Fixed</span>
-                                            </a>
-                                        </li>
-
-                                    </ul>
-                                </li>
-                                <li class=" pcoded-hasmenu">
-                                    <a href="javascript:void(0)">
-                                        <span class="pcoded-mtext" >Horizontal</span>
-                                    </a>
-                                    <ul class="pcoded-submenu">
-                                        <li class=" ">
-                                            <a href="menu-horizontal-static.html" target="_blank">
-                                                <span class="pcoded-mtext" >Static Layout</span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="menu-horizontal-fixed.html" target="_blank">
-                                                <span class="pcoded-mtext">Fixed layout</span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="menu-horizontal-icon.html" target="_blank">
-                                                <span class="pcoded-mtext">Static With Icon</span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="menu-horizontal-icon-fixed.html" target="_blank">
-                                                <span class="pcoded-mtext">Fixed With Icon</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class=" ">
-                                    <a href="menu-bottom.html">
-                                        <span class="pcoded-mtext" >Bottom Menu</span>
-                                    </a>
-                                </li>
-                                <li class=" ">
-                                    <a href="box-layout.html" target="_blank">
-                                        <span class="pcoded-mtext">Box Layout</span>
-                                    </a>
-                                </li>
-                                <li class=" ">
-                                    <a href="menu-rtl.html" target="_blank">
-                                        <span class="pcoded-mtext">RTL</span>
-                                    </a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="">
-                            <a href="navbar-light.html">
-                                <span class="pcoded-micon"><i class="feather icon-menu"></i></span>
-                                <span class="pcoded-mtext">Navigation</span>
-                            </a>
-                        </li>
-                        <li class="pcoded-hasmenu">
-                            <a href="javascript:void(0)">
-                                <span class="pcoded-micon"><i class="feather icon-layers"></i></span>
-                                <span class="pcoded-mtext" >Widget</span>
-                                <span class="pcoded-badge label label-danger">100+</span>
-                            </a>
-                            <ul class="pcoded-submenu">
-                                <li class=" ">
-                                    <a href="widget-statistic.html">
-                                        <span class="pcoded-mtext" >Statistic</span>
-                                    </a>
-                                </li>
-                                <li class=" ">
-                                    <a href="widget-data.html">
-                                        <span class="pcoded-mtext" >Data</span>
-                                    </a>
-                                </li>
-                                <li class=" ">
-                                    <a href="widget-chart.html">
-                                        <span class="pcoded-mtext" >Chart Widget</span>
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </li> --}}
                     </ul>
                     <div class="pcoded-navigatio-lavel">Projects</div>
                     <ul class="pcoded-item pcoded-left-item">
                         <li class="pcoded-hasmenu">
                             <a href="javascript:void(0)">
-                                <span class="pcoded-micon"><i class="feather icon-box"></i></span>
-                                <span class="pcoded-mtext" >Basic Components</span>
+                                <span class="pcoded-micon"><i class="feather icon-airplay"></i></span>
+                                    <span class="pcoded-mtext" >Monitoring Projects</span>
                             </a>
                             <ul class="pcoded-submenu">
-                                <li class=" ">
-                                    <a href="alert.html">
-                                        <span class="pcoded-mtext">Alert</span>
+                                <li class="">
+                                <a href="{{route('Monitoring_unassigned_projects')}}">
+                                        <span class="pcoded-mtext">New Assignments</span>
+                                        <span class="pcoded-badge label label-danger">0</span>
+
                                     </a>
                                 </li>
                                 <li class=" ">
-                                    <a href="breadcrumb.html">
-                                        <span class="pcoded-mtext" >Breadcrumbs</span>
+                                <a href="{{route('Monitoring_inprogress_projects')}}">
+                                        <span class="pcoded-mtext" >In Progress</span>
+                                        <span class="pcoded-badge label label-warning">0</span>
+
                                     </a>
                                 </li>
                                 <li class=" ">
-                                    <a href="button.html">
-                                        <span class="pcoded-mtext" >Button</span>
+                                <a href="{{route('Monitoring_complete_projects')}}">
+                                        <span class="pcoded-mtext" >Completed</span>
+                                        <span class="pcoded-badge label label-success">0</span>
                                     </a>
                                 </li>
-                                <li class=" ">
+                                {{-- <li class=" ">
                                     <a href="box-shadow.html">
                                         <span class="pcoded-mtext" >Box-Shadow</span>
                                     </a>
@@ -221,7 +116,7 @@
                                     <a href="other.html">
                                         <span class="pcoded-mtext" >Other</span>
                                     </a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
                         {{-- <li class="pcoded-hasmenu">
@@ -399,147 +294,29 @@
                             </ul>
                         </li> --}}
                     </ul>
-                    <div class="pcoded-navigatio-lavel">Plan A Visit</div>
+                    <div class="pcoded-navigatio-lavel">Site Visits</div>
                     <ul class="pcoded-item pcoded-left-item">
                         <li class="pcoded-hasmenu">
                             <a href="javascript:void(0)">
-                                <span class="pcoded-micon"><i class="feather icon-clipboard"></i></span>
-                                <span class="pcoded-mtext" >Form Components</span>
+                                    
+                                <span class="pcoded-micon"><i class="zmdi zmdi-car"></i></span>
+                                <span class="pcoded-mtext" >Plan A Visit</span>
                             </a>
                             <ul class="pcoded-submenu">
                                 <li class=" ">
                                     <a href="form-elements-component.html">
-                                        <span class="pcoded-mtext" >Form Components</span>
+                                        <span class="pcoded-mtext" >Schedule New Visit</span>
                                     </a>
                                 </li>
                                 <li class=" ">
                                     <a href="form-elements-add-on.html">
-                                        <span class="pcoded-mtext" >Form-Elements-Add-On</span>
-                                    </a>
-                                </li>
-                                <li class=" ">
-                                    <a href="form-elements-advance.html">
-                                        <span class="pcoded-mtext" >Form-Elements-Advance</span>
-                                    </a>
-                                </li>
-                                <li class=" ">
-                                    <a href="form-validation.html">
-                                        <span class="pcoded-mtext" >Form Validation</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class=" ">
-                            <a href="form-picker.html">
-                                <span class="pcoded-micon"><i class="feather icon-edit-1"></i></span>
-                                <span class="pcoded-mtext" >Form Picker</span>
-                                <span class="pcoded-badge label label-warning">NEW</span>
-                            </a>
-                        </li>
-                        <li class=" ">
-                            <a href="form-select.html">
-                                <span class="pcoded-micon"><i class="feather icon-feather"></i></span>
-                                <span class="pcoded-mtext" >Form Select</span>
-                            </a>
-                        </li>
-                        <li class=" ">
-                            <a href="form-masking.html">
-                                <span class="pcoded-micon"><i class="feather icon-shield"></i></span>
-                                <span class="pcoded-mtext" >Form Masking</span>
-                            </a>
-                        </li>
-                        <li class=" ">
-                            <a href="form-wizard.html">
-                                <span class="pcoded-micon"><i class="feather icon-tv"></i></span>
-                                <span class="pcoded-mtext" >Form Wizard</span>
-                            </a>
-                        </li>
-                        <li class="pcoded-hasmenu">
-                            <a href="javascript:void(0)">
-                                <span class="pcoded-micon"><i class="feather icon-book"></i></span>
-                                <span class="pcoded-mtext" >Ready To Use</span>
-                                <span class="pcoded-badge label label-danger">HOT</span>
-                            </a>
-                            <ul class="pcoded-submenu">
-                                <li class=" ">
-                                    <a href="ready-cloned-elements-form.html">
-                                        <span class="pcoded-mtext" >Cloned Elements Form</span>
-                                    </a>
-                                </li>
-                                <li class=" ">
-                                    <a href="ready-currency-form.html">
-                                        <span class="pcoded-mtext" >Currency Form</span>
-                                    </a>
-                                </li>
-                                <li class=" ">
-                                    <a href="ready-form-booking.html">
-                                        <span class="pcoded-mtext" >Booking Form</span>
-                                    </a>
-                                </li>
-                                <li class=" ">
-                                    <a href="ready-form-booking-multi-steps.html">
-                                        <span class="pcoded-mtext" >Booking Multi Steps Form</span>
-                                    </a>
-                                </li>
-                                <li class=" ">
-                                    <a href="ready-form-comment.html">
-                                        <span class="pcoded-mtext" >Comment Form</span>
-                                    </a>
-                                </li>
-                                <li class=" ">
-                                    <a href="ready-form-contact.html">
-                                        <span class="pcoded-mtext" >Contact Form</span>
-                                    </a>
-                                </li>
-                                <li class=" ">
-                                    <a href="ready-job-application-form.html">
-                                        <span class="pcoded-mtext" >Job Application Form</span>
-                                    </a>
-                                </li>
-                                <li class=" ">
-                                    <a href="ready-js-addition-form.html">
-                                        <span class="pcoded-mtext" >JS Addition Form</span>
-                                    </a>
-                                </li>
-                                <li class=" ">
-                                    <a href="ready-login-form.html">
-                                        <span class="pcoded-mtext" >Login Form</span>
-                                    </a>
-                                </li>
-                                <li class=" ">
-                                    <a href="ready-popup-modal-form.html" target="_blank">
-                                        <span class="pcoded-mtext" >Popup Modal Form</span>
-                                    </a>
-                                </li>
-                                <li class=" ">
-                                    <a href="ready-registration-form.html">
-                                        <span class="pcoded-mtext" >Registration Form</span>
-                                    </a>
-                                </li>
-                                <li class=" ">
-                                    <a href="ready-review-form.html">
-                                        <span class="pcoded-mtext" >Review Form</span>
-                                    </a>
-                                </li>
-                                <li class=" ">
-                                    <a href="ready-subscribe-form.html">
-                                        <span class="pcoded-mtext" >Subscribe Form</span>
-                                    </a>
-                                </li>
-                                <li class=" ">
-                                    <a href="ready-suggestion-form.html">
-                                        <span class="pcoded-mtext" >Suggestion Form</span>
-                                    </a>
-                                </li>
-                                <li class=" ">
-                                    <a href="ready-tabs-form.html">
-                                        <span class="pcoded-mtext" >Tabs Form</span>
+                                        <span class="pcoded-mtext" >View Previous Visits</span>
                                     </a>
                                 </li>
                             </ul>
                         </li>
                     </ul>
-                    <div class="pcoded-navigatio-lavel">Tables</div>
+                    {{-- <div class="pcoded-navigatio-lavel">Tables</div>
                     <ul class="pcoded-item pcoded-left-item">
                         <li class="pcoded-hasmenu">
                             <a href="javascript:void(0)">
@@ -754,8 +531,9 @@
                                 <span class="pcoded-mtext" >Editable Table</span>
                             </a>
                         </li>
-                    </ul>
-                    <div class="pcoded-navigatio-lavel">Chart And Maps</div>
+                    </ul> --}}
+
+                    {{-- <div class="pcoded-navigatio-lavel">Chart And Maps</div>
                     <ul class="pcoded-item pcoded-left-item">
                         <li class="pcoded-hasmenu ">
                             <a href="javascript:void(0)">
@@ -864,8 +642,9 @@
                                 <span class="pcoded-mtext" >Landing Page</span>
                             </a>
                         </li>
-                    </ul>
-                    <div class="pcoded-navigatio-lavel">Pages</div>
+                    </ul> --}}
+
+                    {{-- <div class="pcoded-navigatio-lavel">Pages</div>
                     <ul class="pcoded-item pcoded-left-item">
                         <li class="pcoded-hasmenu ">
                             <a href="javascript:void(0)">
@@ -1080,7 +859,8 @@
                                 </li>
                             </ul>
                         </li>
-                    </ul>
+                    </ul> --}}
+{{-- 
                     <div class="pcoded-navigatio-lavel">App</div>
                     <ul class="pcoded-item pcoded-left-item">
                         <li class=" ">
@@ -1223,62 +1003,10 @@
                                 </li>
                             </ul>
                         </li>
-                    </ul>
-                    <div class="pcoded-navigatio-lavel">Extension</div>
+                    </ul> --}}
+                   
+                    <div class="pcoded-navigatio-lavel">Planner</div>
                     <ul class="pcoded-item pcoded-left-item">
-                        <li class="pcoded-hasmenu ">
-                            <a href="javascript:void(0)">
-                                <span class="pcoded-micon"><i class="feather icon-file-plus"></i></span>
-                                <span class="pcoded-mtext" >Editor</span>
-                            </a>
-                            <ul class="pcoded-submenu">
-                                <li class="">
-                                    <a href="ck-editor.html">
-                                        <span class="pcoded-mtext" >CK-Editor</span>
-                                    </a>
-                                </li>
-                                <li class="">
-                                    <a href="wysiwyg-editor.html">
-                                        <span class="pcoded-mtext" >WYSIWYG Editor</span>
-                                    </a>
-                                </li>
-                                <li class="">
-                                    <a href="ace-editor.html">
-                                        <span class="pcoded-mtext" >Ace Editor</span>
-                                    </a>
-                                </li>
-                                <li class="">
-                                    <a href="long-press-editor.html">
-                                        <span class="pcoded-mtext" >Long Press Editor</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul class="pcoded-item pcoded-left-item">
-                        <li class="pcoded-hasmenu ">
-                            <a href="javascript:void(0)">
-                                <span class="pcoded-micon"><i class="feather icon-file-minus"></i></span>
-                                <span class="pcoded-mtext" >Invoice</span>
-                            </a>
-                            <ul class="pcoded-submenu">
-                                <li class="">
-                                    <a href="invoice.html">
-                                        <span class="pcoded-mtext" >Invoice</span>
-                                    </a>
-                                </li>
-                                <li class="">
-                                    <a href="invoice-summary.html">
-                                        <span class="pcoded-mtext" >Invoice Summary</span>
-                                    </a>
-                                </li>
-                                <li class="">
-                                    <a href="invoice-list.html">
-                                        <span class="pcoded-mtext" >Invoice List</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
                         <li class="pcoded-hasmenu ">
                             <a href="javascript:void(0)">
                                 <span class="pcoded-micon"><i class="feather icon-calendar"></i></span>
@@ -1287,36 +1015,28 @@
                             <ul class="pcoded-submenu">
                                 <li class="">
                                     <a href="event-full-calender.html">
-                                        <span class="pcoded-mtext" >Full Calendar</span>
+                                        <span class="pcoded-mtext" >Scheduler</span>
                                     </a>
                                 </li>
-                                <li class="">
+                                {{-- <li class="">
                                     <a href="event-clndr.html">
                                         <span class="pcoded-mtext" >CLNDER</span>
                                         <span class="pcoded-badge label label-info">NEW</span>
                                     </a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
-                        <li class="">
-                            <a href="image-crop.html">
-                                <span class="pcoded-micon"><i class="feather icon-scissors"></i></span>
-                                <span class="pcoded-mtext" >Image Cropper</span>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a href="file-upload.html">
+                    </ul>
+                    <div class="pcoded-navigatio-lavel">Upload Attachments</div>
+                    <ul class="pcoded-item pcoded-left-item">
+                    <li class="">
+                            <a href="#">
                                 <span class="pcoded-micon"><i class="feather icon-upload-cloud"></i></span>
                                 <span class="pcoded-mtext" >File Upload</span>
                             </a>
                         </li>
-                        <li class="">
-                            <a href="change-loges.html">
-                                <span class="pcoded-micon"><i class="feather icon-briefcase"></i><b>CL</b></span>
-                                <span class="pcoded-mtext" >Change Loges</span>
-                            </a>
-                        </li>
                     </ul>
+{{-- 
                     <div class="pcoded-navigatio-lavel">Other</div>
                     <ul class="pcoded-item pcoded-left-item">
                         <li class="pcoded-hasmenu ">
@@ -1377,7 +1097,7 @@
                                 <span class="pcoded-mtext" >Submit Issue</span>
                             </a>
                         </li>
-                    </ul>
+                    </ul> --}}
                 </div>
             </nav>
             <div class="pcoded-content">
