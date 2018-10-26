@@ -57,7 +57,7 @@
                     <div id="clonethisproposal">
                         <div class="col-md-12 inlinebox">
                             <div class="col-md-4">
-                                <select name="select" class="form-control form-control-default">
+                                <select id="reason" name="select" class="form-control form-control-default">
                                     <option selected="selected" hidden>Select Reason For Visit</option>
                                     <option value="Monitoring">Monitoring</option>
                                     <option value="Evaluation">Evaluation</option>
@@ -65,23 +65,31 @@
                                     <option value="Other">Other</option>
                                 </select>
                             </div>
-                            <div class="col-md-2">
-                                <select name="select" class="form-control form-control-default">
-                                    <option value="opt1" selected>GS#</option>
-                                </select>
+
+                            <div id='gsrow' class="col-md-8 row">
+                                <div class="col-md-3">
+                                    <select name="select" class="form-control form-control-default">
+                                        <option value="opt1" selected>Year</option>
+                                    </select>
+                                </div>
+                                <h2 class="col-md-1">/</h2>
+                                <div class="col-md-3">
+                                    <select name="select" class="form-control form-control-default">
+                                        <option value="opt1" selected>GS#</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-5">
+                                    <select name="select" class="form-control form-control-default">
+                                        <option value="opt1" selected>project</option>
+                                        <option value="opt1" selected>project</option>
+                                    </select>
+                                </div>
                             </div>
-                            <h2>/</h2>
-                            <div class="col-md-2">
-                                <select name="select" class="form-control form-control-default">
-                                    <option value="opt1" selected>____</option>
-                                </select>
+
+                            <div class='form-control nodisplay' id='brief' >
+                                <input type="text" />
                             </div>
-                            <div class="col-md-4">
-                                <select name="select" class="form-control form-control-default">
-                                    <option value="opt1" selected>project</option>
-                                    <option value="opt1" selected>project</option>
-                                </select>
-                            </div>
+                            
                         </div>
                         <div class="col-md-12 inlinebox">
                             <div class="col-md-6">
@@ -105,7 +113,7 @@
                         </div>  
                         <div class="form-group">
                             <label>Members</label>
-                                <select id="members" name="members[]" class="form-control js-multiple js-placeholder-multiple" multiple="multiple" data-placeholder="Members" style="width: 100%;">
+                                <select id="members" name="members[]" class="form-control js-multiple js-placeholder-multiple" multiple="multiple" data-placeholder="Select Members" style="width: 100%;">
                                     <option>Hassan Ali</option>
                                     <option>Aymun Saif</option>
                                     <option>Aihtsham Ali</option>
@@ -118,7 +126,7 @@
                         <div class="nodisplay addnewproposal btn btn-primary btn-outline-primary btn-block"><i class="icofont icofont-plus"></i>Add purpose</div>
                     </div>
                         <div class="form-group">
-                            <button class="btn btn-primary btn-outline-primary btn-block"><i class="icofont icofont-user-alt-3"></i>Submit</button>
+                            <button class="btn btn-primary btn-block"><i class="icofont icofont-user-alt-3"></i>Submit</button>
                         </div>
 
             </div>
@@ -154,6 +162,18 @@
 <script src="{{asset('_monitoring/css/js/jquery.quicksearch.js')}}"></script> --}}
 <script src="{{asset('_monitoring/css/pages/advance-elements/select2-custom.js')}}"></script>
 <script>
+
+     $(document).on('change','#reason',function(){
+    if ($(this).val() == "Other" || $(this).val() == "Meeting"){
+      $('#gsrow').hide()
+      $('#brief').show('slow')
+    }
+    else if ($(this).val() == "Monitoring" || $(this).val() == "Evaluation"){
+      $('#brief').hide()
+      $('#gsrow').show('slow')
+    }
+  })
+
     $(function () {
           //Initialize Select2 Elements
           $(".js-multiple").select2();
