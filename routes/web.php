@@ -163,11 +163,9 @@ Route::prefix('officer')->middleware('role:officer')->group(function () {
   Route::get('/review_form/{project_id}','OfficerController@review_form')->name('review_form');
   Route::post('/review_form','OfficerController@review_forms')->name('review_forms');
   Route::post('/saveActivityAttachment','OfficerController@saveActivityAttachment')->name('saveActivityAttachment');
-<<<<<<< HEAD
   Route::get('/new_trip','SiteVisitController@create')->name('new_trip');
-  Route::get('/view_trips','SiteVisitController@view')->name('view_trips');
+  Route::get('/new_tripbackup','SiteVisitController@create')->name('new_tripbackup');
 
-=======
 
   // Monitoring Module Routes
   Route::get('/monitoring_newAssignment','OfficerController@monitoring_newAssignments')->name('Monitoring_newAssignments');
@@ -175,7 +173,6 @@ Route::prefix('officer')->middleware('role:officer')->group(function () {
   Route::get('/monitoring_completedAssignment','OfficerController@monitoring_completedAssignments')->name('Monitoring_completedAssignments');
   Route::get('/monitoring_sInprogress','OfficerController@monitoring_inprogressSingle')->name('monitoring_inprogressSingle');
  
->>>>>>> 166748b3615c139f1afcb5bb926fd9bcd771ccd2
 });
 
 //For DataEntry
@@ -222,15 +219,12 @@ Route::group(['middleware'=>['permission:can.problematicremark']],function(){
 });
 // Route::group(['middleware' => ['permission:can.edit.project|can.view.project']],function(){
 // });
-<<<<<<< HEAD
 
 //TO
 Route::prefix('to')->middleware('role:to')->group(function () {
 
 });
-=======
 Route::get('/dashboard',"HomeController@dashboard");
->>>>>>> f6aeede73887fa2caebbd3c69e897f6039d007dd
 
 
 Route::post('/printerfunction','AdminHumanResourceController@printer');

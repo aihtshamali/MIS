@@ -28,41 +28,35 @@
         background-color: #01a9ac !important;
     border-color: #01a9ac !important;
     }
-    .nodisplay{display: none;}
 </style>
 @endsection
 @section('content')
     <form action="" class="offset-md-2 col-md-8 form-control form-control-default">
             <select name="select" class="form-control form-control-default">
-                <option value="Local" class="" selected>Local</option>
-                <option value="Outstation" class="">Outstation</option>
+                <option value="opt2">outstation</option>
+                <option value="opt1">local</option>
             </select>
             <div class="local">
                     <div class="col-md-12">
                             <div class="form-radio">
                                     <div class="radio radio-outline radio-inline">
                                         <label>
-                                            <input type="radio" class="sinpurpose" name="radio" checked="checked">
-                                            <i class="helper"></i>single purpose
+                                            <input type="radio" name="radio" checked="checked">
+                                            <i class="helper"></i>single purposal
                                         </label>
                                     </div>
                                     <div class="radio radio-outline radio-inline">
                                         <label>
-                                            <input type="radio" class="mulpurpose" name="radio">
-                                            <i class="helper"></i>Multi purpose
+                                            <input type="radio" name="radio">
+                                            <i class="helper"></i>Multi purposal
                                         </label>
                                     </div>
                             </div>
                         </div>
-                    <div id="clonethisproposal">
                         <div class="col-md-12 inlinebox">
                             <div class="col-md-4">
                                 <select name="select" class="form-control form-control-default">
-                                    <option selected="selected" hidden>Select Reason For Visit</option>
-                                    <option value="Monitoring">Monitoring</option>
-                                    <option value="Evaluation">Evaluation</option>
-                                    <option value="Meeting">Meeting</option>
-                                    <option value="Other">Other</option>
+                                    <option value="opt1" selected>purpose</option>
                                 </select>
                             </div>
                             <div class="col-md-2">
@@ -73,7 +67,7 @@
                             <h2>/</h2>
                             <div class="col-md-2">
                                 <select name="select" class="form-control form-control-default">
-                                    <option value="opt1" selected>____</option>
+                                    <option value="opt1" selected>there</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
@@ -112,36 +106,9 @@
                                     <option>Anas Majeed</option>
                                 </select>
                         </div>
-                    </div>
-                    <div class="addclonehere"></div>
-                    <div class="form-group">
-                        <div class="nodisplay addnewproposal btn btn-primary btn-outline-primary btn-block"><i class="icofont icofont-plus"></i>Add purpose</div>
-                    </div>
                         <div class="form-group">
-                            <button class="btn btn-primary btn-outline-primary btn-block"><i class="icofont icofont-user-alt-3"></i>Submit</button>
-                        </div>
-
-            </div>
-            <div class="outstation">
-                <div class="col-md-12">
-                    <div class="form-radio">
-                            <div class="radio radio-outline radio-inline">
-                                <label>
-                                    <input type="radio" class="sinpurposeout" name="radioout" checked="checked">
-                                    <i class="helper"></i>single purpose
-                                </label>
+                                <button class="btn btn-primary btn-outline-primary btn-block"><i class="icofont icofont-user-alt-3"></i>Submit</button>
                             </div>
-                            <div class="radio radio-outline radio-inline">
-                                <label>
-                                    <input type="radio" class="mulpurposeout" name="radioout">
-                                    <i class="helper"></i>Multi purpose
-                                </label>
-                            </div>
-                    </div>
-                </div>
-                <div class="sinpurpose ">
-
-                </div>
             </div>
     </form>
 @endsection
@@ -157,40 +124,6 @@
     $(function () {
           //Initialize Select2 Elements
           $(".js-multiple").select2();
-    });  
-    $(document).on('click','.addnewproposal',function(){
-    $('#clonethisproposal').clone().appendTo('.addclonehere').show('slow');
-  });
-  $(document).ready(function(){
-    $(".sinpurpose").click(function(){
-        $(".addnewproposal").hide();
-        });
-    $(".mulpurpose").click(function(){ 
-        $(".addnewproposal").show();
-        });
     });
-    $(document).ready(function(){
-    $(".sinpurposeout").click(function(){
-        $(".addnewproposalout").hide();
-        });
-    $(".mulpurposeout").click(function(){
-        $(".addnewproposalout").show();
-        });
-    });
-    $(document).on('change','#type',function(){
-    if ($(this).val() == "Local"){
-      $('.outstation').hide()
-      $('.local').show('slow')
-    }
-    else if($(this).val() == "Outstation"){
-      $('local').hide()
-      $('.outstation').show('slow')
-    }
-    else{
-      $('.local').hide()
-      $('.outstation').hide()
-    }
-  });
-    
 </script>
 @endsection
