@@ -29,6 +29,7 @@
     border-color: #01a9ac !important;
     }
     .nodisplay{display: none;}
+    label{cursor: pointer !important;}
 </style>
 @endsection
 @section('content')
@@ -89,7 +90,7 @@
                             <div class='form-control nodisplay' id='brief' >
                                 <input type="text" />
                             </div>
-                            
+
                         </div>
                         <div class="col-md-12 inlinebox">
                             <div class="col-md-6">
@@ -110,7 +111,7 @@
                             <div class="col-md-6">
                                 <input class="form-control" type="time">
                             </div>
-                        </div>  
+                        </div>
                         <div class="form-group">
                             <label>Members</label>
                                 <select id="members" name="members[]" class="form-control js-multiple js-placeholder-multiple" multiple="multiple" data-placeholder="Select Members" style="width: 100%;">
@@ -130,27 +131,85 @@
                         </div>
 
             </div>
+            {{-- start outstation --}}
             <div class="outstation">
                 <div class="col-md-12">
                     <div class="form-radio">
-                            <div class="radio radio-outline radio-inline">
-                                <label>
-                                    <input type="radio" class="sinpurposeout" name="radioout" checked="checked">
-                                    <i class="helper"></i>single purpose
-                                </label>
-                            </div>
-                            <div class="radio radio-outline radio-inline">
-                                <label>
-                                    <input type="radio" class="mulpurposeout" name="radioout">
-                                    <i class="helper"></i>Multi purpose
-                                </label>
-                            </div>
+                        <div class="radio radio-outline radio-inline">
+                            <label>
+                                <input type="radio" class="" name="radioout" checked="checked">
+                                <i class="helper"></i>single purpose
+                            </label>
+                        </div>
+                        <div class="radio radio-outline radio-inline">
+                            <label>
+                                <input type="radio" class="" name="radioout">
+                                <i class="helper"></i>Multi purpose
+                            </label>
+                        </div>
                     </div>
                 </div>
-                <div class="sinpurpose ">
+                <div class="sinpurposeout">
+                  <div class="col-md-12">
+                      <div class="form-radio">
+                          <div class="radio radio-outline radio-inline">
+                              <label>
+                                  <input type="radio" class="" name="radiocityout" checked="checked">
+                                  <i class="helper"></i>round trip
+                              </label>
+                          </div>
+                          <div class="radio radio-outline radio-inline">
+                              <label>
+                                  <input type="radio" class="" name="radiocityout">
+                                  <i class="helper"></i>Multi city
+                              </label>
+                          </div>
+                      </div>
+                  </div>
+                  {{-- start roundtrip --}}
+                  <div class="col-md-12 inlinebox">
+                      <div class="col-md-4">
+                          <select id="reasonroundtrip" name="select" class="form-control form-control-default">
+                              <option selected="selected" hidden>Select Reason For Visit</option>
+                              <option value="Monitoring">Monitoring</option>
+                              <option value="Evaluation">Evaluation</option>
+                              <option value="Meeting">Meeting</option>
+                              <option value="Other">Other</option>
+                          </select>
+                      </div>
+
+                      <div id='gsrow' class="col-md-8 row">
+                          <div class="col-md-3">
+                              <select name="select" class="form-control form-control-default">
+                                  <option value="opt1" selected>Year</option>
+                              </select>
+                          </div>
+                          <h2 class="col-md-1">/</h2>
+                          <div class="col-md-3">
+                              <select name="select" class="form-control form-control-default">
+                                  <option value="opt1" selected>GS#</option>
+                              </select>
+                          </div>
+                          <div class="col-md-5">
+                              <select name="select" class="form-control form-control-default">
+                                  <option value="opt1" selected>project</option>
+                                  <option value="opt1" selected>project</option>
+                              </select>
+                          </div>
+                      </div>
+
+                      <div class='form-control nodisplay' id='brief' >
+                          <input type="text" />
+                      </div>
+
+                  </div>
+                  {{-- end roundtrip --}}
+                </div>
+                <div class="mulpurposeout ">
 
                 </div>
             </div>
+            {{-- end outstation --}}
     </form>
 @endsection
 @section('js_scripts')
@@ -177,7 +236,7 @@
     $(function () {
           //Initialize Select2 Elements
           $(".js-multiple").select2();
-    });  
+    });
     $(document).on('click','.addnewproposal',function(){
     $('#clonethisproposal').clone().appendTo('.addclonehere').show('slow');
   });
@@ -185,7 +244,7 @@
     $(".sinpurpose").click(function(){
         $(".addnewproposal").hide();
         });
-    $(".mulpurpose").click(function(){ 
+    $(".mulpurpose").click(function(){
         $(".addnewproposal").show();
         });
     });
@@ -211,6 +270,6 @@
       $('.outstation').hide()
     }
   });
-    
+
 </script>
 @endsection

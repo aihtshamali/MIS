@@ -26,7 +26,7 @@
     }
     .btn-primary:hover, .sweet-alert button.confirm:hover, .wizard>.actions a:hover{
         background-color: #01a9ac !important;
-    border-color: #01a9ac !important;
+        border-color: #01a9ac !important;
     }
 </style>
 @endsection
@@ -96,7 +96,7 @@
                             <div class="col-md-6">
                                 <input class="form-control" type="time">
                             </div>
-                        </div>  
+                        </div>
                         <div class="form-group">
                             <label>Members</label>
                                 <select id="members" name="members[]" class="form-control js-multiple js-placeholder-multiple" multiple="multiple" data-placeholder="Members" style="width: 100%;">
