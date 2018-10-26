@@ -138,16 +138,22 @@
                 Project Name :<b> {{$project_data->Project->title}}  </b><br>
               </p>
               <p>
-                Project Score :<b> {{ round($project_data->Project->score,2,PHP_ROUND_HALF_UP) }}
+                Project Score :<b> {{ round($project_data->Project->score,2,PHP_ROUND_HALF_UP) }}</b>
               </p>
 
               <p>
-                Project Members :<b>
+                Project Members :
+                <b>
                   @foreach ($project_data->AssignedProjectTeam as $member)
                     {{$member->User->first_name}} {{$member->User->last_name}},
                   @endforeach
                 </b>
               <br>
+            </p>
+            <p style="background:red;color:white">
+              SNE : <b>
+                {{ $project_data->Project->ProjectDetail->sne }}
+              </b>
             </p>
 
 
