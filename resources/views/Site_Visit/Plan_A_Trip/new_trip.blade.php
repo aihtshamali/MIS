@@ -5,6 +5,10 @@
  <!-- Multi Select css -->
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/bootstrap-multiselect.css')}}" />
 <link rel="stylesheet" href="{{ asset('_monitoring/css/multiselect/css/multi-select.css')}}" />
+    <link rel="stylesheet" href="{{ asset('_monitoring/css/pages/advance-elements/css/bootstrap-datetimepicker.css')}}" />
+    <link rel="stylesheet" href="{{ asset('_monitoring/css/css/daterangepicker.css')}}" />
+    <link rel="stylesheet" href="{{ asset('_monitoring/css/css/datedropper.min.css')}}" />
+
 <style>
     .bg-w{background-color: #fff !important;}
     /* .form-control {margin: 1% !important;} */
@@ -30,6 +34,12 @@
     }
     .nodisplay{display: none;}
     .bg{background-color: #e0e0e0}
+    .datepicker, .datepicker-dropdown, .dropdown-menu, .datepicker-orient-left, .datepicker-orient-top{z-index: 9999 !important;}
+    .day {
+    color: #000;
+    padding-left: 10px;
+    font-size: 14px;
+}
 </style>
 @endsection
 @section('content')
@@ -121,7 +131,19 @@
                         <div class="col-md-12 inlinebox">
                             <div class="col-md-6" style="padding-left:0">
                                 <label for="">Date</label>
-                                <input class="form-control" type="datetime-local">
+                                {{-- <input class="form-control" type="datetime-local"> --}}
+                                {{-- <div class="input-group date" id="datetimepicker10">
+                                    <input type="text" class="form-control" >
+                                    <span class="input-group-addon ">
+                                    <span class="icofont icofont-ui-calendar"></span>
+                                    </span>
+                                </div> --}}
+                                <div class="input-group date input-group-date-custom">
+                                    <input type="text" class="form-control">
+                                    <span class="input-group-addon ">
+                                    <i class="icofont icofont-clock-time"></i>
+                                    </span>
+                                </div>
                             </div>
                             <div class="col-md-6" style="padding-left:0">
                                 <label for="">Time</label>
@@ -153,14 +175,14 @@
                                 </select>
                             </div>
                         </div>  
-                        <div class="form-group">
+                        <div class="form-group" id='thishit'>
                             <label>Members</label>
-                                <select id="members" name="members[]" class="form-control js-multiple js-placeholder-multiple" multiple="multiple" data-placeholder="Select Members" style="width: 100%;">
-                                    <option>Hassan Ali</option>
-                                    <option>Aymun Saif</option>
-                                    <option>Aihtsham Ali</option>
-                                    <option>Anas Majeed</option>
-                                </select>
+                            <select id="members" name="members[]" class="form-control js-multiple js-placeholder-multiple" multiple="multiple" data-placeholder="Select Members" style="width: 100%;">
+                                <option>Hassan Ali</option>
+                                <option>Aymun Saif</option>
+                                <option>Aihtsham Ali</option>
+                                <option>Anas Majeed</option>
+                            </select>
                         </div>
                     </div>
                     <div class="addclonehere"></div>
@@ -203,7 +225,24 @@
 <script src="{{asset('_monitoring/js/multiselect/js/jquery.multi-select.js')}}"></script>
 <script src="{{asset('_monitoring/css/js/jquery.quicksearch.js')}}"></script> --}}
 <script src="{{asset('_monitoring/css/pages/advance-elements/select2-custom.js')}}"></script>
+<script src="{{asset('_monitoring/css/pages/advance-elements/moment-with-locales.min.js')}}"></script>
+<script src="{{asset('_monitoring/js/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
+<script src="{{asset('_monitoring/css/pages/advance-elements/bootstrap-datetimepicker.min.js')}}"></script>
+
+<script src="{{asset('_monitoring/js/bootstrap-daterangepicker/js/daterangepicker.js')}}"></script>
+<script src="{{asset('_monitoring/css/pages/advance-elements/custom-picker.js')}}"></script>
 <script>
+    var cl = `
+        <div class="form-group" id='thishit'>
+            <label>Members</label>
+            <select id="members" name="members[]" class="form-control js-multiple js-placeholder-multiple" multiple="multiple" data-placeholder="Select Members" style="width: 100%;">
+                <option>Hassan Ali</option>
+                <option>Aymun Saif</option>
+                <option>Aihtsham Ali</option>
+                <option>Anas Majeed</option>
+            </select>
+        </div>
+    `
     var purpose_id = 1
      $(document).on('change','.reason',function(){
          console.log($(this).parent().parent().find('#gsrow'))
@@ -217,10 +256,6 @@
     }
   })
 
-    $(function () {
-          //Initialize Select2 Elements
-          $(".js-multiple").select2();
-    });  
     $(document).on('click','.addnewproposal',function(){
         var clone = $('#clonethisproposal_1').clone().attr('id','clonethisproposal_'+ ++purpose_id)
         if(purpose_id % 2 == 0)
@@ -229,16 +264,19 @@
         // clone.children().find('#brief_'+(purpose_id-1)).attr('id','brief_'+purpose_id)
         clone.children().find('#reason_'+(purpose_id-1)).attr('id','reason_'+purpose_id)
         clone.appendTo('.addclonehere').show('slow');
+        clone.find("#thishit").remove()
+        clone.append(cl);
+        $(".js-multiple").select2();
+        clone.find('.date').datepicker()
     });
   $(document).ready(function(){
+    $(".js-multiple").select2();
     $(".sinpurpose").click(function(){
         $(".addnewproposal").hide();
         });
     $(".mulpurpose").click(function(){ 
         $(".addnewproposal").show();
         });
-    });
-    $(document).ready(function(){
     $(".sinpurposeout").click(function(){
         $(".addnewproposalout").hide();
         });
@@ -262,4 +300,6 @@
   });
     
 </script>
+
+
 @endsection
