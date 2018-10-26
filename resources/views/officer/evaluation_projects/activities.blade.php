@@ -291,7 +291,12 @@
                       {{-- <th style="text-align:center;">Remarks</th> --}}
                     </thead>
                     <tbody style="text-align:center;">
-
+                      @php
+                      $arr=array();
+                        foreach ($assignedDocuments as $docs) {
+                          array_push($arr,$docs);
+                        }
+                      @endphp
                       @foreach($activities as $activity)
                         <tr>
                           <td> {{$activity->ProjectActivity->id}} </td>
@@ -314,21 +319,21 @@
                                   <div class="progress">
                                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100"
                                     aria-valuemin="0" aria-valuemax="100" style="width:100%">
-                                    @if($activity->progress == 25.0)
+                                    @if($activity->progress <= 25.0)
                                       <label style="padding:5px;min-width:60px">
-                                        {{ $activity->progress }} %
+                                        {{ round($activity->progress,0,PHP_ROUND_HALF_UP )}} %
                                       </label>
-                                    @elseif($activity->progress == 50.0)
+                                    @elseif($activity->progress <= 50.0)
                                       <label style="padding:5px;min-width:120px">
-                                        {{ $activity->progress }} %
+                                        {{ round($activity->progress,0,PHP_ROUND_HALF_UP )}} %
                                       </label>
-                                    @elseif($activity->progress == 75.0)
+                                    @elseif($activity->progress <= 75.0)
                                       <label style="padding:5px;min-width:180px">
-                                        {{ $activity->progress }} %
+                                        {{ round($activity->progress,0,PHP_ROUND_HALF_UP )}} %
                                       </label>
                                     @else
                                       <label style="padding:5px;min-width:240px">
-                                        {{ $activity->progress }} %
+                                        {{ round($activity->progress,0,PHP_ROUND_HALF_UP )}} %
                                       </label>
                                     @endif
                                     </div>
@@ -339,25 +344,29 @@
                                   $total=100;
                                   $count=1;
                                   $i=$assignedDocuments->count();
-                                  $counter=100/$i;
+                                  $counter=(100)/$i;
                                   $temp=$counter;
                                 @endphp
-                                @foreach ($assignedDocuments as $docs)
-                                  @if($activity->ProjectActivity->id < 7 && $activity->progress != round($temp,0,PHP_ROUND_HALF_UP)  &&  $activity->ProjectActivity->name!='Site Visits' && $activity->ProjectActivity->id < 4)
-                                    <a class="btn" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<input type='file' name='document_attachment'><button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},{{round($temp,0,PHP_ROUND_HALF_UP)}},this,{{$docs->id}},{{$docs->ActivityDocument->id}})'>Save</button>">
-                                      <input type="hidden" class="{{round($temp,0,PHP_ROUND_HALF_UP)}}_{{$activity->id}}" name="percent" value="{{round($temp,0,PHP_ROUND_HALF_UP)}},{{$project_data->project->id}},{{$activity->id}}">
+                                @foreach ($arr as $docs)
+                                  @if($activity->ProjectActivity->id < 7 && $docs->AssignedProjectActivity->id &&  $activity->progress < round($temp,0,PHP_ROUND_HALF_UP)  &&  $activity->ProjectActivity->name!='Site Visits' && $activity->ProjectActivity->id < 4)
+                                    @if($activity->ProjectActivity->id < 2)
+                                      <a class="btn" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<input type='file' name='document_attachment'><button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},{{round($temp,0,PHP_ROUND_HALF_UP)}},this,{{$docs->id}},{{$docs->ActivityDocument->id}})'>Save</button>">
+                                    @else
+                                      <a class="btn" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},{{round($temp,0,PHP_ROUND_HALF_UP)}})'>Save</button>">
+                                    @endif
+                                    <input type="hidden" class="{{round($temp,0,PHP_ROUND_HALF_UP)}}_{{$activity->id}}" name="percent" value="{{round($temp,0,PHP_ROUND_HALF_UP)}},{{$project_data->project->id}},{{$activity->id}}">
                                       <div class="percentBox">
                                         <p>{{$docs->ActivityDocument->name}}</p>
                                       </div>
                                       <span>{{round($temp,0,PHP_ROUND_HALF_UP)}}%</span>
-                                      @php
-                                        $temp+=$counter;
-                                      @endphp
                                       </input>
                                     </a>
                                   @endif
+                                  @php
+                                  $temp+=$counter;
+                                  @endphp
                                 @endforeach
-                                @if($activity->progress < 50.0 && $activity->ProjectActivity->id < 7 && $activity->ProjectActivity->id > 3 )
+                                @if($activity->progress <= 25.0 && $activity->ProjectActivity->id < 7 && $activity->ProjectActivity->id > 3 )
                                   <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},50)'>Save</button>">
                                     <input type="hidden" class="25_{{$activity->id}}" name="percent" value="25,{{$project_data->project->id}},{{$activity->id}}">
                                     <div class="percentBox">
@@ -367,7 +376,7 @@
                                     </input>
                                   </a>
                                 @endif
-                                @if($activity->progress < 50.0 && $activity->ProjectActivity->id < 7 && $activity->ProjectActivity->id > 3)
+                                @if($activity->progress <= 50.0 && $activity->ProjectActivity->id < 7 && $activity->ProjectActivity->id > 3)
                                   <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},50)'>Save</button>">
                                     <input type="hidden" class="50_{{$activity->id}}" name="percent" value="50,{{$project_data->project->id}},{{$activity->id}}">
                                     <div class="percentBox">
@@ -377,7 +386,7 @@
                                   </input>
                                 </a>
                                 @endif
-                                @if ($activity->progress < 75.0 && $activity->ProjectActivity->id < 7 && $activity->ProjectActivity->id > 3 &&  $activity->ProjectActivity->name!='Site Visits')
+                                @if ($activity->progress <= 75.0 && $activity->ProjectActivity->id < 7 && $activity->ProjectActivity->id > 3 &&  $activity->ProjectActivity->name!='Site Visits')
                                   <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},75)'>Save</button>">
                                     <input type="hidden" class="75_{{$activity->id}}" name="percent" value="75,{{$project_data->project->id}},{{$activity->id}}">
                                     <div class="percentBox">
@@ -387,7 +396,7 @@
                                   </input>
                                 </a>
                               @endif
-                              @if ($activity->progress < 100.0 && $activity->ProjectActivity->id > 3)
+                              @if ($activity->progress <= 100.0 && $activity->ProjectActivity->id > 3)
                                 <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},100)'>Save</button>">
                                   <input type="hidden" class="100_{{$activity->id}}" name="percent" value="100,{{$project_data->project->id}},{{$activity->id}}">
                                   <div class="percentBox">
@@ -624,7 +633,7 @@
     // console.log($('.'+number+'_'+id).val());
     var form_data = new FormData();
     opt = $('.'+number+'_'+id).val();
-    if(objthis){ // objthis is only for DocsAttachment
+    if(objthis!=null){ // objthis is only for DocsAttachment
       rout='{{route("saveDocAttachment")}}';
       var file_data = $(objthis).siblings()[0].files[0];
       form_data.append('activity_attachment', file_data);
@@ -633,9 +642,6 @@
       form_data.append('assigned_activity_document_id', Assigned_document_id);
     }
     form_data.append('data', opt);
-    for (var value of form_data.values()) {
-      console.log(value);
-    }
     form_data.append('csrf-token', "{{ csrf_token() }}");
     $.ajax({
       method: 'POST', // Type of response and matches what we said in the route
@@ -649,13 +655,12 @@
       processData: false,
       data: form_data, // a JSON object to send back
       success: function(response){ // What to do if we succeed
-        console.log(response);
+        // console.log(response);
           location.reload();
       },
       error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
-          console.log('hello');
           console.log(JSON.stringify(jqXHR));
-          console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+          alert("AJAX error: " + textStatus + ' : ' + errorThrown);
       }
       });
 

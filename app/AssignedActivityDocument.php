@@ -12,4 +12,7 @@ class AssignedActivityDocument extends Model
     public function AssignedProjectActivity(){
       return $this->belongsTo('App\AssignedProjectActivity');
     }
+    public function AssignedActivityAttachment(){
+      return $this->hasOne('App\AssignedActivityAttachment');
+    }
 }
