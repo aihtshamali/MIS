@@ -21,16 +21,23 @@
 
             <div class="box-body">
               <div class="row" >
-                <div class="col-md-4 ">
+                <div class="col-md-3 ">
                   <b>Project Document :</b>
                   {{$project_data->project->ProjectDetail->project_attachements}}
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <b>Project Type :</b>
                   {{$project_data->project->EvaluationType->name}}
+                </div>
+                <div class="col-md-3" @if(!$project_data->project->ProjectDetail->sne)style="color:red">
+                  <b>SNE : Not Added</b>
+                @else
+                  <b>SNE : </b>
+                  {{ $project_data->project->ProjectDetail->sne }}
+                  @endif
                 </div>
               </div>
               <hr/>

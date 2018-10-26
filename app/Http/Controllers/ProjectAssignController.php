@@ -264,7 +264,70 @@ class ProjectAssignController extends Controller
 
         return redirect()->route('Evaluation_evaluation_assigned');
     }
+<<<<<<< HEAD
 
+=======
+
+    public function DPM_AssignToConsultant(Request $request)
+    {  $directors=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
+      ->leftJoin('user_details','user_details.user_id','users.id')
+      ->leftJoin('role_user','role_user.user_id','users.id')
+      ->leftJoin('roles','roles.id','role_user.role_id')
+      ->orderBy('roles.name','ASC')
+      ->Where('roles.name','directorevaluation')
+      ->orWhere('roles.name','directormonitoring')
+      ->get();
+      $officers=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
+      ->leftJoin('user_details','user_details.user_id','users.id')
+      ->leftJoin('role_user','role_user.user_id','users.id')
+      ->leftJoin('roles','roles.id','role_user.role_id')
+      ->orderBy('roles.name','ASC')
+      ->where('roles.name','officer')
+      ->get();
+      return view('_Monitoring._Director.assignToConsultant',['officers'=>$officers,'directors'=>$directors]);
+
+    }
+
+    // monitoring
+    public function assignToConsultant()
+    {
+      // $unassigned=Project::select('projects.*')
+      // ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+      // ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
+      // ->whereNull('assigned_project_managers.project_id')
+      // ->whereNull('assigned_projects.project_id')
+      // ->get();
+
+      //  $assigned=AssignedProject::all();
+      //  // $assignedtoManager=AssignedProjectManager::all();
+
+      //  if(!( $request->project_id)){
+      //    return redirect()->back()->with('error','Project is not Selected');
+      //  }
+      //  $priority = 'low_priority';
+      //  if(isset($request->priority))
+      //    $priority = $request->priority;
+       $directors=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
+       ->leftJoin('user_details','user_details.user_id','users.id')
+       ->leftJoin('role_user','role_user.user_id','users.id')
+       ->leftJoin('roles','roles.id','role_user.role_id')
+       ->orderBy('roles.name','ASC')
+       ->Where('roles.name','directorevaluation')
+       ->orWhere('roles.name','directormonitoring')
+       ->get();
+       $officers=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
+       ->leftJoin('user_details','user_details.user_id','users.id')
+       ->leftJoin('role_user','role_user.user_id','users.id')
+       ->leftJoin('roles','roles.id','role_user.role_id')
+       ->orderBy('roles.name','ASC')
+       ->where('roles.name','officer')
+       ->get();
+       return view('_Monitoring._Manager.assignToConsultant',['officers'=>$officers,'directors'=>$directors]);
+    }
+    public function DPM_StoreProjectData(Request $request)
+    {
+    }
+>>>>>>> d7b3286e17c0e69ab0773dcc6f83817694b0042e
 
      public function store(Request $request)
      {
@@ -349,7 +412,7 @@ class ProjectAssignController extends Controller
          $table_id=$assignedProjectManager->id;
 
        }
-         return redirect()->route('Exec_evaluation_assigned');
+         return redirect('manager/assignproject');
      }
 
     /**

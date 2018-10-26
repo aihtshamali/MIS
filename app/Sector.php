@@ -13,4 +13,8 @@ class Sector extends Model
     {
       return $this->hasMany('App\SubSector');
     }
+
+    public function MKpi(){
+      return $this->hasMany('App\MKpi');
+    }
 }

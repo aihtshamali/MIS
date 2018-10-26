@@ -137,16 +137,22 @@
                 Project Name :<b> {{$project_data->Project->title}}  </b><br>
               </p>
               <p>
-                Project Score :<b> {{ round($project_data->Project->score,2,PHP_ROUND_HALF_UP) }}
+                Project Score :<b> {{ round($project_data->Project->score,2,PHP_ROUND_HALF_UP) }}</b>
               </p>
 
               <p>
-                Project Members :<b>
+                Project Members :
+                <b>
                   @foreach ($project_data->AssignedProjectTeam as $member)
                     {{$member->User->first_name}} {{$member->User->last_name}},
                   @endforeach
                 </b>
               <br>
+            </p>
+            <p style="background:red;color:white">
+              SNE : <b>
+                {{ $project_data->Project->ProjectDetail->sne }}
+              </b>
             </p>
 
 
@@ -414,7 +420,7 @@
     </tbody>
   </table>
   <input type="hidden" name="assigned_project_id" style="display:inline;float:right" value="{{$project_data->id}}">
-  <button type="submit" class="btn btn-success pull-right" >Project Completed
+  <button type="submit" class="btn btn-success pull-right" @if($project_data->progress != 100) disabled @endif >Project Completed
   </button>
 </form>
 </div>

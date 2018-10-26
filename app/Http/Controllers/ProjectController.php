@@ -649,4 +649,63 @@ class ProjectController extends Controller
     {
         //
     }
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Monitoring Module
+// //////////////////////////////////////////////////////
+  public function createMonitoringEntryForm()
+  {
+    // $project_types = ProjectType::where('status','1')->get();
+    // $evaluation_types = EvaluationType::where('status','1')->get();
+    // $projects = Project::where('status','1')->get();
+    // $evaluation_types = EvaluationType::where('status','1')->get();
+    $districts = District::where('status','1')->get();
+    $sectors  = Sector::where('status','1')->get();
+    $sub_sectors = SubSector::where('status','1')->get();
+    $sponsoring_departments = SponsoringAgency::where('status','1')->get();
+    $executing_departments = ExecutingAgency::where('status','1')->get();
+    $assigning_forums = AssigningForum::where('status','1')->get();
+    // $assigning_forumList = AssigningForumSubList::where('status','1')->get();
+    // $project_no = Str::random();
+    $current_year = date('Y');
+    $approving_forums = ApprovingForum::all();
+    // $sub_project_types = SubProjectType::where('project_type_id',1)->get();
+    // $m_sub_project_types = SubProjectType::where('project_type_id',2)->get();
+    // $projectfor_no=Project::select('projects.project_no')->latest()->first();
+    $adp = AdpProject::orderBy('gs_no')->get();
+    // if($projectfor_no){
+    // $projectNo=explode('-',$projectfor_no->project_no);
+    // $project_no=$projectNo[0].'-'.($projectNo[1]+1);
+    // }
+    // else {
+    //   $project_no = "PRO-1";
+    // }
+    $project_no='';
+    foreach ($districts as $district) {
+      $district->name = $district->name . "/";
+    }
+    foreach ($sectors as $sector) {
+      $sector->name = $sector->name . "/";
+    }
+    foreach ($sponsoring_departments as $sponsoring_department) {
+      $sponsoring_department->name = $sponsoring_department->name . "/";
+    }
+    foreach ($executing_departments as $executing_department) {
+      $executing_department->name = $executing_department->name . "/";
+    }
+    foreach ($assigning_forums as $assigning_forum) {
+      $assigning_forum->name = $assigning_forum->name . "/";
+    }
+    \JavaScript::put([
+      'projects' => $adp
+  ]);
+    return view('_Monitoring._Dataentry.create',compact('adp','districts','sectors','sponsoring_departments','executing_departments','assigning_forums','current_year','approving_forums','sub_sectors','projects')); 
+  }
+
+  public function viewMonitoringForm()
+  {
+    return view('_Monitoring._Dataentry.view');
+ 
+  }
 }

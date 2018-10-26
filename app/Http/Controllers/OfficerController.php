@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use App\User;
 use Auth;
+use App\Sector;
 use App\AssignedProjectManager;
 use App\AssignedProject;
 use App\AssignedProjectActivityProgressLog;
@@ -327,67 +328,74 @@ class OfficerController extends Controller
 
       public function monitoring_newAssignments()
       {
-        return view('officer.monitoring_projects.newAssigned');
+        return view('_Monitoring._Officer.projects.newAssignments');
       }
 
       public function monitoring_inprogressAssignments()
       {
-        return view('officer.monitoring_projects.inprogress');
+       
+        // $sub_sectors = SubSector::where('status','1')->get();
+        return view('_Monitoring._Officer.projects.inprogress');
       }
 
       public function monitoring_completedAssignments()
       {
-        return view('officer.monitoring_projects.completed');
+        return view('_Monitoring._Officer.projects.completed');
+      }
+      public function  monitoring_inprogressSingle()
+      {
+        $sectors  = Sector::where('status','1')->get();
+        return view('_Monitoring._Officer.projects.inprogressSingle',compact('sectors'));
       }
 
-      public function monitoring_Stages()
-      {
-        // if (!is_dir('storage/uploads/projects/project_activities/'.Auth::user()->username)) {
-        //   // dir doesn't exist, make it
-        //   mkdir('storage/uploads/projects/project_activities/'.Auth::user()->username);
-        //   }
-          //storing files of current project in folder
-          // TODO
-          // dd(Project::first()->AssignedProject);
-          $activities=Project::first()->AssignedProject->AssignedProjectActivity;
-          // foreach ($activities as $act) {
-          // foreach ($act->AssignedActivityAttachments as $attachment) {
-          // file_put_contents('storage/uploads/projects/project_activities/'.Auth::user()->username.'/'.$attachment->attachment_name.'.'.$attachment->type,base64_decode($attachment->project_attachements));
-          // }
-          // }
-          //saving progress
-          // TODO
-          $assigned_progress=Project::first()->AssignedProject;
-          $average_progress=round($assigned_progress->progress, 0, PHP_ROUND_HALF_UP);
-          $officerAssignedCount=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
-          ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
-          ->where('acknowledge','0')
-          ->where('user_id',Auth::id())
-          ->count();
-          $officerInProgressCount=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
-          ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
-          ->where('user_id',Auth::id())
-          ->where('acknowledge','1')
-          ->count();
-          $project_data=AssignedProject::select('assigned_projects.*')
-          ->leftJoin('assigned_project_teams','assigned_projects.id','assigned_project_teams.assigned_project_id')
-          ->where('assigned_projects.acknowledge','1')->where('assigned_projects.project_id',Project::first()->id)
-          ->first();
-          $icons = [
-          'pdf' => 'pdf',
-          'doc' => 'word',
-          'docx' => 'word',
-          'xls' => 'excel',
-          'xlsx' => 'excel',
-          'ppt' => 'powerpoint',
-          'pptx' => 'powerpoint',
-          'txt' => 'text',
-          'png' => 'image',
-          'jpg' => 'image',
-          'jpeg' => 'image',
-          ];
-        return view('officer.monitoring_projects.monitoringStages',['activities'=>$activities,'average_progress'=>$average_progress,'icons'=>$icons,'project_data'=>$project_data,'project_id'=>Project::first()->id,'officerInProgressCount'=>$officerInProgressCount,'officerAssignedCount'=>$officerAssignedCount]);
-      }
+      // public function monitoring_Stages()
+      // {
+      //   // if (!is_dir('storage/uploads/projects/project_activities/'.Auth::user()->username)) {
+      //   //   // dir doesn't exist, make it
+      //   //   mkdir('storage/uploads/projects/project_activities/'.Auth::user()->username);
+      //   //   }
+      //     //storing files of current project in folder
+      //     // TODO
+      //     // dd(Project::first()->AssignedProject);
+      //     $activities=Project::first()->AssignedProject->AssignedProjectActivity;
+      //     // foreach ($activities as $act) {
+      //     // foreach ($act->AssignedActivityAttachments as $attachment) {
+      //     // file_put_contents('storage/uploads/projects/project_activities/'.Auth::user()->username.'/'.$attachment->attachment_name.'.'.$attachment->type,base64_decode($attachment->project_attachements));
+      //     // }
+      //     // }
+      //     //saving progress
+      //     // TODO
+      //     $assigned_progress=Project::first()->AssignedProject;
+      //     $average_progress=round($assigned_progress->progress, 0, PHP_ROUND_HALF_UP);
+      //     $officerAssignedCount=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
+      //     ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
+      //     ->where('acknowledge','0')
+      //     ->where('user_id',Auth::id())
+      //     ->count();
+      //     $officerInProgressCount=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
+      //     ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
+      //     ->where('user_id',Auth::id())
+      //     ->where('acknowledge','1')
+      //     ->count();
+      //     $project_data=AssignedProject::select('assigned_projects.*')
+      //     ->leftJoin('assigned_project_teams','assigned_projects.id','assigned_project_teams.assigned_project_id')
+      //     ->where('assigned_projects.acknowledge','1')->where('assigned_projects.project_id',Project::first()->id)
+      //     ->first();
+      //     $icons = [
+      //     'pdf' => 'pdf',
+      //     'doc' => 'word',
+      //     'docx' => 'word',
+      //     'xls' => 'excel',
+      //     'xlsx' => 'excel',
+      //     'ppt' => 'powerpoint',
+      //     'pptx' => 'powerpoint',
+      //     'txt' => 'text',
+      //     'png' => 'image',
+      //     'jpg' => 'image',
+      //     'jpeg' => 'image',
+      //     ];
+      //   return view('officer.monitoring_projects.monitoringStages',['activities'=>$activities,'average_progress'=>$average_progress,'icons'=>$icons,'project_data'=>$project_data,'project_id'=>Project::first()->id,'officerInProgressCount'=>$officerInProgressCount,'officerAssignedCount'=>$officerAssignedCount]);
+      // }
 
 
 
