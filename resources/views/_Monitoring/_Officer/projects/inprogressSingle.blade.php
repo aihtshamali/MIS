@@ -349,9 +349,9 @@ box-shadow: 0px -1px 79px 14px rgba(189,187,189,1);
                                                         </div>
                                                     <div class="divider"></div>
                                                     <div class="form-group row">
-                                                            <div class="col-md-5">
+                                                            <div class="col-md-3 ">
                                                                     <b><label for="sectors">Sectors : </label></b>
-                                                                    <select  name="sectors[]" class="js-example-basic-multiple js-placeholder-multiple col-sm-12 form-control"  multiple="multiple">
+                                                                    <select  name="sectors[]" class="js-example-basic-multiple js-placeholder-multiple col-sm-12 form-control"  multiple="multiple" id="sector">
                                                                         @foreach ($sectors as $sector)
                                                                             @if($sector->status == 1)
                                                                             <option value="{{$sector->id}}">{{$sector->name}}</option>
@@ -359,8 +359,13 @@ box-shadow: 0px -1px 79px 14px rgba(189,187,189,1);
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
-                                                            <div class="col-md-1"></div>
-                                                        <div class="col-md-5">
+                                                                <div class="col-md-3 offset-md-1">
+                                                                    <b><label for="sectors">Sub Sectors : </label></b>
+                                                                    <select id="sub_sectors" name="sub_sectors[]" class="form-control js-example-basic-multiple" required multiple="multiple" data-placeholder="Sub Sectors"  style="width: 100%;">
+                                                                    </select>
+                                                                </div>
+                                                                
+                                                        <div class="col-md-3 offset-md-1">
                                                             <b><label for="kpis">KPI(s) : </label></b>
                                                             <select class="js-example-basic-multiple js-placeholder-multiple col-sm-12 form-control"  multiple="multiple">
                                                             {{-- <option value="" selected>Select</option> --}}
@@ -749,71 +754,75 @@ box-shadow: 0px -1px 79px 14px rgba(189,187,189,1);
                                                         <div class="card-block">
                                                             <div class="col-md-12">
                                                                 <div class="dt-responsive table-responsive">
-                                                                    <table id="complex-dt" class=" risktable table table-bordered nowrap">
-                                                                        <thead>
+                                                                    <style scoped media="screen">
+                                                                        .bg_sky{background:#8abdd6e6;}
+                                                                        .bg_yel{background:#ffc110;}
+                                                                        .bg_br{background:#7d641da6;}
+                                                                        .bg_bl{background:#2f779ae6;}
+                                                                        .bg_gr{background:#349634;}
+                                                                        .text_center{text-align:center;}
+                                                                        th{;border:2px solid #000;text-align:center;text-transform:capitalize;}
+                                                                        td{;border:1px solid #000;}
+                                                                        .nobortop{border-top:none !important;}
+                                                                        .noborbottom{border-bottom:none !important;}
+                                                                        .white{color:#fff !important;}
+                                                                        .black{color:#000 !important;}
+                                                                        .red{color:red !important;}
+                                                                      </style>
+                                                                      <table class="col-md-12">
+                                                                      <thead>
+                                                                          <tr>
+                                                                              <th class="bg_sky noborbottom" rowspan="2" colspan="1" >
+                                                                                  Risk catagory
+                                                                              </th>
+                                                                              <th class="bg_sky noborbottom" rowspan="2" colspan="1">
+                                                                                  Risk event
+                                                                              </th>
+                                                                              <th class="bg_yel" rowspan="1" colspan="6">
+                                                                                  before migration
+                                                                              </th>
+                                                                              
+                                                                            <th class="bg_sky noborbottom" rowspan="2" colspan="1">
+                                                                                Risk owner
+                                                                            </th>
+                                                                          </tr>
+                                                                          <tr>
+                                                                              <th class="noborbottom">p</th>
+                                                                              <th class="bg_br white" rowspan="1" colspan=3>
+                                                                                  severity
+                                                                              </th>
+                                                                              <th class="bg_bl noborbottom white">impact</th>
+                                                                              <th class="bg_sky nobortop" rowspan="2" colspan="1">
+                                                                                Risk response
+                                                                            </th>
+                                                                          </tr>
+                                                                          <tr>
+                                                                            <th class="bg_sky nobortop"></th>
+                                                                            <th class="bg_sky nobortop"></th>
+                                                                            <th class="nobortop"></th>
+                                                                            <th>c</th>
+                                                                            <th>t</th>
+                                                                            <th>Q</th>
+                                                                            <th class="bg_bl nobortop white"><span class="red">p</span>*(C+T+Q)/3</th>
+                                                                            <th class="bg_sky nobortop"></th>
+                                                                          </tr>
+                                                                      </thead>
+                                                                      <tbody id="riskmatrix">
                                                                         <tr>
-                                                                            <th rowspan="2" style=" background:#8bd2fd;text-align: center;
-                                                                            vertical-align: middle;">
-                                                                                    Risk Category
-                                                                            </th>
-                                                                            <th rowspan="2" style=" background:#8bd2fd; text-align: center;
-                                                                            vertical-align: middle;">
-                                                                                    Risk Events
-                                                                            </th>
-                                                                            <th rowspan="2" style="padding: 0px;" >
-                                                                                <table >
-                                                                                    <tr>
-                                                                                        <th colspan="4" style=" background:#ffe55e; border:none; text-align:center;">Before Mitigation</th>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <th style="text-align: center;
-                                                                                        vertical-align: middle; background:lightgray;" ><b style="color:red;">Probabilty</b></th>
-                                                                                        <th style="padding:0;text-align: center;
-                                                                                        vertical-align: middle; background:grey;">
-                                                                                            <table >
-                                                                                                <tr>
-                                                                                                    <th rowspan="2" style="background:grey; border:none;">Severity</th>
-                                                                                                    <table >
-                                                                                                        <tr>
-                                                                                                        <th style="background:lightgray" >C</th>
-                                                                                                        <th style="background:lightgray" >T</th>
-                                                                                                        <th style="background:lightgray">Q</th>
-                                                                                                        </tr>
-                                                                                                    </table>
-                                                                                                    <th style="background:#5a72fe; text-align: center;
-                                                                                                    vertical-align: middle;">
-                                                                                                            Impact <br> P*(C+T+Q)/3
-                                                                                                        </th>
-                                                                                                        <th style=" background:#8bd2fd; text-align: center;
-                                                                                                        vertical-align: middle;">
-                                                                                                            Risk Owner
-                                                                                                        </th>
-                                                                                                        <th style=" background:#8bd2fd; text-align: center;
-                                                                                                        vertical-align: middle;">
-                                                                                                            Risk Response
-                                                                                                        </th>
-                                                                                                </tr>
-                                                                                            </table>
-                                                                                            
-                                                                                        </th>
-                                                                                            
-
-                                                                                    </tr>
-                                                                                
-                                                                                </table>
-                                                                            </th>
+                                                                          <td><input type="text" class="form-control"></td>
+                                                                          <td><input type="text"  class="form-control"></td>
+                                                                          <td><input type="text" class="form-control"></td>
+                                                                          <td><input type="text" class="form-control"></td>
+                                                                          <td><input type="text" class="form-control"></td>
+                                                                          <td><input type="text" class="form-control"></td>
+                                                                          <td><input type="text" class="form-control"></td>
+                                                                          <td><input type="text" class="form-control"></td>
+                                                                          <td><input type="text" class="form-control"></td>
+                                                                          <td><button class="btn btn-sm btn-success" type="button" id="add-more">+</button></td>
                                                                         </tr>
-                                                                        
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td>here</td>
-                                                                                <td>here2</td>
-                                                                            </tr>
-
-                                                                        </tbody>
-                                                                    
-                                                                    </table>
+                                                                      </tbody>
+                                                                  </table>
+                                                                                                                                      
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -877,8 +886,8 @@ box-shadow: 0px -1px 79px 14px rgba(189,187,189,1);
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="tab-pane active"  id="stakeholder" role="tabpanel" aria-expanded="true"></div>
-
+                                            {{-- <div class="tab-pane active"  id="procurment" role="tabpanel" aria-expanded="true">
+                                            </div> --}}
 
                                         </div>
                                     </div>
@@ -1031,6 +1040,46 @@ $('button#add-more').click(function(e){
                         +'<td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td></tr>   ';
                         $('#stakeholders').append(add_stakeholder);
                     });
+
+$('button#add-more').click(function(e){
+    var add_risks='<tr>'
+                    +'<td><input type="text" class="form-control"></td>'
+                    +'<td><input type="text"  class="form-control"></td>'
+                    +'<td><input type="text" class="form-control"></td>'
+                    +'<td><input type="text" class="form-control"></td>'
+                    +'<td><input type="text" class="form-control"></td>'
+                    +'<td><input type="text" class="form-control"></td>'
+                    +'<td><input type="text" class="form-control"></td>'
+                    +'<td><input type="text" class="form-control"></td>'
+                    +'<td><input type="text" class="form-control"></td>'
+                    +'<td><button class="btn btn-sm btn-danger" id="remove" onclick="removerow(this)" name="remove[]" type="button">-</button></td>'
+                    +'</tr>';
+                    $('#riskmatrix').append(add_risks);
+});
+
+$(document).on('change', '#sector', function() {
+  var opt = $(this).val()
+//   console.log(opt);
+  $.ajax({
+    method: 'POST', // Type of response and matches what we said in the route
+    url: '/onsectorselect', // This is the url we gave in the route
+    data: {
+      "_token": "{{ csrf_token() }}",
+      'data' : opt}, // a JSON object to send back
+    success: function(response){ // What to do if we succeed
+      console.log(response);
+      $("#sub_sectors").empty();
+      $.each(response, function () {
+          $('#sub_sectors').append("<option value=\""+this.id+"\">"+this.name+"</option>");
+      });
+    },
+    error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+        console.log(JSON.stringify(jqXHR));
+        console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+    }
+});
+});
+
     function removerow(e)
     {
         $(e).parent().parent().remove();
