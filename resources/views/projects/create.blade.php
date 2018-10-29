@@ -311,12 +311,24 @@ vertical-align: super;
     <div class="form-group">
       <label class="col-sm-4">SNE</label>
       <div class="col-sm-8">
-        <select class="form-control" required name="sne">
+        <select class="form-control" id="sne_data" required name="sne">
           <option value="NO">NO</option>
           <option value="COST">COST</option>
           <option value="STAFF">STAFF</option>
           <option value="BOTH">BOTH</option>
         </select>
+      </div>
+    </div>
+    <div class="form-group" id="sne_cost" style="display:none">
+      <label for="" class="col-sm-4">SNE COST</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" name="sne_cost" placeholder="SNE COST">
+      </div>
+    </div>
+    <div class="form-group" style="display:none"  id="sne_staff_positions">
+      <label for="" class="col-sm-4">SNE STAFF</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" name="sne_staff_positions" placeholder="SNE STAFF POSITION">
       </div>
     </div>
     <section style="background-color:lightgray;padding:8px">
@@ -639,6 +651,26 @@ $('input').on('change',function(){
   $("#summary_"+class_value).append("<label class=\"control-label\">"+opt+"</label>");
 });
 
+$('#sne_data').on('change',function(e){
+  console.log('here');
+  opt = $("#sne_data :selected").val();
+  if(opt == "COST"){
+    $("#sne_cost").show('slow')
+    $("#sne_staff_positions").hide('slow')
+  }
+  else if(opt == "STAFF"){
+    $("#sne_cost").hide('slow')
+    $("#sne_staff_positions").show('slow')
+  }
+  else if(opt == "BOTH"){
+    $("#sne_cost").show('slow')
+    $("#sne_staff_positions").show('slow')
+  }
+  else{
+      $("#sne_cost").hide('slow')
+      $("#sne_staff_positions").hide('slow')
+  }
+});
 
 $('select').on('change',function(e){
   var class_value = $(this).attr("id");

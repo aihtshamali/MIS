@@ -64,7 +64,7 @@
                 <div class="form-group row">
                         <div class="col-md-12">
                             <b><label for="sectors">SNE </label></b>
-                            <select class="form-control form-control-warning" required name="sne" id="sne">
+                            <select class="form-control form-control-warning" id="sne_data" required name="sne" id="sne">
                                     <option value="" selected="selected" disabled>Select SNE</option>
                                     <option value="NO">NO</option>
                                     <option value="COST">COST</option>
@@ -72,6 +72,18 @@
                                     <option value="BOTH">BOTH</option>
                                   </select>
                         </div>
+                    </div>
+                    <div class="form-group row" id="sne_cost" style="display:none">
+                      <label for="" class="col-sm-4">SNE COST</label>
+                      <div class="col-sm-8">
+                        <input type="text" class="form-control" name="sne_cost" placeholder="SNE COST">
+                      </div>
+                    </div>
+                    <div class="form-group row" style="display:none"  id="sne_staff_positions">
+                      <label for="" class="col-sm-4">SNE STAFF</label>
+                      <div class="col-sm-8">
+                        <input type="text" class="form-control" name="sne_staff_positions" placeholder="SNE STAFF POSITION">
+                      </div>
                     </div>
                 <div class="form-group row">
                         <div class="col-md-6">
@@ -697,6 +709,28 @@ $(document).on('change','#gs_no',function(){
      $('#originalCost').val('');
      $("#districts").val('').trigger('change');
    }
+});
+
+
+$('#sne_data').on('change',function(e){
+  console.log('here');
+  opt = $("#sne_data :selected").val();
+  if(opt == "COST"){
+    $("#sne_cost").show('slow')
+    $("#sne_staff_positions").hide('slow')
+  }
+  else if(opt == "STAFF"){
+    $("#sne_cost").hide('slow')
+    $("#sne_staff_positions").show('slow')
+  }
+  else if(opt == "BOTH"){
+    $("#sne_cost").show('slow')
+    $("#sne_staff_positions").show('slow')
+  }
+  else{
+      $("#sne_cost").hide('slow')
+      $("#sne_staff_positions").hide('slow')
+  }
 });
 </script>
 @endsection
