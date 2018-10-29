@@ -185,7 +185,7 @@ vertical-align: super;
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Project #</label>
       <div class="col-sm-8">
-        <input id="project_no" type="text" disabled name="project_no" value="{{$project_no}}"  class="form-control" required >
+        <input id="project_no" type="text" name="project_no" value="{{$project_no}}"  class="form-control" required >
       </div>
     </div>
     <div class="form-group">
