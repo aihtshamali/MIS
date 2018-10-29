@@ -172,6 +172,12 @@ class ProjectController extends Controller
       $project_id = Project::latest()->first()->id;
       $project_detail = new ProjectDetail();
       $project_detail->sne = $request->sne;
+      if(isset($request->sne_cost)){
+        $project_detail->sne_cost = $request->sne_cost;
+      }
+      if(isset($request->sne_staff_positions)){
+        $project_detail->sne_staff_positions = $request->sne_staff_positions;
+      }
       $project_detail->project_id = $project_id;
       $project_detail->currency = $request->currency;
       $project_detail->orignal_cost = $request->original_cost;

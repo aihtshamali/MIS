@@ -64,7 +64,7 @@
                 <div class="form-group row">
                         <div class="col-md-12">
                             <b><label for="sectors">SNE </label></b>
-                            <select class="form-control form-control-warning" required name="sne" id="sne">
+                            <select class="form-control form-control-warning" id="sne_data" required name="sne" id="sne">
                                     <option value="" selected="selected" disabled>Select SNE</option>
                                     <option value="NO">NO</option>
                                     <option value="COST">COST</option>
@@ -72,6 +72,18 @@
                                     <option value="BOTH">BOTH</option>
                                   </select>
                         </div>
+                    </div>
+                    <div class="form-group row" id="sne_cost" style="display:none">
+                      <label for="" class="col-sm-4">SNE COST</label>
+                      <div class="col-sm-8">
+                        <input type="text" class="form-control" name="sne_cost" placeholder="SNE COST">
+                      </div>
+                    </div>
+                    <div class="form-group row" style="display:none"  id="sne_staff_positions">
+                      <label for="" class="col-sm-4">SNE STAFF</label>
+                      <div class="col-sm-8">
+                        <input type="text" class="form-control" name="sne_staff_positions" placeholder="SNE STAFF POSITION">
+                      </div>
                     </div>
                 <div class="form-group row">
                         <div class="col-md-6">
@@ -194,7 +206,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-12">
                                         <label><b >Original Approved Cost</b></label>
-                                        <input type="number" required id="originalCost" step="0.001" name="original_cost" class="form-control form-control-round" placeholder="Cost">
+                                        <input type="number" required id="originalCost" step="0.1" name="original_cost" class="form-control form-control-round" placeholder="Cost">
                                     </div>
                                     </div>
                                     <div class="form-group row " id="revised_cost_id">
@@ -202,7 +214,7 @@
                                             <div class="row">
                                                 <div class="col-md-8">
                                                     <label><b >Revised Approved Cost</b></label>
-                                                    <input type="number" required  name="revised_approved_costs[]" id="field1" step="0.001" class="form-control form-control-round" placeholder="Cost">
+                                                    <input type="number" required  name="revised_approved_costs[]" id="revised_approved_costs" step="0.1" class="form-control form-control-round" placeholder="Cost">
                                                 </div>
                                                 <div class="col-md-2">
                                                     <button id="add-more" name="add-more[]" class="btn btn-success pull-right" style="position: relative;top: 26px;margin: -3px;" type="button">+</button>
@@ -236,7 +248,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-12">
                                                 <label><b >Planned Gestation Period</b></label>
-                                                <input type='text' id="gestation_period"  required name="gestation_period" class="form-control" />
+                                                <input type='text' id="gestation_period"  disabled name="gestation_period" class="form-control" />
                                             </div>
                                         </div>
 
@@ -400,14 +412,14 @@
 
                     </div>
                 </div>
-                <div class="form-group row">
+                {{-- <div class="form-group row">
                     <div class="col-md-4">
                         <label><b>Planned Gestation Period :</b></label>
                     </div>
                     <div class="col-md-6" id="summary_gestation_period">
 
                     </div>
-                </div>
+                </div> --}}
                 <div class="form-group row">
                     <div class="col-md-4">
                         <label><b>Revised Start Date :</b></label>
@@ -424,14 +436,14 @@
 
                     </div>
                 </div>
-                <div class="form-group row">
+                {{-- <div class="form-group row">
                     <div class="col-md-4">
                         <label><b>Revised Gestation Period :</b></label>
                     </div>
                     <div class="col-md-6" id="summary_gestation_period">
 
                     </div>
-                </div>
+                </div> --}}
                 <div class="form-group row">
                         <div class="col-md-4">
                             <label><b>Districts :</b></label>
@@ -646,6 +658,7 @@ $(document).on('change', '#assigningForum', function() {
     $('input').on('change',function(){
     var class_value = $(this).attr("id");
     var opt = $(this).val();
+    // console.log(opt);
     if(opt == ""){
         $("#summary_" + class_value).hide("slow");
     }
@@ -654,11 +667,11 @@ $(document).on('change', '#assigningForum', function() {
     }
     $("#summary_"+class_value).empty();
     $("#summary_"+class_value).append("<label class=\"control-label\">"+opt+"</label>");
-
-    $("#summary_"+class_value).empty();
-    values = $(this).find(':selected').text();
-    $("#summary_"+class_value).append("<label class=\"control-label\">"+values+"</label>");
     });
+    // $("#summary_"+class_value).empty();
+    // values = $(this).find(':selected').text();
+    // $("#summary_"+class_value).append("<label class=\"control-label\">"+values+"</label>");
+    // });
 
   $(document).on('change', '#projSectors', function() {
   var opt = $(this).val()
@@ -697,6 +710,28 @@ $(document).on('change','#gs_no',function(){
      $('#originalCost').val('');
      $("#districts").val('').trigger('change');
    }
+});
+
+
+$('#sne_data').on('change',function(e){
+  console.log('here');
+  opt = $("#sne_data :selected").val();
+  if(opt == "COST"){
+    $("#sne_cost").show('slow')
+    $("#sne_staff_positions").hide('slow')
+  }
+  else if(opt == "STAFF"){
+    $("#sne_cost").hide('slow')
+    $("#sne_staff_positions").show('slow')
+  }
+  else if(opt == "BOTH"){
+    $("#sne_cost").show('slow')
+    $("#sne_staff_positions").show('slow')
+  }
+  else{
+      $("#sne_cost").hide('slow')
+      $("#sne_staff_positions").hide('slow')
+  }
 });
 </script>
 @endsection
