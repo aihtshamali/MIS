@@ -202,7 +202,7 @@ box-shadow: 0px -1px 79px 14px rgba(189,187,189,1);
                                                             <div class="card-header"></div> 
                                                             <div class="card-block">
                                                                 <div class="animation-model">
-                                                                    <button type="button" class="btn btn-info btn-outline-info waves-effect md-trigger "  style="text-align:center; vertical-align:middle; font-size:25px;margin-left:15%" data-modal="modal-2">Ghantt Chart</button>
+                                                                    <button type="button" class="btn btn-info btn-outline-info waves-effect md-trigger "  style="text-align:center; vertical-align:middle; font-size:25px;margin-left:15%" data-modal="modal-2">Gantt Chart</button>
                                                                     <div class="md-modal md-effect-3" id="modal-2">
                                                                             <div class="md-content">
                                                                                 <h3>Ghantt Chart</h3>

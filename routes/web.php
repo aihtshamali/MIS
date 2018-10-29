@@ -203,8 +203,6 @@ Route::prefix('hr')->middleware('role:adminhr|manager')->group(function () {
   Route::post('/save_agendax','AdminHumanResourceController@save_agendax')->name('agendax');
   // Route::get('/search_agendas','AdminHumanResourceController@search_agendas')->name('search_agendas');
   // Route::get('/','inHumanResourceController@index')->name('index_meeting');
-  // Route::get('/admin','AdminHumanResourceController@create')->name('create_meeting');
-
 });
 Route::group(['middleware'=>['permission:can.chat']],function(){
   Route::get('/conversations/{id}', 'ChatController@show');
