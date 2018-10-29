@@ -141,9 +141,10 @@ class ProjectController extends Controller
       $project_no=SubProjectType::select('projects.project_no','projects.created_at')
       ->where('sub_project_types.project_type_id','1')
       ->leftJoin('projects','projects.project_type_id','sub_project_types.project_type_id')
-      ->latest()->first();
+      ->latest()->first()->project_no;
       if($project_no){
       $project_no=explode('-',$project_no);
+      // dd($project_no);
       $projectNo=$project_no[0].'-'.($project_no[1]+1);
       }
       else {
@@ -722,7 +723,7 @@ class ProjectController extends Controller
 
   public function viewMonitoringForm()
   {
-    $projectsProject::where('project_type_id','2')->get();
+    $projects=Project::where('project_type_id','2')->get();
     return view('_Monitoring._Dataentry.view',compact('projects'));
 
   }

@@ -31,7 +31,7 @@
                                 {{$project->ProjectDetail->orignal_cost}}
                               </td>
                               <td>
-                                <a href="#" class="btn btn-sm btn-info">View PC-1</a>
+                                <a href="{{route('projects.show',$project->id)}}" class="btn btn-sm btn-info">View Project</a>
                               </td>
                             </tr>
                           @endforeach

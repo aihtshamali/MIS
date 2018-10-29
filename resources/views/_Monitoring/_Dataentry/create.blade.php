@@ -77,7 +77,7 @@
                         <div class="col-md-6">
                         <label for=""><b>Financial Year</b></label>
                             <select class="form-control form-control-info" name="financial_year" id="financial_year">
-                                    <option value="2017-18">2017-18</option>
+                                    <option value="2017-18" selected>2017-18</option>
                                     @for($i = 2 ; $i <= 30 ; $i++)
                                     @if($i == 9)
                                         <option value="200{{$i}}-{{$i+1}}">200{{$i}}-{{$i+1}}</option>
@@ -685,8 +685,9 @@ $(document).on('change', '#assigningForum', function() {
 
 $(document).on('change','#gs_no',function(){
    var arr = $(this).val().split(',')
-   // console.log(projects[arr[1]].name_of_scheme);
+   console.log(projects[arr[1]]);
    if($('#financial_year :selected').text() == projects[arr[1]].financial_year){
+     console.log('hello');
      $('#projectTitle').val(projects[arr[1]].name_of_scheme);
      $('#originalCost').val(projects[arr[1]].total_cost);
      $("#districts").val($("#districts option").filter(function () { return $(this).html() == projects[arr[1]].district; }).val());
