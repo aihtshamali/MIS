@@ -264,10 +264,6 @@ class ProjectAssignController extends Controller
 
         return redirect()->route('Evaluation_evaluation_assigned');
     }
-<<<<<<< HEAD
-
-=======
-
     public function DPM_AssignToConsultant(Request $request)
     {  $directors=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
       ->leftJoin('user_details','user_details.user_id','users.id')
@@ -327,8 +323,6 @@ class ProjectAssignController extends Controller
     public function DPM_StoreProjectData(Request $request)
     {
     }
->>>>>>> d7b3286e17c0e69ab0773dcc6f83817694b0042e
-
      public function store(Request $request)
      {
 

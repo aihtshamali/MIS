@@ -322,7 +322,9 @@ vertical-align: super;
     <div class="form-group">
       <label id="label_fixed_summary_evaluation_type" class="col-sm-6 control-label">Evaluation Type</label>
       <div id="fixed_summary_evaluation_type" class="col-sm-6">
-        <label>{{$project->EvaluationType->name}}</label>
+        @if(isset($project->EvaluationType->name))
+          <label>{{$project->EvaluationType->name}}</label>
+        @endif
       </div>
     </div>
   <div class="form-group">

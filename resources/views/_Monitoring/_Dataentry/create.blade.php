@@ -31,14 +31,16 @@
 @section('content')
 <div class="row">
     <div class="col-md-6 ">
-        <form action="{{route('projects.store')}}" name="dataentryForm" id="">
+        <form action="{{route('projects.store')}}" name="dataentryForm" id="" method="POST">
           {{ csrf_field() }}
         <div class="card">
+
             <div class="card-header"> <h4><b>Add New Monitoring Project</b></h4></div>
             <div class="card-block">
                 <div class="form-group row">
                     <div class="col-md-12">
-                    <label ><b>Project Type :</b></label>
+                      <input type="hidden" name="type_of_project" value="{{$project_types->id}}">
+                    <label ><b>Sub Project Type :</b></label>
                     <select class="form-control form-control-primary" name="phase_of_project" id="projecttype">
                         <option value="" selected disabled>Select Type</option>
                         @foreach ($sub_project_types as $sp)
@@ -75,7 +77,7 @@
                         <div class="col-md-6">
                         <label for=""><b>Financial Year</b></label>
                             <select class="form-control form-control-info" name="financial_year" id="financial_year">
-                                    <option value="0">2017-18 </option>
+                                    <option value="2017-18">2017-18 </option>
                                     @for($i = 2 ; $i <= 30 ; $i++)
                                     @if($i == 9)
                                         <option value="200{{$i}}-{{$i+1}}">200{{$i}}-{{$i+1}}</option>
@@ -152,6 +154,13 @@
                             </select>
                         </div>
                     </div>
+                    <div class="form-group row" style="display:none" id="assigning_forumSubListDiv">
+                      <div class="col-sm-12">
+                        <label><b>Select Assingning Forum SubList</b></label>
+                        <select id="assigning_forumSubList" name="assigning_forumSubList" class="form-control select2"  style="width: 100%;">
+                        </select>
+                      </div>
+                    </div>
                     <div class="form-group row">
                         <div class="col-md-12">
                         <label><b>Approving Forum</b></label>
@@ -215,13 +224,13 @@
                                         <div class="form-group row">
                                             <div class="col-md-12">
                                                 <label><b >Planned Start Date</b></label>
-                                                <input type='date' id="planned_start_date" required name="psd" onkeyup="" class="form-control" />
+                                                <input type='date' id="planned_start_date" required name="planned_start_date" onkeyup="" class="form-control" />
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-md-12">
                                                 <label><b >Planned End Date</b></label>
-                                                <input type='date' id="planned_end_date"  required name="ped" class="form-control" />
+                                                <input type='date' id="planned_end_date"  required name="planned_end_date" class="form-control" />
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -261,7 +270,7 @@
 
             </div>
             <div class="card-footer">
-                    <button type="button" class="btn btn-success alert-confirm m-b-10" style=" margin-left: 80%;" >Add PC-1</button>
+                <button type="submit" class="btn btn-success alert-confirm m-b-10" style=" margin-left: 80%;" >Add PC-1</button>
             </div>
         </div>
     </form>
@@ -492,7 +501,7 @@ $(document).ready(function(){
                                         +'<div class="form-group row">'
                                           +'<div class="col-md-12">'
                                             +'<label><b >Revised End Date</b></label>'
-                                              +'<input type="date" id="revised_end_date" onchange="calculaterevisedInterval()"  required name="revised_end_date[]" class="form-control" />'
+                                              +'<input type="date" id="revised_end_date" onchange="calculaterevisedInterval()"  required name="revised_end_dates[]" class="form-control" />'
                                            +'</div></div>'
                                         +'<div class="form-group row">'
                                           +'<div class="col-md-12">'
@@ -588,6 +597,37 @@ document.querySelector('.alert-confirm').onclick = function(){
 	};
 </script>
 <script>
+$(document).on('change', '#assigningForum', function() {
+  var opt = $(this).val()
+  // console.log(opt);
+  $.ajax({
+    method: 'POST', // Type of response and matches what we said in the route
+    url: '/onAssigningForumselect', // This is the url we gave in the route
+    data: {
+      "_token": "{{ csrf_token() }}",
+      'data' : opt
+    }, // a JSON object to send back
+    success: function(response){ // What to do if we succeed
+      $("#assigning_forumSubList").empty();
+      $.each(response, function () {
+
+            $('#assigning_forumSubList').append("<option value=\""+this.id+"\">"+this.name+"</option>");
+
+      });
+      if(response.length>0 && !response.error)
+        {
+          $('div#assigning_forumSubListDiv').show();
+        }
+        else{
+          $('div#assigning_forumSubListDiv').hide();
+        }
+    },
+    error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+        console.log(JSON.stringify(jqXHR));
+        console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+    }
+});
+});
     $('select').on('change',function(e){
     var class_value = $(this).attr("id");
     var opt = $(this).val();
