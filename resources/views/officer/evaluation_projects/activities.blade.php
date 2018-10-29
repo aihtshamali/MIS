@@ -1,5 +1,4 @@
 @extends('layouts.uppernav')
-
 @section('styletag')
   <style media="screen">
   .direct-chat-messages{
@@ -100,7 +99,7 @@
   .fileprogress{display: none}
   .bar { background-color: #B4F5B4; width:0%; height:20px; border-radius: 3px; }
   .percent { position:absolute; display:inline-block; top:3px; left:48%; }
-  .percentBox{border: 2px solid #790d0d;text-align: center;width: 30px;height: 25px;}
+  .percentBox{border: 2px solid #790d0d;text-align: center;width: 30px;overflow: hidden;height: 25px;}
   .percentBox p{margin: 0px !important; padding: 0px !important;}
   </style>
 @endsection
@@ -298,17 +297,25 @@
                       {{-- <th style="text-align:center;">Remarks</th> --}}
                     </thead>
                     <tbody style="text-align:center;">
-
+                      @php
+                      $arr=array();
+                        foreach ($assignedDocuments as $docs) {
+                          array_push($arr,$docs);
+                        }
+                      @endphp
                       @foreach($activities as $activity)
                         <tr>
                           <td> {{$activity->ProjectActivity->id}} </td>
-                          <td> {{$activity->ProjectActivity->name}} </td>
+                          <td>
+                            @if($activity->ProjectActivity->name=="Document Collection")
+                             <a class="activity_docs" data-toggle="modal" data-target="#modalAttachment" data-id="{{$activity->id}}"> {{$activity->ProjectActivity->name}}  </a>
+                           @else
+                             {{$activity->ProjectActivity->name}}
+                           @endif
+                           </td>
                           <td>
                               @foreach ($activity->AssignedActivityAttachments as $attachment)
-                                {{-- {{ dd(file_put_contents('temp'.'.'.$attachment->type,base64_decode($attachment->project_attachements))) }} --}}
                                 <a href="{{asset("storage/uploads/projects/project_activities/".Auth::user()->username."/".$attachment->attachment_name.".".$attachment->type)}}" download><i class="fa fa-file-{{$icons[$attachment->type]}}-o fa-1x text-center" title="{{ $attachment->attachment_name }}" /></i></a>
-                                  {{-- $ext= explode('.',$attachment->project_attachements ) --}}
-                                   {{-- <a href="data:image/{{ $attachment->type }};base64,{{$attachment->project_attachements}}"  download><i class="fa fa-file-{{$icons[$attachment->type]}}-o fa-1x text-center" title="{{ $attachment->attachment_name }}" /></i></a> --}}
                               @endforeach
                             </td>
                           <td>
@@ -318,28 +325,55 @@
                                   <div class="progress">
                                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100"
                                     aria-valuemin="0" aria-valuemax="100" style="width:100%">
-                                    @if($activity->progress == 25.0)
+                                    @if($activity->progress <= 25.0)
                                       <label style="padding:5px;min-width:60px">
-                                        {{ $activity->progress }} %
+                                        {{ round($activity->progress,0,PHP_ROUND_HALF_UP )}} %
                                       </label>
-                                    @elseif($activity->progress == 50.0)
+                                    @elseif($activity->progress <= 50.0)
                                       <label style="padding:5px;min-width:120px">
-                                        {{ $activity->progress }} %
+                                        {{ round($activity->progress,0,PHP_ROUND_HALF_UP )}} %
                                       </label>
-                                    @elseif($activity->progress == 75.0)
+                                    @elseif($activity->progress <= 75.0)
                                       <label style="padding:5px;min-width:180px">
-                                        {{ $activity->progress }} %
+                                        {{ round($activity->progress,0,PHP_ROUND_HALF_UP )}} %
                                       </label>
                                     @else
                                       <label style="padding:5px;min-width:240px">
-                                        {{ $activity->progress }} %
+                                        {{ round($activity->progress,0,PHP_ROUND_HALF_UP )}} %
                                       </label>
                                     @endif
                                     </div>
                                   </div>
                                 @endif
-                                @if($activity->progress < 25.0 && $activity->ProjectActivity->id < 7 &&  $activity->ProjectActivity->name!='Site Visits')
-                                  <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},25)'>Save</button>">
+                                @php
+                                //     100/3 100/3 100/1
+                                  $total=100;
+                                  $count=1;
+                                  $i=$assignedDocuments->count();
+                                  $counter=(100)/$i;
+                                  $temp=$counter;
+                                @endphp
+                                @foreach ($arr as $docs)
+                                  @if($activity->ProjectActivity->id < 7 && $docs->AssignedProjectActivity->id &&  $activity->progress < round($temp,0,PHP_ROUND_HALF_UP)  &&  $activity->ProjectActivity->name!='Site Visits' && $activity->ProjectActivity->id < 4)
+                                    @if($activity->ProjectActivity->id < 2)
+                                      <a class="btn" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<input type='file' name='document_attachment'><button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},{{round($temp,0,PHP_ROUND_HALF_UP)}},this,{{$docs->id}},{{$docs->ActivityDocument->id}})'>Save</button>">
+                                    @else
+                                      <a class="btn" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},{{round($temp,0,PHP_ROUND_HALF_UP)}})'>Save</button>">
+                                    @endif
+                                    <input type="hidden" class="{{round($temp,0,PHP_ROUND_HALF_UP)}}_{{$activity->id}}" name="percent" value="{{round($temp,0,PHP_ROUND_HALF_UP)}},{{$project_data->project->id}},{{$activity->id}}">
+                                      <div class="percentBox">
+                                        <p>{{$docs->ActivityDocument->name}}</p>
+                                      </div>
+                                      <span>{{round($temp,0,PHP_ROUND_HALF_UP)}}%</span>
+                                      </input>
+                                    </a>
+                                  @endif
+                                  @php
+                                  $temp+=$counter;
+                                  @endphp
+                                @endforeach
+                                @if($activity->progress <= 25.0 && $activity->ProjectActivity->id < 7 && $activity->ProjectActivity->id > 3 )
+                                  <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},50)'>Save</button>">
                                     <input type="hidden" class="25_{{$activity->id}}" name="percent" value="25,{{$project_data->project->id}},{{$activity->id}}">
                                     <div class="percentBox">
                                       <p>1</p>
@@ -348,7 +382,7 @@
                                     </input>
                                   </a>
                                 @endif
-                                @if($activity->progress < 50.0 && $activity->ProjectActivity->id < 7 )
+                                @if($activity->progress <= 50.0 && $activity->ProjectActivity->id < 7 && $activity->ProjectActivity->id > 3)
                                   <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},50)'>Save</button>">
                                     <input type="hidden" class="50_{{$activity->id}}" name="percent" value="50,{{$project_data->project->id}},{{$activity->id}}">
                                     <div class="percentBox">
@@ -358,7 +392,7 @@
                                   </input>
                                 </a>
                                 @endif
-                                @if ($activity->progress < 75.0 && $activity->ProjectActivity->id < 7 &&  $activity->ProjectActivity->name!='Site Visits')
+                                @if ($activity->progress <= 75.0 && $activity->ProjectActivity->id < 7 && $activity->ProjectActivity->id > 3 &&  $activity->ProjectActivity->name!='Site Visits')
                                   <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},75)'>Save</button>">
                                     <input type="hidden" class="75_{{$activity->id}}" name="percent" value="75,{{$project_data->project->id}},{{$activity->id}}">
                                     <div class="percentBox">
@@ -368,7 +402,7 @@
                                   </input>
                                 </a>
                               @endif
-                              @if ($activity->progress < 100.0)
+                              @if ($activity->progress <= 100.0 && $activity->ProjectActivity->id > 3)
                                 <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},100)'>Save</button>">
                                   <input type="hidden" class="100_{{$activity->id}}" name="percent" value="100,{{$project_data->project->id}},{{$activity->id}}">
                                   <div class="percentBox">
@@ -378,70 +412,6 @@
                                 </input>
                               </a>
                             @endif
-
-                                {{-- @if($activity->progress >= 25.0)
-                                  <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100"
-                                    aria-valuemin="0" aria-valuemax="100" style="width:100%">
-                                    <label style="margin-top:5px;">
-                                      25%
-                                    </label>
-                                    </div>
-                                  </div>
-                                @else
-                                <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},25)'>Save</button>">
-                                  <input type="hidden" class="25_{{$activity->id}}" name="percent" value="25,{{$project_data->project->id}},{{$activity->id}}">
-                                  <li>25%</li>
-                                  </input>
-                                </a>
-                                @endif
-                                @if ($activity->progress >= 50.0)
-                              <div class="progress">
-                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100"
-                                aria-valuemin="0" aria-valuemax="100" style="width:100%">
-                                <label style="margin-top:5px;">
-                                  50%
-                                </label>
-                                </div>
-                              </div>
-                              <a class="btn" >
-                                <input type="hidden" class="{{$activity->id}}" name="percent" value="50,{{$project_data->project->id}},{{$activity->id}}">
-                                <li class="active">50%</li>
-                              </input>
-                            </a>
-                          @else
-                            <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},50)'>Save</button>">
-                              <input type="hidden" class="50_{{$activity->id}}" name="percent" value="50,{{$project_data->project->id}},{{$activity->id}}">
-                              <li>50%</li>
-                            </input>
-                          </a>
-                        @endif
-                        @if ($activity->progress >= 75.0)
-                          <a class="btn" >
-                            <input type="hidden" class="{{$activity->id}}" name="percent" value="75,{{$project_data->project->id}},{{$activity->id}}">
-                            <li class="active">75%</li>
-                          </input>
-                        </a>
-                      @else
-                        <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},75)'>Save</button>">
-                          <input type="hidden" class="75_{{$activity->id}}" name="percent" value="75,{{$project_data->project->id}},{{$activity->id}}">
-                          <li>75%</li>
-                        </input>
-                      </a>
-                    @endif
-                    @if ($activity->progress >= 100.0)
-                      <a class="btn" >
-                        <input type="hidden" class="{{$activity->id}}" name="percent" value="100,{{$project_data->project->id}},{{$activity->id}}">
-                        <li class="active">100%</li>
-                      </input>
-                    </a>
-                    @else
-                    <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},100)'>Save</button>">
-                      <input type="hidden" class="100_{{$activity->id}}" name="percent" value="100,{{$project_data->project->id}},{{$activity->id}}">
-                      <li>100%</li>
-                    </input>
-                  </a>
-                @endif --}}
               </ul>
             </div>
           </td>
@@ -465,9 +435,11 @@
       <div class="col-md-4">
         <select name="attachment_activity" id="" class="select2 form-control">
           <option value="">Select Activity For Attachments</option>
+          <optgroup label="Activities">
           @foreach($activities as $activity){
-            <option value="{{$activity->id}}">{{$activity->ProjectActivity->name}}</option>
+              <option value="{{$activity->id}}">{{$activity->ProjectActivity->name}}</option>
           @endforeach
+        </optgroup>
         </select>
       </div>
       <div class="col-md-4">
@@ -499,6 +471,40 @@
 </div>
 
 </div>
+<!-- Modal -->
+<div id="modalAttachment" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Choose Documents</h4>
+      </div>
+      <form class="" action="{{route('AssignActivityDocument')}}" method="post">
+      <div class="modal-body">
+          {{ csrf_field() }}
+          <input type="hidden" name="assigned_project_id" value="{{$project_data->id}}">
+          <input type="hidden" id="modal_assigned_activity_id" name="assigned_activity_id">
+        @foreach ($activity_documents as $docs)
+          <div>
+            <input type="checkbox" name="activity_document_id[]" value="{{$docs->id}}">
+            <label for="">
+              {{$docs->name}}
+            </label>
+          </div>
+        @endforeach
+
+      </div>
+      <div class="modal-footer">
+        <input type="submit" name="Submit" class="pull-right btn btn-success btn-sm" value="Submit">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+      </div>
+    </form>
+    </div>
+
+  </div>
+</div>
 
 
 </section>
@@ -509,9 +515,9 @@
 
 @section('scripttags')
   <script src="http://malsup.github.com/jquery.form.js"></script>
-
   <script type="text/javascript">
   $(document).ready(function(){
+    $('.select2').select2();
     (function() {
 
     var bar = $('.fileprogress');
@@ -539,7 +545,6 @@
             bar.html(percentVal);
         },
     	complete: function(xhr) {
-        console.log(xhr);
         if(xhr.statusText=="OK"){
           status.html('File Upload SuccessFully')
           location.reload();
@@ -629,35 +634,50 @@
   })
   </script>
   <script>
-  function saveData(id,number){
-    // console.log(number);
+  function saveData(id,number,objthis=null,Assigned_document_id=null,document_id=null){
+    var rout='/officer/save_percentage';
     // console.log($('.'+number+'_'+id).val());
+    var form_data = new FormData();
     opt = $('.'+number+'_'+id).val();
+    if(objthis!=null){ // objthis is only for DocsAttachment
+      rout='{{route("saveDocAttachment")}}';
+      var file_data = $(objthis).siblings()[0].files[0];
+      form_data.append('activity_attachment', file_data);
+      form_data.append('activity_document_id', document_id);
+      form_data.append('assigned_project_activity_id', id);
+      form_data.append('assigned_activity_document_id', Assigned_document_id);
+    }
+    form_data.append('data', opt);
+    form_data.append('csrf-token', "{{ csrf_token() }}");
     $.ajax({
       method: 'POST', // Type of response and matches what we said in the route
-      url: '/officer/save_percentage', // This is the url we gave in the route
-      data: {
-        "_token": "{{ csrf_token() }}",
-        'data' : opt}, // a JSON object to send back
-        success: function(response){ // What to do if we succeed
-          console.log(response);
+      headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      url: rout, // This is the url we gave in the route
+      // dataType: 'text',  // what to expect back from the PHP script, if anything
+      cache: false,
+      contentType: false,
+      processData: false,
+      data: form_data, // a JSON object to send back
+      success: function(response){ // What to do if we succeed
+        // console.log(response);
           location.reload();
-        },
-        error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+      },
+      error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
           console.log(JSON.stringify(jqXHR));
-          console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
-        }
+          alert("AJAX error: " + textStatus + ' : ' + errorThrown);
+      }
       });
-    }
 
-    // $('#btn-confirm').on('click',function(){
-    //   $('#myModal').modal({
-    //     show:true
-    //   });
-    // });
+  }
+
+    $('.activity_docs').click(function(){
+
+      $("#modal_assigned_activity_id").val($(this).data('id'));
+    });
 
     $(document).ready(function(){
-
 
       $('.btn').popover();
 

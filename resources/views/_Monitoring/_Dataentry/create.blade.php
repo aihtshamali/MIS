@@ -1,6 +1,6 @@
 @extends('_Monitoring.layouts.upperNavigation')
  <!-- Select 2 css -->
- <link rel="stylesheet" href="{{ asset('_monitoring/css/css/sweetalert.css')}}" />   
+ <link rel="stylesheet" href="{{ asset('_monitoring/css/css/sweetalert.css')}}" />
  <link rel="stylesheet" href="{{ asset('_monitoring/css/css/component.css')}}" />
  <link rel="stylesheet" href="{{ asset('_monitoring/css/css/select2.min.css')}}" />
  <!-- Multi Select css -->
@@ -31,30 +31,40 @@
 @section('content')
 <div class="row">
     <div class="col-md-6 ">
-        <form action="#" name="dataentryForm" id="">
+        <form action="{{route('projects.store')}}" name="dataentryForm" id="" method="POST">
+          {{ csrf_field() }}
         <div class="card">
-            <div class="card-header"> <h4><b>Add New PC-1</b></h4></div>
+
+            <div class="card-header"> <h4><b>Add New Monitoring Project</b></h4></div>
             <div class="card-block">
                 <div class="form-group row">
                     <div class="col-md-12">
-                    <label ><b>Project Type :</b></label>
-                    <select class="form-control form-control-primary" id="projecttype">
+                      <input type="hidden" name="type_of_project" value="{{$project_types->id}}">
+                    <label ><b>Sub Project Type :</b></label>
+                    <select class="form-control form-control-primary" name="phase_of_project" id="projecttype">
                         <option value="" selected disabled>Select Type</option>
-                        <option value="1" >New Monitoring</option>
-                        <option value="2" >On Going</option>
+                        @foreach ($sub_project_types as $sp)
+                          <option value="{{$sp->id}}">{{$sp->name}}</option>
+                        @endforeach
                     </select>
                   </div>
                 </div>
                 <div class="form-group row">
                         <div class="col-md-12">
                             <b><label for="sectors">Project Title </label></b>
-                            <input type="text" class="form-control form-txt-success" id="projectTitle" placeholder="Project Title">
+                            <input type="text" class="form-control form-txt-success" name="title" id="projectTitle" placeholder="Project Title">
                         </div>
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-md-12">
+                          <b><label for="sectors">Project # </label></b>
+                          <input id="project_no" type="text" name="project_no" disabled value="{{$project_no}}"  class="form-control" required >
+                      </div>
                     </div>
                 <div class="form-group row">
                         <div class="col-md-12">
                             <b><label for="sectors">SNE </label></b>
-                            <select class="form-control form-control-warning" required name="sne" id="sne">
+                            <select class="form-control form-control-warning" id="sne_data" required name="sne" id="sne">
                                     <option value="" selected="selected" disabled>Select SNE</option>
                                     <option value="NO">NO</option>
                                     <option value="COST">COST</option>
@@ -63,11 +73,23 @@
                                   </select>
                         </div>
                     </div>
+                    <div class="form-group row" id="sne_cost" style="display:none">
+                      <label for="" class="col-sm-4">SNE COST</label>
+                      <div class="col-sm-8">
+                        <input type="text" class="form-control" name="sne_cost" placeholder="SNE COST">
+                      </div>
+                    </div>
+                    <div class="form-group row" style="display:none"  id="sne_staff_positions">
+                      <label for="" class="col-sm-4">SNE STAFF</label>
+                      <div class="col-sm-8">
+                        <input type="text" class="form-control" name="sne_staff_positions" placeholder="SNE STAFF POSITION">
+                      </div>
+                    </div>
                 <div class="form-group row">
                         <div class="col-md-6">
                         <label for=""><b>Financial Year</b></label>
                             <select class="form-control form-control-info" name="financial_year" id="financial_year">
-                                    <option value="0">2017-18 </option>
+                                    <option value="2017-18" selected>2017-18</option>
                                     @for($i = 2 ; $i <= 30 ; $i++)
                                     @if($i == 9)
                                         <option value="200{{$i}}-{{$i+1}}">200{{$i}}-{{$i+1}}</option>
@@ -110,7 +132,7 @@
                                 </select>
                         </div>
                     </div>
-                
+
                 <div class="form-group row">
                     <div class="col-md-12">
                     <label><b> Sponsoring Department :</b></label>
@@ -144,6 +166,13 @@
                             </select>
                         </div>
                     </div>
+                    <div class="form-group row" style="display:none" id="assigning_forumSubListDiv">
+                      <div class="col-sm-12">
+                        <label><b>Select Assingning Forum SubList</b></label>
+                        <select id="assigning_forumSubList" name="assigning_forumSubList" class="form-control select2"  style="width: 100%;">
+                        </select>
+                      </div>
+                    </div>
                     <div class="form-group row">
                         <div class="col-md-12">
                         <label><b>Approving Forum</b></label>
@@ -173,11 +202,11 @@
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-block data-card" >
-                                        <h5 style="margin-bottom:20px;"><b style="text-decoration-line: underline; "> Cost</b></h5> 
+                                        <h5 style="margin-bottom:20px;"><b style="text-decoration-line: underline; "> Cost</b></h5>
                                         <div class="form-group row">
                                             <div class="col-md-12">
-                                        <label><b >Original Approved Cost</b></label> 
-                                        <input type="number" required id="originalCost" step="0.001" name="original_cost" class="form-control form-control-round" placeholder="Cost">
+                                        <label><b >Original Approved Cost</b></label>
+                                        <input type="number" required id="originalCost" step="0.1" name="original_cost" class="form-control form-control-round" placeholder="Cost">
                                     </div>
                                     </div>
                                     <div class="form-group row " id="revised_cost_id">
@@ -185,7 +214,7 @@
                                             <div class="row">
                                                 <div class="col-md-8">
                                                     <label><b >Revised Approved Cost</b></label>
-                                                    <input type="number" required  name="revised_approved_costs[]" id="field1" step="0.001" class="form-control form-control-round" placeholder="Cost">
+                                                    <input type="number" required  name="revised_approved_costs[]" id="revised_approved_costs" step="0.1" class="form-control form-control-round" placeholder="Cost">
                                                 </div>
                                                 <div class="col-md-2">
                                                     <button id="add-more" name="add-more[]" class="btn btn-success pull-right" style="position: relative;top: 26px;margin: -3px;" type="button">+</button>
@@ -203,26 +232,26 @@
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-block data-card2" >
-                                        <h5 style="margin-bottom:20px;"><b style="text-decoration-line: underline; ">Date</b></h5> 
+                                        <h5 style="margin-bottom:20px;"><b style="text-decoration-line: underline; ">Date</b></h5>
                                         <div class="form-group row">
                                             <div class="col-md-12">
-                                                <label><b >Planned Start Date</b></label> 
-                                                <input type='text' id="planned_start_date" required name="psd" onkeyup="" class="form-control" />                                                 
+                                                <label><b >Planned Start Date</b></label>
+                                                <input type='date' id="planned_start_date" required name="planned_start_date" onkeyup="" class="form-control" />
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-md-12">
-                                                <label><b >Planned End Date</b></label> 
-                                                <input type='date' id="planned_end_date"  required name="ped" class="form-control" />
+                                                <label><b >Planned End Date</b></label>
+                                                <input type='date' id="planned_end_date"  required name="planned_end_date" class="form-control" />
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-md-12">
-                                                <label><b >Planned Gestation Period</b></label> 
-                                                <input type='text' id="gestation_period"  required name="gestation_period" class="form-control" />
+                                                <label><b >Planned Gestation Period</b></label>
+                                                <input type='text' id="gestation_period"  disabled name="gestation_period" class="form-control" />
                                             </div>
                                         </div>
-                                    
+
                                 </div>
                                 </div>
                             </div>
@@ -250,10 +279,10 @@
                         <input type="file" class="pull-right" name="attachments">
                       </div>
                       </div>
-                        
+
             </div>
             <div class="card-footer">
-                    <button type="button" class="btn btn-success alert-confirm m-b-10" style=" margin-left: 80%;" >Add PC-1</button>
+                <button type="submit" class="btn btn-success alert-confirm m-b-10" style=" margin-left: 80%;" >Add PC-1</button>
             </div>
         </div>
     </form>
@@ -284,7 +313,7 @@
                             <label><b>SNE:</b></label>
                         </div>
                         <div class="col-md-6" id="summary_sne">
-    
+
                         </div>
                     </div>
                 <div class="form-group row">
@@ -383,14 +412,14 @@
 
                     </div>
                 </div>
-                <div class="form-group row">
+                {{-- <div class="form-group row">
                     <div class="col-md-4">
                         <label><b>Planned Gestation Period :</b></label>
                     </div>
                     <div class="col-md-6" id="summary_gestation_period">
 
                     </div>
-                </div>
+                </div> --}}
                 <div class="form-group row">
                     <div class="col-md-4">
                         <label><b>Revised Start Date :</b></label>
@@ -407,20 +436,20 @@
 
                     </div>
                 </div>
-                <div class="form-group row">
+                {{-- <div class="form-group row">
                     <div class="col-md-4">
                         <label><b>Revised Gestation Period :</b></label>
                     </div>
                     <div class="col-md-6" id="summary_gestation_period">
 
                     </div>
-                </div>
+                </div> --}}
                 <div class="form-group row">
                         <div class="col-md-4">
                             <label><b>Districts :</b></label>
                         </div>
                         <div class="col-md-6" id="summary_districts">
-    
+
                         </div>
                     </div>
             </div>
@@ -474,17 +503,17 @@ $(document).ready(function(){
     $('button#add_reviseddate').click(function(e){
         var revised_date ='<div class="col-md-12">'
                                +'<div class="card">'
-                                 +' <div class="card-block data-card3" >'  
+                                 +' <div class="card-block data-card3" >'
                                    +'<h5 style="margin-bottom:20px;"><b style="text-decoration-line: underline; ">Revised Date</b></h5> '
                                    +'<div class="form-group row">'
                                     +'<div class="col-md-12">'
                                       +'<label><b >Revised Start Date</b></label> '
-                                        +'<input type="date" id="revised_start_date" required name="revised_start_date[]" onkeyup="" class="form-control" /> '                                                
+                                        +'<input type="date" id="revised_start_date" required name="revised_start_date[]" onkeyup="" class="form-control" /> '
                                       +'</div> </div>'
                                         +'<div class="form-group row">'
-                                          +'<div class="col-md-12">'  
-                                            +'<label><b >Revised End Date</b></label>'     
-                                              +'<input type="date" id="revised_end_date" onchange="calculaterevisedInterval()"  required name="revised_end_date[]" class="form-control" />'  
+                                          +'<div class="col-md-12">'
+                                            +'<label><b >Revised End Date</b></label>'
+                                              +'<input type="date" id="revised_end_date" onchange="calculaterevisedInterval()"  required name="revised_end_dates[]" class="form-control" />'
                                            +'</div></div>'
                                         +'<div class="form-group row">'
                                           +'<div class="col-md-12">'
@@ -499,7 +528,7 @@ $(document).ready(function(){
         $('#revised_date_row').append(revised_date);
 
     });
-    
+
     // planned gestation
     Date.getFormattedDateDiff = function(date1, date2) {
     var b = moment(date1),
@@ -518,8 +547,8 @@ $(document).ready(function(){
     function calculateInterval() {
     var start = new Date($('#planned_start_date').val()),
         end   = new Date($('#planned_end_date').val());
-        
-        
+
+
         $('#gestation_period').val(Date.getFormattedDateDiff(start, end));
     }
 
@@ -528,7 +557,7 @@ $(document).ready(function(){
     });
 
 
-    
+
 });
 // revised gestation
 Date.getFormattedDateDiff = function(date1, date2) {
@@ -548,8 +577,8 @@ Date.getFormattedDateDiff = function(date1, date2) {
 function calculaterevisedInterval() {
     var start = new Date($('#revised_start_date').val()),
         end   = new Date($('#revised_end_date').val());
-        
-        
+
+
         $('#revised_gestation_period').val(Date.getFormattedDateDiff(start, end));
     }
 
@@ -560,7 +589,7 @@ function remove_revisedDate(e)
     {
 
         $(e).parent().parent().remove();
-        
+
     }
 </script>
 <script>
@@ -580,6 +609,37 @@ document.querySelector('.alert-confirm').onclick = function(){
 	};
 </script>
 <script>
+$(document).on('change', '#assigningForum', function() {
+  var opt = $(this).val()
+  // console.log(opt);
+  $.ajax({
+    method: 'POST', // Type of response and matches what we said in the route
+    url: '/onAssigningForumselect', // This is the url we gave in the route
+    data: {
+      "_token": "{{ csrf_token() }}",
+      'data' : opt
+    }, // a JSON object to send back
+    success: function(response){ // What to do if we succeed
+      $("#assigning_forumSubList").empty();
+      $.each(response, function () {
+
+            $('#assigning_forumSubList').append("<option value=\""+this.id+"\">"+this.name+"</option>");
+
+      });
+      if(response.length>0 && !response.error)
+        {
+          $('div#assigning_forumSubListDiv').show();
+        }
+        else{
+          $('div#assigning_forumSubListDiv').hide();
+        }
+    },
+    error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+        console.log(JSON.stringify(jqXHR));
+        console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+    }
+});
+});
     $('select').on('change',function(e){
     var class_value = $(this).attr("id");
     var opt = $(this).val();
@@ -594,10 +654,11 @@ document.querySelector('.alert-confirm').onclick = function(){
     values = $(this).find(':selected').text();
     $("#summary_"+class_value).append("<label class=\"control-label\">"+values+"</label>");
     });
-    
+
     $('input').on('change',function(){
     var class_value = $(this).attr("id");
     var opt = $(this).val();
+    // console.log(opt);
     if(opt == ""){
         $("#summary_" + class_value).hide("slow");
     }
@@ -606,11 +667,11 @@ document.querySelector('.alert-confirm').onclick = function(){
     }
     $("#summary_"+class_value).empty();
     $("#summary_"+class_value).append("<label class=\"control-label\">"+opt+"</label>");
-
-    $("#summary_"+class_value).empty();
-    values = $(this).find(':selected').text();
-    $("#summary_"+class_value).append("<label class=\"control-label\">"+values+"</label>");
     });
+    // $("#summary_"+class_value).empty();
+    // values = $(this).find(':selected').text();
+    // $("#summary_"+class_value).append("<label class=\"control-label\">"+values+"</label>");
+    // });
 
   $(document).on('change', '#projSectors', function() {
   var opt = $(this).val()
@@ -633,6 +694,44 @@ document.querySelector('.alert-confirm').onclick = function(){
         console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
     }
 });
+});
+
+$(document).on('change','#gs_no',function(){
+   var arr = $(this).val().split(',')
+   console.log(projects[arr[1]]);
+   if($('#financial_year :selected').text() == projects[arr[1]].financial_year){
+     console.log('hello');
+     $('#projectTitle').val(projects[arr[1]].name_of_scheme);
+     $('#originalCost').val(projects[arr[1]].total_cost);
+     $("#districts").val($("#districts option").filter(function () { return $(this).html() == projects[arr[1]].district; }).val());
+   }
+   else{
+     $('#projectTitle').val('');
+     $('#originalCost').val('');
+     $("#districts").val('').trigger('change');
+   }
+});
+
+
+$('#sne_data').on('change',function(e){
+  console.log('here');
+  opt = $("#sne_data :selected").val();
+  if(opt == "COST"){
+    $("#sne_cost").show('slow')
+    $("#sne_staff_positions").hide('slow')
+  }
+  else if(opt == "STAFF"){
+    $("#sne_cost").hide('slow')
+    $("#sne_staff_positions").show('slow')
+  }
+  else if(opt == "BOTH"){
+    $("#sne_cost").show('slow')
+    $("#sne_staff_positions").show('slow')
+  }
+  else{
+      $("#sne_cost").hide('slow')
+      $("#sne_staff_positions").hide('slow')
+  }
 });
 </script>
 @endsection

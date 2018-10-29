@@ -12,22 +12,29 @@
                         <tr>
                             <th>Project Name</th>
                             <th>Sector</th>
-                            <th>Entered By</th>
+                            <th>Cost</th>
                             <th>Action</th>
-                            
+
                         </tr>
                         </thead>
                         <tbody>
+                          @foreach ($projects as $project)
                             <tr>
-                                <td>Dummy Project</td>
-                                <td>Dummy Sector</td>
-                                <td>Dummy Person</td>
-                                <td>
-                                <a href="#" class="btn btn-sm btn-info">View PC-1</a>
-                                </td>
+                              <td>{{$project->title}}</td>
+                              <td>
+                              @foreach ($project->AssignedSubSectors as $sub)
+                                  {{$sub->SubSector->Sector->name}}
+                              @endforeach
+                              </td>
+                              <td>
+                                {{-- {{dd($project->ProjectDe)}} --}}
+                                {{$project->ProjectDetail->orignal_cost}}
+                              </td>
+                              <td>
+                                <a href="{{route('projects.show',$project->id)}}" class="btn btn-sm btn-info">View Project</a>
+                              </td>
                             </tr>
-
-                            
+                          @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -36,4 +43,4 @@
         </div>
     </div>
 </div>
-@endsectionendsection
+@endsection

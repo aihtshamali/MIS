@@ -76,4 +76,7 @@ class User extends Authenticatable
 
       return false;
     }
+    public function ActivityDocument(){
+      return $this->hasMany('App\ActivityDocument');
+    }
 }
