@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
- 
-  <title>DGME</title>
+
+  <title>@yield('title')</title>
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{{ asset('_monitoring/css/css/style.css')}}"/>
     <link rel="stylesheet" href="{{ asset('_monitoring/css/css/jquery.mCustomScrollbar.css')}}"/>
     <link rel="stylesheet" href="{{ asset('_monitoring/css/icon/material-design/css/material-design-iconic-font.min.css')}}"/>
+    <link rel="shortcut icon" href="{{ asset('dgme.png')}} type="image/x-icon" />
 
 @yield('styleTags')
 
@@ -68,20 +69,20 @@
             <div class="pcoded-container navbar-wrapper">
                 <nav class="navbar header-navbar pcoded-header">
                     <div class="navbar-wrapper">
-    
+
                         <div class="navbar-logo">
                             <a class="mobile-menu" id="mobile-collapse" href="#!">
                                 <i class="feather icon-menu"></i>
                             </a>
                         <a href="{{url('/predashboard')}}">
                                 {{-- <img class="img-fluid" src={{asset('_monitoring/css/images/logo.png')}} alt="Theme-Logo" /> --}}
-                           <span style="font-size:20px; text-align:center;">DG ( M & E)</span> 
+                           <span style="font-size:20px; text-align:center;">DG ( M & E)</span>
                             </a>
                             <a class="mobile-options">
                                 <i class="feather icon-more-horizontal"></i>
                             </a>
                         </div>
-    
+
                         <div class="navbar-container container-fluid">
                             <ul class="nav-left">
                                 <li class="header-search">
@@ -173,7 +174,7 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         {{ csrf_field() }}
                                     </form>
-                                   
+
                                 </li>
                             </ul>
 
@@ -257,7 +258,7 @@
                 @role('dataentry')
                   @include('_Monitoring.inc.rightSidebar')
                 @endrole
-                
+
                 {{-- Officers  --}}
                 @role('officer')
                 @include('_Monitoring.inc.officerSidebar')
@@ -282,11 +283,11 @@
                 @role('admin')
                 @include('_Monitoring.inc.itAdmin')
                 @endrole
-        </div>      
+        </div>
     </div>
 
-  
-    
+
+
 </body>
 {{-- required --}}
 <script data-cfasync="false" src="{{asset('_monitoring/js/email-decode.min.js')}}"></script>
@@ -318,7 +319,7 @@
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-      
+
         gtag('config', 'UA-23581568-13');
       </script>
 </html>

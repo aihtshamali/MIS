@@ -21,9 +21,9 @@ Route::get('/predashboard',function(){
 });
 
 // EvaluationDashbaord
-Route::get('/dashboard',function(){
-  return view('dashboard');
-})->name("evaluation_dashboard");
+//Route::get('/dashboard',function(){
+//  return view('dashboard');
+//});
 
 // MonitoringDashbaord
 Route::get('/monitoring_dashboard',function(){
@@ -172,7 +172,7 @@ Route::prefix('officer')->middleware('role:officer')->group(function () {
   Route::get('/monitoring_inprogressAssignment','OfficerController@monitoring_inprogressAssignments')->name('Monitoring_inprogressAssignments');
   Route::get('/monitoring_completedAssignment','OfficerController@monitoring_completedAssignments')->name('Monitoring_completedAssignments');
   Route::get('/monitoring_sInprogress','OfficerController@monitoring_inprogressSingle')->name('monitoring_inprogressSingle');
- 
+
 });
 
 //For DataEntry
@@ -224,7 +224,7 @@ Route::group(['middleware'=>['permission:can.problematicremark']],function(){
 Route::prefix('to')->middleware('role:to')->group(function () {
 
 });
-Route::get('/dashboard',"HomeController@dashboard");
+Route::get('/dashboard',"HomeController@dashboard")->name("evaluation_dashboard");
 
 
 Route::post('/printerfunction','AdminHumanResourceController@printer');
