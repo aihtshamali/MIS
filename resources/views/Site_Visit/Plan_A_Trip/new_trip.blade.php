@@ -460,8 +460,12 @@
                   {{-- end roundtrip --}}
                   {{-- start multiple cities --}}
 
+                  <div class="addmultiprhere">
 
-                  <div class="form-group">
+                  </div>
+
+
+                  <div class="form-group" onclick="addPurpose(this)">
                       <div class="addnewproposoutcity nodisplay btn btn-primary btn-outline-primary btn-block"><i class="icofont icofont-plus"></i>Add Purpose</div>
                   </div>
                   <div class="form-group">
@@ -502,6 +506,118 @@
             </select>
         </div>
     `
+
+    var prcl = `
+    <div id="roundtripp_1">
+                    <div class="col-md-12 inlinebox">
+                      <div class="col-md-4">
+                          <select id="reasonroundtrip" name="select" class="form-control form-control-default">
+                              <option selected="selected" hidden>Select Reason For Visit</option>
+                              <option value="Monitoring">Monitoring</option>
+                              <option value="Evaluation">Evaluation</option>
+                              <option value="Meeting">Meeting</option>
+                              <option value="Other">Other</option>
+                          </select>
+                      </div>
+
+                      <div id='gsrowround' class="col-md-8 row">
+                          <div class="col-md-3">
+                              <select name="select" class="form-control form-control-default">
+                                  <option value="opt1" selected>Year</option>
+                              </select>
+                          </div>
+                          <h2 class="col-md-1">/</h2>
+                          <div class="col-md-3">
+                              <select name="select" class="form-control form-control-default">
+                                  <option value="opt1" selected>GS#</option>
+                              </select>
+                          </div>
+                          <div class="col-md-5">
+                              <select name="select" class="form-control form-control-default">
+                                  <option value="opt1" selected>project</option>
+                                  <option value="opt1" selected>project</option>
+                              </select>
+                          </div>
+                      </div>
+
+                      <div class='form-control nodisplay' id='briefround' >
+                          <input type="text" />
+                      </div>
+                </div>
+                <div id='multicitycloneadd'>
+
+
+                <label for="">Location</label>
+                <div class="col-md-12 inlinebox">
+                    <div class="col-md-6">
+                        <select name="select" class="form-control form-control-default">
+                            <option value="opt1" selected hidden>From</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <select name="select" class="form-control form-control-default">
+                            <option value="opt1" selected hidden>To</option>
+                        </select>
+                    </div>
+                </div>
+                    {{-- <div class="col-md-6" style="padding-left:0">
+                        <select name="select" class="form-control form-control-default">
+                            <option value="opt1" selected hidden>To</option>
+                        </select>
+                    </div> --}}
+                <div class="col-md-12 inlinebox">
+                    <div class="col-md-6" style="padding-left:0">
+                        <label for="">Date</label>
+                        <input class="form-control" type="datetime-local">
+                    </div>
+                    <div class="col-md-6" style="padding-left:0">
+                        <label for="">Time</label>
+                        {{-- <input class="form-control" type="time"> --}}
+                        <select  name="my_time[]" class="form-control" style="text-align: center !important" id="">
+                            <option value="" hidden>Expected Time of Departure</option>
+                            @for ($i = 1; $i < 12; $i++)
+                            @for($j = 0; $j <= 45; $j+=30)
+                                @if($j == 0)
+                                <option value="{{$i . ' : ' . $j.'0' .' AM'}}"> {{$i . " : " . $j .'0'}} AM</option>
+                                @else
+                                <option value="{{$i . ' : ' . $j . ' AM'}}"> {{$i . " : " . $j }} AM </option>
+                                @endif
+                            @endfor
+                            @endfor
+                            <option value="12 : 00 PM">12 : 00 PM</option>
+                            {{-- <option value="12 : 15 PM">12 : 15 PM</option> --}}
+                            <option value="12 : 30 PM">12 : 30 PM</option>
+                            {{-- <option value="12 : 45 PM">12 : 45 PM</option> --}}
+                            @for ($i = 1; $i <= 11; $i++)
+                            @for($j = 0; $j <= 45; $j+=30)
+                                @if($j == 0)
+                                <option value="{{$i . ' : ' . $j.'0' . ' PM' }}"> {{$i . " : " . $j .'0'}} PM</option>
+                                @else
+                                <option value="{{$i . ' : ' . $j .' PM' }}"> {{$i . " : " . $j }} PM </option>
+                                @endif
+                            @endfor
+                            @endfor
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" id='thishit'>
+                    <label>Members</label>
+                        <select id="members" name="members[]" class="form-control js-multiple js-placeholder-multiple" multiple="multiple" data-placeholder="Select Members" style="width: 100%;">
+                            <option>Hassan Ali</option>
+                            <option>Aymun Saif</option>
+                            <option>Aihtsham Ali</option>
+                            <option>Anas Majeed</option>
+                        </select>
+                </div>
+
+                </div>
+
+              </div>
+    `
+
+    function addPurpose(e){
+
+    }
 
     function addCity(e){
         var add = $(e).siblings('.addroundclonehere')
