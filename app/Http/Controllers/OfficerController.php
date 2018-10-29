@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Auth;
 use App\Sector;
+use App\SubSector;
 use App\AssignedProjectManager;
 use App\AssignedProject;
 use App\AssignedProjectActivityProgressLog;
@@ -345,7 +346,8 @@ class OfficerController extends Controller
       public function  monitoring_inprogressSingle()
       {
         $sectors  = Sector::where('status','1')->get();
-        return view('_Monitoring._Officer.projects.inprogressSingle',compact('sectors'));
+        $sub_sectors = SubSector::where('status','1')->get();
+        return view('_Monitoring._Officer.projects.inprogressSingle',compact('sectors','sub_sectors'));
       }
 
       // public function monitoring_Stages()
