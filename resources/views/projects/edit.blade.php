@@ -201,9 +201,9 @@ vertical-align: super;
         <label class="col-sm-4">SNE</label>
         <div class="col-sm-8">
           <select class="form-control" required name="sne">
-            <option value="True" {{ $project->ProjectDetail->sne == "NO"? "selected":"" }}>NO</option>
-            <option value="False" {{ $project->ProjectDetail->sne == "COST"? "selected":"" }}>COST</option>
-            <option value="Both" {{ $project->ProjectDetail->sne == "STAFF"? "selected":"" }}>STAFF</option>
+            <option value="NO" {{ $project->ProjectDetail->sne == "NO"? "selected":"" }}>NO</option>
+            <option value="COST" {{ $project->ProjectDetail->sne == "COST"? "selected":"" }}>COST</option>
+            <option value="STAFF" {{ $project->ProjectDetail->sne == "STAFF"? "selected":"" }}>STAFF</option>
             <option value="Both" {{ $project->ProjectDetail->sne == "BOTH"? "selected":"" }}>BOTH</option>
           </select>
         </div>
@@ -322,7 +322,9 @@ vertical-align: super;
     <div class="form-group">
       <label id="label_fixed_summary_evaluation_type" class="col-sm-6 control-label">Evaluation Type</label>
       <div id="fixed_summary_evaluation_type" class="col-sm-6">
-        <label>{{$project->EvaluationType->name}}</label>
+        @if(isset($project->EvaluationType->name))
+          <label>{{$project->EvaluationType->name}}</label>
+        @endif
       </div>
     </div>
   <div class="form-group">

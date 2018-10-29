@@ -124,7 +124,7 @@ class DirectorEvaluationController extends Controller
           $projects_model = new AssignedProject();
           $result2 = $projects_model->hydrate(
               DB::select(
-                  'getAllSectorProjects'.' '.$request->sector_id
+                  'getAllSectorProjectsDirector'.' '.$request->sector_id
                 )
             );
             foreach ($result2 as $pro) {

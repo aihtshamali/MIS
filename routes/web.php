@@ -15,6 +15,21 @@ Auth::routes();
 Route::get('/', function () {
     return view('home');
 });
+// Predashboard
+Route::get('/predashboard',function(){
+  return view('predashboard');
+});
+
+// EvaluationDashbaord
+// Route::get('/dashboard',function(){
+//   return view('dashboard');
+// })->name("evaluation_dashboard");
+
+// MonitoringDashbaord
+Route::get('/monitoring_dashboard',function(){
+  return view('monitoring_dashboard');
+})->name("monitoring_dashboard");
+
 
 Route::get('/home','HomeController@index');
 Route::group(['middleware' => ['auth']],function(){
@@ -83,6 +98,7 @@ Route::prefix('manager')->middleware('role:manager')->group(function () {
 
   // MONITORING MODULE
   Route::get('/m_unassignedprojects','ExecutiveController@monitoring_unassigned')->name('monitoring_unassigned');
+  Route::get('/m_assigntoconsultant','ProjectAssignController@assignToConsultant')->name('assign_To_consultant');
   Route::get('/m_inprogressprojects','ExecutiveController@monitoring_inprogress')->name('monitoring_inprogress');
   Route::get('/m_completedprojects','ExecutiveController@monitoring_completed')->name('monitoring_completed');
 
@@ -126,7 +142,9 @@ Route::prefix('director_Monitor')->middleware('role:directormonitoring')->group(
     Route::get('/assignproject_M','ProjectAssignController@DPM_AssignToConsultant')->name('DPM_AssignToConsultant');
     Route::get('/monitoring_inprogress','DirectorMonitoringController@monitoring_inprogressprojects')->name('Monitoring_inprogress_projects');
     Route::get('/monitoring_complete','DirectorMonitoringController@monitoring_completeprojects')->name('Monitoring_complete_projects');
-
+    Route::get('/monitoring_assigntoconsultant','ProjectAssignController@DPM_AssignToConsultant')->name('Monitoring_assignToconsultant');
+    
+    
 });
 Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
 
@@ -147,14 +165,16 @@ Route::prefix('officer')->middleware('role:officer')->group(function () {
   Route::post('/project_completed','OfficerController@projectCompleted')->name('projectCompleted');
   Route::get('/review_form/{project_id}','OfficerController@review_form')->name('review_form');
   Route::post('/review_form','OfficerController@review_forms')->name('review_forms');
+  Route::post('/AssignActivityDocuments','OfficerController@AssignActivityDocument')->name('AssignActivityDocument');
   Route::post('/saveActivityAttachment','OfficerController@saveActivityAttachment')->name('saveActivityAttachment');
+  Route::post('/saveDocAttachment','OfficerController@saveDocAttachments')->name('saveDocAttachment');
 
   // Monitoring Module Routes
   Route::get('/monitoring_newAssignment','OfficerController@monitoring_newAssignments')->name('Monitoring_newAssignments');
   Route::get('/monitoring_inprogressAssignment','OfficerController@monitoring_inprogressAssignments')->name('Monitoring_inprogressAssignments');
   Route::get('/monitoring_completedAssignment','OfficerController@monitoring_completedAssignments')->name('Monitoring_completedAssignments');
-  Route::get('/monitoring_stages','OfficerController@monitoring_Stages')->name('Monitoring_stages');
-
+  Route::get('/monitoring_sInprogress','OfficerController@monitoring_inprogressSingle')->name('monitoring_inprogressSingle');
+ 
 });
 
 //For DataEntry
@@ -170,6 +190,12 @@ Route::post('/onAssigningForumselect','DataEntryController@onAssigningForumselec
 Route::post('/onchangefunction','DataEntryController@onSubSectorSelect');
 Route::post('/onnewprojectselect','DataEntryController@newproject');
 Route::resource('projects','ProjectController');
+
+// monitoring
+Route::get('/monitoringP','ProjectController@createMonitoringEntryForm')->name('createMonitoringEntryForm');
+
+Route::get('/monitoringV','ProjectController@viewMonitoringForm')->name('viewMonitoringForm');
+
 });
 
 //for adminhr
@@ -195,7 +221,7 @@ Route::group(['middleware'=>['permission:can.problematicremark']],function(){
 });
 // Route::group(['middleware' => ['permission:can.edit.project|can.view.project']],function(){
 // });
-Route::get('/dashboard',"HomeController@dashboard");
+Route::get('/dashboard',"HomeController@dashboard")->name("evaluation_dashboard");
 
 Route::post('/printerfunction','AdminHumanResourceController@printer');
 

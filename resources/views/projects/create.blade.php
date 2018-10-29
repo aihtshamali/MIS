@@ -73,7 +73,7 @@ vertical-align: super;
               <select id="type_of_project" name="type_of_project" class="form-control select2" style="width: 100%;">
                 <option>Select Project Type</option>
                 @foreach ($project_types as $project_type)
-                  @if($project_type->status == 1)
+                  @if($project_type->status == 1 && $project_type->name=="Evaluation")
                     <option value="{{$project_type->id}}">{{$project_type->name}}</option>
                   @endif
                 @endforeach
@@ -83,7 +83,7 @@ vertical-align: super;
 
             <div id="second" class="form-group">
               <label>Phase of Evaluation</label>
-              <select id="phase_of_evaluation" name="phase_of_evaluation" class="form-control select2" style="width: 100%;">
+              <select id="phase_of_evaluation" name="phase_of_project" class="form-control select2" style="width: 100%;">
                 <option value="">Select Evaluation Type</option>
                 @foreach ($sub_project_types as $sub_project_type)
                   <option value="{{$sub_project_type->id}}">{{$sub_project_type->name}}</option>
@@ -185,7 +185,7 @@ vertical-align: super;
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Project #</label>
       <div class="col-sm-8">
-        <input id="project_no" type="text" disabled name="project_no" value="{{$project_no}}"  class="form-control" required >
+        <input id="project_no" type="text" name="project_no" value="{{$project_no}}"  class="form-control" required >
       </div>
     </div>
     <div class="form-group">
@@ -378,7 +378,7 @@ vertical-align: super;
   </div>
   <span class="secondspan"></span>
   <div class="form-group" >
-    <label class="col-sm-4 control-label"></i>Revised EndDate</label>
+    <label class="col-sm-4 control-label"></i>Revised End Date</label>
     <div class="input-group col-sm-8 date" id="revised_end_my_date">
     <input name="revised_end_dates[]" id="date0" class="form-control" >
     <span class="input-group-addon">

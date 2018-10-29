@@ -82,7 +82,7 @@ a{
   margin: 15px;
   border-radius: 5px;
   height: 200px;
-  -webkit-box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
+ -webkit-box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
 -moz-box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
 box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
 }

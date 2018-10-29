@@ -28,4 +28,7 @@ class AssignedProjectActivity extends Model
     {
       return $this->hasOne('App\AssignedProjectActivityProgressLog');
     }
+    public function AssignedActivityDocument(){
+      $this->hasMany('App\AssignedActivityDocument');
+    }
 }
