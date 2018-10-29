@@ -194,7 +194,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-12">
                                         <label><b >Original Approved Cost</b></label>
-                                        <input type="number" required id="originalCost" step="0.001" name="original_cost" class="form-control form-control-round" placeholder="Cost">
+                                        <input type="number" required id="originalCost" step="0.1" name="original_cost" class="form-control form-control-round" placeholder="Cost">
                                     </div>
                                     </div>
                                     <div class="form-group row " id="revised_cost_id">
@@ -202,7 +202,7 @@
                                             <div class="row">
                                                 <div class="col-md-8">
                                                     <label><b >Revised Approved Cost</b></label>
-                                                    <input type="number" required  name="revised_approved_costs[]" id="field1" step="0.001" class="form-control form-control-round" placeholder="Cost">
+                                                    <input type="number" required  name="revised_approved_costs[]" id="revised_approved_costs" step="0.1" class="form-control form-control-round" placeholder="Cost">
                                                 </div>
                                                 <div class="col-md-2">
                                                     <button id="add-more" name="add-more[]" class="btn btn-success pull-right" style="position: relative;top: 26px;margin: -3px;" type="button">+</button>
@@ -236,7 +236,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-12">
                                                 <label><b >Planned Gestation Period</b></label>
-                                                <input type='text' id="gestation_period"  required name="gestation_period" class="form-control" />
+                                                <input type='text' id="gestation_period"  disabled name="gestation_period" class="form-control" />
                                             </div>
                                         </div>
 
@@ -400,14 +400,14 @@
 
                     </div>
                 </div>
-                <div class="form-group row">
+                {{-- <div class="form-group row">
                     <div class="col-md-4">
                         <label><b>Planned Gestation Period :</b></label>
                     </div>
                     <div class="col-md-6" id="summary_gestation_period">
 
                     </div>
-                </div>
+                </div> --}}
                 <div class="form-group row">
                     <div class="col-md-4">
                         <label><b>Revised Start Date :</b></label>
@@ -424,14 +424,14 @@
 
                     </div>
                 </div>
-                <div class="form-group row">
+                {{-- <div class="form-group row">
                     <div class="col-md-4">
                         <label><b>Revised Gestation Period :</b></label>
                     </div>
                     <div class="col-md-6" id="summary_gestation_period">
 
                     </div>
-                </div>
+                </div> --}}
                 <div class="form-group row">
                         <div class="col-md-4">
                             <label><b>Districts :</b></label>
@@ -646,6 +646,7 @@ $(document).on('change', '#assigningForum', function() {
     $('input').on('change',function(){
     var class_value = $(this).attr("id");
     var opt = $(this).val();
+    // console.log(opt);
     if(opt == ""){
         $("#summary_" + class_value).hide("slow");
     }
@@ -654,11 +655,11 @@ $(document).on('change', '#assigningForum', function() {
     }
     $("#summary_"+class_value).empty();
     $("#summary_"+class_value).append("<label class=\"control-label\">"+opt+"</label>");
-
-    $("#summary_"+class_value).empty();
-    values = $(this).find(':selected').text();
-    $("#summary_"+class_value).append("<label class=\"control-label\">"+values+"</label>");
     });
+    // $("#summary_"+class_value).empty();
+    // values = $(this).find(':selected').text();
+    // $("#summary_"+class_value).append("<label class=\"control-label\">"+values+"</label>");
+    // });
 
   $(document).on('change', '#projSectors', function() {
   var opt = $(this).val()
