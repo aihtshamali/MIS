@@ -136,7 +136,7 @@
                         <label for="">Location</label>
                         <div class="col-md-12 inlinebox">
                             <div class="col-md-12" style="padding-left:0">
-                                <select name="select" class="form-control form-control-default editableBox">
+                                <select name="select" class="form-control yeselect">
                                     <option value="opt1" selected hidden>Location</option>
                                       <option value="Ahmadpur East">Ahmadpur East</option>
                                       <option value="Ahmed Nager Chatha">Ahmed Nager Chatha</option>
@@ -348,7 +348,7 @@
                   <div id="roundtripp_1">
                     <div class="col-md-12 inlinebox">
                       <div class="col-md-4">
-                          <select id="reasonroundtrip" name="select" class="form-control form-control-default">
+                          <select id="reasonroundtrip" name="select" class="form-control reasonroundtrip form-control-default">
                               <option selected="selected" hidden>Select Reason For Visit</option>
                               <option value="Monitoring">Monitoring</option>
                               <option value="Evaluation">Evaluation</option>
@@ -357,7 +357,7 @@
                           </select>
                       </div>
 
-                      <div id='gsrowround' class="col-md-8 row">
+                      <div id='gsrowround' class="col-md-8 row nodisplay">
                           <div class="col-md-3">
                               <select name="select" class="form-control form-control-default">
                                   <option value="opt1" selected>Year</option>
@@ -449,7 +449,6 @@
 
                 </div>
 
-              </div>
                   <div class="addroundclonehere">
 
                   </div>
@@ -459,6 +458,7 @@
 
                   {{-- end roundtrip --}}
                   {{-- start multiple cities --}}
+                </div>
 
                   <div class="addmultiprhere">
 
@@ -492,6 +492,7 @@
 <script src="{{asset('_monitoring/css/pages/advance-elements/custom-picker.js')}}"></script>
 <script>
     var purpose_id = 1;
+    var purpose_id2 = 1;
     var city_id2 = 1;
     var roundpurposal = 1;
     var append_id=2
@@ -511,7 +512,7 @@
     <div id="roundtripp_1">
                     <div class="col-md-12 inlinebox">
                       <div class="col-md-4">
-                          <select id="reasonroundtrip" name="select" class="form-control form-control-default">
+                          <select id="reasonroundtrip" name="select" class="form-control nodisplay reasonroundtrip form-control-default">
                               <option selected="selected" hidden>Select Reason For Visit</option>
                               <option value="Monitoring">Monitoring</option>
                               <option value="Evaluation">Evaluation</option>
@@ -611,12 +612,33 @@
                 </div>
 
                 </div>
+                
+                <div class="addroundclonehere">
+
+                </div>
+                <div class="form-group" onclick="addCity(this)">
+                    <div class="nodisplay addnewmulcityout btn btn-primary btn-outline-primary btn-block"  ><i class="icofont icofont-plus"></i>Add City</div>
+                </div>
 
               </div>
     `
 
     function addPurpose(e){
-
+        console.log('jnsdknsknksnjd');
+        var ob = $(prcl)        
+        var add = $(e).siblings('.addmultiprhere')
+        if(purpose_id2++ % 2 == 1){
+            ob.addClass('bg')
+        }
+        // console.log($('.sinpurmulticityout').prop('checked'));
+        
+        if($('.sinpurmulticityout').prop('checked')){
+            ob.find('.addnewmulcityout').removeClass('nodisplay');
+            console.log($(ob.find('.addnewmulcityout'),'chal raha hai'));
+        }
+        ob.appendTo(add)
+        $(".js-multiple").select2();
+        // clone.find('.date').datepicker()
     }
 
     function addCity(e){
@@ -649,8 +671,21 @@
     }
   })
 
+   $(document).on('change','.reasonroundtrip',function(){
+         console.log($(this).parent().parent().find('#gsrow'))
+    if ($(this).val() == "Other" || $(this).val() == "Meeting"){
+      $(this).parent().parent().find('#gsrowround').hide()
+      $(this).parent().parent().find('#briefround').attr('style','display:flex !important').show('slow')
+    }
+    else if ($(this).val() == "Monitoring" || $(this).val() == "Evaluation"){
+      $(this).parent().parent().find('#briefround').hide()
+      $(this).parent().parent().find('#gsrowround').attr('style','display:flex !important').show('slow')
+    }
+  })
+
     $(function () {
           //Initialize Select2 Elements
+          $('.yeselect').select2();
           $(".js-multiple").select2();
     });
     $(document).on('click','.addnewproposal',function(){
