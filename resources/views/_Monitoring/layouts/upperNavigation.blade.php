@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
- 
+
   <title>DGME</title>
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Tell the browser to be responsive to screen width -->
@@ -68,20 +68,20 @@
             <div class="pcoded-container navbar-wrapper">
                 <nav class="navbar header-navbar pcoded-header">
                     <div class="navbar-wrapper">
-    
+
                         <div class="navbar-logo">
                             <a class="mobile-menu" id="mobile-collapse" href="#!">
                                 <i class="feather icon-menu"></i>
                             </a>
                         <a href="{{url('/predashboard')}}">
                                 {{-- <img class="img-fluid" src={{asset('_monitoring/css/images/logo.png')}} alt="Theme-Logo" /> --}}
-                           <span style="font-size:20px; text-align:center;">DG ( M & E)</span> 
+                           <span style="font-size:20px; text-align:center;">DG ( M & E)</span>
                             </a>
                             <a class="mobile-options">
                                 <i class="feather icon-more-horizontal"></i>
                             </a>
                         </div>
-    
+
                         <div class="navbar-container container-fluid">
                             <ul class="nav-left">
                                 <li class="header-search">
@@ -128,7 +128,7 @@
                             <div class="dropdown-primary dropdown">
                                 <div class="displayChatbox dropdown-toggle" data-toggle="dropdown">
                                     <i class="feather icon-message-square"></i>
-                                    <span class="badge bg-c-green">3</span>
+                                    <span class="badge bg-c-green">0</span>
                                 </div>
                             </div>
                         </li>
@@ -173,7 +173,7 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         {{ csrf_field() }}
                                     </form>
-                                   
+
                                 </li>
                             </ul>
 
@@ -257,7 +257,7 @@
                 @role('dataentry')
                   @include('_Monitoring.inc.rightSidebar')
                 @endrole
-                
+
                 {{-- Officers  --}}
                 @role('officer')
                 @include('_Monitoring.inc.officerSidebar')
@@ -282,11 +282,11 @@
                 @role('admin')
                 @include('_Monitoring.inc.itAdmin')
                 @endrole
-        </div>      
+        </div>
     </div>
 
-  
-    
+
+
 </body>
 {{-- required --}}
 <script data-cfasync="false" src="{{asset('_monitoring/js/email-decode.min.js')}}"></script>
@@ -321,7 +321,7 @@
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-      
+
         gtag('config', 'UA-23581568-13');
       </script>
 </html>

@@ -84,8 +84,8 @@ class ProjectController extends Controller
       // $assigning_forumList = AssigningForumSubList::where('status','1')->get();
       // $project_no = Str::random();
       $current_year = date('Y');
-      $approving_forums = ApprovingForum::all();
-      $sub_project_types = SubProjectType::where('project_type_id',1)->get();
+      $approving_forums = ApprovingForum::where('status','1')->get();
+      $sub_project_types = SubProjectType::where('project_type_id',1)->where('status','1')->get();
       $m_sub_project_types = SubProjectType::where('project_type_id',2)->get();
       $projectfor_no=Project::select('projects.project_no')->latest()->first();
       $adp = AdpProject::orderBy('gs_no')->get();
@@ -137,7 +137,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-      // dd($request->all());
+      dd($request->all());
       $projectfor_no=SubProjectType::select('projects.project_no','projects.created_at')
       ->where('sub_project_types.project_type_id','1')
       ->leftJoin('projects','projects.project_type_id','sub_project_types.project_type_id')
@@ -177,10 +177,10 @@ class ProjectController extends Controller
       $project_detail->assigning_forum_id = $request->assigning_forum;
       $project_detail->approving_forum_id = $request->approving_forum;
       // TODO:
-      if($request->phase_of_evaluation!='' && $request->phase_of_evaluation!=NULL)
+      if($request->phase_of_project!='' && $request->phase_of_project!=NULL)
       {
         // dd('as');
-          $project_detail->sub_project_type_id = $request->phase_of_evaluation;//change
+          $project_detail->sub_project_type_id = $request->phase_of_project;//change
       }
       else
         $project_detail->sub_project_type_id = $request->phase_of_monitoring;//change
@@ -274,6 +274,8 @@ class ProjectController extends Controller
           $project->revised_start_date = date('Y-m-d',strtotime($request->revised_start_date));
       if($request->assigning_forum != NULL)
         $project->assigning_forum_id = $request->assigning_forum;
+      if($request->phase_of_project != NULL)
+        $project->sub_project_type_id = $request->phase_of_project;
       if($request->approving_forum != NULL)
         $project->approving_forum_id = $request->approving_forum;
       if($request->hasFile('attachments')){
@@ -656,10 +658,16 @@ class ProjectController extends Controller
 // //////////////////////////////////////////////////////
   public function createMonitoringEntryForm()
   {
-    // $project_types = ProjectType::where('status','1')->get();
-    // $evaluation_types = EvaluationType::where('status','1')->get();
-    // $projects = Project::where('status','1')->get();
-    // $evaluation_types = EvaluationType::where('status','1')->get();
+    $project_no=Project::latest()->first()->project_no;
+    if($project_no){
+    $projectNo=explode('-',$project_no);
+    $project_no=$projectNo[0].'-'.($projectNo[1]+1);
+    }
+    else {
+      $project_no = "PRO-1";
+    }
+    // dd($project_no);
+    $sub_project_types = SubProjectType::where('project_type_id','2')->where('status','1')->get();
     $districts = District::where('status','1')->get();
     $sectors  = Sector::where('status','1')->get();
     $sub_sectors = SubSector::where('status','1')->get();
@@ -669,10 +677,7 @@ class ProjectController extends Controller
     // $assigning_forumList = AssigningForumSubList::where('status','1')->get();
     // $project_no = Str::random();
     $current_year = date('Y');
-    $approving_forums = ApprovingForum::all();
-    // $sub_project_types = SubProjectType::where('project_type_id',1)->get();
-    // $m_sub_project_types = SubProjectType::where('project_type_id',2)->get();
-    // $projectfor_no=Project::select('projects.project_no')->latest()->first();
+    $approving_forums = ApprovingForum::where('status','1')->get();
     $adp = AdpProject::orderBy('gs_no')->get();
     // if($projectfor_no){
     // $projectNo=explode('-',$projectfor_no->project_no);
@@ -681,7 +686,6 @@ class ProjectController extends Controller
     // else {
     //   $project_no = "PRO-1";
     // }
-    $project_no='';
     foreach ($districts as $district) {
       $district->name = $district->name . "/";
     }
@@ -700,12 +704,12 @@ class ProjectController extends Controller
     \JavaScript::put([
       'projects' => $adp
   ]);
-    return view('_Monitoring._Dataentry.create',compact('adp','districts','sectors','sponsoring_departments','executing_departments','assigning_forums','current_year','approving_forums','sub_sectors','projects')); 
+    return view('_Monitoring._Dataentry.create',compact('project_no','adp','sub_project_types','districts','sectors','sponsoring_departments','executing_departments','assigning_forums','current_year','approving_forums','sub_sectors','projects'));
   }
 
   public function viewMonitoringForm()
   {
     return view('_Monitoring._Dataentry.view');
- 
+
   }
 }

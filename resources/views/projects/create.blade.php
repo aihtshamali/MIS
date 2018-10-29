@@ -73,7 +73,7 @@ vertical-align: super;
               <select id="type_of_project" name="type_of_project" class="form-control select2" style="width: 100%;">
                 <option>Select Project Type</option>
                 @foreach ($project_types as $project_type)
-                  @if($project_type->status == 1)
+                  @if($project_type->status == 1 && $project_type->name=="Evaluation")
                     <option value="{{$project_type->id}}">{{$project_type->name}}</option>
                   @endif
                 @endforeach
@@ -83,7 +83,7 @@ vertical-align: super;
 
             <div id="second" class="form-group">
               <label>Phase of Evaluation</label>
-              <select id="phase_of_evaluation" name="phase_of_evaluation" class="form-control select2" style="width: 100%;">
+              <select id="phase_of_evaluation" name="phase_of_project" class="form-control select2" style="width: 100%;">
                 <option value="">Select Evaluation Type</option>
                 @foreach ($sub_project_types as $sub_project_type)
                   <option value="{{$sub_project_type->id}}">{{$sub_project_type->name}}</option>
