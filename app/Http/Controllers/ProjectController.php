@@ -183,23 +183,18 @@ class ProjectController extends Controller
       $project_detail->orignal_cost = $request->original_cost;
       $project_detail->planned_start_date = date('Y-m-d',strtotime($request->planned_start_date));
       $project_detail->planned_end_date = date('Y-m-d',strtotime($request->planned_end_date));
-      // TODO
-      if($request->revised_start_date != NULL){
-        foreach ($request->revised_start_date as $revised_start_date) {
-          // code...
-          $project_detail->revised_start_date = date('Y-m-d',strtotime($revised_start_date));
-        }
-      }
+      $project_detail->revised_start_date = date('Y-m-d',strtotime($request->revised_start_date));
+
       $project_detail->assigning_forum_id = $request->assigning_forum;
       $project_detail->approving_forum_id = $request->approving_forum;
       // TODO:
       if($request->phase_of_project!='' && $request->phase_of_project!=NULL)
       {
         // dd('as');
-          $project_detail->sub_project_type_id = $request->phase_of_project;//change
+          $project_detail->sub_project_type_id = $request->phase_of_project;
       }
       else
-        $project_detail->sub_project_type_id = $request->phase_of_monitoring;//change
+        $project_detail->sub_project_type_id = $request->phase_of_monitoring;
       if($request->hasFile('attachments')){
         $request->file('attachments')->store('public/uploads/projects/');
         $file_name = $request->file('attachments')->hashName();
@@ -237,7 +232,7 @@ class ProjectController extends Controller
         $revised_approved_cost_save->cost = $revised_approved_cost;
         $revised_approved_cost_save->save();
       }
-      if($request->revised_end_dates[0])
+      if(isset($request->revised_end_dates[0]))
       foreach($request->revised_end_dates as $revised_end_date){
         $revised_end_dat = new RevisedEndDate();
         $revised_end_dat->project_id = $project_id;
@@ -356,12 +351,12 @@ class ProjectController extends Controller
         $revised_approved_cost_save->save();
       }
       }
-      if(count($request->revised_end_dates) > 0)
+      if(isset($request->revised_end_dates[0]) && count($request->revised_end_dates) > 0)
         foreach($request->revised_end_dates as $revised_end_date){
             if($revised_end_date != NULL){
               $revised_end_date = new RevisedEndDateProjectLog();
               $revised_end_date->project_log_id = ProjectLog::latest()->first()->id;
-      $revised_end_date->end_date = date('Y-m-d',strtotime($revised_end_date));
+              $revised_end_date->end_date = date('Y-m-d',strtotime($revised_end_date));
               $revised_end_date->save();
           }
         }

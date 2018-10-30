@@ -206,7 +206,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-12">
                                         <label><b >Original Approved Cost</b></label>
-                                        <input type="number" required id="originalCost" step="0.1" name="original_cost" class="form-control form-control-round" placeholder="Cost">
+                                        <input type="number" required id="originalCost" step="0.001" name="original_cost" class="form-control form-control-round" placeholder="Cost">
                                     </div>
                                     </div>
                                     <div class="form-group row " id="revised_cost_id">
@@ -214,7 +214,7 @@
                                             <div class="row">
                                                 <div class="col-md-8">
                                                     <label><b >Revised Approved Cost</b></label>
-                                                    <input type="number" required  name="revised_approved_costs[]" id="revised_approved_costs" step="0.1" class="form-control form-control-round" placeholder="Cost">
+                                                    <input type="number" required  name="revised_approved_costs[]" id="revised_approved_costs" step="0.001" class="form-control form-control-round" placeholder="Cost">
                                                 </div>
                                                 <div class="col-md-2">
                                                     <button id="add-more" name="add-more[]" class="btn btn-success pull-right" style="position: relative;top: 26px;margin: -3px;" type="button">+</button>
@@ -258,13 +258,26 @@
                         </div>
                         <button type="button" id="add_reviseddate" class="btn btn-sm btn-warning" style="margin-bottom:18px;">Add Revised Date</button>
                         <div class="form-group row" id="revised_date_row">
+                          <div class="col-md-12">
+
+                          <div class="card">
+                           <div class="card-block data-card3" >
+                              <h5 style="margin-bottom:20px;"><b style="text-decoration-line: underline; ">Revised Date</b></h5>
+                              <div class="form-group row">
+                                <div class="col-md-12">
+                                 <label><b >Revised Start Date</b></label>
+                                   <input type="date" id="revised_start_date" required name="revised_start_date" onkeyup="" class="form-control" />
+                                 </div>
+                               </div>
+                              </div>
+                            </div>
                         </div>
+                      </div>
                    </section>
                     <div class="form-group row">
                         <div class="col-md-12">
                         <label><b>Districts</b></label>
                         <select id="districts" required name="districts[]" class="form-control form-control-primary js-example-basic-multiple"   multiple="multiple" data-placeholder="Districts" style="width: 100%;">
-                                <option value="">Select Districts</option>
                                 @foreach ($districts as $district)
                                 @if($district->status == 1)
                                   <option value="{{$district->id}}">{{$district->name}}</option>
@@ -504,16 +517,11 @@ $(document).ready(function(){
         var revised_date ='<div class="col-md-12">'
                                +'<div class="card">'
                                  +' <div class="card-block data-card3" >'
-                                   +'<h5 style="margin-bottom:20px;"><b style="text-decoration-line: underline; ">Revised Date</b></h5> '
-                                   +'<div class="form-group row">'
-                                    +'<div class="col-md-12">'
-                                      +'<label><b >Revised Start Date</b></label> '
-                                        +'<input type="date" id="revised_start_date" required name="revised_start_date[]" onkeyup="" class="form-control" /> '
-                                      +'</div> </div>'
+                                   +'<h5 style="margin-bottom:20px;"><b style="text-decoration-line: underline; ">Revised End Date</b></h5> '
                                         +'<div class="form-group row">'
                                           +'<div class="col-md-12">'
                                             +'<label><b >Revised End Date</b></label>'
-                                              +'<input type="date" id="revised_end_date" onchange="calculaterevisedInterval()"  required name="revised_end_dates[]" class="form-control" />'
+                                              +'<input type="date" id="revised_end_date" onchange="calculaterevisedInterval(this)"  required name="revised_end_dates[]" class="form-control" />'
                                            +'</div></div>'
                                         +'<div class="form-group row">'
                                           +'<div class="col-md-12">'
@@ -574,12 +582,11 @@ Date.getFormattedDateDiff = function(date1, date2) {
     return out.join(', ');
     };
 
-function calculaterevisedInterval() {
+function calculaterevisedInterval(self=null) {
+  // console.log($(self).);
     var start = new Date($('#revised_start_date').val()),
-        end   = new Date($('#revised_end_date').val());
-
-
-        $('#revised_gestation_period').val(Date.getFormattedDateDiff(start, end));
+        end   = new Date($(self).val());
+        $(self).parent().parent().siblings().find("input").val(Date.getFormattedDateDiff(start, end));
     }
 
 function removefield(e){
@@ -700,7 +707,6 @@ $(document).on('change','#gs_no',function(){
    var arr = $(this).val().split(',')
    console.log(projects[arr[1]]);
    if($('#financial_year :selected').text() == projects[arr[1]].financial_year){
-     console.log('hello');
      $('#projectTitle').val(projects[arr[1]].name_of_scheme);
      $('#originalCost').val(projects[arr[1]].total_cost);
      $("#districts").val($("#districts option").filter(function () { return $(this).html() == projects[arr[1]].district; }).val());
