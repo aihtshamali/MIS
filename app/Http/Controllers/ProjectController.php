@@ -201,9 +201,10 @@ class ProjectController extends Controller
       else
         $project_detail->sub_project_type_id = $request->phase_of_monitoring;//change
       if($request->hasFile('attachments')){
-        $request->file('attachments')->store('public/uploads/projects/');
-        $file_name = $request->file('attachments')->hashName();
-        $project_detail->project_attachements=$file_name;
+        $file_path = $request->file('attachments')->path();
+        $file_extension = $request->file('attachments')->getClientOriginalExtension();
+        $project_detail->attachment=$file_path;
+        $project_detail->attachment_type=$file_extension;
       }
       $project_detail->save();
       // foreach($request->departments as $department_id){
@@ -302,9 +303,10 @@ class ProjectController extends Controller
       if($request->approving_forum != NULL)
         $project->approving_forum_id = $request->approving_forum;
       if($request->hasFile('attachments')){
-        $request->file('attachments')->store('public/uploads/projects/');
-        $file_name = $request->file('attachments')->hashName();
-        $project->project_attachements=$file_name;
+        $file_path = $request->file('attachments')->path();
+        $file_extension = $request->file('attachments')->getClientOriginalExtension();
+        $project->project_attachements=$file_path;
+        $project->attachment_type=$file_extension;
       }
       if($project!=NULL){
         $project->save();
@@ -530,10 +532,12 @@ class ProjectController extends Controller
         $project_original_detail->approving_forum_id = $request->approving_forum;
       }
       if($request->hasFile('attachments')){
-        $request->file('attachments')->store('public/uploads/projects/');
-        $file_name = $request->file('attachments')->hashName();
-        $project->project_attachements=$file_name;
-        $project_original_detail->project_attachements=$file_name;
+        $file_path = $request->file('attachments')->path();
+        $file_extension = $request->file('attachments')->getClientOriginalExtension();
+        $project->project_attachements=$file_path;
+        $project->attachment_type=$file_extension;
+        $project_original_detail->attachment=$file_path;
+        $project_original_detail->attachment_type=$file_extension;
       }
       if($project!=NULL)
         $project->save();
