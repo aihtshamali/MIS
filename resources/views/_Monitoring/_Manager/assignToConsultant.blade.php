@@ -103,9 +103,9 @@
 
 @endsection
 @section('js_scripts')
-<script src="../../../../cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.4/typeahead.bundle.min.js"></script>
-<script src="{{asset('_monitoring/js/switchery/js/switchery.min.js')}}"></script>
-<script src="{{asset('_monitoring/css/pages/advance-elements/swithces.js')}}"></script>
+{{-- <script src="../../../../cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.4/typeahead.bundle.min.js"></script> --}}
+{{-- <script src="{{asset('_monitoring/js/switchery/js/switchery.min.js')}}"></script> --}}
+{{-- <script src="{{asset('_monitoring/css/pages/advance-elements/swithces.js')}}"></script> --}}
 <script src="{{asset('_monitoring/css/js/script.js')}}"></script>
 <!-- Select 2 js -->
 <script src="{{asset('_monitoring/js/select2/js/select2.full.min.js')}}"></script>
