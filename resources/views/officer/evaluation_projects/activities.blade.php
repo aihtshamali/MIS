@@ -348,9 +348,11 @@
                                 @php
                                 //     100/3 100/3 100/1
                                   $total=100;
-                                  $count=1;
+                                  $count=1;$counter=0;
                                   $i=$assignedDocuments->count();
-                                  $counter=(100)/$i;
+                                  if ($i!=0) {
+                                    $counter=(100)/$i;
+                                  }
                                   $temp=$counter;
                                 @endphp
                                 @foreach ($arr as $docs)
