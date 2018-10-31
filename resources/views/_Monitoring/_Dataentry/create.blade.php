@@ -62,30 +62,6 @@
                       </div>
                     </div>
                 <div class="form-group row">
-                        <div class="col-md-12">
-                            <b><label for="sectors">SNE </label></b>
-                            <select class="form-control form-control-warning" id="sne_data" required name="sne" id="sne">
-                                    <option value="" selected="selected" disabled>Select SNE</option>
-                                    <option value="NO">NO</option>
-                                    <option value="COST">COST</option>
-                                    <option value="STAFF">STAFF</option>
-                                    <option value="BOTH">BOTH</option>
-                                  </select>
-                        </div>
-                    </div>
-                    <div class="form-group row" id="sne_cost" style="display:none">
-                      <label for="" class="col-sm-4">SNE COST</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" name="sne_cost" placeholder="SNE COST">
-                      </div>
-                    </div>
-                    <div class="form-group row" style="display:none"  id="sne_staff_positions">
-                      <label for="" class="col-sm-4">SNE STAFF</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" name="sne_staff_positions" placeholder="SNE STAFF POSITION">
-                      </div>
-                    </div>
-                <div class="form-group row">
                         <div class="col-md-6">
                         <label for=""><b>Financial Year</b></label>
                             <select class="form-control form-control-info" name="financial_year" id="financial_year">
@@ -128,7 +104,7 @@
                 <div class="form-group row">
                         <div class="col-md-12">
                             <b><label for="sectors">SubSectors : </label></b>
-                            <select id="sub_sectors" name="sub_sectors[]" class="form-control js-example-basic-multiple" required multiple="multiple" id="Subsectors" data-placeholder="Sub Sectors"  style="width: 100%;">
+                            <select id="SubSectors" name="sub_sectors[]" class="form-control js-example-basic-multiple" required multiple="multiple" id="Subsectors" data-placeholder="Sub Sectors"  style="width: 100%;">
                                 </select>
                         </div>
                     </div>
@@ -206,7 +182,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-12">
                                         <label><b >Original Approved Cost</b></label>
-                                        <input type="number" required id="originalCost" step="0.1" name="original_cost" class="form-control form-control-round" placeholder="Cost">
+                                        <input type="number" required id="originalCost" step="0.001" name="original_cost" class="form-control form-control-round" placeholder="Cost">
                                     </div>
                                     </div>
                                     <div class="form-group row " id="revised_cost_id">
@@ -214,7 +190,7 @@
                                             <div class="row">
                                                 <div class="col-md-8">
                                                     <label><b >Revised Approved Cost</b></label>
-                                                    <input type="number" required  name="revised_approved_costs[]" id="revised_approved_costs" step="0.1" class="form-control form-control-round" placeholder="Cost">
+                                                    <input type="number" required  name="revised_approved_costs[]" id="revised_approved_costs" step="0.001" class="form-control form-control-round" placeholder="Cost">
                                                 </div>
                                                 <div class="col-md-2">
                                                     <button id="add-more" name="add-more[]" class="btn btn-success pull-right" style="position: relative;top: 26px;margin: -3px;" type="button">+</button>
@@ -258,13 +234,26 @@
                         </div>
                         <button type="button" id="add_reviseddate" class="btn btn-sm btn-warning" style="margin-bottom:18px;">Add Revised Date</button>
                         <div class="form-group row" id="revised_date_row">
+                          <div class="col-md-12">
+
+                          <div class="card">
+                           <div class="card-block data-card3" >
+                              <h5 style="margin-bottom:20px;"><b style="text-decoration-line: underline; ">Revised Date</b></h5>
+                              <div class="form-group row">
+                                <div class="col-md-12">
+                                 <label><b >Revised Start Date</b></label>
+                                   <input type="date" id="revised_start_date" required name="revised_start_date" onkeyup="" class="form-control" />
+                                 </div>
+                               </div>
+                              </div>
+                            </div>
                         </div>
+                      </div>
                    </section>
                     <div class="form-group row">
                         <div class="col-md-12">
                         <label><b>Districts</b></label>
                         <select id="districts" required name="districts[]" class="form-control form-control-primary js-example-basic-multiple"   multiple="multiple" data-placeholder="Districts" style="width: 100%;">
-                                <option value="">Select Districts</option>
                                 @foreach ($districts as $district)
                                 @if($district->status == 1)
                                   <option value="{{$district->id}}">{{$district->name}}</option>
@@ -282,7 +271,7 @@
 
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn btn-success alert-confirm m-b-10" style=" margin-left: 80%;" >Add PC-1</button>
+                <button type="submit" class="btn btn-success alert-confirm m-b-10" style=" margin-left: 80%;" >Add Project</button>
             </div>
         </div>
     </form>
@@ -308,14 +297,6 @@
 
                     </div>
                 </div>
-                <div class="form-group row">
-                        <div class="col-md-4">
-                            <label><b>SNE:</b></label>
-                        </div>
-                        <div class="col-md-6" id="summary_sne">
-
-                        </div>
-                    </div>
                 <div class="form-group row">
                     <div class="col-md-4">
                         <label><b>GS # :</b></label>
@@ -504,16 +485,11 @@ $(document).ready(function(){
         var revised_date ='<div class="col-md-12">'
                                +'<div class="card">'
                                  +' <div class="card-block data-card3" >'
-                                   +'<h5 style="margin-bottom:20px;"><b style="text-decoration-line: underline; ">Revised Date</b></h5> '
-                                   +'<div class="form-group row">'
-                                    +'<div class="col-md-12">'
-                                      +'<label><b >Revised Start Date</b></label> '
-                                        +'<input type="date" id="revised_start_date" required name="revised_start_date[]" onkeyup="" class="form-control" /> '
-                                      +'</div> </div>'
+                                   +'<h5 style="margin-bottom:20px;"><b style="text-decoration-line: underline; ">Revised End Date</b></h5> '
                                         +'<div class="form-group row">'
                                           +'<div class="col-md-12">'
                                             +'<label><b >Revised End Date</b></label>'
-                                              +'<input type="date" id="revised_end_date" onchange="calculaterevisedInterval()"  required name="revised_end_dates[]" class="form-control" />'
+                                              +'<input type="date" id="revised_end_date" onchange="calculaterevisedInterval(this)"  required name="revised_end_dates[]" class="form-control" />'
                                            +'</div></div>'
                                         +'<div class="form-group row">'
                                           +'<div class="col-md-12">'
@@ -574,12 +550,11 @@ Date.getFormattedDateDiff = function(date1, date2) {
     return out.join(', ');
     };
 
-function calculaterevisedInterval() {
+function calculaterevisedInterval(self=null) {
+  // console.log($(self).);
     var start = new Date($('#revised_start_date').val()),
-        end   = new Date($('#revised_end_date').val());
-
-
-        $('#revised_gestation_period').val(Date.getFormattedDateDiff(start, end));
+        end   = new Date($(self).val());
+        $(self).parent().parent().siblings().find("input").val(Date.getFormattedDateDiff(start, end));
     }
 
 function removefield(e){
@@ -684,9 +659,9 @@ $(document).on('change', '#assigningForum', function() {
       'data' : opt}, // a JSON object to send back
     success: function(response){ // What to do if we succeed
       console.log(response);
-      $("#sub_sectors").empty();
+      $("#Subsectors").empty();
       $.each(response, function () {
-          $('#sub_sectors').append("<option value=\""+this.id+"\">"+this.name+"</option>");
+          $('#Subsectors').append("<option value=\""+this.id+"\">"+this.name+"</option>");
       });
     },
     error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
@@ -700,9 +675,8 @@ $(document).on('change','#gs_no',function(){
    var arr = $(this).val().split(',')
    console.log(projects[arr[1]]);
    if($('#financial_year :selected').text() == projects[arr[1]].financial_year){
-     console.log('hello');
      $('#projectTitle').val(projects[arr[1]].name_of_scheme);
-     $('#originalCost').val(projects[arr[1]].total_cost);
+     $('#originalCost').val(parseFloat(projects[arr[1]].total_cost)).toFixed(2);
      $("#districts").val($("#districts option").filter(function () { return $(this).html() == projects[arr[1]].district; }).val());
    }
    else{
@@ -710,28 +684,6 @@ $(document).on('change','#gs_no',function(){
      $('#originalCost').val('');
      $("#districts").val('').trigger('change');
    }
-});
-
-
-$('#sne_data').on('change',function(e){
-  console.log('here');
-  opt = $("#sne_data :selected").val();
-  if(opt == "COST"){
-    $("#sne_cost").show('slow')
-    $("#sne_staff_positions").hide('slow')
-  }
-  else if(opt == "STAFF"){
-    $("#sne_cost").hide('slow')
-    $("#sne_staff_positions").show('slow')
-  }
-  else if(opt == "BOTH"){
-    $("#sne_cost").show('slow')
-    $("#sne_staff_positions").show('slow')
-  }
-  else{
-      $("#sne_cost").hide('slow')
-      $("#sne_staff_positions").hide('slow')
-  }
 });
 </script>
 @endsection

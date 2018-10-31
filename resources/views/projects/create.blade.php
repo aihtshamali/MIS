@@ -568,7 +568,7 @@ vertical-align: super;
     var arr = $(this).val().split(',')
     if($('#financial_year').val() == projects[arr[1]].financial_year){
       $('#titleproject').val(projects[arr[1]].name_of_scheme);
-      $('#original_cost').val(projects[arr[1]].total_cost);
+      $('#original_cost').val(parseFloat(projects[arr[1]].total_cost).toFixed(3));
       $("#districts").val($("#districts option").filter(function () { return $(this).html() == projects[arr[1]].district; }).val());
     }
     else{
