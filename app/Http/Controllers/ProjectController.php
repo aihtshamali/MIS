@@ -171,7 +171,9 @@ class ProjectController extends Controller
 
       $project_id = Project::latest()->first()->id;
       $project_detail = new ProjectDetail();
-      $project_detail->sne = $request->sne;
+      if(isset($request->sne) && $request->sne){
+        $project_detail->sne = $request->sne;
+      }
       if(isset($request->sne_cost)){
         $project_detail->sne_cost = $request->sne_cost;
       }
@@ -282,13 +284,8 @@ class ProjectController extends Controller
         $project->planned_start_date = date('Y-m-d',strtotime($request->planned_start_date));
       if($request->planned_end_date != NULL)
         $project->planned_end_date = date('Y-m-d',strtotime($request->planned_end_date));
-        // TODO
-        if($request->revised_start_date != NULL){
-          foreach ($request->revised_start_date as $revised_start_date) {
-            // code...
-            $project->revised_start_date = date('Y-m-d',strtotime($revised_start_date));
-          }
-        }
+        
+        $project->revised_start_date = date('Y-m-d',strtotime($request->revised_start_date));
         // if($request->revised_start_date != NULL)
         //   $project->revised_start_date = date('Y-m-d',strtotime($request->revised_start_date));
       if($request->assigning_forum != NULL)
@@ -477,7 +474,7 @@ class ProjectController extends Controller
         $project->title = $request->title;
         $project_original->title = $request->title;
       }
-      if($request->sne){
+      if(isset($request->sne) && $request->sne){
         $project_original->ProjectDetail->sne = $request->sne;
         $project_original->ProjectDetail->save();
       }

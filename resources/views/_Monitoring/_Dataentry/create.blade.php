@@ -62,30 +62,6 @@
                       </div>
                     </div>
                 <div class="form-group row">
-                        <div class="col-md-12">
-                            <b><label for="sectors">SNE </label></b>
-                            <select class="form-control form-control-warning" id="sne_data" required name="sne" id="sne">
-                                    <option value="" selected="selected" disabled>Select SNE</option>
-                                    <option value="NO">NO</option>
-                                    <option value="COST">COST</option>
-                                    <option value="STAFF">STAFF</option>
-                                    <option value="BOTH">BOTH</option>
-                                  </select>
-                        </div>
-                    </div>
-                    <div class="form-group row" id="sne_cost" style="display:none">
-                      <label for="" class="col-sm-4">SNE COST</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" name="sne_cost" placeholder="SNE COST">
-                      </div>
-                    </div>
-                    <div class="form-group row" style="display:none"  id="sne_staff_positions">
-                      <label for="" class="col-sm-4">SNE STAFF</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" name="sne_staff_positions" placeholder="SNE STAFF POSITION">
-                      </div>
-                    </div>
-                <div class="form-group row">
                         <div class="col-md-6">
                         <label for=""><b>Financial Year</b></label>
                             <select class="form-control form-control-info" name="financial_year" id="financial_year">
@@ -128,7 +104,7 @@
                 <div class="form-group row">
                         <div class="col-md-12">
                             <b><label for="sectors">SubSectors : </label></b>
-                            <select id="sub_sectors" name="sub_sectors[]" class="form-control js-example-basic-multiple" required multiple="multiple" id="Subsectors" data-placeholder="Sub Sectors"  style="width: 100%;">
+                            <select id="SubSectors" name="sub_sectors[]" class="form-control js-example-basic-multiple" required multiple="multiple" id="Subsectors" data-placeholder="Sub Sectors"  style="width: 100%;">
                                 </select>
                         </div>
                     </div>
@@ -295,7 +271,7 @@
 
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn btn-success alert-confirm m-b-10" style=" margin-left: 80%;" >Add PC-1</button>
+                <button type="submit" class="btn btn-success alert-confirm m-b-10" style=" margin-left: 80%;" >Add Project</button>
             </div>
         </div>
     </form>
@@ -321,14 +297,6 @@
 
                     </div>
                 </div>
-                <div class="form-group row">
-                        <div class="col-md-4">
-                            <label><b>SNE:</b></label>
-                        </div>
-                        <div class="col-md-6" id="summary_sne">
-
-                        </div>
-                    </div>
                 <div class="form-group row">
                     <div class="col-md-4">
                         <label><b>GS # :</b></label>
@@ -691,9 +659,9 @@ $(document).on('change', '#assigningForum', function() {
       'data' : opt}, // a JSON object to send back
     success: function(response){ // What to do if we succeed
       console.log(response);
-      $("#sub_sectors").empty();
+      $("#Subsectors").empty();
       $.each(response, function () {
-          $('#sub_sectors').append("<option value=\""+this.id+"\">"+this.name+"</option>");
+          $('#Subsectors').append("<option value=\""+this.id+"\">"+this.name+"</option>");
       });
     },
     error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
@@ -708,7 +676,7 @@ $(document).on('change','#gs_no',function(){
    console.log(projects[arr[1]]);
    if($('#financial_year :selected').text() == projects[arr[1]].financial_year){
      $('#projectTitle').val(projects[arr[1]].name_of_scheme);
-     $('#originalCost').val(projects[arr[1]].total_cost);
+     $('#originalCost').val(parseFloat(projects[arr[1]].total_cost)).toFixed(2);
      $("#districts").val($("#districts option").filter(function () { return $(this).html() == projects[arr[1]].district; }).val());
    }
    else{
@@ -716,28 +684,6 @@ $(document).on('change','#gs_no',function(){
      $('#originalCost').val('');
      $("#districts").val('').trigger('change');
    }
-});
-
-
-$('#sne_data').on('change',function(e){
-  console.log('here');
-  opt = $("#sne_data :selected").val();
-  if(opt == "COST"){
-    $("#sne_cost").show('slow')
-    $("#sne_staff_positions").hide('slow')
-  }
-  else if(opt == "STAFF"){
-    $("#sne_cost").hide('slow')
-    $("#sne_staff_positions").show('slow')
-  }
-  else if(opt == "BOTH"){
-    $("#sne_cost").show('slow')
-    $("#sne_staff_positions").show('slow')
-  }
-  else{
-      $("#sne_cost").hide('slow')
-      $("#sne_staff_positions").hide('slow')
-  }
 });
 </script>
 @endsection
