@@ -73,7 +73,7 @@ vertical-align: super;
               <select id="type_of_project" name="type_of_project" class="form-control select2" style="width: 100%;">
                 <option>Select Project Type</option>
                 @foreach ($project_types as $project_type)
-                  @if($project_type->status == 1)
+                  @if($project_type->status == 1 && $project_type->name=="Evaluation")
                     <option value="{{$project_type->id}}">{{$project_type->name}}</option>
                   @endif
                 @endforeach
@@ -83,7 +83,7 @@ vertical-align: super;
 
             <div id="second" class="form-group">
               <label>Phase of Evaluation</label>
-              <select id="phase_of_evaluation" name="phase_of_evaluation" class="form-control select2" style="width: 100%;">
+              <select id="phase_of_evaluation" name="phase_of_project" class="form-control select2" style="width: 100%;">
                 <option value="">Select Evaluation Type</option>
                 @foreach ($sub_project_types as $sub_project_type)
                   <option value="{{$sub_project_type->id}}">{{$sub_project_type->name}}</option>
@@ -185,7 +185,7 @@ vertical-align: super;
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Project #</label>
       <div class="col-sm-8">
-        <input id="project_no" type="text" disabled name="project_no" value="{{$project_no}}"  class="form-control" required >
+        <input id="project_no" type="text" name="project_no" value="{{$project_no}}"  class="form-control" required >
       </div>
     </div>
     <div class="form-group">
@@ -311,12 +311,24 @@ vertical-align: super;
     <div class="form-group">
       <label class="col-sm-4">SNE</label>
       <div class="col-sm-8">
-        <select class="form-control" required name="sne">
+        <select class="form-control" id="sne_data" required name="sne">
           <option value="NO">NO</option>
           <option value="COST">COST</option>
           <option value="STAFF">STAFF</option>
           <option value="BOTH">BOTH</option>
         </select>
+      </div>
+    </div>
+    <div class="form-group" id="sne_cost" style="display:none">
+      <label for="" class="col-sm-4">SNE COST</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" name="sne_cost" placeholder="SNE COST">
+      </div>
+    </div>
+    <div class="form-group" style="display:none"  id="sne_staff_positions">
+      <label for="" class="col-sm-4">SNE STAFF</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" name="sne_staff_positions" placeholder="SNE STAFF POSITION">
       </div>
     </div>
     <section style="background-color:lightgray;padding:8px">
@@ -378,7 +390,7 @@ vertical-align: super;
   </div>
   <span class="secondspan"></span>
   <div class="form-group" >
-    <label class="col-sm-4 control-label"></i>Revised EndDate</label>
+    <label class="col-sm-4 control-label"></i>Revised End Date</label>
     <div class="input-group col-sm-8 date" id="revised_end_my_date">
     <input name="revised_end_dates[]" id="date0" class="form-control" >
     <span class="input-group-addon">
@@ -556,7 +568,7 @@ vertical-align: super;
     var arr = $(this).val().split(',')
     if($('#financial_year').val() == projects[arr[1]].financial_year){
       $('#titleproject').val(projects[arr[1]].name_of_scheme);
-      $('#original_cost').val(projects[arr[1]].total_cost);
+      $('#original_cost').val(parseFloat(projects[arr[1]].total_cost).toFixed(3));
       $("#districts").val($("#districts option").filter(function () { return $(this).html() == projects[arr[1]].district; }).val());
     }
     else{
@@ -639,6 +651,26 @@ $('input').on('change',function(){
   $("#summary_"+class_value).append("<label class=\"control-label\">"+opt+"</label>");
 });
 
+$('#sne_data').on('change',function(e){
+  console.log('here');
+  opt = $("#sne_data :selected").val();
+  if(opt == "COST"){
+    $("#sne_cost").show('slow')
+    $("#sne_staff_positions").hide('slow')
+  }
+  else if(opt == "STAFF"){
+    $("#sne_cost").hide('slow')
+    $("#sne_staff_positions").show('slow')
+  }
+  else if(opt == "BOTH"){
+    $("#sne_cost").show('slow')
+    $("#sne_staff_positions").show('slow')
+  }
+  else{
+      $("#sne_cost").hide('slow')
+      $("#sne_staff_positions").hide('slow')
+  }
+});
 
 $('select').on('change',function(e){
   var class_value = $(this).attr("id");

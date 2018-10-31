@@ -84,8 +84,8 @@ class ProjectController extends Controller
       // $assigning_forumList = AssigningForumSubList::where('status','1')->get();
       // $project_no = Str::random();
       $current_year = date('Y');
-      $approving_forums = ApprovingForum::all();
-      $sub_project_types = SubProjectType::where('project_type_id',1)->get();
+      $approving_forums = ApprovingForum::where('status','1')->get();
+      $sub_project_types = SubProjectType::where('project_type_id',1)->where('status','1')->get();
       $m_sub_project_types = SubProjectType::where('project_type_id',2)->get();
       $projectfor_no=Project::select('projects.project_no')->latest()->first();
       $adp = AdpProject::orderBy('gs_no')->get();
@@ -138,18 +138,19 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
       // dd($request->all());
-      $projectfor_no=SubProjectType::select('projects.project_no','projects.created_at')
+      $project_no=SubProjectType::select('projects.project_no','projects.created_at')
       ->where('sub_project_types.project_type_id','1')
       ->leftJoin('projects','projects.project_type_id','sub_project_types.project_type_id')
-      ->latest()->first();
-      // if($projectfor_no && isset($projectfor_no->project_no) && $projectfor_no->project_no){
-      // $project_no=explode('-',$projectfor_no->project_no);
-      // $projectNo=$project_no[0].'-'.($project_no[1]+1);
-      // }
-      // else {
-      //   $projectNo = "PRO-1";
-      // }
-      $projectNo=$request->project_no;
+      ->latest()->first()->project_no;
+      if($project_no){
+      $project_no=explode('-',$project_no);
+      // dd($project_no);
+      $projectNo=$project_no[0].'-'.($project_no[1]+1);
+      }
+      else {
+        $projectNo = "PRO-1";
+      }
+      // $projectNo=$request->project_no;
       $project = new Project();
       $project->title = $request->title;
       $project->project_no = $projectNo;
@@ -158,36 +159,49 @@ class ProjectController extends Controller
       $project->ADP = explode(',',$request->adp_no[0])[0];
       $project->financial_year = $request->financial_year;
       $project->project_type_id = $request->type_of_project;
-      $project->assigning_forum_sub_list_id = $request->assigning_forumSubList;
+      if($request->assigning_forumSubList!='undefined' && $request->assigning_forumSubList!=null)
+        $project->assigning_forum_sub_list_id = $request->assigning_forumSubList;
+      else {
+        $project->assigning_forum_sub_list_id = null;
+      }
       $project->status = 0;
       $project->user_id = Auth::id();
-
       $project->save();
+      // dd($request->all());
 
       $project_id = Project::latest()->first()->id;
       $project_detail = new ProjectDetail();
-      $project_detail->sne = $request->sne;
+      if(isset($request->sne) && $request->sne){
+        $project_detail->sne = $request->sne;
+      }
+      if(isset($request->sne_cost)){
+        $project_detail->sne_cost = $request->sne_cost;
+      }
+      if(isset($request->sne_staff_positions)){
+        $project_detail->sne_staff_positions = $request->sne_staff_positions;
+      }
       $project_detail->project_id = $project_id;
       $project_detail->currency = $request->currency;
       $project_detail->orignal_cost = $request->original_cost;
       $project_detail->planned_start_date = date('Y-m-d',strtotime($request->planned_start_date));
       $project_detail->planned_end_date = date('Y-m-d',strtotime($request->planned_end_date));
-      if($request->revised_start_date != NULL)
-        $project_detail->revised_start_date = date('Y-m-d',strtotime($request->revised_start_date));
+      $project_detail->revised_start_date = date('Y-m-d',strtotime($request->revised_start_date));
+
       $project_detail->assigning_forum_id = $request->assigning_forum;
       $project_detail->approving_forum_id = $request->approving_forum;
       // TODO:
-      if($request->phase_of_evaluation!='' && $request->phase_of_evaluation!=NULL)
+      if($request->phase_of_project!='' && $request->phase_of_project!=NULL)
       {
         // dd('as');
-          $project_detail->sub_project_type_id = $request->phase_of_evaluation;//change
+          $project_detail->sub_project_type_id = $request->phase_of_project;
       }
       else
-        $project_detail->sub_project_type_id = $request->phase_of_monitoring;//change
+        $project_detail->sub_project_type_id = $request->phase_of_monitoring;
       if($request->hasFile('attachments')){
-        $request->file('attachments')->store('public/uploads/projects/');
-        $file_name = $request->file('attachments')->hashName();
-        $project_detail->project_attachements=$file_name;
+        $file_path = $request->file('attachments')->path();
+        $file_extension = $request->file('attachments')->getClientOriginalExtension();
+        $project_detail->attachment=$file_path;
+        $project_detail->attachment_type=$file_extension;
       }
       $project_detail->save();
       // foreach($request->departments as $department_id){
@@ -221,7 +235,7 @@ class ProjectController extends Controller
         $revised_approved_cost_save->cost = $revised_approved_cost;
         $revised_approved_cost_save->save();
       }
-      if($request->revised_end_dates[0])
+      if(isset($request->revised_end_dates[0]))
       foreach($request->revised_end_dates as $revised_end_date){
         $revised_end_dat = new RevisedEndDate();
         $revised_end_dat->project_id = $project_id;
@@ -264,22 +278,27 @@ class ProjectController extends Controller
         $project->currency = $request->currency;
       if($request->original_cost != NULL)
         $project->orignal_cost = $request->original_cost;
-      if($request->assigning_forumSubList != NULL)
+      if($request->assigning_forumSubList != NULL && $request->assigning_forumSubList != "undefined")
         $project->assigning_forum_sub_list_id = $request->assigning_forumSubList;
       if($request->planned_start_date != NULL)
         $project->planned_start_date = date('Y-m-d',strtotime($request->planned_start_date));
       if($request->planned_end_date != NULL)
         $project->planned_end_date = date('Y-m-d',strtotime($request->planned_end_date));
-        if($request->revised_start_date != NULL)
-          $project->revised_start_date = date('Y-m-d',strtotime($request->revised_start_date));
+        
+        $project->revised_start_date = date('Y-m-d',strtotime($request->revised_start_date));
+        // if($request->revised_start_date != NULL)
+        //   $project->revised_start_date = date('Y-m-d',strtotime($request->revised_start_date));
       if($request->assigning_forum != NULL)
         $project->assigning_forum_id = $request->assigning_forum;
+      if($request->phase_of_project != NULL)
+        $project->sub_project_type_id = $request->phase_of_project;
       if($request->approving_forum != NULL)
         $project->approving_forum_id = $request->approving_forum;
       if($request->hasFile('attachments')){
-        $request->file('attachments')->store('public/uploads/projects/');
-        $file_name = $request->file('attachments')->hashName();
-        $project->project_attachements=$file_name;
+        $file_path = $request->file('attachments')->path();
+        $file_extension = $request->file('attachments')->getClientOriginalExtension();
+        $project->project_attachements=$file_path;
+        $project->attachment_type=$file_extension;
       }
       if($project!=NULL){
         $project->save();
@@ -331,12 +350,12 @@ class ProjectController extends Controller
         $revised_approved_cost_save->save();
       }
       }
-      if(count($request->revised_end_dates) > 0)
+      if(isset($request->revised_end_dates[0]) && count($request->revised_end_dates) > 0)
         foreach($request->revised_end_dates as $revised_end_date){
             if($revised_end_date != NULL){
               $revised_end_date = new RevisedEndDateProjectLog();
               $revised_end_date->project_log_id = ProjectLog::latest()->first()->id;
-      $revised_end_date->end_date = date('Y-m-d',strtotime($revised_end_date));
+              $revised_end_date->end_date = date('Y-m-d',strtotime($revised_end_date));
               $revised_end_date->save();
           }
         }
@@ -362,8 +381,10 @@ class ProjectController extends Controller
       // $notification->save();
       // return redirect()->route('new_evaluation');
 
-
-      return redirect()->route('projects.index');
+      if(isset($request->evaluation_type) && $request->evaluation_type)
+        return redirect()->route('projects.index');
+      else
+        return redirect()->route('viewMonitoringForm');
     }
 
     /**
@@ -453,7 +474,7 @@ class ProjectController extends Controller
         $project->title = $request->title;
         $project_original->title = $request->title;
       }
-      if($request->sne){
+      if(isset($request->sne) && $request->sne){
         $project_original->ProjectDetail->sne = $request->sne;
         $project_original->ProjectDetail->save();
       }
@@ -503,10 +524,12 @@ class ProjectController extends Controller
         $project_original_detail->approving_forum_id = $request->approving_forum;
       }
       if($request->hasFile('attachments')){
-        $request->file('attachments')->store('public/uploads/projects/');
-        $file_name = $request->file('attachments')->hashName();
-        $project->project_attachements=$file_name;
-        $project_original_detail->project_attachements=$file_name;
+        $file_path = $request->file('attachments')->path();
+        $file_extension = $request->file('attachments')->getClientOriginalExtension();
+        $project->project_attachements=$file_path;
+        $project->attachment_type=$file_extension;
+        $project_original_detail->attachment=$file_path;
+        $project_original_detail->attachment_type=$file_extension;
       }
       if($project!=NULL)
         $project->save();
@@ -649,4 +672,61 @@ class ProjectController extends Controller
     {
         //
     }
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Monitoring Module
+// //////////////////////////////////////////////////////
+  public function createMonitoringEntryForm()
+  {
+    $project_no=Project::latest()->first()->project_no;
+    if($project_no){
+    $projectNo=explode('-',$project_no);
+    $project_no=$projectNo[0].'-'.($projectNo[1]+1);
+    }
+    else {
+      $project_no = "PRO-1";
+    }
+    // dd($project_no);
+    $sub_project_types = SubProjectType::where('project_type_id','2')->where('status','1')->get();
+    $project_types = ProjectType::where('name','Monitoring')->where('status','1')->first();
+    $districts = District::where('status','1')->get();
+    $sectors  = Sector::where('status','1')->get();
+    $sub_sectors = SubSector::where('status','1')->get();
+    $sponsoring_departments = SponsoringAgency::where('status','1')->get();
+    $executing_departments = ExecutingAgency::where('status','1')->get();
+    $assigning_forums = AssigningForum::where('status','1')->get();
+    // $assigning_forumList = AssigningForumSubList::where('status','1')->get();
+    // $project_no = Str::random();
+    $current_year = date('Y');
+    $approving_forums = ApprovingForum::where('status','1')->get();
+    $adp = AdpProject::orderBy('gs_no')->get();
+
+    foreach ($districts as $district) {
+      $district->name = $district->name . "/";
+    }
+    foreach ($sectors as $sector) {
+      $sector->name = $sector->name . "/";
+    }
+    foreach ($sponsoring_departments as $sponsoring_department) {
+      $sponsoring_department->name = $sponsoring_department->name . "/";
+    }
+    foreach ($executing_departments as $executing_department) {
+      $executing_department->name = $executing_department->name . "/";
+    }
+    foreach ($assigning_forums as $assigning_forum) {
+      $assigning_forum->name = $assigning_forum->name . "/";
+    }
+    \JavaScript::put([
+      'projects' => $adp
+  ]);
+    return view('_Monitoring._Dataentry.create',compact('project_no','project_types','adp','sub_project_types','districts','sectors','sponsoring_departments','executing_departments','assigning_forums','current_year','approving_forums','sub_sectors','projects'));
+  }
+
+  public function viewMonitoringForm()
+  {
+    $projects=Project::where('project_type_id','2')->get();
+    return view('_Monitoring._Dataentry.view',compact('projects'));
+
+  }
 }
