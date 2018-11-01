@@ -53,10 +53,7 @@ class ProjectController extends Controller
     {
       $projects = Project::all();
 
-        $projects=Project::
-        // ->leftJoin('project_details','project_details.project_id','projects.id')
-        // ->leftJoin('users','users.id','user_id')
-        where('user_id',Auth::id())
+        $projects=Project::where('user_id',Auth::id())
         ->orderBy('projects.created_at')
         ->get();
         // dd(Auth::user()->roles()->get());
@@ -284,7 +281,7 @@ class ProjectController extends Controller
         $project->planned_start_date = date('Y-m-d',strtotime($request->planned_start_date));
       if($request->planned_end_date != NULL)
         $project->planned_end_date = date('Y-m-d',strtotime($request->planned_end_date));
-        
+
         $project->revised_start_date = date('Y-m-d',strtotime($request->revised_start_date));
         // if($request->revised_start_date != NULL)
         //   $project->revised_start_date = date('Y-m-d',strtotime($request->revised_start_date));

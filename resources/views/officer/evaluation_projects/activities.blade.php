@@ -374,7 +374,7 @@
                                   $temp+=$counter;
                                   @endphp
                                 @endforeach
-                                @if($activity->progress <= 25.0 && $activity->ProjectActivity->id < 7 && $activity->ProjectActivity->id > 3 )
+                                @if($activity->progress < 25.0 && $activity->ProjectActivity->id < 7 && $activity->ProjectActivity->id > 3  &&  $activity->ProjectActivity->name!='Site Visits')
                                   <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},50)'>Save</button>">
                                     <input type="hidden" class="25_{{$activity->id}}" name="percent" value="25,{{$project_data->project->id}},{{$activity->id}}">
                                     <div class="percentBox">
@@ -384,17 +384,21 @@
                                     </input>
                                   </a>
                                 @endif
-                                @if($activity->progress <= 50.0 && $activity->ProjectActivity->id < 7 && $activity->ProjectActivity->id > 3)
+                                @if($activity->progress < 50.0 && $activity->ProjectActivity->id < 7 && $activity->ProjectActivity->id > 3)
                                   <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},50)'>Save</button>">
                                     <input type="hidden" class="50_{{$activity->id}}" name="percent" value="50,{{$project_data->project->id}},{{$activity->id}}">
                                     <div class="percentBox">
+                                      @if($activity->ProjectActivity->name=='Site Visits')
+                                        <p>Plan A Trip</p>
+                                      @else
                                       <p>2</p>
+                                    @endif
                                     </div>
                                     <span>50%</span>
                                   </input>
                                 </a>
                                 @endif
-                                @if ($activity->progress <= 75.0 && $activity->ProjectActivity->id < 7 && $activity->ProjectActivity->id > 3 &&  $activity->ProjectActivity->name!='Site Visits')
+                                @if ($activity->progress < 75.0 && $activity->ProjectActivity->id < 7 && $activity->ProjectActivity->id > 3 &&  $activity->ProjectActivity->name!='Site Visits')
                                   <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},75)'>Save</button>">
                                     <input type="hidden" class="75_{{$activity->id}}" name="percent" value="75,{{$project_data->project->id}},{{$activity->id}}">
                                     <div class="percentBox">
@@ -404,11 +408,15 @@
                                   </input>
                                 </a>
                               @endif
-                              @if ($activity->progress <= 100.0 && $activity->ProjectActivity->id > 3)
+                              @if ($activity->progress < 100.0 && $activity->ProjectActivity->id > 3)
                                 <a class="btn"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},100)'>Save</button>">
                                   <input type="hidden" class="100_{{$activity->id}}" name="percent" value="100,{{$project_data->project->id}},{{$activity->id}}">
                                   <div class="percentBox">
+                                    @if($activity->ProjectActivity->name=='Site Visits')
+                                      <p>Close A Trip</p>
+                                    @else
                                     <p>4</p>
+                                  @endif
                                   </div>
                                   <span>100%</span>
                                 </input>
