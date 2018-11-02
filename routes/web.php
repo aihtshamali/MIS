@@ -74,6 +74,8 @@ Route::prefix('manager')->middleware('role:manager')->group(function () {
   Route::get('/chart_eight','ExecutiveController@chart_eight')->name('chart_eight');
   Route::get('/chart_nine','ExecutiveController@chart_nine')->name('chart_nine');
   Route::get('/chart_ten','ExecutiveController@chart_ten')->name('chart_ten');
+  Route::get('/chart_eleven','ExecutiveController@GlobalProgressWiseChart')->name('GlobalProgressWiseChart');
+  Route::get('/chart_twelve','ExecutiveController@SneWiseChart')->name('SneWiseChart');
 
   // chart details
   // Route::get('/chart_two_details','ExecutiveController@chart_two')->name('chart_two_details');
@@ -143,8 +145,8 @@ Route::prefix('director_Monitor')->middleware('role:directormonitoring')->group(
     Route::get('/monitoring_inprogress','DirectorMonitoringController@monitoring_inprogressprojects')->name('Monitoring_inprogress_projects');
     Route::get('/monitoring_complete','DirectorMonitoringController@monitoring_completeprojects')->name('Monitoring_complete_projects');
     Route::get('/monitoring_assigntoconsultant','ProjectAssignController@DPM_AssignToConsultant')->name('Monitoring_assignToconsultant');
-    
-    
+
+
 });
 Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
 
@@ -174,7 +176,7 @@ Route::prefix('officer')->middleware('role:officer')->group(function () {
   Route::get('/monitoring_inprogressAssignment','OfficerController@monitoring_inprogressAssignments')->name('Monitoring_inprogressAssignments');
   Route::get('/monitoring_completedAssignment','OfficerController@monitoring_completedAssignments')->name('Monitoring_completedAssignments');
   Route::get('/monitoring_sInprogress','OfficerController@monitoring_inprogressSingle')->name('monitoring_inprogressSingle');
- 
+
 });
 
 //For DataEntry
