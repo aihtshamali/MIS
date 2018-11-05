@@ -58,6 +58,11 @@
 	height		: 90%;
 	font-size	: 5px;
 }
+#chartdiv12 {
+	width		: 100%;
+	height		: 90%;
+	font-size	: 5px;
+}
 .card{
   /* width:250px; */
   background:white;
@@ -229,14 +234,31 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
               <div id="chartdiv10"></div>
               </div>
             </a>
-            <a href="">
+            <a href="{{ route('GlobalProgressWiseChart') }}">
                 <div class="card col-md-2">
                 <div class="card-header">
-                <label for=""> Logins Time</label>
+                <label for=""> Total Project's Progress</label>
                 </div>
                 <div id="chartdiv11"></div>
                 </div>
-              </a>
+            </a>
+          <div class="col-md-1" style="width:10%;"></div>
+          </div>
+      </div>
+      {{-- row 4 --}}
+      <div class="row">
+          <div class="col-md-12">
+          <div class="col-md-1" style="width:10%;"></div>
+
+          {{-- chart 12 --}}
+          <a href="{{route('SneWiseChart')}}">
+            <div class="card col-md-2" style="width:36%;">
+	            <div class="card-header">
+	            	<label for="">SNE Wise Projects</label>
+	            </div>
+	            <div id="chartdiv12"></div>
+            </div>
+          </a>
           <div class="col-md-1" style="width:10%;"></div>
           </div>
       </div>
@@ -525,7 +547,7 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
      activities.forEach(element => {
        st.push ({
          "Name":element.name,
-         "Number of projects": projects_activities_progress[$i][0].eachActivitycount,
+         "Number of projects": projects_activities_progress[$i],
 
        });
        $i++;
@@ -806,5 +828,116 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
   }
 
 } );
+
+</script>
+<script type="text/javascript">
+var st = [];
+	$i = 0;
+	// $count=0;
+	projectsprogress.forEach(element => {
+		st.push ({
+			"Name":projectsprogressranges[$i],
+			"Number of Projects": projectsprogress[$i]
+		});
+		$i++;
+	});
+	var chart = AmCharts.makeChart( "chartdiv11", {
+	"type": "serial",
+	"theme": "light",
+	"dataProvider":st,
+	"valueAxes": [ {
+		"gridColor": "#FFFFFF",
+		"gridAlpha": 0.2,
+		"dashLength": 0
+	} ],
+	"gridAboveGraphs": true,
+	"startDuration": 1,
+	"graphs": [ {
+		"balloonText": "[[category]]: <b>[[value]]</b>",
+		"fillAlphas": 0.8,
+		"lineAlpha": 0.2,
+		"type": "column",
+		"labelText": "[[value]]",
+		"valueField": "Number of Projects"
+	} ],
+	"chartCursor": {
+		"categoryBalloonEnabled": false,
+		"cursorAlpha": 0,
+		"zoomable": false
+	},
+	"categoryField": "Name",
+	"categoryAxis": {
+		"autoGridCount": false,
+		"equalSpacing": true,
+		"gridCount": 1000,
+		"gridPosition": "middle",
+		"gridAlpha": 0,
+		"tickPosition": "middle",
+		"tickLength": 5,
+		"labelRotation":30,
+		// "ignoreAxisWidth": true,
+		"autoWrap": true
+	},
+	"export": {
+		"enabled": true
+	}
+
+} );
+
+</script>
+<script type="text/javascript">
+var st = [];
+	$i = 0;
+	// $count=0;
+	Sneprojects.forEach(element => {
+		st.push ({
+			"Name":categories[$i],
+			"Number of Projects": Sneprojects[$i]
+		});
+		$i++;
+	});
+	var chart = AmCharts.makeChart( "chartdiv12", {
+	"type": "serial",
+	"theme": "light",
+	"dataProvider":st,
+	"valueAxes": [ {
+		"gridColor": "#FFFFFF",
+		"gridAlpha": 0.2,
+		"dashLength": 0
+	} ],
+	"gridAboveGraphs": true,
+	"startDuration": 1,
+	"graphs": [ {
+		"balloonText": "[[category]]: <b>[[value]]</b>",
+		"fillAlphas": 0.8,
+		"lineAlpha": 0.2,
+		"type": "column",
+		"labelText": "[[value]]",
+		"valueField": "Number of Projects"
+	} ],
+	"chartCursor": {
+		"categoryBalloonEnabled": false,
+		"cursorAlpha": 0,
+		"zoomable": false
+	},
+	"categoryField": "Name",
+	"categoryAxis": {
+		"autoGridCount": false,
+		"equalSpacing": true,
+		"gridCount": 1000,
+		"gridPosition": "middle",
+		"gridAlpha": 0,
+		"tickPosition": "middle",
+		"tickLength": 5,
+		"labelRotation":30,
+		// "ignoreAxisWidth": true,
+		"autoWrap": true
+	},
+	"export": {
+		"enabled": true
+	}
+
+} );
+
 </script>
 @endsection

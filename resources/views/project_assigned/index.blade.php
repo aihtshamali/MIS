@@ -76,7 +76,12 @@
                           <td>
                             <input type="hidden" name="priority" value="">
                             <input type="hidden" name="project_id" value="{{$project->id}}">
-                            {{ $project->ProjectDetail->AssigningForum->name }}
+                            {{-- {{dd($project->ProjectDetail)}} --}}
+                            @if(isset($project->ProjectDetail))
+                              {{ $project->ProjectDetail->AssigningForum->name }}
+                            @else
+                              No Detail Given
+                            @endif
                           </td>
                           <td>{{ round($project->score,2,PHP_ROUND_HALF_UP) }}</td>
                           <td><input type="submit" name="submit" value="Assign" class="btn btn-info"></td>
