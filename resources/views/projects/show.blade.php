@@ -127,10 +127,10 @@
                                         <hr/>
                                         <div class="row" >
                                                 <div style="text-align: center;"><h3><b>COST</b></h3></div> </br>
-                                                <div class="col-md-4"> <b>Original Approved Cost(Million): </b>{{$project->ProjectDetail->orignal_cost}} -/{{$project->ProjectDetail->currency}}</div>
+                                                <div class="col-md-4"> <b>Original Approved Cost(Million): </b>{{round($project->ProjectDetail->orignal_cost,3,PHP_ROUND_HALF_UP)}} -/{{$project->ProjectDetail->currency}}</div>
                                                 <div class="col-md-4">   <b>Revised Original Cost(Million) : </b>
                                                   @foreach ($project->RevisedApprovedCost as $revised_cost)
-                                                    {{$revised_cost->cost}}
+                                                    {{round($revised_cost->cost,3,PHP_ROUND_HALF_UP)}}
                                                     @if(last($project->RevisedApprovedCost->toArray())['id'] != $revised_cost->id)
                                                       ,
                                                     @endif
