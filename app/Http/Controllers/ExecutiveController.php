@@ -754,6 +754,7 @@ class ExecutiveController extends Controller
         return view('executive.evaluation.reviewed_projects');
       }
 
+<<<<<<< HEAD
       public function monitoring_unassigned()
       {
         $unassigned=Project::select('projects.*')
@@ -801,5 +802,19 @@ class ExecutiveController extends Controller
         return view('executive.monitoring.completed');
       }
      
+=======
+    public function monitoring_unassigned()
+    {
+      return view('_Monitoring._Manager.unassigned');
+    }
+    public function monitoring_inprogress()
+    {
+      return view('_Monitoring._Manager.inprogress');
+    }
+    public function monitoring_completed()
+    {
+      return view('_Monitoring._Manager.completed');
+    }
+>>>>>>> e45532ff36d6ae65998bee5e11f5b3f51c185971
 
 }

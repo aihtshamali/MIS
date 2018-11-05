@@ -408,7 +408,7 @@
                     <ul class="pcoded-item pcoded-left-item">
                         <li class="pcoded-hasmenu">
                             <a href="javascript:void(0)">
-                                    
+
                                 <span class="pcoded-micon"><i class="zmdi zmdi-car"></i></span>
                                 <span class="pcoded-mtext" >Plan A Visit</span>
                             </a>
@@ -970,7 +970,7 @@
                             </ul>
                         </li>
                     </ul> --}}
-{{-- 
+{{--
                     <div class="pcoded-navigatio-lavel">App</div>
                     <ul class="pcoded-item pcoded-left-item">
                         <li class=" ">
@@ -1114,7 +1114,7 @@
                             </ul>
                         </li>
                     </ul> --}}
-                   
+
                     <div class="pcoded-navigatio-lavel">Planner</div>
                     <ul class="pcoded-item pcoded-left-item">
                         <li class="pcoded-hasmenu ">
@@ -1146,7 +1146,7 @@
                             </a>
                         </li>
                     </ul>
-{{-- 
+{{--
                     <div class="pcoded-navigatio-lavel">Other</div>
                     <ul class="pcoded-item pcoded-left-item">
                         <li class="pcoded-hasmenu ">
@@ -1218,15 +1218,12 @@
                                @yield('content')
                             </div>
                         </div>
+                        {{-- styleSelector --}}
+                        {{-- <div id="styleSelector">
 
-                        <div id="styleSelector">
-
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-   
-  

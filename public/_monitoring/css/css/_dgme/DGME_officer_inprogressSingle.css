@@ -1,0 +1,97 @@
+
+
+.bg-new{
+    background:linear-gradient(to left, black,#404E67 );   
+   }
+   th, td {
+       white-space: inherit !important;
+   }
+   #physical, #quality_assesment , #stakeholder , #issues , #risks ,#HSE , #procurement{
+       display:none;
+   }
+   .noborder{border: none !important;padding: 3% !important;}
+   qa_noborder{
+    border: none !important;padding: 0% !important;
+   }
+   .saveNnextbtn{
+       color:white !important;
+       margin: 5px;
+   
+   }
+   .components{
+    /* border: 2px solid grey !important; */
+    width: 100% !important;
+
+   }
+   .moreActivities{
+    /* border: 2px solid grey !important;
+    margin: 12px;
+    padding: 12px;
+    background: white !important; */
+   }
+   .singleActivity{
+    width: 100% !important;
+
+   }
+   .summary-card{
+     margin: 15px;
+     border-radius: 5px;
+     width:250px;
+     padding:10px;
+     height: 150px;
+   -webkit-box-shadow: 11px 15px 42px 3px rgba(0,0,0,0.38);
+   -moz-box-shadow: 11px 15px 42px 3px rgba(0,0,0,0.38);
+   box-shadow: 11px 15px 42px 3px rgba(0,0,0,0.38);
+   }
+   a:hover{
+   text-decoration: none;
+   }
+   .summary-card:hover{
+     background:white !important;
+     margin: 15px;
+     border-radius: 5px;
+     width:250px;
+     padding:10px;
+     height: 150px;
+     -webkit-box-shadow: 0px -1px 79px 14px rgba(189,187,189,1);
+   -moz-box-shadow: 0px -1px 79px 14px rgba(189,187,189,1);
+   box-shadow: 0px -1px 79px 14px rgba(189,187,189,1);
+   
+   }
+   .divider{
+       border:#404E67  1px solid ;
+       margin-top:20px;
+       margin-bottom:20px;
+   }
+   .divider-dotted{
+       border:#fe8774  1px dashed;
+       margin-top: 21px;
+       margin-bottom: 15px;
+   }
+   .fixed{position: fixed !important;}
+   .z-9999{z-index: 9999 !important}
+   .bg-g{background-color: #f6f7fb !important;}
+   .z-depth-5{box-shadow: none !important;}
+   .border_top{border-top: 1px solid #777 !important;}
+   .bg-w{background:white!important;}
+   /* .navbar-logo[logo-theme="theme1"]{padding: 6.2% 0% !important;} */
+   @media (min-width: 768px){
+   .offset-md-2 {
+       margin-left: 17.8% !important;
+   }}
+   .risktable{
+       padding:0px !important;
+       margin:0px !important;
+   }
+   .frozen_pane{height: 14px !important;}
+   .nodisplay{display: none;}
+
+   .planMactivities{
+       border: 1px solid lightgray !important;
+       /* background:lightblue; */
+   }
+   .componentCost{
+    margin-left: 6em;
+    margin-top: -6%;
+    width:30%;
+   }

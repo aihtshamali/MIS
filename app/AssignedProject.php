@@ -34,4 +34,32 @@ class AssignedProject extends Model
         return User::where('id',$id)->first();
     }
 
+    public function MFinancialData(){
+      return $this->hasMany('App\MFinancialData');
+    }
+    public function MPhysicalActivity(){
+      return $this->hasMany('App\MPhysicalActivity');
+    }
+    public function MQualityAssesment(){
+      return $this->hasMany('App\MQualityAssesment');
+    }
+    public function MStakeHolder(){
+      return $this->hasMany('App\MStakeHolder');
+    }
+    public function MAssignedProjectIssue(){
+      return $this->hasMany('App\MAssignedProjectIssue');
+    }
+    public function MRiskCategory(){
+      return $this->hasMany('App\MRiskCategory');
+    }
+    public function MBeforeMitigation(){
+      return $this->hasMany('App\MBeforeMitigation');
+    }
+    public function MAssignedProjectHealthSafety(){
+      return $this->hasMany('App\MAssignedProjectHealthSafety');
+    }
+    public function MSubsequent(){
+      return $this->hasMany('App\MSubsequent');
+    }
+
 }
