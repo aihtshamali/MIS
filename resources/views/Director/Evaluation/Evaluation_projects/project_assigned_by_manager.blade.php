@@ -76,7 +76,7 @@
                             <input type="hidden" name="project_id" value="{{$project->project_id}}">
                             {{ $project->Project->ProjectDetail->AssigningForum->name }}
                           </td>
-                          <td>{{ $project->Project->score }}</td>
+                          {{-- <td>{{ $project->Project->score }}</td> --}}
                           <td><input type="submit" name="submit" value="Assign" class="btn btn-info"></td>
                         </form>
                         </tr>

@@ -53,10 +53,7 @@ class ProjectController extends Controller
     {
       $projects = Project::all();
 
-        $projects=Project::
-        // ->leftJoin('project_details','project_details.project_id','projects.id')
-        // ->leftJoin('users','users.id','user_id')
-        where('user_id',Auth::id())
+        $projects=Project::where('user_id',Auth::id())
         ->orderBy('projects.created_at')
         ->get();
         // dd(Auth::user()->roles()->get());
@@ -89,6 +86,14 @@ class ProjectController extends Controller
       $m_sub_project_types = SubProjectType::where('project_type_id',2)->get();
       $projectfor_no=Project::select('projects.project_no')->latest()->first();
       $adp = AdpProject::orderBy('gs_no')->get();
+      $data = [];
+      $keys = [];
+      foreach ($adp as $val) {
+        array_push($keys,$val->gs_no);
+        array_push($data,$val);
+      }
+      $final = array_combine($keys,$data);
+      // dd($final);
       // if($projectfor_no){
       // $projectNo=explode('-',$projectfor_no->project_no);
       // $project_no=$projectNo[0].'-'.($projectNo[1]+1);
@@ -105,7 +110,7 @@ class ProjectController extends Controller
         $project_no = "PRO-1";
       }
       foreach ($districts as $district) {
-        $district->name = $district->name . "/";
+        $district->name = $district->name;
       }
       foreach ($sectors as $sector) {
         $sector->name = $sector->name . "/";
@@ -120,7 +125,7 @@ class ProjectController extends Controller
         $assigning_forum->name = $assigning_forum->name . "/";
       }
       \JavaScript::put([
-        'projects' => $adp
+        'projects' => $final
     ]);
       return view('projects.create',compact('sub_project_types','m_sub_project_types','adp','districts','sectors','sponsoring_departments','executing_departments','assigning_forums','project_no','current_year','approving_forums','evaluation_types','project_types','evaluation_types','sub_sectors','projects'));
         // $sponosoring_agencies=SponsoringAgency::all();
@@ -156,7 +161,7 @@ class ProjectController extends Controller
       $project->project_no = $projectNo;
       if(isset($request->evaluation_type) && $request->evaluation_type)
         $project->evaluation_type_id = $request->evaluation_type;
-      $project->ADP = explode(',',$request->adp_no[0])[0];
+      $project->ADP = $request->adp_no;
       $project->financial_year = $request->financial_year;
       $project->project_type_id = $request->type_of_project;
       if($request->assigning_forumSubList!='undefined' && $request->assigning_forumSubList!=null)
@@ -185,6 +190,7 @@ class ProjectController extends Controller
       $project_detail->orignal_cost = $request->original_cost;
       $project_detail->planned_start_date = date('Y-m-d',strtotime($request->planned_start_date));
       $project_detail->planned_end_date = date('Y-m-d',strtotime($request->planned_end_date));
+      if($request->revised_start_date)
       $project_detail->revised_start_date = date('Y-m-d',strtotime($request->revised_start_date));
 
       $project_detail->assigning_forum_id = $request->assigning_forum;
@@ -269,8 +275,8 @@ class ProjectController extends Controller
         $project->title = $request->title;
       if(isset($request->evaluation_type) &&$request->evaluation_type != NULL )
         $project->evaluation_type_id = $request->evaluation_type;
-      if($request->ADP != NULL)
-        $project->ADP = $request->ADP;
+      if($request->adp_no != NULL)
+      $project->ADP = $request->adp_no;
       $project->user_id = Auth::id();
       $project->status = 0;
 
@@ -284,10 +290,8 @@ class ProjectController extends Controller
         $project->planned_start_date = date('Y-m-d',strtotime($request->planned_start_date));
       if($request->planned_end_date != NULL)
         $project->planned_end_date = date('Y-m-d',strtotime($request->planned_end_date));
-        
+        if($request->revised_start_date)
         $project->revised_start_date = date('Y-m-d',strtotime($request->revised_start_date));
-        // if($request->revised_start_date != NULL)
-        //   $project->revised_start_date = date('Y-m-d',strtotime($request->revised_start_date));
       if($request->assigning_forum != NULL)
         $project->assigning_forum_id = $request->assigning_forum;
       if($request->phase_of_project != NULL)
@@ -482,9 +486,9 @@ class ProjectController extends Controller
         $project->evaluation_type_id = $request->evaluation_type;
         $project_original->evaluation_type_id = $request->evaluation_type;
       }
-      if($request->ADP != NULL){
-        $project->ADP = $request->ADP;
-        $project_original->ADP = $request->ADP;
+      if($request->adp_no != NULL){
+        $project->ADP = $request->adp_no;
+        $project_original->ADP = $request->adp_no;
       }
       $project->user_id = Auth::id();
       $project->status = 1;

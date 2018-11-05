@@ -32,10 +32,38 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+      $activities = AssignedProjectActivity::all();
+      foreach ($activities as $activity) {
+        // dd($activity->AssignedProject);
+        if(isset($activity->AssignedProjectActivityProgressLog[0]))
+        {
+          if($activity->ProjectActivity->id == 1)
+          {
+            $activity->start_date = date('Y-m-d',strtotime($activity->AssignedProject->created_at));
+            if($activity->progress==100){
+                $activity->end_date = $activity->start_date;
+              }
+          }
+          else{
+          foreach ($activity->AssignedProjectActivityProgressLog as $progress) {
+            if($activity->start_date == NULL){
+              $activity->start_date = date('Y-m-d',strtotime($progress->created_at));
+            }
+            if($progress->progress == 100){
+              $activity->end_date = date('Y-m-d',strtotime($progress->created_at));
+              break;
+            }
+          }
+        }
+        $activity->save();
+        }
+      }
+      dd("Done");
       //Converting Mom To Base64
       // $files = scandir('C:\\xampp\\htdocs\\DGME_MIS_TEST\\storage\\app\\public\\uploads\\projects\\meetings_mom\\');
       // foreach($files as $file) {
-        
+
       //   $file_path  = "C:\\xampp\\htdocs\\DGME_MIS_TEST\\storage\\app\\public\\uploads\\projects\\meetings_mom\\".$file;
       //   if($file != '.' && $file != '..'){
       //     $row = HrMomAttachment::where('attachment',$file)->first();
@@ -125,7 +153,7 @@ class HomeController extends Controller
       $per = array_search(Auth::id(),$person);
       $current_score = round($total[$per],0,PHP_ROUND_HALF_UP);
       $max_score = round($total[$maxs[0]],0,PHP_ROUND_HALF_UP);
-      
+
       if($current_score == $max_score){
         $current_score = 100;
       }
