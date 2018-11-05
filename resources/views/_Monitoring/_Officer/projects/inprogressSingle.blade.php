@@ -1,7 +1,7 @@
 @extends('_Monitoring.layouts.upperNavigation')
 @section('styleTags')
 <link rel="stylesheet" href="{{ asset('_monitoring/css/icon/icofont/css/icofont.css')}}"/>
-<link rel="stylesheet" href="{{ asset('_monitoring/css/css/sweetalert.css')}}" />   
+<link rel="stylesheet" href="{{ asset('_monitoring/css/css/sweetalert.css')}}" />
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/component.css')}}" />
  <!-- Select 2 css -->
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/select2.min.css')}}" />
@@ -21,64 +21,67 @@
 
 {{-- This is dgme custom css for this page only ,write here any css you want to Ok!!! --}}
 <link rel="stylesheet" href="{{asset('_monitoring/css/css/_dgme/DGME_officer_inprogressSingle.css')}}" />
+<style media="screen">
+    html{scroll-behavior: smooth;}
+</style>
 
 @endsection
 @section('content')
-             
+
     {{-- frozen panel for plan and conduct monitoring  --}}
-    <div class="col-md-12 fixed bg-g hidden-sm hidden-xs topSummary nodisplay" style="margin-top:-2.8% !important;z-index:999 !important; margin-left:-2.79% !important;">
-    
+    <div class="col-md-12 fixed bg-g hidden-sm hidden-xs topSummary nodisplay" style="margin-top:-2.9% !important;z-index:999 !important; margin-left:-2.85% !important;">
+
         <div class="bg-w border_top bg-w" style="padding:0.25rem !important;" >
                 <style scoped>
                     .form-group{margin-bottom:0rem !important;border:none !important;background-color:transparent !important;}
                     .form-group{padding: 0.05rem 0.75rem !important;}
                     .col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto{padding-left: 0px !important;padding-right: 0px !important;}
                     label{margin-bottom:0rem !important;border:none !important;background-color:transparent !important;padding:0rem 0.3rem !important;font-size: 12px !important;}
-
+                    .ln_ht12{line-height: 12px !important;}
                 </style>
                 <div class="form-group row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 ln_ht12">
                         <label for="GS_no" class="">GS # </label>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-4 ln_ht12">
                         <label for="project_title" class="">Project Title </label>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 ln_ht12">
                         <label for="project_cost" class="">Cost </label>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 ln_ht12">
                         <label for="Location" class="">Location </label>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 ln_ht12">
                         <label for="PHI" class="">PHI </label>
                         <input name="phi" id="#phi" type="number" class="frozen_pane"/>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 ln_ht12">
                         <label for="planned_start_date" class="">Planned Start Date </label>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 ln_ht12">
                         <label for="planned_end_date" class="">Planned End Date </label>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 ln_ht12">
                         <label for="actual_start_date" class="">Actual Start Date </label>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 ln_ht12">
                         <label for="progress" class="">Progress %</label>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 ln_ht12">
                         <label for="Financial" class="">Financial Progress %</label>
                         <input type="text"  id="financial_progress" class="frozen_pane" name="financial_progress">
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 ln_ht12">
                         <label for="last_monitoring" class="">Last Monitoring Date </label>
                     </div>
-                
+
                 </div>
         </div>
     </div>
@@ -118,7 +121,7 @@
                                                 <div class="form-group row">
                                                     <div class="col-md-1 col-sm-1">
                                                     </div>
-        
+
                                                     <div class="col-md-4 col-sm-2">
                                                         <div class="card summary-card bg-new">
                                                             <div class="card-header"></div>
@@ -141,10 +144,10 @@
                                                             </div>
                                                         </div>
                                                     </div>
-        
-        
+
+
                                                     <div class="col-md-1 col-sm-1"></div>
-        
+
                                                     <div class="col-md-4 col-sm-2">
                                                         <div class="card summary-card bg-new">
                                                             <div class="card-header"></div>
@@ -167,17 +170,17 @@
                                                             </div>
                                                         </div>
                                                     </div>
-        
-        
-        
+
+
+
                                                     <div class="col-md-1 col-sm-1">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <div class="col-md-1 col-sm-1">
                                                     </div>
-        
-        
+
+
                                                     <div class="col-md-4 col-sm-2">
                                                         <div class="card summary-card bg-new">
                                                             <div class="card-header"></div>
@@ -200,11 +203,11 @@
                                                             </div>
                                                         </div>
                                                     </div>
-        
-        
-        
+
+
+
                                                     <div class="col-md-1 col-sm-1"></div>
-        
+
                                                     <div class="col-md-4 col-sm-2">
                                                         <div class="card summary-card bg-new">
                                                             <div class="card-header"></div>
@@ -226,13 +229,13 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-        
+
                                                     </div>
-        
-        
+
+
                                                     <div class="col-md-1 col-sm-1">
                                                     </div>
-        
+
                                                 </div>
                                             </fieldset>
                                         </div>
@@ -295,11 +298,11 @@
                                                                                 <option value='kpi_16'>kpi 16</option>
                                                                             </select>
                                                                         </div>
-        
+
                                                                         {{-- <div class="col-md-2 offset-md-1"><button class="btn btn-sm btn-success"
                                                                                 style="font-size: 20px;" id="add-more">+</button></div>
                                                                         --}}
-        
+
                                                                     </div>
                                                                 </div>
                                                                 <div class="card-footer">
@@ -310,13 +313,13 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-        
+
                                                         <div class="tab-pane " id="activities" role="tabpanel" aria-expanded="false"
                                                             style="display:none;">
                                                             <div class="card">
                                                                 <div class="card-header"></div>
                                                                 <div class="card-block">
-                                                                    
+
                                                                     <div class="row form-group">
                                                                         <div class="col-md-10 offset-md-1 planMactivities">
                                                                             <div class="row form-group">
@@ -326,19 +329,19 @@
                                                                             <div class="row form-group">
                                                                             <div class="col-md-4 offset-md-1"><button class="btn btn-sm btn-warning" type="button" id="add_activity" name="add_activity"> Add Activities</button></div>
                                                                             </div>
-                                                                           
-                                                                        
+
+
                                                                          </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="card-footer">
                                                                         <div class="col-md-3 offset-md-9">
-                                                                            <a class="btn btn-success btn-md saveNnextbtn" >Save & Next</a>       
+                                                                            <a class="btn btn-success btn-md saveNnextbtn" >Save & Next</a>
                                                                         </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-        
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -352,7 +355,7 @@
                                                             <a class="nav-link active financial" data-toggle="tab" href="#financial"
                                                                 role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Financial</b></a>
                                                         </li>
-                                                        
+
                                                         <li class="nav-item">
                                                             <a class="nav-link quality_assesment" data-toggle="tab" href="#quality_assesment"
                                                                 role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Quality
@@ -399,38 +402,38 @@
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>ADP Allocation of Fiscal Year :</b></label>
                                                                                 <br>
-                                                                                <input type="text" class="form-control" name="ADP_allocation_cost" id="ADP_allocation_cost" />                                                                            
+                                                                                <input type="text" class="form-control" name="ADP_allocation_cost" id="ADP_allocation_cost" />
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>Total Allocation by that time (Cumulative):</b></label>
                                                                                 <br>
-                                                                                <input type="text" class="form-control" name="ADP_allocation_cost" id="ADP_allocation_cost" />                                                                            
+                                                                                <input type="text" class="form-control" name="ADP_allocation_cost" id="ADP_allocation_cost" />
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>Utilization Against Cost Allocation :</b></label>
                                                                                 <br>
                                                                             <input type="text" class="form-control" name="utilization_allocation" id="utilization_allocation" />
-                                                                                                                                                            
+
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-4 ">
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>Release To Date of Fiscal Year :</b></label>
                                                                                 <br>
-                                                                                <input type="text" class="form-control" name="release_to_date" id="release_to_date" />                                                                            
+                                                                                <input type="text" class="form-control" name="release_to_date" id="release_to_date" />
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>Total Releases To Date :</b></label>
                                                                                 <br>
-                                                                                <input type="text" class="form-control" name="total_release_to_date" id="total_release_to_date" />                                                                            
+                                                                                <input type="text" class="form-control" name="total_release_to_date" id="total_release_to_date" />
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>Utilization Against Releases :</b></label>
                                                                                 <br>
-                                                                                <input type="text" class="form-control" name="u_against_rel" id="u_against_rel" />                                                                                   
+                                                                                <input type="text" class="form-control" name="u_against_rel" id="u_against_rel" />
                                                                             </div>
                                                                         </div>
-                                                                        
+
                                                                     </div>
                                                                     <div class="row">
                                                                         <div class="col-md-10 offset-md-1">
@@ -443,7 +446,7 @@
                                                                                 <label for="" class="col-form-label"><b>Technical Sanction :</b></label>
                                                                                 <br>
                                                                                 <input class="form-control" type="text" name="ts"  placeholder="Select your date" />
-                                                                            </div> 
+                                                                            </div>
                                                                             <div class="form-group">
                                                                                     <label for="" class="col-form-label"><b>Contract Award Date :</b></label>
                                                                                     <br>
@@ -452,33 +455,33 @@
                                                                         <div class="form-group">
                                                                             <label for="" class="col-form-label"><b>Actual Start Date :</b></label>
                                                                             <br>
-                                                                            <input class="form-control" type="text" name="asd" placeholder="Select your date" />                                                                   
+                                                                            <input class="form-control" type="text" name="asd" placeholder="Select your date" />
                                                                         </div>
-                                                                        
-                                                                        
+
+
                                                                        </div>
                                                                        <div class="col-md-4 offset-md-2">
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>Technical Sanction Cost:</b></label>
                                                                                 <br>
-                                                                                <input class="form-control" type="text" name="ts_cost" placeholder="TS Cost" />                                                                   
+                                                                                <input class="form-control" type="text" name="ts_cost" placeholder="TS Cost" />
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>Contract Award Cost :</b></label>
                                                                                 <br>
                                                                                 <input class="form-control" type="text" name="cad_cost"  placeholder="Contract Cost" />
                                                                             </div>
-                                                                            
+
                                                                            </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="card-footer">
                                                                     <div class="col-md-3 offset-md-9">
-                                                                        <a class="btn btn-success btn-md saveNnextbtn physical" >Save & Next</a>       
+                                                                        <a class="btn btn-success btn-md saveNnextbtn physical" >Save & Next</a>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>           
+                                                        </div>
                                                         <div class="tab-pane" id="quality_assesment" role="tabpanel"
                                                             aria-expanded="false">
                                                             <div class="card z-depth-right-0">
@@ -498,7 +501,7 @@
                                                                                     <option value="3" >Component 3</option>
                                                                                 </select>
                                                                           </div>
-                                                                         
+
                                                                         </div>
                                                                       </div>--}}
                                                                       <div class="row oneComponentQA">
@@ -506,9 +509,9 @@
                                                                                 To assess quality of components, press here. <button class="btn btn-sm btn-primary" id="add_more_component" name="add_more_component[]" type="button"><span><i class="fa fa-plus"></i></span></button>
                                                                           </div>
                                                                       </div>
-                                                                     
+
                                                                     </div>
-                                                                </div> 
+                                                                </div>
                                                                     {{--  --}}
                                                                 <div class="card z-depth-right-0">
                                                                 <div class="card-header">
@@ -520,11 +523,11 @@
                                                                         <div class="col-md-1">
                                                                             <b><label for="">1 </label></b>
                                                                         </div>
-        
+
                                                                         <div class="col-md-5">
                                                                             <b><label for="">Test Performed ?</label></b>
                                                                         </div>
-        
+
                                                                         <div class="col-md-1">
                                                                             <button class="btn btn-success btn-sm btn-outline-success">
                                                                                 YES</button>
@@ -540,11 +543,11 @@
                                                                         <div class="col-md-1">
                                                                             <b><label for="">2 </label></b>
                                                                         </div>
-        
+
                                                                         <div class="col-md-5">
                                                                             <b><label for="">Adequate Test Results</label></b>
                                                                         </div>
-        
+
                                                                         <div class="col-md-1">
                                                                             <button class="btn btn-success btn-sm btn-outline-success">
                                                                                 YES</button>
@@ -560,11 +563,11 @@
                                                                         <div class="col-md-1">
                                                                             <b><label for="">3 </label></b>
                                                                         </div>
-        
+
                                                                         <div class="col-md-5">
                                                                             <b><label for="">Onsite Labs Established</label></b>
                                                                         </div>
-        
+
                                                                         <div class="col-md-1">
                                                                             <button class="btn btn-success btn-sm btn-outline-success">
                                                                                 YES</button>
@@ -580,11 +583,11 @@
                                                                         <div class="col-md-1">
                                                                             <b><label for="">4 </label></b>
                                                                         </div>
-        
+
                                                                         <div class="col-md-5">
                                                                             <b><label for="">Overall Quality Good?</label></b>
                                                                         </div>
-        
+
                                                                         <div class="col-md-1">
                                                                             <button class="btn btn-success btn-sm btn-outline-success">
                                                                                 YES</button>
@@ -636,7 +639,7 @@
                                                                                         <th>Contact #</th>
                                                                                         <th>Email </th>
                                                                                         <th>Action</th>
-        
+
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody id="stakeholders">
@@ -654,18 +657,18 @@
                                                                                         <td><button type="button" name="add[]"
                                                                                                 class=" form-control btn btn-success "
                                                                                                 id="add-more" style="size:14px;">+</button></td>
-        
+
                                                                                     </tr>
-        
-        
+
+
                                                                                 </tbody>
-        
+
                                                                             </table>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-        
+
                                                         </div>
                                                         <div class="tab-pane active" id="issues" role="tabpanel" aria-expanded="true">
                                                             <div class="card z-depth-right-0">
@@ -685,7 +688,7 @@
                                                                                     <th>Issues</th>
                                                                                     <th>Severity</th>
                                                                                     <th>Responsible</th>
-        
+
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody>
@@ -699,7 +702,7 @@
                                                                                             <option value="3">Medium</option>
                                                                                             <option value="4">Low</option>
                                                                                             <option value="5">Very Low</option>
-        
+
                                                                                         </select>
                                                                                     </td>
                                                                                     <td>
@@ -715,7 +718,7 @@
                                                                                             <option value="3">Medium</option>
                                                                                             <option value="4">Low</option>
                                                                                             <option value="5">Very Low</option>
-        
+
                                                                                         </select>
                                                                                     </td>
                                                                                     <td>
@@ -731,7 +734,7 @@
                                                                                             <option value="3">Medium</option>
                                                                                             <option value="4">Low</option>
                                                                                             <option value="5">Very Low</option>
-        
+
                                                                                         </select>
                                                                                     </td>
                                                                                     <td>
@@ -747,7 +750,7 @@
                                                                                             <option value="3">Medium</option>
                                                                                             <option value="4">Low</option>
                                                                                             <option value="5">Very Low</option>
-        
+
                                                                                         </select>
                                                                                     </td>
                                                                                     <td>
@@ -763,7 +766,7 @@
                                                                                             <option value="3">Medium</option>
                                                                                             <option value="4">Low</option>
                                                                                             <option value="5">Very Low</option>
-        
+
                                                                                         </select>
                                                                                     </td>
                                                                                     <td>
@@ -779,7 +782,7 @@
                                                                                             <option value="3">Medium</option>
                                                                                             <option value="4">Low</option>
                                                                                             <option value="5">Very Low</option>
-        
+
                                                                                         </select>
                                                                                     </td>
                                                                                     <td>
@@ -834,7 +837,7 @@
                                                                                         <th class="bg_yel" rowspan="1" colspan="6">
                                                                                             before migration
                                                                                         </th>
-        
+
                                                                                         <th class="bg_sky noborbottom" rowspan="2"
                                                                                             colspan="1">
                                                                                             Risk owner
@@ -880,7 +883,7 @@
                                                                                     </tr>
                                                                                 </tbody>
                                                                             </table>
-        
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -907,7 +910,7 @@
                                                                                         <th>Yes</th>
                                                                                         <th>No</th>
                                                                                         <th>Comments</th>
-        
+
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody id="stakeholders">
@@ -915,7 +918,7 @@
                                                                                         <td>1.</td>
                                                                                         <td>Do workers have a safe route to
                                                                                             their place of work?</td>
-        
+
                                                                                         <td>
                                                                                             <div class="checkbox-fade fade-in-success m-0">
                                                                                                 <label>
@@ -937,15 +940,15 @@
                                                                                                 </label>
                                                                                             </div>
                                                                                         </td>
-        
+
                                                                                         <td>Lorem, ipsum dolor sit amet
                                                                                             consectetur adipisicing elit.
                                                                                             Quaerat, tempore?</td>
                                                                                     </tr>
-        
-        
+
+
                                                                                 </tbody>
-        
+
                                                                             </table>
                                                                         </div>
                                                                     </div>
@@ -955,21 +958,21 @@
                                                         {{-- <div class="tab-pane active" id="procurment" role="tabpanel"
                                                             aria-expanded="true">
                                                         </div> --}}
-        
+
                                                     </div>
                                                 </div>
-        
+
                                             </div>
 
                                             {{-- <button type="button" class="btn btn-success alert-success-msg m-b-10" style=" margin-left: 80%;">Submit
                                                 Monitoring</button> --}}
-        
-        
+
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
-        
+
                         </div>
                         <!-- Form Basic Wizard card end -->
                     </div>
@@ -1049,7 +1052,7 @@
                     </div>
                 </div>
             </div>
-        
+
         </div>
 @endsection
 @section("js_scripts")
