@@ -525,18 +525,10 @@ class ComposerStaticInit55c1f85fd9fa01a6cf3b909416bd240d
         'App\\TripType' => __DIR__ . '/../..' . '/app/TripType.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'App\\UserDetail' => __DIR__ . '/../..' . '/app/UserDetail.php',
-<<<<<<< HEAD
         'App\\Vehicle' => __DIR__ . '/../..' . '/app/Vehicle.php',
         'App\\VehicleDocuments' => __DIR__ . '/../..' . '/app/VehicleDocuments.php',
         'App\\VehicleType' => __DIR__ . '/../..' . '/app/VehicleType.php',
         'App\\site_visit' => __DIR__ . '/../..' . '/app/site_visit.php',
-=======
-        'App\\vmis_Driver' => __DIR__ . '/../..' . '/app/vmis_Driver.php',
-        'App\\vmis_DriverDocument' => __DIR__ . '/../..' . '/app/vmis_DriverDocument.php',
-        'App\\vmis_Vehicle' => __DIR__ . '/../..' . '/app/vmis_Vehicle.php',
-        'App\\vmis_VehicleDocument' => __DIR__ . '/../..' . '/app/vmis_VehicleDocument.php',
-        'App\\vmis_VehicleType' => __DIR__ . '/../..' . '/app/vmis_VehicleType.php',
->>>>>>> e45532ff36d6ae65998bee5e11f5b3f51c185971
         'ArithmeticError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
         'AssertionError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',

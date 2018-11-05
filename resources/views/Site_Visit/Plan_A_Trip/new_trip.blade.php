@@ -86,6 +86,10 @@
     .col-md-12{border-radius: 5px !important;}
     .select2-container{border: 1px solid #77777714 !important; border-radius: 5px;}
     .select2-container--default .select2-selection--multiple{border: none !important;}
+    .dlt_btn{display: none;width: fit-content;float: right;font-size: 20px;color: #777;padding: 0px 13px 0px 9px !important;line-height: 30px;font-weight: 900;letter-spacing: -4px;border: 1px solid transparent;border-radius: 50%;}
+    .dlt_btn:hover {color: #e65a5a;transition: all 900ms ease;border: 1px solid #e65a5a;border-radius: 50%;}
+    .pointer{cursor: pointer;}
+    .btn{border-radius: 5px !important;}
 </style>
 @endsection
 @section('content')
@@ -96,7 +100,7 @@
             </select>
             <div class="local">
                     <div class="col-md-12">
-                            <div class="form-radio">
+                        <div class="form-radio">
                                     <div class="radio radio-outline radio-inline" >
                                         <label>
                                             <input type="radio" class="sinpurpose" name="radio" checked="checked">
@@ -112,6 +116,9 @@
                             </div>
                         </div>
                     <div id="clonethisproposal_1" class="w3-animate-top">
+                      <div class="dlt_btn pointer">
+                        ---
+                      </div>
                         <div class="col-md-12 inlinebox">
                             <div class="col-md-2 nopaddinglef">
                                 <select id="reason_1" name="select" class="form-control form-control-default reason nopaddingright">
@@ -334,7 +341,8 @@
                     </div>
                     <div class="addclonehere"></div>
                     <div class="form-group">
-                        <div class="nodisplay addnewproposal btn btn-primary btn-outline-primary btn-block w3-animate-bottom"><i class="icofont icofont-plus"></i>Add purpose</div>
+                        {{-- <button class=""><i class="icofont icofont-exchange"></i>Inverse Button</button> --}}
+                        <div class="nodisplay addnewproposal btn-block w3-animate-bottom btn btn-inverse btn-outline-inverse"><i class="icofont icofont-plus"></i>Add purpose</div>
                     </div>
                     <div class="form-group">
                         <button class="btn btn-primary btn-block"><i class="icofont icofont-user-alt-3"></i>Submit</button>
@@ -377,6 +385,9 @@
                   </div>
                   {{-- start roundtrip --}}
                   <div id="roundtripp_1">
+                    <div class="dlt_btn pointer">
+                      ---
+                    </div>
                     <div class="col-md-12 inlinebox">
                       <div class="col-md-2 nopadlefright">
                           <select id="reasonroundtrip" name="select" class="form-control reasonroundtrip form-control-default">
@@ -413,7 +424,9 @@
                       </div>
                 </div>
                 <div id='multicitycloneadd'>
-
+                  <div class="dlt_btn pointer">
+                    ---
+                  </div>
 
                 <label for="">Location</label>
                 <div class="col-md-12 inlinebox">
@@ -687,7 +700,7 @@
 
                   </div>
                   <div class="form-group" onclick="addCity(this)">
-                      <div class="nodisplay addnewmulcityout btn btn-primary btn-outline-primary btn-block"  ><i class="icofont icofont-plus"></i>Add City</div>
+                      <div class="nodisplay btn btn-info btn-outline-info addnewmulcityout btn-block"  ><i class="icofont icofont-plus"></i>Add City</div>
                   </div>
 
                   {{-- end roundtrip --}}
@@ -700,7 +713,7 @@
 
 
                   <div class="form-group" onclick="addPurpose(this)">
-                      <div class="addnewproposoutcity nodisplay btn btn-primary btn-outline-primary btn-block"><i class="icofont icofont-plus"></i>Add Purpose</div>
+                      <div class="addnewproposoutcity nodisplay btn btn-inverse btn-outline-inverse btn-block"><i class="icofont icofont-plus"></i>Add Purpose</div>
                   </div>
                   <div class="form-group">
                       <button class="btn btn-primary btn-block"><i class="icofont icofont-user-alt-3"></i>Submit</button>
@@ -743,7 +756,7 @@
     `
 
     var prcl = `
-    <div id="roundtripp_1" style="padding-top:3%;border-top:1px dotted #01a9ac;">
+    <div id="roundtripp_1" style="padding-top:3%;border-top:1px dotted #293141 !important;">
       <div class="col-md-12 inlinebox">
         <div class="col-md-2 nopadlefright">
             <select id="reasonroundtrip" name="select" class="form-control reasonroundtrip form-control-default">
@@ -779,7 +792,7 @@
             <input type="text" placeholder="Enter Description Here..."/>
         </div>
   </div>
-  <div id='multicitycloneadd'>
+  <div id='multicitycloneadd' style="">
 
 
   <label for="">Location</label>
@@ -1054,7 +1067,7 @@
 
     </div>
     <div class="form-group" onclick="addCity(this)">
-        <div class="nodisplay addnewmulcityout btn btn-primary btn-outline-primary btn-block"  ><i class="icofont icofont-plus"></i>Add City</div>
+        <div class="nodisplay addnewmulcityout btn btn-info btn-outline-info btn-block"  ><i class="icofont icofont-plus"></i>Add City</div>
     </div>
 
     {{-- end roundtrip --}}
@@ -1084,8 +1097,8 @@
         var add = $(e).siblings('.addroundclonehere')
         var clone = $('#multicitycloneadd').clone()
         if(city_id2++ % 2 == 1){
-            clone.addClass('bg')
-            console.log('testing')
+            clone.addClass('bg').css("border-top", "1px dotted #19a7ba")
+            // console.log('testing')
           }
         clone.find("#thishit").remove()
         clone.append(cl);
@@ -1121,14 +1134,13 @@
       $(this).parent().parent().find('#gsrowround').attr('style','display:contents !important').show('slow')
     }
   })
-
     $(function () {
           //Initialize Select2 Elements
           $('.yeselect').select2();
           $(".js-multiple").select2();
     });
     $(document).on('click','.addnewproposal',function(){
-        var clone = $('#clonethisproposal_1').clone().attr('id','clonethisproposal_'+ ++purpose_id).css({'border-top': '1px solid #01a9ac', 'padding-top': '3%'})
+        var clone = $('#clonethisproposal_1').clone().attr('id','clonethisproposal_'+ ++purpose_id).css({'border-top': '1px solid #293141', 'padding-top': '1%'})
         if(purpose_id % 2 == 0)
             clone.addClass('bg')
         // clone.children().find('#gsrow_'+(purpose_id-1)).attr('id','gsrow_'+purpose_id)
@@ -1139,6 +1151,11 @@
         clone.append(cl);
         $(".js-multiple").select2();
         clone.find('.date').datepicker()
+        $(".dlt_btn").css("display", "block");
+    });
+    $(document).on("click", ".dlt_btn", function() {
+      $(this).parent().remove()
+        // $(this).closest(".box").remove();
     });
     // start append round
     $(document).on('click','.addnewroundproposal',function(){
@@ -1162,6 +1179,7 @@
     });
     $(document).on('click','.multipurposeout',function(){
       $('.addnewproposoutcity').show();
+      $(".dlt_btn").show();
     });
       $(document).on('click','.sinpurposeout',function(){
         $('.addnewproposoutcity').hide();

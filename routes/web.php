@@ -22,16 +22,10 @@ Route::get('/predashboard',function(){
 });
 
 // EvaluationDashbaord
-<<<<<<< HEAD
-//Route::get('/dashboard',function(){
-//  return view('dashboard');
-//});
-=======
 // Route::get('/dashboard',function(){
 //   return view('dashboard');
 // })->name("evaluation_dashboard");
 
->>>>>>> e45532ff36d6ae65998bee5e11f5b3f51c185971
 // MonitoringDashbaord
 Route::get('/monitoring_dashboard',function(){
   return view('monitoring_dashboard');
@@ -150,8 +144,8 @@ Route::prefix('director_Monitor')->middleware('role:directormonitoring')->group(
     Route::get('/monitoring_inprogress','DirectorMonitoringController@monitoring_inprogressprojects')->name('Monitoring_inprogress_projects');
     Route::get('/monitoring_complete','DirectorMonitoringController@monitoring_completeprojects')->name('Monitoring_complete_projects');
     Route::get('/monitoring_assigntoconsultant','ProjectAssignController@DPM_AssignToConsultant')->name('Monitoring_assignToconsultant');
-    
-    
+
+
 });
 Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
 
@@ -174,14 +168,12 @@ Route::prefix('officer')->middleware('role:officer')->group(function () {
   Route::post('/review_form','OfficerController@review_forms')->name('review_forms');
   Route::post('/AssignActivityDocuments','OfficerController@AssignActivityDocument')->name('AssignActivityDocument');
   Route::post('/saveActivityAttachment','OfficerController@saveActivityAttachment')->name('saveActivityAttachment');
-<<<<<<< HEAD
+
   Route::get('/new_trip','SiteVisitController@create')->name('new_trip');
   Route::get('/view_trips','SiteVisitController@view')->name('view_trips');
   Route::get('/new_tripbackup','SiteVisitController@create')->name('new_tripbackup');
 
-=======
   Route::post('/saveDocAttachment','OfficerController@saveDocAttachments')->name('saveDocAttachment');
->>>>>>> e45532ff36d6ae65998bee5e11f5b3f51c185971
 
   // Monitoring Module Routes
   Route::get('/monitoring_newAssignment','OfficerController@monitoring_newAssignments')->name('Monitoring_newAssignments');
@@ -233,17 +225,13 @@ Route::group(['middleware'=>['permission:can.problematicremark']],function(){
 });
 // Route::group(['middleware' => ['permission:can.edit.project|can.view.project']],function(){
 // });
-<<<<<<< HEAD
+
 
 //TO
 Route::prefix('to')->middleware('role:to')->group(function () {
 
 });
 Route::get('/dashboard',"HomeController@dashboard")->name("evaluation_dashboard");
-
-=======
-Route::get('/dashboard',"HomeController@dashboard")->name("evaluation_dashboard");
->>>>>>> e45532ff36d6ae65998bee5e11f5b3f51c185971
 
 Route::post('/printerfunction','AdminHumanResourceController@printer');
 
