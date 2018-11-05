@@ -205,14 +205,16 @@ class OfficerController extends Controller
       }
       if($PreassignedDocumentsCount)
       {
-        $assigned_project_activity = AssignedProjectActivity::find($request->assigned_activity_id);
-        $prev_prog=$assigned_project_activity->progress;
-        $LatestassignedDocumentsCount=AssignedActivityDocument::where('assigned_project_id',$request->assigned_project_id)->count(); //
-        $temp=$prev_prog/(100/$PreassignedDocumentsCount);
-        $New=100/($LatestassignedDocumentsCount);
-        $newprogress=($New*$temp);
-        $assigned_project_activity->progress=round($newprogress,0,PHP_ROUND_HALF_UP );
-        $assigned_project_activity->save();
+        for ($i=0; $i <3 ; $i++) {
+          $assigned_project_activity = AssignedProjectActivity::find($request->assigned_activity_id+$i);
+          $prev_prog=$assigned_project_activity->progress;
+          $LatestassignedDocumentsCount=AssignedActivityDocument::where('assigned_project_id',$request->assigned_project_id)->count(); //
+          $temp=$prev_prog/(100/$PreassignedDocumentsCount);
+          $New=100/($LatestassignedDocumentsCount);
+          $newprogress=($New*$temp);
+          $assigned_project_activity->progress=round($newprogress,0,PHP_ROUND_HALF_UP );
+          $assigned_project_activity->save();
+        }
       }
       return redirect()->back();
     }

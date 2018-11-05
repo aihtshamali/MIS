@@ -207,15 +207,15 @@ vertical-align: super;
       </div>
       <label class="col-sm-1" style="font-size:20px">/</label>
       <div class="col-sm-4">
-        {{-- <input type="number" id="ADP" name="ADP" class="form-control" placeholder="GS #" required> --}}
-        <select class="form-control  select2 " name="adp_no[]" id="adp">
-          <option value="" selected>Select GS #</option>
-          <?php $counting = 0?>
-          @foreach ($adp as $a)
-              <option value="{{$a->gs_no}},<?php echo $counting?>">{{$a->gs_no}}</option>
-              <?php $counting += 1?>
-          @endforeach
-        </select>
+        <input type="text" id="adp" name="adp_no" class="form-control" placeholder="GS #" required>
+        {{-- <select class="form-control  select2 " name="adp_no[]" id="adp"> --}}
+          {{-- <option value="" selected>Select GS #</option> --}}
+          {{-- <php $counting = 0?> --}}
+          {{-- @foreach ($adp as $a) --}}
+              {{-- <option value="{{$a->gs_no}}">{{$a->gs_no}}</option> --}}
+              {{-- <php $counting += 1?> --}}
+          {{-- @endforeach --}}
+        {{-- </select> --}}
       </div>
     </div>
     <div class="form-group">
@@ -459,8 +459,8 @@ vertical-align: super;
     </div>
   </div>
   <div class="form-group">
-    <label id="label_summary_ADP" style="display:none;" class="col-sm-6 control-label">GS #</label>
-    <div id="summary_ADP" class="col-sm-6">
+    <label id="label_summary_adp" style="display:none;" class="col-sm-6 control-label">GS #</label>
+    <div id="summary_adp" class="col-sm-6">
     </div>
   </div>
   <div class="form-group">
@@ -564,17 +564,55 @@ vertical-align: super;
   <script type="text/javascript" src="{{asset('bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')}}"></script>
 {{-- <script src="{{asset('js/AdminLTE/bootstrap-datepicker.min.js')}}"></script> --}}
 <script>
- $(document).on('change','#adp',function(){
-    var arr = $(this).val().split(',')
-    if($('#financial_year').val() == projects[arr[1]].financial_year){
-      $('#titleproject').val(projects[arr[1]].name_of_scheme);
-      $('#original_cost').val(parseFloat(projects[arr[1]].total_cost).toFixed(3));
-      $("#districts").val($("#districts option").filter(function () { return $(this).html() == projects[arr[1]].district; }).val());
+ $(document).on('change','#adp,#financial_year',function(){
+    var arr = $(this).val();
+
+    if($(this).attr('id') == 'adp' && $('#financial_year').val() == projects[arr].financial_year){
+      $('#titleproject').val(projects[arr].name_of_scheme);
+      $('#summary_title').empty();
+      $('#label_summary_title').show('slow');
+      $('#summary_title').append("<label class=\"control-label\">"+$('#titleproject').val()+"</label>");
+
+      $('#original_cost').val(parseFloat(projects[arr].total_cost).toFixed(3));
+      $('#summary_original_cost').empty();
+      $('#label_summary_original_cost').show();
+      $('#summary_original_cost').append("<label class=\"control-label\">"+$('#original_cost').val()+"</label>");
+
+      $('#summary_districts').empty();
+      $("#districts").val($("#districts option").filter(function () { return $(this).html() == projects[arr].district; }).val());
+      $("#districts").select2();
+      values = $('#districts').find(':selected').text();
+      $("#label_summary_districts").show('slow');
+      $("#summary_districts").append("<label class=\"control-label\">"+values+"</label>");
     }
     else{
       $('#titleproject').val('');
       $('#original_cost').val('');
       $("#districts").val('').trigger('change');
+      $('#summary_districts').empty();
+      $('#summary_original_cost').empty();
+      $('#summary_title').empty();
+
+      var arr = $('#adp').val();
+      if(arr != "")
+      if($(this).attr('id') == 'financial_year' && $('#financial_year').val() == projects[arr].financial_year){
+      $('#titleproject').val(projects[arr].name_of_scheme);
+      $('#summary_title').empty();
+      $('#label_summary_title').show('slow');
+      $('#summary_title').append("<label class=\"control-label\">"+$('#titleproject').val()+"</label>");
+
+      $('#original_cost').val(parseFloat(projects[arr].total_cost).toFixed(3));
+      $('#summary_original_cost').empty();
+      $('#label_summary_original_cost').show();
+      $('#summary_original_cost').append("<label class=\"control-label\">"+$('#original_cost').val()+"</label>");
+
+      $('#summary_districts').empty();
+      $("#districts").val($("#districts option").filter(function () { return $(this).html() == projects[arr].district; }).val());
+      $("#districts").select2();
+      values = $('#districts').find(':selected').text();
+      $("#label_summary_districts").show('slow');
+      $("#summary_districts").append("<label class=\"control-label\">"+values+"</label>");
+    }
     }
 });
 
@@ -648,6 +686,10 @@ $('input').on('change',function(){
     $("#label_summary_" + class_value).show("slow");
   }
   $("#summary_"+class_value).empty();
+  if(class_value == 'adp'){
+    $("#summary_"+class_value).append("<label class=\"control-label\">"+$('#financial_year').val()+"/"+opt+"</label>");
+  }
+  else
   $("#summary_"+class_value).append("<label class=\"control-label\">"+opt+"</label>");
 });
 
@@ -697,9 +739,10 @@ $('input').on('input',function(){
     $("#label_summary_" + class_value).show("slow");
   }
   $("#summary_"+class_value).empty();
-  if(class_value == "ADP"){
-    $("#summary_"+class_value).append("<label class=\"control-label\">"+{{$current_year}}+"-</label>");
+  if(class_value == "adp"){
+    $("#summary_"+class_value).append("<label class=\"control-label\">"+$('#financial_year').val()+"/"+opt+"</label>");
   }
+  else
   $("#summary_"+class_value).append("<label class=\"control-label\">"+opt+"</label>");
 });
 

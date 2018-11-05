@@ -413,7 +413,7 @@
                                   @endphp
                                 @endforeach
                                 @if($activity->progress < 25.0  && $activity->ProjectActivity->id < 7 && $activity->ProjectActivity->id > 3  &&  $activity->ProjectActivity->name!='Site Visits')
-                                  @if (($activities[$activity_count-1]->progress >= 100 || ($activity->ProjectActivity->id==6 && $activities[$activity_count-3]->progress>=50)) && $activity->progress < 25 )
+                                  @if (($activities[$activity_count-1]->progress >= 100 || ($activity->ProjectActivity->id==6 && $activities[$activity_count-4]->progress>=50)) && $activity->progress < 25 )
                                     <a class="btn" id="myDiv" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},25)'>Save</button>">
                                   @else
                                     <a class="btn"  disabled>
@@ -555,10 +555,17 @@
           <input type="hidden" id="modal_assigned_activity_id" name="assigned_activity_id">
         @foreach ($activity_documents as $docs)
           <div>
-            <input type="checkbox" name="activity_document_id[]" value="{{$docs->id}}">
-            <label for="">
-              {{$docs->name}}
-            </label>
+            @if(isset($assignedDocuments->where('activity_document_id',$docs->id)->first()->id))
+              <input type="checkbox" name="activity_document_id[]" checked disabled value="{{$docs->id}}">
+              <label for="" disabled>
+                {{$docs->name}}
+              </label>
+            @else
+              <input type="checkbox" name="activity_document_id[]"  value="{{$docs->id}}">
+              <label for="">
+                {{$docs->name}}
+              </label>
+            @endif
           </div>
         @endforeach
 
