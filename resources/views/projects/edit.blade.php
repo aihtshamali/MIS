@@ -95,16 +95,16 @@ vertical-align: super;
       <div class="col-sm-3">
         <select class="form-control  select2" name="financial_year" id="financial_year">
           <option value="2017-18">2017-18</option>
-        @for($i = 2 ; $i <= 30 ; $i++)
-          @if($i == 9)
-            <option value="200{{$i}}-{{$i+1}}">200{{$i}}-{{$i+1}}</option>
-          @elseif($i > 9)
-            <option value="20{{$i}}-{{$i+1}}">20{{$i}}-{{$i+1}}</option>
-          @else
-            <option value="200{{$i}}-0{{$i+1}}">200{{$i}}-0{{$i+1}}</option>
-          @endif
-        @endfor
-  </select>
+            @for($i = 2 ; $i <= 30 ; $i++)
+              @if($i == 9)
+                <option value="200{{$i}}-{{$i+1}}">200{{$i}}-{{$i+1}}</option>
+              @elseif($i > 9)
+                <option value="20{{$i}}-{{$i+1}}">20{{$i}}-{{$i+1}}</option>
+              @else
+                <option value="200{{$i}}-0{{$i+1}}">200{{$i}}-0{{$i+1}}</option>
+              @endif
+            @endfor
+        </select>
         {{-- <input type="number" disabled class="form-control" value="{{$current_year}}"> --}}
       </div>
       <label class="col-sm-1" style="font-size:20px">-</label>
