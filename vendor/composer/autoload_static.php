@@ -456,30 +456,16 @@ class ComposerStaticInit55c1f85fd9fa01a6cf3b909416bd240d
         'App\\Http\\Controllers\\SiteVisitController' => __DIR__ . '/../..' . '/app/Http/Controllers/SiteVisitController.php',
         'App\\Http\\Controllers\\SponsorAgencyController' => __DIR__ . '/../..' . '/app/Http/Controllers/SponsorAgencyController.php',
         'App\\Http\\Controllers\\SubSectorController' => __DIR__ . '/../..' . '/app/Http/Controllers/SubSectorController.php',
-<<<<<<< HEAD
-        'App\\Http\\Controllers\\TofficerApprovalController' => __DIR__ . '/../..' . '/app/Http/Controllers/TofficerApprovalController.php',
-        'App\\Http\\Controllers\\TripLocationController' => __DIR__ . '/../..' . '/app/Http/Controllers/TripLocationController.php',
-        'App\\Http\\Controllers\\TripRequestController' => __DIR__ . '/../..' . '/app/Http/Controllers/TripRequestController.php',
-        'App\\Http\\Controllers\\TripTypeController' => __DIR__ . '/../..' . '/app/Http/Controllers/TripTypeController.php',
-        'App\\Http\\Controllers\\VehicleController' => __DIR__ . '/../..' . '/app/Http/Controllers/VehicleController.php',
-        'App\\Http\\Controllers\\VehicleDocumentsController' => __DIR__ . '/../..' . '/app/Http/Controllers/VehicleDocumentsController.php',
-        'App\\Http\\Controllers\\VehicleTypeController' => __DIR__ . '/../..' . '/app/Http/Controllers/VehicleTypeController.php',
-=======
         'App\\Http\\Controllers\\VmisDriverController' => __DIR__ . '/../..' . '/app/Http/Controllers/VmisDriverController.php',
         'App\\Http\\Controllers\\VmisVehicleController' => __DIR__ . '/../..' . '/app/Http/Controllers/VmisVehicleController.php',
         'App\\Http\\Controllers\\VmisVehicleDocumentController' => __DIR__ . '/../..' . '/app/Http/Controllers/VmisVehicleDocumentController.php',
         'App\\Http\\Controllers\\VmisVehicleTypeController' => __DIR__ . '/../..' . '/app/Http/Controllers/VmisVehicleTypeController.php',
->>>>>>> e45532ff36d6ae65998bee5e11f5b3f51c185971
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
-<<<<<<< HEAD
-        'App\\Issue' => __DIR__ . '/../..' . '/app/Issue.php',
-        'App\\Members' => __DIR__ . '/../..' . '/app/Members.php',
-=======
         'App\\MAssesment' => __DIR__ . '/../..' . '/app/MAssesment.php',
         'App\\MAssignedProjectHealthSafety' => __DIR__ . '/../..' . '/app/MAssignedProjectHealthSafety.php',
         'App\\MAssignedProjectIssue' => __DIR__ . '/../..' . '/app/MAssignedProjectIssue.php',
@@ -496,7 +482,6 @@ class ComposerStaticInit55c1f85fd9fa01a6cf3b909416bd240d
         'App\\MSeverity' => __DIR__ . '/../..' . '/app/MSeverity.php',
         'App\\MStakeHolder' => __DIR__ . '/../..' . '/app/MStakeHolder.php',
         'App\\MSubsequent' => __DIR__ . '/../..' . '/app/MSubsequent.php',
->>>>>>> e45532ff36d6ae65998bee5e11f5b3f51c185971
         'App\\MonitoringProjectActivity' => __DIR__ . '/../..' . '/app/MonitoringProjectActivity.php',
         'App\\Notification' => __DIR__ . '/../..' . '/app/Notification.php',
         'App\\Other' => __DIR__ . '/../..' . '/app/Other.php',
@@ -531,18 +516,10 @@ class ComposerStaticInit55c1f85fd9fa01a6cf3b909416bd240d
         'App\\TripType' => __DIR__ . '/../..' . '/app/TripType.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'App\\UserDetail' => __DIR__ . '/../..' . '/app/UserDetail.php',
-<<<<<<< HEAD
         'App\\Vehicle' => __DIR__ . '/../..' . '/app/Vehicle.php',
         'App\\VehicleDocuments' => __DIR__ . '/../..' . '/app/VehicleDocuments.php',
         'App\\VehicleType' => __DIR__ . '/../..' . '/app/VehicleType.php',
         'App\\site_visit' => __DIR__ . '/../..' . '/app/site_visit.php',
-=======
-        'App\\vmis_Driver' => __DIR__ . '/../..' . '/app/vmis_Driver.php',
-        'App\\vmis_DriverDocument' => __DIR__ . '/../..' . '/app/vmis_DriverDocument.php',
-        'App\\vmis_Vehicle' => __DIR__ . '/../..' . '/app/vmis_Vehicle.php',
-        'App\\vmis_VehicleDocument' => __DIR__ . '/../..' . '/app/vmis_VehicleDocument.php',
-        'App\\vmis_VehicleType' => __DIR__ . '/../..' . '/app/vmis_VehicleType.php',
->>>>>>> e45532ff36d6ae65998bee5e11f5b3f51c185971
         'ArithmeticError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
         'AssertionError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
