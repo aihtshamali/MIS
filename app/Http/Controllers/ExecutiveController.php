@@ -84,8 +84,10 @@ class ExecutiveController extends Controller
      ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
      ->whereNull('assigned_project_managers.project_id')
      ->whereNull('assigned_projects.project_id')
+     ->where('projects.project_type_id','1')
      ->get();
-      $assigned=AssignedProject::all();
+      $assigned=AssignedProject::where('complete','0')->get();
+      // dd($assigned);
       $assignedtoManager=AssignedProjectManager::all();
       $completed=AssignedProject::where('complete','1')->get();
       return view('executive.home.index',['unassigned'=>$unassigned,'completed'=>$completed,'assignedtoManager'=>$assignedtoManager,'assigned'=>$assigned]);
@@ -447,7 +449,7 @@ class ExecutiveController extends Controller
       // $per = array_search(Auth::id(),$person);
       // $current_score = round($total[$per],0,PHP_ROUND_HALF_UP);
       // $max_score = round($total[$maxs[0]],0,PHP_ROUND_HALF_UP);
-      
+
       // if($current_score == $max_score){
       //   $current_score = 100;
       // }
@@ -732,7 +734,7 @@ class ExecutiveController extends Controller
       ->whereNull('assigned_projects.project_id')
       ->where('projects.project_type_id','1')
       ->get();
-      
+
       $assigned=AssignedProject::all();
       $assignedtoManager=AssignedProjectManager::all();
       $projects=AssignedProject::all();
