@@ -3,11 +3,7 @@
 <head>
   <meta charset="utf-8">
 
-<<<<<<< HEAD
-  <title>@yield('title')</title>
-=======
   <title>DGME</title>
->>>>>>> e45532ff36d6ae65998bee5e11f5b3f51c185971
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
