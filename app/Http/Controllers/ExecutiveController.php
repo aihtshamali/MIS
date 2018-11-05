@@ -280,7 +280,7 @@ class ExecutiveController extends Controller
 
           $projects=ProjectDetail::all();
           $categories=array();
-          array_push($categories,'NULL');
+          array_push($categories,'NOT SET');
           array_push($categories,'NO');
           array_push($categories,'COST');
           array_push($categories,'STAFF');
@@ -684,6 +684,7 @@ class ExecutiveController extends Controller
           $CA = new DateTime(date('Y-m-d',strtotime($time->CA)));
           $OCA = new DateTime(date('Y-m-d',strtotime($time->OCA)));
           $FT = $OCA->diff($CA);
+          if($FT->format('%a') > 0){
           $time_sum += $FT->format('%a');
           if($loop == 0){
             $min = $FT->format('%a');
@@ -697,6 +698,7 @@ class ExecutiveController extends Controller
               $max = $FT->format('%a');
             }
           }
+        }
           $loop++;
         }
 
@@ -762,7 +764,7 @@ class ExecutiveController extends Controller
     public function SneWiseChart(){
       $projects=ProjectDetail::all();
       $categories=array();
-      array_push($categories,'NULL');
+      array_push($categories,'NOT SET');
       array_push($categories,'NO');
       array_push($categories,'COST');
       array_push($categories,'STAFF');
