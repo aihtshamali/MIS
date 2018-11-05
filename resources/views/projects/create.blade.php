@@ -564,11 +564,11 @@ vertical-align: super;
   <script type="text/javascript" src="{{asset('bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')}}"></script>
 {{-- <script src="{{asset('js/AdminLTE/bootstrap-datepicker.min.js')}}"></script> --}}
 <script>
- $(document).on('change','#adp',function(){
+ $(document).on('change','#adp,#financial_year',function(){
     var arr = $(this).val();
-    if($('#financial_year').val() == projects[arr].financial_year){
-      $('#titleproject').val(projects[arr].name_of_scheme);
 
+    if($(this).attr('id') == 'adp' && $('#financial_year').val() == projects[arr].financial_year){
+      $('#titleproject').val(projects[arr].name_of_scheme);
       $('#summary_title').empty();
       $('#label_summary_title').show('slow');
       $('#summary_title').append("<label class=\"control-label\">"+$('#titleproject').val()+"</label>");
@@ -589,6 +589,30 @@ vertical-align: super;
       $('#titleproject').val('');
       $('#original_cost').val('');
       $("#districts").val('').trigger('change');
+      $('#summary_districts').empty();
+      $('#summary_original_cost').empty();
+      $('#summary_title').empty();
+
+      var arr = $('#adp').val();
+      if(arr != "")
+      if($(this).attr('id') == 'financial_year' && $('#financial_year').val() == projects[arr].financial_year){
+      $('#titleproject').val(projects[arr].name_of_scheme);
+      $('#summary_title').empty();
+      $('#label_summary_title').show('slow');
+      $('#summary_title').append("<label class=\"control-label\">"+$('#titleproject').val()+"</label>");
+
+      $('#original_cost').val(parseFloat(projects[arr].total_cost).toFixed(3));
+      $('#summary_original_cost').empty();
+      $('#label_summary_original_cost').show();
+      $('#summary_original_cost').append("<label class=\"control-label\">"+$('#original_cost').val()+"</label>");
+
+      $('#summary_districts').empty();
+      $("#districts").val($("#districts option").filter(function () { return $(this).html() == projects[arr].district; }).val());
+      $("#districts").select2();
+      values = $('#districts').find(':selected').text();
+      $("#label_summary_districts").show('slow');
+      $("#summary_districts").append("<label class=\"control-label\">"+values+"</label>");
+    }
     }
 });
 
