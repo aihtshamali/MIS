@@ -54,15 +54,15 @@ class DirectorMonitoringController extends Controller
       //   ->whereNull('assigned_projects.project_id')
       //   ->get();
       // return view('Director.Monitoring.monitoring_projects.unassigned',compact('assigned','officers','projects','sectors','p'));
-      return view('Director.Monitoring.monitoring_projects.unassigned');
+      return view('_Monitoring._Director.unassigned');
     }
 
     public function monitoring_inprogressprojects()
     {
-      return view('Director.Monitoring.monitoring_projects.inprogress');
+      return view('_Monitoring._Director.inprogress');
     }
     public function monitoring_completeprojects()
     {
-      return view('Director.Monitoring.monitoring_projects.complete');
+      return view('_Monitoring._Director.completed');
     }
 }

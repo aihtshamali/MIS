@@ -519,6 +519,8 @@ $(document).ready(function() {
     });
     $('#simpletable3').DataTable();
 
+    $('#simpletable4').DataTable();
+
     $('#order-table').DataTable({
         "order": [
             [3, "desc"]

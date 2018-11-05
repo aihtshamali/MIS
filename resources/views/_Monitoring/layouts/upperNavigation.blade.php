@@ -130,14 +130,14 @@
                             <div class="dropdown-primary dropdown">
                                 <div class="displayChatbox dropdown-toggle" data-toggle="dropdown">
                                     <i class="feather icon-message-square"></i>
-                                    <span class="badge bg-c-green">3</span>
+                                    <span class="badge bg-c-green">0</span>
                                 </div>
                             </div>
                         </li>
                     <li class="user-profile header-notification">
                         <div class="dropdown-primary dropdown">
                             <div class="dropdown-toggle" data-toggle="dropdown">
-                                <img src={{asset('_monitoring/css/images/avatar-7.jpg')}} class="img-radius" alt="User-Profile-Image">
+                                <img src={{asset('_monitoring/css/images/avatar-0.jpg')}} class="img-radius" alt="User-Profile-Image">
                                 <span>
                                     @auth
                                     {{Auth::user()->first_name}} {{Auth::user()->last_name}}
@@ -301,6 +301,9 @@
 {{-- slim scroll --}}
 <script src="{{asset('_monitoring/js/jquery-slimscroll/js/jquery.slimscroll.js')}}"></script>
 <script src="{{asset('_monitoring/js/modernizr/js/modernizr.js')}}"></script>
+<script src="{{asset('_monitoring/js/modernizr/js/css-scrollbars.js')}}"></script>
+
+
 {{-- charts --}}
 <script src="{{asset('_monitoring/js/chart.js/js/Chart.js')}}"></script>
 <script src="{{asset('_monitoring/css/pages/widget/amchart/amcharts.js')}}"></script>

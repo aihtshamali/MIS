@@ -22,9 +22,16 @@ Route::get('/predashboard',function(){
 });
 
 // EvaluationDashbaord
+<<<<<<< HEAD
 //Route::get('/dashboard',function(){
 //  return view('dashboard');
 //});
+=======
+// Route::get('/dashboard',function(){
+//   return view('dashboard');
+// })->name("evaluation_dashboard");
+
+>>>>>>> e45532ff36d6ae65998bee5e11f5b3f51c185971
 // MonitoringDashbaord
 Route::get('/monitoring_dashboard',function(){
   return view('monitoring_dashboard');
@@ -98,8 +105,9 @@ Route::prefix('manager')->middleware('role:manager')->group(function () {
 
   // MONITORING MODULE
   Route::get('/m_unassignedprojects','ExecutiveController@monitoring_unassigned')->name('monitoring_unassigned');
-  // Route::get('/m_inprogressprojects','ExecutiveController@monitoring_inprogress')->name('monitoring_inprogress');
-  // Route::get('/m_completedprojects','ExecutiveController@monitoring_completed')->name('monitoring_completed');
+  Route::get('/m_assigntoconsultant','ProjectAssignController@assignToConsultant')->name('assign_To_consultant');
+  Route::get('/m_inprogressprojects','ExecutiveController@monitoring_inprogress')->name('monitoring_inprogress');
+  Route::get('/m_completedprojects','ExecutiveController@monitoring_completed')->name('monitoring_completed');
 
 });
 
@@ -141,7 +149,9 @@ Route::prefix('director_Monitor')->middleware('role:directormonitoring')->group(
     Route::get('/assignproject_M','ProjectAssignController@DPM_AssignToConsultant')->name('DPM_AssignToConsultant');
     Route::get('/monitoring_inprogress','DirectorMonitoringController@monitoring_inprogressprojects')->name('Monitoring_inprogress_projects');
     Route::get('/monitoring_complete','DirectorMonitoringController@monitoring_completeprojects')->name('Monitoring_complete_projects');
-
+    Route::get('/monitoring_assigntoconsultant','ProjectAssignController@DPM_AssignToConsultant')->name('Monitoring_assignToconsultant');
+    
+    
 });
 Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
 
@@ -162,11 +172,16 @@ Route::prefix('officer')->middleware('role:officer')->group(function () {
   Route::post('/project_completed','OfficerController@projectCompleted')->name('projectCompleted');
   Route::get('/review_form/{project_id}','OfficerController@review_form')->name('review_form');
   Route::post('/review_form','OfficerController@review_forms')->name('review_forms');
+  Route::post('/AssignActivityDocuments','OfficerController@AssignActivityDocument')->name('AssignActivityDocument');
   Route::post('/saveActivityAttachment','OfficerController@saveActivityAttachment')->name('saveActivityAttachment');
+<<<<<<< HEAD
   Route::get('/new_trip','SiteVisitController@create')->name('new_trip');
   Route::get('/view_trips','SiteVisitController@view')->name('view_trips');
   Route::get('/new_tripbackup','SiteVisitController@create')->name('new_tripbackup');
 
+=======
+  Route::post('/saveDocAttachment','OfficerController@saveDocAttachments')->name('saveDocAttachment');
+>>>>>>> e45532ff36d6ae65998bee5e11f5b3f51c185971
 
   // Monitoring Module Routes
   Route::get('/monitoring_newAssignment','OfficerController@monitoring_newAssignments')->name('Monitoring_newAssignments');
@@ -204,8 +219,6 @@ Route::prefix('hr')->middleware('role:adminhr|manager')->group(function () {
   Route::post('/save_agendax','AdminHumanResourceController@save_agendax')->name('agendax');
   // Route::get('/search_agendas','AdminHumanResourceController@search_agendas')->name('search_agendas');
   // Route::get('/','inHumanResourceController@index')->name('index_meeting');
-  // Route::get('/admin','AdminHumanResourceController@create')->name('create_meeting');
-
 });
 Route::group(['middleware'=>['permission:can.chat']],function(){
   Route::get('/conversations/{id}', 'ChatController@show');
@@ -220,6 +233,7 @@ Route::group(['middleware'=>['permission:can.problematicremark']],function(){
 });
 // Route::group(['middleware' => ['permission:can.edit.project|can.view.project']],function(){
 // });
+<<<<<<< HEAD
 
 //TO
 Route::prefix('to')->middleware('role:to')->group(function () {
@@ -227,6 +241,9 @@ Route::prefix('to')->middleware('role:to')->group(function () {
 });
 Route::get('/dashboard',"HomeController@dashboard")->name("evaluation_dashboard");
 
+=======
+Route::get('/dashboard',"HomeController@dashboard")->name("evaluation_dashboard");
+>>>>>>> e45532ff36d6ae65998bee5e11f5b3f51c185971
 
 Route::post('/printerfunction','AdminHumanResourceController@printer');
 
