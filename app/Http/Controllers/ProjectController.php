@@ -437,7 +437,7 @@ class ProjectController extends Controller
         $project_no = "PRO-1";
       }
       foreach ($districts as $district) {
-        $district->name = $district->name . "/";
+        $district->name = $district->name;
       }
       foreach ($sectors as $sector) {
         $sector->name = $sector->name . "/";
@@ -454,6 +454,18 @@ class ProjectController extends Controller
       // foreach ($departments as $department) {
       //   $department->name = $department->name . "/";
       // }
+      $adp = AdpProject::orderBy('gs_no')->get();
+      $data = [];
+      $keys = [];
+      foreach ($adp as $val) {
+        array_push($keys,$val->gs_no);
+        array_push($data,$val);
+      }
+      $final = array_combine($keys,$data);
+
+      \JavaScript::put([
+        'projects' => $final
+      ]);
 
       return view('projects.edit',compact('sub_project_types','districts','sectors','sponsoring_departments','executing_departments','assigning_forums','project_no','current_year','approving_forums','evaluation_types','project_types','evaluation_types','sub_sectors','project'));
     }

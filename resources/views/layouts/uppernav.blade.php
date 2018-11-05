@@ -409,7 +409,7 @@
             user:"{{Auth::user()}}"
         })
         .then((response) => {
-          console.log('Fuck '+response.data.role);
+          // console.log('Fuck '+response.data.role);
           var role=response.data.role;
           $('.'+role+'_inprogress_counter').text(response.data.assigned);
           if(role=='executive')
