@@ -86,8 +86,10 @@ class ExecutiveController extends Controller
      ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
      ->whereNull('assigned_project_managers.project_id')
      ->whereNull('assigned_projects.project_id')
+     ->where('projects.project_type_id','1')
      ->get();
-      $assigned=AssignedProject::all();
+      $assigned=AssignedProject::where('complete','0')->get();
+      // dd($assigned);
       $assignedtoManager=AssignedProjectManager::all();
       $completed=AssignedProject::where('complete','1')->get();
       return view('executive.home.index',['unassigned'=>$unassigned,'completed'=>$completed,'assignedtoManager'=>$assignedtoManager,'assigned'=>$assigned]);
