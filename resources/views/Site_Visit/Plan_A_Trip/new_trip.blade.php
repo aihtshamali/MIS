@@ -98,9 +98,9 @@
                         </div>
                     <div id="clonethisproposal_1" class="w3-animate-top">
                         <div class="col-md-12 inlinebox">
-                            <div class="col-md-2 nopaddinglef">
+                            <div class="col-md-3 nopaddinglef">
                                 <select id="reason_1" name="select" class="form-control form-control-default reason">
-                                    <option selected="selected" hidden>Select Reason For Visit</option>
+                                    <option selected="selected" hidden>Select Here</option>
                                     <option value="Monitoring">Monitoring</option>
                                     <option value="Evaluation">Evaluation</option>
                                     <option value="Meeting">Meeting</option>
@@ -112,13 +112,13 @@
                                 <input style="width:100%" placeholder="Enter a brief description for visit" type="text" />
                             </div> --}}
 
-                            <div id='gsrow' class="col-md-10 row nodisplay w3-animate-left nopadlefright">
+                            <div id='gsrow' class="col-md-9 row nodisplay w3-animate-left nopadlefright">
                                 <div class="col-md-2 nopadlefright">
                                     {{-- <select name="select" class="form-control form-control-default">
                                         <option value="opt1" selected>Year</option>
                                     </select> --}}
                                     <select class="form-control  select2" name="financial_year" id="financial_year" style="width:100% !important;margin-left:7%;">
-                                            <option value="0" hidden>Select Year </option>
+                                            <option value="0" hidden>Pick Year</option>
                                           @for($i = 2 ; $i <= 30 ; $i++)
                                             @if($i == 9)
                                               <option value="200{{$i}}-{{$i+1}}">200{{$i}}-{{$i+1}}</option>
@@ -144,7 +144,7 @@
                                 </div>
                             </div>
 
-                            <div class='form-control nodisplay w3-animate-left' id='brief' >
+                            <div class='form-control col-md-9 nodisplay w3-animate-left' id='brief' >
                                 <input type="text" placeholder="Enter Description Here...."/>
                             </div>
 
