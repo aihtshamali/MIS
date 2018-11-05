@@ -447,7 +447,7 @@ class ExecutiveController extends Controller
       // $per = array_search(Auth::id(),$person);
       // $current_score = round($total[$per],0,PHP_ROUND_HALF_UP);
       // $max_score = round($total[$maxs[0]],0,PHP_ROUND_HALF_UP);
-      
+
       // if($current_score == $max_score){
       //   $current_score = 100;
       // }
@@ -732,7 +732,7 @@ class ExecutiveController extends Controller
       ->whereNull('assigned_projects.project_id')
       ->where('projects.project_type_id','1')
       ->get();
-      
+
       $assigned=AssignedProject::all();
       $assignedtoManager=AssignedProjectManager::all();
       $projects=AssignedProject::all();
@@ -754,6 +754,7 @@ class ExecutiveController extends Controller
         return view('executive.evaluation.reviewed_projects');
       }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
       public function monitoring_unassigned()
       {
@@ -803,6 +804,8 @@ class ExecutiveController extends Controller
       }
      
 =======
+=======
+>>>>>>> ed4ada19c5c7373bc9ed648f0da78440e7af50fc
     public function monitoring_unassigned()
     {
       return view('_Monitoring._Manager.unassigned');
@@ -815,6 +818,9 @@ class ExecutiveController extends Controller
     {
       return view('_Monitoring._Manager.completed');
     }
+<<<<<<< HEAD
 >>>>>>> e45532ff36d6ae65998bee5e11f5b3f51c185971
+=======
+>>>>>>> ed4ada19c5c7373bc9ed648f0da78440e7af50fc
 
 }

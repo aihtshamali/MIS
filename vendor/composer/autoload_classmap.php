@@ -114,6 +114,13 @@ return array(
     'App\\Http\\Controllers\\SponsorAgencyController' => $baseDir . '/app/Http/Controllers/SponsorAgencyController.php',
     'App\\Http\\Controllers\\SubSectorController' => $baseDir . '/app/Http/Controllers/SubSectorController.php',
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    'App\\Http\\Controllers\\VmisDriverController' => $baseDir . '/app/Http/Controllers/VmisDriverController.php',
+    'App\\Http\\Controllers\\VmisVehicleController' => $baseDir . '/app/Http/Controllers/VmisVehicleController.php',
+    'App\\Http\\Controllers\\VmisVehicleDocumentController' => $baseDir . '/app/Http/Controllers/VmisVehicleDocumentController.php',
+    'App\\Http\\Controllers\\VmisVehicleTypeController' => $baseDir . '/app/Http/Controllers/VmisVehicleTypeController.php',
+>>>>>>> ed4ada19c5c7373bc9ed648f0da78440e7af50fc
     'App\\Http\\Controllers\\TofficerApprovalController' => $baseDir . '/app/Http/Controllers/TofficerApprovalController.php',
     'App\\Http\\Controllers\\TripLocationController' => $baseDir . '/app/Http/Controllers/TripLocationController.php',
     'App\\Http\\Controllers\\TripRequestController' => $baseDir . '/app/Http/Controllers/TripRequestController.php',
@@ -121,12 +128,15 @@ return array(
     'App\\Http\\Controllers\\VehicleController' => $baseDir . '/app/Http/Controllers/VehicleController.php',
     'App\\Http\\Controllers\\VehicleDocumentsController' => $baseDir . '/app/Http/Controllers/VehicleDocumentsController.php',
     'App\\Http\\Controllers\\VehicleTypeController' => $baseDir . '/app/Http/Controllers/VehicleTypeController.php',
+<<<<<<< HEAD
 =======
     'App\\Http\\Controllers\\VmisDriverController' => $baseDir . '/app/Http/Controllers/VmisDriverController.php',
     'App\\Http\\Controllers\\VmisVehicleController' => $baseDir . '/app/Http/Controllers/VmisVehicleController.php',
     'App\\Http\\Controllers\\VmisVehicleDocumentController' => $baseDir . '/app/Http/Controllers/VmisVehicleDocumentController.php',
     'App\\Http\\Controllers\\VmisVehicleTypeController' => $baseDir . '/app/Http/Controllers/VmisVehicleTypeController.php',
 >>>>>>> e45532ff36d6ae65998bee5e11f5b3f51c185971
+=======
+>>>>>>> ed4ada19c5c7373bc9ed648f0da78440e7af50fc
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',
     'App\\Http\\Middleware\\RedirectIfAuthenticated' => $baseDir . '/app/Http/Middleware/RedirectIfAuthenticated.php',
