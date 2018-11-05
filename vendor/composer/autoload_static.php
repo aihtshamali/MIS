@@ -460,8 +460,6 @@ class ComposerStaticInit55c1f85fd9fa01a6cf3b909416bd240d
         'App\\Http\\Controllers\\VmisVehicleController' => __DIR__ . '/../..' . '/app/Http/Controllers/VmisVehicleController.php',
         'App\\Http\\Controllers\\VmisVehicleDocumentController' => __DIR__ . '/../..' . '/app/Http/Controllers/VmisVehicleDocumentController.php',
         'App\\Http\\Controllers\\VmisVehicleTypeController' => __DIR__ . '/../..' . '/app/Http/Controllers/VmisVehicleTypeController.php',
-<<<<<<< HEAD
-=======
         'App\\Http\\Controllers\\TofficerApprovalController' => __DIR__ . '/../..' . '/app/Http/Controllers/TofficerApprovalController.php',
         'App\\Http\\Controllers\\TripLocationController' => __DIR__ . '/../..' . '/app/Http/Controllers/TripLocationController.php',
         'App\\Http\\Controllers\\TripRequestController' => __DIR__ . '/../..' . '/app/Http/Controllers/TripRequestController.php',
@@ -469,7 +467,6 @@ class ComposerStaticInit55c1f85fd9fa01a6cf3b909416bd240d
         'App\\Http\\Controllers\\VehicleController' => __DIR__ . '/../..' . '/app/Http/Controllers/VehicleController.php',
         'App\\Http\\Controllers\\VehicleDocumentsController' => __DIR__ . '/../..' . '/app/Http/Controllers/VehicleDocumentsController.php',
         'App\\Http\\Controllers\\VehicleTypeController' => __DIR__ . '/../..' . '/app/Http/Controllers/VehicleTypeController.php',
->>>>>>> ed4ada19c5c7373bc9ed648f0da78440e7af50fc
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
@@ -492,11 +489,6 @@ class ComposerStaticInit55c1f85fd9fa01a6cf3b909416bd240d
         'App\\MSeverity' => __DIR__ . '/../..' . '/app/MSeverity.php',
         'App\\MStakeHolder' => __DIR__ . '/../..' . '/app/MStakeHolder.php',
         'App\\MSubsequent' => __DIR__ . '/../..' . '/app/MSubsequent.php',
-<<<<<<< HEAD
-=======
-        'App\\Issue' => __DIR__ . '/../..' . '/app/Issue.php',
-        'App\\Members' => __DIR__ . '/../..' . '/app/Members.php',
->>>>>>> ed4ada19c5c7373bc9ed648f0da78440e7af50fc
         'App\\MonitoringProjectActivity' => __DIR__ . '/../..' . '/app/MonitoringProjectActivity.php',
         'App\\Notification' => __DIR__ . '/../..' . '/app/Notification.php',
         'App\\Other' => __DIR__ . '/../..' . '/app/Other.php',
