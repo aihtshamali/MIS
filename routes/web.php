@@ -168,10 +168,6 @@ Route::prefix('officer')->middleware('role:officer')->group(function () {
   Route::post('/review_form','OfficerController@review_forms')->name('review_forms');
   Route::post('/AssignActivityDocuments','OfficerController@AssignActivityDocument')->name('AssignActivityDocument');
   Route::post('/saveActivityAttachment','OfficerController@saveActivityAttachment')->name('saveActivityAttachment');
-<<<<<<< HEAD
-=======
-
->>>>>>> ed4ada19c5c7373bc9ed648f0da78440e7af50fc
   Route::get('/new_trip','SiteVisitController@create')->name('new_trip');
   Route::get('/view_trips','SiteVisitController@view')->name('view_trips');
   Route::get('/new_tripbackup','SiteVisitController@create')->name('new_tripbackup');
@@ -228,15 +224,12 @@ Route::group(['middleware'=>['permission:can.problematicremark']],function(){
 });
 // Route::group(['middleware' => ['permission:can.edit.project|can.view.project']],function(){
 // });
-<<<<<<< HEAD
-=======
 
 
 //TO
 Route::prefix('to')->middleware('role:to')->group(function () {
 
 });
->>>>>>> ed4ada19c5c7373bc9ed648f0da78440e7af50fc
 Route::get('/dashboard',"HomeController@dashboard")->name("evaluation_dashboard");
 
 Route::post('/printerfunction','AdminHumanResourceController@printer');
