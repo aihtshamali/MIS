@@ -104,7 +104,7 @@
                 <div class="form-group row">
                         <div class="col-md-12">
                             <b><label for="sectors">SubSectors : </label></b>
-                            <select id="SubSectors" name="sub_sectors[]" class="form-control js-example-basic-multiple" required multiple="multiple" id="Subsectors" data-placeholder="Sub Sectors"  style="width: 100%;">
+                            <select id="SubSectors" name="sub_sectors[]" class="form-control js-example-basic-multiple" required multiple="multiple" id="SubSectors" data-placeholder="Sub Sectors"  style="width: 100%;">
                                 </select>
                         </div>
                     </div>
@@ -242,7 +242,7 @@
                               <div class="form-group row">
                                 <div class="col-md-12">
                                  <label><b >Revised Start Date</b></label>
-                                   <input type="date" id="revised_start_date" required name="revised_start_date" onkeyup="" class="form-control" />
+                                   <input type="date" id="revised_start_date"  name="revised_start_date" onkeyup="" class="form-control" />
                                  </div>
                                </div>
                               </div>
@@ -317,7 +317,7 @@
                     <div class="col-md-4">
                         <label><b>Subsector(s):</b></label>
                     </div>
-                    <div class="col-md-6" id="summary_Subsectors">
+                    <div class="col-md-6" id="summary_SubSectors">
 
                     </div>
                 </div>
@@ -658,10 +658,10 @@ $(document).on('change', '#assigningForum', function() {
       "_token": "{{ csrf_token() }}",
       'data' : opt}, // a JSON object to send back
     success: function(response){ // What to do if we succeed
-      console.log(response);
-      $("#Subsectors").empty();
+      // console.log(response);
+      $("#SubSectors").empty();
       $.each(response, function () {
-          $('#Subsectors').append("<option value=\""+this.id+"\">"+this.name+"</option>");
+          $('#SubSectors').append("<option value=\""+this.id+"\">"+this.name+"</option>");
       });
     },
     error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
