@@ -109,7 +109,7 @@ vertical-align: super;
       </div>
       <label class="col-sm-1" style="font-size:20px">-</label>
       <div class="col-sm-4">
-        <input type="number" id="adp" name="adp_no" class="form-control" placeholder="GS #" >
+        <input type="text" id="adp" name="adp_no" class="form-control" placeholder="GS #"  value="{{$project->ADP}}">
       </div>
     </div>
     <div class="form-group">
@@ -354,7 +354,7 @@ vertical-align: super;
   <div class="form-group">
     <label id="label_fixed_summary_adp"  class="col-sm-6 control-label">GS #</label>
     <div id="fixed_summary_adp" class="col-sm-6">
-      <label>2018-{{$project->ADP}}</label>
+      <label>{{$project->ProjectDetail->financial_year}} / {{$project->ADP}}</label>
     </div>
   </div>
   <div class="form-group">
