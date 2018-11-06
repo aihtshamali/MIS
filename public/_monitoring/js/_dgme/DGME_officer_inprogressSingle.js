@@ -2,16 +2,16 @@
 $(document).ready(function()
 {
 $(".summaryNav").click(function(){
-    $(".topSummary").hide();
-    $(".mainTabsAndNav").css("margin-top", "0px");
-}); 
+    $(".topSummary").hide('slow');
+    $(".mainTabsAndNav").css({ marginTop: '0px'});
+});
 $(".conductNav").click(function(){
-    $(".topSummary").show();
-    $(".mainTabsAndNav").css("margin-top", "12%");
-});  
+    $(".topSummary").show('slow');
+    $(".mainTabsAndNav").animate({ marginTop: '6%'},1000);
+});
 $(".planNav").click(function(){
-    $(".topSummary").show();
-    $(".mainTabsAndNav").css("margin-top", "12%");
+    $(".topSummary").show('slow');
+    $(".mainTabsAndNav").animate({ marginTop: '6%'},1000);
 });
 
 $('input:checkbox').click(function() {
@@ -76,7 +76,7 @@ $('.financial').on('click',function(){
 hideall();
 $('#financial').show();
 });
-$('.physical').on('click',function(){ 
+$('.physical').on('click',function(){
  hideall();
 $('#physical').show();
 });
@@ -197,7 +197,7 @@ $('button#add_more_component').click(function(e){
 
 function add_activityInComp(e)
 {
-    var add_activities_to_assess='<div class="row singleActivity">'               
+    var add_activities_to_assess='<div class="row singleActivity">'
                                   +'<div class="form-group col-md-3 offset-md-1 " style="margin-bottom:10px !important;">'
                                   +'<label for=""><b>Activities</b></label>'
                                   +'<select class="form-control form-control-warning" style="width: 90%;">'
@@ -206,7 +206,7 @@ function add_activityInComp(e)
                                    +'<option value="2">Activity 2</option>'
                                   +'<option value="3" >Activity 3</option>'
                                   +'</select></div>'
-                                  +'<div class="form-group col-md-3 ">' 
+                                  +'<div class="form-group col-md-3 ">'
                                   +'<label for=""><b>Assesment</b></label>'
                                   +'<select class=" form-control " style="width: 90%;">'
                                   +'<option value="" selected disabled>Select Assesment Type</option>'
@@ -214,14 +214,14 @@ function add_activityInComp(e)
                                   +'<option value="2" style="background:#f5d75c;color:white;">PartiallySatisfactory</option>'
                                   +'<option value="3" style="background:#44d581;color:white;">Satisfactory</option>'
                                   +'</select>'
-                                  +'</div>' 
+                                  +'</div>'
                                   +'<div class="form-group col-md-3">'
                                   +'<label for=""><b>Remarks</b></label><br>'
                                   +'<textarea name="qa_remarks" id="qa_remarks" class="form-control"  style="width: 90%;" type="text"></textarea>'
-                                  +'</div>' 
-                                  +'<div class="form-group col-md-1 ">' 
+                                  +'</div>'
+                                  +'<div class="form-group col-md-1 ">'
                                   +' <br><button class="btn btn-danger btn-sm" onclick="removerow(this)" name="remove_Comp_activity[]"><span style="font-size:12px;">-</span></button>'
-                                 +'</div>'       
+                                 +'</div>'
                                 +'</div>';
                                 $(e).parent().parent().append(add_activities_to_assess);
 }

@@ -88,6 +88,8 @@
     .select2-container--default .select2-selection--multiple{border: none !important;}
     .dlt_btn{display: none;width: fit-content;float: right;font-size: 20px;color: #777;padding: 0px 13px 0px 9px !important;line-height: 30px;font-weight: 900;letter-spacing: -4px;border: 1px solid transparent;border-radius: 50%;}
     .dlt_btn:hover {color: #e65a5a;transition: all 900ms ease;border: 1px solid #e65a5a;border-radius: 50%;}
+    .dlt_btnout{display: none;width: fit-content;float: right;font-size: 20px;color: #777;padding: 0px 13px 0px 9px !important;line-height: 30px;font-weight: 900;letter-spacing: -4px;border: 1px solid transparent;border-radius: 50%;}
+    .dlt_btnout:hover {color: #e65a5a;transition: all 900ms ease;border: 1px solid #e65a5a;border-radius: 50%;}
     .pointer{cursor: pointer;}
     .btn{border-radius: 5px !important;}
 </style>
@@ -387,7 +389,7 @@
                   </div>
                   {{-- start roundtrip --}}
                   <div id="roundtripp_1">
-                    <div class="dlt_btn pointer">
+                    <div class="dlt_btnout pointer">
                       ---
                     </div>
                     <div class="col-md-12 inlinebox">
@@ -426,9 +428,7 @@
                       </div>
                 </div>
                 <div id='multicitycloneadd'>
-                  <div class="dlt_btn pointer">
-                    ---
-                  </div>
+
 
                 <label for="">Location</label>
                 <div class="col-md-12 inlinebox">
@@ -759,6 +759,9 @@
 
     var prcl = `
     <div id="roundtripp_1" style="padding-top:3%;border-top:1px dotted #293141 !important;">
+    <div class="dlt_btnout pointer">
+      ---
+    </div>
       <div class="col-md-12 inlinebox">
         <div class="col-md-2 nopadlefright">
             <select id="reasonroundtrip" name="select" class="form-control reasonroundtrip form-control-default">
@@ -1159,6 +1162,10 @@
       $(this).parent().remove()
         // $(this).closest(".box").remove();
     });
+    $(document).on("click", ".dlt_btnout", function() {
+      $(this).parent().remove()
+        // $(this).closest(".box").remove();
+    });
     // start append round
     $(document).on('click','.addnewroundproposal',function(){
         var clone = $('#roundtripp_1').clone().attr('id','roundtripp_'+ ++roundpurposal)
@@ -1177,6 +1184,9 @@
         });
     $(".mulpurpose").click(function(){
         $(".addnewproposal").show();
+        });
+    $(".addnewproposoutcity").click(function(){
+        $(".dlt_btnout").show();
         });
     });
     $(document).on('click','.multipurposeout',function(){
