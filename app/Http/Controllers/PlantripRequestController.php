@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\VehicleDocuments;
+use App\PlantripRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class VehicleDocumentsController extends Controller
+class PlantripRequestController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,10 +42,10 @@ class VehicleDocumentsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\VehicleDocuments  $vehicleDocuments
+     * @param  \App\PlantripRequest  $plantripRequest
      * @return \Illuminate\Http\Response
      */
-    public function show(VehicleDocuments $vehicleDocuments)
+    public function show(PlantripRequest $plantripRequest)
     {
         //
     }
@@ -53,10 +53,10 @@ class VehicleDocumentsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\VehicleDocuments  $vehicleDocuments
+     * @param  \App\PlantripRequest  $plantripRequest
      * @return \Illuminate\Http\Response
      */
-    public function edit(VehicleDocuments $vehicleDocuments)
+    public function edit(PlantripRequest $plantripRequest)
     {
         //
     }
@@ -65,10 +65,10 @@ class VehicleDocumentsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\VehicleDocuments  $vehicleDocuments
+     * @param  \App\PlantripRequest  $plantripRequest
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, VehicleDocuments $vehicleDocuments)
+    public function update(Request $request, PlantripRequest $plantripRequest)
     {
         //
     }
@@ -76,10 +76,10 @@ class VehicleDocumentsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\VehicleDocuments  $vehicleDocuments
+     * @param  \App\PlantripRequest  $plantripRequest
      * @return \Illuminate\Http\Response
      */
-    public function destroy(VehicleDocuments $vehicleDocuments)
+    public function destroy(PlantripRequest $plantripRequest)
     {
         //
     }

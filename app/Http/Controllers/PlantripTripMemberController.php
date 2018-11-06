@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\TripType;
+use App\PlantripTripMember;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class TripTypeController extends Controller
+class PlantripTripMemberController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,10 +42,10 @@ class TripTypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\TripType  $tripType
+     * @param  \App\PlantripTripMember  $plantripTripMember
      * @return \Illuminate\Http\Response
      */
-    public function show(TripType $tripType)
+    public function show(PlantripTripMember $plantripTripMember)
     {
         //
     }
@@ -53,10 +53,10 @@ class TripTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\TripType  $tripType
+     * @param  \App\PlantripTripMember  $plantripTripMember
      * @return \Illuminate\Http\Response
      */
-    public function edit(TripType $tripType)
+    public function edit(PlantripTripMember $plantripTripMember)
     {
         //
     }
@@ -65,10 +65,10 @@ class TripTypeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\TripType  $tripType
+     * @param  \App\PlantripTripMember  $plantripTripMember
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TripType $tripType)
+    public function update(Request $request, PlantripTripMember $plantripTripMember)
     {
         //
     }
@@ -76,10 +76,10 @@ class TripTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\TripType  $tripType
+     * @param  \App\PlantripTripMember  $plantripTripMember
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TripType $tripType)
+    public function destroy(PlantripTripMember $plantripTripMember)
     {
         //
     }

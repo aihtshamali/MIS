@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TofficerApproval extends Model
+class PlantripTripMember extends Model
 {
     //
 }

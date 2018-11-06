@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\VehicleType;
+use App\PlantripTriptype;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class VehicleTypeController extends Controller
+class PlantripTriptypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,10 +42,10 @@ class VehicleTypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\VehicleType  $vehicleType
+     * @param  \App\PlantripTriptype  $plantripTriptype
      * @return \Illuminate\Http\Response
      */
-    public function show(VehicleType $vehicleType)
+    public function show(PlantripTriptype $plantripTriptype)
     {
         //
     }
@@ -53,10 +53,10 @@ class VehicleTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\VehicleType  $vehicleType
+     * @param  \App\PlantripTriptype  $plantripTriptype
      * @return \Illuminate\Http\Response
      */
-    public function edit(VehicleType $vehicleType)
+    public function edit(PlantripTriptype $plantripTriptype)
     {
         //
     }
@@ -65,10 +65,10 @@ class VehicleTypeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\VehicleType  $vehicleType
+     * @param  \App\PlantripTriptype  $plantripTriptype
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, VehicleType $vehicleType)
+    public function update(Request $request, PlantripTriptype $plantripTriptype)
     {
         //
     }
@@ -76,10 +76,10 @@ class VehicleTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\VehicleType  $vehicleType
+     * @param  \App\PlantripTriptype  $plantripTriptype
      * @return \Illuminate\Http\Response
      */
-    public function destroy(VehicleType $vehicleType)
+    public function destroy(PlantripTriptype $plantripTriptype)
     {
         //
     }

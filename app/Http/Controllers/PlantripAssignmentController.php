@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Members;
+use App\PlantripAssignment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class MembersController extends Controller
+class PlantripAssignmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,10 +42,10 @@ class MembersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Members  $members
+     * @param  \App\PlantripAssignment  $plantripAssignment
      * @return \Illuminate\Http\Response
      */
-    public function show(Members $members)
+    public function show(PlantripAssignment $plantripAssignment)
     {
         //
     }
@@ -53,10 +53,10 @@ class MembersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Members  $members
+     * @param  \App\PlantripAssignment  $plantripAssignment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Members $members)
+    public function edit(PlantripAssignment $plantripAssignment)
     {
         //
     }
@@ -65,10 +65,10 @@ class MembersController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Members  $members
+     * @param  \App\PlantripAssignment  $plantripAssignment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Members $members)
+    public function update(Request $request, PlantripAssignment $plantripAssignment)
     {
         //
     }
@@ -76,10 +76,10 @@ class MembersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Members  $members
+     * @param  \App\PlantripAssignment  $plantripAssignment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Members $members)
+    public function destroy(PlantripAssignment $plantripAssignment)
     {
         //
     }

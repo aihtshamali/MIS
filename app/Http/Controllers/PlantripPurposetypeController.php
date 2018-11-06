@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\DriverDocuments;
+use App\PlantripPurposetype;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class DriverDocumentsController extends Controller
+class PlantripPurposetypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,10 +42,10 @@ class DriverDocumentsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\DriverDocuments  $driverDocuments
+     * @param  \App\PlantripPurposetype  $plantripPurposetype
      * @return \Illuminate\Http\Response
      */
-    public function show(DriverDocuments $driverDocuments)
+    public function show(PlantripPurposetype $plantripPurposetype)
     {
         //
     }
@@ -53,10 +53,10 @@ class DriverDocumentsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\DriverDocuments  $driverDocuments
+     * @param  \App\PlantripPurposetype  $plantripPurposetype
      * @return \Illuminate\Http\Response
      */
-    public function edit(DriverDocuments $driverDocuments)
+    public function edit(PlantripPurposetype $plantripPurposetype)
     {
         //
     }
@@ -65,10 +65,10 @@ class DriverDocumentsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\DriverDocuments  $driverDocuments
+     * @param  \App\PlantripPurposetype  $plantripPurposetype
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DriverDocuments $driverDocuments)
+    public function update(Request $request, PlantripPurposetype $plantripPurposetype)
     {
         //
     }
@@ -76,10 +76,10 @@ class DriverDocumentsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\DriverDocuments  $driverDocuments
+     * @param  \App\PlantripPurposetype  $plantripPurposetype
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DriverDocuments $driverDocuments)
+    public function destroy(PlantripPurposetype $plantripPurposetype)
     {
         //
     }

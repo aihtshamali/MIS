@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="{{ asset('_monitoring/css/multiselect/css/multi-select.css')}}" />
     <link rel="stylesheet" href="{{ asset('_monitoring/css/pages/advance-elements/css/bootstrap-datetimepicker.css')}}" />
     <link rel="stylesheet" href="{{ asset('_monitoring/css/css/daterangepicker.css')}}" />
-    <link rel="stylesheet" href="{{ asset('_monitoring/css/css/datedropper.min.css')}}" />
+    {{-- <link rel="stylesheet" href="{{ asset('_monitoring/css/css/datedropper.min.css')}}" /> --}}
     <style>
     .bg-w{background-color: #fff !important;}
     .daterangepicker td.in-range {
@@ -94,6 +94,8 @@
 @endsection
 @section('content')
     <form action="" class="offset-md-2 col-md-8 form-control form-control-default">
+            <h4><b>Schedule New Visit</b></h4><br>
+            <label for=""></label>
             <select name="select" id="type" class="form-control form-control-default">
                 <option value="Local" class="" selected>Local</option>
                 <option value="Outstation" class="">Outstation</option>
@@ -158,7 +160,7 @@
                                         <option value="opt1" selected>GS#</option>
                                     </select>
                                 </div>
-                                <div class="col-md-7 nopaddingright" style="width:41.5% !important;">
+                                <div class="col-md-4 nopaddingright" style="width:41.5% !important;">
                                     <select name="select" class="form-control form-control-default">
                                         <option value="opt1" selected>project</option>
                                         <option value="opt1" selected>project</option>
@@ -345,7 +347,7 @@
                         <div class="nodisplay addnewproposal btn-block w3-animate-bottom btn btn-inverse btn-outline-inverse"><i class="icofont icofont-plus"></i>Add purpose</div>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-primary btn-block"><i class="icofont icofont-user-alt-3"></i>Submit</button>
+                        <button class="btn btn-success btn-block"><i class="icofont icofont-user-alt-3"></i>Submit</button>
                     </div>
 
             </div>
@@ -716,7 +718,7 @@
                       <div class="addnewproposoutcity nodisplay btn btn-inverse btn-outline-inverse btn-block"><i class="icofont icofont-plus"></i>Add Purpose</div>
                   </div>
                   <div class="form-group">
-                      <button class="btn btn-primary btn-block"><i class="icofont icofont-user-alt-3"></i>Submit</button>
+                      <button class="btn btn-success btn-block"><i class="icofont icofont-user-alt-3"></i>Submit</button>
                   </div>
                   {{-- end multiple cities --}}
             </div>
