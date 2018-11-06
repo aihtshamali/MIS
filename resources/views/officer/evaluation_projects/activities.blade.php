@@ -344,7 +344,8 @@
                            </td>
                           <td>
                               @foreach ($activity->AssignedActivityAttachments as $attachment)
-                                <a href="{{asset("storage/uploads/projects/project_activities/".Auth::user()->username."/".$attachment->attachment_name.".".$attachment->type)}}" download><i class="fa fa-file-{{$icons[$attachment->type]}}-o fa-1x text-center" title="{{ $attachment->attachment_name }}" /></i></a>
+
+                                <a href="{{asset("storage/uploads/projects/project_activities/".Auth::user()->username."/".$attachment->attachment_name.".".$attachment->type)}}" download><i class="fa fa-file-{{$icons[$attachment->type]}}-o fa-1x text-center" title="{{ $attachment->attachment_name }}" />{{$attachment->attachment_name}}</i></a>
                               @endforeach
                             </td>
                           <td>
