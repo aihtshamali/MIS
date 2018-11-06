@@ -177,6 +177,7 @@ class ExecutiveController extends Controller
               $time_against_activities_data = DB::select(
               'timeAgainstActivities' .' '. $act->id
               );
+
               $time_sum = 0;
               $loop = 0;
               $min = 0;
@@ -200,6 +201,7 @@ class ExecutiveController extends Controller
                 }
                 $loop++;
               }
+              $ave=0;
 
               $ave = $time_sum/count($time_against_activities_data);
               $ave = (int)round($ave,0,PHP_ROUND_HALF_UP);

@@ -79,14 +79,16 @@
                         </div>
                     <div class="col-md-6">
                         <label for=""><b>GS #</b></label>
-                        <select class="form-control form-control-info" name="adp_no[]" id="gs_no">
+                        <input type="text" id="gs_no" name="adp_no" class="form-control" placeholder="GS #" required>
+
+                        {{-- <select class="form-control form-control-info" name="adp_no[]" id="gs_no">
                             <option value="" selected>Select GS #</option>
-                            <?php $counting = 0?>
+                            <php $counting = 0?>
                             @foreach ($adp as $a)
-                                <option value="{{$a->gs_no}},<?php echo $counting?>">{{$a->gs_no}}</option>
-                                <?php $counting += 1?>
+                                <option value="{{$a->gs_no}},<php echo $counting?>">{{$a->gs_no}}</option>
+                                <php $counting += 1?>
                             @endforeach
-                            </select>
+                            </select> --}}
                     </div>
                 </div>
                 <div class="form-group row">
@@ -102,13 +104,12 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                        <div class="col-md-12">
-                            <b><label for="sectors">SubSectors : </label></b>
-                            <select id="SubSectors" name="sub_sectors[]" class="form-control js-example-basic-multiple" required multiple="multiple" id="SubSectors" data-placeholder="Sub Sectors"  style="width: 100%;">
-                                </select>
-                        </div>
+                    <div class="col-md-12">
+                        <b><label for="sectors">SubSectors : </label></b>
+                        <select id="SubSectors" name="sub_sectors[]" class="form-control js-example-basic-multiple" required multiple="multiple" id="SubSectors" data-placeholder="Sub Sectors"  style="width: 100%;">
+                        </select>
                     </div>
-
+                </div>
                 <div class="form-group row">
                     <div class="col-md-12">
                     <label><b> Sponsoring Department :</b></label>
@@ -618,6 +619,7 @@ $(document).on('change', '#assigningForum', function() {
     $('select').on('change',function(e){
     var class_value = $(this).attr("id");
     var opt = $(this).val();
+    console.log(opt);
     var values = "";
     if(opt == ""){
         $("#summary_" + class_value).hide("slow");
@@ -630,10 +632,10 @@ $(document).on('change', '#assigningForum', function() {
     $("#summary_"+class_value).append("<label class=\"control-label\">"+values+"</label>");
     });
 
-    $('input').on('change',function(){
+    $(document).on('change','input',function(){
     var class_value = $(this).attr("id");
     var opt = $(this).val();
-    // console.log(opt);
+    console.log(opt);
     if(opt == ""){
         $("#summary_" + class_value).hide("slow");
     }
@@ -670,20 +672,71 @@ $(document).on('change', '#assigningForum', function() {
     }
 });
 });
+$(document).on('change','#gs_no,#financial_year',function(){
+   var arr = $(this).val();
+   if($(this).attr('id') == 'gs_no' && $('#financial_year').val() == projects[arr].financial_year){
+     // console.log('hello');
+     $('#projectTitle').val(projects[arr].name_of_scheme);
+     $('#summary_projectTitle').empty();
+     $('#label_summary_title').show('slow');
+     $('#summary_projectTitle').append("<label class=\"control-label\">"+$('#projectTitle').val()+"</label>");
 
-$(document).on('change','#gs_no',function(){
-   var arr = $(this).val().split(',')
-   console.log(projects[arr[1]]);
-   if($('#financial_year :selected').text() == projects[arr[1]].financial_year){
-     $('#projectTitle').val(projects[arr[1]].name_of_scheme);
-     $('#originalCost').val(parseFloat(projects[arr[1]].total_cost)).toFixed(2);
-     $("#districts").val($("#districts option").filter(function () { return $(this).html() == projects[arr[1]].district; }).val());
+     $('#originalCost').val(parseFloat(projects[arr].total_cost).toFixed(3));
+     $('#summary_originalCost').empty();
+     $('#label_summary_originalCost').show();
+     $('#summary_originalCost').append("<label class=\"control-label\">"+$('#originalCost').val()+"</label>");
+
+     $('#summary_districts').empty();
+     $("#districts").val($("#districts option").filter(function () { return $(this).html() == projects[arr].district; }).val());
+     $("#districts").select2();
+     values = $('#districts').find(':selected').text();
+     $("#label_summary_districts").show('slow');
+     $("#summary_districts").append("<label class=\"control-label\">"+values+"</label>");
    }
    else{
      $('#projectTitle').val('');
      $('#originalCost').val('');
      $("#districts").val('').trigger('change');
+     $('#summary_districts').empty();
+     $('#summary_originalCost').empty();
+     $('#summary_projectTitle').empty();
+
+     var arr = $('#gs_no').val();
+     if(arr != "")
+     if($(this).attr('id') == 'financial_year' && $('#financial_year').val() == projects[arr].financial_year){
+     $('#projectTitle').val(projects[arr].name_of_scheme);
+     $('#summary_title').empty();
+     $('#label_summary_title').show('slow');
+     $('#summary_projectTitle').append("<label class=\"control-label\">"+$('#projectTitle').val()+"</label>");
+
+     $('#originalCost').val(parseFloat(projects[arr].total_cost).toFixed(3));
+     $('#summary_originalCost').empty();
+     $('#label_summary_originalCost').show();
+     $('#summary_originalCost').append("<label class=\"control-label\">"+$('#originalCost').val()+"</label>");
+
+     $('#summary_districts').empty();
+     $("#districts").val($("#districts option").filter(function () { return $(this).html() == projects[arr].district; }).val());
+     $("#districts").select2();
+     values = $('#districts').find(':selected').text();
+     $("#label_summary_districts").show('slow');
+     $("#summary_districts").append("<label class=\"control-label\">"+values+"</label>");
+   }
    }
 });
+
+// $(document).on('change','#gs_no',function(){
+//    var arr = $(this).val().split(',')
+//    console.log(projects[arr[1]]);
+//    if($('#financial_year :selected').text() == projects[arr[1]].financial_year){
+//      $('#projectTitle').val(projects[arr[1]].name_of_scheme);
+//      $('#originalCost').val(parseFloat(projects[arr[1]].total_cost)).toFixed(2);
+//      $("#districts").val($("#districts option").filter(function () { return $(this).html() == projects[arr[1]].district; }).val());
+//    }
+//    else{
+//      $('#projectTitle').val('');
+//      $('#originalCost').val('');
+//      $("#districts").val('').trigger('change');
+//    }
+// });
 </script>
 @endsection

@@ -385,7 +385,7 @@
                                   $temp=$counter;
                                 @endphp
                                 @foreach ($arr as $docs)
-                                  @if($activity->ProjectActivity->id < 7 && $docs->AssignedProjectActivity->id &&  $activity->progress < round($temp,0,PHP_ROUND_HALF_UP)  &&  $activity->ProjectActivity->name!='Site Visits' && $activity->ProjectActivity->id < 4)
+                                  @if($activity->ProjectActivity->id < 7 && $docs->AssignedProjectActivity->id &&  $activity->progress < round($temp,0,PHP_ROUND_HALF_UP)  &&  $activity->ProjectActivity->name!='Site Visits' && $activity->ProjectActivity->id < 3)
                                     @if($activity->ProjectActivity->id < 2)
                                       @if(intval($activities[$activity_count]->progress) == intval($temp-$counter))
                                         <a class="btn" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<input type='file' name='document_attachment' required><button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},{{round($temp,0,PHP_ROUND_HALF_UP)}},this,{{$docs->id}},{{$docs->ActivityDocument->id}})'>Save</button>">
@@ -393,8 +393,8 @@
                                         <a class="btn" disabled>
                                       @endif
                                     @else
-                                      {{-- {{dd($activities[$activity_count-1]->progress)}} --}}
-                                      @if($activities[$activity_count-1]->progress > 0  && intval($activities[$activity_count]->progress) == intval($temp-$counter))
+                                      {{-- {{dump($counter)}} --}}
+                                      @if($activities[$activity_count-1]->progress > 0 && $activities[$activity_count-1]->progress > intval($counter) && intval($activities[$activity_count]->progress) == intval($temp-$counter))
                                         <a class="btn" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},{{round($temp,0,PHP_ROUND_HALF_UP)}})'>Save</button>">
                                       @else
                                         <a class="btn"  disabled>
@@ -412,7 +412,7 @@
                                   $temp+=$counter;
                                   @endphp
                                 @endforeach
-                                @if($activity->progress < 25.0  && $activity->ProjectActivity->id < 7 && $activity->ProjectActivity->id > 3  &&  $activity->ProjectActivity->name!='Site Visits')
+                                @if($activity->progress < 25.0  && $activity->ProjectActivity->id < 7 && $activity->ProjectActivity->id > 2  &&  $activity->ProjectActivity->name!='Site Visits')
                                   @if (($activities[$activity_count-1]->progress >= 100 || ($activity->ProjectActivity->id==6 && $activities[$activity_count-4]->progress>=50)) && $activity->progress < 25 )
                                     <a class="btn" id="myDiv" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},25)'>Save</button>">
                                   @else
@@ -426,7 +426,7 @@
                                       </input>
                                     </a>
                                 @endif
-                                @if($activity->progress < 50.0 && $activity->ProjectActivity->id < 7 && $activity->ProjectActivity->id > 3)
+                                @if($activity->progress < 50.0 && $activity->ProjectActivity->id < 7 && $activity->ProjectActivity->id > 2)
                                   @if ($activities[$activity_count-1]->progress >= 100 && $activity->progress == 25)
                                     <a class="btn"id="myDiv"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},50)'>Save</button>">
                                   @else
@@ -444,7 +444,7 @@
                                     </input>
                                   </a>
                                 @endif
-                                @if ($activity->progress < 75.0 && $activity->ProjectActivity->id < 7 && $activity->ProjectActivity->id > 3 &&  $activity->ProjectActivity->name!='Site Visits')
+                                @if ($activity->progress < 75.0 && $activity->ProjectActivity->id < 7 && $activity->ProjectActivity->id > 2 &&  $activity->ProjectActivity->name!='Site Visits')
                                   @if ($activities[$activity_count-1]->progress >= 100 && $activity->progress == 50 )
                                     <a class="btn" id="myDiv" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},75)'>Save</button>">
                                   @else
@@ -458,7 +458,7 @@
                                     </input>
                                   </a>
                               @endif
-                              @if ($activity->progress < 100.0 && $activity->ProjectActivity->id > 3)
+                              @if ($activity->progress < 100.0 && $activity->ProjectActivity->id > 2)
                                 @if ($activities[$activity_count-1]->progress >= 100 && $activity->progress == 75)
                                   <a class="btn" id="myDiv" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},100)'>Save</button>">
                                 @else
