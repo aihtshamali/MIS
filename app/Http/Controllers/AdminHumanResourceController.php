@@ -26,6 +26,11 @@ class AdminHumanResourceController extends Controller
     public function index()
     {
         $meetings = HrMeetingPDWP::all();
+        foreach ($meetings as $meeting) {
+          if($meeting->attachment_file){
+            file_put_contents('storage/uploads/projects/pdwp_meeting/'.$meeting->attachment,base64_decode($meeting->attachment_file));
+          }
+        }
         $agendas=HrAgenda::all();
         return view('admin_hr.meeting.index',compact('meetings','agendas'));
     }
@@ -88,9 +93,10 @@ class AdminHumanResourceController extends Controller
         }
         $hr_meeting->meeting_no = $temp_meeting_no;
         if($request->hasFile('meeting_attachment')){
-            $meeting_filename = "PDWP-".$temp_meeting_no;
-            $request->file('meeting_attachment')->storeAs('public/uploads/projects/pdwp_meeting',$meeting_filename.'.'.$request->file('meeting_attachment')->getClientOriginalExtension());
-            $hr_meeting->attachment = $meeting_filename.'.'.$request->file('meeting_attachment')->getClientOriginalExtension();
+            $meeting_filename = "PDWP-".$temp_meeting_no.'.'.$request->file('meeting_attachment')->getClientOriginalExtension();
+            $file_path = $request->file('meeting_attachment')->path();
+            $hr_meeting->attachment_file = base64_encode(file_get_contents($file_path));
+            $hr_meeting->attachment = $meeting_filename;
         }
         $hr_meeting->scheduled_date =  date('Y-m-d',strtotime($request->my_date));
         $hr_meeting->status = 1;
@@ -122,8 +128,10 @@ class AdminHumanResourceController extends Controller
                 if($request->hasFile('attachments.'. $i)){
                     $hr_attachment = new HrAttachment();
                     $hr_attachment->hr_agenda_id = $hr_agenda->id;
-                    $request->file('attachments.'.$i)->storeAs('public/uploads/projects/project_agendas',$filename.'.'.$request->file('attachments.'.$i)->getClientOriginalExtension());
-                    $hr_attachment->attachments = $filename.'.'.$request->file('attachments.'.$i)->getClientOriginalExtension();
+                    $filename = $filename.'.'.$request->file('attachments.'.$i)->getClientOriginalExtension();
+                    $file_path = $request->file('attachments.'.$i)->path();
+                    $hr_attachment->attachment_file = base64_encode(file_get_contents($file_path));
+                    $hr_attachment->attachments = $filename;
                     $hr_attachment->save();
                 }
                 $i += 1;
@@ -136,11 +144,12 @@ class AdminHumanResourceController extends Controller
                 $hr_agenda->save();
                 $filename = 'WP-'.$temp_meeting_no.$hr_agenda->agenda_item;
                 if($request->hasFile('section2_attachments.'. $j)){
-                    // dd($request->file('section2_attachments.'.$j));
                     $hr_attachment = new HrAttachment();
                     $hr_attachment->hr_agenda_id = $hr_agenda->id;
-                    $request->file('section2_attachments.'.$j)->storeAs('public/uploads/projects/project_agendas',$filename.'.'.$request->file('section2_attachments.'.$j)->getClientOriginalExtension());
-                    $hr_attachment->attachments = $filename.'.'.$request->file('section2_attachments.'.$j)->getClientOriginalExtension();
+                    $filename = $filename.'.'.$request->file('section2_attachments.'.$j)->getClientOriginalExtension();
+                    $file_path = $request->file('section2_attachments.'.$j)->path();
+                    $hr_attachment->attachment_file = base64_encode(file_get_contents($file_path));
+                    $hr_attachment->attachments = $filename;
                     $hr_attachment->save();
                 }
                 $j += 1;
@@ -173,6 +182,9 @@ class AdminHumanResourceController extends Controller
         foreach($agendas as $agenda){
             if($agenda->HrMomAttachment)
             file_put_contents('storage/uploads/projects/meetings_mom/'.$agenda->HrMomAttachment->attachment,base64_decode($agenda->HrMomAttachment->attachment_file));
+            if($agenda->HrAttachment){
+              file_put_contents('storage/uploads/projects/project_agendas/'.$agenda->HrAttachment->attachments,base64_decode($agenda->HrAttachment->attachment_file));
+            }
         }
         $agenda_statuses = HrProjectType::all();
         $adp = AdpProject::orderBy('gs_no')->get();
@@ -213,11 +225,13 @@ class AdminHumanResourceController extends Controller
             // dd($hr_agenda);
             $hr_agenda->save();
             if($request->hasFile('attachments')){
-                $hr_attachment = new HrAttachment();
-                $hr_attachment->hr_agenda_id = $hr_agenda->id;
-                $request->file('attachments')->storeAs('public/uploads/projects/project_agendas',$filename.'.'.$request->file('attachments')->getClientOriginalExtension());
-                $hr_attachment->attachments = $filename.'.'.$request->file('attachments')->getClientOriginalExtension();
-                $hr_attachment->save();
+              $hr_attachment = new HrAttachment();
+              $hr_attachment->hr_agenda_id = $hr_agenda->id;
+              $filename = $filename.'.'.$request->file('attachments')->getClientOriginalExtension();
+              $file_path = $request->file('attachments')->path();
+              $hr_attachment->attachment_file = base64_encode(file_get_contents($file_path));
+              $hr_attachment->attachments = $filename;
+              $hr_attachment->save();
             }
         }else{
             // dd($mytime->format('Y-m-d H:i:s'));
@@ -228,12 +242,13 @@ class AdminHumanResourceController extends Controller
             $hr_agenda->start_timeofagenda = $request->section2_my_time;
             $hr_agenda->save();
             if($request->hasFile('section2_attachments')){
-                // dd($request->file('section2_attachments.'.$j));
-                $hr_attachment = new HrAttachment();
-                $hr_attachment->hr_agenda_id = $hr_agenda->id;
-                $request->file('section2_attachments')->storeAs('public/uploads/projects/project_agendas',$filename.'.'.$request->file('section2_attachments')->getClientOriginalExtension());
-                $hr_attachment->attachments = $filename.'.'.$request->file('section2_attachments')->getClientOriginalExtension();
-                $hr_attachment->save();
+              $hr_attachment = new HrAttachment();
+              $hr_attachment->hr_agenda_id = $hr_agenda->id;
+              $filename = $filename.'.'.$request->file('section2_attachments')->getClientOriginalExtension();
+              $file_path = $request->file('section2_attachments')->path();
+              $hr_attachment->attachment_file = base64_encode(file_get_contents($file_path));
+              $hr_attachment->attachments = $filename;
+              $hr_attachment->save();
             }
         }
         return redirect()->back();
@@ -247,7 +262,27 @@ class AdminHumanResourceController extends Controller
      */
     public function edit($id)
     {
-        //
+      $meeting = HrMeetingPDWP::find($id);
+      $agendas = $meeting->HrAgenda;
+      foreach($agendas as $agenda){
+          if($agenda->HrMomAttachment)
+          file_put_contents('storage/uploads/projects/meetings_mom/'.$agenda->HrMomAttachment->attachment,base64_decode($agenda->HrMomAttachment->attachment_file));
+          if($agenda->HrAttachment){
+            file_put_contents('storage/uploads/projects/project_agendas/'.$agenda->HrAttachment->attachments,base64_decode($agenda->HrAttachment->attachment_file));
+          }
+      }
+      $agenda_statuses = HrProjectType::all();
+      $adp = AdpProject::orderBy('gs_no')->get();
+      $sectors = HrSector::all();
+      $meeting_types = HrMeetingType::all();
+      $agenda_types = AgendaType::all();
+      $agendas = $meeting->HrAgenda;
+      \JavaScript::put([
+          'projects' => $adp
+      ]);
+
+      return view('admin_hr.meeting.edit',compact('agendas','meeting','agenda_statuses','adp','sectors','meeting_types','agenda_types'));
+
     }
 
     /**
@@ -259,7 +294,22 @@ class AdminHumanResourceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      // dd($request->all());
+        $agenda = HrAgenda::find($id);
+        $agenda->scheme_name = $request->name_of_scheme;
+        $agenda->estimated_cost = $request->estimated_cost;
+        $agenda->agenda_item = $request->agenda_item;
+        $agenda->adp_no = $request->adp_no;
+        $agenda->financial_year = $request->financial_year;
+        $agenda->adp_allocation = $request->adp_allocation;
+        $hr_attachment_table = $agenda->HrAttachment;
+        if($request->hasFile('hr_attachment')){
+          $file_path = $request->file('hr_attachment')->path();
+          $hr_attachment_table->attachment_file = base64_encode(file_get_contents($file_path));
+          $hr_attachment_table->save();
+        }
+        $agenda->save();
+        return redirect()->back();
     }
 
     /**
