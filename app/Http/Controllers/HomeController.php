@@ -10,6 +10,8 @@ use App\Project;
 use App\AssignedProjectActivity;
 use Auth;
 use App\HrMomAttachment;
+use App\HrAttachment;
+use App\HrMeetingPDWP;
 use Illuminate\Support\Facades\Schema;
 
 
@@ -60,21 +62,21 @@ class HomeController extends Controller
       //   }
       // }
       // dd("Done");
-      //Converting Mom To Base64
-      // $files = scandir('C:\\xampp\\htdocs\\DGME_MIS_TEST\\storage\\app\\public\\uploads\\projects\\meetings_mom\\');
-      // foreach($files as $file) {
-
-      //   $file_path  = "C:\\xampp\\htdocs\\DGME_MIS_TEST\\storage\\app\\public\\uploads\\projects\\meetings_mom\\".$file;
-      //   if($file != '.' && $file != '..'){
-      //     $row = HrMomAttachment::where('attachment',$file)->first();
-      //     if($row){
-      //   // dd($row);
-      //     $row->attachment_file = base64_encode(file_get_contents($file_path));
-      //     $row->save();
-      //     }
-      //   }
-      //   //do your work here
-      // }
+      // Converting Mom To Base64
+      $files = scandir('C:\\xampp\\htdocs\\DGME_TEST\\storage\\app\\public\\uploads\\projects\\project_agendas\\');
+      // dd($files);
+      foreach($files as $file) {
+        $file_path  = "C:\\xampp\\htdocs\\DGME_TEST\\storage\\app\\public\\uploads\\projects\\project_agendas\\".$file;
+        if($file != '.' && $file != '..'){
+          $row = HrAttachment::where('attachments',$file)->first();
+          if($row){
+        // dd($row);
+          $row->attachment_file = base64_encode(file_get_contents($file_path));
+          $row->save();
+          }
+        }
+        //do your work here
+      }
 
 
       // $score = app('App\Http\Controllers\ProjectAssignController')->AddScore(1025);
