@@ -36,6 +36,13 @@
     margin: 2px;
     color:#0D52D1;
   }
+  .dark-grey{
+    font-size: 0px;
+    background-color:#5c5c5c;
+    padding: 9px;
+    margin: 2px;
+    color:#0D52D1;
+  }
   .darkblue{
     font-size: 0px;
     background-color:#2A0CD0;
@@ -102,8 +109,8 @@
                             <label style="vertical-align:-webkit-baseline-middle;">{{$total_projects}} Total Projects</label>
                         </div>
                         <div style="padding:5px; display:inline-block;">
-                            <span class="blue">-</span>
-                            <label style="vertical-align:-webkit-baseline-middle;">{{$total_assigned_projects}} Total Assigned Projects</label>
+                            <span class="dark-grey">-</span>
+                            <label style="vertical-align:-webkit-baseline-middle;">{{$total_assigned_projects}} Total Un-Assigned Projects</label>
                         </div>
                         <div style="padding:5px; display:inline-block;">
                                 <span class="darkblue">-</span>
@@ -118,6 +125,28 @@
                     <div class="col-md-1"></div>
                 </div>
             </div>
+
+            <!-- Modal -->
+        <div class="modal fade in" id="myModal" style="display: block; padding-right: 17px;display:none">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Default Modal</h4>
+              </div>
+              <div class="modal-body">
+                <p>One fine body…</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
     </section>
 
 </div>
@@ -141,19 +170,20 @@
     "type": "serial",
     "theme": "light",
     "dataProvider": [ {
-      "Type": "Total\nProjects",
-      "Number of Projects": total_projects/total_projects*100,
-      "color": "#0D8ECF"
+      "Type": "Total\nProjects \n ({{$total_projects}})",
+      "Number of Projects": total_projects/total_projects*100 ,
+      "color": "#0D8ECF",
+
     }, {
-      "Type": "UnAssigned\nProjects",
+      "Type": "UnAssigned\nProjects \n ({{$total_assigned_projects}})",
       "Number of Projects": Math.round(total_assigned_projects/total_projects*100),
-      "color": "#162A3D"
+      "color": "#333"
     }, {
-      "Type": "Inprogress\nProjects",
+      "Type": "Inprogress\nProjects \n({{$inprogress_projects}})",
       "Number of Projects": Math.round(inprogress_projects/total_projects*100),
       "color": "#2A0CD0"
     }, {
-      "Type": "Completed\nProjects",
+      "Type": "Completed\nProjects \n ({{$completed_projects}})",
       "Number of Projects": Math.round(completed_projects/total_projects*100),
       "color": "#8A0CCF"
     } ],
@@ -191,7 +221,14 @@
     "export": {
       "enabled": true
     }
-
   } );
+</script>
+<script type="text/javascript">
+$(document).on('click','g',function(){
+  var data=$(this).attr('aria-label');
+  $('#myModal').modal('show');
+  // console.log(data);
+  $('.modal-body>p').append(data);
+});
 </script>
 @endsection

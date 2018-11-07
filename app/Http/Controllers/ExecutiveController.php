@@ -342,10 +342,17 @@ class ExecutiveController extends Controller
     // chart1
     public function chart_one(){
       $total_projects = count(Project::all());
-      $total_assigned_projects = count(AssignedProjectManager::all());
+      // $total_assigned_projects = count(AssignedProjectManager::all());
       $inprogress_projects = count(AssignedProject::where('complete',0)->get());
       $completed_projects = count(AssignedProject::where('complete',1)->get());
-      $total_assigned_projects = ($total_projects - $total_assigned_projects) + ($total_assigned_projects - $inprogress_projects - $completed_projects);
+      // $total_assigned_projects = ($total_projects - $inprogress_projects)-$completed_projects;
+      $total_assigned_projects=Project::select('projects.*')
+      ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+      ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
+      ->whereNull('assigned_projects.project_id')
+      ->whereNull('assigned_project_managers.project_id')
+      ->count();
+      // dd($total_unassigned->count());
       $model = new User();
       $officers = $model->hydrate(
         DB::select(
@@ -376,18 +383,35 @@ class ExecutiveController extends Controller
         )
         );
         $assigned_projects = [];
+        // foreach($officers as $officer){
+        //   if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad")
+        //   {
+        //     $officer->first_name = "M.";
+        //   }
+        //     $data_2 = DB::select(
+        //       'getOfficersInProgressProjectsById' .' '.$officer->id
+        //     );
+        //     $data_3 = DB::select(
+        //       'getOfficersAssignedProjectById'.' '.$officer->id
+        //     );
+        //     array_push($assigned_inprogress_projects,count($data_2));
+        //     array_push($total_assigned_projects,count($data_3));
+        //   }
         foreach($officers as $officer){
-
+          if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad" || (preg_match('#M[u|o]hammad*#i', $officer->first_name)==1))
+          {
+            $officer->first_name = "M.";
+            // dd($officer);
+          }
           $data = DB::select(
             'getOfficersAssignedProjectById' .' '.$officer->id
           );
           array_push($assigned_projects,count($data));
         }
-
+        // dd($officers);
       \JavaScript::put([
         'officers' => $officers,
         'assigned_projects' => $assigned_projects,
-
         ]);
       return view('executive.home.chart_two',['officers' => $officers,'assigned_projects' => $assigned_projects]);
     }
@@ -404,7 +428,7 @@ class ExecutiveController extends Controller
       $assigned_inprogress_projects = [];
       $total_assigned_projects = [];
       foreach($officers as $officer){
-        if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad")
+        if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad" || (preg_match('#M[u|o]hammad*#i', $officer->first_name)==1))
         {
           $officer->first_name = "M.";
         }
@@ -440,7 +464,7 @@ class ExecutiveController extends Controller
         );
         $assigned_completed_projects = [];
         foreach($officers as $officer){
-          if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad")
+          if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad" || (preg_match('#M[u|o]hammad*#i', $officer->first_name)==1))
           {
             $officer->first_name = "M.";
           }
@@ -471,7 +495,7 @@ class ExecutiveController extends Controller
       $person = [];
       $sum = 0;
       foreach($officers as $officer){
-        if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad")
+        if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad" || (preg_match('#M[u|o]hammad*#i', $officer->first_name)==1))
         {
           $officer->first_name = "M.";
         }
