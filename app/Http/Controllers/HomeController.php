@@ -63,20 +63,20 @@ class HomeController extends Controller
       // }
       // dd("Done");
       // Converting Mom To Base64
-      $files = scandir('C:\\xampp\\htdocs\\DGME_TEST\\storage\\app\\public\\uploads\\projects\\project_agendas\\');
-      // dd($files);
-      foreach($files as $file) {
-        $file_path  = "C:\\xampp\\htdocs\\DGME_TEST\\storage\\app\\public\\uploads\\projects\\project_agendas\\".$file;
-        if($file != '.' && $file != '..'){
-          $row = HrAttachment::where('attachments',$file)->first();
-          if($row){
-        // dd($row);
-          $row->attachment_file = base64_encode(file_get_contents($file_path));
-          $row->save();
-          }
-        }
-        //do your work here
-      }
+      // $files = scandir('C:\\xampp\\htdocs\\DGME_TEST\\storage\\app\\public\\uploads\\projects\\project_agendas\\');
+      // // dd($files);
+      // foreach($files as $file) {
+      //   $file_path  = "C:\\xampp\\htdocs\\DGME_TEST\\storage\\app\\public\\uploads\\projects\\project_agendas\\".$file;
+      //   if($file != '.' && $file != '..'){
+      //     $row = HrAttachment::where('attachments',$file)->first();
+      //     if($row){
+      //   // dd($row);
+      //     $row->attachment_file = base64_encode(file_get_contents($file_path));
+      //     $row->save();
+      //     }
+      //   }
+      //   //do your work here
+      // }
 
 
       // $score = app('App\Http\Controllers\ProjectAssignController')->AddScore(1025);

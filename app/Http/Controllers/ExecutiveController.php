@@ -341,18 +341,19 @@ class ExecutiveController extends Controller
     }
     // chart1
     public function chart_one(){
-      $total_projects = count(Project::all());
+      $actual_total_projects = Project::all();
+      $total_projects = count($actual_total_projects);
       // $total_assigned_projects = count(AssignedProjectManager::all());
       $inprogress_projects = count(AssignedProject::where('complete',0)->get());
       $completed_projects = count(AssignedProject::where('complete',1)->get());
       // $total_assigned_projects = ($total_projects - $inprogress_projects)-$completed_projects;
-      $total_assigned_projects=Project::select('projects.*')
+      $actual_total_assigned_projects=Project::select('projects.*')
       ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
       ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
       ->whereNull('assigned_projects.project_id')
       ->whereNull('assigned_project_managers.project_id')
-      ->count();
-      // dd($total_unassigned->count());
+      ->get();
+      $total_assigned_projects = count($actual_total_assigned_projects);
       $model = new User();
       $officers = $model->hydrate(
         DB::select(
@@ -361,14 +362,16 @@ class ExecutiveController extends Controller
         );
 
       \JavaScript::put([
+        'actual_total_projects' => $actual_total_projects,
         'total_projects' => $total_projects,
         'total_assigned_projects' => $total_assigned_projects,
+        'actual_total_assigned_projects' => $actual_total_assigned_projects,
         'inprogress_projects' => $inprogress_projects,
         'completed_projects' => $completed_projects,
         'officers' => $officers,
 
         ]);
-      return view('executive.home.chart_one',['total_projects'=>$total_projects ,'total_assigned_projects'=>$total_assigned_projects ,'inprogress_projects'=>$inprogress_projects ,'completed_projects'=>$completed_projects]);
+      return view('executive.home.chart_one',['actual_total_assigned_projects' => $actual_total_assigned_projects,'total_projects'=>$actual_total_projects ,'total_assigned_projects'=>$total_assigned_projects ,'inprogress_projects'=>$inprogress_projects ,'completed_projects'=>$completed_projects]);
     }
     // chart2
     public function chart_two(){
