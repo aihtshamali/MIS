@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name','last_name','username', 'email', 'password','api_token','admin_password'
+        'first_name','last_name','username', 'email', 'password','api_token','  '
     ];
 
     /**
@@ -78,5 +78,14 @@ class User extends Authenticatable
     }
     public function ActivityDocument(){
       return $this->hasMany('App\ActivityDocument');
+    }
+    public function vmis_drivers(){
+      return $this->belongsTo('App\VmisDrivers');
+    }
+    public function plantrip_triprequest(){
+      return $this->hasMany('App\plantrip_triprequest');
+    }
+    public function PlantripMember(){
+      return $this->hasMany('App\PlantripMember');
     }
 }

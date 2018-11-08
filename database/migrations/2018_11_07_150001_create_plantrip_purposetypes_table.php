@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePlantripTripMembersTable extends Migration
+class CreatePlantripPurposetypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreatePlantripTripMembersTable extends Migration
      */
     public function up()
     {
-        Schema::create('plantrip_trip_members', function (Blueprint $table) {
+        Schema::create('plantrip_purposetypes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned()->index()->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('name')->nullable();
+            $table->boolean('status')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreatePlantripTripMembersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plantrip_trip_members');
+        Schema::dropIfExists('plantrip_purposetypes');
     }
 }

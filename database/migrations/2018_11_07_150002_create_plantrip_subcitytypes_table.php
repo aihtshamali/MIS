@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePlantripVisittypesTable extends Migration
+class CreatePlantripSubcitytypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreatePlantripVisittypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('plantrip_visittypes', function (Blueprint $table) {
+        Schema::create('plantrip_subcitytypes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('project_id')->unsigned()->index()->nullable();
-            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
-            $table->string('description');
-            $table->boolean('status');
+            $table->string('name')->nullable();
+            $table->boolean('status')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreatePlantripVisittypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plantrip_visittypes');
+        Schema::dropIfExists('plantrip_subcitytypes');
     }
 }

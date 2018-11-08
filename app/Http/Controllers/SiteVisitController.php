@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\site_visit;
+use App\PlantripCity;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -25,7 +27,15 @@ class SiteVisitController extends Controller
      */
     public function create()
     {
-        return view('Site_Visit.Plan_A_Trip.new_trip');
+        $cities= PlantripCity::all();
+        $officers=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
+        ->leftJoin('user_details','user_details.user_id','users.id')
+        ->leftJoin('role_user','role_user.user_id','users.id')
+        ->leftJoin('roles','roles.id','role_user.role_id')
+        ->orderBy('roles.name','ASC')
+        ->where('roles.name','officer')
+        ->get();
+        return view('Site_Visit.Plan_A_Trip.new_trip',['cities'=>$cities,'officers'=>$officers]);
     }
     public function view(){
         return view('Site_Visit.Plan_A_Trip.view_trips');

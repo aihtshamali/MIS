@@ -1,5 +1,5 @@
-@extends('_Monitoring.layouts.upperNavigation')
-{{-- @section('content')
+@extends('layouts.uppernav')
+@section('content')
 <div class="content-wrapper">
     <section class="well " style="text-align:center">
         <h3>Welcome {{ucfirst(Auth::user()->first_name)}} {{ucfirst(Auth::user()->last_name)}} to your Dashboard </h3>
@@ -20,9 +20,8 @@
     @endrole
 
 </div>
-
-@endsection --}}
-@section('styleTags')
+@endsection
+{{-- @section('styleTags')
 <style>
 .pointer{cursor: pointer;}
 .mt2{margin-top: 2%;}
@@ -50,7 +49,7 @@ li{text-transform: capitalize;}
                     <div class="col-md-12 mt2">
                         {{-- <div class="sub-title">Default</div> --}}
                         <!-- Nav tabs -->
-                        <ul class="nav nav-tabs  tabs" role="tablist">
+                        {{-- <ul class="nav nav-tabs  tabs" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" data-toggle="tab" href="#home1" role="tab" aria-expanded="false">New</a>
                             </li>
@@ -102,4 +101,4 @@ li{text-transform: capitalize;}
             </div>
         </div>
 </div>
-@endsection
+@endsection  --}}
