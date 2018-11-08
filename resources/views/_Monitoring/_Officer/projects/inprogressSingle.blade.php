@@ -242,17 +242,97 @@
                                                     <!-- Nav tabs -->
                                                     <ul class="nav nav-tabs tabs p_tabs" role="tablist">
                                                         <li class="nav-item">
-                                                            <a class="nav-link active kpis" data-toggle="tab" href="#kpis" role="tab"
+                                                            <a class="nav-link active i-dates" data-toggle="tab" href="#i-dates"
+                                                                role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Important Dates</b></a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link financial" data-toggle="tab" href="#financial"
+                                                                role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Financial Phasing</b></a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link  kpis" data-toggle="tab" href="#kpis" role="tab"
                                                                 aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Key
                                                                     Point Indicators ( KPI(s))</b></a>
                                                         </li>
                                                         <li class="nav-item">
                                                             <a class="nav-link activities" data-toggle="tab" href="#activities"
-                                                                role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Activities</b></a>
+                                                                role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Tasks</b></a>
                                                         </li>
                                                     </ul>
                                                     <div class="tab-content tabs card-block ">
-                                                        <div class="tab-pane active" id="kpis" role="tabpanel" aria-expanded="false">
+                                                        <div class="tab-pane " id="i-dates" role="tabpanel" aria-expanded="false">
+                                                            <div class="row">
+                                                                <div class="col-md-4 offset-md-1">
+                                                                    <div class="form-group">
+                                                                        <label for="" class="col-form-label"><b>Technical Sanction :</b></label>
+                                                                        <br>
+                                                                        <input class="form-control" type="text" name="ts"  placeholder="Select your date" />
+                                                                    </div> 
+                                                                    <div class="form-group">
+                                                                            <label for="" class="col-form-label"><b>Contract Award Date :</b></label>
+                                                                            <br>
+                                                                            <input class="form-control" type="text" name="cwd" placeholder="Select your date" />
+                                                                        </div>
+                                                                <div class="form-group">
+                                                                    <label for="" class="col-form-label"><b>Actual Start Date :</b></label>
+                                                                    <br>
+                                                                    <input class="form-control" type="text" name="asd" placeholder="Select your date" />                                                                   
+                                                                </div>
+                                                                
+                                                                
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="tab-pane " id="financial" role="tabpanel" aria-expanded="false" style="display:none;">
+                                                            <div class="row">
+                                                                <h5 class="col-md-4">Gestation Period: <b><span id="t_months">39</span> months</b></h5>
+                                                                <h5 class="col-md-4">Total Cost: <b><span id="t_cost">467</span> Million(s)</b></h5>
+                                                                <h5 class="col-md-4">Start Date: <b id="f_date">19 November 2011</b></h5>
+                                                            </div>
+                                                            <h5 style="padding-top:20px;padding-bottom:10px;clear:both;">Original Cost</h5>
+                                                            <div class="table-responsive">
+                                                                <table class="table  table-bordered nowrap">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Sr #</th>
+                                                                            <th>Financial Year</th>
+                                                                            <th>Duration</th>
+                                                                            <th>Cost</th>
+                                                                            {{-- <th></th> --}}
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody id='original_tbody'>
+                                                                        
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <h5 style="padding-top:20px;padding-bottom:10px;clear:both;">Revised Cost</h5>
+                                                            <div class="table-responsive">
+                                                                <table class="table  table-bordered nowrap">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Sr #</th>
+                                                                            <th>Financial Year</th>
+                                                                            <th>Duration</th>
+                                                                            <th>Cost</th>
+                                                                            {{-- <th></th> --}}
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td></td>
+                                                                            <td> <input type="text" class="form-control fn"> </td>
+                                                                            <td> <input type="text" class="form-control fn"> </td>
+                                                                            <td> <input type="text" class="form-control fn"> </td>
+                                                                            {{-- <td>+</td> --}}
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                        <div class="tab-pane active" id="kpis" role="tabpanel" aria-expanded="false" style="display:none;">
                                                             <div class="card m-0 z-depth-right-0">
                                                                 <div class="card-header">
                                                                     <h4>KPI(s)</h4>
@@ -304,8 +384,9 @@
                                                                 </div>
                                                                 <div class="card-footer">
                                                                     <div class="col-md-3 offset-md-9">
-                                                                        <a class="btn btn-success btn-md saveNnextbtn">Save &
-                                                                            Next</a>
+                                                                        <a class="btn btn-success btn-md activities saveNnextbtn" data-toggle="tab" href="#activities"
+                                                                        role="tab" aria-expanded="false">Save &
+                                                                            Proceed</a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -333,12 +414,14 @@
                                                                 </div>
                                                                 <div class="card-footer">
                                                                         <div class="col-md-3 offset-md-9">
-                                                                            <a class="btn btn-success btn-md saveNnextbtn" >Save & Next</a>       
+                                                                            <a class="btn btn-success btn-md saveNnextbtn" >Save & Proceed</a>       
                                                                         </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-        
+                                                        
+                                                            
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -435,46 +518,26 @@
                                                                     <div class="row">
                                                                         <div class="col-md-10 offset-md-1">
                                                                                <div class="divider"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                      <div class="col-md-4 offset-md-1">
-                                                                            <div class="form-group">
-                                                                                <label for="" class="col-form-label"><b>Technical Sanction :</b></label>
-                                                                                <br>
-                                                                                <input class="form-control" type="text" name="ts"  placeholder="Select your date" />
-                                                                            </div> 
-                                                                            <div class="form-group">
-                                                                                    <label for="" class="col-form-label"><b>Contract Award Date :</b></label>
-                                                                                    <br>
-                                                                                    <input class="form-control" type="text" name="cwd" placeholder="Select your date" />
+                                                                               <div class="col-md-4 offset-md-2">
+                                                                                    <div class="form-group">
+                                                                                        <label for="" class="col-form-label"><b>Technical Sanction Cost:</b></label>
+                                                                                        <br>
+                                                                                        <input class="form-control" type="text" name="ts_cost" placeholder="TS Cost" />                                                                   
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label for="" class="col-form-label"><b>Contract Award Cost :</b></label>
+                                                                                        <br>
+                                                                                        <input class="form-control" type="text" name="cad_cost"  placeholder="Contract Cost" />
+                                                                                    </div>
+                                                                                    
                                                                                 </div>
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-form-label"><b>Actual Start Date :</b></label>
-                                                                            <br>
-                                                                            <input class="form-control" type="text" name="asd" placeholder="Select your date" />                                                                   
                                                                         </div>
-                                                                        
-                                                                        
-                                                                       </div>
-                                                                       <div class="col-md-4 offset-md-2">
-                                                                            <div class="form-group">
-                                                                                <label for="" class="col-form-label"><b>Technical Sanction Cost:</b></label>
-                                                                                <br>
-                                                                                <input class="form-control" type="text" name="ts_cost" placeholder="TS Cost" />                                                                   
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label for="" class="col-form-label"><b>Contract Award Cost :</b></label>
-                                                                                <br>
-                                                                                <input class="form-control" type="text" name="cad_cost"  placeholder="Contract Cost" />
-                                                                            </div>
-                                                                            
-                                                                           </div>
                                                                     </div>
+                                                                    
                                                                 </div>
                                                                 <div class="card-footer">
                                                                     <div class="col-md-3 offset-md-9">
-                                                                        <a class="btn btn-success btn-md saveNnextbtn physical" >Save & Next</a>       
+                                                                        <a class="btn btn-success btn-md saveNnextbtn physical" >Save & Proceed</a>       
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -630,34 +693,42 @@
                                                                             <table class="table  table-bordered nowrap">
                                                                                 <thead>
                                                                                     <tr>
+                                                                                        <th>Sr #</th>
+                                                                                        <th>Stakeholder Type</th>
                                                                                         <th>Name</th>
                                                                                         <th>Designation</th>
-                                                                                        <th>Department</th>
-                                                                                        <th>Contact #</th>
                                                                                         <th>Email </th>
-                                                                                        <th>Action</th>
-        
+                                                                                        <th>Contact #</th>
+                                                                                        <th></th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody id="stakeholders">
                                                                                     <tr>
+                                                                                        <td>
+                                                                                            <label for="">1</label>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <div class="col-md-12">
+                                                                                                <select id="districts" name="stakeholder" class="form-control form-control-primary select2" data-placeholder="" style="width: 100%;">
+                                                                                                    <option value="" hidden='hidden'>Select</option>
+                                                                                                    <option value="">some option</option>
+                                                                                                    <option value="">to choose</option>
+                                                                                                    <option value="">from</option>
+                                                                                                </select>
+                                                                                            </div>
+                                                                                        </td>
                                                                                         <td><input type="text" name="stakeholder_name"
                                                                                                 class="form-control" /></td>
-                                                                                        <td><input type="text" name="stakeholder_designation"
-                                                                                                class="form-control" /> </td>
-                                                                                        <td><input type="text" name="stakeholder_dept"
-                                                                                                class="form-control" /></td>
+                                                                                                <td><input type="text" name="stakeholder_designation"
+                                                                                                    class="form-control" /> </td>
                                                                                         <td><input type="text" name="stakeholder_number"
                                                                                                 class="form-control" /></td>
                                                                                         <td><input type="text" name="stakeholder_email"
                                                                                                 class="form-control" /></td>
                                                                                         <td><button type="button" name="add[]"
                                                                                                 class=" form-control btn btn-success "
-                                                                                                id="add-more" style="size:14px;">+</button></td>
-        
+                                                                                                id="addmore" style="size:14px;">+</button></td>
                                                                                     </tr>
-        
-        
                                                                                 </tbody>
         
                                                                             </table>
@@ -683,14 +754,25 @@
                                                                             <thead>
                                                                                 <tr>
                                                                                     <th>Issues</th>
+                                                                                    <th>Issue Type</th>
                                                                                     <th>Severity</th>
-                                                                                    <th>Responsible</th>
-        
+                                                                                    <th>Department</th>
                                                                                 </tr>
                                                                             </thead>
-                                                                            <tbody>
+                                                                            <tbody id='add-issue-here'>
                                                                                 <tr>
-                                                                                    <td>Time</td>
+                                                                                    <td><input type="text" name="issue" style="width:100%" /></td>
+                                                                                    <td>
+                                                                                        <select id="issues2" name="issuetype" class="form-control form-control-primary select2" data-placeholder="" style="width: 100%;">
+                                                                                            <option value="" hidden='hidden'>Select</option>
+                                                                                            <option value="Time">Time</option>
+                                                                                            <option value="Cost">Cost</option>
+                                                                                            <option value="Quality">Quality</option>
+                                                                                            <option value="Scope">Scope</option>
+                                                                                            <option value="Benifits">Benifits</option>
+                                                                                            <option value="Risks">Risks</option>
+                                                                                        </select>
+                                                                                    </td>
                                                                                     <td>
                                                                                         <select class="form-control form-control-primary">
                                                                                             <option value="" selected disabled>Select</option>
@@ -699,14 +781,8 @@
                                                                                             <option value="3">Medium</option>
                                                                                             <option value="4">Low</option>
                                                                                             <option value="5">Very Low</option>
-        
                                                                                         </select>
                                                                                     </td>
-                                                                                    <td>
-                                                                                        <input type="text" name="owner" /> </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>Cost</td>
                                                                                     <td>
                                                                                         <select class="form-control form-control-primary">
                                                                                             <option value="" selected disabled>Select</option>
@@ -715,75 +791,10 @@
                                                                                             <option value="3">Medium</option>
                                                                                             <option value="4">Low</option>
                                                                                             <option value="5">Very Low</option>
-        
                                                                                         </select>
                                                                                     </td>
-                                                                                    <td>
-                                                                                        <input type="text" name="owner" /> </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>Quality</td>
-                                                                                    <td>
-                                                                                        <select class="form-control form-control-primary">
-                                                                                            <option value="" selected disabled>Select</option>
-                                                                                            <option value="1">Very High</option>
-                                                                                            <option value="2">High</option>
-                                                                                            <option value="3">Medium</option>
-                                                                                            <option value="4">Low</option>
-                                                                                            <option value="5">Very Low</option>
-        
-                                                                                        </select>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <input type="text" name="owner" /> </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>Scope</td>
-                                                                                    <td>
-                                                                                        <select class="form-control form-control-primary">
-                                                                                            <option value="" selected disabled>Select</option>
-                                                                                            <option value="1">Very High</option>
-                                                                                            <option value="2">High</option>
-                                                                                            <option value="3">Medium</option>
-                                                                                            <option value="4">Low</option>
-                                                                                            <option value="5">Very Low</option>
-        
-                                                                                        </select>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <input type="text" name="owner" /> </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>Benefits</td>
-                                                                                    <td>
-                                                                                        <select class="form-control form-control-primary">
-                                                                                            <option value="" selected disabled>Select</option>
-                                                                                            <option value="1">Very High</option>
-                                                                                            <option value="2">High</option>
-                                                                                            <option value="3">Medium</option>
-                                                                                            <option value="4">Low</option>
-                                                                                            <option value="5">Very Low</option>
-        
-                                                                                        </select>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <input type="text" name="owner" /> </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>Risks</td>
-                                                                                    <td>
-                                                                                        <select class="form-control form-control-primary">
-                                                                                            <option value="" selected disabled>Select</option>
-                                                                                            <option value="1">Very High</option>
-                                                                                            <option value="2">High</option>
-                                                                                            <option value="3">Medium</option>
-                                                                                            <option value="4">Low</option>
-                                                                                            <option value="5">Very Low</option>
-        
-                                                                                        </select>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <input type="text" name="owner" />
+                                                                                    <td style="width:5%;">
+                                                                                        <button class="btn btn-sm btn-success" type="button" id="add-more-issues">+</button>
                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>
@@ -831,37 +842,26 @@
                                                                                             colspan="1">
                                                                                             Risk event
                                                                                         </th>
-                                                                                        <th class="bg_yel" rowspan="1" colspan="6">
-                                                                                            before migration
+                                                                                        <th class="bg_sky noborbottom" rowspan="2">Department Stakeholder</th>
+
+                                                                                        <th class="bg_sky noborbottom" rowspan="2">probability</th>
+
+                                                                                        <th class="" rowspan="1" colspan="4">
+                                                                                            Impact
                                                                                         </th>
         
                                                                                         <th class="bg_sky noborbottom" rowspan="2"
                                                                                             colspan="1">
-                                                                                            Risk owner
+                                                                                            Risk Score
                                                                                         </th>
                                                                                     </tr>
+                                                                                    
                                                                                     <tr>
-                                                                                        <th class="noborbottom">p</th>
-                                                                                        <th class="bg_br white" rowspan="1"
-                                                                                            colspan=3>
-                                                                                            severity
-                                                                                        </th>
-                                                                                        <th class="bg_bl noborbottom white">impact</th>
-                                                                                        <th class="bg_sky nobortop" rowspan="2"
-                                                                                            colspan="1">
-                                                                                            Risk response
-                                                                                        </th>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <th class="bg_sky nobortop"></th>
-                                                                                        <th class="bg_sky nobortop"></th>
-                                                                                        <th class="nobortop"></th>
                                                                                         <th>c</th>
                                                                                         <th>t</th>
                                                                                         <th>Q</th>
                                                                                         <th class="bg_bl nobortop white"><span
                                                                                                 class="red">p</span>*(C+T+Q)/3</th>
-                                                                                        <th class="bg_sky nobortop"></th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody id="riskmatrix">
