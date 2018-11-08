@@ -719,7 +719,7 @@ class ProjectController extends Controller
     $adp = AdpProject::orderBy('gs_no')->get();
 
     foreach ($districts as $district) {
-      $district->name = $district->name . "/";
+      $district->name = $district->name;
     }
     foreach ($sectors as $sector) {
       $sector->name = $sector->name . "/";
