@@ -177,6 +177,7 @@ class ExecutiveController extends Controller
               $time_against_activities_data = DB::select(
               'timeAgainstActivities' .' '. $act->id
               );
+
               $time_sum = 0;
               $loop = 0;
               $min = 0;
@@ -200,6 +201,7 @@ class ExecutiveController extends Controller
                 }
                 $loop++;
               }
+              $ave=0;
 
               $ave = $time_sum/count($time_against_activities_data);
               $ave = (int)round($ave,0,PHP_ROUND_HALF_UP);
@@ -339,11 +341,19 @@ class ExecutiveController extends Controller
     }
     // chart1
     public function chart_one(){
-      $total_projects = count(Project::all());
-      $total_assigned_projects = count(AssignedProjectManager::all());
+      $actual_total_projects = Project::all();
+      $total_projects = count($actual_total_projects);
+      // $total_assigned_projects = count(AssignedProjectManager::all());
       $inprogress_projects = count(AssignedProject::where('complete',0)->get());
       $completed_projects = count(AssignedProject::where('complete',1)->get());
-      $total_assigned_projects = ($total_projects - $total_assigned_projects) + ($total_assigned_projects - $inprogress_projects - $completed_projects);
+      // $total_assigned_projects = ($total_projects - $inprogress_projects)-$completed_projects;
+      $actual_total_assigned_projects=Project::select('projects.*')
+      ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+      ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
+      ->whereNull('assigned_projects.project_id')
+      ->whereNull('assigned_project_managers.project_id')
+      ->get();
+      $total_assigned_projects = count($actual_total_assigned_projects);
       $model = new User();
       $officers = $model->hydrate(
         DB::select(
@@ -352,14 +362,16 @@ class ExecutiveController extends Controller
         );
 
       \JavaScript::put([
+        'actual_total_projects' => $actual_total_projects,
         'total_projects' => $total_projects,
         'total_assigned_projects' => $total_assigned_projects,
+        'actual_total_assigned_projects' => $actual_total_assigned_projects,
         'inprogress_projects' => $inprogress_projects,
         'completed_projects' => $completed_projects,
         'officers' => $officers,
 
         ]);
-      return view('executive.home.chart_one',['total_projects'=>$total_projects ,'total_assigned_projects'=>$total_assigned_projects ,'inprogress_projects'=>$inprogress_projects ,'completed_projects'=>$completed_projects]);
+      return view('executive.home.chart_one',['actual_total_assigned_projects' => $actual_total_assigned_projects,'total_projects'=>$actual_total_projects ,'total_assigned_projects'=>$total_assigned_projects ,'inprogress_projects'=>$inprogress_projects ,'completed_projects'=>$completed_projects]);
     }
     // chart2
     public function chart_two(){
@@ -374,18 +386,35 @@ class ExecutiveController extends Controller
         )
         );
         $assigned_projects = [];
+        // foreach($officers as $officer){
+        //   if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad")
+        //   {
+        //     $officer->first_name = "M.";
+        //   }
+        //     $data_2 = DB::select(
+        //       'getOfficersInProgressProjectsById' .' '.$officer->id
+        //     );
+        //     $data_3 = DB::select(
+        //       'getOfficersAssignedProjectById'.' '.$officer->id
+        //     );
+        //     array_push($assigned_inprogress_projects,count($data_2));
+        //     array_push($total_assigned_projects,count($data_3));
+        //   }
         foreach($officers as $officer){
-
+          if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad" || (preg_match('#M[u|o]hammad*#i', $officer->first_name)==1))
+          {
+            $officer->first_name = "M.";
+            // dd($officer);
+          }
           $data = DB::select(
             'getOfficersAssignedProjectById' .' '.$officer->id
           );
           array_push($assigned_projects,count($data));
         }
-
+        // dd($officers);
       \JavaScript::put([
         'officers' => $officers,
         'assigned_projects' => $assigned_projects,
-
         ]);
       return view('executive.home.chart_two',['officers' => $officers,'assigned_projects' => $assigned_projects]);
     }
@@ -402,7 +431,7 @@ class ExecutiveController extends Controller
       $assigned_inprogress_projects = [];
       $total_assigned_projects = [];
       foreach($officers as $officer){
-        if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad")
+        if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad" || (preg_match('#M[u|o]hammad*#i', $officer->first_name)==1))
         {
           $officer->first_name = "M.";
         }
@@ -438,7 +467,7 @@ class ExecutiveController extends Controller
         );
         $assigned_completed_projects = [];
         foreach($officers as $officer){
-          if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad")
+          if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad" || (preg_match('#M[u|o]hammad*#i', $officer->first_name)==1))
           {
             $officer->first_name = "M.";
           }
@@ -469,7 +498,7 @@ class ExecutiveController extends Controller
       $person = [];
       $sum = 0;
       foreach($officers as $officer){
-        if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad")
+        if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad" || (preg_match('#M[u|o]hammad*#i', $officer->first_name)==1))
         {
           $officer->first_name = "M.";
         }
