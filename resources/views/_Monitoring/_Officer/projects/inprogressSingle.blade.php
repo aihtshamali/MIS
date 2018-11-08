@@ -26,6 +26,7 @@
 <link rel="stylesheet" href="{{asset('_monitoring/css/css/_dgme/DGME_officer_inprogressSingle.css')}}" />
 <style media="screen">
     html{scroll-behavior: smooth;}
+    .paddtopbottom1per{padding: 1% 0% !important;}
 </style>
 
 @endsection
@@ -59,7 +60,7 @@
                     </div>
                     <div class="col-md-4 ln_ht12">
                         <label for="PHI" class="">PHI </label>
-                        <input name="phi" id="#phi" type="number" class="frozen_pane"/>
+                        <input name="phi" id="#phi" type="text" class="frozen_pane" style="font-size:10px !important;"/>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -79,7 +80,7 @@
                     </div>
                     <div class="col-md-4 ln_ht12">
                         <label for="Financial" class="">Financial Progress %</label>
-                        <input type="text"  id="financial_progress" class="frozen_pane" name="financial_progress">
+                        <input type="text"  id="financial_progress" class="frozen_pane" name="financial_progress" style="font-size:10px !important;">
                     </div>
                     <div class="col-md-4 ln_ht12">
                         <label for="last_monitoring" class="">Last Monitoring Date </label>
@@ -254,7 +255,7 @@
                                                         </li>
                                                         <li class="nav-item">
                                                             <a class="nav-link activities" data-toggle="tab" href="#activities"
-                                                                role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Activities</b></a>
+                                                                role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Tasks</b></a>
                                                         </li>
                                                     </ul>
                                                     <div class="tab-content tabs card-block ">
@@ -324,13 +325,13 @@
                                                                 <div class="card-block">
 
                                                                     <div class="row form-group">
-                                                                        <div class="col-md-10 offset-md-1 planMactivities">
+                                                                        <div class="col-md-10 offset-md-1 planMactivities paddtopbottom1per">
                                                                             <div class="row form-group">
                                                                             <div class="col-md-4 offset-md-1"><label for=""> <b>Component 1</b></label></div>
                                                                             <div class="col-md-4 offset-md-1"> <input type="text" class="form-control"></div>
                                                                             </div>
                                                                             <div class="row form-group">
-                                                                            <div class="col-md-4 offset-md-1"><button class="btn btn-sm btn-warning" type="button" id="add_activity" name="add_activity"> Add Activities</button></div>
+                                                                            <div class="col-md-4 offset-md-1"><button class="btn btn-sm btn-warning" type="button" id="add_activity" name="add_activity"> Add Tasks</button></div>
                                                                             </div>
 
 
@@ -651,8 +652,19 @@
                                                                                                 class="form-control" /></td>
                                                                                         <td><input type="text" name="stakeholder_designation"
                                                                                                 class="form-control" /> </td>
-                                                                                        <td><input type="text" name="stakeholder_dept"
-                                                                                                class="form-control" /></td>
+                                                                                        <td>
+                                                                                          <select name="select"
+                                                                                                  class="form-control">
+                                                                                              <option value="opt1" hidden>Select One Value Only</option>
+                                                                                              <option value="opt2">Type 2</option>
+                                                                                              <option value="opt3">Type 3</option>
+                                                                                              <option value="opt4">Type 4</option>
+                                                                                              <option value="opt5">Type 5</option>
+                                                                                              <option value="opt6">Type 6</option>
+                                                                                              <option value="opt7">Type 7</option>
+                                                                                              <option value="opt8">Type 8</option>
+                                                                                          </select>
+                                                                                          </td>
                                                                                         <td><input type="text" name="stakeholder_number"
                                                                                                 class="form-control" /></td>
                                                                                         <td><input type="text" name="stakeholder_email"
@@ -1088,45 +1100,47 @@
 <script src="{{asset('_monitoring/js/_dgme/DGME_officer_inprogressSingle.js')}}"></script>
 
 <script>
-    $(document).on('change', '#sector', function() {
-    var opt = $(this).val()
-    //   console.log(opt);
-    $.ajax({
-    method: 'POST', // Type of response and matches what we said in the route
-    url: '/onsectorselect', // This is the url we gave in the route
-    data: {
-    "_token": "{{ csrf_token() }}",
-    'data' : opt}, // a JSON object to send back
-    success: function(response){ // What to do if we succeed
-    console.log(response);
-    $("#sub_sectors").empty();
-    $.each(response, function () {
-        $('#sub_sectors').append("<option value=/""+this.id+"/">"+this.name+"</option>");
-    });
-    },
-    error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
-        console.log(JSON.stringify(jqXHR));
-        console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
-    }
-    });
-    });
-    $(document).ready(function(){
-    $(window).scroll(function(){
-    	var scroll = $(window).scrollTop();
-  	  if (scroll > 380)
-      {
-        $("#table-1 > thead").css({ "position": "fixed", "margin-top": "-27%", "background": "#fff"});
-        $("#table-1 > thead > tr > th").css({ "width": "171px", "border-left": "none", "border-right": "none"});
-        $("#table-1 > thead > tr > #action").hide();
-  	  }
-      else
-       {
-         $("#table-1 > thead").css({ "position": "relative", "background": "#fff"});
-         // $("#table-1 > thead > tr > th").css({ "width": "171px", "border-left": "none", "border-right": "none"});
-         $("#table-1 > thead > tr > #action").show();
-       }
-    });
-    });
+$(document).ready(function(){
+$(window).scroll(function(){
+  var scroll = $(window).scrollTop();
+  console.log('hassan');
+  if (scroll > 380)
+  {
+    $("#table-1 > thead").css({ "position": "fixed", "margin-top": "-27%", "background": "#fff"});
+    $("#table-1 > thead > tr > th").css({ "width": "171px", "border-left": "none", "border-right": "none"});
+    $("#table-1 > thead > tr > #action").hide();
+  }
+  else
+   {
+     $("#table-1 > thead").css({ "position": "relative", "background": "#fff"});
+     // $("#table-1 > thead > tr > th").css({ "width": "171px", "border-left": "none", "border-right": "none"});
+     $("#table-1 > thead > tr > #action").show();
+   }
+});
+});
+    // $(document).on('change', '#sector', function() {
+    // var opt = $(this).val()
+    // //   console.log(opt);
+    // $.ajax({
+    // method: 'POST', // Type of response and matches what we said in the route
+    // url: '/onsectorselect', // This is the url we gave in the route
+    // data: {
+    // "_token": "{{ csrf_token() }}",
+    // 'data' : opt}, // a JSON object to send back
+    // success: function(response){ // What to do if we succeed
+    // console.log(response);
+    // $("#sub_sectors").empty();
+    // $.each(response, function () {
+    //     $('#sub_sectors').append("<option value=/""+this.id+"/">"+this.name+"</option>");
+    // });
+    // },
+    // error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+    //     console.log(JSON.stringify(jqXHR));
+    //     console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+    // }
+    // });
+    // });
+
           // var tableOffset = $("#table-1").offset().top;
           // var $header = $("#table-1 > thead").clone();
           // var $fixedHeader = $("#header-fixed").append($header);

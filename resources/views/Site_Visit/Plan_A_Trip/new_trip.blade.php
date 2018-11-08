@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="{{ asset('_monitoring/css/css/datedropper.min.css')}}" />
     <style>
     .bg-w{background-color: #fff !important;}
+
+    /* .select2-container{width:inherit !important;} */
     .daterangepicker td.in-range {
         background-color: #357ebd;
     }

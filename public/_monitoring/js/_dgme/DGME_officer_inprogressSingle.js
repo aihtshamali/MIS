@@ -133,13 +133,23 @@ $('input[name="cwd"]').daterangepicker({
 
 
 $('button#add-more').click(function(e){
-var add_stakeholder='<tr>'
-                    +'<td><input type="text" name="stakeholder_name" class="form-control" /></td>'
-                    +'<td><input type="text" name="stakeholder_designation" class="form-control" /> </td>'
-                    +'<td><input type="text" name="stakeholder_dept" class="form-control" /></td>'
-                    +'<td><input type="text" name="stakeholder_number" class="form-control" /></td>'
-                    +'<td><input type="text" name="stakeholder_email" class="form-control" /></td>'
-                    +'<td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td></tr>   ';
+var add_stakeholder= `<tr>
+                    <td><input type="text" name="stakeholder_name" class="form-control" /></td>
+                    <td><input type="text" name="stakeholder_designation" class="form-control" /> </td>
+                    <td><select name="select"
+                            class="form-control">
+                        <option value="opt1" hidden>Select One Value Only</option>
+                        <option value="opt2">Type 2</option>
+                        <option value="opt3">Type 3</option>
+                        <option value="opt4">Type 4</option>
+                        <option value="opt5">Type 5</option>
+                        <option value="opt6">Type 6</option>
+                        <option value="opt7">Type 7</option>
+                        <option value="opt8">Type 8</option>
+                    </select></td>'
+                    <td><input type="text" name="stakeholder_number" class="form-control" /></td>
+                    <td><input type="text" name="stakeholder_email" class="form-control" /></td>
+                    <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td></tr>`
                     $('#stakeholders').append(add_stakeholder);
                 });
 
@@ -162,7 +172,7 @@ var add_risks='<tr>'
 $('button#add_activity').click(function(e){
 
 var add_activities ='<div class="row form-group component_Activities">'
-                +'<div class="col-md-3 offset-md-1"><input type="text" class="form-control" placeholder="Add Activity" name="c_activity[]"> </div>'
+                +'<div class="col-md-3 offset-md-1"><input type="text" class="form-control" placeholder="Add Task" name="c_activity[]"> </div>'
                 +'<div class="col-md-2"> <input type="text" class="form-control" placeholder="Cost" name="c_cost[]"></div>'
                 +'<div class="col-md-2"><input type="text" class="form-control" placeholder="Units" name="c_unit[]"></div>'
                 +'<div class="col-md-2"><input type="text" class="form-control" placeholder="Quantity" name="c_quantity[]"></div>'

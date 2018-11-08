@@ -46,13 +46,13 @@ li{text-transform: capitalize;}
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs  tabs" role="tablist">
                             <li class="nav-item inProgress">
-                                <a class="nav-link active" data-toggle="tab" href="#home1" role="tab" aria-expanded="false">inprogress</a>
+                                <a class="nav-link active" data-toggle="tab" href="#!" role="tab" aria-expanded="false">inprogress</a>
                             </li>
                             <li class="nav-item quarterlyComp">
-                                <a class="nav-link" data-toggle="tab" href="#profile1" role="tab" aria-expanded="false">quarterly complete</a>
+                                <a class="nav-link" data-toggle="tab" href="#!" role="tab" aria-expanded="false">quarterly complete</a>
                             </li>
                             <li class="nav-item finished">
-                                <a class="nav-link" data-toggle="tab" href="#messages1" role="tab" aria-expanded="false">finished</a>
+                                <a class="nav-link" data-toggle="tab" href="#!" role="tab" aria-expanded="false">finished</a>
                             </li>
                         </ul>
                         <!-- Tab panes -->
@@ -77,9 +77,9 @@ li{text-transform: capitalize;}
                                           </thead>
                                           <tbody>
                                               <tr>
-                                                  <td>Tiger Nixon</td>
-                                                  <td>System Architect</td>
-                                                  <td>Edinburgh</td>
+                                                  <td>1.</td>
+                                                  <td>12</td>
+                                                  <td>3</td>
                                                   <td>61</td>
                                                   <td>2011/04/25</td>
                                                   <td>$320,800</td>
@@ -91,9 +91,9 @@ li{text-transform: capitalize;}
                                                   </td>
                                               </tr>
                                               <tr>
-                                                  <td>Garrett Winters</td>
-                                                  <td>Accountant</td>
-                                                  <td>Tokyo</td>
+                                                  <td>2</td>
+                                                  <td>15</td>
+                                                  <td>4</td>
                                                   <td>63</td>
                                                   <td>2011/07/25</td>
                                                   <td>$170,750</td>
@@ -124,6 +124,7 @@ li{text-transform: capitalize;}
                                         <th>cost</th>
                                         <th>district</th>
                                         <th>duration</th>
+                                        <th>next tentative monitoring</th>
                                       </tr>
                                     </thead>
                                     <tbody>
@@ -135,6 +136,7 @@ li{text-transform: capitalize;}
                                         <td>PKR</td>
                                         <td>Lahore</td>
                                         <td>___-___</td>
+                                        <td>____________</td>
                                       </tr>
                                       <tr>
                                         <td>4545</td>
@@ -144,6 +146,7 @@ li{text-transform: capitalize;}
                                         <td>PKR</td>
                                         <td>Lahore</td>
                                         <td>___-___</td>
+                                        <td>___________</td>
                                       </tr>
 
                                     </tbody>
