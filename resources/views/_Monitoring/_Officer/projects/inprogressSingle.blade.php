@@ -1,4 +1,7 @@
 @extends('_Monitoring.layouts.upperNavigation')
+@section('title')
+  Monitoring | DGME
+@endsection
 @section('styleTags')
 <link rel="stylesheet" href="{{ asset('_monitoring/css/icon/icofont/css/icofont.css')}}"/>
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/sweetalert.css')}}" />
@@ -17,7 +20,7 @@
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/responsive.bootstrap4.min.css')}}" />
 
 {{-- font awesome --}}
-<link rel="stylesheet" href="{{ asset('_monitoring\css\icon\font-awesome\css\font-awesome.min.css')}}" />
+<link rel="stylesheet" href="{{ asset('_monitoring/css/icon/font-awesome/css/font-awesome.min.css')}}" />
 
 {{-- This is dgme custom css for this page only ,write here any css you want to Ok!!! --}}
 <link rel="stylesheet" href="{{asset('_monitoring/css/css/_dgme/DGME_officer_inprogressSingle.css')}}" />
@@ -88,7 +91,7 @@
 
     {{-- end of frozen panel --}}
     <div class="row">
-            <div class="col-xl-8 col-lg-12  mainTabsAndNav " style="padding-left: 15px !important;
+            <div class="col-md-9 mainTabsAndNav " style="padding-left: 15px !important;
         padding-right: 15px !important;">
                 <form action="#">
                     <div class="card">
@@ -612,7 +615,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="tab-pane active" id="stakeholder" role="tabpanel"
+                                                        <div class="tab-pane active" id="stakeholder" role="tabp0anel"
                                                             aria-expanded="true">
                                                             {{-- <p class="m-0">4.Cras consequat in enim ut efficitur. Nulla
                                                                 posuere elit quis auctor interdum praesent sit amet nulla vel
@@ -630,7 +633,7 @@
                                                                 <div class="card-block">
                                                                     <div class="col-md-12">
                                                                         <div class="table-responsive">
-                                                                            <table class="table  table-bordered nowrap">
+                                                                            <table class="table  table-bordered nowrap" id="table-1">
                                                                                 <thead>
                                                                                     <tr>
                                                                                         <th>Name</th>
@@ -638,7 +641,7 @@
                                                                                         <th>Department</th>
                                                                                         <th>Contact #</th>
                                                                                         <th>Email </th>
-                                                                                        <th>Action</th>
+                                                                                        <th id="action">Action</th>
 
                                                                                     </tr>
                                                                                 </thead>
@@ -657,14 +660,11 @@
                                                                                         <td><button type="button" name="add[]"
                                                                                                 class=" form-control btn btn-success "
                                                                                                 id="add-more" style="size:14px;">+</button></td>
-
                                                                                     </tr>
-
-
                                                                                 </tbody>
-
                                                                             </table>
-                                                                        </div>
+                                                                            <table id="header-fixed"></table>
+                                                                            </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -978,7 +978,7 @@
                     </div>
                 </form>
             </div>
-            <div class="col-xl-4 col-lg-12  p_details" style="padding-left: 15px !important;  padding-right: 15px !important;">
+            <div class="col-xl-3 col-lg-12  p_details" style="padding-left: 15px !important;  padding-right: 15px !important;">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-header-text"><i class="icofont icofont-ui-note m-r-10"></i> Project Details</h5>
@@ -1101,7 +1101,7 @@
     console.log(response);
     $("#sub_sectors").empty();
     $.each(response, function () {
-        $('#sub_sectors').append("<option value=\""+this.id+"\">"+this.name+"</option>");
+        $('#sub_sectors').append("<option value=/""+this.id+"/">"+this.name+"</option>");
     });
     },
     error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
@@ -1110,5 +1110,35 @@
     }
     });
     });
-</script>
+    $(document).ready(function(){
+    $(window).scroll(function(){
+    	var scroll = $(window).scrollTop();
+  	  if (scroll > 380)
+      {
+        $("#table-1 > thead").css({ "position": "fixed", "margin-top": "-27%", "background": "#fff"});
+        $("#table-1 > thead > tr > th").css({ "width": "171px", "border-left": "none", "border-right": "none"});
+        $("#table-1 > thead > tr > #action").hide();
+  	  }
+      else
+       {
+         $("#table-1 > thead").css({ "position": "relative", "background": "#fff"});
+         // $("#table-1 > thead > tr > th").css({ "width": "171px", "border-left": "none", "border-right": "none"});
+         $("#table-1 > thead > tr > #action").show();
+       }
+    });
+    });
+          // var tableOffset = $("#table-1").offset().top;
+          // var $header = $("#table-1 > thead").clone();
+          // var $fixedHeader = $("#header-fixed").append($header);
+          //
+          // $(window).bind("scroll", function() {
+          //   var offset = $(this).scrollTop();
+          //   if (offset >= tableOffset && $fixedHeader.is(":hidden")) {
+          //       $fixedHeader.show();
+          //   }
+          //   else if (offset < tableOffset) {
+          //       $fixedHeader.hide();
+          //   }
+          // });
+    </script>
 @endsection
