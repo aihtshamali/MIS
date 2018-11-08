@@ -95,3 +95,12 @@
     margin-top: -6%;
     width:30%;
    }
+td{text-align: center;}
+#header-fixed {
+    position: fixed;
+    top: 20%; display:none;
+    background-color:white;
+}
+/* #header-fixed th{width: 10.5%;}
+#action{width: 1%;} */
+.table-responsive{overflow-x: hidden;}

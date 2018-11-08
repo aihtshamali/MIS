@@ -86,7 +86,7 @@
     .col-md-12{border-radius: 5px !important;}
     .select2-container{border: 1px solid #77777714 !important; border-radius: 5px;}
     .select2-container--default .select2-selection--multiple{border: none !important;}
-    .dlt_btn{display: none;width: fit-content;float: right;font-size: 20px;color: #777;padding: 0px 13px 0px 9px !important;line-height: 30px;font-weight: 900;letter-spacing: -4px;border: 1px solid transparent;border-radius: 50%;}
+    .dlt_btn{width: fit-content;float: right;font-size: 20px;color: #777;padding: 0px 13px 0px 9px !important;line-height: 30px;font-weight: 900;letter-spacing: -4px;border: 1px solid transparent;border-radius: 50%;}
     .dlt_btn:hover {color: #e65a5a;transition: all 900ms ease;border: 1px solid #e65a5a;border-radius: 50%;}
     .dlt_btnout{display: none;width: fit-content;float: right;font-size: 20px;color: #777;padding: 0px 13px 0px 9px !important;line-height: 30px;font-weight: 900;letter-spacing: -4px;border: 1px solid transparent;border-radius: 50%;}
     .dlt_btnout:hover {color: #e65a5a;transition: all 900ms ease;border: 1px solid #e65a5a;border-radius: 50%;}
@@ -118,9 +118,9 @@
                             </div>
                         </div>
                     <div id="clonethisproposal_1" class="w3-animate-top">
-                      <div class="dlt_btn pointer">
+                      {{-- <div class="dlt_btn pointer">
                         ---
-                      </div>
+                      </div> --}}
                         <div class="col-md-12 inlinebox">
                             <div class="col-md-2 nopaddinglef">
                                 <select id="reason_1" name="select" class="form-control form-control-default reason nopaddingright">
@@ -278,22 +278,10 @@
                                       <option value="Wazirabad">Wazirabad</option>
                                 </select>
                             </div>
-                            {{-- <div class="col-md-6" style="padding-left:0">
-                                <select name="select" class="form-control form-control-default">
-                                    <option value="opt1" selected hidden>To</option>
-                                </select>
-                            </div> --}}
                         </div>
                         <div class="col-md-12 inlinebox" style="margin-top:10px">
                             <div class="col-md-6" style="padding-left:0">
                                 <label for="">Date</label>
-                                {{-- <input class="form-control" type="datetime-local"> --}}
-                                {{-- <div class="input-group date" id="datetimepicker10">
-                                    <input type="text" class="form-control" >
-                                    <span class="input-group-addon ">
-                                    <span class="icofont icofont-ui-calendar"></span>
-                                    </span>
-                                </div> --}}
                                 <div class="input-group date input-group-date-custom">
                                     <input type="text" class="form-control border" placeholder="Select Date">
                                     <span class="input-group-addon ">
@@ -303,7 +291,6 @@
                             </div>
                             <div class="nopaddingright col-md-6" style="padding-left:0">
                                 <label for="">Time</label>
-                                {{-- <input class="form-control" type="time"> --}}
                                 <select  name="my_time[]" class="form-control" style="text-align: center !important" id="">
                                     <option value="" hidden>Expected Time of Departure</option>
                                     @for ($i = 1; $i < 12; $i++)
@@ -316,9 +303,7 @@
                                     @endfor
                                     @endfor
                                     <option value="12 : 00 PM">12 : 00 PM</option>
-                                    {{-- <option value="12 : 15 PM">12 : 15 PM</option> --}}
                                     <option value="12 : 30 PM">12 : 30 PM</option>
-                                    {{-- <option value="12 : 45 PM">12 : 45 PM</option> --}}
                                     @for ($i = 1; $i <= 11; $i++)
                                     @for($j = 0; $j <= 45; $j+=30)
                                         @if($j == 0)
@@ -342,8 +327,7 @@
                         </div>
                     </div>
                     <div class="addclonehere"></div>
-                    <div class="form-group">
-                        {{-- <button class=""><i class="icofont icofont-exchange"></i>Inverse Button</button> --}}
+                    <div class="form-group" onclick="addPurposeloc(this)">
                         <div class="nodisplay addnewproposal btn-block w3-animate-bottom btn btn-inverse btn-outline-inverse"><i class="icofont icofont-plus"></i>Add purpose</div>
                     </div>
                     <div class="form-group">
@@ -740,6 +724,7 @@
 <script>
     var purpose_id = 1;
     var purpose_id2 = 1;
+    var purpose_id2_local = 1;
     var city_id2 = 1;
     var roundpurposal = 1;
     var append_id=2
@@ -1076,6 +1061,209 @@
     {{-- end roundtrip --}}
     {{-- start multiple cities --}}
   </div>
+  `
+  var muullocl = `
+  <div id="" class="w3-animate-top">
+    <div class="dlt_btn pointer">
+      ---
+    </div>
+      <div class="col-md-12 inlinebox">
+          <div class="col-md-2 nopaddinglef">
+              <select id="reason_1" name="select" class="form-control form-control-default reason nopaddingright">
+                  <option selected="selected" hidden>Select Reason For Visit</option>
+                  <option value="Monitoring">Monitoring</option>
+                  <option value="Evaluation">Evaluation</option>
+                  <option value="Meeting">Meeting</option>
+                  <option value="Other">Other</option>
+              </select>
+          </div>
+          <div id='gsrow' class="col-md-10 row nodisplay w3-animate-left nopaddingright">
+              <div class="col-md-2 nopadlefright">
+                  <select class="form-control  select2" name="financial_year" id="financial_year" style="width:100% !important;margin-left:7%;">
+                      <option value="0" hidden>Select Year </option>
+                        @for($i = 2 ; $i <= 30 ; $i++)
+                          @if($i == 9)
+                            <option value="200{{$i}}-{{$i+1}}">200{{$i}}-{{$i+1}}</option>
+                          @elseif($i > 9)
+                            <option value="20{{$i}}-{{$i+1}}">20{{$i}}-{{$i+1}}</option>
+                          @else
+                            <option value="200{{$i}}-0{{$i+1}}">200{{$i}}-0{{$i+1}}</option>
+                          @endif
+                        @endfor
+                  </select>
+              </div>
+              <h2 class="col-md-1" style="padding-left:4% !important;">/</h2>
+              <div class="col-md-2 nopadlefright">
+                  <select name="select" class="form-control form-control-default">
+                      <option value="opt1" selected>GS#</option>
+                  </select>
+              </div>
+              <div class="col-md-7 nopaddingright" style="width:41.5% !important;">
+                  <select name="select" class="form-control form-control-default">
+                      <option value="opt1" selected>project</option>
+                      <option value="opt1" selected>project</option>
+                  </select>
+              </div>
+          </div>
+
+          <div class='form-control nodisplay w3-animate-left' id='brief' >
+              <input type="text" placeholder="Enter Description Here...."/>
+          </div>
+
+      </div>
+      <label for="">Location</label>
+      <div class="col-md-12 inlinebox border nopaddingright">
+          <div class="col-md-12 nopadlefright" style="">
+              <select name="select" class="form-control yeselect">
+                  <option value="opt1" selected hidden>Location</option>
+                    <option value="Ahmadpur East">Ahmadpur East</option>
+                    <option value="Ahmed Nager Chatha">Ahmed Nager Chatha</option>
+                    <option value=">Ali Khan Abad">Ali Khan Abad</option>
+                    <option value="Alipur">Alipur</option>
+                    <option value="Arifwala">Arifwala</option>
+                    <option value="Attock">Attock</option>
+                    <option value="Bhera">Bhera</option>
+                    <option value="Bhalwal">Bhalwal</option>
+                    <option value="Bahawalnagar">Bahawalnagar</option>
+                    <option value="Bahawalpur">Bahawalpur</option>
+                    <option value="Bhakkar">Bhakkar</option>
+                    <option value="Burewala">Burewala</option>
+                    <option value="Chillianwala">Chillianwala</option>
+                    <option value="Chakwal">Chakwal</option>
+                    <option value="Chichawatni">Chichawatni</option>
+                    <option value="Chiniot">Chiniot</option>
+                    <option value="Chishtian">Chishtian</option>
+                    <option value="Daska">Daska</option>
+                    <option value="Darya Khan">Darya Khan</option>
+                    <option value="Dera Ghazi Khan">Dera Ghazi Khan</option>
+                    <option value="Dhaular">Dhaular</option>
+                    <option value="Dina">Dina</option>
+                    <option value="Dinga">Dinga</option>
+                    <option value="Dipalpur">Dipalpur</option>
+                    <option value="Faisalabad">Faisalabad</option>
+                    <option value="Fateh Jang">Fateh Jang</option>
+                    <option value="Ghakhar Mandi">Ghakhar Mandi</option>
+                    <option value="Gojra">Gojra</option>
+                    <option value="Gujranwala">Gujranwala</option>
+                    <option value="Gujrat">Gujrat</option>
+                    <option value="Gujar Khan">Gujar Khan</option>
+                    <option value="Hafizabad">Hafizabad</option>
+                    <option value="Haroonabad">Haroonabad</option>
+                    <option value="Hasilpur">Hasilpur</option>
+                    <option value="Haveli Lakha">Haveli Lakha</option>
+                    <option value="Jalalpur Jattan">Jalalpur Jattan</option>
+                    <option value="Jampur">Jampur</option>
+                    <option value="Jaranwala">Jaranwala</option>
+                    <option value="Jhang">Jhang</option>
+                    <option value="Jhelum">Jhelum</option>
+                    <option value="Kalabagh">Kalabagh</option>
+                    <option value="Karor Lal Esan">Karor Lal Esan</option>
+                    <option value="Kasur">Kasur</option>
+                    <option value="Kamalia">Kamalia</option>
+                    <option value="KÄmoke">KÄmoke</option>
+                    <option value="Khanewal">Khanewal</option>
+                    <option value="Khanpur">Khanpur</option>
+                    <option value="Kharian">Kharian</option>
+                    <option value="Khushab">Khushab</option>
+                    <option value="Kot Adu">Kot Adu</option>
+                    <option value="Jauharabad">Jauharabad</option>
+                    <option value="Lahore" selected='selected'>Lahore</option>
+                    <option value="Lalamusa">Lalamusa</option>
+                    <option value="Layyah">Layyah</option>
+                    <option value="Liaquat Pur">Liaquat Pur</option>
+                    <option value="Lodhran">Lodhran</option>
+                    <option value="Malakwal">Malakwal</option>
+                    <option value="Mamoori">Mamoori</option>
+                    <option value="Mailsi">Mailsi</option>
+                    <option value="Mandi Bahauddin">Mandi Bahauddin</option>
+                    <option value="Mian Channu">Mian Channu</option>
+                    <option value="Mianwali">Mianwali</option>
+                    <option value="Multan">Multan</option>
+                    <option value="Murree">Murree</option>
+                    <option value="Muridke">Muridke</option>
+                    <option value="Mianwali Bangla">Mianwali Bangla</option>
+                    <option value="Muzaffargarh">Muzaffargarh</option>
+                    <option value="Narowal">Narowal</option>
+                    <option value="Okara">Okara</option>
+                    <option value="Renala K">Renala K</option>
+                    <option value="Pakpatta">Pakpatta</option>
+                    <option value="Pattoki">Pattoki</option>
+                    <option value="Pir Mahal">Pir Mahal</option>
+                    <option value="Qaimpur">Qaimpur</option>
+                    <option value="Qila Didar Singh">Qila Didar Singh</option>
+                    <option value="Rabwah">Rabwah</option>
+                    <option value="Raiwind">Raiwind</option>
+                    <option value="Rajanpur">Rajanpur</option>
+                    <option value="Rahim Yar Khan">Rahim Yar Khan</option>
+                    <option value="Rawalpindi">Rawalpindi</option>
+                    <option value="Sadiqabad">Sadiqabad</option>
+                    <option value="Safdarabad">Safdarabad</option>
+                    <option value="Sahiwal">Sahiwal</option>
+                    <option value="Sangla Hill">Sangla Hill</option>
+                    <option value="Sarai Alamgir">Sarai Alamgir</option>
+                    <option value="Sargodha">Sargodha</option>
+                    <option value="Shakargarh">Shakargarh</option>
+                    <option value="Sheikhupura">Sheikhupura</option>
+                    <option value="Sialkot">Sialkot</option>
+                    <option value="Sohawa">Sohawa</option>
+                    <option value="Soianwala">Soianwala</option>
+                    <option value="Siranwali">Siranwali</option>
+                    <option value="Talagang">Talagang</option>
+                    <option value="Taxila">Taxila</option>
+                    <option value="Toba Tek Singh">Toba Tek Singh</option>
+                    <option value="Vehari">Vehari</option>
+                    <option value="Wah Cantonment">Wah Cantonment</option>
+                    <option value="Wazirabad">Wazirabad</option>
+              </select>
+          </div>
+      </div>
+      <div class="col-md-12 inlinebox" style="margin-top:10px">
+          <div class="col-md-6" style="padding-left:0">
+              <label for="">Date</label>
+              <div class="input-group date input-group-date-custom">
+                  <input type="text" class="form-control border" placeholder="Select Date">
+                  <span class="input-group-addon ">
+                  <i class="fa fa-calendar"></i>
+                  </span>
+              </div>
+          </div>
+          <div class="nopaddingright col-md-6" style="padding-left:0">
+              <label for="">Time</label>
+              <select  name="my_time[]" class="form-control" style="text-align: center !important" id="">
+                  <option value="" hidden>Expected Time of Departure</option>
+                  @for ($i = 1; $i < 12; $i++)
+                  @for($j = 0; $j <= 45; $j+=30)
+                      @if($j == 0)
+                      <option value="{{$i . ' : ' . $j.'0' .' AM'}}"> {{$i . " : " . $j .'0'}} AM</option>
+                      @else
+                      <option value="{{$i . ' : ' . $j . ' AM'}}"> {{$i . " : " . $j }} AM </option>
+                      @endif
+                  @endfor
+                  @endfor
+                  <option value="12 : 00 PM">12 : 00 PM</option>
+                  <option value="12 : 30 PM">12 : 30 PM</option>
+                  @for ($i = 1; $i <= 11; $i++)
+                  @for($j = 0; $j <= 45; $j+=30)
+                      @if($j == 0)
+                      <option value="{{$i . ' : ' . $j.'0' . ' PM' }}"> {{$i . " : " . $j .'0'}} PM</option>
+                      @else
+                      <option value="{{$i . ' : ' . $j .' PM' }}"> {{$i . " : " . $j }} PM </option>
+                      @endif
+                  @endfor
+                  @endfor
+              </select>
+          </div>
+      </div>
+      <div class="form-group" id='thishit'>
+          <label>Members</label>
+          <select id="members" name="members[]" class="form-control js-multiple js-placeholder-multiple" multiple="multiple" data-placeholder="Select Members" style="width: 100%;">
+              <option>Hassan Ali</option>
+              <option>Aymun Saif</option>
+              <option>Aihtsham Ali</option>
+              <option>Anas Majeed</option>
+          </select>
+      </div>
+  </div>
     `
 
     function addPurpose(e){
@@ -1093,6 +1281,20 @@
         }
         ob.appendTo(add)
         $(".js-multiple").select2();
+        // clone.find('.date').datepicker()
+    }
+    function addPurposeloc(f){
+        console.log('there');
+        var ob_ = $(muullocl)
+        var add_ = $(f).siblings('.addclonehere')
+        if(purpose_id2_local++ % 2 == 1){
+            ob_.addClass('bg')
+        }
+        ob_.appendTo(add_)
+        // console.log($('.sinpurmulticityout').prop('checked'));
+        // ob.appendTo(add)
+        $(".js-multiple").select2();
+        $(".yeselect").select2();
         // clone.find('.date').datepicker()
     }
 
@@ -1142,20 +1344,21 @@
           $('.yeselect').select2();
           $(".js-multiple").select2();
     });
-    $(document).on('click','.addnewproposal',function(){
-        var clone = $('#clonethisproposal_1').clone().attr('id','clonethisproposal_'+ ++purpose_id).css({'border-top': '1px solid #293141', 'padding-top': '1%'})
-        if(purpose_id % 2 == 0)
-            clone.addClass('bg')
-        // clone.children().find('#gsrow_'+(purpose_id-1)).attr('id','gsrow_'+purpose_id)
-        // clone.children().find('#brief_'+(purpose_id-1)).attr('id','brief_'+purpose_id)
-        clone.children().find('#reason_'+(purpose_id-1)).attr('id','reason_'+purpose_id)
-        clone.appendTo('.addclonehere').show('slow');
-        clone.find("#thishit").remove()
-        clone.append(cl);
-        $(".js-multiple").select2();
-        clone.find('.date').datepicker()
-        $(".dlt_btn").css("display", "block");
-    });
+    // $(document).on('click','.addnewproposal',function(){
+    //     var clone = $('#clonethisproposal_1').clone().attr('id','clonethisproposal_'+ ++purpose_id).css({'border-top': '1px solid #293141', 'padding-top': '1%'})
+    //     if(purpose_id % 2 == 0)
+    //         clone.addClass('bg')
+    //     // clone.children().find('#gsrow_'+(purpose_id-1)).attr('id','gsrow_'+purpose_id)
+    //     // clone.children().find('#brief_'+(purpose_id-1)).attr('id','brief_'+purpose_id)
+    //     clone.children().find('#reason_'+(purpose_id-1)).attr('id','reason_'+purpose_id)
+    //     clone.appendTo('.addclonehere').show('slow');
+    //     clone.find("#thishit").remove()
+    //     clone.append(cl);
+    //     $(".js-multiple").select2();
+    //     clone.find('.date').datepicker()
+    //     $(".dlt_btn").css("display", "block");
+    // });
+
     $(document).on("click", ".dlt_btn", function() {
       $(this).parent().remove()
         // $(this).closest(".box").remove();

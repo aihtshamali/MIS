@@ -3,7 +3,7 @@ $(document).ready(function()
 {
 $(".summaryNav").click(function(){
     $(".topSummary").hide('slow');
-    $(".mainTabsAndNav").css({ marginTop: '0px'});
+    $(".mainTabsAndNav").animate({ marginTop: '0px'},1000);
 });
 $(".conductNav").click(function(){
     $(".topSummary").show('slow');
@@ -28,7 +28,7 @@ $('#c_monitoring').hide();
 $('.summaryNav').on('click',function(){
 hideallmaintabs();
 // hideall();
-$('.mainTabsAndNav').removeClass( "col-xl-12" ).addClass( "col-xl-8" );
+$('.mainTabsAndNav').removeClass( "col-md-12" ).addClass( "col-md-9" );
 $('#summary').show();
 $('.p_details').show(1000);
 });
@@ -36,7 +36,7 @@ $('.p_details').show(1000);
 $('.planNav').on('click',function(){
 hideallmaintabs();
 $('.p_details').hide();
-$('.mainTabsAndNav').removeClass( "col-xl-8" ).addClass( "col-xl-12" );
+$('.mainTabsAndNav').removeClass( "col-md-9" ).addClass( "col-md-12" );
 $('#p_monitoring').show();
 
 });
@@ -54,7 +54,7 @@ $('#activities').show();
 $('.conductNav').on('click',function(){
 hideallmaintabs();
 $('.p_details').hide();
-$('.mainTabsAndNav').removeClass( "col-xl-8" ).addClass( "col-xl-12" );
+$('.mainTabsAndNav').removeClass( "col-md-8" ).addClass( "col-md-12" );
 $('#c_monitoring').show();
 });
 function hideall()
