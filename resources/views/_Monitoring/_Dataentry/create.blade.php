@@ -40,7 +40,7 @@
                 <div class="form-group row">
                     <div class="col-md-12">
                       <input type="hidden" name="type_of_project" value="{{$project_types->id}}">
-                    <label ><b>Sub Project Type :</b></label>
+                    <label ><b>Monitoring Type :</b></label>
                     <select class="form-control form-control-primary" name="phase_of_project" id="projecttype">
                         <option value="" selected disabled>Select Type</option>
                         @foreach ($sub_project_types as $sp)
@@ -289,7 +289,7 @@
     </div>
 
     {{-- summary --}}
-    <div class="col-md-6">
+    <div class="col-md-5" style="position: fixed;right:20;max-height:vh">
         <div class="card">
             <div class="card-header"> <h4><b>Summary</b></h4></div>
             <div class="card-block">

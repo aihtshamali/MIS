@@ -18,6 +18,73 @@ $('input:checkbox').click(function() {
     $('input:checkbox').not(this).prop('checked', false);
 });
 
+//FINANCIAL PHASING
+
+
+$(document).ready(()=>{
+    var substring='';
+    var j = 0
+    for(j = 2 ; j <= 30 ; j++){
+        if(j == 9)
+            substring += '<option value="200' + j + '-' + (j+1) + '">200' + j +'-' + (j+1) + '</option>'
+        else if(j > 9)
+            substring+='<option value="20' + j + '-' + (j+1) + '">20' + j +'-' + (j+1) + '</option>'
+            // <option value="20{{$i}}-{{$i+1}}">20{{$i}}-{{$i+1}}</option>
+        else
+            substring+='<option value="200' + j + '-0' + (j+1) + '">200' + j +'-0' + (j+1) + '</option>'
+            // <option value="200{{$i}}-0{{$i+1}}">200{{$i}}-0{{$i+1}}</option>
+            // console.log(j,'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',substring);
+    }
+    var tr = `
+    <tr>
+    <td id='serial'></td>
+    <td>
+        <select disabled class="form-control select2" name="financial_year" id="financial_year">
+                <option value="0" hidden>Select Financial Year </option>`.concat(substring).concat (`</select>
+    </td>
+    <td> <input id='m_duration' disabled type="text" class="form-control fn"> </td>
+    <td> <input type="text" class="form-control fn"> </td>
+    </tr>
+    `)
+
+    // var tr_ob = $(tr)
+    var tm = parseInt($('#t_months').text(),10)
+    var date = moment($('#f_date').text(), "DD MMMM YYYY")
+    var check = moment().year(date.year()).month(7).date(1)
+    var all_months = []
+    if(date >= check){
+        check.add(1,'years')
+    }
+    var months = moment.duration(date.diff(check)).as('months')
+    months = parseInt(months, 10)
+    if(months < 0)
+        months *= -1
+
+    var count = 1;
+    while(tm != 0){
+        var tr_ob = $(tr)
+        all_months.push(months)
+        // console.log(tr_ob.find('#financial_year').children()[12],'xxxxxxxxxxxxxxxxxxxxxxxxxxxxx',parseInt(check.add(1,'years').format('YY')-2));
+        tr_ob.find('#financial_year').children()[parseInt(check.add(1,'years').format('YY'))-2].selected = 'selected'
+        tr_ob.find('#m_duration').val(months)
+        tr_ob.find('#serial').text(count++)
+        // console.log(tr_ob.find('#m_duration').value('asdasdas'));
+
+        tm -= months
+        if(tm >= 12)
+            months = 12
+        else
+            months = tm
+        tr_ob.appendTo('#original_tbody')
+    }
+        console.log(all_months);
+})
+
+
+//END
+
+
+
 function hideallmaintabs()
 {
 $('#summary').hide();
@@ -41,15 +108,32 @@ $('#p_monitoring').show();
 
 });
 $('.kpis').on('click',function(){
-$('#activities').hide();
-$('#kpis').show();
+    $('#activities').hide();
+    $('#i-dates').hide();
+    $('#financial').hide();
+    $('#kpis').show();
 });
 
 $('.activities').on('click',function(){
-$('#kpis').hide();
-$('#activities').show();
+    $('#kpis').hide();
+    $('#i-dates').hide();
+    $('#financial').hide();
+    $('#activities').show();
 });
 
+$('.i-dates').on('click',function(){
+    $('#kpis').hide();
+    $('#financial').hide();
+    $('#activities').hide();
+    $('#i-dates').show();
+});
+
+$('.financial').on('click',function(){
+    $('#kpis').hide();
+    $('#activities').hide();
+    $('#i-dates').hide();
+    $('#financial').show();
+});
 
 $('.conductNav').on('click',function(){
 hideallmaintabs();
@@ -71,6 +155,7 @@ function hideall()
  $('#activities').hide();
  $('#kpis').hide();
  $('#activities').hide();
+ $('#Gallery').hide();
 }
 $('.financial').on('click',function(){
 hideall();
@@ -104,6 +189,10 @@ $('.procuremnet').on('click',function(){
 hideall();
 $('#procurement').show();
 });
+$('.gllery').on('click',function(){
+hideall();
+$('#Gallery').show();
+});
 });
 
 // document.querySelector('.alert-success-msg').onclick = function(){
@@ -131,28 +220,79 @@ $('input[name="cwd"]').daterangepicker({
 
 });
 
+$(document).ready(()=>{
+    // $('.select2').select2()
+})
 
 $('button#add-more').click(function(e){
 var add_stakeholder= `<tr>
-                    <td><input type="text" name="stakeholder_name" class="form-control" /></td>
-                    <td><input type="text" name="stakeholder_designation" class="form-control" /> </td>
-                    <td><select name="select"
-                            class="form-control">
-                        <option value="opt1" hidden>Select One Value Only</option>
-                        <option value="opt2">Type 2</option>
-                        <option value="opt3">Type 3</option>
-                        <option value="opt4">Type 4</option>
-                        <option value="opt5">Type 5</option>
-                        <option value="opt6">Type 6</option>
-                        <option value="opt7">Type 7</option>
-                        <option value="opt8">Type 8</option>
-                    </select></td>'
-                    <td><input type="text" name="stakeholder_number" class="form-control" /></td>
-                    <td><input type="text" name="stakeholder_email" class="form-control" /></td>
+    <td>
+        <label for="">1</label>
+    </td>
+    <td>
+        <div class="col-md-12">
+            <select id="districts" name="stakeholder" class="form-control form-control-primary select2" data-placeholder="" style="width: 100%;">
+                <option value="" hidden='hidden'>Select</option>
+                <option value="">some option</option>
+                <option value="">to choose</option>
+                <option value="">from</option>
+            </select>
+        </div>
+    </td>
+    <td><input type="text" name="stakeholder_name"
+            class="form-control" /></td>
+    <td><input type="text" name="stakeholder_designation"
+            class="form-control" /> </td>
+    <td><input type="text" name="stakeholder_mil"
+            class="form-control" />
+      </td>
+    <td><input type="text" name="stakeholder_number"
+            class="form-control" /></td>
                     <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td></tr>`
                     $('#stakeholders').append(add_stakeholder);
                 });
-
+                $('button#add-more-issues').click(function(e){
+                    var temp = `
+                    <tr>
+                        <td><input type="text" name="issue" style="width:100%" /></td>
+                        <td>
+                            <select id="issues2" name="issuetype" class="form-control form-control-primary select2" data-placeholder="" style="width: 100%;">
+                                <option value="" hidden='hidden'>Select</option>
+                                <option value="Time">Time</option>
+                                <option value="Cost">Cost</option>
+                                <option value="Quality">Quality</option>
+                                <option value="Scope">Scope</option>
+                                <option value="Benifits">Benifits</option>
+                                <option value="Risks">Risks</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-control form-control-primary">
+                                <option value="" selected disabled>Select</option>
+                                <option value="1">Very High</option>
+                                <option value="2">High</option>
+                                <option value="3">Medium</option>
+                                <option value="4">Low</option>
+                                <option value="5">Very Low</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-control form-control-primary">
+                                <option value="" selected disabled>Select</option>
+                                <option value="1">Very High</option>
+                                <option value="2">High</option>
+                                <option value="3">Medium</option>
+                                <option value="4">Low</option>
+                                <option value="5">Very Low</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-danger" id="remove-issue" onclick="removeIssuerow(this)" name="remove[]" type="button">-</button>
+                        </td>
+                    </tr>
+                    `
+                    $(temp).appendTo('#add-issue-here')
+                });
 $('button#add-more').click(function(e){
 var add_risks='<tr>'
                 +'<td><input type="text" class="form-control"></td>'
@@ -237,6 +377,11 @@ function add_activityInComp(e)
 }
 
 function removerow(e)
+{
+    $(e).parent().parent().remove();
+}
+
+function removeIssuerow(e)
 {
     $(e).parent().parent().remove();
 }

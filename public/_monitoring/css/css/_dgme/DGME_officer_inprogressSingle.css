@@ -6,8 +6,21 @@
    th, td {
        white-space: inherit !important;
    }
+   td{
+       text-align: center;
+   }
+   h5{
+       text-align: center;
+   }
+   .form-control:disabled {
+        cursor: not-allowed;
+        opacity: 1;
+    }
    #physical, #quality_assesment , #stakeholder , #issues , #risks ,#HSE , #procurement{
        display:none;
+   }
+   .fn{
+       text-align: center;
    }
    .noborder{border: none !important;padding: 3% !important;}
    qa_noborder{
@@ -16,7 +29,6 @@
    .saveNnextbtn{
        color:white !important;
        margin: 5px;
-
    }
    .components{
     /* border: 2px solid grey !important; */
