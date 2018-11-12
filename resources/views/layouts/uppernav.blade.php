@@ -396,7 +396,7 @@
         user:"{{Auth::user()}}"
         })
         .then((response) => {
-          console.log(response.data);
+          // console.log(response.data);
           // console.log(response.data);
           $('.'+response.data.role+'_unassigned_counter').text(response.data.unassigned);
         })
@@ -409,10 +409,11 @@
             user:"{{Auth::user()}}"
         })
         .then((response) => {
+          // console.log('Fuck '+response.data.role);
           var role=response.data.role;
           $('.'+role+'_inprogress_counter').text(response.data.assigned);
-          if(role=='manager')
-            $('.'+role+'_Managerinprogress_counter').text(response.data.manager);
+          if(role=='executive')
+          $('.'+role+'_Managerinprogress_counter').text(response.data.manager);
         })
         .catch(function (error) {
           console.log(error);
@@ -435,7 +436,7 @@
                 user:"{{Auth::user()}}"
                 })
                 .then((response) => {
-                  console.log(response,'sad');                  
+                  // console.log(response,'sad');
                   var role=response.data.role;
                   $('.'+role+'_completed_counter').text(response.data.assigned);
                 })

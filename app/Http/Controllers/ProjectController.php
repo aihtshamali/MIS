@@ -53,10 +53,7 @@ class ProjectController extends Controller
     {
       $projects = Project::all();
 
-        $projects=Project::
-        // ->leftJoin('project_details','project_details.project_id','projects.id')
-        // ->leftJoin('users','users.id','user_id')
-        where('user_id',Auth::id())
+        $projects=Project::where('user_id',Auth::id())
         ->orderBy('projects.created_at')
         ->get();
         // dd(Auth::user()->roles()->get());
@@ -89,6 +86,14 @@ class ProjectController extends Controller
       $m_sub_project_types = SubProjectType::where('project_type_id',2)->get();
       $projectfor_no=Project::select('projects.project_no')->latest()->first();
       $adp = AdpProject::orderBy('gs_no')->get();
+      $data = [];
+      $keys = [];
+      foreach ($adp as $val) {
+        array_push($keys,$val->gs_no);
+        array_push($data,$val);
+      }
+      $final = array_combine($keys,$data);
+      // dd($final);
       // if($projectfor_no){
       // $projectNo=explode('-',$projectfor_no->project_no);
       // $project_no=$projectNo[0].'-'.($projectNo[1]+1);
@@ -105,7 +110,7 @@ class ProjectController extends Controller
         $project_no = "PRO-1";
       }
       foreach ($districts as $district) {
-        $district->name = $district->name . "/";
+        $district->name = $district->name;
       }
       foreach ($sectors as $sector) {
         $sector->name = $sector->name . "/";
@@ -120,7 +125,7 @@ class ProjectController extends Controller
         $assigning_forum->name = $assigning_forum->name . "/";
       }
       \JavaScript::put([
-        'projects' => $adp
+        'projects' => $final
     ]);
       return view('projects.create',compact('sub_project_types','m_sub_project_types','adp','districts','sectors','sponsoring_departments','executing_departments','assigning_forums','project_no','current_year','approving_forums','evaluation_types','project_types','evaluation_types','sub_sectors','projects'));
         // $sponosoring_agencies=SponsoringAgency::all();
@@ -156,7 +161,7 @@ class ProjectController extends Controller
       $project->project_no = $projectNo;
       if(isset($request->evaluation_type) && $request->evaluation_type)
         $project->evaluation_type_id = $request->evaluation_type;
-      $project->ADP = explode(',',$request->adp_no[0])[0];
+      $project->ADP = $request->adp_no;
       $project->financial_year = $request->financial_year;
       $project->project_type_id = $request->type_of_project;
       if($request->assigning_forumSubList!='undefined' && $request->assigning_forumSubList!=null)
@@ -171,7 +176,9 @@ class ProjectController extends Controller
 
       $project_id = Project::latest()->first()->id;
       $project_detail = new ProjectDetail();
-      $project_detail->sne = $request->sne;
+      if(isset($request->sne) && $request->sne){
+        $project_detail->sne = $request->sne;
+      }
       if(isset($request->sne_cost)){
         $project_detail->sne_cost = $request->sne_cost;
       }
@@ -183,27 +190,24 @@ class ProjectController extends Controller
       $project_detail->orignal_cost = $request->original_cost;
       $project_detail->planned_start_date = date('Y-m-d',strtotime($request->planned_start_date));
       $project_detail->planned_end_date = date('Y-m-d',strtotime($request->planned_end_date));
-      // TODO
-      if($request->revised_start_date != NULL){
-        foreach ($request->revised_start_date as $revised_start_date) {
-          // code...
-          $project_detail->revised_start_date = date('Y-m-d',strtotime($revised_start_date));
-        }
-      }
+      if($request->revised_start_date)
+      $project_detail->revised_start_date = date('Y-m-d',strtotime($request->revised_start_date));
+
       $project_detail->assigning_forum_id = $request->assigning_forum;
       $project_detail->approving_forum_id = $request->approving_forum;
       // TODO:
       if($request->phase_of_project!='' && $request->phase_of_project!=NULL)
       {
         // dd('as');
-          $project_detail->sub_project_type_id = $request->phase_of_project;//change
+          $project_detail->sub_project_type_id = $request->phase_of_project;
       }
       else
-        $project_detail->sub_project_type_id = $request->phase_of_monitoring;//change
+        $project_detail->sub_project_type_id = $request->phase_of_monitoring;
       if($request->hasFile('attachments')){
-        $request->file('attachments')->store('public/uploads/projects/');
-        $file_name = $request->file('attachments')->hashName();
-        $project_detail->project_attachements=$file_name;
+        $file_path = $request->file('attachments')->path();
+        $file_extension = $request->file('attachments')->getClientOriginalExtension();
+        $project_detail->attachment=$file_path;
+        $project_detail->attachment_type=$file_extension;
       }
       $project_detail->save();
       // foreach($request->departments as $department_id){
@@ -237,7 +241,7 @@ class ProjectController extends Controller
         $revised_approved_cost_save->cost = $revised_approved_cost;
         $revised_approved_cost_save->save();
       }
-      if($request->revised_end_dates[0])
+      if(isset($request->revised_end_dates[0]))
       foreach($request->revised_end_dates as $revised_end_date){
         $revised_end_dat = new RevisedEndDate();
         $revised_end_dat->project_id = $project_id;
@@ -271,8 +275,8 @@ class ProjectController extends Controller
         $project->title = $request->title;
       if(isset($request->evaluation_type) &&$request->evaluation_type != NULL )
         $project->evaluation_type_id = $request->evaluation_type;
-      if($request->ADP != NULL)
-        $project->ADP = $request->ADP;
+      if($request->adp_no != NULL)
+      $project->ADP = $request->adp_no;
       $project->user_id = Auth::id();
       $project->status = 0;
 
@@ -286,15 +290,8 @@ class ProjectController extends Controller
         $project->planned_start_date = date('Y-m-d',strtotime($request->planned_start_date));
       if($request->planned_end_date != NULL)
         $project->planned_end_date = date('Y-m-d',strtotime($request->planned_end_date));
-        // TODO
-        if($request->revised_start_date != NULL){
-          foreach ($request->revised_start_date as $revised_start_date) {
-            // code...
-            $project->revised_start_date = date('Y-m-d',strtotime($revised_start_date));
-          }
-        }
-        // if($request->revised_start_date != NULL)
-        //   $project->revised_start_date = date('Y-m-d',strtotime($request->revised_start_date));
+        if($request->revised_start_date)
+        $project->revised_start_date = date('Y-m-d',strtotime($request->revised_start_date));
       if($request->assigning_forum != NULL)
         $project->assigning_forum_id = $request->assigning_forum;
       if($request->phase_of_project != NULL)
@@ -302,9 +299,10 @@ class ProjectController extends Controller
       if($request->approving_forum != NULL)
         $project->approving_forum_id = $request->approving_forum;
       if($request->hasFile('attachments')){
-        $request->file('attachments')->store('public/uploads/projects/');
-        $file_name = $request->file('attachments')->hashName();
-        $project->project_attachements=$file_name;
+        $file_path = $request->file('attachments')->path();
+        $file_extension = $request->file('attachments')->getClientOriginalExtension();
+        $project->project_attachements=$file_path;
+        $project->attachment_type=$file_extension;
       }
       if($project!=NULL){
         $project->save();
@@ -356,12 +354,12 @@ class ProjectController extends Controller
         $revised_approved_cost_save->save();
       }
       }
-      if(count($request->revised_end_dates) > 0)
+      if(isset($request->revised_end_dates[0]) && count($request->revised_end_dates) > 0)
         foreach($request->revised_end_dates as $revised_end_date){
             if($revised_end_date != NULL){
               $revised_end_date = new RevisedEndDateProjectLog();
               $revised_end_date->project_log_id = ProjectLog::latest()->first()->id;
-      $revised_end_date->end_date = date('Y-m-d',strtotime($revised_end_date));
+              $revised_end_date->end_date = date('Y-m-d',strtotime($revised_end_date));
               $revised_end_date->save();
           }
         }
@@ -439,7 +437,7 @@ class ProjectController extends Controller
         $project_no = "PRO-1";
       }
       foreach ($districts as $district) {
-        $district->name = $district->name . "/";
+        $district->name = $district->name;
       }
       foreach ($sectors as $sector) {
         $sector->name = $sector->name . "/";
@@ -456,6 +454,18 @@ class ProjectController extends Controller
       // foreach ($departments as $department) {
       //   $department->name = $department->name . "/";
       // }
+      $adp = AdpProject::orderBy('gs_no')->get();
+      $data = [];
+      $keys = [];
+      foreach ($adp as $val) {
+        array_push($keys,$val->gs_no);
+        array_push($data,$val);
+      }
+      $final = array_combine($keys,$data);
+
+      \JavaScript::put([
+        'projects' => $final
+      ]);
 
       return view('projects.edit',compact('sub_project_types','districts','sectors','sponsoring_departments','executing_departments','assigning_forums','project_no','current_year','approving_forums','evaluation_types','project_types','evaluation_types','sub_sectors','project'));
     }
@@ -480,7 +490,7 @@ class ProjectController extends Controller
         $project->title = $request->title;
         $project_original->title = $request->title;
       }
-      if($request->sne){
+      if(isset($request->sne) && $request->sne){
         $project_original->ProjectDetail->sne = $request->sne;
         $project_original->ProjectDetail->save();
       }
@@ -488,9 +498,9 @@ class ProjectController extends Controller
         $project->evaluation_type_id = $request->evaluation_type;
         $project_original->evaluation_type_id = $request->evaluation_type;
       }
-      if($request->ADP != NULL){
-        $project->ADP = $request->ADP;
-        $project_original->ADP = $request->ADP;
+      if($request->adp_no != NULL){
+        $project->ADP = $request->adp_no;
+        $project_original->ADP = $request->adp_no;
       }
       $project->user_id = Auth::id();
       $project->status = 1;
@@ -530,10 +540,12 @@ class ProjectController extends Controller
         $project_original_detail->approving_forum_id = $request->approving_forum;
       }
       if($request->hasFile('attachments')){
-        $request->file('attachments')->store('public/uploads/projects/');
-        $file_name = $request->file('attachments')->hashName();
-        $project->project_attachements=$file_name;
-        $project_original_detail->project_attachements=$file_name;
+        $file_path = $request->file('attachments')->path();
+        $file_extension = $request->file('attachments')->getClientOriginalExtension();
+        $project->project_attachements=$file_path;
+        $project->attachment_type=$file_extension;
+        $project_original_detail->attachment=$file_path;
+        $project_original_detail->attachment_type=$file_extension;
       }
       if($project!=NULL)
         $project->save();
@@ -707,7 +719,7 @@ class ProjectController extends Controller
     $adp = AdpProject::orderBy('gs_no')->get();
 
     foreach ($districts as $district) {
-      $district->name = $district->name . "/";
+      $district->name = $district->name;
     }
     foreach ($sectors as $sector) {
       $sector->name = $sector->name . "/";

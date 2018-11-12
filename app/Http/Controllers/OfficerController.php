@@ -154,7 +154,7 @@ class OfficerController extends Controller
         $activities=Project::find($id)->AssignedProject->AssignedProjectActivity;
         foreach ($activities as $act) {
         foreach ($act->AssignedActivityAttachments as $attachment) {
-        file_put_contents('storage/uploads/projects/project_activities/'.Auth::user()->username.'/'.$attachment->attachment_name.'.'.$attachment->type,base64_decode($attachment->project_attachements));
+          file_put_contents('storage/uploads/projects/project_activities/'.Auth::user()->username.'/'.$attachment->attachment_name.'.'.$attachment->type,base64_decode($attachment->project_attachements));
         }
         }
        //saving progress
@@ -203,15 +203,19 @@ class OfficerController extends Controller
         $assignedDocuments->assigned_project_id=$request->assigned_project_id;
         $assignedDocuments->save();
       }
-
-      $assigned_project_activity = AssignedProjectActivity::find($request->assigned_activity_id);
-      $prev_prog=$assigned_project_activity->progress;
-      $LatestassignedDocumentsCount=AssignedActivityDocument::where('assigned_project_id',$request->assigned_project_id)->count(); //
-      $temp=$prev_prog/(100/$PreassignedDocumentsCount);
-      $New=100/($LatestassignedDocumentsCount);
-      $newprogress=($New*$temp);
-      $assigned_project_activity->progress=round($newprogress,0,PHP_ROUND_HALF_UP );
-      $assigned_project_activity->save();
+      if($PreassignedDocumentsCount)
+      {
+        for ($i=0; $i <3 ; $i++) {
+          $assigned_project_activity = AssignedProjectActivity::find($request->assigned_activity_id+$i);
+          $prev_prog=$assigned_project_activity->progress;
+          $LatestassignedDocumentsCount=AssignedActivityDocument::where('assigned_project_id',$request->assigned_project_id)->count(); //
+          $temp=$prev_prog/(100/$PreassignedDocumentsCount);
+          $New=100/($LatestassignedDocumentsCount);
+          $newprogress=($New*$temp);
+          $assigned_project_activity->progress=round($newprogress,0,PHP_ROUND_HALF_UP );
+          $assigned_project_activity->save();
+        }
+      }
       return redirect()->back();
     }
     public function saveDocAttachments(Request $request){
@@ -223,9 +227,9 @@ class OfficerController extends Controller
         $activity_id = strtok(",");
         $assigned_project_activity = AssignedProjectActivity::find($activity_id);
         $assigned_project_activity->progress = $percentage;
-        if(!$assigned_project_activity->start_date){
-          $assigned_project_activity->start_date=date('Y-m-d');
-          $assigned_project_activity1 = AssignedProjectActivity::find(($activity_id+1));
+        $assigned_project_activity1 = AssignedProjectActivity::find(($activity_id+1));
+        if($assigned_project_activity->start_date && !$assigned_project_activity1->start_date ){
+          // $assigned_project_activity->start_date=date('Y-m-d');
           $assigned_project_activity1->start_date=date('Y-m-d');
           $assigned_project_activity1->save();
         }
@@ -303,6 +307,52 @@ class OfficerController extends Controller
         $activity_id = strtok(",");
         $assigned_project_activity = AssignedProjectActivity::find($activity_id);
         $assigned_project_activity->progress = $percentage;
+        if($assigned_project_activity->ProjectActivity->id==2 ){
+          $ass =  AssignedProjectActivity::find($activity_id+1);
+          if($ass && $ass->start_dat==NULL)
+            {
+              $ass->start_date=date('Y-m-d');
+              $ass->save();
+            }
+          $ass =  AssignedProjectActivity::find($activity_id+4);
+          $assignedDocuments=AssignedActivityDocument::where('assigned_project_id',$ass->project_id)->count();
+          $tempprog=round((100/$assignedDocuments)*($assignedDocuments/2),0,PHP_ROUND_HALF_UP);
+          if($ass && $ass->start_date==NULL && $percentage==$tempprog){
+              $ass->start_date=date('Y-m-d');
+              $ass->save();
+          }
+        }
+        else if($assigned_project_activity->ProjectActivity->id==3){
+          $ass = AssignedProjectActivity::find($activity_id+1);
+          // $assignedDocuments=AssignedActivityDocument::where('assigned_project_id',$assigned_project_activity1->project_id)->count();
+          // $tempprog=round((100/$assignedDocuments)*($assignedDocuments/2),0,PHP_ROUND_HALF_UP);
+          if($assigned_project_activity->progress >= 100 && $ass->start_date==NULL)
+            {
+              $ass->start_date=date('Y-m-d');
+              $ass->save();
+            }
+        }
+
+        else if($assigned_project_activity->ProjectActivity->id==4){
+          $ass = AssignedProjectActivity::find($activity_id+1);
+          if($assigned_project_activity->progress >= 100 && $ass->start_date==NULL)
+            {
+              $ass->start_date=date('Y-m-d');
+              $ass->save();
+            }
+        }
+        else if($assigned_project_activity->ProjectActivity->id > 5 ){
+          $ass = AssignedProjectActivity::find($activity_id+1);
+          // print_r($ass);
+          // TODO
+          if(isset($ass->start_date) && $assigned_project_activity->progress >= 100 && $ass->start_date==NULL)
+          {
+             $ass->start_date=date('Y-m-d');
+             $ass->save();
+          }
+        }
+        if($percentage >= 100)
+          $assigned_project_activity->end_date = date('Y-m-d');
         $assigned_project_activity->save();
         $assigned_project_activities_id = $assigned_project_activity->id;
         $assigned_project_activities_progress_log = new AssignedProjectActivityProgressLog();
@@ -334,7 +384,7 @@ class OfficerController extends Controller
 
       public function monitoring_inprogressAssignments()
       {
-       
+
         // $sub_sectors = SubSector::where('status','1')->get();
         return view('_Monitoring._Officer.projects.inprogress');
       }

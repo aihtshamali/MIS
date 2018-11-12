@@ -49,6 +49,7 @@ $(document).ready(()=>{
     
     // var tr_ob = $(tr) 
     var tm = parseInt($('#t_months').text(),10)
+    var rtm = parseInt($('#rt_months').text(),10)
     var date = moment($('#f_date').text(), "DD MMMM YYYY")
     var check = moment().year(date.year()).month(7).date(1)
     var all_months = []
@@ -58,18 +59,16 @@ $(document).ready(()=>{
     var months = moment.duration(date.diff(check)).as('months')
     months = parseInt(months, 10)
     if(months < 0)
-        months *= -1
+    months *= -1
     
+    var r_months = months
+
     var count = 1;
     while(tm != 0){
         var tr_ob = $(tr) 
-        all_months.push(months)
-        // console.log(tr_ob.find('#financial_year').children()[12],'xxxxxxxxxxxxxxxxxxxxxxxxxxxxx',parseInt(check.add(1,'years').format('YY')-2));
-        tr_ob.find('#financial_year').children()[parseInt(check.add(1,'years').format('YY'))-2].selected = 'selected'
+        tr_ob.find('#financial_year').children()[parseInt(check.add(1,'years').format('YY'))-3].selected = 'selected'
         tr_ob.find('#m_duration').val(months)
         tr_ob.find('#serial').text(count++)
-        // console.log(tr_ob.find('#m_duration').value('asdasdas'));
-        
         tm -= months
         if(tm >= 12)
             months = 12
@@ -77,6 +76,22 @@ $(document).ready(()=>{
             months = tm   
         tr_ob.appendTo('#original_tbody')
     }
+
+    var rcount = 1;
+    check.add(-5,'years')
+    while(rtm != 0){
+        var tr_ob = $(tr) 
+        tr_ob.find('#financial_year').children()[parseInt(check.add(1,'years').format('YY'))-3].selected = 'selected'
+        tr_ob.find('#m_duration').val(r_months)
+        tr_ob.find('#serial').text(rcount++)
+        rtm -= r_months
+        if(rtm >= 12)
+            r_months = 12
+        else
+            r_months = rtm   
+        tr_ob.appendTo('#revised_tbody')
+    }
+
         console.log(all_months);    
 })
 
@@ -288,9 +303,6 @@ $('button#add-more').click(function(e){
 var add_risks='<tr>'
                 +'<td><input type="text" class="form-control"></td>'
                 +'<td><input type="text"  class="form-control"></td>'
-                +'<td><input type="text" class="form-control"></td>'
-                +'<td><input type="text" class="form-control"></td>'
-                +'<td><input type="text" class="form-control"></td>'
                 +'<td><input type="text" class="form-control"></td>'
                 +'<td><input type="text" class="form-control"></td>'
                 +'<td><input type="text" class="form-control"></td>'
