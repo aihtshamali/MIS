@@ -49,7 +49,7 @@
 @section('content')
 <div class="content-wrapper">
 
-    
+
 
   <section class="content-header">
     <h1>
@@ -90,7 +90,10 @@
               <th>
                 Attachment
             </th>
-            
+            <th>
+              Action
+            </th>
+
           </tr>
           @foreach ($meetings as $meeting)
               <tr>
@@ -117,7 +120,10 @@
                   <a href="{{asset('storage/uploads/projects/pdwp_meeting/'.$meeting->attachment)}}" download>{{$meeting->attachment}}</a>
 
                   </td>
-                  
+                  <td>
+                    <a href="{{ route('admin.edit',$meeting->id) }} " class="btn btn-success">EDIT</a>
+                  </td>
+
               </tr>
           @endforeach
       </table>

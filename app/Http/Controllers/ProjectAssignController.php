@@ -227,8 +227,11 @@ class ProjectAssignController extends Controller
         $project_activities = ProjectActivity::all();
         foreach ($project_activities as $project_activity) {
           $assigned_project_activity = new AssignedProjectActivity();
-          $assigned_project_activity->project_id = $assignProject->id;
-          $assigned_project_activity->project_activity_id = $project_activity->id;
+          if($project_activity->id==1){
+            $assigned_project_activity->start_date=date('Y-m-d');
+          }
+         $assigned_project_activity->project_activity_id = $project_activity->id;
+         $assigned_project_activity->project_id = $assignProject->id;
           if(count($request->officer_id) > 1){
             foreach ($request->officer_id as $officer) {
                 if($officer==$request->team_lead){
@@ -243,6 +246,7 @@ class ProjectAssignController extends Controller
               }
             }
             $assigned_project_activity->assigned_by = Auth::id();
+            // dd($assigned_project_activity);
             $assigned_project_activity->save();
         }
 
@@ -325,7 +329,7 @@ class ProjectAssignController extends Controller
     }
      public function store(Request $request)
      {
-
+       // dd($request->all());
         if($request->priority=='high_priority'){
           $priority=3;
         }
@@ -368,7 +372,10 @@ class ProjectAssignController extends Controller
          foreach ($project_activities as $project_activity) {
            $assigned_project_activity = new AssignedProjectActivity();
            $assigned_project_activity->project_id = $request->project_id;
-           $assigned_project_activity->project_activity_id = $project_activity->id;
+           if($project_activity->id==1){
+             $assigned_project_activity->start_time=date('Y-m-d');
+           }
+          $assigned_project_activity->project_activity_id = $project_activity->id;
            if(count($request->officer_id) > 1){
              foreach ($request->officer_id as $officer) {
                  if($officer==$request->team_lead){
@@ -383,6 +390,7 @@ class ProjectAssignController extends Controller
                }
              }
              $assigned_project_activity->assigned_by = Auth::id();
+             // dd($assigned_project_activity);
              $assigned_project_activity->save();
          }
 

@@ -293,50 +293,53 @@
                                                         </div>
 
                                                         <div class="tab-pane " id="financial" role="tabpanel" aria-expanded="false" style="display:none;">
-                                                            <div class="row">
-                                                                <h5 class="col-md-4">Gestation Period: <b><span id="t_months">39</span> months</b></h5>
-                                                                <h5 class="col-md-4">Total Cost: <b><span id="t_cost">467</span> Million(s)</b></h5>
-                                                                <h5 class="col-md-4">Start Date: <b id="f_date">19 November 2011</b></h5>
-                                                            </div>
-                                                            <h5 style="padding-top:20px;padding-bottom:10px;clear:both;">Original Cost</h5>
-                                                            <div class="table-responsive">
-                                                                <table class="table  table-bordered nowrap">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>Sr #</th>
-                                                                            <th>Financial Year</th>
-                                                                            <th>Duration</th>
-                                                                            <th>Cost</th>
-                                                                            {{-- <th></th> --}}
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody id='original_tbody'>
+                                                            <div>
+                                                                <div class="row">
+                                                                    <h5 class="col-md-4">Gestation Period: <b><span id="t_months">49</span> months</b></h5>
+                                                                    <h5 class="col-md-4">Total Cost: <b><span id="t_cost">467</span> Million(s)</b></h5>
+                                                                    <h5 class="col-md-4">Start Date: <b id="f_date">19 January 2011</b></h5>
+                                                                </div>
+                                                                <h5 style="padding-top:20px;padding-bottom:10px;clear:both;">Original Cost</h5>
+                                                                <div class="table-responsive">
+                                                                    <table class="table  table-bordered nowrap">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Sr #</th>
+                                                                                <th>Financial Year</th>
+                                                                                <th>Duration</th>
+                                                                                <th>Cost</th>
+                                                                                {{-- <th></th> --}}
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody id='original_tbody'>
 
-                                                                    </tbody>
-                                                                </table>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
                                                             </div>
-                                                            <h5 style="padding-top:20px;padding-bottom:10px;clear:both;">Revised Cost</h5>
-                                                            <div class="table-responsive">
-                                                                <table class="table  table-bordered nowrap">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>Sr #</th>
-                                                                            <th>Financial Year</th>
-                                                                            <th>Duration</th>
-                                                                            <th>Cost</th>
-                                                                            {{-- <th></th> --}}
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td></td>
-                                                                            <td> <input type="text" class="form-control fn"> </td>
-                                                                            <td> <input type="text" class="form-control fn"> </td>
-                                                                            <td> <input type="text" class="form-control fn"> </td>
-                                                                            {{-- <td>+</td> --}}
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
+                                                            <div style='padding-top:20px'>
+                                                                <div class="row">
+                                                                    <h5 class="col-md-4">Revised Period: <b><span id="rt_months">59</span> months</b></h5>
+                                                                    <h5 class="col-md-4">Revised Cost: <b><span id="rt_cost">550</span> Million(s)</b></h5>
+                                                                    <h5 class="col-md-4">Start Date: <b id="rf_date">19 January 2011</b></h5>
+                                                                </div>
+                                                                <h5 style="padding-top:20px;padding-bottom:10px;clear:both;">Revised Cost</h5>
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-bordered nowrap">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Sr #</th>
+                                                                                <th>Financial Year</th>
+                                                                                <th>Duration</th>
+                                                                                <th>Cost</th>
+                                                                                {{-- <th></th> --}}
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody id='revised_tbody'>
+
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="tab-pane active" id="kpis" role="tabpanel" aria-expanded="false" style="display:none;">
@@ -917,6 +920,14 @@
                                                                                     <tr>
                                                                                         <th class="bg_sky noborbottom" rowspan="2"
                                                                                             colspan="1">
+                                                                                            Activity
+                                                                                        </th>
+                                                                                        <th class="bg_sky noborbottom" rowspan="2"
+                                                                                            colspan="1">
+                                                                                            Activity ?
+                                                                                        </th>
+                                                                                        <th class="bg_sky noborbottom" rowspan="2"
+                                                                                            colspan="1">
                                                                                             Risk catagory
                                                                                         </th>
                                                                                         <th class="bg_sky noborbottom" rowspan="2"
@@ -927,7 +938,7 @@
 
                                                                                         <th class="bg_sky noborbottom" rowspan="2">probability</th>
 
-                                                                                        <th class="" rowspan="1" colspan="4">
+                                                                                        <th class="bg_sky noborbottom" rowspan="2">
                                                                                             Impact
                                                                                         </th>
 
@@ -936,18 +947,17 @@
                                                                                             Risk Score
                                                                                         </th>
                                                                                     </tr>
-
+{{--
                                                                                     <tr>
                                                                                         <th>c</th>
                                                                                         <th>t</th>
                                                                                         <th>Q</th>
                                                                                         <th class="bg_bl nobortop white"><span
                                                                                                 class="red">p</span>*(C+T+Q)/3</th>
-                                                                                    </tr>
+                                                                                    </tr> --}}
                                                                                 </thead>
                                                                                 <tbody id="riskmatrix">
                                                                                     <tr>
-                                                                                        <td><input type="text" class="form-control"></td>
                                                                                         <td><input type="text" class="form-control"></td>
                                                                                         <td><input type="text" class="form-control"></td>
                                                                                         <td><input type="text" class="form-control"></td>

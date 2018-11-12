@@ -18,17 +18,23 @@ class ProjectCounterController extends Controller
           ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
           ->whereNull('assigned_project_managers.project_id')
           ->whereNull('assigned_projects.project_id')
+          ->where('projects.project_type_id','1')
           ->get()->count();
             $role='executive';
 
         }
         elseif($request->user()->hasRole('directorevaluation')){
-          $unassigned= AssignedProjectManager::select('assigned_project_managers.*')
-          ->leftJoin('assigned_projects','assigned_projects.project_id','assigned_project_managers.project_id')
-          ->whereNull('assigned_projects.project_id')
-          ->where('assigned_project_managers.user_id',Auth::id())
+          // $unassigned= AssignedProjectManager::select('assigned_project_managers.*')
+          // ->leftJoin('assigned_projects','assigned_projects.project_id','assigned_project_managers.project_id')
+          // ->whereNull('assigned_projects.project_id')
+          // ->where('projects.project_type_id','1')
+          // ->where('assigned_project_managers.user_id',Auth::id())
+          // ->get()->count();
+          $assignedtoManager=AssignedProjectManager::all()->count();
+          $assignedtoOfficer=AssignedProject::select('assigned_project_managers.*')
+          ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','assigned_projects.project_id')
           ->get()->count();
-
+          $unassigned = $assignedtoManager-$assignedtoOfficer;
 
           // $unassigned=Project::select('projects.*','assigned_project_managers.user_id as manager_id')
           // ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
@@ -62,12 +68,17 @@ class ProjectCounterController extends Controller
     public function getInProgressCounter(Request $request){
       $assigned=0;$assignedtoManager=0;$role='';
         if($request->user()->hasRole('manager')){
-          $assigned=AssignedProject::all()->count();
+          $assigned=AssignedProject::where('complete','0')->count();
           $role='executive';
           $assignedtoManager=AssignedProjectManager::all()->count();
+          $assignedtoOfficer=AssignedProject::select('assigned_project_managers.*')
+          ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','assigned_projects.project_id')
+          ->get()->count();
+          $assignedtoManager = $assignedtoManager-$assignedtoOfficer;
         }
         elseif($request->user()->hasRole('directorevaluation')){
-          $assigned=AssignedProject::where('assigned_by',$request->user()->id)->get()->count();
+          $assigned=AssignedProject::where('assigned_by',$request->user()->id)->where('complete',0)->get()->count();
+
           $role='directorE';
         }
         elseif($request->user()->hasRole('officer')){

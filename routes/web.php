@@ -78,6 +78,8 @@ Route::prefix('manager')->middleware('role:manager')->group(function () {
   Route::get('/chart_eight','ExecutiveController@chart_eight')->name('chart_eight');
   Route::get('/chart_nine','ExecutiveController@chart_nine')->name('chart_nine');
   Route::get('/chart_ten','ExecutiveController@chart_ten')->name('chart_ten');
+  Route::get('/chart_eleven','ExecutiveController@GlobalProgressWiseChart')->name('GlobalProgressWiseChart');
+  Route::get('/chart_twelve','ExecutiveController@SneWiseChart')->name('SneWiseChart');
 
   // chart details
   // Route::get('/chart_two_details','ExecutiveController@chart_two')->name('chart_two_details');
