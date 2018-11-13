@@ -318,7 +318,7 @@
                                                                 </div>
                                                                 <h5 style="padding-top:20px;padding-bottom:10px;clear:both;">Original Cost</h5>
                                                                 <div class="table-responsive">
-                                                                    <table class="table  table-bordered nowrap">
+                                                                    <table class="table  table-bordered nowrap"  id="countit">
                                                                         <thead>
                                                                             <tr>
                                                                                 <th>Sr #</th>
@@ -333,6 +333,13 @@
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
+                                                            </div>
+                                                            <div class='row' style="margin-bottom:20px">
+                                                                <div class="col-md-8 fazuldiv"></div>
+                                                                <div class="col-md-5 offset-md-3 alert alert-danger dangercustom">Original Cost does not match. Difference: <span id="od_cost">0</span> Million(s)</div>
+                                                                <h5 class="col-md-4 float-right" >Total Cost: <b>
+                                                                    <span id="ot_cost">0</span> Million(s)</b>
+                                                                </h5>
                                                             </div>
                                                             <div style='padding-top:20px'>
                                                                 <div class="row">
@@ -445,6 +452,20 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <div class="tab-pane " id="Objectives" role="tabpanel" aria-expanded="false"
+                                                            style="display:none;">
+                                                            <div class="card">
+                                                                <div class="card-header"></div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="tab-pane " id="PAT" role="tabpanel" aria-expanded="false"
+                                                            style="display:none;">
+                                                            <div class="card">
+                                                                <div class="card-header"></div>
+
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -500,7 +521,7 @@
                                                     </ul>
                                                     <!-- Tab panes -->
                                                     <div class="tab-content tabs card-block">
-                                                        <div class="tab-pane" id="financialDiv" role="tabpanel"
+                                                        <div class="tab-pane active" id="financialDiv" role="tabpanel"
                                                             aria-expanded="false">
                                                             <div class="card m-0 z-depth-right-0">
                                                                 <div class="card-header">
@@ -1072,10 +1093,10 @@
                                                               <div class="col-md-12 col-sm-12">
 
                                                                 <!-- Our markup, the important part here! -->
-                                                                <div id="drag-and-drop-zone" class="dm-uploader p-5">
-                                                                  <h3 class="mb-5 mt-5 text-muted">Drag &amp; drop files here</h3>
+                                                                <div id="drag-and-drop-zone" class="dm-uploader">
+                                                                  <h3 class="mb-5 mt-5 text-muted text_center">Drag &amp; drop files here</h3>
 
-                                                                  <div class="new_Btn btn btn-primary btn-block">
+                                                                  <div class="btn btn-primary btn-block">
                                                                     <input type="file" id="html_btn" title='Click to add Files' />
                                                                       <span>Open the file Browser</span>
                                                                   </div>
@@ -1093,6 +1114,11 @@
                                                                   </ul>
                                                                 </div>
                                                               </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="tab-pane " id="Documents" role="tabpanel" aria-expanded="false"
+                                                            style="display:none;">
+                                                            <div class="container">
                                                             </div>
                                                         </div>
                                                         {{-- <div class="tab-pane active" id="procurment" role="tabpanel"

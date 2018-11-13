@@ -26,7 +26,11 @@
           </label>
         </p>
         <p class="" style="text-align:center;margin:0">
-          <label for="" style="color:green">  Completed Projects:
+
+       <label for="" style="color:dark-grey">  Assigned Projects to Manager:
+         {{ count($assignedtoManager) }}
+       </label>
+          <label for="" style="color:green"> &nbsp;&nbsp;&nbsp; Completed Projects:
               {{ count($completed) }}
             </label>
         </p>

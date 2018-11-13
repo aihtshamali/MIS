@@ -162,6 +162,7 @@ Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSecto
 Route::prefix('officer')->middleware('role:officer')->group(function () {
   // Evaluation Module Routes
   Route::post('/save_percentage','OfficerController@save_percentage')->name('save_percentage');
+  Route::post('/save_dates','OfficerController@save_dates')->name('save_dates');
   Route::get('/main','OfficerController@evaluation_main')->name('main_page');
   Route::get('/','OfficerController@evaluation_index')->name('new_evaluation');
   Route::post('/submitActivities','OfficerController@activitiesSubmit')->name('activitiesSubmit');

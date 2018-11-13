@@ -1,6 +1,8 @@
 "use strict";
 $(document).ready(function()
 {
+$('[data-toggle="popover"]').popover();
+
 $(".summaryNav").click(function(){
     $(".topSummary").hide('slow');
     $(".mainTabsAndNav").animate({ marginTop: '0px'},1000);
@@ -19,9 +21,32 @@ $('input:checkbox').click(function() {
 });
 
 //FINANCIAL PHASING
+$(document).on('keyup','.count-me',function(){
 
+    var tds = $('#countit').find('.count-me')
+    // console.log('counting' + tds[0].value + 'nospace');
+    var sum = 0;
+    for(var i = 0; i < tds.length; i++) {
+        if(tds[i].value != "")
+            sum += parseInt(tds[i].value,10)
+    }
+    console.log(sum);
+    $('#ot_cost').text(sum)
+    if($('#t_cost').text() != $('#ot_cost').text()){
+        var dif = (parseInt($('#t_cost').text()) - parseInt($('#ot_cost').text()))
+        console.log(dif);
+        $('#od_cost').text(dif)
+        $('.fazuldiv').hide()
+        $('.dangercustom').show()
+    }
+    else {
+        $('.fazuldiv').show()
+        $('.dangercustom').hide()
+    }
+});
 
 $(document).ready(()=>{
+
     var substring='';
     var j = 0
     for(j = 2 ; j <= 30 ; j++){
@@ -43,7 +68,7 @@ $(document).ready(()=>{
                 <option value="0" hidden>Select Financial Year </option>`.concat(substring).concat (`</select>
     </td>
     <td> <input id='m_duration' disabled type="text" class="form-control fn"> </td>
-    <td> <input type="text" class="form-control fn"> </td>
+    <td> <input type="number" class="form-control fn count-me"> </td>
     </tr>
     `)
 
@@ -167,6 +192,9 @@ function hideall()
  $('#activities').hide();
  $('#Gallery').hide();
  $('#financialDiv').hide();
+ $('#Objectives').hide();
+ $('#PAT').hide();
+ $('#Documents').hide();
 }
 $('.financial').on('click',function(){
 hideall();
@@ -207,6 +235,18 @@ $('#Gallery').show();
 $('.financial').on('click',function(){
   hideall();
     $('#financialDiv').show();
+});
+$('.Objectives').on('click',function(){
+  hideall();
+    $('#Objectives').show();
+});
+$('.PAT').on('click',function(){
+  hideall();
+    $('#PAT').show();
+});
+$('.Documents').on('click',function(){
+  hideall();
+    $('#Documents').show();
 });
 });
 
@@ -312,6 +352,8 @@ $('button#add-more').click(function(e){
 var add_risks='<tr>'
                 +'<td><input type="text" class="form-control"></td>'
                 +'<td><input type="text"  class="form-control"></td>'
+                +'<td><input type="text" class="form-control"></td>'
+                +'<td><input type="text" class="form-control"></td>'
                 +'<td><input type="text" class="form-control"></td>'
                 +'<td><input type="text" class="form-control"></td>'
                 +'<td><input type="text" class="form-control"></td>'

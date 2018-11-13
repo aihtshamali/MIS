@@ -396,8 +396,6 @@
         user:"{{Auth::user()}}"
         })
         .then((response) => {
-          // console.log(response.data);
-          // console.log(response.data);
           $('.'+response.data.role+'_unassigned_counter').text(response.data.unassigned);
         })
         .catch(function (error) {

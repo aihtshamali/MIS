@@ -22,7 +22,7 @@ class CreateProjectsTable extends Migration
             $table->foreign('project_type_id')->references('id')->on('project_types')->onDelete('cascade');
             $table->integer('evaluation_type_id')->unsigned()->index();
             $table->foreign('evaluation_type_id')->references('id')->on('evaluation_types')->onDelete('cascade');
-            $table->integer('status')->default(0);
+            $table->integer('status')->default(1);
             $table->integer('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('no action');
             $table->timestamps();
