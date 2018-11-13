@@ -15,6 +15,8 @@ Auth::routes();
 Route::get('/', function () {
     return view('home');
 });
+Route::group(['middleware' => ['auth']], function () {
+
 // Predashboard
 Route::get('/predashboard',function(){
   return view('predashboard');
@@ -27,11 +29,6 @@ Route::get('/predashboard',function(){
 // Route::get('/dashboard',function(){
 //   return view('dashboard');
 // })->name("evaluation_dashboard");
-
-// MonitoringDashbaord
-Route::get('/monitoring_dashboard',function(){
-  return view('monitoring_dashboard');
-})->name("monitoring_dashboard");
 
 
 Route::get('/home','HomeController@index');
@@ -157,8 +154,8 @@ Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSecto
 
 
 
-//officers
-Route::prefix('officer')->middleware('role:officer')->group(function () {
+//Evaluator officers
+Route::prefix('Evaluatorofficer')->middleware('role:evaluator|officer')->group(function () {
   // Evaluation Module Routes
   Route::post('/save_percentage','OfficerController@save_percentage')->name('save_percentage');
   Route::post('/save_dates','OfficerController@save_dates')->name('save_dates');
@@ -176,8 +173,10 @@ Route::prefix('officer')->middleware('role:officer')->group(function () {
   Route::get('/new_trip','SiteVisitController@create')->name('new_trip');
   Route::get('/view_trips','SiteVisitController@view')->name('view_trips');
   Route::get('/new_tripbackup','SiteVisitController@create')->name('new_tripbackup');
-
   Route::post('/saveDocAttachment','OfficerController@saveDocAttachments')->name('saveDocAttachment');
+});
+//Monitor officers
+Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(function () {
 
   // Monitoring Module Routes
   Route::get('/monitoring_newAssignment','OfficerController@monitoring_newAssignments')->name('Monitoring_newAssignments');
@@ -187,8 +186,25 @@ Route::prefix('officer')->middleware('role:officer')->group(function () {
 
 });
 
+// Monitoring group
+Route::group(['middleware' => ['role:dataentry|officer|monitor|manager|directormonitoring']],function () {
+  // MonitoringDashbaord
+  Route::get('/monitoring_dashboard',function(){
+    return view('monitoring_dashboard');
+  })->name("monitoring_dashboard");
+  // monitoring
+  Route::get('/monitoringP','ProjectController@createMonitoringEntryForm')->name('createMonitoringEntryForm');
+  Route::get('/monitoringV','ProjectController@viewMonitoringForm')->name('viewMonitoringForm');
+
+
+});
+
+
+
+
+
 //For DataEntry
-Route::group(['middleware' => ['role:dataentry|officer|manager|directormonitoring|directorevaluation']],function () {
+Route::group(['middleware' => ['role:dataentry|officer|evaluator|monitor|manager|directormonitoring|directorevaluation']],function () {
 Route::post('/getunassignedProjectCounter','ProjectCounterController@getUnassignedProjectCounter')->name('unassignedCounter');
 Route::post('/getinProgressProjectCounter','ProjectCounterController@getInProgressCounter')->name('inProgressCounter');
 Route::post('/getAssignedProjectCounter','ProjectCounterController@getAssignedProjectCounter')->name('assignedCounter');
@@ -200,11 +216,6 @@ Route::post('/onAssigningForumselect','DataEntryController@onAssigningForumselec
 Route::post('/onchangefunction','DataEntryController@onSubSectorSelect');
 Route::post('/onnewprojectselect','DataEntryController@newproject');
 Route::resource('projects','ProjectController');
-
-// monitoring
-Route::get('/monitoringP','ProjectController@createMonitoringEntryForm')->name('createMonitoringEntryForm');
-
-Route::get('/monitoringV','ProjectController@viewMonitoringForm')->name('viewMonitoringForm');
 
 });
 
@@ -242,5 +253,6 @@ Route::get('/dgv',function(){
 });
 Route::get('/ps',function(){
   return view('hassan.ps');
+});
 });
 });

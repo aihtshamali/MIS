@@ -188,8 +188,10 @@ class ProjectController extends Controller
       $project_detail->project_id = $project_id;
       $project_detail->currency = $request->currency;
       $project_detail->orignal_cost = $request->original_cost;
-      $project_detail->planned_start_date = date('Y-m-d',strtotime($request->planned_start_date));
-      $project_detail->planned_end_date = date('Y-m-d',strtotime($request->planned_end_date));
+      if($request->planned_start_date)
+        $project_detail->planned_start_date = date('Y-m-d',strtotime($request->planned_start_date));
+      if($request->planned_end_date)
+        $project_detail->planned_end_date = date('Y-m-d',strtotime($request->planned_end_date));
       if($request->revised_start_date)
       $project_detail->revised_start_date = date('Y-m-d',strtotime($request->revised_start_date));
 
@@ -241,7 +243,7 @@ class ProjectController extends Controller
         $revised_approved_cost_save->cost = $revised_approved_cost;
         $revised_approved_cost_save->save();
       }
-      if(isset($request->revised_end_dates[0]))
+      if(isset($request->revised_end_dates[0]) && $request->revised_end_dates[0]!=null && $request->revised_end_dates[0]!='')
       foreach($request->revised_end_dates as $revised_end_date){
         $revised_end_dat = new RevisedEndDate();
         $revised_end_dat->project_id = $project_id;
