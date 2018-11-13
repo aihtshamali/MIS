@@ -344,7 +344,6 @@
                            </td>
                           <td>
                               @foreach ($activity->AssignedActivityAttachments as $attachment)
-
                                 <a href="{{asset("storage/uploads/projects/project_activities/".Auth::user()->username."/".$attachment->attachment_name.".".$attachment->type)}}" download>{{$attachment->attachment_name}}<i class="fa fa-file-{{$icons[$attachment->type]}}-o fa-1x text-center" title="{{ $attachment->attachment_name }}" /></i>
                                   <span style="padding-right:5px;">|</span></a>
                               @endforeach
@@ -478,6 +477,11 @@
                                   </input>
                                 </a>
                             @endif
+                            <a class="btn" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="Start Date: <input class='form-control' type='date' name='start_date' required>End Date:<input type='date' class='form-control' name='end_date' required><button type='button' class='btn btn-success pull-right' onClick='saveDates({{$activity->id}},this)'>Update</button>" >
+                              <div class="percentBox">
+                                <p>Dates</p>
+                              </div>
+                            </a>
               </ul>
             </div>
           </td>
@@ -489,7 +493,7 @@
     </tbody>
   </table>
   <input type="hidden" name="assigned_project_id" style="display:inline;float:right" value="{{$project_data->id}}">
-  <button type="submit" class="btn btn-success pull-right" @if($project_data->progress != 100) disabled @endif >Project Completed
+  <button type="submit" class="btn btn-success pull-right" @if($project_data->progress != 100 ||( $project_data->progress == 100 && $project_data->complete==1)) disabled @endif >Project Completed
   </button>
 </form>
 </div>
@@ -738,6 +742,42 @@
       form_data.append('assigned_activity_document_id', Assigned_document_id);
     }
     form_data.append('data', opt);
+    form_data.append('csrf-token', "{{ csrf_token() }}");
+
+    $.ajax({
+      method: 'POST', // Type of response and matches what we said in the route
+      headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      url: rout, // This is the url we gave in the route
+      // dataType: 'text',  // what to expect back from the PHP script, if anything
+      cache: false,
+      contentType: false,
+      processData: false,
+      data: form_data, // a JSON object to send back
+      success: function(response){ // What to do if we succeed
+        // console.log(response);
+          location.reload();
+      },
+      error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+          console.log(JSON.stringify(jqXHR));
+          alert("AJAX error: " + textStatus + ' : ' + errorThrown);
+      }
+      });
+
+  }
+  function saveDates(id,objthis=null){
+    myFunction(this);
+    var rout='/officer/save_dates';
+    // console.log($('.'+number+'_'+id).val());
+    var form_data = new FormData();
+    // opt = $('.'+number+'_'+id).val();
+    var start_date= $(objthis).siblings().first().val();
+    var end_date= $(objthis).siblings().last().val();
+    form_data.append('assigned_project_activity_id', id);
+
+    form_data.append('start_date', start_date);
+    form_data.append('end_date', end_date);
     form_data.append('csrf-token', "{{ csrf_token() }}");
 
     $.ajax({
