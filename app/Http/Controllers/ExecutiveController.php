@@ -31,18 +31,15 @@ use \DateTime;
 use \DateTimeZone;
 class ExecutiveController extends Controller
 {
-  //  HOME FOLDER
+    //  HOME FOLDER
     public function conduct_pdwp_meeting(){
       $meetings = HrMeetingPDWP::where('status',1)->orderBy('updated_at', 'desc')->get();
       return view('executive.home.pdwp_meeting',compact('meetings'));
     }
 
     public function list_agendas(Request $req){
-      // dd($req->all());
       $meeting = HrMeetingPDWP::find($req->meeting_no);
-      // dd($meeting);
       $agendas = $meeting->HrAgenda;
-      // dd($agendas);
       $adp = AdpProject::orderBy('gs_no')->get();
       $sectors = HrSector::all();
       $hr_decisions=HrDecision::where('status',1)->get();
@@ -88,10 +85,29 @@ class ExecutiveController extends Controller
      ->whereNull('assigned_projects.project_id')
      ->where('projects.project_type_id','1')
      ->get();
-      $assigned=AssignedProject::where('complete','0')->get();
-      // dd($assigned);
-      $assignedtoManager=AssignedProjectManager::all();
-      $completed=AssignedProject::where('complete','1')->get();
+
+      $assigned=AssignedProject::select('assigned_projects.*')
+      ->leftJoin('projects','assigned_projects.project_id','projects.id')
+      ->where('complete',0)
+      ->where('projects.status',1)
+      ->where('projects.project_type_id',1)
+      ->get();
+
+      $assignedtoManager=AssignedProjectManager::select('assigned_project_managers.*')
+      ->leftJoin('projects','assigned_project_managers.project_id','projects.id')
+      ->leftJoin('assigned_projects','assigned_projects.project_id','assigned_project_managers.project_id')
+      ->whereNull('assigned_projects.project_id')
+      ->where('projects.status',1)
+      ->where('projects.project_type_id',1)
+      ->get();
+
+      $completed=AssignedProject::select('assigned_projects.*')
+      ->leftJoin('projects','assigned_projects.project_id','projects.id')
+      ->where('complete',1)
+      ->where('projects.status',1)
+      ->where('projects.project_type_id',1)
+      ->get();
+
       return view('executive.home.index',['unassigned'=>$unassigned,'completed'=>$completed,'assignedtoManager'=>$assignedtoManager,'assigned'=>$assigned]);
     }
     public function getSectorWise(){
