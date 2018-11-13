@@ -17,30 +17,32 @@
                                 <th>Project Name</th>
                                 <th>Sector</th>
                                 <th>Progress</th>
-                                <th>SNE</th>
                                 {{-- <th>Action</th> --}}
-                                
+
                             </tr>
                             </thead>
                             <tbody>
+                              @foreach ($projects as $project)
                                 <tr>
-                                    <td>Dummy Project</td>
-                                    <td>Dummy Sector</td>
-                                    
-                                    <td><div class="progress">
+                                    <td>{{$project->Project->title}}</td>
+                                    <td>@foreach ($project->Project->AssignedSubSectors as $subsector)
+                                      {{$subsector->SubSector->Sector->name}}
+                                    @endforeach</td>
+
+                                    <td>
+                                      <div class="progress">
                                             <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width: 35%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> 35%</div>
-                                        </div></td>
-                                        <td>DUMMY SNE</td>
+                                        </div>
+                                      </td>
                                     {{-- <td>
                                     <a href="{{route('monitoring_inprogressSingle')}}" class="btn btn-md  btn-info"> Conduct Monitoring</a>
                                     </td> --}}
                                 </tr>
-
-                                
+                              @endforeach
                             </tbody>
                         </table>
                     </div>
-                </div>   
+                </div>
         </div>
         <div class="card-footer"></div>
     </div>
