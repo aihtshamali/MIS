@@ -21,7 +21,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header"><h4><i class="icon-book-open m-r-5"></i>  NEW UNASSIGNED MONITORING PROJECTS <div class="label-main">
-                    <label class="label label-danger">0</label>
+                    <label class="label label-danger">{{$projects->count()}}</label>
                 </div></h4>
             </div>
             @foreach ($projects as $project)
@@ -67,7 +67,7 @@
                                            </li>
                                             <li><b>Assigning Forum: </b>
                                               <span class="pull-right">
-                                                 {{$project->ProjectDetail->AssigningForum->name}}
+                                                 {{$project->Project->ProjectDetail->AssigningForum->name}}
                                              </span>
 
                                             </li>
