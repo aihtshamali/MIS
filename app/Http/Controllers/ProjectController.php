@@ -724,7 +724,13 @@ class ProjectController extends Controller
     $current_year = date('Y');
     $approving_forums = ApprovingForum::where('status','1')->get();
     $adp = AdpProject::orderBy('gs_no')->get();
-
+    $data = [];
+    $keys = [];
+    foreach ($adp as $val) {
+      array_push($keys,$val->gs_no);
+      array_push($data,$val);
+    }
+    $final = array_combine($keys,$data);
     foreach ($districts as $district) {
       $district->name = $district->name;
     }
@@ -741,7 +747,7 @@ class ProjectController extends Controller
       $assigning_forum->name = $assigning_forum->name . "/";
     }
     \JavaScript::put([
-      'projects' => $adp
+      'projects' => $final
   ]);
     return view('_Monitoring._Dataentry.create',compact('project_no','project_types','adp','sub_project_types','districts','sectors','sponsoring_departments','executing_departments','assigning_forums','current_year','approving_forums','sub_sectors','projects'));
   }
