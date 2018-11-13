@@ -23,7 +23,7 @@ $('input:checkbox').click(function() {
 //FINANCIAL PHASING
 $(document).on('keyup','.count-me',function(){
     
-    var tds = $('#countit').find('.count-me')
+    var tds = $(this).parent().parent().parent().find('.count-me')
     // console.log('counting' + tds[0].value + 'nospace');
     var sum = 0;
     for(var i = 0; i < tds.length; i++) {
