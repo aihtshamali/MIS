@@ -18,6 +18,11 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/css/dataTables.bootstrap4.min.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/pages/data-table/css/buttons.dataTables.min.css')}}" />
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/responsive.bootstrap4.min.css')}}" />
+<!-- css file upload Frame work -->
+<link href="{{ asset('_monitoring/js/jquery.filer/css/jquery.filer.css')}}" />
+<link href="{{ asset('_monitoring/js/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css')}}" />
+<link href="{{ asset('_monitoring/css/css/fileuploadernew.css')}}" />
+<link href="{{ asset('_monitoring/css/css/jquery.dm-uploader.min.css')}}" />
 
 {{-- font awesome --}}
 <link rel="stylesheet" href="{{ asset('_monitoring/css/icon/font-awesome/css/font-awesome.min.css')}}" />
@@ -27,6 +32,10 @@
 <style media="screen">
     html{scroll-behavior: smooth;}
     .paddtopbottom1per{padding: 1% 0% !important;}
+    .media{display: block !important;}
+    #html_btn {width: 90%;position: absolute;opacity: 0;cursor: pointer;left: 5%;}
+    .text_center{text-align: center;}
+    .new_Btn {cursor: pointer;}
 </style>
 
 @endsection
@@ -79,7 +88,7 @@
                         <label for="progress" class="">Progress %</label>
                     </div>
                     <div class="col-md-4 ln_ht12">
-                        <label for="Financial" class="">Financial Progress %</label>
+                          <label for="Financial" class="">Financial Progress %</label>
                         <input type="text"  id="financial_progress" class="frozen_pane" name="financial_progress" style="font-size:10px !important;">
                     </div>
                     <div class="col-md-4 ln_ht12">
@@ -265,6 +274,14 @@
                                                             <a class="nav-link activities" data-toggle="tab" href="#activities"
                                                                 role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Tasks</b></a>
                                                         </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link Objectives" data-toggle="tab" href="#Objectives"
+                                                                role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Objectives</b></a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link PAT" data-toggle="tab" href="#PAT"
+                                                                role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Plan A Trip</b></a>
+                                                        </li>
                                                     </ul>
                                                     <div class="tab-content tabs card-block ">
                                                         <div class="tab-pane active" id="i-dates" role="tabpanel" aria-expanded="false">
@@ -292,7 +309,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="tab-pane " id="financial" role="tabpanel" aria-expanded="false" style="display:none;">
+                                                        <div class="tab-pane active" id="financial" role="tabpanel" aria-expanded="false">
                                                             <div>
                                                                 <div class="row">
                                                                     <h5 class="col-md-4">Gestation Period: <b><span id="t_months">49</span> months</b></h5>
@@ -438,7 +455,7 @@
                                                     <!-- Nav tabs -->
                                                     <ul class="nav nav-tabs tabs" role="tablist">
                                                         <li class="nav-item">
-                                                            <a class="nav-link active financial" data-toggle="tab" href="#financial"
+                                                            <a class="nav-link active financial" data-toggle="tab" href="#financialDiv"
                                                                 role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Financial</b></a>
                                                         </li>
 
@@ -474,10 +491,16 @@
                                                                 role="tab" aria-expanded="false">
                                                                 <b style="font-size:14px; font-weight:bold;">Photos&Videos</b></a>
                                                         </li>
+
+                                                        <li class="nav-item">
+                                                            <a class="nav-link Documents" data-toggle="tab" href="#Documents"
+                                                                role="tab" aria-expanded="false">
+                                                                <b style="font-size:14px; font-weight:bold;">Documents</b></a>
+                                                        </li>
                                                     </ul>
                                                     <!-- Tab panes -->
                                                     <div class="tab-content tabs card-block">
-                                                        <div class="tab-pane active" id="financial" role="tabpanel"
+                                                        <div class="tab-pane" id="financialDiv" role="tabpanel"
                                                             aria-expanded="false">
                                                             <div class="card m-0 z-depth-right-0">
                                                                 <div class="card-header">
@@ -1045,17 +1068,31 @@
                                                         </div>
                                                         <div class="tab-pane " id="Gallery" role="tabpanel" aria-expanded="false"
                                                             style="display:none;">
-                                                            <div class="card">
-                                                                <div class="card-header"></div>
-                                                                <div class="card-block">
-                                                                    <div class="row form-group">
-                                                                        <div class="col-md-10 offset-md-1 planMactivities paddtopbottom1per">
-                                                                            <div class="row form-group">
+                                                            <div class="container">
+                                                              <div class="col-md-12 col-sm-12">
 
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
+                                                                <!-- Our markup, the important part here! -->
+                                                                <div id="drag-and-drop-zone" class="dm-uploader p-5">
+                                                                  <h3 class="mb-5 mt-5 text-muted">Drag &amp; drop files here</h3>
+
+                                                                  <div class="new_Btn btn btn-primary btn-block">
+                                                                    <input type="file" id="html_btn" title='Click to add Files' />
+                                                                      <span>Open the file Browser</span>
+                                                                  </div>
+                                                                </div><!-- /uploader -->
+
+                                                              </div>
+                                                              <div class="col-md-12 col-sm-12">
+                                                                <div class="card">
+                                                                  <div class="card-header">
+                                                                    File List
+                                                                  </div>
+
+                                                                  <ul class="list-unstyled p-2 d-flex flex-column col" id="files">
+                                                                    <li class="text-muted text-center empty">No files uploaded.</li>
+                                                                  </ul>
                                                                 </div>
+                                                              </div>
                                                             </div>
                                                         </div>
                                                         {{-- <div class="tab-pane active" id="procurment" role="tabpanel"
@@ -1186,10 +1223,48 @@
 <script src="{{asset('_monitoring/js/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js')}}"></script>
 <script src="{{asset('_monitoring/css/pages/data-table/js/data-table-custom.js')}}"></script>
-
+<!-- jquery file upload js -->
+<script src="{{asset('_monitoring/js/jquery.filer/js/jquery.filer.min.js')}}"></script>
+<script src="{{asset('_monitoring/js/filer/custom-filer.js')}}"></script>
+<script src="{{asset('_monitoring/js/filer/jquery.fileuploads.init.js')}}"></script>
+<script src="{{asset('_monitoring/js/pcoded.min.js')}}"></script>
+<script src="{{asset('_monitoring/js/vartical-layout.min.js')}}"></script>
+<script src="{{asset('_monitoring/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
+<script src="{{asset('_monitoring/js/script.js')}}"></script>
+{{-- new js for file upload  --}}
+<script src="{{asset('_monitoring/js/jquery.dm-uploader.min.js')}}"></script>
+<script src="{{asset('_monitoring/js/demo-ui.js')}}"></script>
+<script src="{{asset('_monitoring/js/demo-config.js')}}"></script>
 {{-- this is custome dgme js for this page only Ok ? if you want to add kindly add here dont mess here!! --}}
 <script src="{{asset('_monitoring/js/_dgme/DGME_officer_inprogressSingle.js')}}"></script>
+<!-- File item template -->
+<script type="text/html" id="files-template">
+  <li class="media">
+    <div class="media-body mb-1">
+      <p class="mb-2">
+        <strong>%%filename%%</strong> - Status: <span class="text-muted">Waiting</span>
+      </p>
+      <div class="progress mb-2">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+          role="progressbar"
+          style="width: 0%"
+          aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+        </div>
+      </div>
+      <hr class="mt-1 mb-1" />
+    </div>
+  </li>
+</script>
 
+<!-- Debug item template -->
+<script type="text/html" id="debug-template">
+  <li class="list-group-item text-%%color%%"><strong>%%date%%</strong>: %%message%%</li>
+</script>
+<script type="text/javascript">
+$('.new_Btn').bind("click" , function () {
+      $('#html_btn').click();
+  });
+</script>
 <script>
 $(document).ready(function(){
 $(window).scroll(function(){

@@ -125,30 +125,25 @@ $('#p_monitoring').show();
 $('.kpis').on('click',function(){
     $('#activities').hide();
     $('#i-dates').hide();
-    $('#financial').hide();
+    $('#financialDiv').hide();
     $('#kpis').show();
 });
 
 $('.activities').on('click',function(){
     $('#kpis').hide();
     $('#i-dates').hide();
-    $('#financial').hide();
+    $('#financialDiv').hide();
     $('#activities').show();
 });
 
 $('.i-dates').on('click',function(){
     $('#kpis').hide();
-    $('#financial').hide();
+    $('#financialDiv').hide();
     $('#activities').hide();
     $('#i-dates').show();
 });
 
-$('.financial').on('click',function(){
-    $('#kpis').hide();
-    $('#activities').hide();
-    $('#i-dates').hide();
-    $('#financial').show();
-});
+
 
 $('.conductNav').on('click',function(){
 hideallmaintabs();
@@ -171,6 +166,7 @@ function hideall()
  $('#kpis').hide();
  $('#activities').hide();
  $('#Gallery').hide();
+ $('#financialDiv').hide();
 }
 $('.financial').on('click',function(){
 hideall();
@@ -207,6 +203,10 @@ $('#procurement').show();
 $('.gllery').on('click',function(){
 hideall();
 $('#Gallery').show();
+});
+$('.financial').on('click',function(){
+  hideall();
+    $('#financialDiv').show();
 });
 });
 
