@@ -21,19 +21,19 @@ class DirectorMonitoringController extends Controller
 {
     public function index()
      {
+
         return view('Director.Monitoring.home.index');
-  
-    }
+     }
     public function pems_index()
      {
       return view('Director.Monitoring.home.pems_tab');
     }
-  
+
     public function pmms_index(){
-        
+
       return view('Director.Monitoring.home.pmms_tab');
     }
-  
+
     public function tpv_index(){
       return view('Director.Monitoring.home.tpv_tab');
     }
@@ -44,6 +44,14 @@ class DirectorMonitoringController extends Controller
 
     public function monitoring_unassignedprojects()
     {
+      $projects=AssignedProjectManager::select('assigned_project_managers.*')
+      ->leftJoin('assigned_projects','assigned_projects.project_id','assigned_project_managers.project_id')
+      ->leftJoin('projects','assigned_project_managers.project_id','projects.id')
+      ->where('projects.project_type_id','2')
+      ->where('assigned_project_managers.user_id',Auth::id())
+      ->whereNull('assigned_projects.project_id')
+      ->get();
+      // dd($projects);
       // $assigned=AssignedProject::where('assigned_by',Auth::id())->get();
       // $officers = User::all();
       // $projects = AssignedProject::all();
@@ -54,7 +62,7 @@ class DirectorMonitoringController extends Controller
       //   ->whereNull('assigned_projects.project_id')
       //   ->get();
       // return view('Director.Monitoring.monitoring_projects.unassigned',compact('assigned','officers','projects','sectors','p'));
-      return view('_Monitoring._Director.unassigned');
+      return view('_Monitoring._Director.unassigned',['projects'=>$projects]);
     }
 
     public function monitoring_inprogressprojects()

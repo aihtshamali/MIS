@@ -83,7 +83,7 @@ class ProjectController extends Controller
       $current_year = date('Y');
       $approving_forums = ApprovingForum::where('status','1')->get();
       $sub_project_types = SubProjectType::where('project_type_id',1)->where('status','1')->get();
-      $m_sub_project_types = SubProjectType::where('project_type_id',2)->get();
+      $m_sub_project_types = SubProjectType::where('project_type_id',2)->where('status','1')->get();
       $projectfor_no=Project::select('projects.project_no')->latest()->first();
       $adp = AdpProject::orderBy('gs_no')->get();
       $data = [];
@@ -422,20 +422,13 @@ class ProjectController extends Controller
       $districts = District::where('status','1')->get();
       $sectors  = Sector::where('status','1')->get();
       // $departments  = Department::where('status','1')->get();
-      $sponsoring_departments = SponsoringAgency::all();
-      $executing_departments = ExecutingAgency::all();
-      $assigning_forums = AssigningForum::all();
+      $sponsoring_departments = SponsoringAgency::where('status','1')->get();
+      $executing_departments = ExecutingAgency::where('status','1')->get();
+      $assigning_forums = AssigningForum::where('status','1')->get();
       $current_year = date('Y');
-      $approving_forums = ApprovingForum::all();
+      $approving_forums = ApprovingForum::where('status','1')->get();
       $sub_project_types = SubProjectType::all();
-      $projectfor_no=Project::select('projects.project_no')->latest()->first();
-      if($projectfor_no){
-        $projectNo=explode('-',$projectfor_no->project_no);
-        $project_no=$projectNo[0].'-'.($projectNo[1]+1);
-      }
-      else {
-        $project_no = "PRO-1";
-      }
+      $project_no=$project->project_no;
       foreach ($districts as $district) {
         $district->name = $district->name;
       }
@@ -492,6 +485,18 @@ class ProjectController extends Controller
       }
       if(isset($request->sne) && $request->sne){
         $project_original->ProjectDetail->sne = $request->sne;
+        $project_original->ProjectDetail->save();
+      }
+      if(isset($request->sne) && $request->sne){
+        $project_original->ProjectDetail->sne = $request->sne;
+        $project_original->ProjectDetail->save();
+      }
+      if(isset($request->sne_cost)){
+        $project_original->ProjectDetail->sne_cost = $request->sne_cost;
+        $project_original->ProjectDetail->save();
+      }
+      if(isset($request->sne_staff_positions)){
+        $project_original->ProjectDetail->sne_staff_positions = $request->sne_staff_positions;
         $project_original->ProjectDetail->save();
       }
       if($request->evaluation_type != NULL){
@@ -743,6 +748,5 @@ class ProjectController extends Controller
   {
     $projects=Project::where('project_type_id','2')->get();
     return view('_Monitoring._Dataentry.view',compact('projects'));
-
   }
 }
