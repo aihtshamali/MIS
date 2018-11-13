@@ -47,21 +47,11 @@ class DirectorMonitoringController extends Controller
       $projects=AssignedProjectManager::select('assigned_project_managers.*')
       ->leftJoin('assigned_projects','assigned_projects.project_id','assigned_project_managers.project_id')
       ->leftJoin('projects','assigned_project_managers.project_id','projects.id')
-      ->where('projects.project_type_id','2')
       ->where('assigned_project_managers.user_id',Auth::id())
+      ->where('projects.project_type_id','2')
+      ->where('projects.status',1)
       ->whereNull('assigned_projects.project_id')
       ->get();
-      // dd($projects);
-      // $assigned=AssignedProject::where('assigned_by',Auth::id())->get();
-      // $officers = User::all();
-      // $projects = AssignedProject::all();
-      // $sectors = Sector::all();
-      // $p=AssignedProjectManager::select('assigned_project_managers.*')
-      //   ->leftJoin('assigned_projects','assigned_projects.project_id','assigned_project_managers.project_id')
-      //   ->where('user_id',Auth::id())
-      //   ->whereNull('assigned_projects.project_id')
-      //   ->get();
-      // return view('Director.Monitoring.monitoring_projects.unassigned',compact('assigned','officers','projects','sectors','p'));
       return view('_Monitoring._Director.unassigned',['projects'=>$projects]);
     }
 
