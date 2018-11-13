@@ -115,8 +115,10 @@ class ExecutiveController extends Controller
       ->leftJoin('assigned_sub_sectors','assigned_sub_sectors.project_id','assigned_projects.project_id')
       ->leftJoin('sub_sectors','assigned_sub_sectors.sub_sector_id','sub_sectors.id')
       ->leftJoin('sectors','sub_sectors.sector_id','sectors.id')
-      ->orderBy('sectors.id')->get();
-      // dd($projects);
+      ->leftJoin('projects','assigned_projects.project_id','projects.id')
+      ->where('projects.project_type_id',1)
+      ->orderBy('sectors.id')
+      ->get();
       return view('executive.evaluation.allSectors',['projects'=>$projects]);
     }
 
@@ -277,10 +279,10 @@ class ExecutiveController extends Controller
 
           $projects=AssignedProject::all();
           $projectsprogressranges=array();
-          array_push($projectsprogressranges,'0-24.999%');
-          array_push($projectsprogressranges,'25-49.999%');
-          array_push($projectsprogressranges,'50-74.999%');
-          array_push($projectsprogressranges,'75-100%');
+          array_push($projectsprogressranges,'0-25%');
+          array_push($projectsprogressranges,'26-50%');
+          array_push($projectsprogressranges,'51-75%');
+          array_push($projectsprogressranges,'76-100%');
           $projectsprogress=array_fill(0,4,0);
           foreach ($projects as $project) {
             if($project->progress>0 && $project->progress < 25){
@@ -402,20 +404,6 @@ class ExecutiveController extends Controller
         )
         );
         $assigned_projects = [];
-        // foreach($officers as $officer){
-        //   if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad")
-        //   {
-        //     $officer->first_name = "M.";
-        //   }
-        //     $data_2 = DB::select(
-        //       'getOfficersInProgressProjectsById' .' '.$officer->id
-        //     );
-        //     $data_3 = DB::select(
-        //       'getOfficersAssignedProjectById'.' '.$officer->id
-        //     );
-        //     array_push($assigned_inprogress_projects,count($data_2));
-        //     array_push($total_assigned_projects,count($data_3));
-        //   }
         foreach($officers as $officer){
           if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad" || (preg_match('#M[u|o]hammad*#i', $officer->first_name)==1))
           {
@@ -427,7 +415,6 @@ class ExecutiveController extends Controller
           );
           array_push($assigned_projects,count($data));
         }
-        // dd($officers);
       \JavaScript::put([
         'officers' => $officers,
         'assigned_projects' => $assigned_projects,
