@@ -285,7 +285,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="tab-pane " id="financial" role="tabpanel" aria-expanded="false" style="display:none;">
+                                                        <div class="tab-pane " id="financial" role="tabpanel" aria-expanded="false">
                                                             <div>
                                                                 <div class="row">
                                                                     <h5 class="col-md-4">Gestation Period: <b><span id="t_months">49</span> months</b></h5>
@@ -294,7 +294,7 @@
                                                                 </div>
                                                                 <h5 style="padding-top:20px;padding-bottom:10px;clear:both;">Original Cost</h5>
                                                                 <div class="table-responsive">
-                                                                    <table class="table  table-bordered nowrap">
+                                                                    <table class="table  table-bordered nowrap"  id="countit">
                                                                         <thead>
                                                                             <tr>
                                                                                 <th>Sr #</th>
@@ -309,6 +309,13 @@
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
+                                                            </div>
+                                                            <div class='row' style="margin-bottom:20px">
+                                                                <div class="col-md-8 fazuldiv"></div>
+                                                                <div class="col-md-5 offset-md-3 alert alert-danger dangercustom">Original Cost does not match. Difference: <span id="od_cost">0</span> Million(s)</div>
+                                                                <h5 class="col-md-4 float-right" >Total Cost: <b>
+                                                                    <span id="ot_cost">0</span> Million(s)</b>
+                                                                </h5>
                                                             </div>
                                                             <div style='padding-top:20px'>
                                                                 <div class="row">
