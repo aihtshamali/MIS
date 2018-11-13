@@ -1,6 +1,10 @@
-@extends('layouts.uppernav')
-@section('styletag')
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+{{-- @extends('layouts.uppernav') --}}
+@extends('_Monitoring.layouts.upperNavigation')
+@section('title')
+  DGME | View Trip
+@endsection
+@section('styleTags')
+  {{-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet"> --}}
   {{-- <link rel="stylesheet" href="{{asset('bower_components/bootstrap/dist/css/bootstrap.min.css')}}" /> --}}
   <link rel="stylesheet" href="{{asset('bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css')}}" />
 
@@ -12,7 +16,7 @@
   td{
       text-align:center;
   }
-/* {{-- 
+/* {{--
   body {
   background: #191828;
   color: #efedef;
@@ -124,23 +128,19 @@ select:focus {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Source Sans Pro';
+  /* font-family: 'Source Sans Pro'; */
   font-weight:700;
 }
 
 .fancyTab {
-	text-align: center;
-  padding:15px 0;
-  background-color: #eee;
-	box-shadow: 0 0 0 1px #ddd;
-	top:15px;	
-  transition: top .2s;
+	text-align: center !important;
+  padding:15px 0 !important;
+  background-color: #eee !important;
+	box-shadow: 0 0 0 1px #ddd !important;
+	top:15px !important;
+  transition: top .2s !important;
 }
 
-.fancyTab.active {
-  top:0;
-  transition:top .2s;
-}
 
 .whiteBlock {
   display:none;
@@ -157,7 +157,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .fancyTab a {
-	font-family: 'Source Sans Pro';
+	/* font-family: 'Source Sans Pro'; */
 	font-size:1.65em;
 	font-weight:300;
   transition:.2s;
@@ -206,7 +206,7 @@ li.fancyTab.active a {
   background-color:#fff;
 }
 
-.nav-tabs > li.fancyTab.active > a, 
+.nav-tabs > li.fancyTab.active > a,
 .nav-tabs > li.fancyTab.active > a:focus,
 .nav-tabs > li.fancyTab.active > a:hover {
 	border-width:0;
@@ -266,13 +266,33 @@ li.fancyTab.active a {
   top:0;
 }
 
-
+.nav-tabs > li.fancyTab {
+    margin-right: 0;
+    margin-bottom: 0;
+    width: 20%;}
+    .fancyTab.active {
+    background: #fff;
+    box-shadow: 1px 1px 0 1px #fff, 0 0px 0 1px #ddd, -1px 1px 0 0px #ddd inset;
+    padding-bottom: 30px;
+}
+.fancyTab.active {
+    top: 0;
+    transition: top .2s;
+}
+.nav-tabs>li {
+    float: left;
+    margin-bottom: -1px;
+}
+.nav>li {
+    position: relative;
+    display: block;
+}
 .fancyTab.active {
   background: #fff;
 	box-shadow: 1px 1px 0 1px #fff, 0 0px 0 1px #ddd, -1px 1px 0 0px #ddd inset;
   padding-bottom:30px;
 }
-
+/*
 .arrow-down {
 	display:none;
   width: 0;
@@ -298,59 +318,59 @@ li.fancyTab.active a {
 
 .fancyTab.active .arrow-down {
   display: block;
-}
+} */
 
 @media (max-width: 1200px) {
-  
+
   .fancyTab .fa {
   	font-size: 36px;
   }
-  
+
   .fancyTab .hidden-xs {
     font-size:22px;
 	}
-		
+
 }
-	
-	
+
+
 @media (max-width: 992px) {
-    
+
   .fancyTab .fa {
   	font-size: 33px;
   }
-    
+
   .fancyTab .hidden-xs {
   	font-size:18px;
     font-weight:normal;
   }
-		
+
 }
-	
-	
+
+
 @media (max-width: 768px) {
-    
+
   .fancyTab > a {
     font-size:18px;
   }
-    
+
   .nav > li.fancyTab > a {
     padding:15px 0;
     margin-bottom:inherit;
   }
-    
+
   .fancyTab .fa {
     font-size:30px;
   }
-    
+
   .nav-tabs > li.fancyTab > a {
     border-right:1px solid transparent;
     padding-bottom:0;
   }
-    
+
   .fancyTab.active .fa {
     color: #333;
 	}
-		
+
 }
 
 </style>
@@ -358,7 +378,7 @@ li.fancyTab.active a {
 @section('content')
 <div class="content-wrapper" style="background-color:snow;">
     {{-- header --}}
-    <section class="content-header">
+    {{-- <section class="content-header">
         <h1>
          TO's Dashboard Table Designs
         </h1>
@@ -367,43 +387,43 @@ li.fancyTab.active a {
         <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li>
 
         </ol>
-    </section>
+    </section> --}}
 
     {{-- TABS START --}}
-    <div class="container"> 
+    <div class="container">
             <section id="fancyTabWidget" class="tabs t-tabs">
                     <ul class="nav nav-tabs fancyTabs" role="tablist">
-                    
+
                                 <li class="tab fancyTab active">
-                                <div class="arrow-down"><div class="arrow-down-inner"></div></div>	
+                                <div class="arrow-down"><div class="arrow-down-inner"></div></div>
                                     <a id="tab0" href="#tabBody0" role="tab" aria-controls="tabBody0" aria-selected="true" data-toggle="tab" tabindex="0"><span class="fa fa-desktop"></span><span class="hidden-xs">Home</span></a>
                                     <div class="whiteBlock"></div>
                                 </li>
-                                
+
                                 <li class="tab fancyTab">
                                 <div class="arrow-down"><div class="arrow-down-inner"></div></div>
                                     <a id="tab1" href="#tabBody1" role="tab" aria-controls="tabBody1" aria-selected="true" data-toggle="tab" tabindex="0"><span class="fa fa-car"></span><span class="hidden-xs">Vehicles</span></a>
                                     <div class="whiteBlock"></div>
                                 </li>
-                                
+
                                 <li class="tab fancyTab">
                                 <div class="arrow-down"><div class="arrow-down-inner"></div></div>
                                     <a id="tab2" href="#tabBody2" role="tab" aria-controls="tabBody2" aria-selected="true" data-toggle="tab" tabindex="0"><span class="fa fa-user"></span><span class="hidden-xs">Driver</span></a>
                                     <div class="whiteBlock"></div>
                                 </li>
-                                
+
                                 <li class="tab fancyTab">
                                 <div class="arrow-down"><div class="arrow-down-inner"></div></div>
                                     <a id="tab3" href="#tabBody3" role="tab" aria-controls="tabBody3" aria-selected="true" data-toggle="tab" tabindex="0"><span class="fa fa-cogs"></span><span class="hidden-xs">R & M</span></a>
                                     <div class="whiteBlock"></div>
-                                </li> 
-                                     
+                                </li>
+
                                 <li class="tab fancyTab">
                                 <div class="arrow-down"><div class="arrow-down-inner"></div></div>
                                     <a id="tab4" href="#tabBody4" role="tab" aria-controls="tabBody4" aria-selected="true" data-toggle="tab" tabindex="0"><span class="fa fa-stack-overflow"></span><span class="hidden-xs">Requests</span></a>
                                     <div class="whiteBlock"></div>
                                 </li>
-                                
+
                                 {{-- <li class="tab fancyTab">
                                 <div class="arrow-down"><div class="arrow-down-inner"></div></div>
                                     <a id="tab5" href="#tabBody5" role="tab" aria-controls="tabBody5" aria-selected="true" data-toggle="tab" tabindex="0"><span class="fa fa-question-circle"></span><span class="hidden-xs">Order</span></a>
@@ -414,13 +434,13 @@ li.fancyTab.active a {
                                 <div class="tab-pane  fade active in" id="tabBody0" role="tabpanel" aria-labelledby="tab0" aria-hidden="false" tabindex="0">
                                     <div>
                                         <div class="row">
-                                            
+
                                             <div class="col-md-12">
                                                     <section class="content col-md-12">
-                                                            
+
                                                             <div class="col-md-12">
                                                                 <div class="box">
-                                                    
+
                                                                     <div class="box-header with-border">
                                                                         <h3 class="box-title">Current Status of vehicles</h3>
                                                                         </div>
@@ -450,7 +470,7 @@ li.fancyTab.active a {
                                                                                 <td>Cultus 3000</td>
                                                                                 <td><span class="badge bg-red" style="width: 100% !important" >No</span></td>
                                                                                 <td>5 days</td>
-                                                    
+
                                                                             </tr>
                                                                             <tr>
                                                                                 <td>4.</td>
@@ -459,17 +479,17 @@ li.fancyTab.active a {
                                                                                 <td style="text-align: center">-</td>
                                                                             </tr>
                                                                         </table>
-                                                    
+
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            
-                                                        </section> 
+
+                                                        </section>
                                                         <section class="content col-md-12">
-                                                            
+
                                                             <div class="col-md-12">
                                                                 <div class="box">
-                                                    
+
                                                                     <div class="box-header with-border">
                                                                         <h3 class="box-title">Current Status of Drivers</h3>
                                                                         </div>
@@ -499,7 +519,7 @@ li.fancyTab.active a {
                                                                                 <td>Ali</td>
                                                                                 <td><span class="badge bg-red" style="width: 100% !important" >No</span></td>
                                                                                 <td>5 days</td>
-                                                    
+
                                                                             </tr>
                                                                             <tr>
                                                                                 <td>4.</td>
@@ -508,7 +528,7 @@ li.fancyTab.active a {
                                                                                 <td style="text-align: center">-</td>
                                                                             </tr>
                                                                         </table>
-                                                    
+
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-9">
@@ -522,21 +542,21 @@ li.fancyTab.active a {
                                                                         <!-- /. box -->
                                                                     </div>
                                                             </div>
-                                                            
-                                                        </section> 
+
+                                                        </section>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
                                 <div class="tab-pane  fade" id="tabBody1" role="tabpanel" aria-labelledby="tab1" aria-hidden="true" tabindex="0">
                                     <div class="row">
-                                            
+
                                             <div class="col-md-12">
                                                     <section class="content col-md-12">
                                                             <div class="col-md-12">
                                                                 <div class="box">
-                                                    
+
                                                                     <div class="box-header with-border">
                                                                         <h3 class="box-title">Vehicle Status</h3>
                                                                         </div>
@@ -592,7 +612,7 @@ li.fancyTab.active a {
                                                                                 <td>9 days</td>
                                                                                 <td>42 days</td>
                                                                                 <td>23 days</td>
-                                                
+
                                                                             </tr>
                                                                             <tr>
                                                                                 <td>4.</td>
@@ -608,7 +628,7 @@ li.fancyTab.active a {
                                                                                 <td>70 days</td>
                                                                             </tr>
                                                                         </table>
-                                                    
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -620,10 +640,10 @@ li.fancyTab.active a {
                                     <div class="row">
                                             <div class="col-md-12">
                                                     <section class="content col-md-12">
-                                                            
+
                                                             <div class="col-md-12">
                                                                 <div class="box">
-                                                    
+
                                                                     <div class="box-header with-border">
                                                                         <h3 class="box-title">Driver Info</h3>
                                                                         </div>
@@ -669,11 +689,11 @@ li.fancyTab.active a {
                                                                                 <td>1</td>
                                                                             </tr>
                                                                         </table>
-                                                    
+
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            
+
                                                     </section>
                                             </div>
                                         </div>
@@ -682,7 +702,7 @@ li.fancyTab.active a {
                                     <div class="row">
                                         <div class="col-md-12">
                                                 <section class="content col-md-12">
-                                                        
+
                                                         <div class="col-md-12">
                                                             <div class="box">
                                                                 <div class="box-header with-border">
@@ -722,20 +742,20 @@ li.fancyTab.active a {
                                                                         <td>7-9-18</td>
                                                                     </tr>
                                                                 </table>
-                                            
+
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        
+
                                                 </section>
 
                                                 <button type="button" class="btn btn-block btn-primary issuebtn">Generate an Issue</button>
 
                                                 <section class="content col-md-12" id="createissue" style="display:none">
-                                                    
+
                                                         <div class="col-md-12">
                                                             <div class="box">
-                                              
+
                                                                 <div class="box-header with-border">
                                                                     <h3 class="box-title">Repairing Request Form</h3>
                                                                 </div>
@@ -750,7 +770,7 @@ li.fancyTab.active a {
                                                                                 <option>Interior</option>
                                                                                 <option>AC</option>
                                                                                 <option>Engine</option>
-                                                                            </select>    
+                                                                            </select>
                                                                         </div>
 
                                                                         <div class="form-group"  id='pr'>
@@ -761,12 +781,12 @@ li.fancyTab.active a {
                                                                                 <option>Corolla 4321</option>
                                                                             </select>
                                                                         </div>
-                                                    
+
                                                                         <div class="form-group">
                                                                             <label>Estimated Cost</label>
                                                                             <input type="text" class="form-control" id="purpose" placeholder="Enter cost for repairs">
                                                                         </div>
-                                                    
+
                                                                         <div class="form-group"  id='pr'>
                                                                             <label>Priority</label>
                                                                             <select id="pt" name="pt[]" class="form-control" data-placeholder="pt" style="width: 100%;">
@@ -775,16 +795,16 @@ li.fancyTab.active a {
                                                                                 <option>High</option>
                                                                             </select>
                                                                         </div>
-                                                    
+
                                                                         <div class="form-group">
                                                                             <label>Last Repair Details</label>
                                                                             <input type="text" class="form-control" id="purpose" placeholder="Enter previous detail for repairs">
                                                                             </div>
                                                                         <button type="button" class="btn btn-block btn-primary">Send Request</button>
-                                                    
+
                                                                     </div>
                                                                 </div>
-                                                        
+
                                                             </div>
                                                         </div>
                                                   </section>
@@ -794,14 +814,14 @@ li.fancyTab.active a {
                                 <div class="tab-pane  fade" id="tabBody4" role="tabpanel" aria-labelledby="tab4" aria-hidden="true" tabindex="0">
                                 <div class="row">
                                     <div class="col-md-12">
-                                            
+
                                             <div class="tabss">
                                                 <div class="tabs-2">
                                                     <label for="tabs2-1">Pending</label>
                                                     <input id="tabs2-1" name="tabss-two" type="radio" checked="checked">
                                                     <div>
                                                             <section class="content col-md-12">
-                                                
+
                                                                     <div class="col-md-12">
                                                                         <div class="box">
                                                                             <div class="box-header with-border">
@@ -850,14 +870,14 @@ li.fancyTab.active a {
                                                                                 </tr>
                                                                                 </tbody>
                                                                             </table>
-                                                            
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="col-md-12" id='assignform' style='display:none'>
                                                                             <div class="box">
-                                                              
+
                                                                                 <div class="box-header with-border">
                                                                                     <h3 class="box-title">Assign</h3>
                                                                                 </div>
@@ -871,7 +891,7 @@ li.fancyTab.active a {
                                                                                                 <option>Baig</option>
                                                                                             </select>
                                                                                         </div>
-                                                                    
+
                                                                                         <div class="form-group"  id='pr'>
                                                                                             <label style="text-align:left">Vehicle</label>
                                                                                             <select id="pt" name="pt[]" class="form-control select2" data-placeholder="pt" style="width: 100%;">
@@ -880,15 +900,15 @@ li.fancyTab.active a {
                                                                                                 <option>Corolla 4321</option>
                                                                                             </select>
                                                                                         </div>
-                                                                    
+
                                                                                         <button type="button" class="btn btn-block btn-primary">Send Request</button>
-                                                                    
+
                                                                                     </div>
                                                                                 </div>
-                                                                        
+
                                                                             </div>
                                                                         </div>
-                                                                    
+
                                                             </section>
                                                     </div>
                                                 </div>
@@ -943,7 +963,7 @@ li.fancyTab.active a {
                                                                                 </td> --}}
                                                                             </tr>
                                                                         </table>
-                                                        
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -983,7 +1003,7 @@ li.fancyTab.active a {
                                                                                 <td>2-9-18</td>
                                                                                 <td>1 day</td>
                                                                                 <td><span class="badge bg-green" style="width: 100% !important" >Approved</span></td>
-                                                                                
+
                                                                             </tr>
                                                                             <tr>
                                                                                 <td>3.</td>
@@ -994,7 +1014,7 @@ li.fancyTab.active a {
                                                                                 <td><span class="badge bg-red" style="width: 100% !important" >Rejected</span></td>
                                                                             </tr>
                                                                         </table>
-                                                        
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1002,8 +1022,8 @@ li.fancyTab.active a {
                                                 </div>
 
                                             </div>
-                                        
-                                        
+
+
                                             </div>
                                         </div>
                                 </div>
@@ -1012,16 +1032,16 @@ li.fancyTab.active a {
                                         <div class="col-md-12">
                                             <h2>This is the content of tab six.</h2>
                                             <p>This field is a rich HTML field with a content editor like others used in Sitefinity. It accepts images, video, tables, text, etc. Street art polaroid microdosing la croix taxidermy. Jean shorts kinfolk distillery lumbersexual pinterest XOXO semiotics. Tilde meggings asymmetrical literally pork belly, heirloom food truck YOLO. Meh echo park lyft typewriter. </p>
-                                            
+
                                         </div>
                                     </div>
                                 </div> --}}
                     </div>
-            
+
                 </section>
             </div>
     {{-- TABS END --}}
-    
+
     {{-- body --}}
     {{-- <section class="content col-md-12">
         <div class="col-md-3"></div>
@@ -1087,7 +1107,7 @@ li.fancyTab.active a {
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <div class="box">
-    
+
                     <div class="box-header with-border">
                         <h3 class="box-title">Vehicle Status</h3>
                         </div>
@@ -1159,7 +1179,7 @@ li.fancyTab.active a {
                                 <td>70 days</td>
                             </tr>
                         </table>
-    
+
                     </div>
                 </div>
             </div>
@@ -1170,7 +1190,7 @@ li.fancyTab.active a {
             <div class="col-md-3"></div>
             <div class="col-md-6">
                 <div class="box">
-    
+
                     <div class="box-header with-border">
                         <h3 class="box-title">Driver Info</h3>
                         </div>
@@ -1216,7 +1236,7 @@ li.fancyTab.active a {
                                 <td>1</td>
                             </tr>
                         </table>
-    
+
                     </div>
                 </div>
             </div>
@@ -1274,20 +1294,20 @@ li.fancyTab.active a {
             <div class="col-md-3"></div>
             <div class="col-md-6">
                 <div class="box">
-  
+
               <div class="box-header with-border">
                   <h3 class="box-title">Repairing Request Form</h3>
               </div>
               <div class="box-body">
-  
+
                   <div id="local">
-                    
+
                     <div class="form-group" id='bd'>
                       <label>Issue</label>
                       <input type="text" class="form-control" id="purpose" placeholder="Describe the issue">
                     </div>
-  
-  
+
+
                     <div class="form-group">
                         <label>Estimated Cost</label>
                         <input type="text" class="form-control" id="purpose" placeholder="Enter cost for repairs">
@@ -1302,22 +1322,22 @@ li.fancyTab.active a {
                         </select>
                     </div>
 
-                    
+
                     <div class="form-group">
                         <label>Last Repair Details</label>
                         <input type="text" class="form-control" id="purpose" placeholder="Enter previous detail for repairs">
                     </div>
-    
+
                     <button type="button" class="btn btn-block btn-primary">Send Request</button>
-  
+
                   </div>
-  
-                  
+
+
             </div>
             <div class="col-md-3"></div>
           </div>
       </section>
-      
+
       <section class="content col-md-12">
         <div class="col-md-3"></div>
         <div class="col-md-6">
@@ -1397,7 +1417,7 @@ li.fancyTab.active a {
   $(document).on('change','#r1',function(){
     $('.addcity').hide()
   })
-  
+
   $(document).on('change','#r2',function(){
     $('.addcity').show('slow')
   })
@@ -1452,14 +1472,14 @@ $('#my_date').datetimepicker({
         $(function () {
           //Initialize Select2 Elements
           $('.select2').select2()
-      
+
           //Datemask dd/mm/yyyy
           $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
           //Datemask2 mm/dd/yyyy
           $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
           //Money Euro
           $('[data-mask]').inputmask()
-      
+
           //Date range picker
           $('#reservation').daterangepicker()
           //Date range picker with time picker
@@ -1482,12 +1502,12 @@ $('#my_date').datetimepicker({
               $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
             }
           )
-      
+
           //Date picker
           $('#datepicker').datepicker({
             autoclose: true
           })
-      
+
           //iCheck for checkbox and radio inputs
           $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
             checkboxClass: 'icheckbox_minimal-blue',
@@ -1503,12 +1523,12 @@ $('#my_date').datetimepicker({
             checkboxClass: 'icheckbox_flat-green',
             radioClass   : 'iradio_flat-green'
           })
-      
+
           //Colorpicker
           $('.my-colorpicker1').colorpicker()
           //color picker with addon
           $('.my-colorpicker2').colorpicker()
-      
+
           //Timepicker
           $('.timepicker').timepicker({
             showInputs: false
@@ -1518,33 +1538,33 @@ $('#my_date').datetimepicker({
 
 <script>
         $(function () {
-      
+
           /* initialize the external events
            -----------------------------------------------------------------*/
           function init_events(ele) {
             ele.each(function () {
-      
+
               // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
               // it doesn't need to have a start or end
               var eventObject = {
                 title: $.trim($(this).text()) // use the element's text as the event title
               }
-      
+
               // store the Event Object in the DOM element so we can get to it later
               $(this).data('eventObject', eventObject)
-      
+
               // make the event draggable using jQuery UI
               $(this).draggable({
                 zIndex        : 1070,
                 revert        : true, // will cause the event to go back to its
                 revertDuration: 0  //  original position after the drag
               })
-      
+
             })
           }
-      
+
           init_events($('#external-events div.external-event'))
-      
+
           /* initialize the calendar
            -----------------------------------------------------------------*/
           //Date for the calendar events (dummy data)
@@ -1614,32 +1634,32 @@ $('#my_date').datetimepicker({
             editable  : true,
             droppable : true, // this allows things to be dropped onto the calendar !!!
             drop      : function (date, allDay) { // this function is called when something is dropped
-      
+
               // retrieve the dropped element's stored Event Object
               var originalEventObject = $(this).data('eventObject')
-      
+
               // we need to copy it, so that multiple events don't have a reference to the same object
               var copiedEventObject = $.extend({}, originalEventObject)
-      
+
               // assign it the date that was reported
               copiedEventObject.start           = date
               copiedEventObject.allDay          = allDay
               copiedEventObject.backgroundColor = $(this).css('background-color')
               copiedEventObject.borderColor     = $(this).css('border-color')
-      
+
               // render the event on the calendar
               // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
               $('#calendar').fullCalendar('renderEvent', copiedEventObject, true)
-      
+
               // is the "remove after drop" checkbox checked?
               if ($('#drop-remove').is(':checked')) {
                 // if so, remove the element from the "Draggable Events" list
                 $(this).remove()
               }
-      
+
             }
           })
-      
+
           /* ADDING EVENTS */
           var currColor = '#3c8dbc' //Red by default
           //Color chooser button
@@ -1658,7 +1678,7 @@ $('#my_date').datetimepicker({
             if (val.length == 0) {
               return
             }
-      
+
             //Create events
             var event = $('<div />')
             event.css({
@@ -1668,24 +1688,24 @@ $('#my_date').datetimepicker({
             }).addClass('external-event')
             event.html(val)
             $('#external-events').prepend(event)
-      
+
             //Add draggable funtionality
             init_events(event)
-      
+
             //Remove event from text input
             $('#new-event').val('')
           })
         })
       </script>
       <script>
-          
+
 $(document).ready(function() {
-  
+
   fancyTab
-        
+
       var numItems = $('li.').length;
-          
-      
+
+
                 if (numItems == 12){
                       $("li.fancyTab").width('8.3%');
                   }
@@ -1719,25 +1739,25 @@ $(document).ready(function() {
                 if (numItems == 2){
                       $("li.fancyTab").width('50%');
                   }
-            
-       
-  
-      
+
+
+
+
           });
-  
+
   $(window).load(function() {
-  
+
     $('.fancyTabs').each(function() {
-  
+
       var highestBox = 0;
       $('.fancyTab a', this).each(function() {
-  
+
         if ($(this).height() > highestBox)
           highestBox = $(this).height();
       });
-  
+
       $('.fancyTab a', this).height(highestBox);
-  
+
     });
   });
       </script>

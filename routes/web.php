@@ -13,6 +13,7 @@
 
 Auth::routes();
 Route::get('/', function () {
+    // return view('testinghome');
     return view('home');
 });
 // Predashboard
@@ -229,6 +230,12 @@ Route::group(['middleware'=>['permission:can.problematicremark']],function(){
 });
 // Route::group(['middleware' => ['permission:can.edit.project|can.view.project']],function(){
 // });
+
+
+//TO
+Route::prefix('to')->middleware('role:to')->group(function () {
+
+});
 Route::get('/dashboard',"HomeController@dashboard")->name("evaluation_dashboard");
 
 Route::post('/printerfunction','AdminHumanResourceController@printer');

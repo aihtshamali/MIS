@@ -113,6 +113,16 @@ return array(
     'App\\Http\\Controllers\\SiteVisitController' => $baseDir . '/app/Http/Controllers/SiteVisitController.php',
     'App\\Http\\Controllers\\SponsorAgencyController' => $baseDir . '/app/Http/Controllers/SponsorAgencyController.php',
     'App\\Http\\Controllers\\SubSectorController' => $baseDir . '/app/Http/Controllers/SubSectorController.php',
+<<<<<<< HEAD
+    'App\\Http\\Controllers\\TofficerApprovalController' => $baseDir . '/app/Http/Controllers/TofficerApprovalController.php',
+    'App\\Http\\Controllers\\TripLocationController' => $baseDir . '/app/Http/Controllers/TripLocationController.php',
+    'App\\Http\\Controllers\\TripRequestController' => $baseDir . '/app/Http/Controllers/TripRequestController.php',
+    'App\\Http\\Controllers\\TripTypeController' => $baseDir . '/app/Http/Controllers/TripTypeController.php',
+    'App\\Http\\Controllers\\VehicleController' => $baseDir . '/app/Http/Controllers/VehicleController.php',
+    'App\\Http\\Controllers\\VehicleDocumentsController' => $baseDir . '/app/Http/Controllers/VehicleDocumentsController.php',
+    'App\\Http\\Controllers\\VehicleTypeController' => $baseDir . '/app/Http/Controllers/VehicleTypeController.php',
+=======
+=======
 
     'App\\Http\\Controllers\\VmisDriverController' => $baseDir . '/app/Http/Controllers/VmisDriverController.php',
     'App\\Http\\Controllers\\VmisVehicleController' => $baseDir . '/app/Http/Controllers/VmisVehicleController.php',

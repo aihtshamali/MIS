@@ -1,7 +1,10 @@
 @extends('_Monitoring.layouts.upperNavigation')
+@section('title')
+  Monitoring | DGME
+@endsection
 @section('styleTags')
 <link rel="stylesheet" href="{{ asset('_monitoring/css/icon/icofont/css/icofont.css')}}"/>
-<link rel="stylesheet" href="{{ asset('_monitoring/css/css/sweetalert.css')}}" />   
+<link rel="stylesheet" href="{{ asset('_monitoring/css/css/sweetalert.css')}}" />
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/component.css')}}" />
  <!-- Select 2 css -->
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/select2.min.css')}}" />
@@ -15,77 +18,90 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/css/dataTables.bootstrap4.min.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/pages/data-table/css/buttons.dataTables.min.css')}}" />
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/responsive.bootstrap4.min.css')}}" />
+<!-- css file upload Frame work -->
+<link href="{{ asset('_monitoring/js/jquery.filer/css/jquery.filer.css')}}" />
+<link href="{{ asset('_monitoring/js/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css')}}" />
+<link href="{{ asset('_monitoring/css/css/fileuploadernew.css')}}" />
+<link href="{{ asset('_monitoring/css/css/jquery.dm-uploader.min.css')}}" />
 
 {{-- font awesome --}}
-<link rel="stylesheet" href="{{ asset('_monitoring\css\icon\font-awesome\css\font-awesome.min.css')}}" />
+<link rel="stylesheet" href="{{ asset('_monitoring/css/icon/font-awesome/css/font-awesome.min.css')}}" />
 
 {{-- This is dgme custom css for this page only ,write here any css you want to Ok!!! --}}
 <link rel="stylesheet" href="{{asset('_monitoring/css/css/_dgme/DGME_officer_inprogressSingle.css')}}" />
+<style media="screen">
+    html{scroll-behavior: smooth;}
+    .paddtopbottom1per{padding: 1% 0% !important;}
+    .media{display: block !important;}
+    #html_btn {width: 90%;position: absolute;opacity: 0;cursor: pointer;left: 5%;}
+    .text_center{text-align: center;}
+    .new_Btn {cursor: pointer;}
+</style>
 
 @endsection
 @section('content')
-             
+
     {{-- frozen panel for plan and conduct monitoring  --}}
-    <div class="col-md-12 fixed bg-g hidden-sm hidden-xs topSummary nodisplay" style="margin-top:-2.8% !important;z-index:999 !important; margin-left:-2.79% !important;">
-    
+    <div class="col-md-12 fixed bg-g hidden-sm hidden-xs topSummary nodisplay" style="margin-top:-2.9% !important;z-index:999 !important; margin-left:-2.85% !important;">
+
         <div class="bg-w border_top bg-w" style="padding:0.25rem !important;" >
                 <style scoped>
                     .form-group{margin-bottom:0rem !important;border:none !important;background-color:transparent !important;}
                     .form-group{padding: 0.05rem 0.75rem !important;}
                     .col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto{padding-left: 0px !important;padding-right: 0px !important;}
                     label{margin-bottom:0rem !important;border:none !important;background-color:transparent !important;padding:0rem 0.3rem !important;font-size: 12px !important;}
-
+                    .ln_ht12{line-height: 12px !important;}
                 </style>
                 <div class="form-group row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 ln_ht12">
                         <label for="GS_no" class="">GS # </label>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-4 ln_ht12">
                         <label for="project_title" class="">Project Title </label>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 ln_ht12">
                         <label for="project_cost" class="">Cost </label>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 ln_ht12">
                         <label for="Location" class="">Location </label>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 ln_ht12">
                         <label for="PHI" class="">PHI </label>
-                        <input name="phi" id="#phi" type="number" class="frozen_pane"/>
+                        <input name="phi" id="#phi" type="text" class="frozen_pane" style="font-size:10px !important;"/>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 ln_ht12">
                         <label for="planned_start_date" class="">Planned Start Date </label>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 ln_ht12">
                         <label for="planned_end_date" class="">Planned End Date </label>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 ln_ht12">
                         <label for="actual_start_date" class="">Actual Start Date </label>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 ln_ht12">
                         <label for="progress" class="">Progress %</label>
                     </div>
-                    <div class="col-md-4">
-                        <label for="Financial" class="">Financial Progress %</label>
-                        <input type="text"  id="financial_progress" class="frozen_pane" name="financial_progress">
+                    <div class="col-md-4 ln_ht12">
+                          <label for="Financial" class="">Financial Progress %</label>
+                        <input type="text"  id="financial_progress" class="frozen_pane" name="financial_progress" style="font-size:10px !important;">
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 ln_ht12">
                         <label for="last_monitoring" class="">Last Monitoring Date </label>
                     </div>
-                
+
                 </div>
         </div>
     </div>
 
     {{-- end of frozen panel --}}
     <div class="row">
-            <div class="col-xl-8 col-lg-12  mainTabsAndNav " style="padding-left: 15px !important;
+            <div class="col-md-9 mainTabsAndNav " style="padding-left: 15px !important;
         padding-right: 15px !important;">
                 <form action="#">
                     <div class="card">
@@ -118,7 +134,7 @@
                                                 <div class="form-group row">
                                                     <div class="col-md-1 col-sm-1">
                                                     </div>
-        
+
                                                     <div class="col-md-4 col-sm-2">
                                                         <div class="card summary-card bg-new">
                                                             <div class="card-header"></div>
@@ -141,10 +157,10 @@
                                                             </div>
                                                         </div>
                                                     </div>
-        
-        
+
+
                                                     <div class="col-md-1 col-sm-1"></div>
-        
+
                                                     <div class="col-md-4 col-sm-2">
                                                         <div class="card summary-card bg-new">
                                                             <div class="card-header"></div>
@@ -167,17 +183,17 @@
                                                             </div>
                                                         </div>
                                                     </div>
-        
-        
-        
+
+
+
                                                     <div class="col-md-1 col-sm-1">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <div class="col-md-1 col-sm-1">
                                                     </div>
-        
-        
+
+
                                                     <div class="col-md-4 col-sm-2">
                                                         <div class="card summary-card bg-new">
                                                             <div class="card-header"></div>
@@ -200,11 +216,11 @@
                                                             </div>
                                                         </div>
                                                     </div>
-        
-        
-        
+
+
+
                                                     <div class="col-md-1 col-sm-1"></div>
-        
+
                                                     <div class="col-md-4 col-sm-2">
                                                         <div class="card summary-card bg-new">
                                                             <div class="card-header"></div>
@@ -226,13 +242,13 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-        
+
                                                     </div>
-        
-        
+
+
                                                     <div class="col-md-1 col-sm-1">
                                                     </div>
-        
+
                                                 </div>
                                             </fieldset>
                                         </div>
@@ -258,16 +274,24 @@
                                                             <a class="nav-link activities" data-toggle="tab" href="#activities"
                                                                 role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Tasks</b></a>
                                                         </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link Objectives" data-toggle="tab" href="#Objectives"
+                                                                role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Objectives</b></a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link PAT" data-toggle="tab" href="#PAT"
+                                                                role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Plan A Trip</b></a>
+                                                        </li>
                                                     </ul>
                                                     <div class="tab-content tabs card-block ">
-                                                        <div class="tab-pane " id="i-dates" role="tabpanel" aria-expanded="false">
+                                                        <div class="tab-pane active" id="i-dates" role="tabpanel" aria-expanded="false">
                                                             <div class="row">
                                                                 <div class="col-md-4 offset-md-1">
                                                                     <div class="form-group">
                                                                         <label for="" class="col-form-label"><b>Technical Sanction :</b></label>
                                                                         <br>
                                                                         <input class="form-control" type="text" name="ts"  placeholder="Select your date" />
-                                                                    </div> 
+                                                                    </div>
                                                                     <div class="form-group">
                                                                             <label for="" class="col-form-label"><b>Contract Award Date :</b></label>
                                                                             <br>
@@ -276,16 +300,16 @@
                                                                 <div class="form-group">
                                                                     <label for="" class="col-form-label"><b>Actual Start Date :</b></label>
                                                                     <br>
-                                                                    <input class="form-control" type="text" name="asd" placeholder="Select your date" />                                                                   
+                                                                    <input class="form-control" type="text" name="asd" placeholder="Select your date" />
                                                                 </div>
-                                                                
-                                                                
+
+
                                                                 </div>
-                                                                
+
                                                             </div>
                                                         </div>
 
-                                                        <div class="tab-pane " id="financial" role="tabpanel" aria-expanded="false">
+                                                        <div class="tab-pane active" id="financial" role="tabpanel" aria-expanded="false">
                                                             <div>
                                                                 <div class="row">
                                                                     <h5 class="col-md-4">Gestation Period: <b><span id="t_months">49</span> months</b></h5>
@@ -305,7 +329,7 @@
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody id='original_tbody'>
-                                                                            
+
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
@@ -336,7 +360,7 @@
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody id='revised_tbody'>
-                                                                            
+
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
@@ -385,11 +409,11 @@
                                                                                 <option value='kpi_16'>kpi 16</option>
                                                                             </select>
                                                                         </div>
-        
+
                                                                         {{-- <div class="col-md-2 offset-md-1"><button class="btn btn-sm btn-success"
                                                                                 style="font-size: 20px;" id="add-more">+</button></div>
                                                                         --}}
-        
+
                                                                     </div>
                                                                 </div>
                                                                 <div class="card-footer">
@@ -401,37 +425,47 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-        
+
                                                         <div class="tab-pane " id="activities" role="tabpanel" aria-expanded="false"
                                                             style="display:none;">
                                                             <div class="card">
                                                                 <div class="card-header"></div>
                                                                 <div class="card-block">
-                                                                    
                                                                     <div class="row form-group">
-                                                                        <div class="col-md-10 offset-md-1 planMactivities">
+                                                                        <div class="col-md-10 offset-md-1 planMactivities paddtopbottom1per">
                                                                             <div class="row form-group">
                                                                             <div class="col-md-4 offset-md-1"><label for=""> <b>Component 1</b></label></div>
                                                                             <div class="col-md-4 offset-md-1"> <input type="text" class="form-control"></div>
                                                                             </div>
                                                                             <div class="row form-group">
-                                                                            <div class="col-md-4 offset-md-1"><button class="btn btn-sm btn-warning" type="button" id="add_activity" name="add_activity"> Add Activities</button></div>
+                                                                              <div class="col-md-2 offset-md-9" style="padding-top:0.6%;">
+                                                                                <button class="btn btn-sm btn-warning float-right" type="button" id="add_activity" name="add_activity"> Add Tasks</button>
+                                                                              </div>
                                                                             </div>
-                                                                           
-                                                                        
                                                                          </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="card-footer">
                                                                         <div class="col-md-3 offset-md-9">
-                                                                            <a class="btn btn-success btn-md saveNnextbtn" >Save & Proceed</a>       
+                                                                            <a class="btn btn-success btn-md saveNnextbtn" >Save & Proceed</a>
                                                                         </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        
-                                                            
+                                                        <div class="tab-pane " id="Objectives" role="tabpanel" aria-expanded="false"
+                                                            style="display:none;">
+                                                            <div class="card">
+                                                                <div class="card-header"></div>
 
+                                                            </div>
+                                                        </div>
+                                                        <div class="tab-pane " id="PAT" role="tabpanel" aria-expanded="false"
+                                                            style="display:none;">
+                                                            <div class="card">
+                                                                <div class="card-header"></div>
+
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -442,10 +476,10 @@
                                                     <!-- Nav tabs -->
                                                     <ul class="nav nav-tabs tabs" role="tablist">
                                                         <li class="nav-item">
-                                                            <a class="nav-link active financial" data-toggle="tab" href="#financial"
+                                                            <a class="nav-link active financial" data-toggle="tab" href="#financialDiv"
                                                                 role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Financial</b></a>
                                                         </li>
-                                                        
+
                                                         <li class="nav-item">
                                                             <a class="nav-link quality_assesment" data-toggle="tab" href="#quality_assesment"
                                                                 role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Quality
@@ -472,10 +506,22 @@
                                                             <a class="nav-link procurement" data-toggle="tab" href="#procurement"
                                                                 role="tab" aria-expanded="true"><b style="font-size:14px; font-weight:bold;">Procurement</b></a>
                                                         </li>
+
+                                                        <li class="nav-item">
+                                                            <a class="nav-link gllery" data-toggle="tab" href="#Gallery"
+                                                                role="tab" aria-expanded="false">
+                                                                <b style="font-size:14px; font-weight:bold;">Photos&Videos</b></a>
+                                                        </li>
+
+                                                        <li class="nav-item">
+                                                            <a class="nav-link Documents" data-toggle="tab" href="#Documents"
+                                                                role="tab" aria-expanded="false">
+                                                                <b style="font-size:14px; font-weight:bold;">Documents</b></a>
+                                                        </li>
                                                     </ul>
                                                     <!-- Tab panes -->
                                                     <div class="tab-content tabs card-block">
-                                                        <div class="tab-pane active" id="financial" role="tabpanel"
+                                                        <div class="tab-pane active" id="financialDiv" role="tabpanel"
                                                             aria-expanded="false">
                                                             <div class="card m-0 z-depth-right-0">
                                                                 <div class="card-header">
@@ -492,66 +538,87 @@
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>ADP Allocation of Fiscal Year :</b></label>
                                                                                 <br>
-                                                                                <input type="text" class="form-control" name="ADP_allocation_cost" id="ADP_allocation_cost" />                                                                            
+                                                                                <input type="text" class="form-control" name="ADP_allocation_cost" id="ADP_allocation_cost" />
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>Total Allocation by that time (Cumulative):</b></label>
                                                                                 <br>
-                                                                                <input type="text" class="form-control" name="ADP_allocation_cost" id="ADP_allocation_cost" />                                                                            
+                                                                                <input type="text" class="form-control" name="ADP_allocation_cost" id="ADP_allocation_cost" />
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>Utilization Against Cost Allocation :</b></label>
                                                                                 <br>
                                                                             <input type="text" class="form-control" name="utilization_allocation" id="utilization_allocation" />
-                                                                                                                                                            
+
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-4 ">
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>Release To Date of Fiscal Year :</b></label>
                                                                                 <br>
-                                                                                <input type="text" class="form-control" name="release_to_date" id="release_to_date" />                                                                            
+                                                                                <input type="text" class="form-control" name="release_to_date" id="release_to_date" />
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>Total Releases To Date :</b></label>
                                                                                 <br>
-                                                                                <input type="text" class="form-control" name="total_release_to_date" id="total_release_to_date" />                                                                            
+                                                                                <input type="text" class="form-control" name="total_release_to_date" id="total_release_to_date" />
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>Utilization Against Releases :</b></label>
                                                                                 <br>
-                                                                                <input type="text" class="form-control" name="u_against_rel" id="u_against_rel" />                                                                                   
+                                                                                <input type="text" class="form-control" name="u_against_rel" id="u_against_rel" />
                                                                             </div>
                                                                         </div>
-                                                                        
+
                                                                     </div>
                                                                     <div class="row">
                                                                         <div class="col-md-10 offset-md-1">
                                                                                <div class="divider"></div>
-                                                                               <div class="col-md-4 offset-md-2">
-                                                                                    <div class="form-group">
-                                                                                        <label for="" class="col-form-label"><b>Technical Sanction Cost:</b></label>
-                                                                                        <br>
-                                                                                        <input class="form-control" type="text" name="ts_cost" placeholder="TS Cost" />                                                                   
-                                                                                    </div>
-                                                                                    <div class="form-group">
-                                                                                        <label for="" class="col-form-label"><b>Contract Award Cost :</b></label>
-                                                                                        <br>
-                                                                                        <input class="form-control" type="text" name="cad_cost"  placeholder="Contract Cost" />
-                                                                                    </div>
-                                                                                    
-                                                                                </div>
                                                                         </div>
                                                                     </div>
-                                                                    
+                                                                    <div class="row">
+                                                                      <div class="col-md-4 offset-md-1">
+                                                                            <div class="form-group">
+                                                                                <label for="" class="col-form-label"><b>Technical Sanction :</b></label>
+                                                                                <br>
+                                                                                <input class="form-control" type="text" name="ts"  placeholder="Select your date" />
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                    <label for="" class="col-form-label"><b>Contract Award Date :</b></label>
+                                                                                    <br>
+                                                                                    <input class="form-control" type="text" name="cwd" placeholder="Select your date" />
+                                                                                </div>
+                                                                        <div class="form-group">
+                                                                            <label for="" class="col-form-label"><b>Actual Start Date :</b></label>
+                                                                            <br>
+                                                                            <input class="form-control" type="text" name="asd" placeholder="Select your date" />
+                                                                        </div>
+
+
+                                                                       </div>
+                                                                       <div class="col-md-4 offset-md-2">
+                                                                            <div class="form-group">
+                                                                                <label for="" class="col-form-label"><b>Technical Sanction Cost:</b></label>
+                                                                                <br>
+                                                                                <input class="form-control" type="text" name="ts_cost" placeholder="TS Cost" />
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="" class="col-form-label"><b>Contract Award Cost :</b></label>
+                                                                                <br>
+                                                                                <input class="form-control" type="text" name="cad_cost"  placeholder="Contract Cost" />
+                                                                            </div>
+
+                                                                           </div>
+                                                                    </div>
+
                                                                 </div>
                                                                 <div class="card-footer">
                                                                     <div class="col-md-3 offset-md-9">
-                                                                        <a class="btn btn-success btn-md saveNnextbtn physical" >Save & Proceed</a>       
+                                                                        <a class="btn btn-success btn-md saveNnextbtn physical" >Save & Proceed</a>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>           
+                                                        </div>
                                                         <div class="tab-pane" id="quality_assesment" role="tabpanel"
                                                             aria-expanded="false">
                                                             <div class="card z-depth-right-0">
@@ -571,7 +638,7 @@
                                                                                     <option value="3" >Component 3</option>
                                                                                 </select>
                                                                           </div>
-                                                                         
+
                                                                         </div>
                                                                       </div>--}}
                                                                       <div class="row oneComponentQA">
@@ -579,9 +646,9 @@
                                                                                 To assess quality of components, press here. <button class="btn btn-sm btn-primary" id="add_more_component" name="add_more_component[]" type="button"><span><i class="fa fa-plus"></i></span></button>
                                                                           </div>
                                                                       </div>
-                                                                     
+
                                                                     </div>
-                                                                </div> 
+                                                                </div>
                                                                     {{--  --}}
                                                                 <div class="card z-depth-right-0">
                                                                 <div class="card-header">
@@ -593,11 +660,11 @@
                                                                         <div class="col-md-1">
                                                                             <b><label for="">1 </label></b>
                                                                         </div>
-        
+
                                                                         <div class="col-md-5">
                                                                             <b><label for="">Test Performed ?</label></b>
                                                                         </div>
-        
+
                                                                         <div class="col-md-1">
                                                                             <button class="btn btn-success btn-sm btn-outline-success">
                                                                                 YES</button>
@@ -613,11 +680,11 @@
                                                                         <div class="col-md-1">
                                                                             <b><label for="">2 </label></b>
                                                                         </div>
-        
+
                                                                         <div class="col-md-5">
                                                                             <b><label for="">Adequate Test Results</label></b>
                                                                         </div>
-        
+
                                                                         <div class="col-md-1">
                                                                             <button class="btn btn-success btn-sm btn-outline-success">
                                                                                 YES</button>
@@ -633,11 +700,11 @@
                                                                         <div class="col-md-1">
                                                                             <b><label for="">3 </label></b>
                                                                         </div>
-        
+
                                                                         <div class="col-md-5">
                                                                             <b><label for="">Onsite Labs Established</label></b>
                                                                         </div>
-        
+
                                                                         <div class="col-md-1">
                                                                             <button class="btn btn-success btn-sm btn-outline-success">
                                                                                 YES</button>
@@ -653,11 +720,11 @@
                                                                         <div class="col-md-1">
                                                                             <b><label for="">4 </label></b>
                                                                         </div>
-        
+
                                                                         <div class="col-md-5">
                                                                             <b><label for="">Overall Quality Good?</label></b>
                                                                         </div>
-        
+
                                                                         <div class="col-md-1">
                                                                             <button class="btn btn-success btn-sm btn-outline-success">
                                                                                 YES</button>
@@ -682,7 +749,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="tab-pane active" id="stakeholder" role="tabpanel"
+                                                        <div class="tab-pane active" id="stakeholder" role="tabp0anel"
                                                             aria-expanded="true">
                                                             {{-- <p class="m-0">4.Cras consequat in enim ut efficitur. Nulla
                                                                 posuere elit quis auctor interdum praesent sit amet nulla vel
@@ -700,7 +767,7 @@
                                                                 <div class="card-block">
                                                                     <div class="col-md-12">
                                                                         <div class="table-responsive">
-                                                                            <table class="table  table-bordered nowrap">
+                                                                            <table class="table  table-bordered nowrap" id="table-1">
                                                                                 <thead>
                                                                                     <tr>
                                                                                         <th>Sr #</th>
@@ -709,7 +776,7 @@
                                                                                         <th>Designation</th>
                                                                                         <th>Email </th>
                                                                                         <th>Contact #</th>
-                                                                                        <th></th>
+                                                                                        <th id="action">Action</th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody id="stakeholders">
@@ -719,7 +786,7 @@
                                                                                         </td>
                                                                                         <td>
                                                                                             <div class="col-md-12">
-                                                                                                <select id="districts" name="stakeholder" class="form-control form-control-primary select2" data-placeholder="" style="width: 100%;">
+                                                                                                <select id="districts" name="stakeholder" class="form-control select2" data-placeholder="" style="width: 100%;">
                                                                                                     <option value="" hidden='hidden'>Select</option>
                                                                                                     <option value="">some option</option>
                                                                                                     <option value="">to choose</option>
@@ -729,24 +796,25 @@
                                                                                         </td>
                                                                                         <td><input type="text" name="stakeholder_name"
                                                                                                 class="form-control" /></td>
-                                                                                                <td><input type="text" name="stakeholder_designation"
-                                                                                                    class="form-control" /> </td>
+                                                                                        <td><input type="text" name="stakeholder_designation"
+                                                                                                class="form-control" /> </td>
+                                                                                        <td><input type="text" name="stakeholder_mil"
+                                                                                                class="form-control" />
+                                                                                          </td>
                                                                                         <td><input type="text" name="stakeholder_number"
-                                                                                                class="form-control" /></td>
-                                                                                        <td><input type="text" name="stakeholder_email"
                                                                                                 class="form-control" /></td>
                                                                                         <td><button type="button" name="add[]"
                                                                                                 class=" form-control btn btn-success "
-                                                                                                id="addmore" style="size:14px;">+</button></td>
+                                                                                                id="add-more" style="size:14px;">+</button></td>
                                                                                     </tr>
                                                                                 </tbody>
-        
                                                                             </table>
-                                                                        </div>
+                                                                            <table id="header-fixed"></table>
+                                                                            </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-        
+
                                                         </div>
                                                         <div class="tab-pane active" id="issues" role="tabpanel" aria-expanded="true">
                                                             <div class="card z-depth-right-0">
@@ -766,10 +834,27 @@
                                                                                     <th>Issues</th>
                                                                                     <th>Issue Type</th>
                                                                                     <th>Severity</th>
-                                                                                    <th>Department</th>
+                                                                                    <th>Responsible</th>
+
                                                                                 </tr>
                                                                             </thead>
-                                                                            <tbody id='add-issue-here'>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td>Time</td>
+                                                                                    <td>
+                                                                                        <select class="form-control form-control-primary">
+                                                                                            <option value="" selected disabled>Select</option>
+                                                                                            <option value="1">Very High</option>
+                                                                                            <option value="2">High</option>
+                                                                                            <option value="3">Medium</option>
+                                                                                            <option value="4">Low</option>
+                                                                                            <option value="5">Very Low</option>
+
+                                                                                        </select>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <input type="text" name="owner" /> </td>
+                                                                                </tr>
                                                                                 <tr>
                                                                                     <td><input type="text" name="issue" style="width:100%" /></td>
                                                                                     <td>
@@ -801,10 +886,43 @@
                                                                                             <option value="3">Medium</option>
                                                                                             <option value="4">Low</option>
                                                                                             <option value="5">Very Low</option>
+
                                                                                         </select>
                                                                                     </td>
-                                                                                    <td style="width:5%;">
-                                                                                        <button class="btn btn-sm btn-success" type="button" id="add-more-issues">+</button>
+                                                                                    <td>
+                                                                                        <input type="text" name="owner" /> </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>Benefits</td>
+                                                                                    <td>
+                                                                                        <select class="form-control form-control-primary">
+                                                                                            <option value="" selected disabled>Select</option>
+                                                                                            <option value="1">Very High</option>
+                                                                                            <option value="2">High</option>
+                                                                                            <option value="3">Medium</option>
+                                                                                            <option value="4">Low</option>
+                                                                                            <option value="5">Very Low</option>
+
+                                                                                        </select>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <input type="text" name="owner" /> </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>Risks</td>
+                                                                                    <td>
+                                                                                        <select class="form-control form-control-primary">
+                                                                                            <option value="" selected disabled>Select</option>
+                                                                                            <option value="1">Very High</option>
+                                                                                            <option value="2">High</option>
+                                                                                            <option value="3">Medium</option>
+                                                                                            <option value="4">Low</option>
+                                                                                            <option value="5">Very Low</option>
+
+                                                                                        </select>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <input type="text" name="owner" />
                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>
@@ -823,7 +941,7 @@
                                                                     numquam beatae at distinctio quaerat reiciendis
                                                                     repudiandae.
                                                                 </div>
-                                                                <div class="card-block">
+                                                                <div class="card-block hidden-sm hidden-xs">
                                                                     <div class="col-md-12">
                                                                         <div class="dt-responsive table-responsive">
                                                                             <style scoped media="screen">
@@ -834,7 +952,7 @@
                                                                                     .bg_gr{background:#349634;}
                                                                                     .text_center{text-align:center;}
                                                                                     th{;border:2px solid #000;text-align:center;text-transform:capitalize;}
-                                                                                    td{;border:1px solid #000;}
+                                                                                    td{;border:1px solid #00000014;}
                                                                                     .nobortop{border-top:none !important;}
                                                                                     .noborbottom{border-bottom:none !important;}
                                                                                     .white{color:#fff !important;}
@@ -867,13 +985,13 @@
                                                                                         <th class="bg_sky noborbottom" rowspan="2">
                                                                                             Impact
                                                                                         </th>
-        
+
                                                                                         <th class="bg_sky noborbottom" rowspan="2"
                                                                                             colspan="1">
                                                                                             Risk Score
                                                                                         </th>
                                                                                     </tr>
-{{--                                                                                     
+{{--
                                                                                     <tr>
                                                                                         <th>c</th>
                                                                                         <th>t</th>
@@ -897,7 +1015,7 @@
                                                                                     </tr>
                                                                                 </tbody>
                                                                             </table>
-        
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -924,7 +1042,7 @@
                                                                                         <th>Yes</th>
                                                                                         <th>No</th>
                                                                                         <th>Comments</th>
-        
+
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody id="stakeholders">
@@ -932,7 +1050,7 @@
                                                                                         <td>1.</td>
                                                                                         <td>Do workers have a safe route to
                                                                                             their place of work?</td>
-        
+
                                                                                         <td>
                                                                                             <div class="checkbox-fade fade-in-success m-0">
                                                                                                 <label>
@@ -954,45 +1072,79 @@
                                                                                                 </label>
                                                                                             </div>
                                                                                         </td>
-        
+
                                                                                         <td>Lorem, ipsum dolor sit amet
                                                                                             consectetur adipisicing elit.
                                                                                             Quaerat, tempore?</td>
                                                                                     </tr>
-        
-        
+
+
                                                                                 </tbody>
-        
+
                                                                             </table>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <div class="tab-pane " id="Gallery" role="tabpanel" aria-expanded="false"
+                                                            style="display:none;">
+                                                            <div class="container">
+                                                              <div class="col-md-12 col-sm-12">
+
+                                                                <!-- Our markup, the important part here! -->
+                                                                <div id="drag-and-drop-zone" class="dm-uploader">
+                                                                  <h3 class="mb-5 mt-5 text-muted text_center">Drag &amp; drop files here</h3>
+
+                                                                  <div class="btn btn-primary btn-block">
+                                                                    <input type="file" id="html_btn" title='Click to add Files' />
+                                                                      <span>Open the file Browser</span>
+                                                                  </div>
+                                                                </div><!-- /uploader -->
+
+                                                              </div>
+                                                              <div class="col-md-12 col-sm-12">
+                                                                <div class="card">
+                                                                  <div class="card-header">
+                                                                    File List
+                                                                  </div>
+
+                                                                  <ul class="list-unstyled p-2 d-flex flex-column col" id="files">
+                                                                    <li class="text-muted text-center empty">No files uploaded.</li>
+                                                                  </ul>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="tab-pane " id="Documents" role="tabpanel" aria-expanded="false"
+                                                            style="display:none;">
+                                                            <div class="container">
+                                                            </div>
+                                                        </div>
                                                         {{-- <div class="tab-pane active" id="procurment" role="tabpanel"
                                                             aria-expanded="true">
                                                         </div> --}}
-        
+
                                                     </div>
                                                 </div>
-        
+
                                             </div>
 
                                             {{-- <button type="button" class="btn btn-success alert-success-msg m-b-10" style=" margin-left: 80%;">Submit
                                                 Monitoring</button> --}}
-        
-        
+
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
-        
+
                         </div>
                         <!-- Form Basic Wizard card end -->
                     </div>
                 </form>
             </div>
-            <div class="col-xl-4 col-lg-12  p_details" style="padding-left: 15px !important;  padding-right: 15px !important;">
+            <div class="col-xl-3 col-lg-12  p_details" style="padding-left: 15px !important;  padding-right: 15px !important;">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-header-text"><i class="icofont icofont-ui-note m-r-10"></i> Project Details</h5>
@@ -1066,7 +1218,7 @@
                     </div>
                 </div>
             </div>
-        
+
         </div>
 @endsection
 @section("js_scripts")
@@ -1097,32 +1249,109 @@
 <script src="{{asset('_monitoring/js/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js')}}"></script>
 <script src="{{asset('_monitoring/css/pages/data-table/js/data-table-custom.js')}}"></script>
-
+<!-- jquery file upload js -->
+<script src="{{asset('_monitoring/js/jquery.filer/js/jquery.filer.min.js')}}"></script>
+<script src="{{asset('_monitoring/js/filer/custom-filer.js')}}"></script>
+<script src="{{asset('_monitoring/js/filer/jquery.fileuploads.init.js')}}"></script>
+<script src="{{asset('_monitoring/js/pcoded.min.js')}}"></script>
+<script src="{{asset('_monitoring/js/vartical-layout.min.js')}}"></script>
+<script src="{{asset('_monitoring/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
+<script src="{{asset('_monitoring/js/script.js')}}"></script>
+{{-- new js for file upload  --}}
+<script src="{{asset('_monitoring/js/jquery.dm-uploader.min.js')}}"></script>
+<script src="{{asset('_monitoring/js/demo-ui.js')}}"></script>
+<script src="{{asset('_monitoring/js/demo-config.js')}}"></script>
 {{-- this is custome dgme js for this page only Ok ? if you want to add kindly add here dont mess here!! --}}
 <script src="{{asset('_monitoring/js/_dgme/DGME_officer_inprogressSingle.js')}}"></script>
-
-<script>
-    $(document).on('change', '#sector', function() {
-    var opt = $(this).val()
-    //   console.log(opt);
-    $.ajax({
-    method: 'POST', // Type of response and matches what we said in the route
-    url: '/onsectorselect', // This is the url we gave in the route
-    data: {
-    "_token": "{{ csrf_token() }}",
-    'data' : opt}, // a JSON object to send back
-    success: function(response){ // What to do if we succeed
-    console.log(response);
-    $("#sub_sectors").empty();
-    $.each(response, function () {
-        $('#sub_sectors').append("<option value=\""+this.id+"\">"+this.name+"</option>");
-    });
-    },
-    error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
-        console.log(JSON.stringify(jqXHR));
-        console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
-    }
-    });
-    });
+<!-- File item template -->
+<script type="text/html" id="files-template">
+  <li class="media">
+    <div class="media-body mb-1">
+      <p class="mb-2">
+        <strong>%%filename%%</strong> - Status: <span class="text-muted">Waiting</span>
+      </p>
+      <div class="progress mb-2">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+          role="progressbar"
+          style="width: 0%"
+          aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+        </div>
+      </div>
+      <hr class="mt-1 mb-1" />
+    </div>
+  </li>
 </script>
+
+<!-- Debug item template -->
+<script type="text/html" id="debug-template">
+  <li class="list-group-item text-%%color%%"><strong>%%date%%</strong>: %%message%%</li>
+</script>
+<script type="text/javascript">
+$('.new_Btn').bind("click" , function () {
+      $('#html_btn').click();
+  });
+</script>
+<script>
+$(document).ready(function(){
+$(window).scroll(function(){
+  var scroll = $(window).scrollTop();
+  console.log('hassan');
+  if (scroll > 380)
+  {
+    $("#table-1 > thead").css({ "position": "fixed", "margin-top": "-26.1%", "background": "#fff", "z-index": "999"});
+    $("#table-1 > thead > tr > th:eq(0)").css({"width": "45px"});
+    $("#table-1 > thead > tr > th:eq(1)").css({"width": "128px"});
+    $("#table-1 > thead > tr > th:eq(2)").css({"width": "171px"});
+    $("#table-1 > thead > tr > th:eq(3)").css({"width": "171px"});
+    $("#table-1 > thead > tr > th:eq(4)").css({"width": "171px"});
+    $("#table-1 > thead > tr > th:eq(5)").css({"width": "171px"});
+    $("#table-1 > thead > tr > th:eq(6)").css({"width": "50px"});
+    $("#table-1 > thead > tr > th").css({"border-left": "none", "border-right": "none"});
+    // $("#table-1 > thead > tr > #action").hide();
+  }
+  else
+   {
+     $("#table-1 > thead").css({ "position": "relative", "background": "#fff"});
+     // $("#table-1 > thead > tr > th").css({ "width": "171px", "border-left": "none", "border-right": "none"});
+     $("#table-1 > thead > tr > #action").show();
+   }
+});
+});
+    // $(document).on('change', '#sector', function() {
+    // var opt = $(this).val()
+    // //   console.log(opt);
+    // $.ajax({
+    // method: 'POST', // Type of response and matches what we said in the route
+    // url: '/onsectorselect', // This is the url we gave in the route
+    // data: {
+    // "_token": "{{ csrf_token() }}",
+    // 'data' : opt}, // a JSON object to send back
+    // success: function(response){ // What to do if we succeed
+    // console.log(response);
+    // $("#sub_sectors").empty();
+    // $.each(response, function () {
+    //     $('#sub_sectors').append("<option value=/""+this.id+"/">"+this.name+"</option>");
+    // });
+    // },
+    // error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+    //     console.log(JSON.stringify(jqXHR));
+    //     console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+    // }
+    // });
+    // });
+
+          // var tableOffset = $("#table-1").offset().top;
+          // var $header = $("#table-1 > thead").clone();
+          // var $fixedHeader = $("#header-fixed").append($header);
+          //
+          // $(window).bind("scroll", function() {
+          //   var offset = $(this).scrollTop();
+          //   if (offset >= tableOffset && $fixedHeader.is(":hidden")) {
+          //       $fixedHeader.show();
+          //   }
+          //   else if (offset < tableOffset) {
+          //       $fixedHeader.hide();
+          //   }
+          // });
+    </script>
 @endsection
