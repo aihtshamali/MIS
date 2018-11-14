@@ -36,6 +36,15 @@
     #html_btn {width: 90%;position: absolute;opacity: 0;cursor: pointer;left: 5%;}
     .text_center{text-align: center;}
     .new_Btn {cursor: pointer;}
+    .nav-link {padding: .5rem .5rem !important;}
+    @media only screen and (max-width: 420px){
+    .ms-container .ms-selectable, .ms-container .ms-selection {
+        width: 50% !important;
+        /* clear: both; */
+        float: left !important;
+    }}
+    .ms-container{width: 100% !important;}
+    .wd-5p{width: 5% !important;}
 </style>
 
 @endsection
@@ -262,7 +271,7 @@
                                                                 role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Important Dates</b></a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a class="nav-link financial" data-toggle="tab" href="#financial"
+                                                            <a class="nav-link financialphase" data-toggle="tab" href="#financial"
                                                                 role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Financial Phasing</b></a>
                                                         </li>
                                                         <li class="nav-item">
@@ -309,7 +318,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="tab-pane active" id="financial" role="tabpanel" aria-expanded="false">
+                                                        <div class="tab-pane" id="financial" role="tabpanel" aria-expanded="false">
                                                             <div>
                                                                 <div class="row">
                                                                     <h5 class="col-md-4">Gestation Period: <b><span id="t_months">49</span> months</b></h5>
@@ -940,6 +949,9 @@
                                                                     quam repellendus adipisci. Repellat sapiente asperiores
                                                                     numquam beatae at distinctio quaerat reiciendis
                                                                     repudiandae.
+                                                                    <div class="progress clearfix mt2 clrornge" style="margin: 3% 0% 0%;">
+                                                                      <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span class="persontagetiQ" style="color:#fff !important;padding:0px !important;margin:0px !important;">25%</span></div>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="card-block hidden-sm hidden-xs">
                                                                     <div class="col-md-12">
@@ -951,44 +963,46 @@
                                                                                     .bg_bl{background:#2f779ae6;}
                                                                                     .bg_gr{background:#349634;}
                                                                                     .text_center{text-align:center;}
-                                                                                    th{;border:2px solid #000;text-align:center;text-transform:capitalize;}
-                                                                                    td{;border:1px solid #00000014;}
+                                                                                    th{border:1px solid #00000014;padding: 1% 0%;text-align:center;text-transform:capitalize;}
+                                                                                    td{border:1px solid #00000014;}
                                                                                     .nobortop{border-top:none !important;}
                                                                                     .noborbottom{border-bottom:none !important;}
                                                                                     .white{color:#fff !important;}
                                                                                     .black{color:#000 !important;}
                                                                                     .red{color:red !important;}
+                                                                                    select.form-control:not([size]):not([multiple]){padding: 0% !important;}
                                                                                     </style>
                                                                             <table class="col-md-12">
                                                                                 <thead>
                                                                                     <tr>
+                                                                                        <th class="bg_sky noborbottom wd-5p" rowspan="2"
+                                                                                            colspan="1">
+                                                                                            SR#.
+                                                                                        </th>
                                                                                         <th class="bg_sky noborbottom" rowspan="2"
                                                                                             colspan="1">
                                                                                             Activity
                                                                                         </th>
                                                                                         <th class="bg_sky noborbottom" rowspan="2"
                                                                                             colspan="1">
-                                                                                            Activity ?
-                                                                                        </th>
-                                                                                        <th class="bg_sky noborbottom" rowspan="2"
-                                                                                            colspan="1">
-                                                                                            Risk catagory
-                                                                                        </th>
-                                                                                        <th class="bg_sky noborbottom" rowspan="2"
-                                                                                            colspan="1">
                                                                                             Risk event
                                                                                         </th>
-                                                                                        <th class="bg_sky noborbottom" rowspan="2">Department Stakeholder</th>
-
-                                                                                        <th class="bg_sky noborbottom" rowspan="2">probability</th>
-
-                                                                                        <th class="bg_sky noborbottom" rowspan="2">
-                                                                                            Impact
-                                                                                        </th>
-
                                                                                         <th class="bg_sky noborbottom" rowspan="2"
                                                                                             colspan="1">
-                                                                                            Risk Score
+                                                                                            Risk Type
+                                                                                        </th>
+                                                                                        <th class="bg_sky noborbottom" rowspan="2"
+                                                                                            colspan="1">
+                                                                                            Cost
+                                                                                        </th>
+                                                                                        <th class="bg_sky noborbottom" rowspan="2"
+                                                                                            colspan="1">
+                                                                                              probability
+                                                                                        </th>
+                                                                                        <th class="bg_sky noborbottom" rowspan="2">Impact</th>
+                                                                                        <th class="bg_sky noborbottom" rowspan="2">Score</th>
+                                                                                        <th class="bg_sky noborbottom" rowspan="2">
+                                                                                            Rating
                                                                                         </th>
                                                                                     </tr>
 {{--
@@ -1003,11 +1017,39 @@
                                                                                 <tbody id="riskmatrix">
                                                                                     <tr>
                                                                                         <td><input type="text" class="form-control"></td>
+                                                                                        <td>
+                                                                                          <select class="form-control form-control-primary">
+                                                                                            <option value="" selected="" disabled="">Activity</option>
+                                                                                            <option value="1">Activity 1</option>
+                                                                                            <option value="2">Activity 2</option>
+                                                                                            <option value="3">Activity 3</option>
+                                                                                            <option value="4">Activity 4</option>
+                                                                                            <option value="5">Activity 5</option>
+                                                                                          </select>
+                                                                                        </td>
                                                                                         <td><input type="text" class="form-control"></td>
                                                                                         <td><input type="text" class="form-control"></td>
                                                                                         <td><input type="text" class="form-control"></td>
-                                                                                        <td><input type="text" class="form-control"></td>
-                                                                                        <td><input type="text" class="form-control"></td>
+                                                                                        <td>
+                                                                                          <select class="form-control form-control-primary">
+                                                                                            <option value="" selected="" disabled="">Probability</option>
+                                                                                            <option value="1">Probability 1</option>
+                                                                                            <option value="2">Probability 2</option>
+                                                                                            <option value="3">Probability 3</option>
+                                                                                            <option value="4">Probability 4</option>
+                                                                                            <option value="5">Probability 5</option>
+                                                                                          </select>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                          <select class="form-control form-control-primary">
+                                                                                            <option value="" selected="" disabled="">Impact</option>
+                                                                                            <option value="1">Impact 1</option>
+                                                                                            <option value="2">Impact 2</option>
+                                                                                            <option value="3">Impact 3</option>
+                                                                                            <option value="4">Impact 4</option>
+                                                                                            <option value="5">Impact 5</option>
+                                                                                          </select>
+                                                                                        </td>
                                                                                         <td><input type="text" class="form-control"></td>
                                                                                         <td><input type="text" class="form-control"></td>
                                                                                         <td><button class="btn btn-sm btn-success"
@@ -1268,15 +1310,16 @@
   <li class="media">
     <div class="media-body mb-1">
       <p class="mb-2">
-        <strong>%%filename%%</strong> - Status: <span class="text-muted">Waiting</span>
+        <strong>%%filename%%</strong>
+         <!-- - Status: <span class="text-muted">Waiting</span> -->
       </p>
-      <div class="progress mb-2">
+      <!-- <div class="progress mb-2">
         <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
           role="progressbar"
           style="width: 0%"
           aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
         </div>
-      </div>
+      </div> -->
       <hr class="mt-1 mb-1" />
     </div>
   </li>
@@ -1316,42 +1359,5 @@ $(window).scroll(function(){
      $("#table-1 > thead > tr > #action").show();
    }
 });
-});
-    // $(document).on('change', '#sector', function() {
-    // var opt = $(this).val()
-    // //   console.log(opt);
-    // $.ajax({
-    // method: 'POST', // Type of response and matches what we said in the route
-    // url: '/onsectorselect', // This is the url we gave in the route
-    // data: {
-    // "_token": "{{ csrf_token() }}",
-    // 'data' : opt}, // a JSON object to send back
-    // success: function(response){ // What to do if we succeed
-    // console.log(response);
-    // $("#sub_sectors").empty();
-    // $.each(response, function () {
-    //     $('#sub_sectors').append("<option value=/""+this.id+"/">"+this.name+"</option>");
-    // });
-    // },
-    // error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
-    //     console.log(JSON.stringify(jqXHR));
-    //     console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
-    // }
-    // });
-    // });
-
-          // var tableOffset = $("#table-1").offset().top;
-          // var $header = $("#table-1 > thead").clone();
-          // var $fixedHeader = $("#header-fixed").append($header);
-          //
-          // $(window).bind("scroll", function() {
-          //   var offset = $(this).scrollTop();
-          //   if (offset >= tableOffset && $fixedHeader.is(":hidden")) {
-          //       $fixedHeader.show();
-          //   }
-          //   else if (offset < tableOffset) {
-          //       $fixedHeader.hide();
-          //   }
-          // });
-    </script>
+});  </script>
 @endsection

@@ -151,6 +151,7 @@ $('.kpis').on('click',function(){
     $('#activities').hide();
     $('#i-dates').hide();
     $('#financialDiv').hide();
+    $('#financial').hide();
     $('#kpis').show();
 });
 
@@ -158,12 +159,14 @@ $('.activities').on('click',function(){
     $('#kpis').hide();
     $('#i-dates').hide();
     $('#financialDiv').hide();
+    $('#financial').hide();
     $('#activities').show();
 });
 
 $('.i-dates').on('click',function(){
     $('#kpis').hide();
     $('#financialDiv').hide();
+    $('#financial').hide();
     $('#activities').hide();
     $('#i-dates').show();
 });
@@ -195,10 +198,19 @@ function hideall()
  $('#Objectives').hide();
  $('#PAT').hide();
  $('#Documents').hide();
+ $('#i-dates').hide();
 }
-$('.financial').on('click',function(){
+$('.financialphase').on('click',function(){
 hideall();
 $('#financial').show();
+});
+$('.planNav').on('click',function(){
+hideall();
+$('#i-dates').show();
+});
+$('.conductNav').on('click',function(){
+hideall();
+$('#financialDiv').show();
 });
 $('.physical').on('click',function(){
  hideall();
@@ -349,17 +361,45 @@ var add_stakeholder= `<tr>
                     $(temp).appendTo('#add-issue-here')
                 });
 $('button#add-more').click(function(e){
-var add_risks='<tr>'
-                +'<td><input type="text" class="form-control"></td>'
-                +'<td><input type="text"  class="form-control"></td>'
-                +'<td><input type="text" class="form-control"></td>'
-                +'<td><input type="text" class="form-control"></td>'
-                +'<td><input type="text" class="form-control"></td>'
-                +'<td><input type="text" class="form-control"></td>'
-                +'<td><input type="text" class="form-control"></td>'
-                +'<td><input type="text" class="form-control"></td>'
-                +'<td><button class="btn btn-sm btn-danger" id="remove" onclick="removerow(this)" name="remove[]" type="button">-</button></td>'
-                +'</tr>';
+var add_risks= `<tr>
+                <td><input type="text" class="form-control"></td>'
+                <td>
+                  <select class="form-control form-control-primary">
+                    <option value="" selected="" disabled="">Activity</option>
+                    <option value="1">Activity 1</option>
+                    <option value="2">Activity 2</option>
+                    <option value="3">Activity 3</option>
+                    <option value="4">Activity 4</option>
+                    <option value="5">Activity 5</option>
+                  </select>
+                </td>
+                <td><input type="text"  class="form-control"></td>'
+                <td><input type="text" class="form-control"></td>'
+                <td><input type="text" class="form-control"></td>'
+                <td>
+                  <select class="form-control form-control-primary">
+                    <option value="" selected="" disabled="">Probability</option>
+                    <option value="1">Probability 1</option>
+                    <option value="2">Probability 2</option>
+                    <option value="3">Probability 3</option>
+                    <option value="4">Probability 4</option>
+                    <option value="5">Probability 5</option>
+                  </select>
+                </td>
+                <td>
+                  <select class="form-control form-control-primary">
+                    <option value="" selected="" disabled="">Impact</option>
+                    <option value="1">Impact 1</option>
+                    <option value="2">Impact 2</option>
+                    <option value="3">Impact 3</option>
+                    <option value="4">Impact 4</option>
+                    <option value="5">Impact 5</option>
+                  </select>
+                </td>
+                <td><input type="text" class="form-control"></td>'
+                <td><input type="text" class="form-control"></td>'
+                <td><button class="btn btn-sm btn-danger" id="remove" onclick="removerow(this)" name="remove[]" type="button">-</button></td>'
+                </tr>`
                 $('#riskmatrix').append(add_risks);
 });
 
