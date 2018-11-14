@@ -912,11 +912,12 @@ class ExecutiveController extends Controller
       $projects=Project::select('projects.*')
      ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
      ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
-     ->whereNull('assigned_project_managers.project_id')
-     ->whereNull('assigned_projects.project_id')
+     ->where('projects.project_type_id',2)
      ->where('projects.status',1)
-     ->where('projects.project_type_id','2')
+     ->whereNull('assigned_projects.project_id')
+     ->whereNull('assigned_project_managers.project_id')
      ->get();
+     // dd($projects);
       return view('_Monitoring._Manager.unassigned',['projects'=>$projects]);
     }
     public function monitoring_inprogress()

@@ -143,10 +143,7 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
       // dd($request->all());
-      $project_no=SubProjectType::select('projects.project_no','projects.created_at')
-      ->where('sub_project_types.project_type_id','1')
-      ->leftJoin('projects','projects.project_type_id','sub_project_types.project_type_id')
-      ->latest()->first()->project_no;
+      $project_no=Project::latest()->first()->project_no;
       if($project_no){
       $project_no=explode('-',$project_no);
       // dd($project_no);
