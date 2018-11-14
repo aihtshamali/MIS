@@ -98,13 +98,16 @@ class ProjectAssignController extends Controller
       ->orderBy('roles.name','ASC')
       ->Where('roles.name','directorevaluation')
       ->orWhere('roles.name','directormonitoring')
+      ->where('users.status',1)
       ->get();
       $officers=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
       ->leftJoin('user_details','user_details.user_id','users.id')
       ->leftJoin('role_user','role_user.user_id','users.id')
       ->leftJoin('roles','roles.id','role_user.role_id')
       ->orderBy('roles.name','ASC')
-      ->where('roles.name','officer')
+      ->orWhere('roles.name','officer')
+      ->orWhere('roles.name','evaluator')
+      ->where('users.status',1)
       ->get();
       return view('executive.evaluation.consultant_assign',['priority'=>$priority,'project_id'=>$request->project_id,'officers'=>$officers,'managers'=>$managers,'assigned'=>$assigned,'unassigned'=>$unassigned]);
     }
@@ -142,7 +145,9 @@ class ProjectAssignController extends Controller
       ->leftJoin('role_user','role_user.user_id','users.id')
       ->leftJoin('roles','roles.id','role_user.role_id')
       ->orderBy('roles.name','ASC')
-      ->where('roles.name','officer')
+      ->orWhere('roles.name','officer')
+      ->orWhere('roles.name','evaluator')
+      ->where('users.status',1)
       ->get();
       return view('Director.Evaluation.Evaluation_projects.consultant_assign',['priority'=>$priority,'project_id'=>$request->project_id,'officers'=>$officers,'assigned'=>$assigned,'unassigned'=>$unassigned,'assignedtoManager'=>$assignedtoManager]);
     }
@@ -437,13 +442,16 @@ class ProjectAssignController extends Controller
       ->orderBy('roles.name','ASC')
       ->Where('roles.name','directorevaluation')
       ->orWhere('roles.name','directormonitoring')
+      ->where('users.status',1)
       ->get();
       $officers=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
       ->leftJoin('user_details','user_details.user_id','users.id')
       ->leftJoin('role_user','role_user.user_id','users.id')
       ->leftJoin('roles','roles.id','role_user.role_id')
       ->orderBy('roles.name','ASC')
-      ->where('roles.name','officer')
+      ->orWhere('roles.name','officer')
+      ->orWhere('roles.name','monitor')
+      ->where('users.status',1)
       ->get();
       return view('_Monitoring._Director.assignToConsultant',['officers'=>$officers,'directors'=>$directors]);
 
@@ -462,13 +470,16 @@ class ProjectAssignController extends Controller
        ->orderBy('roles.name','ASC')
        ->Where('roles.name','directorevaluation')
        ->orWhere('roles.name','directormonitoring')
+       ->where('users.status',1)
        ->get();
        $officers=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
        ->leftJoin('user_details','user_details.user_id','users.id')
        ->leftJoin('role_user','role_user.user_id','users.id')
        ->leftJoin('roles','roles.id','role_user.role_id')
        ->orderBy('roles.name','ASC')
-       ->where('roles.name','officer')
+       ->orWhere('roles.name','officer')
+       ->orWhere('roles.name','monitor')
+       ->where('users.status',1)
        ->get();
        return view('_Monitoring._Manager.assignToConsultant',['priority'=>$priority,'project_id'=>$request->project_id,'officers'=>$officers,'directors'=>$directors]);
     }
@@ -521,7 +532,7 @@ class ProjectAssignController extends Controller
            $assigned_project_activity = new AssignedProjectActivity();
            $assigned_project_activity->project_id = $request->project_id;
            if($project_activity->id==1){
-             $assigned_project_activity->start_time=date('Y-m-d');
+             $assigned_project_activity->start_date=date('Y-m-d');
            }
           $assigned_project_activity->project_activity_id = $project_activity->id;
            if(count($request->officer_id) > 1){

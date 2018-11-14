@@ -57,7 +57,7 @@
                         <tbody style="text-align:center; font-size:16px;">
                           {{-- {{dd($officer)}} --}}
                           @foreach($officer as $o)
-                          <tr >
+                          <tr>
 
                             <td> {{$o->project->project_no}} </td>
                             <td><a href="{{route('evaluation_activities',$o->project_id)}}">{{$o->project->title}}</a> </td>
@@ -95,7 +95,6 @@
                             </td>
                             <td>
                               <a href="{{route('projects.edit',$o->project_id)}}" class="btn btn-primary" style="margin-bottom:3px;">Review Project</a></br>
-                              <a href="{{route('evaluation_activities',$o->project_id)}}" class="btn btn-danger" >Go to Activities</a>
                             </td>
 
                             </tr>

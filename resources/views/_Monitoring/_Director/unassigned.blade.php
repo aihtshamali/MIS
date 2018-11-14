@@ -21,9 +21,10 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header"><h4><i class="icon-book-open m-r-5"></i>  NEW UNASSIGNED MONITORING PROJECTS <div class="label-main">
-                    <label class="label label-danger">0</label>
+                    <label class="label label-danger">{{$projects->count()}}</label>
                 </div></h4>
             </div>
+            @foreach ($projects as $project)
             <div class="card-block">
             <div class="card-block accordion-block">
                     <div id="accordion" role="tablist" aria-multiselectable="true">
@@ -31,10 +32,10 @@
                             <div class="accordion-heading" role="tab" id="headingOne">
                                 <h3 class="card-title accordion-title">
                                 <a class="accordion-msg" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    TITLE OF PROJECT 1
+                                    {{$project->Project->title}}
                                 </a>
                             <form action="{{route('Monitoring_assignToconsultant')}}">
-                                <button  type="submit" class=" assignButton btn btn-sm btn-info btn-outline-info" style=" margin-top: -30px; margin-bottom: 5px; margin-left: 60%;"><i class="icofont icofont-info-square"></i>Assign Project</button>
+                                <button  type="submit" class=" assignButton btn btn-sm btn-info btn-outline-info" style="margin-bottom: 5px; margin-left: 60%;"><i class="icofont icofont-info-square"></i>Assign Project</button>
                                 </form>
                             </h3>
                             </div>
@@ -43,26 +44,36 @@
                                 <div class="accordion-content accordion-desc openpage" >
                                     <div class="row" style="margin-top: 10px;
                                     margin-bottom: -18px;">
-                                        <div class="col-md-4" >
-                                            <ul>
-                                                <li>GS #</li>
-                                                <li>Cost</li>
-                                                <li>Sector</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <ul>
-                                                <li>District</li>
-                                                <li>Assigning Forum</li>
-                                                <li>Last Monitring Date (if any)</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <ul>
-                                                <li>SNE</li>
+                                    <div class="col-md-4" >
+                                        <ul>
+                                            <li><b>GS #:</b> <span class="pull-right">{{$project->Project->ADP}}</span></li>
+                                            <li><b>Cost: </b> <span class="pull-right">{{$project->Project->ProjectDetail->orignal_cost}}</span></li>
+                                            <li><b>Sector: </b> <span class="pull-right">
+                                              @foreach ($project->Project->AssignedSubSectors as $subsector)
+                                                {{$subsector->SubSector->Sector->name}},
+                                              @endforeach
+                                            </span></li>
 
-                                            </ul>
-                                        </div>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <ul>
+                                            <li><b>District: </b>
+                                              <span class="pull-right">
+                                               @foreach ($project->Project->AssignedDistricts as $district)
+                                                 {{$district->District->name}},
+                                               @endforeach
+                                             </span>
+                                           </li>
+                                            <li><b>Assigning Forum: </b>
+                                              <span class="pull-right">
+                                                 {{$project->Project->ProjectDetail->AssigningForum->name}}
+                                             </span>
+
+                                            </li>
+                                            <li><b>Last Monitring Date (if any): </b></li>
+                                        </ul>
+                                    </div>
                                     </div>
                                 </div>
                                 {{-- </a> --}}
@@ -72,6 +83,8 @@
                     </div>
                 </div>
             </div>
+          @endforeach
+
             <div class="card-footer"></div>
         </div>
     </div>

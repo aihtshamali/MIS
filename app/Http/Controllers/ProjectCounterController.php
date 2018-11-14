@@ -56,7 +56,7 @@ class ProjectCounterController extends Controller
 
         }
 
-        elseif($request->user()->hasRole('officer')){
+        elseif($request->user()->hasRole('officer|evaluator')){
           $assigned=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
           ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
           ->leftjoin('projects','assigned_projects.project_id','projects.id')
@@ -109,7 +109,7 @@ class ProjectCounterController extends Controller
 
           $role='directorE';
         }
-        elseif($request->user()->hasRole('officer')){
+        elseif($request->user()->hasRole('officer|evaluator')){
 
           $assigned=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
           ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
@@ -150,7 +150,7 @@ class ProjectCounterController extends Controller
 
           $role='directorE';
         }
-        elseif($request->user()->hasRole('officer')){
+        elseif($request->user()->hasRole('officer|evaluator')){
 
           $assigned=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
           ->leftJoin('projects','assigned_projects.project_id','projects.id')

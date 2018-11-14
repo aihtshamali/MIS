@@ -143,10 +143,7 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
       // dd($request->all());
-      $project_no=SubProjectType::select('projects.project_no','projects.created_at')
-      ->where('sub_project_types.project_type_id','1')
-      ->leftJoin('projects','projects.project_type_id','sub_project_types.project_type_id')
-      ->latest()->first()->project_no;
+      $project_no=Project::latest()->first()->project_no;
       if($project_no){
       $project_no=explode('-',$project_no);
       // dd($project_no);
@@ -188,8 +185,10 @@ class ProjectController extends Controller
       $project_detail->project_id = $project_id;
       $project_detail->currency = $request->currency;
       $project_detail->orignal_cost = $request->original_cost;
-      $project_detail->planned_start_date = date('Y-m-d',strtotime($request->planned_start_date));
-      $project_detail->planned_end_date = date('Y-m-d',strtotime($request->planned_end_date));
+      if($request->planned_start_date)
+        $project_detail->planned_start_date = date('Y-m-d',strtotime($request->planned_start_date));
+      if($request->planned_end_date)
+        $project_detail->planned_end_date = date('Y-m-d',strtotime($request->planned_end_date));
       if($request->revised_start_date)
       $project_detail->revised_start_date = date('Y-m-d',strtotime($request->revised_start_date));
 
@@ -241,7 +240,7 @@ class ProjectController extends Controller
         $revised_approved_cost_save->cost = $revised_approved_cost;
         $revised_approved_cost_save->save();
       }
-      if(isset($request->revised_end_dates[0]))
+      if(isset($request->revised_end_dates[0]) && $request->revised_end_dates[0]!=null && $request->revised_end_dates[0]!='')
       foreach($request->revised_end_dates as $revised_end_date){
         $revised_end_dat = new RevisedEndDate();
         $revised_end_dat->project_id = $project_id;
@@ -722,7 +721,13 @@ class ProjectController extends Controller
     $current_year = date('Y');
     $approving_forums = ApprovingForum::where('status','1')->get();
     $adp = AdpProject::orderBy('gs_no')->get();
-
+    $data = [];
+    $keys = [];
+    foreach ($adp as $val) {
+      array_push($keys,$val->gs_no);
+      array_push($data,$val);
+    }
+    $final = array_combine($keys,$data);
     foreach ($districts as $district) {
       $district->name = $district->name;
     }
@@ -739,7 +744,7 @@ class ProjectController extends Controller
       $assigning_forum->name = $assigning_forum->name . "/";
     }
     \JavaScript::put([
-      'projects' => $adp
+      'projects' => $final
   ]);
     return view('_Monitoring._Dataentry.create',compact('project_no','project_types','adp','sub_project_types','districts','sectors','sponsoring_departments','executing_departments','assigning_forums','current_year','approving_forums','sub_sectors','projects'));
   }

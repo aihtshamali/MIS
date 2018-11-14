@@ -332,7 +332,7 @@
 
   @endrole
 
-  @role('officer')
+  @role('officer|evaluator')
   @include('inc.officer_sidenav')
   @endrole
 
