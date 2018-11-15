@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProjectPurposesTable extends Migration
+class CreatePlantripVisitreasonsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateProjectPurposesTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_purposes', function (Blueprint $table) {
+        Schema::create('plantrip_visitreasons', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->nullable();
+            $table->boolean('status')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreateProjectPurposesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_purposes');
+        Schema::dropIfExists('plantrip_visitreasons');
     }
 }

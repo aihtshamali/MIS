@@ -32,7 +32,6 @@ li{text-transform: capitalize;}
     @endrole
 
 </div>
-
 @endsection
 
 {{-- @section('content')

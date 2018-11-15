@@ -70,15 +70,13 @@ return array(
     'App\\Http\\Controllers\\Auth\\LoginController' => $baseDir . '/app/Http/Controllers/Auth/LoginController.php',
     'App\\Http\\Controllers\\Auth\\RegisterController' => $baseDir . '/app/Http/Controllers/Auth/RegisterController.php',
     'App\\Http\\Controllers\\Auth\\ResetPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ResetPasswordController.php',
-    'App\\Http\\Controllers\\CarIssueController' => $baseDir . '/app/Http/Controllers/CarIssueController.php',
     'App\\Http\\Controllers\\ChatController' => $baseDir . '/app/Http/Controllers/ChatController.php',
+    'App\\Http\\Controllers\\CityController' => $baseDir . '/app/Http/Controllers/CityController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\DataEntryController' => $baseDir . '/app/Http/Controllers/DataEntryController.php',
     'App\\Http\\Controllers\\DirectorEvaluationController' => $baseDir . '/app/Http/Controllers/DirectorEvaluationController.php',
     'App\\Http\\Controllers\\DirectorMonitoringController' => $baseDir . '/app/Http/Controllers/DirectorMonitoringController.php',
     'App\\Http\\Controllers\\DistrictController' => $baseDir . '/app/Http/Controllers/DistrictController.php',
-    'App\\Http\\Controllers\\DriverController' => $baseDir . '/app/Http/Controllers/DriverController.php',
-    'App\\Http\\Controllers\\DriverDocumentsController' => $baseDir . '/app/Http/Controllers/DriverDocumentsController.php',
     'App\\Http\\Controllers\\EvaluationTypeController' => $baseDir . '/app/Http/Controllers/EvaluationTypeController.php',
     'App\\Http\\Controllers\\ExcelController' => $baseDir . '/app/Http/Controllers/ExcelController.php',
     'App\\Http\\Controllers\\ExecutingAgencyController' => $baseDir . '/app/Http/Controllers/ExecutingAgencyController.php',
@@ -94,8 +92,6 @@ return array(
     'App\\Http\\Controllers\\HrProjectDecisionController' => $baseDir . '/app/Http/Controllers/HrProjectDecisionController.php',
     'App\\Http\\Controllers\\HrProjectTypeController' => $baseDir . '/app/Http/Controllers/HrProjectTypeController.php',
     'App\\Http\\Controllers\\HrSectorController' => $baseDir . '/app/Http/Controllers/HrSectorController.php',
-    'App\\Http\\Controllers\\IssueController' => $baseDir . '/app/Http/Controllers/IssueController.php',
-    'App\\Http\\Controllers\\MembersController' => $baseDir . '/app/Http/Controllers/MembersController.php',
     'App\\Http\\Controllers\\NotificationController' => $baseDir . '/app/Http/Controllers/NotificationController.php',
     'App\\Http\\Controllers\\OfficerController' => $baseDir . '/app/Http/Controllers/OfficerController.php',
     'App\\Http\\Controllers\\PermissionsController' => $baseDir . '/app/Http/Controllers/PermissionsController.php',
@@ -114,6 +110,7 @@ return array(
     'App\\Http\\Controllers\\SponsorAgencyController' => $baseDir . '/app/Http/Controllers/SponsorAgencyController.php',
     'App\\Http\\Controllers\\SubSectorController' => $baseDir . '/app/Http/Controllers/SubSectorController.php',
 <<<<<<< HEAD
+<<<<<<< HEAD
     'App\\Http\\Controllers\\TofficerApprovalController' => $baseDir . '/app/Http/Controllers/TofficerApprovalController.php',
     'App\\Http\\Controllers\\TripLocationController' => $baseDir . '/app/Http/Controllers/TripLocationController.php',
     'App\\Http\\Controllers\\TripRequestController' => $baseDir . '/app/Http/Controllers/TripRequestController.php',
@@ -128,13 +125,19 @@ return array(
     'App\\Http\\Controllers\\VmisVehicleController' => $baseDir . '/app/Http/Controllers/VmisVehicleController.php',
     'App\\Http\\Controllers\\VmisVehicleDocumentController' => $baseDir . '/app/Http/Controllers/VmisVehicleDocumentController.php',
     'App\\Http\\Controllers\\VmisVehicleTypeController' => $baseDir . '/app/Http/Controllers/VmisVehicleTypeController.php',
+=======
+>>>>>>> a96cc98ae2646ad112230e7e3afbf1e4086226dc
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',
     'App\\Http\\Middleware\\RedirectIfAuthenticated' => $baseDir . '/app/Http/Middleware/RedirectIfAuthenticated.php',
     'App\\Http\\Middleware\\TrimStrings' => $baseDir . '/app/Http/Middleware/TrimStrings.php',
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
+<<<<<<< HEAD
 
+=======
+    'App\\Issue' => $baseDir . '/app/Issue.php',
+>>>>>>> a96cc98ae2646ad112230e7e3afbf1e4086226dc
     'App\\MAssesment' => $baseDir . '/app/MAssesment.php',
     'App\\MAssignedProjectHealthSafety' => $baseDir . '/app/MAssignedProjectHealthSafety.php',
     'App\\MAssignedProjectIssue' => $baseDir . '/app/MAssignedProjectIssue.php',
@@ -151,9 +154,22 @@ return array(
     'App\\MSeverity' => $baseDir . '/app/MSeverity.php',
     'App\\MStakeHolder' => $baseDir . '/app/MStakeHolder.php',
     'App\\MSubsequent' => $baseDir . '/app/MSubsequent.php',
+<<<<<<< HEAD
+=======
+    'App\\Members' => $baseDir . '/app/Members.php',
+>>>>>>> a96cc98ae2646ad112230e7e3afbf1e4086226dc
     'App\\MonitoringProjectActivity' => $baseDir . '/app/MonitoringProjectActivity.php',
     'App\\Notification' => $baseDir . '/app/Notification.php',
     'App\\Other' => $baseDir . '/app/Other.php',
+    'App\\PlantripCity' => $baseDir . '/app/PlantripCity.php',
+    'App\\PlantripMembers' => $baseDir . '/app/PlantripMember.php',
+    'App\\PlantripPurpose' => $baseDir . '/app/PlantripPurpose.php',
+    'App\\PlantripPurposetype' => $baseDir . '/app/PlantripPurposetype.php',
+    'App\\PlantripSubcitytype' => $baseDir . '/app/PlantripSubcitytype.php',
+    'App\\PlantripTriplocation' => $baseDir . '/app/PlantripTriplocation.php',
+    'App\\PlantripTriprequest' => $baseDir . '/app/PlantripTriprequest.php',
+    'App\\PlantripTriptype' => $baseDir . '/app/PlantripTriptype.php',
+    'App\\PlantripVisitreason' => $baseDir . '/app/PlantripVisitreason.php',
     'App\\ProblematicRemarks' => $baseDir . '/app/ProblematicRemarks.php',
     'App\\Project' => $baseDir . '/app/Project.php',
     'App\\ProjectActivity' => $baseDir . '/app/ProjectActivity.php',
@@ -179,12 +195,15 @@ return array(
     'App\\SponsoringAgency' => $baseDir . '/app/SponsoringAgency.php',
     'App\\SubProjectType' => $baseDir . '/app/SubProjectType.php',
     'App\\SubSector' => $baseDir . '/app/SubSector.php',
-    'App\\TofficerApproval' => $baseDir . '/app/TofficerApproval.php',
-    'App\\TripLocation' => $baseDir . '/app/TripLocation.php',
-    'App\\TripRequest' => $baseDir . '/app/TripRequest.php',
-    'App\\TripType' => $baseDir . '/app/TripType.php',
     'App\\User' => $baseDir . '/app/User.php',
     'App\\UserDetail' => $baseDir . '/app/UserDetail.php',
+<<<<<<< HEAD
+=======
+    'App\\Vehicle' => $baseDir . '/app/Vehicle.php',
+    'App\\VehicleDocuments' => $baseDir . '/app/VehicleDocuments.php',
+    'App\\VehicleType' => $baseDir . '/app/VehicleType.php',
+    'App\\site_visit' => $baseDir . '/app/site_visit.php',
+>>>>>>> a96cc98ae2646ad112230e7e3afbf1e4086226dc
     'ArithmeticError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
     'AssertionError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',
     'Carbon\\Carbon' => $vendorDir . '/nesbot/carbon/src/Carbon/Carbon.php',
