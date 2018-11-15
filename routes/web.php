@@ -168,9 +168,7 @@ Route::prefix('officer')->middleware('role:officer')->group(function () {
   Route::post('/review_form','OfficerController@review_forms')->name('review_forms');
   Route::post('/AssignActivityDocuments','OfficerController@AssignActivityDocument')->name('AssignActivityDocument');
   Route::post('/saveActivityAttachment','OfficerController@saveActivityAttachment')->name('saveActivityAttachment');
-  Route::get('/new_trip','SiteVisitController@create')->name('new_trip');
-  Route::get('/view_trips','SiteVisitController@view')->name('view_trips');
-  Route::get('/new_tripbackup','SiteVisitController@create')->name('new_tripbackup');
+  Route::resource('trip','SiteVisitController');
 
   Route::post('/saveDocAttachment','OfficerController@saveDocAttachments')->name('saveDocAttachment');
 

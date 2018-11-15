@@ -32,21 +32,6 @@ li{text-transform: capitalize;}
     @endrole
 
 </div>
-<<<<<<< HEAD
-@endsection
-{{-- @section('styleTags')
-<style>
-.pointer{cursor: pointer;}
-.mt2{margin-top: 2%;}
-.clrornge{color: #fe986c;}
-p{text-align: left !important;}
-.tab-pane{text-align: left !important;}
-.persontagetiQ{color: #fff;font-weight: 900;}
-li{text-transform: capitalize;}
-</style>
-=======
-
->>>>>>> 550f8a7f4749a4d3407da0e2c30668f7b54d3431
 @endsection
 
 {{-- @section('content')
@@ -64,13 +49,7 @@ li{text-transform: capitalize;}
                         <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span class="persontagetiQ">25%</span></div>
                     </div>
                     <div class="col-md-12 mt2">
-<<<<<<< HEAD
-                        {{-- <div class="sub-title">Default</div> --}}
-                        <!-- Nav tabs -->
-                        {{-- <ul class="nav nav-tabs  tabs" role="tablist">
-=======
                         <ul class="nav nav-tabs  tabs" role="tablist">
->>>>>>> 550f8a7f4749a4d3407da0e2c30668f7b54d3431
                             <li class="nav-item">
                                 <a class="nav-link active" data-toggle="tab" href="#home1" role="tab" aria-expanded="false">New</a>
                             </li>
@@ -121,8 +100,4 @@ li{text-transform: capitalize;}
             </div>
         </div>
 </div>
-<<<<<<< HEAD
-@endsection  --}}
-=======
 @endsection --}}
->>>>>>> 550f8a7f4749a4d3407da0e2c30668f7b54d3431

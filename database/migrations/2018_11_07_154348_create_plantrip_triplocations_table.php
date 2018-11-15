@@ -23,6 +23,7 @@ class CreatePlantripTriplocationsTable extends Migration
            
             $table->date('from_Date')->nullable();
             $table->date('to_Date')->nullable();
+            
             $table->string('time_to_Departure')->nullable();
        
             $table->timestamps();

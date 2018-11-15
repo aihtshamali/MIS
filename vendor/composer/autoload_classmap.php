@@ -144,7 +144,6 @@ return array(
     'App\\PlantripTriplocation' => $baseDir . '/app/PlantripTriplocation.php',
     'App\\PlantripTriprequest' => $baseDir . '/app/PlantripTriprequest.php',
     'App\\PlantripTriptype' => $baseDir . '/app/PlantripTriptype.php',
-    'App\\PlantripVisitedproject' => $baseDir . '/app/PlantripVisitedproject.php',
     'App\\PlantripVisitreason' => $baseDir . '/app/PlantripVisitreason.php',
     'App\\ProblematicRemarks' => $baseDir . '/app/ProblematicRemarks.php',
     'App\\Project' => $baseDir . '/app/Project.php',

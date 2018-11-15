@@ -487,7 +487,6 @@ class ComposerStaticInit55c1f85fd9fa01a6cf3b909416bd240d
         'App\\PlantripTriplocation' => __DIR__ . '/../..' . '/app/PlantripTriplocation.php',
         'App\\PlantripTriprequest' => __DIR__ . '/../..' . '/app/PlantripTriprequest.php',
         'App\\PlantripTriptype' => __DIR__ . '/../..' . '/app/PlantripTriptype.php',
-        'App\\PlantripVisitedproject' => __DIR__ . '/../..' . '/app/PlantripVisitedproject.php',
         'App\\PlantripVisitreason' => __DIR__ . '/../..' . '/app/PlantripVisitreason.php',
         'App\\ProblematicRemarks' => __DIR__ . '/../..' . '/app/ProblematicRemarks.php',
         'App\\Project' => __DIR__ . '/../..' . '/app/Project.php',
