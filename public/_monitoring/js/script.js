@@ -1,4 +1,4 @@
-"use strict";
+// "use strict";
 $(document).ready(function() {
     var $window = $(window);
     //add id to main menu for mobile menu start
@@ -73,50 +73,50 @@ $(document).ready(function() {
     });
 
     // open chat box
-    $('.displayChatbox').on('click', function() {
-        var my_val = $('.pcoded').attr('vertical-placement');
-        if (my_val == 'right') {
-            var options = {
-                direction: 'left'
-            };
-        } else {
-            var options = {
-                direction: 'right'
-            };
-        }
-        $('.showChat').toggle('slide', options, 500);
-    });
+    // $('.displayChatbox').on('click', function() {
+    //     var my_val = $('.pcoded').attr('vertical-placement');
+    //     if (my_val == 'right') {
+    //         var options = {
+    //             direction: 'left'
+    //         };
+    //     } else {
+    //         var options = {
+    //             direction: 'right'
+    //         };
+    //     }
+    //     $('.showChat').toggle('slide', options, 500);
+    // });
 
 
     //open friend chat
-    $('.userlist-box').on('click', function() {
-        var my_val = $('.pcoded').attr('vertical-placement');
-        if (my_val == 'right') {
-            var options = {
-                direction: 'left'
-            };
-        } else {
-            var options = {
-                direction: 'right'
-            };
-        }
-        $('.showChat_inner').toggle('slide', options, 500);
-    });
+    // $('.userlist-box').on('click', function() {
+    //     var my_val = $('.pcoded').attr('vertical-placement');
+    //     if (my_val == 'right') {
+    //         var options = {
+    //             direction: 'left'
+    //         };
+    //     } else {
+    //         var options = {
+    //             direction: 'right'
+    //         };
+    //     }
+    //     $('.showChat_inner').toggle('slide', options, 500);
+    // });
     //back to main chatbar
-    $('.back_chatBox').on('click', function() {
-        var my_val = $('.pcoded').attr('vertical-placement');
-        if (my_val == 'right') {
-            var options = {
-                direction: 'left'
-            };
-        } else {
-            var options = {
-                direction: 'right'
-            };
-        }
-        $('.showChat_inner').toggle('slide', options, 500);
-        $('.showChat').css('display', 'block');
-    });
+    // $('.back_chatBox').on('click', function() {
+    //     var my_val = $('.pcoded').attr('vertical-placement');
+    //     if (my_val == 'right') {
+    //         var options = {
+    //             direction: 'left'
+    //         };
+    //     } else {
+    //         var options = {
+    //             direction: 'right'
+    //         };
+    //     }
+    //     $('.showChat_inner').toggle('slide', options, 500);
+    //     $('.showChat').css('display', 'block');
+    // });
     // /*chatbar js end*/
     $(".search-btn").on('click', function() {
         $(".main-search").addClass('open');
@@ -132,11 +132,11 @@ $(document).ready(function() {
             $(".main-search").removeClass('open');
         }, 300);
     });
-    $('#mobile-collapse i').addClass('icon-toggle-right');
-    $('#mobile-collapse').on('click', function() {
-        $('#mobile-collapse i').toggleClass('icon-toggle-right');
-        $('#mobile-collapse i').toggleClass('icon-toggle-left');
-    });
+    // $('#mobile-collapse i').addClass('icon-toggle-right');
+    // $('#mobile-collapse').on('click', function() {
+    //     $('#mobile-collapse i').toggleClass('icon-toggle-right');
+    //     $('#mobile-collapse i').toggleClass('icon-toggle-left');
+    // });
 });
 $(document).ready(function() {
     $(function() {

@@ -15,9 +15,9 @@
 <link rel="stylesheet" href="{{ asset('_monitoring/css/pages/advance-elements/css/bootstrap-datetimepicker.css')}}" />
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/daterangepicker.css')}}" />
 {{-- Data Tables --}}
-<link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/css/dataTables.bootstrap4.min.css')}}" />
-<link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/pages/data-table/css/buttons.dataTables.min.css')}}" />
-<link rel="stylesheet" href="{{ asset('_monitoring/css/css/responsive.bootstrap4.min.css')}}" />
+<link href="{{ asset('_monitoring/css/css/dataTables.bootstrap4.min.css')}}" />
+<link href="{{ asset('_monitoring/css/pages/data-table/css/buttons.dataTables.min.css')}}" />
+<link href="{{ asset('_monitoring/css/css/responsive.bootstrap4.min.css')}}" />
 <!-- css file upload Frame work -->
 <link href="{{ asset('_monitoring/js/jquery.filer/css/jquery.filer.css')}}" />
 <link href="{{ asset('_monitoring/js/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css')}}" />
@@ -30,7 +30,7 @@
 {{-- This is dgme custom css for this page only ,write here any css you want to Ok!!! --}}
 <link rel="stylesheet" href="{{asset('_monitoring/css/css/_dgme/DGME_officer_inprogressSingle.css')}}" />
 <style media="screen">
-    html{scroll-behavior: smooth;}
+    /* html{scroll-behavior: smooth;} */
     .paddtopbottom1per{padding: 1% 0% !important;}
     .media{display: block !important;}
     #html_btn {width: 90%;position: absolute;opacity: 0;cursor: pointer;left: 5%;}
@@ -45,13 +45,32 @@
     }}
     .ms-container{width: 100% !important;}
     .wd-5p{width: 5% !important;}
+    .mt_6p{margin-top: 6% !important;}
+    .pd_1{padding: 1% !important;border: 1px solid #00000014;margin-bottom: 2%;border-radius: 3px;}
+    .bg_g{background-color: #00000014}
+    .clearfix{clear: both !important;}
+    .textlef{text-align: left !important;}
+    .mb_2{margin-bottom: 2% !important;}
+    .mb_1{margin-bottom: 1% !important;}
+    .font-15{font-size: 15px !important;}
+    .pd_1_2{padding: 1% 2% !important}
+    .pd_1_6{padding: 1% 6% !important}
+    .row{padding-left: 0px !important;padding-right: 0px !important;}
+    .DisInlineflex{display: inline-flex !important;}
+    .border_right{border-right:1px solid #e9ecef !important}
+    .border_left{border-left:1px solid #e9ecef !important}
+    .bg_sk{background: #01a9ac14;}
+    .bg_or{background: #fe936524;}
+    .mr_0_1{margin:0% 1% !important;}
+    /* p{clear: both !important;} */
+    .select2-container--default .select2-selection--multiple .select2-selection__rendered li{color: #fff !important;background: #2320207a !important;}
 </style>
 
 @endsection
 @section('content')
 
     {{-- frozen panel for plan and conduct monitoring  --}}
-    <div class="col-md-12 fixed bg-g hidden-sm hidden-xs topSummary nodisplay" style="margin-top:-2.9% !important;z-index:999 !important; margin-left:-2.85% !important;">
+    <div class="col-md-12 fixed bg-g hidden-sm hidden-xs topSummary" style="margin-top:-2.9% !important;z-index:999 !important; margin-left:-2.85% !important;">
 
         <div class="bg-w border_top bg-w" style="padding:0.25rem !important;" >
                 <style scoped>
@@ -68,13 +87,16 @@
                     <div class="col-md-4 ln_ht12">
                         <label for="project_title" class="">Project Title </label>
                     </div>
+                    <div class="col-md-4 ln_ht12">
+                        <label for="project_cost" class="">Location</label>
+                    </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-md-4 ln_ht12">
-                        <label for="project_cost" class="">Cost </label>
+                        <label for="project_cost" class="">Original Approve Cost </label>
                     </div>
                     <div class="col-md-4 ln_ht12">
-                        <label for="Location" class="">Location </label>
+                        <label for="Location" class="">final Revised Cost </label>
                     </div>
                     <div class="col-md-4 ln_ht12">
                         <label for="PHI" class="">PHI </label>
@@ -94,7 +116,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-md-4 ln_ht12">
-                        <label for="progress" class="">Progress %</label>
+                        <label for="progress" class="">Phsycal Progress %</label>
                     </div>
                     <div class="col-md-4 ln_ht12">
                           <label for="Financial" class="">Financial Progress %</label>
@@ -110,8 +132,7 @@
 
     {{-- end of frozen panel --}}
     <div class="row">
-            <div class="col-md-9 mainTabsAndNav " style="padding-left: 15px !important;
-        padding-right: 15px !important;">
+            <div class="col-md-12 mainTabsAndNav mt_6p" style="padding-left: 15px !important;padding-right: 15px !important;">
                 <form action="#">
                     <div class="card">
                         <div class="card-header">
@@ -121,145 +142,68 @@
                                 <div class="col-lg-12 col-xl-12 col-md-8 col-sm-6">
                                     <!-- Nav tabs -->
                                     <ul class="nav nav-tabs md-tabs" role="tablist">
-                                        <li class="nav-item summaryNav">
-                                            <a class="nav-link active" data-toggle="tab" href="#summary" role="tab"><span style="font-size:14px; font-weight:bold;">SUMMARY</span></a>
+                                        <li class="nav-item reviewTab">
+                                            <a class="nav-link active" data-toggle="tab" href="#reviewDiv" role="tab"><span style="font-size:14px; font-weight:bold;">REVIEW</span></a>
                                             <div class="slide"></div>
                                         </li>
                                         <li class="nav-item planNav">
-                                            <a class="nav-link" data-toggle="tab" href="#p_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">PLAN
-                                                    MONITORING</span></a>
+                                            <a class="nav-link" data-toggle="tab" href="#p_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">PLAN MONITORING</span></a>
                                             <div class="slide"></div>
                                         </li>
                                         <li class="nav-item conductNav">
-                                            <a class="nav-link" data-toggle="tab" href="#c_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">CONDUCT
-                                                    MONITORING</span></a>
+                                            <a class="nav-link" data-toggle="tab" href="#c_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">CONDUCT MONITORING</span></a>
                                             <div class="slide"></div>
+                                        </li>
+                                        <li class="nav-item summaryNav">
+                                          <a class="nav-link" data-toggle="tab" href="#summary" role="tab"><span style="font-size:14px; font-weight:bold;">SUMMARY</span></a>
+                                          <div class="slide"></div>
                                         </li>
                                     </ul>
                                     <!-- Tab panes -->
                                     <div class="tab-content card-block">
-                                        <div class="tab-pane active" id="summary" role="tabpanel">
-                                            <fieldset>
-                                                <div class="form-group row">
-                                                    <div class="col-md-1 col-sm-1">
-                                                    </div>
-
-                                                    <div class="col-md-4 col-sm-2">
-                                                        <div class="card summary-card bg-new">
-                                                            <div class="card-header"></div>
-                                                            <div class="card-block">
-                                                                <div class="animation-model">
-                                                                    <button type="button" class="btn btn-info btn-outline-info waves-effect md-trigger "
-                                                                        style="text-align:center; vertical-align:middle; font-size:13px; margin-top: -10%;margin-left: 10%;"
-                                                                        data-modal="modal-1">Work Breakdown <br>Structure<br>(WBS)</button>
-                                                                    <div class="md-modal md-effect-3" id="modal-1">
-                                                                        <div class="md-content">
-                                                                            <h3>Work Breakdown Structure</h3>
-                                                                            <div>
-                                                                                <canvas id="barChart" width="400" height="400"></canvas>
-                                                                                <button type="button" class="btn btn-primary waves-effect md-close">Close</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="md-overlay"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="col-md-1 col-sm-1"></div>
-
-                                                    <div class="col-md-4 col-sm-2">
-                                                        <div class="card summary-card bg-new">
-                                                            <div class="card-header"></div>
-                                                            <div class="card-block">
-                                                                <div class="animation-model">
-                                                                    <button type="button" class="btn btn-info btn-outline-info waves-effect md-trigger "
-                                                                        style="text-align:center; vertical-align:middle; font-size:13px;margin-left: 20%;"
-                                                                        data-modal="modal-2">Gantt Chart</button>
-                                                                    <div class="md-modal md-effect-3" id="modal-2">
-                                                                        <div class="md-content">
-                                                                            <h3>Ghantt Chart</h3>
-                                                                            <div>
-                                                                                <canvas id="barChart" width="400" height="400"></canvas>
-                                                                                <button type="button" class="btn btn-primary waves-effect md-close">Close</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="md-overlay"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-
-                                                    <div class="col-md-1 col-sm-1">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <div class="col-md-1 col-sm-1">
-                                                    </div>
-
-
-                                                    <div class="col-md-4 col-sm-2">
-                                                        <div class="card summary-card bg-new">
-                                                            <div class="card-header"></div>
-                                                            <div class="card-block">
-                                                                <div class="animation-model">
-                                                                    <button type="button" class="btn btn-info btn-outline-info waves-effect md-trigger "
-                                                                        style="text-align:center; vertical-align:middle; font-size:13px;margin-left:20%"
-                                                                        data-modal="modal-3">Burn Chart</button>
-                                                                    <div class="md-modal md-effect-3" id="modal-3">
-                                                                        <div class="md-content">
-                                                                            <h3>Burn Chart </h3>
-                                                                            <div>
-                                                                                <canvas id="barChart" width="400" height="400"></canvas>
-                                                                                <button type="button" class="btn btn-primary waves-effect md-close">Close</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="md-overlay"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-
-                                                    <div class="col-md-1 col-sm-1"></div>
-
-                                                    <div class="col-md-4 col-sm-2">
-                                                        <div class="card summary-card bg-new">
-                                                            <div class="card-header"></div>
-                                                            <div class="card-block">
-                                                                <div class="animation-model">
-                                                                    <button type="button" class="btn btn-info btn-outline-info waves-effect md-trigger "
-                                                                        style="text-align:center; vertical-align:middle; font-size:13px;margin-left:20%"
-                                                                        data-modal="modal-4">PROGRESS</button>
-                                                                    <div class="md-modal md-effect-3" id="modal-4">
-                                                                        <div class="md-content">
-                                                                            <h3>Progress in %</h3>
-                                                                            <div>
-                                                                                <canvas id="barChart" width="400" height="400"></canvas>
-                                                                                <button type="button" class="btn btn-primary waves-effect md-close">Close</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="md-overlay"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-
-
-                                                    <div class="col-md-1 col-sm-1">
-                                                    </div>
-
-                                                </div>
-                                            </fieldset>
+                                        <div class="tab-pane active" id="reviewDiv" role="tabpanel">
+                                            <div class="costDiv pd_1 clearfix ">
+                                              <h5 class="textlef">Cost</h5>
+                                            </div>
+                                            <div class="TimeDiv pd_1 clearfix bg_g">
+                                              <h5 class="textlef">Time</h5>
+                                            </div>
+                                            <div class="age_orgDiv pd_1 clearfix bg_sk">
+                                              <h5 class="textlef form-txt-primary mb_2">Agencies & Organization</h5>
+                                              <div class="form-group row mb_2">
+                                                  <label class="col-sm-3 form-txt-primary font-15">Opration & Management</label>
+                                                  <div class="col-sm-9">
+                                                    <input type="text" class="form-control form-txt-primary" placeholder="Opration & Management" />
+                                                  </div>
+                                              </div>
+                                              <div class="form-group row mb_2">
+                                                  <label class="col-sm-3 form-txt-primary font-15">Contractor/Supplier</label>
+                                                  <div class="col-sm-9">
+                                                    <input type="text" class="form-control form-txt-primary" placeholder="Contractor/Supplier" />
+                                                  </div>
+                                              </div>
+                                            </div>
+                                            <div class="dates pd_1 clearfix bg_or">
+                                              <h5 class="textlef form-txt-warning mb_2">Dates</h5>
+                                              <div class="form-group row mb_2">
+                                                  <label class="col-sm-3 form-txt-warning font-15">Project Approval Date</label>
+                                                  <div class="col-sm-9">
+                                                    <input type="text" class="form-control form-txt-warning" placeholder="Project Approval Date" />
+                                                  </div>
+                                              </div>
+                                              <div class="form-group row mb_2">
+                                                  <label class="col-sm-3 form-txt-warning font-15">Admin Approval Date</label>
+                                                  <div class="col-sm-9">
+                                                    <input type="text" class="form-control form-txt-warning" placeholder="Admin Approval Date" />
+                                                  </div>
+                                              </div>
+                                              <div class="form-group row mb_2">
+                                                  <label class="col-sm-3 form-txt-warning font-15">Actual Start Date</label>
+                                                  <div class="col-sm-9">
+                                                    <input type="text" class="form-control form-txt-warning" placeholder="Actual Start Date" />
+                                                  </div>
+                                              </div>
+                                            </div>
                                         </div>
                                         <div class="tab-pane " id="p_monitoring" role="tabpanel" style="display:none;">
                                             <div class="row">
@@ -267,54 +211,74 @@
                                                     <!-- Nav tabs -->
                                                     <ul class="nav nav-tabs tabs p_tabs" role="tablist">
                                                         <li class="nav-item">
-                                                            <a class="nav-link active i-dates" data-toggle="tab" href="#i-dates"
-                                                                role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Important Dates</b></a>
+                                                            <a class="nav-link active PlanDoc" data-toggle="tab" href="#PlanDocDiv"
+                                                                role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Documents</b></a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link i-dates" data-toggle="tab" href="#i-dates"
+                                                                role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Project Design</b></a>
                                                         </li>
                                                         <li class="nav-item">
                                                             <a class="nav-link financialphase" data-toggle="tab" href="#financial"
                                                                 role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Financial Phasing</b></a>
                                                         </li>
                                                         <li class="nav-item">
+                                                            <a class="nav-link MOBtab" data-toggle="tab" href="#MOBdiv"
+                                                                role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Mapping Of objectives</b></a>
+                                                        </li>
+                                                        <li class="nav-item">
                                                             <a class="nav-link  kpis" data-toggle="tab" href="#kpis" role="tab"
-                                                                aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Key
-                                                                    Point Indicators ( KPI(s))</b></a>
+                                                                aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Plan ( KPI's)</b></a>
                                                         </li>
                                                         <li class="nav-item">
                                                             <a class="nav-link activities" data-toggle="tab" href="#activities"
                                                                 role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Tasks</b></a>
                                                         </li>
                                                         <li class="nav-item">
+                                                            <a class="nav-link TimeTab" data-toggle="tab" href="#TimesDiv"
+                                                                role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Time</b></a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link CostingTab" data-toggle="tab" href="#CostingDiv"
+                                                                role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Costing</b></a>
+                                                        </li>
+                                                        {{-- <li class="nav-item">
                                                             <a class="nav-link Objectives" data-toggle="tab" href="#Objectives"
                                                                 role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Objectives</b></a>
-                                                        </li>
+                                                        </li> --}}
                                                         <li class="nav-item">
                                                             <a class="nav-link PAT" data-toggle="tab" href="#PAT"
                                                                 role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Plan A Trip</b></a>
                                                         </li>
                                                     </ul>
                                                     <div class="tab-content tabs card-block ">
-                                                        <div class="tab-pane active" id="i-dates" role="tabpanel" aria-expanded="false">
+                                                        <div class="tab-pane active" id="PlanDocDiv" role="tabpanel" aria-expanded="false">
+
+                                                        </div>
+                                                        <div class="tab-pane" id="i-dates" role="tabpanel" aria-expanded="false">
                                                             <div class="row">
-                                                                <div class="col-md-4 offset-md-1">
-                                                                    <div class="form-group">
-                                                                        <label for="" class="col-form-label"><b>Technical Sanction :</b></label>
-                                                                        <br>
-                                                                        <input class="form-control" type="text" name="ts"  placeholder="Select your date" />
+                                                                <div class="col-md-6 objtivesNew border_right pd_1_2">
+                                                                  <div class="DisInlineflex newClass mb_2 col-md-12">
+                                                                    <label class="col-sm-3 text_center form-txt-primary font-15">Objective 1</label>
+                                                                    <div class="col-sm-7">
+                                                                      <input type="text" class="form-control form-txt-primary" placeholder="Objective 1">
                                                                     </div>
-                                                                    <div class="form-group">
-                                                                            <label for="" class="col-form-label"><b>Contract Award Date :</b></label>
-                                                                            <br>
-                                                                            <input class="form-control" type="text" name="cwd" placeholder="Select your date" />
-                                                                        </div>
-                                                                <div class="form-group">
-                                                                    <label for="" class="col-form-label"><b>Actual Start Date :</b></label>
-                                                                    <br>
-                                                                    <input class="form-control" type="text" name="asd" placeholder="Select your date" />
+                                                                    <div class="col-sm-2 addbtn text_center">
+                                                                      <button class="btn btn-sm btn-primary" type="button" id="add_more_objective">+</button>
+                                                                    </div>
+                                                                  </div>
                                                                 </div>
-
-
+                                                                <div class="col-md-6 compActNew border_left pd_1_2">
+                                                                  <div class="DisInlineflex newClasscompAct1 mb_2 col-md-12">
+                                                                    <label class="col-sm-3 text_center form-txt-primary font-15">Component / Activities 1</label>
+                                                                    <div class="col-sm-7">
+                                                                      <input type="text" class="form-control form-txt-primary" placeholder="Component/Activities 1">
+                                                                    </div>
+                                                                    <div class="col-sm-2 addbtn text_center">
+                                                                      <button class="btn btn-sm btn-primary" type="button" id="add_more_compAct">+</button>
+                                                                    </div>
+                                                                  </div>
                                                                 </div>
-
                                                             </div>
                                                         </div>
 
@@ -375,6 +339,56 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+
+                                                        <div class="tab-pane" id="MOBdiv" role="tabpanel" aria-expanded="false">
+                                                          <div class="row col-md-12">
+                                                            <div class="col-md-8 offset-md-2 border">
+                                                              <h5 class="textlef pd_1_2">Objectives</h5>
+                                                              <ul class="pd_1_6">
+                                                                <li class="row mb_2">
+                                                                  <span class="float-left col-md-6">objective 1</span>
+                                                                  <span class="float-right col-md-6">
+                                                                    <select class="js-example-basic-multiple col-sm-12" multiple="multiple">
+                                                                        {{-- <option value="" selected hidden>Select Multiple Components</option> --}}
+                                                                        <option value="AL">option 1</option>
+                                                                        <option value="WY">option 2</option>
+                                                                        <option value="WY">option 3</option>
+                                                                        <option value="WY">option 4</option>
+                                                                        <option value="WY">option 5</option>
+                                                                    </select>
+                                                                  </span>
+                                                                </li>
+                                                                <li class="row mb_2">
+                                                                  <span class="float-left col-md-6">objective 2</span>
+                                                                  <span class="float-right col-md-6">
+                                                                    <select class="js-example-basic-multiple col-sm-12" multiple="multiple">
+                                                                        {{-- <option value="" selected hidden>Select Multiple Components</option> --}}
+                                                                        <option value="AL">option 1</option>
+                                                                        <option value="WY">option 2</option>
+                                                                        <option value="WY">option 3</option>
+                                                                        <option value="WY">option 4</option>
+                                                                        <option value="WY">option 5</option>
+                                                                    </select>
+                                                                  </span>
+                                                                </li>
+                                                              </ul>
+                                                              <h5 class="textlef pd_1_2">Summary</h5>
+                                                              <p class="clearfix pd_1_6">
+                                                                <span class="float-left col-md-6">objective 1</span>
+                                                                <span class="float-right col-md-6">
+                                                                  comp 1<br/>comp 2
+                                                                </span>
+                                                              </p>
+                                                              <p class="clearfix pd_1_6">
+                                                                <span class="float-left col-md-6">objective 1</span>
+                                                                <span class="float-right col-md-6">
+                                                                  comp 1<br/>comp 2
+                                                                </span>
+                                                              </p>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+
                                                         <div class="tab-pane active" id="kpis" role="tabpanel" aria-expanded="false" style="display:none;">
                                                             <div class="card m-0 z-depth-right-0">
                                                                 <div class="card-header">
@@ -386,18 +400,18 @@
                                                                     repudiandae.
                                                                 </div>
                                                                 <div class="card-block">
-                                                                    <div class="row form-group" style="height: 100px;">
+                                                                    {{-- <div class="row form-group" style="height: 100px;">
                                                                         <div class="col-md-4 offset-md-2">
                                                                             <label for="" class="sub-title">Sector:<b></b></label>
                                                                         </div>
                                                                         <div class="col-md-4 offset-md-1 "><label class="sub-title">
                                                                                 Subsector: <b></b></label></div>
-                                                                    </div>
+                                                                    </div> --}}
                                                                     <div class="row form-group">
                                                                         {{-- <div class="col-md-2 offset-md-1"><label for="">KPI(s):</label></div>
                                                                         --}}
-                                                                        <div class="col-sm-12 col-xl-6 m-b-30 offset-md-3">
-                                                                            <h4 class="sub-title">Choose KPIS(s)</h4>
+                                                                        <div class="col-md-5">
+                                                                            <h5 class="mb_2">Choose KPIS(s)</h4>
                                                                             <select id='custom-headers' class="searchable"
                                                                                 multiple='multiple'>
                                                                                 <option value='kpi_1'>kpi 1</option>
@@ -417,6 +431,45 @@
                                                                                 <option value='kpi_15'>kpi 15</option>
                                                                                 <option value='kpi_16'>kpi 16</option>
                                                                             </select>
+                                                                        </div>
+                                                                        <div class="row col-md-1">
+                                                                          <div class="border_right col-md-6"></div>
+                                                                          <div class="col-md-6"></div>
+                                                                        </div>
+                                                                        <div class="col-md-6" style="padding-left:3% !important;">                                                                            <div class="row col-md-12">
+                                                                            <ul class="col-md-6 row">
+                                                                              <h5 class=" mb_2">KPIs</h5>
+                                                                              <li class="col-md-12">
+                                                                                KPI 1
+                                                                              </li>
+                                                                              <li class="col-md-12">
+                                                                                KPI 2
+                                                                              </li>
+                                                                            </ul>
+                                                                            <ul class="col-md-6 row">
+                                                                              <h5 class=" mb_2">Components</h5>
+                                                                                <li class="col-md-12">
+                                                                                  <select class="js-example-basic-multiple col-sm-12" multiple="multiple">
+                                                                                      {{-- <option value="" selected hidden>Select Multiple Components</option> --}}
+                                                                                      <option value="AL">option 1</option>
+                                                                                      <option value="WY">option 2</option>
+                                                                                      <option value="WY">option 3</option>
+                                                                                      <option value="WY">option 4</option>
+                                                                                      <option value="WY">option 5</option>
+                                                                                  </select>
+                                                                                </li>
+                                                                                <li class="col-md-12">
+                                                                                  <select class="js-example-basic-multiple col-sm-12" multiple="multiple">
+                                                                                      {{-- <option value="" selected hidden>Select Multiple Components</option> --}}
+                                                                                      <option value="AL">option 1</option>
+                                                                                      <option value="WY">option 2</option>
+                                                                                      <option value="WY">option 3</option>
+                                                                                      <option value="WY">option 4</option>
+                                                                                      <option value="WY">option 5</option>
+                                                                                  </select>
+                                                                                </li>
+                                                                            </ul>
+                                                                          </div>
                                                                         </div>
 
                                                                         {{-- <div class="col-md-2 offset-md-1"><button class="btn btn-sm btn-success"
@@ -444,14 +497,92 @@
                                                                         <div class="col-md-10 offset-md-1 planMactivities paddtopbottom1per">
                                                                             <div class="row form-group">
                                                                             <div class="col-md-4 offset-md-1"><label for=""> <b>Component 1</b></label></div>
-                                                                            <div class="col-md-4 offset-md-1"> <input type="text" class="form-control"></div>
+                                                                            {{-- <div class="col-md-4 offset-md-1"> <input type="text" class="form-control"></div> --}}
+                                                                            <div class="col-md-2 offset-md-4 mb_1" style="padding-top:0.6%;">
+                                                                              <button class="btn btn-sm btn-warning float-right" type="button" id="add_activity" name="add_activity"> Add Tasks</button>
                                                                             </div>
-                                                                            <div class="row form-group">
-                                                                              <div class="col-md-2 offset-md-9" style="padding-top:0.6%;">
-                                                                                <button class="btn btn-sm btn-warning float-right" type="button" id="add_activity" name="add_activity"> Add Tasks</button>
-                                                                              </div>
                                                                             </div>
                                                                          </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="card-footer">
+                                                                        <div class="col-md-3 offset-md-9">
+                                                                            <a class="btn btn-success btn-md saveNnextbtn" >Save & Proceed</a>
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="tab-pane " id="TimesDiv" role="tabpanel" aria-expanded="false"
+                                                            style="display:none;">
+                                                            <div class="card">
+                                                                <div class="card-header"></div>
+                                                                <div class="card-block">
+                                                                    <div class="row form-group">
+                                                                        <h5 class="col-md-6 textlef mb_2">Component</h5>
+                                                                        <h5 class="col-md-6 textlef mb_2">Duration In Days</h5>
+                                                                          <b class="col-md-12">
+                                                                            Component 1
+                                                                          </b>
+                                                                          <b class="col-md-6">
+                                                                            Task 1
+                                                                          </b>
+                                                                          <p class="col-md-6">
+                                                                            time duration
+                                                                          </p>
+                                                                          <b class="col-md-6">
+                                                                            Task 2
+                                                                          </b>
+                                                                          <p class="col-md-6">
+                                                                            time duration
+                                                                          </p>
+                                                                          <b class="col-md-6">
+                                                                            Task 3
+                                                                          </b>
+                                                                          <p class="col-md-6">
+                                                                            time duration
+                                                                          </p>
+                                                                          {{-- <p class="col-md-6">
+                                                                            task 1<br/>
+                                                                            task 2<br/>
+                                                                            task 3<br/>
+                                                                            task 4<br/>
+                                                                          </p> --}}
+                                                                          {{-- <b class="col-md-6">
+                                                                            Component 2
+                                                                          </b>
+                                                                          <p class="col-md-6">
+                                                                            task 1<br/>
+                                                                            task 2<br/>
+                                                                            task 3<br/>
+                                                                            task 4<br/>
+                                                                          </p> --}}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="card-footer">
+                                                                        <div class="col-md-3 offset-md-9">
+                                                                            <a class="btn btn-success btn-md saveNnextbtn" >Save & Proceed</a>
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="tab-pane " id="CostingDiv" role="tabpanel" aria-expanded="false"
+                                                            style="display:none;">
+                                                            <div class="card">
+                                                                <div class="card-header"></div>
+                                                                <div class="card-block">
+                                                                    <div class="row form-group">
+                                                                        <b class="col-md-3 textlef mb_2">Component</b>
+                                                                        <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Unit" name="" /></div>
+                                                                        <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Quantity" name="" /></div>
+                                                                        <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Cost" name="" /></div>
+                                                                        <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Amount" name="" /></div>
+                                                                    </div>
+                                                                    <div class="row form-group">
+                                                                        <b class="col-md-3 textlef mb_2">Task</b>
+                                                                        <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Unit" name="" /></div>
+                                                                        <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Quantity" name="" /></div>
+                                                                        <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Cost" name="" /></div>
+                                                                        <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Amount" name="" /></div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="card-footer">
@@ -843,29 +974,12 @@
                                                                                     <th>Issues</th>
                                                                                     <th>Issue Type</th>
                                                                                     <th>Severity</th>
-                                                                                    <th>Responsible</th>
-
+                                                                                    <th>Department</th>
                                                                                 </tr>
                                                                             </thead>
-                                                                            <tbody>
+                                                                            <tbody id='add-issue-here'>
                                                                                 <tr>
-                                                                                    <td>Time</td>
-                                                                                    <td>
-                                                                                        <select class="form-control form-control-primary">
-                                                                                            <option value="" selected disabled>Select</option>
-                                                                                            <option value="1">Very High</option>
-                                                                                            <option value="2">High</option>
-                                                                                            <option value="3">Medium</option>
-                                                                                            <option value="4">Low</option>
-                                                                                            <option value="5">Very Low</option>
-
-                                                                                        </select>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <input type="text" name="owner" /> </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td><input type="text" name="issue" style="width:100%" /></td>
+                                                                                    <td><input type="text" name="issue" style="width:100%;padding:2%;" /></td>
                                                                                     <td>
                                                                                         <select id="issues2" name="issuetype" class="form-control form-control-primary select2" data-placeholder="" style="width: 100%;">
                                                                                             <option value="" hidden='hidden'>Select</option>
@@ -895,43 +1009,10 @@
                                                                                             <option value="3">Medium</option>
                                                                                             <option value="4">Low</option>
                                                                                             <option value="5">Very Low</option>
-
                                                                                         </select>
                                                                                     </td>
-                                                                                    <td>
-                                                                                        <input type="text" name="owner" /> </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>Benefits</td>
-                                                                                    <td>
-                                                                                        <select class="form-control form-control-primary">
-                                                                                            <option value="" selected disabled>Select</option>
-                                                                                            <option value="1">Very High</option>
-                                                                                            <option value="2">High</option>
-                                                                                            <option value="3">Medium</option>
-                                                                                            <option value="4">Low</option>
-                                                                                            <option value="5">Very Low</option>
-
-                                                                                        </select>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <input type="text" name="owner" /> </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>Risks</td>
-                                                                                    <td>
-                                                                                        <select class="form-control form-control-primary">
-                                                                                            <option value="" selected disabled>Select</option>
-                                                                                            <option value="1">Very High</option>
-                                                                                            <option value="2">High</option>
-                                                                                            <option value="3">Medium</option>
-                                                                                            <option value="4">Low</option>
-                                                                                            <option value="5">Very Low</option>
-
-                                                                                        </select>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <input type="text" name="owner" />
+                                                                                    <td style="width:5%;">
+                                                                                        <button class="btn btn-sm btn-success" type="button" id="add-more-issues">+</button>
                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>
@@ -1005,14 +1086,7 @@
                                                                                             Rating
                                                                                         </th>
                                                                                     </tr>
-{{--
-                                                                                    <tr>
-                                                                                        <th>c</th>
-                                                                                        <th>t</th>
-                                                                                        <th>Q</th>
-                                                                                        <th class="bg_bl nobortop white"><span
-                                                                                                class="red">p</span>*(C+T+Q)/3</th>
-                                                                                    </tr> --}}
+
                                                                                 </thead>
                                                                                 <tbody id="riskmatrix">
                                                                                     <tr>
@@ -1177,6 +1251,129 @@
 
 
                                         </div>
+                                        <div class="tab-pane" id="summary" role="tabpanel">
+                                            <fieldset>
+                                                <div class="form-group row">
+                                                    <div class="col-md-1 col-sm-1">
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-2">
+                                                        <div class="card summary-card bg-new">
+                                                            <div class="card-header"></div>
+                                                            <div class="card-block">
+                                                                <div class="animation-model">
+                                                                    <button type="button" class="btn btn-info btn-outline-info waves-effect md-trigger "
+                                                                        style="text-align:center; vertical-align:middle; font-size:13px; margin-top: -10%;margin-left: 10%;"
+                                                                        data-modal="modal-1">Work Breakdown <br>Structure<br>(WBS)</button>
+                                                                    <div class="md-modal md-effect-3" id="modal-1">
+                                                                        <div class="md-content">
+                                                                            <h3>Work Breakdown Structure</h3>
+                                                                            <div>
+                                                                                <canvas id="barChart" width="400" height="400"></canvas>
+                                                                                <button type="button" class="btn btn-primary waves-effect md-close">Close</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="md-overlay"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-md-1 col-sm-1"></div>
+
+                                                    <div class="col-md-4 col-sm-2">
+                                                        <div class="card summary-card bg-new">
+                                                            <div class="card-header"></div>
+                                                            <div class="card-block">
+                                                                <div class="animation-model">
+                                                                    <button type="button" class="btn btn-info btn-outline-info waves-effect md-trigger "
+                                                                        style="text-align:center; vertical-align:middle; font-size:13px;margin-left: 20%;"
+                                                                        data-modal="modal-2">Gantt Chart</button>
+                                                                    <div class="md-modal md-effect-3" id="modal-2">
+                                                                        <div class="md-content">
+                                                                            <h3>Ghantt Chart</h3>
+                                                                            <div>
+                                                                                <canvas id="barChart" width="400" height="400"></canvas>
+                                                                                <button type="button" class="btn btn-primary waves-effect md-close">Close</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="md-overlay"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <div class="col-md-1 col-sm-1">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-md-1 col-sm-1">
+                                                    </div>
+
+
+                                                    <div class="col-md-4 col-sm-2">
+                                                        <div class="card summary-card bg-new">
+                                                            <div class="card-header"></div>
+                                                            <div class="card-block">
+                                                                <div class="animation-model">
+                                                                    <button type="button" class="btn btn-info btn-outline-info waves-effect md-trigger "
+                                                                        style="text-align:center; vertical-align:middle; font-size:13px;margin-left:20%"
+                                                                        data-modal="modal-3">Burn Chart</button>
+                                                                    <div class="md-modal md-effect-3" id="modal-3">
+                                                                        <div class="md-content">
+                                                                            <h3>Burn Chart </h3>
+                                                                            <div>
+                                                                                <canvas id="barChart" width="400" height="400"></canvas>
+                                                                                <button type="button" class="btn btn-primary waves-effect md-close">Close</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="md-overlay"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <div class="col-md-1 col-sm-1"></div>
+
+                                                    <div class="col-md-4 col-sm-2">
+                                                        <div class="card summary-card bg-new">
+                                                            <div class="card-header"></div>
+                                                            <div class="card-block">
+                                                                <div class="animation-model">
+                                                                    <button type="button" class="btn btn-info btn-outline-info waves-effect md-trigger "
+                                                                        style="text-align:center; vertical-align:middle; font-size:13px;margin-left:20%"
+                                                                        data-modal="modal-4">PROGRESS</button>
+                                                                    <div class="md-modal md-effect-3" id="modal-4">
+                                                                        <div class="md-content">
+                                                                            <h3>Progress in %</h3>
+                                                                            <div>
+                                                                                <canvas id="barChart" width="400" height="400"></canvas>
+                                                                                <button type="button" class="btn btn-primary waves-effect md-close">Close</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="md-overlay"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+
+                                                    <div class="col-md-1 col-sm-1">
+                                                    </div>
+
+                                                </div>
+                                            </fieldset>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1186,7 +1383,7 @@
                     </div>
                 </form>
             </div>
-            <div class="col-xl-3 col-lg-12  p_details" style="padding-left: 15px !important;  padding-right: 15px !important;">
+            <div class="col-xl-3 col-lg-12 nodisplay p_details" style="padding-left: 15px !important;  padding-right: 15px !important;">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-header-text"><i class="icofont icofont-ui-note m-r-10"></i> Project Details</h5>
@@ -1292,10 +1489,10 @@
 <script src="{{asset('_monitoring/js/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js')}}"></script>
 <script src="{{asset('_monitoring/css/pages/data-table/js/data-table-custom.js')}}"></script>
 <!-- jquery file upload js -->
-<script src="{{asset('_monitoring/js/jquery.filer/js/jquery.filer.min.js')}}"></script>
+ {{-- <script src="{{asset('_monitoring/js/jquery.filer/js/jquery.filer.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/filer/custom-filer.js')}}"></script>
 <script src="{{asset('_monitoring/js/filer/jquery.fileuploads.init.js')}}"></script>
-<script src="{{asset('_monitoring/js/pcoded.min.js')}}"></script>
+<script src="{{asset('_monitoring/js/pcoded.min.js')}}"></script> --}}
 <script src="{{asset('_monitoring/js/vartical-layout.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/script.js')}}"></script>
@@ -1359,5 +1556,6 @@ $(window).scroll(function(){
      $("#table-1 > thead > tr > #action").show();
    }
 });
-});  </script>
+});
+</script>
 @endsection

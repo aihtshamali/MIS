@@ -3,10 +3,6 @@ $(document).ready(function()
 {
 $('[data-toggle="popover"]').popover();
 
-$(".summaryNav").click(function(){
-    $(".topSummary").hide('slow');
-    $(".mainTabsAndNav").animate({ marginTop: '0px'},1000);
-});
 $(".conductNav").click(function(){
     $(".topSummary").show('slow');
     $(".mainTabsAndNav").animate({ marginTop: '6%'},1000);
@@ -130,6 +126,7 @@ function hideallmaintabs()
 $('#summary').hide();
 $('#p_monitoring').hide();
 $('#c_monitoring').hide();
+$('#reviewDiv').hide();
 }
 
 $('.summaryNav').on('click',function(){
@@ -138,6 +135,9 @@ hideallmaintabs();
 $('.mainTabsAndNav').removeClass( "col-md-12" ).addClass( "col-md-9" );
 $('#summary').show();
 $('.p_details').show(1000);
+$(".topSummary").hide('slow');
+$(".mainTabsAndNav").animate({ marginTop: '0px'},500);
+$(".mainTabsAndNav").removeClass("mt_6p");
 });
 
 $('.planNav').on('click',function(){
@@ -145,30 +145,6 @@ hideallmaintabs();
 $('.p_details').hide();
 $('.mainTabsAndNav').removeClass( "col-md-9" ).addClass( "col-md-12" );
 $('#p_monitoring').show();
-
-});
-$('.kpis').on('click',function(){
-    $('#activities').hide();
-    $('#i-dates').hide();
-    $('#financialDiv').hide();
-    $('#financial').hide();
-    $('#kpis').show();
-});
-
-$('.activities').on('click',function(){
-    $('#kpis').hide();
-    $('#i-dates').hide();
-    $('#financialDiv').hide();
-    $('#financial').hide();
-    $('#activities').show();
-});
-
-$('.i-dates').on('click',function(){
-    $('#kpis').hide();
-    $('#financialDiv').hide();
-    $('#financial').hide();
-    $('#activities').hide();
-    $('#i-dates').show();
 });
 
 
@@ -181,8 +157,10 @@ $('#c_monitoring').show();
 });
 function hideall()
 {
+ $('#PlanDocDiv').hide();
  $('#financial').hide();
  $('#physical').hide();
+ $('#MOBdiv').hide();
  $('#quality_assesment').hide();
  $('#stakeholder').hide();
  $('#issues').hide();
@@ -192,22 +170,65 @@ function hideall()
  $('#kpis').hide();
  $('#activities').hide();
  $('#kpis').hide();
- $('#activities').hide();
  $('#Gallery').hide();
  $('#financialDiv').hide();
  $('#Objectives').hide();
  $('#PAT').hide();
  $('#Documents').hide();
  $('#i-dates').hide();
+ $('#reviewDiv').hide();
+ $('#TimesDiv').hide();
+ $('#CostingDiv').hide();
 }
+$('.CostingTab').on('click',function(){
+  hideall();
+  $('#CostingDiv').show();
+});
+$('.TimeTab').on('click',function(){
+  hideall();
+  $('#TimesDiv').show();
+});
+$('.kpis').on('click',function(){
+  hideall();
+  $('#kpis').show();
+});
+$('.PlanDoc').on('click',function(){
+  hideall();
+  $('#PlanDocDiv').show();
+});
+
+$('.activities').on('click',function(){
+  hideall();
+  $('#activities').show();
+});
+
+$('.i-dates').on('click',function(){
+  hideall();
+  $('#i-dates').show();
+});
+$('.reviewTab').on('click',function(){
+hideall();
+$(".topSummary").show('slow');
+$('#reviewDiv').show();
+$(".mainTabsAndNav").animate({ marginTop: '6%'},1000);
+$('#p_monitoring').hide();
+$('#c_monitoring').hide();
+$('#summary').hide();
+$('.p_details').hide();
+$('.mainTabsAndNav').removeClass( "col-md-8" ).addClass( "col-md-12" );
+});
 $('.financialphase').on('click',function(){
 hideall();
 $('#financial').show();
 });
-$('.planNav').on('click',function(){
+$('.MOBtab').on('click',function(){
 hideall();
-$('#i-dates').show();
+$('#MOBdiv').show();
 });
+// $('.planNav').on('click',function(){
+// hideall();
+// $('#PlanDocDiv').show();
+// });
 $('.conductNav').on('click',function(){
 hideall();
 $('#financialDiv').show();
@@ -321,7 +342,7 @@ var add_stakeholder= `<tr>
                 $('button#add-more-issues').click(function(e){
                     var temp = `
                     <tr>
-                        <td><input type="text" name="issue" style="width:100%" /></td>
+                        <td><input type="text" name="issue" style="width:100%;padding:2%;" /></td>
                         <td>
                             <select id="issues2" name="issuetype" class="form-control form-control-primary select2" data-placeholder="" style="width: 100%;">
                                 <option value="" hidden='hidden'>Select</option>
@@ -406,10 +427,10 @@ var add_risks= `<tr>
 $('button#add_activity').click(function(e){
 
 var add_activities ='<div class="row form-group component_Activities">'
-                +'<div class="col-md-3 offset-md-1"><input type="text" class="form-control" placeholder="Add Task" name="c_activity[]"> </div>'
-                +'<div class="col-md-2"> <input type="text" class="form-control" placeholder="Cost" name="c_cost[]"></div>'
-                +'<div class="col-md-2"><input type="text" class="form-control" placeholder="Units" name="c_unit[]"></div>'
-                +'<div class="col-md-2"><input type="text" class="form-control" placeholder="Quantity" name="c_quantity[]"></div>'
+                +'<div class="col-md-10 mb_1 offset-md-1"><input type="text" class="form-control" placeholder="Add Task" name="c_activity[]"> </div>'
+                // +'<div class="col-md-2"> <input type="text" class="form-control" placeholder="Cost" name="c_cost[]"></div>'
+                // +'<div class="col-md-2"><input type="text" class="form-control" placeholder="Units" name="c_unit[]"></div>'
+                // +'<div class="col-md-2"><input type="text" class="form-control" placeholder="Quantity" name="c_quantity[]"></div>'
                 +'<div class="col-md-1"><button class="btn btn-danger btn-sm" name="remove_activity[]" onclick="removerow(this)"  type="button">-</button></div>'
                 +'</div>';
                 $('.planMactivities').append(add_activities);
@@ -438,7 +459,73 @@ $('button#add_more_component').click(function(e){
                         +'</div>';
             $('.oneComponentQA').append(add_component);
 });
+var objct = 2;
+function autoindex()
+  {
+    var sib = $(document).find('.newClass').siblings();
+    // console.log(sib);
+    var i = 0;
+    for(i = 0; i<sib.length ;i++)
+    {
+      var cl_array = sib[i].getAttribute('class').split(' ');
+      var val = "";
+      for(var j = 0;j<cl_array.length;j++){
+        if(cl_array[j].startsWith('newClass')){
+          val = cl_array[j];
+          break;
+        }
+      }
+      if(val != ""){
+        $('.'+val+' > label').text('Objective ' + (i+2));
+        $('.'+val+' > div > input').attr('placeholder','Objective ' + (i+2));
+        $('.'+val).addClass('newClass'+(i+2)).removeClass(val);
+      }
+    }
+    objct = i+2;
+  }
 
+
+$('#add_more_objective').click(function(e){
+  // var newClass='obj_'objct++;
+  var add_objective =`<div class="newClass`+objct+` DisInlineflex mb_2 col-md-12">
+                        <label class="col-sm-3 text_center form-txt-primary font-15">Objective `+objct+`</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control form-txt-primary" placeholder="Objective `+objct+`">
+                        </div>
+                        <div class="col-sm-2 removeObjective text_center">
+                          <button class="btn btn-danger btn-sm" type="button">-</button>
+                        </div>
+                      </div>
+                      `
+            $('.objtivesNew').append(add_objective);
+objct+=1;
+});
+$(document).on('click','.removeObjective',function(){
+   if($(this).parent().attr('class').split(' ')[0].split('ss')[1] == objct-1){
+     $(this).parent().remove();
+   }
+   else{
+     $(this).parent().remove();
+     autoindex();
+ }
+ });
+var compAct = 2;
+$('#add_more_compAct').click(function(e){
+  // var newClass='obj_'objct++;
+  var add_compAct =`<div class="newClasscompAct`+compAct+` DisInlineflex mb_2 col-md-12">
+                        <label class="col-sm-3 text_center form-txt-primary font-15">Component / Activities `+compAct+`</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control form-txt-primary" placeholder="Component/Activities `+compAct+`">
+                        </div>
+                        <div class="col-sm-2 removecompAct text_center">
+                          <button class="btn btn-danger btn-sm" type="button">-</button>
+                        </div>
+                      </div>
+                      `
+            $('.compActNew').append(add_compAct);
+            $('.removecompAct').click(function(){ $(this).parent().remove();})
+compAct+=1;
+});
 function add_activityInComp(e)
 {
     var add_activities_to_assess='<div class="row singleActivity">'
