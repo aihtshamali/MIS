@@ -1,10 +1,7 @@
 @extends('_Monitoring.layouts.upperNavigation')
-@section('title')
-  Monitoring | DGME
-@endsection
 @section('styleTags')
 <link rel="stylesheet" href="{{ asset('_monitoring/css/icon/icofont/css/icofont.css')}}"/>
-<link rel="stylesheet" href="{{ asset('_monitoring/css/css/sweetalert.css')}}" />
+<link rel="stylesheet" href="{{ asset('_monitoring/css/css/sweetalert.css')}}" />   
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/component.css')}}" />
  <!-- Select 2 css -->
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/select2.min.css')}}" />
@@ -23,9 +20,12 @@
 <link href="{{ asset('_monitoring/js/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css')}}" />
 <link href="{{ asset('_monitoring/css/css/fileuploadernew.css')}}" />
 <link href="{{ asset('_monitoring/css/css/jquery.dm-uploader.min.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/css/dataTables.bootstrap4.min.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/pages/data-table/css/buttons.dataTables.min.css')}}" />
+<link rel="stylesheet" href="{{ asset('_monitoring/css/css/responsive.bootstrap4.min.css')}}" />
 
 {{-- font awesome --}}
-<link rel="stylesheet" href="{{ asset('_monitoring/css/icon/font-awesome/css/font-awesome.min.css')}}" />
+<link rel="stylesheet" href="{{ asset('_monitoring\css\icon\font-awesome\css\font-awesome.min.css')}}" />
 
 {{-- This is dgme custom css for this page only ,write here any css you want to Ok!!! --}}
 <link rel="stylesheet" href="{{asset('_monitoring/css/css/_dgme/DGME_officer_inprogressSingle.css')}}" />
@@ -68,7 +68,7 @@
 
 @endsection
 @section('content')
-
+             
     {{-- frozen panel for plan and conduct monitoring  --}}
     <div class="col-md-12 fixed bg-g hidden-sm hidden-xs topSummary" style="margin-top:-2.9% !important;z-index:999 !important; margin-left:-2.85% !important;">
 
@@ -78,13 +78,13 @@
                     .form-group{padding: 0.05rem 0.75rem !important;}
                     .col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto{padding-left: 0px !important;padding-right: 0px !important;}
                     label{margin-bottom:0rem !important;border:none !important;background-color:transparent !important;padding:0rem 0.3rem !important;font-size: 12px !important;}
-                    .ln_ht12{line-height: 12px !important;}
+
                 </style>
                 <div class="form-group row">
-                    <div class="col-md-4 ln_ht12">
+                    <div class="col-md-4">
                         <label for="GS_no" class="">GS # </label>
                     </div>
-                    <div class="col-md-4 ln_ht12">
+                    <div class="col-md-8">
                         <label for="project_title" class="">Project Title </label>
                     </div>
                     <div class="col-md-4 ln_ht12">
@@ -98,19 +98,19 @@
                     <div class="col-md-4 ln_ht12">
                         <label for="Location" class="">final Revised Cost </label>
                     </div>
-                    <div class="col-md-4 ln_ht12">
+                    <div class="col-md-4">
                         <label for="PHI" class="">PHI </label>
-                        <input name="phi" id="#phi" type="text" class="frozen_pane" style="font-size:10px !important;"/>
+                        <input name="phi" id="#phi" type="number" class="frozen_pane"/>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-md-4 ln_ht12">
+                    <div class="col-md-4">
                         <label for="planned_start_date" class="">Planned Start Date </label>
                     </div>
-                    <div class="col-md-4 ln_ht12">
+                    <div class="col-md-4">
                         <label for="planned_end_date" class="">Planned End Date </label>
                     </div>
-                    <div class="col-md-4 ln_ht12">
+                    <div class="col-md-4">
                         <label for="actual_start_date" class="">Actual Start Date </label>
                     </div>
                 </div>
@@ -118,14 +118,14 @@
                     <div class="col-md-4 ln_ht12">
                         <label for="progress" class="">Phsycal Progress %</label>
                     </div>
-                    <div class="col-md-4 ln_ht12">
-                          <label for="Financial" class="">Financial Progress %</label>
-                        <input type="text"  id="financial_progress" class="frozen_pane" name="financial_progress" style="font-size:10px !important;">
+                    <div class="col-md-4">
+                        <label for="Financial" class="">Financial Progress %</label>
+                        <input type="text"  id="financial_progress" class="frozen_pane" name="financial_progress">
                     </div>
-                    <div class="col-md-4 ln_ht12">
+                    <div class="col-md-4">
                         <label for="last_monitoring" class="">Last Monitoring Date </label>
                     </div>
-
+                
                 </div>
         </div>
     </div>
@@ -205,7 +205,7 @@
                                               </div>
                                             </div>
                                         </div>
-                                        <div class="tab-pane " id="p_monitoring" role="tabpanel" style="display:none;">
+                                        <div class="tab-pane " id="p_monitoring" role="tabpanel">
                                             <div class="row">
                                                 <div class="col-lg-12 col-xl-12 col-md-12 col-sm-6">
                                                     <!-- Nav tabs -->
@@ -284,12 +284,12 @@
 
                                                         <div class="tab-pane" id="financial" role="tabpanel" aria-expanded="false">
                                                             <div>
+                                                                <h5 style="padding-top:20px;padding-bottom:10px;clear:both;">Original PC-I</h5>
                                                                 <div class="row">
-                                                                    <h5 class="col-md-4">Gestation Period: <b><span id="t_months">49</span> months</b></h5>
-                                                                    <h5 class="col-md-4">Total Cost: <b><span id="t_cost">467</span> Million(s)</b></h5>
-                                                                    <h5 class="col-md-4">Start Date: <b id="f_date">19 January 2011</b></h5>
+                                                                    <h5 class="col-md-4">Gestation Period: <b><span id="t_months"></span> months</b></h5>
+                                                                    <h5 class="col-md-4">Total Cost: <b><span id="t_cost"></span> Million(s)</b></h5>
+                                                                    <h5 class="col-md-4">Start Date: <b id="f_date"></b></h5>
                                                                 </div>
-                                                                <h5 style="padding-top:20px;padding-bottom:10px;clear:both;">Original Cost</h5>
                                                                 <div class="table-responsive">
                                                                     <table class="table  table-bordered nowrap"  id="countit">
                                                                         <thead>
@@ -298,44 +298,19 @@
                                                                                 <th>Financial Year</th>
                                                                                 <th>Duration</th>
                                                                                 <th>Cost</th>
-                                                                                {{-- <th></th> --}}
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody id='original_tbody'>
-
+                                                                            
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
-                                                            </div>
-                                                            <div class='row' style="margin-bottom:20px">
-                                                                <div class="col-md-8 fazuldiv"></div>
-                                                                <div class="col-md-5 offset-md-3 alert alert-danger dangercustom">Original Cost does not match. Difference: <span id="od_cost">0</span> Million(s)</div>
-                                                                <h5 class="col-md-4 float-right" >Total Cost: <b>
-                                                                    <span id="ot_cost">0</span> Million(s)</b>
-                                                                </h5>
-                                                            </div>
-                                                            <div style='padding-top:20px'>
-                                                                <div class="row">
-                                                                    <h5 class="col-md-4">Revised Period: <b><span id="rt_months">59</span> months</b></h5>
-                                                                    <h5 class="col-md-4">Revised Cost: <b><span id="rt_cost">550</span> Million(s)</b></h5>
-                                                                    <h5 class="col-md-4">Start Date: <b id="rf_date">19 January 2011</b></h5>
-                                                                </div>
-                                                                <h5 style="padding-top:20px;padding-bottom:10px;clear:both;">Revised Cost</h5>
-                                                                <div class="table-responsive">
-                                                                    <table class="table table-bordered nowrap">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>Sr #</th>
-                                                                                <th>Financial Year</th>
-                                                                                <th>Duration</th>
-                                                                                <th>Cost</th>
-                                                                                {{-- <th></th> --}}
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody id='revised_tbody'>
-
-                                                                        </tbody>
-                                                                    </table>
+                                                                <div class='row' style="margin-bottom:20px">
+                                                                    <div class="col-md-8 fazuldiv"></div>
+                                                                    <div class="col-md-5 offset-md-3 alert alert-danger dangercustom">Cost does not match. Difference: <span id="od_cost">0</span> Million(s)</div>
+                                                                    <h5 class="col-md-4 float-right" >Total Cost: <b>
+                                                                        <span id="ot_cost">0</span> Million(s)</b>
+                                                                    </h5>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -475,7 +450,7 @@
                                                                         {{-- <div class="col-md-2 offset-md-1"><button class="btn btn-sm btn-success"
                                                                                 style="font-size: 20px;" id="add-more">+</button></div>
                                                                         --}}
-
+        
                                                                     </div>
                                                                 </div>
                                                                 <div class="card-footer">
@@ -487,14 +462,15 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-
+        
                                                         <div class="tab-pane " id="activities" role="tabpanel" aria-expanded="false"
                                                             style="display:none;">
                                                             <div class="card">
                                                                 <div class="card-header"></div>
                                                                 <div class="card-block">
+                                                                    
                                                                     <div class="row form-group">
-                                                                        <div class="col-md-10 offset-md-1 planMactivities paddtopbottom1per">
+                                                                        <div class="col-md-10 offset-md-1 planMactivities">
                                                                             <div class="row form-group">
                                                                             <div class="col-md-4 offset-md-1"><label for=""> <b>Component 1</b></label></div>
                                                                             {{-- <div class="col-md-4 offset-md-1"> <input type="text" class="form-control"></div> --}}
@@ -502,12 +478,14 @@
                                                                               <button class="btn btn-sm btn-warning float-right" type="button" id="add_activity" name="add_activity"> Add Tasks</button>
                                                                             </div>
                                                                             </div>
+                                                                           
+                                                                        
                                                                          </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="card-footer">
                                                                         <div class="col-md-3 offset-md-9">
-                                                                            <a class="btn btn-success btn-md saveNnextbtn" >Save & Proceed</a>
+                                                                            <a class="btn btn-success btn-md saveNnextbtn" >Save & Proceed</a>       
                                                                         </div>
                                                                 </div>
                                                             </div>
@@ -597,15 +575,6 @@
                                                             <div class="card">
                                                                 <div class="card-header"></div>
 
-                                                            </div>
-                                                        </div>
-                                                        <div class="tab-pane " id="PAT" role="tabpanel" aria-expanded="false"
-                                                            style="display:none;">
-                                                            <div class="card">
-                                                                <div class="card-header"></div>
-
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -616,10 +585,10 @@
                                                     <!-- Nav tabs -->
                                                     <ul class="nav nav-tabs tabs" role="tablist">
                                                         <li class="nav-item">
-                                                            <a class="nav-link active financial" data-toggle="tab" href="#financialDiv"
+                                                            <a class="nav-link active financial" data-toggle="tab" href="#financial"
                                                                 role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Financial</b></a>
                                                         </li>
-
+                                                        
                                                         <li class="nav-item">
                                                             <a class="nav-link quality_assesment" data-toggle="tab" href="#quality_assesment"
                                                                 role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Quality
@@ -646,18 +615,6 @@
                                                             <a class="nav-link procurement" data-toggle="tab" href="#procurement"
                                                                 role="tab" aria-expanded="true"><b style="font-size:14px; font-weight:bold;">Procurement</b></a>
                                                         </li>
-
-                                                        <li class="nav-item">
-                                                            <a class="nav-link gllery" data-toggle="tab" href="#Gallery"
-                                                                role="tab" aria-expanded="false">
-                                                                <b style="font-size:14px; font-weight:bold;">Photos&Videos</b></a>
-                                                        </li>
-
-                                                        <li class="nav-item">
-                                                            <a class="nav-link Documents" data-toggle="tab" href="#Documents"
-                                                                role="tab" aria-expanded="false">
-                                                                <b style="font-size:14px; font-weight:bold;">Documents</b></a>
-                                                        </li>
                                                     </ul>
                                                     <!-- Tab panes -->
                                                     <div class="tab-content tabs card-block">
@@ -678,87 +635,66 @@
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>ADP Allocation of Fiscal Year :</b></label>
                                                                                 <br>
-                                                                                <input type="text" class="form-control" name="ADP_allocation_cost" id="ADP_allocation_cost" />
+                                                                                <input type="text" class="form-control" name="ADP_allocation_cost" id="ADP_allocation_cost" />                                                                            
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>Total Allocation by that time (Cumulative):</b></label>
                                                                                 <br>
-                                                                                <input type="text" class="form-control" name="ADP_allocation_cost" id="ADP_allocation_cost" />
+                                                                                <input type="text" class="form-control" name="ADP_allocation_cost" id="ADP_allocation_cost" />                                                                            
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>Utilization Against Cost Allocation :</b></label>
                                                                                 <br>
                                                                             <input type="text" class="form-control" name="utilization_allocation" id="utilization_allocation" />
-
+                                                                                                                                                            
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-4 ">
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>Release To Date of Fiscal Year :</b></label>
                                                                                 <br>
-                                                                                <input type="text" class="form-control" name="release_to_date" id="release_to_date" />
+                                                                                <input type="text" class="form-control" name="release_to_date" id="release_to_date" />                                                                            
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>Total Releases To Date :</b></label>
                                                                                 <br>
-                                                                                <input type="text" class="form-control" name="total_release_to_date" id="total_release_to_date" />
+                                                                                <input type="text" class="form-control" name="total_release_to_date" id="total_release_to_date" />                                                                            
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>Utilization Against Releases :</b></label>
                                                                                 <br>
-                                                                                <input type="text" class="form-control" name="u_against_rel" id="u_against_rel" />
+                                                                                <input type="text" class="form-control" name="u_against_rel" id="u_against_rel" />                                                                                   
                                                                             </div>
                                                                         </div>
-
+                                                                        
                                                                     </div>
                                                                     <div class="row">
                                                                         <div class="col-md-10 offset-md-1">
                                                                                <div class="divider"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                      <div class="col-md-4 offset-md-1">
-                                                                            <div class="form-group">
-                                                                                <label for="" class="col-form-label"><b>Technical Sanction :</b></label>
-                                                                                <br>
-                                                                                <input class="form-control" type="text" name="ts"  placeholder="Select your date" />
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                    <label for="" class="col-form-label"><b>Contract Award Date :</b></label>
-                                                                                    <br>
-                                                                                    <input class="form-control" type="text" name="cwd" placeholder="Select your date" />
+                                                                               <div class="col-md-4 offset-md-2">
+                                                                                    <div class="form-group">
+                                                                                        <label for="" class="col-form-label"><b>Technical Sanction Cost:</b></label>
+                                                                                        <br>
+                                                                                        <input class="form-control" type="text" name="ts_cost" placeholder="TS Cost" />                                                                   
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label for="" class="col-form-label"><b>Contract Award Cost :</b></label>
+                                                                                        <br>
+                                                                                        <input class="form-control" type="text" name="cad_cost"  placeholder="Contract Cost" />
+                                                                                    </div>
+                                                                                    
                                                                                 </div>
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-form-label"><b>Actual Start Date :</b></label>
-                                                                            <br>
-                                                                            <input class="form-control" type="text" name="asd" placeholder="Select your date" />
                                                                         </div>
-
-
-                                                                       </div>
-                                                                       <div class="col-md-4 offset-md-2">
-                                                                            <div class="form-group">
-                                                                                <label for="" class="col-form-label"><b>Technical Sanction Cost:</b></label>
-                                                                                <br>
-                                                                                <input class="form-control" type="text" name="ts_cost" placeholder="TS Cost" />
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label for="" class="col-form-label"><b>Contract Award Cost :</b></label>
-                                                                                <br>
-                                                                                <input class="form-control" type="text" name="cad_cost"  placeholder="Contract Cost" />
-                                                                            </div>
-
-                                                                           </div>
                                                                     </div>
-
+                                                                    
                                                                 </div>
                                                                 <div class="card-footer">
                                                                     <div class="col-md-3 offset-md-9">
-                                                                        <a class="btn btn-success btn-md saveNnextbtn physical" >Save & Proceed</a>
+                                                                        <a class="btn btn-success btn-md saveNnextbtn physical" >Save & Proceed</a>       
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </div>           
                                                         <div class="tab-pane" id="quality_assesment" role="tabpanel"
                                                             aria-expanded="false">
                                                             <div class="card z-depth-right-0">
@@ -778,7 +714,7 @@
                                                                                     <option value="3" >Component 3</option>
                                                                                 </select>
                                                                           </div>
-
+                                                                         
                                                                         </div>
                                                                       </div>--}}
                                                                       <div class="row oneComponentQA">
@@ -786,9 +722,9 @@
                                                                                 To assess quality of components, press here. <button class="btn btn-sm btn-primary" id="add_more_component" name="add_more_component[]" type="button"><span><i class="fa fa-plus"></i></span></button>
                                                                           </div>
                                                                       </div>
-
+                                                                     
                                                                     </div>
-                                                                </div>
+                                                                </div> 
                                                                     {{--  --}}
                                                                 <div class="card z-depth-right-0">
                                                                 <div class="card-header">
@@ -800,11 +736,11 @@
                                                                         <div class="col-md-1">
                                                                             <b><label for="">1 </label></b>
                                                                         </div>
-
+        
                                                                         <div class="col-md-5">
                                                                             <b><label for="">Test Performed ?</label></b>
                                                                         </div>
-
+        
                                                                         <div class="col-md-1">
                                                                             <button class="btn btn-success btn-sm btn-outline-success">
                                                                                 YES</button>
@@ -820,11 +756,11 @@
                                                                         <div class="col-md-1">
                                                                             <b><label for="">2 </label></b>
                                                                         </div>
-
+        
                                                                         <div class="col-md-5">
                                                                             <b><label for="">Adequate Test Results</label></b>
                                                                         </div>
-
+        
                                                                         <div class="col-md-1">
                                                                             <button class="btn btn-success btn-sm btn-outline-success">
                                                                                 YES</button>
@@ -840,11 +776,11 @@
                                                                         <div class="col-md-1">
                                                                             <b><label for="">3 </label></b>
                                                                         </div>
-
+        
                                                                         <div class="col-md-5">
                                                                             <b><label for="">Onsite Labs Established</label></b>
                                                                         </div>
-
+        
                                                                         <div class="col-md-1">
                                                                             <button class="btn btn-success btn-sm btn-outline-success">
                                                                                 YES</button>
@@ -860,11 +796,11 @@
                                                                         <div class="col-md-1">
                                                                             <b><label for="">4 </label></b>
                                                                         </div>
-
+        
                                                                         <div class="col-md-5">
                                                                             <b><label for="">Overall Quality Good?</label></b>
                                                                         </div>
-
+        
                                                                         <div class="col-md-1">
                                                                             <button class="btn btn-success btn-sm btn-outline-success">
                                                                                 YES</button>
@@ -889,7 +825,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="tab-pane active" id="stakeholder" role="tabp0anel"
+                                                        <div class="tab-pane active" id="stakeholder" role="tabpanel"
                                                             aria-expanded="true">
                                                             {{-- <p class="m-0">4.Cras consequat in enim ut efficitur. Nulla
                                                                 posuere elit quis auctor interdum praesent sit amet nulla vel
@@ -907,7 +843,7 @@
                                                                 <div class="card-block">
                                                                     <div class="col-md-12">
                                                                         <div class="table-responsive">
-                                                                            <table class="table  table-bordered nowrap" id="table-1">
+                                                                            <table class="table  table-bordered nowrap">
                                                                                 <thead>
                                                                                     <tr>
                                                                                         <th>Sr #</th>
@@ -916,7 +852,7 @@
                                                                                         <th>Designation</th>
                                                                                         <th>Email </th>
                                                                                         <th>Contact #</th>
-                                                                                        <th id="action">Action</th>
+                                                                                        <th></th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody id="stakeholders">
@@ -926,7 +862,7 @@
                                                                                         </td>
                                                                                         <td>
                                                                                             <div class="col-md-12">
-                                                                                                <select id="districts" name="stakeholder" class="form-control select2" data-placeholder="" style="width: 100%;">
+                                                                                                <select id="districts" name="stakeholder" class="form-control form-control-primary select2" data-placeholder="" style="width: 100%;">
                                                                                                     <option value="" hidden='hidden'>Select</option>
                                                                                                     <option value="">some option</option>
                                                                                                     <option value="">to choose</option>
@@ -936,25 +872,24 @@
                                                                                         </td>
                                                                                         <td><input type="text" name="stakeholder_name"
                                                                                                 class="form-control" /></td>
-                                                                                        <td><input type="text" name="stakeholder_designation"
-                                                                                                class="form-control" /> </td>
-                                                                                        <td><input type="text" name="stakeholder_mil"
-                                                                                                class="form-control" />
-                                                                                          </td>
+                                                                                                <td><input type="text" name="stakeholder_designation"
+                                                                                                    class="form-control" /> </td>
                                                                                         <td><input type="text" name="stakeholder_number"
+                                                                                                class="form-control" /></td>
+                                                                                        <td><input type="text" name="stakeholder_email"
                                                                                                 class="form-control" /></td>
                                                                                         <td><button type="button" name="add[]"
                                                                                                 class=" form-control btn btn-success "
-                                                                                                id="add-more" style="size:14px;">+</button></td>
+                                                                                                id="addmore" style="size:14px;">+</button></td>
                                                                                     </tr>
                                                                                 </tbody>
+        
                                                                             </table>
-                                                                            <table id="header-fixed"></table>
-                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-
+        
                                                         </div>
                                                         <div class="tab-pane active" id="issues" role="tabpanel" aria-expanded="true">
                                                             <div class="card z-depth-right-0">
@@ -1034,7 +969,7 @@
                                                                       <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span class="persontagetiQ" style="color:#fff !important;padding:0px !important;margin:0px !important;">25%</span></div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="card-block hidden-sm hidden-xs">
+                                                                <div class="card-block">
                                                                     <div class="col-md-12">
                                                                         <div class="dt-responsive table-responsive">
                                                                             <style scoped media="screen">
@@ -1086,7 +1021,6 @@
                                                                                             Rating
                                                                                         </th>
                                                                                     </tr>
-
                                                                                 </thead>
                                                                                 <tbody id="riskmatrix">
                                                                                     <tr>
@@ -1131,7 +1065,7 @@
                                                                                     </tr>
                                                                                 </tbody>
                                                                             </table>
-
+        
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1158,7 +1092,7 @@
                                                                                         <th>Yes</th>
                                                                                         <th>No</th>
                                                                                         <th>Comments</th>
-
+        
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody id="stakeholders">
@@ -1166,7 +1100,7 @@
                                                                                         <td>1.</td>
                                                                                         <td>Do workers have a safe route to
                                                                                             their place of work?</td>
-
+        
                                                                                         <td>
                                                                                             <div class="checkbox-fade fade-in-success m-0">
                                                                                                 <label>
@@ -1188,68 +1122,34 @@
                                                                                                 </label>
                                                                                             </div>
                                                                                         </td>
-
+        
                                                                                         <td>Lorem, ipsum dolor sit amet
                                                                                             consectetur adipisicing elit.
                                                                                             Quaerat, tempore?</td>
                                                                                     </tr>
-
-
+        
+        
                                                                                 </tbody>
-
+        
                                                                             </table>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="tab-pane " id="Gallery" role="tabpanel" aria-expanded="false"
-                                                            style="display:none;">
-                                                            <div class="container">
-                                                              <div class="col-md-12 col-sm-12">
-
-                                                                <!-- Our markup, the important part here! -->
-                                                                <div id="drag-and-drop-zone" class="dm-uploader">
-                                                                  <h3 class="mb-5 mt-5 text-muted text_center">Drag &amp; drop files here</h3>
-
-                                                                  <div class="btn btn-primary btn-block">
-                                                                    <input type="file" id="html_btn" title='Click to add Files' />
-                                                                      <span>Open the file Browser</span>
-                                                                  </div>
-                                                                </div><!-- /uploader -->
-
-                                                              </div>
-                                                              <div class="col-md-12 col-sm-12">
-                                                                <div class="card">
-                                                                  <div class="card-header">
-                                                                    File List
-                                                                  </div>
-
-                                                                  <ul class="list-unstyled p-2 d-flex flex-column col" id="files">
-                                                                    <li class="text-muted text-center empty">No files uploaded.</li>
-                                                                  </ul>
-                                                                </div>
-                                                              </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="tab-pane " id="Documents" role="tabpanel" aria-expanded="false"
-                                                            style="display:none;">
-                                                            <div class="container">
-                                                            </div>
-                                                        </div>
                                                         {{-- <div class="tab-pane active" id="procurment" role="tabpanel"
                                                             aria-expanded="true">
                                                         </div> --}}
-
+        
                                                     </div>
                                                 </div>
-
+        
                                             </div>
 
                                             {{-- <button type="button" class="btn btn-success alert-success-msg m-b-10" style=" margin-left: 80%;">Submit
                                                 Monitoring</button> --}}
-
-
+        
+        
                                         </div>
                                         <div class="tab-pane" id="summary" role="tabpanel">
                                             <fieldset>
@@ -1377,7 +1277,7 @@
                                     </div>
                                 </div>
                             </div>
-
+        
                         </div>
                         <!-- Form Basic Wizard card end -->
                     </div>
@@ -1457,7 +1357,7 @@
                     </div>
                 </div>
             </div>
-
+        
         </div>
 @endsection
 @section("js_scripts")
@@ -1522,15 +1422,6 @@
   </li>
 </script>
 
-<!-- Debug item template -->
-<script type="text/html" id="debug-template">
-  <li class="list-group-item text-%%color%%"><strong>%%date%%</strong>: %%message%%</li>
-</script>
-<script type="text/javascript">
-$('.new_Btn').bind("click" , function () {
-      $('#html_btn').click();
-  });
-</script>
 <script>
 $(document).ready(function(){
 $(window).scroll(function(){

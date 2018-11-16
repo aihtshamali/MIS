@@ -1,319 +1,373 @@
 "use strict";
-$(document).ready(function()
-{
-$('[data-toggle="popover"]').popover();
+$(document).ready(function () {
+    $('[data-toggle="popover"]').popover();
 
-$(".conductNav").click(function(){
-    $(".topSummary").show('slow');
-    $(".mainTabsAndNav").animate({ marginTop: '6%'},1000);
-});
-$(".planNav").click(function(){
-    $(".topSummary").show('slow');
-    $(".mainTabsAndNav").animate({ marginTop: '6%'},1000);
-});
+    $(".conductNav").click(function () {
+        $(".topSummary").show('slow');
+        $(".mainTabsAndNav").animate({ marginTop: '6%' }, 1000);
+    });
+    $(".planNav").click(function () {
+        $(".topSummary").show('slow');
+        $(".mainTabsAndNav").animate({ marginTop: '6%' }, 1000);
+    });
 
-$('input:checkbox').click(function() {
-    $('input:checkbox').not(this).prop('checked', false);
-});
+    $('input:checkbox').click(function () {
+        $('input:checkbox').not(this).prop('checked', false);
+    });
 
-//FINANCIAL PHASING
-$(document).on('keyup','.count-me',function(){
+    //FINANCIAL PHASING
+    $(document).on('keyup', '.count-me', function () {
+        var parent = $(this).parent().parent().parent().parent().parent().parent()
+        var tds = parent.find('.count-me')
+        // console.log('counting',tds,'asdasdasd',parent);
+        var sum = 0;
+        for (var i = 0; i < tds.length; i++) {
+            if (tds[i].value != "")
+                sum += parseInt(tds[i].value, 10)
+        }
+        console.log(sum, 'suuum');
+        parent.find('#ot_cost').text(sum)
+        if (parent.find('#t_cost').text() != parent.find('#ot_cost').text()) {
+            var dif = (parseInt(parent.find('#t_cost').text()) - parseInt(parent.find('#ot_cost').text()))
+            console.log(dif, 'difff');
+            parent.find('#od_cost').text(dif)
+            parent.find('.fazuldiv').hide()
+            parent.find('.dangercustom').show()
+        }
+        else {
+            parent.find('.fazuldiv').show()
+            parent.find('.dangercustom').hide()
+        }
+    });
 
-    var tds = $('#countit').find('.count-me')
-    // console.log('counting' + tds[0].value + 'nospace');
-    var sum = 0;
-    for(var i = 0; i < tds.length; i++) {
-        if(tds[i].value != "")
-            sum += parseInt(tds[i].value,10)
-    }
-    console.log(sum);
-    $('#ot_cost').text(sum)
-    if($('#t_cost').text() != $('#ot_cost').text()){
-        var dif = (parseInt($('#t_cost').text()) - parseInt($('#ot_cost').text()))
-        console.log(dif);
-        $('#od_cost').text(dif)
-        $('.fazuldiv').hide()
-        $('.dangercustom').show()
-    }
-    else {
-        $('.fazuldiv').show()
-        $('.dangercustom').hide()
-    }
-});
+    var orig = { "cost": "430", "period": "30", "date": '15 September 2013' };
 
-$(document).ready(()=>{
+    var revs = [{ "cost": "450", "period": "33", "date": '15 September 2013' },
+    { "cost": "479", "period": "33", "date": '15 September 2013' },
+    { "cost": "479", "period": "37", "date": '15 September 2013' }]
 
-    var substring='';
-    var j = 0
-    for(j = 2 ; j <= 30 ; j++){
-        if(j == 9)
-            substring += '<option value="200' + j + '-' + (j+1) + '">200' + j +'-' + (j+1) + '</option>'
-        else if(j > 9)
-            substring+='<option value="20' + j + '-' + (j+1) + '">20' + j +'-' + (j+1) + '</option>'
-            // <option value="20{{$i}}-{{$i+1}}">20{{$i}}-{{$i+1}}</option>
-        else
-            substring+='<option value="200' + j + '-0' + (j+1) + '">200' + j +'-0' + (j+1) + '</option>'
-            // <option value="200{{$i}}-0{{$i+1}}">200{{$i}}-0{{$i+1}}</option>
-            // console.log(j,'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',substring);
-    }
-    var tr = `
+    var revisionTable = `<div>
+    <h5 style="padding-top:20px;padding-bottom:10px;clear:both;">Revised PC-I</h5>
+        <div class="row">
+            <h5 class="col-md-4">Gestation Period: <b><span id="t_months"></span> months</b></h5>
+            <h5 class="col-md-4">Total Cost: <b><span id="t_cost"></span> Million(s)</b></h5>
+            <h5 class="col-md-4">Start Date: <b id="f_date"></b></h5>
+        </div>
+        <div class="table-responsive">
+            <table class="table  table-bordered nowrap"  id="countit">
+                <thead>
+                    <tr>
+                        <th>Sr #</th>
+                        <th>Financial Year</th>
+                        <th>Duration</th>
+                        <th>Cost</th>
+                    </tr>
+                </thead>
+                <tbody id='original_tbody'>
+
+                </tbody>
+            </table>
+        </div>
+        <div class='row' style="margin-bottom:20px">
+            <div class="col-md-8 fazuldiv"></div>
+            <div class="col-md-5 offset-md-3 alert alert-danger dangercustom">Cost does not match. Difference: <span id="od_cost">0</span> Million(s)</div>
+            <h5 class="col-md-4 float-right" >Total Cost: <b>
+                <span id="ot_cost">0</span> Million(s)</b>
+            </h5>
+        </div>
+    </div>
+    `;
+    $(document).ready(() => {
+        var substring = '';
+        var j = 0
+        for (j = 2; j <= 30; j++) {
+            if (j == 9)
+                substring += '<option value="200' + j + '-' + (j + 1) + '">200' + j + '-' + (j + 1) + '</option>'
+            else if (j > 9)
+                substring += '<option value="20' + j + '-' + (j + 1) + '">20' + j + '-' + (j + 1) + '</option>'
+            else
+                substring += '<option value="200' + j + '-0' + (j + 1) + '">200' + j + '-0' + (j + 1) + '</option>'
+        }
+        var tr = `
     <tr>
     <td id='serial'></td>
     <td>
         <select disabled class="form-control select2" name="financial_year" id="financial_year">
-                <option value="0" hidden>Select Financial Year </option>`.concat(substring).concat (`</select>
+                <option value="0" hidden>Select Financial Year </option>`.concat(substring).concat(`</select>
     </td>
     <td> <input id='m_duration' disabled type="text" class="form-control fn"> </td>
     <td> <input type="number" class="form-control fn count-me"> </td>
     </tr>
     `)
 
-    // var tr_ob = $(tr)
-    var tm = parseInt($('#t_months').text(),10)
-    var rtm = parseInt($('#rt_months').text(),10)
-    var date = moment($('#f_date').text(), "DD MMMM YYYY")
-    var check = moment().year(date.year()).month(7).date(1)
-    var all_months = []
-    if(date >= check){
-        check.add(1,'years')
+        // var tr_ob = $(tr)
+        // var rtm = parseInt($('#rt_months').text(),10)
+        var tm = parseInt(orig.period)
+        var date = moment(orig.date, "DD MMMM YYYY")
+        $(document).find('#t_cost').text(orig.cost)
+        $(document).find('#f_date').text(date.format('DD MMMM YYYY'))
+        $(document).find('#t_months').text(orig.period)
+        var check = moment().year(date.year()).month(7).date(1)
+        if (date >= check) {
+            check.add(1, 'years')
+        }
+        var months = moment.duration(date.diff(check)).as('months')
+        months = parseInt(months, 10)
+        if (months < 0)
+            months *= -1
+
+        // var r_months = months
+
+        var count = 1;
+        while (tm != 0) {
+            var tr_ob = $(tr)
+            tr_ob.find('#financial_year').children()[parseInt(check.add(1, 'years').format('YY')) - 3].selected = 'selected'
+            tr_ob.find('#m_duration').val(months)
+            tr_ob.find('#serial').text(count++)
+            tm -= months
+            if (tm >= 12)
+                months = 12
+            else
+                months = tm
+            tr_ob.appendTo('#original_tbody')
+        }
+
+        if (revs.length != 0) {
+            revs.forEach(item => {
+                console.log('THIS IS SPARTA');
+
+                var tm = parseInt(item.period)
+                var table = $(revisionTable)
+                var date = moment(item.date, "DD MMMM YYYY")
+                table.find('#t_cost').text(item.cost)
+                table.find('#f_date').text(date.format('DD MMMM YYYY'))
+                table.find('#t_months').text(item.period)
+                var check = moment().year(date.year()).month(7).date(1)
+                if (date >= check) {
+                    check.add(1, 'years')
+                }
+                var months = moment.duration(date.diff(check)).as('months')
+                months = parseInt(months, 10)
+                if (months < 0)
+                    months *= -1
+
+                var count = 1;
+                while (tm != 0) {
+                    var tr_ob = $(tr)
+                    tr_ob.find('#financial_year').children()[parseInt(check.add(1, 'years').format('YY')) - 3].selected = 'selected'
+                    tr_ob.find('#m_duration').val(months)
+                    tr_ob.find('#t_cost').text(item.cost)
+                    tr_ob.find('#serial').text(count++)
+                    tm -= months
+                    if (tm >= 12)
+                        months = 12
+                    else
+                        months = tm
+                    tr_ob.appendTo(table.find('#original_tbody'))
+                }
+                table.prependTo('#financial')
+            })
+        }
+    })
+
+
+    //END
+
+
+
+    function hideallmaintabs() {
+        $('#summary').hide();
+        $('#p_monitoring').hide();
+        $('#c_monitoring').hide();
+        $('#reviewDiv').hide();
     }
-    var months = moment.duration(date.diff(check)).as('months')
-    months = parseInt(months, 10)
-    if(months < 0)
-    months *= -1
 
-    var r_months = months
-
-    var count = 1;
-    while(tm != 0){
-        var tr_ob = $(tr)
-        tr_ob.find('#financial_year').children()[parseInt(check.add(1,'years').format('YY'))-3].selected = 'selected'
-        tr_ob.find('#m_duration').val(months)
-        tr_ob.find('#serial').text(count++)
-        tm -= months
-        if(tm >= 12)
-            months = 12
-        else
-            months = tm
-        tr_ob.appendTo('#original_tbody')
-    }
-
-    var rcount = 1;
-    check.add(-5,'years')
-    while(rtm != 0){
-        var tr_ob = $(tr)
-        tr_ob.find('#financial_year').children()[parseInt(check.add(1,'years').format('YY'))-3].selected = 'selected'
-        tr_ob.find('#m_duration').val(r_months)
-        tr_ob.find('#serial').text(rcount++)
-        rtm -= r_months
-        if(rtm >= 12)
-            r_months = 12
-        else
-            r_months = rtm
-        tr_ob.appendTo('#revised_tbody')
-    }
-
-        console.log(all_months);
-})
-
-
-//END
-
-
-
-function hideallmaintabs()
-{
-$('#summary').hide();
-$('#p_monitoring').hide();
-$('#c_monitoring').hide();
-$('#reviewDiv').hide();
-}
-
-$('.summaryNav').on('click',function(){
-hideallmaintabs();
-// hideall();
-$('.mainTabsAndNav').removeClass( "col-md-12" ).addClass( "col-md-9" );
-$('#summary').show();
-$('.p_details').show(1000);
-$(".topSummary").hide('slow');
-$(".mainTabsAndNav").animate({ marginTop: '0px'},500);
-$(".mainTabsAndNav").removeClass("mt_6p");
-});
-
-$('.planNav').on('click',function(){
-hideallmaintabs();
-$('.p_details').hide();
-$('.mainTabsAndNav').removeClass( "col-md-9" ).addClass( "col-md-12" );
-$('#p_monitoring').show();
-});
-
-
-
-$('.conductNav').on('click',function(){
-hideallmaintabs();
-$('.p_details').hide();
-$('.mainTabsAndNav').removeClass( "col-md-8" ).addClass( "col-md-12" );
-$('#c_monitoring').show();
-});
-function hideall()
-{
- $('#PlanDocDiv').hide();
- $('#financial').hide();
- $('#physical').hide();
- $('#MOBdiv').hide();
- $('#quality_assesment').hide();
- $('#stakeholder').hide();
- $('#issues').hide();
- $('#risks').hide();
- $('#HSE').hide();
- $('#procuremnet').hide();
- $('#kpis').hide();
- $('#activities').hide();
- $('#kpis').hide();
- $('#Gallery').hide();
- $('#financialDiv').hide();
- $('#Objectives').hide();
- $('#PAT').hide();
- $('#Documents').hide();
- $('#i-dates').hide();
- $('#reviewDiv').hide();
- $('#TimesDiv').hide();
- $('#CostingDiv').hide();
-}
-$('.CostingTab').on('click',function(){
-  hideall();
-  $('#CostingDiv').show();
-});
-$('.TimeTab').on('click',function(){
-  hideall();
-  $('#TimesDiv').show();
-});
-$('.kpis').on('click',function(){
-  hideall();
-  $('#kpis').show();
-});
-$('.PlanDoc').on('click',function(){
-  hideall();
-  $('#PlanDocDiv').show();
-});
-
-$('.activities').on('click',function(){
-  hideall();
-  $('#activities').show();
-});
-
-$('.i-dates').on('click',function(){
-  hideall();
-  $('#i-dates').show();
-});
-$('.reviewTab').on('click',function(){
-hideall();
-$(".topSummary").show('slow');
-$('#reviewDiv').show();
-$(".mainTabsAndNav").animate({ marginTop: '6%'},1000);
-$('#p_monitoring').hide();
-$('#c_monitoring').hide();
-$('#summary').hide();
-$('.p_details').hide();
-$('.mainTabsAndNav').removeClass( "col-md-8" ).addClass( "col-md-12" );
-});
-$('.financialphase').on('click',function(){
-hideall();
-$('#financial').show();
-});
-$('.MOBtab').on('click',function(){
-hideall();
-$('#MOBdiv').show();
-});
-// $('.planNav').on('click',function(){
-// hideall();
-// $('#PlanDocDiv').show();
-// });
-$('.conductNav').on('click',function(){
-hideall();
-$('#financialDiv').show();
-});
-$('.physical').on('click',function(){
- hideall();
-$('#physical').show();
-});
-$('.quality_assesment').on('click',function(){
-hideall();
-$('#quality_assesment').show();
-});
-$('.stakeholder').on('click',function(){
-hideall();
-$('#stakeholder').show();
-});
-$('.issues').on('click',function(){
-hideall();
-$('#issues').show();
-});
-$('.risks').on('click',function(){
-hideall();
-$('#risks').show();
-});
-$('.HSE').on('click',function(){
-hideall();
-$('#HSE').show();
-});
-$('.procuremnet').on('click',function(){
-hideall();
-$('#procurement').show();
-});
-$('.gllery').on('click',function(){
-hideall();
-$('#Gallery').show();
-});
-$('.financial').on('click',function(){
-  hideall();
-    $('#financialDiv').show();
-});
-$('.Objectives').on('click',function(){
-  hideall();
-    $('#Objectives').show();
-});
-$('.PAT').on('click',function(){
-  hideall();
-    $('#PAT').show();
-});
-$('.Documents').on('click',function(){
-  hideall();
-    $('#Documents').show();
-});
-});
-
-// document.querySelector('.alert-success-msg').onclick = function(){
-// swal("Good job!", "You submitted the project!", "success");
-// };
-$(function() {
-    $('input[name="asd"]').daterangepicker({
-        singleDatePicker: true,
-        showDropdowns: true
+    $('.summaryNav').on('click', function () {
+        hideallmaintabs();
+        // hideall();
+        $('.mainTabsAndNav').removeClass("col-md-12").addClass("col-md-9");
+        $('#summary').show();
+        $('.p_details').show(1000);
+        $(".topSummary").hide('slow');
+        $(".mainTabsAndNav").animate({ marginTop: '0px' }, 500);
+        $(".mainTabsAndNav").removeClass("mt_6p");
     });
-});
 
-$(function() {
-    $('input[name="ts"]').daterangepicker({
-        singleDatePicker: true,
-        showDropdowns: true
+    $('.planNav').on('click', function () {
+        console.log('yahan tk');
+
+        hideallmaintabs();
+        $('.p_details').hide();
+        $('.mainTabsAndNav').removeClass("col-md-9").addClass("col-md-12");
+        $('#p_monitoring').show();
     });
-});
 
-$(function() {
-$('input[name="cwd"]').daterangepicker({
-    singleDatePicker: true,
-    showDropdowns: true
-});
 
-});
 
-$(document).ready(()=>{
-    // $('.select2').select2()
-})
+    $('.conductNav').on('click', function () {
+        hideallmaintabs();
+        $('.p_details').hide();
+        $('.mainTabsAndNav').removeClass("col-md-8").addClass("col-md-12");
+        $('#c_monitoring').show();
+    });
+    function hideall() {
+        $('#PlanDocDiv').hide();
+        $('#financial').hide();
+        $('#physical').hide();
+        $('#MOBdiv').hide();
+        $('#quality_assesment').hide();
+        $('#stakeholder').hide();
+        $('#issues').hide();
+        $('#risks').hide();
+        $('#HSE').hide();
+        $('#procuremnet').hide();
+        $('#kpis').hide();
+        $('#activities').hide();
+        $('#kpis').hide();
+        $('#Gallery').hide();
+        $('#financialDiv').hide();
+        $('#Objectives').hide();
+        $('#PAT').hide();
+        $('#Documents').hide();
+        $('#i-dates').hide();
+        $('#reviewDiv').hide();
+        $('#TimesDiv').hide();
+        $('#CostingDiv').hide();
+    }
+    $('.CostingTab').on('click', function () {
+        hideall();
+        $('#CostingDiv').show();
+    });
+    $('.TimeTab').on('click', function () {
+        hideall();
+        $('#TimesDiv').show();
+    });
+    $('.kpis').on('click', function () {
+        hideall();
+        $('#kpis').show();
+    });
+    $('.PlanDoc').on('click', function () {
+        hideall();
+        $('#PlanDocDiv').show();
+    });
 
-$('button#add-more').click(function(e){
-var add_stakeholder= `<tr>
+    $('.activities').on('click', function () {
+        hideall();
+        $('#activities').show();
+    });
+
+    $('.i-dates').on('click', function () {
+        hideall();
+        $('#i-dates').show();
+    });
+    $('.reviewTab').on('click', function () {
+        hideall();
+        $(".topSummary").show('slow');
+        $('#reviewDiv').show();
+        $(".mainTabsAndNav").animate({ marginTop: '6%' }, 1000);
+        $('#p_monitoring').hide();
+        $('#c_monitoring').hide();
+        $('#summary').hide();
+        $('.p_details').hide();
+        $('.mainTabsAndNav').removeClass("col-md-8").addClass("col-md-12");
+    });
+        $('.financialphase').on('click', function () {
+            hideall();
+            $('#financial').show();
+        });
+        $('.MOBtab').on('click', function () {
+            hideall();
+            $('#MOBdiv').show();
+        });
+        // $('.planNav').on('click',function(){
+        // hideall();
+        // $('#PlanDocDiv').show();
+        // });
+        $('.conductNav').on('click', function () {
+            hideall();
+            $('#financialDiv').show();
+        });
+        $('.physical').on('click', function () {
+            hideall();
+            $('#physical').show();
+        });
+        $('.quality_assesment').on('click', function () {
+            hideall();
+            $('#quality_assesment').show();
+        });
+        $('.stakeholder').on('click', function () {
+            hideall();
+            $('#stakeholder').show();
+        });
+        $('.issues').on('click', function () {
+            hideall();
+            $('#issues').show();
+        });
+        $('.risks').on('click', function () {
+            hideall();
+            $('#risks').show();
+        });
+        $('.HSE').on('click', function () {
+            hideall();
+            $('#HSE').show();
+        });
+        $('.procuremnet').on('click', function () {
+            hideall();
+            $('#procurement').show();
+        });
+        $('.gllery').on('click', function () {
+            hideall();
+            $('#Gallery').show();
+        });
+        $('.financial').on('click', function () {
+            hideall();
+            $('#financialDiv').show();
+        });
+        $('.Objectives').on('click', function () {
+            hideall();
+            $('#Objectives').show();
+        });
+        $('.PAT').on('click', function () {
+            hideall();
+            $('#PAT').show();
+        });
+        $('.Documents').on('click', function () {
+            hideall();
+            $('#Documents').show();
+        });
+    });
+
+    // document.querySelector('.alert-success-msg').onclick = function(){
+    // swal("Good job!", "You submitted the project!", "success");
+    // };
+    $(function () {
+        $('input[name="asd"]').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true
+        });
+    });
+
+    $(function () {
+        $('input[name="ts"]').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true
+        });
+    });
+
+    $(function () {
+        $('input[name="cwd"]').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true
+        });
+
+    });
+
+    $(document).ready(() => {
+        // $('.select2').select2()
+    })
+
+    $('button#add-more').click(function (e) {
+        var add_stakeholder = `<tr>
     <td>
         <label for="">1</label>
     </td>
@@ -337,10 +391,10 @@ var add_stakeholder= `<tr>
     <td><input type="text" name="stakeholder_number"
             class="form-control" /></td>
                     <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td></tr>`
-                    $('#stakeholders').append(add_stakeholder);
-                });
-                $('button#add-more-issues').click(function(e){
-                    var temp = `
+        $('#stakeholders').append(add_stakeholder);
+    });
+    $('button#add-more-issues').click(function (e) {
+        var temp = `
                     <tr>
                         <td><input type="text" name="issue" style="width:100%;padding:2%;" /></td>
                         <td>
@@ -379,10 +433,10 @@ var add_stakeholder= `<tr>
                         </td>
                     </tr>
                     `
-                    $(temp).appendTo('#add-issue-here')
-                });
-$('button#add-more').click(function(e){
-var add_risks= `<tr>
+        $(temp).appendTo('#add-issue-here')
+    });
+    $('button#add-more').click(function (e) {
+        var add_risks = `<tr>
                 <td><input type="text" class="form-control"></td>'
                 <td>
                   <select class="form-control form-control-primary">
@@ -421,148 +475,143 @@ var add_risks= `<tr>
                 <td><input type="text" class="form-control"></td>'
                 <td><button class="btn btn-sm btn-danger" id="remove" onclick="removerow(this)" name="remove[]" type="button">-</button></td>'
                 </tr>`
-                $('#riskmatrix').append(add_risks);
-});
+        $('#riskmatrix').append(add_risks);
+    });
 
-$('button#add_activity').click(function(e){
+    $('button#add_activity').click(function (e) {
 
-var add_activities ='<div class="row form-group component_Activities">'
-                +'<div class="col-md-10 mb_1 offset-md-1"><input type="text" class="form-control" placeholder="Add Task" name="c_activity[]"> </div>'
-                // +'<div class="col-md-2"> <input type="text" class="form-control" placeholder="Cost" name="c_cost[]"></div>'
-                // +'<div class="col-md-2"><input type="text" class="form-control" placeholder="Units" name="c_unit[]"></div>'
-                // +'<div class="col-md-2"><input type="text" class="form-control" placeholder="Quantity" name="c_quantity[]"></div>'
-                +'<div class="col-md-1"><button class="btn btn-danger btn-sm" name="remove_activity[]" onclick="removerow(this)"  type="button">-</button></div>'
-                +'</div>';
-                $('.planMactivities').append(add_activities);
-});
+        var add_activities = '<div class="row form-group component_Activities">'
+            + '<div class="col-md-10 mb_1 offset-md-1"><input type="text" class="form-control" placeholder="Add Task" name="c_activity[]"> </div>'
+            // +'<div class="col-md-2"> <input type="text" class="form-control" placeholder="Cost" name="c_cost[]"></div>'
+            // +'<div class="col-md-2"><input type="text" class="form-control" placeholder="Units" name="c_unit[]"></div>'
+            // +'<div class="col-md-2"><input type="text" class="form-control" placeholder="Quantity" name="c_quantity[]"></div>'
+            + '<div class="col-md-1"><button class="btn btn-danger btn-sm" name="remove_activity[]" onclick="removerow(this)"  type="button">-</button></div>'
+            + '</div>';
+        $('.planMactivities').append(add_activities);
+    });
 
 
-$('button#add_more_component').click(function(e){
-    var add_component='<div class="row components">'
-                        +'<div class="form-group col-md-1 offset-md-1 ">'
-                        +'<br>'
-                        +'<button class=" btn btn-sm btn-danger" onclick="removerow(this)" name="remove_component[]" id="remove_component" type="button"><i class="fa fa-minus"></i></button>'
-                        +'</div>'
-                       +'<div class="form-group col-md-6  ">'
-                        +'<label for=""> <b>Component Title :</b></label><br>'
-                        +'<select class=" form-control form-control-primary ">'
-                        +'<option value="" selected disabled>Select Component</option>'
-                        +'<option value="1" >Component 1</option>'
-                        +'<option value="2">Component 2</option>'
-                        +'<option value="3" >Component 3</option>'
-                        +'</select>'
-                        +'</div>'
-                        +'<div class="col-md-2 offset-md-1">'
-                        +'<br>'
-                        +'<button class=" btn btn-sm btn-success" name="add_more_act[]" id="add_more_act" onclick="add_activityInComp(this)" type="button">Add Activity</button>'
-                        +'</div>'
-                        +'</div>';
-            $('.oneComponentQA').append(add_component);
-});
-var objct = 2;
-function autoindex()
-  {
-    var sib = $(document).find('.newClass').siblings();
-    // console.log(sib);
-    var i = 0;
-    for(i = 0; i<sib.length ;i++)
-    {
-      var cl_array = sib[i].getAttribute('class').split(' ');
-      var val = "";
-      for(var j = 0;j<cl_array.length;j++){
-        if(cl_array[j].startsWith('newClass')){
-          val = cl_array[j];
-          break;
+    $('button#add_more_component').click(function (e) {
+        var add_component = '<div class="row components">'
+            + '<div class="form-group col-md-1 offset-md-1 ">'
+            + '<br>'
+            + '<button class=" btn btn-sm btn-danger" onclick="removerow(this)" name="remove_component[]" id="remove_component" type="button"><i class="fa fa-minus"></i></button>'
+            + '</div>'
+            + '<div class="form-group col-md-6  ">'
+            + '<label for=""> <b>Component Title :</b></label><br>'
+            + '<select class=" form-control form-control-primary ">'
+            + '<option value="" selected disabled>Select Component</option>'
+            + '<option value="1" >Component 1</option>'
+            + '<option value="2">Component 2</option>'
+            + '<option value="3" >Component 3</option>'
+            + '</select>'
+            + '</div>'
+            + '<div class="col-md-2 offset-md-1">'
+            + '<br>'
+            + '<button class=" btn btn-sm btn-success" name="add_more_act[]" id="add_more_act" onclick="add_activityInComp(this)" type="button">Add Activity</button>'
+            + '</div>'
+            + '</div>';
+        $('.oneComponentQA').append(add_component);
+    });
+    var objct = 2;
+    function autoindex() {
+        var sib = $(document).find('.newClass').siblings();
+        // console.log(sib);
+        var i = 0;
+        for (i = 0; i < sib.length; i++) {
+            var cl_array = sib[i].getAttribute('class').split(' ');
+            var val = "";
+            for (var j = 0; j < cl_array.length; j++) {
+                if (cl_array[j].startsWith('newClass')) {
+                    val = cl_array[j];
+                    break;
+                }
+            }
+            if (val != "") {
+                $('.' + val + ' > label').text('Objective ' + (i + 2));
+                $('.' + val + ' > div > input').attr('placeholder', 'Objective ' + (i + 2));
+                $('.' + val).addClass('newClass' + (i + 2)).removeClass(val);
+            }
         }
-      }
-      if(val != ""){
-        $('.'+val+' > label').text('Objective ' + (i+2));
-        $('.'+val+' > div > input').attr('placeholder','Objective ' + (i+2));
-        $('.'+val).addClass('newClass'+(i+2)).removeClass(val);
-      }
+        objct = i + 2;
     }
-    objct = i+2;
-  }
 
 
-$('#add_more_objective').click(function(e){
-  // var newClass='obj_'objct++;
-  var add_objective =`<div class="newClass`+objct+` DisInlineflex mb_2 col-md-12">
-                        <label class="col-sm-3 text_center form-txt-primary font-15">Objective `+objct+`</label>
+    $('#add_more_objective').click(function (e) {
+        // var newClass='obj_'objct++;
+        var add_objective = `<div class="newClass` + objct + ` DisInlineflex mb_2 col-md-12">
+                        <label class="col-sm-3 text_center form-txt-primary font-15">Objective `+ objct + `</label>
                         <div class="col-sm-7">
-                          <input type="text" class="form-control form-txt-primary" placeholder="Objective `+objct+`">
+                          <input type="text" class="form-control form-txt-primary" placeholder="Objective `+ objct + `">
                         </div>
                         <div class="col-sm-2 removeObjective text_center">
                           <button class="btn btn-danger btn-sm" type="button">-</button>
                         </div>
                       </div>
                       `
-            $('.objtivesNew').append(add_objective);
-objct+=1;
-});
-$(document).on('click','.removeObjective',function(){
-   if($(this).parent().attr('class').split(' ')[0].split('ss')[1] == objct-1){
-     $(this).parent().remove();
-   }
-   else{
-     $(this).parent().remove();
-     autoindex();
- }
- });
-var compAct = 2;
-$('#add_more_compAct').click(function(e){
-  // var newClass='obj_'objct++;
-  var add_compAct =`<div class="newClasscompAct`+compAct+` DisInlineflex mb_2 col-md-12">
-                        <label class="col-sm-3 text_center form-txt-primary font-15">Component / Activities `+compAct+`</label>
+        $('.objtivesNew').append(add_objective);
+        objct += 1;
+    });
+    $(document).on('click', '.removeObjective', function () {
+        if ($(this).parent().attr('class').split(' ')[0].split('ss')[1] == objct - 1) {
+            $(this).parent().remove();
+        }
+        else {
+            $(this).parent().remove();
+            autoindex();
+        }
+    });
+    var compAct = 2;
+    $('#add_more_compAct').click(function (e) {
+        // var newClass='obj_'objct++;
+        var add_compAct = `<div class="newClasscompAct` + compAct + ` DisInlineflex mb_2 col-md-12">
+                        <label class="col-sm-3 text_center form-txt-primary font-15">Component / Activities `+ compAct + `</label>
                         <div class="col-sm-7">
-                          <input type="text" class="form-control form-txt-primary" placeholder="Component/Activities `+compAct+`">
+                          <input type="text" class="form-control form-txt-primary" placeholder="Component/Activities `+ compAct + `">
                         </div>
                         <div class="col-sm-2 removecompAct text_center">
                           <button class="btn btn-danger btn-sm" type="button">-</button>
                         </div>
                       </div>
                       `
-            $('.compActNew').append(add_compAct);
-            $('.removecompAct').click(function(){ $(this).parent().remove();})
-compAct+=1;
-});
-function add_activityInComp(e)
-{
-    var add_activities_to_assess='<div class="row singleActivity">'
-                                  +'<div class="form-group col-md-3 offset-md-1 " style="margin-bottom:10px !important;">'
-                                  +'<label for=""><b>Activities</b></label>'
-                                  +'<select class="form-control form-control-warning" style="width: 90%;">'
-                                  +'<option value="" selected disabled>Select Activity</option>'
-                                  +'<option value="1" >Activity 1</option>'
-                                   +'<option value="2">Activity 2</option>'
-                                  +'<option value="3" >Activity 3</option>'
-                                  +'</select></div>'
-                                  +'<div class="form-group col-md-3 ">'
-                                  +'<label for=""><b>Assesment</b></label>'
-                                  +'<select class=" form-control " style="width: 90%;">'
-                                  +'<option value="" selected disabled>Select Assesment Type</option>'
-                                  +'<option value="1" style="background:#e85445;color:white;">Poor</option>'
-                                  +'<option value="2" style="background:#f5d75c;color:white;">PartiallySatisfactory</option>'
-                                  +'<option value="3" style="background:#44d581;color:white;">Satisfactory</option>'
-                                  +'</select>'
-                                  +'</div>'
-                                  +'<div class="form-group col-md-3">'
-                                  +'<label for=""><b>Remarks</b></label><br>'
-                                  +'<textarea name="qa_remarks" id="qa_remarks" class="form-control"  style="width: 90%;" type="text"></textarea>'
-                                  +'</div>'
-                                  +'<div class="form-group col-md-1 ">'
-                                  +' <br><button class="btn btn-danger btn-sm" onclick="removerow(this)" name="remove_Comp_activity[]"><span style="font-size:12px;">-</span></button>'
-                                 +'</div>'
-                                +'</div>';
-                                $(e).parent().parent().append(add_activities_to_assess);
-}
+        $('.compActNew').append(add_compAct);
+        $('.removecompAct').click(function () { $(this).parent().remove(); })
+        compAct += 1;
+    });
+    function add_activityInComp(e) {
+        var add_activities_to_assess = '<div class="row singleActivity">'
+            + '<div class="form-group col-md-3 offset-md-1 " style="margin-bottom:10px !important;">'
+            + '<label for=""><b>Activities</b></label>'
+            + '<select class="form-control form-control-warning" style="width: 90%;">'
+            + '<option value="" selected disabled>Select Activity</option>'
+            + '<option value="1" >Activity 1</option>'
+            + '<option value="2">Activity 2</option>'
+            + '<option value="3" >Activity 3</option>'
+            + '</select></div>'
+            + '<div class="form-group col-md-3 ">'
+            + '<label for=""><b>Assesment</b></label>'
+            + '<select class=" form-control " style="width: 90%;">'
+            + '<option value="" selected disabled>Select Assesment Type</option>'
+            + '<option value="1" style="background:#e85445;color:white;">Poor</option>'
+            + '<option value="2" style="background:#f5d75c;color:white;">PartiallySatisfactory</option>'
+            + '<option value="3" style="background:#44d581;color:white;">Satisfactory</option>'
+            + '</select>'
+            + '</div>'
+            + '<div class="form-group col-md-3">'
+            + '<label for=""><b>Remarks</b></label><br>'
+            + '<textarea name="qa_remarks" id="qa_remarks" class="form-control"  style="width: 90%;" type="text"></textarea>'
+            + '</div>'
+            + '<div class="form-group col-md-1 ">'
+            + ' <br><button class="btn btn-danger btn-sm" onclick="removerow(this)" name="remove_Comp_activity[]"><span style="font-size:12px;">-</span></button>'
+            + '</div>'
+            + '</div>';
+        $(e).parent().parent().append(add_activities_to_assess);
+    }
 
-function removerow(e)
-{
-    $(e).parent().parent().remove();
-}
+    function removerow(e) {
+        $(e).parent().parent().remove();
+    }
 
-function removeIssuerow(e)
-{
-    $(e).parent().parent().remove();
-}
+    function removeIssuerow(e) {
+        $(e).parent().parent().remove();
+    }
