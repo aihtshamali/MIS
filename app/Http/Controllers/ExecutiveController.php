@@ -510,13 +510,21 @@ class ExecutiveController extends Controller
           if($officer->AssignedProjectTeam){
           $assigned_project = $officer->AssignedProjectTeam;
           foreach($assigned_project as $assign){
+            if($assign->assignedProject->project->project_type_id == 1)
               $sum += $assign->assignedProject->project->score*($assign->assignedProject->progress/100);
             }
             $sum = round($sum,0,PHP_ROUND_HALF_UP);
             array_push($total,$sum);
             array_push($person,$officer);
           }
+
+
         }
+      }
+      $maxs = array_keys($total, max($total));
+      $max_score = round($total[$maxs[0]],0,PHP_ROUND_HALF_UP);
+      foreach ($total as $key => $number) {
+        $total[$key]= round($number/$max_score*100,0,PHP_ROUND_HALF_UP);
       }
       // $maxs = array_keys($total, max($total));
       // $per = array_search(Auth::id(),$person);
