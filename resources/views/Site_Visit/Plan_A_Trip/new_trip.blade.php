@@ -5,11 +5,18 @@
 @section('styleTags')
  <!-- Select 2 css -->
  <link rel="stylesheet" href="{{ asset('_monitoring/css/css/select2.min.css')}}" />
+ <link rel="stylesheet" href="{{ asset('_monitoring/css/css/component.css')}}" />
  <!-- Multi Select css -->
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/bootstrap-multiselect.css')}}" />
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/multiselect/css/multi-select.css')}}" />
     <link rel="stylesheet" href="{{ asset('_monitoring/css/pages/advance-elements/css/bootstrap-datetimepicker.css')}}" />
     <link rel="stylesheet" href="{{ asset('_monitoring/css/css/daterangepicker.css')}}" />
+<!-- Notification.css -->
+<link rel="stylesheet" type="text/css" href="{{asset('_monitoring\css\pages\notification\notification.css')}}">
+<!-- Animate.css -->
+<link rel="stylesheet" type="text/css" href="{{asset('_monitoring\css\css\animate.css')}}">
+ {{-- <link rel="stylesheet" href="{{ asset('_monitoring/css/css/sweetalert.css')}}" /> --}}
+    
     {{-- <link rel="stylesheet" href="{{ asset('_monitoring/css/css/datedropper.min.css')}}" /> --}}
     <style>
         .bg-w{background-color: #fff !important;}
@@ -232,8 +239,10 @@
                         class="icofont icofont-plus"></i>Add purpose</div>
             </div>
 
-            <div class="form-group">
-                 <button class="btn submitlocal btn-success btn-block"  type="submit"><i class="icofont icofont-user-alt-3"></i>Save & Submit</button>
+            <div class="form-group notifications">
+                    <button class="btn btn-success btn-outline-success btn-block submitlocal waves-effect"  type="submit" data-type="inverse" data-from="top" data-align="right" >Save and Submit</button>
+                {{-- <button class="btn submitlocal btn-success waves-effect" type="submit" data-type="inverse" data-animation-in="animated fadeInDown" data-animation-out="animated fadeOutDown">Save & Submit</button> --}}
+                {{-- <button class="btn submitlocal alert-confirm btn-success btn-block"  type="submit"><i class="icofont icofont-user-alt-3"></i>Save & Submit</button> --}}
                 {{-- <button class="btn btn-success btn-block"><i class="icofont icofont-user-alt-3"></i>Submit</button> --}}
             </div>
     </form>
@@ -401,8 +410,9 @@
                         <i class="icofont icofont-plus"></i>Add New Purpose
                     </div>
                 </div>
-                <div class="form-group">
-                <button class="btn submit btn-success btn-block"  type="submit"><i class="icofont icofont-user-alt-3"></i>Save & Submit</button>
+                <div class="form-group notifications">
+                <button class="btn btn-success btn-outline-success btn-block submit waves-effect"  type="submit" data-type="inverse" data-from="top" data-align="right" >Save and Submit</button>
+                {{-- <button class="btn submit btn-success btn-block"  type="submit"><i class="icofont icofont-user-alt-3"></i>Save & Submit</button> --}}
                 </div>
         </form>
     </div>
@@ -412,17 +422,39 @@
 <!-- Select 2 js -->
 <script src="{{asset('_monitoring/js/select2/js/select2.full.min.js')}}"></script>
 <!-- Multiselect js -->
-{{-- <script src="{{asset('_monitoring/js/bootstrap-multiselect/js/bootstrap-multiselect.js')}}"></script>
-<script src="{{asset('_monitoring/js/multiselect/js/jquery.multi-select.js')}}"></script>
-<script src="{{asset('_monitoring/css/js/jquery.quicksearch.js')}}"></script> --}}
+
 <script src="{{asset('_monitoring/css/pages/advance-elements/select2-custom.js')}}"></script>
 <script src="{{asset('_monitoring/css/pages/advance-elements/moment-with-locales.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
 <script src="{{asset('_monitoring/css/pages/advance-elements/bootstrap-datetimepicker.min.js')}}"></script>
-
 <script src="{{asset('_monitoring/js/bootstrap-daterangepicker/js/daterangepicker.js')}}"></script>
 <script src="{{asset('_monitoring/css/pages/advance-elements/custom-picker.js')}}"></script>
+<script  src="{{asset('_monitoring/css/js/bootstrap-growl.min.js')}}"></script>
+<script src="{{asset('_monitoring/css/pages/notification/notification.js')}}"></script>
+{{-- <script src="{{asset('_monitoring/js/sweetalert/js/sweetalert.min.js')}}"></script> --}}
+{{-- <script src="{{asset('_monitoring/css/js/modalEffects.js')}}"></script>
+<script src="{{asset('_monitoring/css/js/classie.js')}}"></script>
+<script src="{{asset('_monitoring/css/js/modal.js')}}"></script> --}}
+{{-- <script src="{{asset('_monitoring/js/bootstrap-multiselect/js/bootstrap-multiselect.js')}}"></script>
+<script src="{{asset('_monitoring/js/multiselect/js/jquery.multi-select.js')}}"></script>
+<script src="{{asset('_monitoring/css/js/jquery.quicksearch.js')}}"></script> --}}
+{{-- <script>
+    document.querySelector('.alert-confirm').onclick = function(){
 
+            swal({
+                        title: "Are you sure?",
+                        text: "Your will not be able to recover this FILE!",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonClass: "btn-danger",
+                        confirmButtonText: "Yes, Submit it!",
+                        closeOnConfirm: false
+                    },
+                    function(){
+                        swal("Submitted!", "Your PC-1 has been Submitted.", "success");
+                    });
+        };
+    </script> --}}
 <script>
     var counter=2;
     var purposeCountforloop=2;
@@ -581,9 +613,10 @@
                     <i class="icofont icofont-plus"></i>Add New Purpose
                 </div>
             </div>
-            <div class="form-group">
-                <button class="btn submit btn-success btn-block" type="submit"><i class="icofont icofont-user-alt-3"></i>Save & Submit</button>
-            </div>
+            <div class="form-group notifications">
+                <button class="btn btn-success btn-outline-success btn-block submit waves-effect"  type="submit" data-type="inverse" data-from="top" data-align="right" >Save and Submit</button>
+                {{-- <button class="btn submit btn-success btn-block"  type="submit"><i class="icofont icofont-user-alt-3"></i>Save & Submit</button> --}}
+                </div>
                 </form>
             `;
     
@@ -712,10 +745,10 @@
                         class="icofont icofont-plus"></i>Add purpose</div>
             </div>
 
-            <div class="form-group">
-                 <button class="btn submitlocal btn-success btn-block"  type="submit"><i class="icofont icofont-user-alt-3"></i>Save & Submit</button>
-                {{-- <button class="btn btn-success btn-block"><i class="icofont icofont-user-alt-3"></i>Submit</button> --}}
-            </div>
+            <div class="form-group notifications">
+                <button class="btn btn-success btn-outline-success btn-block submitlocal waves-effect"  type="submit" data-type="inverse" data-from="top" data-align="right" >Save and Submit</button>
+                {{-- <button class="btn submit btn-success btn-block"  type="submit"><i class="icofont icofont-user-alt-3"></i>Save & Submit</button> --}}
+                </div>
     </form>`;
     Formnum_local++;
                   $(this).find(".localpurpose").attr("onclick","");
@@ -930,8 +963,8 @@
     function disabledFields(objthis){
         city_counter=2;     
         $(".purposeClass").attr("onclick","addPurpose(this)");
-        $(".purposeLocal").attr("onclick","addPurposeloc(this)");
-        console.log($(objthis).find('select , input, .addnewmulcityout .addnewproposal').attr('disabled',true));
+        $(".localpurpose").attr("onclick","addPurposeloc(this)");
+        console.log($(objthis).find('select , input, .addnewmulcityout, .addnewproposal').attr('disabled',true));
     }
 
   $(document).on('submit','form',function(event){
