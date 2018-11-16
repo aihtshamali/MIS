@@ -12,9 +12,9 @@
     <link rel="stylesheet" href="{{ asset('_monitoring/css/pages/advance-elements/css/bootstrap-datetimepicker.css')}}" />
     <link rel="stylesheet" href="{{ asset('_monitoring/css/css/daterangepicker.css')}}" />
 <!-- Notification.css -->
-<link rel="stylesheet" type="text/css" href="{{asset('_monitoring\css\pages\notification\notification.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('_monitoring/css/pages/notification/notification.css')}}">
 <!-- Animate.css -->
-<link rel="stylesheet" type="text/css" href="{{asset('_monitoring\css\css\animate.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('_monitoring/css/css/animate.css')}}">
  {{-- <link rel="stylesheet" href="{{ asset('_monitoring/css/css/sweetalert.css')}}" /> --}}
     
     {{-- <link rel="stylesheet" href="{{ asset('_monitoring/css/css/datedropper.min.css')}}" /> --}}
@@ -433,11 +433,6 @@
 <script src="{{asset('_monitoring/css/pages/advance-elements/moment-with-locales.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
 <script src="{{asset('_monitoring/css/pages/advance-elements/bootstrap-datetimepicker.min.js')}}"></script>
-<<<<<<< HEAD
-=======
-<!-- Date-dropper js -->
-{{-- <script type="{{ asset('_monitoring/js/datedropper/js/datedropper.min.js')}}"></script> --}}
->>>>>>> 2e2378d1f7113e4847b953f58223baffa1374bb9
 <script src="{{asset('_monitoring/js/bootstrap-daterangepicker/js/daterangepicker.js')}}"></script>
 <script src="{{asset('_monitoring/css/pages/advance-elements/custom-picker.js')}}"></script>
 <script  src="{{asset('_monitoring/css/js/bootstrap-growl.min.js')}}"></script>
