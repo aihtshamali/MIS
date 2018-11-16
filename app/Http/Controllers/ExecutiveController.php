@@ -128,12 +128,31 @@ class ExecutiveController extends Controller
       $activities= ProjectActivity::all();
       $sub_Sectors=SubSector::all();
       $sectors=Sector::all();
+      // TODO
 
-      $total_projects = count(Project::all());
-      $total_assigned_projects = count(AssignedProject::all());
-      $inprogress_projects = count(AssignedProject::where('complete',0)->get());
-      $completed_projects = count(AssignedProject::where('complete',1)->get());
-      $total_assigned_projects = ($total_projects - $total_assigned_projects) + ($total_assigned_projects - $inprogress_projects - $completed_projects);
+      $total_projects = Project::where('project_type_id',1)->count();
+      $total_assigned_projects = AssignedProject::select('assigned_projects.*')
+      ->leftJoin('projects','projects.id','assigned_projects.project_id')
+      ->where('project_type_id',1)
+      ->count();
+      $inprogress_projects = AssignedProject::select('assigned_projects.*')
+      ->leftJoin('projects','projects.id','assigned_projects.project_id')
+      ->where('project_type_id',1)
+      ->where('complete',0)
+      ->count();
+      $completed_projects = AssignedProject::select('assigned_projects.*')
+      ->leftJoin('projects','projects.id','assigned_projects.project_id')
+      ->where('project_type_id',1)
+      ->where('complete',1)
+      ->count();
+      $total_assigned_projects=Project::select('projects.*')
+      ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+      ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
+      ->whereNull('assigned_projects.project_id')
+      ->whereNull('assigned_project_managers.project_id')
+      ->where('projects.project_type_id',1)
+      ->count();
+      // $total_assigned_projects = ($total_projects - $total_assigned_projects) + ($total_assigned_projects - $inprogress_projects - $completed_projects);
       $model = new User();
       $officers = $model->hydrate(
         DB::select(
@@ -169,7 +188,7 @@ class ExecutiveController extends Controller
             $data_4 = DB::select(
             'getOfficersCurrentProjectProgressById' .' '.$officer->id
             );
-            $sum = 0;
+             $sum = 0;
 
             array_push($assigned_projects,count($data));
             array_push($assigned_inprogress_projects,count($data_2));
@@ -359,19 +378,26 @@ class ExecutiveController extends Controller
     }
     // chart1
     public function chart_one(){
-      $actual_total_projects = Project::all();
-      $total_projects = count($actual_total_projects);
+      $actual_total_projects = Project::where('project_type_id',1)->get();
+      $total_projects = $actual_total_projects->count();
       // $total_assigned_projects = count(AssignedProjectManager::all());
-      $inprogress_projects = count(AssignedProject::where('complete',0)->get());
-      $completed_projects = count(AssignedProject::where('complete',1)->get());
+      $inprogress_projects = AssignedProject::select('assigned_projects.*')
+      ->leftJoin('projects','projects.id','assigned_projects.project_id')
+      ->where('project_type_id',1)
+      ->where('complete',0)->count();
+      $completed_projects = AssignedProject::select('assigned_projects.*')
+      ->leftJoin('projects','projects.id','assigned_projects.project_id')
+      ->where('project_type_id',1)
+      ->where('complete',1)->count();
       // $total_assigned_projects = ($total_projects - $inprogress_projects)-$completed_projects;
       $actual_total_assigned_projects=Project::select('projects.*')
       ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
       ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
       ->whereNull('assigned_projects.project_id')
       ->whereNull('assigned_project_managers.project_id')
+      ->where('projects.project_type_id',1)
       ->get();
-      $total_assigned_projects = count($actual_total_assigned_projects);
+      $total_assigned_projects = $actual_total_assigned_projects->count();
       $model = new User();
       $officers = $model->hydrate(
         DB::select(
