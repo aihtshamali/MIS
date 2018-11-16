@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/multiselect/css/multi-select.css')}}" />
     <link rel="stylesheet" href="{{ asset('_monitoring/css/pages/advance-elements/css/bootstrap-datetimepicker.css')}}" />
     <link rel="stylesheet" href="{{ asset('_monitoring/css/css/daterangepicker.css')}}" />
-    {{-- <link rel="stylesheet" href="{{ asset('_monitoring/css/css/datedropper.min.css')}}" /> --}}
+    {{-- <link rel="stylesheet" href="{{ asset('_monitoring/css/css/datedropper/datedropper.min.css')}}" /> --}}
     <style>
         .bg-w{background-color: #fff !important;}
         .daterangepicker td.in-range {
@@ -95,6 +95,7 @@
         .select2-container--default .select2-selection--single{border: 1px solid #f0efef !important;}
         .select2-container{width: 100% !important;}
         .select2-container .select2-selection--single{height: 38px !important;}
+        .page-body{margin:auto;width:70% !important;}
   </style>
 @endsection
 @section('content')
@@ -124,7 +125,7 @@
             </div>
         </div>
         <div class="local">
-    <form action="{{route('trip.store')}}" id= "formlocal_1" name="formforlocal" method="POST"  class="offset-md-2 col-md-8 form-control form-control-default">
+    <form action="{{route('trip.store')}}" id= "formlocal_1" name="formforlocal" method="POST"  class="col-md-12 form-control form-control-default">
             {{ csrf_field() }}
             <div id="clonethisproposal_1" class="w3-animate-top">
                 <div class="col-md-12 inlinebox">
@@ -191,7 +192,12 @@
                 <div class="col-md-12 inlinebox" style="margin-top:10px">
                     <div class="col-md-6" style="padding-left:0">
                         <label for=""><b>Date</b></label>
-                            <input type="date" name="local_date" class="form-control border" placeholder="Select Date">
+                        <div class="input-group date multiple-select">
+                            <input type="text" name="local_date" class="form-control">
+                            <span class="input-group-addon ">
+                                  <i class="icofont icofont-clock-time"></i>
+                            </span>
+                        </div>
                     </div>
                     <div class="nopaddingright col-md-6" style="padding-left:0">
                         <label for=""><b>Time</b></label>
@@ -267,7 +273,7 @@
             </div>
         </div>
         <div id="newFormforOutstation">
-            <form action="{{route('trip.store')}}" id= "form_1" name="formforoutstation" method="POST"  class="offset-md-2 col-md-8 form-control form-control-default">
+            <form action="{{route('trip.store')}}" id= "form_1" name="formforoutstation" method="POST"  class="col-md-12 form-control form-control-default">
                 {{ csrf_field() }}
                 <div id="roundtripp_1">
                     <div class="col-md-12 inlinebox">
@@ -419,7 +425,8 @@
 <script src="{{asset('_monitoring/css/pages/advance-elements/moment-with-locales.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
 <script src="{{asset('_monitoring/css/pages/advance-elements/bootstrap-datetimepicker.min.js')}}"></script>
-
+<!-- Date-dropper js -->
+{{-- <script type="{{ asset('_monitoring/js/datedropper/js/datedropper.min.js')}}"></script> --}}
 <script src="{{asset('_monitoring/js/bootstrap-daterangepicker/js/daterangepicker.js')}}"></script>
 <script src="{{asset('_monitoring/css/pages/advance-elements/custom-picker.js')}}"></script>
 
@@ -447,7 +454,7 @@
         ++counterforloopofOutstation;
 
         var multiPurposeforOutstation =`
-                <form action="{{route('trip.store')}}" id= "form_`+Formnum+`" name="formforoutstation" method="POST"  class="offset-md-2 col-md-8 form-control form-control-default">
+                <form action="{{route('trip.store')}}" id= "form_`+Formnum+`" name="formforoutstation" method="POST"  class="col-md-12 form-control form-control-default">
             {{ csrf_field() }}
             <div id="roundtripp_1">
                 <div class="col-md-12 inlinebox">
@@ -604,7 +611,7 @@
 
     }
     function addPurposeloc(f){
-        var MultiPurposeOfLocal=`<form action="{{route('trip.store')}}" id= "formlocal_`+Formnum_local+`" name="formforlocal" method="POST"  class="offset-md-2 col-md-8 form-control form-control-default">
+        var MultiPurposeOfLocal=`<form action="{{route('trip.store')}}" id= "formlocal_`+Formnum_local+`" name="formforlocal" method="POST"  class="col-md-12 form-control form-control-default">
             {{ csrf_field() }}
             <div id="clonethisproposal_1" class="w3-animate-top">
                 <div class="col-md-12 inlinebox">
