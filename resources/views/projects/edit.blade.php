@@ -93,11 +93,23 @@ vertical-align: super;
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>GS #</label>
       <div class="col-sm-3">
-        <input type="number" disabled class="form-control" value="{{$current_year}}">
+        <select class="form-control  select2" name="financial_year" id="financial_year">
+          <option value="2017-18">2017-18</option>
+            @for($i = 2 ; $i <= 30 ; $i++)
+              @if($i == 9)
+                <option value="200{{$i}}-{{$i+1}}">200{{$i}}-{{$i+1}}</option>
+              @elseif($i > 9)
+                <option value="20{{$i}}-{{$i+1}}">20{{$i}}-{{$i+1}}</option>
+              @else
+                <option value="200{{$i}}-0{{$i+1}}">200{{$i}}-0{{$i+1}}</option>
+              @endif
+            @endfor
+        </select>
+        {{-- <input type="number" disabled class="form-control" value="{{$current_year}}"> --}}
       </div>
       <label class="col-sm-1" style="font-size:20px">-</label>
       <div class="col-sm-4">
-        <input type="number" id="ADP" name="ADP" class="form-control" placeholder="GS #" >
+        <input type="text" id="adp" name="adp_no" class="form-control" placeholder="GS #"  value="{{$project->ADP}}">
       </div>
     </div>
     <div class="form-group">
@@ -340,9 +352,9 @@ vertical-align: super;
     </div>
   </div>
   <div class="form-group">
-    <label id="label_fixed_summary_ADP"  class="col-sm-6 control-label">GS #</label>
-    <div id="fixed_summary_ADP" class="col-sm-6">
-      <label>2018-{{$project->ADP}}</label>
+    <label id="label_fixed_summary_adp"  class="col-sm-6 control-label">GS #</label>
+    <div id="fixed_summary_adp" class="col-sm-6">
+      <label>{{$project->ProjectDetail->financial_year}} / {{$project->ADP}}</label>
     </div>
   </div>
   <div class="form-group">
@@ -506,6 +518,59 @@ $('#btn-confirm').on('click',function(){
     show:true
   });
 });
+
+$(document).on('change','#adp,#financial_year',function(){
+   var arr = $(this).val();
+
+   if($(this).attr('id') == 'adp' && $('#financial_year').val() == projects[arr].financial_year){
+     $('#title').val(projects[arr].name_of_scheme);
+     $('#summary_title').empty();
+     $('#label_summary_title').show('slow');
+     $('#summary_title').append("<label class=\"control-label\">"+$('#titleproject').val()+"</label>");
+
+     $('#original_cost').val(parseFloat(projects[arr].total_cost).toFixed(3));
+     $('#summary_original_cost').empty();
+     $('#label_summary_original_cost').show();
+     $('#summary_original_cost').append("<label class=\"control-label\">"+$('#original_cost').val()+"</label>");
+
+     $('#summary_districts').empty();
+     $("#districts").val($("#districts option").filter(function () { return $(this).html() == projects[arr].district; }).val());
+     $("#districts").select2();
+     values = $('#districts').find(':selected').text();
+     $("#label_summary_districts").show('slow');
+     $("#summary_districts").append("<label class=\"control-label\">"+values+"</label>");
+   }
+   else{
+     $('#title').val('');
+     $('#original_cost').val('');
+     $("#districts").val('').trigger('change');
+     $('#summary_districts').empty();
+     $('#summary_original_cost').empty();
+     $('#summary_title').empty();
+
+     var arr = $('#adp').val();
+     if(arr != "")
+     if($(this).attr('id') == 'financial_year' && $('#financial_year').val() == projects[arr].financial_year){
+     $('#titleproject').val(projects[arr].name_of_scheme);
+     $('#summary_title').empty();
+     $('#label_summary_title').show('slow');
+     $('#summary_title').append("<label class=\"control-label\">"+$('#titleproject').val()+"</label>");
+
+     $('#original_cost').val(parseFloat(projects[arr].total_cost).toFixed(3));
+     $('#summary_original_cost').empty();
+     $('#label_summary_original_cost').show();
+     $('#summary_original_cost').append("<label class=\"control-label\">"+$('#original_cost').val()+"</label>");
+
+     $('#summary_districts').empty();
+     $("#districts").val($("#districts option").filter(function () { return $(this).html() == projects[arr].district; }).val());
+     $("#districts").select2();
+     values = $('#districts').find(':selected').text();
+     $("#label_summary_districts").show('slow');
+     $("#summary_districts").append("<label class=\"control-label\">"+values+"</label>");
+   }
+   }
+});
+
 $('div').on('dp.change',function(){
   var class_value = $(this).find('input').attr('id');
   var opt = $("#"+class_value).val();
@@ -605,7 +670,7 @@ $('input').on('input',function(){
     $("#label_summary_" + class_value).show("slow");
   }
   $("#summary_"+class_value).empty();
-  if(class_value == "ADP"){
+  if(class_value == "adp"){
     $("#summary_"+class_value).append("<label class=\"control-label\">"+{{$current_year}}+"-</label>");
   }
   $("#summary_"+class_value).append("<label class=\"control-label\">"+opt+"</label>");

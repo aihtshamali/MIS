@@ -98,13 +98,16 @@ class ProjectAssignController extends Controller
       ->orderBy('roles.name','ASC')
       ->Where('roles.name','directorevaluation')
       ->orWhere('roles.name','directormonitoring')
+      ->where('users.status',1)
       ->get();
       $officers=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
       ->leftJoin('user_details','user_details.user_id','users.id')
       ->leftJoin('role_user','role_user.user_id','users.id')
       ->leftJoin('roles','roles.id','role_user.role_id')
       ->orderBy('roles.name','ASC')
-      ->where('roles.name','officer')
+      ->orWhere('roles.name','officer')
+      ->orWhere('roles.name','evaluator')
+      ->where('users.status',1)
       ->get();
       return view('executive.evaluation.consultant_assign',['priority'=>$priority,'project_id'=>$request->project_id,'officers'=>$officers,'managers'=>$managers,'assigned'=>$assigned,'unassigned'=>$unassigned]);
     }
@@ -142,7 +145,9 @@ class ProjectAssignController extends Controller
       ->leftJoin('role_user','role_user.user_id','users.id')
       ->leftJoin('roles','roles.id','role_user.role_id')
       ->orderBy('roles.name','ASC')
-      ->where('roles.name','officer')
+      ->orWhere('roles.name','officer')
+      ->orWhere('roles.name','evaluator')
+      ->where('users.status',1)
       ->get();
       return view('Director.Evaluation.Evaluation_projects.consultant_assign',['priority'=>$priority,'project_id'=>$request->project_id,'officers'=>$officers,'assigned'=>$assigned,'unassigned'=>$unassigned,'assignedtoManager'=>$assignedtoManager]);
     }
@@ -227,8 +232,11 @@ class ProjectAssignController extends Controller
         $project_activities = ProjectActivity::all();
         foreach ($project_activities as $project_activity) {
           $assigned_project_activity = new AssignedProjectActivity();
-          $assigned_project_activity->project_id = $assignProject->id;
-          $assigned_project_activity->project_activity_id = $project_activity->id;
+          if($project_activity->id==1){
+            $assigned_project_activity->start_date=date('Y-m-d');
+          }
+         $assigned_project_activity->project_activity_id = $project_activity->id;
+         $assigned_project_activity->project_id = $assignProject->id;
           if(count($request->officer_id) > 1){
             foreach ($request->officer_id as $officer) {
                 if($officer==$request->team_lead){
@@ -243,6 +251,166 @@ class ProjectAssignController extends Controller
               }
             }
             $assigned_project_activity->assigned_by = Auth::id();
+            // dd($assigned_project_activity);
+            $assigned_project_activity->save();
+        }
+
+      }else if($request->assign_to=='manager'){
+        foreach ($request->manager_id as $manager) {
+          $assignedProjectManager = new AssignedProjectManager();
+
+          $assignedProjectManager->project_id=$request->project_id;
+          $assignedProjectManager->priority=$priority;
+          $assignedProjectManager->user_id=$manager;
+          $assignedProjectManager->save();
+        }
+        $table_name='assigned_project_managers';
+        $table_id=$assignedProjectManager->id;
+
+      }
+    }
+
+
+        return redirect()->route('Evaluation_evaluation_assigned');
+    }
+
+    public function create_from_Mdirector(Request $request)
+    {
+      $unassigned=Project::select('projects.*')
+     ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+     ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
+     ->whereNull('assigned_project_managers.project_id')
+     ->whereNull('assigned_projects.project_id')
+     ->get();
+
+      $assigned=AssignedProject::all();
+      $assignedtoManager=AssignedProjectManager::all();
+
+      if(!( $request->project_id)){
+        return redirect()->back()->with('error','Project is not Selected');
+      }
+      $priority = 'low_priority';
+      if(isset($request->priority))
+        $priority = $request->priority;
+      if(!$request->priority){
+          if($request->inheritPriority==3)
+            $priority='high_priority';
+          elseif($request->inheritPriority==2)
+            $priority='normal_priority';
+          elseif($request->inheritPriority==1)
+            $priority='low_priority';
+
+        }
+      $officers=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
+      ->leftJoin('user_details','user_details.user_id','users.id')
+      ->leftJoin('role_user','role_user.user_id','users.id')
+      ->leftJoin('roles','roles.id','role_user.role_id')
+      ->orderBy('roles.name','ASC')
+      ->where('roles.name','officer')
+      ->get();
+      return view('Director.Evaluation.Evaluation_projects.consultant_assign',['priority'=>$priority,'project_id'=>$request->project_id,'officers'=>$officers,'assigned'=>$assigned,'unassigned'=>$unassigned,'assignedtoManager'=>$assignedtoManager]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function store_from_Mdirector(Request $request)
+    {
+      $check = AssignedProject::where('project_id',$request->project_id)->first();
+      if(isset($check)){
+        $team = $check->AssignedProjectTeam;
+        foreach ($team as $t) {
+          $team_log = new AssignedProjectTeamLog();
+          $team_log->assigned_project_id=$t->assigned_project_id;
+          $team_log->user_id=$t->user_id;
+          $team_log->team_lead=$t->team_lead;
+          $team_log->save();
+          $t->delete();
+        }
+        foreach ($request->officer_id as $officer) {
+          $assignedProjectTeam = new AssignedProjectTeam();
+          $assignedProjectTeam->assigned_project_id=$check->id;
+          $assignedProjectTeam->user_id=$officer;
+          $notif_officers='';
+          if($notif_officers!=''){
+            $notif_officers=$notif_officers.' , ';
+          }
+          $notif_officers= $notif_officers . $assignedProjectTeam->user->first_name ;
+          if($officer==$request->team_lead){
+            $assignedProjectTeam->team_lead=true;
+            $notif_officers= $notif_officers. ' as Team Lead';
+          }
+          $assignedProjectTeam->save();
+        }
+      }
+      else{
+
+       if($request->priority=='high_priority'){
+         $priority=3;
+       }
+       else if($request->priority=='normal_priority'){
+         $priority=2;
+       }
+       else if($request->priority=='low_priority'){
+         $priority=1;
+       }
+
+       $current_time = Carbon::now()->toDateString();
+       $projects = $request->projects;
+       if($request->assign_to=="officer"){
+         $users = $request->users;
+        // dd($request->all());
+        $assignProject= new AssignedProject();
+        $assignProject->project_id=$request->project_id;
+        $assignProject->assigned_date=$current_time;
+        $assignProject->priority=$priority;
+        $assignProject->assigned_by=Auth::id();
+        $assignProject->save();
+        $table_name='assigned_projects';
+        $table_id=$assignProject->id;
+        $notif_officers='';
+        foreach ($request->officer_id as $officer) {
+          $assignedProjectTeam = new AssignedProjectTeam();
+          $assignedProjectTeam->assigned_project_id=$assignProject->id;
+          $assignedProjectTeam->user_id=$officer;
+          if($notif_officers!=''){
+            $notif_officers=$notif_officers.' , ';
+          }
+          $notif_officers= $notif_officers . $assignedProjectTeam->user->first_name ;
+          if($officer==$request->team_lead){
+            $assignedProjectTeam->team_lead=true;
+            $notif_officers= $notif_officers. ' as Team Lead';
+          }
+          $assignedProjectTeam->save();
+        }
+
+        $project_activities = ProjectActivity::all();
+        foreach ($project_activities as $project_activity) {
+          $assigned_project_activity = new AssignedProjectActivity();
+          if($project_activity->id==1){
+            $assigned_project_activity->start_date=date('Y-m-d');
+          }
+         $assigned_project_activity->project_activity_id = $project_activity->id;
+         $assigned_project_activity->project_id = $assignProject->id;
+          if(count($request->officer_id) > 1){
+            foreach ($request->officer_id as $officer) {
+                if($officer==$request->team_lead){
+                  $assigned_project_activity->user_id = $officer;
+                  break;
+                }
+            }
+          }
+            else{
+              foreach ($request->officer_id as $officer) {
+                    $assigned_project_activity->user_id = $officer;
+              }
+            }
+            $assigned_project_activity->assigned_by = Auth::id();
+            // dd($assigned_project_activity);
             $assigned_project_activity->save();
         }
 
@@ -265,44 +433,36 @@ class ProjectAssignController extends Controller
         return redirect()->route('Evaluation_evaluation_assigned');
     }
     public function DPM_AssignToConsultant(Request $request)
-    {  $directors=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
+    {
+
+      $directors=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
       ->leftJoin('user_details','user_details.user_id','users.id')
       ->leftJoin('role_user','role_user.user_id','users.id')
       ->leftJoin('roles','roles.id','role_user.role_id')
       ->orderBy('roles.name','ASC')
       ->Where('roles.name','directorevaluation')
       ->orWhere('roles.name','directormonitoring')
+      ->where('users.status',1)
       ->get();
       $officers=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
       ->leftJoin('user_details','user_details.user_id','users.id')
       ->leftJoin('role_user','role_user.user_id','users.id')
       ->leftJoin('roles','roles.id','role_user.role_id')
       ->orderBy('roles.name','ASC')
-      ->where('roles.name','officer')
+      ->orWhere('roles.name','officer')
+      ->orWhere('roles.name','monitor')
+      ->where('users.status',1)
       ->get();
       return view('_Monitoring._Director.assignToConsultant',['officers'=>$officers,'directors'=>$directors]);
 
     }
 
     // monitoring
-    public function assignToConsultant()
+    public function assignToConsultant(Request $request)
     {
-      // $unassigned=Project::select('projects.*')
-      // ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
-      // ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
-      // ->whereNull('assigned_project_managers.project_id')
-      // ->whereNull('assigned_projects.project_id')
-      // ->get();
-
-      //  $assigned=AssignedProject::all();
-      //  // $assignedtoManager=AssignedProjectManager::all();
-
-      //  if(!( $request->project_id)){
-      //    return redirect()->back()->with('error','Project is not Selected');
-      //  }
-      //  $priority = 'low_priority';
-      //  if(isset($request->priority))
-      //    $priority = $request->priority;
+      $priority = 'low_priority';
+      if(isset($request->priority))
+        $priority = $request->priority;
        $directors=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
        ->leftJoin('user_details','user_details.user_id','users.id')
        ->leftJoin('role_user','role_user.user_id','users.id')
@@ -310,22 +470,25 @@ class ProjectAssignController extends Controller
        ->orderBy('roles.name','ASC')
        ->Where('roles.name','directorevaluation')
        ->orWhere('roles.name','directormonitoring')
+       ->where('users.status',1)
        ->get();
        $officers=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
        ->leftJoin('user_details','user_details.user_id','users.id')
        ->leftJoin('role_user','role_user.user_id','users.id')
        ->leftJoin('roles','roles.id','role_user.role_id')
        ->orderBy('roles.name','ASC')
-       ->where('roles.name','officer')
+       ->orWhere('roles.name','officer')
+       ->orWhere('roles.name','monitor')
+       ->where('users.status',1)
        ->get();
-       return view('_Monitoring._Manager.assignToConsultant',['officers'=>$officers,'directors'=>$directors]);
+       return view('_Monitoring._Manager.assignToConsultant',['priority'=>$priority,'project_id'=>$request->project_id,'officers'=>$officers,'directors'=>$directors]);
     }
     public function DPM_StoreProjectData(Request $request)
     {
     }
      public function store(Request $request)
      {
-
+       // dd($request->all());
         if($request->priority=='high_priority'){
           $priority=3;
         }
@@ -368,7 +531,10 @@ class ProjectAssignController extends Controller
          foreach ($project_activities as $project_activity) {
            $assigned_project_activity = new AssignedProjectActivity();
            $assigned_project_activity->project_id = $request->project_id;
-           $assigned_project_activity->project_activity_id = $project_activity->id;
+           if($project_activity->id==1){
+             $assigned_project_activity->start_date=date('Y-m-d');
+           }
+          $assigned_project_activity->project_activity_id = $project_activity->id;
            if(count($request->officer_id) > 1){
              foreach ($request->officer_id as $officer) {
                  if($officer==$request->team_lead){
@@ -383,6 +549,7 @@ class ProjectAssignController extends Controller
                }
              }
              $assigned_project_activity->assigned_by = Auth::id();
+             // dd($assigned_project_activity);
              $assigned_project_activity->save();
          }
 
@@ -406,6 +573,9 @@ class ProjectAssignController extends Controller
          $table_id=$assignedProjectManager->id;
 
        }
+       // dd($request->gotoroute)
+       if(isset($request->gotoroute))
+          return redirect()->route($request->gotoroute);
          return redirect('manager/assignproject');
      }
 

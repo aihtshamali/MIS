@@ -12,7 +12,7 @@ class AssignedProjectActivity extends Model
     // }
     public function AssignedProject()
     {
-      return $this->belongsTo('App\AssignedProject');
+      return $this->belongsTo('App\AssignedProject','project_id');
     }
     public function ProjectActivity()
     {
@@ -26,7 +26,7 @@ class AssignedProjectActivity extends Model
     }
     public function AssignedProjectActivityProgressLog()
     {
-      return $this->hasOne('App\AssignedProjectActivityProgressLog');
+      return $this->hasMany('App\AssignedProjectActivityProgressLog','assigned_project_activities_id');
     }
     public function AssignedActivityDocument(){
       $this->hasMany('App\AssignedActivityDocument');

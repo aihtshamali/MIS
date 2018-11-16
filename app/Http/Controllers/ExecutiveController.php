@@ -9,6 +9,7 @@ use App\AssignedProject;
 use App\AssignedProjectManager;
 use App\User;
 use App\ProjectActivity;
+use App\AssignedProjectActivity;
 use App\HrMeetingPDWP;
 use JavaScript;
 use App\AssignedSubSector;
@@ -21,6 +22,7 @@ use App\AgendaType;
 use App\HrProjectType;
 use App\HrProjectDecision;
 use App\ProjectDecision;
+use App\ProjectDetail;
 use App\AdpProject;
 use App\HrDecision;
 use App\SubSector;
@@ -29,18 +31,15 @@ use \DateTime;
 use \DateTimeZone;
 class ExecutiveController extends Controller
 {
-  //  HOME FOLDER
+    //  HOME FOLDER
     public function conduct_pdwp_meeting(){
       $meetings = HrMeetingPDWP::where('status',1)->orderBy('updated_at', 'desc')->get();
       return view('executive.home.pdwp_meeting',compact('meetings'));
     }
 
     public function list_agendas(Request $req){
-      // dd($req->all());
       $meeting = HrMeetingPDWP::find($req->meeting_no);
-      // dd($meeting);
       $agendas = $meeting->HrAgenda;
-      // dd($agendas);
       $adp = AdpProject::orderBy('gs_no')->get();
       $sectors = HrSector::all();
       $hr_decisions=HrDecision::where('status',1)->get();
@@ -84,10 +83,31 @@ class ExecutiveController extends Controller
      ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
      ->whereNull('assigned_project_managers.project_id')
      ->whereNull('assigned_projects.project_id')
+     ->where('projects.project_type_id','1')
      ->get();
-      $assigned=AssignedProject::all();
-      $assignedtoManager=AssignedProjectManager::all();
-      $completed=AssignedProject::where('complete','1')->get();
+
+      $assigned=AssignedProject::select('assigned_projects.*')
+      ->leftJoin('projects','assigned_projects.project_id','projects.id')
+      ->where('complete',0)
+      ->where('projects.status',1)
+      ->where('projects.project_type_id',1)
+      ->get();
+
+      $assignedtoManager=AssignedProjectManager::select('assigned_project_managers.*')
+      ->leftJoin('projects','assigned_project_managers.project_id','projects.id')
+      ->leftJoin('assigned_projects','assigned_projects.project_id','assigned_project_managers.project_id')
+      ->whereNull('assigned_projects.project_id')
+      ->where('projects.status',1)
+      ->where('projects.project_type_id',1)
+      ->get();
+
+      $completed=AssignedProject::select('assigned_projects.*')
+      ->leftJoin('projects','assigned_projects.project_id','projects.id')
+      ->where('complete',1)
+      ->where('projects.status',1)
+      ->where('projects.project_type_id',1)
+      ->get();
+
       return view('executive.home.index',['unassigned'=>$unassigned,'completed'=>$completed,'assignedtoManager'=>$assignedtoManager,'assigned'=>$assigned]);
     }
     public function getSectorWise(){
@@ -95,8 +115,10 @@ class ExecutiveController extends Controller
       ->leftJoin('assigned_sub_sectors','assigned_sub_sectors.project_id','assigned_projects.project_id')
       ->leftJoin('sub_sectors','assigned_sub_sectors.sub_sector_id','sub_sectors.id')
       ->leftJoin('sectors','sub_sectors.sector_id','sectors.id')
-      ->orderBy('sectors.id')->get();
-      // dd($projects);
+      ->leftJoin('projects','assigned_projects.project_id','projects.id')
+      ->where('projects.project_type_id',1)
+      ->orderBy('sectors.id')
+      ->get();
       return view('executive.evaluation.allSectors',['projects'=>$projects]);
     }
 
@@ -122,7 +144,7 @@ class ExecutiveController extends Controller
         $assigned_inprogress_projects = [];
         $assigned_completed_projects = [];
         $assigned_current_projects =[];
-        $projects_activities_progress =[];
+        $projects_activities_progress =array_fill(0,12,0);
         $projects_wrt_sectors =[];
         $assignedprojects_wrt_sectors =[];
         $inprogressprojects_wrt_sectors =[];
@@ -167,23 +189,13 @@ class ExecutiveController extends Controller
           foreach($activities as $act)
            {
               $activities_data = DB::select(
-              'getActiviesProgress' .' '. $act->id
+              'getActiviesProgress'
               );
 
               $time_against_activities_data = DB::select(
               'timeAgainstActivities' .' '. $act->id
               );
 
-              // $min_time_against_activities_data = DB::select(
-              // 'MintimeAgainstActivities' .' '. $act->id
-              // );
-
-              // $max_time_against_activities_data = DB::select(
-              // 'MaxtimeAgainstActivities' .' '. $act->id
-              // );
-
-
-              // difference of times
               $time_sum = 0;
               $loop = 0;
               $min = 0;
@@ -207,32 +219,31 @@ class ExecutiveController extends Controller
                 }
                 $loop++;
               }
+              $ave=0;
 
               $ave = $time_sum/count($time_against_activities_data);
               $ave = (int)round($ave,0,PHP_ROUND_HALF_UP);
-
-              // diffrence of minimum time
-
-              // $min_CA = new DateTime($min_time_against_activities_data[0]->MIN_CA);
-              // $min_OCA = new DateTime($min_time_against_activities_data[0]->MIN_OCA);
-              // $min_diff = $min_OCA->diff($min_CA);
-              // $min_time = $min_diff->format('%a');
-              // array_push($min_time_against_activities, $min_time);
-
-              // difference of max time
-              // $max_CA = new DateTime($max_time_against_activities_data[0]->MAX_CA);
-
-              // $max_OCA = new DateTime($max_time_against_activities_data[0]->MAX_OCA);
-              // $max_diff = $max_OCA->diff($max_CA);
-              // $max_time = $max_diff->format('%a');
-
               array_push($min_time_against_activities, $min);
               array_push($max_time_against_activities, $max);
               array_push($time_against_activities,$ave);
-              array_push($projects_activities_progress,$activities_data);
-
+              // array_push($projects_activities_progress,$activities_data);
 
           }
+
+          $final = [];
+          for ($i = 0 ; $i < count($activities_data); $i++ ) {
+            array_push($final,$activities_data[$i]);
+            for ($j = $i+1 ; $j < count($activities_data)-1; $j++ ) {
+              if($activities_data[$j]->project_id == $activities_data[$i]->project_id){
+                $i++;
+              }
+            }
+          }
+          foreach ($final as $val) {
+            $projects_activities_progress[$val->project_activity_id-1]++;
+          }
+
+
           foreach($sub_Sectors  as $ss)
            {
             $subsectors_data=DB::select(
@@ -258,13 +269,61 @@ class ExecutiveController extends Controller
             $sectors_data_completedProjects=DB::select(
 
               'getAllSectorCompletedProjects' .' '. $sec->id);
-
-
             array_push($assignedprojects_wrt_sectors,$assignedsectors_data);
             array_push($inprogressprojects_wrt_sectors,$inprogresssectors_data);
             array_push($totalprojects_wrt_sectors,$sectors_data_totalProjects);
             array_push($completedprojects_wrt_sectors,$sectors_data_completedProjects);
+          }
 
+          //Project's Progress Wise Chart
+
+          $projects=AssignedProject::all();
+          $projectsprogressranges=array();
+          array_push($projectsprogressranges,'0-25%');
+          array_push($projectsprogressranges,'26-50%');
+          array_push($projectsprogressranges,'51-75%');
+          array_push($projectsprogressranges,'76-100%');
+          $projectsprogress=array_fill(0,4,0);
+          foreach ($projects as $project) {
+            if($project->progress>0 && $project->progress < 25){
+              $projectsprogress[0]++;
+            }
+            else if( $project->progress < 50){
+              $projectsprogress[1]++;
+            }
+            else if($project->progress < 75){
+              $projectsprogress[2]++;
+            }
+            else if($project->progress <= 100){
+              $projectsprogress[3]++;
+            }
+          }
+          // Chart 12
+
+          $projects=ProjectDetail::all();
+          $categories=array();
+          array_push($categories,'NOT SET');
+          array_push($categories,'NO');
+          array_push($categories,'COST');
+          array_push($categories,'STAFF');
+          array_push($categories,'BOTH');
+          $Sneprojects=array_fill(0,5,0);
+          foreach ($projects as $project) {
+            if(!$project->sne){
+              $Sneprojects[0]++;
+            }
+            else if( $project->sne=="NO"){
+              $Sneprojects[1]++;
+            }
+            else if($project->sne=="COST"){
+              $Sneprojects[2]++;
+            }
+            else if($project->sne=="STAFF"){
+              $Sneprojects[3]++;
+            }
+            else if($project->sne=="BOTH"){
+              $Sneprojects[4]++;
+            }
           }
 
           // dd($inprogressprojects_wrt_sectors);
@@ -290,17 +349,29 @@ class ExecutiveController extends Controller
         'completedprojects_wrt_sectors'=>$completedprojects_wrt_sectors,
         'time_against_activities'=>$time_against_activities,
         'min_time_against_activities'=>$min_time_against_activities,
-        'max_time_against_activities'=>$max_time_against_activities
+        'max_time_against_activities'=>$max_time_against_activities,
+        'projectsprogress'=>$projectsprogress,
+        'projectsprogressranges'=>$projectsprogressranges,
+        'categories'=>$categories,
+        'Sneprojects'=>$Sneprojects
       ]);
       return view('executive.home.pems_tab');
     }
     // chart1
     public function chart_one(){
-      $total_projects = count(Project::all());
-      $total_assigned_projects = count(AssignedProjectManager::all());
+      $actual_total_projects = Project::all();
+      $total_projects = count($actual_total_projects);
+      // $total_assigned_projects = count(AssignedProjectManager::all());
       $inprogress_projects = count(AssignedProject::where('complete',0)->get());
       $completed_projects = count(AssignedProject::where('complete',1)->get());
-      $total_assigned_projects = ($total_projects - $total_assigned_projects) + ($total_assigned_projects - $inprogress_projects - $completed_projects);
+      // $total_assigned_projects = ($total_projects - $inprogress_projects)-$completed_projects;
+      $actual_total_assigned_projects=Project::select('projects.*')
+      ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+      ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
+      ->whereNull('assigned_projects.project_id')
+      ->whereNull('assigned_project_managers.project_id')
+      ->get();
+      $total_assigned_projects = count($actual_total_assigned_projects);
       $model = new User();
       $officers = $model->hydrate(
         DB::select(
@@ -309,14 +380,16 @@ class ExecutiveController extends Controller
         );
 
       \JavaScript::put([
+        'actual_total_projects' => $actual_total_projects,
         'total_projects' => $total_projects,
         'total_assigned_projects' => $total_assigned_projects,
+        'actual_total_assigned_projects' => $actual_total_assigned_projects,
         'inprogress_projects' => $inprogress_projects,
         'completed_projects' => $completed_projects,
         'officers' => $officers,
 
         ]);
-      return view('executive.home.chart_one',['total_projects'=>$total_projects ,'total_assigned_projects'=>$total_assigned_projects ,'inprogress_projects'=>$inprogress_projects ,'completed_projects'=>$completed_projects]);
+      return view('executive.home.chart_one',['actual_total_assigned_projects' => $actual_total_assigned_projects,'total_projects'=>$actual_total_projects ,'total_assigned_projects'=>$total_assigned_projects ,'inprogress_projects'=>$inprogress_projects ,'completed_projects'=>$completed_projects]);
     }
     // chart2
     public function chart_two(){
@@ -332,17 +405,19 @@ class ExecutiveController extends Controller
         );
         $assigned_projects = [];
         foreach($officers as $officer){
-
+          if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad" || (preg_match('#M[u|o]hammad*#i', $officer->first_name)==1))
+          {
+            $officer->first_name = "M.";
+            // dd($officer);
+          }
           $data = DB::select(
             'getOfficersAssignedProjectById' .' '.$officer->id
           );
           array_push($assigned_projects,count($data));
         }
-
       \JavaScript::put([
         'officers' => $officers,
         'assigned_projects' => $assigned_projects,
-
         ]);
       return view('executive.home.chart_two',['officers' => $officers,'assigned_projects' => $assigned_projects]);
     }
@@ -359,7 +434,7 @@ class ExecutiveController extends Controller
       $assigned_inprogress_projects = [];
       $total_assigned_projects = [];
       foreach($officers as $officer){
-        if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad")
+        if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad" || (preg_match('#M[u|o]hammad*#i', $officer->first_name)==1))
         {
           $officer->first_name = "M.";
         }
@@ -395,7 +470,7 @@ class ExecutiveController extends Controller
         );
         $assigned_completed_projects = [];
         foreach($officers as $officer){
-          if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad")
+          if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad" || (preg_match('#M[u|o]hammad*#i', $officer->first_name)==1))
           {
             $officer->first_name = "M.";
           }
@@ -426,7 +501,7 @@ class ExecutiveController extends Controller
       $person = [];
       $sum = 0;
       foreach($officers as $officer){
-        if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad")
+        if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad" || (preg_match('#M[u|o]hammad*#i', $officer->first_name)==1))
         {
           $officer->first_name = "M.";
         }
@@ -485,22 +560,30 @@ class ExecutiveController extends Controller
     }
     // chart 6
     public function chart_six(){
-      $activities= ProjectActivity::all();
+      $activities= AssignedProjectActivity::all();
 
 
-      $projects_activities_progress =[];
+      $projects_activities_progress = array_fill(0, 12, 0);
 
-      foreach($activities as $act)
-      {
-           $activities_data = DB::select(
-          'getActiviesProgress' .' '. $act->id
+         $activities_data = DB::select(
+          'getActiviesProgress'
           );
-          array_push($projects_activities_progress,$activities_data);
 
+      $final = [];
+      for ($i = 0 ; $i < count($activities_data); $i++ ) {
+        array_push($final,$activities_data[$i]);
+        for ($j = $i+1 ; $j < count($activities_data)-1; $j++ ) {
+          if($activities_data[$j]->project_id == $activities_data[$i]->project_id){
+            $i++;
+          }
+        }
+      }
+      foreach ($final as $val) {
+        $projects_activities_progress[$val->project_activity_id-1]++;
       }
 
       \JavaScript::put([
-        'activities' => $activities,
+        'activities' => ProjectActivity::all(),
         'projects_activities_progress'=>$projects_activities_progress
 
         ]);
@@ -635,6 +718,7 @@ class ExecutiveController extends Controller
           $CA = new DateTime(date('Y-m-d',strtotime($time->CA)));
           $OCA = new DateTime(date('Y-m-d',strtotime($time->OCA)));
           $FT = $OCA->diff($CA);
+          if($FT->format('%a') > 0){
           $time_sum += $FT->format('%a');
           if($loop == 0){
             $min = $FT->format('%a');
@@ -648,6 +732,7 @@ class ExecutiveController extends Controller
               $max = $FT->format('%a');
             }
           }
+        }
           $loop++;
         }
 
@@ -678,6 +763,69 @@ class ExecutiveController extends Controller
           'max_time_against_activities'=>$max_time_against_activities
           ]);
        return view('executive.home.chart_ten',['activities'=> $activities,'time_against_activities'=>$time_against_activities,'min_time_against_activities'=>$min_time_against_activities,'max_time_against_activities'=>$max_time_against_activities]);
+    }
+
+    //chart 11
+    public function GlobalProgressWiseChart(){
+      $projects=AssignedProject::all();
+      $ranges=array();
+      array_push($ranges,'0-24.999%');
+      array_push($ranges,'25-49.999%');
+      array_push($ranges,'50-74.999%');
+      array_push($ranges,'75-100%');
+      $projectsprogress=array_fill(0,4,0);
+      foreach ($projects as $project) {
+        if($project->progress>0 && $project->progress < 25){
+          $projectsprogress[0]++;
+        }
+        else if( $project->progress < 50){
+          $projectsprogress[1]++;
+        }
+        else if($project->progress < 75){
+          $projectsprogress[2]++;
+        }
+        else if($project->progress <= 100){
+          $projectsprogress[3]++;
+        }
+      }
+        \JavaScript::put([
+          'projects'=>$projectsprogress,
+          'ranges'=>$ranges
+        ]);
+        return view('executive.home.global_progress_wise_chart');
+    }
+    //chart 12
+    public function SneWiseChart(){
+      $projects=ProjectDetail::all();
+      $categories=array();
+      array_push($categories,'NOT SET');
+      array_push($categories,'NO');
+      array_push($categories,'COST');
+      array_push($categories,'STAFF');
+      array_push($categories,'BOTH');
+      $Sneprojects=array_fill(0,5,0);
+      foreach ($projects as $project) {
+        if(!$project->sne){
+          $Sneprojects[0]++;
+        }
+        else if( $project->sne=="NO"){
+          $Sneprojects[1]++;
+        }
+        else if($project->sne=="COST"){
+          $Sneprojects[2]++;
+        }
+        else if($project->sne=="STAFF"){
+          $Sneprojects[3]++;
+        }
+        else if($project->sne=="BOTH"){
+          $Sneprojects[4]++;
+        }
+      }
+        \JavaScript::put([
+          'Sneprojects'=>$Sneprojects,
+          'categories'=>$categories
+        ]);
+        return view('executive.home.sne_wise_chart');
     }
 
 
@@ -734,15 +882,20 @@ class ExecutiveController extends Controller
       ->get();
 
       $assigned=AssignedProject::all();
-      $assignedtoManager=AssignedProjectManager::all();
+      $managerProjects=AssignedProjectManager::select('assigned_project_managers.*')
+      ->leftJoin('projects','projects.id','assigned_project_managers.project_id')
+      ->where('projects.project_type_id','1')
+      ->get();
       $projects=AssignedProject::all();
-      $managerProjects=AssignedProjectManager::all();
+      // $managerProjects=AssignedProjectManager::all();
       // dd($projects);
-      return view('executive.evaluation.assigned',['projects'=>$projects,'managerProjects'=>$managerProjects,'assignedtoManager'=>$assignedtoManager,'assigned'=>$assigned]);
+      return view('executive.evaluation.assigned',['projects'=>$projects,'managerProjects'=>$managerProjects,'assigned'=>$assigned]);
     }
     public function evaluation_completedprojects(){
       $unassigned=Project::select('projects.*')
      ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+     ->where('projects.project_type_id','1')
+     ->where('projects.status',1)
      ->whereNull('assigned_projects.project_id')
      ->get();
       $assigned=AssignedProject::all();
@@ -800,20 +953,33 @@ class ExecutiveController extends Controller
       // {
       //   return view('executive.monitoring.completed');
       // }
-     
+
 
     public function monitoring_unassigned()
     {
-      return view('_Monitoring._Manager.unassigned');
+      $projects=Project::select('projects.*')
+     ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+     ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
+     ->where('projects.project_type_id',2)
+     ->where('projects.status',1)
+     ->whereNull('assigned_projects.project_id')
+     ->whereNull('assigned_project_managers.project_id')
+     ->get();
+     // dd($projects);
+      return view('_Monitoring._Manager.unassigned',['projects'=>$projects]);
     }
     public function monitoring_inprogress()
     {
-      return view('_Monitoring._Manager.inprogress');
+      $projects=AssignedProjectManager::select('assigned_project_managers.*')
+      ->leftJoin('projects','projects.id','assigned_project_managers.project_id')
+      ->where('projects.status',1)
+      ->where('projects.project_type_id','2')
+      ->get();
+      return view('_Monitoring._Manager.inprogress',['projects'=>$projects]);
     }
     public function monitoring_completed()
     {
       return view('_Monitoring._Manager.completed');
     }
-
 
 }

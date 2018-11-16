@@ -17,29 +17,33 @@
          GLOBAL PROGRESS
         </h1>
         <p class="" style="text-align:center;margin:0">
-          <label for="" style="color:yellowgreen;margin-right:10px;" >  Un-assigned Projects: 
+          <label for="" style="color:yellowgreen;margin-right:10px;" >  Un-assigned Projects:
              @if (isset($unassigned))
               {{ count($unassigned) }}
              @endif </label>
-          <label for="" style="color:blueviolet">  Assigned Projects:  
-            {{ count($assignedtoManager) }}
+          <label for="" style="color:blueviolet">  Assigned Projects:
+            {{ count($assigned) }}
           </label>
         </p>
         <p class="" style="text-align:center;margin:0">
-          <label for="" style="color:green">  Completed Projects:  
+
+       <label for="" style="color:dark-grey">  Assigned Projects to Manager:
+         {{ count($assignedtoManager) }}
+       </label>
+          <label for="" style="color:green"> &nbsp;&nbsp;&nbsp; Completed Projects:
               {{ count($completed) }}
             </label>
         </p>
         <ol class="breadcrumb">
           <li><a href="#"><i class="fa fa-backward" ></i>Back</a></li>
           <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li>
-         
+
         </ol>
       </section>
     <section class="content">
 
       <div class="box box-Default">
-        
+
             <div class="box-header with-border">
               <h3 class="box-title">Management Systems</h3>
 
@@ -52,10 +56,10 @@
           <div class="box-body">
           {{--  row 1  --}}
           <div class="row" >
-       
+
               <div class="col-lg-3 col-xs-6">
                           <!-- small box -->
-                          
+
                           <div class="small-box " style="background-color:rgb(153, 153, 153);">
                             <div class="inner"><a href="#">
                               <h3>10<sup style="font-size: 20px">%</sup></h3>
@@ -69,14 +73,14 @@
                             </a>
                           </a>
                           </div>
-                        
+
                 </div>
               {{--/ BOX 1 --}}
               <div class="col-lg-3 col-xs-6">
                 <div class="small-box "style="background-color:rgb(153, 153, 153);">
                   <div class="inner"><a href="#">
                     <h3>53<sup style="font-size: 20px">%</sup></h3>
-      
+
                     <b style="font-size:20px;">V M I S</b>
                   </div>
                   <div class="icon">
@@ -93,7 +97,7 @@
                       <div class="small-box " style="background-color:rgb(153, 153, 153);">
                         <div class="inner"><a href="#">
                           <h3>65<sup style="font-size: 20px">%</sup></h3>
-            
+
                           <b style="font-size:20px;">F M I S</b>
                         </div>
                         <div class="icon">
@@ -109,7 +113,7 @@
                   <div class="small-box " style="background-color:rgb(153, 153, 153);">
                     <div class="inner"><a href="#">
                       <h3>75<sup style="font-size: 20px">%</sup></h3>
-        
+
                       <b style="font-size:20px;">ATTENDENCE</b>
                     </div>
                     <div class="icon">
@@ -119,8 +123,8 @@
                       More info <i class="fa fa-arrow-circle-right"></i>
                     </a></a>
                   </div></div>
-             
-      
+
+
           </div>
           </div>
       </div>
@@ -195,15 +199,15 @@
                                </div>
                          </div>
                         </a>
-                      </div>  
+                      </div>
               </div>
               {{-- /BOX8 --}}
-      
+
                 {{-- row 3 --}}
           <div class="row" >
               <div class="col-lg-3 col-xs-6">
                 </div>
-      
+
               <div class="col-lg-3 col-xs-6">
                       <!-- small box -->
                       <div class="small-box "style="background-color:tan !important;">
@@ -219,7 +223,7 @@
                       </div>
               </div>
               {{--/ BOX 5 --}}
-             
+
               <div class="col-lg-3 col-xs-6">
                       <!-- small box -->
                        <div class="small-box "style="background-color:tan !important;">
@@ -237,12 +241,12 @@
               {{-- /BOX 6 --}}
           </div>
         </div>
-          
+
       </div>
 
-      
+
     </section>
-     
+
 </div>
 
 

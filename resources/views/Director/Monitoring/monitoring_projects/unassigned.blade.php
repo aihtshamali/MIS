@@ -51,7 +51,7 @@
             <div class="box-body">
               <form class="form" action="#" method="get">
                 {{ csrf_field() }}
-             
+
               <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
@@ -77,9 +77,9 @@
                 </div>
               </div>
               <div class="row" style="margin-top:10px">
-                
+
                   <div class="col-md-3"></div>
-                  <div class="col-md-3">   
+                  <div class="col-md-3">
                     <label for="">Starting Cost in Million</label>
                     <input class="form-control" type="number" name="starting_cost" value="">
                   </div>
@@ -87,7 +87,7 @@
                     <label for="">Ending Cost in Million</label>
                     <input class="form-control" type="number" name="ending_cost" value="">
                   </div>
-                
+
             </div>
 
               <div class="row" style="margin-top:10px">
@@ -102,7 +102,7 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-        
+
             <div class="box box-default">
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -112,7 +112,7 @@
                           @include('inc.msgs')
                           <div class="form-group">
                           <label>Un-Assigned Projects</label>
-        
+
                           <table class="table table-responsive table-bordered projects">
                           <thead>
                           <th>Project No.</th>
@@ -120,14 +120,14 @@
                           <th>Assigned By</th>
                           <th>Priority</th>
                           <th>Project Type</th>
-        
+
                           <th colspan="1" >Project Priority</th>
                           <th>Action</th>
                           </thead>
                           <tbody>
                           {{-- {{dd($projects)}}/ --}}
                           {{-- @foreach($p as $project) --}}
-        
+
                           <tr>
                           <form class="" action="{{route('DPM_AssignToConsultant')}}" method="GET">
                           {{ csrf_field() }}
@@ -142,14 +142,14 @@
                           {{-- <td>Low Priority</td> --}}
                           {{-- @endif --}}
                           <td></td>
-                         
+
                           <td>
                           {{-- <input type="hidden" name="priority" value="">
                           <input type="hidden" name="project_id" value="{{$project->project_id}}"> --}}
                           <button type="button" class="btn btn-sm priority" style="background-color:red; ">High Priority</button>
                           <button type="button"  class="btn btn-sm priority"style="background-color:green; ">Normal Priority</button>
                           <button type="button" class="btn btn-sm priority" style="background-color:yellow; ">Low Priority</button>
-        
+
                           </td>
                           <td><input type="submit" name="submit" value="Assign" class="btn btn-info"></td>
                           </form>
@@ -157,7 +157,7 @@
                           {{-- @endforeach --}}
                           </tbody>
                           </table>
-        
+
                        </div>
                     <!-- /.col -->
                   </div>

@@ -56,7 +56,7 @@
         }
         input[type="text"] {
         border: none;
-        width: 100% !important;   
+        width: 100% !important;
         }
         #brief, #briefround{width:83% !important;}
         .nopaddinglef{padding-left: 0px !important;}
@@ -102,6 +102,7 @@
         .select2-container--default .select2-selection--single{border: 1px solid #f0efef !important;}
         .select2-container{width: 100% !important;}
         .select2-container .select2-selection--single{height: 38px !important;}
+        .page-body{margin:auto;width:70% !important;}
   </style>
 @endsection
 @section('content')
@@ -130,9 +131,9 @@
                 @endforeach
             </div>
         </div>
-        <div class="local">  
-    <form action="{{route('trip.store')}}" id= "formlocal_1" name="formforlocal" method="POST"  class="offset-md-2 col-md-8 form-control form-control-default">            
-            {{ csrf_field() }}                
+        <div class="local">
+    <form action="{{route('trip.store')}}" id= "formlocal_1" name="formforlocal" method="POST"  class="col-md-12 form-control form-control-default">
+            {{ csrf_field() }}
             <div id="clonethisproposal_1" class="w3-animate-top">
                 <div class="col-md-12 inlinebox">
                     <div class="col-md-3 nopaddinglef">
@@ -198,7 +199,12 @@
                 <div class="col-md-12 inlinebox" style="margin-top:10px">
                     <div class="col-md-6" style="padding-left:0">
                         <label for=""><b>Date</b></label>
-                            <input type="date" name="local_date" class="form-control border" placeholder="Select Date">
+                        <div class="input-group date multiple-select">
+                            <input type="text" name="local_date" class="form-control">
+                            <span class="input-group-addon ">
+                                  <i class="icofont icofont-clock-time"></i>
+                            </span>
+                        </div>
                     </div>
                     <div class="nopaddingright col-md-6" style="padding-left:0">
                         <label for=""><b>Time</b></label>
@@ -252,7 +258,7 @@
             <div class="form-radio">
             @foreach ($purposetypes as $purposetype)
             <div class="radio radio-outline radio-inline">
-            <label> 
+            <label>
             <input type="radio" class="purposetypeForOutstation" name="purposetypeForOutstation" value="{{$purposetype->id}}">
             <i class="helper"></i>{{$purposetype->name}}
             </label>
@@ -276,7 +282,7 @@
             </div>
         </div>
         <div id="newFormforOutstation">
-            <form action="{{route('trip.store')}}" id= "form_1" name="formforoutstation" method="POST"  class="offset-md-2 col-md-8 form-control form-control-default">
+            <form action="{{route('trip.store')}}" id= "form_1" name="formforoutstation" method="POST"  class="col-md-12 form-control form-control-default">
                 {{ csrf_field() }}
                 <div id="roundtripp_1">
                     <div class="col-md-12 inlinebox">
@@ -348,12 +354,12 @@
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-12 inlinebox nopaddinglef" style="margin-top:10px">
                             <div class="col-md-12 nopaddinglef">
                                 <label for=""><b>Date</b></label><br />
                                 <input type="text" name="daterange_1" class="form-control daterangeForOutstation" value="" placeholder="Select Date">
-                                
+
                             </div>
                         </div>
                         <div class="col-md-12 inlinebox" style="margin-top:10px">
@@ -390,21 +396,21 @@
                                 @endforeach
                             </select>
                         </div>
-                        <input type="hidden" name="counterForCity" value="1"/>    
+                        <input type="hidden" name="counterForCity" value="1"/>
 
                     </div>
 
-                    <input type="hidden" name="counterforloopofOutstation" value="1"/>    
+                    <input type="hidden" name="counterforloopofOutstation" value="1"/>
 
                     <div class="addroundclonehere">
                     </div>
-                    <button  onclick="addCity(this)" style="margin-bottom: 25px;"  type="button"  class="nodisplay btn btn-info btn-outline-info addnewmulcityout btn-block"><i class="icofont icofont-plus"></i>Add New Location 
+                    <button  onclick="addCity(this)" style="margin-bottom: 25px;"  type="button"  class="nodisplay btn btn-info btn-outline-info addnewmulcityout btn-block"><i class="icofont icofont-plus"></i>Add New Location
                     </button>
                 </div>
-                
+
                 <div id="addmultiprhere">
                 </div>
-                
+
                 <div class="form-group purposeClass" onclick="">
                     <div class="addnewproposoutcity nodisplay btn btn-inverse btn-outline-inverse btn-block" disabled>
                         <i class="icofont icofont-plus"></i>Add New Purpose
@@ -427,6 +433,11 @@
 <script src="{{asset('_monitoring/css/pages/advance-elements/moment-with-locales.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
 <script src="{{asset('_monitoring/css/pages/advance-elements/bootstrap-datetimepicker.min.js')}}"></script>
+<<<<<<< HEAD
+=======
+<!-- Date-dropper js -->
+{{-- <script type="{{ asset('_monitoring/js/datedropper/js/datedropper.min.js')}}"></script> --}}
+>>>>>>> 2e2378d1f7113e4847b953f58223baffa1374bb9
 <script src="{{asset('_monitoring/js/bootstrap-daterangepicker/js/daterangepicker.js')}}"></script>
 <script src="{{asset('_monitoring/css/pages/advance-elements/custom-picker.js')}}"></script>
 <script  src="{{asset('_monitoring/css/js/bootstrap-growl.min.js')}}"></script>
@@ -460,10 +471,10 @@
     var purposeCountforloop=2;
 
     var counter_outstation=1;
-    var counterforloopofOutstation=1; 
+    var counterforloopofOutstation=1;
 
     var city_counter=2;
-    
+
     var Formnum=2;
     var Formnum_local=2;
 
@@ -473,13 +484,13 @@
     var city_id2 = 1;
     var roundpurposal = 1;
     var append_id=2
-   
+
     function addPurpose(e){
         ++counter_outstation;
         ++counterforloopofOutstation;
-        
+
         var multiPurposeforOutstation =`
-                <form action="{{route('trip.store')}}" id= "form_`+Formnum+`" name="formforoutstation" method="POST"  class="offset-md-2 col-md-8 form-control form-control-default">
+                <form action="{{route('trip.store')}}" id= "form_`+Formnum+`" name="formforoutstation" method="POST"  class="col-md-12 form-control form-control-default">
             {{ csrf_field() }}
             <div id="roundtripp_1">
                 <div class="col-md-12 inlinebox">
@@ -551,12 +562,12 @@
                         </select>
                     </div>
                 </div>
-                
+
                 <div class="col-md-12 inlinebox nopaddinglef" style="margin-top:10px">
                     <div class="col-md-12 nopaddinglef">
                         <label for=""><b>Date</b></label><br />
                         <input type="text" name="daterange_1" class="form-control daterangeForOutstation" value="" placeholder="Select Date">
-                        
+
                     </div>
                 </div>
                 <div class="col-md-12 inlinebox" style="margin-top:10px">
@@ -593,21 +604,21 @@
                         @endforeach
                     </select>
                 </div>
-                <input type="hidden" name="counterForCity" value="1"/>    
+                <input type="hidden" name="counterForCity" value="1"/>
 
             </div>
 
-            <input type="hidden" name="counterforloopofOutstation" value="1"/>    
+            <input type="hidden" name="counterforloopofOutstation" value="1"/>
 
             <div class="addroundclonehere">
             </div>
-            <button  onclick="addCity(this)" style="margin-bottom: 25px;" type="button" class="nodisplay btn btn-info btn-outline-info addnewmulcityout btn-block"><i class="icofont icofont-plus"></i>Add New Location 
+            <button  onclick="addCity(this)" style="margin-bottom: 25px;" type="button" class="nodisplay btn btn-info btn-outline-info addnewmulcityout btn-block"><i class="icofont icofont-plus"></i>Add New Location
             </button>
             </div>
-            
+
             <div id="addmultiprhere">
             </div>
-            
+
             <div class="form-group purposeClass" onclick="">
                 <div class="addnewproposoutcity nodisplay btn btn-inverse btn-outline-inverse btn-block">
                     <i class="icofont icofont-plus"></i>Add New Purpose
@@ -619,26 +630,26 @@
                 </div>
                 </form>
             `;
-    
+
         Formnum++;
         $(this).find(".purposeClass").attr("onclick","");
         var obj=$('#newFormforOutstation').append(multiPurposeforOutstation);
             // console.log(obj);
-            
+
         var ob=$(multiPurposeforOutstation);
 
             if($('.subcitytypeForOutstation:checked').val()=='2')
             {
                 obj.find('.addnewmulcityout').removeClass('nodisplay');
-            } 
+            }
             $('.daterangeForOutstation').daterangepicker();
         $(".officerSelect").select2();
         $(".yeselect").select2();
 
     }
     function addPurposeloc(f){
-        var MultiPurposeOfLocal=`<form action="{{route('trip.store')}}" id= "formlocal_`+Formnum_local+`" name="formforlocal" method="POST"  class="offset-md-2 col-md-8 form-control form-control-default">            
-            {{ csrf_field() }}                
+        var MultiPurposeOfLocal=`<form action="{{route('trip.store')}}" id= "formlocal_`+Formnum_local+`" name="formforlocal" method="POST"  class="col-md-12 form-control form-control-default">
+            {{ csrf_field() }}
             <div id="clonethisproposal_1" class="w3-animate-top">
                 <div class="col-md-12 inlinebox">
                     <div class="col-md-3 nopaddinglef">
@@ -757,12 +768,12 @@
                     $(".officerSelect").select2();
                     $(".yeselect").select2();
     }
-      
+
     function addCity(e){
-        var newCity =  `<div style="background:#b1edf54d; border-top:2px solid #17a2b8;"> 
+        var newCity =  `<div style="background:#b1edf54d; border-top:2px solid #17a2b8;">
                         <div class="dlt_btnout pointer">
                             ---
-                        </div>  
+                        </div>
                 <div class="col-md-12 inlinebox" style="margin-top:10px" >
                     <div class="col-md-6 nopaddinglef">
                             <label for=""><b>From Location</b></label>
@@ -783,7 +794,7 @@
                         </select>
                     </div>
                 </div>
-                
+
                 <div class="col-md-12 inlinebox nopaddinglef" style="margin-top:10px">
                     <div class="col-md-12 nopaddinglef">
                         <label for=""><b>Date</b></label><br />
@@ -829,7 +840,7 @@
                         @endforeach
                     </select>
                 </div>
-            <input type="hidden" name="counterForCity" value="`+city_counter+`"/>    
+            <input type="hidden" name="counterForCity" value="`+city_counter+`"/>
             </div>
            `;
            city_counter++;
@@ -868,7 +879,7 @@
           $('.officerSelect').select2();
           $('.daterangeForOutstation').daterangepicker();
     });
-    
+
     $(document).on("click", ".dlt_btn", function() {
       $(this).parent().remove()
         // $(this).closest(".box").remove();
@@ -893,12 +904,12 @@
   $(document).ready(function(){
 
     $(".js-multiple").select2();
-   
+
     $(".purposetype").click(function()
     {
         if($(this).val()=='1')
-        { 
-            $(".addnewproposal").hide(); 
+        {
+            $(".addnewproposal").hide();
         }
         else if($(this).val()=='2')
         {
@@ -919,7 +930,7 @@
     {
         if($(this).val()=='1')
         {     $('.addnewproposoutcity').hide();
-         
+
         }
         else if($(this).val()=='2')
         {
@@ -930,16 +941,16 @@
     $(".subcitytypeForOutstation").click(function()
     {
         if($(this).val()=='1')
-        {      
+        {
              $('.addnewmulcityout').hide();
-         
+
         }
         else if($(this).val()=='2')
         {
             $('.addnewmulcityout').show();
         }
     });
-   
+
     $(".addnewproposoutcity").click(function(){
         $(".dlt_btnout").show();
         });
@@ -961,7 +972,7 @@
   });
 
     function disabledFields(objthis){
-        city_counter=2;     
+        city_counter=2;
         $(".purposeClass").attr("onclick","addPurpose(this)");
         $(".localpurpose").attr("onclick","addPurposeloc(this)");
         console.log($(objthis).find('select , input, .addnewmulcityout, .addnewproposal').attr('disabled',true));
@@ -974,7 +985,7 @@
       var outstationPur= $('.purposetypeForOutstation').val();
       var localpurpose=$('.purposetype').val();
       var subcity=$('.subcitytypeForOutstation').val();
-      var formdata=$(this).serialize();       
+      var formdata=$(this).serialize();
   $.ajax({
    headers : { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
    type: 'POST',
@@ -987,7 +998,7 @@
     // error: function()
     // {
 
-    // } 
+    // }
     });
     disabledFields($(this));
 
