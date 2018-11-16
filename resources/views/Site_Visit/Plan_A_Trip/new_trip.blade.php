@@ -437,30 +437,7 @@
 <script src="{{asset('_monitoring/css/pages/advance-elements/custom-picker.js')}}"></script>
 <script  src="{{asset('_monitoring/css/js/bootstrap-growl.min.js')}}"></script>
 <script src="{{asset('_monitoring/css/pages/notification/notification.js')}}"></script>
-{{-- <script src="{{asset('_monitoring/js/sweetalert/js/sweetalert.min.js')}}"></script> --}}
-{{-- <script src="{{asset('_monitoring/css/js/modalEffects.js')}}"></script>
-<script src="{{asset('_monitoring/css/js/classie.js')}}"></script>
-<script src="{{asset('_monitoring/css/js/modal.js')}}"></script> --}}
-{{-- <script src="{{asset('_monitoring/js/bootstrap-multiselect/js/bootstrap-multiselect.js')}}"></script>
-<script src="{{asset('_monitoring/js/multiselect/js/jquery.multi-select.js')}}"></script>
-<script src="{{asset('_monitoring/css/js/jquery.quicksearch.js')}}"></script> --}}
-{{-- <script>
-    document.querySelector('.alert-confirm').onclick = function(){
 
-            swal({
-                        title: "Are you sure?",
-                        text: "Your will not be able to recover this FILE!",
-                        type: "warning",
-                        showCancelButton: true,
-                        confirmButtonClass: "btn-danger",
-                        confirmButtonText: "Yes, Submit it!",
-                        closeOnConfirm: false
-                    },
-                    function(){
-                        swal("Submitted!", "Your PC-1 has been Submitted.", "success");
-                    });
-        };
-    </script> --}}
 <script>
     var counter=2;
     var purposeCountforloop=2;
