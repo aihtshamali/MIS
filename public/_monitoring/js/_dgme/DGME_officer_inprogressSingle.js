@@ -22,31 +22,67 @@ $('input:checkbox').click(function() {
 
 //FINANCIAL PHASING
 $(document).on('keyup','.count-me',function(){
-    
-    var tds = $(this).parent().parent().parent().find('.count-me')
-    // console.log('counting' + tds[0].value + 'nospace');
+    var parent =$(this).parent().parent().parent().parent().parent().parent()
+    var tds = parent.find('.count-me')
+    // console.log('counting',tds,'asdasdasd',parent);
     var sum = 0;
     for(var i = 0; i < tds.length; i++) {
         if(tds[i].value != "")
             sum += parseInt(tds[i].value,10)
     }
-    console.log(sum);
-    $('#ot_cost').text(sum)
-    if($('#t_cost').text() != $('#ot_cost').text()){
-        var dif = (parseInt($('#t_cost').text()) - parseInt($('#ot_cost').text()))
-        console.log(dif);
-        $('#od_cost').text(dif)
-        $('.fazuldiv').hide()
-        $('.dangercustom').show()
+    console.log(sum,'suuum');
+    parent.find('#ot_cost').text(sum)
+    if(parent.find('#t_cost').text() != parent.find('#ot_cost').text()){
+        var dif = (parseInt(parent.find('#t_cost').text()) - parseInt(parent.find('#ot_cost').text()))
+        console.log(dif,'difff');
+        parent.find('#od_cost').text(dif)
+        parent.find('.fazuldiv').hide()
+        parent.find('.dangercustom').show()
     }
     else {
-        $('.fazuldiv').show()
-        $('.dangercustom').hide()
+        parent.find('.fazuldiv').show()
+        parent.find('.dangercustom').hide()
     }
 });
 
-$(document).ready(()=>{
+var orig = {"cost":"430","period":"30","date":'15 September 2013'};
 
+var revs = [{"cost":"450","period":"33","date":'15 September 2013'},
+            {"cost":"479","period":"33","date":'15 September 2013'},
+            {"cost":"479","period":"37","date":'15 September 2013'}]
+
+    var revisionTable = `<div>
+    <h5 style="padding-top:20px;padding-bottom:10px;clear:both;">Revised PC-I</h5>
+        <div class="row">
+            <h5 class="col-md-4">Gestation Period: <b><span id="t_months"></span> months</b></h5>
+            <h5 class="col-md-4">Total Cost: <b><span id="t_cost"></span> Million(s)</b></h5>
+            <h5 class="col-md-4">Start Date: <b id="f_date"></b></h5>
+        </div>
+        <div class="table-responsive">
+            <table class="table  table-bordered nowrap"  id="countit">
+                <thead>
+                    <tr>
+                        <th>Sr #</th>
+                        <th>Financial Year</th>
+                        <th>Duration</th>
+                        <th>Cost</th>
+                    </tr>
+                </thead>
+                <tbody id='original_tbody'>
+                    
+                </tbody>
+            </table>
+        </div>
+        <div class='row' style="margin-bottom:20px">
+            <div class="col-md-8 fazuldiv"></div>
+            <div class="col-md-5 offset-md-3 alert alert-danger dangercustom">Cost does not match. Difference: <span id="od_cost">0</span> Million(s)</div>
+            <h5 class="col-md-4 float-right" >Total Cost: <b>
+                <span id="ot_cost">0</span> Million(s)</b>
+            </h5>
+        </div>
+    </div>
+    `;
+$(document).ready(()=>{
     var substring='';
     var j = 0
     for(j = 2 ; j <= 30 ; j++){
@@ -54,11 +90,8 @@ $(document).ready(()=>{
             substring += '<option value="200' + j + '-' + (j+1) + '">200' + j +'-' + (j+1) + '</option>'
         else if(j > 9)
             substring+='<option value="20' + j + '-' + (j+1) + '">20' + j +'-' + (j+1) + '</option>'
-            // <option value="20{{$i}}-{{$i+1}}">20{{$i}}-{{$i+1}}</option>
         else
             substring+='<option value="200' + j + '-0' + (j+1) + '">200' + j +'-0' + (j+1) + '</option>'
-            // <option value="200{{$i}}-0{{$i+1}}">200{{$i}}-0{{$i+1}}</option>
-            // console.log(j,'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',substring);
     }
     var tr = `
     <tr>
@@ -73,11 +106,13 @@ $(document).ready(()=>{
     `)
 
     // var tr_ob = $(tr)
-    var tm = parseInt($('#t_months').text(),10)
-    var rtm = parseInt($('#rt_months').text(),10)
-    var date = moment($('#f_date').text(), "DD MMMM YYYY")
+    // var rtm = parseInt($('#rt_months').text(),10)
+    var tm = parseInt(orig.period)
+    var date = moment(orig.date, "DD MMMM YYYY")
+    $(document).find('#t_cost').text(orig.cost)
+    $(document).find('#f_date').text(date.format('DD MMMM YYYY'))
+    $(document).find('#t_months').text(orig.period)
     var check = moment().year(date.year()).month(7).date(1)
-    var all_months = []
     if(date >= check){
         check.add(1,'years')
     }
@@ -86,7 +121,7 @@ $(document).ready(()=>{
     if(months < 0)
     months *= -1
 
-    var r_months = months
+    // var r_months = months
 
     var count = 1;
     while(tm != 0){
@@ -102,22 +137,42 @@ $(document).ready(()=>{
         tr_ob.appendTo('#original_tbody')
     }
 
-    var rcount = 1;
-    check.add(-5,'years')
-    while(rtm != 0){
-        var tr_ob = $(tr)
-        tr_ob.find('#financial_year').children()[parseInt(check.add(1,'years').format('YY'))-3].selected = 'selected'
-        tr_ob.find('#m_duration').val(r_months)
-        tr_ob.find('#serial').text(rcount++)
-        rtm -= r_months
-        if(rtm >= 12)
-            r_months = 12
-        else
-            r_months = rtm
-        tr_ob.appendTo('#revised_tbody')
-    }
+    if(revs.length != 0){
+        revs.forEach(item => {
+            console.log('THIS IS SPARTA');
+            
+            var tm = parseInt(item.period)
+            var table = $(revisionTable)
+            var date = moment(item.date, "DD MMMM YYYY")
+            table.find('#t_cost').text(item.cost)
+            table.find('#f_date').text(date.format('DD MMMM YYYY'))
+            table.find('#t_months').text(item.period)
+            var check = moment().year(date.year()).month(7).date(1)
+            if(date >= check){
+                check.add(1,'years')
+            }
+            var months = moment.duration(date.diff(check)).as('months')
+            months = parseInt(months, 10)
+            if(months < 0)
+                months *= -1
 
-        console.log(all_months);
+            var count = 1;
+            while(tm != 0){
+                var tr_ob = $(tr)
+                tr_ob.find('#financial_year').children()[parseInt(check.add(1,'years').format('YY'))-3].selected = 'selected'
+                tr_ob.find('#m_duration').val(months)
+                tr_ob.find('#t_cost').text(item.cost)
+                tr_ob.find('#serial').text(count++)
+                tm -= months
+                if(tm >= 12)
+                    months = 12
+                else
+                    months = tm
+                tr_ob.appendTo(table.find('#original_tbody'))
+            }
+            table.prependTo('#financial')
+        })
+    }
 })
 
 
@@ -141,6 +196,8 @@ $('.p_details').show(1000);
 });
 
 $('.planNav').on('click',function(){
+    console.log('yahan tk');
+    
 hideallmaintabs();
 $('.p_details').hide();
 $('.mainTabsAndNav').removeClass( "col-md-9" ).addClass( "col-md-12" );
@@ -196,7 +253,7 @@ function hideall()
  $('#PAT').hide();
  $('#Documents').hide();
 }
-$('.financial').on('click',function(){
+$('.financialphasing').on('click',function(){
 hideall();
 $('#financial').show();
 });
