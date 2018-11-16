@@ -16,16 +16,14 @@
         <h1>
          GLOBAL PROGRESS
         </h1>
-        <p class="" style="text-align:center;margin:0">
+        <p class="" style="text-align:center">
           <label for="" style="color:yellowgreen;margin-right:10px;" >  Un-assigned Projects:
              @if (isset($unassigned))
               {{ count($unassigned) }}
              @endif </label>
-          <label for="" style="color:blueviolet">  Assigned Projects:
+          <label for="" style="color:blueviolet;margin-right:10px;">  Assigned Projects:
             {{ count($assigned) }}
           </label>
-        </p>
-        <p class="" style="text-align:center;margin:0">
 
        <label for="" style="color:dark-grey">  Assigned Projects to Manager:
          {{ count($assignedtoManager) }}
