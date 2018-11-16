@@ -455,7 +455,8 @@
                                         <p>3</p>
                                       </div>
                                       <span>75%</span>
-                                    </input>
+                                    </input
+                                    
                                   </a>
                               @endif
                               @if ($activity->progress < 100.0 && $activity->ProjectActivity->id > 2)
