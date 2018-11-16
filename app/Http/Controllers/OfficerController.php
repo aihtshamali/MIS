@@ -374,6 +374,14 @@ class OfficerController extends Controller
         $project->save();
         return 'Done';
       }
+      public function save_dates(Request $request){
+        $assigned_project=AssignedProjectActivity::find($request->assigned_project_activity_id);
+        $assigned_project->start_date=$request->start_date;
+        $assigned_project->end_date=$request->end_date;
+        $assigned_project->save();
+        return 'Done';
+
+      }
 
       // Methods below are for Monitoring Module
 

@@ -9,7 +9,7 @@
         </div>
         <div class="pull-left info">
 
-          @role('officer')
+          @role('officer|evaluator')
           <p>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</p>
           @endrole
           {{-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> --}}
@@ -31,7 +31,7 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Navigations</li>
 
-        @role('officer')
+        @role('officer|evaluator')
         {{--  /Profile  --}}
         {{-- <li >
           <a href="#">
@@ -66,46 +66,26 @@
                {{--  dd($officer);
                 @if($officer->count()>0)  --}}
                   <span class="pull-right-container">
-                      <span class="label label-danger pull-right officer_assigned_counter">0</span>
+                      <span class="label label-danger pull-right  officer_assigned_counter">0</span>
                   </span>
 
               {{--  @endif  --}}
             </a></li>
               <li><a href="{{route('inprogress_evaluation')}}"><i class="fa fa-circle-o"></i> In-Progress
                 <span class="pull-right-container">
-                    <span class="label label-danger pull-right officer_inprogress_counter">0</span>
+                    <span class="label label-danger pull-right  officer_inprogress_counter">0</span>
 
                 </span>
 
               </a></li>
               <li><a href="{{route('completed_evaluation')}} "><i class="fa fa-circle-o"></i> Completed
                 <span class="pull-right-container">
-                  <span class="label label-danger pull-right officer_completed_counter">0</span>
+                  <span class="label label-danger pull-right  officer_completed_counter">0</span>
 
                 </span>
               </a></li>
             </ul>
           </li>
-          {{-- Monitoring --}}
-          <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o"></i> Monitoring Type
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-              <li>
-                {{-- <a href="{{route('Monitoring_newAssignments')}}">
-                  <i class="fa fa-circle-o"></i> New Assignments
-                    <span class="pull-right-container">
-                        <span class="label label-primary pull-right">new</span>
-                    </span></a> --}}
-                  </li>
-
-                  {{-- <li><a href="{{route('Monitoring_inprogressAssignments')}}"><i class="fa fa-circle-o"></i> In-Progress</a></li> --}}
-                  {{-- <li><a href="{{route('Monitoring_completedAssignments')}}"><i class="fa fa-circle-o"></i> Completed</a></li> --}}
-              </ul>
-            </li>
           {{-- TPVS --}}
           <li class="treeview">
               <a href="#"><i class="fa fa-circle-o"></i> Third Party Validations
@@ -189,12 +169,21 @@
           </a>
           <ul class="treeview-menu">
             <li>
-              <a href="#"><i class="fa fa-circle-o"></i>
-               Schedule A New
+              <a href="{{route('new_trip')}}"><i class="fa fa-circle-o"></i>
+               New Trip
                 <span class="pull-right-container">
                   <span class="label label-primary pull-right">new</span>
-                </span></a></li>
-                <li><a href="#"><i class="fa fa-circle-o"></i> View All Visited</a></li>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href="{{route('view_trips')}}"><i class="fa fa-circle-o"></i>
+                 View All
+                 <span class="pull-right-container">
+                    <span class="label label-primary pull-right">new</span>
+                  </span>
+              </a>
+            </li>
           </ul>
       </li>
 

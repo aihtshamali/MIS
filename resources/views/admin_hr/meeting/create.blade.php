@@ -156,19 +156,20 @@
 @endsection
 @section('scripttags')
   {{-- <script src="{{asset('bower_components/jquery/dist/scanner.js')}}"></script> --}}
-
+ 
 {{-- <script type="text/javascript" src="{{asset('bower_components/jquery/jquery.min.js')}}"></script> --}}
   <script type="text/javascript" src="{{asset('bower_components/moment/min/moment.min.js')}}"></script>
   {{-- <script type="text/javascript" src="{{asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script> --}}
   <script type="text/javascript" src="{{asset('bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')}}"></script>
 {{-- <script src="{{asset('js/AdminLTE/bootstrap-datepicker.min.js')}}"></script> --}}
 <script>
+  var count1 = 1
     // var d = new Date();
     // document.getElementById("d").innerHTML = d.toLocaleDateString("en-US");
     var section1 = `<section id="first_section" style="display:none;">
                       <div>
                         <label for="ex1">Agenda item</label>
-                      <input class="form-control" value="" style="text-align:center;" name="agenda_item[]" id="ex1" type="number">
+                      <input class="form-control" value="'count1++'" style="text-align:center;" name="agenda_item[]" id="ex1" type="number">
                       </div>
                       <div>
                           <label for="">Agenda Status</label>

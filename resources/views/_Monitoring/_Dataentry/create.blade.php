@@ -40,7 +40,7 @@
                 <div class="form-group row">
                     <div class="col-md-12">
                       <input type="hidden" name="type_of_project" value="{{$project_types->id}}">
-                    <label ><b>Sub Project Type :</b></label>
+                    <label ><b>Monitoring Type :</b></label>
                     <select class="form-control form-control-primary" name="phase_of_project" id="projecttype">
                         <option value="" selected disabled>Select Type</option>
                         @foreach ($sub_project_types as $sp)
@@ -279,7 +279,7 @@
     </div>
 
     {{-- summary --}}
-    <div class="col-md-6">
+    <div class="col-md-5" style="position: fixed;right:20;max-height:vh">
         <div class="card">
             <div class="card-header"> <h4><b>Summary</b></h4></div>
             <div class="card-block">
@@ -469,6 +469,57 @@
 <script src="{{asset('_monitoring/css/js/classie.js')}}"></script>
 <script src="{{asset('_monitoring/css/js/modal.js')}}"></script>
 <script>
+$(document).on('change','#gs_no,#financial_year',function(){
+   var arr = $(this).val();
+   console.log(arr);
+   if($(this).attr('id') == 'gs_no' && $('#financial_year').val() == projects[arr].financial_year){
+     $('#titleproject').val(projects[arr].name_of_scheme);
+     $('#summary_title').empty();
+     $('#label_summary_title').show('slow');
+     $('#summary_title').append("<label class=\"control-label\">"+$('#titleproject').val()+"</label>");
+
+     $('#original_cost').val(parseFloat(projects[arr].total_cost).toFixed(3));
+     $('#summary_original_cost').empty();
+     $('#label_summary_original_cost').show();
+     $('#summary_original_cost').append("<label class=\"control-label\">"+$('#original_cost').val()+"</label>");
+
+     $('#summary_districts').empty();
+     $("#districts").val($("#districts option").filter(function () { return $(this).html() == projects[arr].district; }).val());
+     $("#districts").select2();
+     values = $('#districts').find(':selected').text();
+     $("#label_summary_districts").show('slow');
+     $("#summary_districts").append("<label class=\"control-label\">"+values+"</label>");
+   }
+   else{
+     $('#titleproject').val('');
+     $('#original_cost').val('');
+     $("#districts").val('').trigger('change');
+     $('#summary_districts').empty();
+     $('#summary_original_cost').empty();
+     $('#summary_title').empty();
+
+     var arr = $('#adp').val();
+     if(arr != "")
+     if($(this).attr('id') == 'financial_year' && $('#financial_year').val() == projects[arr].financial_year){
+     $('#titleproject').val(projects[arr].name_of_scheme);
+     $('#summary_title').empty();
+     $('#label_summary_title').show('slow');
+     $('#summary_title').append("<label class=\"control-label\">"+$('#titleproject').val()+"</label>");
+
+     $('#original_cost').val(parseFloat(projects[arr].total_cost).toFixed(3));
+     $('#summary_original_cost').empty();
+     $('#label_summary_original_cost').show();
+     $('#summary_original_cost').append("<label class=\"control-label\">"+$('#original_cost').val()+"</label>");
+
+     $('#summary_districts').empty();
+     $("#districts").val($("#districts option").filter(function () { return $(this).html() == projects[arr].district; }).val());
+     $("#districts").select2();
+     values = $('#districts').find(':selected').text();
+     $("#label_summary_districts").show('slow');
+     $("#summary_districts").append("<label class=\"control-label\">"+values+"</label>");
+   }
+   }
+});
 $(document).ready(function(){
     $('button#add-more').click(function(e){
         var revised_Cost ='<div class="col-md-12"><div class="row"><div class="col-md-8">'
@@ -738,5 +789,6 @@ $(document).on('change','#gs_no,#financial_year',function(){
 //      $("#districts").val('').trigger('change');
 //    }
 // });
+
 </script>
 @endsection
