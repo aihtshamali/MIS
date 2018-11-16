@@ -2,10 +2,6 @@
 $(document).ready(function () {
     $('[data-toggle="popover"]').popover();
 
-    $(".conductNav").click(function () {
-        $(".topSummary").show('slow');
-        $(".mainTabsAndNav").animate({ marginTop: '6%' }, 1000);
-    });
     $(".planNav").click(function () {
         $(".topSummary").show('slow');
         $(".mainTabsAndNav").animate({ marginTop: '6%' }, 1000);
@@ -134,7 +130,7 @@ $(document).ready(function () {
 
         if (revs.length != 0) {
             revs.forEach(item => {
-                console.log('THIS IS SPARTA');
+                // console.log('THIS IS SPARTA');
 
                 var tm = parseInt(item.period)
                 var table = $(revisionTable)
@@ -184,7 +180,7 @@ $(document).ready(function () {
 
     $('.summaryNav').on('click', function () {
         hideallmaintabs();
-        // hideall();
+        hideall();
         $('.mainTabsAndNav').removeClass("col-md-12").addClass("col-md-9");
         $('#summary').show();
         $('.p_details').show(1000);
@@ -194,21 +190,12 @@ $(document).ready(function () {
     });
 
     $('.planNav').on('click', function () {
-        console.log('yahan tk');
+        // console.log('yahan tk');
 
         hideallmaintabs();
         $('.p_details').hide();
         $('.mainTabsAndNav').removeClass("col-md-9").addClass("col-md-12");
         $('#p_monitoring').show();
-    });
-
-
-
-    $('.conductNav').on('click', function () {
-        hideallmaintabs();
-        $('.p_details').hide();
-        $('.mainTabsAndNav').removeClass("col-md-8").addClass("col-md-12");
-        $('#c_monitoring').show();
     });
     function hideall() {
         $('#PlanDocDiv').hide();
@@ -234,6 +221,19 @@ $(document).ready(function () {
         $('#TimesDiv').hide();
         $('#CostingDiv').hide();
     }
+
+
+    $('.conductNav').on('click', function () {
+        hideallmaintabs();
+        hideall();
+        $('#c_monitoring').show();
+        $('#financialDiv').show();
+        $('#p_monitoring').hide();
+        $('.p_details').hide();
+        $('.mainTabsAndNav').removeClass("col-md-8").addClass("col-md-12");
+        $('.mainTabsAndNav').animate({ marginTop: '6%' }, 1000);
+        $(".topSummary").show('slow');
+    });
     $('.CostingTab').on('click', function () {
         hideall();
         $('#CostingDiv').show();
@@ -283,10 +283,6 @@ $(document).ready(function () {
         // hideall();
         // $('#PlanDocDiv').show();
         // });
-        $('.conductNav').on('click', function () {
-            hideall();
-            $('#financialDiv').show();
-        });
         $('.physical').on('click', function () {
             hideall();
             $('#physical').show();
@@ -366,7 +362,7 @@ $(document).ready(function () {
         // $('.select2').select2()
     })
 
-    $('button#add-more').click(function (e) {
+    $('button#addmore').click(function (e) {
         var add_stakeholder = `<tr>
     <td>
         <label for="">1</label>
@@ -562,12 +558,33 @@ $(document).ready(function () {
         }
     });
     var compAct = 2;
+    function autoindexcomp() {
+        var sib = $(document).find('.newClasscompAct').siblings();
+        // console.log(sib);
+        var i = 0;
+        for (i = 0; i < sib.length; i++) {
+            var cl_array = sib[i].getAttribute('class').split(' ');
+            var val = "";
+            for (var j = 0; j < cl_array.length; j++) {
+                if (cl_array[j].startsWith('newClasscompAct')) {
+                    val = cl_array[j];
+                    break;
+                }
+            }
+            if (val != "") {
+                $('.' + val + ' > label').text('Component / Activities ' + (i + 2));
+                $('.' + val + ' > div > input').attr('placeholder', 'Component / Activities '+ (i + 2));
+                $('.' + val).addClass('newClasscompAct' + (i + 2)).removeClass(val);
+            }
+        }
+        compAct = i + 2;
+    }
     $('#add_more_compAct').click(function (e) {
         // var newClass='obj_'objct++;
         var add_compAct = `<div class="newClasscompAct` + compAct + ` DisInlineflex mb_2 col-md-12">
                         <label class="col-sm-3 text_center form-txt-primary font-15">Component / Activities `+ compAct + `</label>
                         <div class="col-sm-7">
-                          <input type="text" class="form-control form-txt-primary" placeholder="Component/Activities `+ compAct + `">
+                          <input type="text" class="form-control form-txt-primary" placeholder="Component / Activities `+ compAct + `">
                         </div>
                         <div class="col-sm-2 removecompAct text_center">
                           <button class="btn btn-danger btn-sm" type="button">-</button>
@@ -575,8 +592,19 @@ $(document).ready(function () {
                       </div>
                       `
         $('.compActNew').append(add_compAct);
-        $('.removecompAct').click(function () { $(this).parent().remove(); })
+
         compAct += 1;
+    });
+
+    $(document).on('click', '.removecompAct', function () {
+      // console.log("Here");
+        if ($(this).parent().attr('class').split(' ')[0].split('ct')[1] == compAct - 1) {
+            $(this).parent().remove();
+        }
+        else {
+            $(this).parent().remove();
+            autoindexcomp();
+        }
     });
     function add_activityInComp(e) {
         var add_activities_to_assess = '<div class="row singleActivity">'
