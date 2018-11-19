@@ -15,11 +15,11 @@
                         <ul class="nav navbar-nav ml-auto" style="margin-left: 0 !important; align-items: center; width:100%;">
                             <li><img src="{!! asset('dgme.png') !!}" style="height:60px;"></li>
                             <li class="dropbtn nav-item active">
-                                <a class="nav-link" href="#">HOME</a>
+                                <a class="nav-link" href="{!! route('predashboard') !!}">HOME</a>
                             </li>
                             <div class="dropdown">
                                 <li class="nav-item">
-                                    <a id="PEMS" class="nav-link" href="#evaluation">PEMS</a>
+                                    <a id="PEMS" class="nav-link" href="{!! route('predashboard') !!}">PEMS</a>
                                 </li>
                                 <!-- <div class="dropdown-content">
                                     <a href="#">Link 1</a>
