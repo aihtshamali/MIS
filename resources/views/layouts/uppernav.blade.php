@@ -332,7 +332,7 @@
 
   @endrole
 
-  @role('officer')
+  @role('officer|evaluator')
   @include('inc.officer_sidenav')
   @endrole
 
@@ -396,8 +396,6 @@
         user:"{{Auth::user()}}"
         })
         .then((response) => {
-          // console.log(response.data);
-          // console.log(response.data);
           $('.'+response.data.role+'_unassigned_counter').text(response.data.unassigned);
         })
         .catch(function (error) {

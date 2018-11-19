@@ -52,7 +52,7 @@
               <select class="form-control select2" multiple="multiple" data-placeholder="Select an Officer"
                       style="width: 100%;" name="officer_id[]">
                   @foreach ($officers as $officer)
-                   
+
                       <option value="{{$officer->id}}" style="font-weight:bold">{{$officer->first_name}} {{$officer->last_name}}  - <span style="font-weight:bolder">{{$officer->sector->name}} </span></option>
 
 
