@@ -109,8 +109,6 @@ return array(
     'App\\Http\\Controllers\\SiteVisitController' => $baseDir . '/app/Http/Controllers/SiteVisitController.php',
     'App\\Http\\Controllers\\SponsorAgencyController' => $baseDir . '/app/Http/Controllers/SponsorAgencyController.php',
     'App\\Http\\Controllers\\SubSectorController' => $baseDir . '/app/Http/Controllers/SubSectorController.php',
-<<<<<<< HEAD
-<<<<<<< HEAD
     'App\\Http\\Controllers\\TofficerApprovalController' => $baseDir . '/app/Http/Controllers/TofficerApprovalController.php',
     'App\\Http\\Controllers\\TripLocationController' => $baseDir . '/app/Http/Controllers/TripLocationController.php',
     'App\\Http\\Controllers\\TripRequestController' => $baseDir . '/app/Http/Controllers/TripRequestController.php',
@@ -118,46 +116,44 @@ return array(
     'App\\Http\\Controllers\\VehicleController' => $baseDir . '/app/Http/Controllers/VehicleController.php',
     'App\\Http\\Controllers\\VehicleDocumentsController' => $baseDir . '/app/Http/Controllers/VehicleDocumentsController.php',
     'App\\Http\\Controllers\\VehicleTypeController' => $baseDir . '/app/Http/Controllers/VehicleTypeController.php',
-=======
-=======
 
     'App\\Http\\Controllers\\VmisDriverController' => $baseDir . '/app/Http/Controllers/VmisDriverController.php',
     'App\\Http\\Controllers\\VmisVehicleController' => $baseDir . '/app/Http/Controllers/VmisVehicleController.php',
     'App\\Http\\Controllers\\VmisVehicleDocumentController' => $baseDir . '/app/Http/Controllers/VmisVehicleDocumentController.php',
     'App\\Http\\Controllers\\VmisVehicleTypeController' => $baseDir . '/app/Http/Controllers/VmisVehicleTypeController.php',
-=======
->>>>>>> a96cc98ae2646ad112230e7e3afbf1e4086226dc
+
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',
     'App\\Http\\Middleware\\RedirectIfAuthenticated' => $baseDir . '/app/Http/Middleware/RedirectIfAuthenticated.php',
     'App\\Http\\Middleware\\TrimStrings' => $baseDir . '/app/Http/Middleware/TrimStrings.php',
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
-<<<<<<< HEAD
-
-=======
     'App\\Issue' => $baseDir . '/app/Issue.php',
->>>>>>> a96cc98ae2646ad112230e7e3afbf1e4086226dc
+    'App\\Issue' => $baseDir . '/app/Issue.php',
     'App\\MAssesment' => $baseDir . '/app/MAssesment.php',
+    'App\\MAssignedProjectComponent' => $baseDir . '/app/MAssignedProjectComponent.php',
     'App\\MAssignedProjectHealthSafety' => $baseDir . '/app/MAssignedProjectHealthSafety.php',
     'App\\MAssignedProjectIssue' => $baseDir . '/app/MAssignedProjectIssue.php',
+    'App\\MAssignedProjectMappingObjective' => $baseDir . '/app/MAssignedProjectMappingObjective.php',
+    'App\\MAssignedProjectObjective' => $baseDir . '/app/MAssignedProjectObjective.php',
     'App\\MBeforeMitigation' => $baseDir . '/app/MBeforeMitigation.php',
     'App\\MFinancialData' => $baseDir . '/app/MFinancialData.php',
     'App\\MFinancialKpi' => $baseDir . '/app/MFinancialKpi.php',
+    'App\\MFinancialPhase' => $baseDir . '/app/MFinancialPhase.php',
     'App\\MHealthSafety' => $baseDir . '/app/MHealthSafety.php',
     'App\\MIssue' => $baseDir . '/app/MIssue.php',
     'App\\MKpi' => $baseDir . '/app/MKpi.php',
     'App\\MPhysicalActivity' => $baseDir . '/app/MPhysicalActivity.php',
+    'App\\MProjectComponentTask' => $baseDir . '/app/MProjectComponentTask.php',
+    'App\\MProjectKpis' => $baseDir . '/app/MProjectKpis.php',
+    'App\\MProjectProgress' => $baseDir . '/app/MProjectProgress.php',
     'App\\MQualityAssesment' => $baseDir . '/app/MQualityAssesment.php',
     'App\\MRiskCategory' => $baseDir . '/app/MRiskCategory.php',
     'App\\MRiskEvent' => $baseDir . '/app/MRiskEvent.php',
     'App\\MSeverity' => $baseDir . '/app/MSeverity.php',
     'App\\MStakeHolder' => $baseDir . '/app/MStakeHolder.php',
     'App\\MSubsequent' => $baseDir . '/app/MSubsequent.php',
-<<<<<<< HEAD
-=======
     'App\\Members' => $baseDir . '/app/Members.php',
->>>>>>> a96cc98ae2646ad112230e7e3afbf1e4086226dc
     'App\\MonitoringProjectActivity' => $baseDir . '/app/MonitoringProjectActivity.php',
     'App\\Notification' => $baseDir . '/app/Notification.php',
     'App\\Other' => $baseDir . '/app/Other.php',
@@ -197,13 +193,10 @@ return array(
     'App\\SubSector' => $baseDir . '/app/SubSector.php',
     'App\\User' => $baseDir . '/app/User.php',
     'App\\UserDetail' => $baseDir . '/app/UserDetail.php',
-<<<<<<< HEAD
-=======
     'App\\Vehicle' => $baseDir . '/app/Vehicle.php',
     'App\\VehicleDocuments' => $baseDir . '/app/VehicleDocuments.php',
     'App\\VehicleType' => $baseDir . '/app/VehicleType.php',
     'App\\site_visit' => $baseDir . '/app/site_visit.php',
->>>>>>> a96cc98ae2646ad112230e7e3afbf1e4086226dc
     'ArithmeticError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
     'AssertionError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',
     'Carbon\\Carbon' => $vendorDir . '/nesbot/carbon/src/Carbon/Carbon.php',

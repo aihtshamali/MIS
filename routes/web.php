@@ -21,7 +21,7 @@ Route::group(['middleware' => ['auth']], function () {
 // Predashboard
 Route::get('/predashboard',function(){
   return view('predashboard');
-});
+})->name('predashboard');
 
 // EvaluationDashbaord
 //Route::get('/dashboard',function(){
