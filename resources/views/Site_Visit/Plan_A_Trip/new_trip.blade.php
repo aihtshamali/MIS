@@ -245,8 +245,8 @@
                         class="icofont icofont-plus"></i>Add purpose</div>
             </div>
 
-            <div class="form-group notifications">
-                    <button class="btn btn-success btn-outline-success btn-block submitlocal waves-effect"  type="submit" data-type="inverse" data-from="top" data-align="right" >Save and Submit</button>
+            <div class="form-group ">
+                    <button class="btn btn-success btn-outline-success btn-block submitlocal "  type="submit"  >Save and Submit</button>
                 {{-- <button class="btn submitlocal btn-success waves-effect" type="submit" data-type="inverse" data-animation-in="animated fadeInDown" data-animation-out="animated fadeOutDown">Save & Submit</button> --}}
                 {{-- <button class="btn submitlocal alert-confirm btn-success btn-block"  type="submit"><i class="icofont icofont-user-alt-3"></i>Save & Submit</button> --}}
                 {{-- <button class="btn btn-success btn-block"><i class="icofont icofont-user-alt-3"></i>Submit</button> --}}
@@ -416,8 +416,8 @@
                         <i class="icofont icofont-plus"></i>Add New Purpose
                     </div>
                 </div>
-                <div class="form-group notifications">
-                <button class="btn btn-success btn-outline-success btn-block submit waves-effect"  type="submit" data-type="inverse" data-from="top" data-align="right" >Save and Submit</button>
+                <div class="form-group ">
+                <button class="btn btn-success btn-outline-success btn-block submit "  type="submit"  >Save and Submit</button>
                 {{-- <button class="btn submit btn-success btn-block"  type="submit"><i class="icofont icofont-user-alt-3"></i>Save & Submit</button> --}}
                 </div>
         </form>
@@ -596,8 +596,8 @@
                     <i class="icofont icofont-plus"></i>Add New Purpose
                 </div>
             </div>
-            <div class="form-group notifications">
-                <button class="btn btn-success btn-outline-success btn-block submit waves-effect"  type="submit" data-type="inverse" data-from="top" data-align="right" >Save and Submit</button>
+            <div class="form-group ">
+                <button class="btn btn-success btn-outline-success btn-block submit "  type="submit">Save and Submit</button>
                 {{-- <button class="btn submit btn-success btn-block"  type="submit"><i class="icofont icofont-user-alt-3"></i>Save & Submit</button> --}}
                 </div>
                 </form>
@@ -728,8 +728,8 @@
                         class="icofont icofont-plus"></i>Add purpose</div>
             </div>
 
-            <div class="form-group notifications">
-                <button class="btn btn-success btn-outline-success btn-block submitlocal waves-effect"  type="submit" data-type="inverse" data-from="top" data-align="right" >Save and Submit</button>
+            <div class="form-group ">
+                <button class="btn btn-success btn-outline-success btn-block submitlocal "  type="submit"  >Save and Submit</button>
                 {{-- <button class="btn submit btn-success btn-block"  type="submit"><i class="icofont icofont-user-alt-3"></i>Save & Submit</button> --}}
                 </div>
     </form>`;

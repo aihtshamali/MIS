@@ -73,7 +73,7 @@ class SiteVisitController extends Controller
      */
     public function store(Request $request)
     { 
-        // print_r($request->all());exit();
+        // print_r($request->all()) ;exit();
          
         
         if($request->triptype_id=='1')
