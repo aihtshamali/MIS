@@ -22,8 +22,8 @@ class ChangeProjectDetails extends Migration
         $table->text('contractor')->nullable();
         $table->text('design_consultant')->nullable();
         $table->text('supervisory_consultant')->nullable();
-        $table->integer('city_id')->unsigned()->index()->nullable();
-        $table->foreign('city_id')->references('id')->on('cities')->onDelete('no action');
+        // $table->integer('city_id')->unsigned()->index()->nullable();
+        // $table->foreign('city_id')->references('id')->on('cities')->onDelete('no action');
         $table->text('number_of_procurement_packages')->nullable();
       });
     }

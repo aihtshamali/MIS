@@ -17,7 +17,7 @@ class CreateMFinancialPhasesTable extends Migration
             $table->increments('id');
             $table->text('financial_year')->nullable();
             $table->text('duration')->nullable();
-            $table->double('duration',8,2)->nullable();
+            $table->double('cost',8,2)->nullable();
             $table->integer('m_project_progress_id')->unsigned()->index()->nullable();
             $table->foreign('m_project_progress_id')->references('id')->on('m_project_progresses')->onDelete('no action');
             $table->text('revised_status')->nullable();
