@@ -144,6 +144,7 @@ class HomeController extends Controller
           if($officer->AssignedProjectTeam){
           $assigned_project = $officer->AssignedProjectTeam;
           foreach($assigned_project as $assign){
+            if($assign->assignedProject->project->project_type_id == 1)
               $sum += $assign->assignedProject->project->score*($assign->assignedProject->progress/100);
             }
             array_push($total,$sum);
@@ -154,7 +155,9 @@ class HomeController extends Controller
       $maxs = array_keys($total, max($total));
       $per = array_search(Auth::id(),$person);
       $current_score = round($total[$per],0,PHP_ROUND_HALF_UP);
+      $actual_current_score = round($total[$per],0,PHP_ROUND_HALF_UP);
       $max_score = round($total[$maxs[0]],0,PHP_ROUND_HALF_UP);
+      $actual_max_score = round($total[$maxs[0]],0,PHP_ROUND_HALF_UP);
 
       if($current_score == $max_score){
         $current_score = 100;
@@ -162,7 +165,15 @@ class HomeController extends Controller
       else{
         $current_score = round($current_score/$max_score*100,0,PHP_ROUND_HALF_UP);
       }
+
+      $rank = 0;
+      foreach ($total as $number) {
+        $number = round($number/$max_score*100,0,PHP_ROUND_HALF_UP);
+        if($current_score < $number){
+          $rank++;
+        }
+      }
       $max_score = 100;
-      return view('dashboard',compact('max_score','current_score'));
+      return view('dashboard',compact('max_score','current_score','actual_max_score','actual_current_score','rank','person'));
     }
 }

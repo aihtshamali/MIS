@@ -260,8 +260,18 @@
                                                         </li>
                                                     </ul>
                                                     <div class="tab-content tabs card-block ">
-                                                        <div class="tab-pane active" id="PlanDocDiv" role="tabpanel" aria-expanded="false">
+                                                        <div class="tab-pane active" id="PlanDocDiv" role="tabpanel" aria-expanded="true">
+                                                          <div class="col-md-12 col-sm-12">
+                                                            <!-- Our markup, the important part here! -->
+                                                            <div id="drag-and-drop-zone" class="dm-uploader">
+                                                              <h3 class="mb-5 mt-5 text-muted text_center">Drag &amp; drop files here</h3>
 
+                                                              <div class="btn btn-primary btn-block">
+                                                                <input type="file" id="html_btn" title='Click to add Files' />
+                                                                  <span>Open the file Browser</span>
+                                                              </div>
+                                                            </div><!-- /uploader -->
+                                                          </div>
                                                         </div>
                                                         <div class="tab-pane" id="i-dates" role="tabpanel" aria-expanded="false">
                                                             <div class="row">
