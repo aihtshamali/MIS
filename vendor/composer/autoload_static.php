@@ -527,6 +527,7 @@ class ComposerStaticInit55c1f85fd9fa01a6cf3b909416bd240d
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Imports\\AdpProjectImport' => __DIR__ . '/../..' . '/app/Imports/AdpProjectImport.php',
         'App\\Issue' => __DIR__ . '/../..' . '/app/Issue.php',
         'App\\MAssesment' => __DIR__ . '/../..' . '/app/MAssesment.php',
         'App\\MAssignedProjectComponent' => __DIR__ . '/../..' . '/app/MAssignedProjectComponent.php',

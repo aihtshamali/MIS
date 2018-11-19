@@ -212,11 +212,7 @@ vertical-align: super;
     <div class="form-group">
         <label class="col-sm-4">SNE</label>
         <div class="col-sm-8">
-<<<<<<< HEAD
           <select class="form-control" required id="sne_data" name="sne">
-=======
-          <select class="form-control" required name="sne" id="sne_data">
->>>>>>> 994fe643012b18b700adc98da8dc83b493584883
             <option value="NO" {{ $project->ProjectDetail->sne == "NO"? "selected":"" }}>NO</option>
             <option value="COST" {{ $project->ProjectDetail->sne == "COST"? "selected":"" }}>COST</option>
             <option value="STAFF" {{ $project->ProjectDetail->sne == "STAFF"? "selected":"" }}>STAFF</option>
@@ -225,7 +221,6 @@ vertical-align: super;
         </div>
       </div>
       <div class="form-group" id="sne_cost" style="display:none">
-<<<<<<< HEAD
         <label for="" class="col-sm-4">SNE COST</label>
         <div class="col-sm-8">
           <input type="text" class="form-control" name="sne_cost" placeholder="SNE COST">
@@ -238,19 +233,6 @@ vertical-align: super;
         </div>
       </div>
 
-=======
-      <label for="" class="col-sm-4">SNE COST</label>
-      <div class="col-sm-8">
-        <input type="text" class="form-control" name="sne_cost" placeholder="SNE COST">
-      </div>
-    </div>
-    <div class="form-group" style="display:none"  id="sne_staff_positions">
-      <label for="" class="col-sm-4">SNE STAFF</label>
-      <div class="col-sm-8">
-        <input type="text" class="form-control" name="sne_staff_positions" placeholder="SNE STAFF POSITION">
-      </div>
-    </div>
->>>>>>> 994fe643012b18b700adc98da8dc83b493584883
     <section style="background-color:lightgray;padding:8px">
     <div class="form-group">
       <label class="col-sm-4 control-label"><i class="fa fa-asterisk text-danger"></i>Original Approved Cost in Millions</label>
@@ -569,11 +551,6 @@ $('#sne_data').on('change',function(e){
       $("#sne_staff_positions").hide('slow')
   }
 });
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 994fe643012b18b700adc98da8dc83b493584883
 $(document).on('change','#adp,#financial_year',function(){
    var arr = $(this).val();
 
