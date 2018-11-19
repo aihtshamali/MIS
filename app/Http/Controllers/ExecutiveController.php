@@ -803,10 +803,10 @@ class ExecutiveController extends Controller
     public function GlobalProgressWiseChart(){
       $projects=AssignedProject::all();
       $ranges=array();
-      array_push($ranges,'0-24.999%');
-      array_push($ranges,'25-49.999%');
-      array_push($ranges,'50-74.999%');
-      array_push($ranges,'75-100%');
+      array_push($ranges,'0-25%');
+      array_push($ranges,'26-50%');
+      array_push($ranges,'51-75%');
+      array_push($ranges,'76-100%');
       $projectsprogress=array_fill(0,4,0);
       foreach ($projects as $project) {
         if($project->progress>0 && $project->progress < 25){
