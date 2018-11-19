@@ -13,6 +13,8 @@ use App\HrMomAttachment;
 use App\HrAttachment;
 use App\HrMeetingPDWP;
 use Illuminate\Support\Facades\Schema;
+use App\Imports\AdpProjectImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class HomeController extends Controller
@@ -32,10 +34,14 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     public function upload(Request $r){
+       Excel::import(new AdpProjectImport,$r->file('upload_file'));
+       return view('home');
+     }
     public function index()
     {
-
-      // $activities = AssignedProjectActivity::all();
+      // dd($_SERVER['DOCUMENT_ROOT'].'\Original.xlsx');
+            // $activities = AssignedProjectActivity::all();
       // foreach ($activities as $activity) {
       //   // dd($activity->AssignedProject);
       //   if(isset($activity->AssignedProjectActivityProgressLog[0]))

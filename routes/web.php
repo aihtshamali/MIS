@@ -15,6 +15,13 @@ Auth::routes();
 Route::get('/', function () {
     return view('home');
 });
+
+Route::get('/upload', function () {
+    return view('file_upload');
+});
+
+Route::post('/home','HomeController@upload');
+
 Route::group(['middleware' => ['auth']], function () {
 
 // Predashboard
