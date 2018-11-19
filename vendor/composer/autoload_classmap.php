@@ -127,6 +127,7 @@ return array(
     'App\\Http\\Middleware\\TrimStrings' => $baseDir . '/app/Http/Middleware/TrimStrings.php',
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
+    'App\\Imports\\AdpProjectImport' => $baseDir . '/app/Imports/AdpProjectImport.php',
     'App\\Issue' => $baseDir . '/app/Issue.php',
     'App\\MAssesment' => $baseDir . '/app/MAssesment.php',
     'App\\MAssignedProjectComponent' => $baseDir . '/app/MAssignedProjectComponent.php',
