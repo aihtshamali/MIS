@@ -456,7 +456,7 @@
                                       </div>
                                       <span>75%</span>
                                     </input
-                                    
+
                                   </a>
                               @endif
                               @if ($activity->progress < 100.0 && $activity->ProjectActivity->id > 2)
@@ -553,7 +553,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Choose Documents</h4>
+        <h4 class="modal-title">Please Choose Only Available Documents</h4>
       </div>
       <form class="" action="{{route('AssignActivityDocument')}}" method="post">
       <div class="modal-body">
