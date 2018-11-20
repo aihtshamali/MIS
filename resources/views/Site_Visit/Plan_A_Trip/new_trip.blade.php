@@ -102,11 +102,12 @@
         .select2-container--default .select2-selection--single{border: 1px solid #f0efef !important;}
         .select2-container{width: 100% !important;}
         .select2-container .select2-selection--single{height: 38px !important;}
-        .page-body{margin:auto;width:70% !important;}
+        /* .page-body{margin:auto;width:70% !important;} */
   </style>
 @endsection
 @section('content')
 @include('inc.msgs')
+<div class="offset-md-2 col-md-8">
     <h4><b>Schedule New Visit</b></h4><br>
     <label for=""><b>Trip Type</b> </label>
     <select name="triptype_id" id="type" class="triptype_id form-control form-control-default">
@@ -123,10 +124,12 @@
                 @foreach ($purposetypes as $purposetype)
 
                 <div class="radio radio-outline radio-inline">
+                  
                     <label>
-                        <input type="radio" class="purposetype" name="purposetypeforLocal" id="purposetypevalforlocal" value="{{$purposetype->id}}">
-                        <i class="helper"></i>{{$purposetype->name}}
-                    </label>
+                            <input type="radio" class="purposetype" name="purposetypeforLocal" id="purposetypevalforlocal"  value="{{$purposetype->id}}">
+                             <i class="helper"></i>{{$purposetype->name}}
+                         </label>
+                      
                 </div>
                 @endforeach
             </div>
@@ -258,10 +261,12 @@
             <div class="form-radio">
             @foreach ($purposetypes as $purposetype)
             <div class="radio radio-outline radio-inline">
-            <label>
-            <input type="radio" class="purposetypeForOutstation" name="purposetypeForOutstation" value="{{$purposetype->id}}">
-            <i class="helper"></i>{{$purposetype->name}}
-            </label>
+                  
+                    <label>
+                            <input type="radio" class="purposetypeForOutstation" name="purposetypeForOutstation" id="purposetypeForOutstation"  value="{{$purposetype->id}}">
+                             <i class="helper"></i>{{$purposetype->name}}
+                         </label>
+                       
             </div>
             @endforeach
             </div>
@@ -271,10 +276,12 @@
                 <div class="form-radio">
                 @foreach ($subcitytypes as $subcitytype)
                 <div class="radio radio-outline radio-inline">
-                <label>
-                <input type="radio" class="subcitytypeForOutstation" name="subcitytypeForOutstation" value="{{$subcitytype->id}}">
-                <i class="helper"></i>{{$subcitytype->name}}
-                </label>
+                       
+                        <label>
+                                <input type="radio" class="subcitytypeForOutstation" name="subcitytypeForOutstation" value="{{$subcitytype->id}}">
+                                <i class="helper"></i>{{$subcitytype->name}}
+                            </label>
+                       
                 </div>
                 @endforeach
 
@@ -285,6 +292,7 @@
             <form action="{{route('trip.store')}}" id= "form_1" name="formforoutstation" method="POST"  class="col-md-12 form-control form-control-default">
                 {{ csrf_field() }}
                 <div id="roundtripp_1">
+                    
                     <div class="col-md-12 inlinebox">
                         <div class="col-md-3 nopadlefright">
                         <select id="outstationVisitReason" name="outstationVisitReason" class="form-control form-control-default reasonroundtrip">
@@ -423,6 +431,7 @@
         </form>
     </div>
 </div>
+</div>
 @endsection
 @section('js_scripts')
 <!-- Select 2 js -->
@@ -456,7 +465,7 @@
     var city_id2 = 1;
     var roundpurposal = 1;
     var append_id=2
-
+    var tripRequest_id=null;
     function addPurpose(e){
         ++counter_outstation;
         ++counterforloopofOutstation;
@@ -465,6 +474,7 @@
                 <form action="{{route('trip.store')}}" id= "form_`+Formnum+`" name="formforoutstation" method="POST"  class="col-md-12 form-control form-control-default">
             {{ csrf_field() }}
             <div id="roundtripp_1">
+            <input type="hidden" class="tripRequest_id" name="tripRequest_id">
                 <div class="col-md-12 inlinebox">
                     <div class="col-md-3 nopadlefright">
                     <select id="outstationVisitReason" name="outstationVisitReason" class="form-control form-control-default reasonroundtrip">
@@ -617,12 +627,17 @@
             $('.daterangeForOutstation').daterangepicker();
         $(".officerSelect").select2();
         $(".yeselect").select2();
+    //    Adding value            
+        $('.tripRequest_id').each(function(){
+            $(this).val(tripRequest_id);
+        });
 
     }
     function addPurposeloc(f){
         var MultiPurposeOfLocal=`<form action="{{route('trip.store')}}" id= "formlocal_`+Formnum_local+`" name="formforlocal" method="POST"  class="col-md-12 form-control form-control-default">
             {{ csrf_field() }}
             <div id="clonethisproposal_1" class="w3-animate-top">
+                <input type="hidden" class="tripRequest_id" name="tripRequest_id">
                 <div class="col-md-12 inlinebox">
                     <div class="col-md-3 nopaddinglef">
                         <select id="visit_reasonForLocal" name="visit_reasonForLocal" class="form-control form-control-default reason">
@@ -739,6 +754,9 @@
                     // $(".daterange").datepicker();
                     $(".officerSelect").select2();
                     $(".yeselect").select2();
+                    $('.tripRequest_id').each(function(){
+                        $(this).val(tripRequest_id);
+                    });                    
     }
 
     function addCity(e){
@@ -882,9 +900,12 @@
         if($(this).val()=='1')
         {
             $(".addnewproposal").hide();
+            console.log(this.tripRequest_id);
+            
         }
         else if($(this).val()=='2')
         {
+            console.log(tripRequest_id);
             $(".addnewproposal").show();
         }
     });
@@ -892,6 +913,7 @@
         if($(this).val()=='1')
         {
             $('.purposetypelocal').show();
+           
         }
         else{
             $('.purposetypelocal').hide();
@@ -952,7 +974,7 @@
 
   $(document).on('submit','form',function(event){
       event.preventDefault();
-
+    var formthis=$(this);
       var triptype= $('.triptype_id').val();
       var outstationPur= $('.purposetypeForOutstation').val();
       var localpurpose=$('.purposetype').val();
@@ -962,18 +984,28 @@
    headers : { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
    type: 'POST',
    url: $(this).attr('action'),
+   async: false,
    data: formdata + "&purposetypeforLocal=" + localpurpose + "&triptype_id="+ triptype+"&purposetypeForOutstation=" + outstationPur +"&subcity="+ subcity,   // I WANT TO ADD EXTRA DATA + SERIALIZE DATA
    success: function(data){
       console.log(data);
-    //   $('.tampil_vr').text(data);
+    if(data.trip_request_id){
+        tripRequest_id=data.trip_request_id;
+       console.log(tripRequest_id);
+        
+      $('.tripRequest_id').each(function(){
+          $(this).val(data.trip_request_id);          
+      });
     }
-    // error: function()
-    // {
-
-    // }
+    //   $('.tampil_vr').text(data);
+    },
+    error: function(error)
+    {
+        console.log(error);
+    }
     });
-    disabledFields($(this));
-
+    console.log(tripRequest_id);
+    $('#type').attr('disabled',true);
+    disabledFields($(formthis));
 });
 </script>
 @endsection
