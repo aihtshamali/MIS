@@ -156,7 +156,7 @@
 @endsection
 @section('scripttags')
   {{-- <script src="{{asset('bower_components/jquery/dist/scanner.js')}}"></script> --}}
- 
+
 {{-- <script type="text/javascript" src="{{asset('bower_components/jquery/jquery.min.js')}}"></script> --}}
   <script type="text/javascript" src="{{asset('bower_components/moment/min/moment.min.js')}}"></script>
   {{-- <script type="text/javascript" src="{{asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script> --}}
@@ -373,7 +373,7 @@
   var temp;
   var current;
   $(document).ready(function(){
-    $("#financial_year").val('2017-18');
+    $("#financial_year").val('2018-19');
   });
 $(document).on('click','.add-more',function(e){
 
@@ -434,7 +434,7 @@ $(document).on('click','.add-more',function(e){
             $('#main').children().last().remove()
           }
           var item = $(section1).attr('id','first_section'+next)
-          item.find("#financial_year").val('2017-18');
+          item.find("#financial_year").val('2018-19');
           $('#main').append(item).children().last().show('slow');
           temp = $('#agenda_type').val()
         }
@@ -446,7 +446,7 @@ $(document).on('click','.add-more',function(e){
             $('#main').children().last().remove()
           }
           var item = $(section2).attr('id','second_section'+next)
-          item.find("#financial_year").val('2017-18');
+          item.find("#financial_year").val('2018-19');
           $('#main').append(item).children().last().show('slow');
           temp = $('#agenda_type').val()
         }
@@ -561,6 +561,7 @@ $(document).on('click','.add-more',function(e){
             current.find('#nonadp').prop('disabled',false);
           });
 
+
           $(document).on('change','#adp',function(){
             var arr = $(this).val().split(',')
             console.log(projects[arr[1]]);
@@ -607,8 +608,26 @@ $(document).on('click','.scan',function(){
   $(document).on('click','#THE-REAPER',function(){
     console.log('Reaper called',$(this));
     $("#attachmentt").click();
-  })
+  });
 
+  $(document).on('change','#financial_year',function(){
+    axios.post('{{route("fetch_financial_year")}}',{
+        financial_year:$(this).val()
+        })
+        .then((response) => {
+          projects = response.data;
+          counter = 0;
+          $('#adp').empty();
+          $('#adp').append('<option value="" selected>Select GS #</option>');
+          $.each(projects,function(key,element){
+            $('#adp').append('<option value='+element.gs_no+','+counter+'>'+element.gs_no+'</option>');
+            counter++;
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      });
 
   // $(document).on('click','.testexe',function(){
   //   window.open("hassan:");
