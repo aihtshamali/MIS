@@ -566,7 +566,7 @@ vertical-align: super;
 <script>
  $(document).on('change','#adp,#financial_year',function(){
     var arr = $(this).val();
-
+    console.log(arr);
     if($(this).attr('id') == 'adp' && $('#financial_year').val() == projects[arr].financial_year){
       $('#titleproject').val(projects[arr].name_of_scheme);
       $('#summary_title').empty();
@@ -586,6 +586,22 @@ vertical-align: super;
       $("#summary_districts").append("<label class=\"control-label\">"+values+"</label>");
     }
     else{
+
+      if($(this).attr('id') == 'financial_year')
+      {
+        $("#adp").prop('disabled', true);
+        axios.post('{{route("fetch_project_financial_year")}}',{
+          financial_year:$(this).val()
+          })
+          .then((response) => {
+            projects = response.data;
+            $("#adp").prop('disabled', false);
+            })
+          .catch(function (error) {
+            console.log(error);
+          });
+        }
+        $('#adp').val("");
       $('#titleproject').val('');
       $('#original_cost').val('');
       $("#districts").val('').trigger('change');
