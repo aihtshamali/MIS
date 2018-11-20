@@ -536,13 +536,21 @@ class ExecutiveController extends Controller
           if($officer->AssignedProjectTeam){
           $assigned_project = $officer->AssignedProjectTeam;
           foreach($assigned_project as $assign){
+            if($assign->assignedProject->project->project_type_id == 1)
               $sum += $assign->assignedProject->project->score*($assign->assignedProject->progress/100);
             }
             $sum = round($sum,0,PHP_ROUND_HALF_UP);
             array_push($total,$sum);
             array_push($person,$officer);
           }
+
+
         }
+      }
+      $maxs = array_keys($total, max($total));
+      $max_score = round($total[$maxs[0]],0,PHP_ROUND_HALF_UP);
+      foreach ($total as $key => $number) {
+        $total[$key]= round($number/$max_score*100,0,PHP_ROUND_HALF_UP);
       }
       // $maxs = array_keys($total, max($total));
       // $per = array_search(Auth::id(),$person);
@@ -795,10 +803,10 @@ class ExecutiveController extends Controller
     public function GlobalProgressWiseChart(){
       $projects=AssignedProject::all();
       $ranges=array();
-      array_push($ranges,'0-24.999%');
-      array_push($ranges,'25-49.999%');
-      array_push($ranges,'50-74.999%');
-      array_push($ranges,'75-100%');
+      array_push($ranges,'0-25%');
+      array_push($ranges,'26-50%');
+      array_push($ranges,'51-75%');
+      array_push($ranges,'76-100%');
       $projectsprogress=array_fill(0,4,0);
       foreach ($projects as $project) {
         if($project->progress>0 && $project->progress < 25){

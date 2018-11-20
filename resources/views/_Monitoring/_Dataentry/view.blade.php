@@ -3,13 +3,14 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header"><h4><b>PC-1 of Projects</b></h4></div>
+            <div class="card-header"><h4><b>PC-1 of Projects</b> <b style="background:red;color:white">&nbsp;{{ $projects->count() }} &nbsp;</b></h4></div>
             <div class="card-block">
                     <div class="dt-responsive table-responsive">
                             <table id="simpletable"
                             class="table table-bordered table-stripped nowrap">
                         <thead>
                         <tr>
+                            <th>SR #</th>
                             <th>Project Name</th>
                             <th>Sector</th>
                             <th>Cost</th>
@@ -18,8 +19,12 @@
                         </tr>
                         </thead>
                         <tbody>
+                          @php
+                            $counter = 1;
+                          @endphp
                           @foreach ($projects as $project)
                             <tr>
+                              <td>{{  $counter++ }}</td>
                               <td>{{$project->title}}</td>
                               <td>
                               @foreach ($project->AssignedSubSectors as $sub)
