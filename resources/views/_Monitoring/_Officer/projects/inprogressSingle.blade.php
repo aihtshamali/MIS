@@ -49,8 +49,10 @@
     .ms-container{width: 100% !important;}
     .wd-5p{width: 5% !important;}
     .mt_6p{margin-top: 6% !important;}
-    .pd_1{padding: 1% !important;border: 1px solid #00000014;margin-bottom: 2%;border-radius: 3px;}
+    .pd_1{padding: 1% !important;margin-bottom: 2%;border-radius: 3px;}
     .bg_g{background-color: #00000014}
+    input{background: transparent !important;border: 1px solid #77777747 !important;}
+    .bg_yelop{background-color: #92ac0126;}
     .clearfix{clear: both !important;}
     .textlef{text-align: left !important;}
     .mb_2{margin-bottom: 2% !important;}
@@ -72,6 +74,15 @@
 }
     .select2-container{width: 100% !important;}
     .capitalize{text-transform: capitalize;}
+    .select2-search input{border:none !important;}
+    .fullHeight{height: 100% !important;}
+    .aho{background: #01a9ac;color: #fff;}
+    .aho:active{background: #01a9acd6;border: 1px solid #01a9ac;}
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+    background-color: transparent !important;
+    color: #444;
+    padding: 0px !important;
+}
 </style>
 
 @endsection
@@ -186,53 +197,169 @@
                                         <input type="hidden" name="assigned_project_id" value="{{$project->id}}">
                                         <div class="tab-content card-block">
                                         <div class="tab-pane active" id="reviewDiv" role="tabpanel">
-                                            <div class="costDiv pd_1 clearfix ">
-                                              <h5 class="textlef">Cost</h5>
-                                            </div>
-                                            <div class="TimeDiv pd_1 clearfix bg_g">
-                                              <h5 class="textlef">Time</h5>
-                                            </div>
-                                            <div class="age_orgDiv pd_1 clearfix bg_sk">
-                                              <h5 class="textlef form-txt-primary mb_2">Agencies & Organization</h5>
-                                              <div class="form-group row mb_2">
-                                                  <label class="col-sm-3 form-txt-primary font-15">Operation & Management</label>
-                                                  <div class="col-sm-9">
-                                                    <input type="text" class="form-control form-txt-primary" name="operationAndManagement" placeholder="Operation & Management" />
+                                          <div class="col-md-12">
+                                              <!-- Nav tabs -->
+                                              <ul class="nav nav-tabs  tabs" role="tablist">
+                                                  <li class="nav-item">
+                                                      <a class="nav-link active" data-toggle="tab" href="#costDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Cost</b></a>
+                                                  </li>
+                                                  <li class="nav-item">
+                                                      <a class="nav-link" data-toggle="tab" href="#locationDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Location</b></a>
+                                                  </li>
+                                                  <li class="nav-item">
+                                                      <a class="nav-link" data-toggle="tab" href="#AgeOrgDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Agencies & Organization</b></a>
+                                                  </li>
+                                                  <li class="nav-item">
+                                                      <a class="nav-link" data-toggle="tab" href="#DatesDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Dates</b></a>
+                                                  </li>
+                                              </ul>
+                                              <!-- Tab panes -->
+                                              <div class="tab-content tabs card-block">
+                                                  <div class="tab-pane active" id="costDiv" role="tabpanel">
+                                                      <div class="costDiv pd_1 clearfix">
+                                                          <div class="card-header">
+                                                              <h4>FINANCIAL COST</h4>
+                                                              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                                              Sunt similique totam harum sit. Quibusdam libero, harum rem
+                                                              quam repellendus adipisci. Repellat sapiente asperiores
+                                                              numquam beatae at distinctio quaerat reiciendis
+                                                              repudiandae.
+                                                          </div>
+                                                    <div class="card-block">
+                                                        <div class="row">
+                                                            <div class="col-md-4 offset-md-2">
+                                                                <div class="form-group">
+                                                                    <label for="" class="col-form-label"><b>ADP Allocation of Fiscal Year :</b></label>
+                                                                    <br>
+                                                                    <input type="text" class="form-control" name="ADP_allocation_cost" id="ADP_allocation_cost" />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="" class="col-form-label"><b>Total Allocation by that time (Cumulative):</b></label>
+                                                                    <br>
+                                                                    <input type="text" class="form-control" name="ADP_allocation_cost" id="ADP_allocation_cost" />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="" class="col-form-label"><b>Utilization Against Cost Allocation :</b></label>
+                                                                    <br>
+                                                                <input type="text" class="form-control" name="utilization_allocation" id="utilization_allocation" />
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4 ">
+                                                                <div class="form-group">
+                                                                    <label for="" class="col-form-label"><b>Release To Date of Fiscal Year :</b></label>
+                                                                    <br>
+                                                                    <input type="text" class="form-control" name="release_to_date" id="release_to_date" />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="" class="col-form-label"><b>Total Releases To Date :</b></label>
+                                                                    <br>
+                                                                    <input type="text" class="form-control" name="total_release_to_date" id="total_release_to_date" />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="" class="col-form-label"><b>Utilization Against Releases :</b></label>
+                                                                    <br>
+                                                                    <input type="text" class="form-control" name="u_against_rel" id="u_against_rel" />
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-10 offset-md-1">
+                                                                   <div class="divider"></div>
+                                                                   <div class="col-md-4 offset-md-2">
+                                                                        <div class="form-group">
+                                                                            <label for="" class="col-form-label"><b>Technical Sanction Cost:</b></label>
+                                                                            <br>
+                                                                            <input class="form-control" type="text" name="ts_cost" placeholder="TS Cost" />
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="" class="col-form-label"><b>Contract Award Cost :</b></label>
+                                                                            <br>
+                                                                            <input class="form-control" type="text" name="cad_cost"  placeholder="Contract Cost" />
+                                                                        </div>
+
+                                                                    </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                  </div>
+                                                  </div>
+                                                  <div class="tab-pane" id="locationDiv" role="tabpanel">
+                                                    <div class="TimeDiv pd_1 clearfix">
+                                                      <div class="form-group row mb_2">
+                                                          <label class="col-sm-3 font-15">District</label>
+                                                          <div class="col-sm-9">
+                                                            <input type="text" class="form-control" placeholder="District" />
+                                                          </div>
+                                                      </div>
+                                                      <div class="form-group row mb_2">
+                                                          <label class="col-sm-3 font-15">City</label>
+                                                          <div class="col-sm-9">
+                                                            <input type="text" class="form-control" placeholder="City" />
+                                                          </div>
+                                                      </div>
+                                                      <div class="form-group row mb_2">
+                                                          <label class="col-sm-3 font-15">GPS</label>
+                                                          <div class="col-sm-9">
+                                                            <input type="text" class="form-control" placeholder="GPS" />
+                                                          </div>
+                                                      </div>
+                                                      <div class="form-group row mb_2">
+                                                          <label class="col-sm-3 font-15">Longitude</label>
+                                                          <div class="col-sm-9">
+                                                            <input type="text" class="form-control" placeholder="Longitude" />
+                                                          </div>
+                                                      </div>
+                                                      <div class="form-group row mb_2">
+                                                          <label class="col-sm-3 font-15">Latitude</label>
+                                                          <div class="col-sm-9">
+                                                            <input type="text" class="form-control" placeholder="Latitude" />
+                                                          </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="tab-pane" id="AgeOrgDiv" role="tabpanel">
+                                                    <div class="age_orgDiv pd_1 clearfix">
+                                                      <div class="form-group row mb_2">
+                                                          <label class="col-sm-3 font-15">Opration & Management</label>
+                                                          <div class="col-sm-9">
+                                                            <input type="text" class="form-control" placeholder="Opration & Management" />
+                                                          </div>
+                                                      </div>
+                                                      <div class="form-group row mb_2">
+                                                          <label class="col-sm-3 font-15">Contractor/Supplier</label>
+                                                          <div class="col-sm-9">
+                                                            <input type="text" class="form-control" placeholder="Contractor/Supplier" />
+                                                          </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="tab-pane" id="DatesDiv" role="tabpanel">
+                                                    <div class="dates pd_1 clearfix">
+                                                      <div class="form-group row mb_2">
+                                                          <label class="col-sm-3 font-15">Project Approval Date</label>
+                                                          <div class="col-sm-9">
+                                                            <input type="text" class="form-control" placeholder="Project Approval Date" />
+                                                          </div>
+                                                      </div>
+                                                      <div class="form-group row mb_2">
+                                                          <label class="col-sm-3 font-15">Admin Approval Date</label>
+                                                          <div class="col-sm-9">
+                                                            <input type="text" class="form-control" placeholder="Admin Approval Date" />
+                                                          </div>
+                                                      </div>
+                                                      <div class="form-group row mb_2">
+                                                          <label class="col-sm-3 font-15">Actual Start Date</label>
+                                                          <div class="col-sm-9">
+                                                            <input type="text" class="form-control" placeholder="Actual Start Date" />
+                                                          </div>
+                                                      </div>
+                                                    </div>
                                                   </div>
                                               </div>
-                                              <div class="form-group row mb_2">
-                                                  <label class="col-sm-3 form-txt-primary font-15">Contractor/Supplier</label>
-                                                  <div class="col-sm-9">
-                                                    <input type="text" class="form-control form-txt-primary" name="contractor" placeholder="Contractor/Supplier" />
-                                                  </div>
-                                              </div>
-                                            </div>
-                                            <div class="dates pd_1 clearfix bg_or">
-                                              <h5 class="textlef form-txt-warning mb_2">Dates</h5>
-                                              <div class="form-group row mb_2">
-                                                  <label class="col-sm-3 form-txt-warning font-15">Project Approval Date</label>
-                                                  <div class="col-sm-9">
-                                                    <input type="date" class="form-control form-txt-warning" name="project_approval_date" placeholder="Project Approval Date" />
-                                                  </div>
-                                              </div>
-                                              <div class="form-group row mb_2">
-                                                  <label class="col-sm-3 form-txt-warning font-15">Admin Approval Date</label>
-                                                  <div class="col-sm-9">
-                                                    <input type="date" class="form-control form-txt-warning" name="admin_approval_date" placeholder="Admin Approval Date" />
-                                                  </div>
-                                              </div>
-                                              <div class="form-group row mb_2">
-                                                  <label class="col-sm-3 form-txt-warning font-15">Actual Start Date</label>
-                                                  <div class="col-sm-9">
-                                                    <input type="date" class="form-control form-txt-warning" name="actual_start_date" placeholder="Actual Start Date" />
-                                                  </div>
-                                              </div>
-                                            </div>
-                                            <div class="row">
-                                              <div class="col-md-12">
-                                                <span class="pull-right"><button type="submit" class="btn btn-success btn-sm" name="submit">Save & Next</button></span>
-                                              </div>
-                                            </div>
+                                          </div>
                                         </div>
                                     </form>
                                         <div class="tab-pane " id="p_monitoring" role="tabpanel">
@@ -281,7 +408,7 @@
                                                                 role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Plan A Trip</b></a>
                                                         </li>
                                                     </ul>
-                                                    <div class="tab-content tabs card-block ">
+                                                    <div class="tab-content tabs card-block active">
                                                         <div class="tab-pane active" id="PlanDocDiv" role="tabpanel" aria-expanded="true">
                                                           <div class="col-md-12 col-sm-12">
                                                             <!-- Our markup, the important part here! -->
@@ -296,30 +423,59 @@
                                                           </div>
                                                         </div>
                                                         <div class="tab-pane" id="i-dates" role="tabpanel" aria-expanded="false">
+                                                          <style scopped>
+
+                                                          </style>
                                                             <div class="row">
                                                                 <div class="col-md-6 objtivesNew border_right pd_1_2">
                                                                   <div class="DisInlineflex newClass mb_2 col-md-12">
-                                                                    <label class="col-sm-3 text_center form-txt-primary font-15">Objective 1</label>
+                                                                    <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Objective 1</label>
                                                                     <div class="col-sm-7">
-                                                                      <input type="text" class="form-control form-txt-primary" placeholder="Objective 1">
+                                                                      <input type="text" class="form-control form-txt-primary" name="obj[]" placeholder="Objective 1">
                                                                     </div>
                                                                     <div class="col-sm-2 addbtn text_center">
-                                                                      <button class="btn btn-sm btn-primary" type="button" id="add_more_objective">+</button>
+                                                                      <button class="btn btn-sm btn-info" type="button" id="add_more_objective">+</button>
                                                                     </div>
                                                                   </div>
                                                                 </div>
                                                                 <div class="col-md-6 compActNew border_left pd_1_2">
                                                                   <div class="DisInlineflex newClasscompAct mb_2 col-md-12">
-                                                                    <label class="col-sm-3 text_center form-txt-primary font-15">Component / Activities 1</label>
+                                                                    <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Component 1</label>
                                                                     <div class="col-sm-7">
-                                                                      <input type="text" class="form-control form-txt-primary" placeholder="Component/Activities 1">
+                                                                      <input type="text" name="comp[]" class="form-control form-txt-primary" placeholder="Component 1">
                                                                     </div>
                                                                     <div class="col-sm-2 addbtn text_center">
-                                                                      <button class="btn btn-sm btn-primary" type="button" id="add_more_compAct">+</button>
+                                                                      <button class="btn btn-sm btn-info" type="button" id="add_more_compAct">+</button>
                                                                     </div>
                                                                   </div>
                                                                 </div>
+                                                                <button class="btn aho col-md-2 offset-md-10" type="button" id="saveObjComp">Save</button>
                                                             </div>
+                                                          {{-- <div class="col-md-12 objtivesNew pd_1_2">
+                                                            <div class="DisInlineflex newClass mb_2 col-md-12">
+                                                              <div class="col-sm-5">
+                                                                <input type="text" class="form-control form-txt-primary" placeholder="Objective 1">
+                                                              </div>
+                                                              <div class="col-md-1">
+                                                                <div class="col-md-5 border_right fullHeight"></div>
+                                                              </div>
+                                                              <div class="col-md-6 compActNew">
+                                                                <div class="newClasscompAct col-md-12 row">
+                                                                  <div class="col-sm-10">
+                                                                    <input type="text" class="form-control form-txt-primary" placeholder="Component 1">
+                                                                  </div>
+                                                                  <div class="col-sm-2 addbtn text_center">
+                                                                    <button class="btn btn-sm btn-primary " title="Add More Component" type="button" id="add_more_compAct">+</button>
+                                                                  </div>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                          <div class="container">
+                                                            <div class="offset-md-11 col-md-1 addbtn text_center">
+                                                              <button class="btn btn-sm btn-primary" title="Add More Objectves" type="button" id="add_more_objective">+</button>
+                                                            </div>
+                                                          </div> --}}
                                                         </div>
                                                         <div class="tab-pane" id="financial" role="tabpanel" aria-expanded="false">
                                                             <div>
@@ -360,47 +516,16 @@
                                                                 <h5 class="textlef pd_1_2 col-md-6">Objectives</h5>
                                                                 <h5 class="textlef pd_1_2 col-md-6">Component</h5>
                                                               </div>
-                                                              <ul class="pd_1_6">
-                                                                <li class="row mb_2">
-                                                                  <span class="float-left col-md-6">objective 1</span>
-                                                                  <span class="float-right col-md-6">
-                                                                    <select class="js-example-basic-multiple col-md-12" multiple="multiple">
-                                                                        {{-- <option value="" selected hidden>Select Multiple Components</option> --}}
-                                                                        <option value="AL">Component 1</option>
-                                                                        <option value="WY">Component 2</option>
-                                                                        <option value="WY">Component 3</option>
-                                                                        <option value="WY">Component 4</option>
-                                                                        <option value="WY">Component 5</option>
-                                                                    </select>
-                                                                  </span>
-                                                                </li>
-                                                                <li class="row mb_2">
-                                                                  <span class="float-left col-md-6">objective 2</span>
-                                                                  <span class="float-right col-md-6">
-                                                                    <select class="js-example-basic-multiple col-sm-12" multiple="multiple">
-                                                                        {{-- <option value="" selected hidden>Select Multiple Components</option> --}}
-                                                                        <option value="AL">Component 1</option>
-                                                                        <option value="WY">Component 2</option>
-                                                                        <option value="WY">Component 3</option>
-                                                                        <option value="WY">Component 4</option>
-                                                                        <option value="WY">Component 5</option>
-                                                                    </select>
-                                                                  </span>
-                                                                </li>
+                                                              <ul class="pd_1_6" id="ObjCompHere">
+
                                                               </ul>
-                                                              <h5 class="textlef pd_1_2">Summary</h5>
-                                                              <p class="clearfix pd_1_6">
-                                                                <span class="float-left col-md-6">objective 1</span>
-                                                                <span class="float-right col-md-6">
-                                                                  comp 1<br/>comp 2
-                                                                </span>
-                                                              </p>
-                                                              <p class="clearfix pd_1_6">
-                                                                <span class="float-left col-md-6">objective 1</span>
-                                                                <span class="float-right col-md-6">
-                                                                  comp 1<br/>comp 2
-                                                                </span>
-                                                              </p>
+                                                              <button class="btn aho col-md-3 offset-md-9 mb_2" type="button" id="ObjCompShowSum">Show Summary</button>
+                                                            </div>
+                                                            <div class=" col-md-8 offset-md-2 ">
+                                                              <h5 class="textlef pd_1_6">Summary</h5>
+                                                              <div class="col-md-12 SumObjComp nodisplay">
+
+                                                              </div>
                                                             </div>
                                                           </div>
                                                         </div>

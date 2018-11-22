@@ -531,22 +531,72 @@ $(document).ready(function () {
         }
         objct = i + 2;
     }
-
-
     $('#add_more_objective').click(function (e) {
         // var newClass='obj_'objct++;
-        var add_objective = `<div class="newClass` + objct + ` DisInlineflex mb_2 col-md-12">
-                        <label class="col-sm-3 text_center form-txt-primary font-15">Objective `+ objct + `</label>
-                        <div class="col-sm-7">
-                          <input type="text" class="form-control form-txt-primary" placeholder="Objective `+ objct + `">
-                        </div>
-                        <div class="col-sm-2 removeObjective text_center">
-                          <button class="btn btn-danger btn-sm" type="button">-</button>
-                        </div>
-                      </div>
-                      `
+        var add_objective = `<div class="DisInlineflex newClass` + objct +` mb_2 col-md-12">
+                                <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Objective ` + objct + `</label>
+                                <div class="col-sm-7">
+                                  <input type="text" class="form-control form-txt-primary" name="obj[]" placeholder="Objective ` + objct + `">
+                                </div>
+                                <div class="col-sm-2 removeObjective text_center">
+                                  <button class="btn btn-sm btn-danger" title="Delete Objective ` + objct +`" type="button" id="">-</button>
+                                </div>
+                              </div>`
         $('.objtivesNew').append(add_objective);
         objct += 1;
+    });
+    var oc = 1;
+      $('#saveObjComp').click(function(){
+        var ObjCompHere =  `<li class="row mb_2">
+                              <span id='objvalue`+ oc + `' class="float-left col-md-6"></span>
+                              <span class="float-right col-md-6">
+                              <select class="select2 col-md-12" id="option`+ oc + `" multiple="multiple">
+
+                              </select>
+                              </span>
+                            </li>`
+        var options = ""
+        // $(ObjCompHere)
+          // var obj = [];
+          $('input[name^=comp]').each(function(){
+              // obj.push($(this).val());
+              options += "<option value='" + $(this).val() + "'>" + $(this).val() + "</option>"
+            });
+          // console.log(options,'here');
+          $('input[name^=obj]').each(function(){
+            var t = $(ObjCompHere)
+            t.find('#objvalue' + oc + '').text($(this).val())
+            $(options).appendTo(t.find('#option' + oc + ''))
+            t.appendTo('#ObjCompHere');
+          });
+          $('.select2').select2()
+          // console.log(obj);
+          // return false;
+          oc++;
+      });
+
+  // $(document).ready(function(){
+    // $("#ObjCompShowSum").click(function(){
+    //   $(".SumObjComp").show('slow');
+    //     var SumObjComp =  `<p class="clearfix pd_1_6">
+    //                           <span id="SumObj" class="float-left col-md-6">` + sumObjCaompHere + `</span>
+    //                           <span id="SumComp" class="float-right col-md-6">
+    //
+    //                           </span>
+    //                         </p>`
+    //     // var sumObjCaompHere = $(SumObjComp)
+    //     SumObjComp.find('#SumObj').text($(this).val())
+    //     $('.SumObjComp').append(SumObjComp);
+    //     // $(options).appendTo(t.find('#option'))
+    //     // sumObjCaompHere.appendTo('#ObjCompHere')
+    // });
+    // });
+
+    $(document).on('click','#ObjCompShowSum',function(){
+      for(var i =0 ;i<oc;i++)
+       $('#option'+i+' :selected').each(function(){
+         console.log($(this).val());
+      });
     });
     $(document).on('click', '.removeObjective', function () {
         if ($(this).parent().attr('class').split(' ')[0].split('ss')[1] == objct - 1) {
@@ -572,8 +622,8 @@ $(document).ready(function () {
                 }
             }
             if (val != "") {
-                $('.' + val + ' > label').text('Component / Activities ' + (i + 2));
-                $('.' + val + ' > div > input').attr('placeholder', 'Component / Activities '+ (i + 2));
+                $('.' + val + ' > label').text('Component ' + (i + 2));
+                $('.' + val + ' > div > input').attr('placeholder', 'Component '+ (i + 2));
                 $('.' + val).addClass('newClasscompAct' + (i + 2)).removeClass(val);
             }
         }
@@ -581,16 +631,15 @@ $(document).ready(function () {
     }
     $('#add_more_compAct').click(function (e) {
         // var newClass='obj_'objct++;
-        var add_compAct = `<div class="newClasscompAct` + compAct + ` DisInlineflex mb_2 col-md-12">
-                        <label class="col-sm-3 text_center form-txt-primary font-15">Component / Activities `+ compAct + `</label>
-                        <div class="col-sm-7">
-                          <input type="text" class="form-control form-txt-primary" placeholder="Component / Activities `+ compAct + `">
-                        </div>
-                        <div class="col-sm-2 removecompAct text_center">
-                          <button class="btn btn-danger btn-sm" type="button">-</button>
-                        </div>
-                      </div>
-                      `
+        var add_compAct = `<div class="DisInlineflex newClasscompAct` + compAct +` mb_2 col-md-12">
+                            <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Component ` + compAct +`</label>
+                            <div class="col-sm-7">
+                              <input type="text" class="form-control form-txt-primary" name="comp[]" placeholder="Component ` + compAct +`">
+                            </div>
+                            <div class="col-sm-2 removecompAct text_center">
+                              <button class="btn btn-sm btn-danger" title="Delete Objective ` + compAct + `" type="button" id="">-</button>
+                            </div>
+                          </div>`
         $('.compActNew').append(add_compAct);
 
         compAct += 1;

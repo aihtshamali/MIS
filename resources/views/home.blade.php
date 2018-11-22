@@ -2,8 +2,82 @@
 @section('title')
    Home Page | DGME MIS
 @endsection
+@section('styleTags')
+   <style media="screen">
+     .btn, .nav-item, .nav-link{background: transparent !important;font-size: .9rem !important;color: #fff !important;font-weight:700 !important;-webkit-transition: all 600ms ease;transition: all 600ms ease;}
+     .btn:hover, .nav-item:hover, .nav-link:hover{background: #687753 !important;color: #fff !important;opacity: 0.7 !important;border-radius: .25rem !important;font-size: .9rem !important;font-weight:700 !important;-webkit-transition: all 600ms ease;transition: all 600ms ease;}
+     a{text-decoration: none !important;}
+     hr {
+            margin-top: 0.5rem !important;
+            margin-bottom: 0.5rem !important;
+            border: 0;
+            border-top: 1px solid #ffffff47 !important;
+        }
+     .tile {
+      width: 100%;
+      display: inline-block;
+      box-sizing: border-box;
+      background: #687753 !important;
+      padding: 20px;
+      margin-bottom: 7%;
+      border-radius: 10px;
+      -webkit-transition: all 600ms ease;
+      transition: all 600ms ease;
+    }
+     .tile:hover {
+       background: #687753e6 !important;
+      box-shadow: 0px 0px 37px #777;
+      -webkit-transition: all 600ms ease;
+      transition: all 600ms ease;
+    }
+    .tile .title {
+      margin-top: 0px;
+    }
+    .tile.purple, .tile.blue, .tile.red, .tile.orange, .tile.green {
+      color: #fff;
+    }
+    /* .tile.purple {
+      background: #5133AB;
+    } */
+    /* .tile.purple:hover {
+      background: #3e2784 !important;
+    }
+    .tile.red {
+      background: #AC193D;
+    }
+    .tile.red:hover {
+      background: #7f132d;
+    }
+    .tile.green {
+      background: #00A600;
+    }
+    .tile.green:hover {
+      background: #007300;
+    }
+    .tile.blue {
+      background: #2672EC;
+    }
+    .tile.blue:hover {
+      background: #125acd;
+    }
+    .tile.orange {
+      background: #DC572E;
+    }
+    .tile.orange:hover {
+      background: #b8431f;
+    } */
+    .pt_3p{padding-top: 3% !important;}
+    .black{color: #777 !important;}
+    .mr_3p{margin: 3%;}
+    .nopad-nomar{padding: 0px !important;margin: 0px !important;}
+    .bg_g{ background: #687753 !important}
+    .clr_g{ color: #687753 !important}
+   </style>
+@endsection
 @section('content')
       <div class="main" id="main">
+        {{-- start vertical auto clider --}}
+        {{-- end vertical auto clider --}}
           <!-- Main Section-->
           <div class="hero-section app-hero">
               <div class="container">
@@ -20,57 +94,227 @@
                           <div class="col-md-12">
                               <div class="hero-image">
                                   {{-- <img class="img-fluid" src="assets/images/app_hero_1.png" alt="" /> --}}
+                                  {{-- main --}}
+                                  <div id="testmodal" class="modal fade">
+                                      <div class="modal-dialog">
+                                          <div class="modal-content">
+                                              <div class="modal-header">
+                                                  {{-- <h1 class="col-md-10 black nopad-nomar">Login</h2> --}}
+                                                  <button type="button" class="close col-md-2" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                  {{-- <h4 class="modal-title">Confirmation</h4> --}}
+                                              </div>
+                                              <div class="modal-body">
+                                                <div class="limiter">
+                                              		<div class="container-login100">
+                                              			<div class="wrap-login100 p-t-50 p-b-20">
+                                                      <form class="login100-form validate-form" method="POST" action="{{ route('login') }}">
+                                                        {{ csrf_field() }}
+                                              					<span style="text-align: center ; text-decoration-color: lightslategray" class="p-b-7">
+                                              						<div style="text-align: center ">
+                                              								<img src="logo.jpg"  alt="AVATAR">
+                                              						</div>
+                                              					</span>
+                                              					<div class="wrap-input100 validate-input m-t-40 m-b-35" data-validate = "Enter username">
+                                              						<input class="input100" type="text" id="username" name="username" value="{{ old('username') }}">
+                                                              <span class="focus-input100" data-placeholder="UserName"></span>
+                                                              @if ($errors->has('username'))
+                                                                   <div class="help-block">
+                                                                      <strong>{{ $errors->first('username') }}</strong>
+                                                                  </div>
+                                                              @endif
+                                              					</div>
+                                              					<div class="wrap-input100 validate-input m-b-15" data-validate="Enter password">
+                                              	  					<input class="input100" id="password" type="password" name="password">
+                                                            <span class="focus-input100" data-placeholder="Password"></span>
+                                                            @if ($errors->has('password'))
+                                                            <div class="help-block">
+                                                                <strong>{{ $errors->first('password') }}</strong>
+                                                            </div>
+                                                            @endif
+                                                        </div>
+
+                                                        <div class="checkbox m-b-20 mr_3p">
+                                                                <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember  me
+                                              				 </div>
+
+                                              					<div class="container-login100-form-btn ">
+                                              						<button class="login100-form-btn btn bg_g"  >
+                                              							Login
+                                              						</button>
+                                              					</div>
+
+                                              					<ul class="login-more p-t-50 m-b-8 modal-footer">
+                                              							<span class="txt1">
+                                              								Forgot
+                                              							</span>
+                                              							<b>
+                                              							<a href="#" class="txt2 clr_g">
+                                              									Username  /  Password?
+                                              							</a>
+                                              							</b>
+                                              							<b>
+                                              								<a href="/register" class="txt2 btn bg_g" style=" float : right; margin-left: 20px;">
+                                              									 Sign up
+                                              								</a>
+                                              							</b>
+
+                                              					</ul>
+                                              				</form>
+                                              			</div>
+                                              		</div>
+                                              	</div>
+                                              </div>
+                                              {{-- <div class="">
+                                                  <button type="button" class="btn-default" data-dismiss="modal">Close</button>
+                                              </div> --}}
+                                          </div>
+                                      </div>
+                                  </div>
+                                  {{-- <div id="testmodal-1" class="modal fade">
+                                      <div class="modal-dialog">
+                                          <div class="modal-content">
+                                              <div class="modal-header">
+                                                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                  <h4 class="modal-title">Confirmation</h4>
+                                              </div>
+                                              <div class="modal-body">
+                                                  <p>Do you want to save changes you made to document before closing?</p>
+                                                  <p class="text-warning"><small>If you don't save, your changes will be lost.</small></p>
+                                              </div>
+                                              <div class="modal-footer">
+                                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                  <button type="button" class="btn btn-primary">Save changes</button>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div> --}}
+                                  {{-- end main --}}
                               </div>
                           </div>
                       </div>
                   </div>
               </div>
           </div>
+          @auth
+          <div class="pt_3p text-center">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.5s">
+                    <a href="{{route('monitoring_dashboard')}}" class="tile purple">
+                      <h3 class="title">Monitoring</h3>
+                      <hr/>
+                      <p>Click here to visit Monitoring</p>
+                    </a>
+                </div>
+                <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.6s">
+                    <a href="{{route('evaluation_dashboard')}}" class="tile orange">
+                      <h3 class="title">Evaluation</h3>
+                      <hr/>
+                      <p>Click here to visit Evaluation</p>
+                    </a>
+                </div>
+                <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.7s">
+                    <a href="" class="tile green">
+                      <h3 class="title">TPV(s)</h3>
+                      <hr/>
+                      <p>Click here to visit TPV(s)</p>
+                    </a>
+                </div>
+                <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.8s">
+                  <a href="" class="tile green">
+                    <h3 class="title">Inquires</h3>
+                    <hr/>
+                    <p>Click here to visit Inquires</p>
+                  </a>
+                </div>
+                <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.9s">
+                    <a href="{{route('trip.create')}}" class="tile orange">
+                      <h3 class="title">Plan My Trip</h3>
+                      <hr/>
+                      <p>Click here to visit Plan My Trip</p>
+                    </a>
+                </div>
+                <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.0s">
+                  <a href="" class="tile green">
+                    <h3 class="title">Accounts</h3>
+                    <hr/>
+                    <p>Click here to visit Accounts</p>
+                  </a>
+                </div>
+                <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.2s">
+                  <a href="" class="tile green">
+                    <h3 class="title">My Profile</h3>
+                    <hr/>
+                    <p>Click here to visit My Profile</p>
+                  </a>
+                </div>
+                <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.3s">
+                  <a href="" class="tile purple">
+                    <h3 class="title">New Announcement</h3>
+                    <hr/>
+                    <p>Check Announcements</p>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        @endauth
           <div class="services-section text-center" id="services">
               <!-- Services section (small) with icons -->
               <div class="container">
                   <div class="row  justify-content-md-center">
                       <div class="col-md-8">
                           <div class="services-content">
-                              <h1 class="wow fadeInUp" data-wow-delay="0s">We take care our products for more feature rich</h1>
+                              <h1 class="wow fadeInUp" data-wow-delay="0s">Vission & Mission</h1>
                               <p class="wow fadeInUp" data-wow-delay="0.2s">
-                                  Adminty is one of the finest Admin dashboard template in its category. Premium admin dashboard with high end feature rich possibilities.
+                                  Our Vission Modern, progressive, efficient, and reliable organization & Our Mission is Planning, monitoring and evaluation of PSDP
                               </p>
                           </div>
                       </div>
                       <div class="col-md-12 text-center">
                           <div class="services">
                               <div class="row">
-                                  <div class="col-sm-4 wow fadeInUp" data-wow-delay="0.2s">
+                                  <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.2s">
                                       <div class="services-icon">
-                                          {{-- <img src="assets/logos/icon1.png" height="60" width="60" alt="Service" /> --}}
+                                          <img src="{{ asset('landingPage/img/monitoring.png')}}" height="60" width="60" alt="Service" />
                                       </div>
                                       <div class="services-description">
-                                          <h1>Mega feature rich</h1>
+                                          <h1>Monitoring</h1>
                                           <p>
-                                              Adminty is one of unique dashboard template which come with tons of ready to use feature. We continuous working on it to provide latest updates in digital market.
+                                              Assessing performance, analyzing organizational performance; and examining processes in the environment of an organization.
                                           </p>
                                       </div>
                                   </div>
-                                  <div class="col-sm-4 wow fadeInUp" data-wow-delay="0.3s">
+                                  <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.3s">
                                       <div class="services-icon">
-                                          {{-- <img class="icon-2" src="assets/logos/icon2.png" height="60" width="60" alt="Service" /> --}}
+                                          <img class="icon-2" src="{{ asset('landingPage/img/evaluation.png')}}" height="60" width="60" alt="Service" />
                                       </div>
                                       <div class="services-description">
-                                          <h1>Fast and Robust</h1>
+                                          <h1>Evaluation</h1>
                                           <p>
-                                              We are contantly working on Adminty and improve its performance too. Your definitely give higher rating to Adminty for its performance.
+                                              Examination, at specified points in time of projects performance, usually with emphasis on impact and also on relevance & efficiency.
                                           </p>
                                       </div>
                                   </div>
-                                  <div class="col-sm-4 wow fadeInUp" data-wow-delay="0.4s">
+                                  <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.4s">
                                       <div class="services-icon">
-                                          {{-- <img class="icon-3" src="assets/logos/icon3.png" height="60" width="60" alt="Service" /> --}}
+                                          <img class="icon-3" src="{{ asset('landingPage/img/Validation.png')}}" height="60" width="60" alt="Service" />
                                       </div>
                                       <div class="services-description">
-                                          <h1>FLAT UI-Interface</h1>
+                                          <h1>Validation</h1>
                                           <p>
-                                              Adminty is first ever admin dashboard template which release in Bootstrap 4 framework. Intuitive feature rich design concept and color combination.
+                                              Third Party Validation is to gauge the progress with regard to its objectives and intended impact from an independent perspective.
+                                          </p>
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.4s">
+                                      <div class="services-icon">
+                                          <img class="icon-3" src="{{ asset('landingPage/img/specialAss.png')}}" height="60" width="60" alt="Service" />
+                                      </div>
+                                      <div class="services-description">
+                                          <h1>Special Assignments</h1>
+                                          <p>
+                                              Special Assignments on the direction of CM Punjab, Chief Secretary’s Punjab and Chairman PND Board, Govt. of the Punjab
                                           </p>
                                       </div>
                                   </div>
@@ -80,316 +324,53 @@
                   </div>
               </div>
           </div>
-          <div class="flex-features" id="features">
-              <div class="container">
-                  <div class="flex-split">
-                      <div class="f-left wow fadeInUp" data-wow-delay="0s">
-                          <div class="left-content">
-                              {{-- <img class="img-fluid" src="assets/images/feature_1.png" alt="" /> --}}
-                          </div>
-                      </div>
-                      <div class="f-right wow fadeInUp" data-wow-delay="0.2s">
-                          <div class="right-content">
-                              <h2>High performance and flexible code</h2>
-                              <p>
-                                  Guru Able is full flexible solution for your entire project development. You can easily maintain all of its module/components.
-                              </p>
-                              <ul>
-                                  <li><i class="ion-android-checkbox-outline"></i>Neat n clean code structure.</li>
-                                  <li><i class="ion-android-checkbox-outline"></i>Flexible module structure</li>
-                                  <li><i class="ion-android-checkbox-outline"></i>Copy / Paste and Ready to use</li>
-                              </ul>
-                              <button class="btn btn-primary btn-action btn-fill">Learn More</button>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="flex-split">
-                      <div class="f-right">
-                          <div class="right-content wow fadeInUp" data-wow-delay="0.2s">
-                              <h2>Included Software Dependencies</h2>
-                              <p>
-                                  Bower - Grunt - Sass Dependencies for easy project flow management.
-                              </p>
-                              <ul>
-                                  <li><i class="ion-android-checkbox-outline"></i>Grunt - No need to update plugins manually</li>
-                                  <li><i class="ion-android-checkbox-outline"></i>Grunt - Less work you have to performance</li>
-                                  <li><i class="ion-android-checkbox-outline"></i>Sass - Most Powerful CSS extension language</li>
-                              </ul>
-                              <button class="btn btn-primary btn-action btn-fill">Learn More</button>
-                          </div>
-                      </div>
-                      <div class="f-left">
-                          <div class="left-content wow fadeInUp" data-wow-delay="0.3s">
-                              {{-- <img class="img-fluid" src="assets/images/feature_2.png" alt="" /> --}}
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="testimonial-section" id="reviews">
-              <div class="container">
-                  <div class="row text-center">
-                      <div class="col-md-12">
-                          <div class="testimonials owl-carousel owl-theme">
-                              <div class="testimonial-single">
-                                {{-- <img class="img-circle" src="assets/images/testimonial2.jpg" alt="Client Testimonoal" /> --}}
-                                  <div class="testimonial-text wow fadeInUp" data-wow-delay="0.2s">
-                                      <p>Totally flexible admin template. Easy to use and easy to manage all the elements in entire theme. <br class="hidden-xs"> Great support team behind this product. Low turnaround time with exact support which i needed.
-                                      </p>
-                                      <h3>Code Quality</h3>
-                                      <h3> - amit1134 [Buyer - NZ]</h3>
-                                      <i class="ion ion-star"></i>
-                                      <i class="ion ion-star"></i>
-                                      <i class="ion ion-star"></i>
-                                      <i class="ion ion-star"></i>
-                                      <i class="ion ion-star"></i>
-                                  </div>
-                              </div>
-                              <div class="testimonial-single">
-                                {{-- <img class="img-circle" src="assets/images/testimonial1.jpg" alt="Client Testimonoal" /> --}}
-                                  <div class="testimonial-text">
-                                      <p>The main reason for the Rating for Able pro admin template is that its is awesome template with tons of ready to use features.<br class="hidden-xs"> - Top quality - Regular updates - PHP version - Clean n Neat code
-                                          - Saves lots of developing time
-                                      </p>
-                                      <h3>Flexibility</h3>
-                                      <h3>- vishalmg [Buyer -India]</h3>
-                                      <i class="ion ion-star"></i>
-                                      <i class="ion ion-star"></i>
-                                      <i class="ion ion-star"></i>
-                                      <i class="ion ion-star"></i>
-                                      <i class="ion ion-ios-star-half"></i>
-                                  </div>
-                              </div>
-                              <div class="testimonial-single">
-                                {{--
-                                <img class="img-circle" src="assets/images/testimonial3.jpg" alt="Client Testimonoal" /> --}}
-                                  <div class="testimonial-text">
-                                      <p>5 stars are for the excellent support, that is brilliant! The design is very cool and the quality of code is excellent. <br class="hidden-xs">Compliments!</p>
-                                      <h3>Code Quality</h3>
-                                      <h3>- ab69aho [Buyer -Italy]</h3>
-                                      <i class="ion ion-star"></i>
-                                      <i class="ion ion-star"></i>
-                                      <i class="ion ion-star"></i>
-                                      <i class="ion ion-star"></i>
-                                      <i class="ion ion-ios-star-half"></i>
-                                  </div>
-                              </div>
-                              <div class="testimonial-single">
-                                {{-- <img class="img-circle" src="assets/images/testimonial2.jpg" alt="Client Testimonoal" /> --}}
-                                  <div class="testimonial-text">
-                                      <p>The product is high end and high-end specialized assistance in solving problems. <br class="hidden-xs">I would highly recommend.</p>
-                                      <h3>Customer Support</h3>
-                                      <h3>- donpavulon [Buyer -US]</h3>
-                                      <i class="ion ion-star"></i>
-                                      <i class="ion ion-star"></i>
-                                      <i class="ion ion-star"></i>
-                                      <i class="ion ion-star"></i>
-                                      <i class="ion ion-star"></i>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <!-- Feature Image Big -->
-          <div class="feature_huge text-center">
-              <div class="container">
-                  <div class="row">
-                      <div class="col-md-12">
-                          {{-- <img class="img-fluid wow fadeInUp" data-wow-delay="0.1s" src="assets/images/big_feature.png" alt="" style="max-width:100%" /> --}}
-                      </div>
-                      <div class="col-md-12 feature_list">
-                          <div class="row">
-                              <div class="col-sm-4 wow fadeInUp" data-wow-delay="0.2s">
-                                  {{-- <img src="assets/logos/feature_icon.png" alt="Feature" /> --}}
-                                  <h1>Tursted Product</h1>
-                                  <p>
-                                      We increasingly grow our talent and skills in admin dashboard development.
-                                  </p>
-                              </div>
-                              <div class="col-sm-4 wow fadeInUp" data-wow-delay="0.4s">
-                                  {{-- <img src="assets/logos/feature_icon_2.png" alt="Feature" /> --}}
-                                  <h1>Online Documentation</h1>
-                                  <p>
-                                      Documentation helps you in every steps on your entire project.
-                                  </p>
-                              </div>
-                              <div class="col-sm-4 wow fadeInUp" data-wow-delay="0.6s">
-                                  {{-- <img src="assets/logos/feature_icon_3.png" alt="Feature" /> --}}
-                                  <h1>Free Updates & Support</h1>
-                                  <p>
-                                      Fast and accurate outline during support. Low turnaround time.
-                                  </p>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <!-- Counter Section -->
           <div class="counter-section">
               <div class="container">
                   <div class="row text-center">
                       <div class="col-6 col-md-3">
                           <div class="counter-up">
                               <div class="counter-icon">
-                                  <i class="ion-android-download"></i>
+                                  <i class="fa fa-ioxhost"></i>
                               </div>
                               <h3><span class="counter">250</span>+</h3>
                               <div class="counter-text">
-                                  <h4>Pages</h4>
+                                  <h4>Monitoring projects</h4>
                               </div>
                           </div>
                       </div>
                       <div class="col-6 col-md-3">
                           <div class="counter-up">
                               <div class="counter-icon">
-                                  <i class="ion-cube"></i>
+                                  <i class="fa fa-industry"></i>
                               </div>
                               <h3><span class="counter">1000</span>+</h3>
                               <div class="counter-text">
-                                  <h4>UI Elements</h4>
+                                  <h4>Evaluation Projects</h4>
                               </div>
                           </div>
                       </div>
                       <div class="col-6 col-md-3">
                           <div class="counter-up">
                               <div class="counter-icon">
-                                  <i class="ion-ios-people"></i>
+                                  <i class="fa fa-check-square-o"></i>
                               </div>
                               <h3><span class="counter">500</span>+</h3>
                               <div class="counter-text">
-                                  <h4>Form Elements</h4>
+                                  <h4>Validation</h4>
                               </div>
                           </div>
                       </div>
                       <div class="col-6 col-md-3">
                           <div class="counter-up">
                               <div class="counter-icon">
-                                  <i class="ion-ios-paper"></i>
+                                  <i class="fa fa-bookmark"></i>
                               </div>
                               <h3><span class="counter">80</span>+</h3>
                               <div class="counter-text">
-                                  <h4>Widgets</h4>
+                                  <h4>Special Assignments</h4>
                               </div>
                           </div>
                       </div>
-                  </div>
-              </div>
-          </div>
-          <!-- Counter Section Ends -->
-          <div class="features-section">
-              <!-- Feature section with flex layout -->
-              <div class="f-left">
-                  <div class="left-content wow fadeInLeft" data-wow-delay="0s">
-                      <h2 class="wow fadeInLeft" data-wow-delay="0.1s">We are available for custom work development</h2>
-                      <p class="wow fadeInLeft" data-wow-delay="0.2s">
-                          We at Adminty available for custom work development with High end specialized developer.
-                      </p>
-                      <button class="btn btn-primary btn-action btn-fill wow fadeInLeft" data-wow-delay="0.2s">Click to send query</button>
-                  </div>
-              </div>
-              <div class="f-right">
-              </div>
-          </div>
-          <!-- Pricing Section -->
-          <div class="pricing-section no-color text-center" id="pricing">
-              <div class="container">
-                  <div class="row">
-                      <div class="col-md-12 col-sm-12 ">
-                          <div class="pricing-intro">
-                              <h1 class="wow fadeInUp" data-wow-delay="0s">Pricing Table</h1>
-                              <p class="wow fadeInUp" data-wow-delay="0.2s">
-                                  Loream ipsum dummy text loream ipsum dummy text loream ipsum dummy text <br class="hidden-xs"> loream ipsum dummy text. Get the right plan that suits you.
-                              </p>
-                          </div>
-                          <div class="row">
-                              <div class="col-sm-6">
-                                  <div class="table-left wow fadeInUp" data-wow-delay="0.4s">
-                                      <div class="icon">
-                                          {{-- <img src="assets/logos/cart2.png" alt="Icon" /> --}}
-                                      </div>
-                                      <div class="pricing-details">
-                                          <h2>Beginner Plan</h2>
-                                          <span>$5.90</span>
-                                          <p>
-                                              Pay little enjoy the product <br class="hidden-xs"> for life time.
-                                          </p>
-                                          <ul>
-                                              <li>First basic feature </li>
-                                              <li>Second feature goes here</li>
-                                              <li>Any other third feature</li>
-                                              <li>And the last one goes here</li>
-                                          </ul>
-                                          <button class="btn btn-primary btn-action btn-fill">Get Plan</button>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-sm-6 ">
-                                  <div class="table-right wow fadeInUp" data-wow-delay="0.6s">
-                                      <div class="icon">
-                                          {{-- <img src="assets/logos/cart1.png" alt="Icon" /> --}}
-                                      </div>
-                                      <div class="pricing-details">
-                                          <h2>Premium Plan</h2>
-                                          <span>$19.99</span>
-                                          <p>
-                                              Pay only for what you use. Flexible <br class="hidden-xs"> payment options.
-                                          </p>
-                                          <ul>
-                                              <li>First premium feature </li>
-                                              <li>Second premium one goes here</li>
-                                              <li>Third premium feature here</li>
-                                              <li>Final premium feature</li>
-                                          </ul>
-                                          <button class="btn btn-primary btn-action btn-fill">Buy Now</button>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <!-- Client Section -->
-          <div class="client-section">
-              <div class="container text-center">
-                  <div class="clients owl-carousel owl-theme">
-                      <div class="single">
-                          {{-- <img src="assets/logos/logo1.png" alt="" /> --}}
-                      </div>
-                      <div class="single">
-                          {{-- <img src="assets/logos/logo2.png" alt="" /> --}}
-                      </div>
-                      <div class="single">
-                          {{-- <img src="assets/logos/logo3.png" alt="" /> --}}
-                      </div>
-                      <div class="single">
-                          {{-- <img src="assets/logos/logo4.png" alt="" /> --}}
-                      </div>
-                      <div class="single">
-                          {{-- <img src="assets/logos/logo6.png" alt="" /> --}}
-                      </div>
-                      <div class="single">
-                          {{-- <img src="assets/logos/logo7.png" alt="" /> --}}
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <!-- Subscribe Form -->
-          <div class="cta-sub text-center no-color">
-              <div class="container">
-                  <h1 class="wow fadeInUp" data-wow-delay="0s">New product notification subscription</h1>
-                  <p class="wow fadeInUp" data-wow-delay="0.2s">
-                      We sent you daily mail about product updates / releases / version change logs<br class="hidden-xs">Please write accurate email address below.
-                  </p>
-                  <div class="form wow fadeInUp" data-wow-delay="0.3s">
-                      <form class="subscribe-form wow zoomIn" action="assets/php/subscribe.php" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" autocomplete="off" novalidate>
-                          <input class="mail" type="email" name="email" placeholder="Email address" autocomplete="off"><input class="submit-button" type="submit" value="Subscribe">
-                      </form>
-                      <div class="success-message"></div>
-                      <div class="error-message"></div>
                   </div>
               </div>
           </div>
@@ -398,15 +379,15 @@
               <div class="container">
                   <div class="col-md-12 text-center">
                       {{-- <img src="assets/logos/logo.png" alt="Adminty Logo" /> --}}
-                      <ul class="footer-menu">
+                      {{-- <ul class="footer-menu">
                           <li><a href="http://demo.com">Site</a></li>
                           <li><a href="#">Support</a></li>
                           <li><a href="#">Terms</a></li>
                           <li><a href="#">Privacy</a></li>
-                      </ul>
+                      </ul> --}}
                       <div class="footer-text">
                           <p>
-                              Copyright © 2017 Adminty. All Rights Reserved.
+                              Copyright © 2018 DGME. All Rights Reserved.
                           </p>
                       </div>
                   </div>
@@ -414,10 +395,61 @@
           </div>
           <!-- Scroll To Top -->
           <a id="back-top" class="back-to-top page-scroll" href="#main">
-              <i class="ion-ios-arrow-thin-up"></i>
+              <i class="fa fa-chevron-up"></i>
           </a>
           <!-- Scroll To Top Ends-->
       </div>
       <!-- Main Section -->
   </div>
+@endsection
+@section('scripttags')
+  <script>
+$(document).ready(function(){
+  $('.nav-link').mouseenter(function(){
+    $(this).attr(`style`,`color:#fff !important;`);
+    });
+  $(window).scroll(function(){
+    var scroll = $(window).scrollTop();
+    if (scroll > 30)
+    {
+      $('.nav-link').attr(`style`,`color:#777777d9 !important;`);
+      $('.nav-link').mouseenter(function(){
+        $(this).attr(`style`,`color:#fff !important;`);
+        });
+      $('.nav-link').mouseleave(function(){
+        $(this).attr(`style`,`color:#777777d9 !important;`);
+        });
+    }
+    else
+     {
+       $('.nav-link').attr(`style`,`color:#fff !important;`);
+       $('.nav-link').mouseenter(function(){
+         $(this).attr(`style`,`color:#777777d9 !important;`);
+         });
+       $('.nav-link').mouseleave(function(){
+         $(this).attr(`style`,`color:#fff !important;`);
+         });
+     }
+  });
+  });
+  $(document).ready(function(){
+  var show_btn=$('.show-modal');
+      var show_btn=$('.show-modal');
+      //$("#testmodal").modal('show');
+
+        show_btn.click(function(){
+          $("#testmodal").modal('show');
+      })
+    });
+
+    $(function() {
+            $('#element').on('click', function( e ) {
+                Custombox.open({
+                    target: '#testmodal-1',
+                    effect: 'fadein'
+                });
+                e.preventDefault();
+            });
+        });
+</script>
 @endsection
