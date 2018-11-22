@@ -16,4 +16,7 @@ class District extends Model
     public function AssignedDistricts(){
         return $this->hasMany('App\AssignedDistrict');
     }
+    public function City(){
+        return $this->hasMany('App\PlantripCity');
+    }
 }

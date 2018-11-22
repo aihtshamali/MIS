@@ -510,6 +510,7 @@ $(document).ready(function() {
             [3, "desc"]
         ]
     });
+    
     $('#simpletable2').DataTable();
 
     $('#order-table').DataTable({
