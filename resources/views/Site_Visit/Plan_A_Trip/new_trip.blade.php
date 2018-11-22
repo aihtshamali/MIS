@@ -425,7 +425,8 @@
                     </div>
                 </div>
                 <div class="form-group ">
-                <button class="btn btn-success btn-outline-success btn-block submit "  type="submit"  >Save and Submit</button>
+                <button class="btn btn-success btn-outline-success btn-block submit "  type="s
+                ubmit"  >Save and Submit</button>
                 {{-- <button class="btn submit btn-success btn-block"  type="submit"><i class="icofont icofont-user-alt-3"></i>Save & Submit</button> --}}
                 </div>
         </form>

@@ -117,7 +117,7 @@ class HomeController extends Controller
       // }
       // return $total_progress;
 
-
+      
       return view('home');
     }
 

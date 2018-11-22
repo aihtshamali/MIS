@@ -164,6 +164,40 @@
                                         <div class="tab-pane active" id="reviewDiv" role="tabpanel">
                                             <div class="costDiv pd_1 clearfix ">
                                               <h5 class="textlef">Cost</h5>
+                                              <div class="row">
+                                                    <div class="col-md-4 offset-md-1">
+                                                          <div class="form-group">
+                                                              <label for="" class="col-form-label"><b>Technical Sanction :</b></label>
+                                                              <br>
+                                                              <input class="form-control" type="text" name="ts"  placeholder="Select your date" />
+                                                          </div>
+                                                          <div class="form-group">
+                                                                  <label for="" class="col-form-label"><b>Contract Award Date :</b></label>
+                                                                  <br>
+                                                                  <input class="form-control" type="text" name="cwd" placeholder="Select your date" />
+                                                              </div>
+                                                      <div class="form-group">
+                                                          <label for="" class="col-form-label"><b>Actual Start Date :</b></label>
+                                                          <br>
+                                                          <input class="form-control" type="text" name="asd" placeholder="Select your date" />
+                                                      </div>
+
+
+                                                     </div>
+                                                     <div class="col-md-4 offset-md-2">
+                                                          <div class="form-group">
+                                                              <label for="" class="col-form-label"><b>Technical Sanction Cost:</b></label>
+                                                              <br>
+                                                              <input class="form-control" type="text" name="ts_cost" placeholder="TS Cost" />
+                                                          </div>
+                                                          <div class="form-group">
+                                                              <label for="" class="col-form-label"><b>Contract Award Cost :</b></label>
+                                                              <br>
+                                                              <input class="form-control" type="text" name="cad_cost"  placeholder="Contract Cost" />
+                                                          </div>
+
+                                                         </div>
+                                                  </div>
                                             </div>
                                             <div class="TimeDiv pd_1 clearfix bg_g">
                                               <h5 class="textlef">Time</h5>
@@ -716,7 +750,7 @@
                                                                                <div class="divider"></div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="row">
+                                                                    {{-- <div class="row">
                                                                       <div class="col-md-4 offset-md-1">
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>Technical Sanction :</b></label>
@@ -749,7 +783,7 @@
                                                                             </div>
 
                                                                            </div>
-                                                                    </div>
+                                                                    </div> --}}
 
                                                                 </div>
                                                                 <div class="card-footer">
