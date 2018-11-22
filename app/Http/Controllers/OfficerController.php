@@ -387,7 +387,13 @@ class OfficerController extends Controller
 
       public function monitoring_newAssignments()
       {
-        return view('_Monitoring._Officer.projects.newAssignments');
+        $projects= Project::select('projects.*')
+        ->leftjoin('assigned_projects','projects.id','assigned_projects.project_id')
+        ->leftjoin('assigned_project_teams','assigned_projects.id','assigned_project_teams.assigned_project_id')
+        ->where('assigned_project_teams.user_id',Auth::id())
+        ->where('project_type_id',2)
+        ->get();
+        return view('_Monitoring._Officer.projects.newAssignments',['projects'=>$projects]);
       }
 
       public function monitoring_inprogressAssignments()

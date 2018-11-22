@@ -125,10 +125,9 @@ class ExecutiveController extends Controller
     // Evaluation charts
     public function pems_index()
     {
-      $activities= ProjectActivity::all();
-      $sub_Sectors=SubSector::all();
-      $sectors=Sector::all();
-      // TODO
+      $activities= ProjectActivity::where('status',1)->get();
+      $sub_Sectors=SubSector::where('status',1)->get();
+      $sectors=Sector::where('status',1)->get();
 
       $total_projects = Project::where('project_type_id',1)->count();
       $total_assigned_projects = AssignedProject::select('assigned_projects.*')

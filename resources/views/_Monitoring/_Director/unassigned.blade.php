@@ -34,9 +34,12 @@
                                 <a class="accordion-msg" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                     {{$project->Project->title}}
                                 </a>
-                            <form action="{{route('Monitoring_assignToconsultant')}}">
+                            <form action="{{route('Monitoring_assignToconsultant')}}" method="GET">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="project_id" value="{{$project->project_id}}">
+                                <input type="hidden" name="priority" value="{{$priority}}">
                                 <button  type="submit" class=" assignButton btn btn-sm btn-info btn-outline-info" style="margin-bottom: 5px; margin-left: 60%;"><i class="icofont icofont-info-square"></i>Assign Project</button>
-                                </form>
+                            </form>
                             </h3>
                             </div>
                             <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" style="margin-top:-20px;">
