@@ -1,169 +1,118 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <title>DGME MIS</title>
-
-    <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,700&amp;subset=latin-ext' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="{{ asset('landingAssets/css/ideaboxNews.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('landingAssets/css/jquery.mCustomScrollbar.min.css') }}" />
-
-    <!-- Bootstrap CSS CDN -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
-        crossorigin="anonymous">
-    <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('landingAssets/css/style5.css') }}">
-    <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
-        crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
-        crossorigin="anonymous"></script>
-
-
-
+    <title>@yield('title')</title>
+    <!-- Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon icon -->
+    <link rel="icon" href="{{ asset('dgme.png')}}" type="image/png" sizes="16x16">
+    <!-- Bootstrap -->
+    <link href="{{ asset('landingPage/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" media="all" />
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="{{ asset('landingPage/css/animate.css')}}">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="{{ asset('landingPage/css/owl.carousel.css')}}">
+    <link rel="stylesheet" href="{{ asset('landingPage/css/owl.theme.css')}}">
+    <!-- Magnific Popup -->
+        <link rel="stylesheet" href="{{ asset('landingPage/css/magnific-popup.css')}}">
+    <!-- Full Page Animation -->
+    <link rel="stylesheet" href="{{ asset('landingPage/css/animsition.min.css')}}">
+    <!-- Ionic Icons -->
+    {{-- <link rel="stylesheet" href="{{ asset('landingPage/css/ionicons.min.css')}}"> --}}
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!-- Main Style css -->
+    <link href="{{ asset('landingPage/css/style.css')}}" rel="stylesheet" type="text/css" media="all" />
+    @yield('styleTags')
 </head>
-<style>
 
-    .dropdown{
-        width:18%;
-        text-align:center;
-    }
-
-    .dropbtn{
-        width:18%;
-        text-align:center;
-    }
-
-    .navbar-light .navbar-nav .nav-link{
-      color:white;!important;
-    }
-    .navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link{
-      color: white;!important;
-    }
-    body {
-        font-family: Ubuntu, Arial, Helvetica, sans-serif;
-        font-size: 16px;
-        font-weight: 400;
-        padding: 0;
-        margin: 0;
-    }
-
-    .container {
-        width: 30%;
-        height: auto;
-        margin: 100px auto 0 auto;
-    }
-
-    header {
-        width: 100%;
-        min-height: 100px;
-        padding: 20px;
-        background: url(trash/bgnoise_lg.png);
-        text-align: center;
-        border-bottom: solid 2px #333;
-        box-sizing: border-box;
-    }
-
-    header h1 {
-        font-weight: normal;
-        font-size: 36px;
-        padding: 0;
-        margin: 0;
-    }
-
-    header h3 {
-        padding: 0;
-        margin: 0;
-    }
-
-    header .examples {
-        width: 100%;
-        height: auto;
-        padding: 20px 0;
-    }
-
-    header .examples a {
-        display: inline-block;
-        padding: 10px 20px;
-        background: #333;
-        text-decoration: none;
-        color: #FFF;
-    }
-
-    header .examples a.active {
-        background: #C00;
-    }
-
-    .example_img {
-        width: 100%;
-        text-align: center;
-        padding: 20px;
-        box-sizing: border-box;
-        background: #333;
-        margin-top: 50px;
-    }
-
-    .example_img img {
-        display: inline-block;
-        width: 100%;
-    }
-</style>
-</head>
 <body>
+  <div class="wrapper animsition" data-animsition-in-class="fade-in" data-animsition-in-duration="1000" data-animsition-out-class="fade-out" data-animsition-out-duration="1000">
+      <div class="container">
+           <nav class="navbar navbar-expand-lg navbar-light navbar-default navbar-fixed-top" role="navigation">
+              <div class="container">
+                  <a class="navbar-brand page-scroll" href="#main"><img class="w_30p" src="{{ asset('dgme.png')}}" alt="DGME Logo" /></a>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                      <ul class="navbar-nav mr-auto">
+                      </ul>
+                      <ul class="navbar-nav my-2 my-lg-0">
+                          {{-- <li class="nav-item">
+                            @auth
+                              @role('admin')
+                              <a class="nav-link" style="" href="{{ url('/admin') }}">Home</a>
+                              @endrole
+                              @role('directorevaluation')
+                              <a class="nav-link" style="" href="{{ url('/director_evaluation') }}">Home</a>
+                              @endrole
+                              @role('directormonitoring')
+                              <a class="nav-link" style="" href="{{ url('/director_Monitor') }}">Home</a>
+                              @endrole
+                              @role('manager')
+                              <a class="nav-link" style="" href="{{ url('/manager') }}">Home</a>
+                              @endrole
+                              @role('adminhr')
+                              <a class="nav-link" style="" href="#">Home</a>
+                              @endrole
+                              @role('dataentry')
+                              <a class="nav-link" style="" href="{{ route('projects.index') }}">Home</a>
+                              @endrole
+                              @role('officer')
+                              <a class="nav-link" style="" href="{{ url('/officer') }}">Home</a>
+                              @endrole
+                          </li> --}}
+                          <li class="nav-item">
+                              <a class="nav-link page-scroll" href="#">Home</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link page-scroll" href="#services">PEMS</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link page-scroll" href="#features">PMMS</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link page-scroll" href="#reviews">TPV's</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link page-scroll" href="#pricing">SPECIAL ASSIGNMENT</a>
+                          </li>
+                          @auth
+                          <li class="nav-item">
+                            <a class="nav-link" style="" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">Logout
+                                 </a>
+                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                     {{ csrf_field() }}
+                                 </form>
+                          </li>
+                        @else
+                          <li id="element" class="show-modal nav-item">
+                            <a class="nav-link" style=" " href="#!" >Login</a>
+                            {{-- <li><strong><a href="{{route('register')}}">Register</a></strong></li> --}}
+                            {{-- {{route('login')}} --}}
+                          </li>
+                          @endauth
+                      </ul>
+                  </div>
+
+              </div>
+          </nav>
+      </div>
 @yield('content')
+    <!-- Wrapper-->
 
-
-<script src="{{asset('landingAssets/js/jQuery.js') }}"></script>
-<script src="{{asset('landingAssets/js/jquery.mCustomScrollbar.min.js') }}"></script>
-<script src="{{ asset('landingAssets/js/ideaboxNews.js') }}"></script>
-<!-- Popper.JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
-    crossorigin="anonymous"></script>
-<!-- Bootstrap JS -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-    crossorigin="anonymous"></script>
-
-<script type="text/javascript">
-
-    $(document).ready(function (e) {
-        $(".ideaboxNews").ideaboxNews({
-            maxwidth: '350px',
-            position: 'rightfixed',
-            openspeed: 'fast'
-        });
-
-        $('#sidebarCollapse').on('click', function () {
-            $('#sidebar').toggleClass('active');
-            $(this).toggleClass('active');
-        });
-    });
-
-    $("a[href^='#']").click(function(e) {
-  	e.preventDefault();
-
-  	var position = $($(this).attr("href")).offset().top;
-
-  	$("body, html").animate({
-  		scrollTop: position
-  	},1000);
-  });
-
-
- $("#idx1 > ul > li").click(function(e) {
-     $(".test").show();
- }
-);
-
-$("#idx2 > ul > li").click(function(e) {
-     $(".test2").show();
- }
-);
-
-</script>
+    <!-- Jquery and Js Plugins -->
+    <script type="text/javascript" src="{{ asset('landingPage/js/jquery-2.1.1.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('landingPage/js/bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('landingPage/js/plugins.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('landingPage/js/menu.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('landingPage/js/custom.js')}}"></script>
+    @yield('scripttags')
 </body>
 
 </html>

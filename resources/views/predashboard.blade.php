@@ -142,7 +142,7 @@
                                         <!-- task, page, download counter  start -->
                                         <div class="col-xl-12">
                                             <div class="row">
-                                                <a href="">
+                                                <a href="{{route('trip.create')}}">
                                                 <div class="col-xl-3 col-md-6">
                                                     <div class="card update-card" style="background-image: linear-gradient(to left, #3b3d35, #5c5f55, #808377, #a5a99b, #ccd1c1); ">
                                                         <div class="card-block">

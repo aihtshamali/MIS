@@ -61,5 +61,8 @@ class AssignedProject extends Model
     public function MSubsequent(){
       return $this->hasMany('App\MSubsequent');
     }
+    public function PlantripVisitedproject(){
+      return $this->belongsTo('App\PlantripVisitedproject');
+    }
 
 }
