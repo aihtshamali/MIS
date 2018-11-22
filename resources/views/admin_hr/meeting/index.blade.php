@@ -73,60 +73,69 @@
               @endforeach
           </select>
       </div>
-      <table class="table table-borderd">
+      @foreach ($data as $key => $value)
+        <div style="cursor:pointer">
+          <h2 class="{{ $key }}">Meetings Data {{ $key }} <span class="caret"></span></h2>
+        </div>
+        <div id="{{ $key }}" style="display:none">
+        <table class="table table-borderd">
           <tr>
-              <th>
-                  Meeting ID
-              </th>
-              <th>
-                  Meeting No
-              </th>
-              <th>
-                  Meeting Type
-              </th>
-              <th>
-                  Date
-              </th>
-              <th>
-                Attachment
+            <th>
+              Meeting ID
+            </th>
+            <th>
+              Meeting No
+            </th>
+            <th>
+              Meeting Type
+            </th>
+            <th>
+              Date
+            </th>
+            <th>
+              Attachment
             </th>
             <th>
               Action
             </th>
 
           </tr>
-          @foreach ($meetings as $meeting)
+        @foreach ($value as $v)
+            {{-- @foreach ($vs as $v) --}}
               <tr>
-                  <td>
-                      {{$meeting->id}}
-                  </td>
-                  <td>
-                    <a href="{{route('admin.show',$meeting->id)}}">
-                    @if($meeting->meeting_no)
-                      {{$meeting->meeting_no}}
-                      @else
+                <td>
+                  {{$v->id}}
+                </td>
+                <td>
+                  <a href="{{route('admin.show',$v->id)}}">
+                    @if($v->meeting_no)
+                      {{$v->meeting_no}}
+                    @else
                       No Meeting No
-                      @endif
-                    </a>
-                  </td>
+                    @endif
+                  </a>
+                </td>
 
-                  <td>
-                      {{$meeting->HrMeetingType->meeting_name}}
-                  </td>
-                  <td>
-                      {{$meeting->scheduled_date}}
-                  </td>
-                  <td>
-                  <a href="{{asset('storage/uploads/projects/pdwp_meeting/'.$meeting->attachment)}}" download>{{$meeting->attachment}}</a>
+                <td>
+                  {{$v->HrMeetingType->meeting_name}}
+                </td>
+                <td>
+                  {{$v->scheduled_date}}
+                </td>
+                <td>
+                  <a href="{{asset('storage/uploads/projects/pdwp_meeting/'.$v->attachment)}}" download>{{$v->attachment}}</a>
 
-                  </td>
-                  <td>
-                    <a href="{{ route('admin.edit',$meeting->id) }} " class="btn btn-success">EDIT</a>
-                  </td>
+                </td>
+                <td>
+                  <a href="{{ route('admin.edit',$v->id) }} " class="btn btn-success">EDIT</a>
+                </td>
 
               </tr>
-          @endforeach
+            {{-- @endforeach --}}
+        @endforeach
       </table>
+    </div>
+      @endforeach
   </section>
 </div>
 @endsection
@@ -137,5 +146,8 @@
         console.log($(this).val());
         location="/hr/admin/"+$(this).val();
     });
+  $(document).on('click','div > h2',function(){
+    $('#'+$(this).attr('class')).toggle('slow');
+  });
 </script>
 @endsection
