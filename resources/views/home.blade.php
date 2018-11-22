@@ -200,14 +200,14 @@
             <div class="container">
               <div class="row">
                 <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.5s">
-                    <a href="" class="tile purple">
+                    <a href="{{route('monitoring_dashboard')}}" class="tile purple">
                       <h3 class="title">Monitoring</h3>
                       <hr/>
                       <p>Click here to visit Monitoring</p>
                     </a>
                 </div>
                 <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.6s">
-                    <a href="" class="tile orange">
+                    <a href="{{route('evaluation_dashboard')}}" class="tile orange">
                       <h3 class="title">Evaluation</h3>
                       <hr/>
                       <p>Click here to visit Evaluation</p>
@@ -228,7 +228,7 @@
                   </a>
                 </div>
                 <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.9s">
-                    <a href="" class="tile orange">
+                    <a href="{{route('trip.create')}}" class="tile orange">
                       <h3 class="title">Plan My Trip</h3>
                       <hr/>
                       <p>Click here to visit Plan My Trip</p>
