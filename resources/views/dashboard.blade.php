@@ -24,6 +24,38 @@
             <p class="text_center">Your Rank is <span class="clr_yel">{{ $rank }}</span> out of <span class="clr_yel">{{ count($person) }}</span> Evaluators</p>
             <p class="text_center">Your Relative Score is <span class="clr_yel">{{ $current_score }}</span> out of <span class="clr_yel">{{ $max_score }}</span></p>
         </div>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Projects</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Visit Request</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            new inProgress
+            complete
+          </div>
+          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#new" role="tab" aria-controls="new" aria-selected="true">new</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#approved" role="tab" aria-controls="approved" aria-selected="false">approved</a>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="new" role="tabpanel" aria-labelledby="new">
+                new
+              </div>
+              <div class="tab-pane fade show active" id="approved" role="tabpanel" aria-labelledby="approved">
+                approved
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
     @endrole
 
