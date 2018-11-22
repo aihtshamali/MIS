@@ -66,6 +66,19 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function financial_year(Request $request){
+       $adp = AdpProject::where('financial_year',$request->financial_year)->orderBy('gs_no')->get();
+       $data = [];
+       $keys = [];
+       foreach ($adp as $val) {
+         array_push($keys,$val->gs_no);
+         array_push($data,$val);
+       }
+       $final = array_combine($keys,$data);
+       return $final;
+     }
+
     public function create()
     {
       $project_types = ProjectType::where('status','1')->get();
@@ -85,7 +98,7 @@ class ProjectController extends Controller
       $sub_project_types = SubProjectType::where('project_type_id',1)->where('status','1')->get();
       $m_sub_project_types = SubProjectType::where('project_type_id',2)->where('status','1')->get();
       $projectfor_no=Project::select('projects.project_no')->latest()->first();
-      $adp = AdpProject::orderBy('gs_no')->get();
+      $adp = AdpProject::where('financial_year','2017-18')->orderBy('gs_no')->get();
       $data = [];
       $keys = [];
       foreach ($adp as $val) {

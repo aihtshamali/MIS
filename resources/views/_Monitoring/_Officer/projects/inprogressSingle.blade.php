@@ -347,7 +347,7 @@
                                                                   </span>
                                                                 </li>
                                                               </ul>
-                                                              <h5 class="textlef pd_1_2">Summary</h5>
+                                                              <h5 class="textlef  pd_1_2">Summary</h5>
                                                               <p class="clearfix pd_1_6">
                                                                 <span class="float-left col-md-6">objective 1</span>
                                                                 <span class="float-right col-md-6">

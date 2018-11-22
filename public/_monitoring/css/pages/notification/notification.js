@@ -13,20 +13,20 @@ $(window).on('load',function(){
                 from: 'bottom',
                 align: 'right'
             },
-            delay: 2500,
+            delay: 3000,
             animate: {
                     enter: 'animated fadeInRight',
                     exit: 'animated fadeOutRight'
             },
             offset: {
-                x: 30,
+                x: 50,
                 y: 30
             }
         });
     };
 
    
-        notify('Welcome to Notification page', 'inverse');
+        // notify('Welcome to Notification page', 'inverse');
    
 });
 
@@ -41,8 +41,8 @@ $(document).ready(function() {
     function notify(from, align, icon, type, animIn, animOut){
         $.growl({
             icon: icon,
-            title: ' Bootstrap Growl ',
-            message: 'Turning standard Bootstrap alerts into awesome notifications',
+            title: 'Visit Request :',
+            message: ' Your Request has been sent to Transport Officer.',
             url: ''
         },{
             element: 'body',
@@ -53,12 +53,12 @@ $(document).ready(function() {
                 align: align
             },
             offset: {
-                x: 30,
+                x: 50,
                 y: 30
             },
             spacing: 10,
             z_index: 999999,
-            delay: 2500,
+            delay: 3500,
             timer: 1000,
             url_target: '_blank',
             mouse_over: false,

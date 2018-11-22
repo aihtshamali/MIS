@@ -16,6 +16,13 @@ Route::get('/', function () {
     // return view('testinghome');
     return view('home');
 });
+
+Route::get('/upload', function () {
+    return view('file_upload');
+});
+
+// Route::post('/home','HomeController@upload');
+
 Route::group(['middleware' => ['auth']], function () {
 
 // Predashboard
@@ -33,6 +40,7 @@ Route::get('/predashboard',function(){
 
 
 Route::get('/home','HomeController@index');
+
 Route::group(['middleware' => ['auth']],function(){
   Route::get('/reset_password','HomeController@reset_password');
   Route::post('/reset_store','HomeController@reset_store');
@@ -156,7 +164,7 @@ Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSecto
 
 
 //Evaluator officers
-Route::prefix('Evaluatorofficer')->middleware('role:evaluator|officer')->group(function () {
+Route::prefix('Evaluatorofficer')->middleware('role:evaluator|officer|transportofficer')->group(function () {
   // Evaluation Module Routes
   Route::post('/save_percentage','OfficerController@save_percentage')->name('save_percentage');
   Route::post('/save_dates','OfficerController@save_dates')->name('save_dates');
@@ -215,7 +223,8 @@ Route::post('/onAssigningForumselect','DataEntryController@onAssigningForumselec
 Route::post('/onchangefunction','DataEntryController@onSubSectorSelect');
 Route::post('/onnewprojectselect','DataEntryController@newproject');
 Route::resource('projects','ProjectController');
-
+Route::post('/financial_year','AdminHumanResourceController@financial_year')->name('fetch_financial_year');
+Route::post('/project_financial_year','ProjectController@financial_year')->name('fetch_project_financial_year');
 });
 
 //for adminhr

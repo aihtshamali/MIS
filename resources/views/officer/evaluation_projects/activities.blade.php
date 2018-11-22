@@ -394,8 +394,7 @@
                                         <a class="btn" disabled>
                                       @endif
                                     @else
-                                      {{-- {{dump($counter)}} --}}
-                                      @if($activities[$activity_count-1]->progress > 0 && $activities[$activity_count-1]->progress > intval($counter) && intval($activities[$activity_count]->progress) == intval($temp-$counter))
+                                      @if($activities[$activity_count-1]->progress > 0 && intval($activities[$activity_count-1]->progress) >= intval($temp))
                                         <a class="btn" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},{{round($temp,0,PHP_ROUND_HALF_UP)}})'>Save</button>">
                                       @else
                                         <a class="btn"  disabled>
@@ -428,7 +427,7 @@
                                     </a>
                                 @endif
                                 @if($activity->progress < 50.0 && $activity->ProjectActivity->id < 7 && $activity->ProjectActivity->id > 2)
-                                  @if ($activities[$activity_count-1]->progress >= 100 && $activity->progress == 25)
+                                  @if ($activities[$activity_count-1]->progress >= 100 && ($activity->progress == 25 || $activity->ProjectActivity->name=='Site Visits'))
                                     <a class="btn"id="myDiv"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},50)'>Save</button>">
                                   @else
                                     <a class="btn"  disabled>
@@ -456,11 +455,13 @@
                                         <p>3</p>
                                       </div>
                                       <span>75%</span>
-                                    </input>
+                                    </input
+
                                   </a>
                               @endif
                               @if ($activity->progress < 100.0 && $activity->ProjectActivity->id > 2)
-                                @if ($activities[$activity_count-1]->progress >= 100 && $activity->progress == 75)
+                                {{-- {{dump($activities[$activity_count-1]->progress >= 100)}} --}}
+                                @if ($activities[$activity_count-1]->progress >= 100 && ($activity->progress == 75 || ($activity->ProjectActivity->name=='Site Visits' && $activity->progress >= 50.0) || $activity->ProjectActivity->id > 6))
                                   <a class="btn" id="myDiv" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},100)'>Save</button>">
                                 @else
                                   <a class="btn"  disabled>
@@ -477,7 +478,7 @@
                                   </input>
                                 </a>
                             @endif
-                            <a class="btn" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="Start Date: <input class='form-control' type='date' name='start_date' required>End Date:<input type='date' class='form-control' name='end_date' required><button type='button' class='btn btn-success pull-right' onClick='saveDates({{$activity->id}},this)'>Update</button>" >
+                            <a class="btn" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="Start Date: <input class='form-control' type='date' name='start_date' value='{{$activity->start_date}}' required>End Date:<input type='date' class='form-control' value='{{$activity->end_date}}' name='end_date' required><button type='button' class='btn btn-success pull-right' onClick='saveDates({{$activity->id}},this)'>Update</button>" >
                               <div class="percentBox">
                                 <p>Dates</p>
                               </div>
@@ -552,7 +553,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Choose Documents</h4>
+        <h4 class="modal-title">Please Choose Only Available Documents</h4>
       </div>
       <form class="" action="{{route('AssignActivityDocument')}}" method="post">
       <div class="modal-body">
@@ -723,17 +724,17 @@
   }
   function saveData(id,number,objthis=null,Assigned_document_id=null,document_id=null){
     myFunction(this);
-    var rout='/officer/save_percentage';
+    var rout='{{route("save_percentage")}}';
     // console.log($('.'+number+'_'+id).val());
     var form_data = new FormData();
     opt = $('.'+number+'_'+id).val();
+    // console.log(opt);
     if(objthis!=null){ // objthis is only for DocsAttachment
       rout='{{route("saveDocAttachment")}}';
       var file_data = $(objthis).siblings()[0].files[0];
       if(!file_data){
         alert("Please Choose a File");
         myFunction(this);
-
         return;
       }
       form_data.append('activity_attachment', file_data);
@@ -768,7 +769,7 @@
   }
   function saveDates(id,objthis=null){
     myFunction(this);
-    var rout='/officer/save_dates';
+    var rout='{{route("save_dates")}}';
     // console.log($('.'+number+'_'+id).val());
     var form_data = new FormData();
     // opt = $('.'+number+'_'+id).val();
