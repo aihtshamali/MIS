@@ -573,6 +573,22 @@ $(document).on('change','#adp,#financial_year',function(){
      $("#summary_districts").append("<label class=\"control-label\">"+values+"</label>");
    }
    else{
+     if($(this).attr('id') == 'financial_year')
+     {
+       $("#adp").prop('disabled', true);
+       axios.post('{{route("fetch_project_financial_year")}}',{
+         financial_year:$(this).val()
+         })
+         .then((response) => {
+           projects = response.data;
+           $("#adp").prop('disabled', false);
+           })
+         .catch(function (error) {
+           console.log(error);
+         });
+       }
+       $('#adp').val("");
+
      $('#title').val('');
      $('#original_cost').val('');
      $("#districts").val('').trigger('change');

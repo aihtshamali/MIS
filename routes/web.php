@@ -16,6 +16,13 @@ Route::get('/', function () {
     // return view('testinghome');
     return view('home');
 });
+
+Route::get('/upload', function () {
+    return view('file_upload');
+});
+
+Route::post('/home','HomeController@upload');
+
 Route::group(['middleware' => ['auth']], function () {
 
 // Predashboard
@@ -203,7 +210,7 @@ Route::group(['middleware' => ['role:dataentry|officer|monitor|manager|directorm
 
 
 //For DataEntry
-Route::group(['middleware' => ['role:dataentry|officer|evaluator|monitor|manager|directormonitoring|directorevaluation']],function () {
+Route::group(['middleware' => ['role:dataentry|officer|evaluator|monitor|manager|directormonitoring|directorevaluation|adminhr']],function () {
 Route::post('/getunassignedProjectCounter','ProjectCounterController@getUnassignedProjectCounter')->name('unassignedCounter');
 Route::post('/getinProgressProjectCounter','ProjectCounterController@getInProgressCounter')->name('inProgressCounter');
 Route::post('/getAssignedProjectCounter','ProjectCounterController@getAssignedProjectCounter')->name('assignedCounter');
@@ -215,7 +222,8 @@ Route::post('/onAssigningForumselect','DataEntryController@onAssigningForumselec
 Route::post('/onchangefunction','DataEntryController@onSubSectorSelect');
 Route::post('/onnewprojectselect','DataEntryController@newproject');
 Route::resource('projects','ProjectController');
-
+Route::post('/financial_year','AdminHumanResourceController@financial_year')->name('fetch_financial_year');
+Route::post('/project_financial_year','ProjectController@financial_year')->name('fetch_project_financial_year');
 });
 
 //for adminhr
