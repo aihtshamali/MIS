@@ -90,21 +90,35 @@
                 </style>
                 <div class="form-group row">
                     <div class="col-md-4">
-                        <label for="GS_no" class="">GS # </label>
+                        <label for="GS_no" class="">GS #: <span><b>{{$project->Project->ADP}}</b></span></label>
                     </div>
                     <div class="col-md-4">
-                        <label for="project_title" class="">Project Title </label>
+                        <label for="project_title" class="">Project Title: <span><b>{{$project->Project->title}}</b></span></label>
                     </div>
                     <div class="col-md-4 ln_ht12">
-                        <label for="project_cost" class="">Location</label>
+                        <label for="project_cost" class="">Location: <span><b>
+                          @foreach ($project->Project->AssignedDistricts as $district)
+                            {{$district->District->name}},
+                          @endforeach
+                        </b></span></label>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-md-4 ln_ht12">
-                        <label for="project_cost" class="">Original Approve Cost </label>
+                        <label for="project_cost" class="">Original Approve Cost: <span><b>{{$project->Project->ProjectDetail->orignal_cost}}</b></span></label>
                     </div>
                     <div class="col-md-4 ln_ht12">
-                        <label for="Location" class="">final Revised Cost </label>
+                        <label for="Location" class="">final Revised Cost: <span><b>
+                          @php
+                            $revisedFinalCost=0;
+                          @endphp
+                          @foreach ($project->Project->RevisedApprovedCost as $cost)
+                            @php
+                              $revisedFinalCost= $cost->cost;
+                            @endphp
+                          @endforeach
+                          {{$revisedFinalCost}}
+                        </b></span></label>
                     </div>
                     <div class="col-md-4">
                         <label for="PHI" class="">PHI </label>
@@ -113,10 +127,10 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-md-4">
-                        <label for="planned_start_date" class="">Planned Start Date </label>
+                        <label for="planned_start_date" class="">Planned Start Date: <span><b>{{$project->Project->ProjectDetail->planned_start_date}}</b></span></label>
                     </div>
                     <div class="col-md-4">
-                        <label for="planned_end_date" class="">Planned End Date </label>
+                        <label for="planned_end_date" class="">Planned End Date: <span><b>{{$project->Project->ProjectDetail->planned_end_date}}</b></span> </label>
                     </div>
                     <div class="col-md-4">
                         <label for="actual_start_date" class="">Actual Start Date </label>
@@ -124,7 +138,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-md-4 ln_ht12">
-                        <label for="progress" class="">Phsycal Progress %</label>
+                        <label for="progress" class="">Physical Progress %: <span><b>{{$project->progress}} %</b></span></label>
                     </div>
                     <div class="col-md-4">
                         <label for="Financial" class="">Financial Progress %</label>
@@ -141,7 +155,6 @@
     {{-- end of frozen panel --}}
     <div class="row">
             <div class="col-md-12 mainTabsAndNav mt_6p" style="padding-left: 15px !important;padding-right: 15px !important;">
-                <form action="#">
                     <div class="card">
                         <div class="card-header">
                         </div>
@@ -168,7 +181,10 @@
                                         </li>
                                     </ul>
                                     <!-- Tab panes -->
-                                    <div class="tab-content card-block">
+                                    <form class="review" action="{{route('monitoring_review_form')}}"  method="POST">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="assigned_project_id" value="{{$project->id}}">
+                                        <div class="tab-content card-block">
                                         <div class="tab-pane active" id="reviewDiv" role="tabpanel">
                                             <div class="costDiv pd_1 clearfix ">
                                               <h5 class="textlef">Cost</h5>
@@ -179,15 +195,15 @@
                                             <div class="age_orgDiv pd_1 clearfix bg_sk">
                                               <h5 class="textlef form-txt-primary mb_2">Agencies & Organization</h5>
                                               <div class="form-group row mb_2">
-                                                  <label class="col-sm-3 form-txt-primary font-15">Opration & Management</label>
+                                                  <label class="col-sm-3 form-txt-primary font-15">Operation & Management</label>
                                                   <div class="col-sm-9">
-                                                    <input type="text" class="form-control form-txt-primary" placeholder="Opration & Management" />
+                                                    <input type="text" class="form-control form-txt-primary" name="operationAndManagement" placeholder="Operation & Management" />
                                                   </div>
                                               </div>
                                               <div class="form-group row mb_2">
                                                   <label class="col-sm-3 form-txt-primary font-15">Contractor/Supplier</label>
                                                   <div class="col-sm-9">
-                                                    <input type="text" class="form-control form-txt-primary" placeholder="Contractor/Supplier" />
+                                                    <input type="text" class="form-control form-txt-primary" name="contractor" placeholder="Contractor/Supplier" />
                                                   </div>
                                               </div>
                                             </div>
@@ -196,23 +212,29 @@
                                               <div class="form-group row mb_2">
                                                   <label class="col-sm-3 form-txt-warning font-15">Project Approval Date</label>
                                                   <div class="col-sm-9">
-                                                    <input type="text" class="form-control form-txt-warning" placeholder="Project Approval Date" />
+                                                    <input type="date" class="form-control form-txt-warning" name="project_approval_date" placeholder="Project Approval Date" />
                                                   </div>
                                               </div>
                                               <div class="form-group row mb_2">
                                                   <label class="col-sm-3 form-txt-warning font-15">Admin Approval Date</label>
                                                   <div class="col-sm-9">
-                                                    <input type="text" class="form-control form-txt-warning" placeholder="Admin Approval Date" />
+                                                    <input type="date" class="form-control form-txt-warning" name="admin_approval_date" placeholder="Admin Approval Date" />
                                                   </div>
                                               </div>
                                               <div class="form-group row mb_2">
                                                   <label class="col-sm-3 form-txt-warning font-15">Actual Start Date</label>
                                                   <div class="col-sm-9">
-                                                    <input type="text" class="form-control form-txt-warning" placeholder="Actual Start Date" />
+                                                    <input type="date" class="form-control form-txt-warning" name="actual_start_date" placeholder="Actual Start Date" />
                                                   </div>
                                               </div>
                                             </div>
+                                            <div class="row">
+                                              <div class="col-md-12">
+                                                <span class="pull-right"><button type="submit" class="btn btn-success btn-sm" name="submit">Save & Next</button></span>
+                                              </div>
+                                            </div>
                                         </div>
+                                    </form>
                                         <div class="tab-pane " id="p_monitoring" role="tabpanel">
                                             <div class="row">
                                                 <div class="col-lg-12 col-xl-12 col-md-12 col-sm-6">
@@ -651,7 +673,7 @@
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>ADP Allocation of Fiscal Year :</b></label>
                                                                                 <br>
-                                                                                <input type="text" class="form-control" name="ADP_allocation_cost" id="ADP_allocation_cost" />
+                                                                                <input type="text" class="form-control" name="adp_allocation_cost" id="ADP_allocation_cost" />
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>Total Allocation by that time (Cumulative):</b></label>
@@ -674,7 +696,7 @@
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>Total Releases To Date :</b></label>
                                                                                 <br>
-                                                                                <input type="text" class="form-control" name="total_release_to_date" id="total_release_to_date" />
+                                                                                <input type="date" class="form-control" name="total_release_to_date" id="total_release_to_date" />
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>Utilization Against Releases :</b></label>
@@ -1331,7 +1353,6 @@
                         </div>
                         <!-- Form Basic Wizard card end -->
                     </div>
-                </form>
             </div>
             <div class="col-xl-3 col-lg-12 nodisplay p_details" style="padding-left: 15px !important;  padding-right: 15px !important;">
                 <div class="card">
@@ -1471,12 +1492,28 @@
     </div>
   </li>
 </script>
-
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
 <script>
 $(document).ready(function(){
+  $('form').on('submit',function(e){
+    e.preventDefault();
+    // var formdata= new FormData($(this).serialize());
+    // console.log(formdata);
+    //   for (var value of formdata.values()) {
+    //     console.log(value);
+    //   }
+    //   console.log(formdata);
+    axios.post($(this).attr('action'),{data:$(this).serialize()})
+    .then(function (response) {
+        console.log(response.data);
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+    // console.log($('.review').serialize());
+  });
 $(window).scroll(function(){
   var scroll = $(window).scrollTop();
-  console.log('hassan');
   if (scroll > 380)
   {
     $("#table-1 > thead").css({ "position": "fixed", "margin-top": "-26.1%", "background": "#fff", "z-index": "999"});

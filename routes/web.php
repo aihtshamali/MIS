@@ -188,7 +188,8 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
   Route::get('/monitoring_newAssignment','OfficerController@monitoring_newAssignments')->name('Monitoring_newAssignments');
   Route::get('/monitoring_inprogressAssignment','OfficerController@monitoring_inprogressAssignments')->name('Monitoring_inprogressAssignments');
   Route::get('/monitoring_completedAssignment','OfficerController@monitoring_completedAssignments')->name('Monitoring_completedAssignments');
-  Route::get('/monitoring_sInprogress','OfficerController@monitoring_inprogressSingle')->name('monitoring_inprogressSingle');
+  Route::get('/monitoring_sInprogress/{project_id}','OfficerController@monitoring_inprogressSingle')->name('monitoring_inprogressSingle');
+  Route::post('/monitoring_review_form','OfficerController@monitoring_review_form')->name('monitoring_review_form');
 
 });
 
