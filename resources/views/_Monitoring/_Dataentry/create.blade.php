@@ -468,6 +468,7 @@
 <script src="{{asset('_monitoring/css/js/modalEffects.js')}}"></script>
 <script src="{{asset('_monitoring/css/js/classie.js')}}"></script>
 <script src="{{asset('_monitoring/css/js/modal.js')}}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
 <script>
 $(document).on('change','#gs_no,#financial_year',function(){
    var arr = $(this).val();
@@ -491,6 +492,22 @@ $(document).on('change','#gs_no,#financial_year',function(){
      $("#summary_districts").append("<label class=\"control-label\">"+values+"</label>");
    }
    else{
+     if($(this).attr('id') == 'financial_year')
+     {
+       $("#gs_no").prop('disabled', true);
+       axios.post('{{route("fetch_project_financial_year")}}',{
+         financial_year:$(this).val()
+         })
+         .then((response) => {
+           projects = response.data;
+           $("#gs_no").prop('disabled', false);
+           })
+         .catch(function (error) {
+           console.log(error);
+         });
+       }
+       $('#gs_no').val("");
+
      $('#titleproject').val('');
      $('#original_cost').val('');
      $("#districts").val('').trigger('change');

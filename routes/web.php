@@ -223,7 +223,8 @@ Route::post('/onAssigningForumselect','DataEntryController@onAssigningForumselec
 Route::post('/onchangefunction','DataEntryController@onSubSectorSelect');
 Route::post('/onnewprojectselect','DataEntryController@newproject');
 Route::resource('projects','ProjectController');
-
+Route::post('/financial_year','AdminHumanResourceController@financial_year')->name('fetch_financial_year');
+Route::post('/project_financial_year','ProjectController@financial_year')->name('fetch_project_financial_year');
 });
 
 //for adminhr

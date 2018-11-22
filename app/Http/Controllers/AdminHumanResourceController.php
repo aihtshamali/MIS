@@ -42,7 +42,8 @@ class AdminHumanResourceController extends Controller
      */
     public function create()
     {
-        $adp = AdpProject::orderBy('gs_no')->get();
+        $current_year='2018-19';
+        $adp = AdpProject::where('financial_year',$current_year)->orderBy('gs_no')->get();
         $sectors = HrSector::all();
         $meeting_types = HrMeetingType::all();
         $agenda_types = AgendaType::all();
@@ -71,6 +72,11 @@ class AdminHumanResourceController extends Controller
       $HRamiG->save();
     }
     return redirect()->back();
+    }
+
+    public function financial_year(Request $request){
+      $adp = AdpProject::where('financial_year',$request->financial_year)->orderBy('gs_no')->get();
+      return $adp;
     }
 
     /**
