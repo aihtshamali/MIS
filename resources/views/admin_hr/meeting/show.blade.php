@@ -55,7 +55,7 @@
     Meeting No {{$agendas[0]->HrMeetingPDWP->id}}
     </h1>
     <ol class="breadcrumb">
-      <a class="btn btn-success pull-left" href="hassan:" style="margin-top: -10px;">Single Scan</a> 
+      <a class="btn btn-success pull-left" href="hassan:" style="margin-top: -10px;">Single Scan</a>
       <a class="btn btn-success pull-left" href="hassanduplex:" style="margin-top: -10px;" >Duplex Scan</a>
       <li><a href="#"><i class="fa fa-backward" ></i>Back</a></li>
       <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li>
@@ -133,7 +133,7 @@
                         </div>
                       @endif
                         {{-- <a class="btn btn-success pull-left" id="testread">Test</a> --}}
-  
+
                     </td>
               </tr>
           @endforeach
@@ -163,12 +163,12 @@
                           </div>
                           {{-- Insertion Point --}}
                       </div>
-    
+
                       <div style="margin-top:20px">
                           <button id="finish_btn" class="btn btn-info pull-right"  type="submit">Finish</button>
                       </div>
                 {{-- <button id="b9" class="btn btn-success pull-left" type="button">Scan Documents</button> --}}
-    
+
                    </li>
                 </ul>
             </div>
@@ -444,7 +444,26 @@
                 console.log('asdn sanfjsdnvjkndvndsnkjx sjkx ds');
 
                 PreviewImage();
-              })
-  
+              });
+              $(document).on('change','#financial_year',function(){
+                axios.post('{{route("fetch_financial_year")}}',{
+                    financial_year:$(this).val()
+                    })
+                    .then((response) => {
+                      projects = response.data;
+                      counter = 0;
+                      $('#adp').empty();
+                      $('#adp').append('<option value="" selected>Select GS #</option>');
+                      $.each(projects,function(key,element){
+                        $('#adp').append('<option value='+element.gs_no+','+counter+'>'+element.gs_no+'</option>');
+                        counter++;
+                      });
+                    })
+                    .catch(function (error) {
+                      console.log(error);
+                    });
+                  });
+
+
 </script>
 @endsection

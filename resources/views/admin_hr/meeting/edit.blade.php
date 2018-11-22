@@ -218,6 +218,25 @@
   var temp;
   var current;
 
+  $(document).on('change','#financial_year',function(){
+    axios.post('{{route("fetch_financial_year")}}',{
+        financial_year:$(this).val()
+        })
+        .then((response) => {
+          projects = response.data;
+          counter = 0;
+          $('#adp').empty();
+          $('#adp').append('<option value="" selected>Select GS #</option>');
+          $.each(projects,function(key,element){
+            $('#adp').append('<option value='+element.gs_no+','+counter+'>'+element.gs_no+'</option>');
+            counter++;
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      });
+
     $(document).on('click','.newadd',function(){
       $('#section2').show('slow')
     })
@@ -472,7 +491,10 @@
                 console.log('asdn sanfjsdnvjkndvndsnkjx sjkx ds');
 
                 PreviewImage();
-              })
+              });
+
+
+
 
 </script>
 @endsection

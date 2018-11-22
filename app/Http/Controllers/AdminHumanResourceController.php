@@ -26,13 +26,40 @@ class AdminHumanResourceController extends Controller
     public function index()
     {
         $meetings = HrMeetingPDWP::all();
+        $data = [];
         foreach ($meetings as $meeting) {
-          if($meeting->attachment_file){
-            file_put_contents('storage/uploads/projects/pdwp_meeting/'.$meeting->attachment,base64_decode($meeting->attachment_file));
+          if(count($meeting->HrAgenda)>0){
+            $index = $meeting->HrAgenda[0]->financial_year;
+            if(isset($data[$index])){
+              $data += [
+                $index => array_push($data[$index],$meeting),
+              ];
+            }
+            else{
+              $data += [
+                $index => [$meeting],
+              ];
+            }
           }
+          else{
+            $index = "NoAgenda";
+            if(isset($data[$index])){
+              $data += [
+                $index => array_push($data[$index],$meeting),
+              ];
+            }
+            else{
+              $data += [
+                $index => [$meeting],
+              ];
+            }
+          }
+          // if($meeting->attachment_file){
+          //   file_put_contents('storage/uploads/projects/pdwp_meeting/'.$meeting->attachment,base64_decode($meeting->attachment_file));
+          // }
         }
         $agendas=HrAgenda::all();
-        return view('admin_hr.meeting.index',compact('meetings','agendas'));
+        return view('admin_hr.meeting.index',compact('meetings','agendas','data'));
     }
 
     /**
@@ -42,7 +69,8 @@ class AdminHumanResourceController extends Controller
      */
     public function create()
     {
-        $adp = AdpProject::orderBy('gs_no')->get();
+        $current_year='2018-19';
+        $adp = AdpProject::where('financial_year',$current_year)->orderBy('gs_no')->get();
         $sectors = HrSector::all();
         $meeting_types = HrMeetingType::all();
         $agenda_types = AgendaType::all();
@@ -71,6 +99,11 @@ class AdminHumanResourceController extends Controller
       $HRamiG->save();
     }
     return redirect()->back();
+    }
+
+    public function financial_year(Request $request){
+      $adp = AdpProject::where('financial_year',$request->financial_year)->orderBy('gs_no')->get();
+      return $adp;
     }
 
     /**
@@ -187,15 +220,14 @@ class AdminHumanResourceController extends Controller
             }
         }
         $agenda_statuses = HrProjectType::all();
-        $adp = AdpProject::orderBy('gs_no')->get();
+        $adp = AdpProject::where('financial_year','2017-18')->orderBy('gs_no')->get();
         $sectors = HrSector::all();
         $meeting_types = HrMeetingType::all();
         $agenda_types = AgendaType::all();
         $agendas = $meeting->HrAgenda;
         \JavaScript::put([
             'projects' => $adp
-        ]);
-
+          ]);
         return view('admin_hr.meeting.show',compact('agendas','meeting','agenda_statuses','adp','sectors','meeting_types','agenda_types'));
 
     }
@@ -272,7 +304,7 @@ class AdminHumanResourceController extends Controller
           }
       }
       $agenda_statuses = HrProjectType::all();
-      $adp = AdpProject::orderBy('gs_no')->get();
+      $adp = AdpProject::where('financial_year','2017-18')->orderBy('gs_no')->get();
       $sectors = HrSector::all();
       $meeting_types = HrMeetingType::all();
       $agenda_types = AgendaType::all();
