@@ -391,15 +391,16 @@
                                       @if(intval($activities[$activity_count]->progress) == intval($temp-$counter))
                                         <a class="btn" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<input type='file' name='document_attachment' required><button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},{{round($temp,0,PHP_ROUND_HALF_UP)}},this,{{$docs->id}},{{$docs->ActivityDocument->id}})'>Save</button>">
                                       @else
-                                        <a class="btn" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<input type='file' name='document_attachment' required><button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},{{round($temp,0,PHP_ROUND_HALF_UP)}},this,{{$docs->id}},{{$docs->ActivityDocument->id}})'>Save</button>">
-                                        {{-- <a class="btn" disabled> --}}
+                                      <a class="btn" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<input type='file' name='document_attachment' required><button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},{{round($temp,0,PHP_ROUND_HALF_UP)}},this,{{$docs->id}},{{$docs->ActivityDocument->id}})'>Save</button>">
+
+                                        <!-- <a class="btn" disabled> -->
                                       @endif
                                     @else
                                       @if($activities[$activity_count-1]->progress > 0 && intval($activities[$activity_count-1]->progress) >= intval($temp))
                                         <a class="btn" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},{{round($temp,0,PHP_ROUND_HALF_UP)}})'>Save</button>">
                                       @else
                                         <a class="btn" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},{{round($temp,0,PHP_ROUND_HALF_UP)}})'>Save</button>">
-                                        {{-- <a class="btn"  disabled> --}}
+                                        <!-- <a class="btn"  disabled> -->
                                       @endif
                                     @endif
                                     <input type="hidden" class="{{round($temp,0,PHP_ROUND_HALF_UP)}}_{{$activity->id}}" name="percent" value="{{round($temp,0,PHP_ROUND_HALF_UP)}},{{$project_data->project->id}},{{$activity->id}}">
@@ -418,8 +419,8 @@
                                   @if (($activities[$activity_count-1]->progress >= 100 || ($activity->ProjectActivity->id==6 && $activities[$activity_count-4]->progress>=50)) && $activity->progress < 25 )
                                     <a class="btn" id="myDiv" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},25)'>Save</button>">
                                   @else
-                                    <a class="btn" id="myDiv" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},25)'>Save</button>">
-                                    {{-- <a class="btn"  disabled> --}}
+                                  <a class="btn" id="myDiv" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},25)'>Save</button>">
+                                    <!-- <a class="btn"  disabled> -->
                                   @endif
                                       <input type="hidden" class="25_{{$activity->id}}" name="percent" value="25,{{$project_data->project->id}},{{$activity->id}}">
                                       <div class="percentBox">
@@ -433,8 +434,8 @@
                                   @if ($activities[$activity_count-1]->progress >= 100 && ($activity->progress == 25 || $activity->ProjectActivity->name=='Site Visits'))
                                     <a class="btn"id="myDiv"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},50)'>Save</button>">
                                   @else
-                                    <a class="btn"id="myDiv"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},50)'>Save</button>">
-                                    {{-- <a class="btn"  disabled> --}}
+                                  <a class="btn"id="myDiv"  rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},50)'>Save</button>">
+                                    <!-- <a class="btn"  disabled> -->
                                   @endif
                                       <input type="hidden" class="50_{{$activity->id}}" name="percent" value="50,{{$project_data->project->id}},{{$activity->id}}">
                                       <div class="percentBox">
@@ -452,8 +453,8 @@
                                   @if ($activities[$activity_count-1]->progress >= 100 && $activity->progress == 50 )
                                     <a class="btn" id="myDiv" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},75)'>Save</button>">
                                   @else
-                                    <a class="btn" id="myDiv" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},75)'>Save</button>">
-                                    {{-- <a class="btn"  disabled> --}}
+                                  <a class="btn" id="myDiv" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},75)'>Save</button>">
+                                    <!-- <a class="btn"  disabled> -->
                                   @endif
                                       <input type="hidden" class="75_{{$activity->id}}" name="percent" value="75,{{$project_data->project->id}},{{$activity->id}}">
                                       <div class="percentBox">
@@ -469,8 +470,8 @@
                                 @if ($activities[$activity_count-1]->progress >= 100 && ($activity->progress == 75 || ($activity->ProjectActivity->name=='Site Visits' && $activity->progress >= 50.0) || $activity->ProjectActivity->id > 6))
                                   <a class="btn" id="myDiv" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},100)'>Save</button>">
                                 @else
-                                  <a class="btn" id="myDiv" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},100)'>Save</button>">
-                                  {{-- <a class="btn"  disabled> --}}
+                                <a class="btn" id="myDiv" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="<button type='button' class='btn btn-success' onClick='saveData({{$activity->id}},100)'>Save</button>">
+                                  <!-- <a class="btn"  disabled> -->
                                 @endif
                                     <input type="hidden" class="100_{{$activity->id}}" name="percent" value="100,{{$project_data->project->id}},{{$activity->id}}">
                                     <div class="percentBox">

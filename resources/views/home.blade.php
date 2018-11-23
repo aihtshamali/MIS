@@ -4,8 +4,8 @@
 @endsection
 @section('styleTags')
    <style media="screen">
-     .btn, .nav-item, .nav-link{background: transparent !important;font-size: .9rem !important;color: #fff !important;font-weight:700 !important;-webkit-transition: all 600ms ease;transition: all 600ms ease;}
-     .btn:hover, .nav-item:hover, .nav-link:hover{background: #687753 !important;color: #fff !important;opacity: 0.7 !important;border-radius: .25rem !important;font-size: .9rem !important;font-weight:700 !important;-webkit-transition: all 600ms ease;transition: all 600ms ease;}
+     .btn, .nav-item, .nav-link{background: transparent !important;font-size: .9rem !important;color: #666 !important;font-weight:700 !important;-webkit-transition: all 600ms ease;transition: all 600ms ease;}
+     .btn:hover, .nav-item:hover, .nav-link:hover{background: #687753 !important;color: #fff !important;border-radius: .25rem !important;font-size: .9rem !important;font-weight:700 !important;-webkit-transition: all 600ms ease;transition: all 600ms ease;}
      a{text-decoration: none !important;}
      hr {
             margin-top: 0.5rem !important;
@@ -13,6 +13,7 @@
             border: 0;
             border-top: 1px solid #ffffff47 !important;
         }
+     .w_30p{width: 46% !important;margin-top: -11% !important;}
      .tile {
       width: 100%;
       display: inline-block;
@@ -36,6 +37,8 @@
     .tile.purple, .tile.blue, .tile.red, .tile.orange, .tile.green {
       color: #fff;
     }
+    .navbar-default{background-color: #fff !important;}
+    /* .navbar-default .navbar-nav > li > a{color: #666 !important;} */
     /* .tile.purple {
       background: #5133AB;
     } */
@@ -115,7 +118,7 @@
                                               						</div>
                                               					</span>
                                               					<div class="wrap-input100 validate-input m-t-40 m-b-35" data-validate = "Enter username">
-                                              						<input class="input100" type="text" id="username" name="username" value="{{ old('username') }}">
+                                              						<input class="input100" placeholder="Username" type="text" id="username" name="username" value="{{ old('username') }}">
                                                               <span class="focus-input100" data-placeholder="UserName"></span>
                                                               @if ($errors->has('username'))
                                                                    <div class="help-block">
@@ -124,7 +127,7 @@
                                                               @endif
                                               					</div>
                                               					<div class="wrap-input100 validate-input m-b-15" data-validate="Enter password">
-                                              	  					<input class="input100" id="password" type="password" name="password">
+                                              	  					<input class="input100" placeholder="Password" id="password" type="password" name="password">
                                                             <span class="focus-input100" data-placeholder="Password"></span>
                                                             @if ($errors->has('password'))
                                                             <div class="help-block">
@@ -203,35 +206,35 @@
                     <a href="{{route('monitoring_dashboard')}}" class="tile purple">
                       <h3 class="title">Monitoring</h3>
                       <hr/>
-                      <p>Click here to visit Monitoring</p>
+                      <p>Visit Monitoring</p>
                     </a>
                 </div>
                 <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.6s">
                     <a href="{{route('evaluation_dashboard')}}" class="tile orange">
                       <h3 class="title">Evaluation</h3>
                       <hr/>
-                      <p>Click here to visit Evaluation</p>
+                      <p>Visit Evaluation</p>
                     </a>
                 </div>
                 <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.7s">
                     <a href="" class="tile green">
                       <h3 class="title">TPV(s)</h3>
                       <hr/>
-                      <p>Click here to visit TPV(s)</p>
+                      <p>Visit TPV(s)</p>
                     </a>
                 </div>
                 <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.8s">
                   <a href="" class="tile green">
                     <h3 class="title">Inquires</h3>
                     <hr/>
-                    <p>Click here to visit Inquires</p>
+                    <p>Visit Inquires</p>
                   </a>
                 </div>
                 <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.9s">
                     <a href="{{route('trip.create')}}" class="tile orange">
                       <h3 class="title">Plan My Trip</h3>
                       <hr/>
-                      <p>Click here to visit Plan My Trip</p>
+                      <p>Visit Plan My Trip</p>
                     </a>
                 </div>
                 <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.0s">
@@ -332,7 +335,7 @@
                               <div class="counter-icon">
                                   <i class="fa fa-ioxhost"></i>
                               </div>
-                              <h3><span class="counter">250</span>+</h3>
+                              <h3><span class="counter">113</span>+</h3>
                               <div class="counter-text">
                                   <h4>Monitoring projects</h4>
                               </div>
@@ -343,7 +346,7 @@
                               <div class="counter-icon">
                                   <i class="fa fa-industry"></i>
                               </div>
-                              <h3><span class="counter">1000</span>+</h3>
+                              <h3><span class="counter">239</span>+</h3>
                               <div class="counter-text">
                                   <h4>Evaluation Projects</h4>
                               </div>
@@ -354,7 +357,7 @@
                               <div class="counter-icon">
                                   <i class="fa fa-check-square-o"></i>
                               </div>
-                              <h3><span class="counter">500</span>+</h3>
+                              <h3><span class="counter">0</span></h3>
                               <div class="counter-text">
                                   <h4>Validation</h4>
                               </div>
@@ -365,7 +368,7 @@
                               <div class="counter-icon">
                                   <i class="fa fa-bookmark"></i>
                               </div>
-                              <h3><span class="counter">80</span>+</h3>
+                              <h3><span class="counter">0</span></h3>
                               <div class="counter-text">
                                   <h4>Special Assignments</h4>
                               </div>
@@ -404,34 +407,34 @@
 @endsection
 @section('scripttags')
   <script>
-$(document).ready(function(){
-  $('.nav-link').mouseenter(function(){
-    $(this).attr(`style`,`color:#fff !important;`);
-    });
-  $(window).scroll(function(){
-    var scroll = $(window).scrollTop();
-    if (scroll > 30)
-    {
-      $('.nav-link').attr(`style`,`color:#777777d9 !important;`);
-      $('.nav-link').mouseenter(function(){
-        $(this).attr(`style`,`color:#fff !important;`);
-        });
-      $('.nav-link').mouseleave(function(){
-        $(this).attr(`style`,`color:#777777d9 !important;`);
-        });
-    }
-    else
-     {
-       $('.nav-link').attr(`style`,`color:#fff !important;`);
-       $('.nav-link').mouseenter(function(){
-         $(this).attr(`style`,`color:#777777d9 !important;`);
-         });
-       $('.nav-link').mouseleave(function(){
-         $(this).attr(`style`,`color:#fff !important;`);
-         });
-     }
-  });
-  });
+// $(document).ready(function(){
+//   $('.nav-link').mouseenter(function(){
+//     $(this).attr(`style`,`color:#fff !important;`);
+//     });
+//   $(window).scroll(function(){
+//     var scroll = $(window).scrollTop();
+//     if (scroll > 30)
+//     {
+//       $('.nav-link').attr(`style`,`color:#777777d9 !important;`);
+//       $('.nav-link').mouseenter(function(){
+//         $(this).attr(`style`,`color:#fff !important;`);
+//         });
+//       $('.nav-link').mouseleave(function(){
+//         $(this).attr(`style`,`color:#777777d9 !important;`);
+//         });
+//     }
+//     else
+//      {
+//        $('.nav-link').attr(`style`,`color:#fff !important;`);
+//        $('.nav-link').mouseenter(function(){
+//          $(this).attr(`style`,`color:#777777d9 !important;`);
+//          });
+//        $('.nav-link').mouseleave(function(){
+//          $(this).attr(`style`,`color:#fff !important;`);
+//          });
+//      }
+//   });
+//   });
   $(document).ready(function(){
   var show_btn=$('.show-modal');
       var show_btn=$('.show-modal');
