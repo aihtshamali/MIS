@@ -227,7 +227,7 @@
                   <a href="" class="tile green">
                     <h3 class="title">Inquires</h3>
                     <hr/>
-                    <pVisit Inquires</p>
+                    <p>Visit Inquires</p>
                   </a>
                 </div>
                 <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.9s">
