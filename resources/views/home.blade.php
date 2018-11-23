@@ -332,7 +332,7 @@
                               <div class="counter-icon">
                                   <i class="fa fa-ioxhost"></i>
                               </div>
-                              <h3><span class="counter">250</span>+</h3>
+                              <h3><span class="counter">113</span>+</h3>
                               <div class="counter-text">
                                   <h4>Monitoring projects</h4>
                               </div>
@@ -343,7 +343,7 @@
                               <div class="counter-icon">
                                   <i class="fa fa-industry"></i>
                               </div>
-                              <h3><span class="counter">1000</span>+</h3>
+                              <h3><span class="counter">239</span>+</h3>
                               <div class="counter-text">
                                   <h4>Evaluation Projects</h4>
                               </div>
@@ -354,7 +354,7 @@
                               <div class="counter-icon">
                                   <i class="fa fa-check-square-o"></i>
                               </div>
-                              <h3><span class="counter">500</span>+</h3>
+                              <h3><span class="counter">0</span></h3>
                               <div class="counter-text">
                                   <h4>Validation</h4>
                               </div>
@@ -365,7 +365,7 @@
                               <div class="counter-icon">
                                   <i class="fa fa-bookmark"></i>
                               </div>
-                              <h3><span class="counter">80</span>+</h3>
+                              <h3><span class="counter">0</span></h3>
                               <div class="counter-text">
                                   <h4>Special Assignments</h4>
                               </div>

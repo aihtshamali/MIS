@@ -203,11 +203,11 @@
                                                       <div class="costDiv pd_1 clearfix">
                                                           <div class="card-header">
                                                               <h4>FINANCIAL COST</h4>
-                                                              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                                              <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit.
                                                               Sunt similique totam harum sit. Quibusdam libero, harum rem
                                                               quam repellendus adipisci. Repellat sapiente asperiores
                                                               numquam beatae at distinctio quaerat reiciendis
-                                                              repudiandae.
+                                                              repudiandae. -->
                                                           </div>
                                                     <div class="card-block">
                                                         <div class="row">
