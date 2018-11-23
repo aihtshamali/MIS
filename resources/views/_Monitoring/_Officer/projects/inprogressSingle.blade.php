@@ -516,11 +516,11 @@
                                                             <div class="card m-0 z-depth-right-0">
                                                                 <div class="card-header">
                                                                     <h4>KPI(s)</h4>
-                                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                                                    <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit.
                                                                     Sunt similique totam harum sit. Quibusdam libero, harum rem
                                                                     quam repellendus adipisci. Repellat sapiente asperiores
                                                                     numquam beatae at distinctio quaerat reiciendis
-                                                                    repudiandae.
+                                                                    repudiandae. -->
                                                                 </div>
                                                                 <div class="card-block">
                                                                     {{-- <div class="row form-group" style="height: 100px;">
@@ -769,11 +769,11 @@
                                                             <div class="card m-0 z-depth-right-0">
                                                                 <div class="card-header">
                                                                     <h4>FINANCIAL COST</h4>
-                                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                                                    <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit.
                                                                     Sunt similique totam harum sit. Quibusdam libero, harum rem
                                                                     quam repellendus adipisci. Repellat sapiente asperiores
                                                                     numquam beatae at distinctio quaerat reiciendis
-                                                                    repudiandae.
+                                                                    repudiandae. -->
                                                                 </div>
                                                                 <div class="card-block">
                                                                     <div class="row">
@@ -846,7 +846,7 @@
                                                             <div class="card z-depth-right-0">
                                                                 <div class="card-header">
                                                                     <h4>Quality Assesment</h4>
-                                                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore neque, repellendus, nihil, ullam eligendi facilis dicta possimus magnam voluptatem dolores quasi provident quisquam voluptas cum distinctio! Numquam debitis est neque?
+                                                                    <!-- Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore neque, repellendus, nihil, ullam eligendi facilis dicta possimus magnam voluptatem dolores quasi provident quisquam voluptas cum distinctio! Numquam debitis est neque? -->
                                                                 </div>
                                                                 <div class="card-block">
                                                                   {{-- <div class="row">
@@ -963,8 +963,8 @@
                                                                     <div class="form-group row">
                                                                         <div class="col-md-12">
                                                                             <p class="block form-control">
-                                                                                Lorem ipsum dolor sit amet consectetur
-                                                                                adipisicing elit. Dicta, eligendi!
+                                                                                <!-- Lorem ipsum dolor sit amet consectetur
+                                                                                adipisicing elit. Dicta, eligendi! -->
                                                                             </p>
                                                                         </div>
                                                                     </div>
@@ -980,11 +980,11 @@
                                                             <div class="card z-depth-right-0">
                                                                 <div class="card-header">
                                                                     <h4>Stakeholders</h4>
-                                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                                                    <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit.
                                                                     Sunt similique totam harum sit. Quibusdam libero, harum rem
                                                                     quam repellendus adipisci. Repellat sapiente asperiores
                                                                     numquam beatae at distinctio quaerat reiciendis
-                                                                    repudiandae.
+                                                                    repudiandae. -->
                                                                 </div>
                                                                 <div class="card-block">
                                                                     <div class="col-md-12">
