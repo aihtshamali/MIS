@@ -333,7 +333,11 @@
                   class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
                 <has-error :form="form" field="password"></has-error>
               </div>
-
+              <div class="checkbox m-b-20">
+                  <label>
+                      <input type="checkbox" v-model="form.remember" name="remember" :class="{ 'is-invalid': form.errors.has('remember') }"> Remember Me
+                  </label>
+    				 </div>
           </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
