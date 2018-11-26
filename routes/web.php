@@ -68,8 +68,8 @@ Route::group(['middleware' => ['role:admin']], function () {
 
 });
 
-// For Manager
-Route::prefix('manager')->middleware('role:manager')->group(function () {
+// For Manager & Director Charts
+Route::prefix('manager')->middleware('role:manager|directorevaluation')->group(function () {
   Route::get('/','ExecutiveController@index')->name('Exec_home');
   // PEMS GRAPHS -EVALUATION MODULE
   Route::get('/chart_one','ExecutiveController@chart_one')->name('chart_one');
@@ -90,6 +90,9 @@ Route::prefix('manager')->middleware('role:manager')->group(function () {
 
   //
   Route::get('/pems_tab','ExecutiveController@pems_index')->name('Exec_pems_tab');
+});
+Route::prefix('manager')->middleware('role:manager')->group(function () {
+
   Route::get('/pmms_tab','ExecutiveController@pmms_index')->name('Exec_pmms_tab');
   Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
   Route::get('/tpv_tab','ExecutiveController@tpv_index')->name('Exec_tpv_tab');

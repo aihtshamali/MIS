@@ -427,7 +427,7 @@ new Vue({
             text: 'You Logged in SuccessFully!',
             type: 'success',
             showConfirmButton: false,
-            timer:1000
+            timer:1500
           })
           $('#myModal').modal('hide')
 
