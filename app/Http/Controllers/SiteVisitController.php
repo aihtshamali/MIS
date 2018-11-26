@@ -48,6 +48,7 @@ class SiteVisitController extends Controller
         $subcitytypes=PlantripSubcitytype::all();
    
         $cities= PlantripCity::all();
+        $citylahore= PlantripCity::where('name','LAHORE CITY')->first();
   
         $projects=AssignedProject::where('complete',0)->get();
         $officers=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
@@ -59,7 +60,7 @@ class SiteVisitController extends Controller
         ->get();
         return view('Site_Visit.Plan_A_Trip.new_trip',['cities'=>$cities,'officers'=>$officers,'triptypes'=>$triptypes,
                                                       'visitreasons'=>$visitreasons,'purposetypes'=>$purposetypes,
-                                                      'subcitytypes'=>$subcitytypes,'projects'=>$projects]);
+                                                      'subcitytypes'=>$subcitytypes,'projects'=>$projects,'citylahore'=>$citylahore]);
     }
     public function view()
     {
@@ -73,7 +74,7 @@ class SiteVisitController extends Controller
      */
     public function store(Request $request)
     { 
-        // print_r($request->purposetypeforLocal) ;exit();
+        dd($request->all());
         $tripRequest_id='';
         if(!isset($request->tripRequest_id) && $request->tripRequest_id==null){
             $tripRequest = new PlantripTriprequest();
