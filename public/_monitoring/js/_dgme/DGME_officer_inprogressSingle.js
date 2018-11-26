@@ -641,23 +641,27 @@ $(document).on('click', '.removecompAct', function () {
 
 $(document).ready(function () {
     $("#ObjCompShowSum").click(function () {
+        $(".SumObjComp").children().remove()
         $(".SumObjComp").show('slow');
         var cc = oc
+        console.log(cc);
+        
         for (var i = 1; i < cc; i++) {
-            var t = $('#objvalue' + i)[0].innerHTML
-            var SumObjComp = `<p class="clearfix pd_1_6">
-            <span id="SumObj" class="float-left col-md-6"></span>
-            <span id="SumComp" class="float-right col-md-6"></span>
-            </p>`
-            console.log($(SumObjComp).find('#SumObj')[0].innerHTML);
-            $(SumObjComp).find('#SumObj')[0].innerHTML = t
-            $(SumObjComp).find('#SumObj')
+            var t = $('#objvalue' + i).text();
+            var SumObjComp = `<div class="clearfix pd_1_6">
+            <div id="SumObj" class="float-left col-md-6">test</div>
+            <div id="SumComp" class="float-right col-md-6">
+                
+            </div>
+            </div>`
+            var has = $(SumObjComp)
+            has.find('div#SumObj').text(t)
             $("#option" + i + " option:selected").each(function () {
-                $(SumObjComp).find('#SumComp').innerHTML= $(this).val()
-                // $(options).appendTo(t.find('#option'))
-                // sumObjCaompHere.appendTo('#ObjCompHere')
+                // console.log($(this).val());
+                var t = `<div>`+$(this).val()+`</div>`                
+                $(t).appendTo(has.find('#SumComp'))                
             });
-            $(SumObjComp).appendTo('.SumObjComp');
+            has.appendTo('.SumObjComp');
         }
     });
 });

@@ -5,12 +5,19 @@
 @section('styleTags')
  <!-- Select 2 css -->
  <link rel="stylesheet" href="{{ asset('_monitoring/css/css/select2.min.css')}}" />
+ <link rel="stylesheet" href="{{ asset('_monitoring/css/css/component.css')}}" />
  <!-- Multi Select css -->
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/bootstrap-multiselect.css')}}" />
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/multiselect/css/multi-select.css')}}" />
     <link rel="stylesheet" href="{{ asset('_monitoring/css/pages/advance-elements/css/bootstrap-datetimepicker.css')}}" />
     <link rel="stylesheet" href="{{ asset('_monitoring/css/css/daterangepicker.css')}}" />
-    {{-- <link rel="stylesheet" href="{{ asset('_monitoring/css/css/datedropper/datedropper.min.css')}}" /> --}}
+<!-- Notification.css -->
+<link rel="stylesheet" type="text/css" href="{{asset('_monitoring/css/pages/notification/notification.css')}}">
+<!-- Animate.css -->
+<link rel="stylesheet" type="text/css" href="{{asset('_monitoring/css/css/animate.css')}}">
+ {{-- <link rel="stylesheet" href="{{ asset('_monitoring/css/css/sweetalert.css')}}" /> --}}
+    
+    {{-- <link rel="stylesheet" href="{{ asset('_monitoring/css/css/datedropper.min.css')}}" /> --}}
     <style>
         .bg-w{background-color: #fff !important;}
         .daterangepicker td.in-range {
@@ -95,11 +102,12 @@
         .select2-container--default .select2-selection--single{border: 1px solid #f0efef !important;}
         .select2-container{width: 100% !important;}
         .select2-container .select2-selection--single{height: 38px !important;}
-        .page-body{margin:auto;width:70% !important;}
+        /* .page-body{margin:auto;width:70% !important;} */
   </style>
 @endsection
 @section('content')
 @include('inc.msgs')
+<div class="offset-md-2 col-md-8">
     <h4><b>Schedule New Visit</b></h4><br>
     <label for=""><b>Trip Type</b> </label>
     <select name="triptype_id" id="type" class="triptype_id form-control form-control-default">
@@ -116,10 +124,12 @@
                 @foreach ($purposetypes as $purposetype)
 
                 <div class="radio radio-outline radio-inline">
+                  
                     <label>
-                        <input type="radio" class="purposetype" name="purposetypeforLocal" id="purposetypevalforlocal" value="{{$purposetype->id}}">
-                        <i class="helper"></i>{{$purposetype->name}}
-                    </label>
+                            <input type="radio" class="purposetype" name="purposetypeforLocal" id="purposetypevalforlocal"  value="{{$purposetype->id}}">
+                             <i class="helper"></i>{{$purposetype->name}}
+                         </label>
+                      
                 </div>
                 @endforeach
             </div>
@@ -238,8 +248,10 @@
                         class="icofont icofont-plus"></i>Add purpose</div>
             </div>
 
-            <div class="form-group">
-                 <button class="btn submitlocal btn-success btn-block"  type="submit"><i class="icofont icofont-user-alt-3"></i>Save & Submit</button>
+            <div class="form-group ">
+                    <button class="btn btn-success btn-outline-success btn-block submitlocal "  type="submit"  >Save and Submit</button>
+                {{-- <button class="btn submitlocal btn-success waves-effect" type="submit" data-type="inverse" data-animation-in="animated fadeInDown" data-animation-out="animated fadeOutDown">Save & Submit</button> --}}
+                {{-- <button class="btn submitlocal alert-confirm btn-success btn-block"  type="submit"><i class="icofont icofont-user-alt-3"></i>Save & Submit</button> --}}
                 {{-- <button class="btn btn-success btn-block"><i class="icofont icofont-user-alt-3"></i>Submit</button> --}}
             </div>
     </form>
@@ -249,10 +261,12 @@
             <div class="form-radio">
             @foreach ($purposetypes as $purposetype)
             <div class="radio radio-outline radio-inline">
-            <label>
-            <input type="radio" class="purposetypeForOutstation" name="purposetypeForOutstation" value="{{$purposetype->id}}">
-            <i class="helper"></i>{{$purposetype->name}}
-            </label>
+                  
+                    <label>
+                            <input type="radio" class="purposetypeForOutstation" name="purposetypeForOutstation" id="purposetypeForOutstation"  value="{{$purposetype->id}}">
+                             <i class="helper"></i>{{$purposetype->name}}
+                         </label>
+                       
             </div>
             @endforeach
             </div>
@@ -262,10 +276,12 @@
                 <div class="form-radio">
                 @foreach ($subcitytypes as $subcitytype)
                 <div class="radio radio-outline radio-inline">
-                <label>
-                <input type="radio" class="subcitytypeForOutstation" name="subcitytypeForOutstation" value="{{$subcitytype->id}}">
-                <i class="helper"></i>{{$subcitytype->name}}
-                </label>
+                       
+                        <label>
+                                <input type="radio" class="subcitytypeForOutstation" name="subcitytypeForOutstation" value="{{$subcitytype->id}}">
+                                <i class="helper"></i>{{$subcitytype->name}}
+                            </label>
+                       
                 </div>
                 @endforeach
 
@@ -276,6 +292,7 @@
             <form action="{{route('trip.store')}}" id= "form_1" name="formforoutstation" method="POST"  class="col-md-12 form-control form-control-default">
                 {{ csrf_field() }}
                 <div id="roundtripp_1">
+                    
                     <div class="col-md-12 inlinebox">
                         <div class="col-md-3 nopadlefright">
                         <select id="outstationVisitReason" name="outstationVisitReason" class="form-control form-control-default reasonroundtrip">
@@ -407,28 +424,29 @@
                         <i class="icofont icofont-plus"></i>Add New Purpose
                     </div>
                 </div>
-                <div class="form-group">
-                <button class="btn submit btn-success btn-block"  type="submit"><i class="icofont icofont-user-alt-3"></i>Save & Submit</button>
+                <div class="form-group ">
+                <button class="btn btn-success btn-outline-success btn-block submit "  type="s
+                ubmit"  >Save and Submit</button>
+                {{-- <button class="btn submit btn-success btn-block"  type="submit"><i class="icofont icofont-user-alt-3"></i>Save & Submit</button> --}}
                 </div>
         </form>
     </div>
+</div>
 </div>
 @endsection
 @section('js_scripts')
 <!-- Select 2 js -->
 <script src="{{asset('_monitoring/js/select2/js/select2.full.min.js')}}"></script>
 <!-- Multiselect js -->
-{{-- <script src="{{asset('_monitoring/js/bootstrap-multiselect/js/bootstrap-multiselect.js')}}"></script>
-<script src="{{asset('_monitoring/js/multiselect/js/jquery.multi-select.js')}}"></script>
-<script src="{{asset('_monitoring/css/js/jquery.quicksearch.js')}}"></script> --}}
+
 <script src="{{asset('_monitoring/css/pages/advance-elements/select2-custom.js')}}"></script>
 <script src="{{asset('_monitoring/css/pages/advance-elements/moment-with-locales.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
 <script src="{{asset('_monitoring/css/pages/advance-elements/bootstrap-datetimepicker.min.js')}}"></script>
-<!-- Date-dropper js -->
-{{-- <script type="{{ asset('_monitoring/js/datedropper/js/datedropper.min.js')}}"></script> --}}
 <script src="{{asset('_monitoring/js/bootstrap-daterangepicker/js/daterangepicker.js')}}"></script>
 <script src="{{asset('_monitoring/css/pages/advance-elements/custom-picker.js')}}"></script>
+<script  src="{{asset('_monitoring/css/js/bootstrap-growl.min.js')}}"></script>
+<script src="{{asset('_monitoring/css/pages/notification/notification.js')}}"></script>
 
 <script>
     var counter=2;
@@ -448,7 +466,7 @@
     var city_id2 = 1;
     var roundpurposal = 1;
     var append_id=2
-
+    var tripRequest_id=null;
     function addPurpose(e){
         ++counter_outstation;
         ++counterforloopofOutstation;
@@ -457,6 +475,7 @@
                 <form action="{{route('trip.store')}}" id= "form_`+Formnum+`" name="formforoutstation" method="POST"  class="col-md-12 form-control form-control-default">
             {{ csrf_field() }}
             <div id="roundtripp_1">
+            <input type="hidden" class="tripRequest_id" name="tripRequest_id">
                 <div class="col-md-12 inlinebox">
                     <div class="col-md-3 nopadlefright">
                     <select id="outstationVisitReason" name="outstationVisitReason" class="form-control form-control-default reasonroundtrip">
@@ -588,9 +607,10 @@
                     <i class="icofont icofont-plus"></i>Add New Purpose
                 </div>
             </div>
-            <div class="form-group">
-                <button class="btn submit btn-success btn-block" type="submit"><i class="icofont icofont-user-alt-3"></i>Save & Submit</button>
-            </div>
+            <div class="form-group ">
+                <button class="btn btn-success btn-outline-success btn-block submit "  type="submit">Save and Submit</button>
+                {{-- <button class="btn submit btn-success btn-block"  type="submit"><i class="icofont icofont-user-alt-3"></i>Save & Submit</button> --}}
+                </div>
                 </form>
             `;
 
@@ -608,12 +628,17 @@
             $('.daterangeForOutstation').daterangepicker();
         $(".officerSelect").select2();
         $(".yeselect").select2();
+    //    Adding value            
+        $('.tripRequest_id').each(function(){
+            $(this).val(tripRequest_id);
+        });
 
     }
     function addPurposeloc(f){
         var MultiPurposeOfLocal=`<form action="{{route('trip.store')}}" id= "formlocal_`+Formnum_local+`" name="formforlocal" method="POST"  class="col-md-12 form-control form-control-default">
             {{ csrf_field() }}
             <div id="clonethisproposal_1" class="w3-animate-top">
+                <input type="hidden" class="tripRequest_id" name="tripRequest_id">
                 <div class="col-md-12 inlinebox">
                     <div class="col-md-3 nopaddinglef">
                         <select id="visit_reasonForLocal" name="visit_reasonForLocal" class="form-control form-control-default reason">
@@ -719,10 +744,10 @@
                         class="icofont icofont-plus"></i>Add purpose</div>
             </div>
 
-            <div class="form-group">
-                 <button class="btn submitlocal btn-success btn-block"  type="submit"><i class="icofont icofont-user-alt-3"></i>Save & Submit</button>
-                {{-- <button class="btn btn-success btn-block"><i class="icofont icofont-user-alt-3"></i>Submit</button> --}}
-            </div>
+            <div class="form-group ">
+                <button class="btn btn-success btn-outline-success btn-block submitlocal "  type="submit"  >Save and Submit</button>
+                {{-- <button class="btn submit btn-success btn-block"  type="submit"><i class="icofont icofont-user-alt-3"></i>Save & Submit</button> --}}
+                </div>
     </form>`;
     Formnum_local++;
                   $(this).find(".localpurpose").attr("onclick","");
@@ -730,6 +755,9 @@
                     // $(".daterange").datepicker();
                     $(".officerSelect").select2();
                     $(".yeselect").select2();
+                    $('.tripRequest_id').each(function(){
+                        $(this).val(tripRequest_id);
+                    });                    
     }
 
     function addCity(e){
@@ -873,9 +901,12 @@
         if($(this).val()=='1')
         {
             $(".addnewproposal").hide();
+            console.log(this.tripRequest_id);
+            
         }
         else if($(this).val()=='2')
         {
+            console.log(tripRequest_id);
             $(".addnewproposal").show();
         }
     });
@@ -883,6 +914,7 @@
         if($(this).val()=='1')
         {
             $('.purposetypelocal').show();
+           
         }
         else{
             $('.purposetypelocal').hide();
@@ -937,13 +969,13 @@
     function disabledFields(objthis){
         city_counter=2;
         $(".purposeClass").attr("onclick","addPurpose(this)");
-        $(".purposeLocal").attr("onclick","addPurposeloc(this)");
-        console.log($(objthis).find('select , input, .addnewmulcityout .addnewproposal').attr('disabled',true));
+        $(".localpurpose").attr("onclick","addPurposeloc(this)");
+        console.log($(objthis).find('select , input, .addnewmulcityout, .addnewproposal').attr('disabled',true));
     }
 
   $(document).on('submit','form',function(event){
       event.preventDefault();
-
+    var formthis=$(this);
       var triptype= $('.triptype_id').val();
       var outstationPur= $('.purposetypeForOutstation').val();
       var localpurpose=$('.purposetype').val();
@@ -953,18 +985,28 @@
    headers : { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
    type: 'POST',
    url: $(this).attr('action'),
+   async: false,
    data: formdata + "&purposetypeforLocal=" + localpurpose + "&triptype_id="+ triptype+"&purposetypeForOutstation=" + outstationPur +"&subcity="+ subcity,   // I WANT TO ADD EXTRA DATA + SERIALIZE DATA
    success: function(data){
       console.log(data);
-    //   $('.tampil_vr').text(data);
+    if(data.trip_request_id){
+        tripRequest_id=data.trip_request_id;
+       console.log(tripRequest_id);
+        
+      $('.tripRequest_id').each(function(){
+          $(this).val(data.trip_request_id);          
+      });
     }
-    // error: function()
-    // {
-
-    // }
+    //   $('.tampil_vr').text(data);
+    },
+    error: function(error)
+    {
+        console.log(error);
+    }
     });
-    disabledFields($(this));
-
+    console.log(tripRequest_id);
+    $('#type').attr('disabled',true);
+    disabledFields($(formthis));
 });
 </script>
 @endsection

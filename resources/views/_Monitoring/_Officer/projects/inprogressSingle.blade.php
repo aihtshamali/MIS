@@ -522,7 +522,7 @@
                                                             <div class=" col-md-8 offset-md-2 ">
                                                               <h5 class="textlef pd_1_6">Summary</h5>
                                                               <div class="col-md-12 SumObjComp nodisplay">
-                                                                here
+                                                                
                                                               </div>
                                                             </div>
                                                           </div>

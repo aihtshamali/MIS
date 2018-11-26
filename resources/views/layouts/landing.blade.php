@@ -105,6 +105,7 @@
       </div>
 @yield('content')
     <!-- Wrapper-->
+{{-- </div> --}}
 
     <!-- Jquery and Js Plugins -->
     <script type="text/javascript" src="{{ asset('landingPage/js/jquery-2.1.1.js')}}"></script>
