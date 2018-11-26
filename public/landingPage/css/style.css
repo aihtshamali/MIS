@@ -52,7 +52,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
-	font-family:"Open Sans",sans-serif;
+	font-family:"Helvetica Neue", sans-serif;
 	line-height: 1;
 }
 ol, ul {
@@ -359,7 +359,7 @@ body {
 .navbar.past-main {
   transition: all 0.6s ease;
   height: 50px;
-  background-color: rgba(255, 255, 255, 0.99);
+  background-color: #ffffffd6;
 }
 
 .navbar.effect-main:active {
@@ -453,7 +453,7 @@ body {
 .hero-content h1 {
 
 	font-size: 34px;
-	color: #111111;
+	color: #555;
 	font-weight: 600;
 	line-height: 1.3;
 	letter-spacing: -1px;
@@ -534,7 +534,7 @@ body {
 }
 
 .app-hero-content img {
-	margin-top: 50px;
+	/* margin-top: 50px; */
 }
 
 .app-sub {
@@ -590,14 +590,14 @@ body {
 }
 
 .services-content {
-	padding-top: 100px;
-	padding-bottom: 75px;
+	padding-top: 23px;
+	padding-bottom: 23px;
 }
 
 .services-content h1 {
 
 	font-size: 24px;
-	color: #111111;
+	color: #555;
 	font-weight: 600;
 	letter-spacing: 0;
 	line-height: 1.4;
@@ -627,7 +627,7 @@ body {
 	border-radius: 50%;
 	border: 2px solid;
 	border-color: transparent;
-	background: #F6F6F6;
+	background: #687753;
 	margin: 0 auto;
 	-webkit-transition: 0.5s;
 	-moz-transition: 0.5s;
@@ -649,7 +649,7 @@ body {
 .services .services-description h1 {
 
 	font-size: 18px;
-	color: #111111;
+	color: #555;
 	font-weight: 600;
 	letter-spacing: 0;
 	line-height: 1.4;
@@ -870,7 +870,7 @@ body {
 
 .counter-section {
  width: 100%;
- padding-top: 100px;
+ /* padding-top: 100px; */
  padding-bottom: 50px;
  background: #FFFFFF;
 }
@@ -888,7 +888,7 @@ body {
 
 .counter-icon i {
   font-size: 42px;
-  color: #ff642e;
+  color: #687753;
 }
 
 .counter-text {
@@ -938,7 +938,7 @@ body {
   font-size: 18px;
   font-weight: 600;
   padding: 0.5em;
-  color: #111111;
+  color: #555;
 }
 
 .feature_huge .feature_list p {
@@ -967,7 +967,7 @@ body {
 
   font-size: 34px;
   font-weight: 500;
-  color: #111111;
+  color: #555;
   margin-top: 3em;
 }
 
@@ -1105,7 +1105,7 @@ body {
 .pricing-intro h1 {
 
 	font-size: 28px;
-	color: #111111;
+	color: #555;
 	font-weight: 600;
 	line-height: 1.4;
 }
@@ -1203,7 +1203,7 @@ body {
 .cta-sub h1 {
 
 	font-size: 28px;
-	color: #111111;
+	color: #555;
 	font-weight: 600;
 	line-height: 1.3;
 	margin-top: 10px;
@@ -1353,7 +1353,7 @@ body {
 
 	font-size: 28px;
 	font-weight: 600;
-	color: #111111;
+	color: #555;
 	line-height: 1.3;
 	margin-bottom: 20px;
 }
@@ -1467,7 +1467,7 @@ label {
 
 
 .back-to-top {
-	background: rgba(46, 216, 182,0.5);
+	background: #687753;
 	margin: 0;
 	position: fixed;
 	bottom: 30px;
@@ -1483,9 +1483,9 @@ label {
 
 .back-to-top i {
 	position: relative;
-	left: 13px;
+	left: 9px;
 	top: 8px;
-	font-size: 24px;
+	font-size: 17px;
 	color: #FFFFFF;
 	-webkit-transition: 200ms;
 	-moz-transition: 200ms;
@@ -1494,8 +1494,11 @@ label {
 }
 
 .back-to-top:hover {
-    background: rgba(46, 216, 182,0.9);
+    background: #687753;
     color: #FFFFFF;
+		box-shadow: 0px 0px 37px #777;
+		-webkit-transition: all 600ms ease;
+		transition: all 600ms ease;
 }
 
 .back-to-top:hover i {

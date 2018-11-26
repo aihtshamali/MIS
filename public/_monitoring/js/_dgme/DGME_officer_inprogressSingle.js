@@ -1,11 +1,8 @@
 "use strict";
+var oc = 1;
 $(document).ready(function () {
     $('[data-toggle="popover"]').popover();
 
-    $(".conductNav").click(function () {
-        $(".topSummary").show('slow');
-        $(".mainTabsAndNav").animate({ marginTop: '6%' }, 1000);
-    });
     $(".planNav").click(function () {
         $(".topSummary").show('slow');
         $(".mainTabsAndNav").animate({ marginTop: '6%' }, 1000);
@@ -134,7 +131,7 @@ $(document).ready(function () {
 
         if (revs.length != 0) {
             revs.forEach(item => {
-                console.log('THIS IS SPARTA');
+                // console.log('THIS IS SPARTA');
 
                 var tm = parseInt(item.period)
                 var table = $(revisionTable)
@@ -184,7 +181,7 @@ $(document).ready(function () {
 
     $('.summaryNav').on('click', function () {
         hideallmaintabs();
-        // hideall();
+        hideall();
         $('.mainTabsAndNav').removeClass("col-md-12").addClass("col-md-9");
         $('#summary').show();
         $('.p_details').show(1000);
@@ -194,21 +191,12 @@ $(document).ready(function () {
     });
 
     $('.planNav').on('click', function () {
-        console.log('yahan tk');
+        // console.log('yahan tk');
 
         hideallmaintabs();
         $('.p_details').hide();
         $('.mainTabsAndNav').removeClass("col-md-9").addClass("col-md-12");
         $('#p_monitoring').show();
-    });
-
-
-
-    $('.conductNav').on('click', function () {
-        hideallmaintabs();
-        $('.p_details').hide();
-        $('.mainTabsAndNav').removeClass("col-md-8").addClass("col-md-12");
-        $('#c_monitoring').show();
     });
     function hideall() {
         $('#PlanDocDiv').hide();
@@ -234,6 +222,19 @@ $(document).ready(function () {
         $('#TimesDiv').hide();
         $('#CostingDiv').hide();
     }
+
+
+    $('.conductNav').on('click', function () {
+        hideallmaintabs();
+        hideall();
+        $('#c_monitoring').show();
+        $('#financialDiv').show();
+        $('#p_monitoring').hide();
+        $('.p_details').hide();
+        $('.mainTabsAndNav').removeClass("col-md-8").addClass("col-md-12");
+        $('.mainTabsAndNav').animate({ marginTop: '6%' }, 1000);
+        $(".topSummary").show('slow');
+    });
     $('.CostingTab').on('click', function () {
         hideall();
         $('#CostingDiv').show();
@@ -271,103 +272,99 @@ $(document).ready(function () {
         $('.p_details').hide();
         $('.mainTabsAndNav').removeClass("col-md-8").addClass("col-md-12");
     });
-        $('.financialphase').on('click', function () {
-            hideall();
-            $('#financial').show();
-        });
-        $('.MOBtab').on('click', function () {
-            hideall();
-            $('#MOBdiv').show();
-        });
-        // $('.planNav').on('click',function(){
-        // hideall();
-        // $('#PlanDocDiv').show();
-        // });
-        $('.conductNav').on('click', function () {
-            hideall();
-            $('#financialDiv').show();
-        });
-        $('.physical').on('click', function () {
-            hideall();
-            $('#physical').show();
-        });
-        $('.quality_assesment').on('click', function () {
-            hideall();
-            $('#quality_assesment').show();
-        });
-        $('.stakeholder').on('click', function () {
-            hideall();
-            $('#stakeholder').show();
-        });
-        $('.issues').on('click', function () {
-            hideall();
-            $('#issues').show();
-        });
-        $('.risks').on('click', function () {
-            hideall();
-            $('#risks').show();
-        });
-        $('.HSE').on('click', function () {
-            hideall();
-            $('#HSE').show();
-        });
-        $('.procuremnet').on('click', function () {
-            hideall();
-            $('#procurement').show();
-        });
-        $('.gllery').on('click', function () {
-            hideall();
-            $('#Gallery').show();
-        });
-        $('.financial').on('click', function () {
-            hideall();
-            $('#financialDiv').show();
-        });
-        $('.Objectives').on('click', function () {
-            hideall();
-            $('#Objectives').show();
-        });
-        $('.PAT').on('click', function () {
-            hideall();
-            $('#PAT').show();
-        });
-        $('.Documents').on('click', function () {
-            hideall();
-            $('#Documents').show();
-        });
+    $('.financialphase').on('click', function () {
+        hideall();
+        $('#financial').show();
+    });
+    $('.MOBtab').on('click', function () {
+        hideall();
+        $('#MOBdiv').show();
+    });
+    // $('.planNav').on('click',function(){
+    // hideall();
+    // $('#PlanDocDiv').show();
+    // });
+    $('.physical').on('click', function () {
+        hideall();
+        $('#physical').show();
+    });
+    $('.quality_assesment').on('click', function () {
+        hideall();
+        $('#quality_assesment').show();
+    });
+    $('.stakeholder').on('click', function () {
+        hideall();
+        $('#stakeholder').show();
+    });
+    $('.issues').on('click', function () {
+        hideall();
+        $('#issues').show();
+    });
+    $('.risks').on('click', function () {
+        hideall();
+        $('#risks').show();
+    });
+    $('.HSE').on('click', function () {
+        hideall();
+        $('#HSE').show();
+    });
+    $('.procuremnet').on('click', function () {
+        hideall();
+        $('#procurement').show();
+    });
+    $('.gllery').on('click', function () {
+        hideall();
+        $('#Gallery').show();
+    });
+    $('.financial').on('click', function () {
+        hideall();
+        $('#financialDiv').show();
+    });
+    $('.Objectives').on('click', function () {
+        hideall();
+        $('#Objectives').show();
+    });
+    $('.PAT').on('click', function () {
+        hideall();
+        $('#PAT').show();
+    });
+    $('.Documents').on('click', function () {
+        hideall();
+        $('#Documents').show();
+    });
+});
+
+// document.querySelector('.alert-success-msg').onclick = function(){
+// swal("Good job!", "You submitted the project!", "success");
+// };
+$(function () {
+    $('input[name="asd"]').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true
+    });
+});
+
+$(function () {
+    $('input[name="ts"]').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true
+    });
+});
+
+$(function () {
+    $('input[name="cwd"]').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true
     });
 
-    // document.querySelector('.alert-success-msg').onclick = function(){
-    // swal("Good job!", "You submitted the project!", "success");
-    // };
-    $(function () {
-        $('input[name="asd"]').daterangepicker({
-            singleDatePicker: true,
-            showDropdowns: true
-        });
-    });
+});
 
-    $(function () {
-        $('input[name="ts"]').daterangepicker({
-            singleDatePicker: true,
-            showDropdowns: true
-        });
-    });
+$(document).ready(() => {
+    // $('.select2').select2()
+})
 
-    $(function () {
-        $('input[name="cwd"]').daterangepicker({
-            singleDatePicker: true,
-            showDropdowns: true
-        });
-
-    });
-
-    $(document).ready(() => {
-        // $('.select2').select2()
-    })
-
-    $('button#add-more').click(function (e) {
-        var add_stakeholder = `<tr>
+$('button#addmore').click(function (e) {
+    var add_stakeholder = `<tr>
     <td>
         <label for="">1</label>
     </td>
@@ -391,10 +388,10 @@ $(document).ready(function () {
     <td><input type="text" name="stakeholder_number"
             class="form-control" /></td>
                     <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td></tr>`
-        $('#stakeholders').append(add_stakeholder);
-    });
-    $('button#add-more-issues').click(function (e) {
-        var temp = `
+    $('#stakeholders').append(add_stakeholder);
+});
+$('button#add-more-issues').click(function (e) {
+    var temp = `
                     <tr>
                         <td><input type="text" name="issue" style="width:100%;padding:2%;" /></td>
                         <td>
@@ -433,10 +430,10 @@ $(document).ready(function () {
                         </td>
                     </tr>
                     `
-        $(temp).appendTo('#add-issue-here')
-    });
-    $('button#add-more').click(function (e) {
-        var add_risks = `<tr>
+    $(temp).appendTo('#add-issue-here')
+});
+$('button#add-more').click(function (e) {
+    var add_risks = `<tr>
                 <td><input type="text" class="form-control"></td>'
                 <td>
                   <select class="form-control form-control-primary">
@@ -475,143 +472,257 @@ $(document).ready(function () {
                 <td><input type="text" class="form-control"></td>'
                 <td><button class="btn btn-sm btn-danger" id="remove" onclick="removerow(this)" name="remove[]" type="button">-</button></td>'
                 </tr>`
-        $('#riskmatrix').append(add_risks);
-    });
+    $('#riskmatrix').append(add_risks);
+});
 
-    $('button#add_activity').click(function (e) {
+$('button#add_activity').click(function (e) {
 
-        var add_activities = '<div class="row form-group component_Activities">'
-            + '<div class="col-md-10 mb_1 offset-md-1"><input type="text" class="form-control" placeholder="Add Task" name="c_activity[]"> </div>'
-            // +'<div class="col-md-2"> <input type="text" class="form-control" placeholder="Cost" name="c_cost[]"></div>'
-            // +'<div class="col-md-2"><input type="text" class="form-control" placeholder="Units" name="c_unit[]"></div>'
-            // +'<div class="col-md-2"><input type="text" class="form-control" placeholder="Quantity" name="c_quantity[]"></div>'
-            + '<div class="col-md-1"><button class="btn btn-danger btn-sm" name="remove_activity[]" onclick="removerow(this)"  type="button">-</button></div>'
-            + '</div>';
-        $('.planMactivities').append(add_activities);
-    });
+    var add_activities = '<div class="row form-group component_Activities">'
+        + '<div class="col-md-10 mb_1 offset-md-1"><input type="text" class="form-control" placeholder="Add Task" name="c_activity[]"> </div>'
+        // +'<div class="col-md-2"> <input type="text" class="form-control" placeholder="Cost" name="c_cost[]"></div>'
+        // +'<div class="col-md-2"><input type="text" class="form-control" placeholder="Units" name="c_unit[]"></div>'
+        // +'<div class="col-md-2"><input type="text" class="form-control" placeholder="Quantity" name="c_quantity[]"></div>'
+        + '<div class="col-md-1"><button class="btn btn-danger btn-sm" name="remove_activity[]" onclick="removerow(this)"  type="button">-</button></div>'
+        + '</div>';
+    $('.planMactivities').append(add_activities);
+});
 
 
-    $('button#add_more_component').click(function (e) {
-        var add_component = '<div class="row components">'
-            + '<div class="form-group col-md-1 offset-md-1 ">'
-            + '<br>'
-            + '<button class=" btn btn-sm btn-danger" onclick="removerow(this)" name="remove_component[]" id="remove_component" type="button"><i class="fa fa-minus"></i></button>'
-            + '</div>'
-            + '<div class="form-group col-md-6  ">'
-            + '<label for=""> <b>Component Title :</b></label><br>'
-            + '<select class=" form-control form-control-primary ">'
-            + '<option value="" selected disabled>Select Component</option>'
-            + '<option value="1" >Component 1</option>'
-            + '<option value="2">Component 2</option>'
-            + '<option value="3" >Component 3</option>'
-            + '</select>'
-            + '</div>'
-            + '<div class="col-md-2 offset-md-1">'
-            + '<br>'
-            + '<button class=" btn btn-sm btn-success" name="add_more_act[]" id="add_more_act" onclick="add_activityInComp(this)" type="button">Add Activity</button>'
-            + '</div>'
-            + '</div>';
-        $('.oneComponentQA').append(add_component);
-    });
-    var objct = 2;
-    function autoindex() {
-        var sib = $(document).find('.newClass').siblings();
-        // console.log(sib);
-        var i = 0;
-        for (i = 0; i < sib.length; i++) {
-            var cl_array = sib[i].getAttribute('class').split(' ');
-            var val = "";
-            for (var j = 0; j < cl_array.length; j++) {
-                if (cl_array[j].startsWith('newClass')) {
-                    val = cl_array[j];
-                    break;
-                }
-            }
-            if (val != "") {
-                $('.' + val + ' > label').text('Objective ' + (i + 2));
-                $('.' + val + ' > div > input').attr('placeholder', 'Objective ' + (i + 2));
-                $('.' + val).addClass('newClass' + (i + 2)).removeClass(val);
+$('button#add_more_component').click(function (e) {
+    var add_component = '<div class="row components">'
+        + '<div class="form-group col-md-1 offset-md-1 ">'
+        + '<br>'
+        + '<button class=" btn btn-sm btn-danger" onclick="removerow(this)" name="remove_component[]" id="remove_component" type="button"><i class="fa fa-minus"></i></button>'
+        + '</div>'
+        + '<div class="form-group col-md-6  ">'
+        + '<label for=""> <b>Component Title :</b></label><br>'
+        + '<select class=" form-control form-control-primary ">'
+        + '<option value="" selected disabled>Select Component</option>'
+        + '<option value="1" >Component 1</option>'
+        + '<option value="2">Component 2</option>'
+        + '<option value="3" >Component 3</option>'
+        + '</select>'
+        + '</div>'
+        + '<div class="col-md-2 offset-md-1">'
+        + '<br>'
+        + '<button class=" btn btn-sm btn-success" name="add_more_act[]" id="add_more_act" onclick="add_activityInComp(this)" type="button">Add Activity</button>'
+        + '</div>'
+        + '</div>';
+    $('.oneComponentQA').append(add_component);
+});
+var objct = 2;
+function autoindex() {
+    var sib = $(document).find('.newClass').siblings();
+    // console.log(sib);
+    var i = 0;
+    for (i = 0; i < sib.length; i++) {
+        var cl_array = sib[i].getAttribute('class').split(' ');
+        var val = "";
+        for (var j = 0; j < cl_array.length; j++) {
+            if (cl_array[j].startsWith('newClass')) {
+                val = cl_array[j];
+                break;
             }
         }
-        objct = i + 2;
-    }
-
-
-    $('#add_more_objective').click(function (e) {
-        // var newClass='obj_'objct++;
-        var add_objective = `<div class="newClass` + objct + ` DisInlineflex mb_2 col-md-12">
-                        <label class="col-sm-3 text_center form-txt-primary font-15">Objective `+ objct + `</label>
-                        <div class="col-sm-7">
-                          <input type="text" class="form-control form-txt-primary" placeholder="Objective `+ objct + `">
-                        </div>
-                        <div class="col-sm-2 removeObjective text_center">
-                          <button class="btn btn-danger btn-sm" type="button">-</button>
-                        </div>
-                      </div>
-                      `
-        $('.objtivesNew').append(add_objective);
-        objct += 1;
-    });
-    $(document).on('click', '.removeObjective', function () {
-        if ($(this).parent().attr('class').split(' ')[0].split('ss')[1] == objct - 1) {
-            $(this).parent().remove();
+        if (val != "") {
+            $('.' + val + ' > label').text('Objective ' + (i + 2));
+            $('.' + val + ' > div > input').attr('placeholder', 'Objective ' + (i + 2));
+            $('.' + val).addClass('newClass' + (i + 2)).removeClass(val);
         }
-        else {
-            $(this).parent().remove();
-            autoindex();
+    }
+    objct = i + 2;
+}
+$('#add_more_objective').click(function (e) {
+    // var newClass='obj_'objct++;
+    var add_objective = `<div class="DisInlineflex newClass` + objct + ` mb_2 col-md-12">
+                                <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Objective ` + objct + `</label>
+                                <div class="col-sm-7">
+                                  <input type="text" class="form-control form-txt-primary" name="obj[]" placeholder="Objective ` + objct + `">
+                                </div>
+                                <div class="col-sm-2 removeObjective text_center">
+                                  <button class="btn btn-sm btn-danger" title="Delete Objective ` + objct + `" type="button" id="">-</button>
+                                </div>
+                              </div>`
+    $('.objtivesNew').append(add_objective);
+    objct += 1;
+});
+$('#saveObjComp').click(function () {
+    // <select class="select2 col-md-12" id="option`+ oc + `" multiple>
+
+    $('input[name^=obj]').each(function () {
+        var ObjCompHere = `<li class="row mb_2">
+                                <span id='objvalue`+ oc + `' class="float-left col-md-6"></span>
+                                <span class="float-right col-md-6">
+                                <select class="select2 col-md-12" id="option`+ oc + `" multiple="multiple">
+
+                                </select>
+                                </span>
+                              </li>`
+        var options = ""
+        // $(ObjCompHere)
+        // var obj = [];
+        $('input[name^=comp]').each(function () {
+            // obj.push($(this).val());
+            options += "<option value='" + $(this).val() + "'>" + $(this).val() + "</option>"
+        });
+        // console.log(options,'here');
+        // $('input[name^=obj]').each(function(){
+        var t = $(ObjCompHere)
+        t.find('#objvalue' + oc + '').text($(this).val())
+        $(options).appendTo(t.find('#option' + oc + ''))
+        t.appendTo('#ObjCompHere');
+        // });
+        $('.select2').select2()
+        // console.log(obj);
+        // return false;
+        oc++;
+    });
+});
+$(document).on('click', '.removeObjective', function () {
+    if ($(this).parent().attr('class').split(' ')[0].split('ss')[1] == objct - 1) {
+        $(this).parent().remove();
+    }
+    else {
+        $(this).parent().remove();
+        autoindex();
+    }
+});
+
+
+var compAct = 2;
+function autoindexcomp() {
+    var sib = $(document).find('.newClasscompAct').siblings();
+    // console.log(sib);
+    var i = 0;
+    for (i = 0; i < sib.length; i++) {
+        var cl_array = sib[i].getAttribute('class').split(' ');
+        var val = "";
+        for (var j = 0; j < cl_array.length; j++) {
+            if (cl_array[j].startsWith('newClasscompAct')) {
+                val = cl_array[j];
+                break;
+            }
+        }
+        if (val != "") {
+            $('.' + val + ' > label').text('Component ' + (i + 2));
+            $('.' + val + ' > div > input').attr('placeholder', 'Component ' + (i + 2));
+            $('.' + val).addClass('newClasscompAct' + (i + 2)).removeClass(val);
+        }
+    }
+    compAct = i + 2;
+}
+$('#add_more_compAct').click(function (e) {
+    // var newClass='obj_'objct++;
+    var add_compAct = `<div class="DisInlineflex newClasscompAct` + compAct + ` mb_2 col-md-12">
+                            <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Component ` + compAct + `</label>
+                            <div class="col-sm-7">
+                              <input type="text" class="form-control form-txt-primary" name="comp[]" placeholder="Component ` + compAct + `">
+                            </div>
+                            <div class="col-sm-2 removecompAct text_center">
+                              <button class="btn btn-sm btn-danger" title="Delete Objective ` + compAct + `" type="button" id="">-</button>
+                            </div>
+                          </div>`
+    $('.compActNew').append(add_compAct);
+
+    compAct += 1;
+});
+
+$(document).on('click', '.removecompAct', function () {
+    // console.log("Here");
+    if ($(this).parent().attr('class').split(' ')[0].split('ct')[1] == compAct - 1) {
+        $(this).parent().remove();
+    }
+    else {
+        $(this).parent().remove();
+        autoindexcomp();
+    }
+});
+
+
+$(document).ready(function () {
+    $("#ObjCompShowSum").click(function () {
+        $(".SumObjComp").children().remove()
+        $(".SumObjComp").show('slow');
+        var cc = oc
+        console.log(cc);
+        
+        for (var i = 1; i < cc; i++) {
+            var t = $('#objvalue' + i).text();
+            var SumObjComp = `<div class="clearfix pd_1_6">
+            <div id="SumObj" class="float-left col-md-6">test</div>
+            <div id="SumComp" class="float-right col-md-6">
+                
+            </div>
+            </div>`
+            var has = $(SumObjComp)
+            has.find('div#SumObj').text(t)
+            $("#option" + i + " option:selected").each(function () {
+                // console.log($(this).val());
+                var t = `<div>`+$(this).val()+`</div>`                
+                $(t).appendTo(has.find('#SumComp'))                
+            });
+            has.appendTo('.SumObjComp');
         }
     });
-    var compAct = 2;
-    $('#add_more_compAct').click(function (e) {
-        // var newClass='obj_'objct++;
-        var add_compAct = `<div class="newClasscompAct` + compAct + ` DisInlineflex mb_2 col-md-12">
-                        <label class="col-sm-3 text_center form-txt-primary font-15">Component / Activities `+ compAct + `</label>
-                        <div class="col-sm-7">
-                          <input type="text" class="form-control form-txt-primary" placeholder="Component/Activities `+ compAct + `">
-                        </div>
-                        <div class="col-sm-2 removecompAct text_center">
-                          <button class="btn btn-danger btn-sm" type="button">-</button>
-                        </div>
-                      </div>
-                      `
-        $('.compActNew').append(add_compAct);
-        $('.removecompAct').click(function () { $(this).parent().remove(); })
-        compAct += 1;
-    });
-    function add_activityInComp(e) {
-        var add_activities_to_assess = '<div class="row singleActivity">'
-            + '<div class="form-group col-md-3 offset-md-1 " style="margin-bottom:10px !important;">'
-            + '<label for=""><b>Activities</b></label>'
-            + '<select class="form-control form-control-warning" style="width: 90%;">'
-            + '<option value="" selected disabled>Select Activity</option>'
-            + '<option value="1" >Activity 1</option>'
-            + '<option value="2">Activity 2</option>'
-            + '<option value="3" >Activity 3</option>'
-            + '</select></div>'
-            + '<div class="form-group col-md-3 ">'
-            + '<label for=""><b>Assesment</b></label>'
-            + '<select class=" form-control " style="width: 90%;">'
-            + '<option value="" selected disabled>Select Assesment Type</option>'
-            + '<option value="1" style="background:#e85445;color:white;">Poor</option>'
-            + '<option value="2" style="background:#f5d75c;color:white;">PartiallySatisfactory</option>'
-            + '<option value="3" style="background:#44d581;color:white;">Satisfactory</option>'
-            + '</select>'
-            + '</div>'
-            + '<div class="form-group col-md-3">'
-            + '<label for=""><b>Remarks</b></label><br>'
-            + '<textarea name="qa_remarks" id="qa_remarks" class="form-control"  style="width: 90%;" type="text"></textarea>'
-            + '</div>'
-            + '<div class="form-group col-md-1 ">'
-            + ' <br><button class="btn btn-danger btn-sm" onclick="removerow(this)" name="remove_Comp_activity[]"><span style="font-size:12px;">-</span></button>'
-            + '</div>'
-            + '</div>';
-        $(e).parent().parent().append(add_activities_to_assess);
-    }
+});
+//
+// $(document).on('click','#ObjCompShowSum',function(){
+// console.log($(this).val());
+// var a= $("#option1 :selected");
+// a.map(function(){
+//   console.log($(this).value);
+//   return this.value
+// }).get().join(", ");
+// for(var i =1 ;i<oc;i++){
+// $('#option'+i+':selected').each(function(){});
+// };});
+// newly
+// $('#option1').change(function(){;
+//   var SelectedOption = $('#option1 option:selected');
+//   if(SelectedOption.length > 0)
+//   var resultString = '';
+//   SelectedOption.each(function(){
+//     resultString+= 'value = ' +$(this).val() + ', Text = ' + $(this).text()+'<br/>';
+//   })
+//   $('.SumObjComp').html(resultString);
+// });
+// end newly
 
-    function removerow(e) {
-        $(e).parent().parent().remove();
-    }
 
-    function removeIssuerow(e) {
-        $(e).parent().parent().remove();
-    }
+function add_activityInComp(e) {
+    var add_activities_to_assess = '<div class="row singleActivity">'
+        + '<div class="form-group col-md-3 offset-md-1 " style="margin-bottom:10px !important;">'
+        + '<label for=""><b>Activities</b></label>'
+        + '<select class="form-control form-control-warning" style="width: 90%;">'
+        + '<option value="" selected disabled>Select Activity</option>'
+        + '<option value="1" >Activity 1</option>'
+        + '<option value="2">Activity 2</option>'
+        + '<option value="3" >Activity 3</option>'
+        + '</select></div>'
+        + '<div class="form-group col-md-3 ">'
+        + '<label for=""><b>Assesment</b></label>'
+        + '<select class=" form-control " style="width: 90%;">'
+        + '<option value="" selected disabled>Select Assesment Type</option>'
+        + '<option value="1" style="background:#e85445;color:white;">Poor</option>'
+        + '<option value="2" style="background:#f5d75c;color:white;">PartiallySatisfactory</option>'
+        + '<option value="3" style="background:#44d581;color:white;">Satisfactory</option>'
+        + '</select>'
+        + '</div>'
+        + '<div class="form-group col-md-3">'
+        + '<label for=""><b>Remarks</b></label><br>'
+        + '<textarea name="qa_remarks" id="qa_remarks" class="form-control"  style="width: 90%;" type="text"></textarea>'
+        + '</div>'
+        + '<div class="form-group col-md-1 ">'
+        + ' <br><button class="btn btn-danger btn-sm" onclick="removerow(this)" name="remove_Comp_activity[]"><span style="font-size:12px;">-</span></button>'
+        + '</div>'
+        + '</div>';
+    $(e).parent().parent().append(add_activities_to_assess);
+}
+
+function removerow(e) {
+    $(e).parent().parent().remove();
+}
+
+function removeIssuerow(e) {
+    $(e).parent().parent().remove();
+}
