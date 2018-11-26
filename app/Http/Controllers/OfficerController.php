@@ -407,11 +407,11 @@ class OfficerController extends Controller
       {
         return view('_Monitoring._Officer.projects.completed');
       }
-      public function monitoring_inprogressSingle($id)
+      public function monitoring_inprogressSingle(Request $request)
       {
-        if($id==null)
+        if($request->project_id==null)
           return redirect()->back();
-        $project=AssignedProject::where('project_id',$id)->first();
+        $project=AssignedProject::where('project_id',$request->project_id)->first();
         $sectors  = Sector::where('status','1')->get();
         $sub_sectors = SubSector::where('status','1')->get();
         return view('_Monitoring._Officer.projects.inprogressSingle',compact('sectors','sub_sectors','project'));
@@ -419,7 +419,7 @@ class OfficerController extends Controller
       public function monitoring_review_form(Request $request)
       {
         // print_r(json_decode($request->data));
-        return response()->json($request->data['assigned_project_id']);
+        return response()->json($request->data);
       }
 
       // public function monitoring_Stages()

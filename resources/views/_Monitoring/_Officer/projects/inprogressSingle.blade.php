@@ -192,11 +192,8 @@
                                         </li>
                                     </ul>
                                     <!-- Tab panes -->
-                                    <form class="review" action="{{route('monitoring_review_form')}}"  method="POST">
-                                        {{ csrf_field() }}
-                                        <input type="hidden" name="assigned_project_id" value="{{$project->id}}">
                                         <div class="tab-content card-block">
-                                        <div class="tab-pane active" id="reviewDiv" role="tabpanel">
+                                            <div class="tab-pane active" id="reviewDiv" role="tabpanel">
                                           <div class="col-md-12">
                                               <!-- Nav tabs -->
                                               <ul class="nav nav-tabs  tabs" role="tablist">
@@ -216,6 +213,9 @@
                                               <!-- Tab panes -->
                                               <div class="tab-content tabs card-block">
                                                   <div class="tab-pane active" id="costDiv" role="tabpanel">
+                                                    <form class="review" action="{{route('monitoring_review_form')}}"  method="POST">
+                                                      {{ csrf_field() }}
+                                                      <input type="hidden" name="assigned_project_id" value="{{$project->id}}">
                                                       <div class="costDiv pd_1 clearfix">
                                                           <div class="card-header">
                                                               <h4>FINANCIAL COST</h4>
@@ -231,17 +231,17 @@
                                                                 <div class="form-group">
                                                                     <label for="" class="col-form-label"><b>ADP Allocation of Fiscal Year :</b></label>
                                                                     <br>
-                                                                    <input type="text" class="form-control" name="ADP_allocation_cost" id="ADP_allocation_cost" />
+                                                                    <input type="number" step="0.01" class="form-control" name="ADP_allocation_cost" id="ADP_allocation_cost" />
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="" class="col-form-label"><b>Total Allocation by that time (Cumulative):</b></label>
                                                                     <br>
-                                                                    <input type="text" class="form-control" name="ADP_allocation_cost" id="ADP_allocation_cost" />
+                                                                    <input type="text" step="0.01" class="form-control" name="adp_allocation_cost" id="ADP_allocation_cost" />
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="" class="col-form-label"><b>Utilization Against Cost Allocation :</b></label>
                                                                     <br>
-                                                                <input type="text" class="form-control" name="utilization_allocation" id="utilization_allocation" />
+                                                                <input type="text" step="0.01" class="form-control" name="utilization_against_cost_allocation" id="utilization_allocation" />
 
                                                                 </div>
                                                             </div>
@@ -249,12 +249,12 @@
                                                                 <div class="form-group">
                                                                     <label for="" class="col-form-label"><b>Release To Date of Fiscal Year :</b></label>
                                                                     <br>
-                                                                    <input type="text" class="form-control" name="release_to_date" id="release_to_date" />
+                                                                    <input type="text" step="0.01" class="form-control" name="release_to_date" id="release_to_date" />
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="" class="col-form-label"><b>Total Releases To Date :</b></label>
                                                                     <br>
-                                                                    <input type="text" class="form-control" name="total_release_to_date" id="total_release_to_date" />
+                                                                    <input type="text" step="0.01" class="form-control" name="total_release_to_date" id="total_release_to_date" />
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="" class="col-form-label"><b>Utilization Against Releases :</b></label>
@@ -266,25 +266,27 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-10 offset-md-1">
-                                                                   <div class="divider"></div>
-                                                                   <div class="col-md-4 offset-md-2">
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-form-label"><b>Technical Sanction Cost:</b></label>
-                                                                            <br>
-                                                                            <input class="form-control" type="text" name="ts_cost" placeholder="TS Cost" />
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-form-label"><b>Contract Award Cost :</b></label>
-                                                                            <br>
-                                                                            <input class="form-control" type="text" name="cad_cost"  placeholder="Contract Cost" />
-                                                                        </div>
-
-                                                                    </div>
+                                                               <div class="divider"></div>
+                                                               <div class="col-md-4 offset-md-2">
+                                                                  <div class="form-group">
+                                                                    <label for="" class="col-form-label"><b>Technical Sanction Cost:</b></label>
+                                                                    <br>
+                                                                    <input class="form-control" type="text" name="ts_cost" placeholder="TS Cost" />
+                                                                  </div>
+                                                                  <div class="form-group">
+                                                                    <label for="" class="col-form-label"><b>Contract Award Cost :</b></label>
+                                                                    <br>
+                                                                    <input class="form-control" type="text" name="cad_cost"  placeholder="Contract Cost" />
+                                                                  </div>
+                                                                </div>
                                                             </div>
                                                         </div>
-
+                                                    </div>
+                                                    <div class="row pull-right">
+                                                      <button type="submit" class="btn btn-success btn-sm" name="submit">Submit & Proceed</button>
                                                     </div>
                                                   </div>
+                                                </form>
                                                   </div>
                                                   <div class="tab-pane" id="locationDiv" role="tabpanel">
                                                     <div class="TimeDiv pd_1 clearfix">
@@ -323,9 +325,9 @@
                                                   <div class="tab-pane" id="AgeOrgDiv" role="tabpanel">
                                                     <div class="age_orgDiv pd_1 clearfix">
                                                       <div class="form-group row mb_2">
-                                                          <label class="col-sm-3 font-15">Opration & Management</label>
+                                                          <label class="col-sm-3 font-15">Operation & Management</label>
                                                           <div class="col-sm-9">
-                                                            <input type="text" class="form-control" placeholder="Opration & Management" />
+                                                            <input type="text" class="form-control" placeholder="Operation & Management" />
                                                           </div>
                                                       </div>
                                                       <div class="form-group row mb_2">
@@ -361,7 +363,6 @@
                                               </div>
                                           </div>
                                         </div>
-                                    </form>
                                         <div class="tab-pane " id="p_monitoring" role="tabpanel">
                                             <div class="row">
                                                 <div class="col-lg-12 col-xl-12 col-md-12 col-sm-6">
