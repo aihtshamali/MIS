@@ -456,7 +456,7 @@
     },
     mounted() {
       this.getNotifications();
-      this.listen();
+      // this.listen();
     },
     methods: {
       getNotifications() {
@@ -475,32 +475,28 @@
               .catch(function (error) {
                 console.log(error);
               });
-      },
-      listen() {
-        Echo.private('projectAssigned.'+this.user_id)
-            .listen('ProjectAssignedEvent', (notification) => {
-              this.notifications.unshift(notification);
-            });
-            Echo.private('projectAssignedManager.'+this.user_id)
-                .listen('ProjectAssignedManagerEvent', (notification) => {
-                  this.notifications.unshift(notification);
-                  // console.log(notification);
-                });
-            // Echo.private('chats.'+this.user_id)
+      }
+      // ,
+      // listen() {
+      //   Echo.private('projectAssigned.'+this.user_id)
+      //       .listen('ProjectAssignedEvent', (notification) => {
+      //         this.notifications.unshift(notification);
+      //       });
+      //       Echo.private('projectAssignedManager.'+this.user_id)
+      //           .listen('ProjectAssignedManagerEvent', (notification) => {
+      //             this.notifications.unshift(notification);
+      //             // console.log(notification);
+      //           });
+      //       // Echo.private('chats.'+this.user_id)
             //     .listen('ChatEvent', (message) => {
             //       this.messages.unshift(message);
             //       console.log(message);
             //       console.log('message');
             //     })
 
-      }
+      // }
     }
   })
 
     </script>
-
-
-
-
-<!-- Mirrored from adminlte.io/themes/AdminLTE/index2.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jul 2018 04:56:24 GMT -->
 </html>
