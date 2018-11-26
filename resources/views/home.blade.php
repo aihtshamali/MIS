@@ -75,6 +75,7 @@
     .nopad-nomar{padding: 0px !important;margin: 0px !important;}
     .bg_g{ background: #687753 !important}
     .clr_g{ color: #687753 !important}
+    .white{color: #fff !important;}
    </style>
 @endsection
 @section('content')
@@ -117,8 +118,8 @@
                                               								<img src="logo.jpg"  alt="AVATAR">
                                               						</div>
                                               					</span>
-                                              					<div class="wrap-input100 validate-input m-t-40 m-b-35" data-validate = "Enter username">
-                                              						<input class="input100" placeholder="Username" type="text" id="username" name="username" value="{{ old('username') }}">
+                                              					<div class="wrap-input100 validate-input m-t-40 m-b-15" data-validate = "Enter username">
+                                              						<input class="input100 col-md-8 offset-md-2 form-control" placeholder="Username" type="text" id="username" name="username" value="{{ old('username') }}">
                                                               <span class="focus-input100" data-placeholder="UserName"></span>
                                                               @if ($errors->has('username'))
                                                                    <div class="help-block">
@@ -127,7 +128,7 @@
                                                               @endif
                                               					</div>
                                               					<div class="wrap-input100 validate-input m-b-15" data-validate="Enter password">
-                                              	  					<input class="input100" placeholder="Password" id="password" type="password" name="password">
+                                              	  					<input class="input100 col-md-8 offset-md-2 form-control" placeholder="Password" id="password" type="password" name="password">
                                                             <span class="focus-input100" data-placeholder="Password"></span>
                                                             @if ($errors->has('password'))
                                                             <div class="help-block">
@@ -141,12 +142,12 @@
                                               				 </div>
 
                                               					<div class="container-login100-form-btn ">
-                                              						<button class="login100-form-btn btn bg_g"  >
+                                              						<button class="login100-form-btn btn bg_g white"  >
                                               							Login
                                               						</button>
                                               					</div>
 
-                                              					<ul class="login-more p-t-50 m-b-8 modal-footer">
+                                              					{{-- <ul class="login-more p-t-50 m-b-8 modal-footer">
                                               							<span class="txt1">
                                               								Forgot
                                               							</span>
@@ -161,7 +162,7 @@
                                               								</a>
                                               							</b>
 
-                                              					</ul>
+                                              					</ul> --}}
                                               				</form>
                                               			</div>
                                               		</div>
