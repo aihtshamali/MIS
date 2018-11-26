@@ -552,22 +552,14 @@
                                                                             <h5 class="mb_2">Choose KPI(s)</h4>
                                                                             <select id='custom-headers' class="searchable"
                                                                                 multiple='multiple'>
-                                                                                <option value='kpi_1'>kpi 1</option>
-                                                                                <option value='kpi_2'>kpi 2</option>
-                                                                                <option value='kpi_3'>kpi 3</option>
-                                                                                <option value='kpi_4'>kpi 4</option>
-                                                                                <option value='kpi_5'>kpi 5</option>
-                                                                                <option value='kpi_6'>kpi 6</option>
-                                                                                <option value='kpi_7'>kpi 7</option>
-                                                                                <option value='kpi_8'>kpi 8</option>
-                                                                                <option value='kpi_9'>kpi 9</option>
-                                                                                <option value='kpi_10'>kpi 10</option>
-                                                                                <option value='kpi_11'>kpi 11</option>
-                                                                                <option value='kpi_12'>kpi 12</option>
-                                                                                <option value='kpi_13'>kpi 13</option>
-                                                                                <option value='kpi_14'>kpi 14</option>
-                                                                                <option value='kpi_15'>kpi 15</option>
-                                                                                <option value='kpi_16'>kpi 16</option>
+                                                                                <option value='kpi_1'>Remaining Cost</option>
+                                                                                <option value='kpi_2'>Number of unresolved issues</option>
+                                                                                <option value='kpi_3'>Project Schedule.(delays and variance)</option>
+                                                                                <option value='kpi_4'>Quality</option>
+                                                                                <option value='kpi_5'>Scope Changes</option>
+                                                                                <option value='kpi_6'>Cost (Cost Over Sum)</option>
+                                                                                <option value='kpi_7'>Client Satisfaction</option>
+                                                                                <option value='kpi_8'>Procurement</option>
                                                                             </select>
                                                                         </div>
                                                                         <div class="row col-md-1">
