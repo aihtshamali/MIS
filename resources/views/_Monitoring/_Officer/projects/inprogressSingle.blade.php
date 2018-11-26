@@ -393,18 +393,33 @@
                                                     </ul>
                                                     <div class="tab-content tabs card-block active">
                                                         <div class="tab-pane active" id="PlanDocDiv" role="tabpanel" aria-expanded="true">
-                                                          <div class="col-md-12 col-sm-12">
-                                                            <!-- Our markup, the important part here! -->
-                                                            <div id="drag-and-drop-zone" class="dm-uploader">
-                                                              <h3 class="mb-5 mt-5 text-muted text_center">Drag &amp; drop files here</h3>
-
-                                                              <div class="btn btn-primary btn-block">
+                                                          <div class="row">
+                                                            <div class="col-md-3">
+                                                              <div class="btn col-md-10 offset-md-1 btn-primary btn-block">
                                                                 <input type="file" id="html_btn" title='Click to add Files' />
-                                                                  <span>Open the file Browser</span>
+                                                                  <span>Upload PC1</span>
                                                               </div>
-                                                            </div><!-- /uploader -->
-                                                          </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                              <div class="btn col-md-10 offset-md-1 btn-primary btn-block">
+                                                                <input type="file" id="html_btn" title='Click to add Files' />
+                                                                  <span>Upload PC2</span>
+                                                              </div>
+                                                            </div>
+                                                            <div class="col-md-3 col-sm-12">
+                                                                <div class="btn col-md-10 offset-md-1 btn btn-primary btn-block">
+                                                                  <input type="file" id="html_btn" title='Click to add Files' />
+                                                                    <span>Upload PC3</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                              <div class="btn col-md-10 offset-md-1 btn-primary btn-block">
+                                                                <input type="file" id="html_btn" title='Click to add Files' />
+                                                                  <span>Upload PC4</span>
+                                                              </div>
+                                                            </div>
                                                         </div>
+                                                      </div>
                                                         <div class="tab-pane" id="i-dates" role="tabpanel" aria-expanded="false">
                                                           <style scopped>
 
@@ -507,7 +522,7 @@
                                                             <div class=" col-md-8 offset-md-2 ">
                                                               <h5 class="textlef pd_1_6">Summary</h5>
                                                               <div class="col-md-12 SumObjComp nodisplay">
-
+                                                                here
                                                               </div>
                                                             </div>
                                                           </div>
