@@ -83,6 +83,7 @@
     color: #444;
     padding: 0px !important;
 }
+.headText{font-size: 15px;font-weight: 900;}
 </style>
 
 @endsection
@@ -522,8 +523,8 @@
                                                             <div class=" col-md-8 offset-md-2 ">
                                                               <h5 class="textlef pd_1_6">Summary</h5>
                                                               <div class="col-md-12 SumObjComp nodisplay">
-                                                                
-                                                              </div>
+                                                                <div class="float-left col-md-6"><h3>Objectives</h3></div>
+                                                                <div class="float-right col-md-6"><h3>Component</h3></div>                                                             </div>
                                                             </div>
                                                           </div>
                                                         </div>

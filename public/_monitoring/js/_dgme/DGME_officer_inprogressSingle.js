@@ -648,7 +648,7 @@ $(document).ready(function () {
         
         for (var i = 1; i < cc; i++) {
             var t = $('#objvalue' + i).text();
-            var SumObjComp = `<div class="clearfix pd_1_6">
+            var SumObjComp = `<div class="clearfix pd_1_6 headText">
             <div id="SumObj" class="float-left col-md-6">test</div>
             <div id="SumComp" class="float-right col-md-6">
                 
