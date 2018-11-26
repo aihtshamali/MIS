@@ -27,7 +27,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 // Predashboard
 Route::get('/predashboard',function(){
-  return view('predashboard');
+  return view('home');
 })->name('predashboard');
 
 // EvaluationDashbaord
@@ -154,7 +154,7 @@ Route::prefix('director_Monitor')->middleware('role:directormonitoring')->group(
     Route::get('/monitoring_inprogress','DirectorMonitoringController@monitoring_inprogressprojects')->name('Monitoring_inprogress_projects');
     Route::get('/monitoring_complete','DirectorMonitoringController@monitoring_completeprojects')->name('Monitoring_complete_projects');
     Route::get('/monitoring_assigntoconsultant','ProjectAssignController@DPM_AssignToConsultant')->name('Monitoring_assignToconsultant');
-
+    Route::post('/monitoring_assigntoconsultant','ProjectAssignController@store_from_Mdirector')->name('store_from_Mdirector');
 
 });
 Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
@@ -190,6 +190,7 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
   Route::get('/monitoring_inprogressAssignment','OfficerController@monitoring_inprogressAssignments')->name('Monitoring_inprogressAssignments');
   Route::get('/monitoring_completedAssignment','OfficerController@monitoring_completedAssignments')->name('Monitoring_completedAssignments');
   Route::get('/monitoring_sInprogress','OfficerController@monitoring_inprogressSingle')->name('monitoring_inprogressSingle');
+  Route::post('/monitoring_review_form','OfficerController@monitoring_review_form')->name('monitoring_review_form');
 
 });
 
@@ -205,9 +206,6 @@ Route::group(['middleware' => ['role:dataentry|officer|monitor|manager|directorm
 
 
 });
-
-
-
 
 
 //For DataEntry

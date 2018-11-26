@@ -387,7 +387,13 @@ class OfficerController extends Controller
 
       public function monitoring_newAssignments()
       {
-        return view('_Monitoring._Officer.projects.newAssignments');
+        $projects= Project::select('projects.*')
+        ->leftjoin('assigned_projects','projects.id','assigned_projects.project_id')
+        ->leftjoin('assigned_project_teams','assigned_projects.id','assigned_project_teams.assigned_project_id')
+        ->where('assigned_project_teams.user_id',Auth::id())
+        ->where('project_type_id',2)
+        ->get();
+        return view('_Monitoring._Officer.projects.newAssignments',['projects'=>$projects]);
       }
 
       public function monitoring_inprogressAssignments()
@@ -401,11 +407,19 @@ class OfficerController extends Controller
       {
         return view('_Monitoring._Officer.projects.completed');
       }
-      public function  monitoring_inprogressSingle()
+      public function monitoring_inprogressSingle(Request $request)
       {
+        if($request->project_id==null)
+          return redirect()->back();
+        $project=AssignedProject::where('project_id',$request->project_id)->first();
         $sectors  = Sector::where('status','1')->get();
         $sub_sectors = SubSector::where('status','1')->get();
-        return view('_Monitoring._Officer.projects.inprogressSingle',compact('sectors','sub_sectors'));
+        return view('_Monitoring._Officer.projects.inprogressSingle',compact('sectors','sub_sectors','project'));
+      }
+      public function monitoring_review_form(Request $request)
+      {
+        // print_r(json_decode($request->data));
+        return response()->json($request->data);
       }
 
       // public function monitoring_Stages()

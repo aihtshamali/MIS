@@ -64,5 +64,10 @@ class AssignedProject extends Model
     public function PlantripVisitedproject(){
       return $this->belongsTo('App\PlantripVisitedproject');
     }
+    public function MProjectProgress()
+    {
+      return $this->hasMany('App\MProjectProgress');
+    }
+
 
 }

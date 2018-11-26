@@ -11,7 +11,21 @@ window.Vue = require('vue');
 // Vue Scroll for Auto Scrolling
 import Vue from 'vue'
 import VueChatScroll from 'vue-chat-scroll'
+import { Form, HasError, AlertError } from 'vform'
+import swal from 'sweetalert2'
+
+window.swal=swal;
+window.toast = swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000
+});
+
 Vue.use(VueChatScroll)
+window.Form=Form
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Sector extends Model
 {
     public function user(){
-      return $this->hasMany('App\UserDetail');
+      return $this->hasMany('App\User');
     }
     public function subsectors()
     {
       return $this->hasMany('App\SubSector');
     }
 
-    public function MKpi(){
-      return $this->hasMany('App\MKpi');
+    public function MProjectKpis(){
+      return $this->hasMany('App\MProjectKpis');
     }
 }

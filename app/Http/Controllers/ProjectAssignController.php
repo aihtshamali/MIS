@@ -323,6 +323,10 @@ class ProjectAssignController extends Controller
       $check = AssignedProject::where('project_id',$request->project_id)->first();
       if(isset($check)){
         $team = $check->AssignedProjectTeam;
+        $priority_constant = 0.201057001;
+        $assigning_forum = $check->Project->ProjectDetail->AssigningForum;
+        $priority = $assigning_forum->score;
+        $priority *= $priority_constant;
         foreach ($team as $t) {
           $team_log = new AssignedProjectTeamLog();
           $team_log->assigned_project_id=$t->assigned_project_id;
@@ -349,21 +353,18 @@ class ProjectAssignController extends Controller
       }
       else{
 
-       if($request->priority=='high_priority'){
-         $priority=3;
-       }
-       else if($request->priority=='normal_priority'){
-         $priority=2;
-       }
-       else if($request->priority=='low_priority'){
-         $priority=1;
-       }
 
        $current_time = Carbon::now()->toDateString();
        $projects = $request->projects;
        if($request->assign_to=="officer"){
          $users = $request->users;
         // dd($request->all());
+        $priority_constant = 0.201057001;
+        $assigning_forum = Project::find($request->project_id);
+        $assigning_forum=$assigning_forum->ProjectDetail->AssigningForum;
+        $priority = $assigning_forum->score;
+        $priority *= $priority_constant;
+
         $assignProject= new AssignedProject();
         $assignProject->project_id=$request->project_id;
         $assignProject->assigned_date=$current_time;
@@ -388,33 +389,36 @@ class ProjectAssignController extends Controller
           $assignedProjectTeam->save();
         }
 
-        $project_activities = ProjectActivity::all();
-        foreach ($project_activities as $project_activity) {
-          $assigned_project_activity = new AssignedProjectActivity();
-          if($project_activity->id==1){
-            $assigned_project_activity->start_date=date('Y-m-d');
-          }
-         $assigned_project_activity->project_activity_id = $project_activity->id;
-         $assigned_project_activity->project_id = $assignProject->id;
-          if(count($request->officer_id) > 1){
-            foreach ($request->officer_id as $officer) {
-                if($officer==$request->team_lead){
-                  $assigned_project_activity->user_id = $officer;
-                  break;
-                }
-            }
-          }
-            else{
-              foreach ($request->officer_id as $officer) {
-                    $assigned_project_activity->user_id = $officer;
-              }
-            }
-            $assigned_project_activity->assigned_by = Auth::id();
-            // dd($assigned_project_activity);
-            $assigned_project_activity->save();
-        }
+        // Project Activities
+
+        // $project_activities = ProjectActivity::all();
+        // foreach ($project_activities as $project_activity) {
+        //   $assigned_project_activity = new AssignedProjectActivity();
+        //   if($project_activity->id==1){
+        //     $assigned_project_activity->start_date=date('Y-m-d');
+        //   }
+        //  $assigned_project_activity->project_activity_id = $project_activity->id;
+        //  $assigned_project_activity->project_id = $assignProject->id;
+        //   if(count($request->officer_id) > 1){
+        //     foreach ($request->officer_id as $officer) {
+        //         if($officer==$request->team_lead){
+        //           $assigned_project_activity->user_id = $officer;
+        //           break;
+        //         }
+        //     }
+        //   }
+        //     else{
+        //       foreach ($request->officer_id as $officer) {
+        //             $assigned_project_activity->user_id = $officer;
+        //       }
+        //     }
+        //     $assigned_project_activity->assigned_by = Auth::id();
+        //     // dd($assigned_project_activity);
+        //     $assigned_project_activity->save();
+        // }
 
       }else if($request->assign_to=='manager'){
+
         foreach ($request->manager_id as $manager) {
           $assignedProjectManager = new AssignedProjectManager();
 
@@ -428,13 +432,12 @@ class ProjectAssignController extends Controller
 
       }
     }
-
-
-        return redirect()->route('Evaluation_evaluation_assigned');
+      return redirect()->route('Monitoring_unassigned_projects');
     }
     public function DPM_AssignToConsultant(Request $request)
     {
 
+      // dd($request->all());
       $directors=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
       ->leftJoin('user_details','user_details.user_id','users.id')
       ->leftJoin('role_user','role_user.user_id','users.id')
@@ -453,7 +456,7 @@ class ProjectAssignController extends Controller
       ->orWhere('roles.name','monitor')
       ->where('users.status',1)
       ->get();
-      return view('_Monitoring._Director.assignToConsultant',['officers'=>$officers,'directors'=>$directors]);
+      return view('_Monitoring._Director.assignToConsultant',['officers'=>$officers,'directors'=>$directors,'project_id'=>$request->project_id]);
 
     }
 
@@ -461,6 +464,7 @@ class ProjectAssignController extends Controller
     public function assignToConsultant(Request $request)
     {
       $priority = 'low_priority';
+
       if(isset($request->priority))
         $priority = $request->priority;
        $directors=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
@@ -485,6 +489,7 @@ class ProjectAssignController extends Controller
     }
     public function DPM_StoreProjectData(Request $request)
     {
+      // TODO
     }
      public function store(Request $request)
      {
