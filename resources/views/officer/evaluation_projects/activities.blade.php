@@ -666,7 +666,7 @@
     mounted() {
       this.getUnreadCount();
       this.getProblematicRemarks();
-      this.listen();
+      // this.listen();
     },
     // define methods under the `methods` object
     methods: {
@@ -711,15 +711,16 @@
             .catch(function (error) {
               console.log(error);
             });
-    },
-    listen() {
-      Echo.private('problematicremarks.'+this.project_id)
-          .listen('ProblematicEvent', (message) => {
-            console.log(message);
-            this.problematicRemarks.push(message);
-            this.getUnreadCount();
-          });
-        }
+    }
+    // ,
+    // listen() {
+    //   Echo.private('problematicremarks.'+this.project_id)
+    //       .listen('ProblematicEvent', (message) => {
+    //         console.log(message);
+    //         this.problematicRemarks.push(message);
+    //         this.getUnreadCount();
+    //       });
+    //     }
     }
   })
   </script>

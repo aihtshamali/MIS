@@ -1403,17 +1403,12 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
-
-
                                                     <div class="col-md-1 col-sm-1">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <div class="col-md-1 col-sm-1">
                                                     </div>
-
-
                                                     <div class="col-md-4 col-sm-2">
                                                         <div class="card summary-card bg-new">
                                                             <div class="card-header"></div>
