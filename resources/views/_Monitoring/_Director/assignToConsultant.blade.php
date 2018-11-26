@@ -14,18 +14,20 @@
 
   </style>
 @endsection
-@section('content') 
+@section('content')
 <div class="row">
     <div class="col-md-12">
-        <form id="assigntoConsultantForm" action="#" >
+        <form id="assigntoConsultantForm" method="POST" action="{{route('store_from_Mdirector')}}" >
+          {{ csrf_field() }}
         <div class="card ">
             <div class="card-header"><h5 style="text-align:center;">Project Assignment To Consultant </h5></div>
+            <input type="hidden" name="project_id" value="{{$project_id}}">
             <div class="card-block">
                 <div class="row">
                     <div class="col-md-2 offset-md-3">
                        <label for=""><b>Assign To :</b> </label>
                     </div>
-                    <div class="col-md-4 form-radio">    
+                    <div class="col-md-4 form-radio">
                         <div class="radio radiofill radio-primary radio-inline">
                             <label>
                                 <input type="radio"  name="assign_to" value="director" >
@@ -43,7 +45,7 @@
                 </div>
 
                 <div class="row officer">
-                   
+
                     <div class="col-md-6 form-group offset-md-3">
                         <select name="officer_id[]" class="js-example-basic-multiple js-placeholder-multiple col-sm-12 form-control" multiple="multiple" data-placeholder="Select..">
                                 @foreach ($officers as $officer)
@@ -51,10 +53,10 @@
                             @endforeach
                         </select>
                     </div>
-                   
+
                 </div>
-               
-                <div class="row director">  
+
+                <div class="row director">
                         <div class="col-md-6 form-group offset-md-3">
                             <select name="director_id[]" class="js-example-basic-multiple js-placeholder-multiple col-sm-12 form-control" multiple="multiple" data-placeholder="Select..">
                                     @foreach ($directors as $director)
@@ -62,7 +64,7 @@
                                 @endforeach
                             </select>
                         </div>
-                     
+
                 </div>
 
                 <div class="row TeamLead" style="display:none; margin-top:20px;">
@@ -79,13 +81,13 @@
                                                 <th>Pick Team Leader</th>
                                                 </thead>
                                                 <tbody class="team_lead">
-                        
+
                                                 </tbody>
                                             </table>
                                         </div>
                                         </div>
                                 </div>
-                            </div>    
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -118,7 +120,7 @@
 $(document).ready(function() {
   $('input[name="assign_to"]').on('change',function(){
       console.log($(this));
-      
+
     if($(this).val()=='director'){
       $('div.officer').hide('top');
       $('div.director').show('left');
@@ -132,7 +134,7 @@ $(document).ready(function() {
     $('tbody.team_lead').find('tr').remove();
     if($(this).val().length>1)
     {
-      $( "select[name='officer_id[]'] option:selected" ).each(function(e) {                                                                                                   
+      $( "select[name='officer_id[]'] option:selected" ).each(function(e) {
       $('tbody.team_lead').append('<tr><td style="padding:2px;text-align:center;"><label class="">'+$(this).text()+'</a></td><td><div class="checkbox-fade fade-in-success m-0"><label> <input type="checkbox"  value="'+$(this).val()+'" name="team_lead" id="no" ><span class="cr"><i class="cr-icon icofont icofont-ui-check txt-success"></i></span></label></div></td></tr>');
       });
     $('.TeamLead').show('left');
