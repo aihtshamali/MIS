@@ -101,21 +101,35 @@
                 </style>
                 <div class="form-group row">
                     <div class="col-md-4">
-                        <label for="GS_no" class="">GS # </label>
+                        <label for="GS_no" class="">GS #: <span><b>{{$project->Project->ADP}}</b></span></label>
                     </div>
                     <div class="col-md-4">
-                        <label for="project_title" class="">Project Title </label>
+                        <label for="project_title" class="">Project Title: <span><b>{{$project->Project->title}}</b></span></label>
                     </div>
                     <div class="col-md-4 ln_ht12">
-                        <label for="project_cost" class="">Location</label>
+                        <label for="project_cost" class="">Location: <span><b>
+                          @foreach ($project->Project->AssignedDistricts as $district)
+                            {{$district->District->name}},
+                          @endforeach
+                        </b></span></label>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-md-4 ln_ht12">
-                        <label for="project_cost" class="">Original Approve Cost </label>
+                        <label for="project_cost" class="">Original Approve Cost: <span><b>{{$project->Project->ProjectDetail->orignal_cost}}</b></span></label>
                     </div>
                     <div class="col-md-4 ln_ht12">
-                        <label for="Location" class="">final Revised Cost </label>
+                        <label for="Location" class="">final Revised Cost: <span><b>
+                          @php
+                            $revisedFinalCost=0;
+                          @endphp
+                          @foreach ($project->Project->RevisedApprovedCost as $cost)
+                            @php
+                              $revisedFinalCost= $cost->cost;
+                            @endphp
+                          @endforeach
+                          {{$revisedFinalCost}}
+                        </b></span></label>
                     </div>
                     <div class="col-md-4">
                         <label for="PHI" class="">PHI </label>
@@ -124,10 +138,10 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-md-4">
-                        <label for="planned_start_date" class="">Planned Start Date </label>
+                        <label for="planned_start_date" class="">Planned Start Date: <span><b>{{$project->Project->ProjectDetail->planned_start_date}}</b></span></label>
                     </div>
                     <div class="col-md-4">
-                        <label for="planned_end_date" class="">Planned End Date </label>
+                        <label for="planned_end_date" class="">Planned End Date: <span><b>{{$project->Project->ProjectDetail->planned_end_date}}</b></span> </label>
                     </div>
                     <div class="col-md-4">
                         <label for="actual_start_date" class="">Actual Start Date </label>
@@ -135,7 +149,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-md-4 ln_ht12">
-                        <label for="progress" class="">Phsycal Progress %</label>
+                        <label for="progress" class="">Physical Progress %: <span><b>{{$project->progress}} %</b></span></label>
                     </div>
                     <div class="col-md-4">
                         <label for="Financial" class="">Financial Progress %</label>
@@ -152,7 +166,6 @@
     {{-- end of frozen panel --}}
     <div class="row">
             <div class="col-md-12 mainTabsAndNav mt_6p" style="padding-left: 15px !important;padding-right: 15px !important;">
-                <form action="#">
                     <div class="card">
                         <div class="card-header">
                         </div>
@@ -179,8 +192,8 @@
                                         </li>
                                     </ul>
                                     <!-- Tab panes -->
-                                    <div class="tab-content card-block">
-                                        <div class="tab-pane active" id="reviewDiv" role="tabpanel">
+                                        <div class="tab-content card-block">
+                                            <div class="tab-pane active" id="reviewDiv" role="tabpanel">
                                           <div class="col-md-12">
                                               <!-- Nav tabs -->
                                               <ul class="nav nav-tabs  tabs" role="tablist">
@@ -200,6 +213,9 @@
                                               <!-- Tab panes -->
                                               <div class="tab-content tabs card-block">
                                                   <div class="tab-pane active" id="costDiv" role="tabpanel">
+                                                    <form class="review" action="{{route('monitoring_review_form')}}"  method="POST">
+                                                      {{ csrf_field() }}
+                                                      <input type="hidden" name="assigned_project_id" value="{{$project->id}}">
                                                       <div class="costDiv pd_1 clearfix">
                                                           <div class="card-header">
                                                               <h4>FINANCIAL COST</h4>
@@ -215,17 +231,17 @@
                                                                 <div class="form-group">
                                                                     <label for="" class="col-form-label"><b>ADP Allocation of Fiscal Year :</b></label>
                                                                     <br>
-                                                                    <input type="text" class="form-control" name="ADP_allocation_cost" id="ADP_allocation_cost" />
+                                                                    <input type="number" step="0.01" class="form-control" name="ADP_allocation_cost" id="ADP_allocation_cost" />
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="" class="col-form-label"><b>Total Allocation by that time (Cumulative):</b></label>
                                                                     <br>
-                                                                    <input type="text" class="form-control" name="ADP_allocation_cost" id="ADP_allocation_cost" />
+                                                                    <input type="text" step="0.01" class="form-control" name="adp_allocation_cost" id="ADP_allocation_cost" />
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="" class="col-form-label"><b>Utilization Against Cost Allocation :</b></label>
                                                                     <br>
-                                                                <input type="text" class="form-control" name="utilization_allocation" id="utilization_allocation" />
+                                                                <input type="text" step="0.01" class="form-control" name="utilization_against_cost_allocation" id="utilization_allocation" />
 
                                                                 </div>
                                                             </div>
@@ -233,12 +249,12 @@
                                                                 <div class="form-group">
                                                                     <label for="" class="col-form-label"><b>Release To Date of Fiscal Year :</b></label>
                                                                     <br>
-                                                                    <input type="text" class="form-control" name="release_to_date" id="release_to_date" />
+                                                                    <input type="text" step="0.01" class="form-control" name="release_to_date" id="release_to_date" />
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="" class="col-form-label"><b>Total Releases To Date :</b></label>
                                                                     <br>
-                                                                    <input type="text" class="form-control" name="total_release_to_date" id="total_release_to_date" />
+                                                                    <input type="text" step="0.01" class="form-control" name="total_release_to_date" id="total_release_to_date" />
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="" class="col-form-label"><b>Utilization Against Releases :</b></label>
@@ -250,25 +266,27 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-10 offset-md-1">
-                                                                   <div class="divider"></div>
-                                                                   <div class="col-md-4 offset-md-2">
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-form-label"><b>Technical Sanction Cost:</b></label>
-                                                                            <br>
-                                                                            <input class="form-control" type="text" name="ts_cost" placeholder="TS Cost" />
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-form-label"><b>Contract Award Cost :</b></label>
-                                                                            <br>
-                                                                            <input class="form-control" type="text" name="cad_cost"  placeholder="Contract Cost" />
-                                                                        </div>
-
-                                                                    </div>
+                                                               <div class="divider"></div>
+                                                               <div class="col-md-4 offset-md-2">
+                                                                  <div class="form-group">
+                                                                    <label for="" class="col-form-label"><b>Technical Sanction Cost:</b></label>
+                                                                    <br>
+                                                                    <input class="form-control" type="text" name="ts_cost" placeholder="TS Cost" />
+                                                                  </div>
+                                                                  <div class="form-group">
+                                                                    <label for="" class="col-form-label"><b>Contract Award Cost :</b></label>
+                                                                    <br>
+                                                                    <input class="form-control" type="text" name="cad_cost"  placeholder="Contract Cost" />
+                                                                  </div>
+                                                                </div>
                                                             </div>
                                                         </div>
-
+                                                    </div>
+                                                    <div class="row pull-right">
+                                                      <button type="submit" class="btn btn-success btn-sm" name="submit">Submit & Proceed</button>
                                                     </div>
                                                   </div>
+                                                </form>
                                                   </div>
                                                   <div class="tab-pane" id="locationDiv" role="tabpanel">
                                                     <div class="TimeDiv pd_1 clearfix">
@@ -307,9 +325,9 @@
                                                   <div class="tab-pane" id="AgeOrgDiv" role="tabpanel">
                                                     <div class="age_orgDiv pd_1 clearfix">
                                                       <div class="form-group row mb_2">
-                                                          <label class="col-sm-3 font-15">Opration & Management</label>
+                                                          <label class="col-sm-3 font-15">Operation & Management</label>
                                                           <div class="col-sm-9">
-                                                            <input type="text" class="form-control" placeholder="Opration & Management" />
+                                                            <input type="text" class="form-control" placeholder="Operation & Management" />
                                                           </div>
                                                       </div>
                                                       <div class="form-group row mb_2">
@@ -781,7 +799,7 @@
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>ADP Allocation of Fiscal Year :</b></label>
                                                                                 <br>
-                                                                                <input type="text" class="form-control" name="ADP_allocation_cost" id="ADP_allocation_cost" />
+                                                                                <input type="text" class="form-control" name="adp_allocation_cost" id="ADP_allocation_cost" />
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>Total Allocation by that time (Cumulative):</b></label>
@@ -804,7 +822,7 @@
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>Total Releases To Date :</b></label>
                                                                                 <br>
-                                                                                <input type="text" class="form-control" name="total_release_to_date" id="total_release_to_date" />
+                                                                                <input type="date" class="form-control" name="total_release_to_date" id="total_release_to_date" />
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>Utilization Against Releases :</b></label>
@@ -1385,17 +1403,12 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
-
-
                                                     <div class="col-md-1 col-sm-1">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <div class="col-md-1 col-sm-1">
                                                     </div>
-
-
                                                     <div class="col-md-4 col-sm-2">
                                                         <div class="card summary-card bg-new">
                                                             <div class="card-header"></div>
@@ -1461,7 +1474,6 @@
                         </div>
                         <!-- Form Basic Wizard card end -->
                     </div>
-                </form>
             </div>
             <div class="col-xl-3 col-lg-12 nodisplay p_details" style="padding-left: 15px !important;  padding-right: 15px !important;">
                 <div class="card">
@@ -1601,12 +1613,28 @@
     </div>
   </li>
 </script>
-
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
 <script>
 $(document).ready(function(){
+  $('form').on('submit',function(e){
+    e.preventDefault();
+    // var formdata= new FormData($(this).serialize());
+    // console.log(formdata);
+    //   for (var value of formdata.values()) {
+    //     console.log(value);
+    //   }
+    //   console.log(formdata);
+    axios.post($(this).attr('action'),{data:$(this).serialize()})
+    .then(function (response) {
+        console.log(response.data);
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+    // console.log($('.review').serialize());
+  });
 $(window).scroll(function(){
   var scroll = $(window).scrollTop();
-  // console.log('tiQ');
   if (scroll > 380)
   {
     $("#table-1 > thead").css({ "position": "fixed", "margin-top": "-26.1%", "background": "#fff", "z-index": "999"});
