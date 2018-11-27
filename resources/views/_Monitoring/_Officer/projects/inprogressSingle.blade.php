@@ -540,7 +540,7 @@
                                                               <button class="btn aho col-md-3 offset-md-9 mb_2" type="button" id="ObjCompShowSum">Show Summary</button>
                                                             </div>
                                                             <div class=" col-md-8 offset-md-2 SumObjComp nodisplay">
-                                                                
+
                                                             </div>
                                                           </div>
                                                         </div>
@@ -567,7 +567,7 @@
                                                                         --}}
                                                                         <div class="col-md-5">
                                                                             <h5 class="mb_2">Choose KPI(s)</h4>
-                                                                            <select id='custom-headers' class="searchable"
+                                                                            <select id='custom-headers' class="searchable yesearch"
                                                                                 multiple='multiple'>
                                                                                 <option value='kpi_1'>Remaining Cost</option>
                                                                                 <option value='kpi_2'>Number of unresolved issues</option>
@@ -584,38 +584,10 @@
                                                                           <div class="col-md-6"></div>
                                                                         </div>
                                                                         <div class="col-md-6" style="padding-left:3% !important;">                                                                            <div class="row col-md-12">
-                                                                            <ul class="col-md-6 row">
-                                                                              <h5 class=" mb_2">KPIs</h5>
-                                                                              <li class="col-md-12">
-                                                                                KPI 1
-                                                                              </li>
-                                                                              <li class="col-md-12">
-                                                                                KPI 2
-                                                                              </li>
-                                                                            </ul>
-                                                                            <ul class="col-md-6 row">
-                                                                              <h5 class=" mb_2">Components</h5>
-                                                                                <li class="col-md-12">
-                                                                                  <select class="js-example-basic-multiple col-sm-12" multiple="multiple">
-                                                                                      {{-- <option value="" selected hidden>Select Multiple Components</option> --}}
-                                                                                      <option value="AL">Component 1</option>
-                                                                                      <option value="WY">Component 2</option>
-                                                                                      <option value="WY">Component 3</option>
-                                                                                      <option value="WY">Component 4</option>
-                                                                                      <option value="WY">Component 5</option>
-                                                                                  </select>
-                                                                                </li>
-                                                                                <li class="col-md-12">
-                                                                                  <select class="js-example-basic-multiple col-sm-12" multiple="multiple">
-                                                                                      {{-- <option value="" selected hidden>Select Multiple Components</option> --}}
-                                                                                      <option value="AL">option 1</option>
-                                                                                      <option value="WY">option 2</option>
-                                                                                      <option value="WY">option 3</option>
-                                                                                      <option value="WY">option 4</option>
-                                                                                      <option value="WY">option 5</option>
-                                                                                  </select>
-                                                                                </li>
-                                                                            </ul>
+                                                                            <ul class="col-md-12 row" id='addkpi'>
+                                                                                <h5 class=" mb_2">KPIs</h5>
+
+c                                                                           </ul>
                                                                           </div>
                                                                         </div>
 
