@@ -550,24 +550,24 @@
                                                                         --}}
                                                                         <div class="col-md-5">
                                                                             <h5 class="mb_2">Choose KPI(s)</h4>
-                                                                            <select id='custom-headers' class="searchable"
+                                                                            <select id='custom-headers' class="searchable yesearch"
                                                                                 multiple='multiple'>
-                                                                                <option value='kpi_1'>kpi 1</option>
-                                                                                <option value='kpi_2'>kpi 2</option>
-                                                                                <option value='kpi_3'>kpi 3</option>
-                                                                                <option value='kpi_4'>kpi 4</option>
-                                                                                <option value='kpi_5'>kpi 5</option>
-                                                                                <option value='kpi_6'>kpi 6</option>
-                                                                                <option value='kpi_7'>kpi 7</option>
-                                                                                <option value='kpi_8'>kpi 8</option>
-                                                                                <option value='kpi_9'>kpi 9</option>
-                                                                                <option value='kpi_10'>kpi 10</option>
-                                                                                <option value='kpi_11'>kpi 11</option>
-                                                                                <option value='kpi_12'>kpi 12</option>
-                                                                                <option value='kpi_13'>kpi 13</option>
-                                                                                <option value='kpi_14'>kpi 14</option>
-                                                                                <option value='kpi_15'>kpi 15</option>
-                                                                                <option value='kpi_16'>kpi 16</option>
+                                                                                <option class='optiontest' value='kpi 1'>kpi 1</option>
+                                                                                <option class='optiontest' value='kpi 2'>kpi 2</option>
+                                                                                <option class='optiontest' value='kpi 3'>kpi 3</option>
+                                                                                <option class='optiontest' value='kpi 4'>kpi 4</option>
+                                                                                <option class='optiontest' value='kpi 5'>kpi 5</option>
+                                                                                <option class='optiontest' value='kpi 6'>kpi 6</option>
+                                                                                <option class='optiontest' value='kpi 7'>kpi 7</option>
+                                                                                <option class='optiontest' value='kpi 8'>kpi 8</option>
+                                                                                <option class='optiontest' value='kpi 9'>kpi 9</option>
+                                                                                <option class='optiontest' value='kpi 10'>kpi 10</option>
+                                                                                <option class='optiontest' value='kpi 11'>kpi 11</option>
+                                                                                <option class='optiontest' value='kpi 12'>kpi 12</option>
+                                                                                <option class='optiontest' value='kpi 13'>kpi 13</option>
+                                                                                <option class='optiontest' value='kpi 14'>kpi 14</option>
+                                                                                <option class='optiontest' value='kpi 15'>kpi 15</option>
+                                                                                <option class='optiontest' value='kpi 16'>kpi 16</option>
                                                                             </select>
                                                                         </div>
                                                                         <div class="row col-md-1">
@@ -575,38 +575,10 @@
                                                                           <div class="col-md-6"></div>
                                                                         </div>
                                                                         <div class="col-md-6" style="padding-left:3% !important;">                                                                            <div class="row col-md-12">
-                                                                            <ul class="col-md-6 row">
-                                                                              <h5 class=" mb_2">KPIs</h5>
-                                                                              <li class="col-md-12">
-                                                                                KPI 1
-                                                                              </li>
-                                                                              <li class="col-md-12">
-                                                                                KPI 2
-                                                                              </li>
-                                                                            </ul>
-                                                                            <ul class="col-md-6 row">
-                                                                              <h5 class=" mb_2">Components</h5>
-                                                                                <li class="col-md-12">
-                                                                                  <select class="js-example-basic-multiple col-sm-12" multiple="multiple">
-                                                                                      {{-- <option value="" selected hidden>Select Multiple Components</option> --}}
-                                                                                      <option value="AL">Component 1</option>
-                                                                                      <option value="WY">Component 2</option>
-                                                                                      <option value="WY">Component 3</option>
-                                                                                      <option value="WY">Component 4</option>
-                                                                                      <option value="WY">Component 5</option>
-                                                                                  </select>
-                                                                                </li>
-                                                                                <li class="col-md-12">
-                                                                                  <select class="js-example-basic-multiple col-sm-12" multiple="multiple">
-                                                                                      {{-- <option value="" selected hidden>Select Multiple Components</option> --}}
-                                                                                      <option value="AL">option 1</option>
-                                                                                      <option value="WY">option 2</option>
-                                                                                      <option value="WY">option 3</option>
-                                                                                      <option value="WY">option 4</option>
-                                                                                      <option value="WY">option 5</option>
-                                                                                  </select>
-                                                                                </li>
-                                                                            </ul>
+                                                                            <ul class="col-md-12 row" id='addkpi'>
+                                                                                <h5 class=" mb_2">KPIs</h5>
+
+c                                                                           </ul>
                                                                           </div>
                                                                         </div>
 

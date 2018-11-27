@@ -12,6 +12,34 @@ $(document).ready(function () {
         $('input:checkbox').not(this).prop('checked', false);
     });
 
+    $('.optiontest').on('click', function () {
+        var t = $(this).text();
+        var b = true;
+        $('.yesearch').val().forEach(e=>{
+            if(e == t)
+            {
+                b = false;
+                $('#addkpi').find('#'+t.replace(' ','_')).remove()
+            }
+        })
+        if(b)
+        {
+            $(`<li id='`+ $(this).text().replace(' ','_') +`' class="col-md-12 row"><div class='col-md-6'>
+                `+ $(this).text() + `</div>
+                <div class="col-md-6">
+                    <select class="kpisel col-sm-12" multiple="multiple">
+                        <option value="AL">Component 1</option>
+                        <option value="WY">Component 2</option>
+                        <option value="WY">Component 3</option>
+                        <option value="WY">Component 4</option>
+                        <option value="WY">Component 5</option>
+                    </select>
+                </div>
+                </li>`).appendTo('#addkpi')
+            $('.kpisel').select2()
+        }
+    })
+
     //FINANCIAL PHASING
     $(document).on('keyup', '.count-me', function () {
         var parent = $(this).parent().parent().parent().parent().parent().parent()
@@ -645,7 +673,7 @@ $(document).ready(function () {
         $(".SumObjComp").show('slow');
         var cc = oc
         console.log(cc);
-        
+
         for (var i = 1; i < cc; i++) {
             var t = $('#objvalue' + i).text();
             var SumObjComp = `<div class="clearfix pd_1_6">
@@ -658,8 +686,8 @@ $(document).ready(function () {
             has.find('div#SumObj').text(t)
             $("#option" + i + " option:selected").each(function () {
                 // console.log($(this).val());
-                var t = `<div>`+$(this).val()+`</div>`                
-                $(t).appendTo(has.find('#SumComp'))                
+                var t = `<div>` + $(this).val() + `</div>`
+                $(t).appendTo(has.find('#SumComp'))
             });
             has.appendTo('.SumObjComp');
         }
