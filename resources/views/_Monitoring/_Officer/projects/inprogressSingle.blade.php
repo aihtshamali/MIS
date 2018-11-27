@@ -83,7 +83,8 @@
     color: #444;
     padding: 0px !important;
 }
-.headText{font-size: 15px;font-weight: 900;}
+.headText{font-size: 15px;text-transform: capitalize;}
+.boldText{font-weight: 900;}
 </style>
 
 @endsection
@@ -466,7 +467,7 @@
                                                                     </div>
                                                                   </div>
                                                                 </div>
-                                                                <button class="btn aho col-md-2 offset-md-10" type="button" id="saveObjComp">Save</button>
+                                                                <button class="btn aho col-md-2 offset-md-10" type="button" id="saveObjComp">Save & Next</button>
                                                             </div>
                                                           {{-- <div class="col-md-12 objtivesNew pd_1_2">
                                                             <div class="DisInlineflex newClass mb_2 col-md-12">
@@ -538,11 +539,8 @@
                                                               </ul>
                                                               <button class="btn aho col-md-3 offset-md-9 mb_2" type="button" id="ObjCompShowSum">Show Summary</button>
                                                             </div>
-                                                            <div class=" col-md-8 offset-md-2 ">
-                                                              <h5 class="textlef pd_1_6">Summary</h5>
-                                                              <div class="col-md-12 SumObjComp nodisplay">
-                                                                <div class="float-left col-md-6"><h3>Objectives</h3></div>
-                                                                <div class="float-right col-md-6"><h3>Component</h3></div>                                                             </div>
+                                                            <div class=" col-md-8 offset-md-2 SumObjComp nodisplay">
+                                                                
                                                             </div>
                                                           </div>
                                                         </div>

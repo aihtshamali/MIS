@@ -276,6 +276,10 @@ $(document).ready(function () {
         hideall();
         $('#financial').show();
     });
+    $('#saveObjComp').on('click', function () {
+        hideall();
+        $('#financial').show();
+    });
     $('.MOBtab').on('click', function () {
         hideall();
         $('#MOBdiv').show();
@@ -642,24 +646,29 @@ $(document).on('click', '.removecompAct', function () {
 $(document).ready(function () {
     $("#ObjCompShowSum").click(function () {
         $(".SumObjComp").children().remove()
+        var headings = `
+        <div class="col-md-12 clearfix"><h4>Summary</h4></div>
+        <div class="float-left col-md-6"><h5>Objectives</h5></div>
+        <div class="float-right col-md-6"><h5>Component</h5></div>`
+        var heading = $(headings)
+        heading .appendTo('.SumObjComp');
         $(".SumObjComp").show('slow');
         var cc = oc
         console.log(cc);
-        
+
         for (var i = 1; i < cc; i++) {
             var t = $('#objvalue' + i).text();
-            var SumObjComp = `<div class="clearfix pd_1_6 headText">
-            <div id="SumObj" class="float-left col-md-6">test</div>
-            <div id="SumComp" class="float-right col-md-6">
-                
-            </div>
+            var SumObjComp = `
+            <div class="clearfix headText" style="border: 1px solid #77777729;padding: 2% 4%;">
+            <div id="SumObj" class="float-left col-md-6 boldText"></div>
+            <div id="SumComp" class="float-right col-md-6"></div>
             </div>`
             var has = $(SumObjComp)
             has.find('div#SumObj').text(t)
             $("#option" + i + " option:selected").each(function () {
                 // console.log($(this).val());
-                var t = `<div>`+$(this).val()+`</div>`                
-                $(t).appendTo(has.find('#SumComp'))                
+                var t = `<div>`+$(this).val()+`</div>`
+                $(t).appendTo(has.find('#SumComp'))
             });
             has.appendTo('.SumObjComp');
         }
