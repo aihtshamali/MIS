@@ -18,7 +18,7 @@
         <ol class="breadcrumb">
           <li><a href="#"><i class="fa fa-backward" ></i>Back</a></li>
           <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li>
-         
+
         </ol>
       </section>
     <section class="content">
@@ -39,9 +39,9 @@
               <div class="col-lg-3 col-xs-6"></div>
             <div class="col-lg-3 col-xs-6">
                     <!-- small box -->
-                   
+
                     <div class="small-box" style="background-color:salmon !important;">
-                        
+
                       <div class="inner" style="padding:20px;"><a  href="{{route('Evaluation_pems_tab')}}">
                         <h3>20<sup style="font-size: 20px">%</sup></h3>
                         <b style="font-size:20px;"> P E M S</b>
@@ -49,25 +49,25 @@
                       <div class="icon">
                         <i class="fa fa-balance-scale"></i>
                       </div>
-                    
+
                     </a>
                     </div>
-                
+
               </div>
               {{--/ BOX 5 --}}
-              
+
               <div class="col-lg-3 col-xs-6">
                       <!-- small box -->
                       <div class="small-box" style="background-color:mediumorchid !important">
-                        <div class="inner" style="padding:20px;"> <a href="{{route('Evaluation_pmms_tab')}}" >
+                        <div class="inner" style="padding:20px;"> <a href="{{route('Exec_pems_tab')}}" >
                           <h3>53<sup style="font-size: 20px">%</sup></h3>
-            
-                          <b style="font-size:20px;">P M M S</b>
+
+                          <b style="font-size:20px;">Charts</b>
                         </div>
                         <div class="icon">
                           <i class="ion ion-stats-bars"></i>
                         </div>
-                        
+
                       </a>
                       </div>
                 </div>
@@ -79,11 +79,11 @@
               <div class="col-lg-3 col-xs-6">
                       <!-- small box -->
                       <div class="small-box " style="background-color:skyblue !important;">
-                     
+
                         <div class="inner"style="padding:20px;" ><a href="{{route('Evaluation_tpv_tab')}}">
-                        
+
                           <h3>65<sup style="font-size: 20px">%</sup></h3>
-            
+
                           <b style="font-size:20px;">T P V S</b>
                         </div>
                         <div class="icon">
@@ -91,7 +91,7 @@
                         </div>
                       </a>
                       </div>
-                   
+
                 </div>
                 {{-- /BOX 7 --}}
              <div class="col-lg-3 col-xs-6">
@@ -99,13 +99,13 @@
                 <div class="small-box "  style="background-color:lightgreen !important;" >
                   <div class="inner" style="padding:20px;"> <a href="{{route('Evaluation_inquiry_tab')}}" >
                     <h3>44<sup style="font-size: 20px">%</sup></h3>
-      
+
                     <b style="font-size:20px;">INQUIRY</b>
                   </div>
                   <div class="icon">
                     <i class="ion ion-person-add"></i>
                   </div>
-              
+
                 </a>
                 </div>
               </div>
@@ -117,19 +117,19 @@
           <div class="row" >
               <div class="col-lg-3 col-xs-6">
                 </div>
-      
-          
+
+
               {{--/ BOX 5 --}}
-            
+
               {{-- /BOX 6 --}}
           </div>
         </div>
-          
+
       </div>
 
-      
+
     </section>
-     
+
 </div>
 
 
