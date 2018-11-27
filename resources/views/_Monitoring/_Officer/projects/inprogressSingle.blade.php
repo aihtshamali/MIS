@@ -83,6 +83,7 @@
     color: #444;
     padding: 0px !important;
 }
+.headText{font-size: 15px;font-weight: 900;}
 </style>
 
 @endsection
@@ -411,18 +412,33 @@
                                                     </ul>
                                                     <div class="tab-content tabs card-block active">
                                                         <div class="tab-pane active" id="PlanDocDiv" role="tabpanel" aria-expanded="true">
-                                                          <div class="col-md-12 col-sm-12">
-                                                            <!-- Our markup, the important part here! -->
-                                                            <div id="drag-and-drop-zone" class="dm-uploader">
-                                                              <h3 class="mb-5 mt-5 text-muted text_center">Drag &amp; drop files here</h3>
-
-                                                              <div class="btn btn-primary btn-block">
+                                                          <div class="row">
+                                                            <div class="col-md-3">
+                                                              <div class="btn col-md-10 offset-md-1 btn-primary btn-block">
                                                                 <input type="file" id="html_btn" title='Click to add Files' />
-                                                                  <span>Open the file Browser</span>
+                                                                  <span>Upload PC1</span>
                                                               </div>
-                                                            </div><!-- /uploader -->
-                                                          </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                              <div class="btn col-md-10 offset-md-1 btn-primary btn-block">
+                                                                <input type="file" id="html_btn" title='Click to add Files' />
+                                                                  <span>Upload PC2</span>
+                                                              </div>
+                                                            </div>
+                                                            <div class="col-md-3 col-sm-12">
+                                                                <div class="btn col-md-10 offset-md-1 btn btn-primary btn-block">
+                                                                  <input type="file" id="html_btn" title='Click to add Files' />
+                                                                    <span>Upload PC3</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                              <div class="btn col-md-10 offset-md-1 btn-primary btn-block">
+                                                                <input type="file" id="html_btn" title='Click to add Files' />
+                                                                  <span>Upload PC4</span>
+                                                              </div>
+                                                            </div>
                                                         </div>
+                                                      </div>
                                                         <div class="tab-pane" id="i-dates" role="tabpanel" aria-expanded="false">
                                                           <style scopped>
 
@@ -525,8 +541,8 @@
                                                             <div class=" col-md-8 offset-md-2 ">
                                                               <h5 class="textlef pd_1_6">Summary</h5>
                                                               <div class="col-md-12 SumObjComp nodisplay">
-
-                                                              </div>
+                                                                <div class="float-left col-md-6"><h3>Objectives</h3></div>
+                                                                <div class="float-right col-md-6"><h3>Component</h3></div>                                                             </div>
                                                             </div>
                                                           </div>
                                                         </div>
@@ -555,22 +571,14 @@
                                                                             <h5 class="mb_2">Choose KPI(s)</h4>
                                                                             <select id='custom-headers' class="searchable"
                                                                                 multiple='multiple'>
-                                                                                <option value='kpi_1'>kpi 1</option>
-                                                                                <option value='kpi_2'>kpi 2</option>
-                                                                                <option value='kpi_3'>kpi 3</option>
-                                                                                <option value='kpi_4'>kpi 4</option>
-                                                                                <option value='kpi_5'>kpi 5</option>
-                                                                                <option value='kpi_6'>kpi 6</option>
-                                                                                <option value='kpi_7'>kpi 7</option>
-                                                                                <option value='kpi_8'>kpi 8</option>
-                                                                                <option value='kpi_9'>kpi 9</option>
-                                                                                <option value='kpi_10'>kpi 10</option>
-                                                                                <option value='kpi_11'>kpi 11</option>
-                                                                                <option value='kpi_12'>kpi 12</option>
-                                                                                <option value='kpi_13'>kpi 13</option>
-                                                                                <option value='kpi_14'>kpi 14</option>
-                                                                                <option value='kpi_15'>kpi 15</option>
-                                                                                <option value='kpi_16'>kpi 16</option>
+                                                                                <option value='kpi_1'>Remaining Cost</option>
+                                                                                <option value='kpi_2'>Number of unresolved issues</option>
+                                                                                <option value='kpi_3'>Project Schedule.(delays and variance)</option>
+                                                                                <option value='kpi_4'>Quality</option>
+                                                                                <option value='kpi_5'>Scope Changes</option>
+                                                                                <option value='kpi_6'>Cost (Cost Over Sum)</option>
+                                                                                <option value='kpi_7'>Client Satisfaction</option>
+                                                                                <option value='kpi_8'>Procurement</option>
                                                                             </select>
                                                                         </div>
                                                                         <div class="row col-md-1">

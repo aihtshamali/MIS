@@ -73,21 +73,28 @@ class SiteVisitController extends Controller
      */
     public function store(Request $request)
     { 
-        print_r($request->all());exit();
-         
-        
+        // print_r($request->purposetypeforLocal) ;exit();
+        $tripRequest_id='';
+        if(!isset($request->tripRequest_id) && $request->tripRequest_id==null){
+            $tripRequest = new PlantripTriprequest();
+            $tripRequest->user_id=Auth::id();
+            $tripRequest->plantrip_triptype_id=$request->triptype_id;
+            $tripRequest->status='1';
+            $tripRequest->approval_status='Pending';
+            $tripRequest->save();
+
+            $tripRequest_id=$tripRequest->id;
+        }
+        else{
+            $tripRequest_id=$request->tripRequest_id;
+        }
+
         if($request->triptype_id=='1')
         {
-                $tripRequest = new PlantripTriprequest();
-                $tripRequest->user_id=Auth::id();
-                $tripRequest->plantrip_triptype_id=$request->triptype_id;
-                $tripRequest->status='1';
-                $tripRequest->approval_status='Pending';
-                $tripRequest->save();
                 
                 $i; $number=1;
                 $tripRequest_purpose= new PlantripPurpose();
-                $tripRequest_purpose->plantrip_triprequest_id=$tripRequest->id;
+                $tripRequest_purpose->plantrip_triprequest_id=$tripRequest_id;
                 $tripRequest_purpose->plantrip_visitreason_id=$request->visit_reasonForLocal;
                 $tripRequest_purpose->plantrip_purposetype_id=$request->purposetypeforLocal;
                 $tripRequest_purpose->save();
@@ -108,7 +115,7 @@ class SiteVisitController extends Controller
                 $tripRequest_location->time_to_Departure=$request->expectd_TimeForlocal;
                 
                 $tripRequest_location->save();
-
+                if(isset($request->local_members))
                 foreach($request->local_members as $eachMember)
                 {    
                     $tripRequest_members = new PlantripMember();
@@ -121,17 +128,10 @@ class SiteVisitController extends Controller
         }
         else if($request->triptype_id=='2')
          {
-            //  dd($dateFrom);
-            $tripRequest = new PlantripTriprequest();
-            $tripRequest->user_id=Auth::id();
-            $tripRequest->plantrip_triptype_id=$request->triptype_id;
-            $tripRequest->status='1';
-            $tripRequest->approval_status='Pending';
-            $tripRequest->save();
-            
+
             $i; $number=1; $j=1;
             $tripRequest_purpose= new PlantripPurpose();
-            $tripRequest_purpose->plantrip_triprequest_id=$tripRequest->id;
+            $tripRequest_purpose->plantrip_triprequest_id=$tripRequest_id;
             $tripRequest_purpose->plantrip_visitreason_id=$request->outstationVisitReason;
             $tripRequest_purpose->plantrip_subcitytype_id=$request->subcity;
             $tripRequest_purpose->plantrip_purposetype_id=$request->purposetypeForOutstation;
@@ -181,12 +181,10 @@ class SiteVisitController extends Controller
                         
                 }
                 // $number++;                       
-            } 
-
-
-    
-        return redirect()->back()->with('success','Request Has Been Sent To Transport Officer!!');
-    }
+            }
+        }
+    return response()->json(['trip_request_id'=>$tripRequest_id,'message'=>'Saved Successfully']);
+    // return redirect()->back()->with('success','Request Has Been Sent To Transport Officer!!');
 }
 
     /**
