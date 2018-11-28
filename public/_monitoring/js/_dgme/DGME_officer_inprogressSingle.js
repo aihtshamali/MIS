@@ -271,6 +271,12 @@ $(document).ready(function () {
         hideall();
         $('#TimesDiv').show();
     });
+
+    $('#saveTasks').on('click', function () {
+        hideall();
+        $('#TimesDiv').show();
+    });
+
     $('.kpis').on('click', function () {
         hideall();
         $('#kpis').show();
@@ -509,23 +515,26 @@ $('button#add-more').click(function (e) {
 $(document).on('click', '#add_activity', function (e) {
 // console.log('there');
     var add_activities = `<div class="row col-md-9 offset-md-1 form-group component_Activities">
-        <div class="col-md-10 mb_1 offset-md-1"><input type="text" class="form-control" placeholder="Add Task" name="c_activity[]"> </div>
+        <div class="col-md-11 mb_1"><input type="text" class="form-control" placeholder="Add Task" name="c_activity[]"> </div>
         <div class="col-md-1"><button class="btn btn-danger btn-sm" name="remove_activity[]" onclick="removerow(this)"  type="button">-</button></div>
         </div>`;
     // $('.planMactivities').append(add_activities);
-    $(this).parent().append(add_activities);
+    console.log($(this).parent().find('#alltasks'),$(this).parent())
+    $(this).parent().find('#alltasks').append(add_activities);
 });
 $(document).on('click', 'button#saveObjComp', function () {
   var comps = $(this).val();
-  var count = 0;
+  var count = 1;
   // var yo = 0;
-    $('input[name^=comp]').each(function () {
+    $('input[name^=comp]').each(function  () {
       var val = $(this).val();
       var addTask = `
       <div class="row form-group compTask`+ count +`">
-        <div class="col-md-4 offset-md-1"><label for=""> <b class="headText">` + val + `</b></label></div>
+        <div class="col-md-4 offset-md-1"><label for=""> <b class="headText" id="compname`+count+`">` + val + `</b></label></div>
         <div class="col-md-2 offset-md-4 mb_1 Taskbut` + count + `" id="add_activity" style="padding-top:0.6%;">
           <button class="btn btn-sm btn-warning float-right  type="button" name="add_activity">Add Tasks</button>
+        </div>
+        <div id="alltasks" class="row col-md-11 offset-md-1 form-group component_Activities">
         </div>
       </div>`
       val = $(this).val();
@@ -536,28 +545,50 @@ $(document).on('click', 'button#saveObjComp', function () {
       count++;
     });
 });
+$(document).on('click', '#saveTasks', function () {
+  var tasks = $('#planMactivities').clone()
+  var c = 1
+  // console.log(tasks.children());
 
+    tasks.children().each(function (){
+        // console.log($(this),c);
+        var temp = `<div class="col-md-12">
+                      <h5 class="text_left">
+                      ` + $(this).find('#compname'+c).text() + `
+                      </h5>
+                    </div>`
+        $(this).find('input[name="c_activity[]"]').each(function(){
+          console.log($(this));
+            temp+=`<b class="col-md-6 mb_1 text_left form-txt-primary">
+                `+$(this).val()+`
+            </b>
+            <div class="col-md-6"><input type="text" class="form-control form-txt-primary mb_1" placeholder="Time Duration" /></div>`
+        })
+     $(temp).appendTo('#comptaskl')
+     c++;
+  });
+});
 
 $('button#add_more_component').click(function (e) {
-    var add_component = '<div class="row components">'
-        + '<div class="form-group col-md-1 offset-md-1 ">'
-        + '<br>'
-        + '<button class=" btn btn-sm btn-danger" onclick="removerow(this)" name="remove_component[]" id="remove_component" type="button"><i class="fa fa-minus"></i></button>'
-        + '</div>'
-        + '<div class="form-group col-md-6  ">'
-        + '<label for=""> <b>Component Title :</b></label><br>'
-        + '<select class=" form-control form-control-primary ">'
-        + '<option value="" selected disabled>Select Component</option>'
-        + '<option value="1" >Component 1</option>'
-        + '<option value="2">Component 2</option>'
-        + '<option value="3" >Component 3</option>'
-        + '</select>'
-        + '</div>'
-        + '<div class="col-md-2 offset-md-1">'
-        + '<br>'
-        + '<button class=" btn btn-sm btn-success" name="add_more_act[]" id="add_more_act" onclick="add_activityInComp(this)" type="button">Add Activity</button>'
-        + '</div>'
-        + '</div>';
+    var add_component = `<div class="row components">
+                        <div class="form-group col-md-1 offset-md-1 ">
+                        <br>
+                        <button class=" btn btn-sm btn-danger" onclick="removerow(this)" name="remove_component[]" id="remove_component" type="button"><i class="fa fa-minus"></i></button>
+                        </div>
+                        <div class="form-group col-md-6  ">
+                        <label for=""> <b>Component Title :</b></label><br>
+                        <select class=" form-control form-control-primary ">
+                        <option value="" selected disabled>Select Component</option>
+                        <option value="1" >Component 1</option>
+                        <option value="2">Component 2</option>
+                        <option value="3" >Component 3</option>
+                        </select>
+                        </div>
+                        <div class="col-md-2 offset-md-1">
+                        <br>
+                        <button class=" btn btn-sm btn-success" name="add_more_act[]" id="add_more_act" onclick="add_activityInComp(this)" type="button">Add Activity</button>
+                        </div>
+                        </div>`;
     $('.oneComponentQA').append(add_component);
 });
 var objct = 2;

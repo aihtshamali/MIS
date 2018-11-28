@@ -38,6 +38,7 @@
     .media{display: block !important;}
     #html_btn {width: 90%;position: absolute;opacity: 0;cursor: pointer;left: 5%;}
     .text_center{text-align: center;}
+    .text_left{text-align: left;}
     .new_Btn {cursor: pointer;}
     .nav-link {padding: .5rem .5rem !important;}
     @media only screen and (max-width: 420px){
@@ -613,14 +614,14 @@ c                                                                           </ul
                                                                 <div class="card-block">
 
                                                                     <div class="row form-group">
-                                                                        <div class="col-md-10 offset-md-1 planMactivities">
+                                                                        <div class="col-md-10 offset-md-1 planMactivities" id="planMactivities">
 
                                                                          </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="card-footer">
                                                                         <div class="col-md-3 offset-md-9">
-                                                                            <a class="btn btn-primary btn-md saveNnextbtn" >Save & Next</a>
+                                                                            <a class="btn btn-primary btn-md saveNnextbtn" id="saveTasks">Save & Next</a>
                                                                         </div>
                                                                 </div>
                                                             </div>
@@ -633,37 +634,10 @@ c                                                                           </ul
                                                                     <div class="row form-group">
                                                                         <h5 class="col-md-6 textlef mb_2">Component</h5>
                                                                         <h5 class="col-md-6 textlef mb_2">Duration In Days</h5>
-                                                                          <b class="col-md-12">
-                                                                            Component 1
-                                                                          </b>
-                                                                          <b class="col-md-6 mb_2">
-                                                                            Task 1
-                                                                          </b>
-                                                                            <input type="text" class="form-control col-md-6 form-txt mb_2" placeholder="Time Duration" />
-                                                                          <b class="col-md-6 mb_2">
-                                                                            Task 2
-                                                                          </b>
-                                                                            <input type="text" class="form-control col-md-6 form-txt mb_2" placeholder="Time Duration" />
-                                                                          <b class="col-md-6 mb_2">
-                                                                            Task 3
-                                                                          </b>
-                                                                            <input type="text" class="form-control col-md-6 form-txt mb_2" placeholder="Time Duration" />
-                                                                          {{-- <p class="col-md-6">
-                                                                            task 1<br/>
-                                                                            task 2<br/>
-                                                                            task 3<br/>
-                                                                            task 4<br/>
-                                                                          </p> --}}
-                                                                          {{-- <b class="col-md-6">
-                                                                            Component 2
-                                                                          </b>
-                                                                          <p class="col-md-6">
-                                                                            task 1<br/>
-                                                                            task 2<br/>
-                                                                            task 3<br/>
-                                                                            task 4<br/>
-                                                                          </p> --}}
-                                                                    </div>
+                                                                        <div id='comptaskl' class="col-md-12 row">
+
+                                                                        </div>
+                                                                  </div>
                                                                 </div>
                                                                 <div class="card-footer">
                                                                         <div class="col-md-3 offset-md-9">
