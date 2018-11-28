@@ -348,19 +348,11 @@ class ComposerStaticInit55c1f85fd9fa01a6cf3b909416bd240d
         array (
             0 => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron',
         ),
-<<<<<<< HEAD
-        'Complex\\' =>
-        array (
-            0 => __DIR__ . '/..' . '/markbaker/complex/classes/src',
-        ),
-        'App\\' =>
-=======
         'Complex\\' => 
         array (
             0 => __DIR__ . '/..' . '/markbaker/complex/classes/src',
         ),
         'App\\' => 
->>>>>>> 96ceb9e325d4ea266ee4967d99b8e9609496396b
         array (
             0 => __DIR__ . '/../..' . '/app',
         ),

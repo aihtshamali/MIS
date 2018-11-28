@@ -571,33 +571,14 @@
                                                                             <h5 class="mb_2">Choose KPI(s)</h4>
                                                                             <select id='custom-headers' class="searchable yesearch"
                                                                                 multiple='multiple'>
-<<<<<<< HEAD
-                                                                                <option class='optiontest' value='kpi 1'>kpi 1</option>
-                                                                                <option class='optiontest' value='kpi 2'>kpi 2</option>
-                                                                                <option class='optiontest' value='kpi 3'>kpi 3</option>
-                                                                                <option class='optiontest' value='kpi 4'>kpi 4</option>
-                                                                                <option class='optiontest' value='kpi 5'>kpi 5</option>
-                                                                                <option class='optiontest' value='kpi 6'>kpi 6</option>
-                                                                                <option class='optiontest' value='kpi 7'>kpi 7</option>
-                                                                                <option class='optiontest' value='kpi 8'>kpi 8</option>
-                                                                                <option class='optiontest' value='kpi 9'>kpi 9</option>
-                                                                                <option class='optiontest' value='kpi 10'>kpi 10</option>
-                                                                                <option class='optiontest' value='kpi 11'>kpi 11</option>
-                                                                                <option class='optiontest' value='kpi 12'>kpi 12</option>
-                                                                                <option class='optiontest' value='kpi 13'>kpi 13</option>
-                                                                                <option class='optiontest' value='kpi 14'>kpi 14</option>
-                                                                                <option class='optiontest' value='kpi 15'>kpi 15</option>
-                                                                                <option class='optiontest' value='kpi 16'>kpi 16</option>
-=======
-                                                                                <option value='kpi_1'>Remaining Cost</option>
-                                                                                <option value='kpi_2'>Number of unresolved issues</option>
-                                                                                <option value='kpi_3'>Project Schedule.(delays and variance)</option>
-                                                                                <option value='kpi_4'>Quality</option>
-                                                                                <option value='kpi_5'>Scope Changes</option>
-                                                                                <option value='kpi_6'>Cost (Cost Over Sum)</option>
-                                                                                <option value='kpi_7'>Client Satisfaction</option>
-                                                                                <option value='kpi_8'>Procurement</option>
->>>>>>> 96ceb9e325d4ea266ee4967d99b8e9609496396b
+                                                                                <option class='optiontest' value='Remaining Cost'>Remaining Cost</option>
+                                                                                <option class='optiontest' value='Number of unresolved issues'>Number of unresolved issues</option>
+                                                                                <option class='optiontest' value='Project Schedule (delays and variance)'>Project Schedule (delays and variance)</option>
+                                                                                <option class='optiontest' value='Quality'>Quality</option>
+                                                                                <option class='optiontest' value='Scope Changes'>Scope Changes</option>
+                                                                                <option class='optiontest' value='Cost (Cost Over Sum)'>Cost (Cost Over Sum)</option>
+                                                                                <option class='optiontest' value='Client Satisfaction'>Client Satisfaction</option>
+                                                                                <option class='optiontest' value='Procurement'>Procurement</option>
                                                                             </select>
                                                                         </div>
                                                                         <div class="row col-md-1">
