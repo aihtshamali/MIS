@@ -133,6 +133,7 @@
         "theme": "light",
         "dataProvider":st,
         "valueAxes": [ {
+          "title" : "Project Numbers",
           "gridColor": "#FFFFFF",
           "gridAlpha": 0.2,
           "dashLength": 0
@@ -154,10 +155,11 @@
         },
         "categoryField": "Name",
         "categoryAxis": {
+          "title" : "Officers",
           "gridPosition": "middle",
           "autoGridCount": false,
-    "equalSpacing": true,
-    "gridCount": 1000,
+          "equalSpacing": true,
+          "gridCount": 1000,
           "gridAlpha": 0,
           "tickPosition": "middle",
           "tickLength": 5,

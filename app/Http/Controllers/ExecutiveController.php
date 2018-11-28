@@ -300,8 +300,9 @@ class ExecutiveController extends Controller
           array_push($projectsprogressranges,'0-25%');
           array_push($projectsprogressranges,'26-50%');
           array_push($projectsprogressranges,'51-75%');
-          array_push($projectsprogressranges,'76-100%');
-          $projectsprogress=array_fill(0,4,0);
+          array_push($projectsprogressranges,'76-99.99%');
+          array_push($projectsprogressranges,'100%');
+          $projectsprogress=array_fill(0,5,0);
           foreach ($projects as $project) {
             if($project->progress>0 && $project->progress < 25){
               $projectsprogress[0]++;
@@ -312,8 +313,11 @@ class ExecutiveController extends Controller
             else if($project->progress < 75){
               $projectsprogress[2]++;
             }
-            else if($project->progress <= 100){
+            else if($project->progress < 100){
               $projectsprogress[3]++;
+            }
+            else{
+              $projectsprogress[4]++;
             }
           }
           // Chart 12
@@ -417,10 +421,6 @@ class ExecutiveController extends Controller
     }
     // chart2
     public function chart_two(){
-      $total_projects = count(Project::all());
-      $total_assigned_projects = count(AssignedProject::all());
-      $inprogress_projects = count(AssignedProject::where('acknowledge',1)->get());
-      $completed_projects = count(AssignedProject::where('complete',1)->get());
       $model = new User();
       $officers = $model->hydrate(
         DB::select(
@@ -804,8 +804,9 @@ class ExecutiveController extends Controller
       array_push($ranges,'0-25%');
       array_push($ranges,'26-50%');
       array_push($ranges,'51-75%');
-      array_push($ranges,'76-100%');
-      $projectsprogress=array_fill(0,4,0);
+      array_push($ranges,'76-99.99');
+      array_push($ranges,'100%');
+      $projectsprogress=array_fill(0,5,0);
       foreach ($projects as $project) {
         if($project->progress>0 && $project->progress < 25){
           $projectsprogress[0]++;
@@ -816,8 +817,11 @@ class ExecutiveController extends Controller
         else if($project->progress < 75){
           $projectsprogress[2]++;
         }
-        else if($project->progress <= 100){
+        else if($project->progress < 100){
           $projectsprogress[3]++;
+        }
+        else{
+          $projectsprogress[4]++;
         }
       }
         \JavaScript::put([

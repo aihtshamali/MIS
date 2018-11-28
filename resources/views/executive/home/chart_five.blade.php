@@ -51,7 +51,7 @@
     margin: 2px;
 
   }
-  
+
   a{
   color: black;
   }
@@ -68,7 +68,7 @@
   }
 
 </style>
-    
+
 @endsection
 @section('content')
 <div class="content-wrapper">
@@ -76,28 +76,28 @@
     <section class="content-header">
         <h1>
           Officer's Progress on Current/Inprogress Projects
-         
+
         </h1>
         <ol class="breadcrumb">
         <li><a href="{{route('Exec_pems_tab')}}"><i class="fa fa-backward" ></i>Back</a></li>
-          {{-- <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li> --}}    
+          {{-- <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li> --}}
         </ol>
     </section>
-    
+
     <section class="content">
             <div class="row">
                 <div class="col-md-12">
-                    
+
                     <div class="card col-md-12" >
                         <div class="card-header">
-                        </div> 
+                        </div>
                         <div id="chartdiv5"></div>
                     </div>
                     <div class="col-md-1"></div>
                 </div>
             </div>
     </section>
-    
+
 </div>
 @endsection
 @section('scripttags')
@@ -118,7 +118,7 @@
   $i = 0;
 
   officers.forEach(element => {
-  st.push ({ 
+  st.push ({
     "Name": element.first_name + ' ' + element.last_name,
     "Progress": assigned_current_projects[$i]
   });
@@ -134,6 +134,7 @@
   "rotate": true,
   "startDuration": 1,
   "categoryAxis": {
+    "title":"Officers",
     "autoGridCount": false,
   "equalSpacing": true,
   "gridCount": 1000,
@@ -156,6 +157,7 @@
   "guides": [],
   "valueAxes": [
   {
+    "title":"Score",
   "id": "ValueAxis-1",
   "position": "bottom",
   "axisAlpha": 0

@@ -495,6 +495,7 @@ $('#example4').DataTable()
       "color": "#8A0CCF"
     } ],
     "valueAxes": [ {
+      "title" : "Percentage",
       "gridColor": "#FFFFFF",
       "gridAlpha": 0.2,
       "dashLength": 0
@@ -517,6 +518,7 @@ $('#example4').DataTable()
     },
     "categoryField": "Type",
     "categoryAxis": {
+      "title" : "Project Categories",
       "gridPosition": "middle",
       "gridAlpha": 0,
       "tickPosition": "middle",

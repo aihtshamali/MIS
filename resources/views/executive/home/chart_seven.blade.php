@@ -51,7 +51,7 @@
     margin: 2px;
 
   }
-  
+
   a{
   color: black;
   }
@@ -68,36 +68,35 @@
   }
 
 </style>
-    
+
 @endsection
 @section('content')
 <div class="content-wrapper">
 
     <section class="content-header">
         <h1>
-        
-         
+          Sub Sector Wise Projects
         </h1>
         <ol class="breadcrumb">
         <li><a href="{{route('Exec_pems_tab')}}"><i class="fa fa-backward" ></i>Back</a></li>
-          {{-- <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li> --}}    
+          {{-- <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li> --}}
         </ol>
     </section>
-    
+
     <section class="content">
             <div class="row">
                 <div class="col-md-12">
-                    
+
                     <div class="card col-md-12" >
                         <div class="card-header">
-                        </div> 
+                        </div>
                         <div id="chartdiv7"></div>
                     </div>
                     <div class="col-md-1"></div>
                 </div>
             </div>
     </section>
-    
+
 </div>
 @endsection
 @section('scripttags')
@@ -119,8 +118,8 @@
         $i = 0;
         sub_Sectors.forEach(element => {
         //  console.log(projects_activities_progress[$i][0].eachActivitycount);
-        
-        st.push ({ 
+
+        st.push ({
             "Name":element.name,
             "Number of projects": projects_wrt_sectors[$i][0].eachSectorcount
         });
@@ -131,6 +130,7 @@
         "theme": "light",
         "dataProvider":st,
         "valueAxes": [ {
+          "title":"Number of Projects",
         "gridColor": "#FFFFFF",
         "gridAlpha": 0.2,
         "dashLength": 0
@@ -152,6 +152,7 @@
         },
         "categoryField": "Name",
         "categoryAxis": {
+          "title":"Sub Sectors",
         "autoGridCount": false,
         "equalSpacing": true,
         "gridCount": 1000,
@@ -159,14 +160,14 @@
         "gridAlpha": 0,
         "tickPosition": "middle",
         "tickLength": 5,
-        "labelRotation":50,
-       
+        "labelRotation":30,
+
         "autoWrap": true
         },
         "export": {
         "enabled": true
         }
-    
+
     } );
 </script>
 @endsection
