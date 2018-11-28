@@ -43,6 +43,16 @@
                 padding: 1px !important;
                 
             }
+            .select2-container--default .select2-selection--single
+            {
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+                display: -webkit-box !important;
+                line-height: 16px !important;     /* fallback */
+                /* max-height: 32px;      fallback */
+                -webkit-line-clamp: 2 !important; /* number of lines to show */
+                -webkit-box-orient: vertical !important;
+            }
             .select2-container .select2-selection--single .select2-selection__rendered {
                 display:inline !important;
             }
@@ -60,9 +70,13 @@
             .daterangepicker td.in-range {
             background-color: #357ebd !important;
             }
+            .select2-container .select2-selection--single .select2-selection__rendered{white-space: pre-wrap !important;}
+            .select2-selection--single{height: auto !important;}
+            .select2-container{width: 100% !important;}
         </style>
 @section('content')
-<form action="{{route('trip.store')}}" id= "tripform" name="tripform" method="POST"  class="col-md-12 form-control">
+@include('inc.msgs')
+<form action="{{route('trip.store')}}" id= "tripform" method="POST"  class="col-md-12 form-control">
     {{ csrf_field() }}
     <div class="row">
         <div class="col-md-12">
@@ -108,7 +122,7 @@
                         </div>
                         <div class="col-md-3">
                                 <input type="hidden" class="purposetypeid" name="purposetypeid" value="{{$purposetypes[0]->id}}">
-                                <p name="purposetype" class="purposetype" > {{$purposetypes[0]->name}} </p>
+                                <p class="purposetype" > {{$purposetypes[0]->name}} </p>
                         </div>
                     </div>
                     <div class="">
@@ -116,7 +130,7 @@
                             <div class="col-md-8 offset-md-2" style="background:#a6b5d01f; padding:5px;">
                                 <label><b><span style="font-size:15px;">Location</span></b></label>
                                 <select name="local_location" class=" local_location form-control"  style="width: 100%;">
-                                    <option value="{{$citylahore->id}}" disabled selected>{{$citylahore->name}}</option>
+                                    <option value="{{$citylahore->id}}"  selected>{{$citylahore->name}}</option>
                                     </select>
                                 {{-- <input type="text" value="{{$citylahore->name}}" class="local_location form-control" name="local_location" id="local_location" disabled/> --}}
                             </div>
@@ -129,74 +143,15 @@
                             </div>
                         </div>
                         <div class="row" style="margin-top:15px;">
-                            <div class="col-md-2" >
+                            <div class="col-md-2 offset-md-5" >
                                 <label><b style="color:white;">+</b></label><br>
                                 <button class="btn btn-sm btn-warning" type="button" style="margin:5px;" id="addlocalpurpose">Add Purpose <i class="fa fa-plus"></i></button>
                             </div>
-                            <div class="col-md-2 ">
-                                <label><b>Select Visit Purpose</b></label>
-                                <select id="LocalVisitReason" name="LocalVisitReason" class="form-control form-control-info visitreason">
-                                    <option selected="selected" hidden>Select Here</option>
-                                    @foreach ($visitreasons as $visitreason)
-                                    <option value="{{$visitreason->id}}">{{$visitreason->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-2" id="projectnameForLocal" style="display:none;">
-                                <label for=""><b>Project Name</b></label><br>
-                                <select name="projectnameForLocal"  class="form-control officerSelect" multiple="multiple"
-                                    data-placeholder="Select Project" style="width: 100%;">
-                                    <option value="" disabled selected>Project Name</option>
-                                    @foreach ($projects as $pro)
-                                        <option value="{{$pro->id}}">{{$pro->Project->title}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class='col-md-2 ' id='description' style="display: none;">
-                                <label><b>Description</b></label>
-                                <input type="text" name="local_description" class="form-control form-control-info" placeholder="Enter Description Here...." />
-                            </div>
-                            <div class="col-md-2">
-                                <label for=""><b>Departure Time</b></label>
-                                <select name="departureTimeforlocal" class="form-control form-control-info" id="departureTimeforlocal">
-                                    <option value="" Selected disabled>Choose Time</option>
-                                    @for ($i = 1; $i < 12; $i++) @for($j=0; $j <=45; $j+=30) @if($j==0) <option value="{{$i . ' : ' . $j.'0' .' AM'}}">
-                                        {{$i . " : " . $j .'0'}} AM</option>
-                                        @else
-                                        <option value="{{$i . ' : ' . $j . ' AM'}}"> {{$i . " : " . $j }} AM </option>
-                                        @endif
-                                        @endfor
-                                        @endfor
-                                        <option value="12 : 00 PM">12 : 00 PM</option>
-                                        <option value="12 : 30 PM">12 : 30 PM</option>
-                                        @for ($i = 1; $i <= 11; $i++) @for($j=0; $j <=45; $j+=30) @if($j==0) <option value="{{$i . ' : ' . $j.'0' . ' PM' }}">
-                                        {{$i . " : " . $j .'0'}} PM</option>
-                                        @else
-                                        <option value="{{$i . ' : ' . $j .' PM' }}"> {{$i . " : " . $j }} PM </option>
-                                        @endif
-                                        @endfor
-                                    @endfor
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <label><b>Members</b></label>
-                                <select id="members" name="local_members" class="form-control officerSelect" multiple="multiple"
-                                    data-placeholder="Select Members" style="width: 100%;">
-                                    @foreach ($officers as $officer)
-                                    <option value="{{$officer->id}}">{{$officer->first_name}} {{$officer->last_name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>   
                         </div>
-                        <div class="localPurposeBlock" id="localPurposeBlock">
+                        <div class="localPurposeBlock" id="localPurposeBlock" name="localPurposeBlock">
                         </div> 
                     </div>
                 </div>
-                {{-- <div class="card-footer">
-                    <div class="col-md-3 offset-md-5" >
-                        <button class="btn btn-md btn-success" type="button" style="margin:5px;" id="savLocalForm"><b>Save & Submit</b></button>
-                    </div>
-                </div> --}}
             </div>
         </div>
     </div>
@@ -222,18 +177,28 @@
                             <label><b>Purpose :</b></label>
                         </div>
                         <div class="col-md-3">
-                                <input type="hidden" class="purposetypeidoutstation" name="purposetypeid" value="{{$purposetypes[0]->id}}">
-                                <p name="purposetype" class="purposetypeoutstation" > {{$purposetypes[0]->name}} </p>
+                                <input type="hidden" class="purposetypeidoutstation" name="purposetypeidoutstationid" value="{{$purposetypes[0]->id}}">
+                                <p class="purposetypeoutstation" > {{$purposetypes[0]->name}} </p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-2 offset-md-2"> <label><b>Visit City Type</b></label></div>
-                        <div class="col-md-3 ">
-                            <button class="btn btn-sm stylebutton roundCityOut" style="background: #404E67; color:white" type="button" style="margin:5px;" name="roundCityOut" id="roundCityOut"><b>Round Trip</b></button>
-                        </div>
-                        <div class="col-md-3">
-                            <button class="btn btn-sm stylebutton mulCityOut" style="background: #404E67; color:white" type="button" style="margin:5px;"  name="mulCityOut" id="mulCityOut"><b>Multicity</b></button>
-                        </div>
+                            <div class="col-md-3 form-radio">
+                                <div class="radio radio-outline radio-inline">
+                                    <label>
+                                        <input type="radio" class="roundCityOut" name="citytype" id="roundCityOut" value="{{$subcitytypes[0]->id}}">
+                                        <i class="helper"></i>{{$subcitytypes[0]->name}}
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 form-radio">
+                                <div class="radio radio-outline radio-inline">
+                                    <label>
+                                        <input type="radio" class="mulCityOut" name="citytype" id="mulCityOut" value="{{$subcitytypes[1]->id}}">
+                                        <i class="helper"></i>{{$subcitytypes[1]->name}}
+                                    </label>
+                                </div>
+                            </div>
                     </div>
 
                     <div class="roundtrip" style="display:none;">
@@ -241,7 +206,7 @@
                             <div class="col-md-4 offset-md-2" style="background:#a6b5d01f; padding:5px;">
                                 <label><b><span style="font-size:15px;">From Location</span></b></label>
                                 {{-- <input type="text" value="Lahore" class="outstation_roundtriplocationfrom form-control" name="outstation_roundtriplocationfrom" id="outstation_locationfrom" disabled/> --}}
-                                <select name="outstation_roundtriplocationfrom" disabled class=" outstation_roundtriplocationfrom form-control"  style="height: 1.9rem !important; padding: 1px !important; width: 100%;">
+                                <select name="outstation_roundtriplocationfrom"  class=" outstation_roundtriplocationfrom form-control"  style="height: 1.9rem !important; padding: 1px !important; width: 100%;">
                                         <option value="{{$citylahore->id}}"  selected>{{$citylahore->name}}</option>
                                         </select>
                             </div>
@@ -274,13 +239,13 @@
                         <div class="row" style="margin-top:15px;">
                                 <div class="col-md-4 offset-md-2" style="background:#a6b5d01f; padding:5px;">
                                     <label><b><span style="font-size:15px;">From Location</span></b></label>
-                                    <select name="outstation_multicitylocationfrom" disabled class=" outstation_multicitylocationfrom form-control"  id="outstation_multicitylocationfrom"   style="width: 100%;">
+                                    <select name="outstation_multicitylocationfrom"  class=" outstation_multicitylocationfrom form-control"  id="outstation_multicitylocationfrom"   style="width: 100%;">
                                     <option value="{{$citylahore->id}}"  selected>{{$citylahore->name}}</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4" style="background:#a6b5d01f; padding:5px;">
                                 <label><b><span style="font-size:15px;">To Location</span></b></label><br>
-                                <select name="outstation_multicitylocationto" class=" outstation_multicitylocationto officerSelect form-control" multiple="multiple" style="width: 100%;">
+                                <select name="outstation_multicitylocationto[]" class=" outstation_multicitylocationto officerSelect form-control" multiple="multiple" style="width: 100%;">
                                     @foreach ($cities as $city)
                                     <option value={{$city->id}}>{{$city->name}}</option>
                                     @endforeach
@@ -336,11 +301,7 @@
 <script src="{{asset('_monitoring/css/pages/notification/notification.js')}}"></script>
 
 <script>
-    document.querySelectorAll('.stylebutton').forEach(function(e) {
-  e.addEventListener('click', function() {
-    this.style.backgroundColor = "red";
-  })
-});
+
 
  $(function () {
           //Initialize Select2 Elements
@@ -378,6 +339,46 @@
     });
    
  });
+    
+ var getDates = function(startDate, endDate) 
+        {
+            // console.log(startDate);
+            // console.log(endDate);
+            var dates = [],
+            currentDate = startDate,
+            addDays = function(days) 
+            {
+                var date = new Date(this.valueOf());
+                date.setDate(date.getDate() + days);
+                return date;
+            };
+        while (currentDate <= endDate) {
+            dates.push(currentDate);
+            currentDate = addDays.call(currentDate, 1);
+        }
+        return dates;
+        };
+
+
+//  $(document).on('click','.applyBtn',function()
+//  {
+    
+//     var startDate = $('input[name="outstation_multicitydate"]').data('daterangepicker').startDate._d;
+//     var endDate = $('input[name="outstation_multicitydate"]').data('daterangepicker').endDate._d;
+//     console.log(startDate);
+    
+//     var dates = getDates(startDate, endDate);          
+
+//     console.log(dates);
+    
+//     dates.forEach(function(date)
+//      {
+//         var m = moment(date).format("MM-DD-YYYY")
+//        selecteddate+='<option selected="selected">'+m+'</option>';
+//        console.log(selecteddate);
+//     });
+
+//  });
  $(document).on('change','.visitreason',function(){
         //  console.log($(this).val())
         if ($(this).val() == '3' || $(this).val() == '4')
@@ -422,182 +423,245 @@
   });
   var roundpurposecounter=0;
   $('button#addroundtrippurpose').click(function(e){
-      var addRoundTripPurpose=`  <div class="row" style="margin-top:15px;">
-                        <div class="col-md-2 ">
-                            <label><b>Select Date</b></label>
-                            <select id="selectedDate" name="selectedDateroundtrip[]" class="form-control form-control-info selectedDate">
-                                <option selected="selected" hidden>Select Here</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2 ">
-                            <label><b>Select Visit Purpose</b></label>
-                            <select id="RoundtripVisitReason" name="RoundtripVisitReason[]" class="form-control form-control-info visitreason">
-                                <option selected="selected" hidden>Select Here</option>
-                                @foreach ($visitreasons as $visitreason)
-                                <option value="{{$visitreason->id}}">{{$visitreason->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-2" id="projectnameForRoundtrip" style="display:none;">
-                            <label for=""><b>Project Name</b></label><br>
-                            <select name="projectnameForRoundtrip[]"  class="form-control officerSelect" multiple="multiple"
-                                data-placeholder="Select Project" style="width: 100%;">
-                                <option value="" disabled selected>Project Name</option>
-                                @foreach ($projects as $pro)
-                                    <option value="{{$pro->id}}">{{$pro->Project->title}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class='col-md-2 ' id='Roundtripdescription' style="display: none;">
-                            <label><b>Description</b></label>
-                            <input type="text" name="Roundtrip_description[]" class="form-control form-control-info" placeholder="Enter Description Here...." />
-                        </div>
-                        <div class="col-md-2">
-                            <label for=""><b>Departure Time</b></label>
-                            <select name="departureTimeforRoundtrip[]" class="form-control form-control-info" id="departureTimeforRoundtrip">
-                                <option value="" Selected disabled>Choose Time</option>
-                                @for ($i = 1; $i < 12; $i++) @for($j=0; $j <=45; $j+=30) @if($j==0) <option value="{{$i . ' : ' . $j.'0' .' AM'}}">
-                                    {{$i . " : " . $j .'0'}} AM</option>
-                                    @else
-                                    <option value="{{$i . ' : ' . $j . ' AM'}}"> {{$i . " : " . $j }} AM </option>
-                                    @endif
-                                    @endfor
-                                    @endfor
-                                    <option value="12 : 00 PM">12 : 00 PM</option>
-                                    <option value="12 : 30 PM">12 : 30 PM</option>
-                                    @for ($i = 1; $i <= 11; $i++) @for($j=0; $j <=45; $j+=30) @if($j==0) <option value="{{$i . ' : ' . $j.'0' . ' PM' }}">
-                                    {{$i . " : " . $j .'0'}} PM</option>
-                                    @else
-                                    <option value="{{$i . ' : ' . $j .' PM' }}"> {{$i . " : " . $j }} PM </option>
-                                    @endif
-                                    @endfor
-                                @endfor
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <label><b>Members</b></label>
-                            <select id="members" name="roundtrip_members[]" class="form-control officerSelect" multiple="multiple"
-                                data-placeholder="Select Members" style="width: 100%;">
-                                @foreach ($officers as $officer)
-                                <option value="{{$officer->id}}">{{$officer->first_name}} {{$officer->last_name}}</option>
-                                @endforeach
-                            </select>
-                        </div>  
-                        <div class="col-md-1">
-                                <label><span style="color:white;">delete</span></label>
-                            <button type="button" class="btn btn-sm btn-danger" onclick="removeRTPurpose(this)" id="removeroundtripPurpose" name="removeRoundtripPurpose[]"><span style="font-size: ">-</span></button>
-                        </div> 
-                    </div>`;
+
+       // Appending Selected Dates 
+       var selecteddate='';   
+            var startDate = $('input[name="daterange"]').data('daterangepicker').startDate._d;
+            var endDate = $('input[name="daterange"]').data('daterangepicker').endDate._d;
+            console.log(startDate);
+            
+            var dates = getDates(startDate, endDate);          
+
+            console.log(dates);
+            
+            dates.forEach(function(date)
+            {
+                var m = moment(date).format("MM-DD-YYYY")
+            selecteddate+='<option selected="selected">'+m+'</option>';
+            console.log(selecteddate);
+            });
+
+      var addRoundTripPurpose=` <div>
+                                    <div class="row" style="margin-top:15px;">
+                                        <div class="col-md-2 offset-md-2">
+                                            <label><b>Start Date</b></label>
+                                            <select id="selectedSDateroundtrip" name="selectedSDateroundtrip[]" class="form-control form-control-info selectedSDateroundtrip">
+                                            `+selecteddate+`
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label><b>End Date</b></label>
+                                            <select id="selectedEDateroundtrip" name="selectedEDateroundtrip[]" class="form-control form-control-info selectedEDateroundtrip">
+                                            `+selecteddate+`
+                                            </select>
+                                        </div>    
+                                        <div class="col-md-2 ">
+                                            <label><b>Select Visit Purpose</b></label>
+                                            <select id="RoundtripVisitReason" name="RoundtripVisitReason[]" class="form-control form-control-info visitreason">
+                                                <option selected="selected" hidden>Select Here</option>
+                                                @foreach ($visitreasons as $visitreason)
+                                                <option value="{{$visitreason->id}}">{{$visitreason->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2" id="projectnameForRoundtrip" style="display:none;">
+                                            <label for=""><b>Project Name</b></label>
+                                            <select name="projectnameForRoundtrip[]"  class="form-control officerSelect clearfix" style="width:100% !important;">
+                                                <option value="" hidden>Choose Your Project</option>
+                                                @foreach ($projects as $pro)
+                                                <option value="{{$pro->id}}">{{$pro->Project->title}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class='col-md-2 ' id='Roundtripdescription' style="display: none;">
+                                            <label><b>Description</b></label>
+                                            <input type="text" name="Roundtrip_description[]" class="form-control form-control-info" placeholder="Enter Description Here...." />
+                                        </div>
+                                    </div>
+                                    <div class="row"  style="margin-top:15px;">
+                                        <div class="col-md-2 offset-md-2">
+                                            <label for=""><b>Departure Time</b></label>
+                                            <select name="departureTimeforRoundtrip[]" class="form-control form-control-info" id="departureTimeforRoundtrip">
+                                            <option value="" Selected disabled>Choose Time</option>
+                                            @for ($i = 1; $i < 12; $i++) @for($j=0; $j <=45; $j+=30) @if($j==0) <option value="{{$i . ' : ' . $j.'0' .' AM'}}">
+                                                {{$i . " : " . $j .'0'}} AM</option>
+                                                @else
+                                                <option value="{{$i . ' : ' . $j . ' AM'}}"> {{$i . " : " . $j }} AM </option>
+                                                @endif
+                                                @endfor
+                                                @endfor
+                                                <option value="12 : 00 PM">12 : 00 PM</option>
+                                                <option value="12 : 30 PM">12 : 30 PM</option>
+                                                @for ($i = 1; $i <= 11; $i++) @for($j=0; $j <=45; $j+=30) @if($j==0) <option value="{{$i . ' : ' . $j.'0' . ' PM' }}">
+                                                {{$i . " : " . $j .'0'}} PM</option>
+                                                @else
+                                                <option value="{{$i . ' : ' . $j .' PM' }}"> {{$i . " : " . $j }} PM </option>
+                                                @endif
+                                                @endfor
+                                            @endfor
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label><b>Members</b></label>
+                                            <select id="members" name="roundtrip_members_`+roundpurposecounter+`[]" class="form-control officerSelect" multiple="multiple"
+                                                data-placeholder="Select Members" style="width: 100%;">
+                                                @foreach ($officers as $officer)
+                                                <option value="{{$officer->id}}">{{$officer->first_name}} {{$officer->last_name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>  
+                                        <div class="col-md-1">
+                                                <label><span style="color:white;">delete</span></label>
+                                            <button type="button" class="btn btn-sm btn-danger" onclick="removeRTPurpose(this)" id="removeroundtripPurpose" name="removeRoundtripPurpose[]"><span style="font-size: ">-</span></button>
+                                        </div> 
+                                    </div> 
+                                    <input type="hidden" value="`+(roundpurposecounter+1)+`" name="purposecount"  
+                               </div>`;
                     roundpurposecounter++;
                     
                     $('.roundtripPurposeBlock').append(addRoundTripPurpose);
-                $('.officerSelect').select2();
+                     $('.officerSelect').select2();
 
   });
   var multicitypurposecounter=0;
-  $('button#addmulticitypurpose').click(function(e){
-    var addmulticityPurpose = `<div>
-                        <div class="row" style="margin-top:15px;">
-                            <div class="col-md-2 offset-md-2">
-                                <label><b>Select Date</b></label>
-                                <select id="selectedDate" name="selectedDatemulticity[]" class="form-control form-control-info selectedDate">
-                                    <option selected="selected" hidden>Select Here</option>
-                                </select>
-                            </div>   
-                            <div class="col-md-2 ">
-                                <label><b>Select Visit Purpose</b></label>
-                                <select id="multicityVisitReason" name="multicityVisitReason[]" class="form-control form-control-info multicityVisitReason">
-                                    <option selected="selected" hidden>Select Here</option>
-                                    @foreach ($visitreasons as $visitreason)
-                                    <option value="{{$visitreason->id}}">{{$visitreason->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-2" id="projectnameFormulticity" style="display:none;">
-                                <label for=""><b>Project Name</b></label><br>
-                                <select name="projectnameFormulticity[]"  class="form-control officerSelect" multiple="multiple"
-                                    data-placeholder="Select Project" style="width: 100%;">
-                                    <option value="" disabled selected>Project Name</option>
-                                    @foreach ($projects as $pro)
-                                        <option value="{{$pro->id}}">{{$pro->Project->title}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class='col-md-2 ' id='multicity_description' style="display: none;">
-                                <label><b>Description</b></label>
-                                <input type="text" name="multicity_description[]" class="form-control form-control-info" placeholder="Enter Description Here...." />
-                            </div>
-                            <div class="col-md-2">
-                                <label for=""><b>Departure Time</b></label>
-                                <select name="departureTimeformulticity[]" class="form-control form-control-info" id="departureTimeformulticity">
-                                    <option value="" Selected disabled>Choose Time</option>
-                                    @for ($i = 1; $i < 12; $i++) @for($j=0; $j <=45; $j+=30) @if($j==0) <option value="{{$i . ' : ' . $j.'0' .' AM'}}">
-                                        {{$i . " : " . $j .'0'}} AM</option>
-                                        @else
-                                        <option value="{{$i . ' : ' . $j . ' AM'}}"> {{$i . " : " . $j }} AM </option>
-                                        @endif
-                                        @endfor
-                                        @endfor
-                                        <option value="12 : 00 PM">12 : 00 PM</option>
-                                        <option value="12 : 30 PM">12 : 30 PM</option>
-                                        @for ($i = 1; $i <= 11; $i++) @for($j=0; $j <=45; $j+=30) @if($j==0) <option value="{{$i . ' : ' . $j.'0' . ' PM' }}">
-                                        {{$i . " : " . $j .'0'}} PM</option>
-                                        @else
-                                        <option value="{{$i . ' : ' . $j .' PM' }}"> {{$i . " : " . $j }} PM </option>
-                                        @endif
-                                        @endfor
-                                    @endfor
-                                </select>
-                            </div>
-                    </div>
-                    <div class="row"  style="margin-top:15px;">
-                        <div class="col-md-2 offset-md-2">
-                            <label><b>Members</b></label>
-                            <select id="members" name="multicity_members[]" class="form-control officerSelect" multiple="multiple"
-                                data-placeholder="Select Members" style="width: 100%;">
-                                @foreach ($officers as $officer)
-                                <option value="{{$officer->id}}">{{$officer->first_name}} {{$officer->last_name}}</option>
-                                @endforeach
-                            </select>
-                        </div>   
-                        <div class="col-md-2">
-                            <label><b>Location</b></label>
-                            <select id="multicity_location" name="multicity_location[]" class="form-control officerSelect" multiple="multiple"
-                                data-placeholder="Select Members" style="width: 100%;">
-                                @foreach ($officers as $officer)
-                                <option value="{{$officer->id}}">{{$officer->first_name}} {{$officer->last_name}}</option>
-                                @endforeach
-                            </select>
-                        </div>   
-                        <div class="col-md-1">
-                            <label><span style="color:white;">delete</span></label>
-                        <button type="button" class="btn btn-sm btn-danger"  id="removemulticityPurpose" name="removemulticityPurpose[]" onclick="rmulticityPurpose(this)"><span style="font-size: ">-</span></button>
-                        </div> 
-                    </div>
-                </div>`;
-                 multicitypurposecounter++;
-                
-                $('.multicityPurposeBlock').append(addmulticityPurpose);
-                $('.officerSelect').select2();
+  $('button#addmulticitypurpose').click(function(e)
+    {
+        //   Appending Selected Cities
+        var multicitypurposelocations ='';
+
+        var selectedCities = $('.outstation_multicitylocationto :selected');
+        selectedCities.each(function () {
+        var $this = $(this);
+        if ($this.length) {
+            var selectedText = $this.text();
+            var selectedValue = $this.val();
+            multicitypurposelocations+='<option value="'+selectedValue+'" >'+selectedText+'</option>';
+        }});
+
+        // Appending Selected Dates 
+        var selecteddate='';   
+        var startDate = $('input[name="outstation_multicitydate"]').data('daterangepicker').startDate._d;
+        var endDate = $('input[name="outstation_multicitydate"]').data('daterangepicker').endDate._d;
+        console.log(startDate);
+        
+        var dates = getDates(startDate, endDate);          
+
+        console.log(dates);
+        
+        dates.forEach(function(date)
+        {
+            var m = moment(date).format("MM-DD-YYYY")
+        selecteddate+='<option selected="selected">'+m+'</option>';
+        console.log(selecteddate);
+        });
+
+        // Appending Purpose String
+            var addmulticityPurpose = `<div>
+                                        <div class="row" style="margin-top:15px;">
+                                            <div class="col-md-2 offset-md-2">
+                                                <label><b>Start Date</b></label>
+                                                <select id="selectedSDate" name="selectedSDatemulticity[]" class="form-control form-control-info selectedSDate">
+                                                `+selecteddate+`
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label><b>End Date</b></label>
+                                                <select id="selectedEDate" name="selectedEDatemulticity[]" class="form-control form-control-info selectedSDate">
+                                                `+selecteddate+`
+                                                </select>
+                                            </div>    
+                                            <div class="col-md-2 ">
+                                                <label><b>Select Visit Purpose</b></label>
+                                                <select id="multicityVisitReason" name="multicityVisitReason[]" class="form-control form-control-info multicityVisitReason">
+                                                    <option selected="selected" hidden>Select Here</option>
+                                                    @foreach ($visitreasons as $visitreason)
+                                                    <option value="{{$visitreason->id}}">{{$visitreason->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2" id="projectnameFormulticity" style="display:none;">
+                                                <label for=""><b>Project Name</b></label>
+                                                <select name="projectnameFormulticity[]"  class="form-control officerSelect clearfix" style="width:100% !important;">
+                                                    <option value="" hidden >Choose Your Project</option>
+                                                    @foreach ($projects as $pro)
+                                                    <option value="{{$pro->id}}">{{$pro->Project->title}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class='col-md-2 ' id='multicity_description' style="display: none;">
+                                                <label><b>Description</b></label>
+                                                <input type="text" name="multicity_description[]" class="form-control form-control-info" placeholder="Enter Description Here...." />
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-top:15px;">
+                                            <div class="col-md-2 offset-md-2">
+                                                <label><b>Members</b></label>
+                                                <select id="members" name="multicity_members_`+multicitypurposecounter+`[]" class="form-control officerSelect" multiple="multiple"
+                                                    data-placeholder="Select Members" style="width: 100%;">
+                                                    @foreach ($officers as $officer)
+                                                    <option value="{{$officer->id}}">{{$officer->first_name}} {{$officer->last_name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>   
+                                            <div class="col-md-2">
+                                                    <label for=""><b>Departure Time</b></label>
+                                                    <select name="departureTimeformulticity[]" class="form-control form-control-info" id="departureTimeformulticity">
+                                                        <option value="" Selected disabled>Choose Time</option>
+                                                        @for ($i = 1; $i < 12; $i++) @for($j=0; $j <=45; $j+=30) @if($j==0) <option value="{{$i . ' : ' . $j.'0' .' AM'}}">
+                                                            {{$i . " : " . $j .'0'}} AM</option>
+                                                            @else
+                                                            <option value="{{$i . ' : ' . $j . ' AM'}}"> {{$i . " : " . $j }} AM </option>
+                                                            @endif
+                                                            @endfor
+                                                            @endfor
+                                                            <option value="12 : 00 PM">12 : 00 PM</option>
+                                                            <option value="12 : 30 PM">12 : 30 PM</option>
+                                                            @for ($i = 1; $i <= 11; $i++) @for($j=0; $j <=45; $j+=30) @if($j==0) <option value="{{$i . ' : ' . $j.'0' . ' PM' }}">
+                                                            {{$i . " : " . $j .'0'}} PM</option>
+                                                            @else
+                                                            <option value="{{$i . ' : ' . $j .' PM' }}"> {{$i . " : " . $j }} PM </option>
+                                                            @endif
+                                                            @endfor
+                                                        @endfor
+                                                    </select>
+                                                </div>
+                                            <div class="col-md-3">
+                                                <label><b>Location</b></label>
+                                                <select id="" name="multicity_location[]" class="form-control form-control-info multicity_location " 
+                                                    data-placeholder="Select Members" style="width: 100%;">
+                                                `+multicitypurposelocations+`
+                                                </select>
+                                            </div>   
+                                            <div class="col-md-1">
+                                                <label><span style="color:white;">delete</span></label>
+                                            <button type="button" class="btn btn-sm btn-danger"  id="removemulticityPurpose" name="removemulticityPurpose[]" onclick="rmulticityPurpose(this)"><span style="font-size: ">-</span></button>
+                                            </div> 
+                                            <input type="hidden" value="`+(multicitypurposecounter+1)+`" name="purposecount"  
+                                        </div>
+                                    </div>`;
+                multicitypurposecounter++;
+            
+            $('.multicityPurposeBlock').append(addmulticityPurpose);
+            $('.officerSelect').select2();
     });
 
-  var localcounter=1;
+  var localcounter=0;
   $('button#addlocalpurpose').click(function(e){
     var addLocalPurpose =` <div class="row" style="margin-top:15px;">
                     <div class="col-md-2 offset-md-2">
                         <label><b>Visit Purpose</b></label>
                         <select id="LocalVisitReason" name="LocalVisitReason[]" class="form-control form-control-info visitreason">
-                            <option selected="selected" hidden>Select Here</option>
+                            <option selected="selected" hidden>Choose Your Purpose</option>
                             @foreach ($visitreasons as $visitreason)
                             <option value="{{$visitreason->id}}">{{$visitreason->name}}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-md-2" id="projectnameForLocal" style="display:none;">
-                        <label for=""><b>Project Name</b></label><br>
-                        <select name="projectnameForLocal[]"  class="form-control officerSelect" multiple="multiple"
-                            data-placeholder="Select Project" style="width: 100%;">
-                            <option value="" disabled selected>Project Name</option>
+                        <label for=""><b>Project Name</b></label>
+                        <select name="projectnameForLocal[]"  class="form-control officerSelect clearfix" style="width:100% !important;">
+                            <option value="" hidden>Choose Your Project</option>
+                             
                             @foreach ($projects as $pro)
                              <option value="{{$pro->id}}">{{$pro->Project->title}}</option>
                             @endforeach
@@ -631,7 +695,7 @@
                     </div>
                     <div class="col-md-2">
                         <label><b>Members</b></label>
-                        <select id="members" name="local_members[]" class="form-control officerSelect" multiple="multiple"
+                        <select id="members" name="local_members_`+localcounter+`[]" class="form-control officerSelect" multiple="multiple"
                             data-placeholder="Select Members" style="width: 100%;">
                             @foreach ($officers as $officer)
                             <option value="{{$officer->id}}">{{$officer->first_name}} {{$officer->last_name}}</option>
@@ -642,7 +706,9 @@
                             <label><span style="color:white;">delete</span></label>
                         <button type="button" class="btn btn-sm btn-danger" onclick="removePurpose(this)" id="removeLocalPurpose" name="removeLocalPurpose[]"><span style="font-size: ">-</span></button>
                     </div>
+                    <input type="hidden" value="`+(localcounter+1)+`" name="purposecount"   
                 </div>`;
+
                 localcounter++;
                 $('.localPurposeBlock').append(addLocalPurpose);
                 $('.officerSelect').select2();
@@ -665,7 +731,7 @@ function removeRTPurpose(e)
             $('.purposetypeidoutstation').val("{{$purposetypes[0]->id}}");
             $('.purposetypeoutstation').text("{{$purposetypes[0]->name}}");
         }
-    $(e).parent().parent().remove();
+    $(e).parent().parent().parent().remove();
 }
 
 function rmulticityPurpose(e)
@@ -680,7 +746,12 @@ function rmulticityPurpose(e)
 }
 
 $('#addlocalpurpose').click(function(){
-    if(localcounter>1)
+    if(localcounter==1)
+        {
+        $('.purposetypeid').val("{{$purposetypes[0]->id}}");
+        $('.purposetype').text("{{$purposetypes[0]->name}}");
+        }
+    else if(localcounter>1)
     {
         $('.purposetypeid').val("{{$purposetypes[1]->id}}");
         $('.purposetype').text("{{$purposetypes[1]->name}}");
@@ -716,13 +787,13 @@ $('#addmulticitypurpose').click(function(){
         }
 });
     
-    $(".roundCityOut").click(function(){
-        $(".mulCityOut").css({"background-color": "#404E67"});
-    });
+    // $(".roundCityOut").click(function(){
+    //     $(".mulCityOut").css({"background-color": "#404E67"});
+    // });
 
-    $(".mulCityOut").click(function(){
-        $(".roundCityOut").css({"background-color": "#404E67"});
-    });
+    // $(".mulCityOut").click(function(){
+    //     $(".roundCityOut").css({"background-color": "#404E67"});
+    // });
 
     $(".roundCityOut").click(function()
         {

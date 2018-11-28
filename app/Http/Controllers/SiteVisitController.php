@@ -15,11 +15,14 @@ use App\Project;
 use App\PlantripVisitedproject;
 use App\PlantripVisitreason;
 use App\AssignedProject;
+use App\PlantripRequestedcity;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use DateTime;
+use DateInterval;
+use DatePeriod;
 class SiteVisitController extends Controller
 {
     /**
@@ -74,118 +77,223 @@ class SiteVisitController extends Controller
      */
     public function store(Request $request)
     { 
-        dd($request->all());
-        $tripRequest_id='';
-        if(!isset($request->tripRequest_id) && $request->tripRequest_id==null){
-            $tripRequest = new PlantripTriprequest();
-            $tripRequest->user_id=Auth::id();
-            $tripRequest->plantrip_triptype_id=$request->triptype_id;
-            $tripRequest->status='1';
-            $tripRequest->approval_status='Pending';
-            $tripRequest->save();
-
-            $tripRequest_id=$tripRequest->id;
-        }
-        else{
-            $tripRequest_id=$request->tripRequest_id;
-        }
-
-        if($request->triptype_id=='1')
-        {
-                
-                $i; $number=1;
-                $tripRequest_purpose= new PlantripPurpose();
-                $tripRequest_purpose->plantrip_triprequest_id=$tripRequest_id;
-                $tripRequest_purpose->plantrip_visitreason_id=$request->visit_reasonForLocal;
-                $tripRequest_purpose->plantrip_purposetype_id=$request->purposetypeforLocal;
-                $tripRequest_purpose->save();
         
+        // dd($request->all());
 
-                $tripRequest_visitpurpose= new PlantripVisitedproject();
-                // if(isset($_POST['project_nameForLocal_'.$number]))  
-                $tripRequest_visitpurpose->assigned_project_id=$request->project_nameForLocal;
-                $tripRequest_visitpurpose->plantrip_purpose_id=$tripRequest_purpose->id;
-                $tripRequest_visitpurpose->description=$request->local_description;
-                $tripRequest_visitpurpose->save();
+        $tripRequest = new PlantripTriprequest();
+                $tripRequest->user_id=Auth::id();
+                $tripRequest->plantrip_triptype_id=$request->triptype_id;
+                $tripRequest->status='1';
+                $tripRequest->approval_status='Pending';
+                $tripRequest->save();
+                $tripRequest_id=$tripRequest->id; 
+
+            if($request->triptype_id=='1')
+            {   
+                $i; $number=1;
+                for($i=0 ; $i<$request->purposecount; $i++ )
+                   {
+                    $tripRequest_purpose= new PlantripPurpose();
+                    $tripRequest_purpose->plantrip_triprequest_id=$tripRequest_id;
+                    $tripRequest_purpose->plantrip_purposetype_id=$request->purposetypeid;
+                    $tripRequest_purpose->plantrip_visitreason_id=$request->LocalVisitReason[$i];
+                    $tripRequest_purpose->save();
+            
+
+                    $tripRequest_visitpurpose= new PlantripVisitedproject();
+                    if(isset($request->projectnameForLocal[$i]) && $request->projectnameForLocal[$i]!=null)
+                    $tripRequest_visitpurpose->assigned_project_id=$request->projectnameForLocal[$i];
+                    $tripRequest_visitpurpose->plantrip_purpose_id=$tripRequest_purpose->id;
+                    if(isset($request->local_description[$i]) && $request->local_description[$i]!=null)
+                    $tripRequest_visitpurpose->description=$request->local_description[$i];
+                    $tripRequest_visitpurpose->save();
 
 
-                $tripRequest_location= new PlantripTriplocation();
-                $tripRequest_location->plantrip_purpose_id=$tripRequest_purpose->id;
-                $tripRequest_location->plantrip_city_to=$request->local_loc;
-                $tripRequest_location->to_Date=$request->local_date;
-                $tripRequest_location->time_to_Departure=$request->expectd_TimeForlocal;
+                    $tripRequest_location= new PlantripTriplocation();
+                    $tripRequest_location->plantrip_purpose_id=$tripRequest_purpose->id;
+                    $tripRequest_location->plantrip_city_to=$request->local_location;
+                    $tripRequest_location->to_Date=$request->local_date;
+                    if(isset($request->departureTimeforlocal[$i]) && $request->departureTimeforlocal[$i]!=null )                    
+                    $tripRequest_location->time_to_Departure=$request->departureTimeforlocal[$i];
+                    $tripRequest_location->save();
+                    //  dd($_POST['local_members_'.$i]);
+                    
+                     if(isset($_POST['local_members_'.$i]) && $_POST['local_members_'.$i]!=null)
+                      {  
+                          foreach($_POST['local_members_'.$i] as $eachMember)
+                        {    
+                            $tripRequest_members = new PlantripMember();
+                            $tripRequest_members->user_id=$eachMember;
+                            $tripRequest_members->plantrip_triplocation_id=$tripRequest_location->id;
+                            $tripRequest_members->save();
+
+                        } 
+                    }
+                }  
+            }
+
+            else if($request->triptype_id=='2')
+            {
                 
-                $tripRequest_location->save();
-                if(isset($request->local_members))
-                foreach($request->local_members as $eachMember)
-                {    
-                    $tripRequest_members = new PlantripMember();
-                    $tripRequest_members->user_id=$eachMember;
-                    $tripRequest_members->plantrip_triplocation_id=$tripRequest_location->id;
-                    // dd($tripRequest_members);
-                    $tripRequest_members->save();
 
-                }      
-        }
-        else if($request->triptype_id=='2')
-         {
+                $i; $number=1;
+                for($i=0 ; $i<$request->purposecount; $i++ )
+                   {
+                        // $daterange=$_POST['daterange_'.$j];
+                        // $dates=explode(' - ', $daterange);
+                        // $dateFrom=$dates[0];
+                        // $dateTo=$dates[1];
+                        if($request->citytype=='1')
+                        {
+                            $tripRequest=PlantripTriprequest::where('id',$tripRequest_id)->first();
+                           
+                            if(isset($request->daterange[$i]) && $request->daterange[$i]!=null)
+                            $tripRequest->fullDateoftrip=$request->daterange;
+                           
+                            $tripRequest->save();
 
-            $i; $number=1; $j=1;
-            $tripRequest_purpose= new PlantripPurpose();
-            $tripRequest_purpose->plantrip_triprequest_id=$tripRequest_id;
-            $tripRequest_purpose->plantrip_visitreason_id=$request->outstationVisitReason;
-            $tripRequest_purpose->plantrip_subcitytype_id=$request->subcity;
-            $tripRequest_purpose->plantrip_purposetype_id=$request->purposetypeForOutstation;
-            $tripRequest_purpose->save();
-    
-
-            $tripRequest_visitpurpose= new PlantripVisitedproject();
-            $tripRequest_visitpurpose->assigned_project_id=$request->project_nameForOutstation;
-            $tripRequest_visitpurpose->plantrip_purpose_id=$tripRequest_purpose->id;
-            $tripRequest_visitpurpose->description=$request->outstation_description;
-            $tripRequest_visitpurpose->save();
-
-            for($j=1 ; $j<=$request->counterForCity; $j++ )
-                {
-                    if(isset($_POST['outstation_Fromloc_'.$j]))
-                    {
-                        $daterange=$_POST['daterange_'.$j];
-                        $dates=explode(' - ', $daterange);
-                        $dateFrom=$dates[0];
-                        $dateTo=$dates[1];
-                        $tripRequest_location= new PlantripTriplocation();
-                        $tripRequest_location->plantrip_purpose_id=$tripRequest_purpose->id;
-                        if(isset($_POST['outstation_Fromloc_'.$j]))
-                        $tripRequest_location->plantrip_city_from=$_POST['outstation_Fromloc_'.$j];                        
-                        if(isset($_POST['outstation_Toloc_'.$j]))                        
-                        $tripRequest_location->plantrip_city_to=$_POST['outstation_Toloc_'.$j];
+                            $tripRequest_purpose= new PlantripPurpose(); 
+                            $tripRequest_purpose->plantrip_triprequest_id=$tripRequest_id;
                             
-                        $tripRequest_location->from_Date=$dateFrom;                        
-                        $tripRequest_location->to_Date=$dateTo;
-                        if(isset($_POST['expectd_TimeForOutstation_'.$j]))
-                        $tripRequest_location->time_to_Departure=$_POST['expectd_TimeForOutstation_'.$j];
+                            if(isset($request->RoundtripVisitReason[$i]) && $request->RoundtripVisitReason[$i]!=null)
+                            $tripRequest_purpose->plantrip_visitreason_id=$request->RoundtripVisitReason[$i];
+                            
+                            if(isset($request->citytype) && $request->citytype!=null)
+                            $tripRequest_purpose->plantrip_subcitytype_id=$request->citytype;
+                            
+                            if(isset($request->purposetypeidoutstationid) && $request->purposetypeidoutstationid !=null)
+                            $tripRequest_purpose->plantrip_purposetype_id=$request->purposetypeidoutstationid;
+                            $tripRequest_purpose->save();
+                    
+
+                            $tripRequest_visitpurpose= new PlantripVisitedproject();
+                           
+                            if(isset($request->projectnameForRoundtrip[$i]) && $request->projectnameForRoundtrip[$i] !=null)
+                            $tripRequest_visitpurpose->assigned_project_id=$request->projectnameForRoundtrip[$i];
+                           
+                            $tripRequest_visitpurpose->plantrip_purpose_id=$tripRequest_purpose->id;
+
+                            if(isset($request->Roundtrip_description[$i]) && $request->Roundtrip_description[$i] !=null)
+                            $tripRequest_visitpurpose->description=$request->Roundtrip_description[$i];
+                            $tripRequest_visitpurpose->save();
+
                         
-                        $tripRequest_location->save();
+                            
+                            $tripRequest_location= new PlantripTriplocation();
+                            $tripRequest_location->plantrip_purpose_id=$tripRequest_purpose->id;
 
-                        if(isset($_POST['outstation_members_'.$j]))
-                        {   
-                            foreach($_POST['outstation_members_'.$j] as $eachMember)
-                            {    
-                                $tripRequest_members = new PlantripMember();
-                                $tripRequest_members->user_id=$eachMember;
-                                $tripRequest_members->plantrip_triplocation_id=$tripRequest_location->id;
-                                // dd($tripRequest_members);
-                                $tripRequest_members->save();
+                            $tripRequest_location->plantrip_city_from=$request->outstation_roundtriplocationfrom;       
 
+                            if(isset($request->outstation_roundtriplocationto) && $request->outstation_roundtriplocationto !=null)                            
+                            $tripRequest_location->plantrip_city_to=$request->outstation_roundtriplocationto;
+                           
+                            if(isset($request->selectedSDateroundtrip[$i]) && $request->selectedSDateroundtrip[$i] !=null)
+                            $tripRequest_location->from_Date=$request->selectedSDateroundtrip[$i];
+
+                            if(isset($request->selectedEDateroundtrip[$i]) && $request->selectedEDateroundtrip[$i] !=null)
+                            $tripRequest_location->to_Date=$request->selectedEDateroundtrip[$i];
+
+                            if(isset($request->departureTimeforRoundtrip[$i]) && $request->departureTimeforRoundtrip[$i] !=null)
+                            $tripRequest_location->time_to_Departure=$request->departureTimeforRoundtrip[$i];
+                            $tripRequest_location->save();
+                            
+                            if(isset($_POST['roundtrip_members_'.$i]) && $_POST['roundtrip_members_'.$i]!=null)
+                            {  
+                                foreach($_POST['roundtrip_members_'.$i] as $eachMember)
+                                    {    
+                                        $tripRequest_members = new PlantripMember();
+                                        $tripRequest_members->user_id=$eachMember;
+                                        $tripRequest_members->plantrip_triplocation_id=$tripRequest_location->id;
+                                        $tripRequest_members->save();
+
+                                    } 
                             }
                         }
+                        elseif($request->citytype=='2')
+                        { 
+                            if(isset($request->outstation_multicitylocationto))
+                             $citycount=count($request->outstation_multicitylocationto);
+
+                            $tripRequest=PlantripTriprequest::where('id',$tripRequest_id)->first();
+
+                            if(isset($request->outstation_multicitydate[$i]) && $request->outstation_multicitydate[$i]!=null)                            
+                            $tripRequest->fullDateoftrip=$request->outstation_multicitydate;
+                            $tripRequest->save();
+                            // $cities='';
+                            // for($number=0 ;$number<$citycount; $number++)
+                            // {
+                            //     $cities+=$request->outstation_multicitylocationto[$number] .'-';
+                            // }
+                            // $tripRequest->requestedCities=$cities;
+                            
+                            $tripRequestedCities= new PlantripRequestedcity();
+                            for($number=0 ;$number<$citycount; $number++)
+                            {
+                            $tripRequestedCities->plantrip_triprequest_id=$tripRequest_id;
+                            $tripRequestedCities->requestedCity_id=$request->outstation_multicitylocationto[$number];
+                            }
+                            $tripRequestedCities->save();
+
+                            $tripRequest_purpose= new PlantripPurpose();
+                            $tripRequest_purpose->plantrip_triprequest_id=$tripRequest_id;
+
+                            if(isset($request->multicityVisitReason[$i]) && $request->multicityVisitReason[$i]!=null)                            
+                            $tripRequest_purpose->plantrip_visitreason_id=$request->multicityVisitReason[$i];
+
+                            if(isset($request->citytype) && $request->citytype!=null)                            
+                            $tripRequest_purpose->plantrip_subcitytype_id=$request->citytype;
+                            
+                            $tripRequest_purpose->plantrip_purposetype_id=$request->purposetypeidoutstationid;
+                            $tripRequest_purpose->save();
+                    
+
+                            $tripRequest_visitpurpose= new PlantripVisitedproject();
+                            if(isset($request->projectnameFormulticity[$i]) && $request->projectnameFormulticity[$i]!=null)                            
+                            $tripRequest_visitpurpose->assigned_project_id=$request->projectnameFormulticity[$i];
+
+                            $tripRequest_visitpurpose->plantrip_purpose_id=$tripRequest_purpose->id;
+                            if(isset($request->multicity_description[$i]) && $request->multicity_description[$i]!=null)                            
+                            $tripRequest_visitpurpose->description=$request->multicity_description[$i];
+                            $tripRequest_visitpurpose->save();
+
                         
-                }
-                // $number++;                       
+                            
+                            $tripRequest_location= new PlantripTriplocation();
+                            $tripRequest_location->plantrip_purpose_id=$tripRequest_purpose->id;
+
+                            if(isset($request->outstation_multicitylocationfrom) && $request->outstation_multicitylocationfrom!=null)                            
+                            $tripRequest_location->plantrip_city_from=$request->outstation_multicitylocationfrom; 
+
+                            if(isset($request->multicity_location[$i]) && $request->multicity_location[$i]!=null)                            
+                            $tripRequest_location->plantrip_city_to=$request->multicity_location[$i];
+                            
+                            if(isset($request->selectedSDatemulticity[$i]) && $request->selectedSDatemulticity[$i]!=null)                                                            
+                            $tripRequest_location->from_Date=$request->selectedSDatemulticity[$i];                        
+                            
+                            if(isset($request->selectedEDatemulticity[$i]) && $request->selectedEDatemulticity[$i]!=null)                            
+                            $tripRequest_location->to_Date=$request->selectedEDatemulticity[$i];
+                            
+                            if(isset($request->departureTimeformulticity[$i]) && $request->departureTimeformulticity[$i]!=null)                            
+                            $tripRequest_location->time_to_Departure=$request->departureTimeformulticity[$i];
+                            
+                            $tripRequest_location->save();
+                            
+                            if(isset($_POST['multicity_members_'.$i]) && $_POST['multicity_members_'.$i]!=null)
+                            {  
+                                foreach($_POST['multicity_members_'.$i] as $eachMember)
+                                    {    
+                                        $tripRequest_members = new PlantripMember();
+                                        $tripRequest_members->user_id=$eachMember;
+                                        $tripRequest_members->plantrip_triplocation_id=$tripRequest_location->id;
+                                        $tripRequest_members->save();
+
+                                    } 
+                            }
+                        }
+                    }
             }
-        }
-    return response()->json(['trip_request_id'=>$tripRequest_id,'message'=>'Saved Successfully']);
-    // return redirect()->back()->with('success','Request Has Been Sent To Transport Officer!!');
+
+    return redirect()->back()->with('success','Request Has Been Sent To Transport Officer!!');
 }
 
     /**

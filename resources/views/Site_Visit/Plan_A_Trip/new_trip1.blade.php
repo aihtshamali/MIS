@@ -280,7 +280,7 @@
                         <label>
                                 <input type="radio" class="subcitytypeForOutstation" name="subcitytypeForOutstation" value="{{$subcitytype->id}}">
                                 <i class="helper"></i>{{$subcitytype->name}}
-                            </label>
+                        </label>
                        
                 </div>
                 @endforeach
