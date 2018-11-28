@@ -459,48 +459,6 @@
 @endsection
 @section('scripttags')
   <script>
-// $(document).ready(function(){
-//   $('.nav-link').mouseenter(function(){
-//     $(this).attr(`style`,`color:#fff !important;`);
-//     });
-//   $(window).scroll(function(){
-//     var scroll = $(window).scrollTop();
-//     if (scroll > 30)
-//     {
-//       $('.nav-link').attr(`style`,`color:#777777d9 !important;`);
-//       $('.nav-link').mouseenter(function(){
-//         $(this).attr(`style`,`color:#fff !important;`);
-//         });
-//       $('.nav-link').mouseleave(function(){
-//         $(this).attr(`style`,`color:#777777d9 !important;`);
-//         });
-//     }
-//     else
-//      {
-//        $('.nav-link').attr(`style`,`color:#fff !important;`);
-//        $('.nav-link').mouseenter(function(){
-//          $(this).attr(`style`,`color:#777777d9 !important;`);
-//          });
-//        $('.nav-link').mouseleave(function(){
-//          $(this).attr(`style`,`color:#fff !important;`);
-//          });
-//      }
-//   });
-//   });
-  $(document).ready(function(){
-  var show_btn=$('.show-modal');
-      var show_btn=$('.show-modal');
-      //$("#testmodal").modal('show');
-
-    // $(function() {
-    //         $('#element').on('click', function( e ) {
-    //             Custombox.open({
-    //                 target: '#testmodal-1',
-    //                 effect: 'fadein'
-    //             });
-    //             e.preventDefault();
-    //         });
-    //     });
 
 new Vue({
   el: '#myModal',
@@ -541,15 +499,5 @@ new Vue({
     }
   }
 })
-
-    $(function() {
-            $('#element').on('click', function( e ) {
-                Custombox.open({
-                    target: '#testmodal-1',
-                    effect: 'fadein'
-                });
-                e.preventDefault();
-            });
-        });
 </script>
 @endsection

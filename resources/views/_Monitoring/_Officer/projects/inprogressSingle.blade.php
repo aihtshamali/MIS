@@ -614,21 +614,13 @@ c                                                                           </ul
 
                                                                     <div class="row form-group">
                                                                         <div class="col-md-10 offset-md-1 planMactivities">
-                                                                            <div class="row form-group">
-                                                                            <div class="col-md-4 offset-md-1"><label for=""> <b>Component 1</b></label></div>
-                                                                            {{-- <div class="col-md-4 offset-md-1"> <input type="text" class="form-control"></div> --}}
-                                                                            <div class="col-md-2 offset-md-4 mb_1" style="padding-top:0.6%;">
-                                                                              <button class="btn btn-sm btn-warning float-right" type="button" id="add_activity" name="add_activity"> Add Tasks</button>
-                                                                            </div>
-                                                                            </div>
-
 
                                                                          </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="card-footer">
                                                                         <div class="col-md-3 offset-md-9">
-                                                                            <a class="btn btn-success btn-md saveNnextbtn" >Save & Proceed</a>
+                                                                            <a class="btn btn-primary btn-md saveNnextbtn" >Save & Next</a>
                                                                         </div>
                                                                 </div>
                                                             </div>

@@ -506,17 +506,35 @@ $('button#add-more').click(function (e) {
                 </tr>`
     $('#riskmatrix').append(add_risks);
 });
-
-$('button#add_activity').click(function (e) {
-
-    var add_activities = '<div class="row form-group component_Activities">'
-        + '<div class="col-md-10 mb_1 offset-md-1"><input type="text" class="form-control" placeholder="Add Task" name="c_activity[]"> </div>'
-        // +'<div class="col-md-2"> <input type="text" class="form-control" placeholder="Cost" name="c_cost[]"></div>'
-        // +'<div class="col-md-2"><input type="text" class="form-control" placeholder="Units" name="c_unit[]"></div>'
-        // +'<div class="col-md-2"><input type="text" class="form-control" placeholder="Quantity" name="c_quantity[]"></div>'
-        + '<div class="col-md-1"><button class="btn btn-danger btn-sm" name="remove_activity[]" onclick="removerow(this)"  type="button">-</button></div>'
-        + '</div>';
-    $('.planMactivities').append(add_activities);
+$(document).on('click', '#add_activity', function (e) {
+// console.log('there');
+    var add_activities = `<div class="row col-md-9 offset-md-1 form-group component_Activities">
+        <div class="col-md-10 mb_1 offset-md-1"><input type="text" class="form-control" placeholder="Add Task" name="c_activity[]"> </div>
+        <div class="col-md-1"><button class="btn btn-danger btn-sm" name="remove_activity[]" onclick="removerow(this)"  type="button">-</button></div>
+        </div>`;
+    // $('.planMactivities').append(add_activities);
+    $(this).parent().append(add_activities);
+});
+$(document).on('click', 'button#saveObjComp', function () {
+  var comps = $(this).val();
+  var count = 0;
+  // var yo = 0;
+    $('input[name^=comp]').each(function () {
+      var val = $(this).val();
+      var addTask = `
+      <div class="row form-group compTask`+ count +`">
+        <div class="col-md-4 offset-md-1"><label for=""> <b class="headText">` + val + `</b></label></div>
+        <div class="col-md-2 offset-md-4 mb_1 Taskbut` + count + `" id="add_activity" style="padding-top:0.6%;">
+          <button class="btn btn-sm btn-warning float-right  type="button" name="add_activity">Add Tasks</button>
+        </div>
+      </div>`
+      val = $(this).val();
+      // var comps = $(this).val();
+      $('.planMactivities').append(addTask);
+      // console.log($(e));
+      // yo++;
+      count++;
+    });
 });
 
 
@@ -676,8 +694,8 @@ $(document).ready(function () {
         $(".SumObjComp").children().remove()
         var headings = `
         <div class="col-md-12 clearfix"><h4>Summary</h4></div>
-        <div class="float-left col-md-6"><h5>Objectives</h5></div>
-        <div class="float-right col-md-6"><h5>Component</h5></div>`
+        <div class="float-left col-md-6"><h5 class="float-left">Objectives</h5></div>
+        <div class="float-right col-md-6"><h5 class="float-right">Component</h5></div>`
         var heading = $(headings)
         heading .appendTo('.SumObjComp');
         $(".SumObjComp").show('slow');
