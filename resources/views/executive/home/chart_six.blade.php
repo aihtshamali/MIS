@@ -132,6 +132,7 @@
      "theme": "light",
      "dataProvider":st,
      "valueAxes": [ {
+       "title":"Number of Projects",
        "gridColor": "#FFFFFF",
        "gridAlpha": 0.2,
        "dashLength": 0
@@ -153,9 +154,10 @@
      },
      "categoryField": "Name",
      "categoryAxis": {
+       "title":"Activities",
         "autoGridCount": false,
-"equalSpacing": true,
-"gridCount": 1000,
+        "equalSpacing": true,
+        "gridCount": 1000,
        "gridPosition": "middle",
        "gridAlpha": 0,
        "tickPosition": "middle",

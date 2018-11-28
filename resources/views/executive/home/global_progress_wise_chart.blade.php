@@ -100,6 +100,7 @@ var st = [];
   "theme": "light",
   "dataProvider":st,
   "valueAxes": [ {
+    "title":"Number of Projects",
     "gridColor": "#FFFFFF",
     "gridAlpha": 0.2,
     "dashLength": 0
@@ -121,6 +122,7 @@ var st = [];
   },
   "categoryField": "Name",
   "categoryAxis": {
+    "title":"Progress",
     "autoGridCount": false,
     "equalSpacing": true,
     "gridCount": 1000,

@@ -30,6 +30,9 @@ class AdminHumanResourceController extends Controller
         foreach ($meetings as $meeting) {
           if(count($meeting->HrAgenda)>0){
             $index = $meeting->HrAgenda[0]->financial_year;
+            if($index==""){
+              $index = "NotAssigned";
+            }
             if(isset($data[$index])){
               $data += [
                 $index => array_push($data[$index],$meeting),

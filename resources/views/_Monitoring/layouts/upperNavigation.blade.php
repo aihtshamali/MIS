@@ -261,7 +261,7 @@
                 @endrole
 
                 {{-- Officers  --}}
-                @role('officer')
+                @role('officer|transportofficer')
                 @include('_Monitoring.inc.officerSidebar')
                 @endrole
 
