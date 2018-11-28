@@ -76,6 +76,8 @@
     .bg_g{ background: #687753 !important}
     .clr_g{ color: #687753 !important}
     .white{color: #fff !important;}
+    .close{position: absolute;right: 0;z-index: 9999;}
+    .text_center{text-align: center !important;}
    </style>
 @endsection
 @section('content')
@@ -95,6 +97,7 @@
                               {{-- <a class="btn btn-primary btn-action" data-wow-delay="0.2s" href="#">Live Preview</a> --}}
                               {{-- <a class="btn btn-primary btn-action" data-wow-delay="0.2s" href="#">Buy Now</a> --}}
                           </div>
+<<<<<<< HEAD
                           <div class="col-md-12">
                               <div class="hero-image">
                                   {{-- <img class="img-fluid" src="assets/images/app_hero_1.png" alt="" /> --}}
@@ -194,6 +197,8 @@
                                   {{-- end main --}}
                               </div>
                           </div>
+=======
+>>>>>>> 96ceb9e325d4ea266ee4967d99b8e9609496396b
                       </div>
                   </div>
               </div>
@@ -241,14 +246,14 @@
                   <a href="" class="tile green">
                     <h3 class="title">Accounts</h3>
                     <hr/>
-                    <p>Click here to visit Accounts</p>
+                    <p>visit Accounts</p>
                   </a>
                 </div>
                 <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.2s">
                   <a href="" class="tile green">
                     <h3 class="title">My Profile</h3>
                     <hr/>
-                    <p>Click here to visit My Profile</p>
+                    <p>My Profile</p>
                   </a>
                 </div>
                 <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.3s">
@@ -335,7 +340,7 @@
                               <div class="counter-icon">
                                   <i class="fa fa-ioxhost"></i>
                               </div>
-                              <h3><span class="counter">250</span>+</h3>
+                              <h3><span class="counter">113</span>+</h3>
                               <div class="counter-text">
                                   <h4>Monitoring projects</h4>
                               </div>
@@ -346,7 +351,7 @@
                               <div class="counter-icon">
                                   <i class="fa fa-industry"></i>
                               </div>
-                              <h3><span class="counter">1000</span>+</h3>
+                              <h3><span class="counter">239</span>+</h3>
                               <div class="counter-text">
                                   <h4>Evaluation Projects</h4>
                               </div>
@@ -357,7 +362,7 @@
                               <div class="counter-icon">
                                   <i class="fa fa-check-square-o"></i>
                               </div>
-                              <h3><span class="counter">500</span>+</h3>
+                              <h3><span class="counter">0</span></h3>
                               <div class="counter-text">
                                   <h4>Validation</h4>
                               </div>
@@ -368,7 +373,7 @@
                               <div class="counter-icon">
                                   <i class="fa fa-bookmark"></i>
                               </div>
-                              <h3><span class="counter">80</span>+</h3>
+                              <h3><span class="counter">0</span></h3>
                               <div class="counter-text">
                                   <h4>Special Assignments</h4>
                               </div>
@@ -404,6 +409,56 @@
       </div>
       <!-- Main Section -->
   </div>
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title text_center col-md-12" style="font-size:20px !important;">Login Form</h1>
+          <button type="button" class="close col-md-2" data-dismiss="modal">&times;</button>
+        </div>
+        <form @submit.prevent="login" @keydown="form.onKeydown($event)">
+          <div class="modal-body">
+              <center>
+                <img class="" src="{{ asset('dgme.png')}}" alt="DGME" />
+              </center>
+              <div class="col-md-8 offset-md-2 clearfix">
+                {{-- <label>Username</label> --}}
+                <input v-model="form.username" type="text" name="username"
+                  class="form-control" placeholder="UserName..." :class="{ 'is-invalid': form.errors.has('username') }">
+                <has-error :form="form" field="username"></has-error>
+              </div>
+
+              <div class="col-md-8 offset-md-2 clearfix">
+                {{-- <label>Password</label> --}}
+                <input v-model="form.password" type="password" name="password"
+                  class="form-control" placeholder="Password..." :class="{ 'is-invalid': form.errors.has('password') }">
+                <has-error :form="form" field="password"></has-error>
+              </div>
+              <div class="checkbox m-b-20 col-md-8 offset-md-2 clearfix">
+                  <label class="col-md-6" style="padding-top:4% !important;">
+                      <input type="checkbox" v-model="form.remember" name="remember" :class="{ 'is-invalid': form.errors.has('remember') }" style="margin-top:1% !important;"> Remember Me
+                  </label>
+                  <button :disabled="form.busy" type="submit" class="btn col-md-6" style="margin-bottom:9% !important">Login</button>
+    				 </div>
+          </div>
+        {{-- <div class="modal-footer form-group col-md-12 clearfix">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div> --}}
+      </form>
+    </div>
+
+    </div>
+  </div>
+{{--/ Modal --}}
+
+
+
 @endsection
 @section('scripttags')
   <script>
@@ -435,16 +490,65 @@
 //      }
 //   });
 //   });
+<<<<<<< HEAD
   $(document).ready(function(){
   var show_btn=$('.show-modal');
       var show_btn=$('.show-modal');
       //$("#testmodal").modal('show');
+=======
+>>>>>>> 96ceb9e325d4ea266ee4967d99b8e9609496396b
 
-        show_btn.click(function(){
-          $("#testmodal").modal('show');
+    // $(function() {
+    //         $('#element').on('click', function( e ) {
+    //             Custombox.open({
+    //                 target: '#testmodal-1',
+    //                 effect: 'fadein'
+    //             });
+    //             e.preventDefault();
+    //         });
+    //     });
+
+new Vue({
+  el: '#myModal',
+
+  data () {
+    return {
+      // Create a new form instance
+      form: new Form({
+        username: '',
+        password: '',
+        remember: false
       })
-    });
+    }
+  },
 
+  methods: {
+    login () {
+      // Submit the form via a POST request
+      this.form.post('/login')
+        .then(({ data }) => {
+          swal({
+            title: 'Login',
+            text: 'You Logged in SuccessFully!',
+            type: 'success',
+            showConfirmButton: false,
+            timer:1500
+          })
+          $('#myModal').modal('hide')
+
+          location.reload();
+        })
+        .catch(({error})=> {
+          toast({
+            type: 'error',
+            title: 'Oops Error Occured!'
+          })
+        })
+    }
+  }
+})
+
+<<<<<<< HEAD
     $(function() {
             $('#element').on('click', function( e ) {
                 Custombox.open({
@@ -454,5 +558,7 @@
                 e.preventDefault();
             });
         });
+=======
+>>>>>>> 96ceb9e325d4ea266ee4967d99b8e9609496396b
 </script>
 @endsection
