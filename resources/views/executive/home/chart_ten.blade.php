@@ -22,7 +22,7 @@
   height:10%;
   text-align: center;
   }
-  
+
   a{
   color: black;
   }
@@ -39,7 +39,7 @@
   }
 
 </style>
-    
+
 @endsection
 @section('content')
 <div class="content-wrapper">
@@ -47,28 +47,28 @@
     <section class="content-header">
         <h1>
         Minimum and Maximum time on each Activity
-         
+
         </h1>
         <ol class="breadcrumb">
         <li><a href="{{route('Exec_pems_tab')}}"><i class="fa fa-backward" ></i>Back</a></li>
-          {{-- <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li> --}}    
+          {{-- <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li> --}}
         </ol>
     </section>
-    
+
     <section class="content">
             <div class="row">
                 <div class="col-md-12">
-                    
+
                     <div class="card col-md-12" >
                         <div class="card-header">
-                        </div> 
+                        </div>
                         <div id="chartdiv10"></div>
                     </div>
                     <div class="col-md-1"></div>
                 </div>
             </div>
     </section>
-    
+
 </div>
 @endsection
 @section('scripttags')
@@ -88,7 +88,7 @@
         var st=[];
         $i = 0;
        activities.forEach(element => {
-       st.push ({ 
+       st.push ({
         "Name":element.name,
   "Min Time": min_time_against_activities[$i],
   "Average Time": time_against_activities[$i],
@@ -96,12 +96,13 @@
        });
        $i++;
        });
-        
+
        var chart = AmCharts.makeChart( "chartdiv10", {
        "type": "serial",
        "theme": "light",
        "dataProvider": st,
        "valueAxes": [ {
+         "title":"Time",
          "gridColor": "#FFFFFF",
          "gridAlpha": 0.2,
          "dashLength": 0
@@ -140,6 +141,7 @@
        },
        "categoryField": "Name",
        "categoryAxis": {
+         "title":"Activities",
         "autoGridCount": false,
         "equalSpacing": true,
         "gridCount": 1000,
@@ -152,7 +154,7 @@
        "export": {
          "enabled": true
        }
-     
+
      } );
      </script>
 @endsection

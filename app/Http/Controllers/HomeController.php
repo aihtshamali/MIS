@@ -172,7 +172,7 @@ class HomeController extends Controller
         $current_score = round($current_score/$max_score*100,0,PHP_ROUND_HALF_UP);
       }
 
-      $rank = 0;
+      $rank = 1;
       foreach ($total as $number) {
         $number = round($number/$max_score*100,0,PHP_ROUND_HALF_UP);
         if($current_score < $number){

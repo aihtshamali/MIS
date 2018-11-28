@@ -76,6 +76,8 @@
     .bg_g{ background: #687753 !important}
     .clr_g{ color: #687753 !important}
     .white{color: #fff !important;}
+    .close{position: absolute;right: 0;z-index: 9999;}
+    .text_center{text-align: center !important;}
    </style>
 @endsection
 @section('content')
@@ -142,14 +144,14 @@
                   <a href="" class="tile green">
                     <h3 class="title">Accounts</h3>
                     <hr/>
-                    <p>Click here to visit Accounts</p>
+                    <p>visit Accounts</p>
                   </a>
                 </div>
                 <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.2s">
                   <a href="" class="tile green">
                     <h3 class="title">My Profile</h3>
                     <hr/>
-                    <p>Click here to visit My Profile</p>
+                    <p>My Profile</p>
                   </a>
                 </div>
                 <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.3s">
@@ -315,34 +317,37 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Login Form</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h1 class="modal-title text_center col-md-12" style="font-size:20px !important;">Login Form</h1>
+          <button type="button" class="close col-md-2" data-dismiss="modal">&times;</button>
         </div>
         <form @submit.prevent="login" @keydown="form.onKeydown($event)">
           <div class="modal-body">
-              <div class="form-group">
-                <label>Username</label>
+              <center>
+                <img class="" src="{{ asset('dgme.png')}}" alt="DGME" />
+              </center>
+              <div class="col-md-8 offset-md-2 clearfix">
+                {{-- <label>Username</label> --}}
                 <input v-model="form.username" type="text" name="username"
-                  class="form-control" :class="{ 'is-invalid': form.errors.has('username') }">
+                  class="form-control" placeholder="UserName..." :class="{ 'is-invalid': form.errors.has('username') }">
                 <has-error :form="form" field="username"></has-error>
               </div>
 
-              <div class="form-group">
-                <label>Password</label>
+              <div class="col-md-8 offset-md-2 clearfix">
+                {{-- <label>Password</label> --}}
                 <input v-model="form.password" type="password" name="password"
-                  class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
+                  class="form-control" placeholder="Password..." :class="{ 'is-invalid': form.errors.has('password') }">
                 <has-error :form="form" field="password"></has-error>
               </div>
-              <div class="checkbox m-b-20">
-                  <label>
-                      <input type="checkbox" v-model="form.remember" name="remember" :class="{ 'is-invalid': form.errors.has('remember') }"> Remember Me
+              <div class="checkbox m-b-20 col-md-8 offset-md-2 clearfix">
+                  <label class="col-md-6" style="padding-top:4% !important;">
+                      <input type="checkbox" v-model="form.remember" name="remember" :class="{ 'is-invalid': form.errors.has('remember') }" style="margin-top:1% !important;"> Remember Me
                   </label>
+                  <button :disabled="form.busy" type="submit" class="btn col-md-6" style="margin-bottom:9% !important">Login</button>
     				 </div>
           </div>
-        <div class="modal-footer">
+        {{-- <div class="modal-footer form-group col-md-12 clearfix">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button :disabled="form.busy" type="submit" class="btn btn-primary">Log In</button>
-        </div>
+        </div> --}}
       </form>
     </div>
 
@@ -383,15 +388,6 @@
 //      }
 //   });
 //   });
-  $(document).ready(function(){
-  var show_btn=$('.show-modal');
-      var show_btn=$('.show-modal');
-      //$("#testmodal").modal('show');
-
-        show_btn.click(function(){
-          $("#testmodal").modal('show');
-      })
-    });
 
     // $(function() {
     //         $('#element').on('click', function( e ) {

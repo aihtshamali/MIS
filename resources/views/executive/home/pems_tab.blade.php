@@ -938,6 +938,8 @@ var st = [];
 	}
 
 } );
-
+$(function() {
+			 $('.lazy').lazy();
+	 });
 </script>
 @endsection
