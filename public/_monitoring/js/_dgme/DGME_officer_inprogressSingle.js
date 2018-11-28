@@ -15,7 +15,7 @@ $(document).ready(function () {
     $('.optiontest').on('click', function () {
         var t = $(this).text();
         var b = true;
-        $('.yesearch').val().forEach(e=>{
+        $('.yesearch').val().forEach(e => {
             if(e == t)
             {
                 b = false;

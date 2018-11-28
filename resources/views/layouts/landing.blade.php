@@ -6,10 +6,12 @@
     <meta charset="utf-8">
     <title>@yield('title')</title>
     <!-- Meta -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon icon -->
     <link rel="icon" href="{{ asset('dgme.png')}}" type="image/png" sizes="16x16">
     <!-- Bootstrap -->
+    <link href="{{ asset('css/app.css')}}" rel="stylesheet" type="text/css" media="all" />
     <link href="{{ asset('landingPage/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" media="all" />
     <!-- Animate CSS -->
     <link rel="stylesheet" href="{{ asset('landingPage/css/animate.css')}}">
@@ -17,7 +19,7 @@
     <link rel="stylesheet" href="{{ asset('landingPage/css/owl.carousel.css')}}">
     <link rel="stylesheet" href="{{ asset('landingPage/css/owl.theme.css')}}">
     <!-- Magnific Popup -->
-        <link rel="stylesheet" href="{{ asset('landingPage/css/magnific-popup.css')}}">
+    <link rel="stylesheet" href="{{ asset('landingPage/css/magnific-popup.css')}}">
     <!-- Full Page Animation -->
     <link rel="stylesheet" href="{{ asset('landingPage/css/animsition.min.css')}}">
     <!-- Ionic Icons -->
@@ -92,7 +94,7 @@
                           </li>
                         @else
                           <li id="element" class="show-modal nav-item">
-                            <a class="nav-link" style=" " href="#!" >Login</a>
+                            <a class="nav-link" style=" " data-toggle="modal" data-target="#myModal" href="#!" >Login</a>
                             {{-- <li><strong><a href="{{route('register')}}">Register</a></strong></li> --}}
                             {{-- {{route('login')}} --}}
                           </li>
@@ -113,6 +115,7 @@
     <script type="text/javascript" src="{{ asset('landingPage/js/plugins.js')}}"></script>
     <script type="text/javascript" src="{{ asset('landingPage/js/menu.js')}}"></script>
     <script type="text/javascript" src="{{ asset('landingPage/js/custom.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('js/Customvue.min.js')}}"></script>
     @yield('scripttags')
 </body>
 

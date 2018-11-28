@@ -81,7 +81,10 @@ class DirectorEvaluationController extends Controller
       public function evaluation_assignedprojects(){
         $projects=AssignedProjectManager::select('assigned_project_managers.*')
         ->leftJoin('assigned_projects','assigned_projects.project_id','assigned_project_managers.project_id')
-        ->where('user_id',Auth::id())
+        ->leftJoin('projects','assigned_project_managers.project_id','projects.id')
+        ->where('projects.project_type_id',1)
+        ->where('projects.status',1)
+        ->where('assigned_project_managers.user_id',Auth::id())
         ->whereNull('assigned_projects.project_id')
         ->get();
 
