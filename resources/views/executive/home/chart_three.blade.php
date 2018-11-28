@@ -5,7 +5,7 @@
 <style>
 #chartdiv3 {
   width		: 100%;
-  height	: 90%;
+  height	: 80%;
   font-size	: 15px;
   }
   .card{
@@ -24,33 +24,19 @@
   }
   .lightblue{
     font-size: 0px;
-    background-color: #0D8ECF;
+    background-color: #85c5e3;
     padding: 9px;
     margin: 2px;
-    color:#0D8ECF;
+    color:#85c5e3;
   }
-  .blue{
+  .yellow{
     font-size: 0px;
-    background-color:#0D52D1;
+    background-color:#fddd33;
     padding: 9px;
     margin: 2px;
-    color:#0D52D1;
+    color:#fddd33;
   }
-  .darkblue{
-    font-size: 0px;
-    background-color:#2A0CD0;
-    padding: 9px;
-    margin: 2px;
-    color:#2A0CD0;
-  }
-  .purple{
-    color:#8A0CCF;
-    font-size: 0px;
-    background-color:#8A0CCF;
-    padding: 9px;
-    margin: 2px;
 
-  }
 
   a{
   color: black;
@@ -66,7 +52,9 @@
   -moz-box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
   box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
   }
-
+  .card-footer{
+  height:15%;
+  }
 </style>
 
 @endsection
@@ -92,9 +80,20 @@
                         <div class="card-header">
                         </div>
                         <div id="chartdiv3"></div>
+
+                        <div class="col-md-1"></div>
+                        <div class="card-footer" >
+                          <div style="padding:5px;display:inline-block;">
+                            <span class="lightblue">-</span>
+                            <label style="vertical-align:-webkit-baseline-middle;">Total Assigned Projects</label>
+                        </div>
+                        <div style="padding:5px;display:inline-block;">
+                          <span class="yellow">-</span>
+                          <label style="vertical-align:-webkit-baseline-middle;">In Progress/Acknowledged Projects</label>
+                      </div>
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-md-1"></div>
-                </div>
             </div>
     </section>
 
@@ -129,6 +128,7 @@
          "theme": "light",
          "dataProvider":st,
          "valueAxes": [ {
+           "title" : "Project Numbers",
            "gridColor": "#FFFFFF",
            "gridAlpha": 0.2,
            "dashLength": 0
@@ -159,9 +159,10 @@
          },
          "categoryField": "Name",
          "categoryAxis": {
+           "title":"Officers",
             "autoGridCount": false,
-    "equalSpacing": true,
-    "gridCount": 1000,
+            "equalSpacing": true,
+            "gridCount": 1000,
            "gridPosition": "middle",
            "gridAlpha": 0,
            "tickPosition": "middle",
