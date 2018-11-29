@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Driver extends Model
+class MAssignedProjectKpis extends Model
 {
   public function User(){
-      return $this->belongsTo('App\User');
+    return $this->belongsTo('App\User');
   }
 }

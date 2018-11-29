@@ -66,7 +66,7 @@ class ProblematicRemarksController extends Controller
           $remarks->put('activity_name',ProblematicRemarks::find($problematicRemarks->id)->AssignedProjectActivity->ProjectActivity->name);
           $remarks= $remarks->toArray();
 
-          broadcast(new ProblematicEvent($remarks))->toOthers();
+          // broadcast(new ProblematicEvent($remarks))->toOthers();
           return $remarks;
           // return 'Sent';
         }else {

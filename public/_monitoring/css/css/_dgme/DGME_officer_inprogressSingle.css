@@ -7,6 +7,10 @@
     display: none;
 }
 
+.revtb{
+    background-color:lightgrey;
+}
+
 .bg-new{
     background:linear-gradient(to left, black,#404E67 );
    }

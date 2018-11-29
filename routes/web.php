@@ -27,8 +27,8 @@ Route::group(['middleware' => ['auth']], function () {
 
 // Predashboard
 Route::get('/predashboard',function(){
-  return view('predashboard');
-});
+  return view('home');
+})->name('predashboard');
 
 // EvaluationDashbaord
 //Route::get('/dashboard',function(){
@@ -69,8 +69,8 @@ Route::group(['middleware' => ['role:admin']], function () {
 
 });
 
-// For Manager
-Route::prefix('manager')->middleware('role:manager')->group(function () {
+// For Manager & Director Charts
+Route::prefix('manager')->middleware('role:manager|directorevaluation')->group(function () {
   Route::get('/','ExecutiveController@index')->name('Exec_home');
   // PEMS GRAPHS -EVALUATION MODULE
   Route::get('/chart_one','ExecutiveController@chart_one')->name('chart_one');
@@ -91,6 +91,9 @@ Route::prefix('manager')->middleware('role:manager')->group(function () {
 
   //
   Route::get('/pems_tab','ExecutiveController@pems_index')->name('Exec_pems_tab');
+});
+Route::prefix('manager')->middleware('role:manager')->group(function () {
+
   Route::get('/pmms_tab','ExecutiveController@pmms_index')->name('Exec_pmms_tab');
   Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
   Route::get('/tpv_tab','ExecutiveController@tpv_index')->name('Exec_tpv_tab');
@@ -154,7 +157,7 @@ Route::prefix('director_Monitor')->middleware('role:directormonitoring')->group(
     Route::get('/monitoring_inprogress','DirectorMonitoringController@monitoring_inprogressprojects')->name('Monitoring_inprogress_projects');
     Route::get('/monitoring_complete','DirectorMonitoringController@monitoring_completeprojects')->name('Monitoring_complete_projects');
     Route::get('/monitoring_assigntoconsultant','ProjectAssignController@DPM_AssignToConsultant')->name('Monitoring_assignToconsultant');
-
+    Route::post('/monitoring_assigntoconsultant','ProjectAssignController@store_from_Mdirector')->name('store_from_Mdirector');
 
 });
 Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
@@ -190,15 +193,19 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
   Route::get('/monitoring_inprogressAssignment','OfficerController@monitoring_inprogressAssignments')->name('Monitoring_inprogressAssignments');
   Route::get('/monitoring_completedAssignment','OfficerController@monitoring_completedAssignments')->name('Monitoring_completedAssignments');
   Route::get('/monitoring_sInprogress','OfficerController@monitoring_inprogressSingle')->name('monitoring_inprogressSingle');
+  Route::post('/monitoring_review_form','OfficerController@monitoring_review_form')->name('monitoring_review_form');
 
 });
 
 // Monitoring group
 Route::group(['middleware' => ['role:dataentry|officer|monitor|manager|directormonitoring']],function () {
   // MonitoringDashbaord
-  Route::get('/monitoring_dashboard',function(){
-    return view('monitoring_dashboard');
-  })->name("monitoring_dashboard");
+  Route::get('/monitoring_dashboard','HomeController@monitoringDashboard')->name('monitoring_dashboard');
+
+  // Route::get('/monitoring_dashboard',function(){
+  //   return view('monitoring_dashboard');
+  // })->name("monitoring_dashboard");
+
   // monitoring
   Route::get('/monitoringP','ProjectController@createMonitoringEntryForm')->name('createMonitoringEntryForm');
   Route::get('/monitoringV','ProjectController@viewMonitoringForm')->name('viewMonitoringForm');
@@ -207,11 +214,8 @@ Route::group(['middleware' => ['role:dataentry|officer|monitor|manager|directorm
 });
 
 
-
-
-
 //For DataEntry
-Route::group(['middleware' => ['role:dataentry|officer|evaluator|monitor|manager|directormonitoring|directorevaluation']],function () {
+Route::group(['middleware' => ['role:dataentry|officer|evaluator|monitor|manager|directormonitoring|directorevaluation|adminhr']],function () {
 Route::post('/getunassignedProjectCounter','ProjectCounterController@getUnassignedProjectCounter')->name('unassignedCounter');
 Route::post('/getinProgressProjectCounter','ProjectCounterController@getInProgressCounter')->name('inProgressCounter');
 Route::post('/getAssignedProjectCounter','ProjectCounterController@getAssignedProjectCounter')->name('assignedCounter');

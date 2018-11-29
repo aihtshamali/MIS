@@ -125,10 +125,9 @@ class ExecutiveController extends Controller
     // Evaluation charts
     public function pems_index()
     {
-      $activities= ProjectActivity::all();
-      $sub_Sectors=SubSector::all();
-      $sectors=Sector::all();
-      // TODO
+      $activities= ProjectActivity::where('status',1)->get();
+      $sub_Sectors=SubSector::where('status',1)->get();
+      $sectors=Sector::where('status',1)->get();
 
       $total_projects = Project::where('project_type_id',1)->count();
       $total_assigned_projects = AssignedProject::select('assigned_projects.*')
@@ -319,7 +318,7 @@ class ExecutiveController extends Controller
           }
           // Chart 12
 
-          $projects=ProjectDetail::all();
+          $projects=Project::where('project_type_id',1)->get();
           $categories=array();
           array_push($categories,'NOT SET');
           array_push($categories,'NO');
@@ -328,24 +327,23 @@ class ExecutiveController extends Controller
           array_push($categories,'BOTH');
           $Sneprojects=array_fill(0,5,0);
           foreach ($projects as $project) {
-            if(!$project->sne){
+            if(!$project->ProjectDetail->sne){
               $Sneprojects[0]++;
             }
-            else if( $project->sne=="NO"){
+            else if( $project->ProjectDetail->sne=="NO"){
               $Sneprojects[1]++;
             }
-            else if($project->sne=="COST"){
+            else if($project->ProjectDetail->sne=="COST"){
               $Sneprojects[2]++;
             }
-            else if($project->sne=="STAFF"){
+            else if($project->ProjectDetail->sne=="STAFF"){
               $Sneprojects[3]++;
             }
-            else if($project->sne=="BOTH"){
+            else if($project->ProjectDetail->sne=="BOTH"){
               $Sneprojects[4]++;
             }
           }
 
-          // dd($inprogressprojects_wrt_sectors);
           \JavaScript::put([
         'total_projects' => $total_projects,
         'total_assigned_projects' => $total_assigned_projects,
@@ -830,7 +828,7 @@ class ExecutiveController extends Controller
     }
     //chart 12
     public function SneWiseChart(){
-      $projects=ProjectDetail::all();
+      $projects=Project::where('project_type_id',1)->get();
       $categories=array();
       array_push($categories,'NOT SET');
       array_push($categories,'NO');
@@ -839,19 +837,19 @@ class ExecutiveController extends Controller
       array_push($categories,'BOTH');
       $Sneprojects=array_fill(0,5,0);
       foreach ($projects as $project) {
-        if(!$project->sne){
+        if(!$project->ProjectDetail->sne){
           $Sneprojects[0]++;
         }
-        else if( $project->sne=="NO"){
+        else if( $project->ProjectDetail->sne=="NO"){
           $Sneprojects[1]++;
         }
-        else if($project->sne=="COST"){
+        else if($project->ProjectDetail->sne=="COST"){
           $Sneprojects[2]++;
         }
-        else if($project->sne=="STAFF"){
+        else if($project->ProjectDetail->sne=="STAFF"){
           $Sneprojects[3]++;
         }
-        else if($project->sne=="BOTH"){
+        else if($project->ProjectDetail->sne=="BOTH"){
           $Sneprojects[4]++;
         }
       }

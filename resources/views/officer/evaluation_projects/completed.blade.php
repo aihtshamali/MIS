@@ -46,6 +46,7 @@
                             <th style="text-align:center;" >Project Number</th>
                             <th style="text-align:center;">Project Name</th>
                             <th style="text-align:center;">Progress</th>
+                            <th style="text-align:center;">Action</th>
                         </thead>
                         <tbody style="text-align:center;">
                             @foreach($officer as $o)
@@ -60,6 +61,10 @@
                               <label class="label label-danger"> Not Completed {{$o->progress}}%</label>
                               @endif
                             </td>
+                            <td>
+                              <a href="{{route('projects.edit',$o->project_id)}}" class="btn btn-primary" style="margin-bottom:3px;">Review Project</a></br>
+                            </td>
+
                             </tr>
                             @endforeach
                         </tbody>

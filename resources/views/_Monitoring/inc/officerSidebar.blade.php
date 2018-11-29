@@ -414,7 +414,7 @@
                             </a>
                             <ul class="pcoded-submenu">
                                 <li class=" ">
-                                    <a href="form-elements-component.html">
+                                    <a href="{{route('trip.create')}}">
                                         <span class="pcoded-mtext" >Schedule New Visit</span>
                                     </a>
                                 </li>

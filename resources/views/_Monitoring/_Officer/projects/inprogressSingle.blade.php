@@ -23,9 +23,12 @@
 <link href="{{ asset('_monitoring/js/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css')}}" />
 <link href="{{ asset('_monitoring/css/css/fileuploadernew.css')}}" />
 <link href="{{ asset('_monitoring/css/css/jquery.dm-uploader.min.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/css/dataTables.bootstrap4.min.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/pages/data-table/css/buttons.dataTables.min.css')}}" />
+<link rel="stylesheet" href="{{ asset('_monitoring/css/css/responsive.bootstrap4.min.css')}}" />
 
 {{-- font awesome --}}
-<link rel="stylesheet" href="{{ asset('_monitoring/css/icon/font-awesome/css/font-awesome.min.css')}}" />
+<link rel="stylesheet" href="{{ asset('_monitoring\css\icon\font-awesome\css\font-awesome.min.css')}}" />
 
 {{-- This is dgme custom css for this page only ,write here any css you want to Ok!!! --}}
 <link rel="stylesheet" href="{{asset('_monitoring/css/css/_dgme/DGME_officer_inprogressSingle.css')}}" />
@@ -46,8 +49,10 @@
     .ms-container{width: 100% !important;}
     .wd-5p{width: 5% !important;}
     .mt_6p{margin-top: 6% !important;}
-    .pd_1{padding: 1% !important;border: 1px solid #00000014;margin-bottom: 2%;border-radius: 3px;}
+    .pd_1{padding: 1% !important;margin-bottom: 2%;border-radius: 3px;}
     .bg_g{background-color: #00000014}
+    input{background: transparent !important;border: 1px solid #77777747 !important;}
+    .bg_yelop{background-color: #92ac0126;}
     .clearfix{clear: both !important;}
     .textlef{text-align: left !important;}
     .mb_2{margin-bottom: 2% !important;}
@@ -63,14 +68,29 @@
     .bg_or{background: #fe936524;}
     .mr_0_1{margin:0% 1% !important;}
     /* p{clear: both !important;} */
-    .select2-container--default .select2-selection--multiple .select2-selection__rendered li{color: #fff !important;background: #2320207a !important;}
+    .select2-container--default .select2-selection--multiple .select2-selection__rendered li{color: #131010b8 !important;background: transparent !important;border: none;}
+    .select2-container--default .select2-selection--multiple .select2-selection__choice span{color: #777 !important;}
+    .select2-container--default.select2-container--focus .select2-selection--multiple {border: 1px solid #01a9ac !important;border-top-color: rgb(1, 169, 172) !important;border-top-style: solid !important;border-top-width: 1px !important;border-right-color: rgb(1, 169, 172) !important;border-right-style: solid !important;border-right-width: 1px !important;border-bottom-color: rgb(1, 169, 172) !important;border-bottom-style: solid !important;border-bottom-width: 1px !important;border-left-color:rgb(1, 169, 172) !important;border-left-style: solid !important;border-left-width: 1px !important;border-image-source: initial !important;border-image-slice: initial !important;border-image-width: initial !important;border-image-outset: initial !important;border-image-repeat: initial !important;
+}
+    .select2-container{width: 100% !important;}
+    .capitalize{text-transform: capitalize;}
+    .select2-search input{border:none !important;}
+    .fullHeight{height: 100% !important;}
+    .aho{background: #01a9ac;color: #fff;}
+    .aho:active{background: #01a9acd6;border: 1px solid #01a9ac;}
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+    background-color: transparent !important;
+    color: #444;
+    padding: 0px !important;
+}
+.headText{font-size: 15px;font-weight: 900;}
 </style>
 
 @endsection
 @section('content')
 
     {{-- frozen panel for plan and conduct monitoring  --}}
-    <div class="col-md-12 fixed bg-g hidden-sm hidden-xs topSummary" style="margin-top:-2.9% !important;z-index:999 !important; margin-left:-2.85% !important;">
+    <div class="col-md-12 fixed bg-g hidden-sm hidden-xs topSummary capitalize" style="margin-top:-2.9% !important;z-index:999 !important; margin-left:-2.85% !important;">
 
         <div class="bg-w border_top bg-w" style="padding:0.25rem !important;" >
                 <style scoped>
@@ -78,51 +98,65 @@
                     .form-group{padding: 0.05rem 0.75rem !important;}
                     .col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto{padding-left: 0px !important;padding-right: 0px !important;}
                     label{margin-bottom:0rem !important;border:none !important;background-color:transparent !important;padding:0rem 0.3rem !important;font-size: 12px !important;}
-                    .ln_ht12{line-height: 12px !important;}
+
                 </style>
                 <div class="form-group row">
-                    <div class="col-md-4 ln_ht12">
-                        <label for="GS_no" class="">GS # </label>
+                    <div class="col-md-4">
+                        <label for="GS_no" class="">GS #: <span><b>{{$project->Project->ADP}}</b></span></label>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="project_title" class="">Project Title: <span><b>{{$project->Project->title}}</b></span></label>
                     </div>
                     <div class="col-md-4 ln_ht12">
-                        <label for="project_title" class="">Project Title </label>
-                    </div>
-                    <div class="col-md-4 ln_ht12">
-                        <label for="project_cost" class="">Location</label>
+                        <label for="project_cost" class="">Location: <span><b>
+                          @foreach ($project->Project->AssignedDistricts as $district)
+                            {{$district->District->name}},
+                          @endforeach
+                        </b></span></label>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-md-4 ln_ht12">
-                        <label for="project_cost" class="">Original Approve Cost </label>
+                        <label for="project_cost" class="">Original Approve Cost: <span><b>{{$project->Project->ProjectDetail->orignal_cost}}</b></span></label>
                     </div>
                     <div class="col-md-4 ln_ht12">
-                        <label for="Location" class="">final Revised Cost </label>
+                        <label for="Location" class="">final Revised Cost: <span><b>
+                          @php
+                            $revisedFinalCost=0;
+                          @endphp
+                          @foreach ($project->Project->RevisedApprovedCost as $cost)
+                            @php
+                              $revisedFinalCost= $cost->cost;
+                            @endphp
+                          @endforeach
+                          {{$revisedFinalCost}}
+                        </b></span></label>
                     </div>
-                    <div class="col-md-4 ln_ht12">
+                    <div class="col-md-4">
                         <label for="PHI" class="">PHI </label>
-                        <input name="phi" id="#phi" type="text" class="frozen_pane" style="font-size:10px !important;"/>
+                        <input name="phi" id="#phi" type="number" class="frozen_pane"/>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-md-4 ln_ht12">
-                        <label for="planned_start_date" class="">Planned Start Date </label>
+                    <div class="col-md-4">
+                        <label for="planned_start_date" class="">Planned Start Date: <span><b>{{$project->Project->ProjectDetail->planned_start_date}}</b></span></label>
                     </div>
-                    <div class="col-md-4 ln_ht12">
-                        <label for="planned_end_date" class="">Planned End Date </label>
+                    <div class="col-md-4">
+                        <label for="planned_end_date" class="">Planned End Date: <span><b>{{$project->Project->ProjectDetail->planned_end_date}}</b></span> </label>
                     </div>
-                    <div class="col-md-4 ln_ht12">
+                    <div class="col-md-4">
                         <label for="actual_start_date" class="">Actual Start Date </label>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-md-4 ln_ht12">
-                        <label for="progress" class="">Phsycal Progress %</label>
+                        <label for="progress" class="">Physical Progress %: <span><b>{{$project->progress}} %</b></span></label>
                     </div>
-                    <div class="col-md-4 ln_ht12">
-                          <label for="Financial" class="">Financial Progress %</label>
-                        <input type="text"  id="financial_progress" class="frozen_pane" name="financial_progress" style="font-size:10px !important;">
+                    <div class="col-md-4">
+                        <label for="Financial" class="">Financial Progress %</label>
+                        <input type="text"  id="financial_progress" class="frozen_pane" name="financial_progress">
                     </div>
-                    <div class="col-md-4 ln_ht12">
+                    <div class="col-md-4">
                         <label for="last_monitoring" class="">Last Monitoring Date </label>
                     </div>
 
@@ -133,7 +167,6 @@
     {{-- end of frozen panel --}}
     <div class="row">
             <div class="col-md-12 mainTabsAndNav mt_6p" style="padding-left: 15px !important;padding-right: 15px !important;">
-                <form action="#">
                     <div class="card">
                         <div class="card-header">
                         </div>
@@ -160,86 +193,178 @@
                                         </li>
                                     </ul>
                                     <!-- Tab panes -->
-                                    <div class="tab-content card-block">
-                                        <div class="tab-pane active" id="reviewDiv" role="tabpanel">
-                                            <div class="costDiv pd_1 clearfix ">
-                                              <h5 class="textlef">Cost</h5>
-                                              <div class="row">
-                                                    <div class="col-md-4 offset-md-1">
-                                                          <div class="form-group">
-                                                              <label for="" class="col-form-label"><b>Technical Sanction :</b></label>
-                                                              <br>
-                                                              <input class="form-control" type="text" name="ts"  placeholder="Select your date" />
+                                        <div class="tab-content card-block">
+                                            <div class="tab-pane active" id="reviewDiv" role="tabpanel">
+                                          <div class="col-md-12">
+                                              <!-- Nav tabs -->
+                                              <ul class="nav nav-tabs  tabs" role="tablist">
+                                                  <li class="nav-item">
+                                                      <a class="nav-link active" data-toggle="tab" href="#costDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Cost</b></a>
+                                                  </li>
+                                                  <li class="nav-item">
+                                                      <a class="nav-link" data-toggle="tab" href="#locationDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Location</b></a>
+                                                  </li>
+                                                  <li class="nav-item">
+                                                      <a class="nav-link" data-toggle="tab" href="#AgeOrgDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Agencies & Organization</b></a>
+                                                  </li>
+                                                  <li class="nav-item">
+                                                      <a class="nav-link" data-toggle="tab" href="#DatesDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Dates</b></a>
+                                                  </li>
+                                              </ul>
+                                              <!-- Tab panes -->
+                                              <div class="tab-content tabs card-block">
+                                                  <div class="tab-pane active" id="costDiv" role="tabpanel">
+                                                    <form class="review" action="{{route('monitoring_review_form')}}"  method="POST">
+                                                      {{ csrf_field() }}
+                                                      <input type="hidden" name="assigned_project_id" value="{{$project->id}}">
+                                                      <div class="costDiv pd_1 clearfix">
+                                                          <div class="card-header">
+                                                              <h4>FINANCIAL COST</h4>
+                                                              <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                                              Sunt similique totam harum sit. Quibusdam libero, harum rem
+                                                              quam repellendus adipisci. Repellat sapiente asperiores
+                                                              numquam beatae at distinctio quaerat reiciendis
+                                                              repudiandae. -->
                                                           </div>
-                                                          <div class="form-group">
-                                                                  <label for="" class="col-form-label"><b>Contract Award Date :</b></label>
-                                                                  <br>
-                                                                  <input class="form-control" type="text" name="cwd" placeholder="Select your date" />
-                                                              </div>
-                                                      <div class="form-group">
-                                                          <label for="" class="col-form-label"><b>Actual Start Date :</b></label>
-                                                          <br>
-                                                          <input class="form-control" type="text" name="asd" placeholder="Select your date" />
+                                                    <div class="card-block">
+                                                        <div class="row">
+                                                            <div class="col-md-4 offset-md-2">
+                                                                <div class="form-group">
+                                                                    <label for="" class="col-form-label"><b>ADP Allocation of Fiscal Year :</b></label>
+                                                                    <br>
+                                                                    <input type="number" step="0.01" class="form-control" name="ADP_allocation_cost" id="ADP_allocation_cost" />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="" class="col-form-label"><b>Total Allocation by that time (Cumulative):</b></label>
+                                                                    <br>
+                                                                    <input type="text" step="0.01" class="form-control" name="adp_allocation_cost" id="ADP_allocation_cost" />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="" class="col-form-label"><b>Utilization Against Cost Allocation :</b></label>
+                                                                    <br>
+                                                                <input type="text" step="0.01" class="form-control" name="utilization_against_cost_allocation" id="utilization_allocation" />
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4 ">
+                                                                <div class="form-group">
+                                                                    <label for="" class="col-form-label"><b>Release To Date of Fiscal Year :</b></label>
+                                                                    <br>
+                                                                    <input type="text" step="0.01" class="form-control" name="release_to_date" id="release_to_date" />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="" class="col-form-label"><b>Total Releases To Date :</b></label>
+                                                                    <br>
+                                                                    <input type="text" step="0.01" class="form-control" name="total_release_to_date" id="total_release_to_date" />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="" class="col-form-label"><b>Utilization Against Releases :</b></label>
+                                                                    <br>
+                                                                    <input type="text" class="form-control" name="u_against_rel" id="u_against_rel" />
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-10 offset-md-1">
+                                                               <div class="divider"></div>
+                                                               <div class="col-md-4 offset-md-2">
+                                                                  <div class="form-group">
+                                                                    <label for="" class="col-form-label"><b>Technical Sanction Cost:</b></label>
+                                                                    <br>
+                                                                    <input class="form-control" type="text" name="ts_cost" placeholder="TS Cost" />
+                                                                  </div>
+                                                                  <div class="form-group">
+                                                                    <label for="" class="col-form-label"><b>Contract Award Cost :</b></label>
+                                                                    <br>
+                                                                    <input class="form-control" type="text" name="cad_cost"  placeholder="Contract Cost" />
+                                                                  </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pull-right">
+                                                      <button type="submit" class="btn btn-success btn-sm" name="submit">Submit & Proceed</button>
+                                                    </div>
+                                                  </div>
+                                                </form>
+                                                  </div>
+                                                  <div class="tab-pane" id="locationDiv" role="tabpanel">
+                                                    <div class="TimeDiv pd_1 clearfix">
+                                                      <div class="form-group row mb_2">
+                                                          <label class="col-sm-3 font-15">District</label>
+                                                          <div class="col-sm-9">
+                                                            <input type="text" class="form-control" placeholder="District" />
+                                                          </div>
                                                       </div>
-
-
-                                                     </div>
-                                                     <div class="col-md-4 offset-md-2">
-                                                          <div class="form-group">
-                                                              <label for="" class="col-form-label"><b>Technical Sanction Cost:</b></label>
-                                                              <br>
-                                                              <input class="form-control" type="text" name="ts_cost" placeholder="TS Cost" />
+                                                      <div class="form-group row mb_2">
+                                                          <label class="col-sm-3 font-15">City</label>
+                                                          <div class="col-sm-9">
+                                                            <input type="text" class="form-control" placeholder="City" />
                                                           </div>
-                                                          <div class="form-group">
-                                                              <label for="" class="col-form-label"><b>Contract Award Cost :</b></label>
-                                                              <br>
-                                                              <input class="form-control" type="text" name="cad_cost"  placeholder="Contract Cost" />
+                                                      </div>
+                                                      <div class="form-group row mb_2">
+                                                          <label class="col-sm-3 font-15">GPS</label>
+                                                          <div class="col-sm-9">
+                                                            <input type="text" class="form-control" placeholder="GPS" />
                                                           </div>
-
-                                                         </div>
+                                                      </div>
+                                                      <div class="form-group row mb_2">
+                                                          <label class="col-sm-3 font-15">Longitude</label>
+                                                          <div class="col-sm-9">
+                                                            <input type="text" class="form-control" placeholder="Longitude" />
+                                                          </div>
+                                                      </div>
+                                                      <div class="form-group row mb_2">
+                                                          <label class="col-sm-3 font-15">Latitude</label>
+                                                          <div class="col-sm-9">
+                                                            <input type="text" class="form-control" placeholder="Latitude" />
+                                                          </div>
+                                                      </div>
+                                                    </div>
                                                   </div>
-                                            </div>
-                                            <div class="TimeDiv pd_1 clearfix bg_g">
-                                              <h5 class="textlef">Time</h5>
-                                            </div>
-                                            <div class="age_orgDiv pd_1 clearfix bg_sk">
-                                              <h5 class="textlef form-txt-primary mb_2">Agencies & Organization</h5>
-                                              <div class="form-group row mb_2">
-                                                  <label class="col-sm-3 form-txt-primary font-15">Opration & Management</label>
-                                                  <div class="col-sm-9">
-                                                    <input type="text" class="form-control form-txt-primary" placeholder="Opration & Management" />
+                                                  <div class="tab-pane" id="AgeOrgDiv" role="tabpanel">
+                                                    <div class="age_orgDiv pd_1 clearfix">
+                                                      <div class="form-group row mb_2">
+                                                          <label class="col-sm-3 font-15">Operation & Management</label>
+                                                          <div class="col-sm-9">
+                                                            <input type="text" class="form-control" placeholder="Operation & Management" />
+                                                          </div>
+                                                      </div>
+                                                      <div class="form-group row mb_2">
+                                                          <label class="col-sm-3 font-15">Contractor/Supplier</label>
+                                                          <div class="col-sm-9">
+                                                            <input type="text" class="form-control" placeholder="Contractor/Supplier" />
+                                                          </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="tab-pane" id="DatesDiv" role="tabpanel">
+                                                    <div class="dates pd_1 clearfix">
+                                                      <div class="form-group row mb_2">
+                                                          <label class="col-sm-3 font-15">Project Approval Date</label>
+                                                          <div class="col-sm-9">
+                                                            <input type="text" class="form-control" placeholder="Project Approval Date" />
+                                                          </div>
+                                                      </div>
+                                                      <div class="form-group row mb_2">
+                                                          <label class="col-sm-3 font-15">Admin Approval Date</label>
+                                                          <div class="col-sm-9">
+                                                            <input type="text" class="form-control" placeholder="Admin Approval Date" />
+                                                          </div>
+                                                      </div>
+                                                      <div class="form-group row mb_2">
+                                                          <label class="col-sm-3 font-15">Actual Start Date</label>
+                                                          <div class="col-sm-9">
+                                                            <input type="text" class="form-control" placeholder="Actual Start Date" />
+                                                          </div>
+                                                      </div>
+                                                    </div>
                                                   </div>
                                               </div>
-                                              <div class="form-group row mb_2">
-                                                  <label class="col-sm-3 form-txt-primary font-15">Contractor/Supplier</label>
-                                                  <div class="col-sm-9">
-                                                    <input type="text" class="form-control form-txt-primary" placeholder="Contractor/Supplier" />
-                                                  </div>
-                                              </div>
-                                            </div>
-                                            <div class="dates pd_1 clearfix bg_or">
-                                              <h5 class="textlef form-txt-warning mb_2">Dates</h5>
-                                              <div class="form-group row mb_2">
-                                                  <label class="col-sm-3 form-txt-warning font-15">Project Approval Date</label>
-                                                  <div class="col-sm-9">
-                                                    <input type="text" class="form-control form-txt-warning" placeholder="Project Approval Date" />
-                                                  </div>
-                                              </div>
-                                              <div class="form-group row mb_2">
-                                                  <label class="col-sm-3 form-txt-warning font-15">Admin Approval Date</label>
-                                                  <div class="col-sm-9">
-                                                    <input type="text" class="form-control form-txt-warning" placeholder="Admin Approval Date" />
-                                                  </div>
-                                              </div>
-                                              <div class="form-group row mb_2">
-                                                  <label class="col-sm-3 form-txt-warning font-15">Actual Start Date</label>
-                                                  <div class="col-sm-9">
-                                                    <input type="text" class="form-control form-txt-warning" placeholder="Actual Start Date" />
-                                                  </div>
-                                              </div>
-                                            </div>
+                                          </div>
                                         </div>
-                                        <div class="tab-pane " id="p_monitoring" role="tabpanel" style="display:none;">
+                                        <div class="tab-pane " id="p_monitoring" role="tabpanel">
                                             <div class="row">
                                                 <div class="col-lg-12 col-xl-12 col-md-12 col-sm-6">
                                                     <!-- Nav tabs -->
@@ -285,45 +410,98 @@
                                                                 role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Plan A Trip</b></a>
                                                         </li>
                                                     </ul>
-                                                    <div class="tab-content tabs card-block ">
-                                                        <div class="tab-pane active" id="PlanDocDiv" role="tabpanel" aria-expanded="false">
-
+                                                    <div class="tab-content tabs card-block active">
+                                                        <div class="tab-pane active" id="PlanDocDiv" role="tabpanel" aria-expanded="true">
+                                                          <div class="row">
+                                                            <div class="col-md-3">
+                                                              <div class="btn col-md-10 offset-md-1 btn-primary btn-block">
+                                                                <input type="file" id="html_btn" title='Click to add Files' />
+                                                                  <span>Upload PC1</span>
+                                                              </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                              <div class="btn col-md-10 offset-md-1 btn-primary btn-block">
+                                                                <input type="file" id="html_btn" title='Click to add Files' />
+                                                                  <span>Upload PC2</span>
+                                                              </div>
+                                                            </div>
+                                                            <div class="col-md-3 col-sm-12">
+                                                                <div class="btn col-md-10 offset-md-1 btn btn-primary btn-block">
+                                                                  <input type="file" id="html_btn" title='Click to add Files' />
+                                                                    <span>Upload PC3</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                              <div class="btn col-md-10 offset-md-1 btn-primary btn-block">
+                                                                <input type="file" id="html_btn" title='Click to add Files' />
+                                                                  <span>Upload PC4</span>
+                                                              </div>
+                                                            </div>
                                                         </div>
+                                                      </div>
                                                         <div class="tab-pane" id="i-dates" role="tabpanel" aria-expanded="false">
+                                                          <style scopped>
+
+                                                          </style>
                                                             <div class="row">
                                                                 <div class="col-md-6 objtivesNew border_right pd_1_2">
                                                                   <div class="DisInlineflex newClass mb_2 col-md-12">
-                                                                    <label class="col-sm-3 text_center form-txt-primary font-15">Objective 1</label>
+                                                                    <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Objective 1</label>
                                                                     <div class="col-sm-7">
-                                                                      <input type="text" class="form-control form-txt-primary" placeholder="Objective 1">
+                                                                      <input type="text" class="form-control form-txt-primary" name="obj[]" placeholder="Objective 1">
                                                                     </div>
                                                                     <div class="col-sm-2 addbtn text_center">
-                                                                      <button class="btn btn-sm btn-primary" type="button" id="add_more_objective">+</button>
+                                                                      <button class="btn btn-sm btn-info" type="button" id="add_more_objective">+</button>
                                                                     </div>
                                                                   </div>
                                                                 </div>
                                                                 <div class="col-md-6 compActNew border_left pd_1_2">
-                                                                  <div class="DisInlineflex newClasscompAct1 mb_2 col-md-12">
-                                                                    <label class="col-sm-3 text_center form-txt-primary font-15">Component / Activities 1</label>
+                                                                  <div class="DisInlineflex newClasscompAct mb_2 col-md-12">
+                                                                    <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Component 1</label>
                                                                     <div class="col-sm-7">
-                                                                      <input type="text" class="form-control form-txt-primary" placeholder="Component/Activities 1">
+                                                                      <input type="text" name="comp[]" class="form-control form-txt-primary" placeholder="Component 1">
                                                                     </div>
                                                                     <div class="col-sm-2 addbtn text_center">
-                                                                      <button class="btn btn-sm btn-primary" type="button" id="add_more_compAct">+</button>
+                                                                      <button class="btn btn-sm btn-info" type="button" id="add_more_compAct">+</button>
                                                                     </div>
                                                                   </div>
                                                                 </div>
+                                                                <button class="btn aho col-md-2 offset-md-10" type="button" id="saveObjComp">Save</button>
                                                             </div>
+                                                          {{-- <div class="col-md-12 objtivesNew pd_1_2">
+                                                            <div class="DisInlineflex newClass mb_2 col-md-12">
+                                                              <div class="col-sm-5">
+                                                                <input type="text" class="form-control form-txt-primary" placeholder="Objective 1">
+                                                              </div>
+                                                              <div class="col-md-1">
+                                                                <div class="col-md-5 border_right fullHeight"></div>
+                                                              </div>
+                                                              <div class="col-md-6 compActNew">
+                                                                <div class="newClasscompAct col-md-12 row">
+                                                                  <div class="col-sm-10">
+                                                                    <input type="text" class="form-control form-txt-primary" placeholder="Component 1">
+                                                                  </div>
+                                                                  <div class="col-sm-2 addbtn text_center">
+                                                                    <button class="btn btn-sm btn-primary " title="Add More Component" type="button" id="add_more_compAct">+</button>
+                                                                  </div>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                          <div class="container">
+                                                            <div class="offset-md-11 col-md-1 addbtn text_center">
+                                                              <button class="btn btn-sm btn-primary" title="Add More Objectves" type="button" id="add_more_objective">+</button>
+                                                            </div>
+                                                          </div> --}}
                                                         </div>
-
                                                         <div class="tab-pane" id="financial" role="tabpanel" aria-expanded="false">
                                                             <div>
+                                                                <h5 style="padding-top:20px;padding-bottom:10px;clear:both;">Original PC-I</h5>
                                                                 <div class="row">
-                                                                    <h5 class="col-md-4">Gestation Period: <b><span id="t_months">49</span> months</b></h5>
-                                                                    <h5 class="col-md-4">Total Cost: <b><span id="t_cost">467</span> Million(s)</b></h5>
-                                                                    <h5 class="col-md-4">Start Date: <b id="f_date">19 January 2011</b></h5>
+                                                                    <h5 class="col-md-4">Gestation Period: <b><span id="t_months"></span> months</b></h5>
+                                                                    <h5 class="col-md-4">Total Cost: <b><span id="t_cost"></span> Million(s)</b></h5>
+                                                                    <h5 class="col-md-4">Start Date: <b id="f_date"></b></h5>
                                                                 </div>
-                                                                <h5 style="padding-top:20px;padding-bottom:10px;clear:both;">Original Cost</h5>
                                                                 <div class="table-responsive">
                                                                     <table class="table  table-bordered nowrap"  id="countit">
                                                                         <thead>
@@ -332,7 +510,6 @@
                                                                                 <th>Financial Year</th>
                                                                                 <th>Duration</th>
                                                                                 <th>Cost</th>
-                                                                                {{-- <th></th> --}}
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody id='original_tbody'>
@@ -340,98 +517,44 @@
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
-                                                            </div>
-                                                            <div class='row' style="margin-bottom:20px">
-                                                                <div class="col-md-8 fazuldiv"></div>
-                                                                <div class="col-md-5 offset-md-3 alert alert-danger dangercustom">Original Cost does not match. Difference: <span id="od_cost">0</span> Million(s)</div>
-                                                                <h5 class="col-md-4 float-right" >Total Cost: <b>
-                                                                    <span id="ot_cost">0</span> Million(s)</b>
-                                                                </h5>
-                                                            </div>
-                                                            <div style='padding-top:20px'>
-                                                                <div class="row">
-                                                                    <h5 class="col-md-4">Revised Period: <b><span id="rt_months">59</span> months</b></h5>
-                                                                    <h5 class="col-md-4">Revised Cost: <b><span id="rt_cost">550</span> Million(s)</b></h5>
-                                                                    <h5 class="col-md-4">Start Date: <b id="rf_date">19 January 2011</b></h5>
-                                                                </div>
-                                                                <h5 style="padding-top:20px;padding-bottom:10px;clear:both;">Revised Cost</h5>
-                                                                <div class="table-responsive">
-                                                                    <table class="table table-bordered nowrap">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>Sr #</th>
-                                                                                <th>Financial Year</th>
-                                                                                <th>Duration</th>
-                                                                                <th>Cost</th>
-                                                                                {{-- <th></th> --}}
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody id='revised_tbody'>
-
-                                                                        </tbody>
-                                                                    </table>
+                                                                <div class='row' style="margin-bottom:20px">
+                                                                    <div class="col-md-8 fazuldiv"></div>
+                                                                    <div class="col-md-5 offset-md-3 alert alert-danger dangercustom">Cost does not match. Difference: <span id="od_cost">0</span> Million(s)</div>
+                                                                    <h5 class="col-md-4 float-right" >Total Cost: <b>
+                                                                        <span id="ot_cost">0</span> Million(s)</b>
+                                                                    </h5>
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                         <div class="tab-pane" id="MOBdiv" role="tabpanel" aria-expanded="false">
-                                                          <div class="row col-md-12">
-                                                            <div class="col-md-8 offset-md-2 border">
-                                                              <h5 class="textlef pd_1_2">Objectives</h5>
-                                                              <ul class="pd_1_6">
-                                                                <li class="row mb_2">
-                                                                  <span class="float-left col-md-6">objective 1</span>
-                                                                  <span class="float-right col-md-6">
-                                                                    <select class="js-example-basic-multiple col-sm-12" multiple="multiple">
-                                                                        {{-- <option value="" selected hidden>Select Multiple Components</option> --}}
-                                                                        <option value="AL">option 1</option>
-                                                                        <option value="WY">option 2</option>
-                                                                        <option value="WY">option 3</option>
-                                                                        <option value="WY">option 4</option>
-                                                                        <option value="WY">option 5</option>
-                                                                    </select>
-                                                                  </span>
-                                                                </li>
-                                                                <li class="row mb_2">
-                                                                  <span class="float-left col-md-6">objective 2</span>
-                                                                  <span class="float-right col-md-6">
-                                                                    <select class="js-example-basic-multiple col-sm-12" multiple="multiple">
-                                                                        {{-- <option value="" selected hidden>Select Multiple Components</option> --}}
-                                                                        <option value="AL">option 1</option>
-                                                                        <option value="WY">option 2</option>
-                                                                        <option value="WY">option 3</option>
-                                                                        <option value="WY">option 4</option>
-                                                                        <option value="WY">option 5</option>
-                                                                    </select>
-                                                                  </span>
-                                                                </li>
+                                                          <div class="row col-md-12 border">
+                                                            <div class="col-md-8 offset-md-2 ">
+                                                              <div class="row">
+                                                                <h5 class="textlef pd_1_2 col-md-6">Objectives</h5>
+                                                                <h5 class="textlef pd_1_2 col-md-6">Component</h5>
+                                                              </div>
+                                                              <ul class="pd_1_6" id="ObjCompHere">
+
                                                               </ul>
-                                                              <h5 class="textlef pd_1_2">Summary</h5>
-                                                              <p class="clearfix pd_1_6">
-                                                                <span class="float-left col-md-6">objective 1</span>
-                                                                <span class="float-right col-md-6">
-                                                                  comp 1<br/>comp 2
-                                                                </span>
-                                                              </p>
-                                                              <p class="clearfix pd_1_6">
-                                                                <span class="float-left col-md-6">objective 1</span>
-                                                                <span class="float-right col-md-6">
-                                                                  comp 1<br/>comp 2
-                                                                </span>
-                                                              </p>
+                                                              <button class="btn aho col-md-3 offset-md-9 mb_2" type="button" id="ObjCompShowSum">Show Summary</button>
+                                                            </div>
+                                                            <div class=" col-md-8 offset-md-2 ">
+                                                              <h5 class="textlef pd_1_6">Summary</h5>
+                                                              <div class="col-md-12 SumObjComp nodisplay">
+                                                                <div class="float-left col-md-6"><h3>Objectives</h3></div>
+                                                                <div class="float-right col-md-6"><h3>Component</h3></div>                                                             </div>
                                                             </div>
                                                           </div>
                                                         </div>
-
                                                         <div class="tab-pane active" id="kpis" role="tabpanel" aria-expanded="false" style="display:none;">
                                                             <div class="card m-0 z-depth-right-0">
                                                                 <div class="card-header">
                                                                     <h4>KPI(s)</h4>
-                                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                                                    <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit.
                                                                     Sunt similique totam harum sit. Quibusdam libero, harum rem
                                                                     quam repellendus adipisci. Repellat sapiente asperiores
                                                                     numquam beatae at distinctio quaerat reiciendis
-                                                                    repudiandae.
+                                                                    repudiandae. -->
                                                                 </div>
                                                                 <div class="card-block">
                                                                     {{-- <div class="row form-group" style="height: 100px;">
@@ -445,25 +568,17 @@
                                                                         {{-- <div class="col-md-2 offset-md-1"><label for="">KPI(s):</label></div>
                                                                         --}}
                                                                         <div class="col-md-5">
-                                                                            <h5 class="mb_2">Choose KPIS(s)</h4>
+                                                                            <h5 class="mb_2">Choose KPI(s)</h4>
                                                                             <select id='custom-headers' class="searchable"
                                                                                 multiple='multiple'>
-                                                                                <option value='kpi_1'>kpi 1</option>
-                                                                                <option value='kpi_2'>kpi 2</option>
-                                                                                <option value='kpi_3'>kpi 3</option>
-                                                                                <option value='kpi_4'>kpi 4</option>
-                                                                                <option value='kpi_5'>kpi 5</option>
-                                                                                <option value='kpi_6'>kpi 6</option>
-                                                                                <option value='kpi_7'>kpi 7</option>
-                                                                                <option value='kpi_8'>kpi 8</option>
-                                                                                <option value='kpi_9'>kpi 9</option>
-                                                                                <option value='kpi_10'>kpi 10</option>
-                                                                                <option value='kpi_11'>kpi 11</option>
-                                                                                <option value='kpi_12'>kpi 12</option>
-                                                                                <option value='kpi_13'>kpi 13</option>
-                                                                                <option value='kpi_14'>kpi 14</option>
-                                                                                <option value='kpi_15'>kpi 15</option>
-                                                                                <option value='kpi_16'>kpi 16</option>
+                                                                                <option value='kpi_1'>Remaining Cost</option>
+                                                                                <option value='kpi_2'>Number of unresolved issues</option>
+                                                                                <option value='kpi_3'>Project Schedule.(delays and variance)</option>
+                                                                                <option value='kpi_4'>Quality</option>
+                                                                                <option value='kpi_5'>Scope Changes</option>
+                                                                                <option value='kpi_6'>Cost (Cost Over Sum)</option>
+                                                                                <option value='kpi_7'>Client Satisfaction</option>
+                                                                                <option value='kpi_8'>Procurement</option>
                                                                             </select>
                                                                         </div>
                                                                         <div class="row col-md-1">
@@ -485,11 +600,11 @@
                                                                                 <li class="col-md-12">
                                                                                   <select class="js-example-basic-multiple col-sm-12" multiple="multiple">
                                                                                       {{-- <option value="" selected hidden>Select Multiple Components</option> --}}
-                                                                                      <option value="AL">option 1</option>
-                                                                                      <option value="WY">option 2</option>
-                                                                                      <option value="WY">option 3</option>
-                                                                                      <option value="WY">option 4</option>
-                                                                                      <option value="WY">option 5</option>
+                                                                                      <option value="AL">Component 1</option>
+                                                                                      <option value="WY">Component 2</option>
+                                                                                      <option value="WY">Component 3</option>
+                                                                                      <option value="WY">Component 4</option>
+                                                                                      <option value="WY">Component 5</option>
                                                                                   </select>
                                                                                 </li>
                                                                                 <li class="col-md-12">
@@ -521,14 +636,14 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                         <div class="tab-pane " id="activities" role="tabpanel" aria-expanded="false"
                                                             style="display:none;">
                                                             <div class="card">
                                                                 <div class="card-header"></div>
                                                                 <div class="card-block">
+
                                                                     <div class="row form-group">
-                                                                        <div class="col-md-10 offset-md-1 planMactivities paddtopbottom1per">
+                                                                        <div class="col-md-10 offset-md-1 planMactivities">
                                                                             <div class="row form-group">
                                                                             <div class="col-md-4 offset-md-1"><label for=""> <b>Component 1</b></label></div>
                                                                             {{-- <div class="col-md-4 offset-md-1"> <input type="text" class="form-control"></div> --}}
@@ -536,6 +651,8 @@
                                                                               <button class="btn btn-sm btn-warning float-right" type="button" id="add_activity" name="add_activity"> Add Tasks</button>
                                                                             </div>
                                                                             </div>
+
+
                                                                          </div>
                                                                     </div>
                                                                 </div>
@@ -557,24 +674,18 @@
                                                                           <b class="col-md-12">
                                                                             Component 1
                                                                           </b>
-                                                                          <b class="col-md-6">
+                                                                          <b class="col-md-6 mb_2">
                                                                             Task 1
                                                                           </b>
-                                                                          <p class="col-md-6">
-                                                                            time duration
-                                                                          </p>
-                                                                          <b class="col-md-6">
+                                                                            <input type="text" class="form-control col-md-6 form-txt mb_2" placeholder="Time Duration" />
+                                                                          <b class="col-md-6 mb_2">
                                                                             Task 2
                                                                           </b>
-                                                                          <p class="col-md-6">
-                                                                            time duration
-                                                                          </p>
-                                                                          <b class="col-md-6">
+                                                                            <input type="text" class="form-control col-md-6 form-txt mb_2" placeholder="Time Duration" />
+                                                                          <b class="col-md-6 mb_2">
                                                                             Task 3
                                                                           </b>
-                                                                          <p class="col-md-6">
-                                                                            time duration
-                                                                          </p>
+                                                                            <input type="text" class="form-control col-md-6 form-txt mb_2" placeholder="Time Duration" />
                                                                           {{-- <p class="col-md-6">
                                                                             task 1<br/>
                                                                             task 2<br/>
@@ -626,20 +737,6 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="tab-pane " id="Objectives" role="tabpanel" aria-expanded="false"
-                                                            style="display:none;">
-                                                            <div class="card">
-                                                                <div class="card-header"></div>
-
-                                                            </div>
-                                                        </div>
-                                                        <div class="tab-pane " id="PAT" role="tabpanel" aria-expanded="false"
-                                                            style="display:none;">
-                                                            <div class="card">
-                                                                <div class="card-header"></div>
-
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -650,7 +747,7 @@
                                                     <!-- Nav tabs -->
                                                     <ul class="nav nav-tabs tabs" role="tablist">
                                                         <li class="nav-item">
-                                                            <a class="nav-link active financial" data-toggle="tab" href="#financialDiv"
+                                                            <a class="nav-link active financial" data-toggle="tab" href="#financial"
                                                                 role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Financial</b></a>
                                                         </li>
 
@@ -680,13 +777,11 @@
                                                             <a class="nav-link procurement" data-toggle="tab" href="#procurement"
                                                                 role="tab" aria-expanded="true"><b style="font-size:14px; font-weight:bold;">Procurement</b></a>
                                                         </li>
-
                                                         <li class="nav-item">
                                                             <a class="nav-link gllery" data-toggle="tab" href="#Gallery"
                                                                 role="tab" aria-expanded="false">
                                                                 <b style="font-size:14px; font-weight:bold;">Photos&Videos</b></a>
                                                         </li>
-
                                                         <li class="nav-item">
                                                             <a class="nav-link Documents" data-toggle="tab" href="#Documents"
                                                                 role="tab" aria-expanded="false">
@@ -700,11 +795,11 @@
                                                             <div class="card m-0 z-depth-right-0">
                                                                 <div class="card-header">
                                                                     <h4>FINANCIAL COST</h4>
-                                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                                                    <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit.
                                                                     Sunt similique totam harum sit. Quibusdam libero, harum rem
                                                                     quam repellendus adipisci. Repellat sapiente asperiores
                                                                     numquam beatae at distinctio quaerat reiciendis
-                                                                    repudiandae.
+                                                                    repudiandae. -->
                                                                 </div>
                                                                 <div class="card-block">
                                                                     <div class="row">
@@ -712,7 +807,7 @@
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>ADP Allocation of Fiscal Year :</b></label>
                                                                                 <br>
-                                                                                <input type="text" class="form-control" name="ADP_allocation_cost" id="ADP_allocation_cost" />
+                                                                                <input type="text" class="form-control" name="adp_allocation_cost" id="ADP_allocation_cost" />
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>Total Allocation by that time (Cumulative):</b></label>
@@ -735,7 +830,7 @@
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>Total Releases To Date :</b></label>
                                                                                 <br>
-                                                                                <input type="text" class="form-control" name="total_release_to_date" id="total_release_to_date" />
+                                                                                <input type="date" class="form-control" name="total_release_to_date" id="total_release_to_date" />
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-form-label"><b>Utilization Against Releases :</b></label>
@@ -748,42 +843,21 @@
                                                                     <div class="row">
                                                                         <div class="col-md-10 offset-md-1">
                                                                                <div class="divider"></div>
+                                                                               <div class="col-md-4 offset-md-2">
+                                                                                    <div class="form-group">
+                                                                                        <label for="" class="col-form-label"><b>Technical Sanction Cost:</b></label>
+                                                                                        <br>
+                                                                                        <input class="form-control" type="text" name="ts_cost" placeholder="TS Cost" />
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label for="" class="col-form-label"><b>Contract Award Cost :</b></label>
+                                                                                        <br>
+                                                                                        <input class="form-control" type="text" name="cad_cost"  placeholder="Contract Cost" />
+                                                                                    </div>
+
+                                                                                </div>
                                                                         </div>
                                                                     </div>
-                                                                    {{-- <div class="row">
-                                                                      <div class="col-md-4 offset-md-1">
-                                                                            <div class="form-group">
-                                                                                <label for="" class="col-form-label"><b>Technical Sanction :</b></label>
-                                                                                <br>
-                                                                                <input class="form-control" type="text" name="ts"  placeholder="Select your date" />
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                    <label for="" class="col-form-label"><b>Contract Award Date :</b></label>
-                                                                                    <br>
-                                                                                    <input class="form-control" type="text" name="cwd" placeholder="Select your date" />
-                                                                                </div>
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-form-label"><b>Actual Start Date :</b></label>
-                                                                            <br>
-                                                                            <input class="form-control" type="text" name="asd" placeholder="Select your date" />
-                                                                        </div>
-
-
-                                                                       </div>
-                                                                       <div class="col-md-4 offset-md-2">
-                                                                            <div class="form-group">
-                                                                                <label for="" class="col-form-label"><b>Technical Sanction Cost:</b></label>
-                                                                                <br>
-                                                                                <input class="form-control" type="text" name="ts_cost" placeholder="TS Cost" />
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label for="" class="col-form-label"><b>Contract Award Cost :</b></label>
-                                                                                <br>
-                                                                                <input class="form-control" type="text" name="cad_cost"  placeholder="Contract Cost" />
-                                                                            </div>
-
-                                                                           </div>
-                                                                    </div> --}}
 
                                                                 </div>
                                                                 <div class="card-footer">
@@ -798,7 +872,7 @@
                                                             <div class="card z-depth-right-0">
                                                                 <div class="card-header">
                                                                     <h4>Quality Assesment</h4>
-                                                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore neque, repellendus, nihil, ullam eligendi facilis dicta possimus magnam voluptatem dolores quasi provident quisquam voluptas cum distinctio! Numquam debitis est neque?
+                                                                    <!-- Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore neque, repellendus, nihil, ullam eligendi facilis dicta possimus magnam voluptatem dolores quasi provident quisquam voluptas cum distinctio! Numquam debitis est neque? -->
                                                                 </div>
                                                                 <div class="card-block">
                                                                   {{-- <div class="row">
@@ -915,15 +989,15 @@
                                                                     <div class="form-group row">
                                                                         <div class="col-md-12">
                                                                             <p class="block form-control">
-                                                                                Lorem ipsum dolor sit amet consectetur
-                                                                                adipisicing elit. Dicta, eligendi!
+                                                                                <!-- Lorem ipsum dolor sit amet consectetur
+                                                                                adipisicing elit. Dicta, eligendi! -->
                                                                             </p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="tab-pane active" id="stakeholder" role="tabp0anel"
+                                                        <div class="tab-pane active" id="stakeholder" role="tabpanel"
                                                             aria-expanded="true">
                                                             {{-- <p class="m-0">4.Cras consequat in enim ut efficitur. Nulla
                                                                 posuere elit quis auctor interdum praesent sit amet nulla vel
@@ -932,16 +1006,16 @@
                                                             <div class="card z-depth-right-0">
                                                                 <div class="card-header">
                                                                     <h4>Stakeholders</h4>
-                                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                                                    <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit.
                                                                     Sunt similique totam harum sit. Quibusdam libero, harum rem
                                                                     quam repellendus adipisci. Repellat sapiente asperiores
                                                                     numquam beatae at distinctio quaerat reiciendis
-                                                                    repudiandae.
+                                                                    repudiandae. -->
                                                                 </div>
                                                                 <div class="card-block">
                                                                     <div class="col-md-12">
                                                                         <div class="table-responsive">
-                                                                            <table class="table  table-bordered nowrap" id="table-1">
+                                                                            <table class="table  table-bordered nowrap">
                                                                                 <thead>
                                                                                     <tr>
                                                                                         <th>Sr #</th>
@@ -950,7 +1024,7 @@
                                                                                         <th>Designation</th>
                                                                                         <th>Email </th>
                                                                                         <th>Contact #</th>
-                                                                                        <th id="action">Action</th>
+                                                                                        <th></th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody id="stakeholders">
@@ -960,7 +1034,7 @@
                                                                                         </td>
                                                                                         <td>
                                                                                             <div class="col-md-12">
-                                                                                                <select id="districts" name="stakeholder" class="form-control select2" data-placeholder="" style="width: 100%;">
+                                                                                                <select id="districts" name="stakeholder" class="form-control form-control-primary select2" data-placeholder="" style="width: 100%;">
                                                                                                     <option value="" hidden='hidden'>Select</option>
                                                                                                     <option value="">some option</option>
                                                                                                     <option value="">to choose</option>
@@ -970,21 +1044,20 @@
                                                                                         </td>
                                                                                         <td><input type="text" name="stakeholder_name"
                                                                                                 class="form-control" /></td>
-                                                                                        <td><input type="text" name="stakeholder_designation"
-                                                                                                class="form-control" /> </td>
-                                                                                        <td><input type="text" name="stakeholder_mil"
-                                                                                                class="form-control" />
-                                                                                          </td>
+                                                                                                <td><input type="text" name="stakeholder_designation"
+                                                                                                    class="form-control" /> </td>
                                                                                         <td><input type="text" name="stakeholder_number"
+                                                                                                class="form-control" /></td>
+                                                                                        <td><input type="text" name="stakeholder_email"
                                                                                                 class="form-control" /></td>
                                                                                         <td><button type="button" name="add[]"
                                                                                                 class=" form-control btn btn-success "
-                                                                                                id="add-more" style="size:14px;">+</button></td>
+                                                                                                id="addmore" style="size:14px;">+</button></td>
                                                                                     </tr>
                                                                                 </tbody>
+
                                                                             </table>
-                                                                            <table id="header-fixed"></table>
-                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1068,7 +1141,7 @@
                                                                       <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span class="persontagetiQ" style="color:#fff !important;padding:0px !important;margin:0px !important;">25%</span></div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="card-block hidden-sm hidden-xs">
+                                                                <div class="card-block">
                                                                     <div class="col-md-12">
                                                                         <div class="dt-responsive table-responsive">
                                                                             <style scoped media="screen">
@@ -1120,7 +1193,6 @@
                                                                                             Rating
                                                                                         </th>
                                                                                     </tr>
-
                                                                                 </thead>
                                                                                 <tbody id="riskmatrix">
                                                                                     <tr>
@@ -1339,17 +1411,12 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
-
-
                                                     <div class="col-md-1 col-sm-1">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <div class="col-md-1 col-sm-1">
                                                     </div>
-
-
                                                     <div class="col-md-4 col-sm-2">
                                                         <div class="card summary-card bg-new">
                                                             <div class="card-header"></div>
@@ -1415,7 +1482,6 @@
                         </div>
                         <!-- Form Basic Wizard card end -->
                     </div>
-                </form>
             </div>
             <div class="col-xl-3 col-lg-12 nodisplay p_details" style="padding-left: 15px !important;  padding-right: 15px !important;">
                 <div class="card">
@@ -1555,21 +1621,28 @@
     </div>
   </li>
 </script>
-
-<!-- Debug item template -->
-<script type="text/html" id="debug-template">
-  <li class="list-group-item text-%%color%%"><strong>%%date%%</strong>: %%message%%</li>
-</script>
-<script type="text/javascript">
-$('.new_Btn').bind("click" , function () {
-      $('#html_btn').click();
-  });
-</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
 <script>
 $(document).ready(function(){
+  $('form').on('submit',function(e){
+    e.preventDefault();
+    // var formdata= new FormData($(this).serialize());
+    // console.log(formdata);
+    //   for (var value of formdata.values()) {
+    //     console.log(value);
+    //   }
+    //   console.log(formdata);
+    axios.post($(this).attr('action'),{data:$(this).serialize()})
+    .then(function (response) {
+        console.log(response.data);
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+    // console.log($('.review').serialize());
+  });
 $(window).scroll(function(){
   var scroll = $(window).scrollTop();
-  console.log('hassan');
   if (scroll > 380)
   {
     $("#table-1 > thead").css({ "position": "fixed", "margin-top": "-26.1%", "background": "#fff", "z-index": "999"});
