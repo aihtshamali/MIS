@@ -80,7 +80,7 @@ class SiteVisitController extends Controller
         
         // dd($request->all());
 
-        $tripRequest = new PlantripTriprequest();
+                 $tripRequest = new PlantripTriprequest();
                 $tripRequest->user_id=Auth::id();
                 $tripRequest->plantrip_triptype_id=$request->triptype_id;
                 $tripRequest->status='1';
@@ -88,8 +88,31 @@ class SiteVisitController extends Controller
                 $tripRequest->save();
                 $tripRequest_id=$tripRequest->id; 
 
+                if($request->citytype=='2')
+                {
+                    if(isset($request->outstation_multicitylocationto))
+                    $citycount=count($request->outstation_multicitylocationto);
+                    for($number=0 ;$number<$citycount; $number++)
+                    {
+                    $tripRequestedCities= new PlantripRequestedcity();
+                    $tripRequestedCities->plantrip_triprequest_id=$tripRequest_id;
+                    $tripRequestedCities->requestedCity_id=$request->outstation_multicitylocationto[$number];
+                    $tripRequestedCities->save();    
+                    }
+                }
+
             if($request->triptype_id=='1')
-            {   
+            {    
+                $tripRequest=PlantripTriprequest::where('id',$tripRequest_id)->first();
+                if(isset($request->local_date) && $request->local_date!=null)                            
+                $tripRequest->fullDateoftrip=$request->local_date;
+                $tripRequest->save();
+
+                $tripRequestedCities= new PlantripRequestedcity();
+                $tripRequestedCities->plantrip_triprequest_id=$tripRequest_id;
+                $tripRequestedCities->requestedCity_id=$request->local_location;
+                $tripRequestedCities->save();
+
                 $i; $number=1;
                 for($i=0 ; $i<$request->purposecount; $i++ )
                    {
@@ -149,8 +172,12 @@ class SiteVisitController extends Controller
                            
                             if(isset($request->daterange[$i]) && $request->daterange[$i]!=null)
                             $tripRequest->fullDateoftrip=$request->daterange;
-                           
                             $tripRequest->save();
+
+                            $tripRequestedCities= new PlantripRequestedcity();
+                            $tripRequestedCities->plantrip_triprequest_id=$tripRequest_id;
+                            $tripRequestedCities->requestedCity_id=$request->outstation_roundtriplocationto;
+                            $tripRequestedCities->save();
 
                             $tripRequest_purpose= new PlantripPurpose(); 
                             $tripRequest_purpose->plantrip_triprequest_id=$tripRequest_id;
@@ -211,29 +238,14 @@ class SiteVisitController extends Controller
                         }
                         elseif($request->citytype=='2')
                         { 
-                            if(isset($request->outstation_multicitylocationto))
-                             $citycount=count($request->outstation_multicitylocationto);
+                           
 
                             $tripRequest=PlantripTriprequest::where('id',$tripRequest_id)->first();
 
                             if(isset($request->outstation_multicitydate[$i]) && $request->outstation_multicitydate[$i]!=null)                            
                             $tripRequest->fullDateoftrip=$request->outstation_multicitydate;
                             $tripRequest->save();
-                            // $cities='';
-                            // for($number=0 ;$number<$citycount; $number++)
-                            // {
-                            //     $cities+=$request->outstation_multicitylocationto[$number] .'-';
-                            // }
-                            // $tripRequest->requestedCities=$cities;
-                            
-                            $tripRequestedCities= new PlantripRequestedcity();
-                            for($number=0 ;$number<$citycount; $number++)
-                            {
-                            $tripRequestedCities->plantrip_triprequest_id=$tripRequest_id;
-                            $tripRequestedCities->requestedCity_id=$request->outstation_multicitylocationto[$number];
-                            }
-                            $tripRequestedCities->save();
-
+                     
                             $tripRequest_purpose= new PlantripPurpose();
                             $tripRequest_purpose->plantrip_triprequest_id=$tripRequest_id;
 
@@ -262,7 +274,18 @@ class SiteVisitController extends Controller
                             $tripRequest_location->plantrip_purpose_id=$tripRequest_purpose->id;
 
                             if(isset($request->outstation_multicitylocationfrom) && $request->outstation_multicitylocationfrom!=null)                            
-                            $tripRequest_location->plantrip_city_from=$request->outstation_multicitylocationfrom; 
+                                {
+                                    if($i==0)
+                                    {
+                                        $tripRequest_location->plantrip_city_from=$request->outstation_multicitylocationfrom; 
+                                        
+                                    }
+                                    else
+                                    {
+                                        if(isset($request->multicity_location[$i-1]) && $request->multicity_location[$i-1]!=null) 
+                                        $tripRequest_location->plantrip_city_from=$request->multicity_location[$i-1];
+                                    }
+                                }
 
                             if(isset($request->multicity_location[$i]) && $request->multicity_location[$i]!=null)                            
                             $tripRequest_location->plantrip_city_to=$request->multicity_location[$i];

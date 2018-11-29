@@ -13,13 +13,13 @@ class AddPurposeidToTriplocations extends Migration
      */
     public function up()
     {
-        Schema::table('plantrip_triplocations', function (Blueprint $table) {
+        // Schema::table('plantrip_triplocations', function (Blueprint $table) {
          
-            $table->integer('plantrip_purpose_id')->unsigned()->index()->nullable();
-            $table->foreign('plantrip_purpose_id')->references('id')->on('plantrip_purposes')->onDelete('no action');
+        //     $table->integer('plantrip_purpose_id')->unsigned()->index()->nullable();
+        //     $table->foreign('plantrip_purpose_id')->references('id')->on('plantrip_purposes')->onDelete('no action');
            
        
-        });
+        // });
     }
 
     /**

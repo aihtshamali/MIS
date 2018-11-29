@@ -16,6 +16,6 @@ class PlantripTriprequest extends Model
         return $this->belongsTo('App\PlantripPurposes');
     }
     public function PlantripRequestedcity(){
-        return $this->hasMany('App\PlantripRequestedcity');
+        return $this->hasOne('App\PlantripRequestedcity');
     }
 }
