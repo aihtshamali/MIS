@@ -13,13 +13,13 @@ class AddDaterange extends Migration
      */
     public function up()
     {
-        Schema::table('plantrip_triprequests', function (Blueprint $table) {
+        // Schema::table('plantrip_triprequests', function (Blueprint $table) {
          
-            $table->string('fullDateoftrip')->nullable();
+        //     // $table->string('fullDateoftrip')->nullable();
          
            
        
-        });
+        // });
     }
 
     /**

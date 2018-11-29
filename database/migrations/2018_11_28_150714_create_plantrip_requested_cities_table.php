@@ -17,6 +17,7 @@ class CreatePlantripRequestedcitiesTable extends Migration
             $table->increments('id');
             $table->integer('plantrip_triprequest_id')->unsigned()->index()->nullable();
             $table->foreign('plantrip_triprequest_id')->references('id')->on('plantrip_triprequests')->onDelete('cascade');
+           
             $table->integer('requestedCity_id')->unsigned()->index()->nullable();
             $table->foreign('requestedCity_id')->references('id')->on('plantrip_cities')->onDelete('no action');  
             
