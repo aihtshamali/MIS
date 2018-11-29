@@ -468,7 +468,7 @@
                                                                     </div>
                                                                   </div>
                                                                 </div>
-                                                                <button class="btn aho col-md-2 offset-md-10" type="button" id="saveObjComp">Save & Next</button>
+                                                                <button class="btn aho col-md-2 offset-md-10" type="button" id="saveObjComp">Save & Proceed</button>
                                                             </div>
                                                           {{-- <div class="col-md-12 objtivesNew pd_1_2">
                                                             <div class="DisInlineflex newClass mb_2 col-md-12">
@@ -621,7 +621,7 @@ c                                                                           </ul
                                                                 </div>
                                                                 <div class="card-footer">
                                                                         <div class="col-md-3 offset-md-9">
-                                                                            <a class="btn btn-primary btn-md saveNnextbtn" id="saveTasks">Save & Next</a>
+                                                                            <a class="btn btn-primary btn-md saveNnextbtn" id="saveTasks">Save & Proceed</a>
                                                                         </div>
                                                                 </div>
                                                             </div>
@@ -641,7 +641,7 @@ c                                                                           </ul
                                                                 </div>
                                                                 <div class="card-footer">
                                                                         <div class="col-md-3 offset-md-9">
-                                                                            <a class="btn btn-success btn-md saveNnextbtn" >Save & Proceed</a>
+                                                                            <a class="btn btn-primary btn-md saveNnextbtn" >Save & Proceed</a>
                                                                         </div>
                                                                 </div>
                                                             </div>
@@ -668,7 +668,7 @@ c                                                                           </ul
                                                                 </div>
                                                                 <div class="card-footer">
                                                                         <div class="col-md-3 offset-md-9">
-                                                                            <a class="btn btn-success btn-md saveNnextbtn" >Save & Proceed</a>
+                                                                            <a class="btn btn-primary btn-md saveNnextbtn" >Save & Proceed</a>
                                                                         </div>
                                                                 </div>
                                                             </div>

@@ -1,5 +1,6 @@
 "use strict";
 var oc = 1;
+var compopt = ""
 $(document).ready(function () {
     $('[data-toggle="popover"]').popover();
 
@@ -27,17 +28,12 @@ $(document).ready(function () {
             $(`<li id='`+ $(this).text().replace(/\s+/g,'_').replace('(','').replace(')','') +`' class="col-md-12 row"><div class='col-md-6'>
                 `+ $(this).text() + `</div>
                 <div class="col-md-6">
-                    <select class="kpisel col-sm-12" multiple="multiple">
-                        <option value="AL">Component 1</option>
-                        <option value="WY">Component 2</option>
-                        <option value="WY">Component 3</option>
-                        <option value="WY">Component 4</option>
-                        <option value="WY">Component 5</option>
+                    <select class="kpisel col-sm-12" multiple="multiple" id="optionsHere">
+                    `+ compopt +`  
                     </select>
                 </div>
                 </li>`).appendTo('#addkpi')
-            console.log($('#addkpi').find());
-
+            // console.log($('#addkpi').find());
             $('.kpisel').select2()
         }
     })
@@ -634,13 +630,12 @@ $('#saveObjComp').click(function () {
 
     $('input[name^=obj]').each(function () {
         var ObjCompHere = `<li class="row mb_2">
-                                <span id='objvalue`+ oc + `' class="float-left col-md-6"></span>
-                                <span class="float-right col-md-6">
-                                <select class="select2 col-md-12" id="option`+ oc + `" multiple="multiple">
-
-                                </select>
-                                </span>
-                              </li>`
+                            <span id='objvalue`+ oc + `' class="float-left col-md-6"></span>
+                            <span class="float-right col-md-6">
+                            <select class="select2 col-md-12" id="option`+ oc + `" multiple="multiple">
+                            </select>
+                            </span>
+                          </li>`
         var options = ""
         // $(ObjCompHere)
         // var obj = [];
@@ -648,6 +643,7 @@ $('#saveObjComp').click(function () {
             // obj.push($(this).val());
             options += "<option value='" + $(this).val() + "'>" + $(this).val() + "</option>"
         });
+        compopt = options
         // console.log(options,'here');
         // $('input[name^=obj]').each(function(){
         var t = $(ObjCompHere)
