@@ -15,16 +15,16 @@ $(document).ready(function () {
     $('.optiontest').on('click', function () {
         var t = $(this).text();
         var b = true;
-        $('.yesearch').val().forEach(e=>{
+        $('.yesearch').val().forEach(e => {
             if(e == t)
             {
                 b = false;
-                $('#addkpi').find('#'+t.replace(' ','_')).remove()
+                $('#addkpi').find('#'+t.replace(/\s+/g,'_').replace('(','').replace(')','')).remove()
             }
         })
         if(b)
         {
-            $(`<li id='`+ $(this).text().replace(' ','_') +`' class="col-md-12 row"><div class='col-md-6'>
+            $(`<li id='`+ $(this).text().replace(/\s+/g,'_').replace('(','').replace(')','') +`' class="col-md-12 row"><div class='col-md-6'>
                 `+ $(this).text() + `</div>
                 <div class="col-md-6">
                     <select class="kpisel col-sm-12" multiple="multiple">
@@ -36,6 +36,8 @@ $(document).ready(function () {
                     </select>
                 </div>
                 </li>`).appendTo('#addkpi')
+            console.log($('#addkpi').find());
+
             $('.kpisel').select2()
         }
     })

@@ -200,9 +200,12 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
 // Monitoring group
 Route::group(['middleware' => ['role:dataentry|officer|monitor|manager|directormonitoring']],function () {
   // MonitoringDashbaord
-  Route::get('/monitoring_dashboard',function(){
-    return view('monitoring_dashboard');
-  })->name("monitoring_dashboard");
+  Route::get('/monitoring_dashboard','HomeController@monitoringDashboard')->name('monitoring_dashboard');
+
+  // Route::get('/monitoring_dashboard',function(){
+  //   return view('monitoring_dashboard');
+  // })->name("monitoring_dashboard");
+
   // monitoring
   Route::get('/monitoringP','ProjectController@createMonitoringEntryForm')->name('createMonitoringEntryForm');
   Route::get('/monitoringV','ProjectController@viewMonitoringForm')->name('viewMonitoringForm');

@@ -570,14 +570,14 @@
                                                                             <h5 class="mb_2">Choose KPI(s)</h4>
                                                                             <select id='custom-headers' class="searchable yesearch"
                                                                                 multiple='multiple'>
-                                                                                <option value='kpi_1'>Remaining Cost</option>
-                                                                                <option value='kpi_2'>Number of unresolved issues</option>
-                                                                                <option value='kpi_3'>Project Schedule.(delays and variance)</option>
-                                                                                <option value='kpi_4'>Quality</option>
-                                                                                <option value='kpi_5'>Scope Changes</option>
-                                                                                <option value='kpi_6'>Cost (Cost Over Sum)</option>
-                                                                                <option value='kpi_7'>Client Satisfaction</option>
-                                                                                <option value='kpi_8'>Procurement</option>
+                                                                                <option class='optiontest' value='Remaining Cost'>Remaining Cost</option>
+                                                                                <option class='optiontest' value='Number of unresolved issues'>Number of unresolved issues</option>
+                                                                                <option class='optiontest' value='Project Schedule (delays and variance)'>Project Schedule (delays and variance)</option>
+                                                                                <option class='optiontest' value='Quality'>Quality</option>
+                                                                                <option class='optiontest' value='Scope Changes'>Scope Changes</option>
+                                                                                <option class='optiontest' value='Cost (Cost Over Sum)'>Cost (Cost Over Sum)</option>
+                                                                                <option class='optiontest' value='Client Satisfaction'>Client Satisfaction</option>
+                                                                                <option class='optiontest' value='Procurement'>Procurement</option>
                                                                             </select>
                                                                         </div>
                                                                         <div class="row col-md-1">

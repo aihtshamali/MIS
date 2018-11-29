@@ -78,6 +78,7 @@
     .white{color: #fff !important;}
     .close{position: absolute;right: 0;z-index: 9999;}
     .text_center{text-align: center !important;}
+    a p, a h3{text-transform: capitalize !important;}
    </style>
 @endsection
 @section('content')
@@ -250,7 +251,7 @@
                   <a href="" class="tile green">
                     <h3 class="title">My Profile</h3>
                     <hr/>
-                    <p>My Profile</p>
+                    <p>check Profile</p>
                   </a>
                 </div>
                 <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.3s">
@@ -459,6 +460,44 @@
 @endsection
 @section('scripttags')
   <script>
+// $(document).ready(function(){
+//   $('.nav-link').mouseenter(function(){
+//     $(this).attr(`style`,`color:#fff !important;`);
+//     });
+//   $(window).scroll(function(){
+//     var scroll = $(window).scrollTop();
+//     if (scroll > 30)
+//     {
+//       $('.nav-link').attr(`style`,`color:#777777d9 !important;`);
+//       $('.nav-link').mouseenter(function(){
+//         $(this).attr(`style`,`color:#fff !important;`);
+//         });
+//       $('.nav-link').mouseleave(function(){
+//         $(this).attr(`style`,`color:#777777d9 !important;`);
+//         });
+//     }
+//     else
+//      {
+//        $('.nav-link').attr(`style`,`color:#fff !important;`);
+//        $('.nav-link').mouseenter(function(){
+//          $(this).attr(`style`,`color:#777777d9 !important;`);
+//          });
+//        $('.nav-link').mouseleave(function(){
+//          $(this).attr(`style`,`color:#fff !important;`);
+//          });
+//      }
+//   });
+//   });
+
+    // $(function() {
+    //         $('#element').on('click', function( e ) {
+    //             Custombox.open({
+    //                 target: '#testmodal-1',
+    //                 effect: 'fadein'
+    //             });
+    //             e.preventDefault();
+    //         });
+    //     });
 
 new Vue({
   el: '#myModal',

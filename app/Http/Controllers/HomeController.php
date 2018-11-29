@@ -117,13 +117,17 @@ class HomeController extends Controller
       // }
       // return $total_progress;
 
-      
+
       return view('home');
     }
 
     public function reset_password()
     {
       return view('profile.reset');
+    }
+    public function monitoringDashboard()
+    {
+      return view('monitoring_dashboard');
     }
     public function reset_store(Request $request)
     {
@@ -172,13 +176,14 @@ class HomeController extends Controller
         $current_score = round($current_score/$max_score*100,0,PHP_ROUND_HALF_UP);
       }
 
-      $rank = 0;
+      $rank = 1;
       foreach ($total as $number) {
         $number = round($number/$max_score*100,0,PHP_ROUND_HALF_UP);
         if($current_score < $number){
           $rank++;
         }
       }
+      
       $max_score = 100;
       return view('dashboard',compact('max_score','current_score','actual_max_score','actual_current_score','rank','person'));
     }
