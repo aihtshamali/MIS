@@ -15,10 +15,15 @@ class CreatePlantripTriprequestsTable extends Migration
     {
         Schema::create('plantrip_triprequests', function (Blueprint $table) {
             $table->increments('id');
+
             $table->integer('user_id')->unsigned()->index()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            
             $table->integer('plantrip_triptype_id')->unsigned()->index()->nullable();
             $table->foreign('plantrip_triptype_id')->references('id')->on('plantrip_triptypes')->onDelete('cascade');
+            
+            $table->string('fullDateoftrip')->nullable();
+            
             $table->boolean('status')->nullable();
             $table->string('approval_status')->nullable();
             

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddPurposeidToTriplocations extends Migration
+class AddDaterange extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class AddPurposeidToTriplocations extends Migration
      */
     public function up()
     {
-        // Schema::table('plantrip_triplocations', function (Blueprint $table) {
+        Schema::table('plantrip_triprequests', function (Blueprint $table) {
          
-        //     $table->integer('plantrip_purpose_id')->unsigned()->index()->nullable();
-        //     $table->foreign('plantrip_purpose_id')->references('id')->on('plantrip_purposes')->onDelete('no action');
+            $table->string('fullDateoftrip')->nullable();
+         
            
        
-        // });
+        });
     }
 
     /**

@@ -15,6 +15,9 @@ class CreatePlantripTriplocationsTable extends Migration
     {
         Schema::create('plantrip_triplocations', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('plantrip_purpose_id')->unsigned()->index()->nullable();
+            $table->foreign('plantrip_purpose_id')->references('id')->on('plantrip_purposes')->onDelete('no action');
+            
             $table->integer('plantrip_city_from')->unsigned()->index()->nullable();
             $table->foreign('plantrip_city_from')->references('id')->on('plantrip_cities')->onDelete('no action');
            

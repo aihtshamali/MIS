@@ -13,5 +13,10 @@ class PlantripCity extends Model
     public function plantrip_triplocations()
     {
        return $this->belongsTo('App\PlantripTriplocation');
-   }  
+   } 
+   public function PlantripRequestedcity()
+   {
+      return $this->hasMany('App\PlantripRequestedcity');
+  } 
+
 }
