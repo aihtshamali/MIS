@@ -650,21 +650,8 @@ c                                                                           </ul
                                                             style="display:none;">
                                                             <div class="card">
                                                                 <div class="card-header"></div>
-                                                                <div class="card-block">
-                                                                    <div class="row form-group">
-                                                                        <b class="col-md-3 textlef mb_2">Component</b>
-                                                                        <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Unit" name="" /></div>
-                                                                        <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Quantity" name="" /></div>
-                                                                        <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Cost" name="" /></div>
-                                                                        <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Amount" name="" /></div>
-                                                                    </div>
-                                                                    <div class="row form-group">
-                                                                        <b class="col-md-3 textlef mb_2">Task</b>
-                                                                        <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Unit" name="" /></div>
-                                                                        <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Quantity" name="" /></div>
-                                                                        <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Cost" name="" /></div>
-                                                                        <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Amount" name="" /></div>
-                                                                    </div>
+                                                                <div class="card-block" id='costcomp'>
+                                                                    
                                                                 </div>
                                                                 <div class="card-footer">
                                                                         <div class="col-md-3 offset-md-9">

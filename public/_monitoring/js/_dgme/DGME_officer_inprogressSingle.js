@@ -17,15 +17,13 @@ $(document).ready(function () {
         var t = $(this).text();
         var b = true;
         $('.yesearch').val().forEach(e => {
-            if(e == t)
-            {
+            if (e == t) {
                 b = false;
-                $('#addkpi').find('#'+t.replace(/\s+/g,'_').replace('(','').replace(')','')).remove()
+                $('#addkpi').find('#' + t.replace(/\s+/g, '_').replace('(', '').replace(')', '')).remove()
             }
         })
-        if(b)
-        {
-            $(`<li id='`+ $(this).text().replace(/\s+/g,'_').replace('(','').replace(')','') +`' class="col-md-12 row"><div class='col-md-6'>
+        if (b) {
+            $(`<li id='` + $(this).text().replace(/\s+/g, '_').replace('(', '').replace(')', '') + `' class="col-md-12 row"><div class='col-md-6'>
                 `+ $(this).text() + `</div>
                 <div class="col-md-6">
                     <select class="kpisel col-sm-12" multiple="multiple" id="optionsHere">
@@ -511,60 +509,67 @@ $('button#add-more').click(function (e) {
     $('#riskmatrix').append(add_risks);
 });
 $(document).on('click', '#add_activity', function (e) {
-// console.log('there');
+    // console.log('there');
     var add_activities = `<div class="row col-md-9 offset-md-1 form-group component_Activities">
         <div class="col-md-11 mb_1"><input type="text" class="form-control" placeholder="Add Task" name="c_activity[]"> </div>
         <div class="col-md-1"><button class="btn btn-danger btn-sm" name="remove_activity[]" onclick="removerow(this)"  type="button">-</button></div>
         </div>`;
     // $('.planMactivities').append(add_activities);
-    console.log($(this).parent().find('#alltasks'),$(this).parent())
+    console.log($(this).parent().find('#alltasks'), $(this).parent())
     $(this).parent().find('#alltasks').append(add_activities);
 });
 $(document).on('click', 'button#saveObjComp', function () {
-  var comps = $(this).val();
-  var count = 1;
-  // var yo = 0;
-    $('input[name^=comp]').each(function  () {
-      var val = $(this).val();
-      var addTask = `
-      <div class="row form-group compTask`+ count +`">
-        <div class="col-md-4 offset-md-1"><label for=""> <b class="headText" id="compname`+count+`">` + val + `</b></label></div>
+    var comps = $(this).val();
+    var count = 1;
+    // var yo = 0;
+    $('input[name^=comp]').each(function () {
+        var val = $(this).val();
+        var addTask = `
+      <div class="row form-group compTask`+ count + `">
+        <div class="col-md-4 offset-md-1"><label for=""> <b class="headText" id="compname`+ count + `">` + val + `</b></label></div>
         <div class="col-md-2 offset-md-4 mb_1 Taskbut` + count + `" id="add_activity" style="padding-top:0.6%;">
           <button class="btn btn-sm btn-warning float-right  type="button" name="add_activity">Add Tasks</button>
         </div>
         <div id="alltasks" class="row col-md-11 offset-md-1 form-group component_Activities">
         </div>
       </div>`
-      val = $(this).val();
-      // var comps = $(this).val();
-      $('.planMactivities').append(addTask);
-      // console.log($(e));
-      // yo++;
-      count++;
+        val = $(this).val();
+        // var comps = $(this).val();
+        $('.planMactivities').append(addTask);
+        // console.log($(e));
+        // yo++;
+        count++;
     });
 });
 $(document).on('click', '#saveTasks', function () {
-  var tasks = $('#planMactivities').clone()
-  var c = 1
-  // console.log(tasks.children());
+    var tasks = $('#planMactivities').clone()
+    var c = 1
+    // console.log(tasks.children());
 
-    tasks.children().each(function (){
+    tasks.children().each(function () {
         // console.log($(this),c);
         var temp = `<div class="col-md-12">
                       <h5 class="text_left">
-                      ` + $(this).find('#compname'+c).text() + `
+                      ` + $(this).find('#compname' + c).text() + `
                       </h5>
                     </div>`
-        $(this).find('input[name="c_activity[]"]').each(function(){
-          console.log($(this));
-            temp+=`<b class="col-md-6 mb_1 text_left form-txt-primary">
-                `+$(this).val()+`
-            </b>
-            <div class="col-md-6"><input type="text" class="form-control form-txt-primary mb_1" placeholder="Time Duration" /></div>`
+        $(this).find('input[name="c_activity[]"]').each(function () {
+            console.log($(this));
+            temp += `<b class="col-md-6 mb_1 text_left form-txt-primary">
+                `+ $(this).val() + `
+            </b>`
         })
-     $(temp).appendTo('#comptaskl')
-     c++;
-  });
+        var t2 = temp
+        temp += `<div class="col-md-6"><input type="text" class="form-control form-txt-primary mb_1" placeholder="Time Duration" /></div>`
+        $(temp).appendTo('#comptaskl')
+        t2 += `
+        <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Unit" name="" /></div>
+        <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Quantity" name="" /></div>
+        <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Cost" name="" /></div>
+        <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Amount" name="" /></div>`
+        c++;
+        $(t2).appendTo('#costcomp')
+    });
 });
 
 $('button#add_more_component').click(function (e) {
@@ -726,7 +731,7 @@ $(document).ready(function () {
         <div class="float-left col-md-6"><h5 class="float-left">Objectives</h5></div>
         <div class="float-right col-md-6"><h5 class="float-right">Component</h5></div>`
         var heading = $(headings)
-        heading .appendTo('.SumObjComp');
+        heading.appendTo('.SumObjComp');
         $(".SumObjComp").show('slow');
         var cc = oc
         console.log(cc);
@@ -742,7 +747,7 @@ $(document).ready(function () {
             has.find('div#SumObj').text(t)
             $("#option" + i + " option:selected").each(function () {
                 // console.log($(this).val());
-                var t = `<div>`+$(this).val()+`</div>`
+                var t = `<div>` + $(this).val() + `</div>`
                 $(t).appendTo(has.find('#SumComp'))
             });
             has.appendTo('.SumObjComp');
