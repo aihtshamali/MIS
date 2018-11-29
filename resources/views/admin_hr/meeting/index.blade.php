@@ -6,7 +6,11 @@
 
   <link rel="stylesheet" href="{{asset('css/AdminLTE/dataTables.bootstrap.min.css')}}">
   <style>
-
+h4:hover{color: #f0ad4e !important;-webkit-transition: all 600ms ease;transition: all 600ms ease;border-bottom: 1px solid;}
+h4{-webkit-transition: all 600ms ease;transition: all 600ms ease;width: fit-content;border-bottom: 1px solid;}
+.select2-container--default .select2-selection--single, .select2-selection .select2-selection--single{padding: 6px 0px !important;}
+.select2-container .select2-selection--single .select2-selection__rendered{margin-top: -7px !important;}
+.content-wrapper{background-color: #e7ecef !important}
 #outerbox{
   width: 50%;
   text-align: center;
@@ -75,7 +79,7 @@
       </div>
       @foreach ($data as $key => $value)
         <div style="cursor:pointer">
-          <h2 class="{{ $key }}">Meetings Data {{ $key }} <span class="caret"></span></h2>
+          <h4 class="{{ $key }}">Meetings Data {{ $key }} <span class="caret"></span></h4>
         </div>
         <div id="{{ $key }}" style="display:none">
         <table class="table table-borderd">
@@ -146,7 +150,7 @@
         console.log($(this).val());
         location="/hr/admin/"+$(this).val();
     });
-  $(document).on('click','div > h2',function(){
+  $(document).on('click','div > h4',function(){
     $('#'+$(this).attr('class')).toggle('slow');
   });
 </script>

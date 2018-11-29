@@ -58,8 +58,6 @@
         </div>
     </div>
     @endrole
-</div>
-
 @endsection
 
 {{-- @section('content')

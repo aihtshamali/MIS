@@ -27,7 +27,7 @@ $(document).ready(function () {
                 `+ $(this).text() + `</div>
                 <div class="col-md-6">
                     <select class="kpisel col-sm-12" multiple="multiple" id="optionsHere">
-                    `+ compopt +`  
+                    `+ compopt +`
                     </select>
                 </div>
                 </li>`).appendTo('#addkpi')
@@ -553,22 +553,35 @@ $(document).on('click', '#saveTasks', function () {
                       ` + $(this).find('#compname' + c).text() + `
                       </h5>
                     </div>`
-        $(this).find('input[name="c_activity[]"]').each(function () {
-            console.log($(this));
-            temp += `<b class="col-md-6 mb_1 text_left form-txt-primary">
-                `+ $(this).val() + `
-            </b>`
-        })
-        var t2 = temp
-        temp += `<div class="col-md-6"><input type="text" class="form-control form-txt-primary mb_1" placeholder="Time Duration" /></div>`
-        $(temp).appendTo('#comptaskl')
-        t2 += `
+        var t1 = `
+        <div class="col-md-12" style="display:inline-flex;">
+          <h5 class="text_left col-md-3">
+          ` + $(this).find('#compname' + c).text() + `
+          </h5>
         <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Unit" name="" /></div>
         <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Quantity" name="" /></div>
         <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Cost" name="" /></div>
-        <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Amount" name="" /></div>`
+        <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Amount" name="" /></div>
+        </div>
+        `
+        var t2 = t1
+        $(this).find('input[name="c_activity[]"]').each(function () {
+            // console.log($(this));
+            temp += `<div class="col-md-12" style="display:inline-flex;"><b class="col-md-3 text_left form-txt-primary" style="padding-left:1% !important;">
+                `+ $(this).val() + `
+                </b>
+                <div class="col-md-9"><input type="text" class="form-control form-txt-primary mb_1" placeholder="Time Duration" /></div></div>`
+            t2 +=`<div class="col-md-12" style="display:inline-flex;"><b class="col-md-3 text_left form-txt-primary" style="padding-left:1% !important;">
+                `+ $(this).val() + `
+                </b>
+                <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Unit" name="" /></div>
+                <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Quantity" name="" /></div>
+                <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Cost" name="" /></div>
+                <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Amount" name="" /></div></div>`
+          })
         c++;
         $(t2).appendTo('#costcomp')
+        $(temp).appendTo('#comptaskl')
     });
 });
 

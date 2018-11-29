@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePlantripSubcitytypesTable extends Migration
+class AddDaterange extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreatePlantripSubcitytypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('plantrip_subcitytypes', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name')->nullable();
-            $table->boolean('status')->nullable();
-            $table->timestamps();
+        Schema::table('plantrip_triprequests', function (Blueprint $table) {
+         
+            $table->string('fullDateoftrip')->nullable();
+         
+           
+       
         });
     }
 
@@ -28,6 +29,6 @@ class CreatePlantripSubcitytypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plantrip_subcitytypes');
+        //
     }
 }

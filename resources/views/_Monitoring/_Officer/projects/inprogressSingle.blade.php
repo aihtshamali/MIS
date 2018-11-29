@@ -600,7 +600,7 @@ c                                                                           </ul
                                                                 </div>
                                                                 <div class="card-footer">
                                                                     <div class="col-md-3 offset-md-9">
-                                                                        <a class="btn btn-success btn-md activities saveNnextbtn" data-toggle="tab" href="#activities"
+                                                                        <a class="btn btn-primary btn-md activities saveNnextbtn" data-toggle="tab" href="#activities"
                                                                         role="tab" aria-expanded="false">Save &
                                                                             Proceed</a>
                                                                     </div>
@@ -632,9 +632,9 @@ c                                                                           </ul
                                                                 <div class="card-header"></div>
                                                                 <div class="card-block">
                                                                     <div class="row form-group">
-                                                                        <h5 class="col-md-6 textlef mb_2">Component</h5>
-                                                                        <h5 class="col-md-6 textlef mb_2">Duration In Days</h5>
-                                                                        <div id='comptaskl' class="col-md-12 row">
+                                                                        <h5 class="col-md-3 textlef mb_2">Component</h5>
+                                                                        <h5 class="col-md-9 textlef mb_2">Duration In Days</h5>
+                                                                        <div id='comptaskl' class="col-md-12 row" style="padding-left:2% !important;">
 
                                                                         </div>
                                                                   </div>
@@ -651,7 +651,7 @@ c                                                                           </ul
                                                             <div class="card">
                                                                 <div class="card-header"></div>
                                                                 <div class="card-block" id='costcomp'>
-                                                                    
+
                                                                 </div>
                                                                 <div class="card-footer">
                                                                         <div class="col-md-3 offset-md-9">
