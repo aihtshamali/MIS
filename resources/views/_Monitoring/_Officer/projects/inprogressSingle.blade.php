@@ -376,11 +376,11 @@
                                                                 role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Documents</b></a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a class="nav-link i-dates" data-toggle="tab" href="#i-dates"
+                                                            <a class="nav-link i-dates" data-toggle="tab" href="#i-dates" id="pdli"
                                                                 role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Project Design</b></a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a class="nav-link financialphase" data-toggle="tab" href="#financial"
+                                                            <a class="nav-link financialphase" data-toggle="tab" href="#financial" id="fpli"
                                                                 role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Financial Phasing</b></a>
                                                         </li>
                                                         <li class="nav-item">
@@ -392,15 +392,15 @@
                                                                 aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Plan ( KPI's)</b></a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a class="nav-link activities" data-toggle="tab" href="#activities"
+                                                            <a class="nav-link activities" data-toggle="tab" href="#activities" id="tali"
                                                                 role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Tasks</b></a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a class="nav-link TimeTab" data-toggle="tab" href="#TimesDiv"
+                                                            <a class="nav-link TimeTab" data-toggle="tab" href="#TimesDiv" id="tili"
                                                                 role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Time</b></a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a class="nav-link CostingTab" data-toggle="tab" href="#CostingDiv"
+                                                            <a class="nav-link CostingTab" data-toggle="tab" href="#CostingDiv" id="cosli"
                                                                 role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Costing</b></a>
                                                         </li>
                                                         {{-- <li class="nav-item">
@@ -453,7 +453,7 @@
                                                                       <input type="text" class="form-control form-txt-primary" name="obj[]" placeholder="Objective 1">
                                                                     </div>
                                                                     <div class="col-sm-2 addbtn text_center">
-                                                                      <button class="btn btn-sm btn-info" type="button" id="add_more_objective">+</button>
+                                                                      <button class="btn btn-sm btn-info" type="button" id="add_more_objective"  tabindex=1>+</button>
                                                                     </div>
                                                                   </div>
                                                                 </div>
@@ -464,7 +464,7 @@
                                                                       <input type="text" name="comp[]" class="form-control form-txt-primary" placeholder="Component 1">
                                                                     </div>
                                                                     <div class="col-sm-2 addbtn text_center">
-                                                                      <button class="btn btn-sm btn-info" type="button" id="add_more_compAct">+</button>
+                                                                      <button class="btn btn-sm btn-info" type="button" id="add_more_compAct" tabindex=100>+</button>
                                                                     </div>
                                                                   </div>
                                                                 </div>
@@ -601,8 +601,7 @@ c                                                                           </ul
                                                                 <div class="card-footer">
                                                                     <div class="col-md-3 offset-md-9">
                                                                         <a class="btn btn-primary btn-md activities saveNnextbtn" data-toggle="tab" href="#activities"
-                                                                        role="tab" aria-expanded="false">Save &
-                                                                            Proceed</a>
+                                                                        role="tab" aria-expanded="false">Save & Proceed</a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -641,7 +640,7 @@ c                                                                           </ul
                                                                 </div>
                                                                 <div class="card-footer">
                                                                         <div class="col-md-3 offset-md-9">
-                                                                            <a class="btn btn-primary btn-md saveNnextbtn" >Save & Proceed</a>
+                                                                            <a class="btn btn-primary btn-md saveNnextbtn" id="did">Save & Proceed</a>
                                                                         </div>
                                                                 </div>
                                                             </div>

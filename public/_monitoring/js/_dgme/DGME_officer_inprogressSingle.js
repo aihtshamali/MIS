@@ -263,6 +263,12 @@ $(document).ready(function () {
         hideall();
         $('#CostingDiv').show();
     });
+    $('#did').on('click', function () {
+        hideall();
+        $('#CostingDiv').show();
+        $("#tili").removeClass("active");
+        $("#cosli").addClass("active");
+    });
     $('.TimeTab').on('click', function () {
         hideall();
         $('#TimesDiv').show();
@@ -271,6 +277,8 @@ $(document).ready(function () {
     $('#saveTasks').on('click', function () {
         hideall();
         $('#TimesDiv').show();
+        $("#tali").removeClass("active");
+        $("#tili").addClass("active");
     });
 
     $('.kpis').on('click', function () {
@@ -309,6 +317,8 @@ $(document).ready(function () {
     $('#saveObjComp').on('click', function () {
         hideall();
         $('#financial').show();
+        $('#fpli').addClass("active");
+        $('#pdli').removeClass("active");
     });
     $('.MOBtab').on('click', function () {
         hideall();
@@ -519,6 +529,7 @@ $(document).on('click', '#add_activity', function (e) {
     $(this).parent().find('#alltasks').append(add_activities);
 });
 $(document).on('click', 'button#saveObjComp', function () {
+  $("#planMactivities").children().remove();
     var comps = $(this).val();
     var count = 1;
     // var yo = 0;
@@ -526,7 +537,7 @@ $(document).on('click', 'button#saveObjComp', function () {
         var val = $(this).val();
         var addTask = `
       <div class="row form-group compTask`+ count + `">
-        <div class="col-md-4 offset-md-1"><label for=""> <b class="headText" id="compname`+ count + `">` + val + `</b></label></div>
+        <div class="col-md-4 offset-md-1"><label for=""> <b class="headText form-txt-primary" id="compname`+ count + `">` + val + `</b></label></div>
         <div class="col-md-2 offset-md-4 mb_1 Taskbut` + count + `" id="add_activity" style="padding-top:0.6%;">
           <button class="btn btn-sm btn-warning float-right  type="button" name="add_activity">Add Tasks</button>
         </div>
@@ -542,6 +553,8 @@ $(document).on('click', 'button#saveObjComp', function () {
     });
 });
 $(document).on('click', '#saveTasks', function () {
+  $('#comptaskl').children().remove();
+  $('#costcomp').children().remove();
     var tasks = $('#planMactivities').clone()
     var c = 1
     // console.log(tasks.children());
@@ -549,29 +562,29 @@ $(document).on('click', '#saveTasks', function () {
     tasks.children().each(function () {
         // console.log($(this),c);
         var temp = `<div class="col-md-12">
-                      <h5 class="text_left">
+                      <h5 class="text_left form-txt-primary">
                       ` + $(this).find('#compname' + c).text() + `
                       </h5>
                     </div>`
         var t1 = `
         <div class="col-md-12" style="display:inline-flex;">
-          <h5 class="text_left col-md-3">
+          <h5 class="text_left col-md-3 form-txt-primary">
           ` + $(this).find('#compname' + c).text() + `
           </h5>
-        <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Unit" name="" /></div>
-        <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Quantity" name="" /></div>
-        <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Cost" name="" /></div>
-        <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Amount" name="" /></div>
+        <div class="col-md-2 mr_0_1"><input type="text" class="form-control form-txt-primary" placeholder="Unit" name="" /></div>
+        <div class="col-md-2 mr_0_1"><input type="text" class="form-control form-txt-primary" placeholder="Quantity" name="" /></div>
+        <div class="col-md-2 mr_0_1"><input type="text" class="form-control form-txt-primary" placeholder="Cost" name="" /></div>
+        <div class="col-md-2 mr_0_1"><input type="text" class="form-control form-txt-primary" placeholder="Amount" name="" /></div>
         </div>
         `
         var t2 = t1
         $(this).find('input[name="c_activity[]"]').each(function () {
             // console.log($(this));
-            temp += `<div class="col-md-12" style="display:inline-flex;"><b class="col-md-3 text_left form-txt-primary" style="padding-left:1% !important;">
+            temp += `<div class="col-md-12" style="display:inline-flex;"><b class="col-md-3 text_left form-txt" style="padding-left:1% !important;">
                 `+ $(this).val() + `
                 </b>
-                <div class="col-md-9"><input type="text" class="form-control form-txt-primary mb_1" placeholder="Time Duration" /></div></div>`
-            t2 +=`<div class="col-md-12" style="display:inline-flex;"><b class="col-md-3 text_left form-txt-primary" style="padding-left:1% !important;">
+                <div class="col-md-9"><input type="text" class="form-control form-txt mb_1" placeholder="Time Duration" /></div></div>`
+            t2 +=`<div class="col-md-12" style="display:inline-flex;"><b class="col-md-3 text_left form-txt" style="padding-left:1% !important;">
                 `+ $(this).val() + `
                 </b>
                 <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Unit" name="" /></div>
@@ -637,7 +650,7 @@ $('#add_more_objective').click(function (e) {
                                   <input type="text" class="form-control form-txt-primary" name="obj[]" placeholder="Objective ` + objct + `">
                                 </div>
                                 <div class="col-sm-2 removeObjective text_center">
-                                  <button class="btn btn-sm btn-danger" title="Delete Objective ` + objct + `" type="button" id="">-</button>
+                                  <button class="btn btn-sm btn-danger" title="Delete Objective ` + objct + `" type="button" id="" tabindex=` + objct +`>-</button>
                                 </div>
                               </div>`
     $('.objtivesNew').append(add_objective);
@@ -645,7 +658,7 @@ $('#add_more_objective').click(function (e) {
 });
 $('#saveObjComp').click(function () {
     // <select class="select2 col-md-12" id="option`+ oc + `" multiple>
-
+    $("#ObjCompHere").children().remove();
     $('input[name^=obj]').each(function () {
         var ObjCompHere = `<li class="row mb_2">
                             <span id='objvalue`+ oc + `' class="float-left col-md-6"></span>
@@ -710,13 +723,14 @@ function autoindexcomp() {
 }
 $('#add_more_compAct').click(function (e) {
     // var newClass='obj_'objct++;
+    var compActTab = 101;
     var add_compAct = `<div class="DisInlineflex newClasscompAct` + compAct + ` mb_2 col-md-12">
                             <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Component ` + compAct + `</label>
                             <div class="col-sm-7">
                               <input type="text" class="form-control form-txt-primary" name="comp[]" placeholder="Component ` + compAct + `">
                             </div>
                             <div class="col-sm-2 removecompAct text_center">
-                              <button class="btn btn-sm btn-danger" title="Delete Objective ` + compAct + `" type="button" id="">-</button>
+                              <button class="btn btn-sm btn-danger" title="Delete Objective ` + compAct + `" type="button" id=""  tabindex=` + compActTab++ +`>-</button>
                             </div>
                           </div>`
     $('.compActNew').append(add_compAct);
