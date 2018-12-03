@@ -785,15 +785,6 @@
       $('.btn').on('click', function (e) {
         $('.btn').not(this).popover('hide');
       });
-   //  $( "#myDiv" ).click(function() {
-   //     myFunction(this);
-   // });
     });
-    // $(document).ready(function(){
-    // $(".btn-success").click(function(){
-    //     $(".popover").hide('slow');
-    // });
-// // start loader
-// end start loader
     </script>
   @endsection
