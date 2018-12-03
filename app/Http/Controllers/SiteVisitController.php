@@ -23,6 +23,10 @@ use App\Http\Controllers\Controller;
 use DateTime;
 use DateInterval;
 use DatePeriod;
+use App\VmisVehicle;
+use App\VmisDriver;
+use App\PlantripRemark;
+use App\VmisRequestToTransportOfficer;
 class SiteVisitController extends Controller
 {
     /**
@@ -30,10 +34,7 @@ class SiteVisitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
+   
 
     /**
      * Show the form for creating a new resource.
@@ -65,9 +66,16 @@ class SiteVisitController extends Controller
                                                       'visitreasons'=>$visitreasons,'purposetypes'=>$purposetypes,
                                                       'subcitytypes'=>$subcitytypes,'projects'=>$projects,'citylahore'=>$citylahore]);
     }
-    public function view()
+    public function index()
     {
-        return view('Site_Visit.Plan_A_Trip.view_trips');
+        $triprequests = PlantripTriprequest::where('status',0)
+        ->where('approval_status','Pending')
+        ->orWhere('approval_status','Approved')
+        ->orWhere('approval_status','Not Approved')
+        ->get();
+          $tripcounts=$triprequests->count();
+          // dd($triprequests);
+        return view('Site_Visit.Plan_A_Trip.view_trips',['triprequests'=>$triprequests,'tripcounts'=>$tripcounts]);
     }
     /**
      * Store a newly created resource in storage.
@@ -75,6 +83,58 @@ class SiteVisitController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function visitRequestDescision(Request $request)
+    {
+        if($request->request_descision=='2')
+        {
+          $triprequest = PlantripTriprequest::where('id',$request->triprequest_id)->first(); 
+          $triprequest->approval_status='Approved';
+          $triprequest->save();
+
+          $triprequestToTransportofficer = VmisRequestToTransportOfficer::where('plantrip_triprequest_id',$request->triprequest_id)->first();
+        //  dd($triprequestToTransportofficer);
+          $triprequestToTransportofficer->approvedby_user_id=Auth::id();
+          $triprequestToTransportofficer->approval_status='2';
+          $triprequestToTransportofficer->save();
+
+          if(isset($request->remarks) && $request->remarks!=null)
+          {
+            foreach($request->remarks as $remarks)
+            {
+            $tripremarks = new PlantripRemark();
+            $tripremarks->plantrip_triprequest_id=$request->triprequest_id;
+            $tripremarks->remarks=$remarks;
+            $tripremarks->save();
+            }  
+          }
+          return redirect()->back()->with('success','Request Has Been Accepted!!');
+          
+        }
+        elseif($request->request_descision=='3')
+        {
+            $triprequest = PlantripTriprequest::where('id',$request->triprequest_id)->first(); 
+            $triprequest->approval_status='Not Approved';
+            $triprequest->save();
+  
+            $triprequestToTransportofficer = VmisRequestToTransportOfficer::where('plantrip_request_id',$request->triprequest_id)->first();
+            $triprequestToTransportofficer->approvedby_user_id=Auth::id();
+            $triprequestToTransportofficer->approval_status='3';
+            $triprequestToTransportofficer->save();
+  
+            if(isset($request->remarks) && $request->remarks!=null)
+            {
+              foreach($request->remarks as $remarks)
+              {
+              $tripremarks = new PlantripRemark();
+              $tripremarks->plantrip_triprequest_id=$request->triprequest_id;
+              $tripremarks->remarks=$remarks;
+              $tripremarks->save();
+              }  
+            }
+            return redirect()->back()->with('error','Request Has Been Rejected!!');
+        }
+       
+    }
     public function store(Request $request)
     { 
         

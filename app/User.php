@@ -79,9 +79,6 @@ class User extends Authenticatable
     public function ActivityDocument(){
       return $this->hasMany('App\ActivityDocument');
     }
-    public function vmis_drivers(){
-      return $this->belongsTo('App\VmisDrivers');
-    }
     public function plantrip_triprequest(){
       return $this->hasMany('App\plantrip_triprequest');
     }
@@ -91,4 +88,11 @@ class User extends Authenticatable
     public function OfficerPositionLog(){
       return $this->hasMany('App\OfficerPositionLog');
     }
+    public function VmisDriver(){
+      return $this->hasOne('App\VmisDriver');
+  }
+  public function VmisRequestToTransportOfficer(){
+      return $this->hasMany('App\VmisRequestToTransportOfficer');
+  }
+ 
 }

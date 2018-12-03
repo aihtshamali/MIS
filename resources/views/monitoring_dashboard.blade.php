@@ -41,11 +41,109 @@ li{text-transform: capitalize;}
                     <div class="progress clearfix mt2 clrornge">
                         <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span class="persontagetiQ">25%</span></div>
                     </div>
+                    @role("manager")
+                    <div class="col-md-12 mt2">
+                        <ul class="nav nav-tabs  tabs" role="tablist">
+                            <li class="nav-item visitRequests">
+                                <a class="nav-link active" data-toggle="tab" href="#visitrequests" role="tab" aria-expanded="false">Pending Visit Requests</a>
+                            </li>
+                            
+                          </ul>
+                          <!-- Tab panes -->
+                          <div class="tab-content tabs card-block ">
+                            <div class="tab-pane visitRequests active" id="visitrequests" role="tabpanel" aria-expanded="false">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                            <div class="card">
+                                                    <div class="card-block">
+                                                      <div class="table-responsive ">
+                                                          <table id="#" class="table table-bordered nowrap">
+                                                              <thead>
+                                                              <tr>
+                                                                  <th style="text-align:center;">Sr #.</th>
+                                                                  <th style="text-align:center;">Requestee Name</th>
+                                                                  <th style="text-align:center;">Trip Type</th>
+                                                                  <th style="text-align:center;">Assigned Driver</th>
+                                                                  <th style="text-align:center;">Assigned Vehicle</th>
+                                                                  <th style="text-align:center;"></th>
+                                                                  <th style="text-align:center;"></th>
+                                                                  <th style="text-align:center;"></th>
+                                                                  
+                                                              </tr>
+                                                              </thead>
+                                                              <tbody>
+                                                                  @php
+                                                                   $i=1;   
+                                                                  @endphp
+                                                            @foreach ($triprequests as $triprequest)
+                                                                <tr>
+                                                                    <td>
+                                                                         @php
+                                                                   echo $i++;
+                                                                    @endphp
+                                                                    </td>
+                                                                    <td style="text-align:center;">
+                                                                    {{$triprequest->User->first_name}} {{$triprequest->User->last_name}}
+                                                                    </td>
+                                                                    <td style="text-align:center;"> {{$triprequest->PlantripTriptype->name}}</td>
+                                                                    <td style="text-align:center;">
+                                                                            @if(isset($triprequest->VmisRequestToTransportOfficer->VmisAssignedDriver[0]->VmisDriver->User->first_name))
+                                                                            {{$triprequest->VmisRequestToTransportOfficer->VmisAssignedDriver[0]->VmisDriver->User->first_name}} 
+                                                                            {{$triprequest->VmisRequestToTransportOfficer->VmisAssignedDriver[0]->VmisDriver->User->last_name}}
+                                                                            @else
+                                                                            <p>Not Assigned</p>
+                                                                            @endif
+                                                                        </td>
+                                                                        <td style="text-align:center;">
+                                                                            @if(isset($triprequest->VmisRequestToTransportOfficer->VmisAssignedVehicle[0]->VmisVehicle->name))
+                                                                            {{$triprequest->VmisRequestToTransportOfficer->VmisAssignedVehicle[0]->VmisVehicle->name}} 
+                                            
+                                                                            @else
+                                                                            <p>Not Assigned</p>
+                                                                            @endif
+                                                                        </td>
+                                                                    <td> 
+                                                                    <a href="{{route('visitrequestSummary',$triprequest->id)}}" class="btn btn-primary btn-sm"><b>View Full Summary</b></a></td>
+                                                                    <td> 
+                                                                    <form action="{{route('visitrequestDescision')}}" method="POST" enctype="multipart/form-data" id="">
+                                                                        {{ csrf_field() }}                                                                            
+                                                                        <input type="hidden" name="request_descision" value="2">
+                                                                    <input type="hidden" name="triprequest_id" value="{{$triprequest->id}}">
+                                                                            <button type="submit" class="btn btn-success btn-sm"><b>Approve</b></button>
+                                                                       </form>
+                                                                    </td>
+                                                                    <td>
+                                                                        <form action="{{route('visitrequestDescision')}}" method="POST" enctype="multipart/form-data" id="">
+                                                                            {{ csrf_field() }}
+                                                                            <input type="hidden" name="request_descision" value="3">    
+                                                                    <input type="hidden" name="triprequest_id" value="{{$triprequest->id}}">
+                                                                            <button type="submit" class="btn btn-danger btn-sm"><b>Reject</b></button>
+                                                                        </form>
+                                                                        
+                                                                    </td>
+                                                                </tr>
+                                                                @endforeach
+                                          
+                                                               
+                                                              </tbody>
+                                                          </table>
+                                                       </div>
+                                                      </div>
+                                                  </div>
+                                    </div>
+                                </div>
+                            </div>
+                           </div>
+                    </div>
+                    @endrole
                     @role("monitor|officer|evaluator")
                     <div class="col-md-12 mt2">
                         <ul class="nav nav-tabs  tabs" role="tablist">
+                            <li class="nav-item officerVisitRequests">
+                                <a class="nav-link active" data-toggle="tab" href="#officervisitrequests" role="tab" aria-expanded="false">My Visits</a>
+                            </li>
                             <li class="nav-item inProgress">
-                                <a class="nav-link active" data-toggle="tab" href="#!" role="tab" aria-expanded="false">inprogress</a>
+                                <a class="nav-link" data-toggle="tab" href="#!" role="tab" aria-expanded="false">inprogress</a>
                             </li>
                             <li class="nav-item quarterlyComp">
                                 <a class="nav-link" data-toggle="tab" href="#!" role="tab" aria-expanded="false">quarterly complete</a>
@@ -56,7 +154,79 @@ li{text-transform: capitalize;}
                           </ul>
                           <!-- Tab panes -->
                           <div class="tab-content tabs card-block ">
-                            <div class="tab-pane inProgressDiv active" id="home1" role="tabpanel" aria-expanded="false">
+                                <div class="tab-pane officervisitrequests active" id="officervisitrequests" role="tabpanel" aria-expanded="false">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                    <div class="card">
+                                                        <div class="card-block">
+                                                                <div class="col-md-10 offset-md-1 table-responsive">
+                                                                        <table id="#" class="table table-bordered nowrap">
+                                                                            <thead>
+                                                                            <tr>
+                                                                                <th style="text-align:center;">Sr #.</th>
+                                                                                <th style="text-align:center;">Visit Request</th>
+                                                                                <th style="text-align:center;">Trip Type</th>
+                                                                                <th style="text-align:center;">Assigned Driver</th>
+                                                                                <th style="text-align:center;">Assigned Vehicle</th>
+                                                                                <th style="text-align:center;">Approval Status</th>
+                                                                                
+                                                                            </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @php
+                                                                                 $i=1;   
+                                                                                @endphp
+                                                                                @foreach ($triprequests as $triprequest)
+                                                                                <tr>
+                                                                                   <td style="text-align:center;">
+                                                                                    @php
+                                                                                        echo $i++;
+                                                                                    @endphp
+                                                                                   </td>
+                                                                                   <td style="text-align:center;">
+                                                                                    {{$triprequest->id}}
+                                                                                </td>
+                                                                                {{-- {{dd($triprequest->VmisRequestToTransportOfficer->VmisAssignedDriver[0]->VmisDriver->User->first_name)}} --}}
+                                                                                 <td style="text-align:center;"> {{$triprequest->PlantripTriptype->name}}</td>
+                                                                                 <td style="text-align:center;">
+                                                                                        @if(isset($triprequest->VmisRequestToTransportOfficer->VmisAssignedDriver))
+                                                                                        {{$triprequest->VmisRequestToTransportOfficer->VmisAssignedDriver[0]->VmisDriver->User->first_name}} 
+                                                                                        {{$triprequest->VmisRequestToTransportOfficer->VmisAssignedDriver[0]->VmisDriver->User->last_name}}
+                                                                                        @else
+                                                                                        <p>Not Assigned</p>
+                                                                                        @endif
+                                                                                    </td>
+                                                                                    <td style="text-align:center;">
+                                                                                        @if(isset($triprequest->VmisRequestToTransportOfficer->VmisAssignedVehicle[0]->VmisVehicle->name))
+                                                                                        {{$triprequest->VmisRequestToTransportOfficer->VmisAssignedVehicle[0]->VmisVehicle->name}} 
+                                                        
+                                                                                        @else
+                                                                                        <p>Not Assigned</p>
+                                                                                        @endif
+                                                                                    </td>
+                                                        
+                                                                                <td style="text-align:center;" >
+                                                                                    @if($triprequest->VmisRequestToTransportOfficer->approval_status=='1')
+                                                                                    <label class="badge badge-md badge-primary">Waiting For Approval</label> 
+                                                                                    @elseif($triprequest->VmisRequestToTransportOfficer->approval_status=='2')
+                                                                                    <label class="badge badge-md badge-success">Approved</label> 
+                                                                                    @elseif($triprequest->VmisRequestToTransportOfficer->approval_status=='3')
+                                                                                    <label class="badge badge-md badge-danger">Not Approved</label> 
+                                                                                    @endif
+                                                                                </td>
+                                                                                </tr>
+                                                        
+                                                                                @endforeach
+                                                                                
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            <div class="tab-pane inProgressDiv " id="home1" role="tabpanel" aria-expanded="false">
                                 <div class="card">
                                   <div class="card-block">
                                   <div class="dt-responsive table-responsive">
@@ -197,6 +367,7 @@ li{text-transform: capitalize;}
                               </div>
                             </div>
                             </div>
+
                         </div>
                     </div>
                     @endrole
@@ -222,23 +393,45 @@ li{text-transform: capitalize;}
     $('#simpletable1').DataTable();
     $('#simpletable2').DataTable();
     $('#simpletable3').DataTable();
+
     $(document).ready(function(){
+     $(".officerVisitRequests").click(function(){
+        $("#officervisitrequests").show();
+        $(".inProgressDiv").hide();
+        $(".quarterlyCompDiv").hide();
+        $(".finishedDiv").hide();
+       
+    });
     $(".inProgress").click(function(){
         $(".inProgressDiv").show();
         $(".quarterlyCompDiv").hide();
         $(".finishedDiv").hide();
+        $("#officervisitrequests").hide();
     });
     $(".quarterlyComp").click(function(){
         $(".quarterlyCompDiv").show();
         $(".inProgressDiv").hide();
         $(".finishedDiv").hide();
+        $("#officervisitrequests").hide();
+
     });
     $(".finished").click(function(){
+
         $(".finishedDiv").show();
+        $("#officervisitrequests").hide();
+
         $(".inProgressDiv").hide();
         $(".quarterlyCompDiv").hide();
     });
     });
+
+     
+     $(document).ready(function(){
+    $(".visitRequests").click(function(){
+        $(".visitrequests").show();
+    });
+     });
+
 //     $(document).ready(function () {
 //           if (!$.browser.webkit) {
 //               $('.wrapper').html('<p>Sorry! Non webkit users. :(</p>');

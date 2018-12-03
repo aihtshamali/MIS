@@ -29,8 +29,26 @@ use App\SubSector;
 use App\Sector;
 use \DateTime;
 use \DateTimeZone;
+use App\PlantripTriprequest;
+use App\VmisVehicle;
+use App\VmisDriver;
 class ExecutiveController extends Controller
 {
+  //vmis request
+
+  public function visitRequestSummary($id)
+  {
+    // dd($id);
+      $triprequest = PlantripTriprequest::where('id',$id)->first();
+      $purposeCounts=$triprequest->PlantripPurpose->count();
+      $drivers= VmisDriver::all();
+      $vehicles=VmisVehicle::all();
+      // dd($purposeCounts);
+      return view('Site_Visit.Plan_A_Trip.visit_summary',
+      ['vehicles'=>$vehicles,'drivers'=>$drivers,'triprequest'=>$triprequest,'purposeCounts'=>$purposeCounts]);
+  }
+
+  
     //  HOME FOLDER
     public function conduct_pdwp_meeting(){
       $meetings = HrMeetingPDWP::where('status',1)->orderBy('updated_at', 'desc')->get();

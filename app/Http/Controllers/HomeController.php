@@ -15,7 +15,7 @@ use App\HrMeetingPDWP;
 use Illuminate\Support\Facades\Schema;
 use App\Imports\AdpProjectImport;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\PlantripTriprequest;
 
 class HomeController extends Controller
 {
@@ -127,7 +127,14 @@ class HomeController extends Controller
     }
     public function monitoringDashboard()
     {
-      return view('monitoring_dashboard');
+      $triprequests = PlantripTriprequest::where('status',0)
+      ->where('approval_status','Pending')
+      ->orWhere('approval_status','Approved')
+      ->orWhere('approval_status','Not Approved')
+      ->get();
+        $tripcounts=$triprequests->count();
+        // dd($triprequests);
+        return view('monitoring_dashboard',['triprequests'=>$triprequests,'tripcounts'=>$tripcounts]);
     }
     public function reset_store(Request $request)
     {

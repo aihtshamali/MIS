@@ -23,10 +23,9 @@ class CreatePlantripTriprequestsTable extends Migration
             $table->foreign('plantrip_triptype_id')->references('id')->on('plantrip_triptypes')->onDelete('cascade');
             
             $table->string('fullDateoftrip')->nullable();
-            
-            $table->boolean('status')->nullable();
+            $table->boolean('completed')->default(0)->nullable();
+            $table->boolean('status')->default(1)->nullable();
             $table->string('approval_status')->nullable();
-            
             $table->timestamps();
         });
     }

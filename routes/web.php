@@ -85,14 +85,12 @@ Route::prefix('manager')->middleware('role:manager|directorevaluation')->group(f
   Route::get('/chart_ten','ExecutiveController@chart_ten')->name('chart_ten');
   Route::get('/chart_eleven','ExecutiveController@GlobalProgressWiseChart')->name('GlobalProgressWiseChart');
   Route::get('/chart_twelve','ExecutiveController@SneWiseChart')->name('SneWiseChart');
-
-  // chart details
-  // Route::get('/chart_two_details','ExecutiveController@chart_two')->name('chart_two_details');
-
-  //
   Route::get('/pems_tab','ExecutiveController@pems_index')->name('Exec_pems_tab');
 });
-Route::prefix('manager')->middleware('role:manager')->group(function () {
+
+
+
+  Route::prefix('manager')->middleware('role:manager')->group(function () {
 
   Route::get('/pmms_tab','ExecutiveController@pmms_index')->name('Exec_pmms_tab');
   Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
@@ -115,6 +113,8 @@ Route::prefix('manager')->middleware('role:manager')->group(function () {
   Route::get('/m_assigntoconsultant','ProjectAssignController@assignToConsultant')->name('assign_To_consultant');
   Route::get('/m_inprogressprojects','ExecutiveController@monitoring_inprogress')->name('monitoring_inprogress');
   Route::get('/m_completedprojects','ExecutiveController@monitoring_completed')->name('monitoring_completed');
+  Route::get('/visitrequestSummary/{id}','ExecutiveController@visitRequestSummary')->name('visitrequestSummary');
+  Route::post('/visitrequestDescision','SiteVisitController@visitRequestDescision')->name('visitrequestDescision');
 
 });
 
