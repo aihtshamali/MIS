@@ -178,7 +178,7 @@
 <script type="text/javascript">
 
 $(document).on('click','g.amcharts-graph-column',function(){
-  var data=$(this).attr('aria-label').replace(/[\s+,\.+]/g, '');
+  var data=$(this).attr('aria-label').split(' ');
   console.log(data);
     // $('#Modal'+data).modal('show');
 });

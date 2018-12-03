@@ -134,13 +134,12 @@ class OfficerController extends Controller
         ->where('complete',0)
         ->get();
 
-        $progress=AssignedProject::select('assigned_projects.*','assigned_project_activities.*')
-        ->leftjoin('assigned_project_activities ','assigned_project_activities.project_id','assigned_projects.project_id')
-        ->where('user_id',Auth::id())
-        ->get();
-
-
-        return view('officer.evaluation_projects.inprogress',['progress'=> $progress,'officer'=>$officer,'officerInProgressCount'=>$officer->count(),'officerAssignedCount'=>$officerAssignedCount]);
+        // $progress=AssignedProject::select('assigned_projects.*','assigned_project_activities.*')
+        // ->leftjoin('assigned_project_activities ','assigned_project_activities.project_id','assigned_projects.project_id')
+        // ->where('user_id',Auth::id())
+        // ->get();
+          // Progress Variable Commented
+        return view('officer.evaluation_projects.inprogress',['officer'=>$officer,'officerInProgressCount'=>$officer->count(),'officerAssignedCount'=>$officerAssignedCount]);
       }
 
 

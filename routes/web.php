@@ -70,7 +70,7 @@ Route::group(['middleware' => ['role:admin']], function () {
 });
 
 // For Manager & Director Charts
-Route::prefix('manager')->middleware('role:manager|directorevaluation')->group(function () {
+Route::prefix('/manager')->middleware('role:manager|directorevaluation')->group(function () {
   Route::get('/','ExecutiveController@index')->name('Exec_home');
   // PEMS GRAPHS -EVALUATION MODULE
   Route::get('/chart_one','ExecutiveController@chart_one')->name('chart_one');
@@ -91,6 +91,12 @@ Route::prefix('manager')->middleware('role:manager|directorevaluation')->group(f
 
   //
   Route::get('/pems_tab','ExecutiveController@pems_index')->name('Exec_pems_tab');
+  // Officer Level Views
+  Route::prefix('/ViewAsOfficer')->group(function () {
+    Route::get('/{user_id}','ViewAsOfficerController@ViewAsOfficerNewAssignments')->name('ViewAsOfficerNewAssignments');
+    Route::get('/activities/{project_id}/{user_id}','ViewAsOfficerController@ViewOfficerActivities')->name('ViewAsOfficerActivities');
+  });
+
 });
 Route::prefix('manager')->middleware('role:manager')->group(function () {
 
@@ -200,9 +206,12 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
 // Monitoring group
 Route::group(['middleware' => ['role:dataentry|officer|monitor|manager|directormonitoring']],function () {
   // MonitoringDashbaord
-  Route::get('/monitoring_dashboard',function(){
-    return view('monitoring_dashboard');
-  })->name("monitoring_dashboard");
+  Route::get('/monitoring_dashboard','HomeController@monitoringDashboard')->name('monitoring_dashboard');
+
+  // Route::get('/monitoring_dashboard',function(){
+  //   return view('monitoring_dashboard');
+  // })->name("monitoring_dashboard");
+
   // monitoring
   Route::get('/monitoringP','ProjectController@createMonitoringEntryForm')->name('createMonitoringEntryForm');
   Route::get('/monitoringV','ProjectController@viewMonitoringForm')->name('viewMonitoringForm');

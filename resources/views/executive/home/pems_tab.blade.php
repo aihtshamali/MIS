@@ -386,54 +386,70 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
   } );
 </script>
 <script>
-   var st = [];
-    $i = 0;
-    officers.forEach(element => {
-      st.push ({
-        "Name":element.first_name,
-        "Number of Projects": assigned_inprogress_projects[$i]
-      });
-      $i++;
-    });
-    var chart = AmCharts.makeChart( "chartdiv3", {
-    "type": "serial",
-    "theme": "light",
-    "dataProvider":st,
-    "valueAxes": [ {
-      "gridColor": "#FFFFFF",
-      "gridAlpha": 0.2,
-      "dashLength": 0
-    } ],
-    "gridAboveGraphs": true,
-    "startDuration": 1,
-    "graphs": [ {
-      "balloonText": "[[category]]: <b>[[value]]</b>",
-      "fillAlphas": 0.8,
-      "lineAlpha": 0.2,
-      "type": "column",
-      "labelText": "[[value]]",
-      "valueField": "Number of Projects"
-    } ],
-    "chartCursor": {
-      "categoryBalloonEnabled": false,
-      "cursorAlpha": 0,
-      "zoomable": false
-    },
-    "categoryField": "Name",
-    "categoryAxis": {
-      "gridPosition": "middle",
-      "gridAlpha": 0,
-      "tickPosition": "middle",
-      "tickLength": 5,
-      "labelRotation":30,
-      // "ignoreAxisWidth": true,
-      "autoWrap": true
-    },
-    "export": {
-      "enabled": true
-    }
 
-  } );
+var st = [];
+ $i = 0;
+ officers.forEach(element => {
+	 st.push ({
+		 "Name":element.first_name + " " + element.last_name,
+		 "InProgress Projects": assigned_inprogress_projects[$i],
+		 "Total Projects": total_assigned_projects[$i]
+	 });
+	 $i++;
+ });
+			var chart = AmCharts.makeChart("chartdiv3", {
+			 "type": "serial",
+					"theme": "none",
+			 "categoryField": "Name",
+			 "rotate": false,
+			 "startDuration": 1,
+			 "categoryAxis": {
+				 "gridPosition": "middle",
+				     "gridAlpha": 0,
+				     "tickPosition": "middle",
+				     "tickLength": 5,
+				     "labelRotation":30,
+				     // "ignoreAxisWidth": true,
+				     "autoWrap": true
+			 },
+			 "trendLines": [],
+			 "graphs": [
+				 {
+					 "balloonText": "Total:[[value]]",
+					 "fillAlphas": 0.8,
+					 "id": "AmGraph-1",
+					 "lineAlpha": 0.2,
+					 "type": "column",
+					 "labelText": "[[value]]",
+					 "valueField": "Total Projects"
+				 },
+				 {
+					 "balloonText": "In Progress:[[value]]",
+					 "fillAlphas": 0.8,
+					 "id": "AmGraph-2",
+					 "lineAlpha": 0.2,
+					 "type": "column",
+					 "labelText": "[[value]]",
+					 "valueField": "InProgress Projects"
+				 }
+			 ],
+			 "guides": [],
+			 "valueAxes": [
+				 {
+					 "id": "ValueAxis-1",
+					 "position": "left",
+					 "axisAlpha": 0
+				 }
+			 ],
+			 "allLabels": [],
+			 "balloon": {},
+			 "titles": [],
+			 "dataProvider": st,
+				 "export": {
+					 "enabled": true
+					}
+
+			 });
 </script>
 <script>
   var st = [];

@@ -41,9 +41,8 @@ li{text-transform: capitalize;}
                     <div class="progress clearfix mt2 clrornge">
                         <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span class="persontagetiQ">25%</span></div>
                     </div>
+                    @role("monitor|officer|evaluator")
                     <div class="col-md-12 mt2">
-                        {{-- <div class="sub-title">Default</div> --}}
-                        <!-- Nav tabs -->
                         <ul class="nav nav-tabs  tabs" role="tablist">
                             <li class="nav-item inProgress">
                                 <a class="nav-link active" data-toggle="tab" href="#!" role="tab" aria-expanded="false">inprogress</a>
@@ -54,9 +53,9 @@ li{text-transform: capitalize;}
                             <li class="nav-item finished">
                                 <a class="nav-link" data-toggle="tab" href="#!" role="tab" aria-expanded="false">finished</a>
                             </li>
-                        </ul>
-                        <!-- Tab panes -->
-                        <div class="tab-content tabs card-block ">
+                          </ul>
+                          <!-- Tab panes -->
+                          <div class="tab-content tabs card-block ">
                             <div class="tab-pane inProgressDiv active" id="home1" role="tabpanel" aria-expanded="false">
                                 <div class="card">
                                   <div class="card-block">
@@ -108,11 +107,11 @@ li{text-transform: capitalize;}
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                            <div class="tab-pane quarterlyCompDiv" id="profile1" role="tabpanel" aria-expanded="false">
-                              <div class="card">
-                                <div class="card-block">
-                                  <div class="dt-responsive table-responsive">
+                              </div>
+                              <div class="tab-pane quarterlyCompDiv" id="profile1" role="tabpanel" aria-expanded="false">
+                                <div class="card">
+                                  <div class="card-block">
+                                      <div class="dt-responsive table-responsive">
                                     <table id="simpletable2"
                                     class="table table-striped table-bordered nowrap">
                                     <thead>
@@ -155,7 +154,7 @@ li{text-transform: capitalize;}
                               </div>
                             </div>
                             </div>
-                            <div class="tab-pane finishedDiv" id="messages1" role="tabpanel" aria-expanded="false">
+                              <div class="tab-pane finishedDiv" id="messages1" role="tabpanel" aria-expanded="false">
                               <div class="card">
                                 <div class="card-block">
                                   <div class="dt-responsive table-responsive">
@@ -200,6 +199,7 @@ li{text-transform: capitalize;}
                             </div>
                         </div>
                     </div>
+                    @endrole
                 </div>
             </div>
         </div>
