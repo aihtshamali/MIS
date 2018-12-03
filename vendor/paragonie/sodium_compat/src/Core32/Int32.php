@@ -50,21 +50,25 @@ class ParagonIE_Sodium_Core32_Int32
      */
     public function addInt32(ParagonIE_Sodium_Core32_Int32 $addend)
     {
-        $return = new ParagonIE_Sodium_Core32_Int32();
+        $i0 = $this->limbs[0];
+        $i1 = $this->limbs[1];
+        $j0 = $addend->limbs[0];
+        $j1 = $addend->limbs[1];
+
+        $r1 = $i1 + ($j1 & 0xffff);
+        $carry = $r1 >> 16;
+
+        $r0 = $i0 + ($j0 & 0xffff) + $carry;
+        $carry = $r0 >> 16;
+
+        $r0 &= 0xffff;
+        $r1 &= 0xffff;
+
+        $return = new ParagonIE_Sodium_Core32_Int32(
+            array($r0, $r1)
+        );
+        $return->overflow = $carry;
         $return->unsignedInt = $this->unsignedInt;
-
-        /** @var int $tmp */
-        $tmp = $this->limbs[1] + $addend->limbs[1];
-        /** @var int $carry */
-        $carry = $tmp >> 16;
-        $return->limbs[1] = (int) ($tmp & 0xffff);
-
-        /** @var int $tmp */
-        $tmp = $this->limbs[0] + $addend->limbs[0] + $carry;
-        $return->limbs[0] = (int) ($tmp & 0xffff);
-        /** @var int overflow */
-        $return->overflow = $this->overflow + $addend->overflow + ($tmp >> 16);
-
         return $return;
     }
 
@@ -82,20 +86,23 @@ class ParagonIE_Sodium_Core32_Int32
         /** @var int $int */
         $int = (int) $int;
 
-        $return = new ParagonIE_Sodium_Core32_Int32();
+        $int = (int) $int;
+
+        $i0 = $this->limbs[0];
+        $i1 = $this->limbs[1];
+
+        $r1 = $i1 + ($int & 0xffff);
+        $carry = $r1 >> 16;
+
+        $r0 = $i0 + (($int >> 16) & 0xffff) + $carry;
+        $carry = $r0 >> 16;
+        $r0 &= 0xffff;
+        $r1 &= 0xffff;
+        $return = new ParagonIE_Sodium_Core32_Int32(
+            array($r0, $r1)
+        );
+        $return->overflow = $carry;
         $return->unsignedInt = $this->unsignedInt;
-
-        /** @var int $tmp */
-        $tmp = ($this->limbs[1] & 0xffff) + ($int & 0xffff);
-        /** @var int $carry */
-        $carry = $tmp >> 16;
-        $return->limbs[1] = (int) ($tmp & 0xffff);
-
-        /** @var int $tmp */
-        $tmp = $this->limbs[0] + (($int >> 16) & 0xffff) + $carry;
-        $return->limbs[0] = (int) ($tmp & 0xffff);
-        /** @var int overflow */
-        $return->overflow = $this->overflow + ($tmp >> 16);
         return $return;
     }
 
@@ -168,12 +175,36 @@ class ParagonIE_Sodium_Core32_Int32
         $return = new ParagonIE_Sodium_Core32_Int32();
         $return->unsignedInt = $this->unsignedInt;
 
+        // Initialize:
+        $ret0 = 0;
+        $ret1 = 0;
+        $a0 = $a->limbs[0];
+        $a1 = $a->limbs[1];
+
+        /** @var int $size */
+        /** @var int $i */
         for ($i = $size; $i >= 0; --$i) {
             $m = (int) (-($int & 1));
-            $return = $return->addInt32($a->mask($m));
-            $a = $a->shiftLeft(1);
+            $x0 = $a0 & $m;
+            $x1 = $a1 & $m;
+
+            $ret1 += $x1;
+            $c = $ret1 >> 16;
+
+            $ret0 += $x0 + $c;
+
+            $ret0 &= 0xffff;
+            $ret1 &= 0xffff;
+
+            $a1 = ($a1 << 1);
+            $x1 = $a1 >> 16;
+            $a0 = ($a0 << 1) | $x1;
+            $a0 &= 0xffff;
+            $a1 &= 0xffff;
             $int >>= 1;
         }
+        $return->limbs[0] = $ret0;
+        $return->limbs[1] = $ret1;
         return $return;
     }
 
@@ -197,13 +228,46 @@ class ParagonIE_Sodium_Core32_Int32
         $return = new ParagonIE_Sodium_Core32_Int32();
         $return->unsignedInt = $this->unsignedInt;
 
+        // Initialize:
+        $ret0 = 0;
+        $ret1 = 0;
+        $a0 = $a->limbs[0];
+        $a1 = $a->limbs[1];
+        $b0 = $b->limbs[0];
+        $b1 = $b->limbs[1];
+
+        /** @var int $size */
         /** @var int $i */
         for ($i = $size; $i >= 0; --$i) {
-            $m = (int) (-($b->limbs[1] & 1));
-            $return = $return->addInt32($a->mask($m));
-            $a = $a->shiftLeft(1);
-            $b = $b->shiftRight(1);
+            $m = (int) (-($b1 & 1));
+            $x0 = $a0 & $m;
+            $x1 = $a1 & $m;
+
+            $ret1 += $x1;
+            $c = $ret1 >> 16;
+
+            $ret0 += $x0 + $c;
+
+            $ret0 &= 0xffff;
+            $ret1 &= 0xffff;
+
+            $a1 = ($a1 << 1);
+            $x1 = $a1 >> 16;
+            $a0 = ($a0 << 1) | $x1;
+            $a0 &= 0xffff;
+            $a1 &= 0xffff;
+
+            $x0 = ($b0 & 1) << 16;
+            $b0 = ($b0 >> 1);
+            $b1 = (($b1 | $x0) >> 1);
+
+            $b0 &= 0xffff;
+            $b1 &= 0xffff;
+
         }
+        $return->limbs[0] = $ret0;
+        $return->limbs[1] = $ret1;
+
         return $return;
     }
 

@@ -51,7 +51,7 @@
                         <tbody style="text-align:center;">
                             @foreach($officer as $o)
                             <tr >
-                            <td> {{$o->project_id}} </td>
+                            <td> {{$o->Project->project_no}} </td>
                             <td><a href="{{route('evaluation_activities',$o->project_id)}}">{{$o->Project->title}}</a> </td>
                             <td>
                               @if($o->progress > 95)
