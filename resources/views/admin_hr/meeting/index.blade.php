@@ -7,7 +7,8 @@
   <link rel="stylesheet" href="{{asset('css/AdminLTE/dataTables.bootstrap.min.css')}}">
   <style>
 h4:hover{color: #f0ad4e !important;-webkit-transition: all 600ms ease;transition: all 600ms ease;border-bottom: 1px solid;}
-h4{-webkit-transition: all 600ms ease;transition: all 600ms ease;width: fit-content;border-bottom: 1px solid;}
+h4{-webkit-transition: all 600ms ease;transition: all 600ms ease;width: fit-content;margin-left: 3%;float: left;width: fit-content;border-bottom: 1px solid transparent;}
+h4:hover span{border-top: 4px solid #f0ad4e !important;-webkit-transition: all 600ms ease;transition: all 600ms ease}
 .select2-container--default .select2-selection--single, .select2-selection .select2-selection--single{padding: 6px 0px !important;}
 .select2-container .select2-selection--single .select2-selection__rendered{margin-top: -7px !important;}
 .content-wrapper{background-color: #e7ecef !important}
@@ -20,6 +21,7 @@ h4{-webkit-transition: all 600ms ease;transition: all 600ms ease;width: fit-cont
   /* margin-top: 30%; */
   /* top:30%; */
 }
+
 #inner_items{
   left: 25%;
 }
@@ -73,14 +75,17 @@ h4{-webkit-transition: all 600ms ease;transition: all 600ms ease;width: fit-cont
           <select  name="agenda_name" class="form-control select2 searchAgenda" style="text-align: center !important" id="agenda_name">
               <option value="">Enter Scheme Name to Search...</option>
               @foreach ($agendas as $agenda)
-          <option value="{{$agenda->HrMeetingPDWP->id}}">{{$agenda->scheme_name}}</option>
+                <option value="{{$agenda->HrMeetingPDWP->id}}">{{$agenda->scheme_name}}</option>
               @endforeach
           </select>
       </div>
-      @foreach ($data as $key => $value)
-        <div style="cursor:pointer">
+      <div class="col-md-12 row" style="cursor:pointer;display:inline;">
+        @foreach ($data as $key => $value)
           <h4 class="{{ $key }}">Meetings Data {{ $key }} <span class="caret"></span></h4>
-        </div>
+        @endforeach
+      </div>
+      @foreach ($data as $key => $value)
+        {{-- {{dd($key)}} --}}
         <div id="{{ $key }}" style="display:none">
         <table class="table table-borderd">
           <tr>
@@ -150,8 +155,20 @@ h4{-webkit-transition: all 600ms ease;transition: all 600ms ease;width: fit-cont
         console.log($(this).val());
         location="/hr/admin/"+$(this).val();
     });
+    // function hideall()
+    //   {
+    //     var tables=meetings_data;
+    //     $(tables).hide();
+    //   }
+
   $(document).on('click','div > h4',function(){
-    $('#'+$(this).attr('class')).toggle('slow');
+    $('h4').attr('style','color:black');
+    $('.caret').attr('style','color:black');
+    $('.display').hide();
+    $('.display').removeClass('display');
+    $('#'+$(this).attr('class')).toggle().addClass("display")
+    $('.'+$(this).attr('class')).attr('style','color:#f0ad4e');
+    $('.'+$(this > span).attr('class')).attr('style','border-top:4px solid #f0ad4e');
   });
 </script>
 @endsection
