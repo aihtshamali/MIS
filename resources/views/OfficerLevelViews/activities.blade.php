@@ -472,7 +472,7 @@
 <hr>
 <div class="row">
   <div class="form-group col-md-10 col-xs-12">
-    <form class="saveActivityAttachment" action="{{route('saveActivityAttachment')}}" method="POST" enctype="multipart/form-data">
+    <form class="saveActivityAttachment" action="" method="POST" enctype="multipart/form-data">
       {{csrf_field()}}
       <div class="col-md-4">
         <select name="attachment_activity" id="" class="select2 form-control">
@@ -492,7 +492,7 @@
       </div>
 
       <br>
-      <input type="submit" name="Submit" value="Save Attachment" class="btn btn-success pull-right">
+      <input type="button" disabled name="Submit" value="Save Attachment" class="btn btn-success pull-right">
 
     </form>
     <div class="row">
