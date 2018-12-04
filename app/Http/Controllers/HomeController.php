@@ -45,7 +45,7 @@ class HomeController extends Controller
        return Excel::download(new ProjectExport , 'ProjectSNEData.xlsx');
      }
 
-     
+
     public function index()
     {
 

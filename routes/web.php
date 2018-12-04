@@ -181,7 +181,7 @@ Route::prefix('Evaluatorofficer')->middleware('role:evaluator|officer|transporto
   Route::get('/','OfficerController@evaluation_index')->name('new_evaluation');
   Route::post('/submitActivities','OfficerController@activitiesSubmit')->name('activitiesSubmit');
   Route::get('/inprogress_evaluation','OfficerController@evaluation_inprogress')->name('inprogress_evaluation');
-  Route::get('/activities_evaluation/{project_id}','OfficerController@evaluation_activities')->name('evaluation_activities');
+  Route::get('/activities_evaluation/{project_id}','OfficerController@evaluation_activities')->name('evaluation_activities')->middleware('CP');
   Route::get('/completed_evaluation','OfficerController@evaluation_completed')->name('completed_evaluation');
   Route::post('/project_completed','OfficerController@projectCompleted')->name('projectCompleted');
   Route::get('/review_form/{project_id}','OfficerController@review_form')->name('review_form');
