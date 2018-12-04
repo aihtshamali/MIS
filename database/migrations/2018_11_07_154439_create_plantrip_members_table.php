@@ -15,10 +15,11 @@ class CreatePlantripMembersTable extends Migration
     {
         Schema::create('plantrip_members', function (Blueprint $table) {
             $table->increments('id');
+            $table->boolean('requested_by')->default(0)->nullable();
             $table->integer('user_id')->unsigned()->index()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('plantrip_triplocation_id')->unsigned()->index()->nullable();
-            $table->foreign('plantrip_triplocation_id')->references('id')->on('plantrip_triplocations')->onDelete('cascade');
+            $table->integer('plantrip_purpose_id')->unsigned()->index()->nullable();
+            $table->foreign('plantrip_purpose_id')->references('id')->on('plantrip_purposes')->onDelete('cascade');
             $table->timestamps();
         });
     }

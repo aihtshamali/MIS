@@ -54,7 +54,11 @@ class SiteVisitController extends Controller
         $cities= PlantripCity::all();
         $citylahore= PlantripCity::where('name','LAHORE CITY')->first();
   
-        $projects=AssignedProject::where('complete',0)->get();
+        $projects=AssignedProject::select('assigned_project_teams.*','assigned_projects.*')
+        ->leftjoin('assigned_project_teams','assigned_projects.id','assigned_project_teams.assigned_project_id')
+        ->where('user_id',Auth::id())
+        ->get();
+
         $officers=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
         ->leftJoin('user_details','user_details.user_id','users.id')
         ->leftJoin('role_user','role_user.user_id','users.id')
@@ -62,6 +66,7 @@ class SiteVisitController extends Controller
         ->orderBy('roles.name','ASC')
         ->where('roles.name','officer')
         ->get();
+
         return view('Site_Visit.Plan_A_Trip.new_trip',['cities'=>$cities,'officers'=>$officers,'triptypes'=>$triptypes,
                                                       'visitreasons'=>$visitreasons,'purposetypes'=>$purposetypes,
                                                       'subcitytypes'=>$subcitytypes,'projects'=>$projects,'citylahore'=>$citylahore]);
@@ -141,7 +146,8 @@ class SiteVisitController extends Controller
         // dd($request->all());
 
                  $tripRequest = new PlantripTriprequest();
-                $tripRequest->user_id=Auth::id();
+                // $tripRequest->user_id=Auth::id();
+                // TODO
                 $tripRequest->plantrip_triptype_id=$request->triptype_id;
                 $tripRequest->status='1';
                 $tripRequest->approval_status='Pending';
@@ -200,14 +206,19 @@ class SiteVisitController extends Controller
                     $tripRequest_location->time_to_Departure=$request->departureTimeforlocal[$i];
                     $tripRequest_location->save();
                     //  dd($_POST['local_members_'.$i]);
-                    
+                     // Requested By Entry
+                     $tripRequest_members = new PlantripMember();
+                     $tripRequest_members->user_id=Auth::id();
+                     $tripRequest_members->requested_by=true;
+                     $tripRequest_members->plantrip_purpose_id=$tripRequest_purpose->id;
+                     $tripRequest_members->save();
                      if(isset($_POST['local_members_'.$i]) && $_POST['local_members_'.$i]!=null)
                       {  
                           foreach($_POST['local_members_'.$i] as $eachMember)
                         {    
                             $tripRequest_members = new PlantripMember();
                             $tripRequest_members->user_id=$eachMember;
-                            $tripRequest_members->plantrip_triplocation_id=$tripRequest_location->id;
+                            $tripRequest_members->plantrip_purpose_id=$tripRequest_purpose->id;
                             $tripRequest_members->save();
 
                         } 
@@ -283,6 +294,12 @@ class SiteVisitController extends Controller
                             if(isset($request->departureTimeforRoundtrip[$i]) && $request->departureTimeforRoundtrip[$i] !=null)
                             $tripRequest_location->time_to_Departure=$request->departureTimeforRoundtrip[$i];
                             $tripRequest_location->save();
+                            // Requested By Entry
+                            $tripRequest_members = new PlantripMember();
+                            $tripRequest_members->user_id=Auth::id();
+                            $tripRequest_members->requested_by=true;
+                            $tripRequest_members->plantrip_purpose_id=$tripRequest_purpose->id;
+                            $tripRequest_members->save();
                             
                             if(isset($_POST['roundtrip_members_'.$i]) && $_POST['roundtrip_members_'.$i]!=null)
                             {  
@@ -290,7 +307,7 @@ class SiteVisitController extends Controller
                                     {    
                                         $tripRequest_members = new PlantripMember();
                                         $tripRequest_members->user_id=$eachMember;
-                                        $tripRequest_members->plantrip_triplocation_id=$tripRequest_location->id;
+                                        $tripRequest_members->plantrip_purpose_id=$tripRequest_purpose->id;
                                         $tripRequest_members->save();
 
                                     } 
@@ -360,14 +377,20 @@ class SiteVisitController extends Controller
                             $tripRequest_location->time_to_Departure=$request->departureTimeformulticity[$i];
                             
                             $tripRequest_location->save();
-                            
+                             // Requested By Entry
+                             $tripRequest_members = new PlantripMember();
+                             $tripRequest_members->user_id=Auth::id();
+                             $tripRequest_members->requested_by=true;
+                             $tripRequest_members->plantrip_purpose_id=$tripRequest_purpose->id;
+                             $tripRequest_members->save();
+
                             if(isset($_POST['multicity_members_'.$i]) && $_POST['multicity_members_'.$i]!=null)
                             {  
                                 foreach($_POST['multicity_members_'.$i] as $eachMember)
                                     {    
                                         $tripRequest_members = new PlantripMember();
                                         $tripRequest_members->user_id=$eachMember;
-                                        $tripRequest_members->plantrip_triplocation_id=$tripRequest_location->id;
+                                        $tripRequest_members->plantrip_purpose_id=$tripRequest_purpose->id;
                                         $tripRequest_members->save();
 
                                     } 

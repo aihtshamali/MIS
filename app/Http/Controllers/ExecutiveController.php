@@ -39,13 +39,26 @@ class ExecutiveController extends Controller
   public function visitRequestSummary($id)
   {
     // dd($id);
+      $nameofrequestee = PlantripTriprequest::select('plantrip_triprequests.*','users.first_name','users.last_name')
+      ->leftJoin('plantrip_purposes','plantrip_purposes.plantrip_triprequest_id','plantrip_triprequests.id')
+      ->leftJoin('plantrip_members','plantrip_members.plantrip_purpose_id','plantrip_purposes.id')
+      ->leftJoin('users','plantrip_members.user_id','users.id')
+      ->where('plantrip_triprequests.status',0)
+      ->where('plantrip_members.requested_by',1)
+      ->where('plantrip_triprequests.approval_status','Pending')
+      ->distinct()
+      ->with('VmisRequestToTransportOfficer')
+      ->get();
+
       $triprequest = PlantripTriprequest::where('id',$id)->first();
       $purposeCounts=$triprequest->PlantripPurpose->count();
       $drivers= VmisDriver::all();
       $vehicles=VmisVehicle::all();
       // dd($purposeCounts);
+
+      // dd($triprequest->PlantripPurpose[0]->PlantripMembers);
       return view('Site_Visit.Plan_A_Trip.visit_summary',
-      ['vehicles'=>$vehicles,'drivers'=>$drivers,'triprequest'=>$triprequest,'purposeCounts'=>$purposeCounts]);
+      ['vehicles'=>$vehicles,'drivers'=>$drivers,'triprequest'=>$triprequest,'purposeCounts'=>$purposeCounts,'nameofrequestee'=>$nameofrequestee]);
   }
 
   

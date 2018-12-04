@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/multiselect/css/multi-select.css')}}" />
 <style>
     .fancyLable{background: #16d39a !important;padding: 0.5% !important;border-radius: 4px !important;}
+    .requestedby{background:tomato !important;padding:0.2% !important;border-radius: 4px !important;}
     .black{color:#000 !important;}
     .white{color:#fff !important;}
     .form-group{margin-bottom:0px !important;}
@@ -37,7 +38,7 @@
                 <div class="card-header">
                     <label for="" class="fancyLable">
                       <span class="white">  Request By :
-                        <b>{{$triprequest->User->first_name}} {{$triprequest->User->last_name}} 
+                        <b>{{$nameofrequestee[0]->first_name}} {{$nameofrequestee[0]->last_name}} 
                             {{-- {{$triprequest->UserDetails->father_name}}  --}}
                             </b></span>
                     </label>
@@ -87,27 +88,28 @@
                             <label for=""><b>Assigned Driver :</b></label>
                         </p>
                         <p class="col-md-2">
-                                @if(isset($triprequest->PlantripRequestedcity))
-                                @foreach ($triprequest->PlantripRequestedcity as $city)
-                                    {{$city->PlantripCity->name}}
-                                @endforeach
-                                @endif
+                                @forelse ($triprequest->VmisRequestToTransportOfficer->VmisAssignedDriver as $driver)
+                                 {{$driver->VmisDriver->User->first_name}} 
+                                {{$driver->VmisDriver->User->last_name}} -                                                                               
+                            @empty
+                                <p>Not Assigned</p>                                                                                
+                            @endforelse
                         </p>
                         <p class="col-md-2">
                                 <label for=""><b>Assigned Vehicle :</b></label>
                             </p>
                             <p class="col-md-2">
-                                    @if(isset($triprequest->PlantripRequestedcity))
-                                    @foreach ($triprequest->PlantripRequestedcity as $city)
-                                        {{$city->PlantripCity->name}}
-                                    @endforeach
-                                    @endif
+                                    @forelse ($triprequest->VmisRequestToTransportOfficer->VmisAssignedVehicle as $vehicle)
+                                     {{$vehicle->VmisVehicle->name}} 
+                                @empty
+                                    <p>Not Assigned</p>                                                                              
+                                @endforelse
                             </p>
                     </div>
                    
                    @foreach ($triprequest->PlantripPurpose as $plantripPurpose)               
-                    <div class="col-md-8 offset-md-2 newPurposeHere">
-                            {{-- <div class="col-md-10 offset-md-1" style="margin-top:10px; margin-bottom:15px;  border:1px solid lightgrey"></div> --}}
+                    <div class="col-md-10 offset-md-1 newPurposeHere">
+                        <div class="col-md-12" style="margin-top:10px; margin-bottom:15px;  border:1px solid lightgrey"></div>
                         <div class="row form-group">
                             <div class="col-md-2 offset-md-2">
                                 <label for=""><b>Visit Reason : </b></label>
@@ -226,15 +228,18 @@
                                                 @php
                                                 $j=0;
                                                 @endphp
-                                                @if(isset($triplocation->PlantripMember))
-                                                @foreach ($triplocation->PlantripMember as $PlantripMembers)
-                                                    <p> {{$PlantripMembers->User->first_name}}   {{$PlantripMembers->User->last_name}}<br> </p>
-                                                    
-                                                    @php
-                                                    $j++;
-                                                    @endphp
-                                                @endforeach 
-                                                @endif
+                                               @if(isset($plantripPurpose->PlantripMembers))
+                                               @foreach ($plantripPurpose->PlantripMembers as $PlantripMember)
+                                                   @if($PlantripMember->requested_by==1)
+                                                       <p class="requestedby white" style="text-align: center"> {{$PlantripMember->User->first_name}}   {{$PlantripMember->User->last_name}}<br> </p>
+                                                   @else
+                                                       <p style="text-align: center">{{$PlantripMember->User->first_name}}   {{$PlantripMember->User->last_name}}<br> </p>
+                                                   @endif                                        
+                                                   @php
+                                                   $j++;
+                                                   @endphp
+                                               @endforeach 
+                                               @endif
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -264,23 +269,26 @@
                             </div>    
                         </div>
                     </form>
-                    <form action="#" method="POST" enctype="multipart/form-data" id="">
+                    
+                    <form action="{{route('visitrequestDescision')}}" method="POST" enctype="multipart/form-data" id="">
                         {{csrf_field()}}
                         <div class="row">
                                 <div class="col-md-5 offset-md-1">
                                     <p><h6><b>Remarks :</b></h6></p>
-                                    <textarea type="text" name="remarks" required></textarea>
+                                    <textarea type="text" name="remarks" ></textarea>
                                 </div>
                         </div>
                         <div class="row">
                             <div class="col-md-3 offset-md-1">
                                 <p><h6><b style="color:white;"> :</b></h6></p>
-                                <button type="submit" class="btn btn-success btn-sm" name="approved">Approved</button>
+                                <input type="hidden" name="request_descision" value="2">
+                                <input type="hidden" name="triprequest_id" value="{{$triprequest->id}}">
+                                <button type="submit" class="btn btn-success btn-sm"><b>Approve</b></button>
                                 
                             </div>
                             <div class="col-md-3 ">
                                     <p><h6><b style="color:white;">:</b></h6></p>
-                                <button type="submit" class="btn btn-danger btn-sm" name="rejected">Rejected</button>   
+                                <button type="button" class="btn btn-danger btn-sm" name="rejected">Rejected</button>   
                             </div>
                         </div>
                     </form>

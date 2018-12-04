@@ -92,7 +92,7 @@ class User extends Authenticatable
       return $this->hasOne('App\VmisDriver');
   }
   public function VmisRequestToTransportOfficer(){
-      return $this->hasMany('App\VmisRequestToTransportOfficer');
+      return $this->hasOne('App\VmisRequestToTransportOfficer','approvedby_user_id');
   }
  
 }

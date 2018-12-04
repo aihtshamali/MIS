@@ -8,7 +8,7 @@ class VmisRequestToTransportOfficer extends Model
 {
     public function PlantripTriprequest()
     {   
-        return $this->belongsTo('App\PlantripTriprequest');
+        return $this->belongsTo('App\PlantripTriprequest','plantrip_triprequest_id');
     }
     public function VmisVehicle()
     {   
@@ -20,7 +20,7 @@ class VmisRequestToTransportOfficer extends Model
     }
     public function User()
     {   
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User','approvedby_user_id');
     }
     public function VmisAssignedVehicle()
     {   

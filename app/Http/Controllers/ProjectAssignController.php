@@ -149,6 +149,7 @@ class ProjectAssignController extends Controller
       ->orWhere('roles.name','evaluator')
       ->where('users.status',1)
       ->get();
+      
       return view('Director.Evaluation.Evaluation_projects.consultant_assign',['priority'=>$priority,'project_id'=>$request->project_id,'officers'=>$officers,'assigned'=>$assigned,'unassigned'=>$unassigned,'assignedtoManager'=>$assignedtoManager]);
     }
 

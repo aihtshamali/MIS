@@ -21,6 +21,9 @@ class PlantripPurpose extends Model
     public function PlantripTriplocation(){
         return $this->hasMany('App\PlantripTriplocation');
     }
+    public function PlantripMembers(){
+        return $this->hasMany('App\PlantripMember');
+    }
     public function PlantripVisitedproject(){
         return $this->hasOne('App\PlantripVisitedproject');
     }
