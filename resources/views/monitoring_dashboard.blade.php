@@ -182,6 +182,9 @@ td{white-space: unset !important;}
                                 <div class="tab-pane officervisitrequests active" id="officervisitrequests" role="tabpanel" aria-expanded="false">
                                         <div class="row">
                                             <div class="col-md-12">
+                                                    @if($tripcounts==0)
+                                                    <p><h5 style="text-align :center;">No Visit Requests</h5></p>
+                                                    @else
                                                     <div class="card">
                                                         <div class="card-block">
                                                                 <div class="col-md-12 table-responsive">
@@ -263,6 +266,7 @@ td{white-space: unset !important;}
                                                                     </div>
                                                         </div>
                                                     </div>
+                                                    @endif
                                             </div>
                                         </div>
                                     </div>

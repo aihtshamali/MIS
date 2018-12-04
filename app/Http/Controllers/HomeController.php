@@ -144,15 +144,10 @@ class HomeController extends Controller
       $officer=PlantripTriprequest::select('plantrip_triprequests.*')
       ->leftjoin('plantrip_purposes','plantrip_purposes.plantrip_triprequest_id','plantrip_triprequests.id')
       ->leftjoin('plantrip_members','plantrip_members.plantrip_purpose_id','plantrip_purposes.id')
-      ->where('plantrip_members.user_id',Auth::id())
-      // ->where('plantrip_triprequests.status',0)
-      ->where('plantrip_triprequests.approval_status','Pending')
-      ->orWhere('approval_status','Approved')
-      ->orWhere('approval_status','Not Approved')
+      ->where('plantrip_members.user_id',Auth::id())  
       ->distinct()
       ->get();
-      // dd($officer[1]->VmisRequestToTransportOfficer->VmisAssignedDriver);
-        // dd($triprequests);
+    
         return view('monitoring_dashboard',['triprequests'=>$triprequests,'tripcounts'=>$tripcounts,'officer'=>$officer]);
     }
     public function reset_store(Request $request)

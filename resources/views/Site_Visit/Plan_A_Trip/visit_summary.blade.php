@@ -38,6 +38,8 @@
                 <div class="card-header">
                     <label for="" class="fancyLable">
                       <span class="white">  Request By :
+                    {{dd($triprequest->PlantripPurpose[0])}}
+
                         <b>{{$nameofrequestee[0]->first_name}} {{$nameofrequestee[0]->last_name}} 
                             {{-- {{$triprequest->UserDetails->father_name}}  --}}
                             </b></span>
@@ -56,7 +58,7 @@
                     </p>
                     <p class="col-md-2"><b>Sub City Type :</b></p>
                     <p class="col-md-2">
-                        @if(isset($triprequest->PlantripPurpose[0]->PlantripSubcitytype->name))
+                        @if(isset($triprequest->PlantripPurpose[0]->PlantripSubcitytypfe->name))
                         <span>{{$triprequest->PlantripPurpose[0]->PlantripSubcitytype->name}}</span>
                         @else
                         <span style="color:red;">Not Available</span>

@@ -90,6 +90,7 @@ class SiteVisitController extends Controller
      */
     public function visitRequestDescision(Request $request)
     {
+        dd($request);
         if($request->request_descision=='2')
         {
           $triprequest = PlantripTriprequest::where('id',$request->triprequest_id)->first(); 
@@ -101,16 +102,15 @@ class SiteVisitController extends Controller
           $triprequestToTransportofficer->approvedby_user_id=Auth::id();
           $triprequestToTransportofficer->approval_status='2';
           $triprequestToTransportofficer->save();
-
+         
           if(isset($request->remarks) && $request->remarks!=null)
           {
-            foreach($request->remarks as $remarks)
-            {
+            
             $tripremarks = new PlantripRemark();
             $tripremarks->plantrip_triprequest_id=$request->triprequest_id;
-            $tripremarks->remarks=$remarks;
+            $tripremarks->remarks=$request->remarks;
             $tripremarks->save();
-            }  
+              
           }
           return redirect()->back()->with('success','Request Has Been Accepted!!');
           
