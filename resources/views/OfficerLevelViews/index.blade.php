@@ -7,18 +7,30 @@
   .CompletedProjects{
     display:none;
   }
+  .content-header
+    {
+      font-size: 27px !important;
+      font-weight: 200 !important;
+    }
+  .floatRight
+    {
+      float: right !important;
+      margin-left: 12px !important;
+      margin-top: 2% !important;
+    }
+  .nav>li>a{padding: 10px 27px !important}
 </style>
 @endsection
 @section('content')
   <div class="content-wrapper">
       <section class="content-header">
-          {{$user->first_name}} -  {{$user->last_name}}
+          {{$user->first_name}} {{$user->last_name}}
       </section>
       <div class="col-md-6">
         <ul class="nav nav-tabs">
-          <li class="active"><a href="#" class="topnav" data-id="newAssignments" >New Assignments <span class="label label-primary pull-right">{{$NewAssignedprojects->count()}}</span></a></li>
-          <li><a href="#" class="topnav" data-id="InProgressProjects">In Progress <span class="label label-primary pull-right">{{$inProgressProjects->count()}}</span></a></li>
-          <li><a href="#" class="topnav" data-id="CompletedProjects">Completed <span class="label label-primary pull-right">{{$CompletedProjects->count()}}</span></a></li>
+          <li class="active"><a href="#" class="topnav" data-id="newAssignments" >New Assignments<span class="label label-primary floatRight">{{$NewAssignedprojects->count()}}</span></a></li>
+          <li><a href="#" class="topnav" data-id="InProgressProjects">In Progress<span class="label label-primary floatRight">{{$inProgressProjects->count()}}</span></a></li>
+          <li><a href="#" class="topnav" data-id="CompletedProjects">Completed<span class="label label-primary floatRight">{{$CompletedProjects->count()}}</span></a></li>
         </ul>
       </div>
       <section class="content">
@@ -177,7 +189,16 @@
     }
     $(document).on('click','.topnav',function(){
       hideall();
-      $('.'+$(this).data('id')).show();
+      $('.'+$(this).data('id')).show('slow');
+    })
+    function inActiveAll(){
+      $("li.active").each(function(){
+          $(this).removeClass('active')
+      })
+    }
+    $('.topnav').on('click',function(){
+      inActiveAll();
+      $(this).parent().addClass("active");
     })
   </script>
 @endsection
