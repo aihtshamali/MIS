@@ -19,6 +19,7 @@ class ProjectCounterController extends Controller
           ->whereNull('assigned_project_managers.project_id')
           ->whereNull('assigned_projects.project_id')
           ->where('projects.project_type_id','1')
+          ->where('projects.status',1)
           ->get()->count();
             $role='executive';
 
@@ -31,6 +32,7 @@ class ProjectCounterController extends Controller
           ->where('projects.project_type_id',1)
           ->where('assigned_project_managers.user_id',Auth::id())
           ->whereNull('assigned_projects.project_id')
+          ->where('projects.status',1)
           ->get()
           ->count();
 
@@ -62,7 +64,7 @@ class ProjectCounterController extends Controller
           ->leftjoin('projects','assigned_projects.project_id','projects.id')
           ->where('acknowledge','0')
           ->where('projects.project_type_id',1)
-          ->where('status',1)
+          ->where('projects.status',1)
           ->where('complete',0)
           ->where('assigned_project_teams.user_id',$request->user()->id)
           ->count();
@@ -117,6 +119,7 @@ class ProjectCounterController extends Controller
           ->where('assigned_project_teams.user_id',$request->user()->id)
           ->where('acknowledge','1')
           ->where('projects.project_type_id',1)
+          ->where('projects.status',1)
           ->where('complete',0)
           ->count();
           $role='officer';
@@ -144,6 +147,7 @@ class ProjectCounterController extends Controller
           ->leftJoin('projects','assigned_projects.project_id','projects.id')
           ->where('acknowledge','1')
           ->where('projects.project_type_id',1)
+          ->where('projects.status',1)
           ->where('complete',1)
           ->get()
           ->count();
@@ -157,6 +161,7 @@ class ProjectCounterController extends Controller
           ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
           ->where('assigned_project_teams.user_id',$request->user()->id)
           ->where('projects.project_type_id',1)
+          ->where('projects.status',1)
           ->where('complete',1)
           ->count();
           $role='officer';
