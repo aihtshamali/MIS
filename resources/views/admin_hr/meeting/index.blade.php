@@ -155,12 +155,6 @@ h4:hover span{border-top: 4px solid #f0ad4e !important;-webkit-transition: all 6
         console.log($(this).val());
         location="/hr/admin/"+$(this).val();
     });
-    // function hideall()
-    //   {
-    //     var tables=meetings_data;
-    //     $(tables).hide();
-    //   }
-
   $(document).on('click','div > h4',function(){
     $('h4').attr('style','color:black');
     $('.caret').attr('style','color:black');

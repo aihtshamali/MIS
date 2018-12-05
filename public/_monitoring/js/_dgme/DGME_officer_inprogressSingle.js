@@ -215,12 +215,13 @@ $(document).ready(function () {
     });
 
     $('.planNav').on('click', function () {
-        // console.log('yahan tk');
-
         hideallmaintabs();
+        $('.nav-link').removeClass('active');
         $('.p_details').hide();
         $('.mainTabsAndNav').removeClass("col-md-9").addClass("col-md-12");
         $('#p_monitoring').show();
+        $('#PlanDocDiv').show();
+        $('.PlanDoc').addClass('active');
     });
     function hideall() {
         $('#PlanDocDiv').hide();
@@ -251,6 +252,8 @@ $(document).ready(function () {
     $('.conductNav').on('click', function () {
         hideallmaintabs();
         hideall();
+        $('.nav-link').removeClass('active');
+        $('.financial').addClass('active');
         $('#c_monitoring').show();
         $('#financialDiv').show();
         $('#p_monitoring').hide();
@@ -301,8 +304,11 @@ $(document).ready(function () {
     });
     $('.reviewTab').on('click', function () {
         hideall();
+        $(".nav-link").removeClass('active');
+        $(".costTab").addClass('active');
         $(".topSummary").show('slow');
         $('#reviewDiv').show();
+        $('#costDiv').show();
         $(".mainTabsAndNav").animate({ marginTop: '6%' }, 1000);
         $('#p_monitoring').hide();
         $('#c_monitoring').hide();

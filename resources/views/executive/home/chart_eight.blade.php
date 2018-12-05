@@ -51,7 +51,7 @@
     margin: 2px;
 
   }
-  
+
   a{
   color: black;
   }
@@ -68,7 +68,7 @@
   }
 
 </style>
-    
+
 @endsection
 @section('content')
 <div class="content-wrapper">
@@ -76,28 +76,28 @@
     <section class="content-header">
         <h1>
         Sector Wise Projects
-         
+
         </h1>
         <ol class="breadcrumb">
         <li><a href="{{route('Exec_pems_tab')}}"><i class="fa fa-backward" ></i>Back</a></li>
-          {{-- <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li> --}}    
+          {{-- <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li> --}}
         </ol>
     </section>
-    
+
     <section class="content">
             <div class="row">
                 <div class="col-md-12">
-                    
+
                     <div class="card col-md-12" >
                         <div class="card-header">
-                        </div> 
+                        </div>
                         <div id="chartdiv8"></div>
                     </div>
                     <div class="col-md-1"></div>
                 </div>
             </div>
     </section>
-    
+
 </div>
 @endsection
 @section('scripttags')
@@ -117,31 +117,32 @@
         var st = [];
           $i = 0;
           sectors.forEach(element => {
-            st.push ({ 
+            st.push ({
               "Name":element.name,
               "Total Projects":totalprojects_wrt_sectors[$i][0].eachtotalproject,
               "Assigned Projects": assignedprojects_wrt_sectors[$i][0].eachproject,
               "Inprogress Projects": inprogressprojects_wrt_sectors[$i][0].eachinprogressproject,
               "Completed Projects": completedprojects_wrt_sectors[$i][0].eachcompletedproject
-              
+
             });
             $i++;
           });
           console.log(st);
-          
+
        var chart = AmCharts.makeChart("chartdiv8", {
          "type": "serial",
          "theme": "light",
          "legend": {
          "horizontalGap": 10,
          "maxColumns": 1,
-        
+
          "position": "right",
          "useGraphSettings": true,
              "markerSize": 10
          },
          "dataProvider": st,
          "valueAxes": [{
+           "title":"Projects",
              "stackType": "regular",
              "axisAlpha": 0.5,
              "gridAlpha": 0
@@ -191,6 +192,7 @@
          "rotate": true,
          "categoryField": "Name",
          "categoryAxis": {
+           "title":"Sectors",
             "autoGridCount": false,
       "equalSpacing": true,
       "gridCount": 1000,

@@ -300,8 +300,9 @@ class ExecutiveController extends Controller
           array_push($projectsprogressranges,'0-25%');
           array_push($projectsprogressranges,'26-50%');
           array_push($projectsprogressranges,'51-75%');
-          array_push($projectsprogressranges,'76-100%');
-          $projectsprogress=array_fill(0,4,0);
+          array_push($projectsprogressranges,'76-99.99%');
+          array_push($projectsprogressranges,'100%');
+          $projectsprogress=array_fill(0,5,0);
           foreach ($projects as $project) {
             if($project->progress>0 && $project->progress < 25){
               $projectsprogress[0]++;
@@ -312,8 +313,11 @@ class ExecutiveController extends Controller
             else if($project->progress < 75){
               $projectsprogress[2]++;
             }
-            else if($project->progress <= 100){
+            else if($project->progress < 100){
               $projectsprogress[3]++;
+            }
+            else{
+              $projectsprogress[4]++;
             }
           }
           // Chart 12
@@ -417,10 +421,6 @@ class ExecutiveController extends Controller
     }
     // chart2
     public function chart_two(){
-      $total_projects = count(Project::all());
-      $total_assigned_projects = count(AssignedProject::all());
-      $inprogress_projects = count(AssignedProject::where('acknowledge',1)->get());
-      $completed_projects = count(AssignedProject::where('complete',1)->get());
       $model = new User();
       $officers = $model->hydrate(
         DB::select(
@@ -428,6 +428,7 @@ class ExecutiveController extends Controller
         )
         );
         $assigned_projects = [];
+        $actual_assigned_projects = [];
         foreach($officers as $officer){
           if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad" || (preg_match('#M[u|o]hammad*#i', $officer->first_name)==1))
           {
@@ -438,12 +439,16 @@ class ExecutiveController extends Controller
             'getOfficersAssignedProjectById' .' '.$officer->id
           );
           array_push($assigned_projects,count($data));
+          array_push($actual_assigned_projects,$data);
         }
+
+        // dd($actual_assigned_projects);
       \JavaScript::put([
         'officers' => $officers,
         'assigned_projects' => $assigned_projects,
+        // 'actual_assigned_projects' => $actual_total_projects,
         ]);
-      return view('executive.home.chart_two',['officers' => $officers,'assigned_projects' => $assigned_projects]);
+      return view('executive.home.chart_two',['officers' => $officers,'assigned_projects' => $assigned_projects,'actual_assigned_projects' => $actual_assigned_projects]);
     }
 
     // chart3
@@ -457,6 +462,8 @@ class ExecutiveController extends Controller
       );
       $assigned_inprogress_projects = [];
       $total_assigned_projects = [];
+      $actual_assigned_inprogress_projects = [];
+      $actual_total_assigned_projects = [];
       foreach($officers as $officer){
         if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad" || (preg_match('#M[u|o]hammad*#i', $officer->first_name)==1))
         {
@@ -470,12 +477,16 @@ class ExecutiveController extends Controller
           );
           array_push($assigned_inprogress_projects,count($data_2));
           array_push($total_assigned_projects,count($data_3));
+          array_push($actual_assigned_inprogress_projects,$data_2);
+          array_push($actual_total_assigned_projects,$data_3);
         }
 
       \JavaScript::put([
         'officers' => $officers,
         'assigned_inprogress_projects' => $assigned_inprogress_projects,
-        'total_assigned_projects' => $total_assigned_projects
+        'total_assigned_projects' => $total_assigned_projects,
+        'actual_assigned_inprogress_projects' => $actual_assigned_inprogress_projects,
+        'actual_total_assigned_projects' => $actual_total_assigned_projects
         ]);
       return view('executive.home.chart_three');
     }
@@ -804,8 +815,9 @@ class ExecutiveController extends Controller
       array_push($ranges,'0-25%');
       array_push($ranges,'26-50%');
       array_push($ranges,'51-75%');
-      array_push($ranges,'76-100%');
-      $projectsprogress=array_fill(0,4,0);
+      array_push($ranges,'76-99.99');
+      array_push($ranges,'100%');
+      $projectsprogress=array_fill(0,5,0);
       foreach ($projects as $project) {
         if($project->progress>0 && $project->progress < 25){
           $projectsprogress[0]++;
@@ -816,8 +828,11 @@ class ExecutiveController extends Controller
         else if($project->progress < 75){
           $projectsprogress[2]++;
         }
-        else if($project->progress <= 100){
+        else if($project->progress < 100){
           $projectsprogress[3]++;
+        }
+        else{
+          $projectsprogress[4]++;
         }
       }
         \JavaScript::put([
@@ -828,7 +843,7 @@ class ExecutiveController extends Controller
     }
     //chart 12
     public function SneWiseChart(){
-      $projects=Project::where('project_type_id',1)->get();
+      $projects=Project::where('project_type_id',1)->where('status',1)->get();
       $categories=array();
       array_push($categories,'NOT SET');
       array_push($categories,'NO');
@@ -836,28 +851,36 @@ class ExecutiveController extends Controller
       array_push($categories,'STAFF');
       array_push($categories,'BOTH');
       $Sneprojects=array_fill(0,5,0);
+      $actual_Sneprojects=array_fill(0,5,array());
       foreach ($projects as $project) {
         if(!$project->ProjectDetail->sne){
           $Sneprojects[0]++;
+          array_push($actual_Sneprojects[0],$project);
         }
         else if( $project->ProjectDetail->sne=="NO"){
           $Sneprojects[1]++;
+          array_push($actual_Sneprojects[1],$project);
         }
         else if($project->ProjectDetail->sne=="COST"){
           $Sneprojects[2]++;
+          array_push($actual_Sneprojects[2],$project);
         }
         else if($project->ProjectDetail->sne=="STAFF"){
           $Sneprojects[3]++;
+          array_push($actual_Sneprojects[3],$project);
         }
         else if($project->ProjectDetail->sne=="BOTH"){
           $Sneprojects[4]++;
+          array_push($actual_Sneprojects[4],$project);
         }
       }
+
+      // dd($actual_Sneprojects);
         \JavaScript::put([
           'Sneprojects'=>$Sneprojects,
           'categories'=>$categories
         ]);
-        return view('executive.home.sne_wise_chart');
+        return view('executive.home.sne_wise_chart',compact('actual_Sneprojects'));
     }
 
 
