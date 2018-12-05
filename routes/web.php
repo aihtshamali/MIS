@@ -69,6 +69,9 @@ Route::group(['middleware' => ['role:admin']], function () {
 
 });
 
+  
+
+
 // For Manager & Director Charts
 Route::prefix('manager')->middleware('role:manager|directorevaluation')->group(function () {
   Route::get('/','ExecutiveController@index')->name('Exec_home');
@@ -113,7 +116,7 @@ Route::prefix('manager')->middleware('role:manager|directorevaluation')->group(f
   Route::get('/m_assigntoconsultant','ProjectAssignController@assignToConsultant')->name('assign_To_consultant');
   Route::get('/m_inprogressprojects','ExecutiveController@monitoring_inprogress')->name('monitoring_inprogress');
   Route::get('/m_completedprojects','ExecutiveController@monitoring_completed')->name('monitoring_completed');
-  Route::get('/visitrequestSummary/{id}','ExecutiveController@visitRequestSummary')->name('visitrequestSummary');
+  // Route::get('/visitrequestSummary/{id}','ExecutiveController@visitRequestSummary')->name('visitrequestSummary');
   Route::post('/visitrequestDescision','SiteVisitController@visitRequestDescision')->name('visitrequestDescision');
 
 });
@@ -182,8 +185,9 @@ Route::prefix('Evaluatorofficer')->middleware('role:evaluator|officer|transporto
   Route::post('/review_form','OfficerController@review_forms')->name('review_forms');
   Route::post('/AssignActivityDocuments','OfficerController@AssignActivityDocument')->name('AssignActivityDocument');
   Route::post('/saveActivityAttachment','OfficerController@saveActivityAttachment')->name('saveActivityAttachment');
-  Route::resource('trip','SiteVisitController');
   Route::post('/saveDocAttachment','OfficerController@saveDocAttachments')->name('saveDocAttachment');
+  Route::resource('trip','SiteVisitController');
+  Route::post('/visitCompleted/{id}','SiteVisitController@visitCompleted')->name('visitCompleted');
 });
 //Monitor officers
 Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(function () {
@@ -199,7 +203,8 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
 
 // Monitoring group
 Route::group(['middleware' => ['role:dataentry|officer|monitor|manager|directormonitoring']],function () {
-  // MonitoringDashbaord
+Route::get('/visitrequestSummary/{id}','ExecutiveController@visitRequestSummary')->name('visitrequestSummary');
+// MonitoringDashbaord
   Route::get('/monitoring_dashboard','HomeController@monitoringDashboard')->name('monitoring_dashboard');
 
   // Route::get('/monitoring_dashboard',function(){

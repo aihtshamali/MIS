@@ -182,7 +182,7 @@ td{white-space: unset !important;}
                                 <div class="tab-pane officervisitrequests active" id="officervisitrequests" role="tabpanel" aria-expanded="false">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                    @if($tripcounts==0)
+                                                    @if($officercount==0)
                                                     <p><h5 style="text-align :center;">No Visit Requests</h5></p>
                                                     @else
                                                     <div class="card">
@@ -192,12 +192,13 @@ td{white-space: unset !important;}
                                                                             <thead>
                                                                             <tr>
                                                                                 <th style="text-align:center;">Sr #.</th>
-                                                                                <th style="text-align:center;">Visit Request</th>
-                                                                                <th style="text-align:center;">Visit Puposes</th>
+                                                                              
+                                                                                <th style="text-align:center;">Pupose Title</th>
                                                                                 <th style="text-align:center;">Trip Type</th>
                                                                                 <th style="text-align:center;">Assigned Driver</th>
                                                                                 <th style="text-align:center;">Assigned Vehicle</th>
                                                                                 <th style="text-align:center;">Approval Status</th>
+                                                                                <th style="text-align:center;">Completion Status</th>
                                                                                 
                                                                             </tr>
                                                                             </thead>
@@ -212,9 +213,7 @@ td{white-space: unset !important;}
                                                                                         echo $i++;
                                                                                     @endphp
                                                                                    </td>
-                                                                                   <td style="text-align:center;">
-                                                                                    {{$off->id}}
-                                                                                </td>
+                                                                                  
                                                                                 <td style="">
                                                                                     <ol>
                                                                                     @foreach ($off->PlantripPurpose as $plantripPurpose) 
@@ -230,6 +229,8 @@ td{white-space: unset !important;}
                                                                                        
                                                                                     @endforeach
                                                                                 </ol>
+                                                                                    <a href="{{route('visitrequestSummary',$off->id)}}" style="text-decoration: underline;">Read Summary</a>
+
                                                                             </td>
                                                                                 {{-- {{dd($off->VmisRequestToTransportOfficer->VmisAssignedDriver[0]->VmisDriver->User->first_name)}} --}}
                                                                                  <td style="text-align:center;"> {{$off->PlantripTriptype->name}}</td>
@@ -249,14 +250,45 @@ td{white-space: unset !important;}
                                                                                             @endforelse
                                                                                         </td>
                                                                                 <td style="text-align:center;" >
-                                                                                    @if($off->VmisRequestToTransportOfficer->approval_status=='1')
+                                                                                    @if($off->VmisRequestToTransportOfficer->approval_status=='1' && $off->approval_status == 'Pending')
                                                                                     <label class="badge badge-md badge-primary">Waiting For Approval</label> 
-                                                                                    @elseif($off->VmisRequestToTransportOfficer->approval_status=='2')
+                                                                                    @elseif($off->VmisRequestToTransportOfficer->approval_status=='2' && $off->approval_status == 'Approved')
                                                                                 <label class="badge badge-md badge-success">Approved by {{$off->VmisRequestToTransportOfficer->User->first_name}} {{$off->VmisRequestToTransportOfficer->User->last_name}} </label> 
-                                                                                    @elseif($off->VmisRequestToTransportOfficer->approval_status=='3')
-                                                                                <label class="badge badge-md badge-danger">Disapproved By </label> 
+                                                                                    @if(isset(($off->PlantripRemark)))
+                                                                                        <p><b>Remarks:</b>
+                                                                                        @foreach($off->PlantripRemark as $tripR)
+                                                                                        {{$tripR->remarks}}
+                                                                                        @endforeach
+                                                                                        </p>    
+                                                                                    @endif
+                                                                                @elseif($off->VmisRequestToTransportOfficer->approval_status=='3' && $off->approval_status == 'Not Approved')
+                                                                                <label class="badge badge-md badge-danger">Disapproved By  {{$off->VmisRequestToTransportOfficer->User->first_name}} {{$off->VmisRequestToTransportOfficer->User->last_name}} </label> 
                                                                                     @endif
                                                                                 </td>
+                                                                               
+
+                                                                                <td style="text-align:center;" >
+                                                                                        @if($off->completed=='1')
+                                                                                       
+                                                                                            <label class="badge badge-md badge-success">Complete</label> 
+                                                                                            <div class="rating " name="driverRating" value="{{$off->PlantripDriverRating->rating}}" disabled></div>
+                                                                                            
+                                                                                        @elseif($off->completed=='0' && $off->approval_status == 'Approved')
+                                                                                        <button type="button" class="btn btn-sm btn-danger" id="clickToComplete" >Click To End Visit</button>
+                                                                                          <form action="{{route('visitCompleted',$off->id)}}" class="ratingsystem" method="POST" style="display:none;">
+                                                                                                {{ csrf_field() }}
+                                                                                                    <input type="hidden" name="triprequest_id" value={{$off->id}}>  
+                                                                                                    <input type="hidden" name="assigned_driver_id" value={{$off->VmisRequestToTransportOfficer->VmisAssignedDriver[0]->VmisDriver->id}}>  
+                                                                                                    {{-- <input type="hidden" name="triprequest_id" value={{$off->id}}>                                                                                                           --}}
+                                                                                                    <div class="rating " name="driverRating" value="1" required></div>
+                                                                                                    <button type="submit" class="btn btn-sm btn-warning" style="padding: 5px !important;">Done</button>
+                                                                                            </form>
+                                                                                        @elseif($off->completed=='0' && $off->approval_status == 'Pending')
+                                                                                            <label class="badge badge-md badge-danger">Incomplete</label>
+                                                                                        @elseif($off->completed=='0' && $off->approval_status == 'Not Approved')
+                                                                                        <label class="badge badge-md badge-danger">Not Approved Visit</label>
+                                                                                        @endif 
+                                                                                    </td>
                                                                                 </tr>
                                                         
                                                                                 @endforeach
@@ -433,11 +465,80 @@ td{white-space: unset !important;}
 <script src="{{asset('_monitoring/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js')}}"></script>
 <script src="{{asset('_monitoring/css/pages/data-table/js/data-table-custom.js')}}"></script>
+<script src="{{asset('rating/jQuery-gRating.js')}}"></script>
+<script src="{{asset('rating/jQuery-gRating.min.js')}}"></script>
+<script>
+    $(".rating").grating({
+
+    // Initial enabled or disabled state of the rating
+    enabled: true,
+
+    // Indicates whether to allow select the same rating value twice to toggle off the rating
+    allowDeselect: true,
+
+    // Default character to use i.e. ASCII Star, can be font-awesome fa codes i.e. fa-ambulance
+    character: "&#9733;",
+
+    // Allows switching the span type to another html element if needed
+    elementType: "span",
+
+    // How many rating objects to display
+    elementCount: 5,
+
+    // Whether to limit the number of clicks or not, a value of 0 enables no limit
+    clicklimit: 0,
+
+    // Initial rating value
+    defaultValue: 0,
+
+    // Whether validation is needed
+    required: false,
+
+    // <a href="https://www.jqueryscript.net/tags.php?/Validation/">Validation</a> pattern for the <a href="https://www.jqueryscript.net/tags.php?/Bootstrap/">Bootstrap</a> Validator is added to the class of input if required is true
+    validationClass: "form-control",
+
+    // Overrude the default error message from the Bootstrap Validator
+    validationText: "Rating is required",
+
+    // Placeholder for callback function called onclick events for when a rating is changed
+    callback: null,
+
+    // Normal display settings for stars
+    ratingCss: {
+    fontSize: "20px",
+    color: "black",// For dark pages
+    opacity: ".5",
+    cursor: "pointer",
+    padding: "1px",
+    transition: "all 150ms",
+    display: "inline-block",
+    transform: "rotateX(45deg)",
+    transformOrigin: "center bottom",
+    textShadow: "none"
+    },
+
+    // Hover settings for stars
+    ratingHoverCss: {
+    color: "#ff0",
+    opacity: "1",
+    transform: "rotateX(0deg)",
+    textShadow: "0 0 30px #ffc"
+    }
+
+    });
+
+</script>
+<script>
+        $('#clickToComplete').click(function(){
+          $('.ratingsystem').show(1000);
+        });
+        </script>
 <script type="text/javascript">
     $('#simpletable1').DataTable();
     $('#simpletable2').DataTable();
     $('#simpletable3').DataTable();
 
+    
     $(document).ready(function(){
      $(".officerVisitRequests").click(function(){
         $("#officervisitrequests").show();

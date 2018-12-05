@@ -38,7 +38,7 @@
                 <div class="card-header">
                     <label for="" class="fancyLable">
                       <span class="white">  Request By :
-                    {{dd($triprequest->PlantripPurpose[0])}}
+                    {{-- {{dd($triprequest->PlantripPurpose[0])}} --}}
 
                         <b>{{$nameofrequestee[0]->first_name}} {{$nameofrequestee[0]->last_name}} 
                             {{-- {{$triprequest->UserDetails->father_name}}  --}}
@@ -46,218 +46,240 @@
                     </label>
                 </div>
                 <div class="card-block">
-                <div class="form-group row">
-                    <p class="col-md-2"><b>Trip Type :</b></p>
-                    <p class="col-md-2">{{$triprequest->PlantripTriptype->name}}</p>
-                    <p class="col-md-2"><b>Purpose Type :</b></p>
-                    <p class="col-md-2">@if(isset($triprequest->PlantripPurpose[0]->PlantripPurposetype->name))
-                    {{$triprequest->PlantripPurpose[0]->PlantripPurposetype->name}}
-                    @else
-                    <span style="color:red;">Not Available</span>
-                    @endif
-                    </p>
-                    <p class="col-md-2"><b>Sub City Type :</b></p>
-                    <p class="col-md-2">
-                        @if(isset($triprequest->PlantripPurpose[0]->PlantripSubcitytypfe->name))
-                        <span>{{$triprequest->PlantripPurpose[0]->PlantripSubcitytype->name}}</span>
+                    <div class="form-group row">
+                        <p class="col-md-2"><b>Trip Type :</b></p>
+                        <p class="col-md-2">{{$triprequest->PlantripTriptype->name}}</p>
+                        <p class="col-md-2"><b>Purpose Type :</b></p>
+                        <p class="col-md-2">@if(isset($triprequest->PlantripPurpose[0]->PlantripPurposetype->name))
+                        {{$triprequest->PlantripPurpose[0]->PlantripPurposetype->name}}
                         @else
                         <span style="color:red;">Not Available</span>
                         @endif
-                    </p>
-                </div>
-                <div class="form-group row">
-                    <p class="col-md-2">
-                        <label for=""><b>Locations To Visit :</b></label>
-                    </p>
-                    <p class="col-md-2">
-                            @if(isset($triprequest->PlantripRequestedcity))
-                            @foreach ($triprequest->PlantripRequestedcity as $city)
-                                {{$city->PlantripCity->name}}
-                            @endforeach
+                        </p>
+                        <p class="col-md-2"><b>Sub City Type :</b></p>
+                        <p class="col-md-2">
+                            @if(isset($triprequest->PlantripPurpose[0]->PlantripSubcitytype->name))
+                            <span>{{$triprequest->PlantripPurpose[0]->PlantripSubcitytype->name}}</span>
+                            @else
+                            <span style="color:red;">Not Available</span>
                             @endif
-                    </p>
-                    <p class="col-md-2"><b>Visit Dates :</b></p>
-                    <p class="col-md-2">
-                        @if(isset($triprequest->fullDateoftrip))
-                        {{$triprequest->fullDateoftrip}}
-                        @else
-                        <span style="color:red;">Not Available</span>
-                        @endif
-                    </p>
-                </div>
-                <div class="form-group row">
+                        </p>
+                    </div>
+                    <div class="form-group row">
                         <p class="col-md-2">
-                            <label for=""><b>Assigned Driver :</b></label>
+                            <label for=""><b>Locations To Visit :</b></label>
                         </p>
                         <p class="col-md-2">
-                                @forelse ($triprequest->VmisRequestToTransportOfficer->VmisAssignedDriver as $driver)
-                                 {{$driver->VmisDriver->User->first_name}} 
-                                {{$driver->VmisDriver->User->last_name}} -                                                                               
-                            @empty
-                                <p>Not Assigned</p>                                                                                
-                            @endforelse
+                                @if(isset($triprequest->PlantripRequestedcity))
+                                @foreach ($triprequest->PlantripRequestedcity as $city)
+                                    {{$city->PlantripCity->name}}
+                                @endforeach
+                                @endif
                         </p>
+                        <p class="col-md-2"><b>Visit Dates :</b></p>
                         <p class="col-md-2">
-                                <label for=""><b>Assigned Vehicle :</b></label>
+                            @if(isset($triprequest->fullDateoftrip))
+                            {{$triprequest->fullDateoftrip}}
+                            @else
+                            <span style="color:red;">Not Available</span>
+                            @endif
+                        </p>
+                    </div>
+                    <div class="form-group row">
+                            <p class="col-md-2">
+                                <label for=""><b>Assigned Driver :</b></label>
                             </p>
                             <p class="col-md-2">
-                                    @forelse ($triprequest->VmisRequestToTransportOfficer->VmisAssignedVehicle as $vehicle)
-                                     {{$vehicle->VmisVehicle->name}} 
+                                    @forelse ($triprequest->VmisRequestToTransportOfficer->VmisAssignedDriver as $driver)
+                                    {{$driver->VmisDriver->User->first_name}} 
+                                    {{$driver->VmisDriver->User->last_name}} -                                                                               
                                 @empty
-                                    <p>Not Assigned</p>                                                                              
+                                    <p>Not Assigned</p>                                                                                
                                 @endforelse
                             </p>
-                    </div>
+                            <p class="col-md-2">
+                                    <label for=""><b>Assigned Vehicle :</b></label>
+                                </p>
+                                <p class="col-md-2">
+                                        @forelse ($triprequest->VmisRequestToTransportOfficer->VmisAssignedVehicle as $vehicle)
+                                        {{$vehicle->VmisVehicle->name}} 
+                                    @empty
+                                        <p>Not Assigned</p>                                                                              
+                                    @endforelse
+                                </p>
+                                <p class="col-md-2">
+                                        <label for=""><b>Driver Rating :</b></label>
+                                    </p>
+                                    <p class="col-md-2" style="margin-left: -5% !important;">
+                                            @if(isset($triprequest->PlantripDriverRating->rating) && $triprequest->PlantripDriverRating->rating!=null)
+                                            <span class="rating " name="driverRating" value="{{$triprequest->PlantripDriverRating->rating}}" disabled></span>
+                                            @else
+                                                  <p>Visit not completed yet.</p>                                                                     
+                                            @endif
+                                    </p>   
+                        </div>
+                    
                    
-                   @foreach ($triprequest->PlantripPurpose as $plantripPurpose)               
-                    <div class="col-md-10 offset-md-1 newPurposeHere">
-                        <div class="col-md-12" style="margin-top:10px; margin-bottom:15px;  border:1px solid lightgrey"></div>
-                        <div class="row form-group">
-                            <div class="col-md-2 offset-md-2">
-                                <label for=""><b>Visit Reason : </b></label>
+                        @foreach ($triprequest->PlantripPurpose as $plantripPurpose)               
+                        <div class="col-md-10 offset-md-1 newPurposeHere">
+                            <div class="col-md-12" style="margin-top:10px; margin-bottom:15px;  border:1px solid lightgrey"></div>
+                            <div class="row form-group">
+                                <div class="col-md-2 offset-md-2">
+                                    <label for=""><b>Visit Reason : </b></label>
+                                </div>
+                                <div class="col-md-2">
+                                <p>
+                                    @if(isset($plantripPurpose->PlantripVisitreason->name))
+                                    {{$plantripPurpose->PlantripVisitreason->name}}
+                                    @else
+                                    <span style="color:red;">Noxt Available</span>
+                                    @endif
+                                </p>
+                                </div>
+                                @if(isset($plantripPurpose->PlantripVisitreason->name) && $plantripPurpose->PlantripVisitreason->name == "Meeting" || $plantripPurpose->PlantripVisitreason->name == "Other")
+                                <div class="col-md-3 ">
+                                    <label for=""><b>Reason Description : </b></label>
+                                </div>
+                                <div class="col-md-2">
+        
+                                    <p>{{$plantripPurpose->PlantripVisitedproject->description}}</p>
+                                </div>
+                            @elseif(isset($plantripPurpose->PlantripVisitreason->name) &&  $plantripPurpose->PlantripVisitreason->name=="Monitoring" || $plantripPurpose->PlantripVisitreason->name=="Evaluation")
+                            
+                            <div class="col-md-1">
+                                    <label for=""><b>Title : </b></label>
+                                </div>
+                                <div class="col-md-3">
+                                        @if(isset($plantripPurpose->PlantripVisitedproject->AssignedProject->Project->title))
+                                    <p>{{$plantripPurpose->PlantripVisitedproject->AssignedProject->Project->title}}</p>
+                                    @endif
+                                </div>
+                            
+                            @endif
+                            
                             </div>
-                            <div class="col-md-2">
-                            <p>
-                                @if(isset($plantripPurpose->PlantripVisitreason->name))
-                                {{$plantripPurpose->PlantripVisitreason->name}}
-                                @else
-                                <span style="color:red;">Noxt Available</span>
-                                @endif
-                            </p>
-                            </div>
-                            @if(isset($plantripPurpose->PlantripVisitreason->name) && $plantripPurpose->PlantripVisitreason->name == "Meeting" || $plantripPurpose->PlantripVisitreason->name == "Other")
-                            <div class="col-md-3 ">
-                                <label for=""><b>Reason Description : </b></label>
-                            </div>
-                            <div class="col-md-2">
-    
-                                <p>{{$plantripPurpose->PlantripVisitedproject->description}}</p>
-                            </div>
-                        @elseif(isset($plantripPurpose->PlantripVisitreason->name) &&  $plantripPurpose->PlantripVisitreason->name=="Monitoring" || $plantripPurpose->PlantripVisitreason->name=="Evaluation")
-                        
-                        <div class="col-md-1">
-                                <label for=""><b>Title : </b></label>
-                            </div>
-                            <div class="col-md-3">
-                                    @if(isset($plantripPurpose->PlantripVisitedproject->AssignedProject->Project->title))
-                                <p>{{$plantripPurpose->PlantripVisitedproject->AssignedProject->Project->title}}</p>
-                                @endif
-                            </div>
-                        
-                        @endif
-                        
-                        </div>
-                        <div class="row form-group">
-                            <div class="col-md-12 table-responsive">
-                                <table id="#" class="table table-bordered nowrap">
-                                    <thead>
-                                    <tr>
-                                        <th style="text-align:center;">Sr #.</th>
-                                        <th style="text-align:center;">From Location</th>
-                                        <th style="text-align:center;">To Location</th>
-                                        <th style="text-align:center;">From Date</th>
-                                        <th style="text-align:center;">To Date</th>
-                                        <th style="text-align:center;">Duration</th>
-                                        <th style="text-align:center;">Departure Time</th>
-                                        <th style="text-align:center;">Members</th>
-    
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                            @php
-                                            $i=0;   
-                                        @endphp
-                                        @if(isset($plantripPurpose->PlantripTriplocation))
-                                        @foreach ($plantripPurpose->PlantripTriplocation as $triplocation)
-                                            <tr>
-                                                <td style="text-align:center;">
-                                                        @php
-                                                            echo $i++;
+                            <div class="row form-group">
+                                <div class="col-md-12 table-responsive">
+                                    <table id="#" class="table table-bordered nowrap">
+                                        <thead>
+                                        <tr>
+                                            <th style="text-align:center;">Sr #.</th>
+                                            <th style="text-align:center;">From Location</th>
+                                            <th style="text-align:center;">To Location</th>
+                                            <th style="text-align:center;">From Date</th>
+                                            <th style="text-align:center;">To Date</th>
+                                            <th style="text-align:center;">Duration</th>
+                                            <th style="text-align:center;">Departure Time</th>
+                                            <th style="text-align:center;">Members</th>
+        
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                                @php
+                                                $i=0;   
+                                            @endphp
+                                            @if(isset($plantripPurpose->PlantripTriplocation))
+                                            @foreach ($plantripPurpose->PlantripTriplocation as $triplocation)
+                                                <tr>
+                                                    <td style="text-align:center;">
+                                                            @php
+                                                                echo $i++;
+                                                            @endphp
+                                                    </td>
+                                                    <td> @if(isset($triplocation->plantrip_city_from))
+                                                            <p>{{$triplocation->PlantripCityFrom->name}}</p>
+                                                            @else
+                                                            <p><span style="color:red;">Not Available</span></p>
+                                                            @endif</td>
+                                                    <td> @if(isset($triplocation->plantrip_city_to))
+                                                        {{-- {{dd($triplocation->PlantripCityTo->name)}} --}}
+                                                            <p>{{$triplocation->PlantripCityTo->name}}</p>
+                                                            @else
+                                                            <p><span style="color:red;">Not Available</span></p>
+                                                            @endif</td>
+                                                    <td> @if(isset($triplocation->from_Date))
+                                                            <p>{{$triplocation->from_Date}}</p>
+                                                            @else
+                                                            <p><span style="color:red;">Not Available</span></p>
+                                                            @endif</td>
+                                                    <td>  @if(isset($triplocation->to_Date))
+                                                        <p>{{$triplocation->to_Date}}</p>
+                                                        @else
+                                                        <p><span style="color:red;">Not Available</span></p>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if($triprequest->PlantripTriptype->name=='Local')
+                                                        1 Day
+                                                    
+                                                        @elseif($triprequest->PlantripTriptype->name=='Outstation')
+                                                    @php
+                                                            $datetime1 = date_create($triplocation->from_Date);
+                                                            $datetime2 = date_create($triplocation->to_Date);
+                                                            
+                                                            $interval = date_diff($datetime2, $datetime1);
+                                                            
+                                                        echo $interval->format("%a days"); 
                                                         @endphp
-                                                </td>
-                                                <td> @if(isset($triplocation->plantrip_city_from))
-                                                        <p>{{$triplocation->PlantripCityFrom->name}}</p>
+                                                        @endif
+                                                        {{-- @if(isset($triplocation->to_Date))
+                                                        <p>{{$triplocation->to_Date}}</p>
                                                         @else
                                                         <p><span style="color:red;">Not Available</span></p>
-                                                        @endif</td>
-                                                <td> @if(isset($triplocation->plantrip_city_to))
-                                                    {{-- {{dd($triplocation->PlantripCityTo->name)}} --}}
-                                                        <p>{{$triplocation->PlantripCityTo->name}}</p>
+                                                        @endif --}}
+                                                    </td>
+                                                    <td>
+                                                        @if(isset($triplocation->time_to_Departure))
+                                                        <p>{{$triplocation->time_to_Departure}}</p>
                                                         @else
                                                         <p><span style="color:red;">Not Available</span></p>
-                                                        @endif</td>
-                                                <td> @if(isset($triplocation->from_Date))
-                                                        <p>{{$triplocation->from_Date}}</p>
-                                                        @else
-                                                        <p><span style="color:red;">Not Available</span></p>
-                                                        @endif</td>
-                                                <td>  @if(isset($triplocation->to_Date))
-                                                    <p>{{$triplocation->to_Date}}</p>
-                                                    @else
-                                                    <p><span style="color:red;">Not Available</span></p>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @if($triprequest->PlantripTriptype->name=='Local')
-                                                    1 Day
-                                                
-                                                    @elseif($triprequest->PlantripTriptype->name=='Outstation')
-                                                @php
-                                                        $datetime1 = date_create($triplocation->from_Date);
-                                                        $datetime2 = date_create($triplocation->to_Date);
-                                                        
-                                                        $interval = date_diff($datetime2, $datetime1);
-                                                        
-                                                    echo $interval->format("%a days"); 
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                    
+                                                    {{-- {{dump($triprequest->PlantripPurpose->PlantripTriplocation[0]->PlantripMember)}} --}}
+                                                    @php
+                                                    $j=0;
                                                     @endphp
-                                                    @endif
-                                                    {{-- @if(isset($triplocation->to_Date))
-                                                    <p>{{$triplocation->to_Date}}</p>
+                                                @if(isset($plantripPurpose->PlantripMembers))
+                                                @foreach ($plantripPurpose->PlantripMembers as $PlantripMember)
+                                                    @if($PlantripMember->requested_by==1)
+                                                        <p class="requestedby white" style="text-align: center"> {{$PlantripMember->User->first_name}}   {{$PlantripMember->User->last_name}}<br> </p>
                                                     @else
-                                                    <p><span style="color:red;">Not Available</span></p>
-                                                    @endif --}}
-                                                </td>
-                                                <td>
-                                                    @if(isset($triplocation->time_to_Departure))
-                                                    <p>{{$triplocation->time_to_Departure}}</p>
-                                                    @else
-                                                    <p><span style="color:red;">Not Available</span></p>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                
-                                                {{-- {{dump($triprequest->PlantripPurpose->PlantripTriplocation[0]->PlantripMember)}} --}}
-                                                @php
-                                                $j=0;
-                                                @endphp
-                                               @if(isset($plantripPurpose->PlantripMembers))
-                                               @foreach ($plantripPurpose->PlantripMembers as $PlantripMember)
-                                                   @if($PlantripMember->requested_by==1)
-                                                       <p class="requestedby white" style="text-align: center"> {{$PlantripMember->User->first_name}}   {{$PlantripMember->User->last_name}}<br> </p>
-                                                   @else
-                                                       <p style="text-align: center">{{$PlantripMember->User->first_name}}   {{$PlantripMember->User->last_name}}<br> </p>
-                                                   @endif                                        
-                                                   @php
-                                                   $j++;
-                                                   @endphp
-                                               @endforeach 
-                                               @endif
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        @endif
-                                    </tbody>
-                                </table>
+                                                        <p style="text-align: center">{{$PlantripMember->User->first_name}}   {{$PlantripMember->User->last_name}}<br> </p>
+                                                    @endif                                        
+                                                    @php
+                                                    $j++;
+                                                    @endphp
+                                                @endforeach 
+                                                @endif
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
+                            </div>
+                        @endforeach
+ 
+                        @role('officer')
+                        @if(isset($triprequest->VmisRequestToTransportOfficer->User->first_name))
+                        <div class="row">
+                            <p class="col-md-3 offset-md-9"><b> Approved By : </b>{{$triprequest->VmisRequestToTransportOfficer->User->first_name}} {{$triprequest->VmisRequestToTransportOfficer->User->last_name}}</p>
                         </div>
-                    </div>
-                    @endforeach
-
+                        @else
+                        <div class="row">
+                                <p class="col-md-3 offset-md-9"><b> Not Approved Yet</p>
+                            </div>
+                        @endif
+                        @endrole
                 </div>
             </div>
         </div>
     </div>
-    
+    @role('manager')
     <div class="row">
        <div class="col-md-12">
            <div class="card">
@@ -297,7 +319,9 @@
                </div>
            </div>
        </div>
-        </div>
+     </div>
+     @endrole
+
     @endsection
     @section('js_scripts')
     <!-- Multiselect js -->
@@ -306,6 +330,69 @@
     <script src="{{asset('_monitoring/js/multiselect/js/jquery.multi-select.js')}}"></script>
     <script src="{{asset('_monitoring/css/pages/advance-elements/select2-custom.js')}}"></script>
     <script src="{{asset('_monitoring/css/js/jquery.quicksearch.js')}}"></script>
+    <script src="{{asset('rating/jQuery-gRating.js')}}"></script>
+<script src="{{asset('rating/jQuery-gRating.min.js')}}"></script>
+<script>
+    $(".rating").grating({
+
+    // Initial enabled or disabled state of the rating
+    enabled: true,
+
+    // Indicates whether to allow select the same rating value twice to toggle off the rating
+    allowDeselect: true,
+
+    // Default character to use i.e. ASCII Star, can be font-awesome fa codes i.e. fa-ambulance
+    character: "&#9733;",
+
+    // Allows switching the span type to another html element if needed
+    elementType: "span",
+
+    // How many rating objects to display
+    elementCount: 5,
+
+    // Whether to limit the number of clicks or not, a value of 0 enables no limit
+    clicklimit: 0,
+
+    // Initial rating value
+    defaultValue: 0,
+
+    // Whether validation is needed
+    required: false,
+
+    // <a href="https://www.jqueryscript.net/tags.php?/Validation/">Validation</a> pattern for the <a href="https://www.jqueryscript.net/tags.php?/Bootstrap/">Bootstrap</a> Validator is added to the class of input if required is true
+    validationClass: "form-control",
+
+    // Overrude the default error message from the Bootstrap Validator
+    validationText: "Rating is required",
+
+    // Placeholder for callback function called onclick events for when a rating is changed
+    callback: null,
+
+    // Normal display settings for stars
+    ratingCss: {
+    fontSize: "20px",
+    color: "black",// For dark pages
+    opacity: ".5",
+    cursor: "pointer",
+    padding: "1px",
+    transition: "all 150ms",
+    display: "inline-block",
+    transform: "rotateX(45deg)",
+    transformOrigin: "center bottom",
+    textShadow: "none"
+    },
+
+    // Hover settings for stars
+    ratingHoverCss: {
+    color: "#ff0",
+    opacity: "1",
+    transform: "rotateX(0deg)",
+    textShadow: "0 0 30px #ffc"
+    }
+
+    });
+
+</script>
     <script>
     $('.multipleselect').select2();
     </script>

@@ -26,5 +26,8 @@ class PlantripTriprequest extends Model
     public function PlantripRemark(){
         return $this->hasMany('App\PlantripRemark');
     }
+    public function PlantripDriverRating(){
+        return $this->hasOne('App\PlantripDriverRating');
+    }
     
 }

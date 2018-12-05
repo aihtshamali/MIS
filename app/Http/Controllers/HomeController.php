@@ -140,15 +140,17 @@ class HomeController extends Controller
 
       
       $tripcounts=$triprequests->count();
-      // dd($tripcounts);
       $officer=PlantripTriprequest::select('plantrip_triprequests.*')
       ->leftjoin('plantrip_purposes','plantrip_purposes.plantrip_triprequest_id','plantrip_triprequests.id')
       ->leftjoin('plantrip_members','plantrip_members.plantrip_purpose_id','plantrip_purposes.id')
       ->where('plantrip_members.user_id',Auth::id())  
       ->distinct()
+      ->latest()
       ->get();
-    
-        return view('monitoring_dashboard',['triprequests'=>$triprequests,'tripcounts'=>$tripcounts,'officer'=>$officer]);
+      $officercount= $officer->count();
+    // dd($officer[0]->PlantripRemark[0]->remarks);
+    // dd($officer[0]->PlantripDriverRating->rating);
+        return view('monitoring_dashboard',['triprequests'=>$triprequests,'tripcounts'=>$tripcounts,'officer'=>$officer ,'officercount'=>$officercount]);
     }
     public function reset_store(Request $request)
     {

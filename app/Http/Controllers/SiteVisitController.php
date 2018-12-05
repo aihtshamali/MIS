@@ -27,20 +27,32 @@ use App\VmisVehicle;
 use App\VmisDriver;
 use App\PlantripRemark;
 use App\VmisRequestToTransportOfficer;
+use App\PlantripDriverRating;
 class SiteVisitController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-   
+    public function visitCompleted(Request $request)
+    {
+       
+        // dd($request);
+        $triprequest = PlantripTriprequest::where('id',$request->triprequest_id)->first(); 
+        $triprequest->completed = true;
+        $triprequest->save();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+        $assignedDriverRating = new PlantripDriverRating();
+        $assignedDriverRating->plantrip_triprequest_id=$request->triprequest_id;
+        $assignedDriverRating->vmis_driver_id=$request->assigned_driver_id;
+        $assignedDriverRating->rating=$request->gRating_validation_input_for_driverRating;
+        $assignedDriverRating->save();
+
+        $assignedDriver = VmisDriver::where('id',$request->assigned_driver_id)->first();
+        $assignedDriver->rating=$assignedDriverRating->rating;   
+        $assignedDriver->save();
+
+        // dd($assignedDriver);
+        return redirect()->back()->with('success','Visit Completed!!');
+        
+    }
+
     public function create()
     {   
         $triptypes=PlantripTriptype::all();
@@ -73,10 +85,17 @@ class SiteVisitController extends Controller
     }
     public function index()
     {
-        $triprequests = PlantripTriprequest::where('status',0)
-        ->where('approval_status','Pending')
-        ->orWhere('approval_status','Approved')
-        ->orWhere('approval_status','Not Approved')
+        // $triprequests = PlantripTriprequest::where('status',0)
+        // ->where('approval_status','Pending')
+        // ->orWhere('approval_status','Approved')
+        // ->orWhere('approval_status','Not Approved')
+        // ->get();
+
+        $triprequests=PlantripTriprequest::select('plantrip_triprequests.*')
+        ->leftjoin('plantrip_purposes','plantrip_purposes.plantrip_triprequest_id','plantrip_triprequests.id')
+        ->leftjoin('plantrip_members','plantrip_members.plantrip_purpose_id','plantrip_purposes.id')
+        ->where('plantrip_members.user_id',Auth::id())  
+        ->distinct()
         ->get();
           $tripcounts=$triprequests->count();
           // dd($triprequests);
@@ -90,7 +109,7 @@ class SiteVisitController extends Controller
      */
     public function visitRequestDescision(Request $request)
     {
-        dd($request);
+        // dd($request);
         if($request->request_descision=='2')
         {
           $triprequest = PlantripTriprequest::where('id',$request->triprequest_id)->first(); 
@@ -112,7 +131,7 @@ class SiteVisitController extends Controller
             $tripremarks->save();
               
           }
-          return redirect()->back()->with('success','Request Has Been Accepted!!');
+          return redirect()->route('monitoring_dashboard')->with('success','Request Has Been Accepted!!');
           
         }
         elseif($request->request_descision=='3')
@@ -136,7 +155,7 @@ class SiteVisitController extends Controller
               $tripremarks->save();
               }  
             }
-            return redirect()->back()->with('error','Request Has Been Rejected!!');
+            return redirect()->route('monitoring_dashboard')->with('error','Request Has Been Rejected!!');
         }
        
     }

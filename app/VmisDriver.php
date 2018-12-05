@@ -23,5 +23,8 @@ class VmisDriver extends Model
     {   
         return $this->hasOne('App\VmisAssignedDriver');
     }
+    public function PlantripDriverRating(){
+        return $this->hasOne('App\PlantripDriverRating');
+    }
     
 }
