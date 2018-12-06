@@ -94,10 +94,12 @@ class DirectorEvaluationController extends Controller
 
       public function evaluation_Inprogressprojects(){
          $assigned=AssignedProject::where('assigned_by',Auth::id())
+         ->leftjoin('projects','projects.id','assigned_projects.project_id')
+         ->where('projects.status',1)
          ->where('complete',0)
          ->get();
          $officers = User::all();
-         $projects = AssignedProject::all();
+         $projects = $assigned;
          $sectors = Sector::all();
          return view('Director.Evaluation.Evaluation_projects.assigned',compact('assigned','officers','projects','sectors'));
       }
