@@ -60,6 +60,7 @@ class Kernel extends HttpKernel
         'role' => \jeremykenedy\LaravelRoles\Middleware\VerifyRole::class,
         'permission' => \jeremykenedy\LaravelRoles\Middleware\VerifyPermission::class,
         'level' => \jeremykenedy\LaravelRoles\Middleware\VerifyLevel::class,
+        'CP' => \App\Http\Middleware\CheckProject::class,
 
     ];
 }

@@ -26,5 +26,4 @@
         </div>
     </div>
     @endrole
-  </div>
 @endsection
