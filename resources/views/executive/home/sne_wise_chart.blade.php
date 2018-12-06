@@ -71,7 +71,7 @@
               $counter = 0;
             @endphp
             @foreach ($actual_Sneprojects as $value)
-              {{-- {{ dump(count($value)) }} --}}
+              @if ($value)
             <div class="modal fade in" id="Modal{{ $value[0]->ProjectDetail->sne ?$value[0]->ProjectDetail->sne:"NOT" }}" style="display: block; padding-right: 17px;display:none">
               <div class="modal-dialog" style="width:90%">
                 <div class="modal-content">
@@ -164,6 +164,7 @@
               </div>
               <!-- /.modal-dialog -->
             </div>
+          @endif
           @endforeach
     </section>
 
