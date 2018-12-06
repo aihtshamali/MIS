@@ -323,7 +323,12 @@ class ExecutiveController extends Controller
               $projectsprogress[3]++;
             }
             else{
-              $projectsprogress[4]++;
+              if($project->complete == 1){
+                $projectsprogress[4]++;
+              }
+              else{
+                $projectsprogress[3]++;
+              }
             }
           }
           // Chart 12
