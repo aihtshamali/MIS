@@ -88,4 +88,7 @@ class User extends Authenticatable
     public function PlantripMember(){
       return $this->hasMany('App\PlantripMember');
     }
+    public function OfficerPositionLog(){
+      return $this->hasMany('App\OfficerPositionLog');
+    }
 }

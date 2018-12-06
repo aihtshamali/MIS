@@ -312,6 +312,7 @@ vertical-align: super;
       <label class="col-sm-4">SNE</label>
       <div class="col-sm-8">
         <select class="form-control" id="sne_data" required name="sne">
+          <option value="">Select SNE</option>
           <option value="NO">NO</option>
           <option value="COST">COST</option>
           <option value="STAFF">STAFF</option>

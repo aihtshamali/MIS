@@ -157,6 +157,7 @@
                                           @else
                                             <td>No Details</td>
                                           @endif
+
                                           {{-- @if(isset(App\AssignedProject::find($total_project->assigned_project_id))) --}}
                                           @if (App\AssignedProject::find($total_project->assigned_project_id)->complete == 0)
                                             <td>InProgress</td>
