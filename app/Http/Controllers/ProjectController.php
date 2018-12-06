@@ -51,13 +51,12 @@ class ProjectController extends Controller
      */
     public function index()
     {
-      $projects = Project::all();
+      // $projects = Project::status('projects.status',1)->get();
 
         $projects=Project::where('user_id',Auth::id())
+        ->where('projects.status',1)
         ->orderBy('projects.created_at')
         ->get();
-        // dd(Auth::user()->roles()->get());
-        // dd($projects);
         return view('projects.index',compact('projects'));
     }
 
@@ -280,7 +279,7 @@ class ProjectController extends Controller
 
       //Project Log Entry
 
-
+      $project_id=$project->id;
       $project = new ProjectLog();
       // $project->assigned_project_id=AssignedProject::where('project_id',$id)->first()->id;
       if($request->title != NULL)
@@ -291,7 +290,7 @@ class ProjectController extends Controller
       $project->ADP = $request->adp_no;
       $project->user_id = Auth::id();
       $project->status = 1;
-
+      $project->id=$project_id;
       if($request->currency)
         $project->currency = $request->currency;
       if($request->original_cost != NULL)
