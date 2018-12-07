@@ -186,7 +186,6 @@ Route::prefix('Evaluatorofficer')->middleware('role:evaluator|officer|transporto
   Route::post('/AssignActivityDocuments','OfficerController@AssignActivityDocument')->name('AssignActivityDocument');
   Route::post('/saveActivityAttachment','OfficerController@saveActivityAttachment')->name('saveActivityAttachment');
   Route::post('/saveDocAttachment','OfficerController@saveDocAttachments')->name('saveDocAttachment');
-  Route::resource('trip','SiteVisitController');
   Route::post('/visitCompleted/{id}','SiteVisitController@visitCompleted')->name('visitCompleted');
 });
 //Monitor officers
@@ -206,10 +205,7 @@ Route::group(['middleware' => ['role:dataentry|officer|monitor|manager|directorm
 Route::get('/visitrequestSummary/{id}','ExecutiveController@visitRequestSummary')->name('visitrequestSummary');
 // MonitoringDashbaord
   Route::get('/monitoring_dashboard','HomeController@monitoringDashboard')->name('monitoring_dashboard');
-
-  // Route::get('/monitoring_dashboard',function(){
-  //   return view('monitoring_dashboard');
-  // })->name("monitoring_dashboard");
+  Route::resource('trip','SiteVisitController');
 
   // monitoring
   Route::get('/monitoringP','ProjectController@createMonitoringEntryForm')->name('createMonitoringEntryForm');

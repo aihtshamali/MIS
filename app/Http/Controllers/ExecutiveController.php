@@ -44,20 +44,19 @@ class ExecutiveController extends Controller
       ->leftJoin('plantrip_members','plantrip_members.plantrip_purpose_id','plantrip_purposes.id')
       ->leftJoin('users','plantrip_members.user_id','users.id')
       ->where('plantrip_triprequests.status',0)
+      ->orWhere('plantrip_triprequests.status',1)
       ->where('plantrip_members.requested_by',1)
-      // ->where('plantrip_triprequests.approval_status','Pending')
       ->distinct()
-      // ->with('VmisRequestToTransportOfficer')
       ->get();
 
+      // dd($nameofrequestee);
       $triprequest = PlantripTriprequest::where('id',$id)->first();
       $purposeCounts=$triprequest->PlantripPurpose->count();
       $drivers= VmisDriver::all();
       $vehicles=VmisVehicle::all();
-      // dd($purposeCounts);
-      // dd($nameofrequestee);
-      // dd($triprequest->PlantripPurpose[0]->PlantripMembers);
-      // dd($triprequest->VmisRequestToTransportOfficer);
+      
+      // dd($triprequest->PlantripRequestedcity);
+      // dd($triprequest);
       return view('Site_Visit.Plan_A_Trip.visit_summary',
       ['vehicles'=>$vehicles,'drivers'=>$drivers,'triprequest'=>$triprequest,'purposeCounts'=>$purposeCounts,'nameofrequestee'=>$nameofrequestee]);
   }

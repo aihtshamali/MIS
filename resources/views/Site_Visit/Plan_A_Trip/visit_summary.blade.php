@@ -57,7 +57,7 @@
                         @endif
                         </p>
                         <p class="col-md-2"><b>Sub City Type :</b></p>
-                        <p class="col-md-2">
+                        <p class="col-md-2" style="margin-left: -5% !important;">
                             @if(isset($triprequest->PlantripPurpose[0]->PlantripSubcitytype->name))
                             <span>{{$triprequest->PlantripPurpose[0]->PlantripSubcitytype->name}}</span>
                             @else
@@ -72,7 +72,7 @@
                         <p class="col-md-2">
                                 @if(isset($triprequest->PlantripRequestedcity))
                                 @foreach ($triprequest->PlantripRequestedcity as $city)
-                                    {{$city->PlantripCity->name}}
+                                -  {{$city->PlantripCity->name}}  
                                 @endforeach
                                 @endif
                         </p>
@@ -90,22 +90,31 @@
                                 <label for=""><b>Assigned Driver :</b></label>
                             </p>
                             <p class="col-md-2">
+                                {{-- {{dd($triprequest->VmisRequestToTransportOfficer)}} --}}
+                                @if(isset($triprequest->VmisRequestToTransportOfficer))
                                     @forelse ($triprequest->VmisRequestToTransportOfficer->VmisAssignedDriver as $driver)
-                                    {{$driver->VmisDriver->User->first_name}} 
-                                    {{$driver->VmisDriver->User->last_name}} -                                                                               
-                                @empty
-                                    <p>Not Assigned</p>                                                                                
-                                @endforelse
+                                    -  {{$driver->VmisDriver->User->first_name}} 
+                                         {{$driver->VmisDriver->User->last_name}}  
+                                    @empty
+                                    Not Assigned                                                                              
+                                    @endforelse
+                                @else
+                                Not Assigned    
+                                @endif
                             </p>
                             <p class="col-md-2">
                                     <label for=""><b>Assigned Vehicle :</b></label>
                                 </p>
                                 <p class="col-md-2">
+                                    @if(isset($triprequest->VmisRequestToTransportOfficer))
                                         @forelse ($triprequest->VmisRequestToTransportOfficer->VmisAssignedVehicle as $vehicle)
-                                        {{$vehicle->VmisVehicle->name}} 
-                                    @empty
-                                        <p>Not Assigned</p>                                                                              
-                                    @endforelse
+                                         {{$vehicle->VmisVehicle->name}} 
+                                        @empty
+                                            Not Assigned                                                                              
+                                        @endforelse
+                                        @else
+                                        Not Assigned 
+                                        @endif
                                 </p>
                                 <p class="col-md-2">
                                         <label for=""><b>Driver Rating :</b></label>
@@ -114,7 +123,7 @@
                                             @if(isset($triprequest->PlantripDriverRating->rating) && $triprequest->PlantripDriverRating->rating!=null)
                                             <span class="rating " name="driverRating" value="{{$triprequest->PlantripDriverRating->rating}}" disabled></span>
                                             @else
-                                                  <p>Visit not completed yet.</p>                                                                     
+                                                  <span  style="margin-left: -5% !important;">Not Entered.</span>                                                                     
                                             @endif
                                     </p>   
                         </div>
@@ -267,7 +276,7 @@
                         @role('officer')
                         @if(isset($triprequest->VmisRequestToTransportOfficer->User->first_name))
                         <div class="row">
-                            <p class="col-md-3 offset-md-9"><b> Approved By : </b>{{$triprequest->VmisRequestToTransportOfficer->User->first_name}} {{$triprequest->VmisRequestToTransportOfficer->User->last_name}}</p>
+                            <p class="col-md-3 offset-md-9"><b> Descision by: </b>{{$triprequest->VmisRequestToTransportOfficer->User->first_name}} {{$triprequest->VmisRequestToTransportOfficer->User->last_name}}</p>
                         </div>
                         @else
                         <div class="row">
@@ -284,7 +293,7 @@
        <div class="col-md-12">
            <div class="card">
                <div class="card-footer">
-                    <form action="#" method="POST" enctype="multipart/form-data" id="">
+                    <form action="{{route('trip.edit',$triprequest->id)}}" method="GET" enctype="multipart/form-data" id="">
                         {{csrf_field()}}
                         <div class="row">
                             <div class="col-md-2 offset-md-10">
@@ -297,22 +306,38 @@
                     <form action="{{route('visitrequestDescision')}}" method="POST" enctype="multipart/form-data" id="">
                         {{csrf_field()}}
                         <div class="row">
-                                <div class="col-md-5 offset-md-1">
+                                <div class="col-md-8 offset-md-1">
                                     <p><h6><b>Remarks :</b></h6></p>
                                     <textarea type="text" name="remarks" ></textarea>
                                 </div>
                         </div>
                         <div class="row">
+                                <div class="col-md-2 offset-md-1">
+                                    <b>Descision :</b>
+                                </div>
+                                <div class="col-md-3 form-radio">
+                                    <div class="radio radio-outline radio-inline">
+                                        <label>
+                                            <input type="radio" class="form-control" name="request_descision" id="" value="2" required>
+                                            <i class="helper"></i><b>Approved</b>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2  form-radio">
+                                    <div class="radio radio-outline radio-inline">
+                                        <label>
+                                            <input type="radio" class="form-control" name="request_descision" id="" value="3" required>
+                                            <i class="helper"></i><b>Not Approved</b>
+                                        </label>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-3 offset-md-1">
-                                <p><h6><b style="color:white;"> :</b></h6></p>
-                                <input type="hidden" name="request_descision" value="2">
-                                <input type="hidden" name="triprequest_id" value="{{$triprequest->id}}">
-                                <button type="submit" class="btn btn-success btn-sm"><b>Approve</b></button>
-                                
-                            </div>
-                            <div class="col-md-3 ">
                                     <p><h6><b style="color:white;">:</b></h6></p>
-                                <button type="button" class="btn btn-danger btn-sm" name="rejected">Rejected</button>   
+                                <input type="hidden" name="triprequest_id" value="{{$triprequest->id}}">
+
+                                <button type="submit" class="btn btn-success btn-sm" name="">Submit</button>   
                             </div>
                         </div>
                     </form>

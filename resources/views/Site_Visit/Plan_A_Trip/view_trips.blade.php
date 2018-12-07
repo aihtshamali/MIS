@@ -81,10 +81,10 @@ ol{padding: 0px 0px 0px 13px !important;}
                                                     @foreach ($triprequest->PlantripPurpose as $plantripPurpose) 
                                                        
                                                             @if(isset($plantripPurpose->PlantripVisitreason->name) && $plantripPurpose->PlantripVisitreason->name == "Meeting" || $plantripPurpose->PlantripVisitreason->name == "Other")
-                                                          <li>{{$plantripPurpose->PlantripVisitedproject->description}}</li>  
+                                                          <li>{{$plantripPurpose->PlantripVisitedproject->description}} - <b>{{$plantripPurpose->PlantripVisitreason->name}}</b> </li>  
                                                         @elseif(isset($plantripPurpose->PlantripVisitreason->name) &&  $plantripPurpose->PlantripVisitreason->name=="Monitoring" || $plantripPurpose->PlantripVisitreason->name=="Evaluation")
                                                             @if(isset($plantripPurpose->PlantripVisitedproject->AssignedProject->Project->title))
-                                                               <li>{{$plantripPurpose->PlantripVisitedproject->AssignedProject->Project->title}}</li> 
+                                                               <li>{{$plantripPurpose->PlantripVisitedproject->AssignedProject->Project->title}} - <b>{{$plantripPurpose->PlantripVisitreason->name}}</b></li> 
                                                             @endif 
                                                         @endif  
                                                         
@@ -97,24 +97,31 @@ ol{padding: 0px 0px 0px 13px !important;}
                                              <td style="text-align:center;"> {{$triprequest->PlantripTriptype->name}}</td>
                                              <td style="text-align:center;">
                                                     @if(isset($triprequest->VmisRequestToTransportOfficer->VmisAssignedDriver))
-                                                    {{$triprequest->VmisRequestToTransportOfficer->VmisAssignedDriver[0]->VmisDriver->User->first_name}} 
-                                                    {{$triprequest->VmisRequestToTransportOfficer->VmisAssignedDriver[0]->VmisDriver->User->last_name}}
+                                                    @foreach ($triprequest->VmisRequestToTransportOfficer->VmisAssignedDriver as $assignedDriver)
+                                                    {{$assignedDriver->VmisDriver->User->first_name}} 
+                                                    {{$assignedDriver->VmisDriver->User->last_name}}
+                                                    @endforeach
                                                     @else
                                                     <p>Not Assigned</p>
                                                     @endif
                                                 </td>
                                                 <td style="text-align:center;">
-                                                    @if(isset($triprequest->VmisRequestToTransportOfficer->VmisAssignedVehicle[0]->VmisVehicle->name))
-                                                    {{$triprequest->VmisRequestToTransportOfficer->VmisAssignedVehicle[0]->VmisVehicle->name}} 
-                    
+                                                    @if(isset($triprequest->VmisRequestToTransportOfficer->VmisAssignedVehicle))
+                                                   @foreach($triprequest->VmisRequestToTransportOfficer->VmisAssignedVehicle as $assignedVehicle)
+                                                    {{$assignedVehicle->VmisVehicle->name}} 
+                                                    @endforeach
                                                     @else
                                                     <p>Not Assigned</p>
                                                     @endif
                                                 </td>
                     
                                             <td style="text-align:center;" >
-                                                @if($triprequest->VmisRequestToTransportOfficer->approval_status=='1' && $triprequest->approval_status == 'Pending')
-                                                <label class="badge badge-md badge-primary">Pending</label> 
+                                                @if($triprequest->approval_status == 'Pending')
+                                                     @if(isset($triprequest->VmisRequestToTransportOfficer->approval_status) && $triprequest->VmisRequestToTransportOfficer->approval_status=='1')
+                                                    <label class="badge badge-md badge-primary">Pending At Director End</label>
+                                                    @else 
+                                                    <label class="badge badge-md badge-primary">Pending At TO End</label>
+                                                    @endif
                                                 @elseif($triprequest->VmisRequestToTransportOfficer->approval_status=='2'  && $triprequest->approval_status == 'Approved')
                                                 <label class="badge badge-md badge-success">Approved by {{$triprequest->VmisRequestToTransportOfficer->User->first_name}} {{$triprequest->VmisRequestToTransportOfficer->User->last_name}} </label> 
                                                 @if(isset(($triprequest->PlantripRemark)))

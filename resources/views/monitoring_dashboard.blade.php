@@ -235,26 +235,34 @@ td{white-space: unset !important;}
                                                                                 {{-- {{dd($off->VmisRequestToTransportOfficer->VmisAssignedDriver[0]->VmisDriver->User->first_name)}} --}}
                                                                                  <td style="text-align:center;"> {{$off->PlantripTriptype->name}}</td>
                                                                                  <td style="text-align:center;">
-                                                                                        @forelse ($off->VmisRequestToTransportOfficer->VmisAssignedDriver as $driver)
-                                                                                            {{$driver->VmisDriver->User->first_name}} 
-                                                                                            {{$driver->VmisDriver->User->last_name}},                                                                                
-                                                                                        @empty
-                                                                                            <p>Not Assigned</p>                                                                                
-                                                                                        @endforelse
+                                                                                        @if(isset($off->VmisRequestToTransportOfficer->VmisAssignedDriver))
+                                                                                        @foreach ($off->VmisRequestToTransportOfficer->VmisAssignedDriver as $assignedDriver)
+                                                                                        {{$assignedDriver->VmisDriver->User->first_name}} 
+                                                                                        {{$assignedDriver->VmisDriver->User->last_name}}
+                                                                                        @endforeach
+                                                                                        @else
+                                                                                        <p>Not Assigned</p>
+                                                                                        @endif
                                                                                     </td>
                                                                                         <td style="text-align:center;">
+                                                                                            @if(isset($off->VmisRequestToTransportOfficer->VmisAssignedVehicle ))
                                                                                             @forelse ($off->VmisRequestToTransportOfficer->VmisAssignedVehicle as $vehicle)
                                                                                                 {{$vehicle->VmisVehicle->name}} ,
                                                                                             @empty
                                                                                                 <p>Not Assigned</p>                                                                              
                                                                                             @endforelse
+                                                                                            @endif
                                                                                         </td>
                                                                                 <td style="text-align:center;" >
-                                                                                    @if($off->VmisRequestToTransportOfficer->approval_status=='1' && $off->approval_status == 'Pending')
-                                                                                    <label class="badge badge-md badge-primary">Waiting For Approval</label> 
+                                                                                        @if($off->approval_status == 'Pending')
+                                                                                        @if(isset($off->VmisRequestToTransportOfficer->approval_status) && $triprequest->VmisRequestToTransportOfficer->approval_status=='1')
+                                                                                       <label class="badge badge-md badge-primary">Pending At Director End</label>
+                                                                                       @else 
+                                                                                       <label class="badge badge-md badge-primary">Pending At TO End</label>
+                                                                                       @endif
                                                                                     @elseif($off->VmisRequestToTransportOfficer->approval_status=='2' && $off->approval_status == 'Approved')
                                                                                 <label class="badge badge-md badge-success">Approved by {{$off->VmisRequestToTransportOfficer->User->first_name}} {{$off->VmisRequestToTransportOfficer->User->last_name}} </label> 
-                                                                                    @if(isset(($off->PlantripRemark)))
+                                                                                    @if(isset($off->PlantripRemark))
                                                                                         <p><b>Remarks:</b>
                                                                                         @foreach($off->PlantripRemark as $tripR)
                                                                                         {{$tripR->remarks}}
@@ -263,7 +271,14 @@ td{white-space: unset !important;}
                                                                                     @endif
                                                                                 @elseif($off->VmisRequestToTransportOfficer->approval_status=='3' && $off->approval_status == 'Not Approved')
                                                                                 <label class="badge badge-md badge-danger">Disapproved By  {{$off->VmisRequestToTransportOfficer->User->first_name}} {{$off->VmisRequestToTransportOfficer->User->last_name}} </label> 
-                                                                                    @endif
+                                                                                @if(isset($off->PlantripRemark))
+                                                                                <p><b>Remarks:</b>
+                                                                                @foreach($off->PlantripRemark as $tripR)
+                                                                                {{$tripR->remarks}}
+                                                                                @endforeach
+                                                                                </p>    
+                                                                            @endif    
+                                                                                @endif
                                                                                 </td>
                                                                                
 
