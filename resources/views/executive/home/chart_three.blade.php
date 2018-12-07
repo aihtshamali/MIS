@@ -126,8 +126,8 @@
                                     </tr>
                                     </thead>
                                     <tbody id="tbody">
-                                        <tr v-for="row in rows()">
-                                          <td>Empty</td>
+                                        <tr v-for="row in d">
+                                          <td>@{{ row.project_no }}</td>
                                           <td>Empty</td>
                                           <td style="width:120px">Nothingf</td>
                                           <td>Nothin</td>
@@ -177,22 +177,37 @@
 <script src="{{asset('js/charts/patterns.js')}}"></script>
 <script type="text/javascript">
 
-$(document).on('click','g.amcharts-graph-column',function(){
-  var data=$(this).attr('aria-label').split(' ');
-  console.log(data);
-    // $('#Modal'+data).modal('show');
-});
+// $(document).on('click','g.amcharts-graph-column',function(){
+//   var data=$(this).attr('aria-label').split(' ');
+//   console.log(data);
+//     // $('#Modal'+data).modal('show');
+// });
 
-modal = new Vue({
+
+
+
+var modal = new Vue({
 
   el:"#Modal",
   data : {
     title : "Projects",
+    name: "",
+    field: "",
+    d:[],
   },
   methods:{
-    rows: function(user){
-      return [
-      ];
+    rows: function(event){
+      this.name = event['item'].category;
+      this.field = event['target'].valueField;
+      if(this.field == "Total Projects"){
+        actual_total_assigned_projects.forEach(element =>{
+          element.forEach(ele=>{
+            this.d.push({project_no:ele.project_no})
+          });
+        });
+      }
+      $('#Modal').modal('show');
+
     }
   }
 
@@ -335,5 +350,9 @@ modal = new Vue({
                }
 
             });
+
+            chart.addListener('clickGraphItem',modal.rows);
+
+
      </script>
 @endsection
