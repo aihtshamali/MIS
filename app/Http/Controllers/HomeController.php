@@ -14,8 +14,10 @@ use App\HrAttachment;
 use App\HrMeetingPDWP;
 use Illuminate\Support\Facades\Schema;
 use App\Imports\AdpProjectImport;
+use App\Exports\ProjectExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\PlantripTriprequest;
+use Illuminate\Support\Collection;
 
 class HomeController extends Controller
 {
@@ -38,8 +40,17 @@ class HomeController extends Controller
        Excel::import(new AdpProjectImport,$r->file('upload_file'));
        return view('home');
      }
+
+
+     // Download Excel file
+     public function ExportProjectDataSNEWise(){
+       return Excel::download(new ProjectExport , 'ProjectSNEData.xlsx');
+     }
+
+
     public function index()
     {
+
       // dd($_SERVER['DOCUMENT_ROOT'].'\Original.xlsx');
             // $activities = AssignedProjectActivity::all();
       // foreach ($activities as $activity) {
@@ -206,7 +217,7 @@ class HomeController extends Controller
           $rank++;
         }
       }
-      
+
       $max_score = 100;
       return view('dashboard',compact('max_score','current_score','actual_max_score','actual_current_score','rank','person'));
     }

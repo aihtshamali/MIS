@@ -79,24 +79,27 @@ class DirectorEvaluationController extends Controller
       }
 
       public function evaluation_assignedprojects(){
-        $projects=AssignedProjectManager::select('assigned_project_managers.*')
-        ->leftJoin('assigned_projects','assigned_projects.project_id','assigned_project_managers.project_id')
-        ->leftJoin('projects','assigned_project_managers.project_id','projects.id')
-        ->where('projects.project_type_id',1)
-        ->where('projects.status',1)
-        ->where('assigned_project_managers.user_id',Auth::id())
-        ->whereNull('assigned_projects.project_id')
-        ->get();
+
+        $projects= AssignedProjectManager::select('assigned_project_managers.*')
+          ->leftJoin('assigned_projects','assigned_projects.project_id','assigned_project_managers.project_id')
+          ->leftJoin('projects','assigned_project_managers.project_id','projects.id')
+          ->where('projects.project_type_id',1)
+          ->where('assigned_project_managers.user_id',Auth::id())
+          ->where('projects.status',1)
+          ->whereNull('assigned_projects.project_id')
+          ->get();
 
         return view('Director.Evaluation.Evaluation_projects.project_assigned_by_manager',['projects'=>$projects]);
       }
 
       public function evaluation_Inprogressprojects(){
          $assigned=AssignedProject::where('assigned_by',Auth::id())
+         ->leftjoin('projects','projects.id','assigned_projects.project_id')
+         ->where('projects.status',1)
          ->where('complete',0)
          ->get();
          $officers = User::all();
-         $projects = AssignedProject::all();
+         $projects = $assigned;
          $sectors = Sector::all();
          return view('Director.Evaluation.Evaluation_projects.assigned',compact('assigned','officers','projects','sectors'));
       }

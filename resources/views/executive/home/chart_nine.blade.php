@@ -22,7 +22,7 @@
   height:10%;
   text-align: center;
   }
-  
+
   a{
   color: black;
   }
@@ -39,7 +39,7 @@
   }
 
 </style>
-    
+
 @endsection
 @section('content')
 <div class="content-wrapper">
@@ -47,28 +47,28 @@
     <section class="content-header">
         <h1>
         Time Against Each Activity
-         
+
         </h1>
         <ol class="breadcrumb">
         <li><a href="{{route('Exec_pems_tab')}}"><i class="fa fa-backward" ></i>Back</a></li>
-          {{-- <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li> --}}    
+          {{-- <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li> --}}
         </ol>
     </section>
-    
+
     <section class="content">
             <div class="row">
                 <div class="col-md-12">
-                    
+
                     <div class="card col-md-12" >
                         <div class="card-header">
-                        </div> 
+                        </div>
                         <div id="chartdiv9"></div>
                     </div>
                     <div class="col-md-1"></div>
                 </div>
             </div>
     </section>
-    
+
 </div>
 @endsection
 @section('scripttags')
@@ -88,7 +88,7 @@
     var st = [];
     $i = 0;
     activities.forEach(element => {
-    st.push ({ 
+    st.push ({
     "Name":element.name,
     "Time": time_against_activities[$i]
     });
@@ -99,6 +99,7 @@
     "theme": "light",
     "dataProvider":st,
     "valueAxes": [ {
+      "title":"Time",
     "gridColor": "#FFFFFF",
     "gridAlpha": 0.2,
     "dashLength": 0
@@ -120,6 +121,7 @@
     },
     "categoryField": "Name",
     "categoryAxis": {
+      "title":"Activities",
     "autoGridCount": false,
     "equalSpacing": true,
     "gridCount": 1000,
@@ -133,7 +135,7 @@
     },
     "export": {
     "enabled": true
-    } 
+    }
     } );
 </script>
 @endsection

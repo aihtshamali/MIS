@@ -179,7 +179,7 @@ class ProjectController extends Controller
       else {
         $project->assigning_forum_sub_list_id = null;
       }
-      $project->status = 0;
+      $project->status = 1;
       $project->user_id = Auth::id();
       $project->save();
       // dd($request->all());
@@ -290,7 +290,7 @@ class ProjectController extends Controller
       if($request->adp_no != NULL)
       $project->ADP = $request->adp_no;
       $project->user_id = Auth::id();
-      $project->status = 0;
+      $project->status = 1;
 
       if($request->currency)
         $project->currency = $request->currency;
