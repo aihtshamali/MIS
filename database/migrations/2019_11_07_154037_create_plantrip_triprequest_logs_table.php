@@ -21,10 +21,10 @@ class CreatePlantripTriprequestLogsTable extends Migration
 
             $table->integer('editedby_user_id')->unsigned()->index()->nullable();
             $table->foreign('editedby_user_id')->references('id')->on('users')->onDelete('no action');
-            
+
             $table->integer('plantrip_triptype_id')->unsigned()->index()->nullable();
             $table->foreign('plantrip_triptype_id')->references('id')->on('plantrip_triptypes')->onDelete('no action');
-            
+
             $table->string('fullDateoftrip')->nullable();
             $table->boolean('completed')->default(0)->nullable();
             $table->boolean('status')->default(1)->nullable();

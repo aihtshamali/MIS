@@ -40,17 +40,20 @@ class ProjectAssignController extends Controller
          ->leftJoin('role_user','role_user.user_id','users.id')
          ->leftJoin('roles','roles.id','role_user.role_id')
          ->where('roles.name','manager')
+         ->where('users.status',1)
          ->get();
          $officers=User::select('roles.*','role_user.*','users.*')
          ->leftJoin('role_user','role_user.user_id','users.id')
          ->leftJoin('roles','roles.id','role_user.role_id')
          ->where('roles.name','officer')
+         ->where('users.status',1)
          ->get();
 
          $users = User::select('users.*')
                 ->leftJoin('role_user','role_user.user_id','users.id')
                 ->leftJoin('roles','roles.id','role_user.role_id')
                 ->where('roles.name','officer')
+                ->where('users.status',1)
                 ->get();
          // $projects = Project::select('projects.*')
          // ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
@@ -62,6 +65,7 @@ class ProjectAssignController extends Controller
         ->whereNull('assigned_project_managers.project_id')
         ->whereNull('assigned_projects.project_id')
         ->where('projects.project_type_id','1')
+        ->where('projects.status','1')
         ->get();
         // dd($projects);
          return view('project_assigned.index',['unassigned'=>$unassigned,'assignedtoManager'=>$assignedtoManager,'assigned'=>$assigned,'officers'=>$officers,'managers'=>$managers,'projects'=>$projects,'users'=>$users]);
@@ -74,42 +78,31 @@ class ProjectAssignController extends Controller
       */
     public function create(Request $request)
     {
-
-      $unassigned=Project::select('projects.*')
-     ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
-     ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
-     ->whereNull('assigned_project_managers.project_id')
-     ->whereNull('assigned_projects.project_id')
-     ->get();
-
-      $assigned=AssignedProject::all();
-      // $assignedtoManager=AssignedProjectManager::all();
-
       if(!( $request->project_id)){
         return redirect()->back()->with('error','Project is not Selected');
       }
       $priority = 'low_priority';
       if(isset($request->priority))
         $priority = $request->priority;
-      $managers=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
+      $managers=User::select('users.*')
       ->leftJoin('user_details','user_details.user_id','users.id')
       ->leftJoin('role_user','role_user.user_id','users.id')
       ->leftJoin('roles','roles.id','role_user.role_id')
       ->orderBy('roles.name','ASC')
-      ->Where('roles.name','directorevaluation')
+      ->where('roles.name','directorevaluation')
       ->orWhere('roles.name','directormonitoring')
       ->where('users.status',1)
       ->get();
-      $officers=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
+      $officers=User::select('users.*')
       ->leftJoin('user_details','user_details.user_id','users.id')
       ->leftJoin('role_user','role_user.user_id','users.id')
       ->leftJoin('roles','roles.id','role_user.role_id')
-      ->orderBy('roles.name','ASC')
-      ->orWhere('roles.name','officer')
-      ->orWhere('roles.name','evaluator')
       ->where('users.status',1)
+      ->where('roles.name','officer')
+      ->orWhere('roles.name','evaluator')
+      ->orderBy('roles.name','ASC')
       ->get();
-      return view('executive.evaluation.consultant_assign',['priority'=>$priority,'project_id'=>$request->project_id,'officers'=>$officers,'managers'=>$managers,'assigned'=>$assigned,'unassigned'=>$unassigned]);
+      return view('executive.evaluation.consultant_assign',['priority'=>$priority,'project_id'=>$request->project_id,'officers'=>$officers,'managers'=>$managers]);
     }
 
 
@@ -140,14 +133,14 @@ class ProjectAssignController extends Controller
             $priority='low_priority';
 
         }
-      $officers=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
+      $officers=User::select('users.*')
       ->leftJoin('user_details','user_details.user_id','users.id')
       ->leftJoin('role_user','role_user.user_id','users.id')
       ->leftJoin('roles','roles.id','role_user.role_id')
-      ->orderBy('roles.name','ASC')
-      ->orWhere('roles.name','officer')
-      ->orWhere('roles.name','evaluator')
       ->where('users.status',1)
+      ->where('roles.name','officer')
+      ->orWhere('roles.name','evaluator')
+      ->orderBy('roles.name','ASC')
       ->get();
       
       return view('Director.Evaluation.Evaluation_projects.consultant_assign',['priority'=>$priority,'project_id'=>$request->project_id,'officers'=>$officers,'assigned'=>$assigned,'unassigned'=>$unassigned,'assignedtoManager'=>$assignedtoManager]);
