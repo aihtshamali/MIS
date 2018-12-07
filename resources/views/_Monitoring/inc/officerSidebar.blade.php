@@ -419,7 +419,7 @@
                                     </a>
                                 </li>
                                 <li class=" ">
-                                    <a href="form-elements-add-on.html">
+                                    <a href="{{route('trip.index')}}">
                                         <span class="pcoded-mtext" >View Previous Visits</span>
                                     </a>
                                 </li>

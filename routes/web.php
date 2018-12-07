@@ -69,6 +69,9 @@ Route::group(['middleware' => ['role:admin']], function () {
 
 });
 
+  
+
+
 // For Manager & Director Charts
 Route::prefix('/manager')->middleware('role:manager|directorevaluation')->group(function () {
   Route::get('/','ExecutiveController@index')->name('Exec_home');
@@ -85,11 +88,6 @@ Route::prefix('/manager')->middleware('role:manager|directorevaluation')->group(
   Route::get('/chart_ten','ExecutiveController@chart_ten')->name('chart_ten');
   Route::get('/chart_eleven','ExecutiveController@GlobalProgressWiseChart')->name('GlobalProgressWiseChart');
   Route::get('/chart_twelve','ExecutiveController@SneWiseChart')->name('SneWiseChart');
-
-  // chart details
-  // Route::get('/chart_two_details','ExecutiveController@chart_two')->name('chart_two_details');
-
-  //
   Route::get('/pems_tab','ExecutiveController@pems_index')->name('Exec_pems_tab');
   // Officer Level Views
   Route::prefix('/ViewAsOfficer')->group(function () {
@@ -98,7 +96,10 @@ Route::prefix('/manager')->middleware('role:manager|directorevaluation')->group(
   });
 
 });
-Route::prefix('manager')->middleware('role:manager')->group(function () {
+
+
+
+  Route::prefix('manager')->middleware('role:manager')->group(function () {
 
   Route::get('/pmms_tab','ExecutiveController@pmms_index')->name('Exec_pmms_tab');
   Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
@@ -121,6 +122,8 @@ Route::prefix('manager')->middleware('role:manager')->group(function () {
   Route::get('/m_assigntoconsultant','ProjectAssignController@assignToConsultant')->name('assign_To_consultant');
   Route::get('/m_inprogressprojects','ExecutiveController@monitoring_inprogress')->name('monitoring_inprogress');
   Route::get('/m_completedprojects','ExecutiveController@monitoring_completed')->name('monitoring_completed');
+  // Route::get('/visitrequestSummary/{id}','ExecutiveController@visitRequestSummary')->name('visitrequestSummary');
+  Route::post('/visitrequestDescision','SiteVisitController@visitRequestDescision')->name('visitrequestDescision');
 
 });
 
@@ -188,8 +191,8 @@ Route::prefix('Evaluatorofficer')->middleware('role:evaluator|officer|transporto
   Route::post('/review_form','OfficerController@review_forms')->name('review_forms');
   Route::post('/AssignActivityDocuments','OfficerController@AssignActivityDocument')->name('AssignActivityDocument');
   Route::post('/saveActivityAttachment','OfficerController@saveActivityAttachment')->name('saveActivityAttachment');
-  Route::resource('trip','SiteVisitController');
   Route::post('/saveDocAttachment','OfficerController@saveDocAttachments')->name('saveDocAttachment');
+  Route::post('/visitCompleted/{id}','SiteVisitController@visitCompleted')->name('visitCompleted');
 });
 //Monitor officers
 Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(function () {
@@ -205,12 +208,10 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
 
 // Monitoring group
 Route::group(['middleware' => ['role:dataentry|officer|monitor|manager|directormonitoring']],function () {
-  // MonitoringDashbaord
+Route::get('/visitrequestSummary/{id}','ExecutiveController@visitRequestSummary')->name('visitrequestSummary');
+// MonitoringDashbaord
   Route::get('/monitoring_dashboard','HomeController@monitoringDashboard')->name('monitoring_dashboard');
-
-  // Route::get('/monitoring_dashboard',function(){
-  //   return view('monitoring_dashboard');
-  // })->name("monitoring_dashboard");
+  Route::resource('trip','SiteVisitController');
 
   // monitoring
   Route::get('/monitoringP','ProjectController@createMonitoringEntryForm')->name('createMonitoringEntryForm');

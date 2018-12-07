@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PlantripRequestedcity extends Model
+class PlantripRequestedcityLog extends Model
 {
-    public function PlantripTriprequest(){
-        return $this->belongsTo('App\PlantripTriprequest');
+    public function PlantripTriprequestLog(){
+        return $this->belongsTo('App\PlantripTriprequestLog','plantrip_triprequest_log_id');
     }
     public function PlantripCity(){
         return $this->belongsTo('App\PlantripCity','requestedCity_id');
