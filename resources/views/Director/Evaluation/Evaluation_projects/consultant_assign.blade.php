@@ -56,17 +56,16 @@
                     @php
                       $head='';
                     @endphp
-                    @if($officer->sector->name!=$head)
-                    <optgroup label = "{{$officer->sector->name}}">
+                    @if(isset($officer->UserDetail->Sector->name) && $officer->UserDetail->Sector->name!=$head)
+                    <optgroup label = "{{isset($officer->UserDetail->Sector->name) ? $officer->UserDetail->Sector->name : 'NA'}}">
                     @endif
                       <option value="{{$officer->id}}">{{$officer->first_name}} {{$officer->last_name}}</option>
-                    @if($officer->sector->name!=$head && $head!='')
+                    @if(isset($officer->UserDetail->Sector->name) && $officer->UserDetail->Sector->name!=$head && $head!='')
                     </optgroup>
                         @php
-                        $head=$officer->sector->name;
+                        $head=isset($officer->UserDetail->Sector->name) ? $officer->UserDetail->Sector->name : 'NA';
                         @endphp
                     @endif
-
                   @endforeach
               </select>
             </div>

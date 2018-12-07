@@ -75,7 +75,7 @@ h4:hover span{border-top: 4px solid #f0ad4e !important;-webkit-transition: all 6
           <select  name="agenda_name" class="form-control select2 searchAgenda" style="text-align: center !important" id="agenda_name">
               <option value="">Enter Scheme Name to Search...</option>
               @foreach ($agendas as $agenda)
-                <option value="{{$agenda->HrMeetingPDWP->id}}">{{$agenda->scheme_name}}</option>
+          <option value="{{$agenda->HrMeetingPDWP->id}}">{{$agenda->scheme_name}} / {{$agenda->financial_year}}</option>
               @endforeach
           </select>
       </div>

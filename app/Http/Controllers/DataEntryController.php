@@ -141,10 +141,10 @@ class DataEntryController extends Controller
       ->latest()->first();
       if($projectfor_no && isset($projectfor_no->project_no) && $projectfor_no->project_no){
         $projectNo=explode('-',$projectfor_no->project_no);
-        $project_no=$projectNo[0].'-'.$projectNo[1].'-'.($projectNo[2]+1);
+        $project_no=$projectNo[0].'-'.($projectNo[1]+1);
       }
       else {
-        $project_no = "PRO-M-1";
+        $project_no = "PRO-1";
       }
       return $project_no;
     }
