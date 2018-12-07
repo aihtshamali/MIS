@@ -100,27 +100,27 @@
                     .form-group{padding: 0.05rem 0.75rem !important;}
                     .col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto{padding-left: 0px !important;padding-right: 0px !important;}
                     label{margin-bottom:0rem !important;border:none !important;background-color:transparent !important;padding:0rem 0.3rem !important;font-size: 12px !important;}
+
                 </style>
+                  <div class="col-md-12">
+                      <label for="project_title" class="">Project Title: <span><b>{{$project->Project->title}}</b></span></label>
+                  </div>
                 <div class="form-group row">
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                         <label for="GS_no" class="">GS #: <span><b>{{$project->Project->ADP}}</b></span></label>
                     </div>
-                    <div class="col-md-4">
-                        <label for="project_title" class="">Project Title: <span><b>{{$project->Project->title}}</b></span></label>
-                    </div>
-                    <div class="col-md-4 ln_ht12">
+                    <div class="col-md-2 ln_ht12">
                         <label for="project_cost" class="">Location: <span><b>
                           @foreach ($project->Project->AssignedDistricts as $district)
                             {{$district->District->name}},
                           @endforeach
                         </b></span></label>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-4 ln_ht12">
-                        <label for="project_cost" class="">Original Approve Cost: <span><b>{{$project->Project->ProjectDetail->orignal_cost}}</b></span></label>
+                    <div class="col-md-2">
+                        <label for="PHI" class="">PHI </label>
+                        <input name="phi" id="#phi" type="number" class="frozen_pane"/>
                     </div>
-                    <div class="col-md-4 ln_ht12">
+                    <div class="col-md-2 ln_ht12">
                         <label for="Location" class="">final Revised Cost: <span><b>
                           @php
                             $revisedFinalCost=0;
@@ -133,34 +133,29 @@
                           {{$revisedFinalCost}}
                         </b></span></label>
                     </div>
-                    <div class="col-md-4">
-                        <label for="PHI" class="">PHI </label>
-                        <input name="phi" id="#phi" type="number" class="frozen_pane"/>
+                    <div class="col-md-2 ln_ht12">
+                        <label for="project_cost" class="">Original Approve Cost: <span><b>{{$project->Project->ProjectDetail->orignal_cost}}</b></span></label>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                         <label for="planned_start_date" class="">Planned Start Date: <span><b>{{$project->Project->ProjectDetail->planned_start_date}}</b></span></label>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                         <label for="planned_end_date" class="">Planned End Date: <span><b>{{$project->Project->ProjectDetail->planned_end_date}}</b></span> </label>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                         <label for="actual_start_date" class="">Actual Start Date </label>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-4 ln_ht12">
+                    <div class="col-md-2 ln_ht12">
                         <label for="progress" class="">Physical Progress %: <span><b>{{$project->progress}} %</b></span></label>
                     </div>
-                    <div class="col-md-4">
-                        <label for="Financial" class="">Financial Progress %</label>
-                        <input type="text"  id="financial_progress" class="frozen_pane" name="financial_progress">
+                    <div class="col-md-2">
+                        {{-- <label for="Financial" class="">Financial Progress %</label> --}}
+                        {{-- <input type="text"  id="financial_progress" class="frozen_pane" name="financial_progress"> --}}
+                        <label for="progress" class="">Financial Progress %: <span><b>{{$project->progress}} %</b></span></label>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                         <label for="last_monitoring" class="">Last Monitoring Date </label>
                     </div>
-
                 </div>
         </div>
     </div>
@@ -739,14 +734,29 @@ c                                                                           </ul
                                                                     <h4>Quality Assesment</h4>
                                                                 </div>
                                                                 <div class="card-block">
-                                                                  <div class="row oneComponentQA">
-                                                                      <div class="col-md-6 offset-md-1">
-                                                                            To assess quality of components, press here. <button class="btn btn-sm btn-primary" id="add_more_component" name="add_more_component[]" type="button"><span><i class="fa fa-plus"></i></span></button>
-                                                                      </div>
-                                                                  </div>
+                                                                  {{-- <div class="row">
+                                                                      <div class="col-md-10 offset-md-1 components" id="components" style="background: lavender;">
+                                                                          <div class="form-group">
+                                                                              <label for=""> <b>Component Title :</b></label>
+                                                                              <select class=" form-control form-control-primary ">
+                                                                                    <option value="" selected disabled>Select Component</option>
+                                                                                    <option value="1" >Component 1</option>
+                                                                                    <option value="2">Component 2</option>
+                                                                                    <option value="3" >Component 3</option>
+                                                                                </select>
+                                                                          </div>
 
+                                                                        </div>
+                                                                      </div> --}}
+                                                                      <div class="row oneComponentQA">
+                                                                          <div class="col-md-6 offset-md-1">
+                                                                                To assess quality of components, press here. <button class="btn btn-sm btn-primary" id="add_more_component" name="add_more_component[]" type="button"><span><i class="fa fa-plus"></i></span></button>
+                                                                          </div>
+                                                                      </div>
+
+                                                                    </div>
                                                                 </div>
-                                                                </div>
+                                                                    {{--  --}}
                                                                 <div class="card z-depth-right-0">
                                                                 <div class="card-header">
                                                                     <h4>General Feed Back</h4>
@@ -838,6 +848,8 @@ c                                                                           </ul
                                                                     <div class="form-group row">
                                                                         <div class="col-md-12">
                                                                             <p class="block form-control">
+                                                                                <!-- Lorem ipsum dolor sit amet consectetur
+                                                                                adipisicing elit. Dicta, eligendi! -->
                                                                             </p>
                                                                         </div>
                                                                     </div>
@@ -846,9 +858,18 @@ c                                                                           </ul
                                                         </div>
                                                         <div class="tab-pane active" id="stakeholder" role="tabpanel"
                                                             aria-expanded="true">
+                                                            {{-- <p class="m-0">4.Cras consequat in enim ut efficitur. Nulla
+                                                                posuere elit quis auctor interdum praesent sit amet nulla vel
+                                                                enim amet. Donec convallis tellus neque, et imperdiet felis
+                                                                amet.</p> --}}
                                                             <div class="card z-depth-right-0">
                                                                 <div class="card-header">
                                                                     <h4>Stakeholders</h4>
+                                                                    <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                                                    Sunt similique totam harum sit. Quibusdam libero, harum rem
+                                                                    quam repellendus adipisci. Repellat sapiente asperiores
+                                                                    numquam beatae at distinctio quaerat reiciendis
+                                                                    repudiandae. -->
                                                                 </div>
                                                                 <div class="card-block">
                                                                     <div class="col-md-12">
@@ -1181,10 +1202,20 @@ c                                                                           </ul
                                                             <div class="container">
                                                             </div>
                                                         </div>
-                                                      </div>
+                                                        {{-- <div class="tab-pane active" id="procurment" role="tabpanel"
+                                                            aria-expanded="true">
+                                                        </div> --}}
+
+                                                    </div>
                                                 </div>
-                                              </div>
+
                                             </div>
+
+                                            {{-- <button type="button" class="btn btn-success alert-success-msg m-b-10" style=" margin-left: 80%;">Submit
+                                                Monitoring</button> --}}
+
+
+                                        </div>
                                         <div class="tab-pane" id="summary" role="tabpanel">
                                             <fieldset>
                                                 <div class="form-group row">
@@ -1297,6 +1328,37 @@ c                                                                           </ul
                                                     <div class="col-md-1 col-sm-1"></div>
 
                                                 </div>
+                                {{-- start newtiQ map --}}
+                                                {{-- <div class="form-group row">
+                                                    <div class="col-md-1 col-sm-1">
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-2">
+                                                        <div class="card summary-card bg-new">
+                                                            <div class="card-header"></div>
+                                                            <div class="card-block">
+                                                                <div class="animation-model">
+                                                                    <button type="button" class="btn btn-info btn-outline-info waves-effect md-trigger "
+                                                                        style="text-align:center; vertical-align:middle; font-size:13px;margin-left:20%"
+                                                                        data-modal="modal-3">Burn Chart</button>
+                                                                    <div class="md-modal md-effect-3" id="modal-3">
+                                                                        <div class="md-content">
+                                                                            <h3>Burn Chart </h3>
+                                                                            <div>
+                                                                                <canvas id="barChart" width="400" height="400"></canvas>
+                                                                                <button type="button" class="btn btn-primary waves-effect md-close">Close</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="md-overlay"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-1 col-sm-1"></div>
+
+                                                </div> --}}
+                                {{-- end newtiQ map --}}
                                             </fieldset>
                                         </div>
                                     </div>
@@ -1413,6 +1475,10 @@ c                                                                           </ul
 <script src="{{asset('_monitoring/js/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js')}}"></script>
 <script src="{{asset('_monitoring/css/pages/data-table/js/data-table-custom.js')}}"></script>
 <!-- jquery file upload js -->
+ {{-- <script src="{{asset('_monitoring/js/jquery.filer/js/jquery.filer.min.js')}}"></script>
+<script src="{{asset('_monitoring/js/filer/custom-filer.js')}}"></script>
+<script src="{{asset('_monitoring/js/filer/jquery.fileuploads.init.js')}}"></script>
+<script src="{{asset('_monitoring/js/pcoded.min.js')}}"></script> --}}
 <script src="{{asset('_monitoring/js/vartical-layout.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/script.js')}}"></script>
@@ -1430,6 +1496,13 @@ c                                                                           </ul
         <strong>%%filename%%</strong>
          <!-- - Status: <span class="text-muted">Waiting</span> -->
       </p>
+      <!-- <div class="progress mb-2">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+          role="progressbar"
+          style="width: 0%"
+          aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+        </div>
+      </div> -->
       <hr class="mt-1 mb-1" />
     </div>
   </li>
@@ -1439,6 +1512,12 @@ c                                                                           </ul
 $(document).ready(function(){
   $('form').on('submit',function(e){
     e.preventDefault();
+    // var formdata= new FormData($(this).serialize());
+    // console.log(formdata);
+    //   for (var value of formdata.values()) {
+    //     console.log(value);
+    //   }
+    //   console.log(formdata);
     axios.post($(this).attr('action'),{data:$(this).serialize()})
     .then(function (response) {
         console.log(response.data);
@@ -1446,6 +1525,7 @@ $(document).ready(function(){
     .catch(function (error) {
         console.log(error);
     });
+    // console.log($('.review').serialize());
   });
 $(window).scroll(function(){
   var scroll = $(window).scrollTop();
@@ -1460,13 +1540,15 @@ $(window).scroll(function(){
     $("#table-1 > thead > tr > th:eq(5)").css({"width": "171px"});
     $("#table-1 > thead > tr > th:eq(6)").css({"width": "50px"});
     $("#table-1 > thead > tr > th").css({"border-left": "none", "border-right": "none"});
+    // $("#table-1 > thead > tr > #action").hide();
   }
   else
    {
      $("#table-1 > thead").css({ "position": "relative", "background": "#fff"});
+     // $("#table-1 > thead > tr > th").css({ "width": "171px", "border-left": "none", "border-right": "none"});
      $("#table-1 > thead > tr > #action").show();
    }
 });
 });
 </script>
-@endsections
+@endsection
