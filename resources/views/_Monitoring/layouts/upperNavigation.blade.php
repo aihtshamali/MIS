@@ -261,9 +261,12 @@
                 @endrole
 
                 {{-- Officers  --}}
-                @role('officer|transportofficer')
+                {{-- {{dd($check)}} --}}
+                @role('officer|transportofficer|evaluator|monitor')
                 @include('_Monitoring.inc.officerSidebar')
                 @endrole
+
+              
 
                 {{-- DG OR DC --}}
                 @role('manager')

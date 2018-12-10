@@ -140,13 +140,15 @@
                       <p>Visit Plan My Trip</p>
                     </a>
                 </div>
+                @role('transportofficer')
                 <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.0s">
-                  <a href="" class="tile green">
-                    <h3 class="title">Accounts</h3>
+                  <a href="http://vmis.dgme.gov.pk:8081/" class="tile green">
+                    <h3 class="title">Vehicle Management System</h3>
                     <hr/>
-                    <p>visit Accounts</p>
+                    <p>visit VMIS</p>
                   </a>
                 </div>
+                @endrole
                 <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.2s">
                   <a href="" class="tile green">
                     <h3 class="title">My Profile</h3>
