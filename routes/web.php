@@ -139,8 +139,6 @@ Route::prefix('director_evaluation')->middleware('role:directorevaluation')->gro
   Route::get('/search','DirectorEvaluationController@searchOfficer')->name('search_officer');
   Route::get('assignproject','ProjectAssignController@create_from_director')->name('create_from_director');
   Route::post('assignproject','ProjectAssignController@store_from_director')->name('store_from_director');
-
-  //
   Route::post('getAssignedProjects','DirectorEvaluationController@getAssignedProjects')->name('getofficersassigned');
   Route::post('getCompletedProjects','DirectorEvaluationController@getCompletedProjects')->name('getofficerscompleted');
 
@@ -255,17 +253,11 @@ Route::resource('Problematicremarks','ProblematicRemarksController');
 Route::post('ReadProblematicremarks','ProblematicRemarksController@readMessages');
 Route::group(['middleware'=>['permission:can.problematicremark']],function(){
 });
-// Route::group(['middleware' => ['permission:can.edit.project|can.view.project']],function(){
-// });
 
 
-//TO
-Route::prefix('to')->middleware('role:to')->group(function () {
-
-});
 Route::get('/dashboard',"HomeController@dashboard")->name("evaluation_dashboard");
-
 Route::post('/printerfunction','AdminHumanResourceController@printer');
+
 
 
 Route::get('/403',function(){
