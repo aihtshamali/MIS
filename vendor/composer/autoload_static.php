@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit75b794272aa27157af1cc3aa81750221
+class ComposerStaticInitc13c271925a5c54963b2aa34928384d8
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -561,8 +561,9 @@ class ComposerStaticInit75b794272aa27157af1cc3aa81750221
         'App\\PlantripMember' => __DIR__ . '/../..' . '/app/PlantripMember.php',
         'App\\PlantripMemberLog' => __DIR__ . '/../..' . '/app/PlantripMemberLog.php',
         'App\\PlantripPurpose' => __DIR__ . '/../..' . '/app/PlantripPurpose.php',
-        'App\\PlantripPurposeLogs' => __DIR__ . '/../..' . '/app/PlantripPurposeLogs.php',
+        'App\\PlantripPurposeLog' => __DIR__ . '/../..' . '/app/PlantripPurposeLog.php',
         'App\\PlantripPurposetype' => __DIR__ . '/../..' . '/app/PlantripPurposetype.php',
+        'App\\PlantripRemark' => __DIR__ . '/../..' . '/app/PlantripRemark.php',
         'App\\PlantripRequestedcity' => __DIR__ . '/../..' . '/app/PlantripRequestedcity.php',
         'App\\PlantripRequestedcityLog' => __DIR__ . '/../..' . '/app/PlantripRequestedcityLog.php',
         'App\\PlantripSubcitytype' => __DIR__ . '/../..' . '/app/PlantripSubcitytype.php',
@@ -4609,11 +4610,11 @@ class ComposerStaticInit75b794272aa27157af1cc3aa81750221
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit75b794272aa27157af1cc3aa81750221::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit75b794272aa27157af1cc3aa81750221::$prefixDirsPsr4;
-            $loader->fallbackDirsPsr4 = ComposerStaticInit75b794272aa27157af1cc3aa81750221::$fallbackDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit75b794272aa27157af1cc3aa81750221::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit75b794272aa27157af1cc3aa81750221::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitc13c271925a5c54963b2aa34928384d8::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitc13c271925a5c54963b2aa34928384d8::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr4 = ComposerStaticInitc13c271925a5c54963b2aa34928384d8::$fallbackDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitc13c271925a5c54963b2aa34928384d8::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitc13c271925a5c54963b2aa34928384d8::$classMap;
 
         }, null, ClassLoader::class);
     }
