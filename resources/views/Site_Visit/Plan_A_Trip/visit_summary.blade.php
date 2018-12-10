@@ -1,4 +1,4 @@
-@extends('_Monitoring.layouts.upperNavigation')
+@extends('_Monitoring.layouts.upperNavigationSiteVisit')
 @section('title')
   Monitoring Dashboard | Visit Request Summary
 @endsection

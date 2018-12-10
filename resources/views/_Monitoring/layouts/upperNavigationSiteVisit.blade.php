@@ -254,38 +254,9 @@
                         </div>
                     </div>
                 </div>
-
-                {{-- Data Entry --}}
-                @role('dataentry')
-                  @include('_Monitoring.inc.rightSidebar')
-                @endrole
-
                 {{-- Officers  --}}
-                {{-- {{dd($check)}} --}}
-                @role('officer|transportofficer|evaluator|monitor')
-                @include('_Monitoring.inc.officerSidebar')
-                @endrole
-
-              
-
-                {{-- DG OR DC --}}
-                @role('manager')
-                   @include('_Monitoring.inc.managerSidebar')
-                @endrole
-
-                {{-- Director Monitoring --}}
-                @role('directormonitoring')
-                   @include('_Monitoring.inc.directorMonitoring')
-                @endrole
-
-                {{-- Director Evaluation --}}
-                @role('directorevaluation')
-                @include('_Monitoring.inc.directorEvaluation')
-                @endrole
-
-                {{-- IT ADMIN --}}
-                @role('admin')
-                @include('_Monitoring.inc.itAdmin')
+                @role('officer|transportofficer|evaluator|monitor|manager|directormonitoring|directorevaluation|admin')
+                @include('_Monitoring.inc.sitevisitSidebar')
                 @endrole
         </div>
     </div>

@@ -1,4 +1,4 @@
-@extends('_Monitoring.layouts.upperNavigation')
+@extends('_Monitoring.layouts.upperNavigationSiteVisit')
 @section('title')
   DGME | New Trip
 @endsection

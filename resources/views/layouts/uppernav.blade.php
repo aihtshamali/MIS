@@ -329,20 +329,13 @@
 
   @role('adminhr')
   @include('inc.sidenav')
-
   @endrole
 
-  @role('officer|evaluator')
+  @role('officer|transportofficer|evaluator|monitor')
   @include('inc.officer_sidenav')
   @endrole
 
-  @role('transportofficer|officer|evaluator')
-  @include('inc.transportOfficer_sidenav')
-  @endrole
-
-
   @role('directormonitoring|directorevaluation')
-
   @include('inc.director_sidenav')
   @endrole
 

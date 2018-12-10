@@ -92,7 +92,7 @@ class SiteVisitController extends Controller
 
         return view('Site_Visit.Plan_A_Trip.new_trip',['cities'=>$cities,'officers'=>$officers,'triptypes'=>$triptypes,
                                                       'visitreasons'=>$visitreasons,'purposetypes'=>$purposetypes,
-                                                      'subcitytypes'=>$subcitytypes,'projects'=>$projects,'citylahore'=>$citylahore]);
+                                                      'subcitytypes'=>$subcitytypes,'projects'=>$projects,'citylahore'=>$citylahore ,'check'=>'1']);
     }
     public function index()
     {
@@ -111,7 +111,7 @@ class SiteVisitController extends Controller
           $tripcounts=$triprequests->count();
         //   dd($triprequests);
         // dd($triprequests[0]->approval_status);
-        return view('Site_Visit.Plan_A_Trip.view_trips',['triprequests'=>$triprequests,'tripcounts'=>$tripcounts]);
+        return view('Site_Visit.Plan_A_Trip.view_trips',['triprequests'=>$triprequests,'tripcounts'=>$tripcounts,'check'=>'1']);
     }
     /**
      * Store a newly created resource in storage.
