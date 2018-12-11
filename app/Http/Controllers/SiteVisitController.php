@@ -443,6 +443,7 @@ class SiteVisitController extends Controller
 
     public function store(Request $request)
     { 
+        dd($request);
                  $tripRequest = new PlantripTriprequest();
                 
                 $tripRequest->plantrip_triptype_id=$request->triptype_id;
