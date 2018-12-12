@@ -133,22 +133,29 @@
                                         {{-- @else
                                           <td>Not Assigned</td>
                                         @endif --}}
-                                          <td>
-                                            {{-- @if(isset(App\AssignedProject::find($total_project->assigned_project_id))) --}}
-                                            @foreach ($project->AssignedProject->AssignedProjectTeam as $team)
-                                              <span @if($team->team_lead == 1) style="color:blue;" @endif>{{ $team->User->first_name }} {{ $team->User->last_name }}</span>
-                                            @endforeach
-                                          {{-- @endif --}}
-                                          </td>
-                                          <td>{{ date('d-M-Y',strtotime($project->AssignedProject->created_at)) }}</td>
-                                          <td>
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
-                                                  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo 20+$project->AssignedProject->progress; ?>% ">
-                                                {{round($project->AssignedProject->progress,2,PHP_ROUND_HALF_UP)}}% Complete
-                                                  </div>
+                                        @if(isset($project->AssignedProject))
+                                        <td>
+                                          @foreach ($project->AssignedProject->AssignedProjectTeam as $team)
+                                            <span @if($team->team_lead == 1) style="color:blue;" @endif>{{ $team->User->first_name }} {{ $team->User->last_name }}</span>
+                                          @endforeach
+                                         
+                                        </td>
+                                        <td>{{ date('d-M-Y',strtotime($project->AssignedProject->created_at)) }}</td>
+                                        
+                                       
+                                        <td>
+                                          <div class="progress">
+                                              <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+                                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo 20+$project->AssignedProject->progress; ?>% ">
+                                              {{round($project->AssignedProject->progress,2,PHP_ROUND_HALF_UP)}}% Complete
                                                 </div>
-                                              </td>
+                                              </div>
+                                            </td>
+                                            @else
+                                        <td>Not Assigned</td>
+                                        <td>Not Assigned</td>
+                                        <td>Not Assigned</td>
+                                            @endif
                                         </tr>
                                       @endforeach
                                     </tbody>
