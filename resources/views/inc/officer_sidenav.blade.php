@@ -31,7 +31,7 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Navigations</li>
 
-        @role('officer|evaluator')
+        @role('officer|evaluator|monitor')
         {{--  /Profile  --}}
         {{-- <li >
           <a href="#">
@@ -86,75 +86,6 @@
               </a></li>
             </ul>
           </li>
-          {{-- TPVS --}}
-          <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o"></i> Third Party Validations
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                  <li><a href="#"><i class="fa fa-circle-o"></i> New Assignments
-                    <span class="pull-right-container">
-                        <span class="label label-primary pull-right">new</span>
-                    </span></a></li>
-
-                  <li><a href="#"><i class="fa fa-circle-o"></i> In-Progress</a></li>
-                  <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li>
-              </ul>
-            </li>
-            {{-- INQUIRY --}}
-
-            <li class="treeview">
-                <a href="#"><i class="fa fa-circle-o"></i> Inquiry Type
-                  <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i> New Assignments
-                      <span class="pull-right-container">
-                          <span class="label label-primary pull-right">new</span>
-                      </span></a></li>
-
-                    <li><a href="#"><i class="fa fa-circle-o"></i> In-Progress</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li>
-                </ul>
-              </li>
-              {{-- OTHER --}}
-              <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o"></i> Other
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                      <li><a href="#"><i class="fa fa-circle-o"></i> New Assignments
-                        <span class="pull-right-container">
-                            <span class="label label-primary pull-right">new</span>
-                        </span></a></li>
-
-                      <li><a href="#"><i class="fa fa-circle-o"></i> In-Progress</a></li>
-                      <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li>
-                  </ul>
-                </li>
-                {{-- SPECIAL --}}
-                <li class="treeview">
-                    <a href="#"><i class="fa fa-circle-o"></i>Special Assignment
-                      <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                      </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="#"><i class="fa fa-circle-o"></i> New Assignments
-                          <span class="pull-right-container">
-                              <span class="label label-primary pull-right">new</span>
-                          </span></a></li>
-
-                        <li><a href="#"><i class="fa fa-circle-o"></i> In-Progress</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li>
-                    </ul>
-                  </li>
         </ul>
       </li>
 
@@ -177,7 +108,7 @@
               </a>
             </li>
             <li>
-              <a href="#"><i class="fa fa-circle-o"></i>
+              <a href="{{route('trip.index')}}"><i class="fa fa-circle-o"></i>
                  View All
                  <span class="pull-right-container">
                     <span class="label label-primary pull-right">new</span>
@@ -187,26 +118,6 @@
           </ul>
       </li>
 
-        {{--  HRMS  --}}
-      <li class="treeview">
-        <a href="#">
-              <i class="fa fa-address-book-o"></i>
-              <span>My Record</span>
-              <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
-              <ul class="treeview-menu">
-                  <li>
-                    <a href="#"><i class="fa fa-circle-o"></i>
-                      Credentials
-                    </a>
-                  </li>
-                  <li><a href="#"><i class="fa fa-circle-o"></i> Leave Record</a></li>
-                  <li><a href="#"><i class="fa fa-circle-o"></i> ----</a></li>
-                </ul>
-
-      </li>
 
         {{--  Calender  --}}
         <li>

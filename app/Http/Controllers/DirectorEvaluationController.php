@@ -98,9 +98,9 @@ class DirectorEvaluationController extends Controller
          ->where('projects.status',1)
          ->where('complete',0)
          ->get();
-         $officers = User::all();
+         $officers = User::where('users.status',1)->get();
          $projects = $assigned;
-         $sectors = Sector::all();
+         $sectors = Sector::where('status',1)->get();
          return view('Director.Evaluation.Evaluation_projects.assigned',compact('assigned','officers','projects','sectors'));
       }
 
@@ -156,9 +156,9 @@ class DirectorEvaluationController extends Controller
               $assigned->add($cost);
             }
         }
-         $officers = User::all();
+         $officers = User::where('status',1)->get();
          $projects = AssignedProject::where('complete',0)->get();
-         $sectors = Sector::all();
+         $sectors = Sector::where('status',1)->get();
          return view('Director.Evaluation.Evaluation_projects.search',compact('assigned','officers','projects','sectors'));
       }
 

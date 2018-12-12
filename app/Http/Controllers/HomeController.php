@@ -16,7 +16,9 @@ use Illuminate\Support\Facades\Schema;
 use App\Imports\AdpProjectImport;
 use App\Exports\ProjectExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\PlantripTriprequest;
 use Illuminate\Support\Collection;
+
 class HomeController extends Controller
 {
     /**
@@ -136,7 +138,30 @@ class HomeController extends Controller
     }
     public function monitoringDashboard()
     {
-      return view('monitoring_dashboard');
+      $triprequests = PlantripTriprequest::select('plantrip_triprequests.*','users.first_name','users.last_name')
+      ->leftJoin('plantrip_purposes','plantrip_purposes.plantrip_triprequest_id','plantrip_triprequests.id')
+      ->leftJoin('plantrip_members','plantrip_members.plantrip_purpose_id','plantrip_purposes.id')
+      ->leftJoin('users','plantrip_members.user_id','users.id')
+      ->where('plantrip_triprequests.status',0)
+      ->where('plantrip_members.requested_by',1)
+      ->where('plantrip_triprequests.approval_status','Pending')
+      ->distinct()
+      ->with('VmisRequestToTransportOfficer')
+      ->get();
+
+      
+      $tripcounts=$triprequests->count();
+      $officer=PlantripTriprequest::select('plantrip_triprequests.*')
+      ->leftjoin('plantrip_purposes','plantrip_purposes.plantrip_triprequest_id','plantrip_triprequests.id')
+      ->leftjoin('plantrip_members','plantrip_members.plantrip_purpose_id','plantrip_purposes.id')
+      ->where('plantrip_members.user_id',Auth::id())  
+      ->distinct()
+      ->latest()
+      ->get();
+      $officercount= $officer->count();
+    // dd($officer[0]->PlantripRemark[0]->remarks);
+    // dd($officer[0]->PlantripDriverRating->rating);
+        return view('monitoring_dashboard',['triprequests'=>$triprequests,'tripcounts'=>$tripcounts,'officer'=>$officer ,'officercount'=>$officercount]);
     }
     public function reset_store(Request $request)
     {

@@ -1,8 +1,10 @@
 @extends('layouts.uppernav')
 @section('styletag')
+<link rel="stylesheet" href="{{asset('css/AdminLTE/dataTables.bootstrap.min.css')}}">
   <style>
     .text_center{text-align:center !important;font-size: 20px;line-height: 12px;word-spacing: 1px;}
     .clr_yel{color:#f39c12 !important;font-weight: bolder;font-style: italic;}
+    th,td{text-align:center;}
   </style>
 @endsection
 @section('content')

@@ -29,8 +29,39 @@ use App\SubSector;
 use App\Sector;
 use \DateTime;
 use \DateTimeZone;
+use App\PlantripTriprequest;
+use App\VmisVehicle;
+use App\VmisDriver;
 class ExecutiveController extends Controller
 {
+  //vmis request
+
+  public function visitRequestSummary($id)
+  {
+    // dd($id);
+      $nameofrequestee = PlantripTriprequest::select('plantrip_triprequests.*','users.first_name','users.last_name')
+      ->leftJoin('plantrip_purposes','plantrip_purposes.plantrip_triprequest_id','plantrip_triprequests.id')
+      ->leftJoin('plantrip_members','plantrip_members.plantrip_purpose_id','plantrip_purposes.id')
+      ->leftJoin('users','plantrip_members.user_id','users.id')
+      ->where('plantrip_triprequests.status',0)
+      ->orWhere('plantrip_triprequests.status',1)
+      ->where('plantrip_members.requested_by',1)
+      ->distinct()
+      ->get();
+
+      // dd($nameofrequestee);
+      $triprequest = PlantripTriprequest::where('id',$id)->first();
+      $purposeCounts=$triprequest->PlantripPurpose->count();
+      $drivers= VmisDriver::all();
+      $vehicles=VmisVehicle::all();
+      
+      // dd($triprequest->PlantripRequestedcity);
+      // dd($triprequest);
+      return view('Site_Visit.Plan_A_Trip.visit_summary',
+      ['vehicles'=>$vehicles,'drivers'=>$drivers,'triprequest'=>$triprequest,'purposeCounts'=>$purposeCounts,'nameofrequestee'=>$nameofrequestee]);
+  }
+
+  
     //  HOME FOLDER
     public function conduct_pdwp_meeting(){
       $meetings = HrMeetingPDWP::where('status',1)->orderBy('updated_at', 'desc')->get();
