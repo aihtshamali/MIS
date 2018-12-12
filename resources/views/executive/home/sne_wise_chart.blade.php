@@ -98,6 +98,7 @@
                                       <th>Cost</th>
                                       <th>Districts</th>
                                       <th>Officer</th>
+                                      <th>Assigned Date</th>
                                       <th>Progress</th>
                                     </tr>
                                     </thead>
@@ -139,13 +140,15 @@
                                             @endforeach
                                           {{-- @endif --}}
                                           </td>
+                                          <td>{{ date('d-M-Y',strtotime($project->AssignedProject->created_at)) }}</td>
                                           <td>
                                             <div class="progress">
                                                 <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
                                                   aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo 20+$project->AssignedProject->progress; ?>% ">
                                                 {{round($project->AssignedProject->progress,2,PHP_ROUND_HALF_UP)}}% Complete
                                                   </div>
-                                                </div></td>
+                                                </div>
+                                              </td>
                                         </tr>
                                       @endforeach
                                     </tbody>
