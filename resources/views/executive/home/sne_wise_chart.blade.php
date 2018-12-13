@@ -144,7 +144,7 @@
                                           
                                          
                                           <td>
-                                                {{round($project->AssignedProject->progress,2,PHP_ROUND_HALF_UP)}}% Complete
+                                                {{round($project->AssignedProject->progress,2,PHP_ROUND_HALF_UP)}}%
                                           </td>
                                               @else
                                           <td>Not Assigned</td>
