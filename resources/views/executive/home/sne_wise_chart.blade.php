@@ -144,13 +144,8 @@
                                           
                                          
                                           <td>
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
-                                                  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo 20+$project->AssignedProject->progress; ?>% ">
                                                 {{round($project->AssignedProject->progress,2,PHP_ROUND_HALF_UP)}}% Complete
-                                                  </div>
-                                                </div>
-                                              </td>
+                                          </td>
                                               @else
                                           <td>Not Assigned</td>
                                           <td>Not Assigned</td>
