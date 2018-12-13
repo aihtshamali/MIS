@@ -133,14 +133,16 @@
                                         {{-- @else
                                           <td>Not Assigned</td>
                                         @endif --}}
+                                        @if(isset($project->AssignedProject))
                                           <td>
-                                            {{-- @if(isset(App\AssignedProject::find($total_project->assigned_project_id))) --}}
                                             @foreach ($project->AssignedProject->AssignedProjectTeam as $team)
                                               <span @if($team->team_lead == 1) style="color:blue;" @endif>{{ $team->User->first_name }} {{ $team->User->last_name }}</span>
                                             @endforeach
-                                          {{-- @endif --}}
+                                           
                                           </td>
                                           <td>{{ date('d-M-Y',strtotime($project->AssignedProject->created_at)) }}</td>
+                                          
+                                         
                                           <td>
                                             <div class="progress">
                                                 <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
@@ -149,6 +151,11 @@
                                                   </div>
                                                 </div>
                                               </td>
+                                              @else
+                                          <td>Not Assigned</td>
+                                          <td>Not Assigned</td>
+                                          <td>Not Assigned</td>
+                                              @endif
                                         </tr>
                                       @endforeach
                                     </tbody>
