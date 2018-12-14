@@ -1,6 +1,6 @@
 @extends('layouts.uppernav')
 @section('styletag')
-
+  <link rel="stylesheet" href="{{asset('css/AdminLTE/dataTables.bootstrap.min.css')}}">
 <link rel="stylesheet" href="{{asset('css/charts/export.css')}}" type="text/css" media="all" />
 <style>
 #chartdiv12 {
@@ -46,7 +46,7 @@
 
     <section class="content-header">
         <h1>
-        Total Project's Progress
+        SNE Projects
 
         </h1>
         <ol class="breadcrumb">
@@ -71,106 +71,196 @@
               $counter = 0;
             @endphp
             @foreach ($actual_Sneprojects as $value)
-              @if ($value)
-            <div class="modal fade in" id="Modal{{ $value[0]->ProjectDetail->sne ?$value[0]->ProjectDetail->sne:"NOT" }}" style="display: block; padding-right: 17px;display:none">
-              <div class="modal-dialog" style="width:90%">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">Projects</h4>
-                  </div>
-                  <div class="modal-body">
-                              <div class="box">
-                                <div class="box-header">
-                                  <h3 class="box-title">Projects</h3>
-                                </div>
-                                <!-- /.box-header -->
-                                <div class="box-body">
-                                  <table id="example{{ $counter++ }}" class="table table-bordered table-striped">
-                                    <thead>
-                                    <tr>
-                                      <th>SR #</th>
-                                      <th>Project No</th>
-                                      <th>GS #</th>
-                                      <th>Name</th>
-                                      <th>Sector</th>
-                                      <th>Cost</th>
-                                      <th>Districts</th>
-                                      <th>Officer</th>
-                                      <th>Assigned Date</th>
-                                      <th>Progress</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="tbody">
-                                      @php
-                                        $inner_counter = 1;
-                                      @endphp
-                                      @foreach ($value as $project)
-                                        <tr>
-                                          <td>{{  $inner_counter++ }}</td>
-                                          <td>{{$project->project_no}}</td>
-                                          <td style="width:120px">{{$project->financial_year}} / {{$project->ADP}}</td>
-                                          <td>{{$project->title}}</td>
-                                          <td>
-                                            @if (isset($project->AssignedSubSectors))
-                                              @foreach ($project->AssignedSubSectors as $sub_sectors)
-                                                {{ $sub_sectors->SubSector->name }}
-                                              @endforeach
-                                            @endif
-                                          </td>
-                                          @if (isset($project->ProjectDetail))
-                                            <td>{{round($project->ProjectDetail->orignal_cost,2,PHP_ROUND_HALF_UP)}}</td>
-                                          @else
-                                            <td>No Details</td>
-                                          @endif
-                                          {{-- @if(isset(App\AssignedProject::find($total_project->assigned_project_id))) --}}
-                                          <td>
-                                            @foreach ($project->AssignedDistricts as $district)
-                                              {{  $district->District->name}},
-                                            @endforeach
-                                          </td>
-                                        {{-- @else
-                                          <td>Not Assigned</td>
-                                        @endif --}}
-                                        @if(isset($project->AssignedProject))
-                                          <td>
-                                            @foreach ($project->AssignedProject->AssignedProjectTeam as $team)
-                                              <span @if($team->team_lead == 1) style="color:blue;" @endif>{{ $team->User->first_name }} {{ $team->User->last_name }}</span>
-                                            @endforeach
-                                           
-                                          </td>
-                                          <td>{{ date('d-M-Y',strtotime($project->AssignedProject->created_at)) }}</td>
-                                          
-                                         
-                                          <td>
-                                                {{round($project->AssignedProject->progress,2,PHP_ROUND_HALF_UP)}}%
-                                          </td>
-                                              @else
-                                          <td>Not Assigned</td>
-                                          <td>Not Assigned</td>
-                                          <td>Not Assigned</td>
-                                              @endif
-                                        </tr>
+              @if (count($value)>0)
+                <div class="modal fade in" id="Modal{{ $value[0]->ProjectDetail->sne ?$value[0]->ProjectDetail->sne:"NOT" }}" style="display: block; padding-right: 17px;display:none">
+                  <div class="modal-dialog" style="width:90%">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">Projects</h4>
+                      </div>
+                      <div class="modal-body">
+                        <div class="box">
+                          <!-- /.box-header -->
+                          <div class="box-body">
+                            <table id="example{{ $counter++ }}" class="table table-bordered table-striped">
+                              <thead>
+                              <tr>
+                                <th>SR #</th>
+                                <th>Project No</th>
+                                <th>GS #</th>
+                                <th>Name</th>
+                                <th>Sector</th>
+                                <th>Cost</th>
+                                <th>Districts</th>
+                                <th>Officer</th>
+                                <th>Assigned Date</th>
+                                <th>Progress</th>
+                              </tr>
+                              </thead>
+                              <tbody id="tbody">
+                                @php
+                                  $inner_counter = 1;
+                                @endphp
+                                @foreach ($value as $project)
+                                  @if($project->AssignedProject->complete == 0)
+                                  <tr>
+                                    <td>{{  $inner_counter++ }}</td>
+                                    <td>{{$project->project_no}}</td>
+                                    <td style="width:120px">{{$project->financial_year}} / {{$project->ADP}}</td>
+                                    <td>{{$project->title}}</td>
+                                    <td>
+                                      @if (isset($project->AssignedSubSectors))
+                                        @foreach ($project->AssignedSubSectors as $sub_sectors)
+                                          {{ $sub_sectors->SubSector->name }}
+                                        @endforeach
+                                      @endif
+                                    </td>
+                                    @if (isset($project->ProjectDetail))
+                                      <td>{{round($project->ProjectDetail->orignal_cost,2,PHP_ROUND_HALF_UP)}}</td>
+                                    @else
+                                      <td>No Details</td>
+                                    @endif
+                                    {{-- @if(isset(App\AssignedProject::find($total_project->assigned_project_id))) --}}
+                                    <td>
+                                      @foreach ($project->AssignedDistricts as $district)
+                                        {{  $district->District->name}},
                                       @endforeach
-                                    </tbody>
-                                  </table>
-                                </div>
-                                <!-- /.box-body -->
-                              </div>
-                              <!-- /.box -->
+                                    </td>
+                                      @if(isset($project->AssignedProject))
+                                      <td>
+                                        @foreach ($project->AssignedProject->AssignedProjectTeam as $team)
+                                          <span @if($team->team_lead == 1) style="color:blue;" @endif>{{ $team->User->first_name }} {{ $team->User->last_name }}</span>
+                                        @endforeach
+
+                                      </td>
+                                      <td>{{ date('d-M-Y',strtotime($project->AssignedProject->created_at)) }}</td>
+                                      <td>
+                                          {{round($project->AssignedProject->progress,2,PHP_ROUND_HALF_UP)}}%
+                                      </td>
+                                    @else
+                                      <td>Not Assigned</td>
+                                      <td>Not Assigned</td>
+                                      <td>Not Assigned</td>
+                                    @endif
+                                  </tr>
+                                  @endif
+                                @endforeach
+                              </tbody>
+                            </table>
+                          </div>
+                          <!-- /.box-body -->
+                        </div>
+                        <!-- /.box -->
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                        {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+                      </div>
+                    </div>
+                    <!-- /.modal-content -->
                   </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                    {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
-                  </div>
-                </div>
-                <!-- /.modal-content -->
-              </div>
               <!-- /.modal-dialog -->
             </div>
-          @endif
-          @endforeach
+              @endif
+            @endforeach
+
+          @php
+            $counter = 0;
+            $counter2 = 4;
+          @endphp
+          @foreach ($actual_Sneprojects as $value)
+            @if (count($value)>0)
+          <div class="modal fade in" id="ModalCOMPLETED{{ $value[0]->ProjectDetail->sne ?$value[0]->ProjectDetail->sne:"NOT" }}" style="display: block; padding-right: 17px;display:none">
+            <div class="modal-dialog" style="width:90%">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                  <h4 class="modal-title">Projects</h4>
+                </div>
+                <div class="modal-body">
+                            <div class="box">
+                              <!-- /.box-header -->
+                              <div class="box-body">
+                                <table id="example{{ $counter2++ }}" class="table table-bordered table-striped">
+                                  <thead>
+                                  <tr>
+                                    <th>SR #</th>
+                                    <th>Project No</th>
+                                    <th>GS #</th>
+                                    <th>Name</th>
+                                    <th>Sector</th>
+                                    <th>Cost</th>
+                                    <th>Districts</th>
+                                    <th>Officer</th>
+                                    <th>Assigned Date</th>
+                                    <th>Progress</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody id="tbody">
+                                    @php
+                                      $inner_counter = 1;
+                                    @endphp
+                                    @foreach ($value as $project)
+                                      @if($project->AssignedProject->complete == 1)
+                                      <tr>
+                                        <td>{{  $inner_counter++ }}</td>
+                                        <td>{{$project->project_no}}</td>
+                                        <td style="width:120px">{{$project->financial_year}} / {{$project->ADP}}</td>
+                                        <td>{{$project->title}}</td>
+                                        <td>
+                                          @if (isset($project->AssignedSubSectors))
+                                            @foreach ($project->AssignedSubSectors as $sub_sectors)
+                                              {{ $sub_sectors->SubSector->name }}
+                                            @endforeach
+                                          @endif
+                                        </td>
+                                        @if (isset($project->ProjectDetail))
+                                          <td>{{round($project->ProjectDetail->orignal_cost,2,PHP_ROUND_HALF_UP)}}</td>
+                                        @else
+                                          <td>No Details</td>
+                                        @endif
+                                        <td>
+                                          @foreach ($project->AssignedDistricts as $district)
+                                            {{  $district->District->name}},
+                                          @endforeach
+                                        </td>
+                                      @if(isset($project->AssignedProject))
+                                      <td>
+                                        @foreach ($project->AssignedProject->AssignedProjectTeam as $team)
+                                          <span @if($team->team_lead == 1) style="color:blue;" @endif>{{ $team->User->first_name }} {{ $team->User->last_name }}</span>
+                                        @endforeach
+                                      </td>
+                                      <td>{{ date('d-M-Y',strtotime($project->AssignedProject->created_at)) }}</td>
+                                      <td>
+                                            {{round($project->AssignedProject->progress,2,PHP_ROUND_HALF_UP)}}%
+                                          </td>
+                                          @else
+                                      <td>Not Assigned</td>
+                                      <td>Not Assigned</td>
+                                      <td>Not Assigned</td>
+                                          @endif
+                                      </tr>
+                                    @endif
+                                    @endforeach
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+          </div>
+        @endif
+      @endforeach
+
     </section>
 
 </div>
@@ -199,7 +289,7 @@
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-for (var i = 4; i >= 0; i--) {
+for (var i = 7; i >= 0; i--) {
   $('#example'+i).DataTable({
     dom: 'Bfrtip',
         buttons: [
@@ -212,69 +302,84 @@ $('.dt-buttons').addClass('col-md-6')
 $('.dataTables_filter').addClass('col-md-6').css('text-align','right');
 });
 </script>
-
-<script type="text/javascript">
-$(document).on('click','g.amcharts-graph-column',function(){
-  var data=$(this).attr('aria-label').split(' ')[1];
-  console.log(data);
-    $('#Modal'+data).modal('show');
-});
-</script>
-
 <script>
 var st = [];
   $i = 0;
-  // $count=0;
   Sneprojects.forEach(element => {
     st.push ({
-      "Name":categories[$i],
-      "Number of Projects": Sneprojects[$i]
+      "category":categories[$i],
+      "completed": SneCompletedprojects[$i],
+      "inprogress": SneInprogressprojects[$i],
+      'total': Sneprojects[$i]
     });
     $i++;
   });
-  var chart = AmCharts.makeChart( "chartdiv12", {
-  "type": "serial",
-  "theme": "light",
-  "dataProvider":st,
-  "valueAxes": [ {
-    "title" : "Number of Projects",
-    "gridColor": "#FFFFFF",
-    "gridAlpha": 0.2,
-    "dashLength": 0
-  } ],
-  "gridAboveGraphs": true,
-  "startDuration": 1,
-  "graphs": [ {
-    "balloonText": "[[category]]: <b>[[value]]</b>",
-    "fillAlphas": 0.8,
-    "lineAlpha": 0.2,
-    "type": "column",
-    "labelText": "[[value]]",
-    "valueField": "Number of Projects"
-  } ],
-  "chartCursor": {
-    "categoryBalloonEnabled": false,
-    "cursorAlpha": 0,
-    "zoomable": false
-  },
-  "categoryField": "Name",
-  "categoryAxis": {
-    "title" : "SNE Categories",
-    "autoGridCount": false,
-    "equalSpacing": true,
-    "gridCount": 1000,
-    "gridPosition": "middle",
-    "gridAlpha": 0,
-    "tickPosition": "middle",
-    "tickLength": 5,
-    "labelRotation":30,
-    // "ignoreAxisWidth": true,
-    "autoWrap": true
-  },
-  "export": {
-    "enabled": true
+
+  function inProgressFunction(ev) {
+    var data = ev.target.dataItem.categories.categoryX;
+    if(data == "NOT SET"){
+      $('#ModalNOT').modal('show');
+    }
+    $('#Modal'+data).modal('show');
+    $('#Modal'+data).children().children().children('.modal-header').children('h4.modal-title').text("InProgress "+data+" SNE Projects");
+}
+  function completedFunction(ev) {
+    var data = ev.target.dataItem.categories.categoryX;
+    if(data == "NOT SET"){
+      $('#ModalNOT').modal('show');
+    }
+    $('#ModalCOMPLETED'+data).modal('show');
+    $('#ModalCOMPLETED'+data).children().children().children('.modal-header').children('h4.modal-title').text("Completed "+data+" SNE Projects");
   }
 
-} );
+  // am4core.useTheme(am4themes);
+// Themes end
+
+var chart = am4core.create("chartdiv12", am4charts.XYChart);
+chart.hiddenState.properties.opacity = 0;
+
+chart.data = st;
+
+chart.colors.step = 2;
+chart.padding(30, 30, 10, 30);
+chart.legend = new am4charts.Legend();
+
+var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+categoryAxis.dataFields.category = "category";
+categoryAxis.renderer.grid.template.location = 0;
+
+var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+valueAxis.min = 0;
+valueAxis.renderer.minWidth = 50;
+
+var series1 = chart.series.push(new am4charts.ColumnSeries());
+series1.dataFields.valueY = "inprogress";
+series1.dataFields.categoryX = "category";
+// series1.columns.template.width = am4core.percent(80);
+series1.columns.template.tooltipText =
+  "{name} ({total}): {valueY}";
+series1.name = "InProgress Projects";
+series1.stacked = true;
+series1.columns.template.events.on("hit", inProgressFunction, this);
+
+var bullet1 = series1.bullets.push(new am4charts.LabelBullet());
+bullet1.label.text = "{valueY}";
+bullet1.label.fill = am4core.color("#ffffff");
+bullet1.locationY = 0.5;
+
+var series2 = chart.series.push(new am4charts.ColumnSeries());
+// series2.columns.template.width = am4core.percent(80);
+series2.columns.template.tooltipText =
+  "{name} ({total}): {valueY}";
+series2.name = "Completed Projects";
+series2.dataFields.categoryX = "category";
+series2.dataFields.valueY = "completed";
+series2.columns.template.events.on("hit", completedFunction, this);
+series2.stacked = true;
+
+var bullet2 = series2.bullets.push(new am4charts.LabelBullet());
+bullet2.label.text = "{valueY}";
+bullet2.locationY = 0.5;
+bullet2.label.fill = am4core.color("#ffffff");
      </script>
 @endsection
