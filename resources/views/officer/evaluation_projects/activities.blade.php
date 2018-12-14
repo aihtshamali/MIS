@@ -118,21 +118,21 @@
   #loader
   {
     display: none;
-    background: #000000b3;
-    padding: 15% 31% 0% 31%;
+    background: #fffbfb87;
+    padding: 20% 0% 0% 48%;
     position: fixed;
     z-index: 9999;
     width: 100%;
     height: 100%;
   }
-  .loader img{width: 150px !important;margin: auto;}
+  .loader img{width: 60px !important;margin: auto;}
   .skin-blue .main-header .navbar{position: fixed !important;width: 100% !important;}
 
 
   </style>
 @endsection
 @section('content')
-<div id="loader"><img src="{{asset('awienWalaLoader.gif')}}"/></div>
+  <div id="loader"><img src="{{asset('loader.gif')}}" width="60px" /></div>
   <div class="content-wrapper">
     {{-- <!-- Content Header (Page header) --> --}}
     <section class="content-header">

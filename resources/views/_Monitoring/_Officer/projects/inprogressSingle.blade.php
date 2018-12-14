@@ -86,6 +86,8 @@
 }
 .headText{font-size: 15px;text-transform: capitalize;}
 .boldText{font-weight: 900;}
+.New_Assignments a{color : #FE8A7D !important;}
+.Monitoring_Projects{color : #FE8A7D !important;}
 </style>
 
 @endsection
@@ -340,19 +342,19 @@
                                                       <div class="form-group row mb_2">
                                                           <label class="col-sm-3 font-15">Project Approval Date</label>
                                                           <div class="col-sm-9">
-                                                            <input type="text" class="form-control" placeholder="Project Approval Date" />
+                                                            <input type="date" class="form-control" placeholder="Project Approval Date" />
                                                           </div>
                                                       </div>
                                                       <div class="form-group row mb_2">
                                                           <label class="col-sm-3 font-15">Admin Approval Date</label>
                                                           <div class="col-sm-9">
-                                                            <input type="text" class="form-control" placeholder="Admin Approval Date" />
+                                                            <input type="date" class="form-control" placeholder="Admin Approval Date" />
                                                           </div>
                                                       </div>
                                                       <div class="form-group row mb_2">
                                                           <label class="col-sm-3 font-15">Actual Start Date</label>
                                                           <div class="col-sm-9">
-                                                            <input type="text" class="form-control" placeholder="Actual Start Date" />
+                                                            <input type="date" class="form-control" placeholder="Actual Start Date" />
                                                           </div>
                                                       </div>
                                                     </div>
@@ -528,6 +530,18 @@
                                                                             <option class='optiontest' value='Client Satisfaction'>Client Satisfaction</option>
                                                                             <option class='optiontest' value='Procurement'>Procurement</option>
                                                                         </select>
+                                                                        {{-- SPECIAL KPI'S CODE --}}
+
+                                                                            <h5 class="mb_2">Special KPI(s)</h4>
+                                                                            <div id="appendspecialkpi">
+                                                                              <div class="row col-md-12">
+                                                                                <input type="text" class="form-control specialin col-md-11" placeholder="Type KPI here...">
+                                                                                <button class="col-md-1 btn addspecialkpi" type="button">+</button>
+                                                                                <button class="col-md-1 btn btn-danger btn-sm btn nodisplay delspecialkpi" type="button">-</button>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            {{-- SPECIAL KPI'S CODE END--}}
                                                                     </div>
                                                                     <div class="row col-md-1">
                                                                       <div class="border_right col-md-6"></div>

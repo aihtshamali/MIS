@@ -36,6 +36,40 @@ $(document).ready(function () {
         }
     })
 
+    // SPECIAL KPI
+    $(document).on('click','.addspecialkpi',function(){
+        $(this).hide()
+        $(this).parent().find('.delspecialkpi').removeClass('nodisplay')
+        $(`<div class="row col-md-12">
+          <input type="text" class="form-control specialin col-md-11" placeholder="Type KPI here...">
+          <button class="col-md-1 btn addspecialkpi" type="button">+</button>
+          <button class="col-md-1 btn btn-danger btn-sm btn nodisplay delspecialkpi" type="button">-</button>
+        </div>`).appendTo('#appendspecialkpi')
+        var t = $(this).parent().find('.specialin').val();
+
+        $(`<li id='` + t.replace(/\s+/g, '_').replace('(', '').replace(')', '') + `' class="col-md-12 row"><div class='col-md-6'>
+            `+ t + `</div>
+            <div class="col-md-6">
+                <select class="kpisel col-sm-12" multiple="multiple">
+                    <option value="AL">Component 1</option>
+                    <option value="WY">Component 2</option>
+                    <option value="WY">Component 3</option>
+                    <option value="WY">Component 4</option>
+                    <option value="WY">Component 5</option>
+                </select>
+            </div>
+            </li>`).appendTo('#addkpi')
+
+            $('.kpisel').select2()
+    })
+    $(document).on('click','.delspecialkpi',function(){
+        var t = $(this).parent().find('.specialin').val();
+        t = t.replace(/\s+/g, '_').replace('(', '').replace(')', '')
+        $('#addkpi').find('#'+t).remove()
+        $(this).parent().remove()
+    })
+// SPECIAL KPI END
+
     //FINANCIAL PHASING
     $(document).on('keyup', '.count-me', function () {
         var parent = $(this).parent().parent().parent().parent().parent().parent()

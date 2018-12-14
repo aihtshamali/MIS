@@ -13,7 +13,8 @@
             border: 0;
             border-top: 1px solid #ffffff47 !important;
         }
-     .w_30p{width: 46% !important;margin-top: -11% !important;}
+     .w_46p{width: 46% !important;margin-top: -11% !important;}
+     .w_30p{width: 30% !important;margin-top: -11% !important;}
      .tile {
       width: 100%;
       display: inline-block;
@@ -79,6 +80,7 @@
     .close{position: absolute;right: 0;z-index: 9999;}
     .text_center{text-align: center !important;}
     a p, a h3{text-transform: capitalize !important;}
+    ::selection{color: #fff !important;background: #687753  !important;}
    </style>
 @endsection
 @section('content')
@@ -86,7 +88,11 @@
         {{-- start vertical auto clider --}}
         {{-- end vertical auto clider --}}
           <!-- Main Section-->
-          <div class="hero-section app-hero">
+          {{-- @auth --}}
+            {{-- <div class="pt_3p"></div> --}}
+            {{-- <div class="pt_3p"></div> --}}
+          {{-- @else --}}
+            <div class="hero-section app-hero">
               <div class="container">
                   <div class="hero-content app-hero-content text-center">
                       <div class="row justify-content-md-center">
@@ -201,6 +207,7 @@
                   </div>
               </div>
           </div>
+          {{-- @endauth --}}
           @auth
           <div class="pt_3p text-center">
             <div class="container">
@@ -380,6 +387,40 @@
                   </div>
               </div>
           </div>
+          {{-- start news slider --}}
+          <div id="content-wrapper">
+            <div class="inner clearfix">
+              <section id="main-content">
+                  <div id="demos">
+                          <div id="carouselTicker" class="carouselTicker">
+                              <ul class="carouselTicker__list">
+                                <li class="carouselTicker__item grayeee">
+                                  <h4>Capacity Building 1</h4>
+                                  <p>celebration of project complition in CR room...</p>
+                                  <b class="float-right" style="font-size: 11px !important;">12/12/2018</b>
+                                </li>
+                                <li class="carouselTicker__item grayeee">
+                                  <h4>Capacity Building 2</h4>
+                                  <p>celebration of project complition in CR room...</p>
+                                  <b class="float-right" style="font-size: 11px !important;">12/12/2018</b>
+                                </li>
+                                <li class="carouselTicker__item grayeee">
+                                  <h4>Capacity Building 3</h4>
+                                  <p>celebration of project complition in CR room...</p>
+                                  <b class="float-right" style="font-size: 11px !important;">12/12/2018</b>
+                                </li>
+                                <li class="carouselTicker__item grayeee">
+                                  <h4>Capacity Building 4</h4>
+                                  <p>celebration of project complition in CR room...</p>
+                                  <b class="float-right" style="font-size: 11px !important;">12/12/2018</b>
+                                </li>
+                              </ul>
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </div>
+          {{-- end news slider --}}
           <!-- Footer Section -->
           <div class="footer">
               <div class="container">
@@ -407,9 +448,6 @@
       </div>
       <!-- Main Section -->
   </div>
-
-
-
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -488,17 +526,6 @@
 //      }
 //   });
 //   });
-
-    // $(function() {
-    //         $('#element').on('click', function( e ) {
-    //             Custombox.open({
-    //                 target: '#testmodal-1',
-    //                 effect: 'fadein'
-    //             });
-    //             e.preventDefault();
-    //         });
-    //     });
-
 new Vue({
   el: '#myModal',
 

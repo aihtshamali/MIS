@@ -10,7 +10,7 @@
                                 <span class="pcoded-mtext">Dashboard</span>
                             </a>
                             <ul class="pcoded-submenu">
-                                <li class="active">
+                                <li class="">
                                     <a href="{{url('monitoring_dashboard')}}">
                                         <span class="pcoded-mtext">Home</span>
                                     </a>
@@ -142,12 +142,12 @@
                     <div class="pcoded-navigatio-lavel">Projects</div>
                     <ul class="pcoded-item pcoded-left-item">
                         <li class="pcoded-hasmenu">
-                            <a href="javascript:void(0)">
+                            <a href="javascript:void(0)" class="Monitoring_Projects">
                                 <span class="pcoded-micon"><i class="feather icon-airplay"></i></span>
-                                    <span class="pcoded-mtext" >Monitoring Projects</span>
+                                <span class="pcoded-mtext" >Monitoring Projects</span>
                             </a>
                             <ul class="pcoded-submenu">
-                                <li class="">
+                                <li class="New_Assignments" >
                                 <a href="{{route('Monitoring_newAssignments')}}">
                                         <span class="pcoded-mtext">New Assignments</span>
                                         <span class="pcoded-badge label label-danger">0</span>

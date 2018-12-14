@@ -23,7 +23,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 @yield('styleTags')
-
+<style media="screen">
+  .backforbtn{width:5% !important;padding-top:0.3% !important;cursor:pointer;transition:all 600ms ease;    -webkit-transition: all 600ms ease;}
+  .backforbtn:hover{transition:all 600ms ease;    -webkit-transition: all 600ms ease;}
+</style>
 </head>
 
 <body>
@@ -83,9 +86,9 @@
                                 <i class="feather icon-more-horizontal"></i>
                             </a>
                         </div>
-
                         <div class="navbar-container container-fluid">
-                            <ul class="nav-left">
+                            <ul class="nav-left col-md-7">
+                              <li onclick="goBack()" class="backforbtn"><img src="{{asset('backbtn.png')}}" width="100%" alt=""></li>
                                 <li class="header-search">
                                     <div class="main-search morphsearch-search">
                                         <div class="input-group">
@@ -100,6 +103,7 @@
                                         <i class="feather icon-maximize full-screen"></i>
                                     </a>
                                 </li>
+                                <li onclick="goforward()" class="backforbtn float-right"><img src="{{asset('forwardbtn.png')}}" width="100%" alt=""></li>
                             </ul>
                             <ul class="nav-right">
                                 <li class="header-notification">
@@ -325,5 +329,11 @@
         gtag('js', new Date());
 
         gtag('config', 'UA-23581568-13');
+        function goBack() {
+            window.history.back();
+        }
+        function goforward() {
+            window.history.forward()
+        }
       </script>
 </html>

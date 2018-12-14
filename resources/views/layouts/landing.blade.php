@@ -26,6 +26,8 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <!-- Main Style css -->
     <link href="{{ asset('landingPage/css/style.css')}}" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('landingPage/css/stylesheet.css')}}" media="screen">
+    <link rel="stylesheet" type="text/css" href="{{ asset('landingPage/css/carouselTicker.css')}}" media="screen">
     @yield('styleTags')
 </head>
 
@@ -34,7 +36,7 @@
       <div class="container">
            <nav class="navbar navbar-expand-lg navbar-light navbar-default navbar-fixed-top" role="navigation">
               <div class="container">
-                  <a class="navbar-brand page-scroll" href="#main"><img class="w_30p" src="{{ asset('dgme.png')}}" alt="DGME Logo" /></a>
+                  <a class="navbar-brand page-scroll" href="#main"><img class="w_46p" id="logo" src="{{ asset('dgme.png')}}" alt="DGME Logo" /></a>
                   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                       <span class="navbar-toggler-icon"></span>
                   </button>
@@ -91,12 +93,12 @@
                                      {{ csrf_field() }}
                                  </form>
                           </li>
-                        @else
-                          <li id="element" class="show-modal nav-item">
-                            <a class="nav-link" style=" " data-toggle="modal" data-target="#myModal" href="#!" >Login</a>
-                            {{-- <li><strong><a href="{{route('register')}}">Register</a></strong></li> --}}
-                            {{-- {{route('login')}} --}}
-                          </li>
+                          @else
+                            <li id="element" class="show-modal nav-item">
+                              <a class="nav-link" style=" " data-toggle="modal" data-target="#myModal" href="#!" >Login</a>
+                              {{-- <li><strong><a href="{{route('register')}}">Register</a></strong></li> --}}
+                              {{-- {{route('login')}} --}}
+                            </li>
                           @endauth
                       </ul>
                   </div>
@@ -114,6 +116,8 @@
     <script type="text/javascript" src="{{ asset('landingPage/js/plugins.js')}}"></script>
     <script type="text/javascript" src="{{ asset('landingPage/js/menu.js')}}"></script>
     <script type="text/javascript" src="{{ asset('landingPage/js/custom.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('landingPage/js/jquery.carouselTicker.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('landingPage/js/start.js')}}"></script>
     <script type="text/javascript" src="{{ asset('js/Customvue.min.js')}}"></script>
     @yield('scripttags')
 </body>
