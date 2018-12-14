@@ -243,15 +243,13 @@
                                       <td>Not Assigned</td>
                                           @endif
                                       </tr>
-                                      @endif
+                                    @endif
                                     @endforeach
-                                  </tbody>
-                                </table>
+                                  </table>
+                                </div>
                               </div>
-                              <!-- /.box-body -->
                             </div>
-                            <!-- /.box -->
-                </div>
+
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
                 </div>
@@ -261,7 +259,8 @@
             <!-- /.modal-dialog -->
           </div>
         @endif
-        @endforeach
+      @endforeach
+
     </section>
 
 </div>
