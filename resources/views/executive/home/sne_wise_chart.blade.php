@@ -98,6 +98,7 @@
                                       <th>Cost</th>
                                       <th>Districts</th>
                                       <th>Officer</th>
+                                      <th>Assigned Date</th>
                                       <th>Progress</th>
                                     </tr>
                                     </thead>
@@ -132,20 +133,24 @@
                                         {{-- @else
                                           <td>Not Assigned</td>
                                         @endif --}}
+                                        @if(isset($project->AssignedProject))
                                           <td>
-                                            {{-- @if(isset(App\AssignedProject::find($total_project->assigned_project_id))) --}}
                                             @foreach ($project->AssignedProject->AssignedProjectTeam as $team)
                                               <span @if($team->team_lead == 1) style="color:blue;" @endif>{{ $team->User->first_name }} {{ $team->User->last_name }}</span>
                                             @endforeach
-                                          {{-- @endif --}}
+                                           
                                           </td>
+                                          <td>{{ date('d-M-Y',strtotime($project->AssignedProject->created_at)) }}</td>
+                                          
+                                         
                                           <td>
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
-                                                  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo 20+$project->AssignedProject->progress; ?>% ">
-                                                {{round($project->AssignedProject->progress,2,PHP_ROUND_HALF_UP)}}% Complete
-                                                  </div>
-                                                </div></td>
+                                                {{round($project->AssignedProject->progress,2,PHP_ROUND_HALF_UP)}}%
+                                          </td>
+                                              @else
+                                          <td>Not Assigned</td>
+                                          <td>Not Assigned</td>
+                                          <td>Not Assigned</td>
+                                              @endif
                                         </tr>
                                       @endforeach
                                     </tbody>
@@ -185,12 +190,26 @@
 <script src="{{asset('js/charts/chalk.js')}}"></script>
 <script src="{{asset('js/charts/light.js')}}"></script>
 <script src="{{asset('js/charts/patterns.js')}}"></script>
-
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 for (var i = 4; i >= 0; i--) {
-  $('#example'+i).DataTable()
+  $('#example'+i).DataTable({
+    dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+  });
 }
+
+$('.dt-buttons').addClass('col-md-6')
+$('.dataTables_filter').addClass('col-md-6').css('text-align','right');
 });
 </script>
 

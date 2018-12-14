@@ -10,6 +10,6 @@ class PlantripRequestedcity extends Model
         return $this->belongsTo('App\PlantripTriprequest');
     }
     public function PlantripCity(){
-        return $this->belongsTo('App\PlantripCity');
+        return $this->belongsTo('App\PlantripCity','requestedCity_id');
     }
 }

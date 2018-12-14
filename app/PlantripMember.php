@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class PlantripMember extends Model
 {
-    public function User(){
+      public function User(){
         return $this->belongsTo('App\User');
       }
-      public function PlantripTriplocation(){
-        return $this->belongsTo('App\PlantripTriplocation');
+      public function PlantripPurpose(){
+        return $this->belongsTo('App\PlantripPurpose');
       }
 }
