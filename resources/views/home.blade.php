@@ -38,37 +38,6 @@
       color: #fff;
     }
     .navbar-default{background-color: #fff !important;}
-    /* .navbar-default .navbar-nav > li > a{color: #666 !important;} */
-    /* .tile.purple {
-      background: #5133AB;
-    } */
-    /* .tile.purple:hover {
-      background: #3e2784 !important;
-    }
-    .tile.red {
-      background: #AC193D;
-    }
-    .tile.red:hover {
-      background: #7f132d;
-    }
-    .tile.green {
-      background: #00A600;
-    }
-    .tile.green:hover {
-      background: #007300;
-    }
-    .tile.blue {
-      background: #2672EC;
-    }
-    .tile.blue:hover {
-      background: #125acd;
-    }
-    .tile.orange {
-      background: #DC572E;
-    }
-    .tile.orange:hover {
-      background: #b8431f;
-    } */
     .pt_3p{padding-top: 3% !important;}
     .black{color: #777 !important;}
     .mr_3p{margin: 3%;}
@@ -78,6 +47,22 @@
     .white{color: #fff !important;}
     .close{position: absolute;right: 0;z-index: 9999;}
     .text_center{text-align: center !important;}
+    .noti
+        {
+            border: 1px solid #d60f0f;
+            border-radius: 53px;
+            padding: 3%;
+            font-size: 11px;
+            background: #d60f0f;
+            font-weight: 200;
+            color: #fff;
+            position: absolute;
+            margin-top: -12%;
+            right: 3%;
+            transition: all 900ms ease;
+            -webkit-transition: all 900ms ease;
+        }
+    .noti:hover{transition: all 900ms ease;-webkit-transition: all 900ms ease;background:#fff;border:1px solid #687753;color:#687753}
    </style>
 @endsection
 @section('content')
@@ -94,8 +79,7 @@
                               <p class="wow fadeInUp" data-wow-delay="0.2s">
                                   Welcome to the official INTRANET website of Directorate General Monitoring & Evaluation, Punjab. We invite you to get to know our organization by exploring this site on which you will learn about our mission, vision and objectives. The site also provides information about different projects and provides access to valuable statistics. We hope…
                               </p>
-                              {{-- <a class="btn btn-primary btn-action" data-wow-delay="0.2s" href="#">Live Preview</a> --}}
-                              {{-- <a class="btn btn-primary btn-action" data-wow-delay="0.2s" href="#">Buy Now</a> --}}
+                 
                           </div>
                       </div>
                   </div>
@@ -140,6 +124,32 @@
                       <p>Visit Plan My Trip</p>
                     </a>
                 </div>
+                @role('manager')
+                <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.0s">
+                  <a href="{{route('visitRequest_dashboard')}}" class="tile green">
+                    @if(Auth::id()=='2012')
+                        @if($tripcounts==null || $tripcounts=='0' )
+                        <b class="noti" style="display:none;"></b>     
+                        @else
+                        <b class="noti">
+                            {{$tripcounts}}
+                        </b>
+                        @endif
+                    @elseif(Auth::id()=='2011')
+                        @if($tripcountsFordg==null || $tripcountsFordg=='0' )
+                        <b class="noti" style="display:none;"></b>     
+                        @else
+                        <b class="noti">
+                        {{$tripcountsFordg}}
+                        </b>
+                        @endif
+                    @endif
+                    <h3 class="title">Visit Requests</h3>
+                    <hr/>
+                    <p>visit VMIS</p>
+                  </a>
+                </div>
+                @endrole
                 @role('transportofficer')
                 <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.0s">
                   <a href="http://vmis.dgme.gov.pk:8081/" class="tile green">

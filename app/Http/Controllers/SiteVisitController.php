@@ -34,9 +34,11 @@ use App\VmisVehicle;
 use App\VmisDriver;
 use App\PlantripRemark;
 use App\VmisRequestToTransportOfficer;
+use App\VmisRequestToTransportOfficersLog;
 use App\PlantripDriverRating;
 class SiteVisitController extends Controller
 {
+  
     public function visitCompleted(Request $request)
     {
        
@@ -124,14 +126,20 @@ class SiteVisitController extends Controller
         // dd($request);
         if($request->request_descision=='2')
         {
-          $triprequest = PlantripTriprequest::where('id',$request->triprequest_id)->first(); 
-          $triprequest->approval_status='Approved';
-          $triprequest->save();
+        //   $triprequest = PlantripTriprequest::where('id',$request->triprequest_id)->first(); 
+        //   $triprequest->approval_status='Approved';
+        //   $triprequest->save();
+
+        $triprequestToTransportofficerLog = VmisRequestToTransportOfficersLog::where('plantrip_triprequest_id',$request->triprequest_id)->first();
+        $triprequestToTransportofficerLog->recommendedby_user_id=Auth::id();
+        $triprequestToTransportofficerLog->approval_status='2';
+        $triprequestToTransportofficerLog->recommended='Recommended';
+        $triprequestToTransportofficerLog->save();
 
           $triprequestToTransportofficer = VmisRequestToTransportOfficer::where('plantrip_triprequest_id',$request->triprequest_id)->first();
-        //  dd($triprequestToTransportofficer);
-          $triprequestToTransportofficer->approvedby_user_id=Auth::id();
+          $triprequestToTransportofficer->recommendedby_user_id=Auth::id();
           $triprequestToTransportofficer->approval_status='2';
+          $triprequestToTransportofficer->recommended='Recommended';
           $triprequestToTransportofficer->save();
          
           if(isset($request->remarks) && $request->remarks!=null)
@@ -139,22 +147,29 @@ class SiteVisitController extends Controller
             
             $tripremarks = new PlantripRemark();
             $tripremarks->plantrip_triprequest_id=$request->triprequest_id;
+            $tripremarks->remarksby_user_id=Auth::id();
             $tripremarks->remarks=$request->remarks;
             $tripremarks->save();
               
           }
-          return redirect()->route('monitoring_dashboard')->with('success','Request Accepted!!');
+          return redirect()->route('monitoring_dashboard')->with('success','Request Recommended!!');
           
         }
         elseif($request->request_descision=='3')
         {
-            $triprequest = PlantripTriprequest::where('id',$request->triprequest_id)->first(); 
-            $triprequest->approval_status='Not Approved';
-            $triprequest->save();
-  
+            // $triprequest = PlantripTriprequest::where('id',$request->triprequest_id)->first(); 
+            // $triprequest->approval_status='Not Approved';
+            // $triprequest->save();
+            $triprequestToTransportofficerLog = VmisRequestToTransportOfficersLog::where('plantrip_triprequest_id',$request->triprequest_id)->first();
+            $triprequestToTransportofficerLog->recommendedby_user_id=Auth::id();
+            $triprequestToTransportofficerLog->approval_status='3';
+            $triprequestToTransportofficerLog->recommended='Not Recommended';
+            $triprequestToTransportofficerLog->save();
+
             $triprequestToTransportofficer = VmisRequestToTransportOfficer::where('plantrip_triprequest_id',$request->triprequest_id)->first();
-            $triprequestToTransportofficer->approvedby_user_id=Auth::id();
+            $triprequestToTransportofficer->recommendedby_user_id=Auth::id();
             $triprequestToTransportofficer->approval_status='3';
+            $triprequestToTransportofficer->recommended='Not Recommended';
             $triprequestToTransportofficer->save();
   
             if(isset($request->remarks) && $request->remarks!=null)
@@ -162,6 +177,72 @@ class SiteVisitController extends Controller
               
               $tripremarks = new PlantripRemark();
               $tripremarks->plantrip_triprequest_id=$request->triprequest_id;
+              $tripremarks->remarksby_user_id=Auth::id();
+              $tripremarks->remarks=$request->remarks;
+              $tripremarks->save();
+                
+            }
+            return redirect()->route('monitoring_dashboard')->with('error','Request Not Recommended!!');
+        }
+        elseif($request->request_descision=='4')
+        {
+            $triprequestLog = PlantripTriprequestLog::where('plantrip_triprequest_id',$request->triprequest_id)->first(); 
+            $triprequestLog->approval_status='Approved';
+            $triprequestLog->save();
+
+            $triprequest = PlantripTriprequest::where('id',$request->triprequest_id)->first(); 
+            $triprequest->approval_status='Approved';
+            $triprequest->save();
+
+            $triprequestToTransportofficerLog = VmisRequestToTransportOfficersLog::where('plantrip_triprequest_id',$request->triprequest_id)->first();
+            $triprequestToTransportofficerLog->approvedby_user_id=Auth::id();
+            $triprequestToTransportofficerLog->approval_status='4';
+            $triprequestToTransportofficerLog->save();
+
+            $triprequestToTransportofficer = VmisRequestToTransportOfficer::where('plantrip_triprequest_id',$request->triprequest_id)->first();
+            $triprequestToTransportofficer->approvedby_user_id=Auth::id();
+            $triprequestToTransportofficer->approval_status='4';
+            $triprequestToTransportofficer->save();
+         
+          if(isset($request->remarks) && $request->remarks!=null)
+          {
+            
+            $tripremarks = new PlantripRemark();
+            $tripremarks->plantrip_triprequest_id=$request->triprequest_id;
+            $tripremarks->remarksby_user_id=Auth::id();
+            $tripremarks->remarks=$request->remarks;
+            $tripremarks->save();
+              
+          }
+          return redirect()->route('monitoring_dashboard')->with('success','Request Accepted!!');
+          
+        }
+        elseif($request->request_descision=='5')
+        {
+            $triprequestLog = PlantripTriprequestLog::where('plantrip_triprequest_id',$request->triprequest_id)->first(); 
+            $triprequestLog->approval_status='Not Approved';
+            $triprequestLog->save();
+
+            $triprequest = PlantripTriprequest::where('id',$request->triprequest_id)->first(); 
+            $triprequest->approval_status='Not Approved';
+            $triprequest->save();
+            
+            $triprequestToTransportofficerLog = VmisRequestToTransportOfficersLog::where('plantrip_triprequest_id',$request->triprequest_id)->first();
+            $triprequestToTransportofficerLog->approvedby_user_id=Auth::id();
+            $triprequestToTransportofficerLog->approval_status='5';
+            $triprequestToTransportofficerLog->save();
+            
+            $triprequestToTransportofficer = VmisRequestToTransportOfficer::where('plantrip_triprequest_id',$request->triprequest_id)->first();
+            $triprequestToTransportofficer->approvedby_user_id=Auth::id();
+            $triprequestToTransportofficer->approval_status='5';
+            $triprequestToTransportofficer->save();
+  
+            if(isset($request->remarks) && $request->remarks!=null)
+            {
+              
+              $tripremarks = new PlantripRemark();
+              $tripremarks->plantrip_triprequest_id=$request->triprequest_id;
+              $tripremarks->remarksby_user_id=Auth::id();
               $tripremarks->remarks=$request->remarks;
               $tripremarks->save();
                 
@@ -443,7 +524,7 @@ class SiteVisitController extends Controller
 
     public function store(Request $request)
     { 
-        dd($request);
+        // dd($request);
                  $tripRequest = new PlantripTriprequest();
                 
                 $tripRequest->plantrip_triptype_id=$request->triptype_id;
@@ -737,10 +818,9 @@ class SiteVisitController extends Controller
         $cities= PlantripCity::all();
         $citylahore= PlantripCity::where('name','LAHORE CITY')->first();
   
-        $projects=AssignedProject::select('assigned_project_teams.*','assigned_projects.*')
-        ->leftjoin('assigned_project_teams','assigned_projects.id','assigned_project_teams.assigned_project_id')
-        ->where('user_id',Auth::id())
-        ->get();
+        $projects=AssignedProject::all();
+     
+     
 
         $officers=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
         ->leftJoin('user_details','user_details.user_id','users.id')
@@ -749,7 +829,7 @@ class SiteVisitController extends Controller
         ->orderBy('roles.name','ASC')
         ->where('roles.name','officer')
         ->get();
-
+        //  dd($currentvisit->PlantripPurpose[0]->PlantripVisitedproject->AssignedProject->project_id)    ;
         return view('Site_Visit.Plan_A_Trip.edit_visit',['trip'=>$currentvisit,'cities'=>$cities,'officers'=>$officers,'triptypes'=>$triptypes,
                                                       'visitreasons'=>$visitreasons,'purposetypes'=>$purposetypes,
                                                       'subcitytypes'=>$subcitytypes,'projects'=>$projects,'citylahore'=>$citylahore]);

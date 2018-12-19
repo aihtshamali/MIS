@@ -509,13 +509,13 @@
                                     <div class="row"  style="margin-top:15px;">
                                         <div class="col-md-3 offset-md-2">
                                             <label><b>Start Date</b></label>
-                                            <select id="selectedSDateroundtrip" name="selectedSDateroundtrip[]" class="form-control form-control-info selectedSDateroundtrip">
+                                            <select id="selectedSDateroundtrip" name="selectedSDateroundtrip[]" class="form-control form-control-info selectedDateroundtrip">
                                             `+selecteddate+`
                                             </select>
                                         </div>
                                         <div class="col-md-3">
                                             <label><b>End Date</b></label>
-                                            <select id="selectedEDateroundtrip" name="selectedEDateroundtrip[]" class="form-control form-control-info selectedEDateroundtrip">
+                                            <select id="selectedEDateroundtrip" name="selectedEDateroundtrip[]" class="form-control form-control-info selectedDateroundtrip">
                                             `+selecteddate+`
                                             </select>
                                         </div>  
@@ -635,13 +635,13 @@
                                         <div class="row" style="margin-top:15px;">
                                             <div class="col-md-3 offset-md-2">
                                                 <label><b>Start Date</b></label>
-                                                <select id="selectedSDate" name="selectedSDatemulticity[]" class="form-control form-control-danger selectedSDate">
+                                                <select id="selectedSDate" name="selectedSDatemulticity[]" class="form-control form-control-danger selectedDate">
                                                 `+selecteddate+`
                                                 </select>
                                             </div>
                                             <div class="col-md-3">
                                                 <label><b>End Date</b></label>
-                                                <select id="selectedEDate" name="selectedEDatemulticity[]" class="form-control form-control-danger selectedSDate">
+                                                <select id="selectedEDate" name="selectedEDatemulticity[]" class="form-control form-control-danger selectedDate">
                                                 `+selecteddate+`
                                                 </select>
                                             </div> 

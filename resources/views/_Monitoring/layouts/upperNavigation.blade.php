@@ -75,7 +75,7 @@
                             <a class="mobile-menu" id="mobile-collapse" href="#!">
                                 <i class="feather icon-menu"></i>
                             </a>
-                        <a href="{{url('/predashboard')}}">
+                        <a href="{{route('predashboard')}}">
                                 {{-- <img class="img-fluid" src={{asset('_monitoring/css/images/logo.png')}} alt="Theme-Logo" /> --}}
                            <span style="font-size:20px; text-align:center;">DG ( M & E)</span>
                             </a>

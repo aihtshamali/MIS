@@ -17,6 +17,10 @@ class CreatePlantripRemarksTable extends Migration
             $table->increments('id');
             $table->integer('plantrip_triprequest_id')->unsigned()->index()->nullable();
             $table->foreign('plantrip_triprequest_id')->references('id')->on('plantrip_triprequests')->onDelete('cascade');
+            
+            $table->integer('remarksby_user_id')->unsigned()->index()->nullable();
+            $table->foreign('remarksby_user_id')->references('id')->on('users')->onDelete('no action');
+    
             $table->string('remarks')->nullable();
             $table->timestamps();
         });

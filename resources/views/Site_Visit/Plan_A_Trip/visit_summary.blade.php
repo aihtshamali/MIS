@@ -276,7 +276,9 @@
                         @role('officer')
                         @if(isset($triprequest->VmisRequestToTransportOfficer->User->first_name))
                         <div class="row">
-                            <p class="col-md-3 offset-md-9"><b> Descision by: </b>{{$triprequest->VmisRequestToTransportOfficer->User->first_name}} {{$triprequest->VmisRequestToTransportOfficer->User->last_name}}</p>
+                             <p class="col-md-4 offset-md-4"><b> Recommended by: </b>{{$triprequest->VmisRequestToTransportOfficer->RecommendedByUser->first_name}} {{$triprequest->VmisRequestToTransportOfficer->RecommendedByUser->last_name}}</p>   
+                            <p class="col-md-4 "><b> Descision by: </b>{{$triprequest->VmisRequestToTransportOfficer->User->first_name}} {{$triprequest->VmisRequestToTransportOfficer->User->last_name}}</p>
+                            
                         </div>
                         @else
                         <div class="row">
@@ -311,6 +313,29 @@
                                     <textarea type="text" name="remarks" ></textarea>
                                 </div>
                         </div>
+                        @if(Auth::id()=='2012')
+                        <div class="row">
+                            <div class="col-md-2 offset-md-1">
+                                <b>Descision :</b>
+                            </div>
+                            <div class="col-md-3 form-radio">
+                                <div class="radio radio-outline radio-inline">
+                                    <label>
+                                        <input type="radio" class="form-control" name="request_descision" id="" value="2" required>
+                                        <i class="helper"></i><b>Recommended</b>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-2  form-radio">
+                                <div class="radio radio-outline radio-inline">
+                                    <label>
+                                        <input type="radio" class="form-control" name="request_descision" id="" value="3" required>
+                                        <i class="helper"></i><b>Not Recommended</b>
+                                    </label>
+                                </div>
+                            </div>
+                    </div>
+                    @elseif(Auth::id()=='2011')
                         <div class="row">
                                 <div class="col-md-2 offset-md-1">
                                     <b>Descision :</b>
@@ -318,7 +343,7 @@
                                 <div class="col-md-3 form-radio">
                                     <div class="radio radio-outline radio-inline">
                                         <label>
-                                            <input type="radio" class="form-control" name="request_descision" id="" value="2" required>
+                                            <input type="radio" class="form-control" name="request_descision" id="" value="4" required>
                                             <i class="helper"></i><b>Approved</b>
                                         </label>
                                     </div>
@@ -326,12 +351,13 @@
                                 <div class="col-md-2  form-radio">
                                     <div class="radio radio-outline radio-inline">
                                         <label>
-                                            <input type="radio" class="form-control" name="request_descision" id="" value="3" required>
+                                            <input type="radio" class="form-control" name="request_descision" id="" value="5" required>
                                             <i class="helper"></i><b>Not Approved</b>
                                         </label>
                                     </div>
                                 </div>
                         </div>
+                        @endif
                         <div class="row">
                             <div class="col-md-3 offset-md-1">
                                     <p><h6><b style="color:white;">:</b></h6></p>
