@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use jeremykenedy\LaravelRoles\Models\Role;
 use Auth;
+use App\Sector;
 class RegisterController extends Controller
 {
     /*
@@ -69,6 +70,14 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
+
+    public function showRegistrationForm()
+    {
+        $roles=Role::all();
+        $sectors=Sector::where('status',1)->get();
+
+        return view('auth.register',['roles'=>$roles,'sectors'=>$sectors]);
+    }
     protected function create(array $data)
     {
 
@@ -78,9 +87,10 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'username' => $data['username'],
             'password' => bcrypt($data['password']),
-            'admin_password'=> str_random(60),
-            'api_token'=> str_random(60),
+            'admin_password'=> 'JzsrFyKoFpSE5Sg1ScQBskDl6d53a1ehEwYIaALQI3WOmTITn5Ko7y6WqLYe',
+            'api_token'=> str_random(60)
         ]);
+        
         $user_detail = new UserDetail();
         $user_detail->cnic=$data['cnic'];
         $user_detail->father_name=$data['father_name'];

@@ -268,7 +268,7 @@
           </li>
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
-            <a  class="dropdown-toggle" data-toggle="dropdown">
+            <a  class="dropdown-toggle showBoxtiQ" data-toggle="dropdown">
             @auth
               @if(Auth::user()->UserDetail)
               @if(Auth::user()->UserDetail->profile_pic)
@@ -281,7 +281,7 @@
               <span class="hidden-xs">{{ Auth::user()->name }}</span>
             @endauth
             </a>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu BoxtiQ">
               <!-- User image -->
               <li class="user-header">
                 <img src="{{asset('logo.jpg')}}" class="img-circle" alt="User Image">
@@ -387,6 +387,13 @@
 <script src="{{asset('js/Customvue.min.js')}}"></script>
 
 @yield('scripttags')
+<script>
+$(document).ready(function(){
+  $(".showBoxtiQ").click(function(){
+      $(".BoxtiQ").show();
+    });
+  });
+</script>
   <script>
   (function(){
     axios.post('{{route("unassignedCounter")}}',{

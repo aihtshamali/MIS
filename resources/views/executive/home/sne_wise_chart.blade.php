@@ -104,7 +104,50 @@
                                   $inner_counter = 1;
                                 @endphp
                                 @foreach ($value as $project)
+                                @if(isset($project->AssignedProject))
                                   @if($project->AssignedProject->complete == 0)
+                                  <tr>
+                                    <td>{{  $inner_counter++ }}</td>
+                                    <td>{{$project->project_no}}</td>
+                                    <td style="width:120px">{{$project->financial_year}} / {{$project->ADP}}</td>
+                                    <td>{{$project->title}}</td>
+                                    <td>
+                                      @if (isset($project->AssignedSubSectors))
+                                        @foreach ($project->AssignedSubSectors as $sub_sectors)
+                                          {{ $sub_sectors->SubSector->name }}
+                                        @endforeach
+                                      @endif
+                                    </td>
+                                    @if (isset($project->ProjectDetail))
+                                      <td>{{round($project->ProjectDetail->orignal_cost,2,PHP_ROUND_HALF_UP)}}</td>
+                                    @else
+                                      <td>No Details</td>
+                                    @endif
+                                    {{-- @if(isset(App\AssignedProject::find($total_project->assigned_project_id))) --}}
+                                    <td>
+                                      @foreach ($project->AssignedDistricts as $district)
+                                        {{  $district->District->name}},
+                                      @endforeach
+                                    </td>
+                                      @if(isset($project->AssignedProject))
+                                      <td>
+                                        @foreach ($project->AssignedProject->AssignedProjectTeam as $team)
+                                          <span @if($team->team_lead == 1) style="color:blue;" @endif>{{ $team->User->first_name }} {{ $team->User->last_name }}</span>
+                                        @endforeach
+
+                                      </td>
+                                      <td>{{ date('d-M-Y',strtotime($project->AssignedProject->created_at)) }}</td>
+                                      <td>
+                                          {{round($project->AssignedProject->progress,2,PHP_ROUND_HALF_UP)}}%
+                                      </td>
+                                    @else
+                                      <td>Not Assigned</td>
+                                      <td>Not Assigned</td>
+                                      <td>Not Assigned</td>
+                                    @endif
+                                  </tr>
+                                  @endif
+                                  @else
                                   <tr>
                                     <td>{{  $inner_counter++ }}</td>
                                     <td>{{$project->project_no}}</td>
@@ -204,7 +247,7 @@
                                       $inner_counter = 1;
                                     @endphp
                                     @foreach ($value as $project)
-                                      @if($project->AssignedProject->complete == 1)
+                                      @if($project->AssignedProject && $project->AssignedProject->complete == 1)
                                       <tr>
                                         <td>{{  $inner_counter++ }}</td>
                                         <td>{{$project->project_no}}</td>

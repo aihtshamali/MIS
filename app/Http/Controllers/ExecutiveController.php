@@ -873,7 +873,7 @@ class ExecutiveController extends Controller
         if(!$project->ProjectDetail->sne){
           $Sneprojects[0]++;
           array_push($actual_Sneprojects[0],$project);
-          if($project->AssignedProject->complete == 1){
+          if($project->AssignedProject && $project->AssignedProject->complete == 1){
             $SneCompletedprojects[0]++;
           }
           else{
@@ -883,7 +883,7 @@ class ExecutiveController extends Controller
         else if( $project->ProjectDetail->sne=="NO"){
           $Sneprojects[1]++;
           array_push($actual_Sneprojects[1],$project);
-          if($project->AssignedProject->complete == 1){
+          if($project->AssignedProject && $project->AssignedProject->complete == 1){
             $SneCompletedprojects[1]++;
           }
           else{
@@ -893,7 +893,7 @@ class ExecutiveController extends Controller
         else if($project->ProjectDetail->sne=="COST"){
           $Sneprojects[2]++;
           array_push($actual_Sneprojects[2],$project);
-          if($project->AssignedProject->complete == 1){
+          if($project->AssignedProject &&  $project->AssignedProject->complete == 1){
             $SneCompletedprojects[2]++;
           }
           else{
@@ -903,7 +903,7 @@ class ExecutiveController extends Controller
         else if($project->ProjectDetail->sne=="STAFF"){
           $Sneprojects[3]++;
           array_push($actual_Sneprojects[3],$project);
-          if($project->AssignedProject->complete == 1){
+          if($project->AssignedProject &&  $project->AssignedProject->complete == 1){
             $SneCompletedprojects[3]++;
           }
           else{
@@ -913,7 +913,7 @@ class ExecutiveController extends Controller
         else if($project->ProjectDetail->sne=="BOTH"){
           $Sneprojects[4]++;
           array_push($actual_Sneprojects[4],$project);
-          if($project->AssignedProject->complete == 1){
+          if($project->AssignedProject &&  $project->AssignedProject->complete == 1){
             $SneCompletedprojects[4]++;
           }
           else{
