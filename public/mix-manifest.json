@@ -3,6 +3,6 @@
     "/xlsx.js": "/xlsx.js",
     "/canvg.js": "/canvg.js",
     "/responsivedefaults.js": "/responsivedefaults.js",
-    "/js/Customvue.min.js": "/js/Customvue.min.js",
+    "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css"
 }

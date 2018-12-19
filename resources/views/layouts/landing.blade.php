@@ -114,7 +114,7 @@
     <script type="text/javascript" src="{{ asset('landingPage/js/plugins.js')}}"></script>
     <script type="text/javascript" src="{{ asset('landingPage/js/menu.js')}}"></script>
     <script type="text/javascript" src="{{ asset('landingPage/js/custom.js')}}"></script>
-    <script type="text/javascript" src="{{ asset('js/Customvue.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('js/app.js')}}"></script>
     @yield('scripttags')
 </body>
 

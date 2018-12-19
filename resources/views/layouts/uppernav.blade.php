@@ -384,17 +384,12 @@
 <script src="{{asset('js/AdminLTE/jquery.inputmask.js')}}"></script>
 <script src="{{asset('js/AdminLTE/jquery.inputmask.date.extensions.js')}}"></script>
 <script src="{{asset('js/AdminLTE/jquery.inputmask.extensions.js')}}"></script>
-<script src="{{asset('js/Customvue.min.js')}}"></script>
+<script src="{{asset('js/app.js')}}"></script>
 
 @yield('scripttags')
-<script>
-$(document).ready(function(){
-  $(".showBoxtiQ").click(function(){
-      $(".BoxtiQ").show();
-    });
-  });
-</script>
   <script>
+  // $('.dropdown-toggle .showBoxtiQ').dropdown();
+
   (function(){
     axios.post('{{route("unassignedCounter")}}',{
         user:"{{Auth::user()}}"
