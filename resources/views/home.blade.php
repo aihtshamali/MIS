@@ -213,6 +213,30 @@
           <div class="pt_3p text-center">
             <div class="container">
               <div class="row">
+                @role('adminhr')
+                <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.3s">
+                  <a href="#!" class="tile purple">
+                    <h3 class="title">PDWP meetings</h3>
+                    <hr/>
+                    <p>visit PDWP Meetings</p>
+                  </a>
+                </div>
+                <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.3s">
+                  <a href="#!" class="tile purple">
+                    <h3 class="title">LMS</h3>
+                    <hr/>
+                    <p>Leave Management System</p>
+                  </a>
+                </div>
+                <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.3s">
+                  <a href="#!" class="tile purple">
+                    <h3 class="title">Human Resource System</h3>
+                    <hr/>
+                    <p>visit HR System</p>
+                  </a>
+                </div>
+                @endrole
+                @role('officer|evaluator|monitor|manager|directormonitoring|directorevaluation')
                 <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.5s">
                     <a href="{{route('monitoring_dashboard')}}" class="tile purple">
                       <h3 class="title">Monitoring</h3>
@@ -242,12 +266,20 @@
                   </a>
                 </div>
                 <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.9s">
-                    <a href="{{route('trip.create')}}" class="tile orange">
-                      <h3 class="title">Plan My Trip</h3>
-                      <hr/>
-                      <p>Visit Plan My Trip</p>
-                    </a>
+                  <a href="{{route('trip.create')}}" class="tile orange">
+                    <h3 class="title">Plan My Trip</h3>
+                    <hr/>
+                    <p>Visit Plan My Trip</p>
+                  </a>
                 </div>
+                <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.9s">
+                  <a href="#!" class="tile orange">
+                    <h3 class="title">leaves</h3>
+                    <hr/>
+                    <p>Schedule leaves here</p>
+                  </a>
+                </div>
+                @endrole
                 @role('transportofficer')
                 <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.0s">
                   <a href="http://vmis.dgme.gov.pk:8081/" class="tile green">

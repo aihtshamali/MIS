@@ -33,7 +33,7 @@
 
 <body>
   <div class="wrapper animsition" data-animsition-in-class="fade-in" data-animsition-in-duration="1000" data-animsition-out-class="fade-out" data-animsition-out-duration="1000">
-      <div class="container">
+      {{-- <div class="container"> --}}
            <nav class="navbar navbar-expand-lg navbar-light navbar-default navbar-fixed-top" role="navigation">
               <div class="container">
                   <a class="navbar-brand page-scroll" href="#main"><img class="w_46p" id="logo" src="{{ asset('dgme.png')}}" alt="DGME Logo" /></a>
@@ -44,30 +44,6 @@
                       <ul class="navbar-nav mr-auto">
                       </ul>
                       <ul class="navbar-nav my-2 my-lg-0">
-                          {{-- <li class="nav-item">
-                            @auth
-                              @role('admin')
-                              <a class="nav-link" style="" href="{{ url('/admin') }}">Home</a>
-                              @endrole
-                              @role('directorevaluation')
-                              <a class="nav-link" style="" href="{{ url('/director_evaluation') }}">Home</a>
-                              @endrole
-                              @role('directormonitoring')
-                              <a class="nav-link" style="" href="{{ url('/director_Monitor') }}">Home</a>
-                              @endrole
-                              @role('manager')
-                              <a class="nav-link" style="" href="{{ url('/manager') }}">Home</a>
-                              @endrole
-                              @role('adminhr')
-                              <a class="nav-link" style="" href="#">Home</a>
-                              @endrole
-                              @role('dataentry')
-                              <a class="nav-link" style="" href="{{ route('projects.index') }}">Home</a>
-                              @endrole
-                              @role('officer')
-                              <a class="nav-link" style="" href="{{ url('/officer') }}">Home</a>
-                              @endrole
-                          </li> --}}
                           <li class="nav-item">
                               <a class="nav-link page-scroll" href="#">Home</a>
                           </li>
@@ -105,7 +81,7 @@
 
               </div>
           </nav>
-      </div>
+      {{-- </div> --}}
 @yield('content')
     <!-- Wrapper-->
 {{-- </div> --}}

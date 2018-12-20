@@ -11,7 +11,7 @@
   <meta name="description" content="#">
 
   {{-- Css for this dashboard --}}
-    <link rel="icon" href="{{ asset('_monitoring/css/images/favicon.ico')}}" type="image/x-icon"/>
+    <link rel="icon" href="{{asset('dgme.png')}}" type="image/x-icon"/>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('_monitoring/css/css/bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{ asset('_monitoring/css/icon/feather/css/feather.css')}}"/>
@@ -270,7 +270,7 @@
                 @include('_Monitoring.inc.officerSidebar')
                 @endrole
 
-              
+
 
                 {{-- DG OR DC --}}
                 @role('manager')

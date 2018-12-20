@@ -17,7 +17,8 @@ p{text-align: left !important;}
 li{text-transform: capitalize;}
 .headings{text-transform: capitalize;}
 .nav-tabs .nav-item.show .nav-link, .nav-tabs {font-weight: 900;}
-.nav-link {display: block;padding: .5rem 6rem !important;}
+.nav-link {display: block;}
+/* padding: .5rem 6rem !important; */
 .nodisplay{display: none;}
 td{white-space: unset !important;}
     .tw-w{min-width: 215px !important;}
@@ -52,7 +53,7 @@ td{white-space: unset !important;}
                             <li class="nav-item visitRequests">
                                 <a class="nav-link active" data-toggle="tab" href="#visitrequests" role="tab" aria-expanded="false">Pending Visit Requests</a>
                             </li>
-                            
+
                           </ul>
                           <!-- Tab panes -->
                           <div class="tab-content tabs card-block ">
@@ -62,7 +63,7 @@ td{white-space: unset !important;}
                                             @if($tripcounts==0)
                                             <p><h5 style="text-align :center;">No Visit Requests</h5></p>
                                             @else
-                                          
+
                                                 <div class="card">
                                                     <div class="card-block">
                                                       <div class="table-responsive ">
@@ -77,13 +78,13 @@ td{white-space: unset !important;}
                                                                   <th style="text-align:center;">Assigned Vehicle</th>
                                                                   <th style="text-align:center;"></th>
                                                                   <th style="text-align:center;"></th>
-                                                                
-                                                                  
+
+
                                                               </tr>
                                                               </thead>
                                                               <tbody>
                                                                   @php
-                                                                   $i=1;   
+                                                                   $i=1;
                                                                   @endphp
                                                             @foreach ($triprequests as $triprequest)
                                                                 <tr>
@@ -97,17 +98,17 @@ td{white-space: unset !important;}
                                                                     </td>
                                                                     <td style="">
                                                                         <ol>
-                                                                        @foreach ($triprequest->PlantripPurpose as $plantripPurpose) 
-                                                                           
+                                                                        @foreach ($triprequest->PlantripPurpose as $plantripPurpose)
+
                                                                                 @if(isset($plantripPurpose->PlantripVisitreason->name) && $plantripPurpose->PlantripVisitreason->name == "Meeting" || $plantripPurpose->PlantripVisitreason->name == "Other")
-                                                                        <li>{{$plantripPurpose->PlantripVisitedproject->description}} - <b>{{$plantripPurpose->PlantripVisitreason->name}}</b></li>  
+                                                                        <li>{{$plantripPurpose->PlantripVisitedproject->description}} - <b>{{$plantripPurpose->PlantripVisitreason->name}}</b></li>
                                                                             @elseif(isset($plantripPurpose->PlantripVisitreason->name) &&  $plantripPurpose->PlantripVisitreason->name=="Monitoring" || $plantripPurpose->PlantripVisitreason->name=="Evaluation")
                                                                                 @if(isset($plantripPurpose->PlantripVisitedproject->AssignedProject->Project->title))
-                                                                        <li>{{$plantripPurpose->PlantripVisitedproject->AssignedProject->Project->title}} - <b>{{$plantripPurpose->PlantripVisitreason->name}}</b></li> 
-                                                                                @endif 
-                                                                            @endif  
-                                                                            
-                                                                           
+                                                                        <li>{{$plantripPurpose->PlantripVisitedproject->AssignedProject->Project->title}} - <b>{{$plantripPurpose->PlantripVisitreason->name}}</b></li>
+                                                                                @endif
+                                                                            @endif
+
+
                                                                         @endforeach
                                                                     </ol>
                                                                 </td>
@@ -115,24 +116,24 @@ td{white-space: unset !important;}
                                                                     <td style="text-align:center;">
                                                                         {{-- $triprequests[0]->VmisRequestToTransportOfficer->VmisAssignedDriver[0]->VmisDriver->User->first_name) --}}
                                                                         @forelse ($triprequest->VmisRequestToTransportOfficer->VmisAssignedDriver as $driver)
-                                                                            {{$driver->VmisDriver->User->first_name}} 
-                                                                            {{$driver->VmisDriver->User->last_name}},                                                                                
+                                                                            {{$driver->VmisDriver->User->first_name}}
+                                                                            {{$driver->VmisDriver->User->last_name}},
                                                                         @empty
-                                                                            <p>Not Assigned</p>                                                                                
+                                                                            <p>Not Assigned</p>
                                                                         @endforelse
                                                                     </td>
                                                                         <td style="text-align:center;">
                                                                           @forelse ($triprequest->VmisRequestToTransportOfficer->VmisAssignedVehicle as $vehicle)
                                                                               {{$vehicle->VmisVehicle->name}} ,
                                                                           @empty
-                                                                              <p>Not Assigned</p>                                                                              
+                                                                              <p>Not Assigned</p>
                                                                           @endforelse
                                                                     </td>
-                                                                    <td> 
+                                                                    <td>
                                                                     <a href="{{route('visitrequestSummary',$triprequest->id)}}" class="btn btn-primary btn-sm"><b>View Full Summary</b></a></td>
-                                                                    <td> 
+                                                                    <td>
                                                                     <form action="{{route('visitrequestDescision')}}" method="POST" enctype="multipart/form-data" id="">
-                                                                        {{ csrf_field() }}                                                                            
+                                                                        {{ csrf_field() }}
                                                                         <input type="hidden" name="request_descision" value="2">
                                                                     <input type="hidden" name="triprequest_id" value="{{$triprequest->id}}">
                                                                             <button type="submit" class="btn btn-success btn-sm"><b>Approve</b></button>
@@ -140,22 +141,22 @@ td{white-space: unset !important;}
                                                                        <br>
                                                                        <form action="{{route('visitrequestDescision')}}" method="POST" enctype="multipart/form-data" id="">
                                                                         {{ csrf_field() }}
-                                                                        <input type="hidden" name="request_descision" value="3">    
+                                                                        <input type="hidden" name="request_descision" value="3">
                                                                 <input type="hidden" name="triprequest_id" value="{{$triprequest->id}}">
                                                                         <button type="button" class="btn btn-danger btn-sm"><b>Dis Approve</b></button>
                                                                     </form>
                                                                     </td>
-                                                                    
+
                                                                 </tr>
                                                                 @endforeach
-                                          
-                                                               
+
+
                                                               </tbody>
                                                           </table>
                                                        </div>
                                                       </div>
                                             </div>
-                                       
+
                                         @endif
                                     </div>
                                 </div>
@@ -194,19 +195,19 @@ td{white-space: unset !important;}
                                                                             <thead>
                                                                             <tr>
                                                                                 <th style="text-align:center;">Sr #.</th>
-                                                                              
+
                                                                                 <th style="text-align:center;">Pupose Title</th>
                                                                                 <th style="text-align:center;">Trip Type</th>
                                                                                 <th style="text-align:center;">Assigned Driver</th>
                                                                                 <th style="text-align:center;">Assigned Vehicle</th>
                                                                                 <th style="text-align:center;">Approval Status</th>
                                                                                 <th style="text-align:center;">Completion Status</th>
-                                                                                
+
                                                                             </tr>
                                                                             </thead>
                                                                             <tbody>
                                                                                 @php
-                                                                                 $i=1;   
+                                                                                 $i=1;
                                                                                 @endphp
                                                                                 @foreach ($officer as $off)
                                                                                 <tr>
@@ -215,20 +216,20 @@ td{white-space: unset !important;}
                                                                                         echo $i++;
                                                                                     @endphp
                                                                                    </td>
-                                                                                  
+
                                                                                 <td style="">
                                                                                     <ol>
-                                                                                    @foreach ($off->PlantripPurpose as $plantripPurpose) 
-                                                                                       
+                                                                                    @foreach ($off->PlantripPurpose as $plantripPurpose)
+
                                                                                             @if(isset($plantripPurpose->PlantripVisitreason->name) && $plantripPurpose->PlantripVisitreason->name == "Meeting" || $plantripPurpose->PlantripVisitreason->name == "Other")
-                                                                                    <li>{{$plantripPurpose->PlantripVisitedproject->description}} - <b>{{$plantripPurpose->PlantripVisitreason->name}}</b></li>  
+                                                                                    <li>{{$plantripPurpose->PlantripVisitedproject->description}} - <b>{{$plantripPurpose->PlantripVisitreason->name}}</b></li>
                                                                                         @elseif(isset($plantripPurpose->PlantripVisitreason->name) &&  $plantripPurpose->PlantripVisitreason->name=="Monitoring" || $plantripPurpose->PlantripVisitreason->name=="Evaluation")
                                                                                             @if(isset($plantripPurpose->PlantripVisitedproject->AssignedProject->Project->title))
-                                                                                    <li>{{$plantripPurpose->PlantripVisitedproject->AssignedProject->Project->title}} - <b>{{$plantripPurpose->PlantripVisitreason->name}}</b></li> 
-                                                                                            @endif 
-                                                                                        @endif  
-                                                                                        
-                                                                                       
+                                                                                    <li>{{$plantripPurpose->PlantripVisitedproject->AssignedProject->Project->title}} - <b>{{$plantripPurpose->PlantripVisitreason->name}}</b></li>
+                                                                                            @endif
+                                                                                        @endif
+
+
                                                                                     @endforeach
                                                                                 </ol>
                                                                                     <a href="{{route('visitrequestSummary',$off->id)}}" style="text-decoration: underline;">Read Summary</a>
@@ -239,7 +240,7 @@ td{white-space: unset !important;}
                                                                                  <td style="text-align:center;">
                                                                                         @if(isset($off->VmisRequestToTransportOfficer->VmisAssignedDriver))
                                                                                         @foreach ($off->VmisRequestToTransportOfficer->VmisAssignedDriver as $assignedDriver)
-                                                                                        {{$assignedDriver->VmisDriver->User->first_name}} 
+                                                                                        {{$assignedDriver->VmisDriver->User->first_name}}
                                                                                         {{$assignedDriver->VmisDriver->User->last_name}}
                                                                                         @endforeach
                                                                                         @else
@@ -251,7 +252,7 @@ td{white-space: unset !important;}
                                                                                             @forelse ($off->VmisRequestToTransportOfficer->VmisAssignedVehicle as $vehicle)
                                                                                                 {{$vehicle->VmisVehicle->name}} ,
                                                                                             @empty
-                                                                                                <p>Not Assigned</p>                                                                              
+                                                                                                <p>Not Assigned</p>
                                                                                             @endforelse
                                                                                             @endif
                                                                                         </td>
@@ -259,43 +260,43 @@ td{white-space: unset !important;}
                                                                                         @if($off->approval_status == 'Pending')
                                                                                         @if(isset($off->VmisRequestToTransportOfficer->approval_status) && $triprequest->VmisRequestToTransportOfficer->approval_status=='1')
                                                                                        <label class="badge badge-md badge-primary">Pending At Director End</label>
-                                                                                       @else 
+                                                                                       @else
                                                                                        <label class="badge badge-md badge-primary">Pending At TO End</label>
                                                                                        @endif
                                                                                     @elseif($off->VmisRequestToTransportOfficer->approval_status=='2' && $off->approval_status == 'Approved')
-                                                                                <label class="badge badge-md badge-success">Approved by {{$off->VmisRequestToTransportOfficer->User->first_name}} {{$off->VmisRequestToTransportOfficer->User->last_name}} </label> 
+                                                                                <label class="badge badge-md badge-success">Approved by {{$off->VmisRequestToTransportOfficer->User->first_name}} {{$off->VmisRequestToTransportOfficer->User->last_name}} </label>
                                                                                     @if(isset($off->PlantripRemark))
                                                                                         <p><b>Remarks:</b>
                                                                                         @foreach($off->PlantripRemark as $tripR)
                                                                                         {{$tripR->remarks}}
                                                                                         @endforeach
-                                                                                        </p>    
+                                                                                        </p>
                                                                                     @endif
                                                                                 @elseif($off->VmisRequestToTransportOfficer->approval_status=='3' && $off->approval_status == 'Not Approved')
-                                                                                <label class="badge badge-md badge-danger">Disapproved By  {{$off->VmisRequestToTransportOfficer->User->first_name}} {{$off->VmisRequestToTransportOfficer->User->last_name}} </label> 
+                                                                                <label class="badge badge-md badge-danger">Disapproved By  {{$off->VmisRequestToTransportOfficer->User->first_name}} {{$off->VmisRequestToTransportOfficer->User->last_name}} </label>
                                                                                 @if(isset($off->PlantripRemark))
                                                                                 <p><b>Remarks:</b>
                                                                                 @foreach($off->PlantripRemark as $tripR)
                                                                                 {{$tripR->remarks}}
                                                                                 @endforeach
-                                                                                </p>    
-                                                                            @endif    
+                                                                                </p>
+                                                                            @endif
                                                                                 @endif
                                                                                 </td>
-                                                                               
+
 
                                                                                 <td style="text-align:center;" >
                                                                                         @if($off->completed=='1')
-                                                                                       
-                                                                                            <label class="badge badge-md badge-success">Complete</label> 
+
+                                                                                            <label class="badge badge-md badge-success">Complete</label>
                                                                                             <div class="rating " name="driverRating" value="{{$off->PlantripDriverRating->rating}}" disabled></div>
-                                                                                            
+
                                                                                         @elseif($off->completed=='0' && $off->approval_status == 'Approved')
                                                                                         <button type="button" class="btn btn-sm btn-danger" id="clickToComplete" >Click To End Visit</button>
                                                                                           <form action="{{route('visitCompleted',$off->id)}}" class="ratingsystem" method="POST" style="display:none;">
                                                                                                 {{ csrf_field() }}
-                                                                                                    <input type="hidden" name="triprequest_id" value={{$off->id}}>  
-                                                                                                    <input type="hidden" name="assigned_driver_id" value={{$off->VmisRequestToTransportOfficer->VmisAssignedDriver[0]->VmisDriver->id}}>  
+                                                                                                    <input type="hidden" name="triprequest_id" value={{$off->id}}>
+                                                                                                    <input type="hidden" name="assigned_driver_id" value={{$off->VmisRequestToTransportOfficer->VmisAssignedDriver[0]->VmisDriver->id}}>
                                                                                                     {{-- <input type="hidden" name="triprequest_id" value={{$off->id}}>                                                                                                           --}}
                                                                                                     <div class="rating " name="driverRating" value="1" required></div>
                                                                                                     <button type="submit" class="btn btn-sm btn-warning" style="padding: 5px !important;">Done</button>
@@ -304,12 +305,12 @@ td{white-space: unset !important;}
                                                                                             <label class="badge badge-md badge-danger">Incomplete</label>
                                                                                         @elseif($off->completed=='0' && $off->approval_status == 'Not Approved')
                                                                                         <label class="badge badge-md badge-danger">Not Approved Visit</label>
-                                                                                        @endif 
+                                                                                        @endif
                                                                                     </td>
                                                                                 </tr>
-                                                        
+
                                                                                 @endforeach
-                                                                                
+
                                                                             </tbody>
                                                                         </table>
                                                                     </div>
@@ -555,14 +556,14 @@ td{white-space: unset !important;}
     $('#simpletable2').DataTable();
     $('#simpletable3').DataTable();
 
-    
+
     $(document).ready(function(){
      $(".officerVisitRequests").click(function(){
         $("#officervisitrequests").show();
         $(".inProgressDiv").hide();
         $(".quarterlyCompDiv").hide();
         $(".finishedDiv").hide();
-       
+
     });
     $(".inProgress").click(function(){
         $(".inProgressDiv").show();
@@ -587,7 +588,7 @@ td{white-space: unset !important;}
     });
     });
 
-     
+
      $(document).ready(function(){
     $(".visitRequests").click(function(){
         $(".visitrequests").show();

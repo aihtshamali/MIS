@@ -69,7 +69,7 @@ Route::group(['middleware' => ['role:admin']], function () {
 
 });
 
-  
+
 
 
 // For Manager & Director Charts
@@ -262,6 +262,9 @@ Route::post('/printerfunction','AdminHumanResourceController@printer');
 
 Route::get('/403',function(){
   return view('403');
+});
+Route::get('/Attendance',function(){
+  return view('Attendance');
 });
 Route::get('/dgv',function(){
   return view('hassan.dg');
