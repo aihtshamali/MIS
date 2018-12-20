@@ -300,7 +300,7 @@
                         <div class="row">
                             <div class="col-md-2 offset-md-10">
                                 <p><h6><b style="color:white;">:</b></h6></p>
-                            <button type="submit" class="btn btn-primary btn-sm" name="edit">Edit Request</button>      
+                            <button type="submit" class="btn btn-primary btn-sm" name="edit" disabled>Edit Request (Under Implementation)</button>      
                             </div>    
                         </div>
                     </form>

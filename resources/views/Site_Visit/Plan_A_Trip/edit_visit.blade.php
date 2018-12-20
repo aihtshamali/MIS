@@ -167,7 +167,7 @@
                             </div>
                             <div class="localPurposeBlock" id="localPurposeBlock" name="localPurposeBlock">
                                     @php
-                                        $localtripcount=0;
+                                        $localtripcount=1;
                                     @endphp
                                 @foreach ($trip->PlantripPurpose as $purpose)      
                                 <div>
@@ -256,7 +256,7 @@
                                     $localtripcount++;   
                                    @endphp
                                 @endforeach
-                                <input type="hidden" value="{{$localtripcount}}" name="purposecount"/> 
+                                <input type="hidden" value="{{$localtripcount}}" id="inputpurposecount" name="purposecount"/> 
                             </div> 
                             
                             <div class="row" style="margin-top:15px;">
@@ -697,9 +697,12 @@
 
 <script>
 
-
+var localcounter=1;
+    if($("input#inputpurposecount").val())
+        localcounter=$("input#inputpurposecount").val();
 
  $(document).ready(function(){
+    
 
     // Initializing DateRangePicker
 
@@ -1084,7 +1087,7 @@
                                                 <label><span style="color:white;">delete</span></label>
                                                 <button type="button" class="btn btn-sm btn-danger"  id="removemulticityPurpose" name="removemulticityPurpose[]" onclick="rmulticityPurpose(this)"><span style="font-size: ">-</span></button>
                                             </div> 
-                                            <input type="hidden" value="`+(multicitypurposecounter+1)+`" name="purposecount"  
+                                            <input type="hidden" value="`+(multicitypurposecounter+1)+`" name="purposecount">  
                                         </div>
                                     </div>`;
                 multicitypurposecounter++;
@@ -1093,10 +1096,9 @@
             $('.officerSelect').select2();
     });
 
-  var localcounter="";
-  console.log($localcounter);
   $('button#addlocalpurpose').click(function(e){
-
+      console.log(localcounter);
+      
         var localpurposemembers ='';
 
         var selectedMembers = $('.local_members :selected');
@@ -1169,19 +1171,19 @@
                                 <label><span style="color:white;">delete</span></label>
                             <button type="button" class="btn btn-sm btn-danger" onclick="removePurpose(this)" id="removeLocalPurpose" name="removeLocalPurpose[]"><span style="font-size: ">-</span></button>
                         </div>
-                        <input type="hidden" value="`+(localcounter+1)+`" name="purposecount"   
                      </div>
-                    </div>`;
-                    
-                    // $('input[name="purposecount"]').val(localcounter+1);
-
+                    </div>`;                    
                 localcounter++;
+                $('input#inputpurposecount').val(localcounter);
+
                 $('.localPurposeBlock').append(addLocalPurpose);
                 $('.officerSelect').select2();
     });
 function removePurpose(e)
 {   
     localcounter--;
+    $('input#inputpurposecount').val(localcounter);
+
     if(localcounter==1)
         {
             $('.purposetypeid').val("{{$purposetypes[0]->id}}");

@@ -2,6 +2,11 @@
 @section('title')
  VisitRequests Dashboard | DGME
 @endsection
+<style>
+td{white-space: unset !important;}
+    .tw-w{min-width: 215px !important;}
+    ol{padding: 0px 0px 0px 13px !important;}
+</style>
 @section('content')
 <div class="row">
     <div class="col-md-6 col-xl-12">
@@ -67,7 +72,7 @@
                                                                     <td style="text-align:center;">
                                                                             {{$triprequest->first_name}}   {{$triprequest->last_name}}
                                                                     </td>
-                                                                    <td style="">
+                                                                    <td>
                                                                         <ol>
                                                                         @foreach ($triprequest->PlantripPurpose as $plantripPurpose) 
                                                                            
