@@ -494,6 +494,7 @@
           <button type="button" class="close col-md-2" data-dismiss="modal">&times;</button>
         </div>
         <form @submit.prevent="login" @keydown="form.onKeydown($event)">
+          {{ csrf_field() }}
           <div class="modal-body">
               <center>
                 <img class="" src="{{ asset('dgme.png')}}" alt="DGME" />

@@ -95,6 +95,7 @@
     <script type="text/javascript" src="{{ asset('landingPage/js/jquery.carouselTicker.min.js')}}"></script>
     <script type="text/javascript" src="{{ asset('landingPage/js/start.js')}}"></script>
     <script type="text/javascript" src="{{ asset('js/Customvue.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('js/app.js')}}"></script>
     @yield('scripttags')
 </body>
 
