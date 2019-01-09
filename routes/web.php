@@ -48,7 +48,7 @@ Route::group(['middleware' => ['auth']],function(){
 
 //For Admin
 Route::group(['middleware' => ['role:admin']], function () {
-  Route::resource('/accountRequest','AccountRequestController');
+    Route::resource('/accountRequest','AccountRequestController');
     Route::resource('/roles','RolesController');
     Route::resource('SponsorAgency','SponsorAgencyController');
     Route::resource('ExecutingAgency','ExecutingAgencyController');
@@ -67,9 +67,12 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::resource('assigning_forum','AssigningForumController');
     Route::resource('approving_forum','ApprovingForumController');
 
+    // Monitoring m_project_kpis
+    Route::resource('/mprojectkpis','MonitoringProjectKpiController');
+
 });
 
-  
+
 
 
 // For Manager & Director Charts
@@ -186,6 +189,12 @@ Route::prefix('Evaluatorofficer')->middleware('role:evaluator|officer|transporto
   Route::post('/saveDocAttachment','OfficerController@saveDocAttachments')->name('saveDocAttachment');
   Route::resource('trip','SiteVisitController');
   Route::post('/visitCompleted/{id}','SiteVisitController@visitCompleted')->name('visitCompleted');
+
+  //Officer's Charts
+  Route::get('/officer_chart_one','OfficerController@officer_chart_one')->name('officer_chart_one');
+  Route::get('/officer_chart_two','OfficerController@officer_chart_two')->name('officer_chart_two');
+  Route::get('/officer_chart_three','OfficerController@officer_chart_three')->name('officer_chart_three');
+
 });
 //Monitor officers
 Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(function () {

@@ -90,7 +90,7 @@
 
         </h1>
         <ol class="breadcrumb">
-        <li><a href="{{route('Exec_pems_tab')}}"><i class="fa fa-backward" ></i>Back</a></li>
+        <li><a href="{{route('evaluation_dashboard')}}"><i class="fa fa-backward" ></i>Back</a></li>
           {{-- <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li> --}}
         </ol>
     </section>
@@ -108,10 +108,6 @@
                           <div style="padding:5px;display:inline-block;">
                             <span class="lightblue">-</span>
                             <label style="vertical-align:-webkit-baseline-middle;">{{count($total_projects)}} Total Projects</label>
-                        </div>
-                        <div style="padding:5px; display:inline-block;">
-                            <span class="dark-grey">-</span>
-                            <label style="vertical-align:-webkit-baseline-middle;">{{$total_assigned_projects}} Total Un-Assigned Projects</label>
                         </div>
                         <div style="padding:5px; display:inline-block;">
                                 <span class="darkblue">-</span>
@@ -206,78 +202,6 @@
           </div>
           <!-- /.modal-dialog -->
         </div>
-
-        <div class="modal fade in" id="myModal1" style="display: block; padding-right: 17px;display:none">
-          <div class="modal-dialog" style="width:90%">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Projects</h4>
-              </div>
-              <div class="modal-body">
-                          <div class="box">
-                            <div class="box-header">
-                              <h3 class="box-title">UnAssigned Projects</h3>
-                            </div>
-                            <!-- /.box-header -->
-                            <div class="box-body">
-                              <table id="example2" class="table table-bordered table-striped">
-                                <thead>
-                                <tr>
-                                  <th>SR #</th>
-                                  <th>Project No</th>
-                                  <th>GS #</th>
-                                  <th>Name</th>
-                                  <th>Sector</th>
-                                  <th>Cost</th>
-                                  <th>Status</th>
-                                </tr>
-                                </thead>
-                                <tbody id="tbody">
-                                  @php
-                                    $counter = 1;
-                                  @endphp
-                                  @foreach ($actual_total_assigned_projects as $total_project)
-                                    <tr>
-                                      <td>{{  $counter++ }}</td>
-                                      <td>{{$total_project->project_no}}</td>
-                                      <td style="width:120px">{{$total_project->financial_year}} / {{$total_project->ADP}}</td>
-                                      <td>{{$total_project->title}}</td>
-                                      <td>
-                                      @foreach ($total_project->AssignedSubSectors as $sub_sectors)
-                                        {{ $sub_sectors->SubSector->name }}
-                                      @endforeach
-                                      </td>
-                                      <td>{{round($total_project->ProjectDetail->orignal_cost,2,PHP_ROUND_HALF_UP)}}</td>
-                                      @if($total_project->AssignedProject)
-                                      @if ($total_project->AssignedProject->complete == 0)
-                                        <td>InProgress</td>
-                                      @else
-                                        <td>Completed</td>
-                                      @endif
-                                    @else
-                                      <td>Not Assigned</td>
-                                    @endif
-                                    </tr>
-                                  @endforeach
-                                </tbody>
-                              </table>
-                            </div>
-                            <!-- /.box-body -->
-                          </div>
-                          <!-- /.box -->
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-
         <div class="modal fade in" id="myModal2" style="display: block; padding-right: 17px;display:none">
           <div class="modal-dialog" style="width:90%">
             <div class="modal-content">
@@ -477,10 +401,6 @@ $('#example4').DataTable()
       "Number of Projects": total_projects/total_projects*100 ,
       "color": "#0D8ECF",
 
-    }, {
-      "Type": "UnAssigned\nProjects\n({{$total_assigned_projects}})",
-      "Number of Projects": (total_assigned_projects/total_projects*100).toFixed(2) < 1 && (total_assigned_projects/total_projects*100).toFixed(2) > 0 ? 1 : (total_assigned_projects/total_projects*100).toFixed(2),
-      "color": "#333"
     }, {
       "Type": "Inprogress\nProjects\n({{$inprogress_projects}})",
       "Number of Projects": (inprogress_projects/total_projects*100).toFixed(2) < 1 && (inprogress_projects/total_projects*100).toFixed(2) > 0 ? 1 : (inprogress_projects/total_projects*100).toFixed(2),

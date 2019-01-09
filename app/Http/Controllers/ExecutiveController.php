@@ -364,7 +364,7 @@ class ExecutiveController extends Controller
           }
           // Chart 12
 
-          $projects=Project::where('project_type_id',1)->get();
+          $projects=Project::where('project_type_id',1)->where('status',1)->get();
           $categories=array();
           array_push($categories,'NOT SET');
           array_push($categories,'NO');
