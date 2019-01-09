@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\AssignedProject;
+use App\ProjectActivity;
 use App\Project;
 use App\AssignedProjectActivity;
 use Auth;
@@ -18,7 +19,9 @@ use App\Exports\ProjectExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\PlantripTriprequest;
 use Illuminate\Support\Collection;
-
+use \DateTime;
+use \DateTimeZone;
+use DB;
 class HomeController extends Controller
 {
     /**
@@ -200,7 +203,7 @@ class HomeController extends Controller
       $officer=PlantripTriprequest::select('plantrip_triprequests.*')
       ->leftjoin('plantrip_purposes','plantrip_purposes.plantrip_triprequest_id','plantrip_triprequests.id')
       ->leftjoin('plantrip_members','plantrip_members.plantrip_purpose_id','plantrip_purposes.id')
-      ->where('plantrip_members.user_id',Auth::id())  
+      ->where('plantrip_members.user_id',Auth::id())
       ->distinct()
       ->latest()
       ->get();
@@ -224,7 +227,7 @@ class HomeController extends Controller
     }
 
     public function dashboard(){
-      $officers = User::all();
+      $officers = User::where('status',1)->get();
       $total = [];
       $person = [];
       $sum = 0;
@@ -265,6 +268,170 @@ class HomeController extends Controller
       }
 
       $max_score = 100;
-      return view('dashboard',compact('max_score','current_score','actual_max_score','actual_current_score','rank','person'));
+
+      // Charts
+      $actual_total_projects = Project::select('projects.*')
+      ->leftJoin('assigned_projects','projects.id','assigned_projects.project_id')
+      ->leftJoin('assigned_project_teams','assigned_project_teams.id','assigned_projects.project_id')
+      ->where('assigned_project_teams.user_id',Auth::id())
+      ->where('projects.project_type_id',1)
+      ->where('projects.status',1)
+      ->get();
+
+      $total_projects = $actual_total_projects->count();
+      // $total_assigned_projects = count(AssignedProjectManager::all());
+      $inprogress_projects = AssignedProject::select('assigned_projects.*')
+      ->leftJoin('projects','projects.id','assigned_projects.project_id')
+      ->leftJoin('assigned_project_teams','assigned_project_teams.id','assigned_projects.project_id')
+      ->where('projects.project_type_id',1)
+      ->where('projects.status',1)
+      ->where('assigned_projects.complete',0)
+      ->where('assigned_project_teams.user_id',Auth::id())
+      ->count();
+
+      $completed_projects = AssignedProject::select('assigned_projects.*')
+      ->leftJoin('projects','projects.id','assigned_projects.project_id')
+      ->leftJoin('assigned_project_teams','assigned_project_teams.id','assigned_projects.project_id')
+      ->where('project_type_id',1)
+      ->where('projects.status',1)
+      ->where('assigned_projects.complete',1)
+      ->where('assigned_project_teams.user_id',Auth::id())
+      ->count();
+      // $total_assigned_projects = ($total_projects - $inprogress_projects)-$completed_projects;
+      // $actual_total_assigned_projects=Project::select('projects.*')
+      // ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+      // ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
+      // ->whereNull('assigned_projects.project_id')
+      // ->whereNull('assigned_project_managers.project_id')
+      // ->where('projects.project_type_id',1)
+      // ->where('projects.status',1)
+      // ->get();
+      // $total_assigned_projects = $actual_total_assigned_projects->count();
+      $model = new User();
+      $officers = $model->hydrate(
+        DB::select(
+          'getAllOfficers'
+        )
+        );
+
+
+        // Chart two
+
+          $projects=AssignedProject::select('assigned_projects.*')
+          ->leftJoin('projects','projects.id','assigned_projects.project_id')
+          ->leftJoin('assigned_project_teams','assigned_project_teams.id','assigned_projects.project_id')
+          ->where('projects.project_type_id',1)
+          ->where('assigned_project_teams.user_id',Auth::id())
+          ->where('projects.status',1)
+          ->get();
+          $ranges=array();
+          array_push($ranges,'0-25%');
+          array_push($ranges,'26-50%');
+          array_push($ranges,'51-75%');
+          array_push($ranges,'76-99.99');
+          array_push($ranges,'100%');
+          $projectsprogress=array_fill(0,5,0);
+          foreach ($projects as $project) {
+            if($project->progress >=0 && $project->progress < 25){
+              $projectsprogress[0]++;
+            }
+            else if( $project->progress < 50){
+              $projectsprogress[1]++;
+            }
+            else if($project->progress < 75){
+              $projectsprogress[2]++;
+            }
+            else if($project->progress < 100){
+              $projectsprogress[3]++;
+            }
+            else{
+              if($project->complete == 1){
+                $projectsprogress[4]++;
+              }
+              else{
+                $projectsprogress[3]++;
+              }
+            }
+          }
+          
+          // Chart three
+          $activities= AssignedProjectActivity::all();
+          $projects_activities_progress = array_fill(0, 12, 0);
+           $activities_data = DB::select(
+            'getActiviesProgress '.Auth::id().''
+            );
+            // dd($activities_data);
+          $final = [];
+          for ($i = 0 ; $i < count($activities_data); $i++ ) {
+            array_push($final,$activities_data[$i]);
+            for ($j = $i+1 ; $j < count($activities_data)-1; $j++ ) {
+              if($activities_data[$j]->project_id == $activities_data[$i]->project_id){
+                $i++;
+              }
+            }
+          }
+          // dd($final);
+          foreach ($final as $val) {
+            $projects_activities_progress[$val->project_activity_id-1]++;
+          }
+          // dd($projects_activities_progress);
+
+          \JavaScript::put([
+            'actual_total_projects' => $actual_total_projects,
+            'total_projects' => $total_projects,
+            'inprogress_projects' => $inprogress_projects,
+            'completed_projects' => $completed_projects,
+            'officers' => $officers,
+            // Chart two
+            'projectsprogress'=>$projectsprogress,
+            'projectsprogressranges'=>$ranges,
+            // Chart Three
+            'activities' => ProjectActivity::all(),
+            'projects_activities_progress'=>$projects_activities_progress
+            ]);
+
+      return view('dashboard',['activities' => $activities ,'projects_activities_progress'=>$projects_activities_progress,'projectsprogress'=>$projectsprogress,'projectsprogressranges'=>$ranges,'total_projects'=>$actual_total_projects ,'inprogress_projects'=>$inprogress_projects ,'completed_projects'=>$completed_projects],compact('max_score','current_score','actual_max_score','actual_current_score','rank','person'));
+    }
+    //chart 11
+    public function GlobalProgressWiseChart(){
+      $projects=AssignedProject::select('assigned_projects.*')
+      ->leftJoin('projects','projects.id','assigned_projects.project_id')
+      ->where('project_type_id',1)
+      ->where('projects.status',1)
+      ->get();
+      $ranges=array();
+      array_push($ranges,'0-25%');
+      array_push($ranges,'26-50%');
+      array_push($ranges,'51-75%');
+      array_push($ranges,'76-99.99');
+      array_push($ranges,'100%');
+      $projectsprogress=array_fill(0,5,0);
+      foreach ($projects as $project) {
+        if($project->progress >=0 && $project->progress < 25){
+          $projectsprogress[0]++;
+        }
+        else if( $project->progress < 50){
+          $projectsprogress[1]++;
+        }
+        else if($project->progress < 75){
+          $projectsprogress[2]++;
+        }
+        else if($project->progress < 100){
+          $projectsprogress[3]++;
+        }
+        else{
+          if($project->complete == 1){
+            $projectsprogress[4]++;
+          }
+          else{
+            $projectsprogress[3]++;
+          }
+        }
+      }
+        \JavaScript::put([
+          'projects'=>$projectsprogress,
+          'ranges'=>$ranges
+        ]);
+        return view('executive.home.global_progress_wise_chart');
     }
 }

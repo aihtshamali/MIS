@@ -54,14 +54,14 @@ class ExecutiveController extends Controller
       $purposeCounts=$triprequest->PlantripPurpose->count();
       $drivers= VmisDriver::all();
       $vehicles=VmisVehicle::all();
-      
+
       // dd($triprequest->PlantripRequestedcity);
       // dd($triprequest);
       return view('Site_Visit.Plan_A_Trip.visit_summary',
       ['vehicles'=>$vehicles,'drivers'=>$drivers,'triprequest'=>$triprequest,'purposeCounts'=>$purposeCounts,'nameofrequestee'=>$nameofrequestee]);
   }
 
-  
+
     //  HOME FOLDER
     public function conduct_pdwp_meeting(){
       $meetings = HrMeetingPDWP::where('status',1)->orderBy('updated_at', 'desc')->get();
@@ -364,7 +364,7 @@ class ExecutiveController extends Controller
           }
           // Chart 12
 
-          $projects=Project::where('project_type_id',1)->get();
+          $projects=Project::where('project_type_id',1)->where('status',1)->get();
           $categories=array();
           array_push($categories,'NOT SET');
           array_push($categories,'NO');
@@ -866,34 +866,69 @@ class ExecutiveController extends Controller
       array_push($categories,'STAFF');
       array_push($categories,'BOTH');
       $Sneprojects=array_fill(0,5,0);
+      $SneCompletedprojects=array_fill(0,5,0);
+      $SneInprogressprojects=array_fill(0,5,0);
       $actual_Sneprojects=array_fill(0,5,array());
       foreach ($projects as $project) {
         if(!$project->ProjectDetail->sne){
           $Sneprojects[0]++;
           array_push($actual_Sneprojects[0],$project);
+          if($project->AssignedProject && $project->AssignedProject->complete == 1){
+            $SneCompletedprojects[0]++;
+          }
+          else{
+            $SneInprogressprojects[0]++;
+          }
         }
         else if( $project->ProjectDetail->sne=="NO"){
           $Sneprojects[1]++;
           array_push($actual_Sneprojects[1],$project);
+          if($project->AssignedProject && $project->AssignedProject->complete == 1){
+            $SneCompletedprojects[1]++;
+          }
+          else{
+            $SneInprogressprojects[1]++;
+          }
         }
         else if($project->ProjectDetail->sne=="COST"){
           $Sneprojects[2]++;
           array_push($actual_Sneprojects[2],$project);
+          if($project->AssignedProject &&  $project->AssignedProject->complete == 1){
+            $SneCompletedprojects[2]++;
+          }
+          else{
+            $SneInprogressprojects[2]++;
+          }
         }
         else if($project->ProjectDetail->sne=="STAFF"){
           $Sneprojects[3]++;
           array_push($actual_Sneprojects[3],$project);
+          if($project->AssignedProject &&  $project->AssignedProject->complete == 1){
+            $SneCompletedprojects[3]++;
+          }
+          else{
+            $SneInprogressprojects[3]++;
+          }
         }
         else if($project->ProjectDetail->sne=="BOTH"){
           $Sneprojects[4]++;
           array_push($actual_Sneprojects[4],$project);
+          if($project->AssignedProject &&  $project->AssignedProject->complete == 1){
+            $SneCompletedprojects[4]++;
+          }
+          else{
+            $SneInprogressprojects[4]++;
+          }
         }
       }
 
       // dd($actual_Sneprojects);
         \JavaScript::put([
           'Sneprojects'=>$Sneprojects,
+          'SneCompletedprojects'=>$SneCompletedprojects,
+          'SneInprogressprojects'=>$SneInprogressprojects,
           'categories'=>$categories
+
         ]);
         return view('executive.home.sne_wise_chart',compact('actual_Sneprojects'));
     }

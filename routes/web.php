@@ -39,6 +39,7 @@ Route::group(['middleware' => ['auth']],function(){
   Route::post('/reset_store','HomeController@reset_store');
 
 
+<<<<<<< HEAD
   //For Admin
   Route::group(['middleware' => ['role:admin']], function () {
     Route::resource('/accountRequest','AccountRequestController');
@@ -83,6 +84,58 @@ Route::group(['middleware' => ['auth']],function(){
 
   });
   
+=======
+//For Admin
+Route::group(['middleware' => ['role:admin']], function () {
+    Route::resource('/accountRequest','AccountRequestController');
+    Route::resource('/roles','RolesController');
+    Route::resource('SponsorAgency','SponsorAgencyController');
+    Route::resource('ExecutingAgency','ExecutingAgencyController');
+    Route::resource('/permissions','PermissionsController');
+    Route::get('/rolespermissionsusers/create','RolesPermissionsUsersController@create');
+    Route::post('/rolesandpermissions','RolesPermissionsUsersController@rolesandpermissionsstore');
+    Route::post('/usersandroles','RolesPermissionsUsersController@rolesandusersstore');
+    Route::post('/usersandpermissions','RolesPermissionsUsersController@usersandpermissionstore');
+
+    Route::get('/rolespermissionsusers/view','RolesPermissionsUsersController@index');
+    Route::resource('project_type','ProjectTypeController');
+    Route::resource('evaluation_type','EvaluationTypeController');
+    Route::resource('sub_sector','SubSectorController');
+    Route::resource('sector','SectorController');
+    Route::resource('district','DistrictController');
+    Route::resource('assigning_forum','AssigningForumController');
+    Route::resource('approving_forum','ApprovingForumController');
+
+    // Monitoring m_project_kpis
+    Route::resource('/mprojectkpis','MonitoringProjectKpiController');
+
+});
+
+
+
+
+// For Manager & Director Charts
+Route::prefix('manager')->middleware('role:manager|directorevaluation')->group(function () {
+  Route::get('/','ExecutiveController@index')->name('Exec_home');
+  // PEMS GRAPHS -EVALUATION MODULE
+  Route::get('/chart_one','ExecutiveController@chart_one')->name('chart_one');
+  Route::get('/chart_two','ExecutiveController@chart_two')->name('chart_two');
+  Route::get('/chart_three','ExecutiveController@chart_three')->name('chart_three');
+  Route::get('/chart_four','ExecutiveController@chart_four')->name('chart_four');
+  Route::get('/chart_five','ExecutiveController@chart_five')->name('chart_five');
+  Route::get('/chart_six','ExecutiveController@chart_six')->name('chart_six');
+  Route::get('/chart_seven','ExecutiveController@chart_seven')->name('chart_seven');
+  Route::get('/chart_eight','ExecutiveController@chart_eight')->name('chart_eight');
+  Route::get('/chart_nine','ExecutiveController@chart_nine')->name('chart_nine');
+  Route::get('/chart_ten','ExecutiveController@chart_ten')->name('chart_ten');
+  Route::get('/chart_eleven','ExecutiveController@GlobalProgressWiseChart')->name('GlobalProgressWiseChart');
+  Route::get('/chart_twelve','ExecutiveController@SneWiseChart')->name('SneWiseChart');
+  Route::get('/pems_tab','ExecutiveController@pems_index')->name('Exec_pems_tab');
+});
+
+
+
+>>>>>>> 3e19d06831d6d0ceea02c424db744149c3cb209b
   Route::prefix('manager')->middleware('role:manager')->group(function () {
     Route::get('/pmms_tab','ExecutiveController@pmms_index')->name('Exec_pmms_tab');
     Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
@@ -147,6 +200,7 @@ Route::group(['middleware' => ['auth']],function(){
     Route::get('/monitoring_assigntoconsultant','ProjectAssignController@DPM_AssignToConsultant')->name('Monitoring_assignToconsultant');
     Route::post('/monitoring_assigntoconsultant','ProjectAssignController@store_from_Mdirector')->name('store_from_Mdirector');
 
+<<<<<<< HEAD
   });
 
 
@@ -239,3 +293,122 @@ Route::group(['middleware' => ['auth']],function(){
     return view('hassan.ps');
   });
   });
+=======
+});
+Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
+
+
+
+
+
+//Evaluator officers
+Route::prefix('Evaluatorofficer')->middleware('role:evaluator|officer|transportofficer')->group(function () {
+  // Evaluation Module Routes
+  Route::post('/save_percentage','OfficerController@save_percentage')->name('save_percentage');
+  Route::post('/save_dates','OfficerController@save_dates')->name('save_dates');
+  Route::get('/main','OfficerController@evaluation_main')->name('main_page');
+  Route::get('/','OfficerController@evaluation_index')->name('new_evaluation');
+  Route::post('/submitActivities','OfficerController@activitiesSubmit')->name('activitiesSubmit');
+  Route::get('/inprogress_evaluation','OfficerController@evaluation_inprogress')->name('inprogress_evaluation');
+  Route::get('/activities_evaluation/{project_id}','OfficerController@evaluation_activities')->name('evaluation_activities');
+  Route::get('/completed_evaluation','OfficerController@evaluation_completed')->name('completed_evaluation');
+  Route::post('/project_completed','OfficerController@projectCompleted')->name('projectCompleted');
+  Route::get('/review_form/{project_id}','OfficerController@review_form')->name('review_form');
+  Route::post('/review_form','OfficerController@review_forms')->name('review_forms');
+  Route::post('/AssignActivityDocuments','OfficerController@AssignActivityDocument')->name('AssignActivityDocument');
+  Route::post('/saveActivityAttachment','OfficerController@saveActivityAttachment')->name('saveActivityAttachment');
+  Route::post('/saveDocAttachment','OfficerController@saveDocAttachments')->name('saveDocAttachment');
+  Route::resource('trip','SiteVisitController');
+  Route::post('/visitCompleted/{id}','SiteVisitController@visitCompleted')->name('visitCompleted');
+
+  //Officer's Charts
+  Route::get('/officer_chart_one','OfficerController@officer_chart_one')->name('officer_chart_one');
+  Route::get('/officer_chart_two','OfficerController@officer_chart_two')->name('officer_chart_two');
+  Route::get('/officer_chart_three','OfficerController@officer_chart_three')->name('officer_chart_three');
+
+});
+//Monitor officers
+Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(function () {
+
+  // Monitoring Module Routes
+  Route::get('/monitoring_newAssignment','OfficerController@monitoring_newAssignments')->name('Monitoring_newAssignments');
+  Route::get('/monitoring_inprogressAssignment','OfficerController@monitoring_inprogressAssignments')->name('Monitoring_inprogressAssignments');
+  Route::get('/monitoring_completedAssignment','OfficerController@monitoring_completedAssignments')->name('Monitoring_completedAssignments');
+  Route::get('/monitoring_sInprogress','OfficerController@monitoring_inprogressSingle')->name('monitoring_inprogressSingle');
+  Route::post('/monitoring_review_form','OfficerController@monitoring_review_form')->name('monitoring_review_form');
+
+});
+
+// Monitoring group
+Route::group(['middleware' => ['role:dataentry|officer|monitor|manager|directormonitoring']],function () {
+Route::get('/visitrequestSummary/{id}','ExecutiveController@visitRequestSummary')->name('visitrequestSummary');
+// MonitoringDashbaord
+  Route::get('/monitoring_dashboard','HomeController@monitoringDashboard')->name('monitoring_dashboard');
+
+  // Route::get('/monitoring_dashboard',function(){
+  //   return view('monitoring_dashboard');
+  // })->name("monitoring_dashboard");
+
+  // monitoring
+  Route::get('/monitoringP','ProjectController@createMonitoringEntryForm')->name('createMonitoringEntryForm');
+  Route::get('/monitoringV','ProjectController@viewMonitoringForm')->name('viewMonitoringForm');
+
+
+});
+
+
+//For DataEntry
+Route::group(['middleware' => ['role:dataentry|officer|evaluator|monitor|manager|directormonitoring|directorevaluation|adminhr']],function () {
+Route::post('/getunassignedProjectCounter','ProjectCounterController@getUnassignedProjectCounter')->name('unassignedCounter');
+Route::post('/getinProgressProjectCounter','ProjectCounterController@getInProgressCounter')->name('inProgressCounter');
+Route::post('/getAssignedProjectCounter','ProjectCounterController@getAssignedProjectCounter')->name('assignedCounter');
+Route::post('/getCompletedCounter','ProjectCounterController@getCompletedCounter')->name('completedCounter');
+Route::post('/onsectorselect','DataEntryController@onSectorSelect');
+Route::post('/onsubsectorselect','DataEntryController@onSub_SectorSelect');
+Route::post('/getMonitoringProjectNumber','DataEntryController@getMonitoringProjectData');
+Route::post('/onAssigningForumselect','DataEntryController@onAssigningForumselect');
+Route::post('/onchangefunction','DataEntryController@onSubSectorSelect');
+Route::post('/onnewprojectselect','DataEntryController@newproject');
+Route::resource('projects','ProjectController');
+Route::post('/financial_year','AdminHumanResourceController@financial_year')->name('fetch_financial_year');
+Route::post('/project_financial_year','ProjectController@financial_year')->name('fetch_project_financial_year');
+});
+
+//for adminhr
+Route::prefix('hr')->middleware('role:adminhr|manager')->group(function () {
+  Route::post('/save_moms','AdminHumanResourceController@saveMoms')->name('save_moms');
+  Route::resource('admin','AdminHumanResourceController');
+  Route::post('/save_agendax','AdminHumanResourceController@save_agendax')->name('agendax');
+  // Route::get('/search_agendas','AdminHumanResourceController@search_agendas')->name('search_agendas');
+  // Route::get('/','inHumanResourceController@index')->name('index_meeting');
+});
+Route::group(['middleware'=>['permission:can.chat']],function(){
+  Route::get('/conversations/{id}', 'ChatController@show');
+});
+Route::group(['middleware'=>['permission:can.view.profile']],function(){
+  Route::resource('/profile','ProfileController');
+});
+Route::get('GetUnreadCount/{message}','ProblematicRemarksController@getUnreadCount')->name('getUnreadCount');
+Route::resource('Problematicremarks','ProblematicRemarksController');
+Route::post('ReadProblematicremarks','ProblematicRemarksController@readMessages');
+Route::group(['middleware'=>['permission:can.problematicremark']],function(){
+});
+
+
+Route::get('/dashboard',"HomeController@dashboard")->name("evaluation_dashboard");
+Route::post('/printerfunction','AdminHumanResourceController@printer');
+
+
+
+Route::get('/403',function(){
+  return view('403');
+});
+Route::get('/dgv',function(){
+  return view('hassan.dg');
+});
+Route::get('/ps',function(){
+  return view('hassan.ps');
+});
+});
+});
+>>>>>>> 3e19d06831d6d0ceea02c424db744149c3cb209b

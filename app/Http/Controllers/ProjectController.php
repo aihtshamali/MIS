@@ -290,7 +290,7 @@ class ProjectController extends Controller
       $project->ADP = $request->adp_no;
       $project->user_id = Auth::id();
       $project->status = 1;
-      $project->id=$project_id;
+      $project->project_id=$project_id;
       if($request->currency)
         $project->currency = $request->currency;
       if($request->original_cost != NULL)
