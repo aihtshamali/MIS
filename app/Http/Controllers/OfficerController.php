@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use App\Http\Controllers\Controller;
 
 use App\User;
@@ -27,6 +28,7 @@ use App\ProblematicRemarks;
 use App\AssignedProjectActivity;
 use App\ActivityDocument;
 use App\AssignedActivityDocument;
+use App\MProjectKpi;
 use Illuminate\Support\Facades\Redirect;
 use DB;
 class OfficerController extends Controller
@@ -413,7 +415,13 @@ class OfficerController extends Controller
         $project=AssignedProject::where('project_id',$request->project_id)->first();
         $sectors  = Sector::where('status','1')->get();
         $sub_sectors = SubSector::where('status','1')->get();
-        return view('_Monitoring._Officer.projects.inprogressSingle',compact('sectors','sub_sectors','project'));
+        // $kpis=MProjectKpi::
+        $kpis=new Collection();
+        foreach ($project->Project->AssignedSubSectors as $sub_sectors) {
+              $kpis->push(MProjectKpi::where('sector_id',$sub_sectors->SubSector->sector_id)->first());
+        }
+        $generic_kpis=MProjectKpi::where('sector_id',null)->get();
+        return view('_Monitoring._Officer.projects.inprogressSingle',compact('sectors','sub_sectors','project','kpis','generic_kpis'));
       }
       public function monitoring_review_form(Request $request)
       {

@@ -571,7 +571,12 @@
                                                                             <h5 class="mb_2">Choose KPI(s)</h4>
                                                                             <select id='custom-headers' class="searchable"
                                                                                 multiple='multiple'>
-                                                                                <option value='kpi_1'>Remaining Cost</option>
+                                                                                @foreach ($kpis as $kpi)
+                                                                                  <option value='{{$kpi->id}}'>{{$kpi->name}}</option>
+                                                                                @endforeach
+                                                                                @foreach ($generic_kpis as $gkpi)
+                                                                                  <option value='{{$gkpi->id}}'>{{$gkpi->name}}</option>
+                                                                                @endforeach
                                                                                 <option value='kpi_2'>Number of unresolved issues</option>
                                                                                 <option value='kpi_3'>Project Schedule.(delays and variance)</option>
                                                                                 <option value='kpi_4'>Quality</option>
