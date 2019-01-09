@@ -287,12 +287,13 @@
                                                         </div>
                                                     </div>
                                                     <div class="row pull-right">
-                                                      <button type="submit" class="btn btn-success btn-sm" name="submit">Submit & Proceed</button>
+                                                      <button type="submit" class="btn btn-primary btn-sm" name="submit">Save & Procees</button>
                                                     </div>
                                                   </div>
                                                 </form>
                                                   </div>
                                                   <div class="tab-pane" id="locationDiv" role="tabpanel">
+                                                    <form class="" action="#" method="post">
                                                     <div class="TimeDiv pd_1 clearfix">
                                                       <div class="form-group row mb_2">
                                                           <label class="col-sm-3 font-15">District</label>
@@ -325,8 +326,11 @@
                                                           </div>
                                                       </div>
                                                     </div>
+                                                    <button type="submit" class="btn btn-primary btn-sm float-right" name="submit">Save & Procees</button>
+                                                  </form>
                                                   </div>
                                                   <div class="tab-pane" id="AgeOrgDiv" role="tabpanel">
+                                                    <form class="" action="#" method="post">
                                                     <div class="age_orgDiv pd_1 clearfix">
                                                       <div class="form-group row mb_2">
                                                           <label class="col-sm-3 font-15">Operation & Management</label>
@@ -341,8 +345,11 @@
                                                           </div>
                                                       </div>
                                                     </div>
+                                                    <button type="submit" class="btn btn-primary btn-sm float-right" name="submit">Save & Procees</button>
+                                                  </form>
                                                   </div>
                                                   <div class="tab-pane" id="DatesDiv" role="tabpanel">
+                                                    <form class="" action="" method="post">
                                                     <div class="dates pd_1 clearfix">
                                                       <div class="form-group row mb_2">
                                                           <label class="col-sm-3 font-15">Project Approval Date</label>
@@ -362,7 +369,9 @@
                                                             <input type="date" class="form-control" placeholder="Actual Start Date" />
                                                           </div>
                                                       </div>
+                                                      <button type="submit" class="btn btn-primary btn-sm float-right" name="submit">Submit</button>
                                                     </div>
+                                                  </form>
                                                   </div>
                                               </div>
                                           </div>
@@ -410,6 +419,7 @@
                                                         </li>
                                                     </ul>
                                                     <div class="tab-content tabs card-block active">
+                                                      <form class="" action="" method="post">
                                                         <div class="tab-pane active" id="PlanDocDiv" role="tabpanel" aria-expanded="true">
                                                           <div class="row">
                                                             <div class="col-md-3">
@@ -438,7 +448,9 @@
                                                             </div>
                                                         </div>
                                                       </div>
+                                                    </form>
                                                         <div class="tab-pane" id="i-dates" role="tabpanel" aria-expanded="false">
+                                                          <form class="" action="index.html" method="post">
                                                           <div class="row">
                                                               <div class="col-md-6 objtivesNew border_right pd_1_2">
                                                                 <div class="DisInlineflex newClass mb_2 col-md-12">
@@ -464,8 +476,10 @@
                                                               </div>
                                                               <button class="btn aho col-md-2 offset-md-10" type="button" id="saveObjComp">Save & Proceed</button>
                                                           </div>
+                                                        </form>
                                                         </div>
                                                         <div class="tab-pane" id="financial" role="tabpanel" aria-expanded="false">
+                                                        <form class="" action="index.html" method="post">
                                                             <div>
                                                                 <h5 style="padding-top:20px;padding-bottom:10px;clear:both;">Original I</h5>
                                                                 <div class="row">
@@ -496,8 +510,10 @@
                                                                     </h5>
                                                                 </div>
                                                             </div>
+                                                          </form>
                                                         </div>
                                                         <div class="tab-pane" id="MOBdiv" role="tabpanel" aria-expanded="false">
+                                                        <form class="" action="index.html" method="post">
                                                           <div class="row col-md-12 border">
                                                             <div class="col-md-8 offset-md-2 ">
                                                               <div class="row">
@@ -513,8 +529,10 @@
 
                                                             </div>
                                                           </div>
+                                                        </form>
                                                         </div>
                                                         <div class="tab-pane active" id="kpis" role="tabpanel" aria-expanded="false" style="display:none;">
+                                                          <form class="" action="index.html" method="post">
                                                             <div class="card m-0 z-depth-right-0">
                                                                 <div class="card-header">
                                                                     <h4>KPI(s)</h4>
@@ -568,9 +586,11 @@ c                                                                           </ul
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                          </form>
                                                         </div>
                                                         <div class="tab-pane " id="activities" role="tabpanel" aria-expanded="false"
                                                             style="display:none;">
+                                                            <form class="" action="index.html" method="post">
                                                             <div class="card">
                                                                 <div class="card-header"></div>
                                                                 <div class="card-block">
@@ -587,9 +607,11 @@ c                                                                           </ul
                                                                         </div>
                                                                 </div>
                                                             </div>
+                                                          </form>
                                                         </div>
                                                         <div class="tab-pane " id="TimesDiv" role="tabpanel" aria-expanded="false"
                                                             style="display:none;">
+                                                            <form class="" action="index.html" method="post">
                                                             <div class="card">
                                                                 <div class="card-header"></div>
                                                                 <div class="card-block">
@@ -607,9 +629,11 @@ c                                                                           </ul
                                                                         </div>
                                                                 </div>
                                                             </div>
+                                                          </form>
                                                         </div>
                                                         <div class="tab-pane " id="CostingDiv" role="tabpanel" aria-expanded="false"
                                                             style="display:none;">
+                                                            <form class="" action="index.html" method="post">
                                                             <div class="card">
                                                                 <div class="card-header"></div>
                                                                 <div class="card-block" id='costcomp'>
@@ -621,6 +645,7 @@ c                                                                           </ul
                                                                         </div>
                                                                 </div>
                                                             </div>
+                                                          </form>
                                                         </div>
                                                     </div>
                                                 </div>
