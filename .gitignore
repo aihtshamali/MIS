@@ -1,8 +1,4 @@
 /node_modules/
 storage/
 .env
-<<<<<<< HEAD
-/node_modules/
-=======
 /vendor/
->>>>>>> 22dae489ca785e343cd4a5be680c1cbd91004b8f

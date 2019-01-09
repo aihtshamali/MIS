@@ -51,11 +51,7 @@ $(document).ready(function () {
             `+ t + `</div>
             <div class="col-md-6">
                 <select class="kpisel col-sm-12" multiple="multiple">
-                    <option value="AL">Component 1</option>
-                    <option value="WY">Component 2</option>
-                    <option value="WY">Component 3</option>
-                    <option value="WY">Component 4</option>
-                    <option value="WY">Component 5</option>
+                  `+ compopt +`
                 </select>
             </div>
             </li>`).appendTo('#addkpi')
@@ -80,12 +76,55 @@ $(document).ready(function () {
             if (tds[i].value != "")
                 sum += parseInt(tds[i].value, 10)
         }
-        console.log(sum, 'suuum');
-        parent.find('#ot_cost').text(sum)
+        // console.log(sum, 'suuum');
+        // parent.find('#ot_cost').text(sum)
+        if (sum<=119.75)
+          {
+            parent.find('#ot_cost').text(sum).removeClass("errortiQ blue sky green").addClass("red").attr('title', 'Bellow 25%');;
+          }
+        else if (sum>119.75 && sum<=239.25)
+          {
+            parent.find('#ot_cost').text(sum).removeClass("errortiQ green blue red").addClass("sky").attr('title', 'Above 25%');;
+          }
+        else if (sum>239.25 && sum<=359.25)
+          {
+            parent.find('#ot_cost').text(sum).removeClass("errortiQ sky green red").addClass("blue").attr('title', 'Above 50%');;
+          }
+        else if (sum>359.25 && sum<479)
+          {
+            parent.find('#ot_cost').text(sum).removeClass("errortiQ blue sky red").addClass("green").attr('title', 'Above 75% but not 100%');
+          }
+          else if (sum>479)
+          {
+            parent.find('#ot_cost').text(sum).removeClass("blue sky green red").addClass("errortiQ").attr('title', 'Something wrong');
+          }
+        else if (sum=479)
+          {
+            parent.find('#ot_cost').text(sum).removeClass("errortiQ blue sky red green").attr('title', '100% Completed');
+          }
         if (parent.find('#t_cost').text() != parent.find('#ot_cost').text()) {
             var dif = (parseInt(parent.find('#t_cost').text()) - parseInt(parent.find('#ot_cost').text()))
-            console.log(dif, 'difff');
-            parent.find('#od_cost').text(dif)
+            // console.log(dif, 'difff');
+            if (dif<=119.75)
+              {
+                parent.find('#od_cost').text(dif).removeClass("errortiQ blue sky red").addClass("green").attr('title', 'Above 75%');;
+              }
+            else if (dif>119.75 && dif<=239.25)
+              {
+                parent.find('#od_cost').text(dif).removeClass("errortiQ green sky red").addClass("blue").attr('title', 'Bellow 75%');;
+              }
+            else if (dif>239.25 && dif<=359.25)
+              {
+                parent.find('#od_cost').text(dif).removeClass("errortiQ blue green red").addClass("sky").attr('title', 'Bellow 50%');;
+              }
+            else if (dif>359.25 && dif<=479)
+              {
+                parent.find('#od_cost').text(dif).removeClass("errortiQ blue sky green").addClass("red").attr('title', 'Bellow 25%');
+              }
+            if (dif<0)
+              {
+                parent.find('#od_cost').text(dif).removeClass("blue sky green red").addClass("errortiQ").attr('title', 'Exceed Amount');
+              }
             parent.find('.fazuldiv').hide()
             parent.find('.dangercustom').show()
         }
@@ -102,7 +141,7 @@ $(document).ready(function () {
     { "cost": "479", "period": "37", "date": '15 September 2013' }]
 
     var revisionTable = `<div>
-    <h5 style="padding-top:20px;padding-bottom:10px;clear:both;">Revised PC-I</h5>
+    <h5 style="padding-top:20px;padding-bottom:10px;clear:both;">Revised I</h5>
         <div class="row">
             <h5 class="col-md-4">Gestation Period: <b><span id="t_months"></span> months</b></h5>
             <h5 class="col-md-4">Total Cost: <b><span id="t_cost"></span> Million(s)</b></h5>
@@ -317,6 +356,12 @@ $(document).ready(function () {
         $("#tali").removeClass("active");
         $("#tili").addClass("active");
     });
+    $('#svkp').on('click', function () {
+        hideall();
+        $('#activities').show();
+        $("#kpisss").removeClass("active");
+        $("#tali").addClass("active");
+    });
 
     $('.kpis').on('click', function () {
         hideall();
@@ -356,8 +401,8 @@ $(document).ready(function () {
     });
     $('#saveObjComp').on('click', function () {
         hideall();
-        $('#financial').show();
-        $('#fpli').addClass("active");
+        $('#MOBdiv').show();
+        $('#MOBtab').addClass("active");
         $('#pdli').removeClass("active");
     });
     $('.MOBtab').on('click', function () {

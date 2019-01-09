@@ -81,7 +81,7 @@
     .text_center{text-align: center !important;}
     a p, a h3{text-transform: capitalize !important;}
     ::selection{color: #fff !important;background: #687753  !important;}
-    .col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto{margin:auto !important;}
+    .maraut{margin:auto !important;}
    </style>
 @endsection
 @section('content')
@@ -214,21 +214,21 @@
             <div class="container">
               <div class="row">
                 @role('adminhr')
-                <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.3s">
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.3s">
                   <a href="#!" class="tile purple">
                     <h3 class="title">PDWP meetings</h3>
                     <hr/>
                     <p>visit PDWP Meetings</p>
                   </a>
                 </div>
-                <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.3s">
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.3s">
                   <a href="#!" class="tile purple">
                     <h3 class="title">LMS</h3>
                     <hr/>
                     <p>Leave Management System</p>
                   </a>
                 </div>
-                <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.3s">
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.3s">
                   <a href="#!" class="tile purple">
                     <h3 class="title">Human Resource System</h3>
                     <hr/>
@@ -237,42 +237,42 @@
                 </div>
                 @endrole
                 @role('officer|evaluator|monitor|manager|directormonitoring|directorevaluation')
-                <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
                     <a href="{{route('monitoring_dashboard')}}" class="tile purple">
                       <h3 class="title">Monitoring</h3>
                       <hr/>
                       <p>Visit Monitoring</p>
                     </a>
                 </div>
-                <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.6s">
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.6s">
                     <a href="{{route('evaluation_dashboard')}}" class="tile orange">
                       <h3 class="title">Evaluation</h3>
                       <hr/>
                       <p>Visit Evaluation</p>
                     </a>
                 </div>
-                <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.7s">
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.7s">
                     <a href="" class="tile green">
                       <h3 class="title">TPV(s)</h3>
                       <hr/>
                       <p>Visit TPV(s)</p>
                     </a>
                 </div>
-                <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.8s">
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.8s">
                   <a href="" class="tile green">
                     <h3 class="title">Inquires</h3>
                     <hr/>
                     <p>Visit Inquires</p>
                   </a>
                 </div>
-                <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.9s">
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.9s">
                   <a href="{{route('trip.create')}}" class="tile orange">
                     <h3 class="title">Plan My Trip</h3>
                     <hr/>
                     <p>Visit Plan My Trip</p>
                   </a>
                 </div>
-                <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.9s">
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.9s">
                   <a href="#!" class="tile orange">
                     <h3 class="title">leaves</h3>
                     <hr/>
@@ -281,7 +281,7 @@
                 </div>
                 @endrole
                 @role('transportofficer')
-                <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.0s">
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.0s">
                   <a href="http://vmis.dgme.gov.pk:8081/" class="tile green">
                     <h3 class="title">Vehicle Management System</h3>
                     <hr/>
@@ -289,14 +289,14 @@
                   </a>
                 </div>
                 @endrole
-                <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.2s">
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.2s">
                   <a href="" class="tile green">
                     <h3 class="title">My Profile</h3>
                     <hr/>
                     <p>check Profile</p>
                   </a>
                 </div>
-                <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.3s">
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.3s">
                   <a href="" class="tile purple">
                     <h3 class="title">New Announcement</h3>
                     <hr/>
@@ -498,7 +498,6 @@
           <div class="modal-body">
               <center>
                 <img class="" src="{{ asset('dgme.png')}}" alt="DGME" />
-              </center>
               <div class="col-md-8 offset-md-2 clearfix">
                 {{-- <label>Username</label> --}}
                 <input v-model="form.username" type="text" name="username"
@@ -513,11 +512,12 @@
                 <has-error :form="form" field="password"></has-error>
               </div>
               <div class="checkbox m-b-20 col-md-8 offset-md-2 clearfix">
-                  <label class="col-md-6" style="padding-top:4% !important;">
+                  <label class="col-md-7" style="padding-top:4% !important;">
                       <input type="checkbox" v-model="form.remember" name="remember" :class="{ 'is-invalid': form.errors.has('remember') }" style="margin-top:1% !important;"> Remember Me
                   </label>
-                  <button :disabled="form.busy" type="submit" class="btn col-md-6" style="margin-bottom:9% !important">Login</button>
+                  <button :disabled="form.busy" type="submit" class="btn col-md-5" style="margin-bottom:9% !important">Login</button>
     				 </div>
+           </center>
           </div>
         {{-- <div class="modal-footer form-group col-md-12 clearfix">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

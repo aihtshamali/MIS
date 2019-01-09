@@ -88,13 +88,18 @@
 .boldText{font-weight: 900;}
 .New_Assignments a{color : #FE8A7D !important;}
 .Monitoring_Projects{color : #FE8A7D !important;}
+.red{color: #F22525 !important;font-size: 21px;font-weight: 900;}
+.blue{color: #7942FA !important;font-size: 21px;font-weight: 900;}
+.sky{color: #42BDFA !important;font-size: 21px;font-weight: 900;}
+.green{color: green !important;font-size: 21px;font-weight: 900;}
+.errortiQ{color: #A91F1A !important;font-size: 25px;font-weight: 900;}
 </style>
 
 @endsection
 @section('content')
 
     {{-- frozen panel for plan and conduct monitoring  --}}
-    <div class="col-md-12 fixed bg-g hidden-sm hidden-xs topSummary capitalize" style="margin-top:-2.9% !important;z-index:999 !important; margin-left:-2.85% !important;">
+    <div class="col-md-12 fixed bg-g hidden-sm hidden-xs topSummary capitalize" style="margin-top:-3% !important;z-index:999 !important; margin-left:-2.85% !important;">
 
         <div class="bg-w border_top bg-w" style="padding:0.25rem !important;" >
                 <style scoped>
@@ -372,19 +377,19 @@
                                                                 role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Documents</b></a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a class="nav-link i-dates" data-toggle="tab" href="#i-dates" id="pdli"
-                                                                role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Project Design</b></a>
-                                                        </li>
-                                                        <li class="nav-item">
                                                             <a class="nav-link financialphase" data-toggle="tab" href="#financial" id="fpli"
                                                                 role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Financial Phasing</b></a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a class="nav-link MOBtab" data-toggle="tab" href="#MOBdiv"
+                                                            <a class="nav-link i-dates" data-toggle="tab" href="#i-dates" id="pdli"
+                                                                role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Project Design</b></a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link MOBtab" id="MOBtab" data-toggle="tab" href="#MOBdiv"
                                                                 role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Mapping Of objectives</b></a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a class="nav-link  kpis" data-toggle="tab" href="#kpis" role="tab"
+                                                            <a class="nav-link  kpis" data-toggle="tab" href="#kpis" role="tab" id="kpisss"
                                                                 aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Plan ( KPI's)</b></a>
                                                         </li>
                                                         <li class="nav-item">
@@ -462,7 +467,7 @@
                                                         </div>
                                                         <div class="tab-pane" id="financial" role="tabpanel" aria-expanded="false">
                                                             <div>
-                                                                <h5 style="padding-top:20px;padding-bottom:10px;clear:both;">Original PC-I</h5>
+                                                                <h5 style="padding-top:20px;padding-bottom:10px;clear:both;">Original I</h5>
                                                                 <div class="row">
                                                                     <h5 class="col-md-4">Gestation Period: <b><span id="t_months"></span> months</b></h5>
                                                                     <h5 class="col-md-4">Total Cost: <b><span id="t_cost"></span> Million(s)</b></h5>
@@ -558,7 +563,7 @@ c                                                                           </ul
                                                                 </div>
                                                                 <div class="card-footer">
                                                                     <div class="col-md-3 offset-md-9">
-                                                                        <a class="btn btn-primary btn-md activities saveNnextbtn" data-toggle="tab" href="#activities"
+                                                                        <a class="btn btn-primary btn-md activities saveNnextbtn" id="svkp" data-toggle="tab" href="#activities"
                                                                         role="tab" aria-expanded="false">Save & Proceed</a>
                                                                     </div>
                                                                 </div>
