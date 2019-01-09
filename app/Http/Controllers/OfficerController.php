@@ -28,7 +28,7 @@ use App\AssignedProjectActivity;
 use App\ActivityDocument;
 use App\AssignedActivityDocument;
 use Illuminate\Support\Facades\Redirect;
-
+use DB;
 class OfficerController extends Controller
 {
 
@@ -419,6 +419,143 @@ class OfficerController extends Controller
       {
         // print_r(json_decode($request->data));
         return response()->json($request->data);
+      }
+
+      // ---- Officers Charts --------
+
+      // Total Projects
+      public function officer_chart_one(){
+        // Charts
+        $actual_total_projects = Project::select('projects.*')
+        ->leftJoin('assigned_projects','projects.id','assigned_projects.project_id')
+        ->leftJoin('assigned_project_teams','assigned_project_teams.id','assigned_projects.project_id')
+        ->where('assigned_project_teams.user_id',Auth::id())
+        ->where('projects.project_type_id',1)
+        ->where('projects.status',1)
+        ->get();
+
+        $total_projects = $actual_total_projects->count();
+        // $total_assigned_projects = count(AssignedProjectManager::all());
+        $inprogress_projects = AssignedProject::select('assigned_projects.*')
+        ->leftJoin('projects','projects.id','assigned_projects.project_id')
+        ->leftJoin('assigned_project_teams','assigned_project_teams.id','assigned_projects.project_id')
+        ->where('projects.project_type_id',1)
+        ->where('projects.status',1)
+        ->where('assigned_projects.complete',0)
+        ->where('assigned_project_teams.user_id',Auth::id())
+        ->count();
+
+        $completed_projects = AssignedProject::select('assigned_projects.*')
+        ->leftJoin('projects','projects.id','assigned_projects.project_id')
+        ->leftJoin('assigned_project_teams','assigned_project_teams.id','assigned_projects.project_id')
+        ->where('project_type_id',1)
+        ->where('projects.status',1)
+        ->where('assigned_projects.complete',1)
+        ->where('assigned_project_teams.user_id',Auth::id())
+        ->count();
+        // $total_assigned_projects = ($total_projects - $inprogress_projects)-$completed_projects;
+        // $actual_total_assigned_projects=Project::select('projects.*')
+        // ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+        // ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
+        // ->whereNull('assigned_projects.project_id')
+        // ->whereNull('assigned_project_managers.project_id')
+        // ->where('projects.project_type_id',1)
+        // ->where('projects.status',1)
+        // ->get();
+        // $total_assigned_projects = $actual_total_assigned_projects->count();
+        $model = new User();
+        $officers = $model->hydrate(
+          DB::select(
+            'getAllOfficers'
+          )
+          );
+
+        \JavaScript::put([
+          'actual_total_projects' => $actual_total_projects,
+          'total_projects' => $total_projects,
+          // 'total_assigned_projects' => $total_assigned_projects,
+          // 'actual_total_assigned_projects' => $actual_total_assigned_projects,
+          'inprogress_projects' => $inprogress_projects,
+          'completed_projects' => $completed_projects,
+          'officers' => $officers,
+          ]);
+          return view('officer.charts.officer_chart_one',['total_projects'=>$actual_total_projects ,'inprogress_projects'=>$inprogress_projects ,'completed_projects'=>$completed_projects]);
+      }
+
+
+      public function officer_chart_two(){
+        $projects=AssignedProject::select('assigned_projects.*')
+        ->leftJoin('projects','projects.id','assigned_projects.project_id')
+        ->leftJoin('assigned_project_teams','assigned_project_teams.id','assigned_projects.project_id')
+        ->where('project_type_id',1)
+        ->where('projects.status',1)
+        ->where('assigned_project_teams.user_id',Auth::id())
+        ->get();
+        $ranges=array();
+        array_push($ranges,'0-25%');
+        array_push($ranges,'26-50%');
+        array_push($ranges,'51-75%');
+        array_push($ranges,'76-99.99');
+        array_push($ranges,'100%');
+        $projectsprogress=array_fill(0,5,0);
+        foreach ($projects as $project) {
+          if($project->progress >=0 && $project->progress < 25){
+            $projectsprogress[0]++;
+          }
+          else if( $project->progress < 50){
+            $projectsprogress[1]++;
+          }
+          else if($project->progress < 75){
+            $projectsprogress[2]++;
+          }
+          else if($project->progress < 100){
+            $projectsprogress[3]++;
+          }
+          else{
+            if($project->complete == 1){
+              $projectsprogress[4]++;
+            }
+            else{
+              $projectsprogress[3]++;
+            }
+          }
+        }
+          \JavaScript::put([
+            'projects'=>$projectsprogress,
+            'ranges'=>$ranges
+          ]);
+          return view('officer.charts.officer_chart_two');
+      }
+
+
+
+      public function officer_chart_three(){
+        $activities= AssignedProjectActivity::all();
+        $projects_activities_progress = array_fill(0, 12, 0);
+         $activities_data = DB::select(
+          'getActiviesProgress '.Auth::id().''
+          );
+          // dd($activities_data);
+        $final = [];
+        for ($i = 0 ; $i < count($activities_data); $i++ ) {
+          array_push($final,$activities_data[$i]);
+          for ($j = $i+1 ; $j < count($activities_data)-1; $j++ ) {
+            if($activities_data[$j]->project_id == $activities_data[$i]->project_id){
+              $i++;
+            }
+          }
+        }
+        // dd($final);
+        foreach ($final as $val) {
+          $projects_activities_progress[$val->project_activity_id-1]++;
+        }
+        // dd($projects_activities_progress);
+
+        \JavaScript::put([
+          'activities' => ProjectActivity::all(),
+          'projects_activities_progress'=>$projects_activities_progress
+          ]);
+        return view('officer.charts.officer_chart_three',[ 'activities' => $activities ,'projects_activities_progress'=>$projects_activities_progress]);
       }
 
       // public function monitoring_Stages()
