@@ -417,9 +417,37 @@ class OfficerController extends Controller
         $sub_sectors = SubSector::where('status','1')->get();
         // $kpis=MProjectKpi::
         $kpis=new Collection();
+        $children=new Collection();
+        $i=0;
         foreach ($project->Project->AssignedSubSectors as $sub_sectors) {
-              $kpis->push(MProjectKpi::where('sector_id',$sub_sectors->SubSector->sector_id)->first());
+              $currentKpi=MProjectKpi::where('sector_id',$sub_sectors->SubSector->sector_id)->where('status',1)->first();
+              $kpis->push($currentKpi);
+              // $children->push([['name'=> ($sub_sectors->SubSector->Sector->name), 'title'=> 'Level 1'],['children'=>[
+              //   ['name'=> (MProjectKpi::where('sector_id',$sub_sectors->SubSector->sector_id)->first()->name), 'title'=> '']
+              //   ]]]);
+              // if(isset($currentKpi->MProjectLevel1Kpis[0])){
+              //   for ($j=0; $j < $currentKpi->MProjectLevel1Kpi->count() ; $j++) {
+              //
+              //     // $children[$i][$j]['children']
+              //   }
+              //   foreach ($currentKpi->MProjectLevel1Kpi as $level1kpi) {
+              //
+              //   }
+              // }
+              // $i++;
         }
+
+// dd($children);
+//         $d=[
+//           'name'=> $project->Project->title,
+//           // 'title': 'general manager',
+//           'children'=>
+//             $children,
+//               // code...
+//
+//       ];
+        // dd(response()->json($d));
+
         $generic_kpis=MProjectKpi::where('sector_id',null)->get();
         return view('_Monitoring._Officer.projects.inprogressSingle',compact('sectors','sub_sectors','project','kpis','generic_kpis'));
       }

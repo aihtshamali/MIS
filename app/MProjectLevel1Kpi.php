@@ -9,7 +9,7 @@ class MProjectLevel1Kpi extends Model
   public function MProjectKpi(){
     return $this->belongsTo('App\MProjectKpi');
   }
-  public function MProjectLevel2Kpis(){
+  public function MProjectLevel2Kpi(){
     return $this->hasMany('App\MProjectLevel2Kpi');
   }
 }

@@ -3,6 +3,8 @@
   Monitoring | DGME
 @endsection
 @section('styleTags')
+  {{-- <link rel="stylesheet" href="{{ asset('css/app.css')}}" /> --}}
+
 <link rel="stylesheet" href="{{ asset('_monitoring/css/icon/icofont/css/icofont.css')}}"/>
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/sweetalert.css')}}" />
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/component.css')}}" />
@@ -26,7 +28,8 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/css/dataTables.bootstrap4.min.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/pages/data-table/css/buttons.dataTables.min.css')}}" />
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/responsive.bootstrap4.min.css')}}" />
-
+{{-- ORG Chart --}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.3/css/jquery.orgchart.css" />
 {{-- font awesome --}}
 <link rel="stylesheet" href="{{ asset('_monitoring\css\icon\font-awesome\css\font-awesome.min.css')}}" />
 
@@ -84,6 +87,12 @@
     padding: 0px !important;
 }
 .headText{font-size: 15px;font-weight: 900;}
+#ganttChart {
+  width		: 100%;
+  height	: -webkit-fill-available;
+  font-size	: 15px;
+  }
+  .md-modal{background: #fff !important;min-height:380px !important;width:auto;}
 </style>
 
 @endsection
@@ -1041,9 +1050,9 @@
                                                                                             <div class="col-md-12">
                                                                                                 <select id="districts" name="stakeholder" class="form-control form-control-primary select2" data-placeholder="" style="width: 100%;">
                                                                                                     <option value="" hidden='hidden'>Select</option>
-                                                                                                    <option value="">some option</option>
-                                                                                                    <option value="">to choose</option>
-                                                                                                    <option value="">from</option>
+                                                                                                    @foreach ($project->Project->AssignedExecutingAgencies as $ExecAgency)
+                                                                                                      <option value="{{$ExecAgency->ExecutingAgency->id}}">{{$ExecAgency->ExecutingAgency->name}}</option>
+                                                                                                    @endforeach
                                                                                                 </select>
                                                                                             </div>
                                                                                         </td>
@@ -1072,11 +1081,11 @@
                                                             <div class="card z-depth-right-0">
                                                                 <div class="card-header">
                                                                     <h4>Issues and Observations</h4>
-                                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                                                    {{-- Lorem ipsum dolor sit amet consectetur adipisicing elit.
                                                                     Sunt similique totam harum sit. Quibusdam libero, harum rem
                                                                     quam repellendus adipisci. Repellat sapiente asperiores
                                                                     numquam beatae at distinctio quaerat reiciendis
-                                                                    repudiandae.
+                                                                    repudiandae. --}}
                                                                 </div>
                                                                 <div class="card-block">
                                                                     <div class="table-responsive">
@@ -1116,11 +1125,14 @@
                                                                                     <td>
                                                                                         <select class="form-control form-control-primary">
                                                                                             <option value="" selected disabled>Select</option>
-                                                                                            <option value="1">Very High</option>
+                                                                                            @foreach ($project->Project->AssignedExecutingAgencies as $ExecAgency)
+                                                                                              <option value="{{$ExecAgency->ExecutingAgency->id}}">{{$ExecAgency->ExecutingAgency->name}}</option>
+                                                                                            @endforeach
+                                                                                            {{-- <option value="1">Very High</option>
                                                                                             <option value="2">High</option>
                                                                                             <option value="3">Medium</option>
                                                                                             <option value="4">Low</option>
-                                                                                            <option value="5">Very Low</option>
+                                                                                            <option value="5">Very Low</option> --}}
                                                                                         </select>
                                                                                     </td>
                                                                                     <td style="width:5%;">
@@ -1380,7 +1392,10 @@
                                                                         <div class="md-content">
                                                                             <h3>Work Breakdown Structure</h3>
                                                                             <div>
-                                                                                <canvas id="barChart" width="400" height="400"></canvas>
+                                                                              <div id="WBSChart">
+
+                                                                              </div>
+                                                                                {{-- <canvas id="barChart" width="400" height="400"></canvas> --}}
                                                                                 <button type="button" class="btn btn-primary waves-effect md-close">Close</button>
                                                                             </div>
                                                                         </div>
@@ -1398,21 +1413,20 @@
                                                         <div class="card summary-card bg-new">
                                                             <div class="card-header"></div>
                                                             <div class="card-block">
-                                                                <div class="animation-model">
-                                                                    <button type="button" class="btn btn-info btn-outline-info waves-effect md-trigger "
-                                                                        style="text-align:center; vertical-align:middle; font-size:13px;margin-left: 20%;"
-                                                                        data-modal="modal-2">Gantt Chart</button>
-                                                                    <div class="md-modal md-effect-3" id="modal-2">
-                                                                        <div class="md-content">
-                                                                            <h3>Ghantt Chart</h3>
-                                                                            <div>
-                                                                                <canvas id="barChart" width="400" height="400"></canvas>
-                                                                                <button type="button" class="btn btn-primary waves-effect md-close">Close</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="md-overlay"></div>
-                                                                </div>
+                                                              <div class="animation-model">
+                                                                  {{-- <button type="button" class="btn btn-info btn-outline-info waves-effect md-trigger "
+                                                                      style="text-align:center; vertical-align:middle; font-size:13px;margin-left: 20%;"
+                                                                      data-toggle="modal" data-target="modal-2"
+                                                                      >Gantt Chart</button> --}}
+
+                                                                      <button type="button"
+                                                                      class="btn btn-primary btn-outline-info waves-effect md-trigger "
+                                                                          style="text-align:center; vertical-align:middle; font-size:13px;margin-left: 20%;"
+                                                                      data-toggle="modal" data-target="#modal-2">
+                                                                        Gantt Chart
+                                                                      </button>
+                                                                  <div class="md-overlay"></div>
+                                                              </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1564,9 +1578,32 @@
             </div>
 
         </div>
+
+        <!-- Modal 2 Gantt Chart-->
+        <div class="modal fade" id="modal-2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Gantt Chart</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div id="ganttChart" >
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
 @endsection
 @section("js_scripts")
 <!-- Multiselect js -->
+<script src="{{asset('js/app.js')}}"></script>
 <script src="{{asset('_monitoring/js/select2/js/select2.full.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/bootstrap-multiselect/js/bootstrap-multiselect.js')}}"></script>
 <script src="{{asset('_monitoring/js/multiselect/js/jquery.multi-select.js')}}"></script>
@@ -1627,8 +1664,227 @@
   </li>
 </script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.3/js/jquery.orgchart.js"></script>
 <script>
+
 $(document).ready(function(){
+
+// WBS Chart Start
+(function($) {
+  $(function() {
+   var ds = {
+     'name': 'Infrastructure Projects',
+     'title': '',
+     'children': [
+       { 'name': 'Roads', 'title': '',
+       'children':[
+        {'name':'Flexible Pavements',
+          'children': [
+            {'name':'Mobilization / Site Clearance', 'title' :'3 %'},
+            {'name':'Excavation (Cut & Fill)','title':'2 % '},
+            {'name':'Road Construction','title':'70 %',
+             'children':[
+               {'name':'Asphalt Base Course ','title':'12%',
+                'children':[
+                  {'name':'Prime Coat','title':'2%'},
+                  {'name':'Laying of Asphalt Base Course','title':'10%'}
+                ]
+               },
+               {'name':'Asphalt Wearing Course ','title':'12%',
+                'children':[
+                  {'name':'Tack Coat','title':'2%'},
+                  {'name':'Laying of Wearing Course','title':'6%'}
+                ]
+
+               },
+               {'name':'Aggregate Base Course','title':'15%'},
+               {'name':'Sub Base','title':'15%'},
+               {'name':'Sub Grade','title':'10%'},
+               {'name':'Median','title':'5%'},
+               {'name':'Shoulder Dressing','title':'5%'},
+             ]
+            },
+          ]
+        },
+        {'name':'Rigid Pavements'},
+       ]
+     }]
+    };
+
+    var oc = $('#WBSChart').orgchart({
+      'data' : ds,
+      'nodeContent': 'title'
+    });
+
+  });
+})(jQuery);
+
+
+// Gantt Chart Start
+  // am4core.useTheme(am4themes_frozen);
+// Themes end
+
+var chart = am4core.create("ganttChart", am4charts.XYChart);
+chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+chart.paddingRight = 30;
+chart.dateFormatter.inputDateFormat = "yyyy-MM-dd HH:mm";
+
+var colorSet = new am4core.ColorSet();
+colorSet.saturation = 0.4;
+
+chart.data = [ {
+  "category": "Project Activity #1",
+  "start": "2016-01-01",
+  "end": "2016-01-14",
+  "color": colorSet.getIndex(0).brighten(0),
+  "task": "Gathering requirements"
+}, {
+  "category": "Project Activity #1",
+  "start": "2016-01-16",
+  "end": "2016-01-27",
+  "color": colorSet.getIndex(0).brighten(0.4),
+  "task": "Producing specifications"
+}, {
+  "category": "Project Activity #1",
+  "start": "2016-02-05",
+  "end": "2016-04-18",
+  "color": colorSet.getIndex(0).brighten(0.8),
+  "task": "Development"
+}, {
+  "category": "Project Activity #1",
+  "start": "2016-04-18",
+  "end": "2016-04-30",
+  "color": colorSet.getIndex(0).brighten(1.2),
+  "task": "Testing and QA"
+}, {
+  "category": "Project Activity #2",
+  "start": "2016-01-08",
+  "end": "2016-01-10",
+  "color": colorSet.getIndex(2).brighten(0),
+  "task": "Gathering requirements"
+}, {
+  "category": "Project Activity #2",
+  "start": "2016-01-12",
+  "end": "2016-01-15",
+  "color": colorSet.getIndex(2).brighten(0.4),
+  "task": "Producing specifications"
+}, {
+  "category": "Project Activity #2",
+  "start": "2016-01-16",
+  "end": "2016-02-05",
+  "color": colorSet.getIndex(2).brighten(0.8),
+  "task": "Development"
+}, {
+  "category": "Project Activity #2",
+  "start": "2016-02-10",
+  "end": "2016-02-18",
+  "color": colorSet.getIndex(2).brighten(1.2),
+  "task": "Testing and QA"
+}, {
+  "category": "Project Activity #3",
+  "start": "2016-01-02",
+  "end": "2016-01-08",
+  "color": colorSet.getIndex(4).brighten(0),
+  "task": "Gathering requirements"
+}, {
+  "category": "Project Activity #3",
+  "start": "2016-01-08",
+  "end": "2016-01-16",
+  "color": colorSet.getIndex(4).brighten(0.4),
+  "task": "Producing specifications"
+}, {
+  "category": "Project Activity #3",
+  "start": "2016-01-19",
+  "end": "2016-03-01",
+  "color": colorSet.getIndex(4).brighten(0.8),
+  "task": "Development"
+}, {
+  "category": "Project Activity #3",
+  "start": "2016-03-12",
+  "end": "2016-04-05",
+  "color": colorSet.getIndex(4).brighten(1.2),
+  "task": "Testing and QA"
+}, {
+  "category": "Project Activity #4",
+  "start": "2016-01-01",
+  "end": "2016-01-19",
+  "color": colorSet.getIndex(6).brighten(0),
+  "task": "Gathering requirements"
+}, {
+  "category": "Project Activity #4",
+  "start": "2016-01-19",
+  "end": "2016-02-03",
+  "color": colorSet.getIndex(6).brighten(0.4),
+  "task": "Producing specifications"
+}, {
+  "category": "Project Activity #4",
+  "start": "2016-03-20",
+  "end": "2016-04-25",
+  "color": colorSet.getIndex(6).brighten(0.8),
+  "task": "Development"
+}, {
+  "category": "Project Activity #4",
+  "start": "2016-04-27",
+  "end": "2016-05-15",
+  "color": colorSet.getIndex(6).brighten(1.2),
+  "task": "Testing and QA"
+}, {
+  "category": "Project Activity #5",
+  "start": "2016-01-01",
+  "end": "2016-01-12",
+  "color": colorSet.getIndex(8).brighten(0),
+  "task": "Gathering requirements"
+}, {
+  "category": "Project Activity #5",
+  "start": "2016-01-12",
+  "end": "2016-01-19",
+  "color": colorSet.getIndex(8).brighten(0.4),
+  "task": "Producing specifications"
+}, {
+  "category": "Project Activity #5",
+  "start": "2016-01-19",
+  "end": "2016-03-01",
+  "color": colorSet.getIndex(8).brighten(0.8),
+  "task": "Development"
+}, {
+  "category": "Project Activity #5",
+  "start": "2016-03-08",
+  "end": "2016-03-30",
+  "color": colorSet.getIndex(8).brighten(1.2),
+  "task": "Testing and QA"
+} ];
+
+chart.dateFormatter.dateFormat = "yyyy-MM-dd";
+chart.dateFormatter.inputDateFormat = "yyyy-MM-dd";
+
+var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+categoryAxis.dataFields.category = "category";
+categoryAxis.renderer.grid.template.location = 0;
+categoryAxis.renderer.inversed = true;
+
+var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+dateAxis.renderer.minGridDistance = 70;
+dateAxis.baseInterval = { count: 1, timeUnit: "day" };
+// dateAxis.max = new Date(2018, 0, 1, 24, 0, 0, 0).getTime();
+//dateAxis.strictMinMax = true;
+dateAxis.renderer.tooltipLocation = 0;
+
+var series1 = chart.series.push(new am4charts.ColumnSeries());
+series1.columns.template.width = am4core.percent(80);
+series1.columns.template.tooltipText = "{task}: [bold]{openDateX}[/] - [bold]{dateX}[/]";
+
+series1.dataFields.openDateX = "start";
+series1.dataFields.dateX = "end";
+series1.dataFields.categoryY = "category";
+series1.columns.template.propertyFields.fill = "color"; // get color from data
+series1.columns.template.propertyFields.stroke = "color";
+series1.columns.template.strokeOpacity = 1;
+
+chart.scrollbarX = new am4core.Scrollbar();
+
+
+
   $('form').on('submit',function(e){
     e.preventDefault();
     // var formdata= new FormData($(this).serialize());

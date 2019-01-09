@@ -1,6 +1,6 @@
 webpackJsonp([3],{
 
-/***/ 262:
+/***/ 264:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11,8 +11,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__charts_axes_AxisRendererCircular__ = __webpack_require__(115);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__charts_Chart__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__charts_Legend__ = __webpack_require__(80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__charts_map_SmallMap__ = __webpack_require__(274);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__charts_map_ZoomControl__ = __webpack_require__(275);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__charts_map_SmallMap__ = __webpack_require__(276);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__charts_map_ZoomControl__ = __webpack_require__(277);
 /**
  * Defines default Responsive rules
  * @hidden
@@ -196,7 +196,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 274:
+/***/ 276:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -451,7 +451,7 @@ __WEBPACK_IMPORTED_MODULE_5__core_Registry__["b" /* registry */].registeredClass
 
 /***/ }),
 
-/***/ 275:
+/***/ 277:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
