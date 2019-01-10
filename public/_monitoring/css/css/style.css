@@ -25222,6 +25222,6 @@ body.dark #styleSelector {
 body.dark #styleSelector .form-control {
     color: #404E67
 }
-
+.primaryClr{background: #01a9ac !important}
 
 /*# sourceMappingURL=style.css.map */
