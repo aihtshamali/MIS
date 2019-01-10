@@ -357,6 +357,7 @@
 
 
 </body>
+<script src="{{asset('js/Customvue.min.js')}}"></script>
 <!-- jQuery 3 -->
 <script src="{{asset('js/AdminLTE/jquery.min.js')}}"></script>
 <!-- Bootstrap 3.3.7 -->
@@ -384,7 +385,6 @@
 <script src="{{asset('js/AdminLTE/jquery.inputmask.js')}}"></script>
 <script src="{{asset('js/AdminLTE/jquery.inputmask.date.extensions.js')}}"></script>
 <script src="{{asset('js/AdminLTE/jquery.inputmask.extensions.js')}}"></script>
-<script src="{{asset('js/Customvue.min.js')}}"></script>
 
 @yield('scripttags')
 <script>
