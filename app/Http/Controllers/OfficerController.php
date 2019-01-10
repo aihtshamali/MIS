@@ -492,8 +492,11 @@ class OfficerController extends Controller
 
         //Moving Project Progress from New Attachment to Inprogress
         $total_previousProject = MProjectProgress::where('assigned_project_id',$project->id)->get();
-        $previousProject = $total_previousProject[count($total_previousProject)-1];
-        if(!$previousProject->status){
+        $previousProject = null;
+        // dd(count($total_previousProject));
+        if(count($total_previousProject) > 0)
+          $previousProject = $total_previousProject[count($total_previousProject)-1];
+        if(!$previousProject){
           $projectProgress = new MProjectProgress();
           $projectProgress->assigned_project_id = $project->id;
           if($previousProject!=null){
