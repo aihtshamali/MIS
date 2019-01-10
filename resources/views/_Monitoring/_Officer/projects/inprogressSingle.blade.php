@@ -93,6 +93,8 @@
   font-size	: 15px;
   }
   .md-modal{background: #fff !important;min-height:380px !important;width:auto;}
+  .orgchart{width: 100% !important;}
+  .modal-open .modal{overflow-x: scroll;overflow-y: auto;}
 </style>
 
 @endsection
@@ -1385,21 +1387,30 @@
                                                             <div class="card-header"></div>
                                                             <div class="card-block">
                                                                 <div class="animation-model">
-                                                                    <button type="button" class="btn btn-info btn-outline-info waves-effect md-trigger "
+                                                                    {{-- <button type="button" class="btn btn-info btn-outline-info waves-effect md-trigger "
                                                                         style="text-align:center; vertical-align:middle; font-size:13px; margin-top: -10%;margin-left: 10%;"
-                                                                        data-modal="modal-1">Work Breakdown <br>Structure<br>(WBS)</button>
-                                                                    <div class="md-modal md-effect-3" id="modal-1">
+                                                                        data-modal="modal-1">Work Breakdown <br>Structure<br>(WBS)</button> --}}
+                                                                        <!-- Button trigger modal -->
+                                                                        <button type="button"
+                                                                        class="btn btn-primary btn-outline-info waves-effect md-trigger "
+                                                                        style="text-align:center; vertical-align:middle; font-size:13px; margin-top: -10%;margin-left: 10%;"
+                                                                        data-modal="modal-1"
+                                                                         data-toggle="modal" data-target="#exampleModalLong">
+                                                                            Work Breakdown <br>Structure<br>(WBS)
+                                                                        </button>
+
+                                                                    {{-- <div class="md-modal md-effect-3" id="modal-1">
                                                                         <div class="md-content">
                                                                             <h3>Work Breakdown Structure</h3>
                                                                             <div>
                                                                               <div id="WBSChart">
 
                                                                               </div>
-                                                                                {{-- <canvas id="barChart" width="400" height="400"></canvas> --}}
                                                                                 <button type="button" class="btn btn-primary waves-effect md-close">Close</button>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
+                                                                    </div> --}}
+
                                                                     <div class="md-overlay"></div>
                                                                 </div>
                                                             </div>
@@ -1578,6 +1589,33 @@
             </div>
 
         </div>
+
+                  <!-- Modal 1 WBS Chart-->
+                  <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog  modal-lg" role="document" style="max-width:100% !important;">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">WBS Chart</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div id="WBSChart">
+
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+
 
         <!-- Modal 2 Gantt Chart-->
         <div class="modal fade" id="modal-2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
