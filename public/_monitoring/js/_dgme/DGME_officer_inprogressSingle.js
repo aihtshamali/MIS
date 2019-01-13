@@ -61,6 +61,7 @@ $(document).ready(function () {
     $(document).on('click','.delspecialkpi',function(){
         var t = $(this).parent().find('.specialin').val();
         t = t.replace(/\s+/g, '_').replace('(', '').replace(')', '')
+        console.log(t);
         $('#addkpi').find('#'+t).remove()
         $(this).parent().remove()
     })
@@ -311,7 +312,6 @@ $(document).ready(function () {
         $('#activities').hide();
         $('#kpis').hide();
         $('#Gallery').hide();
-        $('#financialDiv').hide();
         $('#Objectives').hide();
         $('#PAT').hide();
         $('#Documents').hide();
@@ -326,9 +326,9 @@ $(document).ready(function () {
         hideallmaintabs();
         hideall();
         $('.nav-link').removeClass('active');
-        $('.financial').addClass('active');
+        $('.quality_assesment').addClass('active');
         $('#c_monitoring').show();
-        $('#financialDiv').show();
+        $('#quality_assesment').show();
         $('#p_monitoring').hide();
         $('.p_details').hide();
         $('.mainTabsAndNav').removeClass("col-md-8").addClass("col-md-12");
@@ -445,10 +445,6 @@ $(document).ready(function () {
         hideall();
         $('#Gallery').show();
     });
-    $('.financial').on('click', function () {
-        hideall();
-        $('#financialDiv').show();
-    });
     $('.Objectives').on('click', function () {
         hideall();
         $('#Objectives').show();
@@ -520,45 +516,11 @@ $('button#addmore').click(function (e) {
     $('#stakeholders').append(add_stakeholder);
 });
 $('button#add-more-issues').click(function (e) {
-    var temp = `
-                    <tr>
-                        <td><input type="text" name="issue" style="width:100%;padding:2%;" /></td>
-                        <td>
-                            <select id="issues2" name="issuetype" class="form-control form-control-primary select2" data-placeholder="" style="width: 100%;">
-                                <option value="" hidden='hidden'>Select</option>
-                                <option value="Time">Time</option>
-                                <option value="Cost">Cost</option>
-                                <option value="Quality">Quality</option>
-                                <option value="Scope">Scope</option>
-                                <option value="Benifits">Benifits</option>
-                                <option value="Risks">Risks</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select class="form-control form-control-primary">
-                                <option value="" selected disabled>Select</option>
-                                <option value="1">Very High</option>
-                                <option value="2">High</option>
-                                <option value="3">Medium</option>
-                                <option value="4">Low</option>
-                                <option value="5">Very Low</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select class="form-control form-control-primary">
-                                <option value="" selected disabled>Select</option>
-                                <option value="1">Very High</option>
-                                <option value="2">High</option>
-                                <option value="3">Medium</option>
-                                <option value="4">Low</option>
-                                <option value="5">Very Low</option>
-                            </select>
-                        </td>
-                        <td>
-                            <button class="btn btn-sm btn-danger" id="remove-issue" onclick="removeIssuerow(this)" name="remove[]" type="button">-</button>
-                        </td>
-                    </tr>
-                    `
+    var temp =  $('tbody#add-issue-here').children().first().clone();
+    temp.children().last().remove();
+    temp.append('<td><button class="btn btn-sm btn-danger" id="remove-issue" onclick="removeIssuerow(this)" name="remove[]" type="button">-</button></td>');
+    console.log(temp);
+    
     $(temp).appendTo('#add-issue-here')
 });
 $('button#add-more').click(function (e) {

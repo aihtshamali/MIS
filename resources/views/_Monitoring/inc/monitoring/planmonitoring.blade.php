@@ -46,28 +46,19 @@
                   <div class="row">
                     <div class="col-md-3">
                       <div class="btn col-md-10 offset-md-1 btn-primary btn-block">
-                        <input type="file" id="html_btn" title='Click to add Files' />
-                          <span>Upload PC1</span>
+                        <input type="file" id="html_btn" name="planmonitoringfile" title='Click to add Files' />
+                        <span>Upload File</span>
                       </div>
                     </div>
-                    <div class="col-md-3">
-                      <div class="btn col-md-10 offset-md-1 btn-primary btn-block">
-                        <input type="file" id="html_btn" title='Click to add Files' />
-                          <span>Upload PC2</span>
-                      </div>
+                    <div class="col-md-3 col-md-offset-2">
+                        <input type="text" name="file_name" class="placeholder" style="height: 100%;width: 100%;padding: 2%;"
+                        placeholder="File Name"/>
                     </div>
-                    <div class="col-md-3 col-sm-12">
-                        <div class="btn col-md-10 offset-md-1 btn btn-primary btn-block">
-                          <input type="file" id="html_btn" title='Click to add Files' />
-                            <span>Upload PC3</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="btn col-md-10 offset-md-1 btn-primary btn-block">
-                        <input type="file" id="html_btn" title='Click to add Files' />
-                          <span>Upload PC4</span>
-                      </div>
-                    </div>
+                </div>
+                <div class="row ">
+                  <div class="col-md-12">
+                    <button type="submit" class="btn btn-success pull-right" name="submit">Submit</button>
+                  </div>
                 </div>
               </div>
             </form>

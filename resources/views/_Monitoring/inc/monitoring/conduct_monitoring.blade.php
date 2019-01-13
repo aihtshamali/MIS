@@ -4,11 +4,6 @@
             <!-- Nav tabs -->
             <ul class="nav nav-tabs tabs" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active financial" data-toggle="tab" href="#financial"
-                        role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Financial</b></a>
-                </li>
-
-                <li class="nav-item">
                     <a class="nav-link quality_assesment" data-toggle="tab" href="#quality_assesment"
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Quality
                             Assesment</b></a>
@@ -47,78 +42,6 @@
             </ul>
             <!-- Tab panes -->
             <div class="tab-content tabs card-block">
-                <div class="tab-pane active" id="financialDiv" role="tabpanel"
-                    aria-expanded="false">
-                    <div class="card m-0 z-depth-right-0">
-                        <div class="card-header">
-                            <h4>FINANCIAL COST</h4>
-                        </div>
-                        <div class="card-block">
-                            <div class="row">
-                                <div class="col-md-4 offset-md-2">
-                                    <div class="form-group">
-                                        <label for="" class="col-form-label"><b>ADP Allocation of Fiscal Year :</b></label>
-                                        <br>
-                                        <input type="text" class="form-control" name="adp_allocation_cost" id="ADP_allocation_cost" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="" class="col-form-label"><b>Total Allocation by that time (Cumulative):</b></label>
-                                        <br>
-                                        <input type="text" class="form-control" name="ADP_allocation_cost" id="ADP_allocation_cost" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="" class="col-form-label"><b>Utilization Against Cost Allocation :</b></label>
-                                        <br>
-                                    <input type="text" class="form-control" name="utilization_allocation" id="utilization_allocation" />
-
-                                    </div>
-                                </div>
-                                <div class="col-md-4 ">
-                                    <div class="form-group">
-                                        <label for="" class="col-form-label"><b>Release To Date of Fiscal Year :</b></label>
-                                        <br>
-                                        <input type="text" class="form-control" name="release_to_date" id="release_to_date" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="" class="col-form-label"><b>Total Releases To Date :</b></label>
-                                        <br>
-                                        <input type="date" class="form-control" name="total_release_to_date" id="total_release_to_date" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="" class="col-form-label"><b>Utilization Against Releases :</b></label>
-                                        <br>
-                                        <input type="text" class="form-control" name="u_against_rel" id="u_against_rel" />
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-md-10 offset-md-1">
-                                       <div class="divider"></div>
-                                       <div class="col-md-4 offset-md-2">
-                                            <div class="form-group">
-                                                <label for="" class="col-form-label"><b>Technical Sanction Cost:</b></label>
-                                                <br>
-                                                <input class="form-control" type="text" name="ts_cost" placeholder="TS Cost" />
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="" class="col-form-label"><b>Contract Award Cost :</b></label>
-                                                <br>
-                                                <input class="form-control" type="text" name="cad_cost"  placeholder="Contract Cost" />
-                                            </div>
-
-                                        </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="card-footer">
-                            <div class="col-md-3 offset-md-9">
-                                <a class="btn btn-success btn-md saveNnextbtn physical" >Save & Proceed</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="tab-pane" id="quality_assesment" role="tabpanel"
                     aria-expanded="false">
                     <div class="card z-depth-right-0">
@@ -148,92 +71,48 @@
 
                             </div>
                         </div>
-                            {{--  --}}
                         <div class="card z-depth-right-0">
                         <div class="card-header">
                             <h4>General Feed Back</h4>
                         </div>
+
                         <div class="card-block">
-                            <div class=" form-group row">
-                                <div class="col-md-1"></div>
-                                <div class="col-md-1">
-                                    <b><label for="">1 </label></b>
-                                </div>
+                          <form action="{{route('saveGeneralFeedBack')}}" class="serializeform" method="POST">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="m_project_progress_id" value="{{$progresses->last()->id}}">
+                            @foreach ($generalFeedback as $key => $gf)
+                              <div class=" form-group row">
+                                  <div class="col-md-1"></div>
+                                  <div class="col-md-1">
+                                      <b><label for="">{{$key+1}}</label></b>
+                                  </div>
 
-                                <div class="col-md-5">
-                                    <b><label for="">Test Performed ?</label></b>
-                                </div>
+                                  <div class="col-md-5">
+                                      <b><label for="">{{$gf->name}}</label></b>
+                                  </div>
 
+                                  <div class="col-md-1">
+
+                                      <label for="generalFeedback[{{$gf->id}}]" class="btn btn-success btn-sm btn-outline-success">
+                                          YES</label>
+                                          <input type="radio" value="{{$gf->id}}_yes" name="generalFeedback[{{$gf->id}}]">
+                                  </div>
+                                  <div class="col-md-1">
+                                      <label for="generalFeedback[{{$gf->id}}]" class="btn btn-danger btn-sm btn-outline-danger">
+                                          NO</label>
+                                          <input type="radio" value="{{$gf->id}}_no" name="generalFeedback[{{$gf->id}}]">
+                                  </div>
+                                  <div class="col-md-1"></div>
+                              </div>
+                          @endforeach
+                            <div class="form-group row">
+                              <div class="col-md-10"></div>
                                 <div class="col-md-1">
-                                    <button class="btn btn-success btn-sm btn-outline-success">
-                                        YES</button>
+                                  <button type="submit" class="btn btn-success btn-sm btn-outline-success">
+                                      Save FeedBack</button>
                                 </div>
-                                <div class="col-md-1">
-                                    <button class="btn btn-danger btn-sm btn-outline-danger">
-                                        NO</button>
-                                </div>
-                                <div class="col-md-1"></div>
                             </div>
-                            <div class=" form-group row">
-                                <div class="col-md-1"></div>
-                                <div class="col-md-1">
-                                    <b><label for="">2 </label></b>
-                                </div>
-
-                                <div class="col-md-5">
-                                    <b><label for="">Adequate Test Results</label></b>
-                                </div>
-
-                                <div class="col-md-1">
-                                    <button class="btn btn-success btn-sm btn-outline-success">
-                                        YES</button>
-                                </div>
-                                <div class="col-md-1">
-                                    <button class="btn btn-danger btn-sm btn-outline-danger">
-                                        NO</button>
-                                </div>
-                                <div class="col-md-1"></div>
-                            </div>
-                            <div class=" form-group row">
-                                <div class="col-md-1"></div>
-                                <div class="col-md-1">
-                                    <b><label for="">3 </label></b>
-                                </div>
-
-                                <div class="col-md-5">
-                                    <b><label for="">Onsite Labs Established</label></b>
-                                </div>
-
-                                <div class="col-md-1">
-                                    <button class="btn btn-success btn-sm btn-outline-success">
-                                        YES</button>
-                                </div>
-                                <div class="col-md-1">
-                                    <button class="btn btn-danger btn-sm btn-outline-danger">
-                                        NO</button>
-                                </div>
-                                <div class="col-md-1"></div>
-                            </div>
-                            <div class=" form-group row">
-                                <div class="col-md-1"></div>
-                                <div class="col-md-1">
-                                    <b><label for="">4 </label></b>
-                                </div>
-
-                                <div class="col-md-5">
-                                    <b><label for="">Overall Quality Good?</label></b>
-                                </div>
-
-                                <div class="col-md-1">
-                                    <button class="btn btn-success btn-sm btn-outline-success">
-                                        YES</button>
-                                </div>
-                                <div class="col-md-1">
-                                    <button class="btn btn-danger btn-sm btn-outline-danger">
-                                        NO</button>
-                                </div>
-                                <div class="col-md-1"></div>
-                            </div>
+                          </form>
                         </div>
                         <div class="card-footer">
                             <h6><b>Comments</b></h6>
@@ -318,65 +197,76 @@
                     <div class="card z-depth-right-0">
                         <div class="card-header">
                             <h4>Issues and Observations</h4>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                            <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit.
                             Sunt similique totam harum sit. Quibusdam libero, harum rem
                             quam repellendus adipisci. Repellat sapiente asperiores
                             numquam beatae at distinctio quaerat reiciendis
-                            repudiandae.
+                            repudiandae. -->
                         </div>
                         <div class="card-block">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th>Issues</th>
-                                            <th>Issue Type</th>
-                                            <th>Severity</th>
-                                            <th>Department</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id='add-issue-here'>
-                                        <tr>
-                                            <td><input type="text" name="issue" style="width:100%;padding:2%;" /></td>
-                                            <td>
-                                                <select id="issues2" name="issuetype" class="form-control form-control-primary select2" data-placeholder="" style="width: 100%;">
-                                                    <option value="" hidden='hidden'>Select</option>
-                                                    <option value="Time">Time</option>
-                                                    <option value="Cost">Cost</option>
-                                                    <option value="Quality">Quality</option>
-                                                    <option value="Scope">Scope</option>
-                                                    <option value="Benifits">Benifits</option>
-                                                    <option value="Risks">Risks</option>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <select class="form-control form-control-primary">
-                                                    <option value="" selected disabled>Select</option>
-                                                    <option value="1">Very High</option>
-                                                    <option value="2">High</option>
-                                                    <option value="3">Medium</option>
-                                                    <option value="4">Low</option>
-                                                    <option value="5">Very Low</option>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <select class="form-control form-control-primary">
-                                                    <option value="" selected disabled>Select</option>
-                                                    <option value="1">Very High</option>
-                                                    <option value="2">High</option>
-                                                    <option value="3">Medium</option>
-                                                    <option value="4">Low</option>
-                                                    <option value="5">Very Low</option>
-                                                </select>
-                                            </td>
-                                            <td style="width:5%;">
-                                                <button class="btn btn-sm btn-success" type="button" id="add-more-issues">+</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                            <form action="{{route('saveMissues')}}" method="POST" class="serializeform">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="m_project_progress_id" value="{{$progresses->last()->id}}">  
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th>Issues</th>
+                                                <th>Issue Type</th>
+                                                <th>Severity</th>
+                                                <th>Department</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id='add-issue-here'>
+                                            <tr>
+                                                <td><input type="text" name="issue[]" style="width:100%;padding:2%;" /></td>
+                                                <td>
+                                                    <select id="issues2" name="issuetype[]" class="form-control form-control-primary select2" data-placeholder="" style="width: 100%;">
+                                                            @foreach($issue_types as $issue)
+                                                            <option value="{{$issue->id}}" >{{$issue->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <select name="severity[]" class="form-control form-control-primary">
+                                                            <option value="" selected disabled>Select</option>
+                                                            <option value="1">Very High</option>
+                                                            <option value="2">High</option>
+                                                            <option value="3">Medium</option>
+                                                            <option value="4">Low</option>
+                                                            <option value="5">Very Low</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <select name="sponsoring_department[]" class="form-control form-control-primary">
+                                                            <option value="" selected disabled>Select Sponsoring Agency</option>
+                                                            @foreach($project->Project->AssignedSponsoringAgencies as $sp)
+                                                            <option value="{{$sp->SponsoringAgency->id}}">{{$sp->SponsoringAgency->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        <label for="">OR</label>
+                                                        <select name="executing_department[]" class="form-control form-control-primary">
+                                                            <option value="" selected disabled>Select Executing Agency</option>
+                                                            @foreach($project->Project->AssignedExecutingAgencies as $exec)
+                                                            <option value="{{$exec->ExecutingAgency->id}}">{{$exec->ExecutingAgency->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </td>
+                                                    <td style="width:5%;">
+                                                        <button class="btn btn-sm btn-success" type="button" id="add-more-issues">+</button>
+                                                    </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-9"></div>
+                                            <div class="col-md-1">
+                                                <button type="submit" class="btn btn-sm btn-success" >Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
                     </div>
                 </div>
                 <div class="tab-pane active" id="risks" role="tabpanel" aria-expanded="true">
@@ -506,6 +396,9 @@
                         </div>
                         <div class="card-block">
                             <div class="col-md-12">
+                                <form action="{{route('savehealthsafety')}}" method="POST" class="serializeform">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="m_project_progress_id" value="{{$progresses->last()->id}}">
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-stripped nowrap">
                                         <thead>
@@ -519,15 +412,15 @@
                                             </tr>
                                         </thead>
                                         <tbody id="stakeholders">
+                                            @foreach($healthsafety as $key=>$issue)
                                             <tr>
-                                                <td>1.</td>
-                                                <td>Do workers have a safe route to
-                                                    their place of work?</td>
+                                                <td>{{$key+1}}.</td>
+                                                <td>{{$issue->description}}</td>
 
                                                 <td>
                                                     <div class="checkbox-fade fade-in-success m-0">
                                                         <label>
-                                                            <input type="checkbox" id="yes">
+                                                            <input type="checkbox" name="status[{{$key}}]" value="{{$issue->id}}_yes" id="yes">
                                                             <span class="cr">
                                                                 <i class="cr-icon icofont icofont-ui-check txt-success"></i>
                                                             </span>
@@ -537,7 +430,7 @@
                                                 <td>
                                                     <div class="checkbox-fade fade-in-danger m-0">
                                                         <label>
-                                                            <input type="checkbox" id="no"
+                                                            <input type="checkbox" name="status[{{$key}}]" value="{{$issue->id}}_no" id="no"
                                                                 checked>
                                                             <span class="cr">
                                                                 <i class="cr-icon icofont icofont-ui-check txt-danger"></i>
@@ -546,16 +439,22 @@
                                                     </div>
                                                 </td>
 
-                                                <td>Lorem, ipsum dolor sit amet
-                                                    consectetur adipisicing elit.
-                                                    Quaerat, tempore?</td>
+                                                <td><textarea name="comments[{{$key}}]" id="" cols="30" rows="10"></textarea></td>
                                             </tr>
+                                            @endforeach
 
 
                                         </tbody>
 
                                     </table>
+                                    <div class="row">
+                                        <div class="col-md-9"></div>
+                                        <div class="col-md-1">
+                                        <button type="submit" class="btn btn-sm btn-success" >Submit</button>
+                                        </div>
+                                    </div>
                                 </div>
+                            </form>
                             </div>
                         </div>
                     </div>
