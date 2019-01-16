@@ -32,6 +32,13 @@ use App\MProjectCost;
 use App\MProjectLocation;
 use App\MProjectDate;
 use App\MProjectOrganization;
+use App\MGeneralFeedBack;
+use App\MAssignedProjectFeedBack;
+use App\MIssueType;
+use App\MAssignedProjectIssue;
+use App\MAssignedProjectHealthSafety;
+use App\MHealthSafety;
+
 use Illuminate\Support\Facades\Redirect;
 use DB;
 class OfficerController extends Controller
@@ -535,7 +542,14 @@ class OfficerController extends Controller
         $sectors  = Sector::where('status','1')->get();
         $sub_sectors = SubSector::where('status','1')->get();
         $tab = 'cost';
-        return view('_Monitoring._Officer.projects.inprogressSingle',compact('sectors','sub_sectors','project','costs','location','organization','dates'));
+
+        // ConductMonitoring
+        $generalFeedback=MGeneralFeedBack::where('status',1)->get();
+        $issue_types=MIssueType::where('status',1)->get();
+        $healthsafety=MHealthSafety::where('status',1)->get();
+        // dd($project->Project->AssignedExecutingAgencies);
+
+        return view('_Monitoring._Officer.projects.inprogressSingle',compact('sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
       }
       public function monitoring_review_form(Request $request)
       {
@@ -679,7 +693,58 @@ class OfficerController extends Controller
           ]);
         return view('officer.charts.officer_chart_three',[ 'activities' => $activities ,'projects_activities_progress'=>$projects_activities_progress]);
       }
-
+      public function saveGeneralFeedBack(Request $request){
+        foreach ($request->generalFeedback as $gf) {
+          $temp=explode("_",$gf);
+          $m_general_feed_back_id=$temp[0];
+          $answer=$temp[1];
+          $res=MAssignedProjectFeedBack::where('m_general_feed_back_id',$m_general_feed_back_id)
+                ->where('m_project_progress_id',$request->m_project_progress_id)
+                ->first();
+          if($res && $res->count())
+            $generalFeedback=$res;
+          else
+            $generalFeedback=new MAssignedProjectFeedBack();
+          $generalFeedback->m_general_feed_back_id=$m_general_feed_back_id;
+          $generalFeedback->answer=$answer;
+          $generalFeedback->m_project_progress_id=$request->m_project_progress_id;
+          $generalFeedback->save();
+        }
+      }
+      public function saveMissues(Request $request){
+        foreach($request->issue as $key=>$issue){
+          $project_issue = new MAssignedProjectIssue();
+          $project_issue->issue=$issue;
+          $project_issue->m_issue_type_id=$request->issuetype[$key];
+          $project_issue->severity=$request->severity[$key];
+          if($request->sponsoring_department[$key])
+          $project_issue->sponsoring_agency_id=$request->sponsoring_department[$key];
+          if($request->executing_department[$key])
+          $project_issue->executing_agency_id=$request->executing_department[$key];
+          $project_issue->m_project_progress_id=$request->m_project_progress_id;
+          $project_issue->save();
+        }
+      }
+      
+      public function savehealthsafety(Request $request){
+        foreach ($request->status as $key=>$healthsafety) {
+          $temp=explode("_",$healthsafety);
+          $hs=$temp[0];
+          $answer=$temp[1];
+          $res=MAssignedProjectHealthSafety::where('m_health_safety_id',$hs)
+                ->where('m_project_progress_id',$request->m_project_progress_id)
+                ->first();
+          if($res && $res->count())
+            $healthSafety=$res;
+          else
+            $healthSafety=new MAssignedProjectHealthSafety();
+          $healthSafety->m_health_safety_id=$hs;
+          $healthSafety->status=$answer;
+          $healthSafety->remarks=$request->comments[$key];
+          $healthSafety->m_project_progress_id=$request->m_project_progress_id;
+          $healthSafety->save();
+        }
+      }
       // public function monitoring_Stages()
       // {
       //   // if (!is_dir('storage/uploads/projects/project_activities/'.Auth::user()->username)) {

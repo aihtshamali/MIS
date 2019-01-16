@@ -196,11 +196,11 @@
                                         </li>
                                     </ul>
                                     <!-- Tab panes -->
-                                        <div class="tab-content card-block">
-                                            @include('inc/monitoring/reviewDiv')
-                                            @include('inc/monitoring/planmonitoring')
-                                            @include('inc/monitoring/conduct_monitoring')
-                                            @include('inc/monitoring/summary')
+                                    <div class="tab-content card-block">
+                                        @include('_Monitoring/inc/monitoring/reviewDiv')
+                                        @include('_Monitoring/inc/monitoring/planmonitoring')
+                                        @include('_Monitoring/inc/monitoring/conduct_monitoring')
+                                        @include('_Monitoring/inc/monitoring/summary')
                                     </div>
                                 </div>
                             </div>
@@ -219,15 +219,15 @@
                             <tbody>
                                 <tr>
                                     <td><i class="icofont icofont-contrast"></i> Project:</td>
-                                    <td class="text-right"><span class="f-right"><a href="#"> Singular app</a></span></td>
+                                    <td class="text-right"><span class="f-right"><a href="#"> {{$project->Project->title}}</a></span></td>
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-meeting-add"></i> Updated:</td>
-                                    <td class="text-right">12 May, 2015</td>
+                                    <td class="text-right">{{$progresses->last()->created_at}}</td>
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-id-card"></i> Created:</td>
-                                    <td class="text-right">25 Feb, 2015</td>
+                                    <td class="text-right">{{$progresses->first()->created_at}}</td>
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-spinner-alt-5"></i> Priority:</td>
@@ -241,15 +241,15 @@
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-spinner-alt-3"></i> Revisions:</td>
-                                    <td class="text-right">29</td>
+                                    <td class="text-right">{{$progresses->count()}}</td>
                                 </tr>
                                 <tr>
-                                    <td><i class="icofont icofont-ui-love-add"></i> Added by:</td>
-                                    <td class="text-right"><a href="#">Winnie</a></td>
+                                    <td><i class="icofont icofont-ui-love-add"></i> Assigned by:</td>
+                                    <td class="text-right"><a href="#">{{$project->getassignedperson($project->assigned_by)->first_name}} <{{$project->getassignedperson($project->assigned_by)->last_name}}/a></td>
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-washing-machine"></i> Status:</td>
-                                    <td class="text-right">Published</td>
+                                    <td class="text-right">{{$project->Project->status}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -326,7 +326,7 @@
 <script src="{{asset('_monitoring/js/jquery.dm-uploader.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/demo-ui.js')}}"></script>
 <script src="{{asset('_monitoring/js/demo-config.js')}}"></script>
-{{-- this is custome dgme js for this page only Ok ? if you want to add kindly add here dont mess here!! --}}
+{{-- this is custom dgme js for this page only Ok ? if you want to add kindly add here dont mess here!! --}}
 <script src="{{asset('_monitoring/js/_dgme/DGME_officer_inprogressSingle.js')}}"></script>
 <!-- File item template -->
 <script type="text/html" id="files-template">
@@ -349,22 +349,41 @@
 </script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
 <script>
-// $(document).ready(function(){
-//   $('form').on('submit',function(e){
-//     e.preventDefault();
-    // var formdata= new FormData($(this).serialize());
-    // console.log(formdata);
-    //   for (var value of formdata.values()) {
-    //     console.log(value);
-    //   }
-    //   console.log(formdata);
-    // axios.post($(this).attr('action'),{data:$(this).serialize()})
+$(document).ready(function(){
+  $('form.serializeform').on('submit',function(e){
+    e.preventDefault();
+      $.ajax( {
+      data: $(this).serialize(),
+      type: $( this ).attr( 'method' ),
+      url: $(this).attr('action'),
+      success: function( feedback ){
+          if(feedback){
+
+          }
+          else{
+              alert("Data saved successfully");
+            // toast({
+            // type: 'success',
+            // title: 'Data saved successfully'
+            // })
+          }
+         console.log(feedback);
+      },
+      error:function(err){
+            toast({
+            type: 'error',
+            title: err
+            })
+          }
+    });
+    // axios.post($(this).attr('action'),{data:formdata})
     // .then(function (response) {
     //     console.log(response.data);
     // })
     // .catch(function (error) {
     //     console.log(error);
     // });
+<<<<<<< HEAD
     // console.log($('.review').serialize());
   // });
 $(window).scroll(function(){
@@ -388,6 +407,33 @@ $(window).scroll(function(){
      // $("#table-1 > thead > tr > th").css({ "width": "171px", "border-left": "none", "border-right": "none"});
      $("#table-1 > thead > tr > #action").show();
    }
+=======
+  });
+
+  $(window).scroll(function(){
+    var scroll = $(window).scrollTop();
+    if (scroll > 380)
+    {
+      $("#table-1 > thead").css({ "position": "fixed", "margin-top": "-26.1%", "background": "#fff", "z-index": "999"});
+      $("#table-1 > thead > tr > th:eq(0)").css({"width": "45px"});
+      $("#table-1 > thead > tr > th:eq(1)").css({"width": "128px"});
+      $("#table-1 > thead > tr > th:eq(2)").css({"width": "171px"});
+      $("#table-1 > thead > tr > th:eq(3)").css({"width": "171px"});
+      $("#table-1 > thead > tr > th:eq(4)").css({"width": "171px"});
+      $("#table-1 > thead > tr > th:eq(5)").css({"width": "171px"});
+      $("#table-1 > thead > tr > th:eq(6)").css({"width": "50px"});
+      $("#table-1 > thead > tr > th").css({"border-left": "none", "border-right": "none"});
+      // $("#table-1 > thead > tr > #action").hide();
+    }
+    else
+     {
+       $("#table-1 > thead").css({ "position": "relative", "background": "#fff"});
+       // $("#table-1 > thead > tr > th").css({ "width": "171px", "border-left": "none", "border-right": "none"});
+       $("#table-1 > thead > tr > #action").show();
+     }
+  });
+
+>>>>>>> 28cb3c47f7884bbe3155d263032bc624a7483dc2
 });
 </script>
 @endsection

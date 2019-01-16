@@ -474,6 +474,7 @@ class ExecutiveController extends Controller
         );
         $assigned_projects = [];
         $actual_assigned_projects = [];
+        $team_lead=[];
         foreach($officers as $officer){
           if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad" || (preg_match('#M[u|o]hammad*#i', $officer->first_name)==1))
           {
@@ -485,11 +486,12 @@ class ExecutiveController extends Controller
           );
           array_push($assigned_projects,count($data));
           array_push($actual_assigned_projects,$data);
+          array_push($team_lead,$officer->AssignedProjectTeam->where('team_lead',1)->count());
         }
-
         // dd($actual_assigned_projects);
       \JavaScript::put([
         'officers' => $officers,
+        'team_lead' => $team_lead,
         'assigned_projects' => $assigned_projects,
         ]);
       return view('executive.home.chart_two',['officers' => $officers,'assigned_projects' => $assigned_projects,'actual_assigned_projects' => $actual_assigned_projects]);

@@ -209,7 +209,9 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
   Route::get('/monitoring_completedAssignment','OfficerController@monitoring_completedAssignments')->name('Monitoring_completedAssignments');
   Route::get('/monitoring_sInprogress','OfficerController@monitoring_inprogressSingle')->name('monitoring_inprogressSingle');
   Route::post('/monitoring_review_form','OfficerController@monitoring_review_form')->name('monitoring_review_form');
-
+  Route::post('/saveGeneralFeedBack','OfficerController@saveGeneralFeedBack')->name('saveGeneralFeedBack');
+  Route::post('/saveMissues','OfficerController@saveMissues')->name('saveMissues');
+  Route::post('/savehealthsafety','OfficerController@savehealthsafety')->name('savehealthsafety');
 });
 
 // Monitoring group

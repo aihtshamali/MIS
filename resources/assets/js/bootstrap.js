@@ -26,6 +26,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.am4charts = require('@amcharts/amcharts4/charts.js');
 window.am4core = require('@amcharts/amcharts4/core.js');
 window.am4themes = require('@amcharts/amcharts4/themes/animated.js');
+// window.am4themes_dataviz = require('@amcharts/amcharts4/themes/dataviz.js');
+
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
