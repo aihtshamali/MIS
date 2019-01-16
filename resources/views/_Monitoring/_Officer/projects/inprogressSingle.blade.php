@@ -389,6 +389,5 @@ $(window).scroll(function(){
      $("#table-1 > thead > tr > #action").show();
    }
 });
-});
 </script>
 @endsection

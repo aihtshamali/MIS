@@ -3,10 +3,10 @@
         <div class="col-lg-12 col-xl-12 col-md-12 col-sm-6">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs tabs" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active financial" data-toggle="tab" href="#financial"
+                {{-- <li class="nav-item">
+                    <a class="nav-link  financial" data-toggle="tab" href="#financial"
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Financial</b></a>
-                </li>
+                </li> --}}
 
                 <li class="nav-item">
                     <a class="nav-link quality_assesment" data-toggle="tab" href="#quality_assesment"
@@ -47,78 +47,6 @@
             </ul>
             <!-- Tab panes -->
             <div class="tab-content tabs card-block">
-                <div class="tab-pane active" id="financialDiv" role="tabpanel"
-                    aria-expanded="false">
-                    <div class="card m-0 z-depth-right-0">
-                        <div class="card-header">
-                            <h4>FINANCIAL COST</h4>
-                        </div>
-                        <div class="card-block">
-                            <div class="row">
-                                <div class="col-md-4 offset-md-2">
-                                    <div class="form-group">
-                                        <label for="" class="col-form-label"><b>ADP Allocation of Fiscal Year :</b></label>
-                                        <br>
-                                        <input type="text" class="form-control" name="adp_allocation_cost" id="ADP_allocation_cost" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="" class="col-form-label"><b>Total Allocation by that time (Cumulative):</b></label>
-                                        <br>
-                                        <input type="text" class="form-control" name="ADP_allocation_cost" id="ADP_allocation_cost" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="" class="col-form-label"><b>Utilization Against Cost Allocation :</b></label>
-                                        <br>
-                                    <input type="text" class="form-control" name="utilization_allocation" id="utilization_allocation" />
-
-                                    </div>
-                                </div>
-                                <div class="col-md-4 ">
-                                    <div class="form-group">
-                                        <label for="" class="col-form-label"><b>Release To Date of Fiscal Year :</b></label>
-                                        <br>
-                                        <input type="text" class="form-control" name="release_to_date" id="release_to_date" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="" class="col-form-label"><b>Total Releases To Date :</b></label>
-                                        <br>
-                                        <input type="date" class="form-control" name="total_release_to_date" id="total_release_to_date" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="" class="col-form-label"><b>Utilization Against Releases :</b></label>
-                                        <br>
-                                        <input type="text" class="form-control" name="u_against_rel" id="u_against_rel" />
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-md-10 offset-md-1">
-                                       <div class="divider"></div>
-                                       <div class="col-md-4 offset-md-2">
-                                            <div class="form-group">
-                                                <label for="" class="col-form-label"><b>Technical Sanction Cost:</b></label>
-                                                <br>
-                                                <input class="form-control" type="text" name="ts_cost" placeholder="TS Cost" />
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="" class="col-form-label"><b>Contract Award Cost :</b></label>
-                                                <br>
-                                                <input class="form-control" type="text" name="cad_cost"  placeholder="Contract Cost" />
-                                            </div>
-
-                                        </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="card-footer">
-                            <div class="col-md-3 offset-md-9">
-                                <a class="btn btn-success btn-md saveNnextbtn physical" >Save & Proceed</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="tab-pane" id="quality_assesment" role="tabpanel"
                     aria-expanded="false">
                     <div class="card z-depth-right-0">

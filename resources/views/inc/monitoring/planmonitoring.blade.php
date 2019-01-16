@@ -238,7 +238,7 @@ c                                                                           </ul
                         <div class="card-header"></div>
                         <div class="card-block">
                             <div class="row form-group">
-                                <h5 class="col-md-3 textlef mb_2">Component</h5>
+                                <h5 class="col-md-3 textlef mb_2">Tasks Under Component</h5>
                                 <h5 class="col-md-9 textlef mb_2">Duration In Days</h5>
                                 <div id='comptaskl' class="col-md-12 row" style="padding-left:2% !important;">
 

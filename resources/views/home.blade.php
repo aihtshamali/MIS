@@ -236,43 +236,43 @@
                   </a>
                 </div>
                 @endrole
-                @role('officer|evaluator|monitor|manager|directormonitoring|directorevaluation')
-                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
-                    <a href="{{route('monitoring_dashboard')}}" class="tile purple">
-                      <h3 class="title">Monitoring</h3>
-                      <hr/>
-                      <p>Visit Monitoring</p>
-                    </a>
-                </div>
-                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.6s">
-                    <a href="{{route('evaluation_dashboard')}}" class="tile orange">
-                      <h3 class="title">Evaluation</h3>
-                      <hr/>
-                      <p>Visit Evaluation</p>
-                    </a>
-                </div>
-                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.7s">
+                @role('officer|evaluator|monitor|manager|directormonitoring|directorevaluation|dataEntry')
+                  <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
+                      <a href="{{route('monitoring_dashboard')}}" class="tile purple">
+                        <h3 class="title">Monitoring</h3>
+                        <hr/>
+                        <p>Visit Monitoring</p>
+                      </a>
+                  </div>
+                  <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.6s">
+                      <a href="{{route('evaluation_dashboard')}}" class="tile orange">
+                        <h3 class="title">Evaluation</h3>
+                        <hr/>
+                        <p>Visit Evaluation</p>
+                      </a>
+                  </div>
+                  <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.7s">
+                      <a href="" class="tile green">
+                        <h3 class="title">TPV(s)</h3>
+                        <hr/>
+                        <p>Visit TPV(s)</p>
+                      </a>
+                  </div>
+                  <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.8s">
                     <a href="" class="tile green">
-                      <h3 class="title">TPV(s)</h3>
+                      <h3 class="title">Inquires</h3>
                       <hr/>
-                      <p>Visit TPV(s)</p>
+                      <p>Visit Inquires</p>
                     </a>
-                </div>
-                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.8s">
-                  <a href="" class="tile green">
-                    <h3 class="title">Inquires</h3>
-                    <hr/>
-                    <p>Visit Inquires</p>
-                  </a>
-                </div>
-                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.9s">
-                  <a href="{{route('trip.create')}}" class="tile orange">
-                    <h3 class="title">Plan My Trip</h3>
-                    <hr/>
-                    <p>Visit Plan My Trip</p>
-                  </a>
-                </div>
-                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.9s">
+                  </div>
+                  <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.9s">
+                    <a href="{{route('trip.create')}}" class="tile orange">
+                      <h3 class="title">Plan My Trip</h3>
+                      <hr/>
+                      <p>Visit Plan My Trip</p>
+                    </a>
+                  </div>
+                  <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.9s">
                   <a href="#!" class="tile orange">
                     <h3 class="title">leaves</h3>
                     <hr/>
