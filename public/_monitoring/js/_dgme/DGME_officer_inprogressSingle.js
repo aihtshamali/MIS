@@ -327,10 +327,7 @@ $(document).ready(function () {
         hideall();
         $('.nav-link').removeClass('active');
         $('.quality_assesment').addClass('active');
-<<<<<<< HEAD
         $('#quality_assesment').show();
-=======
->>>>>>> 28cb3c47f7884bbe3155d263032bc624a7483dc2
         $('#c_monitoring').show();
         $('#quality_assesment').show();
         $('#p_monitoring').hide();
@@ -524,7 +521,7 @@ $('button#add-more-issues').click(function (e) {
     temp.children().last().remove();
     temp.append('<td><button class="btn btn-sm btn-danger" id="remove-issue" onclick="removeIssuerow(this)" name="remove[]" type="button">-</button></td>');
     console.log(temp);
-    
+
     $(temp).appendTo('#add-issue-here')
 });
 $('button#add-more').click(function (e) {

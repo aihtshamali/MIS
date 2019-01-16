@@ -3,14 +3,6 @@
         <div class="col-lg-12 col-xl-12 col-md-12 col-sm-6">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs tabs" role="tablist">
-<<<<<<< HEAD:resources/views/inc/monitoring/conduct_monitoring.blade.php
-                {{-- <li class="nav-item">
-                    <a class="nav-link  financial" data-toggle="tab" href="#financial"
-                        role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Financial</b></a>
-                </li> --}}
-
-=======
->>>>>>> 28cb3c47f7884bbe3155d263032bc624a7483dc2:resources/views/_Monitoring/inc/monitoring/conduct_monitoring.blade.php
                 <li class="nav-item">
                     <a class="nav-link quality_assesment" data-toggle="tab" href="#quality_assesment"
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Quality
@@ -214,7 +206,7 @@
                         <div class="card-block">
                             <form action="{{route('saveMissues')}}" method="POST" class="serializeform">
                                 {{ csrf_field() }}
-                                <input type="hidden" name="m_project_progress_id" value="{{$progresses->last()->id}}">  
+                                <input type="hidden" name="m_project_progress_id" value="{{$progresses->last()->id}}">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered nowrap">
                                         <thead>

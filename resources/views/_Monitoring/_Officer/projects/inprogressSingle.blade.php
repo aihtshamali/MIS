@@ -383,31 +383,6 @@ $(document).ready(function(){
     // .catch(function (error) {
     //     console.log(error);
     // });
-<<<<<<< HEAD
-    // console.log($('.review').serialize());
-  // });
-$(window).scroll(function(){
-  var scroll = $(window).scrollTop();
-  if (scroll > 380)
-  {
-    $("#table-1 > thead").css({ "position": "fixed", "margin-top": "-26.1%", "background": "#fff", "z-index": "999"});
-    $("#table-1 > thead > tr > th:eq(0)").css({"width": "45px"});
-    $("#table-1 > thead > tr > th:eq(1)").css({"width": "128px"});
-    $("#table-1 > thead > tr > th:eq(2)").css({"width": "171px"});
-    $("#table-1 > thead > tr > th:eq(3)").css({"width": "171px"});
-    $("#table-1 > thead > tr > th:eq(4)").css({"width": "171px"});
-    $("#table-1 > thead > tr > th:eq(5)").css({"width": "171px"});
-    $("#table-1 > thead > tr > th:eq(6)").css({"width": "50px"});
-    $("#table-1 > thead > tr > th").css({"border-left": "none", "border-right": "none"});
-    // $("#table-1 > thead > tr > #action").hide();
-  }
-  else
-   {
-     $("#table-1 > thead").css({ "position": "relative", "background": "#fff"});
-     // $("#table-1 > thead > tr > th").css({ "width": "171px", "border-left": "none", "border-right": "none"});
-     $("#table-1 > thead > tr > #action").show();
-   }
-=======
   });
 
   $(window).scroll(function(){
@@ -433,7 +408,6 @@ $(window).scroll(function(){
      }
   });
 
->>>>>>> 28cb3c47f7884bbe3155d263032bc624a7483dc2
 });
 </script>
 @endsection
