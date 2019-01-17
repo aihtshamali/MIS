@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb0ba302c19339ccc945bec8fb2c29abe
+class ComposerStaticInitc13c271925a5c54963b2aa34928384d8
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -502,6 +502,7 @@ class ComposerStaticInitb0ba302c19339ccc945bec8fb2c29abe
         'App\\Http\\Controllers\\HrProjectDecisionController' => __DIR__ . '/../..' . '/app/Http/Controllers/HrProjectDecisionController.php',
         'App\\Http\\Controllers\\HrProjectTypeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HrProjectTypeController.php',
         'App\\Http\\Controllers\\HrSectorController' => __DIR__ . '/../..' . '/app/Http/Controllers/HrSectorController.php',
+        'App\\Http\\Controllers\\MonitoringProjectKpiController' => __DIR__ . '/../..' . '/app/Http/Controllers/MonitoringProjectKpiController.php',
         'App\\Http\\Controllers\\NotificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/NotificationController.php',
         'App\\Http\\Controllers\\OfficerController' => __DIR__ . '/../..' . '/app/Http/Controllers/OfficerController.php',
         'App\\Http\\Controllers\\PermissionsController' => __DIR__ . '/../..' . '/app/Http/Controllers/PermissionsController.php',
@@ -543,10 +544,10 @@ class ComposerStaticInitb0ba302c19339ccc945bec8fb2c29abe
         'App\\MIssue' => __DIR__ . '/../..' . '/app/MIssue.php',
         'App\\MPhysicalActivity' => __DIR__ . '/../..' . '/app/MPhysicalActivity.php',
         'App\\MProjectComponentTask' => __DIR__ . '/../..' . '/app/MProjectComponentTask.php',
-        'App\\MProjectKpis' => __DIR__ . '/../..' . '/app/MProjectKpis.php',
-        'App\\MProjectLevel1Kpis' => __DIR__ . '/../..' . '/app/MProjectLevel1Kpis.php',
-        'App\\MProjectLevel2Kpis' => __DIR__ . '/../..' . '/app/MProjectLevel2Kpis.php',
-        'App\\MProjectLevel3Kpis' => __DIR__ . '/../..' . '/app/MProjectLevel3Kpis.php',
+        'App\\MProjectKpi' => __DIR__ . '/../..' . '/app/MProjectKpi.php',
+        'App\\MProjectLevel1Kpi' => __DIR__ . '/../..' . '/app/MProjectLevel1Kpi.php',
+        'App\\MProjectLevel2Kpi' => __DIR__ . '/../..' . '/app/MProjectLevel2Kpi.php',
+        'App\\MProjectLevel3Kpi' => __DIR__ . '/../..' . '/app/MProjectLevel3Kpi.php',
         'App\\MProjectProgress' => __DIR__ . '/../..' . '/app/MProjectProgress.php',
         'App\\MQualityAssesment' => __DIR__ . '/../..' . '/app/MQualityAssesment.php',
         'App\\MRiskCategory' => __DIR__ . '/../..' . '/app/MRiskCategory.php',
@@ -614,7 +615,7 @@ class ComposerStaticInitb0ba302c19339ccc945bec8fb2c29abe
         'App\\VmisDriver' => __DIR__ . '/../..' . '/app/VmisDriver.php',
         'App\\VmisDriverDocument' => __DIR__ . '/../..' . '/app/VmisDriverDocument.php',
         'App\\VmisRequestToTransportOfficer' => __DIR__ . '/../..' . '/app/VmisRequestToTransportOfficer.php',
-        'App\\VmisRequestToTransportOfficerLog' => __DIR__ . '/../..' . '/app/VmisRequestToTransportOfficerLog.php',
+        'App\\VmisRequestToTransportOfficersLog' => __DIR__ . '/../..' . '/app/VmisRequestToTransportOfficersLog.php',
         'App\\VmisVehicle' => __DIR__ . '/../..' . '/app/VmisVehicle.php',
         'App\\VmisVehicleDetails' => __DIR__ . '/../..' . '/app/VmisVehicleDetails.php',
         'App\\VmisVehicleDocument' => __DIR__ . '/../..' . '/app/VmisVehicleDocument.php',
@@ -4613,11 +4614,11 @@ class ComposerStaticInitb0ba302c19339ccc945bec8fb2c29abe
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb0ba302c19339ccc945bec8fb2c29abe::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb0ba302c19339ccc945bec8fb2c29abe::$prefixDirsPsr4;
-            $loader->fallbackDirsPsr4 = ComposerStaticInitb0ba302c19339ccc945bec8fb2c29abe::$fallbackDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitb0ba302c19339ccc945bec8fb2c29abe::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitb0ba302c19339ccc945bec8fb2c29abe::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitc13c271925a5c54963b2aa34928384d8::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitc13c271925a5c54963b2aa34928384d8::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr4 = ComposerStaticInitc13c271925a5c54963b2aa34928384d8::$fallbackDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitc13c271925a5c54963b2aa34928384d8::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitc13c271925a5c54963b2aa34928384d8::$classMap;
 
         }, null, ClassLoader::class);
     }
