@@ -13,7 +13,8 @@
             border: 0;
             border-top: 1px solid #ffffff47 !important;
         }
-     .w_30p{width: 46% !important;margin-top: -11% !important;}
+     .w_46p{width: 46% !important;margin-top: -11% !important;}
+     .w_30p{width: 30% !important;margin-top: -11% !important;}
      .tile {
       width: 100%;
       display: inline-block;
@@ -78,6 +79,9 @@
     .white{color: #fff !important;}
     .close{position: absolute;right: 0;z-index: 9999;}
     .text_center{text-align: center !important;}
+    a p, a h3{text-transform: capitalize !important;}
+    ::selection{color: #fff !important;background: #687753  !important;}
+    .maraut{margin:auto !important;}
    </style>
 @endsection
 @section('content')
@@ -85,7 +89,11 @@
         {{-- start vertical auto clider --}}
         {{-- end vertical auto clider --}}
           <!-- Main Section-->
-          <div class="hero-section app-hero">
+          {{-- @auth --}}
+            {{-- <div class="pt_3p"></div> --}}
+            {{-- <div class="pt_3p"></div> --}}
+          {{-- @else --}}
+            <div class="hero-section app-hero">
               <div class="container">
                   <div class="hero-content app-hero-content text-center">
                       <div class="row justify-content-md-center">
@@ -97,51 +105,183 @@
                               {{-- <a class="btn btn-primary btn-action" data-wow-delay="0.2s" href="#">Live Preview</a> --}}
                               {{-- <a class="btn btn-primary btn-action" data-wow-delay="0.2s" href="#">Buy Now</a> --}}
                           </div>
+                          <div class="col-md-12">
+                              <div class="hero-image">
+                                  {{-- <img class="img-fluid" src="assets/images/app_hero_1.png" alt="" /> --}}
+                                  {{-- main --}}
+                                  <div id="testmodal" class="modal fade">
+                                      <div class="modal-dialog">
+                                          <div class="modal-content">
+                                              <div class="modal-header">
+                                                  {{-- <h1 class="col-md-10 black nopad-nomar">Login</h2> --}}
+                                                  <button type="button" class="close col-md-2" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                  {{-- <h4 class="modal-title">Confirmation</h4> --}}
+                                              </div>
+                                              <div class="modal-body">
+                                                <div class="limiter">
+                                              		<div class="container-login100">
+                                              			<div class="wrap-login100 p-t-50 p-b-20">
+                                                      <form class="login100-form validate-form" method="POST" action="{{ route('login') }}">
+                                                        {{ csrf_field() }}
+                                              					<span style="text-align: center ; text-decoration-color: lightslategray" class="p-b-7">
+                                              						<div style="text-align: center ">
+                                              								<img src="logo.jpg"  alt="AVATAR">
+                                              						</div>
+                                              					</span>
+                                              					<div class="wrap-input100 validate-input m-t-40 m-b-15" data-validate = "Enter username">
+                                              						<input class="input100 col-md-8 offset-md-2 form-control" placeholder="Username" type="text" id="username" name="username" value="{{ old('username') }}">
+                                                              <span class="focus-input100" data-placeholder="UserName"></span>
+                                                              @if ($errors->has('username'))
+                                                                   <div class="help-block">
+                                                                      <strong>{{ $errors->first('username') }}</strong>
+                                                                  </div>
+                                                              @endif
+                                              					</div>
+                                              					<div class="wrap-input100 validate-input m-b-15" data-validate="Enter password">
+                                              	  					<input class="input100 col-md-8 offset-md-2 form-control" placeholder="Password" id="password" type="password" name="password">
+                                                            <span class="focus-input100" data-placeholder="Password"></span>
+                                                            @if ($errors->has('password'))
+                                                            <div class="help-block">
+                                                                <strong>{{ $errors->first('password') }}</strong>
+                                                            </div>
+                                                            @endif
+                                                        </div>
+
+                                                        <div class="checkbox m-b-20 mr_3p">
+                                                            <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember  me
+                                              			</div>
+                                                        <div class="container-login100-form-btn ">
+                                                            <button class="login100-form-btn btn bg_g white"  >
+                                                                Login
+                                                            </button>
+                                                        </div>
+
+                                              					{{-- <ul class="login-more p-t-50 m-b-8 modal-footer">
+                                              							<span class="txt1">
+                                              								Forgot
+                                              							</span>
+                                              							<b>
+                                              							<a href="#" class="txt2 clr_g">
+                                              									Username  /  Password?
+                                              							</a>
+                                              							</b>
+                                              							<b>
+                                              								<a href="/register" class="txt2 btn bg_g" style=" float : right; margin-left: 20px;">
+                                              									 Sign up
+                                              								</a>
+                                              							</b>
+
+                                              					</ul> --}}
+                                              				</form>
+                                              			</div>
+                                              		</div>
+                                              	</div>
+                                              </div>
+                                              {{-- <div class="">
+                                                  <button type="button" class="btn-default" data-dismiss="modal">Close</button>
+                                              </div> --}}
+                                          </div>
+                                      </div>
+                                  </div>
+                                  {{-- <div id="testmodal-1" class="modal fade">
+                                      <div class="modal-dialog">
+                                          <div class="modal-content">
+                                              <div class="modal-header">
+                                                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                  <h4 class="modal-title">Confirmation</h4>
+                                              </div>
+                                              <div class="modal-body">
+                                                  <p>Do you want to save changes you made to document before closing?</p>
+                                                  <p class="text-warning"><small>If you don't save, your changes will be lost.</small></p>
+                                              </div>
+                                              <div class="modal-footer">
+                                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                  <button type="button" class="btn btn-primary">Save changes</button>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div> --}}
+                                  {{-- end main --}}
+                              </div>
+                          </div>
                       </div>
                   </div>
               </div>
           </div>
+          {{-- @endauth --}}
           @auth
           <div class="pt_3p text-center">
             <div class="container">
               <div class="row">
-                <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.5s">
+                @role('adminhr')
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.3s">
+                  <a href="#!" class="tile purple">
+                    <h3 class="title">PDWP meetings</h3>
+                    <hr/>
+                    <p>visit PDWP Meetings</p>
+                  </a>
+                </div>
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.3s">
+                  <a href="#!" class="tile purple">
+                    <h3 class="title">LMS</h3>
+                    <hr/>
+                    <p>Leave Management System</p>
+                  </a>
+                </div>
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.3s">
+                  <a href="#!" class="tile purple">
+                    <h3 class="title">Human Resource System</h3>
+                    <hr/>
+                    <p>visit HR System</p>
+                  </a>
+                </div>
+                @endrole
+                @role('officer|evaluator|monitor|manager|directormonitoring|directorevaluation')
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
                     <a href="{{route('monitoring_dashboard')}}" class="tile purple">
                       <h3 class="title">Monitoring</h3>
                       <hr/>
                       <p>Visit Monitoring</p>
                     </a>
                 </div>
-                <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.6s">
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.6s">
                     <a href="{{route('evaluation_dashboard')}}" class="tile orange">
                       <h3 class="title">Evaluation</h3>
                       <hr/>
                       <p>Visit Evaluation</p>
                     </a>
                 </div>
-                <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.7s">
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.7s">
                     <a href="" class="tile green">
                       <h3 class="title">TPV(s)</h3>
                       <hr/>
                       <p>Visit TPV(s)</p>
                     </a>
                 </div>
-                <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.8s">
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.8s">
                   <a href="" class="tile green">
                     <h3 class="title">Inquires</h3>
                     <hr/>
                     <p>Visit Inquires</p>
                   </a>
                 </div>
-                <div class="col-sm-3 wow fadeInUp" data-wow-delay="0.9s">
-                    <a href="{{route('trip.create')}}" class="tile orange">
-                      <h3 class="title">Plan My Trip</h3>
-                      <hr/>
-                      <p>Visit Plan My Trip</p>
-                    </a>
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.9s">
+                  <a href="{{route('trip.create')}}" class="tile orange">
+                    <h3 class="title">Plan My Trip</h3>
+                    <hr/>
+                    <p>Visit Plan My Trip</p>
+                  </a>
                 </div>
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.9s">
+                  <a href="#!" class="tile orange">
+                    <h3 class="title">leaves</h3>
+                    <hr/>
+                    <p>Schedule leaves here</p>
+                  </a>
+                </div>
+                @endrole
                 @role('transportofficer')
-                <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.0s">
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.0s">
                   <a href="http://vmis.dgme.gov.pk:8081/" class="tile green">
                     <h3 class="title">Vehicle Management System</h3>
                     <hr/>
@@ -149,14 +289,14 @@
                   </a>
                 </div>
                 @endrole
-                <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.2s">
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.2s">
                   <a href="" class="tile green">
                     <h3 class="title">My Profile</h3>
                     <hr/>
-                    <p>My Profile</p>
+                    <p>check Profile</p>
                   </a>
                 </div>
-                <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.3s">
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.3s">
                   <a href="" class="tile purple">
                     <h3 class="title">New Announcement</h3>
                     <hr/>
@@ -282,6 +422,40 @@
                   </div>
               </div>
           </div>
+          {{-- start news slider --}}
+          <div id="content-wrapper">
+            <div class="inner clearfix">
+              <section id="main-content">
+                  <div id="demos">
+                          <div id="carouselTicker" class="carouselTicker">
+                              <ul class="carouselTicker__list">
+                                <li class="carouselTicker__item grayeee">
+                                  <h4>Capacity Building 1</h4>
+                                  <p>celebration of project complition in CR room...</p>
+                                  <b class="float-right" style="font-size: 11px !important;">12/12/2018</b>
+                                </li>
+                                <li class="carouselTicker__item grayeee">
+                                  <h4>Capacity Building 2</h4>
+                                  <p>celebration of project complition in CR room...</p>
+                                  <b class="float-right" style="font-size: 11px !important;">12/12/2018</b>
+                                </li>
+                                <li class="carouselTicker__item grayeee">
+                                  <h4>Capacity Building 3</h4>
+                                  <p>celebration of project complition in CR room...</p>
+                                  <b class="float-right" style="font-size: 11px !important;">12/12/2018</b>
+                                </li>
+                                <li class="carouselTicker__item grayeee">
+                                  <h4>Capacity Building 4</h4>
+                                  <p>celebration of project complition in CR room...</p>
+                                  <b class="float-right" style="font-size: 11px !important;">12/12/2018</b>
+                                </li>
+                              </ul>
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </div>
+          {{-- end news slider --}}
           <!-- Footer Section -->
           <div class="footer">
               <div class="container">
@@ -309,9 +483,6 @@
       </div>
       <!-- Main Section -->
   </div>
-
-
-
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -327,7 +498,6 @@
           <div class="modal-body">
               <center>
                 <img class="" src="{{ asset('dgme.png')}}" alt="DGME" />
-              </center>
               <div class="col-md-8 offset-md-2 clearfix">
                 {{-- <label>Username</label> --}}
                 <input v-model="form.username" type="text" name="username"
@@ -342,11 +512,12 @@
                 <has-error :form="form" field="password"></has-error>
               </div>
               <div class="checkbox m-b-20 col-md-8 offset-md-2 clearfix">
-                  <label class="col-md-6" style="padding-top:4% !important;">
+                  <label class="col-md-7" style="padding-top:4% !important;">
                       <input type="checkbox" v-model="form.remember" name="remember" :class="{ 'is-invalid': form.errors.has('remember') }" style="margin-top:1% !important;"> Remember Me
                   </label>
-                  <button :disabled="form.busy" type="submit" class="btn col-md-6" style="margin-bottom:9% !important">Login</button>
+                  <button :disabled="form.busy" type="submit" class="btn col-md-5" style="margin-bottom:9% !important">Login</button>
     				 </div>
+           </center>
           </div>
         {{-- <div class="modal-footer form-group col-md-12 clearfix">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -391,17 +562,6 @@
 //      }
 //   });
 //   });
-
-    // $(function() {
-    //         $('#element').on('click', function( e ) {
-    //             Custombox.open({
-    //                 target: '#testmodal-1',
-    //                 effect: 'fadein'
-    //             });
-    //             e.preventDefault();
-    //         });
-    //     });
-
 new Vue({
   el: '#myModal',
 
@@ -441,6 +601,5 @@ new Vue({
     }
   }
 })
-
 </script>
 @endsection

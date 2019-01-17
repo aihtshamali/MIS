@@ -202,10 +202,16 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
   // Monitoring Module Routes
   Route::get('/monitoring_newAssignment','OfficerController@monitoring_newAssignments')->name('Monitoring_newAssignments');
   Route::get('/monitoring_inprogressAssignment','OfficerController@monitoring_inprogressAssignments')->name('Monitoring_inprogressAssignments');
+  Route::post('/monitoring_inprogress_costs_saved','OfficerController@monitoring_inprogress_costs_saved')->name('Monitoring_inprogressCostSaved');
+  Route::post('/monitoring_inprogress_dates_saved','OfficerController@monitoring_inprogress_dates_saved')->name('Monitoring_inprogressDateSaved');
+  Route::post('/monitoring_inprogress_organizations_saved','OfficerController@monitoring_inrogress_organizations_saved')->name('Monitoring_inprogressOrganizationSaved');
+  Route::post('/monitoring_inprogress_location_saved','OfficerController@monitoring_inprogress_location_saved')->name('Monitoring_inprogressLocationSaved');
   Route::get('/monitoring_completedAssignment','OfficerController@monitoring_completedAssignments')->name('Monitoring_completedAssignments');
   Route::get('/monitoring_sInprogress','OfficerController@monitoring_inprogressSingle')->name('monitoring_inprogressSingle');
   Route::post('/monitoring_review_form','OfficerController@monitoring_review_form')->name('monitoring_review_form');
-
+  Route::post('/saveGeneralFeedBack','OfficerController@saveGeneralFeedBack')->name('saveGeneralFeedBack');
+  Route::post('/saveMissues','OfficerController@saveMissues')->name('saveMissues');
+  Route::post('/savehealthsafety','OfficerController@savehealthsafety')->name('savehealthsafety');
 });
 
 // Monitoring group
@@ -271,6 +277,9 @@ Route::post('/printerfunction','AdminHumanResourceController@printer');
 
 Route::get('/403',function(){
   return view('403');
+});
+Route::get('/Attendance',function(){
+  return view('Attendance');
 });
 Route::get('/dgv',function(){
   return view('hassan.dg');
