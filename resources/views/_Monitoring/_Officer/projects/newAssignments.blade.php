@@ -3,12 +3,12 @@
 <style>
 .openpage{
   border: 1px solid lavender;
-
 }
 .openpage:hover{
   background: lavender;
-
 }
+.New_Assignments a{color : #FE8A7D !important;}
+.Monitoring_Projects{color : #FE8A7D !important;}
 </style>
 @section('content')
 <div class="row">
@@ -50,11 +50,9 @@
                         <div class="accordion-panel">
                             <div class="accordion-heading" role="tab" id="heading_{{$i}}">
                                 <h3 class="card-title accordion-title">
-                                <a class="accordion-msg" data-toggle="collapse" data-parent="#accordion" href="#collapse_{{$i}}" aria-expanded="true" aria-controls="collapse_{{$i}}">
-                                    {{$project->title}}
-                                </a>
-                                <button class="btn btn-sm btn-danger btn-outline-danger" style=" margin-bottom: 10px; margin-left: 60%;">
-                                  <i class="icofont icofont-info-square"></i>Review Project</button>
+                                  <a class="accordion-msg" data-toggle="collapse" data-parent="#accordion" href="#collapse_{{$i}}" aria-expanded="true" aria-controls="collapse_{{$i}}">
+                                      {{$project->title}}
+                                  </a>
                                 </h3>
                             </div>
 

@@ -1,8 +1,9 @@
 {
-    "/pdfmake.js": "/pdfmake.js",
-    "/xlsx.js": "/xlsx.js",
-    "/canvg.js": "/canvg.js",
-    "/responsivedefaults.js": "/responsivedefaults.js",
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/vendors~canvg.js": "/vendors~canvg.js",
+    "/vendors~pdfmake.js": "/vendors~pdfmake.js",
+    "/vendors~responsivedefaults.js": "/vendors~responsivedefaults.js",
+    "/vendors~xlsx.js": "/vendors~xlsx.js",
+    "/xlsx.js": "/xlsx.js"
 }

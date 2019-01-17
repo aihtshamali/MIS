@@ -26,15 +26,17 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <!-- Main Style css -->
     <link href="{{ asset('landingPage/css/style.css')}}" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('landingPage/css/stylesheet.css')}}" media="screen">
+    <link rel="stylesheet" type="text/css" href="{{ asset('landingPage/css/carouselTicker.css')}}" media="screen">
     @yield('styleTags')
 </head>
 
 <body>
   <div class="wrapper animsition" data-animsition-in-class="fade-in" data-animsition-in-duration="1000" data-animsition-out-class="fade-out" data-animsition-out-duration="1000">
-      <div class="container">
+      {{-- <div class="container"> --}}
            <nav class="navbar navbar-expand-lg navbar-light navbar-default navbar-fixed-top" role="navigation">
               <div class="container">
-                  <a class="navbar-brand page-scroll" href="#main"><img class="w_30p" src="{{ asset('dgme.png')}}" alt="DGME Logo" /></a>
+                  <a class="navbar-brand page-scroll" href="#main"><img class="w_46p" id="logo" src="{{ asset('dgme.png')}}" alt="DGME Logo" /></a>
                   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                       <span class="navbar-toggler-icon"></span>
                   </button>
@@ -42,30 +44,6 @@
                       <ul class="navbar-nav mr-auto">
                       </ul>
                       <ul class="navbar-nav my-2 my-lg-0">
-                          {{-- <li class="nav-item">
-                            @auth
-                              @role('admin')
-                              <a class="nav-link" style="" href="{{ url('/admin') }}">Home</a>
-                              @endrole
-                              @role('directorevaluation')
-                              <a class="nav-link" style="" href="{{ url('/director_evaluation') }}">Home</a>
-                              @endrole
-                              @role('directormonitoring')
-                              <a class="nav-link" style="" href="{{ url('/director_Monitor') }}">Home</a>
-                              @endrole
-                              @role('manager')
-                              <a class="nav-link" style="" href="{{ url('/manager') }}">Home</a>
-                              @endrole
-                              @role('adminhr')
-                              <a class="nav-link" style="" href="#">Home</a>
-                              @endrole
-                              @role('dataentry')
-                              <a class="nav-link" style="" href="{{ route('projects.index') }}">Home</a>
-                              @endrole
-                              @role('officer')
-                              <a class="nav-link" style="" href="{{ url('/officer') }}">Home</a>
-                              @endrole
-                          </li> --}}
                           <li class="nav-item">
                               <a class="nav-link page-scroll" href="#">Home</a>
                           </li>
@@ -91,19 +69,19 @@
                                      {{ csrf_field() }}
                                  </form>
                           </li>
-                        @else
-                          <li id="element" class="show-modal nav-item">
-                            <a class="nav-link" style=" " data-toggle="modal" data-target="#myModal" href="#!" >Login</a>
-                            {{-- <li><strong><a href="{{route('register')}}">Register</a></strong></li> --}}
-                            {{-- {{route('login')}} --}}
-                          </li>
+                          @else
+                            <li id="element" class="show-modal nav-item">
+                              <a class="nav-link" style=" " data-toggle="modal" data-target="#myModal" href="#!" >Login</a>
+                              {{-- <li><strong><a href="{{route('register')}}">Register</a></strong></li> --}}
+                              {{-- {{route('login')}} --}}
+                            </li>
                           @endauth
                       </ul>
                   </div>
 
               </div>
           </nav>
-      </div>
+      {{-- </div> --}}
 @yield('content')
     <!-- Wrapper-->
 {{-- </div> --}}
@@ -114,6 +92,9 @@
     <script type="text/javascript" src="{{ asset('landingPage/js/plugins.js')}}"></script>
     <script type="text/javascript" src="{{ asset('landingPage/js/menu.js')}}"></script>
     <script type="text/javascript" src="{{ asset('landingPage/js/custom.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('landingPage/js/jquery.carouselTicker.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('landingPage/js/start.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('js/Customvue.min.js')}}"></script>
     <script type="text/javascript" src="{{ asset('js/app.js')}}"></script>
     @yield('scripttags')
 </body>

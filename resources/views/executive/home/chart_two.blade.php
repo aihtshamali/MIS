@@ -115,79 +115,7 @@
                     <h4 class="modal-title">Projects</h4>
                   </div>
                   <div class="modal-body">
-                              <div class="box">
-                                <div class="box-header">
-                                  <h3 class="box-title">Projects</h3>
-                                </div>
-                                <!-- /.box-header -->
-                                <div class="box-body">
-                                  <table id="example{{ $officers[$counter++]->id }}" class="table table-bordered table-striped">
-                                    <thead>
-                                    <tr>
-                                      <th>SR #</th>
-                                      <th>Project No</th>
-                                      <th>GS #</th>
-                                      <th>Name</th>
-                                      <th>Sector</th>
-                                      <th>Cost</th>
-                                      <th>Status</th>
-                                      <th>Officer</th>
-                                      <th>Progress</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="tbody">
-                                      @php
-                                        $inner_counter = 1;
-                                      @endphp
-                                      @foreach ($value as $total_project)
-                                        <tr>
-                                          <td>{{  $inner_counter++ }}</td>
-                                          <td>{{$total_project->project_no}}</td>
-                                          <td style="width:120px">{{$total_project->financial_year}} / {{$total_project->ADP}}</td>
-                                          <td>{{$total_project->title}}</td>
-                                          <td>
-                                            @if (isset(App\Project::find($total_project->project_id)->AssignedSubSectors))
-                                              @foreach (App\Project::find($total_project->project_id)->AssignedSubSectors as $sub_sectors)
-                                                {{ $sub_sectors->SubSector->name }}
-                                              @endforeach
-                                            @endif
-                                          </td>
-                                          @if (isset(App\Project::find($total_project->project_id)->ProjectDetail))
-                                            <td>{{round(App\Project::find($total_project->project_id)->ProjectDetail->orignal_cost,2,PHP_ROUND_HALF_UP)}}</td>
-                                          @else
-                                            <td>No Details</td>
-                                          @endif
-
-                                          {{-- @if(isset(App\AssignedProject::find($total_project->assigned_project_id))) --}}
-                                          @if (App\AssignedProject::find($total_project->assigned_project_id)->complete == 0)
-                                            <td>InProgress</td>
-                                          @else
-                                            <td>Completed</td>
-                                          @endif
-                                        {{-- @else
-                                          <td>Not Assigned</td>
-                                        @endif --}}
-                                          <td>
-                                            {{-- @if(isset(App\AssignedProject::find($total_project->assigned_project_id))) --}}
-                                            @foreach (App\AssignedProject::find($total_project->assigned_project_id)->AssignedProjectTeam as $team)
-                                              <span @if($team->team_lead == 1) style="color:blue;" @endif>{{ $team->User->first_name }} {{ $team->User->last_name }}</span>
-                                            @endforeach
-                                          {{-- @endif --}}
-                                          </td>
-                                          <td>
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
-                                                  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo 20+App\AssignedProject::find($total_project->assigned_project_id)->progress; ?>% ">
-                                                {{round(App\AssignedProject::find($total_project->assigned_project_id)->progress,2,PHP_ROUND_HALF_UP)}}% Complete
-                                                  </div>
-                                                </div></td>
-                                        </tr>
-                                      @endforeach
-                                    </tbody>
-                                  </table>
-                                </div>
-                                <!-- /.box-body -->
-                              </div>
+                              
                               <!-- /.box -->
                   </div>
                   <div class="modal-footer">
@@ -220,6 +148,7 @@
 <script src="{{asset('js/charts/light.js')}}"></script>
 <script src="{{asset('js/charts/patterns.js')}}"></script>
 
+
 <script type="text/javascript">
 $(document).ready(function(){
   officers.forEach(element => {
@@ -228,6 +157,76 @@ $(document).ready(function(){
 });
 </script>
 
+
+<script>
+let chart = am4core.create("chartdiv2", am4charts.XYChart);
+
+var st = [];
+        $i = 0;
+        officers.forEach(element => {
+          st.push ({
+            "Name":element.first_name +" "+element.last_name ,
+            "Team Member": (assigned_projects[$i]-team_lead[$i]),
+            "Team Lead" : team_lead[$i]
+          });
+          $i++;
+        });
+        
+
+// Add data
+chart.data = st;
+
+// Create axes
+let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+categoryAxis.dataFields.category = "Name";
+categoryAxis.renderer.grid.template.location = 0;
+// Rotation
+categoryAxis.renderer.labels.template.rotation=30;
+
+let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+valueAxis.renderer.inside = true;
+valueAxis.renderer.labels.template.disabled = true;
+valueAxis.min = 0;
+
+// Create series
+function createSeries(field, name) {
+  
+  // Set up series
+  let series = chart.series.push(new am4charts.ColumnSeries());
+  series.name = name;
+  series.dataFields.valueY = field;
+  series.dataFields.categoryX = "Name";
+  series.sequencedInterpolation = true;
+  
+  // Make it stacked
+  series.stacked = true;
+  
+  // Configure columns
+  series.columns.template.width = am4core.percent(60);
+  series.columns.template.tooltipText = "[bold]{name}[/]\n[font-size:14px]{categoryX}: {valueY}";
+  
+  // Add label
+  let labelBullet = series.bullets.push(new am4charts.LabelBullet());
+  labelBullet.label.text = "{valueY}";
+  labelBullet.locationY = 0.5;
+  
+  return series;
+}
+
+createSeries("Team Lead", "Team Lead");
+createSeries("Team Member", "Team Member");
+// createSeries("asia", "Asia-Pacific");
+// createSeries("lamerica", "Latin America");
+// createSeries("meast", "Middle-East");
+// createSeries("africa", "Africa");
+
+// Legend
+chart.legend = new am4charts.Legend();
+</script>
+
+
+
+
 <script type="text/javascript">
 $(document).on('click','g.amcharts-graph-column',function(){
   var data=$(this).attr('aria-label').replace(/[\s+,\.+]/g, '');
@@ -235,7 +234,7 @@ $(document).on('click','g.amcharts-graph-column',function(){
     $('#Modal'+data).modal('show');
 });
 </script>
-<script>
+{{-- <script>
         var st = [];
         $i = 0;
         officers.forEach(element => {
@@ -290,5 +289,5 @@ $(document).on('click','g.amcharts-graph-column',function(){
         }
 
       } );
-    </script>
+    </script> --}}
 @endsection

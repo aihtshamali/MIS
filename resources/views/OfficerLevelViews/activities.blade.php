@@ -132,7 +132,7 @@
   </style>
 @endsection
 @section('content')
-<div id="loader"><img src="{{asset('awienWalaLoader.gif')}}"/></div>
+<div id="loader"><img src="{{asset('loader.gif')}}"/></div>
   <div class="content-wrapper">
     {{-- <!-- Content Header (Page header) --> --}}
     <section class="content-header">

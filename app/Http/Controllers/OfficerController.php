@@ -27,6 +27,18 @@ use App\ProblematicRemarks;
 use App\AssignedProjectActivity;
 use App\ActivityDocument;
 use App\AssignedActivityDocument;
+use App\MProjectProgress;
+use App\MProjectCost;
+use App\MProjectLocation;
+use App\MProjectDate;
+use App\MProjectOrganization;
+use App\MGeneralFeedBack;
+use App\MAssignedProjectFeedBack;
+use App\MIssueType;
+use App\MAssignedProjectIssue;
+use App\MAssignedProjectHealthSafety;
+use App\MHealthSafety;
+
 use Illuminate\Support\Facades\Redirect;
 use DB;
 class OfficerController extends Controller
@@ -391,29 +403,153 @@ class OfficerController extends Controller
         ->leftjoin('assigned_project_teams','assigned_projects.id','assigned_project_teams.assigned_project_id')
         ->where('assigned_project_teams.user_id',Auth::id())
         ->where('project_type_id',2)
+        ->where('acknowledge',0)
+        ->where('status',1)
         ->get();
         return view('_Monitoring._Officer.projects.newAssignments',['projects'=>$projects]);
       }
 
       public function monitoring_inprogressAssignments()
       {
-
-        // $sub_sectors = SubSector::where('status','1')->get();
-        return view('_Monitoring._Officer.projects.inprogress');
+        $projects= Project::select('projects.*')
+        ->leftjoin('assigned_projects','projects.id','assigned_projects.project_id')
+        ->leftjoin('assigned_project_teams','assigned_projects.id','assigned_project_teams.assigned_project_id')
+        ->where('assigned_project_teams.user_id',Auth::id())
+        ->where('project_type_id',2)
+        ->where('acknowledge',1)
+        ->where('status',1)
+        ->get();
+        return view('_Monitoring._Officer.projects.inprogress',['projects'=>$projects]);
       }
 
       public function monitoring_completedAssignments()
       {
         return view('_Monitoring._Officer.projects.completed');
       }
+
+      public function monitoring_inprogress_costs_saved(Request $request){
+        $total_progresses = AssignedProject::find($request->assigned_project_id)->MProjectProgress;
+        $m_project_costs = MProjectCost::where('m_project_progress_id',$total_progresses[count($total_progresses)-1]->id)->first();
+        if(!$m_project_costs){
+          $m_project_costs = new MProjectCost();
+        }
+        $m_project_costs->m_project_progress_id = $total_progresses[count($total_progresses)-1]->id;
+        $m_project_costs->adp_allocation_of_fiscal_year = (float)$request->adp_allocation_of_fiscal_year;
+        $m_project_costs->release_to_date_of_fiscal_year = $request->release_to_date_of_fiscal_year;
+        $m_project_costs->total_allocation_by_that_time = $request->total_allocation_by_that_time;
+        $m_project_costs->total_release_to_date = $request->total_release_to_date;
+        $m_project_costs->utilization_against_cost_allocation = $request->utilization_against_cost_allocation;
+        $m_project_costs->utilization_against_releases = $request->utilization_against_releases;
+        $m_project_costs->technical_sanction_cost = $request->technical_sanction_cost;
+        $m_project_costs->contract_award_cost = $request->contract_award_cost;
+        $m_project_costs->save();
+        return redirect()->back();
+      }
+
+      public function monitoring_inprogress_dates_saved(Request $request){
+        $total_progresses = AssignedProject::find($request->assigned_project_id)->MProjectProgress;
+        $m_project_dates = MProjectDate::where('m_project_progress_id',$total_progresses[count($total_progresses)-1]->id)->first();
+        if(!$m_project_dates){
+          $m_project_dates = new MProjectDate();
+        }
+        $m_project_dates->m_project_progress_id = $total_progresses[count($total_progresses)-1]->id;
+        $m_project_dates->project_approval_date = $request->project_approval_date;
+        $m_project_dates->admin_approval_date = $request->admin_approval_date;
+        $m_project_dates->actual_start_date = $request->actual_start_date;
+        $m_project_dates->save();
+        return redirect()->back();
+      }
+
+      public function monitoring_inrogress_organizations_saved(Request $request){
+        $total_progresses = AssignedProject::find($request->assigned_project_id)->MProjectProgress;
+        $m_project_organizations = MProjectOrganization::where('m_project_progress_id',$total_progresses[count($total_progresses)-1]->id)->first();
+        if(!$m_project_organizations){
+          $m_project_organizations = new MProjectOrganization();
+        }
+        $m_project_organizations->m_project_progress_id = $total_progresses[count($total_progresses)-1]->id;
+        $m_project_organizations->operation_and_management = $request->operation_and_management;
+        $m_project_organizations->contractor_or_supplier = $request->contractor_or_supplier;
+        $m_project_organizations->save();
+        return redirect()->back();
+      }
+
+      public function monitoring_inprogress_location_saved(Request $request){
+        $total_progresses = AssignedProject::find($request->assigned_project_id)->MProjectProgress;
+        $m_project_location = MProjectLocation::where('m_project_progress_id',$total_progresses[count($total_progresses)-1]->id)->first();
+        if(!$m_project_location){
+          $m_project_location = new MProjectLocation();
+        }
+        $m_project_location->m_project_progress_id = $total_progresses[count($total_progresses)-1]->id;
+        $m_project_location->district = $request->district;
+        $m_project_location->city = $request->city;
+        $m_project_location->gps = $request->gps;
+        $m_project_location->longitude = $request->longitude;
+        $m_project_location->latitude = $request->latitude;
+        $m_project_location->save();
+        return redirect()->back();
+      }
+
       public function monitoring_inprogressSingle(Request $request)
       {
         if($request->project_id==null)
           return redirect()->back();
         $project=AssignedProject::where('project_id',$request->project_id)->first();
+        $project->acknowledge = 1;
+        $project->save();
+
+        //Moving Project Progress from New Attachment to Inprogress
+        $total_previousProject = MProjectProgress::where('assigned_project_id',$project->id)->get();
+        $previousProject = null;
+        // dd(count($total_previousProject));
+        if(count($total_previousProject) > 0)
+          $previousProject = $total_previousProject[count($total_previousProject)-1];
+        if(!$previousProject){
+          $projectProgress = new MProjectProgress();
+          $projectProgress->assigned_project_id = $project->id;
+          if($previousProject!=null){
+            $projectProgress->quarter = $previousProject->quarter + 1;
+          }
+          else{
+            $projectProgress->quarter = 1;
+          }
+          $projectProgress->project_status = 'ACTIVE';
+          $projectProgress->status = 1;
+          $projectProgress->user_id = Auth::id();
+          $projectProgress->save();
+        }
+
+        $progresses = $project->MProjectProgress;
+        $costs = null;
+        if(count($progresses) > 0){
+          $costs = $progresses[count($progresses) - 1]->MProjectCost;
+        }
+
+        $location = null;
+        if(count($progresses) > 0){
+          $location = $progresses[count($progresses) - 1]->MProjectLocation;
+        }
+
+        $organization = null;
+        if(count($progresses) > 0){
+          $organization = $progresses[count($progresses) - 1]->MProjectOrganization;
+        }
+
+        $dates = null;
+        if(count($progresses) > 0){
+          $dates = $progresses[count($progresses) - 1]->MProjectDate  ;
+        }
+
         $sectors  = Sector::where('status','1')->get();
         $sub_sectors = SubSector::where('status','1')->get();
-        return view('_Monitoring._Officer.projects.inprogressSingle',compact('sectors','sub_sectors','project'));
+        $tab = 'cost';
+
+        // ConductMonitoring
+        $generalFeedback=MGeneralFeedBack::where('status',1)->get();
+        $issue_types=MIssueType::where('status',1)->get();
+        $healthsafety=MHealthSafety::where('status',1)->get();
+        // dd($project->Project->AssignedExecutingAgencies);
+
+        return view('_Monitoring._Officer.projects.inprogressSingle',compact('sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
       }
       public function monitoring_review_form(Request $request)
       {
@@ -557,7 +693,58 @@ class OfficerController extends Controller
           ]);
         return view('officer.charts.officer_chart_three',[ 'activities' => $activities ,'projects_activities_progress'=>$projects_activities_progress]);
       }
-
+      public function saveGeneralFeedBack(Request $request){
+        foreach ($request->generalFeedback as $gf) {
+          $temp=explode("_",$gf);
+          $m_general_feed_back_id=$temp[0];
+          $answer=$temp[1];
+          $res=MAssignedProjectFeedBack::where('m_general_feed_back_id',$m_general_feed_back_id)
+                ->where('m_project_progress_id',$request->m_project_progress_id)
+                ->first();
+          if($res && $res->count())
+            $generalFeedback=$res;
+          else
+            $generalFeedback=new MAssignedProjectFeedBack();
+          $generalFeedback->m_general_feed_back_id=$m_general_feed_back_id;
+          $generalFeedback->answer=$answer;
+          $generalFeedback->m_project_progress_id=$request->m_project_progress_id;
+          $generalFeedback->save();
+        }
+      }
+      public function saveMissues(Request $request){
+        foreach($request->issue as $key=>$issue){
+          $project_issue = new MAssignedProjectIssue();
+          $project_issue->issue=$issue;
+          $project_issue->m_issue_type_id=$request->issuetype[$key];
+          $project_issue->severity=$request->severity[$key];
+          if($request->sponsoring_department[$key])
+          $project_issue->sponsoring_agency_id=$request->sponsoring_department[$key];
+          if($request->executing_department[$key])
+          $project_issue->executing_agency_id=$request->executing_department[$key];
+          $project_issue->m_project_progress_id=$request->m_project_progress_id;
+          $project_issue->save();
+        }
+      }
+      
+      public function savehealthsafety(Request $request){
+        foreach ($request->status as $key=>$healthsafety) {
+          $temp=explode("_",$healthsafety);
+          $hs=$temp[0];
+          $answer=$temp[1];
+          $res=MAssignedProjectHealthSafety::where('m_health_safety_id',$hs)
+                ->where('m_project_progress_id',$request->m_project_progress_id)
+                ->first();
+          if($res && $res->count())
+            $healthSafety=$res;
+          else
+            $healthSafety=new MAssignedProjectHealthSafety();
+          $healthSafety->m_health_safety_id=$hs;
+          $healthSafety->status=$answer;
+          $healthSafety->remarks=$request->comments[$key];
+          $healthSafety->m_project_progress_id=$request->m_project_progress_id;
+          $healthSafety->save();
+        }
+      }
       // public function monitoring_Stages()
       // {
       //   // if (!is_dir('storage/uploads/projects/project_activities/'.Auth::user()->username)) {

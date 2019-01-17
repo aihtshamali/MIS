@@ -516,6 +516,7 @@ body {
 	/* background: #F3F3F3; */
 	background: #687753;
 	/* background: #404E67; */
+	background-image: linear-gradient(to bottom right, #c4c5c4, #6f8056, #687752) !important;
 }
 
 .app-hero-content {
