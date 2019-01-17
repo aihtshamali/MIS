@@ -61,6 +61,9 @@ class AdminHumanResourceController extends Controller
           //   file_put_contents('storage/uploads/projects/pdwp_meeting/'.$meeting->attachment,base64_decode($meeting->attachment_file));
           // }
         }
+        \JavaScript::put([
+            'meetings_data' => $data
+        ]);
         $agendas=HrAgenda::all();
         return view('admin_hr.meeting.index',compact('meetings','agendas','data'));
     }

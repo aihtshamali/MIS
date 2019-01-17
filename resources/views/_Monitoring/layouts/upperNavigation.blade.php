@@ -11,7 +11,7 @@
   <meta name="description" content="#">
 
   {{-- Css for this dashboard --}}
-    <link rel="icon" href="{{ asset('_monitoring/css/images/favicon.ico')}}" type="image/x-icon"/>
+    <link rel="icon" href="{{asset('dgme.png')}}" type="image/x-icon"/>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('_monitoring/css/css/bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{ asset('_monitoring/css/icon/feather/css/feather.css')}}"/>
@@ -23,7 +23,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 @yield('styleTags')
-
+<style media="screen">
+  .backforbtn{width:5% !important;padding-top:0.3% !important;cursor:pointer;transition:all 600ms ease;    -webkit-transition: all 600ms ease;}
+  .backforbtn:hover{transition:all 600ms ease;    -webkit-transition: all 600ms ease;}
+</style>
 </head>
 
 <body>
@@ -83,14 +86,15 @@
                                 <i class="feather icon-more-horizontal"></i>
                             </a>
                         </div>
-
                         <div class="navbar-container container-fluid">
-                            <ul class="nav-left">
+                            <ul class="nav-left col-md-5">
+                              <li onclick="goBack()" class="backforbtn"><img src="{{asset('backbtn.png')}}" width="15px" title="back" alt=""></li>
+                              <li onclick="goforward()" class="backforbtn"><img src="{{asset('backbtn.png')}}" width="14.5px" style="transform: rotate(180deg);" title="forward" alt=""></li>
                                 <li class="header-search">
                                     <div class="main-search morphsearch-search">
                                         <div class="input-group">
                                             <span class="input-group-addon search-close"><i class="feather icon-x"></i></span>
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" style="border:none !important;">
                                             <span class="input-group-addon search-btn"><i class="feather icon-search"></i></span>
                                         </div>
                                     </div>
@@ -101,32 +105,55 @@
                                     </a>
                                 </li>
                             </ul>
-                            <ul class="nav-right">
-                                <li class="header-notification">
-                                    <div class="dropdown-primary dropdown">
-                                        <div class="dropdown-toggle" data-toggle="dropdown">
-                                            <i class="feather icon-bell"></i>
-                                            <span class="badge bg-c-pink">0</span>
-                                        </div>
-                                <ul class="show-notification notification-view dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                                    <li>
-                                        <h6>Notifications</h6>
-                                        <label class="label label-danger">New</label>
-                                    </li>
-                                    <li>
-                                        <div class="media">
-                                            <img class="d-flex align-self-center img-radius" src={{asset('_monitoring/css/images/avatar-4.jpg')}} alt="Generic placeholder image">
-                                            <div class="media-body">
-                                                <h5 class="notification-user">Dummy</h5>
-                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
-                                                <span class="notification-time">30 minutes ago</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="header-notification">
+                            <ul class="nav-right col-md-4">
+                              <li class="user-profile header-notification float-right">
+                              <div class="dropdown-primary dropdown">
+                                  <div class="dropdown-toggle" data-toggle="dropdown">
+                                      <img src={{asset('userImage.jpg')}} width="20px" class="img-radius" alt="User-Profile-Image">
+                                      <span>
+                                          @auth
+                                          {{Auth::user()->first_name}} {{Auth::user()->last_name}}
+                                          @endauth
+                                      </span>
+                                      <i class="feather icon-chevron-down"></i>
+                                  </div>
+                                  <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                      <li>
+                                          <a href="#!">
+                                              <i class="feather icon-settings"></i> Settings
+                                          </a>
+                                      </li>
+                                      <li>
+                                          <a href="user-profile.html">
+                                              <i class="feather icon-user"></i> Profile
+                                          </a>
+                                      </li>
+                                      <li>
+                                          <a href="email-inbox.html">
+                                              <i class="feather icon-mail"></i> My Messages
+                                          </a>
+                                      </li>
+                                      <li>
+                                          <a href="auth-lock-screen.html">
+                                              <i class="feather icon-lock"></i> Lock Screen
+                                          </a>
+                                      </li>
+                                      <li>
+                                          {{-- <a href="auth-normal-sign-in.html"> --}}
+                                          <a href="{{ route('logout') }}"
+                                              onclick="event.preventDefault();
+                                               document.getElementById('logout-form').submit();" ><i class="feather icon-log-out"></i> Logout
+                                          </a>
+                                          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                              {{ csrf_field() }}
+                                          </form>
+
+                                      </li>
+                                  </ul>
+
+                                      </div>
+                                  </li>
+                          <li class="header-notification float-right">
                             <div class="dropdown-primary dropdown">
                                 <div class="displayChatbox dropdown-toggle" data-toggle="dropdown">
                                     <i class="feather icon-message-square"></i>
@@ -134,53 +161,30 @@
                                 </div>
                             </div>
                         </li>
-                    <li class="user-profile header-notification">
-                        <div class="dropdown-primary dropdown">
-                            <div class="dropdown-toggle" data-toggle="dropdown">
-                                <img src={{asset('_monitoring/css/images/avatar-0.jpg')}} class="img-radius" alt="User-Profile-Image">
-                                <span>
-                                    @auth
-                                    {{Auth::user()->first_name}} {{Auth::user()->last_name}}
-                                    @endauth
-                                </span>
-                                <i class="feather icon-chevron-down"></i>
-                            </div>
-                            <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                                <li>
-                                    <a href="#!">
-                                        <i class="feather icon-settings"></i> Settings
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="user-profile.html">
-                                        <i class="feather icon-user"></i> Profile
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="email-inbox.html">
-                                        <i class="feather icon-mail"></i> My Messages
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="auth-lock-screen.html">
-                                        <i class="feather icon-lock"></i> Lock Screen
-                                    </a>
-                                </li>
-                                <li>
-                                    {{-- <a href="auth-normal-sign-in.html"> --}}
-                                    <a href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                         document.getElementById('logout-form').submit();" ><i class="feather icon-log-out"></i> Logout
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        {{ csrf_field() }}
-                                    </form>
-
-                                </li>
-                            </ul>
-
+                        <li class="header-notification float-right">
+                            <div class="dropdown-primary dropdown">
+                                <div class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="feather icon-bell"></i>
+                                    <span class="badge bg-c-pink">0</span>
+                                </div>
+                        <ul class="show-notification notification-view dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                            <li>
+                                <h6>Notifications</h6>
+                                <label class="label label-danger">New</label>
+                            </li>
+                            <li>
+                                <div class="media">
+                                    <img class="d-flex align-self-center img-radius" src={{asset('_monitoring/css/images/avatar-4.jpg')}} alt="Generic placeholder image">
+                                    <div class="media-body">
+                                        <h5 class="notification-user">Dummy</h5>
+                                        <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
+                                        <span class="notification-time">30 minutes ago</span>
+                                    </div>
                                 </div>
                             </li>
+                        </ul>
+                            </div>
+                        </li>
                         </ul>
                     </div></div>
                 </nav>
@@ -266,7 +270,7 @@
                 @include('_Monitoring.inc.officerSidebar')
                 @endrole
 
-              
+
 
                 {{-- DG OR DC --}}
                 @role('manager')
@@ -328,5 +332,11 @@
         gtag('js', new Date());
 
         gtag('config', 'UA-23581568-13');
+        function goBack() {
+            window.history.back();
+        }
+        function goforward() {
+            window.history.forward()
+        }
       </script>
 </html>

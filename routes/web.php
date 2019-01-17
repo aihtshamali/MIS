@@ -48,7 +48,7 @@ Route::group(['middleware' => ['auth']],function(){
 
 //For Admin
 Route::group(['middleware' => ['role:admin']], function () {
-  Route::resource('/accountRequest','AccountRequestController');
+    Route::resource('/accountRequest','AccountRequestController');
     Route::resource('/roles','RolesController');
     Route::resource('SponsorAgency','SponsorAgencyController');
     Route::resource('ExecutingAgency','ExecutingAgencyController');
@@ -67,9 +67,12 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::resource('assigning_forum','AssigningForumController');
     Route::resource('approving_forum','ApprovingForumController');
 
+    // Monitoring m_project_kpis
+    Route::resource('/mprojectkpis','MonitoringProjectKpiController');
+
 });
 
-  
+
 
 
 // For Manager & Director Charts
@@ -186,6 +189,12 @@ Route::prefix('Evaluatorofficer')->middleware('role:evaluator|officer|transporto
   Route::post('/saveDocAttachment','OfficerController@saveDocAttachments')->name('saveDocAttachment');
   Route::resource('trip','SiteVisitController');
   Route::post('/visitCompleted/{id}','SiteVisitController@visitCompleted')->name('visitCompleted');
+
+  //Officer's Charts
+  Route::get('/officer_chart_one','OfficerController@officer_chart_one')->name('officer_chart_one');
+  Route::get('/officer_chart_two','OfficerController@officer_chart_two')->name('officer_chart_two');
+  Route::get('/officer_chart_three','OfficerController@officer_chart_three')->name('officer_chart_three');
+
 });
 //Monitor officers
 Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(function () {
@@ -193,10 +202,16 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
   // Monitoring Module Routes
   Route::get('/monitoring_newAssignment','OfficerController@monitoring_newAssignments')->name('Monitoring_newAssignments');
   Route::get('/monitoring_inprogressAssignment','OfficerController@monitoring_inprogressAssignments')->name('Monitoring_inprogressAssignments');
+  Route::post('/monitoring_inprogress_costs_saved','OfficerController@monitoring_inprogress_costs_saved')->name('Monitoring_inprogressCostSaved');
+  Route::post('/monitoring_inprogress_dates_saved','OfficerController@monitoring_inprogress_dates_saved')->name('Monitoring_inprogressDateSaved');
+  Route::post('/monitoring_inprogress_organizations_saved','OfficerController@monitoring_inrogress_organizations_saved')->name('Monitoring_inprogressOrganizationSaved');
+  Route::post('/monitoring_inprogress_location_saved','OfficerController@monitoring_inprogress_location_saved')->name('Monitoring_inprogressLocationSaved');
   Route::get('/monitoring_completedAssignment','OfficerController@monitoring_completedAssignments')->name('Monitoring_completedAssignments');
   Route::get('/monitoring_sInprogress','OfficerController@monitoring_inprogressSingle')->name('monitoring_inprogressSingle');
   Route::post('/monitoring_review_form','OfficerController@monitoring_review_form')->name('monitoring_review_form');
-
+  Route::post('/saveGeneralFeedBack','OfficerController@saveGeneralFeedBack')->name('saveGeneralFeedBack');
+  Route::post('/saveMissues','OfficerController@saveMissues')->name('saveMissues');
+  Route::post('/savehealthsafety','OfficerController@savehealthsafety')->name('savehealthsafety');
 });
 
 // Monitoring group
@@ -262,6 +277,9 @@ Route::post('/printerfunction','AdminHumanResourceController@printer');
 
 Route::get('/403',function(){
   return view('403');
+});
+Route::get('/Attendance',function(){
+  return view('Attendance');
 });
 Route::get('/dgv',function(){
   return view('hassan.dg');

@@ -331,13 +331,9 @@
                                         @endforeach
                                       @endif
                                       </td>
-                                      <td><div class="progress">
-                                          <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
-                                            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo 20+$total_project->AssignedProject->progress; ?>% ">
-                                          {{round($total_project->AssignedProject->progress,2,PHP_ROUND_HALF_UP)}}% Complete
-                                            </div>
-                                          </div>
-                                        </td>
+                                      <td>
+                                          {{round($total_project->AssignedProject->progress,2,PHP_ROUND_HALF_UP)}}%
+                                      </td>
                                       <td>
                                         @php
                                         $first_date = new DateTime(date('Y-m-d',strtotime($total_project->AssignedProject->created_at)));
@@ -483,15 +479,15 @@ $('#example4').DataTable()
 
     }, {
       "Type": "UnAssigned\nProjects\n({{$total_assigned_projects}})",
-      "Number of Projects": Math.round(total_assigned_projects/total_projects*100),
+      "Number of Projects": (total_assigned_projects/total_projects*100).toFixed(2) < 1 && (total_assigned_projects/total_projects*100).toFixed(2) > 0 ? 1 : (total_assigned_projects/total_projects*100).toFixed(2),
       "color": "#333"
     }, {
       "Type": "Inprogress\nProjects\n({{$inprogress_projects}})",
-      "Number of Projects": Math.round(inprogress_projects/total_projects*100),
+      "Number of Projects": (inprogress_projects/total_projects*100).toFixed(2) < 1 && (inprogress_projects/total_projects*100).toFixed(2) > 0 ? 1 : (inprogress_projects/total_projects*100).toFixed(2),
       "color": "#2A0CD0"
     }, {
       "Type": "Completed\nProjects\n({{$completed_projects}})",
-      "Number of Projects": Math.round(completed_projects/total_projects*100),
+      "Number of Projects": (completed_projects/total_projects*100).toFixed(2) < 1 && (completed_projects/total_projects*100).toFixed(2) > 0 ? 1 : (completed_projects/total_projects*100).toFixed(2),
       "color": "#8A0CCF"
     } ],
     "valueAxes": [ {
@@ -507,7 +503,7 @@ $('#example4').DataTable()
       "fillAlphas": 0.8,
       "lineAlpha": 0.2,
       "type": "column",
-      "labelText": "[[value]] %",
+      "labelText": "[[value]] % , [[category]]",
       "fillColorsField": "color",
       "valueField": "Number of Projects"
     } ],

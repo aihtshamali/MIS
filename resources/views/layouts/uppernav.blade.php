@@ -359,6 +359,7 @@
 </body>
 <script src="{{asset('js/Customvue.min.js')}}"></script>
 <!-- jQuery 3 -->
+<script src="{{asset('js/app.js')}}"></script>
 <script src="{{asset('js/AdminLTE/jquery.min.js')}}"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="{{asset('js/AdminLTE/bootstrap.min.js')}}"></script>
@@ -387,14 +388,9 @@
 <script src="{{asset('js/AdminLTE/jquery.inputmask.extensions.js')}}"></script>
 
 @yield('scripttags')
-<script>
-$(document).ready(function(){
-  $(".showBoxtiQ").click(function(){
-      $(".BoxtiQ").show();
-    });
-  });
-</script>
   <script>
+  // $('.dropdown-toggle .showBoxtiQ').dropdown();
+
   (function(){
     axios.post('{{route("unassignedCounter")}}',{
         user:"{{Auth::user()}}"
