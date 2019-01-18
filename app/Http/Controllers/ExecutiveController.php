@@ -487,9 +487,9 @@ class ExecutiveController extends Controller
           $data = DB::select(
             'getOfficersAssignedProjectById' .' '.$officer->id
           );
-          
+
           $team_member = DB::select(
-            'getOfficersAssignedProjectById' .' '.$officer->id
+            'getOfficersInProgressAsTeamMemberProjectsById' .' '.$officer->id
           );
           $team_l = DB::select(
             'getOfficersInProgressAsTeamLeadProjectsById' .' '.$officer->id
