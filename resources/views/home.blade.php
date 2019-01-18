@@ -240,7 +240,7 @@
                     <p>Visit Plan My Trip</p>
                   </a>
                 </div>
-<<<<<<< HEAD
+                @endrole
                 @role('manager')
                 <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.0s">
                   <a href="{{route('visitRequest_dashboard')}}" class="tile green">
@@ -264,13 +264,11 @@
                     <h3 class="title">Visit Requests</h3>
                     <hr/>
                     <p>visit VMIS</p>
-=======
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.9s">
                   <a href="#!" class="tile orange">
                     <h3 class="title">leaves</h3>
                     <hr/>
                     <p>Schedule leaves here</p>
->>>>>>> 28cb3c47f7884bbe3155d263032bc624a7483dc2
                   </a>
                 </div>
                 @endrole

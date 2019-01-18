@@ -586,7 +586,7 @@ $(document).on('click', 'button#saveObjComp', function () {
       <div class="row form-group compTask`+ count + `">
         <div class="col-md-4 offset-md-1"><label for=""> <b class="headText form-txt-primary" id="compname`+ count + `">` + val + `</b></label></div>
         <div class="col-md-2 offset-md-4 mb_1 Taskbut` + count + `" id="add_activity" style="padding-top:0.6%;">
-          <button class="btn btn-sm btn-warning float-right  type="button" name="add_activity">Add Tasks</button>
+          <button class="btn btn-sm btn-warning float-right"  type="button" name="add_activity">Add Tasks</button>
         </div>
         <div id="alltasks" class="row col-md-11 offset-md-1 form-group component_Activities">
         </div>

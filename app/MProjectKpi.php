@@ -14,4 +14,7 @@ class MProjectKpi extends Model
   {
     return $this->belongsTo('App\User','created_by');
   }
+  public function MPlanKpicomponentMapping(){
+    return $this->hasMany('App\MPlanKpicomponentMapping');
+  } 
 }

@@ -151,7 +151,6 @@ class SiteVisitController extends Controller
             $tripremarks->save();
 
           }
-<<<<<<< HEAD
           return redirect()->route('monitoring_dashboard')->with('success','Request Recommended!!');
           
         }
@@ -232,17 +231,6 @@ class SiteVisitController extends Controller
             $triprequestToTransportofficerLog->approval_status='5';
             $triprequestToTransportofficerLog->save();
             
-=======
-          return redirect()->route('monitoring_dashboard')->with('success','Request Accepted!!');
-
-        }
-        elseif($request->request_descision=='3')
-        {
-            $triprequest = PlantripTriprequest::where('id',$request->triprequest_id)->first();
-            $triprequest->approval_status='Not Approved';
-            $triprequest->save();
-
->>>>>>> 3e19d06831d6d0ceea02c424db744149c3cb209b
             $triprequestToTransportofficer = VmisRequestToTransportOfficer::where('plantrip_triprequest_id',$request->triprequest_id)->first();
             $triprequestToTransportofficer->approvedby_user_id=Auth::id();
             $triprequestToTransportofficer->approval_status='5';
@@ -534,12 +522,8 @@ class SiteVisitController extends Controller
     }
 
     public function store(Request $request)
-<<<<<<< HEAD
     { 
         // dd($request);
-=======
-    {
->>>>>>> 3e19d06831d6d0ceea02c424db744149c3cb209b
                  $tripRequest = new PlantripTriprequest();
 
                 $tripRequest->plantrip_triptype_id=$request->triptype_id;
@@ -832,18 +816,11 @@ class SiteVisitController extends Controller
 
         $cities= PlantripCity::all();
         $citylahore= PlantripCity::where('name','LAHORE CITY')->first();
-<<<<<<< HEAD
-  
-        $projects=AssignedProject::all();
-     
-     
-=======
 
         $projects=AssignedProject::select('assigned_project_teams.*','assigned_projects.*')
         ->leftjoin('assigned_project_teams','assigned_projects.id','assigned_project_teams.assigned_project_id')
         ->where('user_id',Auth::id())
         ->get();
->>>>>>> 3e19d06831d6d0ceea02c424db744149c3cb209b
 
         $officers=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
         ->leftJoin('user_details','user_details.user_id','users.id')

@@ -258,18 +258,13 @@ td{white-space: unset !important;}
                                                                                         </td>
                                                                                 <td style="text-align:center;" >
                                                                                         @if($off->approval_status == 'Pending')
-                                                                                        @if(isset($off->VmisRequestToTransportOfficer->approval_status) && $triprequest->VmisRequestToTransportOfficer->approval_status=='1')
+                                                                                        @if(isset($off->VmisRequestToTransportOfficer->approval_status) && $off->VmisRequestToTransportOfficer->approval_status=='1')
                                                                                        <label class="badge badge-md badge-primary">Pending At Director End</label>
                                                                                        @else
                                                                                        <label class="badge badge-md badge-primary">Pending At TO End</label>
                                                                                        @endif
-<<<<<<< HEAD
                                                                                     @elseif($off->VmisRequestToTransportOfficer->approval_status=='2')
                                                                                 <label class="badge badge-md badge-success">Recommended <br> Waiting For DG's Approval</label> 
-=======
-                                                                                    @elseif($off->VmisRequestToTransportOfficer->approval_status=='2' && $off->approval_status == 'Approved')
-                                                                                <label class="badge badge-md badge-success">Approved by {{$off->VmisRequestToTransportOfficer->User->first_name}} {{$off->VmisRequestToTransportOfficer->User->last_name}} </label>
->>>>>>> 28cb3c47f7884bbe3155d263032bc624a7483dc2
                                                                                     @if(isset($off->PlantripRemark))
                                                                                         <p><b>Remarks:</b>
                                                                                         @foreach($off->PlantripRemark as $tripR)
@@ -277,7 +272,6 @@ td{white-space: unset !important;}
                                                                                         @endforeach
                                                                                         </p>
                                                                                     @endif
-<<<<<<< HEAD
                                                                                     @elseif($off->VmisRequestToTransportOfficer->approval_status=='3' )
                                                                                     <label class="badge badge-md badge-success">Not Recommended by {{$off->VmisRequestToTransportOfficer->User->first_name}} {{$off->VmisRequestToTransportOfficer->User->last_name}} </label> 
                                                                                         @if(isset($off->PlantripRemark))
@@ -298,10 +292,6 @@ td{white-space: unset !important;}
                                                                                         @endif
                                                                                 @elseif($off->VmisRequestToTransportOfficer->approval_status=='5' && $off->approval_status == 'Not Approved')
                                                                                 <label class="badge badge-md badge-danger">Disapproved By  {{$off->VmisRequestToTransportOfficer->User->first_name}} {{$off->VmisRequestToTransportOfficer->User->last_name}} </label> 
-=======
-                                                                                @elseif($off->VmisRequestToTransportOfficer->approval_status=='3' && $off->approval_status == 'Not Approved')
-                                                                                <label class="badge badge-md badge-danger">Disapproved By  {{$off->VmisRequestToTransportOfficer->User->first_name}} {{$off->VmisRequestToTransportOfficer->User->last_name}} </label>
->>>>>>> 28cb3c47f7884bbe3155d263032bc624a7483dc2
                                                                                 @if(isset($off->PlantripRemark))
                                                                                 <p><b>Remarks:</b>
                                                                                 @foreach($off->PlantripRemark as $tripR)
