@@ -17,4 +17,7 @@ class MProjectKpi extends Model
   public function MPlanKpicomponentMapping(){
     return $this->hasMany('App\MPlanKpicomponentMapping');
   } 
+  public function MProjectLevel1Kpi(){
+    return $this->hasMany('App\MProjectLevel1Kpi');
+  }
 }
