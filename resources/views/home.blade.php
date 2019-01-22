@@ -236,7 +236,7 @@
                   </a>
                 </div>
                 @endrole
-                @role('officer|evaluator|monitor|manager|directormonitoring|directorevaluation|dataEntry')
+                @role('officer|evaluator|monitor|manager|directormonitoring|directorevaluation|dataentry')
                   <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
                       <a href="{{route('monitoring_dashboard')}}" class="tile purple">
                         <h3 class="title">Monitoring</h3>

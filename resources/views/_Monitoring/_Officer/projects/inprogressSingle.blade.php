@@ -93,6 +93,7 @@
 .sky{color: #42BDFA !important;font-size: 21px;font-weight: 900;}
 .green{color: green !important;font-size: 21px;font-weight: 900;}
 .errortiQ{color: #A91F1A !important;font-size: 25px;font-weight: 900;}
+.tdprocu{padding: 0px !important;text-align: center !important;}
 </style>
 
 @endsection
