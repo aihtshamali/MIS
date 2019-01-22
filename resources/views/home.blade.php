@@ -215,7 +215,7 @@
               <div class="row">
                 @role('adminhr')
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.3s">
-                  <a href="#!" class="tile purple">
+                  <a href="{{route('evaluation_dashboard')}}" class="tile purple">
                     <h3 class="title">PDWP meetings</h3>
                     <hr/>
                     <p>visit PDWP Meetings</p>
