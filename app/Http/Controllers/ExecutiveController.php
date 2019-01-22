@@ -32,6 +32,7 @@ use \DateTimeZone;
 use App\PlantripTriprequest;
 use App\VmisVehicle;
 use App\VmisDriver;
+use App\AssignedProjectTeam;
 class ExecutiveController extends Controller
 {
   //vmis request
@@ -475,24 +476,39 @@ class ExecutiveController extends Controller
         $assigned_projects = [];
         $actual_assigned_projects = [];
         $team_lead=[];
+        $individual_projects=[];
         foreach($officers as $officer){
           if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad" || (preg_match('#M[u|o]hammad*#i', $officer->first_name)==1))
           {
             $officer->first_name = "M.";
             // dd($officer);
           }
+
           $data = DB::select(
             'getOfficersAssignedProjectById' .' '.$officer->id
           );
-          array_push($assigned_projects,count($data));
+
+          $team_member = DB::select(
+            'getOfficersInProgressAsTeamMemberProjectsById' .' '.$officer->id
+          );
+          $team_l = DB::select(
+            'getOfficersInProgressAsTeamLeadProjectsById' .' '.$officer->id
+          );
+          $individual = DB::select(
+            'getOfficersInProgressAsIndividualProjectsById' .' '.$officer->id
+          );
           array_push($actual_assigned_projects,$data);
-          array_push($team_lead,$officer->AssignedProjectTeam->where('team_lead',1)->count());
+          // dd($data);
+          array_push($assigned_projects,count($team_member));
+          array_push($team_lead,count($team_l));
+          array_push($individual_projects,count($individual));
         }
         // dd($actual_assigned_projects);
       \JavaScript::put([
         'officers' => $officers,
         'team_lead' => $team_lead,
         'assigned_projects' => $assigned_projects,
+        'individual_projects' => $individual_projects
         ]);
       return view('executive.home.chart_two',['officers' => $officers,'assigned_projects' => $assigned_projects,'actual_assigned_projects' => $actual_assigned_projects]);
     }

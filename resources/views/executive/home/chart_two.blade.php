@@ -6,6 +6,9 @@
     #chartdiv2 {
   width		: 100%;
   height	: 90%;
+  font-size: 5px;
+  }
+  tspan{
   font-size	: 15px;
   }
   .card{
@@ -166,8 +169,9 @@ var st = [];
         officers.forEach(element => {
           st.push ({
             "Name":element.first_name +" "+element.last_name ,
-            "Team Member": (assigned_projects[$i]-team_lead[$i]),
-            "Team Lead" : team_lead[$i]
+            "Team Member": assigned_projects[$i],
+            "Team Lead" : team_lead[$i],
+            "Individual Projects" : individual_projects[$i]
           });
           $i++;
         });
@@ -180,8 +184,15 @@ chart.data = st;
 let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
 categoryAxis.dataFields.category = "Name";
 categoryAxis.renderer.grid.template.location = 0;
+categoryAxis.renderer.minGridDistance = 30;
+// Label
+var label = categoryAxis.renderer.labels.template;
+label.wrap = false;
+label.maxWidth = 50;
+label.verticalCenter = "middle";
+
 // Rotation
-categoryAxis.renderer.labels.template.rotation=30;
+categoryAxis.renderer.labels.template.rotation=90;
 
 let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 valueAxis.renderer.inside = true;
@@ -189,7 +200,7 @@ valueAxis.renderer.labels.template.disabled = true;
 valueAxis.min = 0;
 
 // Create series
-function createSeries(field, name) {
+function createSeries(field, name,color="#67b7dc") {
   
   // Set up series
   let series = chart.series.push(new am4charts.ColumnSeries());
@@ -205,6 +216,9 @@ function createSeries(field, name) {
   series.columns.template.width = am4core.percent(60);
   series.columns.template.tooltipText = "[bold]{name}[/]\n[font-size:14px]{categoryX}: {valueY}";
   
+  // Color
+  series.columns.template.fill = am4core.color(color); // fill
+
   // Add label
   let labelBullet = series.bullets.push(new am4charts.LabelBullet());
   labelBullet.label.text = "{valueY}";
@@ -213,8 +227,9 @@ function createSeries(field, name) {
   return series;
 }
 
-createSeries("Team Lead", "Team Lead");
-createSeries("Team Member", "Team Member");
+createSeries("Team Lead", "Team Lead","#0062b7");
+createSeries("Team Member", "Team Member","#929eaa");
+createSeries("Individual Projects", "Individual Projects","#00a65a");
 // createSeries("asia", "Asia-Pacific");
 // createSeries("lamerica", "Latin America");
 // createSeries("meast", "Middle-East");
