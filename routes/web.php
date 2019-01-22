@@ -77,6 +77,10 @@ Route::group(['middleware' => ['role:admin']], function () {
 
 // For Manager & Director Charts
 Route::prefix('manager')->middleware('role:manager|directorevaluation')->group(function () {
+  // APIs for getting InProgress Projects of Officers
+  Route::get('/officersProjects','ExecutiveController@getOfficerProjects')->name('getOfficerProjects');
+
+  // END APIs
   Route::get('/','ExecutiveController@index')->name('Exec_home');
   // PEMS GRAPHS -EVALUATION MODULE
   Route::get('/chart_one','ExecutiveController@chart_one')->name('chart_one');
