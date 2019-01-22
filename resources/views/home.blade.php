@@ -427,7 +427,7 @@
             <div class="inner clearfix">
               <section id="main-content">
                   <div id="demos">
-                          <div id="carouselTicker" class="carouselTicker">
+                          <div id="carouselTicker" class="carouselTicker hidden-xs hidden-sm">
                               <ul class="carouselTicker__list">
                                 <li class="carouselTicker__item grayeee">
                                   <h4>Capacity Building 1</h4>
