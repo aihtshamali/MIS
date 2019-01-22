@@ -95,18 +95,24 @@ class OfficerController extends Controller
       {
         $officerAssignedCount=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
         ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
+        ->leftjoin('projects','projects.id','assigned_projects.project_id')
+        ->where('project_type_id',1)
+        ->where('assigned_project_teams.user_id',Auth::id())
         ->where('acknowledge','0')
-        ->where('user_id',Auth::id())
         ->count();
         $officerInProgressCount=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
         ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
-        ->where('user_id',Auth::id())
+        ->leftjoin('projects','projects.id','assigned_projects.project_id')
+        ->where('project_type_id',1)
+        ->where('assigned_project_teams.user_id',Auth::id())
         ->where('acknowledge','1')
         ->count();
         $officer=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
         ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
+        ->leftjoin('projects','projects.id','assigned_projects.project_id')
+        ->where('project_type_id',1)
+        ->where('assigned_project_teams.user_id',Auth::id())
         ->where('acknowledge','0')
-        ->where('user_id',Auth::id())
         ->get();
         return view('officer.evaluation_projects.new_assigned',['officerInProgressCount'=>$officerInProgressCount,'officerAssignedCount'=>$officerAssignedCount,'officer'=>$officer]);
       }
