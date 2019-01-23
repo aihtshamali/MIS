@@ -1059,4 +1059,12 @@ class ExecutiveController extends Controller
       return view('_Monitoring._Manager.completed');
     }
 
+    // OFficers Assigned InPRogress Projects
+    public function getOfficerProjects(Request $request){
+      $data = DB::select(
+        'getOfficersInProgressAs'.$request->status.'ProjectsById'.' '.$request->user
+      );
+      return response()->json($data);
+    }
+
 }
