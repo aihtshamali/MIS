@@ -575,11 +575,15 @@ $(document).on('click', '#add_activity', function (e) {
     console.log($(this).parent().find('#alltasks'), $(this).parent())
     $(this).parent().find('#alltasks').append(add_activities);
 });
-$(document).on('click', 'button#saveObjComp', function () {
+//project design
+$(document).on('click', 'button#saveObjComp', function ()
+ {
   $("#planMactivities").children().remove();
+  $("#ObjCompHere").children().remove();
+
     var comps = $(this).val();
     var count = 1;
-    // var yo = 0;
+        
     $('input[name^=comp]').each(function () {
         var val = $(this).val();
         var addTask = `
@@ -598,7 +602,41 @@ $(document).on('click', 'button#saveObjComp', function () {
         // yo++;
         count++;
     });
-});
+
+    $('input[name^=obj]').each(function () {
+        var ObjCompHere = `<li class="row mb_2">
+                            <span id='objvalue`+ oc + `' class="float-left col-md-6"></span>
+                            <span class="float-right col-md-6">
+                            <select class="select2 col-md-12" id="option`+ oc + `" multiple="multiple">
+                            </select>
+                            </span>
+                          </li>`
+        var options = ""
+       
+        $('input[name^=comp]').each(function () {
+            
+            options += "<option value='" + $(this).val() + "'>" + $(this).val() + "</option>"
+        });
+        compopt = options
+       
+        var t = $(ObjCompHere)
+        t.find('#objvalue' + oc + '').text($(this).val())
+        $(options).appendTo(t.find('#option' + oc + ''))
+        t.appendTo('#ObjCompHere');
+        // });
+        $('.select2').select2()
+        // console.log(obj);
+        // return false;
+        oc++;
+    });
+ });
+ $('.select2').select2();
+ $('#saveObjComp').click(function () {
+    // <select class="select2 col-md-12" id="option`+ oc + `" multiple>
+    
+    
+ });
+
 $(document).on('click', '#saveTasks', function () {
   $('#comptaskl').children().remove();
   $('#costcomp').children().remove();
@@ -645,28 +683,28 @@ $(document).on('click', '#saveTasks', function () {
     });
 });
 
-$('button#add_more_component').click(function (e) {
-    var add_component = `<div class="row components">
-                        <div class="form-group col-md-1 offset-md-1 ">
-                        <br>
-                        <button class=" btn btn-sm btn-danger" onclick="removerow(this)" name="remove_component[]" id="remove_component" type="button"><i class="fa fa-minus"></i></button>
-                        </div>
-                        <div class="form-group col-md-6  ">
-                        <label for=""> <b>Component Title :</b></label><br>
-                        <select class=" form-control form-control-primary ">
-                        <option value="" selected disabled>Select Component</option>
-                        <option value="1" >Component 1</option>
-                        <option value="2">Component 2</option>
-                        <option value="3" >Component 3</option>
-                        </select>
-                        </div>
-                        <div class="col-md-2 offset-md-1">
-                        <br>
-                        <button class=" btn btn-sm btn-success" name="add_more_act[]" id="add_more_act" onclick="add_activityInComp(this)" type="button">Add Activity</button>
-                        </div>
-                        </div>`;
-    $('.oneComponentQA').append(add_component);
-});
+// $('button#add_more_component').click(function (e) {
+//     var add_component = `<div class="row components">
+//                         <div class="form-group col-md-1 offset-md-1 ">
+//                         <br>
+//                         <button class=" btn btn-sm btn-danger" onclick="removerow(this)" name="remove_component[]" id="remove_component" type="button"><i class="fa fa-minus"></i></button>
+//                         </div>
+//                         <div class="form-group col-md-6  ">
+//                         <label for=""> <b>Component Title :</b></label><br>
+//                         <select class=" form-control form-control-primary ">
+//                         <option value="" selected disabled>Select Component</option>
+//                         <option value="1" >Component 1</option>
+//                         <option value="2">Component 2</option>
+//                         <option value="3" >Component 3</option>
+//                         </select>
+//                         </div>
+//                         <div class="col-md-2 offset-md-1">
+//                         <br>
+//                         <button class=" btn btn-sm btn-success" name="add_more_act[]" id="add_more_act" onclick="add_activityInComp(this)" type="button">Add Activity</button>
+//                         </div>
+//                         </div>`;
+//     $('.oneComponentQA').append(add_component);
+// });
 var objct = 2;
 function autoindex() {
     var sib = $(document).find('.newClass').siblings();
@@ -703,38 +741,7 @@ $('#add_more_objective').click(function (e) {
     $('.objtivesNew').append(add_objective);
     objct += 1;
 });
-$('#saveObjComp').click(function () {
-    // <select class="select2 col-md-12" id="option`+ oc + `" multiple>
-    $("#ObjCompHere").children().remove();
-    $('input[name^=obj]').each(function () {
-        var ObjCompHere = `<li class="row mb_2">
-                            <span id='objvalue`+ oc + `' class="float-left col-md-6"></span>
-                            <span class="float-right col-md-6">
-                            <select class="select2 col-md-12" id="option`+ oc + `" multiple="multiple">
-                            </select>
-                            </span>
-                          </li>`
-        var options = ""
-        // $(ObjCompHere)
-        // var obj = [];
-        $('input[name^=comp]').each(function () {
-            // obj.push($(this).val());
-            options += "<option value='" + $(this).val() + "'>" + $(this).val() + "</option>"
-        });
-        compopt = options
-        // console.log(options,'here');
-        // $('input[name^=obj]').each(function(){
-        var t = $(ObjCompHere)
-        t.find('#objvalue' + oc + '').text($(this).val())
-        $(options).appendTo(t.find('#option' + oc + ''))
-        t.appendTo('#ObjCompHere');
-        // });
-        $('.select2').select2()
-        // console.log(obj);
-        // return false;
-        oc++;
-    });
-});
+
 $(document).on('click', '.removeObjective', function () {
     if ($(this).parent().attr('class').split(' ')[0].split('ss')[1] == objct - 1) {
         $(this).parent().remove();
@@ -889,3 +896,5 @@ function removerow(e) {
 function removeIssuerow(e) {
     $(e).parent().parent().remove();
 }
+
+  

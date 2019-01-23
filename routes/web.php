@@ -23,10 +23,10 @@ Route::get('/upload', function () {
 
 // Route::post('/home','HomeController@upload');
 
+Route::get('/','HomeController@index')->name('predashboard');
 Route::group(['middleware' => ['auth']],function(){
   
   //predashboard
-  Route::get('/','HomeController@index')->name('predashboard');
  
   // visitRequest_dashboard
   Route::get('/visitRequest_dashboard','HomeController@visitRequest_dashboard')->name('visitRequest_dashboard');
@@ -202,6 +202,10 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
   Route::post('/saveGeneralFeedBack','OfficerController@saveGeneralFeedBack')->name('saveGeneralFeedBack');
   Route::post('/saveMissues','OfficerController@saveMissues')->name('saveMissues');
   Route::post('/savehealthsafety','OfficerController@savehealthsafety')->name('savehealthsafety');
+  
+  Route::post('/projectDesignMonitoring','OfficerController@projectDesignMonitoring')->name('projectDesignMonitoring');
+  Route::post('/mappingOfObj','OfficerController@mappingOfObj')->name('mappingOfObj');
+  
 });
 
 // Monitoring group

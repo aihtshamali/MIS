@@ -63,36 +63,38 @@
               </div>
             </form>
                 <div class="tab-pane" id="i-dates" role="tabpanel" aria-expanded="false">
-                  <form class="" action="index.html" method="post">
-                  <div class="row">
+                  <form class="serializeform" action="{{ route('projectDesignMonitoring') }}" method="post">
+                    {{ csrf_field() }}
+                    <div class="row">
                       <div class="col-md-6 objtivesNew border_right pd_1_2">
                         <div class="DisInlineflex newClass mb_2 col-md-12">
-                          <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Objective 1</label>
-                          <div class="col-sm-7">
-                            <input type="text" class="form-control form-txt-primary" name="obj[]" placeholder="Objective 1">
-                          </div>
-                          <div class="col-sm-2 addbtn text_center">
-                            <button class="btn btn-sm btn-info" type="button" id="add_more_objective"  tabindex=1>+</button>
-                          </div>
+                            <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Objective 1</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control form-txt-primary" name="obj[]" placeholder="Objective 1">
+                            </div>
+                            <div class="col-sm-2 addbtn text_center">
+                                <button class="btn btn-sm btn-info" type="button" id="add_more_objective"  tabindex=1>+</button>
+                            </div>
                         </div>
                       </div>
                       <div class="col-md-6 compActNew border_left pd_1_2">
                         <div class="DisInlineflex newClasscompAct mb_2 col-md-12">
-                          <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Component 1</label>
-                          <div class="col-sm-7">
-                            <input type="text" name="comp[]" class="form-control form-txt-primary" placeholder="Component 1">
-                          </div>
-                          <div class="col-sm-2 addbtn text_center">
-                            <button class="btn btn-sm btn-info" type="button" id="add_more_compAct" tabindex=100>+</button>
-                          </div>
+                            <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Component 1</label>
+                            <div class="col-sm-7">
+                                <input type="text" name="comp[]" class="form-control form-txt-primary" placeholder="Component 1">
+                            </div>
+                            <div class="col-sm-2 addbtn text_center">
+                                <button class="btn btn-sm btn-info" type="button" id="add_more_compAct" tabindex=100>+</button>
+                            </div>
                         </div>
                       </div>
-                      <button class="btn aho col-md-2 offset-md-10" type="button" id="saveObjComp">Save & Proceed</button>
+                      <input type="hidden" value="{{$project->Project->AssignedProject->id}}" name="project_progress_no">
+                      <button class="btn aho col-md-2 offset-md-10" type="submit" id="saveObjComp">Save & Proceed</button>
                   </div>
-                </form>
+                  </form>
                 </div>
                 <div class="tab-pane" id="financial" role="tabpanel" aria-expanded="false">
-                <form class="" action="index.html" method="post">
+                  <form class="" action="index.html" method="post">
                     <div>
                         <h5 style="padding-top:20px;padding-bottom:10px;clear:both;">Original I</h5>
                         <div class="row">
@@ -126,23 +128,47 @@
                   </form>
                 </div>
                 <div class="tab-pane" id="MOBdiv" role="tabpanel" aria-expanded="false">
-                <form class="" action="index.html" method="post">
-                  <div class="row col-md-12 border">
-                    <div class="col-md-8 offset-md-2 ">
-                      <div class="row">
-                        <h5 class="textlef pd_1_2 col-md-6">Objectives</h5>
-                        <h5 class="textlef pd_1_2 col-md-6">Component</h5>
-                      </div>
-                      <ul class="pd_1_6" id="ObjCompHere">
+                   <form class="serializeform" action="{{ route('mappingOfObj') }}" method="post">
+                        {{ csrf_field() }}
+                    <div class="row col-md-12 border">
+                        <div class="col-md-8 offset-md-2 ">
+                        <div class="row">
+                            <h5 class="textlef pd_1_2 col-md-6"><b>Objectives</b></h5>
+                            <h5 class="textlef pd_1_2 col-md-6"><b>Component</b></h5>
+                        </div>
+                        <ul class="pd_1_6" id="ObjCompHere">
+                            <li class="row mb_2">
+                                @php
+                                 $i=0;   
+                                @endphp
+                                    @foreach ($objectives as $obj)
+                                    
+                                    <span id="objectiveHere" name=""  class="float-left col-md-6"> 
+                                        <input type="hidden" value="{{$obj->id}}" name="objective[]">
+                                        {{$obj->objective}}
+                                    </span>
+                                    <span class="float-right col-md-6">
+                                    <select class="select2 col-md-12" id="component" name="mappedComp_{{$i}}[]" multiple="multiple">
+                                       @foreach ($components as $comp)
+                                       <option value={{$comp->id}}>{{$comp->component}}</option>
+                                       @endforeach   
+                                    </select>
+                                    </span>
+                                    @php
+                                    $i++;   
+                                   @endphp
+                                    @endforeach
+                                    </li>
+                        </ul>
+                        <input type="hidden" value="{{$project->Project->AssignedProject->id}}" name="project_progress_no">
+                        <button class="btn aho col-md-3 btn btn-alert offset-md-7 " type="button" style="background: #406765;border: 1px solid; " id="ObjCompShowSum">Show Summary</button>
+                        <button class="btn aho col-md-1 btn btn-primary" type="submit" id="saveCompagainstObj">Save </button>
+                        </div>
+                        <div class=" col-md-8 offset-md-2 SumObjComp nodisplay">
 
-                      </ul>
-                      <button class="btn aho col-md-3 offset-md-9 mb_2" type="button" id="ObjCompShowSum">Show Summary</button>
+                        </div>
                     </div>
-                    <div class=" col-md-8 offset-md-2 SumObjComp nodisplay">
-
-                    </div>
-                  </div>
-                </form>
+                   </form>
                 </div>
                 <div class="tab-pane active" id="kpis" role="tabpanel" aria-expanded="false" style="display:none;">
                   <form class="" action="index.html" method="post">

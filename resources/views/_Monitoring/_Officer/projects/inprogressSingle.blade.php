@@ -406,12 +406,16 @@
 
 $(document).ready(function(){
   $('form.serializeform').on('submit',function(e){
+    //   console.log('sad');
+      
     e.preventDefault();
       $.ajax( {
       data: $(this).serialize(),
       type: $( this ).attr( 'method' ),
       url: $(this).attr('action'),
       success: function( feedback ){
+        //   console.log(feedback);
+          
           if(feedback){
 
           }

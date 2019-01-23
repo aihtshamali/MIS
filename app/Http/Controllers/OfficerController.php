@@ -39,7 +39,12 @@ use App\MIssueType;
 use App\MAssignedProjectIssue;
 use App\MAssignedProjectHealthSafety;
 use App\MHealthSafety;
-
+use App\MPlanObjective;
+use App\MPlanComponent;
+use App\MPlanObjectivecomponentMapping;
+use App\MPlanComponentActivitiesMapping;
+use App\MPlanComponentactivityDetailMapping;
+use App\MPlanKpicomponentMapping;
 use Illuminate\Support\Facades\Redirect;
 use DB;
 class OfficerController extends Controller
@@ -550,7 +555,9 @@ class OfficerController extends Controller
         $healthsafety=MHealthSafety::where('status',1)->get();
         // dd($project->Project->AssignedExecutingAgencies);
 
-        return view('_Monitoring._Officer.projects.inprogressSingle',compact('sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
+        $objectives =MPlanObjective::where('status',1)->get();
+        $components =MPlanComponent::where('status',1)->get();
+        return view('_Monitoring._Officer.projects.inprogressSingle',compact('components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
       }
       public function monitoring_review_form(Request $request)
       {
@@ -745,6 +752,50 @@ class OfficerController extends Controller
           $healthSafety->m_project_progress_id=$request->m_project_progress_id;
           $healthSafety->save();
         }
+      }
+
+      public function projectDesignMonitoring(Request $request)
+      {
+        $projectProgressId= MProjectProgress::where('assigned_project_id',$request->project_progress_no)->get();
+
+        foreach($request->obj as $objective)
+          {
+            $objectives = new MPlanObjective();
+            $objectives->m_project_progress_id = $projectProgressId[0]->id;
+            $objectives->objective=$objective;
+            $objectives->status= true;
+            $objectives->save();
+          }
+          foreach($request->comp as $component)
+          {
+            $components = new MPlanComponent();
+            $components->m_project_progress_id = $projectProgressId[0]->id;
+            $components->component=$component;
+            $components->status= true;
+            $components->save();
+          }
+       return response()->json($request->all());
+      }
+      public function mappingOfObj(Request $request)
+      {
+        $projectProgressId= MProjectProgress::where('assigned_project_id',$request->project_progress_no)->get();
+        // $objectives =MPlanObjective::where('status',1)->count();
+        $i=0;
+        foreach($request->obj as $objective)  
+        {
+          if(isset($_POST['mappedComp_'.$i]))
+          foreach($_POST['mappedComp_'.$i] as $mappComp)
+          {
+            $objCompMapping = new MPlanObjectivecomponentMapping();
+            $objCompMapping->m_project_progress_id = $projectProgressId[0]->id;
+            $objCompMapping->m_plan_objective_id=$objective;
+            $objCompMapping->m_plan_component_id=$mappComp;
+            $objCompMapping->status= true;
+            $objCompMapping->save();
+          }
+        }
+
+        return response()->json($request->all());
       }
       // public function monitoring_Stages()
       // {
