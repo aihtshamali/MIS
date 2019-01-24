@@ -171,7 +171,7 @@
                    </form>
                 </div>
                 <div class="tab-pane active" id="kpis" role="tabpanel" aria-expanded="false" style="display:none;">
-                  <form class="" action="index.html" method="post">
+                <form class="serializeform" action="{{route('kpiComponentMapping')}}" method="post">
                     <div class="card m-0 z-depth-right-0">
                         <div class="card-header">
                             <h4>KPI(s)</h4>
@@ -183,25 +183,20 @@
                                 <select id='custom-headers' class="searchable yesearch"
                                     multiple='multiple'>
                                     {{-- <h1>here</h1> --}}
-                                    <option class='optiontest' value='Remaining Cost'>Remaining Cost</option>
-                                    <option class='optiontest' value='Number of unresolved issues'>Number of unresolved issues</option>
-                                    <option class='optiontest' value='Project Schedule (delays and variance)'>Project Schedule (delays and variance)</option>
-                                    <option class='optiontest' value='Quality'>Quality</option>
-                                    <option class='optiontest' value='Scope Changes'>Scope Changes</option>
-                                    <option class='optiontest' value='Cost (Cost Over Sum)'>Cost (Cost Over Sum)</option>
-                                    <option class='optiontest' value='Client Satisfaction'>Client Satisfaction</option>
-                                    <option class='optiontest' value='Procurement'>Procurement</option>
+                                     @foreach ($generalKpis as $genKpi)
+                                     <option class='optiontest' value='{{$genKpi->id}}'>{{$genKpi->description}}</option>
+                                     @endforeach
                                 </select>
                                 {{-- SPECIAL KPI'S CODE --}}
 
-                                    <h5 class="mb_2">Special KPI(s)</h4>
+                                    {{-- <h5 class="mb_2">Special KPI(s)</h4>
                                     <div id="appendspecialkpi">
                                       <div class="row col-md-12">
                                         <input type="text" class="form-control specialin col-md-11" placeholder="Type KPI here...">
                                         <button class="col-md-1 btn addspecialkpi" type="button">+</button>
                                         <button class="col-md-1 btn btn-danger btn-sm btn nodisplay delspecialkpi" type="button">-</button>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     {{-- SPECIAL KPI'S CODE END--}}
                             </div>
@@ -212,16 +207,18 @@
                             <div class="col-md-6" style="padding-left:3% !important;">                                                                            <div class="row col-md-12">
                                 <ul class="col-md-12 row" id='addkpi'>
                                     <h5 class=" mb_2">KPIs</h5>
-
-c                                                                           </ul>
+                                    
+                                </ul>
                               </div>
                             </div>
                             </div>
                         </div>
                         <div class="card-footer">
                             <div class="col-md-3 offset-md-9">
-                                <a class="btn btn-primary btn-md activities saveNnextbtn" id="svkp" data-toggle="tab" href="#activities"
-                                role="tab" aria-expanded="false">Save & Proceed</a>
+                            <button class="btn btn-primary btn-md activities saveNnextbtn" type="submit" id="svkp">Save </button>
+                                    {{-- <a class="btn btn-primary btn-md activities saveNnextbtn" id="svkp" data-toggle="tab"
+                                    href="#activities"
+                                    role="tab" aria-expanded="false">Save & Proceed</a> --}}
                             </div>
                         </div>
                     </div>

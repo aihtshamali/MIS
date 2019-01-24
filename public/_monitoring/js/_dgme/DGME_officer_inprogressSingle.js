@@ -13,58 +13,36 @@ $(document).ready(function () {
         $('input:checkbox').not(this).prop('checked', false);
     });
 
-    $('.optiontest').on('click', function () {
-        var t = $(this).text();
-        var b = true;
-        $('.yesearch').val().forEach(e => {
-            if (e == t) {
-                b = false;
-                $('#addkpi').find('#' + t.replace(/\s+/g, '_').replace('(', '').replace(')', '')).remove()
-            }
-        })
-        if (b) {
-            $(`<li id='` + $(this).text().replace(/\s+/g, '_').replace('(', '').replace(')', '') + `' class="col-md-12 row"><div class='col-md-6'>
-                `+ $(this).text() + `</div>
-                <div class="col-md-6">
-                    <select class="kpisel col-sm-12" multiple="multiple" id="optionsHere">
-                    `+ compopt +`
-                    </select>
-                </div>
-                </li>`).appendTo('#addkpi')
-            // console.log($('#addkpi').find());
-            $('.kpisel').select2()
-        }
-    })
-
+ 
     // SPECIAL KPI
-    $(document).on('click','.addspecialkpi',function(){
-        $(this).hide()
-        $(this).parent().find('.delspecialkpi').removeClass('nodisplay')
-        $(`<div class="row col-md-12">
-          <input type="text" class="form-control specialin col-md-11" placeholder="Type KPI here...">
-          <button class="col-md-1 btn addspecialkpi" type="button">+</button>
-          <button class="col-md-1 btn btn-danger btn-sm btn nodisplay delspecialkpi" type="button">-</button>
-        </div>`).appendTo('#appendspecialkpi')
-        var t = $(this).parent().find('.specialin').val();
+    // $(document).on('click','.addspecialkpi',function(){
+    //     $(this).hide()
+    //     $(this).parent().find('.delspecialkpi').removeClass('nodisplay')
+    //     $(`<div class="row col-md-12">
+    //       <input type="text" class="form-control specialin col-md-11" placeholder="Type KPI here...">
+    //       <button class="col-md-1 btn addspecialkpi" type="button">+</button>
+    //       <button class="col-md-1 btn btn-danger btn-sm btn nodisplay delspecialkpi" type="button">-</button>
+    //     </div>`).appendTo('#appendspecialkpi')
+    //     var t = $(this).parent().find('.specialin').val();
 
-        $(`<li id='` + t.replace(/\s+/g, '_').replace('(', '').replace(')', '') + `' class="col-md-12 row"><div class='col-md-6'>
-            `+ t + `</div>
-            <div class="col-md-6">
-                <select class="kpisel col-sm-12" multiple="multiple">
-                  `+ compopt +`
-                </select>
-            </div>
-            </li>`).appendTo('#addkpi')
+    //     $(`<li id='` + t.replace(/\s+/g, '_').replace('(', '').replace(')', '') + `' class="col-md-12 row"><div class='col-md-6'>
+    //         `+ t + `</div>
+    //         <div class="col-md-6">
+    //             <select class="kpisel col-sm-12" multiple="multiple">
+    //               `+ compopt +`
+    //             </select>
+    //         </div>
+    //         </li>`).appendTo('#addkpi')
 
-            $('.kpisel').select2()
-    })
-    $(document).on('click','.delspecialkpi',function(){
-        var t = $(this).parent().find('.specialin').val();
-        t = t.replace(/\s+/g, '_').replace('(', '').replace(')', '')
-        console.log(t);
-        $('#addkpi').find('#'+t).remove()
-        $(this).parent().remove()
-    })
+    //         $('.kpisel').select2()
+    // })
+    // $(document).on('click','.delspecialkpi',function(){
+    //     var t = $(this).parent().find('.specialin').val();
+    //     t = t.replace(/\s+/g, '_').replace('(', '').replace(')', '')
+    //     console.log(t);
+    //     $('#addkpi').find('#'+t).remove()
+    //     $(this).parent().remove()
+    // })
 // SPECIAL KPI END
 
     //FINANCIAL PHASING
@@ -683,28 +661,28 @@ $(document).on('click', '#saveTasks', function () {
     });
 });
 
-// $('button#add_more_component').click(function (e) {
-//     var add_component = `<div class="row components">
-//                         <div class="form-group col-md-1 offset-md-1 ">
-//                         <br>
-//                         <button class=" btn btn-sm btn-danger" onclick="removerow(this)" name="remove_component[]" id="remove_component" type="button"><i class="fa fa-minus"></i></button>
-//                         </div>
-//                         <div class="form-group col-md-6  ">
-//                         <label for=""> <b>Component Title :</b></label><br>
-//                         <select class=" form-control form-control-primary ">
-//                         <option value="" selected disabled>Select Component</option>
-//                         <option value="1" >Component 1</option>
-//                         <option value="2">Component 2</option>
-//                         <option value="3" >Component 3</option>
-//                         </select>
-//                         </div>
-//                         <div class="col-md-2 offset-md-1">
-//                         <br>
-//                         <button class=" btn btn-sm btn-success" name="add_more_act[]" id="add_more_act" onclick="add_activityInComp(this)" type="button">Add Activity</button>
-//                         </div>
-//                         </div>`;
-//     $('.oneComponentQA').append(add_component);
-// });
+$('button#add_more_component').click(function (e) {
+    var add_component = `<div class="row components">
+                        <div class="form-group col-md-1 offset-md-1 ">
+                        <br>
+                        <button class=" btn btn-sm btn-danger" onclick="removerow(this)" name="remove_component[]" id="remove_component" type="button"><i class="fa fa-minus"></i></button>
+                        </div>
+                        <div class="form-group col-md-6  ">
+                        <label for=""> <b>Component Title :</b></label><br>
+                        <select class=" form-control form-control-primary ">
+                        <option value="" selected disabled>Select Component</option>
+                        <option value="1" >Component 1</option>
+                        <option value="2">Component 2</option>
+                        <option value="3" >Component 3</option>
+                        </select>
+                        </div>
+                        <div class="col-md-2 offset-md-1">
+                        <br>
+                        <button class=" btn btn-sm btn-success" name="add_more_act[]" id="add_more_act" onclick="add_activityInComp(this)" type="button">Add Activity</button>
+                        </div>
+                        </div>`;
+    $('.oneComponentQA').append(add_component);
+});
 var objct = 2;
 function autoindex() {
     var sib = $(document).find('.newClass').siblings();

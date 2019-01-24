@@ -461,6 +461,7 @@ class ComposerStaticInitc13c271925a5c54963b2aa34928384d8
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\ExecutingAgency' => __DIR__ . '/../..' . '/app/ExecutingAgency.php',
         'App\\Exports\\ProjectExport' => __DIR__ . '/../..' . '/app/Exports/ProjectExport.php',
+        'App\\GeneralKpi' => __DIR__ . '/../..' . '/app/GeneralKpi.php',
         'App\\HrAgenda' => __DIR__ . '/../..' . '/app/HrAgenda.php',
         'App\\HrAttachment' => __DIR__ . '/../..' . '/app/HrAttachment.php',
         'App\\HrDecision' => __DIR__ . '/../..' . '/app/HrDecision.php',

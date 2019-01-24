@@ -36,6 +36,7 @@ use App\MProjectOrganization;
 use App\MGeneralFeedBack;
 use App\MAssignedProjectFeedBack;
 use App\MIssueType;
+use App\GeneralKpi;
 use App\MAssignedProjectIssue;
 use App\MAssignedProjectHealthSafety;
 use App\MHealthSafety;
@@ -135,6 +136,15 @@ class OfficerController extends Controller
         return view('officer.evaluation_projects.reviewform',['project_data'=>$project_data,'officerInProgressCount'=>$officerInProgressCount,'officerAssignedCount'=>$officerAssignedCount]);
       }
 
+      public function getProjectComponents(Request $request)
+      {
+        // dd($request->all());
+        $projectcomponents =MPlanComponent::where('status',1)
+        ->where('m_project_progress_id',$request->MProjectProgressId)
+        ->get();
+        return response()->json($projectcomponents);
+        
+      }
 
       public function evaluation_inprogress()
       {
@@ -497,12 +507,12 @@ class OfficerController extends Controller
 
       public function monitoring_inprogressSingle(Request $request)
       {
+        
         if($request->project_id==null)
           return redirect()->back();
         $project=AssignedProject::where('project_id',$request->project_id)->first();
         $project->acknowledge = 1;
         $project->save();
-
         //Moving Project Progress from New Attachment to Inprogress
         $total_previousProject = MProjectProgress::where('assigned_project_id',$project->id)->get();
         $previousProject = null;
@@ -554,10 +564,22 @@ class OfficerController extends Controller
         $issue_types=MIssueType::where('status',1)->get();
         $healthsafety=MHealthSafety::where('status',1)->get();
         // dd($project->Project->AssignedExecutingAgencies);
+        $projectProgressId= MProjectProgress::where('assigned_project_id',$project->id)->get();
+        $monitoringProjectId=$projectProgressId[0]->id;
+        $objectives =MPlanObjective::where('status',1)
+        ->where('m_project_progress_id',$projectProgressId[0]->id)
+        ->get();
+      
+        $components =MPlanComponent::where('status',1)
+        ->where('m_project_progress_id',$projectProgressId[0]->id)
+        ->get();
 
-        $objectives =MPlanObjective::where('status',1)->get();
-        $components =MPlanComponent::where('status',1)->get();
-        return view('_Monitoring._Officer.projects.inprogressSingle',compact('components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
+        $generalKpis =GeneralKpi::where('status',1)->get();
+        \JavaScript::put([
+         'componentsforkpis'=> $components,
+         'monitoringProjectId'=> $monitoringProjectId
+        ]);
+        return view('_Monitoring._Officer.projects.inprogressSingle',compact('monitoringProjectId','componentsforkpis','generalKpis','components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
       }
       public function monitoring_review_form(Request $request)
       {
@@ -781,7 +803,7 @@ class OfficerController extends Controller
         $projectProgressId= MProjectProgress::where('assigned_project_id',$request->project_progress_no)->get();
         // $objectives =MPlanObjective::where('status',1)->count();
         $i=0;
-        foreach($request->obj as $objective)  
+        foreach($request->objective as $objective)  
         {
           if(isset($_POST['mappedComp_'.$i]))
           foreach($_POST['mappedComp_'.$i] as $mappComp)
@@ -791,12 +813,19 @@ class OfficerController extends Controller
             $objCompMapping->m_plan_objective_id=$objective;
             $objCompMapping->m_plan_component_id=$mappComp;
             $objCompMapping->status= true;
+           
             $objCompMapping->save();
           }
+          $i++;
         }
 
         return response()->json($request->all());
       }
+      public function kpiComponentMapping(Request $request)
+      {
+        return response()->json($request->all());
+      }
+
       // public function monitoring_Stages()
       // {
       //   // if (!is_dir('storage/uploads/projects/project_activities/'.Auth::user()->username)) {

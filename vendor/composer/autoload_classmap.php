@@ -53,6 +53,7 @@ return array(
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\ExecutingAgency' => $baseDir . '/app/ExecutingAgency.php',
     'App\\Exports\\ProjectExport' => $baseDir . '/app/Exports/ProjectExport.php',
+    'App\\GeneralKpi' => $baseDir . '/app/GeneralKpi.php',
     'App\\HrAgenda' => $baseDir . '/app/HrAgenda.php',
     'App\\HrAttachment' => $baseDir . '/app/HrAttachment.php',
     'App\\HrDecision' => $baseDir . '/app/HrDecision.php',

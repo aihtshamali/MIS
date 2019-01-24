@@ -404,6 +404,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.3/js/jquery.orgchart.js"></script>
 <script>
 
+
 $(document).ready(function(){
   $('form.serializeform').on('submit',function(e){
     //   console.log('sad');
@@ -443,7 +444,50 @@ $(document).ready(function(){
     //     console.log(error);
     // });
   });
-
+  
+     $('li.optiontest').on('click', function () {
+        
+        var compData='';
+        axios.post('getProjectComponents',{
+              MProjectProgressId:'<?= $monitoringProjectId ?>'
+                
+            })
+        .then(response => {
+            compData=response.data
+        
+        var compopt='';
+        console.log(compData);
+        for (let index = 0; index < compData.length; index++) {
+            compopt=compopt+'<option value="'+compData[index].id+'">'+compData[index].component+'</option>';
+            
+        }
+        
+        var t = $(this).text();
+        var b = true;
+        $('.yesearch').val().forEach(e => {
+            if (e == t) {
+                b = false;
+                $('#addkpi').find('#' + t.replace(/\s+/g, '_').replace('(', '').replace(')', '')).remove()
+            }
+        })
+        if (b) {
+            $(`<li id='` + $(this).text().replace(/\s+/g, '_').replace('(', '').replace(')', '') + `' class="col-md-12 row">
+                <div class='col-md-6'> <span name="kpiname[]"> `+ $(this).text() + `</span></div>
+                <div class="col-md-6">
+                    <select class="kpisel col-sm-12" name=mappedKpicomponent[] multiple="multiple" id="optionsHere">
+                `+ compopt +`
+                    </select>
+                </div>
+                </li>`).appendTo('#addkpi')
+            // console.log($('#addkpi').find());
+            $('.kpisel').select2()
+        }
+    })
+        .catch(function (error) {
+            console.log(error);
+        });
+    })
+    
   $(window).scroll(function(){
     var scroll = $(window).scrollTop();
     if (scroll > 380)

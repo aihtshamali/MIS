@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class MPlanComponent extends Model
 {
+  
      public function MProjectProgress(){
     return $this->belongsTo('App\MProjectProgress');
     }
