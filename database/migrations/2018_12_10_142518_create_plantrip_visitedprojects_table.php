@@ -13,16 +13,16 @@ class CreatePlantripVisitedprojectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('plantrip_visitedprojects', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('assigned_project_id')->unsigned()->index()->nullable();
-            $table->foreign('assigned_project_id')->references('id')->on('assigned_projects')->onDelete('no action');
+        // Schema::create('plantrip_visitedprojects', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->integer('assigned_project_id')->unsigned()->index()->nullable();
+        //     $table->foreign('assigned_project_id')->references('id')->on('assigned_projects')->onDelete('no action');
 
-            $table->integer('plantrip_purpose_id')->unsigned()->index()->nullable();
-            $table->foreign('plantrip_purpose_id')->references('id')->on('plantrip_purposes')->onDelete('no action');
-            $table->string('description')->nullable();
-            $table->timestamps();
-        });
+        //     $table->integer('plantrip_purpose_id')->unsigned()->index()->nullable();
+        //     $table->foreign('plantrip_purpose_id')->references('id')->on('plantrip_purposes')->onDelete('no action');
+        //     $table->string('description')->nullable();
+        //     $table->timestamps();
+        // });
     }
 
     /**

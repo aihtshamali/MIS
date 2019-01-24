@@ -130,14 +130,71 @@ class HomeController extends Controller
       //
       // }
       // return $total_progress;
+      $triprequests = PlantripTriprequest::select('plantrip_triprequests.*','users.first_name','users.last_name')
+      ->leftJoin('plantrip_purposes','plantrip_purposes.plantrip_triprequest_id','plantrip_triprequests.id')
+      ->leftJoin('plantrip_members','plantrip_members.plantrip_purpose_id','plantrip_purposes.id')
+      ->leftJoin('users','plantrip_members.user_id','users.id')
+      ->where('plantrip_triprequests.status',0)
+      ->where('plantrip_members.requested_by',1)
+      ->where('plantrip_triprequests.approval_status','Pending')
+      ->distinct()
+      ->with('VmisRequestToTransportOfficer')
+      ->get();
 
+      $triprequestsrecommended = PlantripTriprequest::select('plantrip_triprequests.*','users.first_name','users.last_name')
+      ->leftJoin('plantrip_purposes','plantrip_purposes.plantrip_triprequest_id','plantrip_triprequests.id')
+      ->leftJoin('plantrip_members','plantrip_members.plantrip_purpose_id','plantrip_purposes.id')
+      ->leftJoin('vmis_request_to_transport_officers','vmis_request_to_transport_officers.plantrip_triprequest_id','plantrip_triprequests.id')
+      ->leftJoin('users','plantrip_members.user_id','users.id')
+      ->where('plantrip_triprequests.status',0)
+      ->where('plantrip_members.requested_by',1)
+      ->where('vmis_request_to_transport_officers.recommended','Recommended')
+      ->where('plantrip_triprequests.approval_status','Pending')
+      ->distinct()
+      ->with('VmisRequestToTransportOfficer')
+      ->get();
 
-      return view('home');
+       $tripcountsFordg =$triprequestsrecommended->count();      
+      $tripcounts=$triprequests->count();
+      // dd($tripcounts);
+        return view('home',['tripcountsFordg'=> $tripcountsFordg ,'tripcounts'=>$tripcounts]);
+
+  
     }
 
     public function reset_password()
     {
       return view('profile.reset');
+    }
+    public function visitRequest_dashboard()
+    {
+      $triprequests = PlantripTriprequest::select('plantrip_triprequests.*','users.first_name','users.last_name')
+      ->leftJoin('plantrip_purposes','plantrip_purposes.plantrip_triprequest_id','plantrip_triprequests.id')
+      ->leftJoin('plantrip_members','plantrip_members.plantrip_purpose_id','plantrip_purposes.id')
+      ->leftJoin('users','plantrip_members.user_id','users.id')
+      ->where('plantrip_triprequests.status',0)
+      ->where('plantrip_members.requested_by',1)
+      ->where('plantrip_triprequests.approval_status','Pending')
+      ->distinct()
+      ->with('VmisRequestToTransportOfficer')
+      ->get();
+
+      $triprequestsrecommended = PlantripTriprequest::select('plantrip_triprequests.*','users.first_name','users.last_name')
+      ->leftJoin('plantrip_purposes','plantrip_purposes.plantrip_triprequest_id','plantrip_triprequests.id')
+      ->leftJoin('plantrip_members','plantrip_members.plantrip_purpose_id','plantrip_purposes.id')
+      ->leftJoin('vmis_request_to_transport_officers','vmis_request_to_transport_officers.plantrip_triprequest_id','plantrip_triprequests.id')
+      ->leftJoin('users','plantrip_members.user_id','users.id')
+      ->where('plantrip_triprequests.status',0)
+      ->where('plantrip_members.requested_by',1)
+      ->where('vmis_request_to_transport_officers.recommended','Recommended')
+      ->where('plantrip_triprequests.approval_status','Pending')
+      ->distinct()
+      ->with('VmisRequestToTransportOfficer')
+      ->get();
+
+       $tripcountsFordg =$triprequestsrecommended->count();      
+      $tripcounts=$triprequests->count();
+        return view('visitrequest_dashboard',['tripcountsFordg'=> $tripcountsFordg,'triprequestsrecommended'=> $triprequestsrecommended,'triprequests'=>$triprequests,'tripcounts'=>$tripcounts]);
     }
     public function monitoringDashboard()
     {
@@ -151,9 +208,7 @@ class HomeController extends Controller
       ->distinct()
       ->with('VmisRequestToTransportOfficer')
       ->get();
-
-
-      $tripcounts=$triprequests->count();
+      //for officers
       $officer=PlantripTriprequest::select('plantrip_triprequests.*')
       ->leftjoin('plantrip_purposes','plantrip_purposes.plantrip_triprequest_id','plantrip_triprequests.id')
       ->leftjoin('plantrip_members','plantrip_members.plantrip_purpose_id','plantrip_purposes.id')
@@ -162,9 +217,10 @@ class HomeController extends Controller
       ->latest()
       ->get();
       $officercount= $officer->count();
+      $tripcounts=$triprequests->count();
     // dd($officer[0]->PlantripRemark[0]->remarks);
     // dd($officer[0]->PlantripDriverRating->rating);
-        return view('monitoring_dashboard',['triprequests'=>$triprequests,'tripcounts'=>$tripcounts,'officer'=>$officer ,'officercount'=>$officercount]);
+        return view('monitoring_dashboard',['officer'=>$officer ,'officercount'=>$officercount,'triprequests'=>$triprequests,'tripcounts'=>$tripcounts]);
     }
     public function reset_store(Request $request)
     {

@@ -15,7 +15,7 @@ class RenameAssignedProjectActivity extends Migration
     {
       Schema::disableForeignKeyConstraints();
       Schema::table('assigned_activity_attachments', function(Blueprint $table){
-        $table->dropIndex(['assigned_project_activities_id']);
+         $table->dropIndex(['assigned_project_activities_id']);
          $table->dropForeign(['assigned_project_activities_id']);
          $table->dropColumn('assigned_project_activities_id');
          $table->integer('assigned_project_activity_id')->unsigned()->index()->nullable();
