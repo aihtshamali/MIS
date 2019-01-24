@@ -72,7 +72,7 @@
                     @endif
                   @endforeach
               </select>
-              @if($_GET['reAssign'] == 1)
+              @if(isset($_GET['reAssign']) && $_GET['reAssign'] == 1)
               <div id="commentarea">
                 <label for="">Enter Comments</label>
                 <br>
