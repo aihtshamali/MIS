@@ -38,7 +38,7 @@ td{white-space: unset !important;}
     <div class="col-md-6 col-xl-12">
             <div class="card widget-card-1">
                 <div class="card-block-small">
-                    <i class="feather icon-home bg-c-yellow card1-icon"></i>
+                    <i class="feather icon-home bg-c-yellow card1-icon hidden-sm hidden-xs"></i>
                     <span class="text-c-yellow f-w-600 pointer"> <span style="color:black">Welcome</span>
                         @auth
                           {{Auth::user()->first_name}} {{Auth::user()->last_name}}

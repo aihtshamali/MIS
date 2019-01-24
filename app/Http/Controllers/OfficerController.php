@@ -133,7 +133,6 @@ class OfficerController extends Controller
 
       public function evaluation_inprogress()
       {
-
         $officerAssignedCount=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
         ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
         ->where('acknowledge','0')
@@ -726,7 +725,7 @@ class OfficerController extends Controller
           $project_issue->save();
         }
       }
-      
+
       public function savehealthsafety(Request $request){
         foreach ($request->status as $key=>$healthsafety) {
           $temp=explode("_",$healthsafety);

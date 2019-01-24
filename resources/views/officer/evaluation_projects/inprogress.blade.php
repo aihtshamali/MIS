@@ -23,23 +23,19 @@
       {{-- row 1 --}}
 
       <div class="row">
-        <div class="col-md-1 col-xs-2" ></div>
-        <div class="col-md-10 col-xs-4" >
+        <!-- <div class="col-md-1 col-xs-2" ></div> -->
+        <div class="col-md-10" >
             <div class="box box-warning">
-
               <div class="box-header with-border">
                 <h3 class="box-title"></h3>
-
                 <div class="box-tools pull-right">
                   <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                   </button>
-
                 </div>
               </div>
               <div class="box-body">
                <div class="row" >
-                <div class="col-md-12 col-xs-6">
-
+                <div class="col-md-12">
                     <div class="table-responsive">
                       <table class="table table-hover table-striped">
                         <thead >
