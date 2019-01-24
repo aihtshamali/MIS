@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class MHealthSafeties extends Migration
+class CreateGeneralKpisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class MHealthSafeties extends Migration
      */
     public function up()
     {
-        Schema::create('m_health_safeties', function (Blueprint $table) {
+        Schema::create('general_kpis', function (Blueprint $table) {
             $table->increments('id');
-        $table->string('description');
-        $table->boolean('status')->nullable();
-        $table->timestamps();
+            $table->string('description')->nullable();
+            $table->boolean('status')->default(0);
+            $table->timestamps();
         });
     }
 
@@ -28,6 +28,6 @@ class MHealthSafeties extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('general_kpis');
     }
 }

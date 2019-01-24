@@ -3,8 +3,16 @@
             <nav class="pcoded-navbar">
                 <div class="pcoded-inner-navbar main-menu">
                    
-                    <div class="pcoded-navigatio-lavel">Site Visits</div>
+                 <div class="pcoded-navigatio-lavel">Site Visits</div>
                     <ul class="pcoded-item pcoded-left-item">
+                        @role('manager')
+                        <li class="pcoded">
+                            <a href="javascript:void(0)">
+                                <span class="pcoded-micon"><i class="zmdi zmdi-local-library"></i></span>
+                                <span class="pcoded-mtext" >Recommended Visits</span>
+                            </a>
+                        </li>
+                        @endrole    
                         <li class="pcoded-hasmenu">
                             <a href="javascript:void(0)">
 
@@ -24,6 +32,7 @@
                                 </li>
                             </ul>
                         </li>
+                       
                     </ul>
                 </div>
             </nav>

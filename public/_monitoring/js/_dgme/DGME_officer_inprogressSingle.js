@@ -13,58 +13,36 @@ $(document).ready(function () {
         $('input:checkbox').not(this).prop('checked', false);
     });
 
-    $('.optiontest').on('click', function () {
-        var t = $(this).text();
-        var b = true;
-        $('.yesearch').val().forEach(e => {
-            if (e == t) {
-                b = false;
-                $('#addkpi').find('#' + t.replace(/\s+/g, '_').replace('(', '').replace(')', '')).remove()
-            }
-        })
-        if (b) {
-            $(`<li id='` + $(this).text().replace(/\s+/g, '_').replace('(', '').replace(')', '') + `' class="col-md-12 row"><div class='col-md-6'>
-                `+ $(this).text() + `</div>
-                <div class="col-md-6">
-                    <select class="kpisel col-sm-12" multiple="multiple" id="optionsHere">
-                    `+ compopt +`
-                    </select>
-                </div>
-                </li>`).appendTo('#addkpi')
-            // console.log($('#addkpi').find());
-            $('.kpisel').select2()
-        }
-    })
-
+ 
     // SPECIAL KPI
-    $(document).on('click','.addspecialkpi',function(){
-        $(this).hide()
-        $(this).parent().find('.delspecialkpi').removeClass('nodisplay')
-        $(`<div class="row col-md-12">
-          <input type="text" class="form-control specialin col-md-11" placeholder="Type KPI here...">
-          <button class="col-md-1 btn addspecialkpi" type="button">+</button>
-          <button class="col-md-1 btn btn-danger btn-sm btn nodisplay delspecialkpi" type="button">-</button>
-        </div>`).appendTo('#appendspecialkpi')
-        var t = $(this).parent().find('.specialin').val();
+    // $(document).on('click','.addspecialkpi',function(){
+    //     $(this).hide()
+    //     $(this).parent().find('.delspecialkpi').removeClass('nodisplay')
+    //     $(`<div class="row col-md-12">
+    //       <input type="text" class="form-control specialin col-md-11" placeholder="Type KPI here...">
+    //       <button class="col-md-1 btn addspecialkpi" type="button">+</button>
+    //       <button class="col-md-1 btn btn-danger btn-sm btn nodisplay delspecialkpi" type="button">-</button>
+    //     </div>`).appendTo('#appendspecialkpi')
+    //     var t = $(this).parent().find('.specialin').val();
 
-        $(`<li id='` + t.replace(/\s+/g, '_').replace('(', '').replace(')', '') + `' class="col-md-12 row"><div class='col-md-6'>
-            `+ t + `</div>
-            <div class="col-md-6">
-                <select class="kpisel col-sm-12" multiple="multiple">
-                  `+ compopt +`
-                </select>
-            </div>
-            </li>`).appendTo('#addkpi')
+    //     $(`<li id='` + t.replace(/\s+/g, '_').replace('(', '').replace(')', '') + `' class="col-md-12 row"><div class='col-md-6'>
+    //         `+ t + `</div>
+    //         <div class="col-md-6">
+    //             <select class="kpisel col-sm-12" multiple="multiple">
+    //               `+ compopt +`
+    //             </select>
+    //         </div>
+    //         </li>`).appendTo('#addkpi')
 
-            $('.kpisel').select2()
-    })
-    $(document).on('click','.delspecialkpi',function(){
-        var t = $(this).parent().find('.specialin').val();
-        t = t.replace(/\s+/g, '_').replace('(', '').replace(')', '')
-        console.log(t);
-        $('#addkpi').find('#'+t).remove()
-        $(this).parent().remove()
-    })
+    //         $('.kpisel').select2()
+    // })
+    // $(document).on('click','.delspecialkpi',function(){
+    //     var t = $(this).parent().find('.specialin').val();
+    //     t = t.replace(/\s+/g, '_').replace('(', '').replace(')', '')
+    //     console.log(t);
+    //     $('#addkpi').find('#'+t).remove()
+    //     $(this).parent().remove()
+    // })
 // SPECIAL KPI END
 
     //FINANCIAL PHASING
@@ -580,18 +558,22 @@ $(document).on('click', '#add_activity', function (e) {
     console.log($(this).parent().find('#alltasks'), $(this).parent())
     $(this).parent().find('#alltasks').append(add_activities);
 });
-$(document).on('click', 'button#saveObjComp', function () {
+//project design
+$(document).on('click', 'button#saveObjComp', function ()
+ {
   $("#planMactivities").children().remove();
+  $("#ObjCompHere").children().remove();
+
     var comps = $(this).val();
     var count = 1;
-    // var yo = 0;
+        
     $('input[name^=comp]').each(function () {
         var val = $(this).val();
         var addTask = `
       <div class="row form-group compTask`+ count + `">
         <div class="col-md-4 offset-md-1"><label for=""> <b class="headText form-txt-primary" id="compname`+ count + `">` + val + `</b></label></div>
         <div class="col-md-2 offset-md-4 mb_1 Taskbut` + count + `" id="add_activity" style="padding-top:0.6%;">
-          <button class="btn btn-sm btn-warning float-right" type="button" name="">Add Tasks</button>
+          <button class="btn btn-sm btn-warning float-right"  type="button" name="add_activity">Add Tasks</button>
         </div>
         <div id="alltasks" class="row col-md-11 offset-md-1 form-group component_Activities">
         </div>
@@ -603,7 +585,41 @@ $(document).on('click', 'button#saveObjComp', function () {
         // yo++;
         count++;
     });
-});
+
+    $('input[name^=obj]').each(function () {
+        var ObjCompHere = `<li class="row mb_2">
+                            <span id='objvalue`+ oc + `' class="float-left col-md-6"></span>
+                            <span class="float-right col-md-6">
+                            <select class="select2 col-md-12" id="option`+ oc + `" multiple="multiple">
+                            </select>
+                            </span>
+                          </li>`
+        var options = ""
+       
+        $('input[name^=comp]').each(function () {
+            
+            options += "<option value='" + $(this).val() + "'>" + $(this).val() + "</option>"
+        });
+        compopt = options
+       
+        var t = $(ObjCompHere)
+        t.find('#objvalue' + oc + '').text($(this).val())
+        $(options).appendTo(t.find('#option' + oc + ''))
+        t.appendTo('#ObjCompHere');
+        // });
+        $('.select2').select2()
+        // console.log(obj);
+        // return false;
+        oc++;
+    });
+ });
+ $('.select2').select2();
+ $('#saveObjComp').click(function () {
+    // <select class="select2 col-md-12" id="option`+ oc + `" multiple>
+    
+    
+ });
+
 $(document).on('click', '#saveTasks', function () {
   $('#comptaskl').children().remove();
   $('#costcomp').children().remove();
@@ -705,38 +721,7 @@ $('#add_more_objective').click(function (e) {
     $('.objtivesNew').append(add_objective);
     objct += 1;
 });
-$('#saveObjComp').click(function () {
-    // <select class="select2 col-md-12" id="option`+ oc + `" multiple>
-    $("#ObjCompHere").children().remove();
-    $('input[name^=obj]').each(function () {
-        var ObjCompHere = `<li class="row mb_2">
-                            <span id='objvalue`+ oc + `' class="float-left col-md-6"></span>
-                            <span class="float-right col-md-6">
-                            <select class="select2 col-md-12" id="option`+ oc + `" multiple="multiple">
-                            </select>
-                            </span>
-                          </li>`
-        var options = ""
-        // $(ObjCompHere)
-        // var obj = [];
-        $('input[name^=comp]').each(function () {
-            // obj.push($(this).val());
-            options += "<option value='" + $(this).val() + "'>" + $(this).val() + "</option>"
-        });
-        compopt = options
-        // console.log(options,'here');
-        // $('input[name^=obj]').each(function(){
-        var t = $(ObjCompHere)
-        t.find('#objvalue' + oc + '').text($(this).val())
-        $(options).appendTo(t.find('#option' + oc + ''))
-        t.appendTo('#ObjCompHere');
-        // });
-        $('.select2').select2()
-        // console.log(obj);
-        // return false;
-        oc++;
-    });
-});
+
 $(document).on('click', '.removeObjective', function () {
     if ($(this).parent().attr('class').split(' ')[0].split('ss')[1] == objct - 1) {
         $(this).parent().remove();
@@ -907,3 +892,5 @@ function removerow(e) {
 function removeIssuerow(e) {
     $(e).parent().parent().remove();
 }
+
+  

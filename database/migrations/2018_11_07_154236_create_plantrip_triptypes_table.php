@@ -13,12 +13,12 @@ class CreatePlantripTriptypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('plantrip_triptypes', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name')->nullable();
-            $table->boolean('status')->nullable();
-            $table->timestamps();
-        });
+        // Schema::create('plantrip_triptypes', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->string('name')->nullable();
+        //     $table->boolean('status')->nullable();
+        //     $table->timestamps();
+        // });
     }
 
     /**
