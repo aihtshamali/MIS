@@ -26,7 +26,7 @@
                             Safety Enviornment</b></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link procurement" data-toggle="tab" href="#procurement"
+                    <a class="nav-link procurement" data-toggle="tab" href="#procu"
                         role="tab" aria-expanded="true"><b style="font-size:14px; font-weight:bold;">Procurement</b></a>
                 </li>
                 <li class="nav-item">
@@ -166,9 +166,10 @@
                                                     <div class="col-md-12">
                                                         <select id="districts" name="stakeholder" class="form-control form-control-primary select2" data-placeholder="" style="width: 100%;">
                                                             <option value="" hidden='hidden'>Select</option>
-                                                            <option value="">some option</option>
-                                                            <option value="">to choose</option>
-                                                            <option value="">from</option>
+                                                            <option value="">Executing</option>
+                                                            <option value="">Sponsoring</option>
+                                                            <option value="">Beneficiary</option>
+                                                            <option value="">Type X</option>
                                                         </select>
                                                     </div>
                                                 </td>
@@ -206,7 +207,7 @@
                         <div class="card-block">
                             <form action="{{route('saveMissues')}}" method="POST" class="serializeform">
                                 {{ csrf_field() }}
-                                <input type="hidden" name="m_project_progress_id" value="{{$progresses->last()->id}}">  
+                                <input type="hidden" name="m_project_progress_id" value="{{$progresses->last()->id}}">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered nowrap">
                                         <thead>
@@ -384,7 +385,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane active" id="HSE" role="tabpanel" aria-expanded="true">
+                <div class="tab-pane" id="HSE" role="tabpanel" aria-expanded="true">
                     <div class="card z-depth-right-0">
                         <div class="card-header">
                             <h4>Health Safety Enviornment</h4>
@@ -458,6 +459,53 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="tab-pane" id="procu" role="tabpanel" aria-expanded="true">
+                  <div class="card-block">
+                      <div class="col-md-12">
+                          <form action="{{route('savehealthsafety')}}" method="POST" class="serializeform">
+                          {{ csrf_field() }}
+                          <input type="hidden" name="m_project_progress_id" value="{{$progresses->last()->id}}">
+                          <div class="table-responsive">
+                              <table class="table table-bordered table-stripped nowrap">
+                                  <thead>
+                                      <tr>
+                                          <th>Item Name</th>
+                                          <th>Description</th>
+                                          <th>Quantity/units</th>
+                                          <th>PC-I Cost</th>
+                                          <th>Amount</th>
+                                          <th>Expected Date Of Perchase</th>
+                                          <th>Actual Date of perchase</th>
+                                          <th>Actual perchase Price</th>
+                                          <th>Remarks</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody id="">
+                                    <tr>
+                                      <td class="tdprocu"></td>
+                                      <td class="tdprocu"></td>
+                                      <td class="tdprocu"></td>
+                                      <td class="tdprocu"></td>
+                                      <td class="tdprocu"></td>
+                                      <td class="tdprocu"></td>
+                                      <td class="tdprocu"></td>
+                                      <td class="tdprocu"></td>
+                                      <td class="tdprocu"><textarea placeholder="Remarks..." style="border:none;"></textarea></td>
+                                    </tr>
+                                  </tbody>
+
+                              </table>
+                              <div class="row">
+                                  <div class="col-md-9"></div>
+                                  <div class="col-md-1">
+                                  <button type="submit" class="btn btn-sm btn-success" >Submit</button>
+                                  </div>
+                              </div>
+                          </div>
+                      </form>
+                      </div>
+                  </div>
                 </div>
                 <div class="tab-pane " id="Gallery" role="tabpanel" aria-expanded="false"
                     style="display:none;">

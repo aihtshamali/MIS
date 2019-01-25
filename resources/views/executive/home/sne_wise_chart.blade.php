@@ -424,5 +424,6 @@ var bullet2 = series2.bullets.push(new am4charts.LabelBullet());
 bullet2.label.text = "{valueY}";
 bullet2.locationY = 0.5;
 bullet2.label.fill = am4core.color("#ffffff");
-     </script>
+
+</script>
 @endsection
