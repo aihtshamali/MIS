@@ -113,14 +113,27 @@ $(document).ready(function () {
         }
     });
 
-    var orig = { "cost": "430", "period": "30", "date": '15 September 2013' };
+    let start_date=moment(projectWithRevised.project_detail.planned_start_date);
+    let end_date=moment(projectWithRevised.project_detail.planned_end_date);
+    let orig_period=moment.duration(end_date.diff(start_date));
+    var orig = { "cost": projectWithRevised.project_detail.orignal_cost, "period": Math.round(orig_period.asMonths()), "date":  start_date.format("D MMM Y")};
 
-    var revs = [{ "cost": "450", "period": "33", "date": '15 September 2013' },
-    { "cost": "479", "period": "33", "date": '15 September 2013' },
-    { "cost": "479", "period": "37", "date": '15 September 2013' }]
+    var revs = []
+    
+    projectWithRevised.revised_approved_cost.forEach( function (value,index) {
+        let start_date1=moment(projectWithRevised.project_detail.revised_start_date);
+        let end_date1=moment(projectWithRevised.revised_end_date[index].end_date);
+        let revs_period=moment.duration(end_date1.diff(start_date1));
+                console.log(revs_period.asMonths());
+        revs.push({ "cost": value.cost, "period": Math.round(revs_period.asMonths()), "date":  start_date1.format("D MMM Y")})    
+     })
+    // { "cost": "450", "period": "33", "date": '15 September 2013' },
+    // { "cost": "479", "period": "33", "date": '15 September 2013' },
+    // { "cost": "479", "period": "37", "date": '15 September 2013' }
+   
 
     var revisionTable = `<div>
-    <h5 style="padding-top:20px;padding-bottom:10px;clear:both;">Revised I</h5>
+    <h5 style="padding-top:20px;padding-bottom:10px;clear:both;" class="revisedLabel">Revised 1</h5>
         <div class="row">
             <h5 class="col-md-4">Gestation Period: <b><span id="t_months"></span> months</b></h5>
             <h5 class="col-md-4">Total Cost: <b><span id="t_cost"></span> Million(s)</b></h5>
@@ -206,11 +219,13 @@ $(document).ready(function () {
         }
 
         if (revs.length != 0) {
+            let mycount=1;
             revs.forEach(item => {
                 // console.log('THIS IS SPARTA');
 
                 var tm = parseInt(item.period)
                 var table = $(revisionTable)
+                table.find('h5.revisedLabel').text("Revision "+mycount)
                 var date = moment(item.date, "DD MMMM YYYY")
                 table.find('#t_cost').text(item.cost)
                 table.find('#f_date').text(date.format('DD MMMM YYYY'))
@@ -238,6 +253,7 @@ $(document).ready(function () {
                         months = tm
                     tr_ob.appendTo(table.find('#original_tbody'))
                 }
+                mycount++;
                 table.prependTo('#financial')
             })
         }

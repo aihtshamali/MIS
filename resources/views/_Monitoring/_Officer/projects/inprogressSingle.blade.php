@@ -381,28 +381,28 @@
 <script src="{{asset('_monitoring/js/demo-ui.js')}}"></script>
 <script src="{{asset('_monitoring/js/demo-config.js')}}"></script>
 {{-- this is custom dgme js for this page only Ok ? if you want to add kindly add here dont mess here!! --}}
-<script src="{{asset('_monitoring/js/_dgme/DGME_officer_inprogressSingle.js')}}"></script>
 <!-- File item template -->
 <script type="text/html" id="files-template">
-  <li class="media">
-    <div class="media-body mb-1">
-      <p class="mb-2">
-        <strong>%%filename%%</strong>
-         <!-- - Status: <span class="text-muted">Waiting</span> -->
-      </p>
-      <!-- <div class="progress mb-2">
-        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
-          role="progressbar"
-          style="width: 0%"
-          aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-        </div>
-      </div> -->
-      <hr class="mt-1 mb-1" />
+    <li class="media">
+        <div class="media-body mb-1">
+            <p class="mb-2">
+                <strong>%%filename%%</strong>
+                <!-- - Status: <span class="text-muted">Waiting</span> -->
+            </p>
+            <!-- <div class="progress mb-2">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                role="progressbar"
+                style="width: 0%"
+                aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+            </div>
+        </div> -->
+        <hr class="mt-1 mb-1" />
     </div>
-  </li>
+</li>
 </script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.3/js/jquery.orgchart.js"></script>
+<script src="{{asset('_monitoring/js/_dgme/DGME_officer_inprogressSingle.js')}}"></script>
 <script>
 
 
