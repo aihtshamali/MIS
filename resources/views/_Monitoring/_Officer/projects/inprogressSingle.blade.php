@@ -96,6 +96,7 @@
 .sky{color: #42BDFA !important;font-size: 21px;font-weight: 900;}
 .green{color: green !important;font-size: 21px;font-weight: 900;}
 .errortiQ{color: #A91F1A !important;font-size: 25px;font-weight: 900;}
+.tdprocu{padding: 0px !important;text-align: center !important;}
 </style>
 
 @endsection
@@ -380,38 +381,43 @@
 <script src="{{asset('_monitoring/js/demo-ui.js')}}"></script>
 <script src="{{asset('_monitoring/js/demo-config.js')}}"></script>
 {{-- this is custom dgme js for this page only Ok ? if you want to add kindly add here dont mess here!! --}}
-<script src="{{asset('_monitoring/js/_dgme/DGME_officer_inprogressSingle.js')}}"></script>
 <!-- File item template -->
 <script type="text/html" id="files-template">
-  <li class="media">
-    <div class="media-body mb-1">
-      <p class="mb-2">
-        <strong>%%filename%%</strong>
-         <!-- - Status: <span class="text-muted">Waiting</span> -->
-      </p>
-      <!-- <div class="progress mb-2">
-        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
-          role="progressbar"
-          style="width: 0%"
-          aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-        </div>
-      </div> -->
-      <hr class="mt-1 mb-1" />
+    <li class="media">
+        <div class="media-body mb-1">
+            <p class="mb-2">
+                <strong>%%filename%%</strong>
+                <!-- - Status: <span class="text-muted">Waiting</span> -->
+            </p>
+            <!-- <div class="progress mb-2">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                role="progressbar"
+                style="width: 0%"
+                aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+            </div>
+        </div> -->
+        <hr class="mt-1 mb-1" />
     </div>
-  </li>
+</li>
 </script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.3/js/jquery.orgchart.js"></script>
+<script src="{{asset('_monitoring/js/_dgme/DGME_officer_inprogressSingle.js')}}"></script>
 <script>
+
 
 $(document).ready(function(){
   $('form.serializeform').on('submit',function(e){
+    //   console.log('sad');
+      
     e.preventDefault();
       $.ajax( {
       data: $(this).serialize(),
       type: $( this ).attr( 'method' ),
       url: $(this).attr('action'),
       success: function( feedback ){
+        //   console.log(feedback);
+          
           if(feedback){
 
           }
@@ -439,7 +445,50 @@ $(document).ready(function(){
     //     console.log(error);
     // });
   });
-
+  
+     $('li.optiontest').on('click', function () {
+        
+        var compData='';
+        axios.post('getProjectComponents',{
+              MProjectProgressId:'<?= $monitoringProjectId ?>'
+                
+            })
+        .then(response => {
+            compData=response.data
+        
+        var compopt='';
+        console.log(compData);
+        for (let index = 0; index < compData.length; index++) {
+            compopt=compopt+'<option value="'+compData[index].id+'">'+compData[index].component+'</option>';
+            
+        }
+        
+        var t = $(this).text();
+        var b = true;
+        $('.yesearch').val().forEach(e => {
+            if (e == t) {
+                b = false;
+                $('#addkpi').find('#' + t.replace(/\s+/g, '_').replace('(', '').replace(')', '')).remove()
+            }
+        })
+        if (b) {
+            $(`<li id='` + $(this).text().replace(/\s+/g, '_').replace('(', '').replace(')', '') + `' class="col-md-12 row">
+                <div class='col-md-6'> <span name="kpiname[]"> `+ $(this).text() + `</span></div>
+                <div class="col-md-6">
+                    <select class="kpisel col-sm-12" name=mappedKpicomponent[] multiple="multiple" id="optionsHere">
+                `+ compopt +`
+                    </select>
+                </div>
+                </li>`).appendTo('#addkpi')
+            // console.log($('#addkpi').find());
+            $('.kpisel').select2()
+        }
+    })
+        .catch(function (error) {
+            console.log(error);
+        });
+    })
+    
   $(window).scroll(function(){
     var scroll = $(window).scrollTop();
     if (scroll > 380)

@@ -105,4 +105,13 @@ class User extends Authenticatable implements JWTSubject
       return [];
   }
 
+  public function TransportOfficerUser(){
+    return $this->hasOne('App\VmisRequestToTransportOfficer','transportOfficer_user_id');
+  }
+  public function RecommendedByUser(){
+    return $this->hasOne('App\VmisRequestToTransportOfficer','recommendedby_user_id');
+  }
+  public function RemarksByUser(){
+    return $this->hasOne('App\PlantripRemark','remarksby_user_id');
+  }
 }

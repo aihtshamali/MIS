@@ -20,6 +20,10 @@ class PlantripTriprequest extends Model
     {   
         return $this->hasOne('App\VmisRequestToTransportOfficer','plantrip_triprequest_id');
     }
+    public function VmisRequestToTransportOfficersLog()
+    {   
+        return $this->hasOne('App\VmisRequestToTransportOfficersLog','plantrip_triprequest_id');
+    }
     public function PlantripTriprequestLog()
     {   
         return $this->hasMany('App\PlantripTriprequestLog','plantrip_triprequest_id');

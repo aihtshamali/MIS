@@ -4,11 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class VmisRequestToTransportOfficerLog extends Model
+class VmisRequestToTransportOfficersLog extends Model
 {
+
     public function PlantripTriprequestLog()
     {   
         return $this->belongsTo('App\PlantripTriprequestLog');
+    }
+    public function PlantripTriprequest()
+    {   
+        return $this->belongsTo('App\PlantripTriprequest','plantrip_triprequest_id');
     }
     public function VmisVehicle()
     {   
@@ -21,6 +26,14 @@ class VmisRequestToTransportOfficerLog extends Model
     public function User()
     {   
         return $this->belongsTo('App\User','approvedby_user_id');
+    }
+    public function TransportOfficerUser()
+    {   
+        return $this->belongsTo('App\User','transportOfficer_user_id');
+    }
+    public function RecommendedByUser()
+    {   
+        return $this->belongsTo('App\User','recommendedby_user_id');
     }
     public function VmisAssignedVehicleLog()
     {   

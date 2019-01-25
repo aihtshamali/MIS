@@ -116,24 +116,49 @@ ol{padding: 0px 0px 0px 13px !important;}
                                                 </td>
                     
                                             <td style="text-align:center;" >
-                                                @if($triprequest->approval_status == 'Pending')
-                                                     @if(isset($triprequest->VmisRequestToTransportOfficer->approval_status) && $triprequest->VmisRequestToTransportOfficer->approval_status=='1')
-                                                    <label class="badge badge-md badge-primary">Pending At Director End</label>
-                                                    @else 
-                                                    <label class="badge badge-md badge-primary">Pending At TO End</label>
-                                                    @endif
-                                                @elseif($triprequest->VmisRequestToTransportOfficer->approval_status=='2'  && $triprequest->approval_status == 'Approved')
-                                                <label class="badge badge-md badge-success">Approved by {{$triprequest->VmisRequestToTransportOfficer->User->first_name}} {{$triprequest->VmisRequestToTransportOfficer->User->last_name}} </label> 
-                                                @if(isset(($triprequest->PlantripRemark)))
-                                                <p><b>Remarks:</b>
-                                                @foreach($triprequest->PlantripRemark as $tripR)
-                                                {{$tripR->remarks}}
-                                                @endforeach
-                                                </p>    
-                                            @endif
-                                                @elseif($triprequest->VmisRequestToTransportOfficer->approval_status=='3' && $triprequest->approval_status == 'Not Approved')
-                                                <label class="badge badge-md badge-danger">Dis-Approved by{{$triprequest->VmisRequestToTransportOfficer->User->first_name}} {{$triprequest->VmisRequestToTransportOfficer->User->last_name}} </label> 
+                                                    @if($triprequest->approval_status == 'Pending')
+                                                    @if(isset($triprequest->VmisRequestToTransportOfficer->approval_status) && $triprequest->VmisRequestToTransportOfficer->approval_status=='1')
+                                                   <label class="badge badge-md badge-primary">Pending At Director End</label>
+                                                   @else 
+                                                   <label class="badge badge-md badge-primary">Pending At TO End</label>
+                                                   @endif
+                                                @elseif($triprequest->VmisRequestToTransportOfficer->approval_status=='2')
+                                            <label class="badge badge-md badge-success">Recommended <br> Waiting For DG's Approval</label> 
+                                                @if(isset($triprequest->PlantripRemark))
+                                                    <p><b>Remarks:</b>
+                                                    @foreach($triprequest->PlantripRemark as $tripR)
+                                                    {{$tripR->remarks}}
+                                                    @endforeach
+                                                    </p>    
                                                 @endif
+                                                @elseif($triprequest->VmisRequestToTransportOfficer->approval_status=='3' )
+                                                <label class="badge badge-md badge-success">Not Recommended by {{$triprequest->VmisRequestToTransportOfficer->User->first_name}} {{$triprequest->VmisRequestToTransportOfficer->User->last_name}} </label> 
+                                                    @if(isset($triprequest->PlantripRemark))
+                                                        <p><b>Remarks:</b>
+                                                        @foreach($triprequest->PlantripRemark as $tripR)
+                                                        {{$tripR->remarks}}
+                                                        @endforeach
+                                                        </p>    
+                                                    @endif
+                                                @elseif($triprequest->VmisRequestToTransportOfficer->approval_status=='4' && $triprequest->approval_status == 'Approved')
+                                                <label class="badge badge-md badge-success">Approved by {{$triprequest->VmisRequestToTransportOfficer->User->first_name}} {{$triprequest->VmisRequestToTransportOfficer->User->last_name}} </label> 
+                                                    @if(isset($triprequest->PlantripRemark))
+                                                        <p><b>Remarks:</b>
+                                                        @foreach($triprequest->PlantripRemark as $tripR)
+                                                        {{$tripR->remarks}}
+                                                        @endforeach
+                                                        </p>    
+                                                    @endif
+                                            @elseif($triprequest->VmisRequestToTransportOfficer->approval_status=='5' && $triprequest->approval_status == 'Not Approved')
+                                            <label class="badge badge-md badge-danger">Disapproved By  {{$triprequest->VmisRequestToTransportOfficer->User->first_name}} {{$triprequest->VmisRequestToTransportOfficer->User->last_name}} </label> 
+                                            @if(isset($triprequest->PlantripRemark))
+                                            <p><b>Remarks:</b>
+                                            @foreach($triprequest->PlantripRemark as $tripR)
+                                            {{$tripR->remarks}}
+                                            @endforeach
+                                            </p>    
+                                        @endif    
+                                            @endif
                                             </td>
                                             <td style="text-align:center;" >
                                                 @if($triprequest->completed=='1')

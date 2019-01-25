@@ -10,6 +10,13 @@ class MProjectProgress extends Model
         return $this->belongsTo('App\AssignedProject');
     }
 
+    public function MPlanObjectivecomponentMapping(){
+      return $this->hasMany('App\MPlanObjectivecomponentMapping');
+    }
+    
+    public function MPlanKpicomponentMapping(){
+      return $this->hasMany('App\MPlanKpicomponentMapping');
+    } 
     public function MProjectDate(){
       return $this->hasOne('App\MProjectDate');
     }
@@ -38,4 +45,11 @@ class MProjectProgress extends Model
     public function MAssignedProjectMappingObjective(){
       return $this->hasMany('App\MAssignedProjectMappingObjective');
     }
+    public function  MPlanObjective(){
+      return $this->hasMany('App\MPlanObjective');
+    }
+    public function  MPlanComponent(){
+      return $this->hasMany('App\MPlanComponent');
+    }
+    
 }
