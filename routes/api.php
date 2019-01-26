@@ -23,6 +23,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('logout','UserController@logout');
     Route::get('assignedProject','DataController@getAssignedProject');
 });
+Route::get('projectRelatedKpi','DataController@getProjectKpi');
 
 // Route::get('/chats','ChatController@index');
 // Route::get('/notifications/{user}','NotificationController@index');
