@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
 use App\AssignedProject;
 use App\User;
@@ -10,6 +10,7 @@ use App\AssignedSubSector;
 use App\Http\Resources\AssignedProject as AssignedResource;
 use App\Http\Resources\User as UserResource;
 use App\Http\Resources\MProjectKpi as MProjectKpiResource;
+use App\GeneralKpi;
 
 class DataController extends Controller
 {
@@ -40,10 +41,22 @@ class DataController extends Controller
           foreach ($sub_sectors as $sub_sector) {
             array_push($sectors,$sub_sector->SubSector->Sector);
           }
-          $m_project_kpis = [];
+          $sectors = array_unique($sectors);
+          $m_project_kpis = ["m_kpi"=>["sector"=>[]],"general_kpi"=>[]];
           foreach ($sectors as $sector) {
-            array_push($m_project_kpis,MProjectKpiResource::collection($sector->MProjectKpis));
+
+              array_push($m_project_kpis["m_kpi"]["sector"],["name"=>$sector->name,"children"=>MProjectKpiResource::collection($sector->MProjectKpis)]);
+              // array_push($m_project_kpis["m_kpi"]["sector"]["children"],$value);
+              // foreach (MProjectKpiResource::collection($sector->MProjectKpis) as  $value) {
+              // }
+            // return response()->json(MProjectKpiResource::collection($sector->MProjectKpis));
           }
+          // $m_general_kpis = [];
+          foreach (GeneralKpi::where('status',1)->get() as $value) {
+            array_push($m_project_kpis["general_kpi"],$value);
+          }
+          // $m_project_kpis->push(GeneralKpi::where('status',1)->get());
+          // return
           return response()->json($m_project_kpis);
         }
 
