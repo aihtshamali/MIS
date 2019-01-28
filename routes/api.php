@@ -13,14 +13,25 @@ use Illuminate\Http\Request;
 */
 
 
+// Route::post('register', 'UserController@register');
+Route::post('login', 'UserController@authenticate');
+Route::get('open', 'DataController@open');
 
-Route::get('/chats','ChatController@index');
-Route::get('/notifications/{user}','NotificationController@index');
-// dd(Auth);
-Route::post('/chats', 'ChatController@store');
-Route::middleware('auth:api')->group(function () {
-    // dd(Auth::user());
+Route::group(['middleware' => ['jwt.verify']], function() {
+    Route::get('user', 'UserController@getAuthenticatedUser');
+    Route::get('closed', 'DataController@closed');
+    Route::get('logout','UserController@logout');
+    Route::get('assignedProject','DataController@getAssignedProject');
 });
+Route::get('projectRelatedKpi','DataController@getProjectKpi');
+
+// Route::get('/chats','ChatController@index');
+// Route::get('/notifications/{user}','NotificationController@index');
+// // dd(Auth);
+// Route::post('/chats', 'ChatController@store');
+// Route::middleware('auth:api')->group(function () {
+//     // dd(Auth::user());
+// });
 
 
 //

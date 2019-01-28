@@ -7,7 +7,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
 use Illuminate\Database\Eloquent\Model;
 use Auth;
-class User extends Authenticatable
+use Tymon\JWTAuth\Contracts\JWTSubject;
+
+class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
     use HasRoleAndPermission;
@@ -94,6 +96,15 @@ class User extends Authenticatable
   public function VmisRequestToTransportOfficer(){
       return $this->hasOne('App\VmisRequestToTransportOfficer','approvedby_user_id');
   }
+
+  //API JWT TOKEN
+  public function getJWTIdentifier(){
+      return $this->getKey();
+  }
+  public function getJWTCustomClaims(){
+      return [];
+  }
+
   public function TransportOfficerUser(){
     return $this->hasOne('App\VmisRequestToTransportOfficer','transportOfficer_user_id');
   }

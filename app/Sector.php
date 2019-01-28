@@ -15,6 +15,6 @@ class Sector extends Model
     }
 
     public function MProjectKpis(){
-      return $this->hasMany('App\MProjectKpis');
+      return $this->hasMany('App\MProjectKpi');
     }
 }
