@@ -11,7 +11,7 @@ class ProjectDetail extends Model
         return $this->belongsTo('App/Project');
     }
     public function District(){
-        return $this->belongsTo('App/District');
+        return $this->belongsTo('App\District');
     }
 
     public function AssigningForum(){
