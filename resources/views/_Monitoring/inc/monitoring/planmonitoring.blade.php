@@ -268,21 +268,30 @@
                 </div>
                 <div class="tab-pane " id="TimesDiv" role="tabpanel" aria-expanded="false"
                     style="display:none;">
-                    <form class="" action="index.html" method="post">
+                <form class="serializeform" action="{{route('activities_duration')}}" method="post">
+                    {{ csrf_field() }}
                     <div class="card">
                         <div class="card-header"></div>
                         <div class="card-block">
                             <div class="row form-group">
-                                <h5 class="col-md-4 textlef mb_2">Activities Under Component</h5>
+                                <h5 class="col-md-6 textlef mb_2">Activities</h5>
                                 <h5 class="col-md-4 textlef mb_2">Duration In Days</h5>
-                                <div id='comptaskl' class="col-md-12 row" style="padding-left:2% !important;">
-
+                                @foreach ($ComponentActivities as $activities)
+                                <div id='comptaskl' class="col-md-12 row" style="margin-top:5px; padding-left:2% !important;">
+                                    <div class="col-md-6">
+                                    <label for=""><b>{{$activities->MPlanComponent->component}}</b> <br> - {{$activities->activity}}</label>
+                                    <input type="hidden" name="componentActivityId[]" value={{$activities->id}}>
+                                    </div>
+                                    <div class="col-md-4" style="">
+                                        <input type="text"name="daysinduration[]" class="form-control">
+                                    </div>
                                 </div>
+                                @endforeach
                           </div>
                         </div>
                         <div class="card-footer">
                                 <div class="col-md-3 offset-md-9">
-                                    <a class="btn btn-primary btn-md saveNnextbtn" id="did">Save & Proceed</a>
+                                    <button class="btn btn-primary btn-md saveNnextbtn" id="did" type="submit">Save & Proceed</button>
                                 </div>
                         </div>
                     </div>
@@ -290,15 +299,34 @@
                 </div>
                 <div class="tab-pane " id="CostingDiv" role="tabpanel" aria-expanded="false"
                     style="display:none;">
-                    <form class="" action="index.html" method="post">
+                 <form class="serializeform" action="{{route('Costing')}}" method="post">
+                  {{ csrf_field() }}
                     <div class="card">
                         <div class="card-header"></div>
                         <div class="card-block" id='costcomp'>
-
+                            <div class="col-md-12" style="display:inline-flex;margin-bottom:5%;">
+                                <h5 class="text_left col-md-3 form-txt-primary">
+                                <b>Activities</b>
+                                </h5>
+                                <div class="col-md-2 mr_0_1"><h5 class="form-txt-primary"><b>Unit</b></h5></div>
+                                <div class="col-md-2 mr_0_1"><h5 class="form-txt-primary"><b>Quantity</b></h5></div>
+                                <div class="col-md-2 mr_0_1"><h5 class="form-txt-primary"><b>Cost</b></h5></div>
+                                <div class="col-md-2 mr_0_1"><h5 class="form-txt-primary"><b>Amount</b></h5></div>
+                            </div>
+                            @foreach ($ComponentActivities as $activities)    
+                                <div class="col-md-12" style="display:inline-flex;">
+                                   <label  class="text_left col-md-3"><b>{{$activities->MPlanComponent->component}}</b> <br> - {{$activities->activity}} </label>
+                                   <input type="hidden" name="activityId[]" value="{{$activities->id}}">
+                                   <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Unit" name="Unit[]" /></div>
+                                    <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Quantity" name="Quantity[]" /></div>
+                                    <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Cost" name="Cost[]" /></div>
+                                    <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Amount" name="Amount[]" /></div>
+                                </div>
+                            @endforeach
                         </div>
                         <div class="card-footer">
                                 <div class="col-md-3 offset-md-9">
-                                    <a class="btn btn-primary btn-md saveNnextbtn" >Save & Proceed</a>
+                                    <button class="btn btn-primary btn-md saveNnextbtn"  type="submit">Save & Proceed</button>
                                 </div>
                         </div>
                     </div>

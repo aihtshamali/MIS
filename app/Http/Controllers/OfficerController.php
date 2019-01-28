@@ -584,13 +584,17 @@ class OfficerController extends Controller
            }
           ])->find($project->project_id);
         
+        $ComponentActivities = MPlanComponentActivitiesMapping::where('status',1)
+        ->where('m_project_progress_id',$projectProgressId[0]->id)
+        ->get();
+
         $generalKpis =GeneralKpi::where('status',1)->get();
         \JavaScript::put([
           'projectWithRevised'=>$projectWithRevised,
          'componentsforkpis'=> $components,
          'monitoringProjectId'=> $monitoringProjectId
         ]);
-        return view('_Monitoring._Officer.projects.inprogressSingle',compact('monitoringProjectId','componentsforkpis','generalKpis','components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
+        return view('_Monitoring._Officer.projects.inprogressSingle',compact('ComponentActivities','monitoringProjectId','componentsforkpis','generalKpis','components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
       }
       public function monitoring_review_form(Request $request)
       {
@@ -809,6 +813,7 @@ class OfficerController extends Controller
           }
        return response()->json($request->all());
       }
+
       public function mappingOfObj(Request $request)
       {
         $projectProgressId= MProjectProgress::where('assigned_project_id',$request->project_progress_no)->get();
@@ -868,6 +873,7 @@ class OfficerController extends Controller
           {
             // return response()->json($mappComp);
             $CompActivityMapping = new MPlanComponentActivitiesMapping();
+            $CompActivityMapping->m_project_progress_id = $projectProgressId[0]->id;
             $CompActivityMapping->m_plan_component_id=$compActivity;
             $CompActivityMapping->activity=$act;
             $CompActivityMapping->status= true;
@@ -877,6 +883,36 @@ class OfficerController extends Controller
         }
         return response()->json($request->all());      
        
+      }
+      public function activities_duration(Request $request)
+      {
+        $size=count($request->componentActivityId);
+        for($i=0 ; $i < $size ; $i++ )
+        {
+            $CompActivityDetails = new MPlanComponentactivityDetailMapping();
+            $CompActivityDetails->m_plan_component_activities_mapping_id =$request->componentActivityId[$i];
+            $CompActivityDetails->duration=$request->daysinduration[$i];
+            $CompActivityDetails->save();
+          
+        }
+        return response()->json($request->all()); 
+      }
+
+      public function Costing(Request $request)
+      {
+        // return response()->json($request->all()); 
+        $size=count($request->activityId);
+        for($i=0 ; $i < $size ; $i++ )
+        {
+            $CompActivityDetails = MPlanComponentactivityDetailMapping::find($request->activityId[$i]);
+            $CompActivityDetails->unit =$request->Unit[$i]; 
+            $CompActivityDetails->quantity=$request->Quantity[$i];
+            $CompActivityDetails->cost=$request->Cost[$i];
+            $CompActivityDetails->amount=$request->Amount[$i];
+            $CompActivityDetails->save();
+          
+        }
+        return response()->json($request->all()); 
       }
       // public function monitoring_Stages()
       // {

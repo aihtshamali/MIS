@@ -581,67 +581,65 @@ $(document).on('click', '#add_activity', function (e) {
     console.log($(this).parent().find('#alltasks'), $(this).parent())
     $(this).parent().find('#alltasks').append(add_activities);
 });
+
+$('.select2').select2();
+
 //project design
-$(document).on('click', 'button#saveObjComp', function ()
- {
-  $("#planMactivities").children().remove();
-  $("#ObjCompHere").children().remove();
+// $(document).on('click', 'button#saveObjComp', function ()
+//  {
+//   $("#planMactivities").children().remove();
+//   $("#ObjCompHere").children().remove();
 
-    var comps = $(this).val();
-    var count = 1;
+//     var comps = $(this).val();
+//     var count = 1;
         
-    $('input[name^=comp]').each(function () {
-        var val = $(this).val();
-        var addTask = `
-      <div class="row form-group compTask`+ count + `">
-        <div class="col-md-4 offset-md-1"><label for=""> <b class="headText form-txt-primary" id="compname`+ count + `">` + val + `</b></label></div>
-        <div class="col-md-2 offset-md-4 mb_1 Taskbut` + count + `" id="add_activity" style="padding-top:0.6%;">
-          <button class="btn btn-sm btn-warning float-right"  type="button" name="add_activity">Add Tasks</button>
-        </div>
-        <div id="alltasks" class="row col-md-11 offset-md-1 form-group component_Activities">
-        </div>
-      </div>`
-        val = $(this).val();
-        // var comps = $(this).val();
-        $('.planMactivities').append(addTask);
-        // console.log($(e));
-        // yo++;
-        count++;
-    });
+//     $('input[name^=comp]').each(function () {
+//         var val = $(this).val();
+//         var addTask = `
+//       <div class="row form-group compTask`+ count + `">
+//         <div class="col-md-4 offset-md-1"><label for=""> <b class="headText form-txt-primary" id="compname`+ count + `">` + val + `</b></label></div>
+//         <div class="col-md-2 offset-md-4 mb_1 Taskbut` + count + `" id="add_activity" style="padding-top:0.6%;">
+//           <button class="btn btn-sm btn-warning float-right"  type="button" name="add_activity">Add Tasks</button>
+//         </div>
+//         <div id="alltasks" class="row col-md-11 offset-md-1 form-group component_Activities">
+//         </div>
+//       </div>`
+//         val = $(this).val();
+//         // var comps = $(this).val();
+//         $('.planMactivities').append(addTask);
+//         // console.log($(e));
+//         // yo++;
+//         count++;
+//     });
 
-    $('input[name^=obj]').each(function () {
-        var ObjCompHere = `<li class="row mb_2">
-                            <span id='objvalue`+ oc + `' class="float-left col-md-6"></span>
-                            <span class="float-right col-md-6">
-                            <select class="select2 col-md-12" id="option`+ oc + `" multiple="multiple">
-                            </select>
-                            </span>
-                          </li>`
-        var options = ""
+//     $('input[name^=obj]').each(function () {
+//         var ObjCompHere = `<li class="row mb_2">
+//                             <span id='objvalue`+ oc + `' class="float-left col-md-6"></span>
+//                             <span class="float-right col-md-6">
+//                             <select class="select2 col-md-12" id="option`+ oc + `" multiple="multiple">
+//                             </select>
+//                             </span>
+//                           </li>`
+//         var options = ""
        
-        $('input[name^=comp]').each(function () {
+//         $('input[name^=comp]').each(function () {
             
-            options += "<option value='" + $(this).val() + "'>" + $(this).val() + "</option>"
-        });
-        compopt = options
+//             options += "<option value='" + $(this).val() + "'>" + $(this).val() + "</option>"
+//         });
+//         compopt = options
        
-        var t = $(ObjCompHere)
-        t.find('#objvalue' + oc + '').text($(this).val())
-        $(options).appendTo(t.find('#option' + oc + ''))
-        t.appendTo('#ObjCompHere');
-        // });
-        $('.select2').select2()
-        // console.log(obj);
-        // return false;
-        oc++;
-    });
- });
- $('.select2').select2();
- $('#saveObjComp').click(function () {
-    // <select class="select2 col-md-12" id="option`+ oc + `" multiple>
-    
-    
- });
+//         var t = $(ObjCompHere)
+//         t.find('#objvalue' + oc + '').text($(this).val())
+//         $(options).appendTo(t.find('#option' + oc + ''))
+//         t.appendTo('#ObjCompHere');
+//         // });
+//         $('.select2').select2()
+//         // console.log(obj);
+//         // return false;
+//         oc++;
+//     });
+//  });
+
 
 // $(document).on('click', '#saveTasks', function () {
 //   $('#comptaskl').children().remove();
