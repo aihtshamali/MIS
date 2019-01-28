@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class VmisAssignedVehicle extends Model
+class VmisAssignedVehicleLog extends Model
 {
     public function VmisRequestToTransportOfficerLog()
     {   

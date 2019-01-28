@@ -138,7 +138,7 @@ class OfficerController extends Controller
 
       public function getProjectComponents(Request $request)
       {
-        // dd($request->all());
+        // return response()->json($request->all());
         $projectcomponents =MPlanComponent::where('status',1)
         ->where('m_project_progress_id',$request->MProjectProgressId)
         ->get();
@@ -833,9 +833,50 @@ class OfficerController extends Controller
       }
       public function kpiComponentMapping(Request $request)
       {
+        // return response()->json($request->all());
+        $projectProgressId= MProjectProgress::where('assigned_project_id',$request->project_progress_no)->get();
+        $i=0;
+        foreach($request->kpinamesId as $kpi)  
+        {
+          if(isset($_POST['mappedKpicomponent_'.$i]))
+          foreach($_POST['mappedKpicomponent_'.$i] as $mappComp)
+          {
+            // return response()->json($mappComp);
+            $kpiCompMapping = new MPlanKpicomponentMapping();
+            $kpiCompMapping->m_project_progress_id = $projectProgressId[0]->id;
+            $kpiCompMapping->general_kpi_id=$kpi;
+            $kpiCompMapping->m_plan_component_id=$mappComp;
+            $kpiCompMapping->status= true;
+            $kpiCompMapping->save();
+          }
+          $i++;
+        }
+
+
         return response()->json($request->all());
       }
-
+      
+      public function componentActivities(Request $request)
+      {
+       $projectProgressId= MProjectProgress::where('assigned_project_id',$request->project_progress_no)->get();
+        $i=0;
+        foreach($request->compforactivity as $compActivity)  
+        {
+          if(isset($_POST['c_activity_'.$i]))
+          foreach($_POST['c_activity_'.$i] as $act)
+          {
+            // return response()->json($mappComp);
+            $CompActivityMapping = new MPlanComponentActivitiesMapping();
+            $CompActivityMapping->m_plan_component_id=$compActivity;
+            $CompActivityMapping->activity=$act;
+            $CompActivityMapping->status= true;
+            $CompActivityMapping->save();
+          }
+          $i++;
+        }
+        return response()->json($request->all());      
+       
+      }
       // public function monitoring_Stages()
       // {
       //   // if (!is_dir('storage/uploads/projects/project_activities/'.Auth::user()->username)) {

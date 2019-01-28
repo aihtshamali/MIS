@@ -172,6 +172,7 @@
                 </div>
                 <div class="tab-pane active" id="kpis" role="tabpanel" aria-expanded="false" style="display:none;">
                 <form class="serializeform" action="{{route('kpiComponentMapping')}}" method="post">
+                    {{ csrf_field() }}
                     <div class="card m-0 z-depth-right-0">
                         <div class="card-header">
                             <h4>KPI(s)</h4>
@@ -184,7 +185,7 @@
                                     multiple='multiple'>
                                     {{-- <h1>here</h1> --}}
                                      @foreach ($generalKpis as $genKpi)
-                                     <option class='optiontest' value='{{$genKpi->id}}'>{{$genKpi->description}}</option>
+                                     <option class='optiontest' data-value='{{$genKpi->id}}'>{{$genKpi->description}}</option>
                                      @endforeach
                                 </select>
                                 {{-- SPECIAL KPI'S CODE --}}
@@ -215,6 +216,7 @@
                         </div>
                         <div class="card-footer">
                             <div class="col-md-3 offset-md-9">
+                        <input type="hidden" value="{{$project->Project->AssignedProject->id}}" name="project_progress_no">
                             <button class="btn btn-primary btn-md activities saveNnextbtn" type="submit" id="svkp">Save </button>
                                     {{-- <a class="btn btn-primary btn-md activities saveNnextbtn" id="svkp" data-toggle="tab"
                                     href="#activities"
@@ -224,22 +226,41 @@
                     </div>
                   </form>
                 </div>
-                <div class="tab-pane " id="activities" role="tabpanel" aria-expanded="false"
-                    style="display:none;">
-                    <form class="" action="index.html" method="post">
+                <div class="tab-pane " id="activities" role="tabpanel" aria-expanded="false" style="display:none;">
+                <form class="serializeform" action="{{route('componentActivities')}}" method="post">
+                    {{ csrf_field() }}
                     <div class="card">
                         <div class="card-header"></div>
                         <div class="card-block">
-
+                           @php
+                           $j=0;
+                           @endphp 
                             <div class="row form-group">
                                 <div class="col-md-10 offset-md-1 planMactivities" id="planMactivities">
-
+                                  @foreach ($components as $comp)     
+                                    <div class="row form-group compTask">
+                                        <div class="col-md-4 offset-md-1">
+                                            <label for=""> <b class="headText form-txt-primary" id="compname"> {{$comp->component}} </b></label>
+                                        <input type="hidden" name="compforactivity[]" value="{{$comp->id}}" />
+                                        </div>
+                                        <div class="col-md-2 offset-md-4 mb_1 Taskbut" id="add_activity" data-id="{{$j}}" style="padding-top:0.6%;">
+                                        <button class="btn btn-sm btn-warning float-right"  type="button" name="add_activity" >Add Activity(s)</button>
+                                        </div>
+                                        <div id="alltasks" class="row col-md-11 offset-md-1 form-group component_Activities">
+                                        
+                                        </div>
+                                    </div>
+                                    @php
+                                    $j++;
+                                    @endphp 
+                                    @endforeach
                                  </div>
                             </div>
                         </div>
                         <div class="card-footer">
                                 <div class="col-md-3 offset-md-9">
-                                    <a class="btn btn-primary btn-md saveNnextbtn" id="saveTasks">Save & Proceed</a>
+                                    <input type="hidden" value="{{$project->Project->AssignedProject->id}}" name="project_progress_no">
+                                    <button type="submit"class="btn btn-primary btn-md saveNnextbtn" id="saveTasks">Save & Proceed</button>
                                 </div>
                         </div>
                     </div>
@@ -252,8 +273,8 @@
                         <div class="card-header"></div>
                         <div class="card-block">
                             <div class="row form-group">
-                                <h5 class="col-md-3 textlef mb_2">Tasks Under Component</h5>
-                                <h5 class="col-md-9 textlef mb_2">Duration In Days</h5>
+                                <h5 class="col-md-4 textlef mb_2">Activities Under Component</h5>
+                                <h5 class="col-md-4 textlef mb_2">Duration In Days</h5>
                                 <div id='comptaskl' class="col-md-12 row" style="padding-left:2% !important;">
 
                                 </div>
