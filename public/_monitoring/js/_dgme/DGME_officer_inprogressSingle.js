@@ -13,7 +13,25 @@ $(document).ready(function () {
         $('input:checkbox').not(this).prop('checked', false);
     });
 
- 
+    // $(".topSummary").mouseenter(function () {
+    //     $(".uptiQ").show(100);
+    // });
+    // $(".topSummary").mouseleave(function () {
+    //     $(".uptiQ").hide(100);
+    // });
+    $(".uptiQ").click(function () {
+        $('this').hide();
+        $(".downtiQ").show(100);
+        $(".topSummary ").slideUp("slow");
+        $(".mainTabsAndNav").animate({ marginTop: '0%' }, 1000);
+    });
+    $(".downtiQ").click(function () {
+        $('.downtiQ').hide();
+        $(".uptiQ").show(100);
+        $(".topSummary ").slideDown("slow");
+        $(".mainTabsAndNav").animate({ marginTop: '6%' }, 1000);
+    });
+
     // SPECIAL KPI
     // $(document).on('click','.addspecialkpi',function(){
     //     $(this).hide()
@@ -471,7 +489,7 @@ $(document).ready(() => {
     // $('.select2').select2()
 })
 
-$('button#addmore').click(function (e) {
+$('button#addmorest1').click(function (e) {
     var add_stakeholder = `<tr>
     <td>
         <label for="">1</label>
@@ -496,7 +514,61 @@ $('button#addmore').click(function (e) {
     <td><input type="text" name="stakeholder_number"
             class="form-control" /></td>
                     <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td></tr>`
-    $('#stakeholders').append(add_stakeholder);
+    $('#stakeholdersst1').append(add_stakeholder);
+});
+$('button#addmorest2').click(function (e) {
+    var add_stakeholder = `<tr>
+    <td>
+        <label for="">1</label>
+    </td>
+    <td>
+        <div class="col-md-12">
+            <select id="districts" name="stakeholder" class="form-control form-control-primary select2" data-placeholder="" style="width: 100%;">
+                <option value="" hidden='hidden'>Select</option>
+                <option value="">some option</option>
+                <option value="">to choose</option>
+                <option value="">from</option>
+            </select>
+        </div>
+    </td>
+    <td><input type="text" name="stakeholder_name"
+            class="form-control" /></td>
+    <td><input type="text" name="stakeholder_designation"
+            class="form-control" /> </td>
+    <td><input type="text" name="stakeholder_mil"
+            class="form-control" />
+      </td>
+    <td><input type="text" name="stakeholder_number"
+            class="form-control" /></td>
+                    <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td></tr>`
+    $('#stakeholdersst2').append(add_stakeholder);
+});
+$('button#addmorest3').click(function (e) {
+    var add_stakeholder = `<tr>
+    <td>
+        <label for="">1</label>
+    </td>
+    <td>
+        <div class="col-md-12">
+            <select id="districts" name="stakeholder" class="form-control form-control-primary select2" data-placeholder="" style="width: 100%;">
+                <option value="" hidden='hidden'>Select</option>
+                <option value="">some option</option>
+                <option value="">to choose</option>
+                <option value="">from</option>
+            </select>
+        </div>
+    </td>
+    <td><input type="text" name="stakeholder_name"
+            class="form-control" /></td>
+    <td><input type="text" name="stakeholder_designation"
+            class="form-control" /> </td>
+    <td><input type="text" name="stakeholder_mil"
+            class="form-control" />
+      </td>
+    <td><input type="text" name="stakeholder_number"
+            class="form-control" /></td>
+                    <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td></tr>`
+    $('#stakeholdersst3').append(add_stakeholder);
 });
 $('button#add-more-issues').click(function (e) {
     var temp =  $('tbody#add-issue-here').children().first().clone();
@@ -566,7 +638,7 @@ $(document).on('click', 'button#saveObjComp', function ()
 
     var comps = $(this).val();
     var count = 1;
-        
+
     $('input[name^=comp]').each(function () {
         var val = $(this).val();
         var addTask = `
@@ -595,13 +667,13 @@ $(document).on('click', 'button#saveObjComp', function ()
                             </span>
                           </li>`
         var options = ""
-       
+
         $('input[name^=comp]').each(function () {
-            
+
             options += "<option value='" + $(this).val() + "'>" + $(this).val() + "</option>"
         });
         compopt = options
-       
+
         var t = $(ObjCompHere)
         t.find('#objvalue' + oc + '').text($(this).val())
         $(options).appendTo(t.find('#option' + oc + ''))
@@ -616,8 +688,8 @@ $(document).on('click', 'button#saveObjComp', function ()
  $('.select2').select2();
  $('#saveObjComp').click(function () {
     // <select class="select2 col-md-12" id="option`+ oc + `" multiple>
-    
-    
+
+
  });
 
 $(document).on('click', '#saveTasks', function () {
@@ -892,5 +964,3 @@ function removerow(e) {
 function removeIssuerow(e) {
     $(e).parent().parent().remove();
 }
-
-  

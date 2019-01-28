@@ -135,12 +135,7 @@
                         amet.</p> --}}
                     <div class="card z-depth-right-0">
                         <div class="card-header">
-                            <h4>Stakeholders</h4>
-                            <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Sunt similique totam harum sit. Quibusdam libero, harum rem
-                            quam repellendus adipisci. Repellat sapiente asperiores
-                            numquam beatae at distinctio quaerat reiciendis
-                            repudiandae. -->
+                            <h4>Executing Agencies</h4>
                         </div>
                         <div class="card-block">
                             <div class="col-md-12">
@@ -157,7 +152,7 @@
                                                 <th></th>
                                             </tr>
                                         </thead>
-                                        <tbody id="stakeholders">
+                                        <tbody id="stakeholdersst1">
                                             <tr>
                                                 <td>
                                                     <label for="">1</label>
@@ -183,7 +178,115 @@
                                                         class="form-control" /></td>
                                                 <td><button type="button" name="add[]"
                                                         class=" form-control btn btn-success "
-                                                        id="addmore" style="size:14px;">+</button></td>
+                                                        id="addmorest1" style="size:14px;">+</button></td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card z-depth-right-0">
+                        <div class="card-header">
+                            <h4>Sponsoring Agencies</h4>
+                        </div>
+                        <div class="card-block">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table  table-bordered nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th>Sr #</th>
+                                                <th>Stakeholder Type</th>
+                                                <th>Name</th>
+                                                <th>Designation</th>
+                                                <th>Email </th>
+                                                <th>Contact #</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="stakeholdersst2">
+                                            <tr>
+                                                <td>
+                                                    <label for="">1</label>
+                                                </td>
+                                                <td>
+                                                    <div class="col-md-12">
+                                                        <select id="districts" name="stakeholderst2" class="form-control form-control-primary select2" data-placeholder="" style="width: 100%;">
+                                                            <option value="" hidden='hidden'>Select</option>
+                                                            <option value="">Executing</option>
+                                                            <option value="">Sponsoring</option>
+                                                            <option value="">Beneficiary</option>
+                                                            <option value="">Type X</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                                <td><input type="text" name="stakeholder_namest2"
+                                                        class="form-control" /></td>
+                                                        <td><input type="text" name="stakeholder_designationst2"
+                                                            class="form-control" /> </td>
+                                                <td><input type="text" name="stakeholder_numberst2"
+                                                        class="form-control" /></td>
+                                                <td><input type="text" name="stakeholder_emailst2"
+                                                        class="form-control" /></td>
+                                                <td><button type="button" name="add[]"
+                                                        class=" form-control btn btn-success "
+                                                        id="addmorest2" style="size:14px;">+</button></td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card z-depth-right-0">
+                        <div class="card-header">
+                            <h4>Beneficiaries Agencies</h4>
+                        </div>
+                        <div class="card-block">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table  table-bordered nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th>Sr #</th>
+                                                <th>Stakeholder Type</th>
+                                                <th>Name</th>
+                                                <th>Designation</th>
+                                                <th>Email </th>
+                                                <th>Contact #</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="stakeholdersst3">
+                                            <tr>
+                                                <td>
+                                                    <label for="">1</label>
+                                                </td>
+                                                <td>
+                                                    <div class="col-md-12">
+                                                        <select id="districts" name="stakeholderst3" class="form-control form-control-primary select2" data-placeholder="" style="width: 100%;">
+                                                            <option value="" hidden='hidden'>Select</option>
+                                                            <option value="">Executing</option>
+                                                            <option value="">Sponsoring</option>
+                                                            <option value="">Beneficiary</option>
+                                                            <option value="">Type X</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                                <td><input type="text" name="stakeholder_namest3"
+                                                        class="form-control" /></td>
+                                                        <td><input type="text" name="stakeholder_designation"
+                                                            class="form-control" /> </td>
+                                                <td><input type="text" name="stakeholder_numberst3"
+                                                        class="form-control" /></td>
+                                                <td><input type="text" name="stakeholder_emailst3"
+                                                        class="form-control" /></td>
+                                                <td><button type="button" name="add[]"
+                                                        class=" form-control btn btn-success "
+                                                        id="addmorest3" style="size:14px;">+</button></td>
                                             </tr>
                                         </tbody>
 

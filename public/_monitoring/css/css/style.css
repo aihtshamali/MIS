@@ -25224,5 +25224,24 @@ body.dark #styleSelector .form-control {
     color: #404E67
 }
 .primaryClr{background: #01a9ac !important}
-
+.golbtn{
+  border-radius: 50% !important;
+  position: absolute;
+  background: #fff0;
+  padding: 3%;
+  font-size: 23px;
+  margin-top: -11%;
+  box-shadow: 0px 3px 29px #08080826;
+  cursor: pointer;
+  color: #6b6767ab;
+  transition: all 900ms ease;
+-webkit-transition: all 900ms ease;}
+  .golbtn:hover{
+    box-shadow: 0px 3px 29px #08080869;
+    color: #999;
+    background: #fff0;
+    transition: all 900ms ease;
+    -webkit-transition: all 900ms ease;
+  }
+  .downtiQ{z-index: 9999 !important;}
 /*# sourceMappingURL=style.css.map */

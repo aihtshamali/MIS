@@ -52,7 +52,7 @@
     }}
     .ms-container{width: 100% !important;}
     .wd-5p{width: 5% !important;}
-    .mt_6p{margin-top: 6% !important;}
+    .mt_6p{margin-top: 6%;}
     .pd_1{padding: 1% !important;margin-bottom: 2%;border-radius: 3px;}
     .bg_g{background-color: #00000014}
     input{background: transparent !important;border: 1px solid #77777747 !important;}
@@ -168,8 +168,26 @@
                         <label for="last_monitoring" class="">Last Monitoring Date </label>
                     </div>
                 </div>
+                <!-- start hide project detail btn -->
+                <!-- <center>
+                  <div class="col-md-1 text-center uptiQ">
+                    <div class="offset-md-2 col-md-5 border golbtn">
+                      <i class="fa fa-angle-double-up"></i>
+                    </div>
+                  </div>
+                </center> -->
+                <!-- end hide project detail btn -->
         </div>
     </div>
+    <!--start show project detail btn-->
+    <!-- <center>
+      <div class="col-md-1 text-center downtiQ nodisplay">
+        <div class="offset-md-2 col-md-5 border golbtn">
+          <i class="fa fa-angle-double-down"></i>
+        </div>
+      </div>
+    </center> -->
+    <!--end show project detail btn-->
 
     {{-- end of frozen panel --}}
     <div class="row">
@@ -409,7 +427,7 @@
 $(document).ready(function(){
   $('form.serializeform').on('submit',function(e){
     //   console.log('sad');
-      
+
     e.preventDefault();
       $.ajax( {
       data: $(this).serialize(),
@@ -417,7 +435,7 @@ $(document).ready(function(){
       url: $(this).attr('action'),
       success: function( feedback ){
         //   console.log(feedback);
-          
+
           if(feedback){
 
           }
@@ -445,24 +463,24 @@ $(document).ready(function(){
     //     console.log(error);
     // });
   });
-  
+
      $('li.optiontest').on('click', function () {
-        
+
         var compData='';
         axios.post('getProjectComponents',{
               MProjectProgressId:'<?= $monitoringProjectId ?>'
-                
+
             })
         .then(response => {
             compData=response.data
-        
+
         var compopt='';
         console.log(compData);
         for (let index = 0; index < compData.length; index++) {
             compopt=compopt+'<option value="'+compData[index].id+'">'+compData[index].component+'</option>';
-            
+
         }
-        
+
         var t = $(this).text();
         var b = true;
         $('.yesearch').val().forEach(e => {
@@ -488,7 +506,7 @@ $(document).ready(function(){
             console.log(error);
         });
     })
-    
+
   $(window).scroll(function(){
     var scroll = $(window).scrollTop();
     if (scroll > 380)
