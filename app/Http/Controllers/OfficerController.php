@@ -574,8 +574,19 @@ class OfficerController extends Controller
         ->where('m_project_progress_id',$projectProgressId[0]->id)
         ->get();
 
+        $projectWithRevised=$project->Project->with(
+          ['RevisedEndDate' => function ($query) use ($project) {
+            $query->where('project_id', $project->project_id);
+           },'RevisedApprovedCost' => function ($query) use ($project) {
+            $query->where('project_id', $project->project_id);
+           },'ProjectDetail' => function ($query) use ($project) {
+            $query->where('project_id', $project->project_id);
+           }
+          ])->find($project->project_id);
+        
         $generalKpis =GeneralKpi::where('status',1)->get();
         \JavaScript::put([
+          'projectWithRevised'=>$projectWithRevised,
          'componentsforkpis'=> $components,
          'monitoringProjectId'=> $monitoringProjectId
         ]);

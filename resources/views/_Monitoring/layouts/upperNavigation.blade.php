@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="{{ asset('_monitoring/css/css/style.css')}}"/>
     <link rel="stylesheet" href="{{ asset('_monitoring/css/css/jquery.mCustomScrollbar.css')}}"/>
     <link rel="stylesheet" href="{{ asset('_monitoring/css/icon/material-design/css/material-design-iconic-font.min.css')}}"/>
-    {{-- <link rel="shortcut icon" href="{{ asset('dgme.png' type="image/x-icon" /> --}}
+    <!-- {{-- <link rel="shortcut icon" href="{{ asset('dgme.png' type="image/x-icon" /> --}} -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 @yield('styleTags')
@@ -94,7 +94,7 @@
                                     <div class="main-search morphsearch-search">
                                         <div class="input-group">
                                             <span class="input-group-addon search-close"><i class="feather icon-x"></i></span>
-                                            <input type="text" class="form-control" style="border:none !important;">
+                                            <input type="text" class="form-control" id="myInputiQ" style="border:none !important;">
                                             <span class="input-group-addon search-btn"><i class="feather icon-search"></i></span>
                                         </div>
                                     </div>

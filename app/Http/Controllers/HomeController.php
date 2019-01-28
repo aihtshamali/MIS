@@ -148,7 +148,7 @@ class HomeController extends Controller
       ->leftJoin('users','plantrip_members.user_id','users.id')
       ->where('plantrip_triprequests.status',0)
       ->where('plantrip_members.requested_by',1)
-      ->where('vmis_request_to_transport_officers.recommended','Recommended')
+      // ->where('vmis_request_to_transport_officers.recommended','Recommended')
       ->where('plantrip_triprequests.approval_status','Pending')
       ->distinct()
       ->with('VmisRequestToTransportOfficer')

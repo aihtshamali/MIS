@@ -1,4 +1,7 @@
 @extends('_Monitoring.layouts.upperNavigation')
+@section('title')
+DGME | Add Project
+@endsection
  <!-- Select 2 css -->
  <link rel="stylesheet" href="{{ asset('_monitoring/css/css/sweetalert.css')}}" />
  <link rel="stylesheet" href="{{ asset('_monitoring/css/css/component.css')}}" />
@@ -30,7 +33,7 @@
 </style>
 @section('content')
 <div class="row">
-    <div class="col-md-6 ">
+    <div class="col-md-7 ">
         <form action="{{route('projects.store')}}" name="dataentryForm" id="" method="POST">
           {{ csrf_field() }}
         <div class="card">
@@ -279,7 +282,7 @@
     </div>
 
     {{-- summary --}}
-    <div class="col-md-5" style="position: fixed;right:20;max-height:vh">
+    <div class="col-md-5" style="">
         <div class="card">
             <div class="card-header"> <h4><b>Summary</b></h4></div>
             <div class="card-block">
