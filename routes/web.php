@@ -212,6 +212,8 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
   Route::post('/getProjectComponents','OfficerController@getProjectComponents')->name('getProjectComponents');
   Route::post('/kpiComponentMapping','OfficerController@kpiComponentMapping')->name('kpiComponentMapping');
   
+  Route::post('/componentActivities','OfficerController@componentActivities')->name('componentActivities');
+  
   
 });
 

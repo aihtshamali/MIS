@@ -416,19 +416,14 @@ $(document).ready(function(){
       type: $( this ).attr( 'method' ),
       url: $(this).attr('action'),
       success: function( feedback ){
-        //   console.log(feedback);
+          console.log(feedback);
           
           if(feedback){
 
           }
           else{
               alert("Data saved successfully");
-            // toast({
-            // type: 'success',
-            // title: 'Data saved successfully'
-            // })
           }
-         console.log(feedback);
       },
       error:function(err){
             toast({
@@ -437,17 +432,10 @@ $(document).ready(function(){
             })
           }
     });
-    // axios.post($(this).attr('action'),{data:formdata})
-    // .then(function (response) {
-    //     console.log(response.data);
-    // })
-    // .catch(function (error) {
-    //     console.log(error);
-    // });
   });
-
+  var count=0;
      $('li.optiontest').on('click', function () {
-        
+       
         var compData='';
         axios.post('getProjectComponents',{
               MProjectProgressId:'<?= $monitoringProjectId ?>'
@@ -468,14 +456,22 @@ $(document).ready(function(){
                     }
                 
             if (b) {
-                $(`<li id='` + t.split('-')[0]+'-selection' + `' class="col-md-12 row" style="margin-top:5px;">
-                    <div class='col-md-6'> <span name="kpiname[]"> `+ $(this).text() + `</span></div>
+               var Li=`<li id='` + t.split('-')[0]+'-selection' + `' class="col-md-12 row" style="margin-top:5px;">
+                    <div class='col-md-6'> 
+                        <span name="kpiname[]"> `+ $(this).text() + `</span>
+                        
+                       <input type="hidden" name='kpinamesId[]' value='`+$(this).attr('data-value')+`'/>
+                        </div>
                     <div class="col-md-6">
-                        <select class="kpisel col-sm-12" name=mappedKpicomponent[] multiple="multiple" id="optionsHere">
+                        <select class="kpisel col-sm-12" name='mappedKpicomponent_`+count+`[]' multiple="multiple" id="optionsHere">
                     `+ compopt +`
                         </select>
                     </div>
-                    </li>`).appendTo('#addkpi')
+                    </li>`;
+                    count++;
+                $(Li).appendTo('#addkpi')
+                    
+                    
                 // console.log($('#addkpi').find());
                 $('.kpisel').select2()
             }
