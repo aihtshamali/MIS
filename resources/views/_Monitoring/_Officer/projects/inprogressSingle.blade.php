@@ -468,7 +468,7 @@ $(document).ready(function(){
 //      }]
 //     };
 
-axios.get('http://0188606c.ngrok.io/api/projectRelatedKpi',{
+axios.get('{{route("getProjectKpi")}}',{
      params:{
          "assigned_project_id":1034,
      }
