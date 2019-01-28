@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class VmisAssignedDriver extends Model
+class VmisAssignedDriverLog extends Model
 {
     public function VmisRequestToTransportOfficerLog()
     {   
