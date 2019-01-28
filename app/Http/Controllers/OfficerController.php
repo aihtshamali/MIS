@@ -138,7 +138,7 @@ class OfficerController extends Controller
 
       public function getProjectComponents(Request $request)
       {
-        // dd($request->all());
+        // return response()->json($request->all());
         $projectcomponents =MPlanComponent::where('status',1)
         ->where('m_project_progress_id',$request->MProjectProgressId)
         ->get();
