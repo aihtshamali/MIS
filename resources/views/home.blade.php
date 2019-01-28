@@ -256,26 +256,26 @@
                 </div>
                 @endrole
                 @role('manager')
-                <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.0s">
-                  <a href="{{route('visitRequest_dashboard')}}" class="tile green">
-                    @if(Auth::id()=='2012')
-                        @if($tripcounts==null || $tripcounts=='0' )
+                <!-- <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.0s">
+                  <a href="{{route('visitRequest_dashboard')}}" class="tile green"> -->
+                    <!-- if(Auth::id()=='2012') -->
+                        <!-- if($tripcounts==null || $tripcounts=='0' )
                         <b class="noti" style="display:none;"></b>     
-                        @else
+                        else
                         <b class="noti">
-                            {{$tripcounts}}
+                            $tripcounts
                         </b>
-                        @endif
-                    @elseif(Auth::id()=='2011')
-                        @if($tripcountsFordg==null || $tripcountsFordg=='0' )
+                        endif -->
+                    <!-- elseif(Auth::id()=='2011') -->
+                        <!-- if($tripcountsFordg==null || $tripcountsFordg=='0' )
                         <b class="noti" style="display:none;"></b>     
-                        @else
+                        else
                         <b class="noti">
-                        {{$tripcountsFordg}}
+                        $tripcountsFordg
                         </b>
-                        @endif
-                    @endif
-                    <h3 class="title">Visit Requests</h3>
+                        endif -->
+                    <!-- endif -->
+                    <!-- <h3 class="title">Visit Requests</h3>
                     <hr/>
                     <p>visit VMIS</p>
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.9s">
@@ -284,7 +284,7 @@
                     <hr/>
                     <p>Schedule leaves here</p>
                   </a>
-                </div>
+                </div> -->
                 @endrole
                 @role('transportofficer')
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.0s">
