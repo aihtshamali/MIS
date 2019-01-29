@@ -584,6 +584,47 @@ $(document).on('click', '#add_activity', function (e) {
 
 $('.select2').select2();
 
+
+function ObjectiveComponent(components,objectives){
+    $("#planMactivities").children().remove();
+    $("#ObjCompHere").children().remove();
+  
+      var comps = $(this).val();
+      var count = 1;
+          var compOpt='';
+      components.forEach(function (val,index) {
+          compOpt  = compOpt+ `
+              <option value="`+val.id+`">`+val.component+`</option>
+          `;
+      });
+ 
+      objectives.forEach(function (val,index) {
+          var ObjCompHere = `
+                          <li class="row mb_2"
+                              
+                              <span id="objectiveHere" class="float-left col-md-6"> 
+                                  <input type="hidden" value="`+val.id+`" name="objective[]">
+                                 <span  class="float-left col-md-6">
+                                 `+val.objective+`
+                                 </span>
+                              </span>
+                              <span class="float-right col-md-6">
+                              <select class="select2 col-md-12" id="component" name="mappedComp_`+index+`[]" multiple="multiple">
+                              `+compOpt+`   
+                              </select>
+                              </span>
+                              </li>
+                              `;
+          
+          var t = $(ObjCompHere);
+          t.appendTo('#ObjCompHere');
+          $('.select2').select2()
+      });
+}
+
+
+
+
 //project design
 // $(document).on('click', 'button#saveObjComp', function ()
 //  {
@@ -706,20 +747,24 @@ $('button#add_more_component').click(function (e) {
                         </div>`;
     $('.oneComponentQA').append(add_component);
 });
-var objct = 2;
+var objct = $("#objct").val() ? parseInt($("#objct").val()) : 1 ;
+objct++;
 function autoindex() {
-    var sib = $(document).find('.newClass').siblings();
-    // console.log(sib);
+    var sib = $(document).find('.newClass1').siblings();
+    console.log(sib);
     var i = 0;
     for (i = 0; i < sib.length; i++) {
         var cl_array = sib[i].getAttribute('class').split(' ');
         var val = "";
+        console.log(cl_array);
+        
         for (var j = 0; j < cl_array.length; j++) {
-            if (cl_array[j].startsWith('newClass')) {
+            if (cl_array[j].startsWith('newClass1')) {
                 val = cl_array[j];
                 break;
             }
         }
+        console.log(val);
         if (val != "") {
             $('.' + val + ' > label').text('Objective ' + (i + 2));
             $('.' + val + ' > div > input').attr('placeholder', 'Objective ' + (i + 2));

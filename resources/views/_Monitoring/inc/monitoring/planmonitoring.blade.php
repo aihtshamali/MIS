@@ -41,41 +41,69 @@
                 </li>
             </ul>
             <div class="tab-content tabs card-block active">
-              <form class="" action="" method="post">
+            <form class="serializeform" action="{{route('saveMonitoringAttachments')}}" method="post" enctype="multipart/form-data">
                 <div class="tab-pane active" id="PlanDocDiv" role="tabpanel" aria-expanded="true">
-                  <div class="row">
-                    <div class="col-md-3">
-                      <div class="btn col-md-10 offset-md-1 btn-primary btn-block">
-                        <input type="file" id="html_btn" name="planmonitoringfile" title='Click to add Files' />
-                        <span>Upload File</span>
-                      </div>
+                    {{ csrf_field() }}
+                    <div class="row">
+                        <div class="col-md-3">
+                        <div class="btn col-md-10 offset-md-1 btn-primary btn-block">
+                            <input type="file" id="html_btn" name="planmonitoringfile" title='Click to add Files' />
+                            <span>Upload File</span>
+                        </div>
+                        </div>
+                        <div class="col-md-3 col-md-offset-2">
+                            <input type="text" name="file_name" class="placeholder" style="width: 100%;padding: 2%;"
+                            placeholder="Type File Name"/>
+                        </div>
+                        <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
                     </div>
-                    <div class="col-md-3 col-md-offset-2">
-                        <input type="text" name="file_name" class="placeholder" style="height: 100%;width: 100%;padding: 2%;"
-                        placeholder="File Name"/>
+                    <div class="row ">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-success pull-right" name="submit">Submit</button>
+                    </div>
                     </div>
                 </div>
-                <div class="row ">
-                  <div class="col-md-12">
-                    <button type="submit" class="btn btn-success pull-right" name="submit">Submit</button>
-                  </div>
-                </div>
-              </div>
             </form>
                 <div class="tab-pane" id="i-dates" role="tabpanel" aria-expanded="false">
                   <form class="serializeform" action="{{ route('projectDesignMonitoring') }}" method="post">
                     {{ csrf_field() }}
                     <div class="row">
+                        <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
+                        <input type="hidden" name="objct" id="objct" value="{{count($objectives)}}">
                       <div class="col-md-6 objtivesNew border_right pd_1_2">
-                        <div class="DisInlineflex newClass mb_2 col-md-12">
-                            <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Objective 1</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control form-txt-primary" name="obj[]" placeholder="Objective 1">
+                        @php
+                            $i=1;
+                        @endphp
+                        @forelse ($objectives as $obj)
+                            <div class="DisInlineflex newClass{{$i}} mb_2 col-md-12">
+                                <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Objective {{$i}}</label>
+                                    <div class="col-sm-7">
+                                    <input type="text" class="form-control form-txt-primary" name="obj[]" placeholder="Objective {{$i}}" value="{{$obj->objective}}">
+                                    </div>
+                                    @if($i==1)
+                                        <div class="col-sm-2 addbtn text_center">
+                                                <button class="btn btn-sm btn-info" type="button" id="add_more_objective"  tabindex=1>+</button>
+                                        </div>
+                                    @else
+                                        <div class="col-sm-2 removeObjective text_center">
+                                                <button class="btn btn-sm btn-danger" title="Delete Objective {{$i}}" type="button" id="" tabindex={{$i}}>-</button>
+                                            </div>
+                                    @endif
+                                </div>
+                                @php
+                                $i++;
+                                @endphp
+                        @empty
+                            <div class="DisInlineflex newClass1 mb_2 col-md-12">
+                                <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Objective 1</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control form-txt-primary" name="obj[]" placeholder="Objective 1">
+                                </div>
+                                <div class="col-sm-2 addbtn text_center">
+                                    <button class="btn btn-sm btn-info" type="button" id="add_more_objective"  tabindex=1>+</button>
+                                </div>
                             </div>
-                            <div class="col-sm-2 addbtn text_center">
-                                <button class="btn btn-sm btn-info" type="button" id="add_more_objective"  tabindex=1>+</button>
-                            </div>
-                        </div>
+                        @endforelse
                       </div>
                       <div class="col-md-6 compActNew border_left pd_1_2">
                         <div class="DisInlineflex newClasscompAct mb_2 col-md-12">
@@ -132,6 +160,7 @@
                         {{ csrf_field() }}
                     <div class="row col-md-12 border">
                         <div class="col-md-8 offset-md-2 ">
+                        <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
                         <div class="row">
                             <h5 class="textlef pd_1_2 col-md-6"><b>Objectives</b></h5>
                             <h5 class="textlef pd_1_2 col-md-6"><b>Component</b></h5>
