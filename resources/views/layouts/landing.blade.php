@@ -33,9 +33,9 @@
 
 <body>
   <div class="wrapper animsition" data-animsition-in-class="fade-in" data-animsition-in-duration="1000" data-animsition-out-class="fade-out" data-animsition-out-duration="1000">
-      {{-- <div class="container"> --}}
-           <nav class="navbar navbar-expand-lg navbar-light navbar-default navbar-fixed-top" role="navigation">
-              <div class="container">
+      <!-- {{-- <div class="container"> --}} -->
+           <nav class="col-md-12 navbar navbar-expand-lg navbar-light navbar-default navbar-fixed-top" role="navigation">
+              <div class="col-md-12">
                   <a class="navbar-brand page-scroll" href="#main"><img class="w_46p" id="logo" src="{{ asset('dgme.png')}}" alt="DGME Logo" /></a>
                   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                       <span class="navbar-toggler-icon"></span>
@@ -81,7 +81,7 @@
 
               </div>
           </nav>
-      {{-- </div> --}}
+      <!-- {{-- </div> --}} -->
 @yield('content')
     <!-- Wrapper-->
 {{-- </div> --}}

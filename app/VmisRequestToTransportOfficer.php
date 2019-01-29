@@ -22,6 +22,14 @@ class VmisRequestToTransportOfficer extends Model
     {   
         return $this->belongsTo('App\User','approvedby_user_id');
     }
+    public function TransportOfficerUser()
+    {   
+        return $this->belongsTo('App\User','transportOfficer_user_id');
+    }
+    public function RecommendedByUser()
+    {   
+        return $this->belongsTo('App\User','recommendedby_user_id');
+    }
     public function VmisAssignedVehicle()
     {   
         return $this->hasMany('App\VmisAssignedVehicle');

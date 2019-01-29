@@ -13,12 +13,16 @@ return [
     | Example: 'footer' or ['footer', 'bottom']
     |
     */
-    'bind_js_vars_to_this_view' => ['executive/home/sne_wise_chart','executive/home/global_progress_wise_chart','_Monitoring/_Dataentry/create','projects/create','projects/edit','admin_hr/meeting/create','executive/home/pems_tab','executive/home/chart_one','executive/home/chart_two','executive/home/chart_three','executive/home/chart_four','executive/home/chart_five','admin_hr/meeting/show','executive/home/chart_six','executive/home/chart_seven','executive/home/chart_eight','executive/home/chart_nine','executive/home/chart_ten','Director.Evaluation.home.pems_tab',
+    'bind_js_vars_to_this_view' => ['executive/home/sne_wise_chart','executive/home/global_progress_wise_chart','_Monitoring/_Dataentry/create','projects/create','projects/edit','admin_hr/meeting/create','executive/home/pems_tab','executive/home/chart_one','executive/home/chart_two','executive/home/chart_three','executive/home/chart_four','executive/home/chart_five','admin_hr/meeting/show','executive/home/chart_six','executive/home/chart_seven','executive/home/chart_eight','executive/home/chart_nine',
+    'executive/home/chart_ten','Director.Evaluation.home.pems_tab',
     // Officers Charts views
     'dashboard',
     'officer/charts/officer_chart_one',
     'officer/charts/officer_chart_two',
-    'officer/charts/officer_chart_three'
+    'officer/charts/officer_chart_three',
+  // Monitoring Module
+    '_Monitoring._Officer.projects.inprogressSingle'
+
   ],
 
     /*

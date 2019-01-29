@@ -39,37 +39,6 @@
       color: #fff;
     }
     .navbar-default{background-color: #fff !important;}
-    /* .navbar-default .navbar-nav > li > a{color: #666 !important;} */
-    /* .tile.purple {
-      background: #5133AB;
-    } */
-    /* .tile.purple:hover {
-      background: #3e2784 !important;
-    }
-    .tile.red {
-      background: #AC193D;
-    }
-    .tile.red:hover {
-      background: #7f132d;
-    }
-    .tile.green {
-      background: #00A600;
-    }
-    .tile.green:hover {
-      background: #007300;
-    }
-    .tile.blue {
-      background: #2672EC;
-    }
-    .tile.blue:hover {
-      background: #125acd;
-    }
-    .tile.orange {
-      background: #DC572E;
-    }
-    .tile.orange:hover {
-      background: #b8431f;
-    } */
     .pt_3p{padding-top: 3% !important;}
     .black{color: #777 !important;}
     .mr_3p{margin: 3%;}
@@ -102,8 +71,7 @@
                               <p class="wow fadeInUp" data-wow-delay="0.2s">
                                   Welcome to the official INTRANET website of Directorate General Monitoring & Evaluation, Punjab. We invite you to get to know our organization by exploring this site on which you will learn about our mission, vision and objectives. The site also provides information about different projects and provides access to valuable statistics. We hope…
                               </p>
-                              {{-- <a class="btn btn-primary btn-action" data-wow-delay="0.2s" href="#">Live Preview</a> --}}
-                              {{-- <a class="btn btn-primary btn-action" data-wow-delay="0.2s" href="#">Buy Now</a> --}}
+                 
                           </div>
                           <div class="col-md-12">
                               <div class="hero-image">
@@ -237,6 +205,7 @@
                 </div>
                 @endrole
                 @role('officer|evaluator|monitor|manager|directormonitoring|directorevaluation|dataentry')
+<<<<<<< HEAD
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
                     <a href="{{route('monitoring_dashboard')}}" class="tile purple">
                       <h3 class="title">Monitoring</h3>
@@ -247,15 +216,41 @@
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.6s">
                     <a href="{{route('evaluation_dashboard')}}" class="tile orange">
                       <h3 class="title">Evaluation</h3>
-                      <hr/>
-                      <p>Visit Evaluation</p>
-                    </a>
-                </div>
-                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.7s">
+=======
+                  <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
+                      <a href="{{route('monitoring_dashboard')}}" class="tile purple">
+                        <h3 class="title">Monitoring</h3>
+                        <hr/>
+                        <p>Visit Monitoring</p>
+                      </a>
+                  </div>
+                  <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.6s">
+                      <a href="{{route('evaluation_dashboard')}}" class="tile orange">
+                        <h3 class="title">Evaluation</h3>
+                        <hr/>
+                        <p>Visit Evaluation</p>
+                      </a>
+                  </div>
+                  <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.7s">
+                      <a href="" class="tile green">
+                        <h3 class="title">TPV(s)</h3>
+                        <hr/>
+                        <p>Visit TPV(s)</p>
+                      </a>
+                  </div>
+                  <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.8s">
                     <a href="" class="tile green">
-                      <h3 class="title">TPV(s)</h3>
+                      <h3 class="title">Inquires</h3>
+>>>>>>> 759d2a379f0ffbe7d226355ad18c0d6304baa730
                       <hr/>
-                      <p>Visit TPV(s)</p>
+                      <p>Visit Inquires</p>
+                    </a>
+                  </div>
+                  <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.9s">
+                    <a href="{{route('trip.create')}}" class="tile orange">
+                      <h3 class="title">Plan My Trip</h3>
+                      <hr/>
+                      <p>Visit Plan My Trip</p>
                     </a>
                 </div>
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.8s">
@@ -272,13 +267,37 @@
                     <p>Visit Plan My Trip</p>
                   </a>
                 </div>
+                @endrole
+                @role('manager')
+                <!-- <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.0s">
+                  <a href="{{route('visitRequest_dashboard')}}" class="tile green"> -->
+                    <!-- if(Auth::id()=='2012') -->
+                        <!-- if($tripcounts==null || $tripcounts=='0' )
+                        <b class="noti" style="display:none;"></b>     
+                        else
+                        <b class="noti">
+                            $tripcounts
+                        </b>
+                        endif -->
+                    <!-- elseif(Auth::id()=='2011') -->
+                        <!-- if($tripcountsFordg==null || $tripcountsFordg=='0' )
+                        <b class="noti" style="display:none;"></b>     
+                        else
+                        <b class="noti">
+                        $tripcountsFordg
+                        </b>
+                        endif -->
+                    <!-- endif -->
+                    <!-- <h3 class="title">Visit Requests</h3>
+                    <hr/>
+                    <p>visit VMIS</p>
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.9s">
                   <a href="#!" class="tile orange">
                     <h3 class="title">leaves</h3>
                     <hr/>
                     <p>Schedule leaves here</p>
                   </a>
-                </div>
+                </div> -->
                 @endrole
                 @role('transportofficer')
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.0s">
@@ -427,7 +446,7 @@
             <div class="inner clearfix">
               <section id="main-content">
                   <div id="demos">
-                          <div id="carouselTicker" class="carouselTicker">
+                          <div id="carouselTicker" class="carouselTicker hidden-xs hidden-sm">
                               <ul class="carouselTicker__list">
                                 <li class="carouselTicker__item grayeee">
                                   <h4>Capacity Building 1</h4>
