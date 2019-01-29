@@ -138,7 +138,7 @@ class OfficerController extends Controller
 
       public function getProjectComponents(Request $request)
       {
-        // dd($request->all());
+        // return response()->json($request->all());
         $projectcomponents =MPlanComponent::where('status',1)
         ->where('m_project_progress_id',$request->MProjectProgressId)
         ->get();
@@ -584,13 +584,17 @@ class OfficerController extends Controller
            }
           ])->find($project->project_id);
         
+        $ComponentActivities = MPlanComponentActivitiesMapping::where('status',1)
+        ->where('m_project_progress_id',$projectProgressId[0]->id)
+        ->get();
+
         $generalKpis =GeneralKpi::where('status',1)->get();
         \JavaScript::put([
           'projectWithRevised'=>$projectWithRevised,
          'componentsforkpis'=> $components,
          'monitoringProjectId'=> $monitoringProjectId
         ]);
-        return view('_Monitoring._Officer.projects.inprogressSingle',compact('monitoringProjectId','componentsforkpis','generalKpis','components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
+        return view('_Monitoring._Officer.projects.inprogressSingle',compact('ComponentActivities','monitoringProjectId','componentsforkpis','generalKpis','components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
       }
       public function monitoring_review_form(Request $request)
       {
@@ -809,6 +813,7 @@ class OfficerController extends Controller
           }
        return response()->json($request->all());
       }
+
       public function mappingOfObj(Request $request)
       {
         $projectProgressId= MProjectProgress::where('assigned_project_id',$request->project_progress_no)->get();
@@ -834,9 +839,81 @@ class OfficerController extends Controller
       }
       public function kpiComponentMapping(Request $request)
       {
+        // return response()->json($request->all());
+        $projectProgressId= MProjectProgress::where('assigned_project_id',$request->project_progress_no)->get();
+        $i=0;
+        foreach($request->kpinamesId as $kpi)  
+        {
+          if(isset($_POST['mappedKpicomponent_'.$i]))
+          foreach($_POST['mappedKpicomponent_'.$i] as $mappComp)
+          {
+            // return response()->json($mappComp);
+            $kpiCompMapping = new MPlanKpicomponentMapping();
+            $kpiCompMapping->m_project_progress_id = $projectProgressId[0]->id;
+            $kpiCompMapping->general_kpi_id=$kpi;
+            $kpiCompMapping->m_plan_component_id=$mappComp;
+            $kpiCompMapping->status= true;
+            $kpiCompMapping->save();
+          }
+          $i++;
+        }
+
+
         return response()->json($request->all());
       }
+      
+      public function componentActivities(Request $request)
+      {
+       $projectProgressId= MProjectProgress::where('assigned_project_id',$request->project_progress_no)->get();
+        $i=0;
+        foreach($request->compforactivity as $compActivity)  
+        {
+          if(isset($_POST['c_activity_'.$i]))
+          foreach($_POST['c_activity_'.$i] as $act)
+          {
+            // return response()->json($mappComp);
+            $CompActivityMapping = new MPlanComponentActivitiesMapping();
+            $CompActivityMapping->m_project_progress_id = $projectProgressId[0]->id;
+            $CompActivityMapping->m_plan_component_id=$compActivity;
+            $CompActivityMapping->activity=$act;
+            $CompActivityMapping->status= true;
+            $CompActivityMapping->save();
+          }
+          $i++;
+        }
+        return response()->json($request->all());      
+       
+      }
+      public function activities_duration(Request $request)
+      {
+        $size=count($request->componentActivityId);
+        for($i=0 ; $i < $size ; $i++ )
+        {
+            $CompActivityDetails = new MPlanComponentactivityDetailMapping();
+            $CompActivityDetails->m_plan_component_activities_mapping_id =$request->componentActivityId[$i];
+            $CompActivityDetails->duration=$request->daysinduration[$i];
+            $CompActivityDetails->save();
+          
+        }
+        return response()->json($request->all()); 
+      }
 
+      public function Costing(Request $request)
+      {
+        // return response()->json($request->all()); 
+        $size=count($request->activityId);
+        for($i=0 ; $i < $size ; $i++ )
+        {
+            $CompActivityDetails = MPlanComponentactivityDetailMapping::find($request->activityId[$i]);
+            $CompActivityDetails->unit =$request->Unit[$i]; 
+            $CompActivityDetails->quantity=$request->Quantity[$i];
+            $CompActivityDetails->cost=$request->Cost[$i];
+            $CompActivityDetails->amount=$request->Amount[$i];
+            $CompActivityDetails->save();
+          
+        }
+        return response()->json($request->all()); 
+      }
       // public function monitoring_Stages()
       // {
       //   // if (!is_dir('storage/uploads/projects/project_activities/'.Auth::user()->username)) {

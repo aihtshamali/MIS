@@ -212,7 +212,11 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
   Route::post('/getProjectComponents','OfficerController@getProjectComponents')->name('getProjectComponents');
   Route::post('/kpiComponentMapping','OfficerController@kpiComponentMapping')->name('kpiComponentMapping');
   Route::get('/getSectorKpi','DataController@getProjectKpi')->name('getProjectKpi');
+  Route::post('/componentActivities','OfficerController@componentActivities')->name('componentActivities');
+  Route::post('/activities_duration','OfficerController@activities_duration')->name('activities_duration');
   
+  Route::post('/Costing','OfficerController@Costing')->name('Costing');
+
   
 });
 
