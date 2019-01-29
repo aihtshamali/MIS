@@ -205,18 +205,6 @@
                 </div>
                 @endrole
                 @role('officer|evaluator|monitor|manager|directormonitoring|directorevaluation|dataentry')
-<<<<<<< HEAD
-                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
-                    <a href="{{route('monitoring_dashboard')}}" class="tile purple">
-                      <h3 class="title">Monitoring</h3>
-                      <hr/>
-                      <p>Visit Monitoring</p>
-                    </a>
-                </div>
-                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.6s">
-                    <a href="{{route('evaluation_dashboard')}}" class="tile orange">
-                      <h3 class="title">Evaluation</h3>
-=======
                   <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
                       <a href="{{route('monitoring_dashboard')}}" class="tile purple">
                         <h3 class="title">Monitoring</h3>
@@ -241,7 +229,6 @@
                   <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.8s">
                     <a href="" class="tile green">
                       <h3 class="title">Inquires</h3>
->>>>>>> 759d2a379f0ffbe7d226355ad18c0d6304baa730
                       <hr/>
                       <p>Visit Inquires</p>
                     </a>
