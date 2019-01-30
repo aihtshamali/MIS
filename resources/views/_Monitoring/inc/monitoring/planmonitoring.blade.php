@@ -261,7 +261,7 @@
                         </div>
                         <div class="card-footer">
                             <div class="col-md-3 offset-md-9">
-                        <input type="hidden" value="{{$project->Project->AssignedProject->id}}" name="project_progress_no">
+                        <input type="hidden" value="{{$monitoringProjectId}}" name="project_progress_no">
                             <button class="btn btn-primary btn-md activities saveNnextbtn" type="submit" id="svkp">Save </button>
                                   
                             </div>
@@ -308,13 +308,14 @@
                                          @endphp 
                                             @empty
                                             <div class="row form-group compTask">
-                                                <div class="col-md-4 offset-md-1">
-                                            <label for=""> <b class="headText form-txt-primary" id="compname"> {{$comp->component}} </b></label>
+                                                    <input type="hidden" name="compforactivity[]" value="{{$comp->id}}"/>
+                                                {{-- <div class="col-md-4 offset-md-1">
+                                               <label for=""> <b class="headText form-txt-primary" id="compname"> {{$comp->component}} </b></label>
                                                 <input type="hidden" name="compforactivity[]" value="{{$comp->id}}" />
-                                            </div>
-                                            <div class="col-md-2 offset-md-4 mb_1 Taskbut" id="add_activity" data-activitycount="{{$activity}}" data-id="{{$j}}" style="padding-top:0.6%;">
+                                            </div> --}}
+                                            {{-- <div class="col-md-2 offset-md-4 mb_1 Taskbut" id="add_activity" data-activitycount="{{$activity}}" data-id="{{$j}}" style="padding-top:0.6%;">
                                             <button class="btn btn-sm btn-warning float-right"  type="button" name="add_activity" >Add Activity + </button>
-                                            </div>
+                                            </div> --}}
                                             <div id="alltasks" class="row col-md-11 offset-md-1 form-group component_Activities">
     
                                             </div>
@@ -330,7 +331,7 @@
                         </div>
                         <div class="card-footer">
                                 <div class="col-md-3 offset-md-9">
-                                    <input type="hidden" value="{{$project->Project->AssignedProject->id}}" name="project_progress_no">
+                                    <input type="hidden" value="{{$monitoringProjectId}}" name="project_progress_no">
                                     <button type="submit"class="btn btn-primary btn-md saveNnextbtn" id="saveTasks">Save & Proceed</button>
                                 </div>
                         </div>
@@ -347,6 +348,7 @@
                             <div class="row form-group">
                                 <h5 class="col-md-6 textlef mb_2">Activities</h5>
                                 <h5 class="col-md-4 textlef mb_2">Duration In Days</h5>
+                                {{-- {{dd($ComponentActivities)}} --}}
                                 @foreach ($ComponentActivities as $activities)
                                 <div id='comptaskl' class="col-md-12 row" style="margin-top:5px; padding-left:2% !important;">
                                     <div class="col-md-6">
@@ -354,7 +356,7 @@
                                     <input type="hidden" name="componentActivityId[]" value={{$activities->id}}>
                                     </div>
                                     <div class="col-md-4" style="">
-                                    <input type="text" name="daysinduration[]" value="{{$activities->MPlanComponentactivityDetailMapping->duration}}" class="form-control">
+                                    <input type="text" name="daysinduration[]" value="@if(isset($activities->MPlanComponentactivityDetailMapping->duration)) {{$activities->MPlanComponentactivityDetailMapping->duration}} @endif" class="form-control">
                                     </div>
                                 </div>
                                 @endforeach
@@ -388,10 +390,10 @@
                                 <div class="col-md-12" style="display:inline-flex;">
                                    <label  class="text_left col-md-3"><b>{{$activities->MPlanComponent->component}}</b> <br> - {{$activities->activity}} </label>
                                    <input type="hidden" name="activityId[]" value="{{$activities->id}}">
-                                <div class="col-md-2 mr_0_1"><input type="text" class="form-control" value="{{$activities->MPlanComponentactivityDetailMapping->unit}}" placeholder="Unit" name="Unit[]" /></div>
-                                    <div class="col-md-2 mr_0_1"><input type="text" class="form-control" value="{{$activities->MPlanComponentactivityDetailMapping->quantity}}"  placeholder="Quantity" name="Quantity[]" /></div>
-                                    <div class="col-md-2 mr_0_1"><input type="text" class="form-control" value="{{$activities->MPlanComponentactivityDetailMapping->cost}}"  placeholder="Cost" name="Cost[]" /></div>
-                                    <div class="col-md-2 mr_0_1"><input type="text" class="form-control" value="{{$activities->MPlanComponentactivityDetailMapping->amount}}"  placeholder="Amount" name="Amount[]" /></div>
+                                <div class="col-md-2 mr_0_1"><input type="text" class="form-control" value=" @if(isset($activities->MPlanComponentactivityDetailMapping->unit)){{$activities->MPlanComponentactivityDetailMapping->unit}} @endif" placeholder="Unit" name="Unit[]" /></div>
+                                    <div class="col-md-2 mr_0_1"><input type="text" class="form-control" value=" @if(isset($activities->MPlanComponentactivityDetailMapping->quantity)){{$activities->MPlanComponentactivityDetailMapping->quantity}} @endif"  placeholder="Quantity" name="Quantity[]" /></div>
+                                    <div class="col-md-2 mr_0_1"><input type="text" class="form-control" value=" @if(isset($activities->MPlanComponentactivityDetailMapping->cost)){{$activities->MPlanComponentactivityDetailMapping->cost}} @endif"  placeholder="Cost" name="Cost[]" /></div>
+                                    <div class="col-md-2 mr_0_1"><input type="text" class="form-control" value=" @if(isset($activities->MPlanComponentactivityDetailMapping->amount)){{$activities->MPlanComponentactivityDetailMapping->amount}} @endif"  placeholder="Amount" name="Amount[]" /></div>
                                 </div>
                             @endforeach
                         </div>

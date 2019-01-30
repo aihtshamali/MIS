@@ -586,6 +586,7 @@ $(document).on('click', '#add_activity', function (e) {
 $('.select2').select2();
 
 
+
 function ObjectiveComponent(components,objectives){
     $("#planMactivities").children().remove();
     $("#ObjCompHere").children().remove();
@@ -728,8 +729,25 @@ function ObjectiveComponent(components,objectives){
 //         $(temp).appendTo('#comptaskl')
 //     });
 // });
+var compOpt='';
+function componentsfroConductMonitoring(components)
+{
+    console.log(components);
+    
+    var comps = $(this).val();
+    var count = 1;
+       
+    components.forEach(function (val,index) {
+        compOpt  = compOpt+ `
+            <option value="`+val.id+`">`+val.component+`</option>
+        `;
+    });
+    $('.select2').select2();
+}
 
 $('button#add_more_component').click(function (e) {
+    console.log(compOpt);
+    
     var add_component = `<div class="row components">
                         <div class="form-group col-md-1 offset-md-1 ">
                         <br>
@@ -737,8 +755,8 @@ $('button#add_more_component').click(function (e) {
                         </div>
                         <div class="form-group col-md-6  ">
                         <label for=""> <b>Component Title :</b></label><br>
-                        <select class=" form-control form-control-primary ">
-                        `+ compopt +`
+                        <select class=" form-control kpisel form-control-primary " name=compforconduct[]>
+                        `+ compOpt +`
                         </select>
                         </div>
                         <div class="col-md-2 offset-md-1">
@@ -746,6 +764,7 @@ $('button#add_more_component').click(function (e) {
                         <button class=" btn btn-sm btn-success" name="add_more_act[]" id="add_more_act" onclick="add_activityInComp(this)" type="button">Add Task</button>
                         </div>
                         </div>`;
+                        $('.kpisel').select2();
     $('.oneComponentQA').append(add_component);
 });
 var objct = $("#objct").val() ? parseInt($("#objct").val()) : 1 ;
@@ -904,50 +923,61 @@ $(document).ready(function () {
 // });
 // end newly
 
-
+var activitiesforConductmonitoring='';
+function activitiesfroConductMonitoring(activities)
+{
+    var comps = $(this).val();
+    var count = 1;
+       
+    activities.forEach(function (val,index) {
+        activitiesforConductmonitoring  = activitiesforConductmonitoring+ `
+            <option value="`+val.id+`">`+val.activity+`</option>
+        `;
+    });
+   
+}
 function add_activityInComp(e) {
-    var add_activities_to_assess = '<div class="row singleActivity">'
-        + '<div class="form-group col-md-2 offset-md-1" style="margin-bottom:10px !important;">'
-        + '<label for=""><b>Tasks</b></label>'
-        + '<select class="form-control form-control-warning">'
-        + '<option value="" selected disabled>Select Tasks</option>'
-        + '<option value="1" >Task 1</option>'
-        + '<option value="2">Task 2</option>'
-        + '<option value="3" >Task 3</option>'
-        + '</select></div>'
-        + '<div class="form-group col-md-2">'
-        + '<label for=""><b>Assesment</b></label>'
-        + '<select class=" form-control">'
-        + '<option value="" selected hidden>Assesment Type</option>'
-        + '<option value="1" style="background:#cc18068c;color:white;">Poor</option>'
-        + '<option value="2" style="background:#f5d75c;color:white;">PartiallySatisfactory</option>'
-        + '<option value="3" style="background:#44d581;color:white;">Satisfactory</option>'
-        + '</select>'
-        + '</div>'
-        + '<div class="form-group col-md-2">'
-        + '<label for=""><b>Progress in %</b></label>'
-        + '<select class=" form-control">'
-        + '<option value="" selected disabled>Progress Percentage</option>'
-        + '<option value="25%">0%-25%</option>'
-        + '<option value="50%">25%-50%</option>'
-        + '<option value="75%">50%-75%</option>'
-        + '<option value="100%">75%-100%</option>'
-        + '</select>'
-        + '</div>'
-        + '<div class="form-group col-md-3">'
-        + '<label for=""><b>Remarks</b></label><br>'
-        + '<textarea name="qa_remarks" id="qa_remarks" style="height:37px !important;" class="form-control" type="text"></textarea>'
-        + '</div>'
-        + '<div class="col-md-1" style="padding-top:2.2% !important;">'
-          + '<div class="btn col-md-12 btn-primary btn-block" style="padding:4px !important;border-radius:50px;">'
-            + '<input type="file" id="html_btn" name="" title="Click to add picture">'
-            + '<span><i class="fa fa-paperclip" style="font-size:29px;"></i></span>'
-          + '</div>'
-        + '</div>'
-        + '<div class="form-group col-md-1">'
-        + ' <br><button class="btn btn-danger btn-sm" onclick="removerow(this)" name="remove_Comp_activity[]"><span style="font-size:12px;">-</span></button>'
-        + '</div>'
-        + '</div>';
+    var add_activities_to_assess = `<div class="row singleActivity">
+        <div class="form-group col-md-2 offset-md-1" style="margin-bottom:10px !important;">
+        <label for=""><b>Tasks</b></label>
+        <select class="form-control select2 form-control-warning" name="activitiesforconduct[]">
+        <option value="" selected disabled>Select Tasks</option>
+          `+activitiesforConductmonitoring+`
+        </select></div>
+        <div class="form-group col-md-2">
+        <label for=""><b>Assesment</b></label>
+        <select class=" form-control" name=qualityassesment[]>
+        <option value="" selected hidden>Assesment Type</option>
+        <option value="1" style="background:#cc18068c;color:white;">Poor</option>
+        <option value="2" style="background:#f5d75c;color:white;">PartiallySatisfactory</option>
+        <option value="3" style="background:#44d581;color:white;">Satisfactory</option>
+        </select>
+        </div>
+        <div class="form-group col-md-2">
+        <label for=""><b>Progress in %</b></label>
+        <select class=" form-control" name="progresspercentage[]">
+        <option value="" selected disabled>Progress Percentage</option>
+        <option value="25%">0%-25%</option>
+        <option value="50%">25%-50%</option>
+        <option value="75%">50%-75%</option>
+        <option value="100%">75%-100%</option>
+        </select>
+        </div>
+        <div class="form-group col-md-3">
+        <label for=""><b>Remarks</b></label><br>
+        <textarea name="qa_remarks[]" id="qa_remarks" style="height:37px !important;" class="form-control" type="text"></textarea>
+        </div>
+        <div class="col-md-1" style="padding-top:2.2% !important;">
+          <div class="btn col-md-12 btn-primary btn-block" style="padding:4px !important;border-radius:50px;">
+            <input type="file" id="html_btn" name="" title="Click to add picture">
+            <span><i class="fa fa-paperclip" style="font-size:29px;"></i></span>
+          </div>
+        </div>
+        <div class="form-group col-md-1">
+         <br><button class="btn btn-danger btn-sm" onclick="removerow(this)" name="remove_Comp_activity[]"><span style="font-size:12px;">-</span></button>
+        </div>
+        </div>`;
+        $('.select2').select2();
     $(e).parent().parent().append(add_activities_to_assess);
 }
 

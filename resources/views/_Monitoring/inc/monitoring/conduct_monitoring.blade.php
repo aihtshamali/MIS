@@ -48,21 +48,9 @@
                         <div class="card-header">
                             <h4>Quality Assesment</h4>
                         </div>
+                        <form action="{{route('saveQualityAssesment')}}" class="serializeform" method="POST">
+                                {{ csrf_field() }}
                         <div class="card-block">
-                          {{-- <div class="row">
-                              <div class="col-md-10 offset-md-1 components" id="components" style="background: lavender;">
-                                  <div class="form-group">
-                                      <label for=""> <b>Component Title :</b></label>
-                                      <select class=" form-control form-control-primary ">
-                                            <option value="" selected disabled>Select Component</option>
-                                            <option value="1" >Component 1</option>
-                                            <option value="2">Component 2</option>
-                                            <option value="3" >Component 3</option>
-                                        </select>
-                                  </div>
-
-                                </div>
-                              </div> --}}
                               <div class="row oneComponentQA">
                                   <div class="col-md-6 offset-md-1">
                                         To assess quality of components, press here. <button class="btn btn-sm btn-primary" id="add_more_component" name="add_more_component[]" type="button"><span><i class="fa fa-plus"></i></span></button>
@@ -70,6 +58,14 @@
                               </div>
 
                             </div>
+                        <div class="form-group row">
+                                <div class="col-md-8"></div>
+                                    <div class="col-md-3">
+                                    <button type="submit" class="btn btn-success btn-sm btn-outline-success">
+                                        Save Quality Assesment</button>
+                                    </div>
+                                </div>
+                        </form>
                         </div>
                         <div class="card z-depth-right-0">
                         <div class="card-header">
@@ -114,7 +110,7 @@
                             </div>
                           </form>
                         </div>
-                        <div class="card-footer">
+                        {{-- <div class="card-footer">
                             <h6><b>Comments</b></h6>
                             <div class="form-group row">
                                 <div class="col-md-12">
@@ -124,7 +120,7 @@
                                     </p>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="tab-pane active" id="stakeholder" role="tabpanel"
