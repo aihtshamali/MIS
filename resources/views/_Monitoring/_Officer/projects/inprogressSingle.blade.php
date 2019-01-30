@@ -491,22 +491,32 @@ axios.get('{{route("getProjectKpi")}}',{
 })(jQuery);
 
   $('form.serializeform').on('submit',function(e){
-    //   console.log('sad');
-      
+    
     e.preventDefault();
       $.ajax( {
-      data: $(this).serialize(),
+      data: new FormData(this),
       type: $( this ).attr( 'method' ),
       url: $(this).attr('action'),
+      cache:false,
+      contentType: false,
+      processData: false,
+      dataType: "json",
       success: function( feedback ){
           console.log(feedback);
-          
-          if(feedback){
-
+          if(feedback.resType=="ObjectiveAndComponents"){
+            ObjectiveComponent(feedback.data.components,feedback.data.objectives);
+            console.log(feedback);
+            
           }
-          else{
-              alert("Data saved successfully");
-          }
+        //   if(feedback){
+            toast({
+            type: feedback.type,
+            title: feedback.msg
+          })
+        //   }
+        //   else{
+            //   alert("Data saved successfully");
+        //   }
       },
       error:function(err){
             toast({

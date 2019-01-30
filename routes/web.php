@@ -206,6 +206,7 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
   Route::post('/saveGeneralFeedBack','OfficerController@saveGeneralFeedBack')->name('saveGeneralFeedBack');
   Route::post('/saveMissues','OfficerController@saveMissues')->name('saveMissues');
   Route::post('/savehealthsafety','OfficerController@savehealthsafety')->name('savehealthsafety');
+  Route::post('/saveMonitoringAttachments','OfficerController@saveMonitoringAttachments')->name('saveMonitoringAttachments');
 
   Route::post('/projectDesignMonitoring','OfficerController@projectDesignMonitoring')->name('projectDesignMonitoring');
   Route::post('/mappingOfObj','OfficerController@mappingOfObj')->name('mappingOfObj');
