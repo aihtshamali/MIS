@@ -756,7 +756,6 @@ function autoindex() {
     for (i = 0; i < sib.length; i++) {
         var cl_array = sib[i].getAttribute('class').split(' ');
         var val = "";
-        console.log(cl_array);
         
         for (var j = 0; j < cl_array.length; j++) {
             if (cl_array[j].startsWith('newClass1')) {
@@ -764,7 +763,6 @@ function autoindex() {
                 break;
             }
         }
-        console.log(val);
         if (val != "") {
             $('.' + val + ' > label').text('Objective ' + (i + 2));
             $('.' + val + ' > div > input').attr('placeholder', 'Objective ' + (i + 2));
@@ -799,16 +797,17 @@ $(document).on('click', '.removeObjective', function () {
 });
 
 
-var compAct = 2;
+var compAct = $("#compAct").val() ? parseInt($("#compAct").val()) : 1;
+compAct++;
 function autoindexcomp() {
-    var sib = $(document).find('.newClasscompAct').siblings();
+    var sib = $(document).find('.newClasscompAct1').siblings();
     // console.log(sib);
     var i = 0;
     for (i = 0; i < sib.length; i++) {
         var cl_array = sib[i].getAttribute('class').split(' ');
         var val = "";
         for (var j = 0; j < cl_array.length; j++) {
-            if (cl_array[j].startsWith('newClasscompAct')) {
+            if (cl_array[j].startsWith('newClasscompAct1')) {
                 val = cl_array[j];
                 break;
             }
