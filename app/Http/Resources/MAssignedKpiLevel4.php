@@ -3,10 +3,10 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
-use App\Http\Resources\MProjectLevel2Kpi as MProjectLevel2KpiResource;
 
 
-class MProjectLevel1Kpi extends Resource
+
+class MAssignedKpiLevel4 extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -18,9 +18,11 @@ class MProjectLevel1Kpi extends Resource
     {
         return [
           "id" => $this->id,
-          "name" => $this->name,
-          "weightage" => $this->weightage,
-          "children" => MProjectLevel2KpiResource::collection($this->MProjectLevel2Kpi),
+          "name" => $this->MProjectLevel4Kpi->name,
+          "completed" => $this->completed,
+          "remarks" => $this->remarks,
+          "weightage" => $this->MProjectLevel4Kpi->weightage,
+          "status" => $this->status,
         ];
     }
 }
