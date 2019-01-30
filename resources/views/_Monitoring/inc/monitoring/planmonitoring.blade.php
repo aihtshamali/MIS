@@ -217,18 +217,7 @@
                                      <option class='optiontest' data-value='{{$Kpi->id}}'>{{$Kpi->name}}</option>
                                      @endforeach
                                 </select>
-                                {{-- SPECIAL KPI'S CODE --}}
-
-                                    {{-- <h5 class="mb_2">Special KPI(s)</h4>
-                                    <div id="appendspecialkpi">
-                                      <div class="row col-md-12">
-                                        <input type="text" class="form-control specialin col-md-11" placeholder="Type KPI here...">
-                                        <button class="col-md-1 btn addspecialkpi" type="button">+</button>
-                                        <button class="col-md-1 btn btn-danger btn-sm btn nodisplay delspecialkpi" type="button">-</button>
-                                        </div>
-                                    </div> --}}
-
-                                    {{-- SPECIAL KPI'S CODE END--}}
+                              
                             </div>
                             <div class="row col-md-1">
                               <div class="border_right col-md-6"></div>
@@ -247,9 +236,7 @@
                             <div class="col-md-3 offset-md-9">
                         <input type="hidden" value="{{$project->Project->AssignedProject->id}}" name="project_progress_no">
                             <button class="btn btn-primary btn-md activities saveNnextbtn" type="submit" id="svkp">Save </button>
-                                    {{-- <a class="btn btn-primary btn-md activities saveNnextbtn" id="svkp" data-toggle="tab"
-                                    href="#activities"
-                                    role="tab" aria-expanded="false">Save & Proceed</a> --}}
+                                  
                             </div>
                         </div>
                     </div>
@@ -273,7 +260,7 @@
                                         <input type="hidden" name="compforactivity[]" value="{{$comp->id}}" />
                                         </div>
                                         <div class="col-md-2 offset-md-4 mb_1 Taskbut" id="add_activity" data-id="{{$j}}" style="padding-top:0.6%;">
-                                        <button class="btn btn-sm btn-warning float-right"  type="button" name="add_activity" >Add Activity(s)</button>
+                                        <button class="btn btn-sm btn-warning float-right"  type="button" name="add_activity" >Add Activity + </button>
                                         </div>
                                         <div id="alltasks" class="row col-md-11 offset-md-1 form-group component_Activities">
                                         
