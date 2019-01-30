@@ -13,4 +13,7 @@ class MAssignedKpiLevel4 extends Model
     public function MAssignedKpiLevel3(){
         return $this->belongsTo('App\MAssignedKpiLevel3');
       }
+      public function MProjectLevel4Kpi(){
+        return $this->belongsTo('App\MProjectLevel4Kpi');
+      }
 }

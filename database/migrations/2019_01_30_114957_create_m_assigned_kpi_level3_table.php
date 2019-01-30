@@ -19,7 +19,8 @@ class CreateMAssignedKpiLevel3Table extends Migration
             $table->foreign('m_project_progress_id')->references('id')->on('m_project_progresses')->onDelete('no action');
             $table->integer('m_assigned_kpi_level2_id')->unsigned()->index()->nullable();
             $table->foreign('m_assigned_kpi_level2_id')->references('id')->on('m_assigned_kpi_level2')->onDelete('no action');
-            $table->boolean('completed')->default(0);
+            $table->integer('m_project_level3_kpis_id')->unsigned()->index()->nullable();
+            $table->foreign('m_project_level3_kpis_id')->references('id')->on('m_project_level3_kpis')->onDelete('no action');$table->boolean('completed')->default(0);
             $table->string('remarks','MAX')->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();

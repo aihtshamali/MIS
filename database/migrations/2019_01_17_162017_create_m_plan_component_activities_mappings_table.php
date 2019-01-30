@@ -17,9 +17,11 @@ class CreateMPlanComponentActivitiesMappingsTable extends Migration
             $table->increments('id');
             $table->integer('m_project_progress_id')->unsigned()->index()->nullable();
             $table->foreign('m_project_progress_id')->references('id')->on('m_project_progresses')->onDelete('no action');
+
             $table->integer('m_plan_component_id')->unsigned()->index()->nullable();
             $table->foreign('m_plan_component_id')->references('id')->on('m_plan_components')->onDelete('no action');
-            $table->string('activity')->nullable(); 
+
+            $table->string('activity')->nullable();
             $table->boolean('status')->nullable();
             $table->timestamps();
         });

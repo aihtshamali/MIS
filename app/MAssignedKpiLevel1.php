@@ -13,4 +13,8 @@ class MAssignedKpiLevel1 extends Model
     public function MPlanKpicomponentMapping(){
       return $this->belongsTo('App\MPlanKpicomponentMapping');
     }
+
+    public function MProjectLevel1Kpi(){
+      return $this->belongsTo('App\MProjectLevel1Kpi');
+    }
 }

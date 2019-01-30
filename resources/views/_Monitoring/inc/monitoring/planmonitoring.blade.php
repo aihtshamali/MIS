@@ -168,11 +168,11 @@
                         <ul class="pd_1_6" id="ObjCompHere">
                             <li class="row mb_2">
                                 @php
-                                 $i=0;   
+                                 $i=0;
                                 @endphp
                                     @foreach ($objectives as $obj)
-                                    
-                                    <span id="objectiveHere" name=""  class="float-left col-md-6"> 
+
+                                    <span id="objectiveHere" name=""  class="float-left col-md-6">
                                         <input type="hidden" value="{{$obj->id}}" name="objective[]">
                                         {{$obj->objective}}
                                     </span>
@@ -180,11 +180,11 @@
                                     <select class="select2 col-md-12" id="component" name="mappedComp_{{$i}}[]" multiple="multiple">
                                        @foreach ($components as $comp)
                                        <option value={{$comp->id}}>{{$comp->component}}</option>
-                                       @endforeach   
+                                       @endforeach
                                     </select>
                                     </span>
                                     @php
-                                    $i++;   
+                                    $i++;
                                    @endphp
                                     @endforeach
                                     </li>
@@ -202,6 +202,8 @@
                 <div class="tab-pane active" id="kpis" role="tabpanel" aria-expanded="false" style="display:none;">
                 <form class="serializeform" action="{{route('kpiComponentMapping')}}" method="post">
                     {{ csrf_field() }}
+                    <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
+
                     <div class="card m-0 z-depth-right-0">
                         <div class="card-header">
                             <h4>KPI(s)</h4>
@@ -217,7 +219,7 @@
                                      <option class='optiontest' data-value='{{$Kpi->id}}'>{{$Kpi->name}}</option>
                                      @endforeach
                                 </select>
-                              
+
                             </div>
                             <div class="row col-md-1">
                               <div class="border_right col-md-6"></div>
@@ -226,7 +228,7 @@
                             <div class="col-md-6" style="padding-left:3% !important;">                                                                            <div class="row col-md-12">
                                 <ul class="col-md-12 row" id='addkpi'>
                                     <h5 class=" mb_2">KPIs</h5>
-                                    
+
                                 </ul>
                               </div>
                             </div>
@@ -236,7 +238,7 @@
                             <div class="col-md-3 offset-md-9">
                         <input type="hidden" value="{{$project->Project->AssignedProject->id}}" name="project_progress_no">
                             <button class="btn btn-primary btn-md activities saveNnextbtn" type="submit" id="svkp">Save </button>
-                                  
+
                             </div>
                         </div>
                     </div>
@@ -250,10 +252,10 @@
                         <div class="card-block">
                            @php
                            $j=0;
-                           @endphp 
+                           @endphp
                             <div class="row form-group">
                                 <div class="col-md-10 offset-md-1 planMactivities" id="planMactivities">
-                                  @foreach ($components as $comp)     
+                                  @foreach ($components as $comp)
                                     <div class="row form-group compTask">
                                         <div class="col-md-4 offset-md-1">
                                             <label for=""> <b class="headText form-txt-primary" id="compname"> {{$comp->component}} </b></label>
@@ -263,12 +265,12 @@
                                         <button class="btn btn-sm btn-warning float-right"  type="button" name="add_activity" >Add Activity + </button>
                                         </div>
                                         <div id="alltasks" class="row col-md-11 offset-md-1 form-group component_Activities">
-                                        
+
                                         </div>
                                     </div>
                                     @php
                                     $j++;
-                                    @endphp 
+                                    @endphp
                                     @endforeach
                                  </div>
                             </div>
@@ -329,7 +331,7 @@
                                 <div class="col-md-2 mr_0_1"><h5 class="form-txt-primary"><b>Cost</b></h5></div>
                                 <div class="col-md-2 mr_0_1"><h5 class="form-txt-primary"><b>Amount</b></h5></div>
                             </div>
-                            @foreach ($ComponentActivities as $activities)    
+                            @foreach ($ComponentActivities as $activities)
                                 <div class="col-md-12" style="display:inline-flex;">
                                    <label  class="text_left col-md-3"><b>{{$activities->MPlanComponent->component}}</b> <br> - {{$activities->activity}} </label>
                                    <input type="hidden" name="activityId[]" value="{{$activities->id}}">
