@@ -67,11 +67,22 @@
                     {{ csrf_field() }}
                     <div class="row">
                       <div class="col-md-6 objtivesNew border_right pd_1_2">
-                        <div class="DisInlineflex newClass mb_2 col-md-12">
-                            <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Objective 1</label>
+                        <div class="newClass mb_2 col-md-12">
+                            @php
+                            $count=1;   
+                            @endphp
+                        @foreach ($objectives as $obj)   
+                        <div class="row">
+                            <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Objective {{$count}}</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control form-txt-primary" name="obj[]" placeholder="Objective 1">
+                                <input type="text" class="form-control form-txt-primary" value={{$obj->objective}}>
                             </div>
+                        </div>
+                           @php
+                            $count++;
+                            @endphp
+                         @endforeach
+                           
                             <div class="col-sm-2 addbtn text_center">
                                 <button class="btn btn-sm btn-info" type="button" id="add_more_objective"  tabindex=1>+</button>
                             </div>
