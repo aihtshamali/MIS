@@ -47,6 +47,7 @@ use App\MPlanComponentActivitiesMapping;
 use App\MPlanComponentactivityDetailMapping;
 use App\MPlanKpicomponentMapping;
 use App\MProjectAttachment;
+use App\MProjectKpi;
 use Illuminate\Support\Facades\Redirect;
 use DB;
 class OfficerController extends Controller
@@ -93,6 +94,8 @@ class OfficerController extends Controller
       public function evaluation_index_officersidenav()
       {
         $officer=AssignedProject::select('assigned_projects.*')
+        ->leftjoin('projects','projects.id','assigned_projects.project_id')
+        ->where('projects.status',1)
         ->where('acknowledge','0')
         ->get();
         return view('inc.officer_sidenav')->with('officer',$officer);
@@ -102,18 +105,27 @@ class OfficerController extends Controller
       {
         $officerAssignedCount=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
         ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
+        ->leftjoin('projects','projects.id','assigned_projects.project_id')
+        ->where('project_type_id',1)
+        ->where('projects.status',1)
+        ->where('assigned_project_teams.user_id',Auth::id())
         ->where('acknowledge','0')
-        ->where('user_id',Auth::id())
         ->count();
         $officerInProgressCount=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
         ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
-        ->where('user_id',Auth::id())
+        ->leftjoin('projects','projects.id','assigned_projects.project_id')
+        ->where('projects.status',1)
+        ->where('project_type_id',1)
+        ->where('assigned_project_teams.user_id',Auth::id())
         ->where('acknowledge','1')
         ->count();
         $officer=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
         ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
+        ->leftjoin('projects','projects.id','assigned_projects.project_id')
+        ->where('project_type_id',1)
+        ->where('projects.status',1)
+        ->where('assigned_project_teams.user_id',Auth::id())
         ->where('acknowledge','0')
-        ->where('user_id',Auth::id())
         ->get();
         return view('officer.evaluation_projects.new_assigned',['officerInProgressCount'=>$officerInProgressCount,'officerAssignedCount'=>$officerAssignedCount,'officer'=>$officer]);
       }
@@ -152,13 +164,17 @@ class OfficerController extends Controller
 
         $officerAssignedCount=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
         ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
+        ->leftjoin('projects','projects.id','assigned_projects.project_id')
+        ->where('projects.status','1')
         ->where('acknowledge','0')
         ->where('complete',0)
-        ->where('user_id',Auth::id())
+        ->where('assigned_project_teams.user_id',Auth::id())
         ->count();
         $officer=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
         ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
-        ->where('user_id',Auth::id())
+        ->leftjoin('projects','projects.id','assigned_projects.project_id')
+        ->where('projects.status','1')
+        ->where('assigned_project_teams.user_id',Auth::id())
         ->where('acknowledge','1')
         ->where('complete',0)
         ->get();
@@ -321,8 +337,10 @@ class OfficerController extends Controller
         // dd(Auth::user()->AssignedProjectTeam);
         $officer=AssignedProject::select('assigned_projects.*')
         ->leftjoin('assigned_project_teams','assigned_projects.id','assigned_project_teams.assigned_project_id')
+        ->leftjoin('projects','projects.id','assigned_projects.project_id')
         ->where('assigned_project_teams.user_id',Auth::id())
         ->where('complete','True')->where('acknowledge','1')
+        ->where('projects.status',1)
         ->get();
         return view('officer.evaluation_projects.completed')->with('officer',$officer);
       }
@@ -589,13 +607,13 @@ class OfficerController extends Controller
         ->where('m_project_progress_id',$projectProgressId[0]->id)
         ->get();
 
-        $generalKpis =GeneralKpi::where('status',1)->get();
+        $Kpis =MProjectKpi::where('status',1)->get();
         \JavaScript::put([
           'projectWithRevised'=>$projectWithRevised,
          'componentsforkpis'=> $components,
          'monitoringProjectId'=> $monitoringProjectId
         ]);
-        return view('_Monitoring._Officer.projects.inprogressSingle',compact('ComponentActivities','monitoringProjectId','componentsforkpis','generalKpis','components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
+        return view('_Monitoring._Officer.projects.inprogressSingle',compact('ComponentActivities','monitoringProjectId','componentsforkpis','Kpis','components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
       }
       public function monitoring_review_form(Request $request)
       {
@@ -866,7 +884,7 @@ class OfficerController extends Controller
             $kpiCompMapping= new MPlanKpicomponentMapping();              
 
             $kpiCompMapping->m_project_progress_id = $request->m_project_progress_id;
-            $kpiCompMapping->general_kpi_id=$kpi;
+            $kpiCompMapping->m_project_kpi_id=$kpi;
             $kpiCompMapping->m_plan_component_id=$mappComp;
             $kpiCompMapping->status= true;
             $kpiCompMapping->save();
