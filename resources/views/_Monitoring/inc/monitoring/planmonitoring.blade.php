@@ -241,7 +241,20 @@
                                     multiple='multiple'>
                                     {{-- <h1>here</h1> --}}
                                      @foreach ($Kpis as $Kpi)
-                                     <option class='optiontest' data-value='{{$Kpi->id}}'>{{$Kpi->name}}</option>
+                                        @php
+                                            $flag=true;
+                                        @endphp
+                                        @foreach ($mPlanKpiComponents as $item)
+                                            @if($item->m_project_kpi_id == $Kpi->id)
+                                                <option class='optiontest' data-value='{{$Kpi->id}}' selected >{{$Kpi->name}}</option> 
+                                                @php
+                                                    $flag=false;
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                      @if($flag)
+                                        <option class='optiontest' data-value='{{$Kpi->id}}'>{{$Kpi->name}}</option> 
+                                      @endif
                                      @endforeach
                                 </select>
                                 {{-- SPECIAL KPI'S CODE --}}

@@ -606,14 +606,16 @@ class OfficerController extends Controller
         $ComponentActivities = MPlanComponentActivitiesMapping::where('status',1)
         ->where('m_project_progress_id',$projectProgressId[0]->id)
         ->get();
-
+        
         $Kpis =MProjectKpi::where('status',1)->get();
+        $mPlanKpiComponents=$projectProgressId[0]->MPlanKpicomponentMapping;
         \JavaScript::put([
           'projectWithRevised'=>$projectWithRevised,
          'componentsforkpis'=> $components,
          'monitoringProjectId'=> $monitoringProjectId
         ]);
-        return view('_Monitoring._Officer.projects.inprogressSingle',compact('ComponentActivities','monitoringProjectId','componentsforkpis','Kpis','components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
+
+        return view('_Monitoring._Officer.projects.inprogressSingle',compact('mPlanKpiComponents','ComponentActivities','monitoringProjectId','Kpis','components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
       }
       public function monitoring_review_form(Request $request)
       {

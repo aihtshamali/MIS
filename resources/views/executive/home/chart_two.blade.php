@@ -205,13 +205,9 @@ var st = [];
         $i = 0;
         officers.forEach(element => {
           st.push ({
-<<<<<<< HEAD
-            "Name":element.first_name +" "+element.last_name ,
-=======
             "Name":element.first_name +" "+element.last_name,
             "userid":element.id,
             "Team Member": assigned_projects[$i],
->>>>>>> 759d2a379f0ffbe7d226355ad18c0d6304baa730
             "Team Lead" : team_lead[$i],
             "Team Member": assigned_projects[$i],
             "Individual Projects" : individual_projects[$i]
