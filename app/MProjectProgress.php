@@ -13,10 +13,27 @@ class MProjectProgress extends Model
     public function MPlanObjectivecomponentMapping(){
       return $this->hasMany('App\MPlanObjectivecomponentMapping');
     }
-    
+
     public function MPlanKpicomponentMapping(){
       return $this->hasMany('App\MPlanKpicomponentMapping');
-    } 
+    }
+
+    public function MAssignedKpiLevel1(){
+      return $this->hasMany('App\MAssignedKpiLevel1');
+    }
+
+    public function MAssignedKpiLevel2(){
+      return $this->hasMany('App\MAssignedKpiLevel2');
+    }
+
+    public function MAssignedKpiLevel3(){
+      return $this->hasMany('App\MAssignedKpiLevel3');
+    }
+
+    public function MAssignedKpiLevel4(){
+      return $this->hasMany('App\MAssignedKpiLevel4');
+    }
+
     public function MProjectDate(){
       return $this->hasOne('App\MProjectDate');
     }
@@ -54,5 +71,5 @@ class MProjectProgress extends Model
     public function  MPlanComponentActivitiesMapping(){
       return $this->hasMany('App\MPlanComponentActivitiesMapping');
     }
-    
+
 }

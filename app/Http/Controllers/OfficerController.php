@@ -156,7 +156,7 @@ class OfficerController extends Controller
         ->where('m_project_progress_id',$request->MProjectProgressId)
         ->get();
         return response()->json($projectcomponents);
-        
+
       }
       public function getProjectActivities(Request $request)
       {
@@ -535,7 +535,7 @@ class OfficerController extends Controller
 
       public function monitoring_inprogressSingle(Request $request)
       {
-        
+
         if($request->project_id==null)
           return redirect()->back();
         $project=AssignedProject::where('project_id',$request->project_id)->first();
@@ -597,7 +597,7 @@ class OfficerController extends Controller
         $objectives =MPlanObjective::where('status',1)
         ->where('m_project_progress_id',$projectProgressId[0]->id)
         ->get();
-      
+
         $components =MPlanComponent::where('status',1)
         ->where('m_project_progress_id',$projectProgressId[0]->id)
         ->get();
@@ -611,18 +611,20 @@ class OfficerController extends Controller
             $query->where('project_id', $project->project_id);
            }
           ])->find($project->project_id);
-        
+
         $ComponentActivities = MPlanComponentActivitiesMapping::where('status',1)
         ->where('m_project_progress_id',$projectProgressId[0]->id)
         ->get();
         // dd($ComponentActivities);
         $Kpis =MProjectKpi::where('status',1)->get();
+        $mPlanKpiComponents=$projectProgressId[0]->MPlanKpicomponentMapping;
         \JavaScript::put([
           'projectWithRevised'=>$projectWithRevised,
          'components'=> $components,
          'monitoringProjectId'=> $monitoringProjectId
         ]);
-        return view('_Monitoring._Officer.projects.inprogressSingle',compact('ComponentActivities','monitoringProjectId','Kpis','components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
+
+        return view('_Monitoring._Officer.projects.inprogressSingle',compact('mPlanKpiComponents','ComponentActivities','monitoringProjectId','Kpis','components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
       }
       public function monitoring_review_form(Request $request)
       {
@@ -798,7 +800,7 @@ class OfficerController extends Controller
           $project_issue->save();
         }
       }
-      
+
       public function savehealthsafety(Request $request){
         foreach ($request->status as $key=>$healthsafety) {
           $temp=explode("_",$healthsafety);
@@ -843,13 +845,13 @@ class OfficerController extends Controller
             } 
           foreach($request->comp as $component)
           {
-            $components=new MPlanComponent(); 
+            $components=new MPlanComponent();
             $components->m_project_progress_id = $request->m_project_progress_id;
             $components->component=$component;
             $components->status= true;
             $components->save();
           }
-          
+
           $objectives=MPlanObjective::where('m_project_progress_id',$request->m_project_progress_id)->get();
           $components=MPlanComponent::where('m_project_progress_id',$request->m_project_progress_id)->get();
 
@@ -862,16 +864,16 @@ class OfficerController extends Controller
         // $projectProgressId= MProjectProgress::where('assigned_project_id',$request->project_progress_no)->get();
         // $objectives =MPlanObjective::where('status',1)->count();
         $i=0;
-        foreach($request->objective as $objective)  
+        foreach($request->objective as $objective)
         {
           if(isset($_POST['mappedComp_'.$i]))
           foreach($_POST['mappedComp_'.$i] as $mappComp)
           {
-            $objCompMapping=new MPlanObjectivecomponentMapping();              
+            $objCompMapping=new MPlanObjectivecomponentMapping();
             $objCompMapping->m_project_progress_id = $request->m_project_progress_id;
             $objCompMapping->m_plan_objective_id=$objective;
             $objCompMapping->m_plan_component_id=$mappComp;
-            $objCompMapping->status= true;           
+            $objCompMapping->status= true;
             $objCompMapping->save();
           }
           $i++;
@@ -884,13 +886,13 @@ class OfficerController extends Controller
         // return response()->json($request->all());
         // $projectProgressId= MProjectProgress::where('assigned_project_id',$request->project_progress_no)->get();
         $i=0;
-        foreach($request->kpinamesId as $kpi)  
+        foreach($request->kpinamesId as $kpi)
         {
           if(isset($_POST['mappedKpicomponent_'.$i]))
           foreach($_POST['mappedKpicomponent_'.$i] as $mappComp)
           {
             // return response()->json($mappComp);
-            $kpiCompMapping= new MPlanKpicomponentMapping();              
+            $kpiCompMapping= new MPlanKpicomponentMapping();
 
             $kpiCompMapping->m_project_progress_id = $request->m_project_progress_id;
             $kpiCompMapping->m_project_kpi_id=$kpi;
@@ -904,7 +906,7 @@ class OfficerController extends Controller
 
         return response()->json(["type"=>"success","msg"=>"Saved Successfully"]);
       }
-      
+
       public function componentActivities(Request $request)
       {
         // return response()->json($request->all());
@@ -915,13 +917,13 @@ class OfficerController extends Controller
           $msg="Updated";
         } 
         $i=0;
-        foreach($request->compforactivity as $compActivity)  
+        foreach($request->compforactivity as $compActivity)
         {
           if(isset($_POST['c_activity_'.$i]))
           foreach($_POST['c_activity_'.$i] as $act)
           {
             // return response()->json($mappComp);
-            $CompActivityMapping=new MPlanComponentActivitiesMapping();              
+            $CompActivityMapping=new MPlanComponentActivitiesMapping();
             $CompActivityMapping->m_project_progress_id = $request->m_project_progress_id;
             $CompActivityMapping->m_plan_component_id=$compActivity;
             $CompActivityMapping->activity=$act;
@@ -952,7 +954,7 @@ class OfficerController extends Controller
             $CompActivityDetails->m_plan_component_activities_mapping_id =$request->componentActivityId[$i];
             $CompActivityDetails->duration=$request->daysinduration[$i];
             $CompActivityDetails->save();
-          
+
         }
         // $CompActivityDetails=MPlanComponentactivityDetailMapping::where('m_project_progress_id',$request->m_project_progress_id)->get();
         return response()->json(["type"=>"success","msg"=>" Successfully"]);
@@ -971,12 +973,12 @@ class OfficerController extends Controller
         for($i=0 ; $i < $size ; $i++ )
         {
             $CompActivityDetails = MPlanComponentactivityDetailMapping::find($request->activityId[$i]);
-            $CompActivityDetails->unit =$request->Unit[$i]; 
+            $CompActivityDetails->unit =$request->Unit[$i];
             $CompActivityDetails->quantity=$request->Quantity[$i];
             $CompActivityDetails->cost=$request->Cost[$i];
             $CompActivityDetails->amount=$request->Amount[$i];
             $CompActivityDetails->save();
-          
+
         }
         // $CompActivityDetails=MPlanComponentactivityDetailMapping::where('m_project_progress_id',$request->m_project_progress_id)->get();
         return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
@@ -989,7 +991,7 @@ class OfficerController extends Controller
         if($request->hasFile('planmonitoringfile')){
           $file_path = $request->file('planmonitoringfile')->path();
           $file_extension = $request->file('planmonitoringfile')->getClientOriginalExtension();
-          
+
           $data =new MProjectAttachment();
           $data->project_attachement=base64_encode(file_get_contents($file_path));
           $data->m_project_progress_id=$request->m_project_progress_id;
