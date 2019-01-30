@@ -106,31 +106,6 @@
                         @endforelse
                       </div>
                       <div class="col-md-6 compActNew border_left pd_1_2">
-                        <input type="hidden" name="compt" id="compt" value="{{count($components)}}">
-                        <div class="componentsNew pd_1_2">
-                            @php
-                                $j=1;
-                            @endphp
-                            @forelse ($components as $comp)
-                                <div class="DisInlineflex newClasscompAct{{$j}} mb_2 col-md-12">
-                                <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Component {{$j}}</label>
-                                        <div class="col-sm-7">
-                                        <input type="text" name="comp[]" class="form-control form-txt-primary" placeholder="" value="{{$comp->component}}">
-                                        </div>
-                                        @if($j==1)
-                                        <div class="col-sm-2 addbtn text_center">
-                                            <button class="btn btn-sm btn-info" type="button" id="add_more_compAct" tabindex=100>+</button>
-                                        </div>
-                                        @else
-                                        <div class="col-sm-2  removecompAct addbtn text_center">
-                                            <button class="btn btn-sm btn-danger" type="button" title="Delete Component {{$j}}"  id="" tabindex={{$j}}>-</button>
-                                        </div>
-                                        @endif
-                                    </div>
-                                @php
-                                $j++;
-                                @endphp
-                        @empty
                         <div class="DisInlineflex newClasscompAct mb_2 col-md-12">
                             <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Component 1</label>
                             <div class="col-sm-7">
@@ -140,11 +115,9 @@
                                 <button class="btn btn-sm btn-info" type="button" id="add_more_compAct" tabindex=100>+</button>
                             </div>
                         </div>
-                        @endforelse
                       </div>
-                     
                       <input type="hidden" value="{{$project->Project->AssignedProject->id}}" name="project_progress_no">
-                      <button class="btn aho col-md-3 offset-md-8" type="submit" id="saveObjComp">Save & Proceed</button>
+                      <button class="btn aho col-md-2 offset-md-10" type="submit" id="saveObjComp">Save & Proceed</button>
                   </div>
                   </form>
                 </div>
