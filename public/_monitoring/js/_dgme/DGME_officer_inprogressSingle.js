@@ -569,6 +569,7 @@ $('button#add-more').click(function (e) {
 var countactivity=0;
 $(document).on('click', '#add_activity', function (e) {
     var id_component= $(this).attr('data-id');
+    var activityCount=$(this).attr('data-activitycount');
     // console.log('there');
     var add_activities = `<div class="row col-md-9 offset-md-1 form-group component_Activities">
         <div class="col-md-11 mb_1">

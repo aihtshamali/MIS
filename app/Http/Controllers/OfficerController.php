@@ -610,10 +610,10 @@ class OfficerController extends Controller
         $Kpis =MProjectKpi::where('status',1)->get();
         \JavaScript::put([
           'projectWithRevised'=>$projectWithRevised,
-         'componentsforkpis'=> $components,
+         'components'=> $components,
          'monitoringProjectId'=> $monitoringProjectId
         ]);
-        return view('_Monitoring._Officer.projects.inprogressSingle',compact('ComponentActivities','monitoringProjectId','componentsforkpis','Kpis','components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
+        return view('_Monitoring._Officer.projects.inprogressSingle',compact('ComponentActivities','monitoringProjectId','Kpis','components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
       }
       public function monitoring_review_form(Request $request)
       {
@@ -898,6 +898,7 @@ class OfficerController extends Controller
       
       public function componentActivities(Request $request)
       {
+        // return response()->json(["type"=>"success","msg"=>"Saved Successfully","data"=>$request->all()]);
       //  $projectProgressId= MProjectProgress::where('assigned_project_id',$request->project_progress_no)->get();
         $i=0;
         foreach($request->compforactivity as $compActivity)  
