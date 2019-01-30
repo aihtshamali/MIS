@@ -795,15 +795,25 @@ class OfficerController extends Controller
       public function projectDesignMonitoring(Request $request)
       {
         // $projectProgressId= MProjectProgress::where('assigned_project_id',$request->project_progress_no)->get();
-
+        $msg="Saved";
+        if(MPlanObjective::where('m_project_progress_id',$request->m_project_progress_id)->count()>0)
+         {
+           MPlanObjective::where('m_project_progress_id',$request->m_project_progress_id)->delete();
+           $msg="Updated";
+         } 
         foreach($request->obj as $objective)
           {
-              $objectives= new MPlanObjective(); 
-              $objectives->m_project_progress_id = $request->m_project_progress_id;
-              $objectives->objective=$objective;
-              $objectives->status= true;
-              $objectives->save();
+            $objectives= new MPlanObjective(); 
+            $objectives->m_project_progress_id = $request->m_project_progress_id;
+            $objectives->objective=$objective;
+            $objectives->status= true;
+            $objectives->save();
           }
+          if(MPlanComponent::where('m_project_progress_id',$request->m_project_progress_id)->count()>0)
+            {
+              MPlanComponent::where('m_project_progress_id',$request->m_project_progress_id)->delete();
+              $msg="Updated";
+            } 
           foreach($request->comp as $component)
           {
             $components=new MPlanComponent(); 
@@ -816,7 +826,7 @@ class OfficerController extends Controller
           $objectives=MPlanObjective::where('m_project_progress_id',$request->m_project_progress_id)->get();
           $components=MPlanComponent::where('m_project_progress_id',$request->m_project_progress_id)->get();
 
-          return response()->json(["type"=>"success","msg"=>"Saved Successfully","data"=>["objectives"=>$objectives,"components"=>$components],"resType"=>"ObjectiveAndComponents"]);
+          return response()->json(["type"=>"success","msg"=>$msg." Successfully","data"=>["objectives"=>$objectives,"components"=>$components],"resType"=>"ObjectiveAndComponents"]);
           
       }
 
