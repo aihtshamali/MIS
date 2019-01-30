@@ -213,8 +213,8 @@
                                 <select id='custom-headers' class="searchable yesearch"
                                     multiple='multiple'>
                                     {{-- <h1>here</h1> --}}
-                                     @foreach ($generalKpis as $genKpi)
-                                     <option class='optiontest' data-value='{{$genKpi->id}}'>{{$genKpi->description}}</option>
+                                     @foreach ($Kpis as $Kpi)
+                                     <option class='optiontest' data-value='{{$Kpi->id}}'>{{$Kpi->name}}</option>
                                      @endforeach
                                 </select>
                                 {{-- SPECIAL KPI'S CODE --}}

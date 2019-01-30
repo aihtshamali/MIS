@@ -47,6 +47,7 @@ use App\MPlanComponentActivitiesMapping;
 use App\MPlanComponentactivityDetailMapping;
 use App\MPlanKpicomponentMapping;
 use App\MProjectAttachment;
+use App\MProjectKpi;
 use Illuminate\Support\Facades\Redirect;
 use DB;
 class OfficerController extends Controller
@@ -589,13 +590,13 @@ class OfficerController extends Controller
         ->where('m_project_progress_id',$projectProgressId[0]->id)
         ->get();
 
-        $generalKpis =GeneralKpi::where('status',1)->get();
+        $Kpis =MProjectKpi::where('status',1)->get();
         \JavaScript::put([
           'projectWithRevised'=>$projectWithRevised,
          'componentsforkpis'=> $components,
          'monitoringProjectId'=> $monitoringProjectId
         ]);
-        return view('_Monitoring._Officer.projects.inprogressSingle',compact('ComponentActivities','monitoringProjectId','componentsforkpis','generalKpis','components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
+        return view('_Monitoring._Officer.projects.inprogressSingle',compact('ComponentActivities','monitoringProjectId','componentsforkpis','Kpis','components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
       }
       public function monitoring_review_form(Request $request)
       {
@@ -856,7 +857,7 @@ class OfficerController extends Controller
             $kpiCompMapping= new MPlanKpicomponentMapping();              
 
             $kpiCompMapping->m_project_progress_id = $request->m_project_progress_id;
-            $kpiCompMapping->general_kpi_id=$kpi;
+            $kpiCompMapping->m_project_kpi_id=$kpi;
             $kpiCompMapping->m_plan_component_id=$mappComp;
             $kpiCompMapping->status= true;
             $kpiCompMapping->save();

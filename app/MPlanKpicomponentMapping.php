@@ -16,4 +16,7 @@ class MPlanKpicomponentMapping extends Model
       public function MPlanComponent(){
         return $this->belongsTo('App\MPlanComponent');
       }
+      public function MProjectKpi(){
+        return $this->belongsTo('App\MProjectKpi');
+      }
 }
