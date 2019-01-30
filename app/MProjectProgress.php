@@ -51,5 +51,8 @@ class MProjectProgress extends Model
     public function  MPlanComponent(){
       return $this->hasMany('App\MPlanComponent');
     }
+    public function  MPlanComponentActivitiesMapping(){
+      return $this->hasMany('App\MPlanComponentActivitiesMapping');
+    }
     
 }

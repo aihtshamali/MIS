@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGeneralKpisTable extends Migration
+class Addcolumn extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateGeneralKpisTable extends Migration
      */
     public function up()
     {
-        Schema::create('general_kpis', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('description')->nullable();
-            $table->boolean('status')->default(0);
-            $table->timestamps();
+        Schema::table('m_plan_component_activities_mappings', function(Blueprint $table){
+            $table->integer('m_project_progress_id')->unsigned()->index()->nullable();
+            $table->foreign('m_project_progress_id')->references('id')->on('m_project_progresses')->onDelete('no action');
+          
         });
     }
 
@@ -28,6 +27,6 @@ class CreateGeneralKpisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('general_kpis');
+        //
     }
 }

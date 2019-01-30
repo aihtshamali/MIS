@@ -41,41 +41,69 @@
                 </li>
             </ul>
             <div class="tab-content tabs card-block active">
-              <form class="" action="" method="post">
+            <form class="serializeform" action="{{route('saveMonitoringAttachments')}}" method="post" enctype="multipart/form-data">
                 <div class="tab-pane active" id="PlanDocDiv" role="tabpanel" aria-expanded="true">
-                  <div class="row">
-                    <div class="col-md-3">
-                      <div class="btn col-md-10 offset-md-1 btn-primary btn-block">
-                        <input type="file" id="html_btn" name="planmonitoringfile" title='Click to add Files' />
-                        <span>Upload File</span>
-                      </div>
+                    {{ csrf_field() }}
+                    <div class="row">
+                        <div class="col-md-3">
+                        <div class="btn col-md-10 offset-md-1 btn-primary btn-block">
+                            <input type="file" id="html_btn" name="planmonitoringfile" title='Click to add Files' />
+                            <span>Upload File</span>
+                        </div>
+                        </div>
+                        <div class="col-md-3 col-md-offset-2">
+                            <input type="text" name="file_name" class="placeholder" style="width: 100%;padding: 2%;"
+                            placeholder="Type File Name"/>
+                        </div>
+                        <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
                     </div>
-                    <div class="col-md-3 col-md-offset-2">
-                        <input type="text" name="file_name" class="placeholder" style="height: 100%;width: 100%;padding: 2%;"
-                        placeholder="File Name"/>
+                    <div class="row ">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-success pull-right" name="submit">Submit</button>
+                    </div>
                     </div>
                 </div>
-                <div class="row ">
-                  <div class="col-md-12">
-                    <button type="submit" class="btn btn-success pull-right" name="submit">Submit</button>
-                  </div>
-                </div>
-              </div>
             </form>
                 <div class="tab-pane" id="i-dates" role="tabpanel" aria-expanded="false">
                   <form class="serializeform" action="{{ route('projectDesignMonitoring') }}" method="post">
                     {{ csrf_field() }}
                     <div class="row">
+                        <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
+                        <input type="hidden" name="objct" id="objct" value="{{count($objectives)}}">
                       <div class="col-md-6 objtivesNew border_right pd_1_2">
-                        <div class="DisInlineflex newClass mb_2 col-md-12">
-                            <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Objective 1</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control form-txt-primary" name="obj[]" placeholder="Objective 1">
+                        @php
+                            $i=1;
+                        @endphp
+                        @forelse ($objectives as $obj)
+                            <div class="DisInlineflex newClass{{$i}} mb_2 col-md-12">
+                                <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Objective {{$i}}</label>
+                                    <div class="col-sm-7">
+                                    <input type="text" class="form-control form-txt-primary" name="obj[]" placeholder="Objective {{$i}}" value="{{$obj->objective}}">
+                                    </div>
+                                    @if($i==1)
+                                        <div class="col-sm-2 addbtn text_center">
+                                                <button class="btn btn-sm btn-info" type="button" id="add_more_objective"  tabindex=1>+</button>
+                                        </div>
+                                    @else
+                                        <div class="col-sm-2 removeObjective text_center">
+                                                <button class="btn btn-sm btn-danger" title="Delete Objective {{$i}}" type="button" id="" tabindex={{$i}}>-</button>
+                                            </div>
+                                    @endif
+                                </div>
+                                @php
+                                $i++;
+                                @endphp
+                        @empty
+                            <div class="DisInlineflex newClass1 mb_2 col-md-12">
+                                <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Objective 1</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control form-txt-primary" name="obj[]" placeholder="Objective 1">
+                                </div>
+                                <div class="col-sm-2 addbtn text_center">
+                                    <button class="btn btn-sm btn-info" type="button" id="add_more_objective"  tabindex=1>+</button>
+                                </div>
                             </div>
-                            <div class="col-sm-2 addbtn text_center">
-                                <button class="btn btn-sm btn-info" type="button" id="add_more_objective"  tabindex=1>+</button>
-                            </div>
-                        </div>
+                        @endforelse
                       </div>
                       <div class="col-md-6 compActNew border_left pd_1_2">
                         <div class="DisInlineflex newClasscompAct mb_2 col-md-12">
@@ -132,6 +160,7 @@
                         {{ csrf_field() }}
                     <div class="row col-md-12 border">
                         <div class="col-md-8 offset-md-2 ">
+                        <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
                         <div class="row">
                             <h5 class="textlef pd_1_2 col-md-6"><b>Objectives</b></h5>
                             <h5 class="textlef pd_1_2 col-md-6"><b>Component</b></h5>
@@ -172,6 +201,7 @@
                 </div>
                 <div class="tab-pane active" id="kpis" role="tabpanel" aria-expanded="false" style="display:none;">
                 <form class="serializeform" action="{{route('kpiComponentMapping')}}" method="post">
+                    {{ csrf_field() }}
                     <div class="card m-0 z-depth-right-0">
                         <div class="card-header">
                             <h4>KPI(s)</h4>
@@ -183,22 +213,11 @@
                                 <select id='custom-headers' class="searchable yesearch"
                                     multiple='multiple'>
                                     {{-- <h1>here</h1> --}}
-                                     @foreach ($generalKpis as $genKpi)
-                                     <option class='optiontest' value='{{$genKpi->id}}'>{{$genKpi->description}}</option>
+                                     @foreach ($Kpis as $Kpi)
+                                     <option class='optiontest' data-value='{{$Kpi->id}}'>{{$Kpi->name}}</option>
                                      @endforeach
                                 </select>
-                                {{-- SPECIAL KPI'S CODE --}}
-
-                                    {{-- <h5 class="mb_2">Special KPI(s)</h4>
-                                    <div id="appendspecialkpi">
-                                      <div class="row col-md-12">
-                                        <input type="text" class="form-control specialin col-md-11" placeholder="Type KPI here...">
-                                        <button class="col-md-1 btn addspecialkpi" type="button">+</button>
-                                        <button class="col-md-1 btn btn-danger btn-sm btn nodisplay delspecialkpi" type="button">-</button>
-                                        </div>
-                                    </div> --}}
-
-                                    {{-- SPECIAL KPI'S CODE END--}}
+                              
                             </div>
                             <div class="row col-md-1">
                               <div class="border_right col-md-6"></div>
@@ -215,31 +234,49 @@
                         </div>
                         <div class="card-footer">
                             <div class="col-md-3 offset-md-9">
+                        <input type="hidden" value="{{$project->Project->AssignedProject->id}}" name="project_progress_no">
                             <button class="btn btn-primary btn-md activities saveNnextbtn" type="submit" id="svkp">Save </button>
-                                    {{-- <a class="btn btn-primary btn-md activities saveNnextbtn" id="svkp" data-toggle="tab"
-                                    href="#activities"
-                                    role="tab" aria-expanded="false">Save & Proceed</a> --}}
+                                  
                             </div>
                         </div>
                     </div>
                   </form>
                 </div>
-                <div class="tab-pane " id="activities" role="tabpanel" aria-expanded="false"
-                    style="display:none;">
-                    <form class="" action="index.html" method="post">
+                <div class="tab-pane " id="activities" role="tabpanel" aria-expanded="false" style="display:none;">
+                <form class="serializeform" action="{{route('componentActivities')}}" method="post">
+                    {{ csrf_field() }}
                     <div class="card">
                         <div class="card-header"></div>
                         <div class="card-block">
-
+                           @php
+                           $j=0;
+                           @endphp 
                             <div class="row form-group">
                                 <div class="col-md-10 offset-md-1 planMactivities" id="planMactivities">
-
+                                  @foreach ($components as $comp)     
+                                    <div class="row form-group compTask">
+                                        <div class="col-md-4 offset-md-1">
+                                            <label for=""> <b class="headText form-txt-primary" id="compname"> {{$comp->component}} </b></label>
+                                        <input type="hidden" name="compforactivity[]" value="{{$comp->id}}" />
+                                        </div>
+                                        <div class="col-md-2 offset-md-4 mb_1 Taskbut" id="add_activity" data-id="{{$j}}" style="padding-top:0.6%;">
+                                        <button class="btn btn-sm btn-warning float-right"  type="button" name="add_activity" >Add Activity + </button>
+                                        </div>
+                                        <div id="alltasks" class="row col-md-11 offset-md-1 form-group component_Activities">
+                                        
+                                        </div>
+                                    </div>
+                                    @php
+                                    $j++;
+                                    @endphp 
+                                    @endforeach
                                  </div>
                             </div>
                         </div>
                         <div class="card-footer">
                                 <div class="col-md-3 offset-md-9">
-                                    <a class="btn btn-primary btn-md saveNnextbtn" id="saveTasks">Save & Proceed</a>
+                                    <input type="hidden" value="{{$project->Project->AssignedProject->id}}" name="project_progress_no">
+                                    <button type="submit"class="btn btn-primary btn-md saveNnextbtn" id="saveTasks">Save & Proceed</button>
                                 </div>
                         </div>
                     </div>
@@ -247,21 +284,30 @@
                 </div>
                 <div class="tab-pane " id="TimesDiv" role="tabpanel" aria-expanded="false"
                     style="display:none;">
-                    <form class="" action="index.html" method="post">
+                <form class="serializeform" action="{{route('activities_duration')}}" method="post">
+                    {{ csrf_field() }}
                     <div class="card">
                         <div class="card-header"></div>
                         <div class="card-block">
                             <div class="row form-group">
-                                <h5 class="col-md-3 textlef mb_2">Tasks Under Component</h5>
-                                <h5 class="col-md-9 textlef mb_2">Duration In Days</h5>
-                                <div id='comptaskl' class="col-md-12 row" style="padding-left:2% !important;">
-
+                                <h5 class="col-md-6 textlef mb_2">Activities</h5>
+                                <h5 class="col-md-4 textlef mb_2">Duration In Days</h5>
+                                @foreach ($ComponentActivities as $activities)
+                                <div id='comptaskl' class="col-md-12 row" style="margin-top:5px; padding-left:2% !important;">
+                                    <div class="col-md-6">
+                                    <label for=""><b>{{$activities->MPlanComponent->component}}</b> <br> - {{$activities->activity}}</label>
+                                    <input type="hidden" name="componentActivityId[]" value={{$activities->id}}>
+                                    </div>
+                                    <div class="col-md-4" style="">
+                                        <input type="text"name="daysinduration[]" class="form-control">
+                                    </div>
                                 </div>
+                                @endforeach
                           </div>
                         </div>
                         <div class="card-footer">
                                 <div class="col-md-3 offset-md-9">
-                                    <a class="btn btn-primary btn-md saveNnextbtn" id="did">Save & Proceed</a>
+                                    <button class="btn btn-primary btn-md saveNnextbtn" id="did" type="submit">Save & Proceed</button>
                                 </div>
                         </div>
                     </div>
@@ -269,15 +315,34 @@
                 </div>
                 <div class="tab-pane " id="CostingDiv" role="tabpanel" aria-expanded="false"
                     style="display:none;">
-                    <form class="" action="index.html" method="post">
+                 <form class="serializeform" action="{{route('Costing')}}" method="post">
+                  {{ csrf_field() }}
                     <div class="card">
                         <div class="card-header"></div>
                         <div class="card-block" id='costcomp'>
-
+                            <div class="col-md-12" style="display:inline-flex;margin-bottom:5%;">
+                                <h5 class="text_left col-md-3 form-txt-primary">
+                                <b>Activities</b>
+                                </h5>
+                                <div class="col-md-2 mr_0_1"><h5 class="form-txt-primary"><b>Unit</b></h5></div>
+                                <div class="col-md-2 mr_0_1"><h5 class="form-txt-primary"><b>Quantity</b></h5></div>
+                                <div class="col-md-2 mr_0_1"><h5 class="form-txt-primary"><b>Cost</b></h5></div>
+                                <div class="col-md-2 mr_0_1"><h5 class="form-txt-primary"><b>Amount</b></h5></div>
+                            </div>
+                            @foreach ($ComponentActivities as $activities)    
+                                <div class="col-md-12" style="display:inline-flex;">
+                                   <label  class="text_left col-md-3"><b>{{$activities->MPlanComponent->component}}</b> <br> - {{$activities->activity}} </label>
+                                   <input type="hidden" name="activityId[]" value="{{$activities->id}}">
+                                   <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Unit" name="Unit[]" /></div>
+                                    <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Quantity" name="Quantity[]" /></div>
+                                    <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Cost" name="Cost[]" /></div>
+                                    <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Amount" name="Amount[]" /></div>
+                                </div>
+                            @endforeach
                         </div>
                         <div class="card-footer">
                                 <div class="col-md-3 offset-md-9">
-                                    <a class="btn btn-primary btn-md saveNnextbtn" >Save & Proceed</a>
+                                    <button class="btn btn-primary btn-md saveNnextbtn"  type="submit">Save & Proceed</button>
                                 </div>
                         </div>
                     </div>

@@ -206,13 +206,18 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
   Route::post('/saveGeneralFeedBack','OfficerController@saveGeneralFeedBack')->name('saveGeneralFeedBack');
   Route::post('/saveMissues','OfficerController@saveMissues')->name('saveMissues');
   Route::post('/savehealthsafety','OfficerController@savehealthsafety')->name('savehealthsafety');
+  Route::post('/saveMonitoringAttachments','OfficerController@saveMonitoringAttachments')->name('saveMonitoringAttachments');
 
   Route::post('/projectDesignMonitoring','OfficerController@projectDesignMonitoring')->name('projectDesignMonitoring');
   Route::post('/mappingOfObj','OfficerController@mappingOfObj')->name('mappingOfObj');
   Route::post('/getProjectComponents','OfficerController@getProjectComponents')->name('getProjectComponents');
   Route::post('/kpiComponentMapping','OfficerController@kpiComponentMapping')->name('kpiComponentMapping');
   Route::get('/getSectorKpi','DataController@getProjectKpi')->name('getProjectKpi');
+  Route::post('/componentActivities','OfficerController@componentActivities')->name('componentActivities');
+  Route::post('/activities_duration','OfficerController@activities_duration')->name('activities_duration');
   
+  Route::post('/Costing','OfficerController@Costing')->name('Costing');
+
   
 });
 

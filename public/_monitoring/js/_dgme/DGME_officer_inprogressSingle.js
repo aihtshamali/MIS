@@ -113,19 +113,21 @@ $(document).ready(function () {
         }
     });
 
-    let start_date=moment(projectWithRevised.project_detail.planned_start_date);
-    let end_date=moment(projectWithRevised.project_detail.planned_end_date);
+    var start_date=moment(projectWithRevised.project_detail.planned_start_date);
+    var end_date=moment(projectWithRevised.project_detail.planned_end_date);
+    
     let orig_period=moment.duration(end_date.diff(start_date));
     var orig = { "cost": projectWithRevised.project_detail.orignal_cost, "period": Math.round(orig_period.asMonths()), "date":  start_date.format("D MMM Y")};
 
     var revs = []
     
     projectWithRevised.revised_approved_cost.forEach( function (value,index) {
-        let start_date1=moment(projectWithRevised.project_detail.revised_start_date);
-        let end_date1=moment(projectWithRevised.revised_end_date[index].end_date);
-        let revs_period=moment.duration(end_date1.diff(start_date1));
-                console.log(revs_period.asMonths());
-        revs.push({ "cost": value.cost, "period": Math.round(revs_period.asMonths()), "date":  start_date1.format("D MMM Y")})    
+        if(value && projectWithRevised.revised_end_date[index] ){
+            let start_date1=moment(projectWithRevised.project_detail.revised_start_date);
+            let end_date1=moment(projectWithRevised.revised_end_date[index].end_date);
+            let revs_period=moment.duration(end_date1.diff(start_date1));
+            revs.push({ "cost": value.cost, "period": Math.round(revs_period.asMonths()), "date":  start_date1.format("D MMM Y")})    
+        }
      })
     // { "cost": "450", "period": "33", "date": '15 September 2013' },
     // { "cost": "479", "period": "33", "date": '15 September 2013' },
@@ -564,123 +566,167 @@ $('button#add-more').click(function (e) {
                 </tr>`
     $('#riskmatrix').append(add_risks);
 });
+var countactivity=0;
 $(document).on('click', '#add_activity', function (e) {
+    var id_component= $(this).attr('data-id');
     // console.log('there');
     var add_activities = `<div class="row col-md-9 offset-md-1 form-group component_Activities">
-        <div class="col-md-11 mb_1"><input type="text" class="form-control" placeholder="Add Task" name="c_activity[]"> </div>
+        <div class="col-md-11 mb_1">
+        <input type="text" class="form-control" placeholder="Add Task" name="c_activity_`+id_component+`[]"> 
+        </div>
         <div class="col-md-1"><button class="btn btn-danger btn-sm" name="remove_activity[]" onclick="removerow(this)"  type="button">-</button></div>
         </div>`;
+        countactivity++;
     // $('.planMactivities').append(add_activities);
     console.log($(this).parent().find('#alltasks'), $(this).parent())
     $(this).parent().find('#alltasks').append(add_activities);
 });
+
+$('.select2').select2();
+
+
+function ObjectiveComponent(components,objectives){
+    $("#planMactivities").children().remove();
+    $("#ObjCompHere").children().remove();
+  
+      var comps = $(this).val();
+      var count = 1;
+          var compOpt='';
+      components.forEach(function (val,index) {
+          compOpt  = compOpt+ `
+              <option value="`+val.id+`">`+val.component+`</option>
+          `;
+      });
+ 
+      objectives.forEach(function (val,index) {
+          var ObjCompHere = `
+                          <li class="row mb_2"
+                              
+                              <span id="objectiveHere" class="float-left col-md-6"> 
+                                  <input type="hidden" value="`+val.id+`" name="objective[]">
+                                 <span  class="float-left col-md-6">
+                                 `+val.objective+`
+                                 </span>
+                              </span>
+                              <span class="float-right col-md-6">
+                              <select class="select2 col-md-12" id="component" name="mappedComp_`+index+`[]" multiple="multiple">
+                              `+compOpt+`   
+                              </select>
+                              </span>
+                              </li>
+                              `;
+          
+          var t = $(ObjCompHere);
+          t.appendTo('#ObjCompHere');
+          $('.select2').select2()
+      });
+}
+
+
+
+
 //project design
-$(document).on('click', 'button#saveObjComp', function ()
- {
-  $("#planMactivities").children().remove();
-  $("#ObjCompHere").children().remove();
+// $(document).on('click', 'button#saveObjComp', function ()
+//  {
+//   $("#planMactivities").children().remove();
+//   $("#ObjCompHere").children().remove();
 
-    var comps = $(this).val();
-    var count = 1;
+//     var comps = $(this).val();
+//     var count = 1;
         
-    $('input[name^=comp]').each(function () {
-        var val = $(this).val();
-        var addTask = `
-      <div class="row form-group compTask`+ count + `">
-        <div class="col-md-4 offset-md-1"><label for=""> <b class="headText form-txt-primary" id="compname`+ count + `">` + val + `</b></label></div>
-        <div class="col-md-2 offset-md-4 mb_1 Taskbut` + count + `" id="add_activity" style="padding-top:0.6%;">
-          <button class="btn btn-sm btn-warning float-right"  type="button" name="add_activity">Add Tasks</button>
-        </div>
-        <div id="alltasks" class="row col-md-11 offset-md-1 form-group component_Activities">
-        </div>
-      </div>`
-        val = $(this).val();
-        // var comps = $(this).val();
-        $('.planMactivities').append(addTask);
-        // console.log($(e));
-        // yo++;
-        count++;
-    });
+//     $('input[name^=comp]').each(function () {
+//         var val = $(this).val();
+//         var addTask = `
+//       <div class="row form-group compTask`+ count + `">
+//         <div class="col-md-4 offset-md-1"><label for=""> <b class="headText form-txt-primary" id="compname`+ count + `">` + val + `</b></label></div>
+//         <div class="col-md-2 offset-md-4 mb_1 Taskbut` + count + `" id="add_activity" style="padding-top:0.6%;">
+//           <button class="btn btn-sm btn-warning float-right"  type="button" name="add_activity">Add Tasks</button>
+//         </div>
+//         <div id="alltasks" class="row col-md-11 offset-md-1 form-group component_Activities">
+//         </div>
+//       </div>`
+//         val = $(this).val();
+//         // var comps = $(this).val();
+//         $('.planMactivities').append(addTask);
+//         // console.log($(e));
+//         // yo++;
+//         count++;
+//     });
 
-    $('input[name^=obj]').each(function () {
-        var ObjCompHere = `<li class="row mb_2">
-                            <span id='objvalue`+ oc + `' class="float-left col-md-6"></span>
-                            <span class="float-right col-md-6">
-                            <select class="select2 col-md-12" id="option`+ oc + `" multiple="multiple">
-                            </select>
-                            </span>
-                          </li>`
-        var options = ""
+//     $('input[name^=obj]').each(function () {
+//         var ObjCompHere = `<li class="row mb_2">
+//                             <span id='objvalue`+ oc + `' class="float-left col-md-6"></span>
+//                             <span class="float-right col-md-6">
+//                             <select class="select2 col-md-12" id="option`+ oc + `" multiple="multiple">
+//                             </select>
+//                             </span>
+//                           </li>`
+//         var options = ""
        
-        $('input[name^=comp]').each(function () {
+//         $('input[name^=comp]').each(function () {
             
-            options += "<option value='" + $(this).val() + "'>" + $(this).val() + "</option>"
-        });
-        compopt = options
+//             options += "<option value='" + $(this).val() + "'>" + $(this).val() + "</option>"
+//         });
+//         compopt = options
        
-        var t = $(ObjCompHere)
-        t.find('#objvalue' + oc + '').text($(this).val())
-        $(options).appendTo(t.find('#option' + oc + ''))
-        t.appendTo('#ObjCompHere');
-        // });
-        $('.select2').select2()
-        // console.log(obj);
-        // return false;
-        oc++;
-    });
- });
- $('.select2').select2();
- $('#saveObjComp').click(function () {
-    // <select class="select2 col-md-12" id="option`+ oc + `" multiple>
-    
-    
- });
+//         var t = $(ObjCompHere)
+//         t.find('#objvalue' + oc + '').text($(this).val())
+//         $(options).appendTo(t.find('#option' + oc + ''))
+//         t.appendTo('#ObjCompHere');
+//         // });
+//         $('.select2').select2()
+//         // console.log(obj);
+//         // return false;
+//         oc++;
+//     });
+//  });
 
-$(document).on('click', '#saveTasks', function () {
-  $('#comptaskl').children().remove();
-  $('#costcomp').children().remove();
-    var tasks = $('#planMactivities').clone()
-    var c = 1
-    // console.log(tasks.children());
 
-    tasks.children().each(function () {
-        // console.log($(this),c);
-        var temp = `<div class="col-md-12">
-                      <h5 class="text_left form-txt-primary">
-                      ` + $(this).find('#compname' + c).text() + `
-                      </h5>
-                    </div>`
-        var t1 = `
-        <div class="col-md-12" style="display:inline-flex;">
-          <h5 class="text_left col-md-3 form-txt-primary">
-          ` + $(this).find('#compname' + c).text() + `
-          </h5>
-        <div class="col-md-2 mr_0_1"><input type="text" class="form-control form-txt-primary" placeholder="Unit" name="" /></div>
-        <div class="col-md-2 mr_0_1"><input type="text" class="form-control form-txt-primary" placeholder="Quantity" name="" /></div>
-        <div class="col-md-2 mr_0_1"><input type="text" class="form-control form-txt-primary" placeholder="Cost" name="" /></div>
-        <div class="col-md-2 mr_0_1"><input type="text" class="form-control form-txt-primary" placeholder="Amount" name="" /></div>
-        </div>
-        `
-        var t2 = t1
-        $(this).find('input[name="c_activity[]"]').each(function () {
-            // console.log($(this));
-            temp += `<div class="col-md-12" style="display:inline-flex;"><b class="col-md-3 text_left form-txt" style="padding-left:1% !important;">
-                `+ $(this).val() + `
-                </b>
-                <div class="col-md-9"><input type="text" class="form-control form-txt mb_1" placeholder="Time Duration" /></div></div>`
-            t2 +=`<div class="col-md-12" style="display:inline-flex;"><b class="col-md-3 text_left form-txt" style="padding-left:1% !important;">
-                `+ $(this).val() + `
-                </b>
-                <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Unit" name="" /></div>
-                <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Quantity" name="" /></div>
-                <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Cost" name="" /></div>
-                <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Amount" name="" /></div></div>`
-          })
-        c++;
-        $(t2).appendTo('#costcomp')
-        $(temp).appendTo('#comptaskl')
-    });
-});
+// $(document).on('click', '#saveTasks', function () {
+//   $('#comptaskl').children().remove();
+//   $('#costcomp').children().remove();
+//     var tasks = $('#planMactivities').clone()
+//     var c = 1
+//     // console.log(tasks.children());
+
+//     tasks.children().each(function () {
+//         // console.log($(this),c);
+//         var temp = `<div class="col-md-12">
+//                       <h5 class="text_left form-txt-primary">
+//                       ` + $(this).find('#compname' + c).text() + `
+//                       </h5>
+//                     </div>`
+//         var t1 = `
+//         <div class="col-md-12" style="display:inline-flex;">
+//           <h5 class="text_left col-md-3 form-txt-primary">
+//           ` + $(this).find('#compname' + c).text() + `
+//           </h5>
+//         <div class="col-md-2 mr_0_1"><input type="text" class="form-control form-txt-primary" placeholder="Unit" name="" /></div>
+//         <div class="col-md-2 mr_0_1"><input type="text" class="form-control form-txt-primary" placeholder="Quantity" name="" /></div>
+//         <div class="col-md-2 mr_0_1"><input type="text" class="form-control form-txt-primary" placeholder="Cost" name="" /></div>
+//         <div class="col-md-2 mr_0_1"><input type="text" class="form-control form-txt-primary" placeholder="Amount" name="" /></div>
+//         </div>
+//         `
+//         var t2 = t1
+//         $(this).find('input[name="c_activity[]"]').each(function () {
+//             // console.log($(this));
+//             temp += `<div class="col-md-12" style="display:inline-flex;"><b class="col-md-3 text_left form-txt" style="padding-left:1% !important;">
+//                 `+ $(this).val() + `
+//                 </b>
+//                 <div class="col-md-9"><input type="text" class="form-control form-txt mb_1" placeholder="Time Duration" /></div></div>`
+//             t2 +=`<div class="col-md-12" style="display:inline-flex;"><b class="col-md-3 text_left form-txt" style="padding-left:1% !important;">
+//                 `+ $(this).val() + `
+//                 </b>
+//                 <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Unit" name="" /></div>
+//                 <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Quantity" name="" /></div>
+//                 <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Cost" name="" /></div>
+//                 <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Amount" name="" /></div></div>`
+//           })
+//         c++;
+//         $(t2).appendTo('#costcomp')
+//         $(temp).appendTo('#comptaskl')
+//     });
+// });
 
 $('button#add_more_component').click(function (e) {
     var add_component = `<div class="row components">
@@ -701,20 +747,24 @@ $('button#add_more_component').click(function (e) {
                         </div>`;
     $('.oneComponentQA').append(add_component);
 });
-var objct = 2;
+var objct = $("#objct").val() ? parseInt($("#objct").val()) : 1 ;
+objct++;
 function autoindex() {
-    var sib = $(document).find('.newClass').siblings();
-    // console.log(sib);
+    var sib = $(document).find('.newClass1').siblings();
+    console.log(sib);
     var i = 0;
     for (i = 0; i < sib.length; i++) {
         var cl_array = sib[i].getAttribute('class').split(' ');
         var val = "";
+        console.log(cl_array);
+        
         for (var j = 0; j < cl_array.length; j++) {
-            if (cl_array[j].startsWith('newClass')) {
+            if (cl_array[j].startsWith('newClass1')) {
                 val = cl_array[j];
                 break;
             }
         }
+        console.log(val);
         if (val != "") {
             $('.' + val + ' > label').text('Objective ' + (i + 2));
             $('.' + val + ' > div > input').attr('placeholder', 'Objective ' + (i + 2));

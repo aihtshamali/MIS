@@ -163,6 +163,7 @@ class ProjectAssignController extends Controller
           $team_log->assigned_project_id=$t->assigned_project_id;
           $team_log->user_id=$t->user_id;
           $team_log->team_lead=$t->team_lead;
+          $team_log->comments = $request->comments;
           $team_log->save();
           $t->delete();
         }

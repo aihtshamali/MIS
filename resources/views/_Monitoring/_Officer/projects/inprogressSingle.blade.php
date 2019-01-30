@@ -491,27 +491,32 @@ axios.get('{{route("getProjectKpi")}}',{
 })(jQuery);
 
   $('form.serializeform').on('submit',function(e){
-    //   console.log('sad');
-      
+    
     e.preventDefault();
       $.ajax( {
-      data: $(this).serialize(),
+      data: new FormData(this),
       type: $( this ).attr( 'method' ),
       url: $(this).attr('action'),
+      cache:false,
+      contentType: false,
+      processData: false,
+      dataType: "json",
       success: function( feedback ){
-        //   console.log(feedback);
-          
-          if(feedback){
-
+          console.log(feedback);
+          if(feedback.resType=="ObjectiveAndComponents"){
+            ObjectiveComponent(feedback.data.components,feedback.data.objectives);
+            console.log(feedback);
+            
           }
-          else{
-              alert("Data saved successfully");
-            // toast({
-            // type: 'success',
-            // title: 'Data saved successfully'
-            // })
-          }
-         console.log(feedback);
+        //   if(feedback){
+            toast({
+            type: feedback.type,
+            title: feedback.msg
+          })
+        //   }
+        //   else{
+            //   alert("Data saved successfully");
+        //   }
       },
       error:function(err){
             toast({
@@ -520,56 +525,54 @@ axios.get('{{route("getProjectKpi")}}',{
             })
           }
     });
-    // axios.post($(this).attr('action'),{data:formdata})
-    // .then(function (response) {
-    //     console.log(response.data);
-    // })
-    // .catch(function (error) {
-    //     console.log(error);
-    // });
   });
-  
+  var count=0;
      $('li.optiontest').on('click', function () {
-        
+       
         var compData='';
         axios.post('getProjectComponents',{
               MProjectProgressId:'<?= $monitoringProjectId ?>'
-                
             })
-        .then(response => {
-            compData=response.data
-        
-        var compopt='';
-        console.log(compData);
-        for (let index = 0; index < compData.length; index++) {
-            compopt=compopt+'<option value="'+compData[index].id+'">'+compData[index].component+'</option>';
-            
-        }
-        
-        var t = $(this).text();
-        var b = true;
-        $('.yesearch').val().forEach(e => {
-            if (e == t) {
-                b = false;
-                $('#addkpi').find('#' + t.replace(/\s+/g, '_').replace('(', '').replace(')', '')).remove()
+            .then(response => {
+                var compopt='';
+                compData=response.data
+                // console.log(compData);
+                for (let index = 0; index < compData.length; index++) {
+                    compopt=compopt+'<option value="'+compData[index].id+'">'+compData[index].component+'</option>';
+                }
+                var t = $(this).attr('id').toString()
+                var b = true;
+                    // console.log(t.split('-')[1],'test');
+                    if(t.split('-')[1]=='selection'){
+                        b = false;
+                        $('#addkpi').find('#' + t).remove()
+                    }
+                
+            if (b) {
+               var Li=`<li id='` + t.split('-')[0]+'-selection' + `' class="col-md-12 row" style="margin-top:5px;">
+                    <div class='col-md-6'> 
+                        <span name="kpiname[]"> `+ $(this).text() + `</span>
+                        
+                       <input type="hidden" name='kpinamesId[]' value='`+$(this).attr('data-value')+`'/>
+                        </div>
+                    <div class="col-md-6">
+                        <select class="kpisel col-sm-12" name='mappedKpicomponent_`+count+`[]' multiple="multiple" id="optionsHere">
+                    `+ compopt +`
+                        </select>
+                    </div>
+                    </li>`;
+                    count++;
+                $(Li).appendTo('#addkpi')
+                    
+                    
+                // console.log($('#addkpi').find());
+                $('.kpisel').select2()
             }
-        })
-        if (b) {
-            $(`<li id='` + $(this).text().replace(/\s+/g, '_').replace('(', '').replace(')', '') + `' class="col-md-12 row">
-                <div class='col-md-6'> <span name="kpiname[]"> `+ $(this).text() + `</span></div>
-                <div class="col-md-6">
-                    <select class="kpisel col-sm-12" name=mappedKpicomponent[] multiple="multiple" id="optionsHere">
-                `+ compopt +`
-                    </select>
-                </div>
-                </li>`).appendTo('#addkpi')
-            // console.log($('#addkpi').find());
-            $('.kpisel').select2()
-        }
-    })
-        .catch(function (error) {
-            console.log(error);
-        });
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        
     })
     
   $(window).scroll(function(){
