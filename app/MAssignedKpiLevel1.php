@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class MAssignedKpiLevel1 extends Model
 {
+  protected $table = 'm_assigned_kpi_level1';
+
   public function MProjectProgress(){
       return $this->belongsTo('App\MProjectProgress');
     }
@@ -15,6 +17,10 @@ class MAssignedKpiLevel1 extends Model
     }
 
     public function MProjectLevel1Kpi(){
-      return $this->belongsTo('App\MProjectLevel1Kpi');
+      return $this->belongsTo('App\MProjectLevel1Kpi','m_project_level1_kpis_id');
+    }
+
+    public function MAssignedKpiLevel2(){
+      return $this->hasMany('App\MAssignedKpiLevel2');
     }
 }
