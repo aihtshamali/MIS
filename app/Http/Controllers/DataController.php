@@ -10,7 +10,7 @@ use App\AssignedSubSector;
 use App\Http\Resources\AssignedProject as AssignedResource;
 use App\Http\Resources\User as UserResource;
 use App\Http\Resources\MProjectKpi as MProjectKpiResource;
-use App\GeneralKpi;
+// use App\GeneralKpi;
 
 class DataController extends Controller
 {
@@ -52,9 +52,9 @@ class DataController extends Controller
             // return response()->json(MProjectKpiResource::collection($sector->MProjectKpis));
           }
           // $m_general_kpis = [];
-          foreach (GeneralKpi::where('status',1)->get() as $value) {
-            array_push($m_project_kpis["general_kpi"],$value);
-          }
+          // foreach (GeneralKpi::where('status',1)->get() as $value) {
+          //   array_push($m_project_kpis["general_kpi"],$value);
+          // }
           // $m_project_kpis->push(GeneralKpi::where('status',1)->get());
           // return
           return response()->json($m_project_kpis);

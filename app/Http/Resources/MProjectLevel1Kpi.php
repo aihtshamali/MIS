@@ -17,7 +17,7 @@ class MProjectLevel1Kpi extends Resource
     public function toArray($request)
     {
         return [
-          // "id" => $this->id,
+          "id" => $this->id,
           "name" => $this->name,
           "weightage" => $this->weightage,
           "children" => MProjectLevel2KpiResource::collection($this->MProjectLevel2Kpi),
