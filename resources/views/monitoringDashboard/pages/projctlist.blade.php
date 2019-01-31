@@ -8,11 +8,11 @@
 <!-- Hover table card start -->
 <div class="container">
   <h2 class="topheading">Projects List</h2>
-    <div class="card-block table-border-style col-md-10 col-md-offset-1 border">
+    <div class="card-block table-border-style col-md-10 col-md-offset-1 border nopad">
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead>
-                    <tr>
+                    <tr class="tblhd">
                         <th>Sr#.</th>
                         <th>Name Of Project</th>
                         <th>Cost PKR.</th>
@@ -34,6 +34,39 @@
                         <td>000000 Rs.</td>
                         <td>51554854</td>
                         <td class="statustable yel" id=""><a href="#"></a>50%</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>
+                          <a href="{{ route('projctlist') }}">
+                            Monitoring line project
+                          </a>
+                        </td>
+                        <td>45</td>
+                        <td>000000 Rs.</td>
+                        <td class="statustable green" id=""><a href="#"></a>90%</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">4</th>
+                        <td>
+                          <a href="{{ route('projctlist') }}">
+                            Evaluation project
+                          </a>
+                        </td>
+                        <td>45</td>
+                        <td>000000 Rs.</td>
+                        <td class="statustable yel" id=""><a href="#"></a>70%</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">5</th>
+                        <td>
+                          <a href="{{ route('projctlist') }}">
+                            health & education
+                          </a>
+                        </td>
+                        <td>45</td>
+                        <td>000000 Rs.</td>
+                        <td class="statustable green" id=""><a href="#"></a>100%</td>
                     </tr>
                 </tbody>
             </table>

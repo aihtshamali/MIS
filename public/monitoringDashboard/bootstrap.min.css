@@ -1391,7 +1391,9 @@ th {
 
 html {
     font-size: 14px;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+    /* -webkit-tap-highlight-color: rgba(0, 0, 0, 0) */
+    background: linear-gradient(to bottom right, #ff , #FFF, #C6D4B1) !important;
+
 }
 
 body {
@@ -1418,7 +1420,7 @@ a {
 
 a:focus,
 a:hover {
-    color: #23527c;
+    color: inherit;
     text-decoration: underline
 }
 
