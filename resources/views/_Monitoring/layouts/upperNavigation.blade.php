@@ -2,7 +2,6 @@
 <html>
 <head>
   <meta charset="utf-8">
-
   <title>@yield('title')</title>
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Tell the browser to be responsive to screen width -->

@@ -25,16 +25,16 @@ Route::get('/upload', function () {
 
 Route::get('/','HomeController@index')->name('predashboard');
 Route::group(['middleware' => ['auth']],function(){
-  
+
   //predashboard
- 
+
   // visitRequest_dashboard
   Route::get('/visitRequest_dashboard','HomeController@visitRequest_dashboard')->name('visitRequest_dashboard');
   // monitoring_dashboard
   Route::get('/monitoring_dashboard','HomeController@monitoringDashboard')->name('monitoring_dashboard');
   // evaluation_dashboard
   Route::get('/dashboard',"HomeController@dashboard")->name("evaluation_dashboard");
- 
+
   Route::get('/reset_password','HomeController@reset_password');
   Route::post('/reset_store','HomeController@reset_store');
 
@@ -212,10 +212,10 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
   Route::post('/getProjectComponents','OfficerController@getProjectComponents')->name('getProjectComponents');
   Route::post('/kpiComponentMapping','OfficerController@kpiComponentMapping')->name('kpiComponentMapping');
   Route::get('/getSectorKpi','DataController@getProjectKpi')->name('getProjectKpi');
-  
+
   Route::post('/componentActivities','OfficerController@componentActivities')->name('componentActivities');
-  
-  
+
+
 });
 
 // Monitoring group
@@ -279,6 +279,15 @@ Route::post('/printerfunction','AdminHumanResourceController@printer');
 
 
 
+Route::get('/minitoringDashboard', function () {
+    return view('monitoringDashboard.index');
+})->name('minitoringDashboard');
+Route::get('/Summary', function () {
+    return view('monitoringDashboard.pages.Summary');
+})->name('Summary');
+Route::get('/projctlist', function () {
+    return view('monitoringDashboard.pages.projctlist');
+})->name('projctlist');
 Route::get('/403',function(){
   return view('403');
 });
