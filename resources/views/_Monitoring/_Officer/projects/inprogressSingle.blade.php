@@ -413,6 +413,7 @@ $(document).ready(function(){
     
     var compData='';
     var activities='';
+    var sponsoringAgency='';
         (function($) {
             console.log();
             
@@ -442,6 +443,27 @@ $(document).ready(function(){
                         activities=response.data
                        console.log(response,"sad");
                        activitiesfroConductMonitoring(activities)
+                       
+                    }
+                )
+                .catch(function (error) {
+                    console.log(error);
+                });
+        
+        }) (); 
+
+        (function($) {
+            console.log('hello');
+            
+                axios.post('{{ route("getAssignedSponsoringAgency") }}',{
+                    originalProjectId:'<?= $org_projectId ?>',
+                    // _token: '{{ csrf_field() }}'
+                    })
+                    // console.log("sponsoring");
+                    .then(response => {
+                        sponsoringAgency=response.data
+                       console.log(response,"sponsoring");
+                       sponsoringAgencyforCM(sponsoringAgency)
                        
                     }
                 )
@@ -570,18 +592,8 @@ axios.get('{{route("getProjectKpi")}}',{
   var count=0;
      $('li.optiontest').on('click', function () {
        
-<<<<<<< HEAD
   
                 console.log(compData);
-=======
-        var compData='';
-        axios.post('getProjectComponents',{
-              MProjectProgressId:'<?= $monitoringProjectId ?>'
-            })
-            .then(response => {
-                var compopt='';
-                compData=response.data
->>>>>>> 01b2d58cdc287c671ec1520730451a201c556cff
                 for (let index = 0; index < compData.length; index++) {
                     compopt=compopt+'<option value="'+compData[index].id+'">'+compData[index].component+'</option>';
                 }

@@ -217,9 +217,11 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
   Route::get('/getSectorKpi','DataController@getProjectKpi')->name('getProjectKpi');
   Route::post('/componentActivities','OfficerController@componentActivities')->name('componentActivities');
   Route::post('/activities_duration','OfficerController@activities_duration')->name('activities_duration');
-  
   Route::post('/Costing','OfficerController@Costing')->name('Costing');
-
+  
+  Route::post('/stakeholders','OfficerController@savestakeholders')->name('savestakeholders');
+  
+  Route::post('/getAssignedSponsoringAgency','OfficerController@getAssignedSponsoringAgency')->name('getAssignedSponsoringAgency');
   
 });
 

@@ -9,4 +9,6 @@ class MPlanComponentactivityDetailMapping extends Model
     public function MPlanComponentActivitiesMapping(){
         return $this->belongsTo('App\MPlanComponentActivitiesMapping');
       } 
+    
+      
 }

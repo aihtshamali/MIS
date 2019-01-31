@@ -15,5 +15,10 @@ class AssignedSponsoringAgency extends Model
       public function SponsoringAgency(){
         return $this->belongsTo('App\SponsoringAgency');
       }
+     
+      public function MSponsoringStakeholder(){
+        return $this->hasMany('App\MSponsoringStakeholder');
+      } 
+    
 
 }
