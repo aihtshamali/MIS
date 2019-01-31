@@ -860,7 +860,6 @@ $(document).ready(function () {
         heading.appendTo('.SumObjComp');
         $(".SumObjComp").show('slow');
         var cc = oc
-        console.log(cc);
 
         for (var i = 1; i < cc; i++) {
             var t = $('#objvalue' + i).text();
