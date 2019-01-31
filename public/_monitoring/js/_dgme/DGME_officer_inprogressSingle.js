@@ -683,6 +683,38 @@ function ObjectiveComponent(components,objectives){
 //     });
 //  });
 
+function ObjectiveComponentTime(CompActivityMapping)
+ {   var tasks=CompActivityMapping;
+ $('div.comptaskl').children().remove();
+  $('div.costcomp').children().remove();
+    console.log(tasks);
+    var d=``,t=``;
+    tasks.forEach(function (val,index) {
+        d= d+ ` <div id='comptaskl' class="col-md-12 row" style="margin-top:5px; padding-left:2% !important;">
+        <div class="col-md-6">
+        <label for=""><b>`+val.m_plan_component.component.component+`</b> <br> - `+val.activity+`</label>
+        <input type="hidden" name="componentActivityId[]" value="`+val.id+`">
+        </div>
+        <div class="col-md-4" style="">
+        <input type="text" name="daysinduration[]" value="" class="form-control">
+        </div>
+       </div> ` ;
+         t+=`<div class="col-md-12" style="display:inline-flex;">
+        <label class="text_left col-md-3"><b>`+val.m_plan_component.component+`</b> <br> - `+val.activity+` </label>
+        <input type="hidden" name="activityId[]" value="`+val.activity+`">
+        <div class="col-md-2 mr_0_1"><input type="text" class="form-control" value=" " placeholder="Unit" name="Unit[]"></div>
+         <div class="col-md-2 mr_0_1"><input type="text" class="form-control" value=" " placeholder="Quantity" name="Quantity[]"></div>
+         <div class="col-md-2 mr_0_1"><input type="text" class="form-control" value=" " placeholder="Cost" name="Cost[]"></div>
+         <div class="col-md-2 mr_0_1"><input type="text" class="form-control" value=" " placeholder="Amount" name="Amount[]">
+         </div>
+     </div>`;
+    });
+    console.log(d);
+    console.log(t);
+    
+    $('div.comptaskl').append($(d));
+    $('div.costcomp').append($(t));
+}
 
 // $(document).on('click', '#saveTasks', function () {
 //   $('#comptaskl').children().remove();

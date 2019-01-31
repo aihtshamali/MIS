@@ -966,8 +966,11 @@ class OfficerController extends Controller
           }
           $i++;
         }
-        $CompActivityMapping=MPlanComponentActivitiesMapping::where('m_project_progress_id',$request->m_project_progress_id)->get();
-        return response()->json(["type"=>"success","msg"=>$msg." Successfully","data"=>["CompActivityMapping"=>$CompActivityMapping]]);
+        $CompActivityMapping=MPlanComponentActivitiesMapping::select('m_plan_component_activities_mappings.*')
+        ->with('MPlanComponent')
+        ->where('m_plan_component_activities_mappings.m_project_progress_id',$request->m_project_progress_id)
+        ->get();
+        return response()->json(["type"=>"success","msg"=>$msg." Successfully", "resType"=>"forTime","data"=>["CompActivityMapping"=>$CompActivityMapping]]);
       }
        
 

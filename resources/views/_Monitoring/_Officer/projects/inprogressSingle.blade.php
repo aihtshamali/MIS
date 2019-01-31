@@ -548,6 +548,11 @@ axios.get('{{route("getProjectKpi")}}',{
           if(feedback.resType=="ObjectiveAndComponents"){
             ObjectiveComponent(feedback.data.components,feedback.data.objectives);          
           }
+          if(feedback.resType=="forTime"){
+            ObjectiveComponentTime(feedback.data.CompActivityMapping);          
+            console.log('done');
+            
+          }
         //   if(feedback){
             toast({
             type: feedback.type,
