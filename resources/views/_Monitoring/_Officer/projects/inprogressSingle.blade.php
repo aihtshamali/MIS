@@ -569,28 +569,16 @@ axios.get('{{route("getProjectKpi")}}',{
   var compopt='';
   var count=0;
      $('li.optiontest').on('click', function () {
-       
-<<<<<<< HEAD
-  
-                console.log(compData);
-=======
-        var compData='';
-        axios.post('getProjectComponents',{
-              MProjectProgressId:'<?= $monitoringProjectId ?>'
-            })
-            .then(response => {
-                var compopt='';
-                compData=response.data
->>>>>>> 01b2d58cdc287c671ec1520730451a201c556cff
-                for (let index = 0; index < compData.length; index++) {
-                    compopt=compopt+'<option value="'+compData[index].id+'">'+compData[index].component+'</option>';
-                }
-                var t = $(this).attr('id').toString()
-                var b = true;
-                    if(t.split('-s')[1]=='election'){
-                        b = false;
-                        $('#addkpi').find('#' + t).remove()
-                    }
+
+        for (let index = 0; index < compData.length; index++) {
+            compopt=compopt+'<option value="'+compData[index].id+'">'+compData[index].component+'</option>';
+        }
+        var t = $(this).attr('id').toString()
+        var b = true;
+            if(t.split('-s')[1]=='election'){
+                b = false;
+                $('#addkpi').find('#' + t).remove()
+            }
                 
             if (b) {
                var Li=`<li id='` + t.split('-s')[0]+'-selection' + `' class="col-md-12 row" style="margin-top:5px;">
