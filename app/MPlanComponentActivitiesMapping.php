@@ -12,7 +12,8 @@ class MPlanComponentActivitiesMapping extends Model
       public function MProjectProgress(){
         return $this->belongsTo('App\MProjectProgress');
       } 
-      public function MPlanComponentActivitiesMapping(){
-        return $this->hasMany('App\MPlanComponentActivitiesMapping');
-      } 
+      public function MPlanComponentactivityDetailMapping(){
+        return $this->hasOne('App\MPlanComponentactivityDetailMapping');
+      }
+       
 }

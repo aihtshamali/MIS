@@ -410,6 +410,48 @@
 
 $(document).ready(function(){
 
+    
+    var compData='';
+    var activities='';
+        (function($) {
+            console.log();
+            
+                axios.post('{{route("getProjectComponents")}}',{
+                      MProjectProgressId:'<?= $monitoringProjectId ?>'
+                    })
+                    .then(response => {
+                       compData=response.data
+                    //    console.log(response);
+                       componentsfroConductMonitoring(compData)
+                       
+                    }
+                )
+                .catch(function (error) {
+                    console.log(error);
+                });
+        
+        }) (); 
+
+        (function($) {
+            console.log();
+            
+                axios.post('{{route("getProjectActivities")}}',{
+                      MProjectProgressId:'<?= $monitoringProjectId ?>'
+                    })
+                    .then(response => {
+                        activities=response.data
+                       console.log(response,"sad");
+                       activitiesfroConductMonitoring(activities)
+                       
+                    }
+                )
+                .catch(function (error) {
+                    console.log(error);
+                });
+        
+        }) (); 
+
+
 //     (function($) {
  
 //  axios.get('http://0188606c.ngrok.io/api/projectRelatedKpi',{
@@ -504,9 +546,7 @@ axios.get('{{route("getProjectKpi")}}',{
       success: function( feedback ){
           console.log(feedback);
           if(feedback.resType=="ObjectiveAndComponents"){
-            ObjectiveComponent(feedback.data.components,feedback.data.objectives);
-            console.log(feedback);
-            
+            ObjectiveComponent(feedback.data.components,feedback.data.objectives);          
           }
         //   if(feedback){
             toast({
@@ -526,9 +566,14 @@ axios.get('{{route("getProjectKpi")}}',{
           }
     });
   });
+  var compopt='';
   var count=0;
      $('li.optiontest').on('click', function () {
        
+<<<<<<< HEAD
+  
+                console.log(compData);
+=======
         var compData='';
         axios.post('getProjectComponents',{
               MProjectProgressId:'<?= $monitoringProjectId ?>'
@@ -536,6 +581,7 @@ axios.get('{{route("getProjectKpi")}}',{
             .then(response => {
                 var compopt='';
                 compData=response.data
+>>>>>>> 01b2d58cdc287c671ec1520730451a201c556cff
                 for (let index = 0; index < compData.length; index++) {
                     compopt=compopt+'<option value="'+compData[index].id+'">'+compData[index].component+'</option>';
                 }
@@ -566,10 +612,6 @@ axios.get('{{route("getProjectKpi")}}',{
                 // console.log($('#addkpi').find());
                 $('.kpisel').select2()
             }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
         
     })
     
