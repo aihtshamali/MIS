@@ -592,6 +592,11 @@ axios.get('{{route("getProjectKpi")}}',{
           if(feedback.resType=="ObjectiveAndComponents"){
             ObjectiveComponent(feedback.data.components,feedback.data.objectives);          
           }
+          if(feedback.resType=="forTime"){
+            ObjectiveComponentTime(feedback.data.CompActivityMapping);          
+            console.log('done');
+            
+          }
         //   if(feedback){
             toast({
             type: feedback.type,
@@ -613,18 +618,16 @@ axios.get('{{route("getProjectKpi")}}',{
   var compopt='';
   var count=0;
      $('li.optiontest').on('click', function () {
-       
-  
-                console.log(compData);
-                for (let index = 0; index < compData.length; index++) {
-                    compopt=compopt+'<option value="'+compData[index].id+'">'+compData[index].component+'</option>';
-                }
-                var t = $(this).attr('id').toString()
-                var b = true;
-                    if(t.split('-s')[1]=='election'){
-                        b = false;
-                        $('#addkpi').find('#' + t).remove()
-                    }
+
+        for (let index = 0; index < compData.length; index++) {
+            compopt=compopt+'<option value="'+compData[index].id+'">'+compData[index].component+'</option>';
+        }
+        var t = $(this).attr('id').toString()
+        var b = true;
+            if(t.split('-s')[1]=='election'){
+                b = false;
+                $('#addkpi').find('#' + t).remove()
+            }
                 
             if (b) {
                var Li=`<li id='` + t.split('-s')[0]+'-selection' + `' class="col-md-12 row" style="margin-top:5px;">

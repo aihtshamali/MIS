@@ -52,6 +52,10 @@ use App\MConductQualityassesment;
 use App\MSponsoringStakeholder;
 use App\MExecutingStakeholder;
 use App\MBeneficiaryStakeholder;
+use App\MAssignedKpiLevel1;
+use App\MAssignedKpiLevel2;
+use App\MAssignedKpiLevel3;
+use App\MAssignedKpiLevel4;
 use Illuminate\Support\Facades\Redirect;
 use DB;
 class OfficerController extends Controller
@@ -922,21 +926,51 @@ class OfficerController extends Controller
         $i=0;
         foreach($request->kpinamesId as $kpi)
         {
+          // return response()->json($mappComp);
           if(isset($_POST['mappedKpicomponent_'.$i]))
           foreach($_POST['mappedKpicomponent_'.$i] as $mappComp)
           {
-            // return response()->json($mappComp);
             $kpiCompMapping= new MPlanKpicomponentMapping();
-
+            
             $kpiCompMapping->m_project_progress_id = $request->m_project_progress_id;
             $kpiCompMapping->m_project_kpi_id=$kpi;
             $kpiCompMapping->m_plan_component_id=$mappComp;
             $kpiCompMapping->status= true;
             $kpiCompMapping->save();
+            foreach ($kpiCompMapping->MProjectKpi->MProjectLevel1Kpi as $lev1) {
+              $kpiCompMapping1= new MAssignedKpiLevel1();
+              $kpiCompMapping1->m_project_progress_id= $request->m_project_progress_id;
+              $kpiCompMapping1->m_plan_kpicomponent_mappings_id= $kpiCompMapping->id;
+              $kpiCompMapping1->m_project_level1_kpis_id= $lev1->id;
+              $kpiCompMapping1->save();
+
+              foreach ($kpiCompMapping1->MProjectLevel1Kpi->MProjectLevel2Kpi as $lev2) {
+                $kpiCompMapping2= new MAssignedKpiLevel2();
+                $kpiCompMapping2->m_project_progress_id= $request->m_project_progress_id;
+                $kpiCompMapping2->m_assigned_kpi_level1_id= $kpiCompMapping1->id;
+                $kpiCompMapping2->m_project_level2_kpis_id= $lev2->id;
+                $kpiCompMapping2->save();
+
+                foreach ($kpiCompMapping2->MProjectLevel2Kpi->MProjectLevel3Kpi as $lev3) {
+                  $kpiCompMapping3= new MAssignedKpiLevel3();
+                  $kpiCompMapping3->m_project_progress_id= $request->m_project_progress_id;
+                  $kpiCompMapping3->m_assigned_kpi_level2_id= $kpiCompMapping2->id;
+                  $kpiCompMapping3->m_project_level3_kpis_id= $lev3->id;
+                  $kpiCompMapping3->save();
+        
+                  foreach ($kpiCompMapping3->MProjectLevel3Kpi->MProjectLevel4Kpi as $lev4) {
+                    $kpiCompMapping4= new MAssignedKpiLevel4();
+                    $kpiCompMapping4->m_project_progress_id= $request->m_project_progress_id;
+                    $kpiCompMapping4->m_assigned_kpi_level3_id= $kpiCompMapping3->id;
+                    $kpiCompMapping4->m_project_level4_kpis_id= $lev4->id;
+                    $kpiCompMapping4->save();
+                  }
+                }
+              }
+            }
           }
           $i++;
         }
-
 
         return response()->json(["type"=>"success","msg"=>"Saved Successfully"]);
       }
@@ -966,8 +1000,11 @@ class OfficerController extends Controller
           }
           $i++;
         }
-        $CompActivityMapping=MPlanComponentActivitiesMapping::where('m_project_progress_id',$request->m_project_progress_id)->get();
-        return response()->json(["type"=>"success","msg"=>$msg." Successfully","data"=>["CompActivityMapping"=>$CompActivityMapping]]);
+        $CompActivityMapping=MPlanComponentActivitiesMapping::select('m_plan_component_activities_mappings.*')
+        ->with('MPlanComponent')
+        ->where('m_plan_component_activities_mappings.m_project_progress_id',$request->m_project_progress_id)
+        ->get();
+        return response()->json(["type"=>"success","msg"=>$msg." Successfully", "resType"=>"forTime","data"=>["CompActivityMapping"=>$CompActivityMapping]]);
       }
        
 
