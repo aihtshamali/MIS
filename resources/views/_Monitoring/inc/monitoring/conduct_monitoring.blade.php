@@ -48,7 +48,7 @@
                         <div class="card-header">
                             <h4>Quality Assesment</h4>
                         </div>
-                        <form action="{{route('saveQualityAssesment')}}" class="serializeform" method="POST">
+                        <form action="{{route('saveQualityAssesment')}}" class="" method="POST">
                                 {{ csrf_field() }}
                         <div class="card-block">
                               <div class="row oneComponentQA">

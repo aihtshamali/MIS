@@ -162,12 +162,29 @@ class OfficerController extends Controller
         return response()->json($projectcomponents);
 
       }
+      
+      public function getAssignedExecutingAgency(Request $request)
+      {
+        $exeagency = AssignedExecutingAgency::where('project_id',$request->originalProjectId)->get();
+        $size= count($exeagency);
+        // return response()->json($size);
+        // $sa=[];
+        return response()->json($exeagency);
+      }
 
       public function getAssignedSponsoringAgency(Request $request)
       {
 
-        return response()->json($request->all());
       $sponsoringagency = AssignedSponsoringAgency::where('project_id',$request->originalProjectId)->get();
+      $size= count($sponsoringagency);
+      // return response()->json($size);
+      $sa=[];
+      return response()->json($sponsoringagency);
+      for($i=0; $i<$size ; $i++)
+      {
+       array_push($sa, $sponsoringagency->SponsoringAgency);
+      }
+        // return response()->json($sa);
 
       }
 
@@ -1027,46 +1044,50 @@ class OfficerController extends Controller
      public function saveQualityAssesment(Request $request)
      {
 
+      // return dd($request->all());
+      // return response()->json($request->all());
+      
       $i=0;
-      // return response()->json($_POST['compforconduct_'.$i]);
-      foreach($_POST['compforconduct_'.$i] as $component) 
-      {
-        $j=0;
-
-        if(isset($_POST['activitiesforconduct_'.$j]))
-          {
-            foreach($_POST['activitiesforconduct_'.$j] as $activity) 
+       
+         while(1)
+         {
+         
+          
+           if(isset($_POST['activitiesforconduct_'.$i]))
+           { 
+             $k=0;
+             foreach($_POST['activitiesforconduct_'.$i] as $activity) 
             {
             
             $qualityassesment = new MConductQualityassesment();
 
             $qualityassesment->m_project_progress_id = $request->m_project_progress_id;
             $qualityassesment->user_id= Auth::id();
-            $qualityassesment->m_plan_component_id=$component;
+            $qualityassesment->m_plan_component_id=$_POST['compforconduct_'.$i];
+
+            if(isset($_POST['activitiesforconduct_'.$i][$k]))
             $qualityassesment->m_plan_component_activities_mapping_id=$activity;
-
-            if(isset($_POST['qualityassesment_'.$i][$j]))
-            $qualityassesment->assesment=$_POST['qualityassesment_'.$i][$j];
+              // dd($activity);
+            if(isset($_POST['qualityassesment_'.$i][$k]))
+            $qualityassesment->assesment=$_POST['qualityassesment_'.$i][$k];
            
-            if(isset($_POST['progresspercentage_'.$j]))
-            $qualityassesment->progressinPercentage=$_POST['progresspercentage_'.$i][$j];
+            if(isset($_POST['progresspercentage_'.$i][$k]))
+            $qualityassesment->progressinPercentage=$_POST['progresspercentage_'.$i][$k];
 
-            if(isset($_POST['qa_remarks_'.$i][$j]))
-            $qualityassesment->remarks=$_POST['qa_remarks_'.$i][$j];
-
-            return response()->json($_POST['progresspercentage_'.$i][j]);
-
+            if(isset($_POST['qa_remarks_'.$i][$k]))
+            $qualityassesment->remarks=$_POST['qa_remarks_'.$i][$k];
             $qualityassesment->save();
-
-          
-         $j++;
-         }
-        }
-         
+            $k++;
+          } 
          $i++;
+        }
+        else
+          break;
       }
-        return response()->json(["type"=>"success","msg"=>"Saved Successfully"]);
-           
+      
+      return redirect()->back();
+
+    
      }
 
      public function savestakeholders(Request $request)
@@ -1105,7 +1126,7 @@ class OfficerController extends Controller
          $sponsoring_st->designation=$request->Sponsoringstakeholder_designation[$j];
          $sponsoring_st->email=$request->Sponsoringstakeholder_email[$j];
          $sponsoring_st->contactNo=$request->Sponsoringstakeholder_number[$j];
-         return response()->json($sponsoring_st);
+        //  return response()->json($sponsoring_st);
         $sponsoring_st->save();
         $j++;
        }

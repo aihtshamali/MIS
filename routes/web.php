@@ -223,6 +223,8 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
   
   Route::post('/getAssignedSponsoringAgency','OfficerController@getAssignedSponsoringAgency')->name('getAssignedSponsoringAgency');
   
+  Route::post('/getAssignedExecutingAgency','OfficerController@getAssignedExecutingAgency')->name('getAssignedExecutingAgency');
+
 });
 
 // Monitoring group

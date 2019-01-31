@@ -414,6 +414,7 @@ $(document).ready(function(){
     var compData='';
     var activities='';
     var sponsoringAgency='';
+    var executingAgency='';
         (function($) {
             console.log();
             
@@ -453,7 +454,7 @@ $(document).ready(function(){
         }) (); 
 
         (function($) {
-            console.log('hello');
+            console.log('helloSp');
             
                 axios.post('{{ route("getAssignedSponsoringAgency") }}',{
                     originalProjectId:'<?= $org_projectId ?>',
@@ -464,6 +465,27 @@ $(document).ready(function(){
                         sponsoringAgency=response.data
                        console.log(response,"sponsoring");
                        sponsoringAgencyforCM(sponsoringAgency)
+                       
+                    }
+                )
+                .catch(function (error) {
+                    console.log(error);
+                });
+        
+        }) (); 
+
+         (function($) {
+            console.log('helloExe');
+            
+                axios.post('{{ route("getAssignedExecutingAgency") }}',{
+                    originalProjectId:'<?= $org_projectId ?>',
+                    // _token: '{{ csrf_field() }}'
+                    })
+                    // console.log("sponsoring");
+                    .then(response => {
+                        executingAgency=response.data
+                       console.log(response,"executingAgency");
+                       executingAgencyforCM(executingAgency)
                        
                     }
                 )

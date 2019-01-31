@@ -528,7 +528,17 @@ $('button#addmoreexecuting').click(function (e) {
                     <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td></tr>`
     $('#Executingstakeholders').append(add_stakeholder);
 });
-
+var Ea='';
+function executingAgencyforCM(agencies)
+{
+    console.log(agencies,'executing');
+       
+    agencies.forEach(function (val,index) {
+        Ea  = Ea+ `
+            <option value="`+val.id+`">`+val.executing_agency_id+`</option>
+        `;
+    }); 
+}
 var Sa='';
 function sponsoringAgencyforCM(agencies)
 {
@@ -538,9 +548,11 @@ function sponsoringAgencyforCM(agencies)
     // var count = 1;
        
     agencies.forEach(function (val,index) {
+        // console.log(val.sponsoring_agency_id.SponsoringAgency.name,'id');  
         Sa  = Sa+ `
             <option value="`+val.id+`">`+val.sponsoring_agency_id+`</option>
         `;
+        
     });
 
     // $('.select2').select2();
@@ -829,7 +841,7 @@ $('button#add_more_component').click(function (e) {
                         </div>
                         <div class="form-group col-md-6  ">
                         <label for=""> <b>Component Title :</b></label><br>
-                        <select class=" form-control kpisel form-control-primary " name="compforconduct_`+countforconduct+`[]">
+                        <select class=" form-control kpisel form-control-primary " name="compforconduct_`+countforconduct+`">
                         `+ compOpt +`
                         </select>
                         </div>
@@ -1045,12 +1057,7 @@ function add_activityInComp(e,myc) {
         <label for=""><b>Remarks</b></label><br>
         <textarea name="qa_remarks_`+countforcomponent+`[]" id="qa_remarks" style="height:37px !important;" class="form-control" type="text"></textarea>
         </div>
-        <div class="col-md-1" style="padding-top:2.2% !important;">
-          <div class="btn col-md-12 btn-primary btn-block" style="padding:4px !important;border-radius:50px;">
-            <input type="file" id="html_btn" name="attachments_`+countforcomponent+`[]" title="Click to add picture">
-            <span><i class="fa fa-paperclip" style="font-size:29px;"></i></span>
-          </div>
-        </div>
+        
         <div class="form-group col-md-1">
          <br><button class="btn btn-danger btn-sm" onclick="removerow(this)" name="remove_Comp_activity[]"><span style="font-size:12px;">-</span></button>
         </div>
