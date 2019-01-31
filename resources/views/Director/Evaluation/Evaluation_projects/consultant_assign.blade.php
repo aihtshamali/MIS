@@ -5,6 +5,10 @@
     display:none;
   }
 
+  #commentarea{
+    margin-top:20px;
+  }
+
   </style>
 @endsection
 @section('content')
@@ -68,6 +72,13 @@
                     @endif
                   @endforeach
               </select>
+              @if(isset($_GET['reAssign']) && $_GET['reAssign'] == 1)
+              <div id="commentarea">
+                <label for="">Enter Comments</label>
+                <br>
+                <textarea name="comments" cols="50" rows="5"></textarea>
+              </div>
+              @endif
             </div>
 
 

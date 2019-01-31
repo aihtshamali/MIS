@@ -247,11 +247,11 @@
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-meeting-add"></i> Updated:</td>
-                                    <td class="text-right">{{$progresses->last()->created_at}}</td>
+                                    <td class="text-right">{{$progresses->updated_at}}</td>
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-id-card"></i> Created:</td>
-                                    <td class="text-right">{{$progresses->first()->created_at}}</td>
+                                    <td class="text-right">{{$progresses->created_at}}</td>
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-spinner-alt-5"></i> Priority:</td>
@@ -428,6 +428,48 @@
 
 $(document).ready(function(){
 
+
+    var compData='';
+    var activities='';
+        (function($) {
+            console.log();
+
+                axios.post('{{route("getProjectComponents")}}',{
+                      MProjectProgressId:'<?= $monitoringProjectId ?>'
+                    })
+                    .then(response => {
+                       compData=response.data
+                    //    console.log(response);
+                       componentsfroConductMonitoring(compData)
+
+                    }
+                )
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+        }) ();
+
+        (function($) {
+            console.log();
+
+                axios.post('{{route("getProjectActivities")}}',{
+                      MProjectProgressId:'<?= $monitoringProjectId ?>'
+                    })
+                    .then(response => {
+                        activities=response.data
+                       console.log(response,"sad");
+                       activitiesfroConductMonitoring(activities)
+
+                    }
+                )
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+        }) ();
+
+
 //     (function($) {
 
 //  axios.get('http://0188606c.ngrok.io/api/projectRelatedKpi',{
@@ -509,22 +551,35 @@ axios.get('{{route("getProjectKpi")}}',{
 })(jQuery);
 
   $('form.serializeform').on('submit',function(e){
-    //   console.log('sad');
 
     e.preventDefault();
       $.ajax( {
-      data: $(this).serialize(),
+      data: new FormData(this),
       type: $( this ).attr( 'method' ),
       url: $(this).attr('action'),
+      cache:false,
+      contentType: false,
+      processData: false,
+      dataType: "json",
       success: function( feedback ){
           console.log(feedback);
-
-          if(feedback){
+          if(feedback.resType=="ObjectiveAndComponents"){
+            ObjectiveComponent(feedback.data.components,feedback.data.objectives);
+          }
+          if(feedback.resType=="forTime"){
+            ObjectiveComponentTime(feedback.data.CompActivityMapping);
+            console.log('done');
 
           }
-          else{
-              alert("Data saved successfully");
-          }
+        //   if(feedback){
+            toast({
+            type: feedback.type,
+            title: feedback.msg
+          })
+        //   }
+        //   else{
+            //   alert("Data saved successfully");
+        //   }
       },
       error:function(err){
             toast({
@@ -534,30 +589,22 @@ axios.get('{{route("getProjectKpi")}}',{
           }
     });
   });
+  var compopt='';
   var count=0;
      $('li.optiontest').on('click', function () {
 
-        var compData='';
-        axios.post('getProjectComponents',{
-              MProjectProgressId:'<?= $monitoringProjectId ?>'
-            })
-            .then(response => {
-                var compopt='';
-                compData=response.data
-                // console.log(compData);
-                for (let index = 0; index < compData.length; index++) {
-                    compopt=compopt+'<option value="'+compData[index].id+'">'+compData[index].component+'</option>';
-                }
-                var t = $(this).attr('id').toString()
-                var b = true;
-                    // console.log(t.split('-')[1],'test');
-                    if(t.split('-')[1]=='selection'){
-                        b = false;
-                        $('#addkpi').find('#' + t).remove()
-                    }
+        for (let index = 0; index < compData.length; index++) {
+            compopt=compopt+'<option value="'+compData[index].id+'">'+compData[index].component+'</option>';
+        }
+        var t = $(this).attr('id').toString()
+        var b = true;
+            if(t.split('-s')[1]=='election'){
+                b = false;
+                $('#addkpi').find('#' + t).remove()
+            }
 
             if (b) {
-               var Li=`<li id='` + t.split('-')[0]+'-selection' + `' class="col-md-12 row" style="margin-top:5px;">
+               var Li=`<li id='` + t.split('-s')[0]+'-selection' + `' class="col-md-12 row" style="margin-top:5px;">
                     <div class='col-md-6'>
                         <span name="kpiname[]"> `+ $(this).text() + `</span>
 
@@ -576,10 +623,6 @@ axios.get('{{route("getProjectKpi")}}',{
                 // console.log($('#addkpi').find());
                 $('.kpisel').select2()
             }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
 
     })
 

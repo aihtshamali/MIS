@@ -50,6 +50,8 @@
                             <th style="text-align:center;" >Project Number</th>
                             <th style="text-align:center;">Project Name</th>
                             <th style="text-align:center;">Assigned By</th>
+                            <th style="text-align:center;">Assigning Date</th>
+                            <th style="text-align:center;">Re-Assigned</th>
                             <th style="text-align:center;">Priority</th>
                             <th style="text-align:center;">Score</th>
                             <th style="text-align:center;">Action</th>
@@ -66,6 +68,22 @@
                             <td><span style="background-color:#7906A1; padding:5px; margin:px; color:white; font-weight:bold">{{$o->getassignedperson($o->assigned_by)->first_name}} {{$o->getassignedperson($o->assigned_by)->last_name}}</span></td>
                             @elseif(($o->getassignedperson($o->assigned_by))->hasRole("manager"))
                             <td><span style="background-color:#B20013; padding:5px; margin:px; color:white; font-weight:bold">{{$o->getassignedperson($o->assigned_by)->first_name}} {{$o->getassignedperson($o->assigned_by)->last_name}}</span></td>
+                            @endif
+                            <td>{{date('d M Y',strtotime($o->assigned_date))}}</td>
+                            @if(isset($o->AssignedProjectTeamLog[0]->id))
+                            @php 
+                              $project='';
+                            @endphp
+                            <td>
+                            @foreach($o->AssignedProjectTeamLog as $team_log)
+                              @if($project!=$team_log->assigned_project_id)
+                                {{date('d M Y, H:i:s',strtotime($team_log->created_at))}},
+                                @php $project=$team_log->assigned_project_id; @endphp
+                              @endif
+                            @endforeach
+                            </td>
+                            @else
+                            <td>Nil</td>
                             @endif
                             <td>
                               {{ $o->project->ProjectDetail->AssigningForum->name }}

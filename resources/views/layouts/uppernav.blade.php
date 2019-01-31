@@ -357,6 +357,7 @@
 
 
 </body>
+<script src="{{asset('js/Customvue.min.js')}}"></script>
 <!-- jQuery 3 -->
 <script src="{{asset('js/app.js')}}"></script>
 <script src="{{asset('js/AdminLTE/jquery.min.js')}}"></script>

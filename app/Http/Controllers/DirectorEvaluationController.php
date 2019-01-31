@@ -157,13 +157,20 @@ class DirectorEvaluationController extends Controller
             }
         }
          $officers = User::where('status',1)->get();
-         $projects = AssignedProject::where('complete',0)->get();
+         $projects = AssignedProject::select('assigned_projects.*')
+         ->leftJoin('projects','projects.id','assigned_projects.project_id')
+         ->where('projects.project_type_id',1)
+         ->where('complete',0)
+         ->get();
          $sectors = Sector::where('status',1)->get();
          return view('Director.Evaluation.Evaluation_projects.search',compact('assigned','officers','projects','sectors'));
       }
 
       public function re_assign(){
-        $projects = AssignedProject::all();
+        $projects = AssignedProject::select('assigned_projects.*')
+        ->leftJoin('projects','projects.id','assigned_projects.project_id')
+        ->where('projects.project_type_id',1)
+        ->get();
         return view('Director.Evaluation.Evaluation_projects.re_assign',compact('projects'));
       }
 

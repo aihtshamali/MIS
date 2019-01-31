@@ -209,6 +209,7 @@ var st = [];
             "userid":element.id,
             "Team Member": assigned_projects[$i],
             "Team Lead" : team_lead[$i],
+            "Team Member": assigned_projects[$i],
             "Individual Projects" : individual_projects[$i]
           });
           $i++;
@@ -306,10 +307,6 @@ function createSeries(field, name,color="#67b7dc") {
 var series1=createSeries("Team Lead", "Team Lead","#0062b7");
 var series2=createSeries("Team Member", "Team Member","#929eaa");
 createSeries("Individual Projects", "Individual Projects","#00a65a");
-// createSeries("asia", "Asia-Pacific");
-// createSeries("lamerica", "Latin America");
-// createSeries("meast", "Middle-East");
-// createSeries("africa", "Africa");
 
 // Legend
 chart.legend = new am4charts.Legend();

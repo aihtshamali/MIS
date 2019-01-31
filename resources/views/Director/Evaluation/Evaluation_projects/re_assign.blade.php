@@ -45,6 +45,7 @@
                 <td>{{ $project->User->first_name }} {{ $project->User->last_name }}</td>
                 <form class="" action="{{route('create_from_director')}}" method="get">
                   {{ csrf_field() }}
+                  <input type="hidden" name="reAssign" value="1">
                   <input type="hidden" name="project_id" value="{{  $project->project->id}}">
                   <input type="hidden" name="priority" value="{{  $project->priority}}">
                 <td><button class="btn btn-primary" type="submit">Re Assign</button></td>

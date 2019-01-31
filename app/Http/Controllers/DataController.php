@@ -10,7 +10,12 @@ use App\AssignedSubSector;
 use App\Http\Resources\AssignedProject as AssignedResource;
 use App\Http\Resources\User as UserResource;
 use App\Http\Resources\MProjectKpi as MProjectKpiResource;
-use App\GeneralKpi;
+use App\Http\Resources\MPlanKpicomponentMapping as MPlanKpicomponentMappingResource;
+use App\MAssignedKpiLevel1;
+use App\MAssignedKpiLevel2;
+use App\MAssignedKpiLevel3;
+use App\MAssignedKpiLevel4;
+// use App\GeneralKpi;
 
 class DataController extends Controller
 {
@@ -31,33 +36,120 @@ class DataController extends Controller
           // return AssignedResource::collection(Auth::user()->AssignedProjectTeam);
         }
 
+        // public function getProjectKpi(Request $request){
+        //   // $user = Auth::user();
+        //   // return $request->all();
+        //   $project = AssignedProject::find($request->assigned_project_id);
+        //   // return $project;
+        //   $sub_sectors = $project->project->AssignedSubSectors;
+        //   $sectors = [];
+        //   foreach ($sub_sectors as $sub_sector) {
+        //     array_push($sectors,$sub_sector->SubSector->Sector);
+        //   }
+        //   $sectors = array_unique($sectors);
+        //   $m_project_kpis = ["m_kpi"=>["sector"=>[]],"general_kpi"=>[]];
+        //   foreach ($sectors as $sector) {
+        //
+        //       array_push($m_project_kpis["m_kpi"]["sector"],["name"=>$sector->name,"children"=>MProjectKpiResource::collection($sector->MProjectKpis)]);
+        //       // array_push($m_project_kpis["m_kpi"]["sector"]["children"],$value);
+        //       // foreach (MProjectKpiResource::collection($sector->MProjectKpis) as  $value) {
+        //       // }
+        //     // return response()->json(MProjectKpiResource::collection($sector->MProjectKpis));
+        //   }
+        //   // $m_general_kpis = [];
+        //   // foreach (GeneralKpi::where('status',1)->get() as $value) {
+        //   //   array_push($m_project_kpis["general_kpi"],$value);
+        //   // }
+        //   // $m_project_kpis->push(GeneralKpi::where('status',1)->get());
+        //   // return
+        //   return response()->json($m_project_kpis);
+        // }
+
         public function getProjectKpi(Request $request){
-          // $user = Auth::user();
-          // return $request->all();
           $project = AssignedProject::find($request->assigned_project_id);
           // return $project;
-          $sub_sectors = $project->project->AssignedSubSectors;
+          // $sub_sectors = $project->project->AssignedSubSectors;
+          $index = 0;
+          $project_progresses = $project->MProjectProgress->last()->MPlanKpicomponentMapping;
+          $m_project_kpis = ["m_kpi"=>["sector"=>[]],"general_kpi"=>[]];
+
+          //Removing General Kpi from Array And Adding them to final Array
+          foreach ($project_progresses as $value) {
+            if($value->MProjectKpi->sector_id == NULL){
+              array_push($m_project_kpis["general_kpi"],new MPlanKpicomponentMappingResource($value));
+              unset($project_progresses[$index]);
+            }
+            $index ++;
+          }
+
+          //Fetching Sectors from Array
           $sectors = [];
-          foreach ($sub_sectors as $sub_sector) {
-            array_push($sectors,$sub_sector->SubSector->Sector);
+          foreach ($project_progresses as $value) {
+            $sectors = array_merge($sectors,array($value->MProjectKpi->Sector->name=>[]));
           }
           $sectors = array_unique($sectors);
-          $m_project_kpis = ["m_kpi"=>["sector"=>[]],"general_kpi"=>[]];
-          foreach ($sectors as $sector) {
+          // Placing results to corresponding Sectors Respectively
+          foreach ($sectors as $key => $sector) {
+            foreach ($project_progresses as $progress) {
+                array_push($sectors[$progress->MProjectKpi->Sector->name],new MPlanKpicomponentMappingResource($progress));
+            }
+          }
 
-              array_push($m_project_kpis["m_kpi"]["sector"],["name"=>$sector->name,"children"=>MProjectKpiResource::collection($sector->MProjectKpis)]);
-              // array_push($m_project_kpis["m_kpi"]["sector"]["children"],$value);
-              // foreach (MProjectKpiResource::collection($sector->MProjectKpis) as  $value) {
-              // }
-            // return response()->json(MProjectKpiResource::collection($sector->MProjectKpis));
+          foreach ($sectors as $key => $value) {
+            array_push($m_project_kpis["m_kpi"]["sector"],["name"=>$key,"children"=>$value]);
           }
-          // $m_general_kpis = [];
-          foreach (GeneralKpi::where('status',1)->get() as $value) {
-            array_push($m_project_kpis["general_kpi"],$value);
-          }
-          // $m_project_kpis->push(GeneralKpi::where('status',1)->get());
-          // return
-          return response()->json($m_project_kpis);
-        }
+          return $m_project_kpis;
+          // return $m_project_kpis;
+        //   foreach ($sub_sectors as $sub_sector) {
+        //     array_push($sectors,$sub_sector->SubSector->Sector);
+        //   }
+        //   $sectors = array_unique($sectors);
+        //   foreach ($sectors as $sector) {
+        //
+        // }
+      }
+
+      public function setProjectKpi(Request $request){
+        $data =  json_decode($request->data, true);
+        foreach ($data['m_kpi']['sector'] as $value) {
+          foreach ($value['children'] as $value2) {
+            foreach ($value2['children'] as $value3) {
+              $m_assigned_kpi_level1 = MAssignedKpiLevel1::find($value3['id']);
+              if($m_assigned_kpi_level1){
+                $m_assigned_kpi_level1->completed = $value3['completed'];
+                $m_assigned_kpi_level1->remarks = $value3['remarks'];
+                $m_assigned_kpi_level1->save();
+                foreach ($value3['children'] as $value4) {
+                  $m_assigned_kpi_level2 = MAssignedKpiLevel2::find($value4['id']);
+                  if($m_assigned_kpi_level2){
+                    $m_assigned_kpi_level2->completed = $value4['completed'];
+                    $m_assigned_kpi_level2->remarks = $value4['remarks'];
+                    $m_assigned_kpi_level2->save();
+                    foreach ($value4['children'] as $value5) {
+                      $m_assigned_kpi_level3 = MAssignedKpiLevel3::find($value5['id']);
+                      if($m_assigned_kpi_level3){
+                        $m_assigned_kpi_level3->completed = $value5['completed'];
+                        $m_assigned_kpi_level3->remarks = $value5['remarks'];
+                        $m_assigned_kpi_level3->save();
+                        foreach ($value5['children'] as $value6) {
+                          $m_assigned_kpi_level4 = MAssignedKpiLevel4::find($value6['id']);
+                          if($m_assigned_kpi_level4){
+                            $m_assigned_kpi_level4->completed = $value6['completed'];
+                            $m_assigned_kpi_level4->remarks = $value6['remarks'];
+                            $m_assigned_kpi_level4->save();
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            };
+          };
+        };
+        // foreach ($data as $key => $value) {
+        //   return $value;
+        // }
+      }
 
 }

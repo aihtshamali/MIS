@@ -60,7 +60,7 @@
               <select class="form-control select2" multiple="multiple" data-placeholder="Select Manager"
                       style="width: 100%;" name="manager_id[]">
                   @foreach ($managers as $manager)
-                      <option value="{{$manager->id}}"> <b>Director</b> {{$manager->first_name}} {{$manager->last_name}}</option>
+                      <option value="{{$manager->id}}"> {{$manager->first_name}} {{$manager->last_name}}</option>
                   @endforeach
               </select>
             </div>
