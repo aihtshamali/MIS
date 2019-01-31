@@ -7,49 +7,53 @@
     <div class="col-md-12">
     <div class="card z-depth-5">
         <div class="card-header"> <h4><b>Inprogress Monitoring Projects</b></h4></div>
-        <div class="card-block">
-                <div class="card-block">
-                        <div class="dt-responsive table-responsive">
-                                <table id="simpletable"
-                                class="table table-bordered table-stripped nowrap">
-                            <thead>
-                            <tr>
-                                <th>Project Name</th>
-                                <th>Sub Sector</th>
-                                <th>Assigned By</th>
-                                <th>Priority</th>
-                                <th>Progress</th>
-                                <th>Action</th>
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- Material tab card start -->
+                <div class="card">
+                    <div class="card-block">
+                        <!-- Row start -->
+                        <div class="row m-b-30">
+                            <div class="col-md-12">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs md-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#home3" role="tab" style="font-size: 17px;font-weight: 600;">New Monitoring</a>
+                                        <div class="slide"></div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#profile3" role="tab" style="font-size: 17px;font-weight: 600;">Ongoing monitoring</a>
+                                        <div class="slide"></div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#messages6" role="tab" style="font-size: 17px;font-weight: 600;">Previous Monitoring</a>
+                                        <div class="slide"></div>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content card-block">
+                                    <div class="tab-pane active" id="home3" role="tabpanel">
+                                      @include('inc/inprogress/new')
+                                    </div>
+                                    <div class="tab-pane" id="profile3" role="tabpanel">
+                                      @include('inc/inprogress/ongoing')
+                                    </div>
+                                    <div class="tab-pane" id="messages6" role="tabpanel">
+                                      @include('inc/inprogress/previos')
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Row end -->
 
-                            </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                  @foreach ($projects as $project)
-                                    <td>{{ $project->title }}</td>
-                                    <td>
-                                      @foreach ($project->AssignedSubSectors as $sub_sectors)
-                                        {{ $sub_sectors->SubSector->name }}
-                                      @endforeach
-                                    </td>
-                                    <td>{{ $project->AssignedProject->User->first_name}} {{ $project->AssignedProject->User->last_name }}</td>
-                                    <td>{{ $project->ProjectDetail->AssigningForum->name }}</td>
-                                    <td><div class="progress">
-                                            <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width: {{ $project->AssignedProject->progress }}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> {{$project->AssignedProject->progress}}%</div>
-                                        </div></td>
-                                    <td>
-                                    <a href="{{route('monitoring_inprogressSingle',['project_id'=>$project->id])}}" class="btn btn-md  btn-info"> Conduct Monitoring</a>
-                                    </td>
-                                  @endforeach
-                                </tr>
-
-
-                            </tbody>
-                        </table>
+                        </div>
+                        <!-- Row end -->
                     </div>
                 </div>
+                <!-- Material tab card end -->
+            </div>
         </div>
-        <div class="card-footer"></div>
+        <!-- <div class="card-footer"></div> -->
     </div>
 </div>
 </div>
