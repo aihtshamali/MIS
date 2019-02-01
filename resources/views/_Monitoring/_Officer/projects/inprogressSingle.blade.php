@@ -229,11 +229,11 @@
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-meeting-add"></i> Updated:</td>
-                                    <td class="text-right">{{$progresses->last()->created_at}}</td>
+                                    <td class="text-right">{{$progresses->updated_at}}</td>
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-id-card"></i> Created:</td>
-                                    <td class="text-right">{{$progresses->first()->created_at}}</td>
+                                    <td class="text-right">{{$progresses->created_at}}</td>
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-spinner-alt-5"></i> Priority:</td>
@@ -410,6 +410,116 @@
 
 $(document).ready(function(){
 
+    
+    var compData='';
+    var activities='';
+    var sponsoringAgency='';
+    var executingAgency='';
+
+        function getWBS(route,id){
+        axios.get(route,{
+     params:{
+         "assigned_project_id":id,
+     }
+     })
+     .then((response) => {
+         console.log(response.data.m_kpi.sector);
+         var ds = response.data.m_kpi.sector[0];
+        var oc = $('#WBSChart').orgchart({
+        'data' : ds,
+        'nodeContent': 'title'
+        });
+         
+     //   $('.'+response.data.role+'_unassigned_counter').text(response.data.unassigned);
+     })
+     .catch(function (error) {
+       console.log(error);
+     });
+
+   }
+
+   
+   $('.summaryNav').on('click', function () {
+        getWBS('{{route("getProjectKpi")}}',"{{$project->id}}");
+    });
+        (function($) {
+            console.log();
+            
+                axios.post('{{route("getProjectComponents")}}',{
+                      MProjectProgressId:'<?= $monitoringProjectId ?>'
+                    })
+                    .then(response => {
+                       compData=response.data
+                    //    console.log(response);
+                       componentsfroConductMonitoring(compData)
+                       
+                    }
+                )
+                .catch(function (error) {
+                    console.log(error);
+                });
+        
+        }) (); 
+
+        (function($) {
+            
+                axios.post('{{route("getProjectActivities")}}',{
+                      MProjectProgressId:'<?= $monitoringProjectId ?>'
+                    })
+                    .then(response => {
+                        activities=response.data
+                       console.log(response,"sad");
+                       activitiesfroConductMonitoring(activities)
+                       
+                    }
+                )
+                .catch(function (error) {
+                    console.log(error);
+                });
+        
+        }) (); 
+
+        (function($) {
+            
+                axios.post('{{ route("getAssignedSponsoringAgency") }}',{
+                    originalProjectId:'<?= $org_projectId ?>',
+                    // _token: '{{ csrf_field() }}'
+                    })
+                    // console.log("sponsoring");
+                    .then(response => {
+                        sponsoringAgency=response.data
+                       console.log(response,"sponsoring");
+                       sponsoringAgencyforCM(sponsoringAgency)
+                       
+                    }
+                )
+                .catch(function (error) {
+                    console.log(error);
+                });
+        
+        }) (); 
+
+         (function($) {
+            
+                axios.post('{{ route("getAssignedExecutingAgency") }}',{
+                    originalProjectId:'<?= $org_projectId ?>',
+                    // _token: '{{ csrf_field() }}'
+                    })
+                    // console.log("sponsoring");
+                    .then(response => {
+                        executingAgency=response.data
+                       console.log(response,"executingAgency");
+                       executingAgencyforCM(executingAgency)
+                       
+                    }
+                )
+                .catch(function (error) {
+                    console.log(error);
+                });
+        
+        }) (); 
+
+
 //     (function($) {
  
 //  axios.get('http://0188606c.ngrok.io/api/projectRelatedKpi',{
@@ -470,7 +580,7 @@ $(document).ready(function(){
 
 axios.get('{{route("getProjectKpi")}}',{
      params:{
-         "assigned_project_id":1034,
+         "assigned_project_id":"{{$project->id}}",
      }
      })
      .then((response) => {
@@ -489,29 +599,37 @@ axios.get('{{route("getProjectKpi")}}',{
 
   });
 })(jQuery);
-
+ 
   $('form.serializeform').on('submit',function(e){
-    //   console.log('sad');
-      
+    
     e.preventDefault();
       $.ajax( {
-      data: $(this).serialize(),
+      data: new FormData(this),
       type: $( this ).attr( 'method' ),
       url: $(this).attr('action'),
+      cache:false,
+      contentType: false,
+      processData: false,
+      dataType: "json",
       success: function( feedback ){
-        //   console.log(feedback);
-          
-          if(feedback){
-
+          console.log(feedback);
+          if(feedback.resType=="ObjectiveAndComponents"){
+            ObjectiveComponent(feedback.data.components,feedback.data.objectives);          
           }
-          else{
-              alert("Data saved successfully");
-            // toast({
-            // type: 'success',
-            // title: 'Data saved successfully'
-            // })
+          if(feedback.resType=="forTime"){
+            ObjectiveComponentTime(feedback.data.CompActivityMapping);          
+            console.log('done');
+            
           }
-         console.log(feedback);
+        //   if(feedback){
+            toast({
+            type: feedback.type,
+            title: feedback.msg
+          })
+        //   }
+        //   else{
+            //   alert("Data saved successfully");
+        //   }
       },
       error:function(err){
             toast({
@@ -520,56 +638,48 @@ axios.get('{{route("getProjectKpi")}}',{
             })
           }
     });
-    // axios.post($(this).attr('action'),{data:formdata})
-    // .then(function (response) {
-    //     console.log(response.data);
-    // })
-    // .catch(function (error) {
-    //     console.log(error);
-    // });
   });
-  
-     $('li.optiontest').on('click', function () {
+  var count=0;
+  var compopt='';
+  $('li.optiontest').on('click', function () {
+        compopt='';    
+    console.log(compData);
         
-        var compData='';
-        axios.post('getProjectComponents',{
-              MProjectProgressId:'<?= $monitoringProjectId ?>'
-                
-            })
-        .then(response => {
-            compData=response.data
-        
-        var compopt='';
-        console.log(compData);
         for (let index = 0; index < compData.length; index++) {
-            compopt=compopt+'<option value="'+compData[index].id+'">'+compData[index].component+'</option>';
+            compopt+='<option value="'+compData[index].id+'">'+compData[index].component+'</option>';
+            console.log(index);
             
         }
+        console.log(compopt,compData.length);
         
-        var t = $(this).text();
+        var t = $(this).attr('id').toString()
         var b = true;
-        $('.yesearch').val().forEach(e => {
-            if (e == t) {
+            if(t.split('-s')[1]=='election'){
                 b = false;
-                $('#addkpi').find('#' + t.replace(/\s+/g, '_').replace('(', '').replace(')', '')).remove()
+                $('#addkpi').find('#' + t).remove()
             }
-        })
-        if (b) {
-            $(`<li id='` + $(this).text().replace(/\s+/g, '_').replace('(', '').replace(')', '') + `' class="col-md-12 row">
-                <div class='col-md-6'> <span name="kpiname[]"> `+ $(this).text() + `</span></div>
-                <div class="col-md-6">
-                    <select class="kpisel col-sm-12" name=mappedKpicomponent[] multiple="multiple" id="optionsHere">
-                `+ compopt +`
-                    </select>
-                </div>
-                </li>`).appendTo('#addkpi')
-            // console.log($('#addkpi').find());
-            $('.kpisel').select2()
-        }
-    })
-        .catch(function (error) {
-            console.log(error);
-        });
+                
+            if (b) {
+               var Li=`<li id='` + t.split('-s')[0]+'-selection' + `' class="col-md-12 row" style="margin-top:5px;">
+                    <div class='col-md-6'> 
+                        <span name="kpiname[]"> `+ $(this).text() + `</span>
+                        
+                       <input type="hidden" name='kpinamesId[]' value='`+$(this).attr('data-value')+`'/>
+                        </div>
+                    <div class="col-md-6">
+                        <select class="kpisel col-sm-12" name='mappedKpicomponent_`+count+`[]' multiple="multiple" id="optionsHere">
+                    `+ compopt +`
+                        </select>
+                    </div>
+                    </li>`;
+                    count++;
+                $(Li).appendTo('#addkpi')
+                    
+                    
+                // console.log($('#addkpi').find());
+                $('.kpisel').select2()
+            }
+        
     })
     
   $(window).scroll(function(){

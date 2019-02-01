@@ -46,6 +46,16 @@ use App\MPlanObjectivecomponentMapping;
 use App\MPlanComponentActivitiesMapping;
 use App\MPlanComponentactivityDetailMapping;
 use App\MPlanKpicomponentMapping;
+use App\MProjectAttachment;
+use App\MProjectKpi;
+use App\MConductQualityassesment;
+use App\MSponsoringStakeholder;
+use App\MExecutingStakeholder;
+use App\MBeneficiaryStakeholder;
+use App\MAssignedKpiLevel1;
+use App\MAssignedKpiLevel2;
+use App\MAssignedKpiLevel3;
+use App\MAssignedKpiLevel4;
 use Illuminate\Support\Facades\Redirect;
 use DB;
 class OfficerController extends Controller
@@ -149,11 +159,46 @@ class OfficerController extends Controller
 
       public function getProjectComponents(Request $request)
       {
-        // dd($request->all());
+        // return response()->json($request->all());
         $projectcomponents =MPlanComponent::where('status',1)
         ->where('m_project_progress_id',$request->MProjectProgressId)
         ->get();
         return response()->json($projectcomponents);
+
+      }
+      
+      public function getAssignedExecutingAgency(Request $request)
+      {
+        $exeagency = AssignedExecutingAgency::where('project_id',$request->originalProjectId)->get();
+        $size= count($exeagency);
+        // return response()->json($size);
+        // $sa=[];
+        return response()->json($exeagency);
+      }
+
+      public function getAssignedSponsoringAgency(Request $request)
+      {
+
+      $sponsoringagency = AssignedSponsoringAgency::where('project_id',$request->originalProjectId)->get();
+      $size= count($sponsoringagency);
+      // return response()->json($size);
+      $sa=[];
+      return response()->json($sponsoringagency);
+      for($i=0; $i<$size ; $i++)
+      {
+       array_push($sa, $sponsoringagency->SponsoringAgency);
+      }
+        // return response()->json($sa);
+
+      }
+
+      public function getProjectActivities(Request $request)
+      {
+        // return response()->json($request->all());
+        $projectactivities =MPlanComponentActivitiesMapping::where('status',1)
+        ->where('m_project_progress_id',$request->MProjectProgressId)
+        ->get();
+        return response()->json($projectactivities);
         
       }
 
@@ -278,15 +323,7 @@ class OfficerController extends Controller
         if($percentage==100)
           $assigned_project_activity->end_date=date('Y-m-d');
         $assigned_project_activity->save();
-        //
-
-        // $document= new AssignedActivityDocument();
-        // $document->activity_document_id=$request->activity_document_id;
-        // $document->assigned_project_activity_id=$request->assigned_project_activity_id;
-        // $document->assigned_project_id=$assigned_project_activity->project_id;
-        // $document->save();
-        //
-        // print_r($request->all());
+ 
         $attach=ActivityDocument::find($request->activity_document_id);
         $data =new AssignedActivityAttachment();
         $file_path = $request->file('activity_attachment')->path();
@@ -466,6 +503,7 @@ class OfficerController extends Controller
         if(!$m_project_costs){
           $m_project_costs = new MProjectCost();
         }
+        $m_project_costs->user_id= Auth::id();
         $m_project_costs->m_project_progress_id = $total_progresses[count($total_progresses)-1]->id;
         $m_project_costs->adp_allocation_of_fiscal_year = (float)$request->adp_allocation_of_fiscal_year;
         $m_project_costs->release_to_date_of_fiscal_year = $request->release_to_date_of_fiscal_year;
@@ -485,6 +523,7 @@ class OfficerController extends Controller
         if(!$m_project_dates){
           $m_project_dates = new MProjectDate();
         }
+        $m_project_dates->user_id= Auth::id();
         $m_project_dates->m_project_progress_id = $total_progresses[count($total_progresses)-1]->id;
         $m_project_dates->project_approval_date = $request->project_approval_date;
         $m_project_dates->admin_approval_date = $request->admin_approval_date;
@@ -499,6 +538,7 @@ class OfficerController extends Controller
         if(!$m_project_organizations){
           $m_project_organizations = new MProjectOrganization();
         }
+        $m_project_organizations->user_id= Auth::id();
         $m_project_organizations->m_project_progress_id = $total_progresses[count($total_progresses)-1]->id;
         $m_project_organizations->operation_and_management = $request->operation_and_management;
         $m_project_organizations->contractor_or_supplier = $request->contractor_or_supplier;
@@ -512,6 +552,7 @@ class OfficerController extends Controller
         if(!$m_project_location){
           $m_project_location = new MProjectLocation();
         }
+        $m_project_location->user_id= Auth::id();
         $m_project_location->m_project_progress_id = $total_progresses[count($total_progresses)-1]->id;
         $m_project_location->district = $request->district;
         $m_project_location->city = $request->city;
@@ -524,53 +565,73 @@ class OfficerController extends Controller
 
       public function monitoring_inprogressSingle(Request $request)
       {
+
+       
         
         if($request->project_id==null)
           return redirect()->back();
-        $project=AssignedProject::where('project_id',$request->project_id)->first();
-        $project->acknowledge = 1;
-        $project->save();
-        //Moving Project Progress from New Attachment to Inprogress
-        $total_previousProject = MProjectProgress::where('assigned_project_id',$project->id)->get();
+
+        $project=AssignedProject::where('project_id',$request->project_id)->orderBy('created_at','desc')->first();
+        $total_previousProject = MProjectProgress::where('assigned_project_id',$project->id)->orderBy('created_at', 'desc')->get();
         $previousProject = null;
-        // dd(count($total_previousProject));
-        if(count($total_previousProject) > 0)
-          $previousProject = $total_previousProject[count($total_previousProject)-1];
-        if(!$previousProject){
+        $projectProgress = null;
+        if($total_previousProject->count()){
+          // One New Monitoring (it shouldn't be here)
+          $previousProject = $total_previousProject->first();
+          // It will change 
+          //TODO
+          // $previousProject->quarter = $previousProject->quarter + 1;
+          // $previousProject->save();
+          $projectProgress=$previousProject;
+
+          
+        }else{
+          //Moving Project Progress from New Attachment to Inprogress
+          $project->acknowledge = 1;
+          $project->save();
+
           $projectProgress = new MProjectProgress();
+          $projectProgress->quarter = 1;    
           $projectProgress->assigned_project_id = $project->id;
-          if($previousProject!=null){
-            $projectProgress->quarter = $previousProject->quarter + 1;
-          }
-          else{
-            $projectProgress->quarter = 1;
-          }
           $projectProgress->project_status = 'ACTIVE';
           $projectProgress->status = 1;
           $projectProgress->user_id = Auth::id();
           $projectProgress->save();
+            
         }
+        // dd(count($total_previousProject));
 
-        $progresses = $project->MProjectProgress;
+        // Old Code
+        
+        // if(count($total_previousProject) > 0)
+        //   $previousProject = $total_previousProject->last();
+        // if(!$previousProject){
+        //   $projectProgress = new MProjectProgress();
+        //   $projectProgress->assigned_project_id = $project->id;
+        //   if($previousProject!=null){
+        //     $projectProgress->quarter = $previousProject->quarter + 1;
+        //   }
+        //   else{
+        //     $projectProgress->quarter = 1;
+        //   }
+        //   $projectProgress->project_status = 'ACTIVE';
+        //   $projectProgress->status = 1;
+        //   $projectProgress->user_id = Auth::id();
+        //   $projectProgress->save();
+        // }
+
+        $progresses = $projectProgress;
         $costs = null;
-        if(count($progresses) > 0){
-          $costs = $progresses[count($progresses) - 1]->MProjectCost;
-        }
+        $costs = $progresses->MProjectCost;
 
         $location = null;
-        if(count($progresses) > 0){
-          $location = $progresses[count($progresses) - 1]->MProjectLocation;
-        }
+        $location = $progresses->MProjectLocation;
 
         $organization = null;
-        if(count($progresses) > 0){
-          $organization = $progresses[count($progresses) - 1]->MProjectOrganization;
-        }
+        $organization = $progresses->MProjectOrganization;
 
         $dates = null;
-        if(count($progresses) > 0){
-          $dates = $progresses[count($progresses) - 1]->MProjectDate  ;
-        }
+        $dates = $progresses->MProjectDate;
 
         $sectors  = Sector::where('status','1')->get();
         $sub_sectors = SubSector::where('status','1')->get();
@@ -580,15 +641,19 @@ class OfficerController extends Controller
         $generalFeedback=MGeneralFeedBack::where('status',1)->get();
         $issue_types=MIssueType::where('status',1)->get();
         $healthsafety=MHealthSafety::where('status',1)->get();
+        // dd($healthsafety[1]->MAssignedProjectHealthSafety[0]->status);
         // dd($project->Project->AssignedExecutingAgencies);
-        $projectProgressId= MProjectProgress::where('assigned_project_id',$project->id)->get();
-        $monitoringProjectId=$projectProgressId[0]->id;
+        
+        // Chwli
+        // $projectProgressId= MProjectProgress::where('assigned_project_id',$project->id)->get();
+        $projectProgressId=$progresses;
+        $monitoringProjectId=$projectProgressId->id;
         $objectives =MPlanObjective::where('status',1)
-        ->where('m_project_progress_id',$projectProgressId[0]->id)
+        ->where('m_project_progress_id',$projectProgressId->id)
         ->get();
-      
+
         $components =MPlanComponent::where('status',1)
-        ->where('m_project_progress_id',$projectProgressId[0]->id)
+        ->where('m_project_progress_id',$projectProgressId->id)
         ->get();
 
         $projectWithRevised=$project->Project->with(
@@ -600,14 +665,27 @@ class OfficerController extends Controller
             $query->where('project_id', $project->project_id);
            }
           ])->find($project->project_id);
-        
-        $generalKpis =GeneralKpi::where('status',1)->get();
+
+        $ComponentActivities = MPlanComponentActivitiesMapping::where('status',1)
+        ->where('m_project_progress_id',$projectProgressId->id)
+        ->get();
+        // dd($ComponentActivities);
+        $Kpis =MProjectKpi::where('status',1)->get();
+        $mPlanKpiComponents=$projectProgressId->MPlanKpicomponentMapping;
+
+        $org_project=Project::where('id',$request->project_id)->first();
+        $org_projectId=$org_project->id;
+        // dd($org_project->AssignedExecutingAgencies);
+        // $executing=$org_projectId->AssignedExecutingAgencies;
+        // dd($executing);
         \JavaScript::put([
           'projectWithRevised'=>$projectWithRevised,
-         'componentsforkpis'=> $components,
+         'components'=> $components,
          'monitoringProjectId'=> $monitoringProjectId
         ]);
-        return view('_Monitoring._Officer.projects.inprogressSingle',compact('monitoringProjectId','componentsforkpis','generalKpis','components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
+      //  dd();
+      // dd($progresses);
+        return view('_Monitoring._Officer.projects.inprogressSingle',compact('org_project','org_projectId','projectProgressId','mPlanKpiComponents','ComponentActivities','monitoringProjectId','Kpis','components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
       }
       public function monitoring_review_form(Request $request)
       {
@@ -764,6 +842,7 @@ class OfficerController extends Controller
           else
             $generalFeedback=new MAssignedProjectFeedBack();
           $generalFeedback->m_general_feed_back_id=$m_general_feed_back_id;
+          $generalFeedback->user_id=Auth::id();
           $generalFeedback->answer=$answer;
           $generalFeedback->m_project_progress_id=$request->m_project_progress_id;
           $generalFeedback->save();
@@ -773,6 +852,7 @@ class OfficerController extends Controller
         foreach($request->issue as $key=>$issue){
           $project_issue = new MAssignedProjectIssue();
           $project_issue->issue=$issue;
+          $project_issue->user_id=Auth::id();
           $project_issue->m_issue_type_id=$request->issuetype[$key];
           $project_issue->severity=$request->severity[$key];
           if($request->sponsoring_department[$key])
@@ -783,7 +863,7 @@ class OfficerController extends Controller
           $project_issue->save();
         }
       }
-      
+
       public function savehealthsafety(Request $request){
         foreach ($request->status as $key=>$healthsafety) {
           $temp=explode("_",$healthsafety);
@@ -797,6 +877,7 @@ class OfficerController extends Controller
           else
             $healthSafety=new MAssignedProjectHealthSafety();
           $healthSafety->m_health_safety_id=$hs;
+          $healthSafety->user_id=Auth::id(); 
           $healthSafety->status=$answer;
           $healthSafety->remarks=$request->comments[$key];
           $healthSafety->m_project_progress_id=$request->m_project_progress_id;
@@ -806,104 +887,336 @@ class OfficerController extends Controller
 
       public function projectDesignMonitoring(Request $request)
       {
-        $projectProgressId= MProjectProgress::where('assigned_project_id',$request->project_progress_no)->get();
-
+        // $projectProgressId= MProjectProgress::where('assigned_project_id',$request->project_progress_no)->get();
+        $msg="Saved";
+        if(MPlanObjective::where('m_project_progress_id',$request->m_project_progress_id)->count()>0)
+         {
+          //  MPlanObjective::where('m_project_progress_id',$request->m_project_progress_id)->delete();
+           $msg="Updated";
+         } 
         foreach($request->obj as $objective)
           {
-            $objectives = new MPlanObjective();
-            $objectives->m_project_progress_id = $projectProgressId[0]->id;
+            $objectives= new MPlanObjective(); 
+            $objectives->m_project_progress_id = $request->m_project_progress_id;
+            $objectives->user_id=Auth::id();
             $objectives->objective=$objective;
             $objectives->status= true;
             $objectives->save();
           }
+          if(MPlanComponent::where('m_project_progress_id',$request->m_project_progress_id)->count()>0)
+            {
+              // MPlanComponent::where('m_project_progress_id',$request->m_project_progress_id)->delete();
+              $msg="Updated";
+            } 
           foreach($request->comp as $component)
           {
-            $components = new MPlanComponent();
-            $components->m_project_progress_id = $projectProgressId[0]->id;
+            $components=new MPlanComponent();
+            $components->m_project_progress_id = $request->m_project_progress_id;
+            $components->user_id=Auth::id();
             $components->component=$component;
             $components->status= true;
             $components->save();
           }
-       return response()->json($request->all());
+
+          $objectives=MPlanObjective::where('m_project_progress_id',$request->m_project_progress_id)->get();
+          $components=MPlanComponent::where('m_project_progress_id',$request->m_project_progress_id)->get();
+
+          return response()->json(["type"=>"success","msg"=>$msg." Successfully","data"=>["objectives"=>$objectives,"components"=>$components],"resType"=>"ObjectiveAndComponents"]);
+          
       }
+
       public function mappingOfObj(Request $request)
       {
-        $projectProgressId= MProjectProgress::where('assigned_project_id',$request->project_progress_no)->get();
+        // $projectProgressId= MProjectProgress::where('assigned_project_id',$request->project_progress_no)->get();
         // $objectives =MPlanObjective::where('status',1)->count();
         $i=0;
-        foreach($request->objective as $objective)  
+        foreach($request->objective as $objective)
         {
           if(isset($_POST['mappedComp_'.$i]))
           foreach($_POST['mappedComp_'.$i] as $mappComp)
           {
-            $objCompMapping = new MPlanObjectivecomponentMapping();
-            $objCompMapping->m_project_progress_id = $projectProgressId[0]->id;
+            $objCompMapping=new MPlanObjectivecomponentMapping();
+            $objCompMapping->m_project_progress_id = $request->m_project_progress_id;
+            $objCompMapping->user_id=Auth::id();
             $objCompMapping->m_plan_objective_id=$objective;
             $objCompMapping->m_plan_component_id=$mappComp;
             $objCompMapping->status= true;
-           
             $objCompMapping->save();
           }
           $i++;
         }
 
-        return response()->json($request->all());
+        return response()->json(["type"=>"success","msg"=>"Saved Successfully"]);
       }
       public function kpiComponentMapping(Request $request)
       {
-        return response()->json($request->all());
+        // return response()->json($request->all());
+        // $projectProgressId= MProjectProgress::where('assigned_project_id',$request->project_progress_no)->get();
+        $i=0;
+        foreach($request->kpinamesId as $kpi)
+        {
+          // return response()->json($mappComp);
+          if(isset($_POST['mappedKpicomponent_'.$i]))
+          foreach($_POST['mappedKpicomponent_'.$i] as $mappComp)
+          {
+            $kpiCompMapping= new MPlanKpicomponentMapping();
+            
+            $kpiCompMapping->m_project_progress_id = $request->m_project_progress_id;
+            $kpiCompMapping->m_project_kpi_id=$kpi;
+            $kpiCompMapping->user_id=Auth::id();
+            $kpiCompMapping->m_plan_component_id=$mappComp;
+            $kpiCompMapping->status= true;
+            $kpiCompMapping->save();
+            foreach ($kpiCompMapping->MProjectKpi->MProjectLevel1Kpi as $lev1) {
+              $kpiCompMapping1= new MAssignedKpiLevel1();
+              $kpiCompMapping1->m_project_progress_id= $request->m_project_progress_id;
+              $kpiCompMapping1->m_plan_kpicomponent_mappings_id= $kpiCompMapping->id;
+              $kpiCompMapping1->m_project_level1_kpis_id= $lev1->id;
+              $kpiCompMapping1->save();
+
+              foreach ($kpiCompMapping1->MProjectLevel1Kpi->MProjectLevel2Kpi as $lev2) {
+                $kpiCompMapping2= new MAssignedKpiLevel2();
+                $kpiCompMapping2->m_project_progress_id= $request->m_project_progress_id;
+                $kpiCompMapping2->m_assigned_kpi_level1_id= $kpiCompMapping1->id;
+                $kpiCompMapping2->m_project_level2_kpis_id= $lev2->id;
+                $kpiCompMapping2->save();
+
+                foreach ($kpiCompMapping2->MProjectLevel2Kpi->MProjectLevel3Kpi as $lev3) {
+                  $kpiCompMapping3= new MAssignedKpiLevel3();
+                  $kpiCompMapping3->m_project_progress_id= $request->m_project_progress_id;
+                  $kpiCompMapping3->m_assigned_kpi_level2_id= $kpiCompMapping2->id;
+                  $kpiCompMapping3->m_project_level3_kpis_id= $lev3->id;
+                  $kpiCompMapping3->save();
+        
+                  foreach ($kpiCompMapping3->MProjectLevel3Kpi->MProjectLevel4Kpi as $lev4) {
+                    $kpiCompMapping4= new MAssignedKpiLevel4();
+                    $kpiCompMapping4->m_project_progress_id= $request->m_project_progress_id;
+                    $kpiCompMapping4->m_assigned_kpi_level3_id= $kpiCompMapping3->id;
+                    $kpiCompMapping4->m_project_level4_kpis_id= $lev4->id;
+                    $kpiCompMapping4->save();
+                  }
+                }
+              }
+            }
+          }
+          $i++;
+        }
+
+        return response()->json(["type"=>"success","msg"=>"Saved Successfully"]);
       }
 
-      // public function monitoring_Stages()
-      // {
-      //   // if (!is_dir('storage/uploads/projects/project_activities/'.Auth::user()->username)) {
-      //   //   // dir doesn't exist, make it
-      //   //   mkdir('storage/uploads/projects/project_activities/'.Auth::user()->username);
-      //   //   }
-      //     //storing files of current project in folder
-      //     // TODO
-      //     // dd(Project::first()->AssignedProject);
-      //     $activities=Project::first()->AssignedProject->AssignedProjectActivity;
-      //     // foreach ($activities as $act) {
-      //     // foreach ($act->AssignedActivityAttachments as $attachment) {
-      //     // file_put_contents('storage/uploads/projects/project_activities/'.Auth::user()->username.'/'.$attachment->attachment_name.'.'.$attachment->type,base64_decode($attachment->project_attachements));
-      //     // }
-      //     // }
-      //     //saving progress
-      //     // TODO
-      //     $assigned_progress=Project::first()->AssignedProject;
-      //     $average_progress=round($assigned_progress->progress, 0, PHP_ROUND_HALF_UP);
-      //     $officerAssignedCount=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
-      //     ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
-      //     ->where('acknowledge','0')
-      //     ->where('user_id',Auth::id())
-      //     ->count();
-      //     $officerInProgressCount=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
-      //     ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
-      //     ->where('user_id',Auth::id())
-      //     ->where('acknowledge','1')
-      //     ->count();
-      //     $project_data=AssignedProject::select('assigned_projects.*')
-      //     ->leftJoin('assigned_project_teams','assigned_projects.id','assigned_project_teams.assigned_project_id')
-      //     ->where('assigned_projects.acknowledge','1')->where('assigned_projects.project_id',Project::first()->id)
-      //     ->first();
-      //     $icons = [
-      //     'pdf' => 'pdf',
-      //     'doc' => 'word',
-      //     'docx' => 'word',
-      //     'xls' => 'excel',
-      //     'xlsx' => 'excel',
-      //     'ppt' => 'powerpoint',
-      //     'pptx' => 'powerpoint',
-      //     'txt' => 'text',
-      //     'png' => 'image',
-      //     'jpg' => 'image',
-      //     'jpeg' => 'image',
-      //     ];
-      //   return view('officer.monitoring_projects.monitoringStages',['activities'=>$activities,'average_progress'=>$average_progress,'icons'=>$icons,'project_data'=>$project_data,'project_id'=>Project::first()->id,'officerInProgressCount'=>$officerInProgressCount,'officerAssignedCount'=>$officerAssignedCount]);
-      // }
+      public function componentActivities(Request $request)
+      {
+        // return response()->json($request->all());
+       $msg="Saved";
+        if(MPlanComponentActivitiesMapping::where('m_project_progress_id',$request->m_project_progress_id)->count()>0)
+        {
+          // MPlanComponentActivitiesMapping::where('m_project_progress_id',$request->m_project_progress_id)->delete();
+          $msg="Updated";
+        } 
+        $i=0;
+        foreach($request->compforactivity as $compActivity)
+        {
+          if(isset($_POST['c_activity_'.$i]))
+          foreach($_POST['c_activity_'.$i] as $act)
+          {
+            // return response()->json($mappComp);
+            $CompActivityMapping=new MPlanComponentActivitiesMapping();
+            $CompActivityMapping->m_project_progress_id = $request->m_project_progress_id;
+            $CompActivityMapping->user_id=Auth::id();
+            $CompActivityMapping->m_plan_component_id=$compActivity;
+            $CompActivityMapping->activity=$act;
+            $CompActivityMapping->status= true;
+            $CompActivityMapping->save();
+          }
+          $i++;
+        }
+        $CompActivityMapping=MPlanComponentActivitiesMapping::select('m_plan_component_activities_mappings.*')
+        ->with('MPlanComponent')
+        ->where('m_plan_component_activities_mappings.m_project_progress_id',$request->m_project_progress_id)
+        ->get();
+        return response()->json(["type"=>"success","msg"=>$msg." Successfully", "resType"=>"forTime","data"=>["CompActivityMapping"=>$CompActivityMapping]]);
+      }
+       
 
+      public function activities_duration(Request $request)
+      {
+        // return response()->json($request->all());
+        // $msg="Saved";
+        // if(MPlanComponentactivityDetailMapping::where('m_project_progress_id',$request->m_project_progress_id)->count()>0)
+        // {
+        //   MPlanComponentactivityDetailMapping::where('m_project_progress_id',$request->m_project_progress_id)->delete();
+        //   $msg="Updated";
+        // } 
 
+        $size=count($request->componentActivityId);
+        for($i=0 ; $i < $size ; $i++ )
+        {
+            $CompActivityDetails = new MPlanComponentactivityDetailMapping();
+            $CompActivityDetails->m_plan_component_activities_mapping_id =$request->componentActivityId[$i];
+            $CompActivityDetails->duration=$request->daysinduration[$i];
+            $CompActivityDetails->save();
 
+        }
+        // $CompActivityDetails=MPlanComponentactivityDetailMapping::where('m_project_progress_id',$request->m_project_progress_id)->get();
+        return response()->json(["type"=>"success","msg"=>" Successfully"]);
+   
+      }
 
-}
+      public function Costing(Request $request)
+      {
+        $msg="Saved";
+        // if(MPlanComponentactivityDetailMapping::where('m_project_progress_id',$request->m_project_progress_id)->count()>0)
+        // {
+        //   MPlanComponentactivityDetailMapping::where('m_project_progress_id',$request->m_project_progress_id)->delete();
+        //   $msg="Updated";
+        // } 
+        $size=count($request->activityId);
+        for($i=0 ; $i < $size ; $i++ )
+        {
+            $CompActivityDetails = MPlanComponentactivityDetailMapping::find($request->activityId[$i]);
+            $CompActivityDetails->user_id=Auth::id();           
+            $CompActivityDetails->unit =$request->Unit[$i];
+            $CompActivityDetails->quantity=$request->Quantity[$i];
+            $CompActivityDetails->cost=$request->Cost[$i];
+            $CompActivityDetails->amount=$request->Amount[$i];
+            $CompActivityDetails->save();
+
+        }
+        // $CompActivityDetails=MPlanComponentactivityDetailMapping::where('m_project_progress_id',$request->m_project_progress_id)->get();
+        return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
+   
+      }
+      public function saveMonitoringAttachments(Request $request)
+      {
+        // return response()->json($request->all());
+
+        if($request->hasFile('planmonitoringfile')){
+          $file_path = $request->file('planmonitoringfile')->path();
+          $file_extension = $request->file('planmonitoringfile')->getClientOriginalExtension();
+
+          $data =new MProjectAttachment();
+          $data->project_attachement=base64_encode(file_get_contents($file_path));
+          $data->m_project_progress_id=$request->m_project_progress_id;
+          $data->type = $file_extension;
+          $data->user_id = Auth::id();
+          $data->attachment_name=$request->file_name;
+          if($data->save())
+          {
+            return response()->json(["type"=>"success","msg"=>"Saved Successfully"]);
+          }else{
+            return response()->json(["type"=>"error","msg"=>"Something went wrong1!"]);
+          }
+        }
+        return response()->json(["type"=>"error","msg"=>"Something went wrong2!"]);
+      }
+     public function saveQualityAssesment(Request $request)
+     {
+
+      // return dd($request->all());
+      // return response()->json($request->all());
+      
+      $i=0;
+       
+         while(1)
+         {
+         
+          
+           if(isset($_POST['activitiesforconduct_'.$i]))
+           { 
+             $k=0;
+             foreach($_POST['activitiesforconduct_'.$i] as $activity) 
+            {
+            
+            $qualityassesment = new MConductQualityassesment();
+
+            $qualityassesment->m_project_progress_id = $request->m_project_progress_id;
+            $qualityassesment->user_id= Auth::id();
+            $qualityassesment->m_plan_component_id=$_POST['compforconduct_'.$i];
+
+            if(isset($_POST['activitiesforconduct_'.$i][$k]))
+            $qualityassesment->m_plan_component_activities_mapping_id=$activity;
+              // dd($activity);
+            if(isset($_POST['qualityassesment_'.$i][$k]))
+            $qualityassesment->assesment=$_POST['qualityassesment_'.$i][$k];
+           
+            if(isset($_POST['progresspercentage_'.$i][$k]))
+            $qualityassesment->progressinPercentage=$_POST['progresspercentage_'.$i][$k];
+
+            if(isset($_POST['qa_remarks_'.$i][$k]))
+            $qualityassesment->remarks=$_POST['qa_remarks_'.$i][$k];
+            $qualityassesment->save();
+            $k++;
+          } 
+         $i++;
+        }
+        else
+          break;
+      }
+      
+      return redirect()->back();
+
+    
+     }
+
+     public function savestakeholders(Request $request)
+     {
+        $i =0;
+        $j=0;
+        $k=0;
+        // return response()->json($request->all());
+       if(isset($request->stakeholderExecuting[$i]))
+       foreach($request->stakeholderExecuting as $exe_stakeholder)
+       {
+         $executing_st= new MExecutingStakeholder();
+         $executing_st->m_project_progress_id = $request->m_project_progress_id;
+         $executing_st->user_id= Auth::id();
+         if(isset($request->stakeholderExecuting[$i]))
+         $executing_st->assigned_executing_agency_id=$exe_stakeholder;
+         $executing_st->name=$request->Executingstakeholder_name[$i];
+         $executing_st->designation=$request->Executingstakeholder_designation[$i];
+         $executing_st->email=$request->Executingstakeholder_email[$i];
+         $executing_st->contactNo=$request->Executingstakeholder_number[$i];
+         $executing_st->save();
+        //  return response()->json($executing_st);
+
+         $i++;
+       }
+
+       if(isset($request->Sponsoringstakeholder[$j]))
+       foreach($request->Sponsoringstakeholder as $sp_stakeholder)
+       {
+        $sponsoring_st= new MSponsoringStakeholder();
+        $sponsoring_st->m_project_progress_id = $request->m_project_progress_id;
+         $sponsoring_st->user_id= Auth::id();
+         if(isset($request->Sponsoringstakeholder[$j]))
+         $sponsoring_st->assigned_sponsoring_agency_id=$sp_stakeholder;
+         $sponsoring_st->name=$request->Sponsoringstakeholder_name[$j];
+         $sponsoring_st->designation=$request->Sponsoringstakeholder_designation[$j];
+         $sponsoring_st->email=$request->Sponsoringstakeholder_email[$j];
+         $sponsoring_st->contactNo=$request->Sponsoringstakeholder_number[$j];
+        //  return response()->json($sponsoring_st);
+        $sponsoring_st->save();
+        $j++;
+       }
+
+       if(isset($request->Beneficiarystakeholder[$k]))
+       foreach($request->Beneficiarystakeholder as $Ben_stakeholder)
+       {
+        $benef_st= new MBeneficiaryStakeholder();
+        $benef_st->m_project_progress_id = $request->m_project_progress_id;
+         $benef_st->user_id= Auth::id();
+         if(isset($request->Beneficiarystakeholder[$k]))
+         $benef_st->Beneficiary=$Ben_stakeholder;
+         $benef_st->name=$request->Beneficiarystakeholder_name[$k];
+         $benef_st->designation=$request->Beneficiarystakeholder_designation[$k];
+         $benef_st->email=$request->Beneficiarystakeholder_email[$k];
+         $benef_st->contactNo=$request->Beneficiarystakeholder_number[$k];
+        $benef_st->save();
+        $k++;
+         
+       }
+       return redirect()->back();
+     }
+
+    }
