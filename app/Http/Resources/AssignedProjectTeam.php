@@ -25,7 +25,8 @@ class AssignedProjectTeam extends Resource
           // "assigned_project_id" => $this->assigned_project_id,
           "created_at" => $this->created_at,
           "updated_at" => $this->created_at,
-          "assigned_project" => new AssignedProjectResource($this->assignedProject),
+          // "assigned_project" => new AssignedProjectResource($this->assignedProject),
+          "assigned_project" => $this->when($this->assignedProject->MProjectProgress->count() > 0,new AssignedProjectResource($this->assignedProject)),
         ];
     }
 
