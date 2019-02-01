@@ -1065,7 +1065,7 @@ class OfficerController extends Controller
 
       public function Costing(Request $request)
       {
-        // $msg="Saved";
+        $msg="Saved";
         // if(MPlanComponentactivityDetailMapping::where('m_project_progress_id',$request->m_project_progress_id)->count()>0)
         // {
         //   MPlanComponentactivityDetailMapping::where('m_project_progress_id',$request->m_project_progress_id)->delete();
