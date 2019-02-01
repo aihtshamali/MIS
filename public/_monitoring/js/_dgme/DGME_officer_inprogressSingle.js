@@ -264,8 +264,6 @@ $(document).ready(function () {
 
     //END
 
-
-
     function hideallmaintabs() {
         $('#summary').hide();
         $('#p_monitoring').hide();
@@ -684,6 +682,8 @@ function ObjectiveComponent(components,objectives){
               <option value="`+val.id+`">`+val.component+`</option>
           `;
       });
+      console.log(compOpt);
+      
  
       objectives.forEach(function (val,index) {
           var ObjCompHere = `
