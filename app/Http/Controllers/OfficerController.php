@@ -637,17 +637,11 @@ class OfficerController extends Controller
         $healthsafety=MHealthSafety::where('status',1)->get();
         // dd($healthsafety[1]->MAssignedProjectHealthSafety[0]->status);
         // dd($project->Project->AssignedExecutingAgencies);
-<<<<<<< HEAD
-        $projectProgressId= MProjectProgress::where('assigned_project_id',$project->id)->get();
-        $monitoringProjectId=$projectProgressId[0]->id;
-        // dd($projectProgressId[0]->AssignedProject->Project->AssignedExecutingAgencies);
-=======
         
         // Chwli
         // $projectProgressId= MProjectProgress::where('assigned_project_id',$project->id)->get();
         $projectProgressId=$progresses;
         $monitoringProjectId=$projectProgressId->id;
->>>>>>> 00c758f77627bc2267780f9e9cb232d98a70ee3e
         $objectives =MPlanObjective::where('status',1)
         ->where('m_project_progress_id',$projectProgressId->id)
         ->get();
@@ -671,17 +665,13 @@ class OfficerController extends Controller
         ->get();
         // dd($ComponentActivities);
         $Kpis =MProjectKpi::where('status',1)->get();
-<<<<<<< HEAD
-        $mPlanKpiComponents=$projectProgressId[0]->MPlanKpicomponentMapping;
+        $mPlanKpiComponents=$projectProgressId->MPlanKpicomponentMapping;
 
         $org_project=Project::where('id',$request->project_id)->first();
         $org_projectId=$org_project->id;
         // dd($org_project->AssignedExecutingAgencies);
         // $executing=$org_projectId->AssignedExecutingAgencies;
         // dd($executing);
-=======
-        $mPlanKpiComponents=$projectProgressId->MPlanKpicomponentMapping;
->>>>>>> 00c758f77627bc2267780f9e9cb232d98a70ee3e
         \JavaScript::put([
           'projectWithRevised'=>$projectWithRevised,
          'components'=> $components,
