@@ -48,7 +48,7 @@
                         <div class="card-header">
                             <h4>Quality Assesment</h4>
                         </div>
-                        <form action="{{route('saveQualityAssesment')}}" class="serializeform" method="POST">
+                        <form action="{{route('saveQualityAssesment')}}" class="" method="POST">
                                 {{ csrf_field() }}
                         <div class="card-block">
                               <div class="row oneComponentQA">
@@ -61,6 +61,7 @@
                         <div class="form-group row">
                                 <div class="col-md-8"></div>
                                     <div class="col-md-3">
+                                            <input type="hidden" name="m_project_progress_id" value="{{$progresses->id}}">
                                     <button type="submit" class="btn btn-success btn-sm btn-outline-success">
                                         Save Quality Assesment</button>
                                     </div>
@@ -125,56 +126,55 @@
                 </div>
                 <div class="tab-pane active" id="stakeholder" role="tabpanel"
                     aria-expanded="true">
-                    {{-- <p class="m-0">4.Cras consequat in enim ut efficitur. Nulla
-                        posuere elit quis auctor interdum praesent sit amet nulla vel
-                        enim amet. Donec convallis tellus neque, et imperdiet felis
-                        amet.</p> --}}
+
                     <div class="card z-depth-right-0">
                         <div class="card-header">
-                            <h4>Executing Agencies</h4>
+                            <h4>Stakeholders</h4>
+
                         </div>
+                        <form action="{{route('savestakeholders')}}" class="" method="POST">
+                                {{ csrf_field() }}
                         <div class="card-block">
                             <div class="col-md-12">
                                 <div class="table-responsive">
                                     <table class="table  table-bordered nowrap">
                                         <thead>
                                             <tr>
-                                                <th>Sr #</th>
-                                                <th>Stakeholder Type</th>
+
+                                                <th>Executing Stakeholders</th>
                                                 <th>Name</th>
                                                 <th>Designation</th>
-                                                <th>Email </th>
+
                                                 <th>Contact #</th>
+                                                <th>Email </th>
                                                 <th></th>
                                             </tr>
                                         </thead>
-                                        <tbody id="stakeholdersst1">
+                                        <tbody id="Executingstakeholders">
                                             <tr>
-                                                <td>
-                                                    <label for="">1</label>
-                                                </td>
+
                                                 <td>
                                                     <div class="col-md-12">
-                                                        <select id="districts" name="stakeholder" class="form-control form-control-primary select2" data-placeholder="" style="width: 100%;">
-                                                            <option value="" hidden='hidden'>Select</option>
-                                                            <option value="">Executing</option>
-                                                            <option value="">Sponsoring</option>
-                                                            <option value="">Beneficiary</option>
-                                                            <option value="">Type X</option>
+                                                        <select id="" name="stakeholderExecuting[]" class="form-control form-control-primary" data-placeholder="" style="width: 100%;">
+                                                            <option value="" disabled selected> Select Here</option>
+                                                            @foreach ($org_project->AssignedExecutingAgencies as $executing)
+                                                            <option value="{{$executing->id}}" >{{$executing->ExecutingAgency->name}}</option>
+                                                            @endforeach
+
                                                         </select>
                                                     </div>
                                                 </td>
-                                                <td><input type="text" name="stakeholder_name"
+                                                <td><input type="text" name="Executingstakeholder_name[]"
                                                         class="form-control" /></td>
-                                                        <td><input type="text" name="stakeholder_designation"
+                                                        <td><input type="text" name="Executingstakeholder_designation[]"
                                                             class="form-control" /> </td>
-                                                <td><input type="text" name="stakeholder_number"
+                                                <td><input type="text" name="Executingstakeholder_number[]"
                                                         class="form-control" /></td>
-                                                <td><input type="text" name="stakeholder_email"
+                                                <td><input type="text" name="Executingstakeholder_email[]"
                                                         class="form-control" /></td>
                                                 <td><button type="button" name="add[]"
                                                         class=" form-control btn btn-success "
-                                                        id="addmorest1" style="size:14px;">+</button></td>
+                                                        id="addmoreexecuting" style="size:14px;">+</button></td>
                                             </tr>
                                         </tbody>
 
@@ -182,53 +182,46 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card z-depth-right-0">
-                        <div class="card-header">
-                            <h4>Sponsoring Agencies</h4>
-                        </div>
                         <div class="card-block">
                             <div class="col-md-12">
                                 <div class="table-responsive">
                                     <table class="table  table-bordered nowrap">
                                         <thead>
                                             <tr>
-                                                <th>Sr #</th>
-                                                <th>Stakeholder Type</th>
+
+                                                <th>Sponsoring Stakeholders</th>
                                                 <th>Name</th>
                                                 <th>Designation</th>
-                                                <th>Email </th>
                                                 <th>Contact #</th>
+                                                <th>Email </th>
                                                 <th></th>
                                             </tr>
                                         </thead>
-                                        <tbody id="stakeholdersst2">
+                                        <tbody id="Sponsoringstakeholders">
                                             <tr>
-                                                <td>
-                                                    <label for="">1</label>
-                                                </td>
+
                                                 <td>
                                                     <div class="col-md-12">
-                                                        <select id="districts" name="stakeholderst2" class="form-control form-control-primary select2" data-placeholder="" style="width: 100%;">
-                                                            <option value="" hidden='hidden'>Select</option>
-                                                            <option value="">Executing</option>
-                                                            <option value="">Sponsoring</option>
-                                                            <option value="">Beneficiary</option>
-                                                            <option value="">Type X</option>
+                                                        <select id="" name="Sponsoringstakeholder[]" class="form-control form-control-primary " data-placeholder="" style="width: 100%;">
+                                                                <option value="" disabled selected> Select Here</option>
+                                                                @foreach ($org_project->AssignedSponsoringAgencies as $sponsoring)
+                                                                <option value="{{$sponsoring->id}}" >{{$sponsoring->SponsoringAgency->name}}</option>
+                                                                @endforeach
+
                                                         </select>
                                                     </div>
                                                 </td>
-                                                <td><input type="text" name="stakeholder_namest2"
-                                                        class="form-control" /></td>
-                                                        <td><input type="text" name="stakeholder_designationst2"
-                                                            class="form-control" /> </td>
-                                                <td><input type="text" name="stakeholder_numberst2"
-                                                        class="form-control" /></td>
-                                                <td><input type="text" name="stakeholder_emailst2"
-                                                        class="form-control" /></td>
+                                                    <td><input type="text" name="Sponsoringstakeholder_name[]"
+                                                            class="form-control" /></td>
+                                                            <td><input type="text" name="Sponsoringstakeholder_designation[]"
+                                                                class="form-control" /> </td>
+                                                    <td><input type="text" name="Sponsoringstakeholder_number[]"
+                                                            class="form-control" /></td>
+                                                    <td><input type="text" name="Sponsoringstakeholder_email[]"
+                                                            class="form-control" /></td>
                                                 <td><button type="button" name="add[]"
                                                         class=" form-control btn btn-success "
-                                                        id="addmorest2" style="size:14px;">+</button></td>
+                                                        id="addmoresponsoring" style="size:14px;">+</button></td>
                                             </tr>
                                         </tbody>
 
@@ -236,19 +229,14 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card z-depth-right-0">
-                        <div class="card-header">
-                            <h4>Beneficiaries Agencies</h4>
-                        </div>
                         <div class="card-block">
                             <div class="col-md-12">
                                 <div class="table-responsive">
                                     <table class="table  table-bordered nowrap">
                                         <thead>
                                             <tr>
-                                                <th>Sr #</th>
-                                                <th>Stakeholder Type</th>
+
+                                                <th>BeneFiciary Stakeholder</th>
                                                 <th>Name</th>
                                                 <th>Designation</th>
                                                 <th>Email </th>
@@ -256,33 +244,24 @@
                                                 <th></th>
                                             </tr>
                                         </thead>
-                                        <tbody id="stakeholdersst3">
+                                        <tbody id="Beneficiarystakeholders">
                                             <tr>
-                                                <td>
-                                                    <label for="">1</label>
-                                                </td>
+
                                                 <td>
                                                     <div class="col-md-12">
-                                                        <select id="districts" name="stakeholderst3" class="form-control form-control-primary select2" data-placeholder="" style="width: 100%;">
-                                                            <option value="" hidden='hidden'>Select</option>
-                                                            <option value="">Executing</option>
-                                                            <option value="">Sponsoring</option>
-                                                            <option value="">Beneficiary</option>
-                                                            <option value="">Type X</option>
-                                                        </select>
+                                                       <input type="text" name="Beneficiarystakeholder[]" class="form-control" placeholder="Beneficiary">
                                                     </div>
                                                 </td>
-                                                <td><input type="text" name="stakeholder_namest3"
+                                                <td><input type="text" name="Beneficiarystakeholder_name[]"
                                                         class="form-control" /></td>
-                                                        <td><input type="text" name="stakeholder_designation"
+                                                        <td><input type="text" name="Beneficiarystakeholder_designation[]"
                                                             class="form-control" /> </td>
-                                                <td><input type="text" name="stakeholder_numberst3"
-                                                        class="form-control" /></td>
-                                                <td><input type="text" name="stakeholder_emailst3"
+                                                <td><input type="text" name="Beneficiarystakeholder_email[]"class="form-control" /></td>
+                                                <td><input type="text" name="Beneficiarystakeholder_number[] "
                                                         class="form-control" /></td>
                                                 <td><button type="button" name="add[]"
                                                         class=" form-control btn btn-success "
-                                                        id="addmorest3" style="size:14px;">+</button></td>
+                                                        id="addmoreben" style="size:14px;">+</button></td>
                                             </tr>
                                         </tbody>
 
@@ -290,6 +269,15 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group row">
+                                <div class="col-md-10"></div>
+                                  <div class="col-md-1">
+                                    <input type="hidden" name="m_project_progress_id" value="{{$progresses->id}}">
+                                    <button type="submit" class="btn btn-success btn-sm btn-outline-success">
+                                        Save </button>
+                                  </div>
+                              </div>
+                        </form>
                     </div>
 
                 </div>
@@ -518,9 +506,11 @@
                                                 <td>{{$issue->description}}</td>
 
                                                 <td>
+
                                                     <div class="checkbox-fade fade-in-success m-0">
                                                         <label>
-                                                            <input type="checkbox" name="status[{{$key}}]" value="{{$issue->id}}_yes" id="yes">
+                                                            {{-- {{$issue->MAssignedProjectHealthSafety[0]->status == 'yes' ? 'checked' : '' }} --}}
+                                                            <input type="radio" name="status[{{$key}}]" value="{{$issue->id}}_yes" id="" >
                                                             <span class="cr">
                                                                 <i class="cr-icon icofont icofont-ui-check txt-success"></i>
                                                             </span>
@@ -530,8 +520,7 @@
                                                 <td>
                                                     <div class="checkbox-fade fade-in-danger m-0">
                                                         <label>
-                                                            <input type="checkbox" name="status[{{$key}}]" value="{{$issue->id}}_no" id="no"
-                                                                checked>
+                                                            <input type="radio" name="status[{{$key}}]" value="{{$issue->id}}_no" id="" >
                                                             <span class="cr">
                                                                 <i class="cr-icon icofont icofont-ui-check txt-danger"></i>
                                                             </span>
@@ -539,7 +528,7 @@
                                                     </div>
                                                 </td>
 
-                                                <td><textarea name="comments[{{$key}}]" id="" cols="30" rows="10"></textarea></td>
+                                                <td><textarea name="comments[{{$key}}]" id="" cols="30" rows="2"></textarea></td>
                                             </tr>
                                             @endforeach
 

@@ -282,8 +282,6 @@ $(document).ready(function () {
 
     //END
 
-
-
     function hideallmaintabs() {
         $('#summary').hide();
         $('#p_monitoring').hide();
@@ -503,91 +501,122 @@ $(function () {
 
 });
 
-$(document).ready(() => {
+// $(document).ready(() => {
     // $('.select2').select2()
-})
+//     var SponsoringAgencylist=[]
+//  var SAgency='';
+// $.ajax({
+//     type: "get",
+//     url: '{{route("getAssignedSponsoringAgency")}}',
+//     async: false,
+//     success: function(data){
+//     // console.log(data);
+//     SponsoringAgencylist = data;
+//     },
+//     error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+//     console.log(JSON.stringify(jqXHR));
+//     console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+//     }
+// });
+// for (var i = 0; i < SponsoringAgencylist.length; ++i) {
+//     SAgency=SAgency+'<option value="'+SponsoringAgencylist[i].id+'">'+SponsoringAgencylist[i].name+'</option>';
+// }
+// })
 
-$('button#addmorest1').click(function (e) {
+
+$('button#addmoreexecuting').click(function (e) {
     var add_stakeholder = `<tr>
     <td>
-        <label for="">1</label>
-    </td>
-    <td>
         <div class="col-md-12">
-            <select id="districts" name="stakeholder" class="form-control form-control-primary select2" data-placeholder="" style="width: 100%;">
-                <option value="" hidden='hidden'>Select</option>
-                <option value="">some option</option>
-                <option value="">to choose</option>
-                <option value="">from</option>
+            <select id="" name="stakeholderExecuting" class="form-control form-control-primary " data-placeholder="" style="width: 100%;">
+                `+ Ea +`
             </select>
         </div>
     </td>
-    <td><input type="text" name="stakeholder_name"
-            class="form-control" /></td>
-    <td><input type="text" name="stakeholder_designation"
-            class="form-control" /> </td>
-    <td><input type="text" name="stakeholder_mil"
-            class="form-control" />
-      </td>
-    <td><input type="text" name="stakeholder_number"
-            class="form-control" /></td>
+    <td><input type="text" name="Executingstakeholder_name[]"
+    class="form-control" /></td>
+    <td><input type="text" name="Executingstakeholder_designation[]"
+        class="form-control" /> </td>
+<td><input type="text" name="Executingstakeholder_number[]"
+    class="form-control" /></td>
+<td><input type="text" name="Executingstakeholder_email[]"
+    class="form-control" /></td>
                     <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td></tr>`
-    $('#stakeholdersst1').append(add_stakeholder);
+    $('#Executingstakeholders').append(add_stakeholder);
 });
-$('button#addmorest2').click(function (e) {
+var Ea='';
+function executingAgencyforCM(agencies)
+{
+    console.log(agencies,'executing');
+
+    agencies.forEach(function (val,index) {
+        Ea  = Ea+ `
+            <option value="`+val.id+`">`+val.executing_agency_id+`</option>
+        `;
+    });
+}
+var Sa='';
+function sponsoringAgencyforCM(agencies)
+{
+    console.log(agencies,'okiiii');
+
+    // var agency = $(this).val();
+    // var count = 1;
+
+    agencies.forEach(function (val,index) {
+        // console.log(val.sponsoring_agency_id.SponsoringAgency.name,'id');
+        Sa  = Sa+ `
+            <option value="`+val.id+`">`+val.sponsoring_agency_id+`</option>
+        `;
+
+    });
+
+    // $('.select2').select2();
+}
+$('button#addmoresponsoring').click(function (e) {
     var add_stakeholder = `<tr>
     <td>
-        <label for="">1</label>
-    </td>
-    <td>
         <div class="col-md-12">
-            <select id="districts" name="stakeholder" class="form-control form-control-primary select2" data-placeholder="" style="width: 100%;">
-                <option value="" hidden='hidden'>Select</option>
-                <option value="">some option</option>
-                <option value="">to choose</option>
-                <option value="">from</option>
+            <select id="" name="Sponsoringstakeholder" class="form-control form-control-primary " data-placeholder="" style="width: 100%;">
+              `+Sa+`
             </select>
         </div>
     </td>
-    <td><input type="text" name="stakeholder_name"
-            class="form-control" /></td>
-    <td><input type="text" name="stakeholder_designation"
-            class="form-control" /> </td>
-    <td><input type="text" name="stakeholder_mil"
-            class="form-control" />
-      </td>
-    <td><input type="text" name="stakeholder_number"
-            class="form-control" /></td>
+    <td><input type="text" name="Sponsoringstakeholder_name[]"
+    class="form-control" /></td>
+    <td><input type="text" name="Sponsoringstakeholder_designation[]"
+        class="form-control" /> </td>
+<td><input type="text" name="Sponsoringstakeholder_number[]"
+    class="form-control" /></td>
+<td><input type="text" name="Sponsoringstakeholder_email[]"
+    class="form-control" /></td>
                     <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td></tr>`
-    $('#stakeholdersst2').append(add_stakeholder);
+    $('#Sponsoringstakeholders').append(add_stakeholder);
 });
-$('button#addmorest3').click(function (e) {
+
+$('button#addmoreben').click(function (e) {
     var add_stakeholder = `<tr>
-    <td>
-        <label for="">1</label>
-    </td>
+
     <td>
         <div class="col-md-12">
-            <select id="districts" name="stakeholder" class="form-control form-control-primary select2" data-placeholder="" style="width: 100%;">
-                <option value="" hidden='hidden'>Select</option>
-                <option value="">some option</option>
-                <option value="">to choose</option>
-                <option value="">from</option>
-            </select>
+        <input type="text" name="Beneficiarystakeholder[]" class="form-control" placeholder="Beneficiary">
+
         </div>
     </td>
-    <td><input type="text" name="stakeholder_name"
-            class="form-control" /></td>
-    <td><input type="text" name="stakeholder_designation"
-            class="form-control" /> </td>
-    <td><input type="text" name="stakeholder_mil"
-            class="form-control" />
-      </td>
-    <td><input type="text" name="stakeholder_number"
-            class="form-control" /></td>
+    <td><input type="text" name="Beneficiarystakeholder_name[]"
+    class="form-control" /></td>
+    <td><input type="text" name="Beneficiarystakeholder_designation[]"
+        class="form-control" /> </td>
+        <td><input type="text" name="Beneficiarystakeholder_email[]"
+    class="form-control" /></td>
+<td><input type="text" name="Beneficiarystakeholder_number[]"
+    class="form-control" /></td>
+
                     <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td></tr>`
-    $('#stakeholdersst3').append(add_stakeholder);
+    $('#Beneficiarystakeholders').append(add_stakeholder);
 });
+
+
 $('button#add-more-issues').click(function (e) {
     var temp =  $('tbody#add-issue-here').children().first().clone();
     temp.children().last().remove();
@@ -671,6 +700,8 @@ function ObjectiveComponent(components,objectives){
               <option value="`+val.id+`">`+val.component+`</option>
           `;
       });
+      console.log(compOpt);
+
 
       objectives.forEach(function (val,index) {
           var ObjCompHere = `
@@ -833,6 +864,7 @@ function ObjectiveComponentTime(CompActivityMapping)
 //         $(temp).appendTo('#comptaskl')
 //     });
 // });
+
 var compOpt='';
 function componentsfroConductMonitoring(components)
 {
@@ -848,7 +880,7 @@ function componentsfroConductMonitoring(components)
     });
     $('.select2').select2();
 }
-
+var countforconduct=0;
 $('button#add_more_component').click(function (e) {
     console.log(compOpt);
 
@@ -859,17 +891,20 @@ $('button#add_more_component').click(function (e) {
                         </div>
                         <div class="form-group col-md-6  ">
                         <label for=""> <b>Component Title :</b></label><br>
-                        <select class=" form-control kpisel form-control-primary " name=compforconduct[]>
+                        <select class=" form-control kpisel form-control-primary " name="compforconduct_`+countforconduct+`">
                         `+ compOpt +`
                         </select>
                         </div>
                         <div class="col-md-2 offset-md-1">
                         <br>
-                        <button class=" btn btn-sm btn-success" name="add_more_act[]" id="add_more_act" onclick="add_activityInComp(this)" type="button">Add Task</button>
+                        <button class=" btn btn-sm btn-success" name="add_more_act[]" id="add_more_act" onclick="add_activityInComp(this,`+countforconduct+`)" type="button">Add Task</button>
                         </div>
                         </div>`;
                         $('.kpisel').select2();
+
     $('.oneComponentQA').append(add_component);
+    countforconduct++;
+
 });
 var objct = $("#objct").val() ? parseInt($("#objct").val()) : 1 ;
 objct++;
@@ -1039,26 +1074,27 @@ function activitiesfroConductMonitoring(activities)
     });
 
 }
-function add_activityInComp(e) {
+function add_activityInComp(e,myc) {
+    var countforcomponent=myc;
     var add_activities_to_assess = `<div class="row singleActivity">
         <div class="form-group col-md-2 offset-md-1" style="margin-bottom:10px !important;">
         <label for=""><b>Tasks</b></label>
-        <select class="form-control select2 form-control-warning" name="activitiesforconduct[]">
+        <select class="form-control select2 form-control-warning" name="activitiesforconduct_`+countforcomponent+`[]">
         <option value="" selected disabled>Select Tasks</option>
           `+activitiesforConductmonitoring+`
         </select></div>
         <div class="form-group col-md-2">
         <label for=""><b>Assesment</b></label>
-        <select class=" form-control" name=qualityassesment[]>
+        <select class=" form-control" name="qualityassesment_`+countforcomponent+`[]">
         <option value="" selected hidden>Assesment Type</option>
-        <option value="1" style="background:#cc18068c;color:white;">Poor</option>
-        <option value="2" style="background:#f5d75c;color:white;">PartiallySatisfactory</option>
-        <option value="3" style="background:#44d581;color:white;">Satisfactory</option>
+        <option value="Poor" style="background:#cc18068c;color:white;">Poor</option>
+        <option value="Partially Satisfactory" style="background:#f5d75c;color:white;">Partially Satisfactory</option>
+        <option value="Satisfactory" style="background:#44d581;color:white;">Satisfactory</option>
         </select>
         </div>
         <div class="form-group col-md-2">
         <label for=""><b>Progress in %</b></label>
-        <select class=" form-control" name="progresspercentage[]">
+        <select class=" form-control" name="progresspercentage_`+countforcomponent+`[]">
         <option value="" selected disabled>Progress Percentage</option>
         <option value="25%">0%-25%</option>
         <option value="50%">25%-50%</option>
@@ -1068,14 +1104,9 @@ function add_activityInComp(e) {
         </div>
         <div class="form-group col-md-3">
         <label for=""><b>Remarks</b></label><br>
-        <textarea name="qa_remarks[]" id="qa_remarks" style="height:37px !important;" class="form-control" type="text"></textarea>
+        <textarea name="qa_remarks_`+countforcomponent+`[]" id="qa_remarks" style="height:37px !important;" class="form-control" type="text"></textarea>
         </div>
-        <div class="col-md-1" style="padding-top:2.2% !important;">
-          <div class="btn col-md-12 btn-primary btn-block" style="padding:4px !important;border-radius:50px;">
-            <input type="file" id="html_btn" name="" title="Click to add picture">
-            <span><i class="fa fa-paperclip" style="font-size:29px;"></i></span>
-          </div>
-        </div>
+
         <div class="form-group col-md-1">
          <br><button class="btn btn-danger btn-sm" onclick="removerow(this)" name="remove_Comp_activity[]"><span style="font-size:12px;">-</span></button>
         </div>

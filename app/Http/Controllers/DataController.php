@@ -15,6 +15,7 @@ use App\MAssignedKpiLevel1;
 use App\MAssignedKpiLevel2;
 use App\MAssignedKpiLevel3;
 use App\MAssignedKpiLevel4;
+use App\MAppAttachments;
 // use App\GeneralKpi;
 
 class DataController extends Controller
@@ -150,6 +151,38 @@ class DataController extends Controller
         // foreach ($data as $key => $value) {
         //   return $value;
         // }
+        return response()->json(["message" => "Saved"]);
+      }
+
+      public function setProjectData(Request $request){
+        // return response()->json($request->location);
+        // return response()->json($request->file('ionicfile')->getClientOriginalName()) ;
+        // return response()->json(["hello"=>"hi"]);
+
+        // $i = 0;
+        // while($request->hasFile('ionicfile'.$i)){
+          $data = new MAppAttachments();
+          $file_path = $request->file('ionicfile')->path();
+          $file_extension = $request->file('ionicfile')->getMimeType();
+          $request->file('ionicfile')->store('public/uploads/monitoring/'.$request->m_project_progress_id.'/');
+          $data->project_attachement=$request->file('ionicfile')->hashName();
+          // $data->project_attachement=base64_encode(file_get_contents($file_path));
+          $data->user_id=$request->user_id;
+          $data->m_project_progress_id = $request->m_project_progress_id;
+          $data->type = $file_extension;
+          $data->attachment_name=$request->file('ionicfile')->getClientOriginalName();
+          $data->longitude=$request->longitude;
+          $data->latitude=$request->latitude;
+          $data->save();
+          // $i++;
+        // }
+        return "Done";
+        //
+        //
+        // $path = $request->file('ionicfile')->store('newImage.png');
+        // return response()->json(["response" => "true"]);
+        // $data =  json_decode($request->data, true);
+        // return $data;
       }
 
 }

@@ -431,6 +431,35 @@ $(document).ready(function(){
 
     var compData='';
     var activities='';
+    var sponsoringAgency='';
+    var executingAgency='';
+
+        function getWBS(route,id){
+        axios.get(route,{
+     params:{
+         "assigned_project_id":id,
+     }
+     })
+     .then((response) => {
+         console.log(response.data.m_kpi.sector);
+         var ds = response.data.m_kpi.sector[0];
+        var oc = $('#WBSChart').orgchart({
+        'data' : ds,
+        'nodeContent': 'title'
+        });
+
+     //   $('.'+response.data.role+'_unassigned_counter').text(response.data.unassigned);
+     })
+     .catch(function (error) {
+       console.log(error);
+     });
+
+   }
+
+
+   $('.summaryNav').on('click', function () {
+        getWBS('{{route("getProjectKpi")}}',"{{$project->id}}");
+    });
         (function($) {
             console.log();
 
@@ -451,7 +480,6 @@ $(document).ready(function(){
         }) ();
 
         (function($) {
-            console.log();
 
                 axios.post('{{route("getProjectActivities")}}',{
                       MProjectProgressId:'<?= $monitoringProjectId ?>'
@@ -460,6 +488,46 @@ $(document).ready(function(){
                         activities=response.data
                        console.log(response,"sad");
                        activitiesfroConductMonitoring(activities)
+
+                    }
+                )
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+        }) ();
+
+        (function($) {
+
+                axios.post('{{ route("getAssignedSponsoringAgency") }}',{
+                    originalProjectId:'<?= $org_projectId ?>',
+                    // _token: '{{ csrf_field() }}'
+                    })
+                    // console.log("sponsoring");
+                    .then(response => {
+                        sponsoringAgency=response.data
+                       console.log(response,"sponsoring");
+                       sponsoringAgencyforCM(sponsoringAgency)
+
+                    }
+                )
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+        }) ();
+
+         (function($) {
+
+                axios.post('{{ route("getAssignedExecutingAgency") }}',{
+                    originalProjectId:'<?= $org_projectId ?>',
+                    // _token: '{{ csrf_field() }}'
+                    })
+                    // console.log("sponsoring");
+                    .then(response => {
+                        executingAgency=response.data
+                       console.log(response,"executingAgency");
+                       executingAgencyforCM(executingAgency)
 
                     }
                 )
@@ -530,7 +598,7 @@ $(document).ready(function(){
 
 axios.get('{{route("getProjectKpi")}}',{
      params:{
-         "assigned_project_id":1034,
+         "assigned_project_id":"{{$project->id}}",
      }
      })
      .then((response) => {
@@ -589,13 +657,19 @@ axios.get('{{route("getProjectKpi")}}',{
           }
     });
   });
-  var compopt='';
   var count=0;
-     $('li.optiontest').on('click', function () {
+  var compopt='';
+  $('li.optiontest').on('click', function () {
+        compopt='';
+    console.log(compData);
 
         for (let index = 0; index < compData.length; index++) {
-            compopt=compopt+'<option value="'+compData[index].id+'">'+compData[index].component+'</option>';
+            compopt+='<option value="'+compData[index].id+'">'+compData[index].component+'</option>';
+            console.log(index);
+
         }
+        console.log(compopt,compData.length);
+
         var t = $(this).attr('id').toString()
         var b = true;
             if(t.split('-s')[1]=='election'){

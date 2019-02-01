@@ -15,5 +15,8 @@ class MPlanComponentActivitiesMapping extends Model
       public function MPlanComponentactivityDetailMapping(){
         return $this->hasOne('App\MPlanComponentactivityDetailMapping');
       }
+      public function MConductQualityassesment(){
+        return $this->hasMany('App\MConductQualityassesment');
+      } 
        
 }

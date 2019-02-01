@@ -12,4 +12,8 @@ class AssignedExecutingAgency extends Model
       public function ExecutingAgency(){
         return $this->belongsTo('App\ExecutingAgency');
       }
+     
+      public function MExecutingStakeholder(){
+        return $this->hasMany('App\MExecutingStakeholder');
+      } 
 }
