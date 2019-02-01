@@ -567,15 +567,17 @@ class OfficerController extends Controller
         if($request->project_id==null)
           return redirect()->back();
 
-        $project=AssignedProject::where('project_id',$request->project_id)->first();
+        $project=AssignedProject::where('project_id',$request->project_id)->orderBy('created_at','desc')->first();
         $total_previousProject = MProjectProgress::where('assigned_project_id',$project->id)->orderBy('created_at', 'desc')->get();
         $previousProject = null;
         $projectProgress = null;
         if($total_previousProject->count()){
           // One New Monitoring (it shouldn't be here)
           $previousProject = $total_previousProject->first();
-          $previousProject->quarter = $previousProject->quarter + 1;
-          $previousProject->save();
+          // It will change 
+          //TODO
+          // $previousProject->quarter = $previousProject->quarter + 1;
+          // $previousProject->save();
           $projectProgress=$previousProject;
 
           
@@ -882,7 +884,7 @@ class OfficerController extends Controller
         $msg="Saved";
         if(MPlanObjective::where('m_project_progress_id',$request->m_project_progress_id)->count()>0)
          {
-           MPlanObjective::where('m_project_progress_id',$request->m_project_progress_id)->delete();
+          //  MPlanObjective::where('m_project_progress_id',$request->m_project_progress_id)->delete();
            $msg="Updated";
          } 
         foreach($request->obj as $objective)
@@ -895,7 +897,7 @@ class OfficerController extends Controller
           }
           if(MPlanComponent::where('m_project_progress_id',$request->m_project_progress_id)->count()>0)
             {
-              MPlanComponent::where('m_project_progress_id',$request->m_project_progress_id)->delete();
+              // MPlanComponent::where('m_project_progress_id',$request->m_project_progress_id)->delete();
               $msg="Updated";
             } 
           foreach($request->comp as $component)
@@ -998,7 +1000,7 @@ class OfficerController extends Controller
        $msg="Saved";
         if(MPlanComponentActivitiesMapping::where('m_project_progress_id',$request->m_project_progress_id)->count()>0)
         {
-          MPlanComponentActivitiesMapping::where('m_project_progress_id',$request->m_project_progress_id)->delete();
+          // MPlanComponentActivitiesMapping::where('m_project_progress_id',$request->m_project_progress_id)->delete();
           $msg="Updated";
         } 
         $i=0;
