@@ -24,8 +24,8 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @foreach ($projects as $project)
                                 <tr>
-                                  @foreach ($projects as $project)
                                     <td>{{ $project->title }}</td>
                                     <td>
                                       @foreach ($project->AssignedSubSectors as $sub_sectors)
@@ -40,8 +40,8 @@
                                     <td>
                                     <a href="{{route('monitoring_inprogressSingle',['project_id'=>$project->id])}}" class="btn btn-md  btn-info"> Conduct Monitoring</a>
                                     </td>
-                                  @endforeach
                                 </tr>
+                                @endforeach
 
 
                             </tbody>
