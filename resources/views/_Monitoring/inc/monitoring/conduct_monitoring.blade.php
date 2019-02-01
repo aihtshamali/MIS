@@ -76,7 +76,7 @@
                         <div class="card-block">
                           <form action="{{route('saveGeneralFeedBack')}}" class="serializeform" method="POST">
                             {{ csrf_field() }}
-                            <input type="hidden" name="m_project_progress_id" value="{{$progresses->last()->id}}">
+                            <input type="hidden" name="m_project_progress_id" value="{{$progresses->id}}">
                             @foreach ($generalFeedback as $key => $gf)
                               <div class=" form-group row">
                                   <div class="col-md-1"></div>
@@ -294,7 +294,7 @@
                         <div class="card-block">
                             <form action="{{route('saveMissues')}}" method="POST" class="serializeform">
                                 {{ csrf_field() }}
-                                <input type="hidden" name="m_project_progress_id" value="{{$progresses->last()->id}}">
+                                <input type="hidden" name="m_project_progress_id" value="{{$progresses->id}}">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered nowrap">
                                         <thead>
@@ -486,7 +486,7 @@
                             <div class="col-md-12">
                                 <form action="{{route('savehealthsafety')}}" method="POST" class="serializeform">
                                 {{ csrf_field() }}
-                                <input type="hidden" name="m_project_progress_id" value="{{$progresses->last()->id}}">
+                                <input type="hidden" name="m_project_progress_id" value="{{$progresses->id}}">
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-stripped nowrap">
                                         <thead>
@@ -553,7 +553,7 @@
                       <div class="col-md-12">
                           <form action="{{route('savehealthsafety')}}" method="POST" class="serializeform">
                           {{ csrf_field() }}
-                          <input type="hidden" name="m_project_progress_id" value="{{$progresses->last()->id}}">
+                          <input type="hidden" name="m_project_progress_id" value="{{$progresses->id}}">
                           <div class="table-responsive">
                               <table class="table table-bordered table-stripped nowrap">
                                   <thead>

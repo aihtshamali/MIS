@@ -142,7 +142,6 @@
                         @endforelse
                         
                       </div>
-                      <input type="hidden" value="{{$project->Project->AssignedProject->id}}" name="project_progress_no">
                       <button class="btn aho col-md-2 offset-md-10" type="submit" id="saveObjComp">Save & Proceed</button>
                   </div>
                   </form>
@@ -216,7 +215,6 @@
                                     @endforeach
                                     </li>
                         </ul>
-                        <input type="hidden" value="{{$project->Project->AssignedProject->id}}" name="project_progress_no">
                         {{-- <button class="btn aho col-md-3 btn btn-alert offset-md-7 " type="button" style="background: #406765;border: 1px solid; " id="ObjCompShowSum">Show Summary</button> --}}
                         <button class="btn aho col-md-1 btn btn-primary pull-right" type="submit" id="saveCompagainstObj">Save </button>
                         </div>
@@ -276,7 +274,6 @@
                         </div>
                         <div class="card-footer">
                             <div class="col-md-3 offset-md-9">
-                        <input type="hidden" value="{{$monitoringProjectId}}" name="project_progress_no">
                             <button class="btn btn-primary btn-md activities saveNnextbtn" type="submit" id="svkp">Save </button>
 
                             </div>
@@ -328,7 +325,6 @@
                         </div>
                         <div class="card-footer">
                                 <div class="col-md-3 offset-md-9">
-                                    <input type="hidden" value="{{$monitoringProjectId}}" name="project_progress_no">
                                     <button type="submit"class="btn btn-primary btn-md saveNnextbtn" id="saveTasks">Save & Proceed</button>
                                 </div>
                         </div>
@@ -346,7 +342,7 @@
                                 <h5 class="col-md-6 textlef mb_2">Activities</h5>
                                 <h5 class="col-md-4 textlef mb_2">Duration In Days</h5>
                                 {{-- {{dd($ComponentActivities)}} --}}
-                                <div class="comptaskl">
+                                <div class="comptaskl col-md-12">
                                     @foreach ($ComponentActivities as $activities)
                                     <div id='comptaskl' class="col-md-12 row" style="margin-top:5px; padding-left:2% !important;">
                                         <div class="col-md-6">

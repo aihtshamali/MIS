@@ -568,50 +568,64 @@ class OfficerController extends Controller
           return redirect()->back();
 
         $project=AssignedProject::where('project_id',$request->project_id)->first();
-        $project->acknowledge = 1;
-        $project->save();
-      
-        //Moving Project Progress from New Attachment to Inprogress
-        $total_previousProject = MProjectProgress::where('assigned_project_id',$project->id)->get();
+        $total_previousProject = MProjectProgress::where('assigned_project_id',$project->id)->orderBy('created_at', 'desc')->get();
         $previousProject = null;
-        // dd(count($total_previousProject));
-        if(count($total_previousProject) > 0)
-          $previousProject = $total_previousProject[count($total_previousProject)-1];
-        if(!$previousProject){
+        $projectProgress = null;
+        if($total_previousProject->count()){
+          // One New Monitoring (it shouldn't be here)
+          $previousProject = $total_previousProject->first();
+          $previousProject->quarter = $previousProject->quarter + 1;
+          $previousProject->save();
+          $projectProgress=$previousProject;
+
+          
+        }else{
+          //Moving Project Progress from New Attachment to Inprogress
+          $project->acknowledge = 1;
+          $project->save();
+
           $projectProgress = new MProjectProgress();
+          $projectProgress->quarter = 1;    
           $projectProgress->assigned_project_id = $project->id;
-          if($previousProject!=null){
-            $projectProgress->quarter = $previousProject->quarter + 1;
-          }
-          else{
-            $projectProgress->quarter = 1;
-          }
           $projectProgress->project_status = 'ACTIVE';
           $projectProgress->status = 1;
           $projectProgress->user_id = Auth::id();
           $projectProgress->save();
+            
         }
+        // dd(count($total_previousProject));
 
-        $progresses = $project->MProjectProgress;
+        // Old Code
+        
+        // if(count($total_previousProject) > 0)
+        //   $previousProject = $total_previousProject->last();
+        // if(!$previousProject){
+        //   $projectProgress = new MProjectProgress();
+        //   $projectProgress->assigned_project_id = $project->id;
+        //   if($previousProject!=null){
+        //     $projectProgress->quarter = $previousProject->quarter + 1;
+        //   }
+        //   else{
+        //     $projectProgress->quarter = 1;
+        //   }
+        //   $projectProgress->project_status = 'ACTIVE';
+        //   $projectProgress->status = 1;
+        //   $projectProgress->user_id = Auth::id();
+        //   $projectProgress->save();
+        // }
+
+        $progresses = $projectProgress;
         $costs = null;
-        if(count($progresses) > 0){
-          $costs = $progresses[count($progresses) - 1]->MProjectCost;
-        }
+        $costs = $progresses->MProjectCost;
 
         $location = null;
-        if(count($progresses) > 0){
-          $location = $progresses[count($progresses) - 1]->MProjectLocation;
-        }
+        $location = $progresses->MProjectLocation;
 
         $organization = null;
-        if(count($progresses) > 0){
-          $organization = $progresses[count($progresses) - 1]->MProjectOrganization;
-        }
+        $organization = $progresses->MProjectOrganization;
 
         $dates = null;
-        if(count($progresses) > 0){
-          $dates = $progresses[count($progresses) - 1]->MProjectDate  ;
-        }
+        $dates = $progresses->MProjectDate;
 
         $sectors  = Sector::where('status','1')->get();
         $sub_sectors = SubSector::where('status','1')->get();
@@ -623,15 +637,23 @@ class OfficerController extends Controller
         $healthsafety=MHealthSafety::where('status',1)->get();
         // dd($healthsafety[1]->MAssignedProjectHealthSafety[0]->status);
         // dd($project->Project->AssignedExecutingAgencies);
+<<<<<<< HEAD
         $projectProgressId= MProjectProgress::where('assigned_project_id',$project->id)->get();
         $monitoringProjectId=$projectProgressId[0]->id;
         // dd($projectProgressId[0]->AssignedProject->Project->AssignedExecutingAgencies);
+=======
+        
+        // Chwli
+        // $projectProgressId= MProjectProgress::where('assigned_project_id',$project->id)->get();
+        $projectProgressId=$progresses;
+        $monitoringProjectId=$projectProgressId->id;
+>>>>>>> 00c758f77627bc2267780f9e9cb232d98a70ee3e
         $objectives =MPlanObjective::where('status',1)
-        ->where('m_project_progress_id',$projectProgressId[0]->id)
+        ->where('m_project_progress_id',$projectProgressId->id)
         ->get();
 
         $components =MPlanComponent::where('status',1)
-        ->where('m_project_progress_id',$projectProgressId[0]->id)
+        ->where('m_project_progress_id',$projectProgressId->id)
         ->get();
 
         $projectWithRevised=$project->Project->with(
@@ -645,10 +667,11 @@ class OfficerController extends Controller
           ])->find($project->project_id);
 
         $ComponentActivities = MPlanComponentActivitiesMapping::where('status',1)
-        ->where('m_project_progress_id',$projectProgressId[0]->id)
+        ->where('m_project_progress_id',$projectProgressId->id)
         ->get();
         // dd($ComponentActivities);
         $Kpis =MProjectKpi::where('status',1)->get();
+<<<<<<< HEAD
         $mPlanKpiComponents=$projectProgressId[0]->MPlanKpicomponentMapping;
 
         $org_project=Project::where('id',$request->project_id)->first();
@@ -656,6 +679,9 @@ class OfficerController extends Controller
         // dd($org_project->AssignedExecutingAgencies);
         // $executing=$org_projectId->AssignedExecutingAgencies;
         // dd($executing);
+=======
+        $mPlanKpiComponents=$projectProgressId->MPlanKpicomponentMapping;
+>>>>>>> 00c758f77627bc2267780f9e9cb232d98a70ee3e
         \JavaScript::put([
           'projectWithRevised'=>$projectWithRevised,
          'components'=> $components,

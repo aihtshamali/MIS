@@ -229,11 +229,11 @@
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-meeting-add"></i> Updated:</td>
-                                    <td class="text-right">{{$progresses->last()->created_at}}</td>
+                                    <td class="text-right">{{$progresses->updated_at}}</td>
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-id-card"></i> Created:</td>
-                                    <td class="text-right">{{$progresses->first()->created_at}}</td>
+                                    <td class="text-right">{{$progresses->created_at}}</td>
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-spinner-alt-5"></i> Priority:</td>
