@@ -13,10 +13,27 @@ class MProjectProgress extends Model
     public function MPlanObjectivecomponentMapping(){
       return $this->hasMany('App\MPlanObjectivecomponentMapping');
     }
-    
+
     public function MPlanKpicomponentMapping(){
       return $this->hasMany('App\MPlanKpicomponentMapping');
-    } 
+    }
+
+    public function MAssignedKpiLevel1(){
+      return $this->hasMany('App\MAssignedKpiLevel1');
+    }
+
+    public function MAssignedKpiLevel2(){
+      return $this->hasMany('App\MAssignedKpiLevel2');
+    }
+
+    public function MAssignedKpiLevel3(){
+      return $this->hasMany('App\MAssignedKpiLevel3');
+    }
+
+    public function MAssignedKpiLevel4(){
+      return $this->hasMany('App\MAssignedKpiLevel4');
+    }
+
     public function MProjectDate(){
       return $this->hasOne('App\MProjectDate');
     }
@@ -51,5 +68,20 @@ class MProjectProgress extends Model
     public function  MPlanComponent(){
       return $this->hasMany('App\MPlanComponent');
     }
-    
+    public function  MPlanComponentActivitiesMapping(){
+      return $this->hasMany('App\MPlanComponentActivitiesMapping');
+    }
+    public function MConductQualityassesment(){
+      return $this->hasMany('App\MConductQualityassesment');
+    } 
+    public function MBeneficiaryStakeholder(){
+      return $this->hasMany('App\MBeneficiaryStakeholder');
+    } 
+    public function MSponsoringStakeholder(){
+      return $this->hasMany('App\MSponsoringStakeholder');
+    } 
+    public function MExecutingStakeholder(){
+      return $this->hasMany('App\MExecutingStakeholder');
+    } 
+
 }

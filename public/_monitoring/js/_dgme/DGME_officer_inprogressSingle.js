@@ -113,19 +113,21 @@ $(document).ready(function () {
         }
     });
 
-    let start_date=moment(projectWithRevised.project_detail.planned_start_date);
-    let end_date=moment(projectWithRevised.project_detail.planned_end_date);
+    var start_date=moment(projectWithRevised.project_detail.planned_start_date);
+    var end_date=moment(projectWithRevised.project_detail.planned_end_date);
+    
     let orig_period=moment.duration(end_date.diff(start_date));
     var orig = { "cost": projectWithRevised.project_detail.orignal_cost, "period": Math.round(orig_period.asMonths()), "date":  start_date.format("D MMM Y")};
 
     var revs = []
     
     projectWithRevised.revised_approved_cost.forEach( function (value,index) {
-        let start_date1=moment(projectWithRevised.project_detail.revised_start_date);
-        let end_date1=moment(projectWithRevised.revised_end_date[index].end_date);
-        let revs_period=moment.duration(end_date1.diff(start_date1));
-                console.log(revs_period.asMonths());
-        revs.push({ "cost": value.cost, "period": Math.round(revs_period.asMonths()), "date":  start_date1.format("D MMM Y")})    
+        if(value && projectWithRevised.revised_end_date[index] ){
+            let start_date1=moment(projectWithRevised.project_detail.revised_start_date);
+            let end_date1=moment(projectWithRevised.revised_end_date[index].end_date);
+            let revs_period=moment.duration(end_date1.diff(start_date1));
+            revs.push({ "cost": value.cost, "period": Math.round(revs_period.asMonths()), "date":  start_date1.format("D MMM Y")})    
+        }
      })
     // { "cost": "450", "period": "33", "date": '15 September 2013' },
     // { "cost": "479", "period": "33", "date": '15 September 2013' },
@@ -483,37 +485,122 @@ $(function () {
 
 });
 
-$(document).ready(() => {
+// $(document).ready(() => {
     // $('.select2').select2()
-})
+//     var SponsoringAgencylist=[]
+//  var SAgency='';
+// $.ajax({
+//     type: "get",
+//     url: '{{route("getAssignedSponsoringAgency")}}',
+//     async: false,
+//     success: function(data){
+//     // console.log(data);
+//     SponsoringAgencylist = data;
+//     },
+//     error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+//     console.log(JSON.stringify(jqXHR));
+//     console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+//     }
+// });
+// for (var i = 0; i < SponsoringAgencylist.length; ++i) {
+//     SAgency=SAgency+'<option value="'+SponsoringAgencylist[i].id+'">'+SponsoringAgencylist[i].name+'</option>';
+// }
+// })
 
-$('button#addmore').click(function (e) {
+
+$('button#addmoreexecuting').click(function (e) {
     var add_stakeholder = `<tr>
     <td>
-        <label for="">1</label>
-    </td>
-    <td>
         <div class="col-md-12">
-            <select id="districts" name="stakeholder" class="form-control form-control-primary select2" data-placeholder="" style="width: 100%;">
-                <option value="" hidden='hidden'>Select</option>
-                <option value="">some option</option>
-                <option value="">to choose</option>
-                <option value="">from</option>
+            <select id="" name="stakeholderExecuting" class="form-control form-control-primary " data-placeholder="" style="width: 100%;">
+                <option value="Executing">Executing</option>
             </select>
         </div>
     </td>
-    <td><input type="text" name="stakeholder_name"
-            class="form-control" /></td>
-    <td><input type="text" name="stakeholder_designation"
-            class="form-control" /> </td>
-    <td><input type="text" name="stakeholder_mil"
-            class="form-control" />
-      </td>
-    <td><input type="text" name="stakeholder_number"
-            class="form-control" /></td>
+    <td><input type="text" name="Executingstakeholder_name[]"
+    class="form-control" /></td>
+    <td><input type="text" name="Executingstakeholder_designation[]"
+        class="form-control" /> </td>
+<td><input type="text" name="Executingstakeholder_number[]"
+    class="form-control" /></td>
+<td><input type="text" name="Executingstakeholder_email[]"
+    class="form-control" /></td>
                     <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td></tr>`
-    $('#stakeholders').append(add_stakeholder);
+    $('#Executingstakeholders').append(add_stakeholder);
 });
+var Ea='';
+function executingAgencyforCM(agencies)
+{
+    console.log(agencies,'executing');
+       
+    agencies.forEach(function (val,index) {
+        Ea  = Ea+ `
+            <option value="`+val.id+`">`+val.executing_agency_id+`</option>
+        `;
+    }); 
+}
+var Sa='';
+function sponsoringAgencyforCM(agencies)
+{
+    console.log(agencies,'okiiii');
+    
+    // var agency = $(this).val();
+    // var count = 1;
+       
+    agencies.forEach(function (val,index) {
+        // console.log(val.sponsoring_agency_id.SponsoringAgency.name,'id');  
+        Sa  = Sa+ `
+            <option value="`+val.id+`">`+val.sponsoring_agency_id+`</option>
+        `;
+        
+    });
+
+    // $('.select2').select2();
+}
+$('button#addmoresponsoring').click(function (e) {
+    var add_stakeholder = `<tr>
+    <td>
+        <div class="col-md-12">
+            <select id="" name="Sponsoringstakeholder" class="form-control form-control-primary " data-placeholder="" style="width: 100%;">
+              `+Sa+`
+            </select>
+        </div>
+    </td>
+    <td><input type="text" name="Sponsoringstakeholder_name[]"
+    class="form-control" /></td>
+    <td><input type="text" name="Sponsoringstakeholder_designation[]"
+        class="form-control" /> </td>
+<td><input type="text" name="Sponsoringstakeholder_number[]"
+    class="form-control" /></td>
+<td><input type="text" name="Sponsoringstakeholder_email[]"
+    class="form-control" /></td>
+                    <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td></tr>`
+    $('#Sponsoringstakeholders').append(add_stakeholder);
+});
+
+$('button#addmoreben').click(function (e) {
+    var add_stakeholder = `<tr>
+  
+    <td>
+        <div class="col-md-12">
+        <input type="text" name="Beneficiarystakeholder[]" class="form-control" placeholder="Beneficiary">
+
+        </div>
+    </td>
+    <td><input type="text" name="Beneficiarystakeholder_name[]"
+    class="form-control" /></td>
+    <td><input type="text" name="Beneficiarystakeholder_designation[]"
+        class="form-control" /> </td>
+        <td><input type="text" name="Beneficiarystakeholder_email[]"
+    class="form-control" /></td>
+<td><input type="text" name="Beneficiarystakeholder_number[]"
+    class="form-control" /></td>
+
+                    <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td></tr>`
+    $('#Beneficiarystakeholders').append(add_stakeholder);
+});
+
+
 $('button#add-more-issues').click(function (e) {
     var temp =  $('tbody#add-issue-here').children().first().clone();
     temp.children().last().remove();
@@ -564,125 +651,221 @@ $('button#add-more').click(function (e) {
                 </tr>`
     $('#riskmatrix').append(add_risks);
 });
+var countactivity=0;
 $(document).on('click', '#add_activity', function (e) {
+    var id_component= $(this).attr('data-id');
+    var activityCount=$(this).attr('data-activitycount');
     // console.log('there');
     var add_activities = `<div class="row col-md-9 offset-md-1 form-group component_Activities">
-        <div class="col-md-11 mb_1"><input type="text" class="form-control" placeholder="Add Task" name="c_activity[]"> </div>
+        <div class="col-md-11 mb_1">
+        <input type="text" class="form-control" placeholder="Add Task" name="c_activity_`+id_component+`[]"> 
+        </div>
         <div class="col-md-1"><button class="btn btn-danger btn-sm" name="remove_activity[]" onclick="removerow(this)"  type="button">-</button></div>
         </div>`;
+        countactivity++;
     // $('.planMactivities').append(add_activities);
     console.log($(this).parent().find('#alltasks'), $(this).parent())
     $(this).parent().find('#alltasks').append(add_activities);
 });
-//project design
-$(document).on('click', 'button#saveObjComp', function ()
- {
-  $("#planMactivities").children().remove();
-  $("#ObjCompHere").children().remove();
 
+$('.select2').select2();
+
+
+
+function ObjectiveComponent(components,objectives){
+    $("#planMactivities").children().remove();
+    $("#ObjCompHere").children().remove();
+  
+      var comps = $(this).val();
+      var count = 1;
+          var compOpt='';
+      components.forEach(function (val,index) {
+          compOpt  = compOpt+ `
+              <option value="`+val.id+`">`+val.component+`</option>
+          `;
+      });
+ 
+      objectives.forEach(function (val,index) {
+          var ObjCompHere = `
+                          <li class="row mb_2"
+                              
+                              <span id="objectiveHere" class="float-left col-md-6"> 
+                                  <input type="hidden" value="`+val.id+`" name="objective[]">
+                                 <span  class="float-left col-md-6">
+                                 `+val.objective+`
+                                 </span>
+                              </span>
+                              <span class="float-right col-md-6">
+                              <select class="select2 col-md-12" id="component" name="mappedComp_`+index+`[]" multiple="multiple">
+                              `+compOpt+`   
+                              </select>
+                              </span>
+                              </li>
+                              `;
+          
+          var t = $(ObjCompHere);
+          t.appendTo('#ObjCompHere');
+          $('.select2').select2()
+      });
+}
+
+
+
+
+//project design
+// $(document).on('click', 'button#saveObjComp', function ()
+//  {
+//   $("#planMactivities").children().remove();
+//   $("#ObjCompHere").children().remove();
+
+//     var comps = $(this).val();
+//     var count = 1;
+        
+//     $('input[name^=comp]').each(function () {
+//         var val = $(this).val();
+//         var addTask = `
+//       <div class="row form-group compTask`+ count + `">
+//         <div class="col-md-4 offset-md-1"><label for=""> <b class="headText form-txt-primary" id="compname`+ count + `">` + val + `</b></label></div>
+//         <div class="col-md-2 offset-md-4 mb_1 Taskbut` + count + `" id="add_activity" style="padding-top:0.6%;">
+//           <button class="btn btn-sm btn-warning float-right"  type="button" name="add_activity">Add Tasks</button>
+//         </div>
+//         <div id="alltasks" class="row col-md-11 offset-md-1 form-group component_Activities">
+//         </div>
+//       </div>`
+//         val = $(this).val();
+//         // var comps = $(this).val();
+//         $('.planMactivities').append(addTask);
+//         // console.log($(e));
+//         // yo++;
+//         count++;
+//     });
+
+//     $('input[name^=obj]').each(function () {
+//         var ObjCompHere = `<li class="row mb_2">
+//                             <span id='objvalue`+ oc + `' class="float-left col-md-6"></span>
+//                             <span class="float-right col-md-6">
+//                             <select class="select2 col-md-12" id="option`+ oc + `" multiple="multiple">
+//                             </select>
+//                             </span>
+//                           </li>`
+//         var options = ""
+       
+//         $('input[name^=comp]').each(function () {
+            
+//             options += "<option value='" + $(this).val() + "'>" + $(this).val() + "</option>"
+//         });
+//         compopt = options
+       
+//         var t = $(ObjCompHere)
+//         t.find('#objvalue' + oc + '').text($(this).val())
+//         $(options).appendTo(t.find('#option' + oc + ''))
+//         t.appendTo('#ObjCompHere');
+//         // });
+//         $('.select2').select2()
+//         // console.log(obj);
+//         // return false;
+//         oc++;
+//     });
+//  });
+
+function ObjectiveComponentTime(CompActivityMapping)
+ {   var tasks=CompActivityMapping;
+ $('div.comptaskl').children().remove();
+  $('div.costcomp').children().remove();
+    console.log(tasks);
+    var d=``,t=``;
+    tasks.forEach(function (val,index) {
+        d= d+ ` <div id='comptaskl' class="col-md-12 row" style="margin-top:5px; padding-left:2% !important;">
+        <div class="col-md-6">
+        <label for=""><b>`+val.m_plan_component.component.component+`</b> <br> - `+val.activity+`</label>
+        <input type="hidden" name="componentActivityId[]" value="`+val.id+`">
+        </div>
+        <div class="col-md-4" style="">
+        <input type="text" name="daysinduration[]" value="" class="form-control">
+        </div>
+       </div> ` ;
+         t+=`<div class="col-md-12" style="display:inline-flex;">
+        <label class="text_left col-md-3"><b>`+val.m_plan_component.component+`</b> <br> - `+val.activity+` </label>
+        <input type="hidden" name="activityId[]" value="`+val.activity+`">
+        <div class="col-md-2 mr_0_1"><input type="text" class="form-control" value=" " placeholder="Unit" name="Unit[]"></div>
+         <div class="col-md-2 mr_0_1"><input type="text" class="form-control" value=" " placeholder="Quantity" name="Quantity[]"></div>
+         <div class="col-md-2 mr_0_1"><input type="text" class="form-control" value=" " placeholder="Cost" name="Cost[]"></div>
+         <div class="col-md-2 mr_0_1"><input type="text" class="form-control" value=" " placeholder="Amount" name="Amount[]">
+         </div>
+     </div>`;
+    });
+    console.log(d);
+    console.log(t);
+    
+    $('div.comptaskl').append($(d));
+    $('div.costcomp').append($(t));
+}
+
+// $(document).on('click', '#saveTasks', function () {
+//   $('#comptaskl').children().remove();
+//   $('#costcomp').children().remove();
+//     var tasks = $('#planMactivities').clone()
+//     var c = 1
+//     // console.log(tasks.children());
+
+//     tasks.children().each(function () {
+//         // console.log($(this),c);
+//         var temp = `<div class="col-md-12">
+//                       <h5 class="text_left form-txt-primary">
+//                       ` + $(this).find('#compname' + c).text() + `
+//                       </h5>
+//                     </div>`
+//         var t1 = `
+//         <div class="col-md-12" style="display:inline-flex;">
+//           <h5 class="text_left col-md-3 form-txt-primary">
+//           ` + $(this).find('#compname' + c).text() + `
+//           </h5>
+//         <div class="col-md-2 mr_0_1"><input type="text" class="form-control form-txt-primary" placeholder="Unit" name="" /></div>
+//         <div class="col-md-2 mr_0_1"><input type="text" class="form-control form-txt-primary" placeholder="Quantity" name="" /></div>
+//         <div class="col-md-2 mr_0_1"><input type="text" class="form-control form-txt-primary" placeholder="Cost" name="" /></div>
+//         <div class="col-md-2 mr_0_1"><input type="text" class="form-control form-txt-primary" placeholder="Amount" name="" /></div>
+//         </div>
+//         `
+//         var t2 = t1
+//         $(this).find('input[name="c_activity[]"]').each(function () {
+//             // console.log($(this));
+//             temp += `<div class="col-md-12" style="display:inline-flex;"><b class="col-md-3 text_left form-txt" style="padding-left:1% !important;">
+//                 `+ $(this).val() + `
+//                 </b>
+//                 <div class="col-md-9"><input type="text" class="form-control form-txt mb_1" placeholder="Time Duration" /></div></div>`
+//             t2 +=`<div class="col-md-12" style="display:inline-flex;"><b class="col-md-3 text_left form-txt" style="padding-left:1% !important;">
+//                 `+ $(this).val() + `
+//                 </b>
+//                 <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Unit" name="" /></div>
+//                 <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Quantity" name="" /></div>
+//                 <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Cost" name="" /></div>
+//                 <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Amount" name="" /></div></div>`
+//           })
+//         c++;
+//         $(t2).appendTo('#costcomp')
+//         $(temp).appendTo('#comptaskl')
+//     });
+// });
+
+var compOpt='';
+function componentsfroConductMonitoring(components)
+{
+    console.log(components);
+    
     var comps = $(this).val();
     var count = 1;
-        
-    $('input[name^=comp]').each(function () {
-        var val = $(this).val();
-        var addTask = `
-      <div class="row form-group compTask`+ count + `">
-        <div class="col-md-4 offset-md-1"><label for=""> <b class="headText form-txt-primary" id="compname`+ count + `">` + val + `</b></label></div>
-        <div class="col-md-2 offset-md-4 mb_1 Taskbut` + count + `" id="add_activity" style="padding-top:0.6%;">
-          <button class="btn btn-sm btn-warning float-right"  type="button" name="add_activity">Add Tasks</button>
-        </div>
-        <div id="alltasks" class="row col-md-11 offset-md-1 form-group component_Activities">
-        </div>
-      </div>`
-        val = $(this).val();
-        // var comps = $(this).val();
-        $('.planMactivities').append(addTask);
-        // console.log($(e));
-        // yo++;
-        count++;
-    });
-
-    $('input[name^=obj]').each(function () {
-        var ObjCompHere = `<li class="row mb_2">
-                            <span id='objvalue`+ oc + `' class="float-left col-md-6"></span>
-                            <span class="float-right col-md-6">
-                            <select class="select2 col-md-12" id="option`+ oc + `" multiple="multiple">
-                            </select>
-                            </span>
-                          </li>`
-        var options = ""
        
-        $('input[name^=comp]').each(function () {
-            
-            options += "<option value='" + $(this).val() + "'>" + $(this).val() + "</option>"
-        });
-        compopt = options
-       
-        var t = $(ObjCompHere)
-        t.find('#objvalue' + oc + '').text($(this).val())
-        $(options).appendTo(t.find('#option' + oc + ''))
-        t.appendTo('#ObjCompHere');
-        // });
-        $('.select2').select2()
-        // console.log(obj);
-        // return false;
-        oc++;
+    components.forEach(function (val,index) {
+        compOpt  = compOpt+ `
+            <option value="`+val.id+`">`+val.component+`</option>
+        `;
     });
- });
- $('.select2').select2();
- $('#saveObjComp').click(function () {
-    // <select class="select2 col-md-12" id="option`+ oc + `" multiple>
-    
-    
- });
-
-$(document).on('click', '#saveTasks', function () {
-  $('#comptaskl').children().remove();
-  $('#costcomp').children().remove();
-    var tasks = $('#planMactivities').clone()
-    var c = 1
-    // console.log(tasks.children());
-
-    tasks.children().each(function () {
-        // console.log($(this),c);
-        var temp = `<div class="col-md-12">
-                      <h5 class="text_left form-txt-primary">
-                      ` + $(this).find('#compname' + c).text() + `
-                      </h5>
-                    </div>`
-        var t1 = `
-        <div class="col-md-12" style="display:inline-flex;">
-          <h5 class="text_left col-md-3 form-txt-primary">
-          ` + $(this).find('#compname' + c).text() + `
-          </h5>
-        <div class="col-md-2 mr_0_1"><input type="text" class="form-control form-txt-primary" placeholder="Unit" name="" /></div>
-        <div class="col-md-2 mr_0_1"><input type="text" class="form-control form-txt-primary" placeholder="Quantity" name="" /></div>
-        <div class="col-md-2 mr_0_1"><input type="text" class="form-control form-txt-primary" placeholder="Cost" name="" /></div>
-        <div class="col-md-2 mr_0_1"><input type="text" class="form-control form-txt-primary" placeholder="Amount" name="" /></div>
-        </div>
-        `
-        var t2 = t1
-        $(this).find('input[name="c_activity[]"]').each(function () {
-            // console.log($(this));
-            temp += `<div class="col-md-12" style="display:inline-flex;"><b class="col-md-3 text_left form-txt" style="padding-left:1% !important;">
-                `+ $(this).val() + `
-                </b>
-                <div class="col-md-9"><input type="text" class="form-control form-txt mb_1" placeholder="Time Duration" /></div></div>`
-            t2 +=`<div class="col-md-12" style="display:inline-flex;"><b class="col-md-3 text_left form-txt" style="padding-left:1% !important;">
-                `+ $(this).val() + `
-                </b>
-                <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Unit" name="" /></div>
-                <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Quantity" name="" /></div>
-                <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Cost" name="" /></div>
-                <div class="col-md-2 mr_0_1"><input type="text" class="form-control" placeholder="Amount" name="" /></div></div>`
-          })
-        c++;
-        $(t2).appendTo('#costcomp')
-        $(temp).appendTo('#comptaskl')
-    });
-});
-
+    $('.select2').select2();
+}
+var countforconduct=0;
 $('button#add_more_component').click(function (e) {
+    console.log(compOpt);
+    
     var add_component = `<div class="row components">
                         <div class="form-group col-md-1 offset-md-1 ">
                         <br>
@@ -690,27 +873,33 @@ $('button#add_more_component').click(function (e) {
                         </div>
                         <div class="form-group col-md-6  ">
                         <label for=""> <b>Component Title :</b></label><br>
-                        <select class=" form-control form-control-primary ">
-                        `+ compopt +`
+                        <select class=" form-control kpisel form-control-primary " name="compforconduct_`+countforconduct+`">
+                        `+ compOpt +`
                         </select>
                         </div>
                         <div class="col-md-2 offset-md-1">
                         <br>
-                        <button class=" btn btn-sm btn-success" name="add_more_act[]" id="add_more_act" onclick="add_activityInComp(this)" type="button">Add Task</button>
+                        <button class=" btn btn-sm btn-success" name="add_more_act[]" id="add_more_act" onclick="add_activityInComp(this,`+countforconduct+`)" type="button">Add Task</button>
                         </div>
                         </div>`;
+                        $('.kpisel').select2();
+                       
     $('.oneComponentQA').append(add_component);
+    countforconduct++;
+    
 });
-var objct = 2;
+var objct = $("#objct").val() ? parseInt($("#objct").val()) : 1 ;
+objct++;
 function autoindex() {
-    var sib = $(document).find('.newClass').siblings();
-    // console.log(sib);
+    var sib = $(document).find('.newClass1').siblings();
+    console.log(sib);
     var i = 0;
     for (i = 0; i < sib.length; i++) {
         var cl_array = sib[i].getAttribute('class').split(' ');
         var val = "";
+        
         for (var j = 0; j < cl_array.length; j++) {
-            if (cl_array[j].startsWith('newClass')) {
+            if (cl_array[j].startsWith('newClass1')) {
                 val = cl_array[j];
                 break;
             }
@@ -749,16 +938,17 @@ $(document).on('click', '.removeObjective', function () {
 });
 
 
-var compAct = 2;
+var compAct = $("#compAct").val() ? parseInt($("#compAct").val()) : 1;
+compAct++;
 function autoindexcomp() {
-    var sib = $(document).find('.newClasscompAct').siblings();
+    var sib = $(document).find('.newClasscompAct1').siblings();
     // console.log(sib);
     var i = 0;
     for (i = 0; i < sib.length; i++) {
         var cl_array = sib[i].getAttribute('class').split(' ');
         var val = "";
         for (var j = 0; j < cl_array.length; j++) {
-            if (cl_array[j].startsWith('newClasscompAct')) {
+            if (cl_array[j].startsWith('newClasscompAct1')) {
                 val = cl_array[j];
                 break;
             }
@@ -811,7 +1001,6 @@ $(document).ready(function () {
         heading.appendTo('.SumObjComp');
         $(".SumObjComp").show('slow');
         var cc = oc
-        console.log(cc);
 
         for (var i = 1; i < cc; i++) {
             var t = $('#objvalue' + i).text();
@@ -854,50 +1043,57 @@ $(document).ready(function () {
 // });
 // end newly
 
-
-function add_activityInComp(e) {
-    var add_activities_to_assess = '<div class="row singleActivity">'
-        + '<div class="form-group col-md-2 offset-md-1" style="margin-bottom:10px !important;">'
-        + '<label for=""><b>Tasks</b></label>'
-        + '<select class="form-control form-control-warning">'
-        + '<option value="" selected disabled>Select Tasks</option>'
-        + '<option value="1" >Task 1</option>'
-        + '<option value="2">Task 2</option>'
-        + '<option value="3" >Task 3</option>'
-        + '</select></div>'
-        + '<div class="form-group col-md-2">'
-        + '<label for=""><b>Assesment</b></label>'
-        + '<select class=" form-control">'
-        + '<option value="" selected hidden>Assesment Type</option>'
-        + '<option value="1" style="background:#cc18068c;color:white;">Poor</option>'
-        + '<option value="2" style="background:#f5d75c;color:white;">PartiallySatisfactory</option>'
-        + '<option value="3" style="background:#44d581;color:white;">Satisfactory</option>'
-        + '</select>'
-        + '</div>'
-        + '<div class="form-group col-md-2">'
-        + '<label for=""><b>Progress in %</b></label>'
-        + '<select class=" form-control">'
-        + '<option value="" selected disabled>Progress Percentage</option>'
-        + '<option value="25%">0%-25%</option>'
-        + '<option value="50%">25%-50%</option>'
-        + '<option value="75%">50%-75%</option>'
-        + '<option value="100%">75%-100%</option>'
-        + '</select>'
-        + '</div>'
-        + '<div class="form-group col-md-3">'
-        + '<label for=""><b>Remarks</b></label><br>'
-        + '<textarea name="qa_remarks" id="qa_remarks" style="height:37px !important;" class="form-control" type="text"></textarea>'
-        + '</div>'
-        + '<div class="col-md-1" style="padding-top:2.2% !important;">'
-          + '<div class="btn col-md-12 btn-primary btn-block" style="padding:4px !important;border-radius:50px;">'
-            + '<input type="file" id="html_btn" name="" title="Click to add picture">'
-            + '<span><i class="fa fa-paperclip" style="font-size:29px;"></i></span>'
-          + '</div>'
-        + '</div>'
-        + '<div class="form-group col-md-1">'
-        + ' <br><button class="btn btn-danger btn-sm" onclick="removerow(this)" name="remove_Comp_activity[]"><span style="font-size:12px;">-</span></button>'
-        + '</div>'
-        + '</div>';
+var activitiesforConductmonitoring='';
+function activitiesfroConductMonitoring(activities)
+{
+    var comps = $(this).val();
+    var count = 1;
+       
+    activities.forEach(function (val,index) {
+        activitiesforConductmonitoring  = activitiesforConductmonitoring+ `
+            <option value="`+val.id+`">`+val.activity+`</option>
+        `;
+    });
+   
+}
+function add_activityInComp(e,myc) {
+    var countforcomponent=myc;
+    var add_activities_to_assess = `<div class="row singleActivity">
+        <div class="form-group col-md-2 offset-md-1" style="margin-bottom:10px !important;">
+        <label for=""><b>Tasks</b></label>
+        <select class="form-control select2 form-control-warning" name="activitiesforconduct_`+countforcomponent+`[]">
+        <option value="" selected disabled>Select Tasks</option>
+          `+activitiesforConductmonitoring+`
+        </select></div>
+        <div class="form-group col-md-2">
+        <label for=""><b>Assesment</b></label>
+        <select class=" form-control" name="qualityassesment_`+countforcomponent+`[]">
+        <option value="" selected hidden>Assesment Type</option>
+        <option value="Poor" style="background:#cc18068c;color:white;">Poor</option>
+        <option value="Partially Satisfactory" style="background:#f5d75c;color:white;">Partially Satisfactory</option>
+        <option value="Satisfactory" style="background:#44d581;color:white;">Satisfactory</option>
+        </select>
+        </div>
+        <div class="form-group col-md-2">
+        <label for=""><b>Progress in %</b></label>
+        <select class=" form-control" name="progresspercentage_`+countforcomponent+`[]">
+        <option value="" selected disabled>Progress Percentage</option>
+        <option value="25%">0%-25%</option>
+        <option value="50%">25%-50%</option>
+        <option value="75%">50%-75%</option>
+        <option value="100%">75%-100%</option>
+        </select>
+        </div>
+        <div class="form-group col-md-3">
+        <label for=""><b>Remarks</b></label><br>
+        <textarea name="qa_remarks_`+countforcomponent+`[]" id="qa_remarks" style="height:37px !important;" class="form-control" type="text"></textarea>
+        </div>
+        
+        <div class="form-group col-md-1">
+         <br><button class="btn btn-danger btn-sm" onclick="removerow(this)" name="remove_Comp_activity[]"><span style="font-size:12px;">-</span></button>
+        </div>
+        </div>`;
+        $('.select2').select2();
     $(e).parent().parent().append(add_activities_to_assess);
 }
 

@@ -55,6 +55,7 @@ class ProjectController extends Controller
 
         $projects=Project::where('user_id',Auth::id())
         ->where('projects.status',1)
+        ->where('projects.project_type_id',1)
         ->orderBy('projects.created_at')
         ->get();
         return view('projects.index',compact('projects'));
@@ -758,7 +759,7 @@ class ProjectController extends Controller
     \JavaScript::put([
       'projects' => $final
   ]);
-    return view('_Monitoring._Dataentry.create',compact('project_no','project_types','adp','sub_project_types','districts','sectors','sponsoring_departments','executing_departments','assigning_forums','current_year','approving_forums','sub_sectors','projects'));
+    return view('_Monitoring._Dataentry.create',compact('project_no','project_types','adp','sub_project_types','districts','sectors','sponsoring_departments','executing_departments','assigning_forums','current_year','approving_forums','sub_sectors'));
   }
 
   public function viewMonitoringForm()

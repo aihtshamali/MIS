@@ -64,7 +64,6 @@
                     <th>Action</th>
                   </thead>
                   <tbody>
-                    {{-- {{dd($projects)}} --}}
                   @foreach($projects as $project)
                         <tr>
                             <form class="" action="{{route('assignproject.create')}}" method="GET">

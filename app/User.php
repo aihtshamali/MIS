@@ -114,4 +114,16 @@ class User extends Authenticatable implements JWTSubject
   public function RemarksByUser(){
     return $this->hasOne('App\PlantripRemark','remarksby_user_id');
   }
+  public function MConductQualityassesment(){
+    return $this->hasMany('App\MConductQualityassesment');
+  } 
+  public function MBeneficiaryStakeholder(){
+    return $this->hasMany('App\MBeneficiaryStakeholder');
+  } 
+  public function MSponsoringStakeholder(){
+    return $this->hasMany('App\MSponsoringStakeholder');
+  } 
+  public function MExecutingStakeholder(){
+    return $this->hasMany('App\MExecutingStakeholder');
+  } 
 }
