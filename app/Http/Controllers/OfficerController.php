@@ -678,6 +678,7 @@ class OfficerController extends Controller
          'monitoringProjectId'=> $monitoringProjectId
         ]);
       //  dd();
+      // dd($progresses);
         return view('_Monitoring._Officer.projects.inprogressSingle',compact('org_project','org_projectId','projectProgressId','mPlanKpiComponents','ComponentActivities','monitoringProjectId','Kpis','components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
       }
       public function monitoring_review_form(Request $request)

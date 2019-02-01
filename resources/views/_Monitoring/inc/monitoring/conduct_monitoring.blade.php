@@ -61,7 +61,7 @@
                         <div class="form-group row">
                                 <div class="col-md-8"></div>
                                     <div class="col-md-3">
-                                            <input type="hidden" name="m_project_progress_id" value="{{$progresses->last()->id}}">
+                                            <input type="hidden" name="m_project_progress_id" value="{{$progresses->id}}">
                                     <button type="submit" class="btn btn-success btn-sm btn-outline-success">
                                         Save Quality Assesment</button>
                                     </div>
@@ -272,7 +272,7 @@
                         <div class="form-group row">
                                 <div class="col-md-10"></div>
                                   <div class="col-md-1">
-                                    <input type="hidden" name="m_project_progress_id" value="{{$progresses->last()->id}}">
+                                    <input type="hidden" name="m_project_progress_id" value="{{$progresses->id}}">
                                     <button type="submit" class="btn btn-success btn-sm btn-outline-success">
                                         Save </button>
                                   </div>
