@@ -503,6 +503,7 @@ class OfficerController extends Controller
         if(!$m_project_costs){
           $m_project_costs = new MProjectCost();
         }
+        $m_project_costs->user_id= Auth::id();
         $m_project_costs->m_project_progress_id = $total_progresses[count($total_progresses)-1]->id;
         $m_project_costs->adp_allocation_of_fiscal_year = (float)$request->adp_allocation_of_fiscal_year;
         $m_project_costs->release_to_date_of_fiscal_year = $request->release_to_date_of_fiscal_year;
@@ -522,6 +523,7 @@ class OfficerController extends Controller
         if(!$m_project_dates){
           $m_project_dates = new MProjectDate();
         }
+        $m_project_dates->user_id= Auth::id();
         $m_project_dates->m_project_progress_id = $total_progresses[count($total_progresses)-1]->id;
         $m_project_dates->project_approval_date = $request->project_approval_date;
         $m_project_dates->admin_approval_date = $request->admin_approval_date;
@@ -536,6 +538,7 @@ class OfficerController extends Controller
         if(!$m_project_organizations){
           $m_project_organizations = new MProjectOrganization();
         }
+        $m_project_organizations->user_id= Auth::id();
         $m_project_organizations->m_project_progress_id = $total_progresses[count($total_progresses)-1]->id;
         $m_project_organizations->operation_and_management = $request->operation_and_management;
         $m_project_organizations->contractor_or_supplier = $request->contractor_or_supplier;
@@ -549,6 +552,7 @@ class OfficerController extends Controller
         if(!$m_project_location){
           $m_project_location = new MProjectLocation();
         }
+        $m_project_location->user_id= Auth::id();
         $m_project_location->m_project_progress_id = $total_progresses[count($total_progresses)-1]->id;
         $m_project_location->district = $request->district;
         $m_project_location->city = $request->city;
@@ -567,15 +571,17 @@ class OfficerController extends Controller
         if($request->project_id==null)
           return redirect()->back();
 
-        $project=AssignedProject::where('project_id',$request->project_id)->first();
+        $project=AssignedProject::where('project_id',$request->project_id)->orderBy('created_at','desc')->first();
         $total_previousProject = MProjectProgress::where('assigned_project_id',$project->id)->orderBy('created_at', 'desc')->get();
         $previousProject = null;
         $projectProgress = null;
         if($total_previousProject->count()){
           // One New Monitoring (it shouldn't be here)
           $previousProject = $total_previousProject->first();
-          $previousProject->quarter = $previousProject->quarter + 1;
-          $previousProject->save();
+          // It will change 
+          //TODO
+          // $previousProject->quarter = $previousProject->quarter + 1;
+          // $previousProject->save();
           $projectProgress=$previousProject;
 
           
@@ -836,6 +842,7 @@ class OfficerController extends Controller
           else
             $generalFeedback=new MAssignedProjectFeedBack();
           $generalFeedback->m_general_feed_back_id=$m_general_feed_back_id;
+          $generalFeedback->user_id=Auth::id();
           $generalFeedback->answer=$answer;
           $generalFeedback->m_project_progress_id=$request->m_project_progress_id;
           $generalFeedback->save();
@@ -845,6 +852,7 @@ class OfficerController extends Controller
         foreach($request->issue as $key=>$issue){
           $project_issue = new MAssignedProjectIssue();
           $project_issue->issue=$issue;
+          $project_issue->user_id=Auth::id();
           $project_issue->m_issue_type_id=$request->issuetype[$key];
           $project_issue->severity=$request->severity[$key];
           if($request->sponsoring_department[$key])
@@ -869,6 +877,7 @@ class OfficerController extends Controller
           else
             $healthSafety=new MAssignedProjectHealthSafety();
           $healthSafety->m_health_safety_id=$hs;
+          $healthSafety->user_id=Auth::id(); 
           $healthSafety->status=$answer;
           $healthSafety->remarks=$request->comments[$key];
           $healthSafety->m_project_progress_id=$request->m_project_progress_id;
@@ -882,26 +891,28 @@ class OfficerController extends Controller
         $msg="Saved";
         if(MPlanObjective::where('m_project_progress_id',$request->m_project_progress_id)->count()>0)
          {
-           MPlanObjective::where('m_project_progress_id',$request->m_project_progress_id)->delete();
+          //  MPlanObjective::where('m_project_progress_id',$request->m_project_progress_id)->delete();
            $msg="Updated";
          } 
         foreach($request->obj as $objective)
           {
             $objectives= new MPlanObjective(); 
             $objectives->m_project_progress_id = $request->m_project_progress_id;
+            $objectives->user_id=Auth::id();
             $objectives->objective=$objective;
             $objectives->status= true;
             $objectives->save();
           }
           if(MPlanComponent::where('m_project_progress_id',$request->m_project_progress_id)->count()>0)
             {
-              MPlanComponent::where('m_project_progress_id',$request->m_project_progress_id)->delete();
+              // MPlanComponent::where('m_project_progress_id',$request->m_project_progress_id)->delete();
               $msg="Updated";
             } 
           foreach($request->comp as $component)
           {
             $components=new MPlanComponent();
             $components->m_project_progress_id = $request->m_project_progress_id;
+            $components->user_id=Auth::id();
             $components->component=$component;
             $components->status= true;
             $components->save();
@@ -926,6 +937,7 @@ class OfficerController extends Controller
           {
             $objCompMapping=new MPlanObjectivecomponentMapping();
             $objCompMapping->m_project_progress_id = $request->m_project_progress_id;
+            $objCompMapping->user_id=Auth::id();
             $objCompMapping->m_plan_objective_id=$objective;
             $objCompMapping->m_plan_component_id=$mappComp;
             $objCompMapping->status= true;
@@ -951,6 +963,7 @@ class OfficerController extends Controller
             
             $kpiCompMapping->m_project_progress_id = $request->m_project_progress_id;
             $kpiCompMapping->m_project_kpi_id=$kpi;
+            $kpiCompMapping->user_id=Auth::id();
             $kpiCompMapping->m_plan_component_id=$mappComp;
             $kpiCompMapping->status= true;
             $kpiCompMapping->save();
@@ -998,7 +1011,7 @@ class OfficerController extends Controller
        $msg="Saved";
         if(MPlanComponentActivitiesMapping::where('m_project_progress_id',$request->m_project_progress_id)->count()>0)
         {
-          MPlanComponentActivitiesMapping::where('m_project_progress_id',$request->m_project_progress_id)->delete();
+          // MPlanComponentActivitiesMapping::where('m_project_progress_id',$request->m_project_progress_id)->delete();
           $msg="Updated";
         } 
         $i=0;
@@ -1010,6 +1023,7 @@ class OfficerController extends Controller
             // return response()->json($mappComp);
             $CompActivityMapping=new MPlanComponentActivitiesMapping();
             $CompActivityMapping->m_project_progress_id = $request->m_project_progress_id;
+            $CompActivityMapping->user_id=Auth::id();
             $CompActivityMapping->m_plan_component_id=$compActivity;
             $CompActivityMapping->activity=$act;
             $CompActivityMapping->status= true;
@@ -1051,7 +1065,7 @@ class OfficerController extends Controller
 
       public function Costing(Request $request)
       {
-        // $msg="Saved";
+        $msg="Saved";
         // if(MPlanComponentactivityDetailMapping::where('m_project_progress_id',$request->m_project_progress_id)->count()>0)
         // {
         //   MPlanComponentactivityDetailMapping::where('m_project_progress_id',$request->m_project_progress_id)->delete();
@@ -1061,6 +1075,7 @@ class OfficerController extends Controller
         for($i=0 ; $i < $size ; $i++ )
         {
             $CompActivityDetails = MPlanComponentactivityDetailMapping::find($request->activityId[$i]);
+            $CompActivityDetails->user_id=Auth::id();           
             $CompActivityDetails->unit =$request->Unit[$i];
             $CompActivityDetails->quantity=$request->Quantity[$i];
             $CompActivityDetails->cost=$request->Cost[$i];
