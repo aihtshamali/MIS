@@ -14,10 +14,10 @@ class UpdateMPlanComponentActivitiesMappingsTable extends Migration
     public function up()
     {
         
-        Schema::table('m_plan_component_activities_mappings', function (Blueprint $table) {
-            $table->integer('m_project_progress_id')->unsigned()->index()->nullable();
-            $table->foreign('m_project_progress_id')->references('id')->on('m_project_progresses')->onDelete('no action');
-        });
+        // Schema::table('m_plan_component_activities_mappings', function (Blueprint $table) {
+        //     $table->integer('m_project_progress_id')->unsigned()->index()->nullable();
+        //     $table->foreign('m_project_progress_id')->references('id')->on('m_project_progresses')->onDelete('no action');
+        // });
     }
 
     /**
