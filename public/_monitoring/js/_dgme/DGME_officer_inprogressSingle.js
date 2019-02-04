@@ -264,8 +264,6 @@ $(document).ready(function () {
 
     //END
 
-
-
     function hideallmaintabs() {
         $('#summary').hide();
         $('#p_monitoring').hide();
@@ -513,7 +511,7 @@ $('button#addmoreexecuting').click(function (e) {
     <td>
         <div class="col-md-12">
             <select id="" name="stakeholderExecuting" class="form-control form-control-primary " data-placeholder="" style="width: 100%;">
-                <option value="Executing">Executing</option>
+                `+ Ea +`
             </select>
         </div>
     </td>
@@ -684,6 +682,8 @@ function ObjectiveComponent(components,objectives){
               <option value="`+val.id+`">`+val.component+`</option>
           `;
       });
+      console.log(compOpt);
+      
  
       objectives.forEach(function (val,index) {
           var ObjCompHere = `
