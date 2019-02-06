@@ -171,59 +171,67 @@
                     </div>
                 </div>
                 <!-- start hide project detail btn -->
-                <!-- <center>
-                  <div class="col-md-1 text-center uptiQ">
-                    <div class="offset-md-2 col-md-5 border golbtn">
-                      <i class="fa fa-angle-double-up"></i>
-                    </div>
-                  </div>
-                </center> -->
+                <center>
+
+                </center>
                 <!-- end hide project detail btn -->
         </div>
     </div>
     <!--start show project detail btn-->
-    <!-- <center>
-      <div class="col-md-1 text-center downtiQ nodisplay">
+    <center>
+      <div class="col-md-1 hidden-sm hidden-xs text-center downtiQ nodisplay"  title="Show Project Detail">
         <div class="offset-md-2 col-md-5 border golbtn">
           <i class="fa fa-angle-double-down"></i>
         </div>
       </div>
-    </center> -->
+    </center>
     <!--end show project detail btn-->
 
     {{-- end of frozen panel --}}
     <div class="row">
             <div class="col-md-12 mainTabsAndNav mt_6p" style="padding-left: 15px !important;padding-right: 15px !important;">
-                    <div class="card">
+              <center>
+                <div class="col-md-1 hidden-sm hidden-xs text-center uptiQ" title="Hide Detail">
+                  <div class="offset-md-2 col-md-5 border golbtn">
+                    <i class="fa fa-angle-double-up"></i>
+                  </div>
+                </div>
+              </center>
+                    <div class="card" style="box-shadow: 0px 0px 33px #77777769;">
                         <div class="card-header">
                         </div>
                         <div class="card-block">
                             <div class="row m-b-30">
                                 <div class="col-lg-12 col-xl-12 col-md-8 col-sm-6">
                                     <!-- Nav tabs -->
-                                    <ul class="nav nav-tabs md-tabs" role="tablist">
-                                        <li class="nav-item reviewTab">
-                                            <a class="nav-link active" data-toggle="tab" href="#reviewDiv" role="tab"><span style="font-size:14px; font-weight:bold;">REVIEW</span></a>
-                                            <div class="slide"></div>
-                                        </li>
-                                        <li class="nav-item planNav">
-                                            <a class="nav-link" data-toggle="tab" href="#p_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">PLAN MONITORING</span></a>
-                                            <div class="slide"></div>
-                                        </li>
-                                        <li class="nav-item conductNav">
-                                            <a class="nav-link" data-toggle="tab" href="#c_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">CONDUCT MONITORING</span></a>
-                                            <div class="slide"></div>
-                                        </li>
-                                        <li class="nav-item summaryNav">
-                                          <a class="nav-link" data-toggle="tab" href="#summary" role="tab"><span style="font-size:14px; font-weight:bold;">SUMMARY</span></a>
-                                          <div class="slide"></div>
-                                        </li>
-                                    </ul>
+  <ul class="nav nav-tabs md-tabs" role="tablist">
+      <li class="nav-item reviewTab">
+          <a class="nav-link active" data-toggle="tab" href="#reviewDiv" role="tab"><span style="font-size:14px; font-weight:bold;">REVIEW</span></a>
+          <div class="slide"></div>
+      </li>
+      <li class="nav-item planNav">
+          <a class="nav-link" data-toggle="tab" href="#p_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">PLAN MONITORING</span></a>
+          <div class="slide"></div>
+      </li>
+      <li class="nav-item conductNav">
+          <a class="nav-link" data-toggle="tab" href="#c_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">CONDUCT MONITORING</span></a>
+          <div class="slide"></div>
+      </li>
+      <li class="nav-item resultNav">
+          <a class="nav-link" data-toggle="tab" href="#r_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">RESULT MONITORING</span></a>
+          <div class="slide"></div>
+      </li>
+      <li class="nav-item summaryNav">
+        <a class="nav-link" data-toggle="tab" href="#summary" role="tab"><span style="font-size:14px; font-weight:bold;">SUMMARY</span></a>
+        <div class="slide"></div>
+      </li>
+  </ul>
                                     <!-- Tab panes -->
                                     <div class="tab-content card-block">
                                         @include('_Monitoring/inc/monitoring/reviewDiv')
                                         @include('_Monitoring/inc/monitoring/planmonitoring')
                                         @include('_Monitoring/inc/monitoring/conduct_monitoring')
+                                        @include('_Monitoring/inc/monitoring/r_monitoring')
                                         @include('_Monitoring/inc/monitoring/summary')
                                     </div>
                                 </div>
@@ -723,6 +731,100 @@ axios.get('{{route("getProjectKpi")}}',{
      }
   });
 
+});
+</script>
+<script type="text/javascript">
+let modalId = $('#image-gallery');
+
+$(document)
+.ready(function () {
+
+  loadGallery(true, 'a.thumbnail');
+
+  //This function disables buttons when needed
+  function disableButtons(counter_max, counter_current) {
+    $('#show-previous-image, #show-next-image')
+      .show();
+    if (counter_max === counter_current) {
+      $('#show-next-image')
+        .hide();
+    } else if (counter_current === 1) {
+      $('#show-previous-image')
+        .hide();
+    }
+  }
+
+  /**
+   *
+   * @param setIDs        Sets IDs when DOM is loaded. If using a PHP counter, set to false.
+   * @param setClickAttr  Sets the attribute for the click handler.
+   */
+
+  function loadGallery(setIDs, setClickAttr) {
+    let current_image,
+      selector,
+      counter = 0;
+
+    $('#show-next-image, #show-previous-image')
+      .click(function () {
+        if ($(this)
+          .attr('id') === 'show-previous-image') {
+          current_image--;
+        } else {
+          current_image++;
+        }
+
+        selector = $('[data-image-id="' + current_image + '"]');
+        updateGallery(selector);
+      });
+
+    function updateGallery(selector) {
+      let $sel = selector;
+      current_image = $sel.data('image-id');
+      $('#image-gallery-title')
+        .text($sel.data('title'));
+      $('#image-gallery-image')
+        .attr('src', $sel.data('image'));
+      disableButtons(counter, $sel.data('image-id'));
+    }
+
+    if (setIDs == true) {
+      $('[data-image-id]')
+        .each(function () {
+          counter++;
+          $(this)
+            .attr('data-image-id', counter);
+        });
+    }
+    $(setClickAttr)
+      .on('click', function () {
+        updateGallery($(this));
+      });
+  }
+});
+
+// build key actions
+$(document)
+.keydown(function (e) {
+  switch (e.which) {
+    case 37: // left
+      if ((modalId.data('bs.modal') || {})._isShown && $('#show-previous-image').is(":visible")) {
+        $('#show-previous-image')
+          .click();
+      }
+      break;
+
+    case 39: // right
+      if ((modalId.data('bs.modal') || {})._isShown && $('#show-next-image').is(":visible")) {
+        $('#show-next-image')
+          .click();
+      }
+      break;
+
+    default:
+      return; // exit this handler for other keys
+  }
+  e.preventDefault(); // prevent the default action (scroll / move caret)
 });
 </script>
 @endsection

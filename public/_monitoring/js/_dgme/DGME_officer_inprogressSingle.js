@@ -13,20 +13,20 @@ $(document).ready(function () {
         $('input:checkbox').not(this).prop('checked', false);
     });
 
-    // $(".topSummary").mouseenter(function () {
-    //     $(".uptiQ").show(100);
-    // });
+    $(".golbtn").click(function () {
+        $(this).parent().hide(100);
+    });
     // $(".topSummary").mouseleave(function () {
     //     $(".uptiQ").hide(100);
     // });
     $(".uptiQ").click(function () {
-        $('this').hide();
-        $(".downtiQ").show(100);
+        // $('this').hide();
+        $(".downtiQ").show('slow');
         $(".topSummary ").slideUp("slow");
         $(".mainTabsAndNav").animate({ marginTop: '0%' }, 1000);
     });
     $(".downtiQ").click(function () {
-        $('.downtiQ').hide();
+        // $('.downtiQ').hide();
         $(".uptiQ").show(100);
         $(".topSummary ").slideDown("slow");
         $(".mainTabsAndNav").animate({ marginTop: '6%' }, 1000);
@@ -283,10 +283,11 @@ $(document).ready(function () {
     //END
 
     function hideallmaintabs() {
-        $('#summary').hide();
+        $('#reviewDiv').hide();
         $('#p_monitoring').hide();
         $('#c_monitoring').hide();
-        $('#reviewDiv').hide();
+        $('#r_monitoring').hide();
+        $('#summary').hide();
     }
 
     $('.summaryNav').on('click', function () {
@@ -296,6 +297,8 @@ $(document).ready(function () {
         $('#summary').show();
         $('.p_details').show(1000);
         $(".topSummary").hide('slow');
+        $(".downtiQ").hide('slow');
+        $(".uptiQ").hide('slow');
         $(".mainTabsAndNav").animate({ marginTop: '0px' }, 500);
         $(".mainTabsAndNav").removeClass("mt_6p");
     });
@@ -308,6 +311,8 @@ $(document).ready(function () {
         $('#p_monitoring').show();
         $('#PlanDocDiv').show();
         $('.PlanDoc').addClass('active');
+        $(".uptiQ").show('slow');
+        $(".downtiQ").hide();
     });
     function hideall() {
         $('#PlanDocDiv').hide();
@@ -347,7 +352,23 @@ $(document).ready(function () {
         $('.mainTabsAndNav').removeClass("col-md-8").addClass("col-md-12");
         $('.mainTabsAndNav').animate({ marginTop: '6%' }, 1000);
         $(".topSummary").show('slow');
+        $(".uptiQ").show('slow');
+        $(".downtiQ").hide();
     });
+    $('.resultNav').on('click', function () {
+        hideallmaintabs();
+        hideall();
+        $('.nav-link').removeClass('active');
+        $('.r_monitoring').addClass('active');
+        $('#r_monitoring').show();
+        $('.mainTabsAndNav').removeClass("col-md-8").addClass("col-md-12");
+        $('.mainTabsAndNav').animate({ marginTop: '6%' }, 1000);
+        $(".topSummary").show('slow');
+        $('.p_details').hide();
+        $(".uptiQ").show('slow');
+        $(".downtiQ").hide();
+    });
+
     $('.CostingTab').on('click', function () {
         hideall();
         $('#CostingDiv').show();
@@ -411,6 +432,7 @@ $(document).ready(function () {
         $('#summary').hide();
         $('.p_details').hide();
         $('.mainTabsAndNav').removeClass("col-md-8").addClass("col-md-12");
+        $(".uptiQ").show('slow');
     });
     $('.financialphase').on('click', function () {
         hideall();

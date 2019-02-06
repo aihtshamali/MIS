@@ -41,7 +41,7 @@
                             Monitoring line project
                         </td>
                         <td>000000 Rs.</td>
-                        <td>45546545</td>
+                        <td>4554654</td>
                         <td class="statustable green" id=""><a href="#"></a>90%</td>
                     </tr>
                     <tr>
@@ -50,7 +50,7 @@
                             Evaluation project
                         </td>
                         <td>000000 Rs.</td>
-                        <td>45546545</td>
+                        <td>4554654</td>
                         <td class="statustable yel" id=""><a href="#"></a>70%</td>
                     </tr>
                     <tr>
@@ -59,7 +59,7 @@
                             health & education
                         </td>
                         <td>000000 Rs.</td>
-                        <td>45546545</td>
+                        <td>4554654</td>
                         <td class="statustable green" id=""><a href="#"></a>100%</td>
                     </tr>
                 </tbody>
