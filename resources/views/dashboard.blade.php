@@ -58,7 +58,7 @@
 @section('content')
 <div class="content-wrapper">
     <section class="well " style="text-align:center">
-        <h3>Welcome {{ucfirst(Auth::user()->first_name)}} {{ucfirst(Auth::user()->last_name)}} to your Dashboard </h3>
+        <h3>Welcome {{ucfirst(Auth::user()->first_name)}} {{ucfirst(Auth::user()->last_name)}} <small>({{Auth::user()->designation}})</small> to your Dashboard </h3>
     </section>
     @role('officer')
 
@@ -78,9 +78,10 @@
         </div>
     </div>
     <div class="row">
+    
       <div class="col-md-12">
         <a href="{{route('officer_chart_one')}}">
-          <div class="card col-md-2">
+          <div class="card col-md-2 ">
             <div class="card-header">
               <label for="">Evaluation Total Projects</label>
             </div>
