@@ -52,7 +52,7 @@
     }}
     .ms-container{width: 100% !important;}
     .wd-5p{width: 5% !important;}
-    .mt_6p{margin-top: 6% !important;}
+    .mt_6p{margin-top: 6%;}
     .pd_1{padding: 1% !important;margin-bottom: 2%;border-radius: 3px;}
     .bg_g{background-color: #00000014}
     input{background: transparent !important;border: 1px solid #77777747 !important;}
@@ -170,42 +170,68 @@
                         <label for="last_monitoring" class="">Last Monitoring Date </label>
                     </div>
                 </div>
+                <!-- start hide project detail btn -->
+                <center>
+
+                </center>
+                <!-- end hide project detail btn -->
         </div>
     </div>
+    <!--start show project detail btn-->
+    <center>
+      <div class="col-md-1 hidden-sm hidden-xs text-center downtiQ nodisplay"  title="Show Project Detail">
+        <div class="offset-md-2 col-md-5 border golbtn">
+          <i class="fa fa-angle-double-down"></i>
+        </div>
+      </div>
+    </center>
+    <!--end show project detail btn-->
 
     {{-- end of frozen panel --}}
     <div class="row">
             <div class="col-md-12 mainTabsAndNav mt_6p" style="padding-left: 15px !important;padding-right: 15px !important;">
-                    <div class="card">
+              <center>
+                <div class="col-md-1 hidden-sm hidden-xs text-center uptiQ" title="Hide Detail">
+                  <div class="offset-md-2 col-md-5 border golbtn">
+                    <i class="fa fa-angle-double-up"></i>
+                  </div>
+                </div>
+              </center>
+                    <div class="card" style="box-shadow: 0px 0px 33px #77777769;">
                         <div class="card-header">
                         </div>
                         <div class="card-block">
                             <div class="row m-b-30">
                                 <div class="col-lg-12 col-xl-12 col-md-8 col-sm-6">
                                     <!-- Nav tabs -->
-                                    <ul class="nav nav-tabs md-tabs" role="tablist">
-                                        <li class="nav-item reviewTab">
-                                            <a class="nav-link active" data-toggle="tab" href="#reviewDiv" role="tab"><span style="font-size:14px; font-weight:bold;">REVIEW</span></a>
-                                            <div class="slide"></div>
-                                        </li>
-                                        <li class="nav-item planNav">
-                                            <a class="nav-link" data-toggle="tab" href="#p_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">PLAN MONITORING</span></a>
-                                            <div class="slide"></div>
-                                        </li>
-                                        <li class="nav-item conductNav">
-                                            <a class="nav-link" data-toggle="tab" href="#c_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">CONDUCT MONITORING</span></a>
-                                            <div class="slide"></div>
-                                        </li>
-                                        <li class="nav-item summaryNav">
-                                          <a class="nav-link" data-toggle="tab" href="#summary" role="tab"><span style="font-size:14px; font-weight:bold;">SUMMARY</span></a>
-                                          <div class="slide"></div>
-                                        </li>
-                                    </ul>
+  <ul class="nav nav-tabs md-tabs" role="tablist">
+      <li class="nav-item reviewTab">
+          <a class="nav-link active" data-toggle="tab" href="#reviewDiv" role="tab"><span style="font-size:14px; font-weight:bold;">REVIEW</span></a>
+          <div class="slide"></div>
+      </li>
+      <li class="nav-item planNav">
+          <a class="nav-link" data-toggle="tab" href="#p_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">PLAN MONITORING</span></a>
+          <div class="slide"></div>
+      </li>
+      <li class="nav-item conductNav">
+          <a class="nav-link" data-toggle="tab" href="#c_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">CONDUCT MONITORING</span></a>
+          <div class="slide"></div>
+      </li>
+      <li class="nav-item resultNav">
+          <a class="nav-link" data-toggle="tab" href="#r_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">RESULT MONITORING</span></a>
+          <div class="slide"></div>
+      </li>
+      <li class="nav-item summaryNav">
+        <a class="nav-link" data-toggle="tab" href="#summary" role="tab"><span style="font-size:14px; font-weight:bold;">SUMMARY</span></a>
+        <div class="slide"></div>
+      </li>
+  </ul>
                                     <!-- Tab panes -->
                                     <div class="tab-content card-block">
                                         @include('_Monitoring/inc/monitoring/reviewDiv')
                                         @include('_Monitoring/inc/monitoring/planmonitoring')
                                         @include('_Monitoring/inc/monitoring/conduct_monitoring')
+                                        @include('_Monitoring/inc/monitoring/r_monitoring')
                                         @include('_Monitoring/inc/monitoring/summary')
                                     </div>
                                 </div>
@@ -410,7 +436,7 @@
 
 $(document).ready(function(){
 
-    
+
     var compData='';
     var activities='';
     var sponsoringAgency='';
@@ -429,7 +455,7 @@ $(document).ready(function(){
         'data' : ds,
         'nodeContent': 'title'
         });
-         
+
      //   $('.'+response.data.role+'_unassigned_counter').text(response.data.unassigned);
      })
      .catch(function (error) {
@@ -438,13 +464,13 @@ $(document).ready(function(){
 
    }
 
-   
+
    $('.summaryNav').on('click', function () {
         getWBS('{{route("getProjectKpi")}}',"{{$project->id}}");
     });
         (function($) {
             console.log();
-            
+
                 axios.post('{{route("getProjectComponents")}}',{
                       MProjectProgressId:'<?= $monitoringProjectId ?>'
                     })
@@ -452,17 +478,17 @@ $(document).ready(function(){
                        compData=response.data
                     //    console.log(response);
                        componentsfroConductMonitoring(compData)
-                       
+
                     }
                 )
                 .catch(function (error) {
                     console.log(error);
                 });
-        
-        }) (); 
+
+        }) ();
 
         (function($) {
-            
+
                 axios.post('{{route("getProjectActivities")}}',{
                       MProjectProgressId:'<?= $monitoringProjectId ?>'
                     })
@@ -470,17 +496,17 @@ $(document).ready(function(){
                         activities=response.data
                        console.log(response,"sad");
                        activitiesfroConductMonitoring(activities)
-                       
+
                     }
                 )
                 .catch(function (error) {
                     console.log(error);
                 });
-        
-        }) (); 
+
+        }) ();
 
         (function($) {
-            
+
                 axios.post('{{ route("getAssignedSponsoringAgency") }}',{
                     originalProjectId:'<?= $org_projectId ?>',
                     // _token: '{{ csrf_field() }}'
@@ -490,17 +516,17 @@ $(document).ready(function(){
                         sponsoringAgency=response.data
                        console.log(response,"sponsoring");
                        sponsoringAgencyforCM(sponsoringAgency)
-                       
+
                     }
                 )
                 .catch(function (error) {
                     console.log(error);
                 });
-        
-        }) (); 
+
+        }) ();
 
          (function($) {
-            
+
                 axios.post('{{ route("getAssignedExecutingAgency") }}',{
                     originalProjectId:'<?= $org_projectId ?>',
                     // _token: '{{ csrf_field() }}'
@@ -510,18 +536,18 @@ $(document).ready(function(){
                         executingAgency=response.data
                        console.log(response,"executingAgency");
                        executingAgencyforCM(executingAgency)
-                       
+
                     }
                 )
                 .catch(function (error) {
                     console.log(error);
                 });
-        
-        }) (); 
+
+        }) ();
 
 
 //     (function($) {
- 
+
 //  axios.get('http://0188606c.ngrok.io/api/projectRelatedKpi',{
 //      params:{
 //          "assigned_project_id":1034,
@@ -529,7 +555,7 @@ $(document).ready(function(){
 //      })
 //      .then((response) => {
 //          console.log(response.data.data.m_kpi.sector);
-         
+
 //      //   $('.'+response.data.role+'_unassigned_counter').text(response.data.unassigned);
 //      })
 //      .catch(function (error) {
@@ -590,7 +616,7 @@ axios.get('{{route("getProjectKpi")}}',{
         'data' : ds,
         'nodeContent': 'title'
         });
-         
+
      //   $('.'+response.data.role+'_unassigned_counter').text(response.data.unassigned);
      })
      .catch(function (error) {
@@ -599,9 +625,9 @@ axios.get('{{route("getProjectKpi")}}',{
 
   });
 })(jQuery);
- 
+
   $('form.serializeform').on('submit',function(e){
-    
+
     e.preventDefault();
       $.ajax( {
       data: new FormData(this),
@@ -614,12 +640,12 @@ axios.get('{{route("getProjectKpi")}}',{
       success: function( feedback ){
           console.log(feedback);
           if(feedback.resType=="ObjectiveAndComponents"){
-            ObjectiveComponent(feedback.data.components,feedback.data.objectives);          
+            ObjectiveComponent(feedback.data.components,feedback.data.objectives);
           }
           if(feedback.resType=="forTime"){
-            ObjectiveComponentTime(feedback.data.CompActivityMapping);          
+            ObjectiveComponentTime(feedback.data.CompActivityMapping);
             console.log('done');
-            
+
           }
         //   if(feedback){
             toast({
@@ -642,28 +668,28 @@ axios.get('{{route("getProjectKpi")}}',{
   var count=0;
   var compopt='';
   $('li.optiontest').on('click', function () {
-        compopt='';    
+        compopt='';
     console.log(compData);
-        
+
         for (let index = 0; index < compData.length; index++) {
             compopt+='<option value="'+compData[index].id+'">'+compData[index].component+'</option>';
             console.log(index);
-            
+
         }
         console.log(compopt,compData.length);
-        
+
         var t = $(this).attr('id').toString()
         var b = true;
             if(t.split('-s')[1]=='election'){
                 b = false;
                 $('#addkpi').find('#' + t).remove()
             }
-                
+
             if (b) {
                var Li=`<li id='` + t.split('-s')[0]+'-selection' + `' class="col-md-12 row" style="margin-top:5px;">
-                    <div class='col-md-6'> 
+                    <div class='col-md-6'>
                         <span name="kpiname[]"> `+ $(this).text() + `</span>
-                        
+
                        <input type="hidden" name='kpinamesId[]' value='`+$(this).attr('data-value')+`'/>
                         </div>
                     <div class="col-md-6">
@@ -674,14 +700,14 @@ axios.get('{{route("getProjectKpi")}}',{
                     </li>`;
                     count++;
                 $(Li).appendTo('#addkpi')
-                    
-                    
+
+
                 // console.log($('#addkpi').find());
                 $('.kpisel').select2()
             }
-        
+
     })
-    
+
   $(window).scroll(function(){
     var scroll = $(window).scrollTop();
     if (scroll > 380)
@@ -705,6 +731,100 @@ axios.get('{{route("getProjectKpi")}}',{
      }
   });
 
+});
+</script>
+<script type="text/javascript">
+let modalId = $('#image-gallery');
+
+$(document)
+.ready(function () {
+
+  loadGallery(true, 'a.thumbnail');
+
+  //This function disables buttons when needed
+  function disableButtons(counter_max, counter_current) {
+    $('#show-previous-image, #show-next-image')
+      .show();
+    if (counter_max === counter_current) {
+      $('#show-next-image')
+        .hide();
+    } else if (counter_current === 1) {
+      $('#show-previous-image')
+        .hide();
+    }
+  }
+
+  /**
+   *
+   * @param setIDs        Sets IDs when DOM is loaded. If using a PHP counter, set to false.
+   * @param setClickAttr  Sets the attribute for the click handler.
+   */
+
+  function loadGallery(setIDs, setClickAttr) {
+    let current_image,
+      selector,
+      counter = 0;
+
+    $('#show-next-image, #show-previous-image')
+      .click(function () {
+        if ($(this)
+          .attr('id') === 'show-previous-image') {
+          current_image--;
+        } else {
+          current_image++;
+        }
+
+        selector = $('[data-image-id="' + current_image + '"]');
+        updateGallery(selector);
+      });
+
+    function updateGallery(selector) {
+      let $sel = selector;
+      current_image = $sel.data('image-id');
+      $('#image-gallery-title')
+        .text($sel.data('title'));
+      $('#image-gallery-image')
+        .attr('src', $sel.data('image'));
+      disableButtons(counter, $sel.data('image-id'));
+    }
+
+    if (setIDs == true) {
+      $('[data-image-id]')
+        .each(function () {
+          counter++;
+          $(this)
+            .attr('data-image-id', counter);
+        });
+    }
+    $(setClickAttr)
+      .on('click', function () {
+        updateGallery($(this));
+      });
+  }
+});
+
+// build key actions
+$(document)
+.keydown(function (e) {
+  switch (e.which) {
+    case 37: // left
+      if ((modalId.data('bs.modal') || {})._isShown && $('#show-previous-image').is(":visible")) {
+        $('#show-previous-image')
+          .click();
+      }
+      break;
+
+    case 39: // right
+      if ((modalId.data('bs.modal') || {})._isShown && $('#show-next-image').is(":visible")) {
+        $('#show-next-image')
+          .click();
+      }
+      break;
+
+    default:
+      return; // exit this handler for other keys
+  }
+  e.preventDefault(); // prevent the default action (scroll / move caret)
 });
 </script>
 @endsection

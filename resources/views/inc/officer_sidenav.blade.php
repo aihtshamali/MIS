@@ -63,13 +63,13 @@
 
             <ul class="treeview-menu">
               <li><a href="{{route('new_evaluation')}}"><i class="fa fa-circle-o"></i> New Assignments
-               {{--  dd($officer);
-                @if($officer->count()>0)  --}}
+               <!-- {{--  dd($officer); -->
+                <!-- @if($officer->count()>0)  --}} -->
                   <span class="pull-right-container">
                       <span class="label label-danger pull-right  officer_assigned_counter">0</span>
                   </span>
 
-              {{--  @endif  --}}
+              <!-- {{--  @endif  --}} -->
             </a></li>
               <li><a href="{{route('inprogress_evaluation')}}"><i class="fa fa-circle-o"></i> In-Progress
                 <span class="pull-right-container">
@@ -89,7 +89,7 @@
         </ul>
       </li>
 
-      {{-- Plan A Visit --}}
+      <!-- {{-- Plan A Visit --}} -->
       <li class="treeview">
           <a href="#">
             <i class="fa fa-car"></i>

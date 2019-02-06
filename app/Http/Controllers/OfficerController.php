@@ -204,7 +204,6 @@ class OfficerController extends Controller
 
       public function evaluation_inprogress()
       {
-
         $officerAssignedCount=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
         ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
         ->leftjoin('projects','projects.id','assigned_projects.project_id')
