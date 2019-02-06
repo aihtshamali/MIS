@@ -41,7 +41,7 @@ td{white-space: unset !important;}
                     <i class="feather icon-home bg-c-yellow card1-icon hidden-sm hidden-xs"></i>
                     <span class="text-c-yellow f-w-600 pointer"> <span style="color:black">Welcome</span>
                         @auth
-                          {{Auth::user()->first_name}} {{Auth::user()->last_name}}
+                          {{Auth::user()->first_name}} {{Auth::user()->last_name}} <small>({{Auth::user()->designation}})</small> 
                         @endauth <span style="color:black;">to Monitoring dashboard.</span>
                     </span>
                     <div class="progress clearfix mt2 clrornge">
