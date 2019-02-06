@@ -37,12 +37,12 @@
                                 <i class="helper"></i>Directors
                             </label>
                         </div>
-                        <div class="radio radiofill radio-primary radio-inline">
+                        <!-- <div class="radio radiofill radio-primary radio-inline">
                             <label>
                                 <input type="radio" name="assign_to" value="officer" >
                                 <i class="helper"></i>Officers
                             </label>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="col-md-3"></div>
                 </div>

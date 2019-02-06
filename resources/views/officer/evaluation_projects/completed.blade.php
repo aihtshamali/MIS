@@ -23,8 +23,8 @@
       {{-- row 1 --}}
 
       <div class="row">
-        <div class="col-md-2 col-xs-2" ></div>
-        <div class="col-md-8 col-xs-4" >
+        <!-- <div class="col-md-2" ></div> -->
+        <div class="col-md-8" >
             <div class="box box-warning">
 
               <div class="box-header with-border">
@@ -38,7 +38,7 @@
               </div>
               <div class="box-body">
                <div class="row" >
-                <div class="col-md-12 col-xs-6">
+                <div class="col-md-12">
 
                     <div class="table-responsive">
                       <table class="table table-hover table-striped">
@@ -76,7 +76,7 @@
               </div>
           </div>
         </div>
-        <div class="col-md-2 col-xs-2" ></div>
+        <!-- <div class="col-md-2 col-xs-2" ></div> -->
        </div>
 
 
