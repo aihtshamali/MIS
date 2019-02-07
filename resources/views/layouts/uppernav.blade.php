@@ -96,11 +96,7 @@
                       <div class="pull-left">
                         <img src="#" class="img-circle" alt="User Image">
                       </div>
-                      <h4>
-                        AdminLTE Design Team
-                        <small><i class="fa fa-clock-o"></i> 2 hours</small>
-                      </h4>
-                      <p>Why not buy a new awesome theme?</p>
+                      
                     </a>
                   </li>
                   <li>

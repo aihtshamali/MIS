@@ -825,4 +825,46 @@ $(document)
   e.preventDefault(); // prevent the default action (scroll / move caret)
 });
 </script>
+<!-- start treeview -->
+<script type="text/javascript">
+var toggler = document.getElementsByClassName("caret");
+var i;
+
+for (i = 0; i < toggler.length; i++) {
+toggler[i].addEventListener("click", function() {
+  this.parentElement.querySelector(".nested").classList.toggle("active");
+  this.parentElement.querySelector(".nested").classList.toggle("nodisplay");
+  this.classList.toggle("caret-right");
+  this.classList.toggle("caret-down");
+});
+}
+</script>
+<!-- end treeview -->
+<script type="text/javascript">
+var check = true
+  $('.photogallary').on('click', function () {
+    if(check){
+      $('.photogallaryDiv').css('display','inline-flex');
+    }
+    else{
+      $('.photogallaryDiv').css('display','none');
+    }
+    check = !check
+  });
+  $('.vidgallary').on('click', function () {
+    if(check){
+      $('.vidgallaryDiv').css('display','inline-flex');
+    }
+    else{
+      $('.vidgallaryDiv').css('display','none');
+    }
+    check = !check
+  });
+</script>
+<script type="text/javascript">
+// $('.nested').parent().on('click', function (){
+//   $('.nested').css('display','none');
+// })
+
+</script>
 @endsection

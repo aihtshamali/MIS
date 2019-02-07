@@ -336,6 +336,7 @@ $(document).ready(function () {
         $('#reviewDiv').hide();
         $('#TimesDiv').hide();
         $('#CostingDiv').hide();
+        $('#prolocDiv').hide();
     }
 
 
@@ -398,12 +399,16 @@ $(document).ready(function () {
         hideall();
         $('#activities').show();
         $("#kpisss").removeClass("active");
-        $("#tali").addClass("active");
+        $("#proloc").addClass("active");
     });
 
     $('.kpis').on('click', function () {
         hideall();
         $('#kpis').show();
+    });
+    $('.proloc').on('click', function () {
+        hideall();
+        $('#prolocDiv').show();
     });
     $('.PlanDoc').on('click', function () {
         hideall();
