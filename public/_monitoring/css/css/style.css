@@ -25234,7 +25234,7 @@ body.dark #styleSelector .form-control {
     border-radius: 50% !important;
     position: absolute;
     background: #77777740;
-    padding: 3%;
+    padding: 8%;
     font-size: 23px;
     margin-top: -30%;
     box-shadow: 0px 3px 29px #08080826;
@@ -25254,4 +25254,9 @@ body.dark #styleSelector .form-control {
   .pdlfrt2{padding: 0% 2% !important;}
   .txtdecundlin{text-decoration: underline !important;text-decoration-color: #01a9ac !important;}
   .clrSky{color: #01a9ac !important}
+  .topSummary
+    {
+      margin-top:-3%;z-index:999; margin-left:-2.85%;width: inherit;
+    }
+  .widthInh{width: inherit !important;}
   /*# sourceMappingURL=style.css.map */

@@ -105,16 +105,21 @@
 @section('content')
 
     {{-- frozen panel for plan and conduct monitoring  --}}
-    <div class="col-md-12 fixed bg-g hidden-sm hidden-xs topSummary capitalize" style="margin-top:-3% !important;z-index:999 !important; margin-left:-2.85% !important;">
-
-        <div class="bg-w border_top bg-w" style="padding:0.25rem !important;" >
-                <style scoped>
-                    .form-group{margin-bottom:0rem !important;border:none !important;background-color:transparent !important;}
-                    .form-group{padding: 0.05rem 0.75rem !important;}
-                    .col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto{padding-left: 0px !important;padding-right: 0px !important;}
-                    label{margin-bottom:0rem !important;border:none !important;background-color:transparent !important;padding:0rem 0.3rem !important;font-size: 12px !important;}
-
-                </style>
+    <div class="fixed bg-g hidden-sm hidden-xs topSummary capitalize" style="">
+    <div class="bg-w border_top bg-w" style="padding:0.25rem !important;" >
+      <style scoped>
+          .form-group{margin-bottom:0rem !important;border:none !important;background-color:transparent !important;}
+          .form-group{padding: 0.05rem 0.75rem !important;}
+          .col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto{padding-left: 0px !important;padding-right: 0px !important;}
+          label{margin-bottom:0rem !important;border:none !important;background-color:transparent !important;padding:0rem 0.3rem !important;font-size: 12px !important;}
+        @media only screen and (max-width: 1024px)
+          {
+            .topSummary
+              {
+                margin-top:-4% !important;z-index:999; margin-left:-4% !important;
+              }
+          }
+      </style>
                   <div class="col-md-12">
                       <label for="project_title" class="">Project Title: <span><b>{{$project->Project->title}}</b></span></label>
                   </div>
@@ -131,7 +136,7 @@
                     </div>
                     <div class="col-md-2">
                         <label for="PHI" class="">PHI </label>
-                        <input name="phi" id="#phi" type="number" class="frozen_pane"/>
+                        <input name="phi" id="#phi" type="number" class="frozen_pane widthInh"/>
                     </div>
                     <div class="col-md-2 ln_ht12">
                         <label for="Location" class="">final Revised Cost: <span><b>
@@ -170,62 +175,55 @@
                         <label for="last_monitoring" class="">Last Monitoring Date </label>
                     </div>
                 </div>
-                <!-- start hide project detail btn -->
-                <center>
-
-                </center>
-                <!-- end hide project detail btn -->
         </div>
     </div>
     <!--start show project detail btn-->
-    <center>
       <div class="col-md-1 hidden-sm hidden-xs text-center downtiQ nodisplay"  title="Show Project Detail">
         <div class="offset-md-2 col-md-5 border golbtn">
           <i class="fa fa-angle-double-down"></i>
         </div>
       </div>
-    </center>
     <!--end show project detail btn-->
 
     {{-- end of frozen panel --}}
     <div class="row">
             <div class="col-md-12 mainTabsAndNav mt_6p" style="padding-left: 15px !important;padding-right: 15px !important;">
-              <center>
+                <!-- start hide project detail btn -->
                 <div class="col-md-1 hidden-sm hidden-xs text-center uptiQ" title="Hide Detail">
                   <div class="offset-md-2 col-md-5 border golbtn">
                     <i class="fa fa-angle-double-up"></i>
                   </div>
                 </div>
-              </center>
+                <!-- end hide project detail btn -->
                     <div class="card" style="box-shadow: 0px 0px 33px #77777769;">
                         <div class="card-header">
                         </div>
                         <div class="card-block">
                             <div class="row m-b-30">
-                                <div class="col-lg-12 col-xl-12 col-md-8 col-sm-6">
-                                    <!-- Nav tabs -->
-  <ul class="nav nav-tabs md-tabs" role="tablist">
-      <li class="nav-item reviewTab">
-          <a class="nav-link active" data-toggle="tab" href="#reviewDiv" role="tab"><span style="font-size:14px; font-weight:bold;">REVIEW</span></a>
-          <div class="slide"></div>
-      </li>
-      <li class="nav-item planNav">
-          <a class="nav-link" data-toggle="tab" href="#p_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">PLAN MONITORING</span></a>
-          <div class="slide"></div>
-      </li>
-      <li class="nav-item conductNav">
-          <a class="nav-link" data-toggle="tab" href="#c_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">CONDUCT MONITORING</span></a>
-          <div class="slide"></div>
-      </li>
-      <li class="nav-item resultNav">
-          <a class="nav-link" data-toggle="tab" href="#r_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">RESULT MONITORING</span></a>
-          <div class="slide"></div>
-      </li>
-      <li class="nav-item summaryNav">
-        <a class="nav-link" data-toggle="tab" href="#summary" role="tab"><span style="font-size:14px; font-weight:bold;">SUMMARY</span></a>
-        <div class="slide"></div>
-      </li>
-  </ul>
+                                <div class="col-md-12">
+                                  <!-- Nav tabs -->
+                                  <ul class="nav nav-tabs md-tabs" role="tablist">
+                                      <li class="nav-item reviewTab">
+                                          <a class="nav-link active" data-toggle="tab" href="#reviewDiv" role="tab"><span style="font-size:14px; font-weight:bold;">REVIEW</span></a>
+                                          <div class="slide"></div>
+                                      </li>
+                                      <li class="nav-item planNav">
+                                          <a class="nav-link" data-toggle="tab" href="#p_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">PLAN MONITORING</span></a>
+                                          <div class="slide"></div>
+                                      </li>
+                                      <li class="nav-item conductNav">
+                                          <a class="nav-link" data-toggle="tab" href="#c_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">CONDUCT MONITORING</span></a>
+                                          <div class="slide"></div>
+                                      </li>
+                                      <li class="nav-item resultNav">
+                                          <a class="nav-link" data-toggle="tab" href="#r_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">RESULT MONITORING</span></a>
+                                          <div class="slide"></div>
+                                      </li>
+                                      <li class="nav-item summaryNav">
+                                        <a class="nav-link" data-toggle="tab" href="#summary" role="tab"><span style="font-size:14px; font-weight:bold;">SUMMARY</span></a>
+                                        <div class="slide"></div>
+                                      </li>
+                                  </ul>
                                     <!-- Tab panes -->
                                     <div class="tab-content card-block">
                                         @include('_Monitoring/inc/monitoring/reviewDiv')
