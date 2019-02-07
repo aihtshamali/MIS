@@ -18,5 +18,8 @@ class PlantripCity extends Model
    {
       return $this->hasMany('App\PlantripRequestedcity');
   } 
+  public function MUserVisitlocation(){
+    return $this->hasMany('App\MUserVisitlocation');
+}
 
 }
