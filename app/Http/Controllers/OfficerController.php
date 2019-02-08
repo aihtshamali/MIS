@@ -1240,4 +1240,10 @@ class OfficerController extends Controller
        return redirect()->back();
      }
 
+
+    //  CM DASHBOARD
+    public function DetailedDashboard(){
+      return view('_Monitoring.monitoringDashboard.index');
+    }
+
     }
