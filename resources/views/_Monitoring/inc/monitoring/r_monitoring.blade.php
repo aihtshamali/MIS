@@ -90,9 +90,8 @@ ul, #myUL {
     <!-- ---------------- end tree vie ------------------ -->
     <!-- ----------------- start photo gallery -------------------- -->
     <h2 class="txtdecundlin pointer photogallary" title="click to Expand photo gallary">Photo Gallery</h2>
-		<div class="row photogallaryDiv nodisplay">
-<<<<<<< HEAD
-            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+		<div class="row photogallaryDiv nodisplay col-md-12">
+            <!-- <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                 <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
                    data-image="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
                    data-target="#image-gallery">
@@ -100,14 +99,14 @@ ul, #myUL {
                          src="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
                          alt="">
                 </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-=======
+            </div> -->
       @foreach ($result_from_app as $attachment)
       <div class="col-lg-3 col-md-4 col-xs-6 thumb">
         <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
            data-image="{{asset('storage/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement)}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" data-target="#image-gallery">
             <img class="img-thumbnail" src="{{asset('storage/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement)}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Another alt text">
+            <b class="float-left">Name</b>
+            <b class="float-right">Date</b>
         </a>
     </div>
       @endforeach
