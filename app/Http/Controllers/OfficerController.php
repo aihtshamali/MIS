@@ -59,7 +59,7 @@ use App\MAssignedKpiLevel4;
 use App\District;
 use App\PlantripCity;
 
-use App\MAppAttachments;
+use App\MAppAttachment;
 use Illuminate\Support\Facades\Redirect;
 use DB;
 class OfficerController extends Controller
@@ -691,7 +691,7 @@ class OfficerController extends Controller
         $org_project=Project::where('id',$request->project_id)->first();
         $org_projectId=$org_project->id;
         
-        $result_from_app = MAppAttachments::where('m_project_progress_id',$projectProgressId->id)->get();
+        $result_from_app = MAppAttachment::where('m_project_progress_id',$projectProgressId->id)->get();
        
         $financial_cost=MProjectCost::where('m_project_progress_id',$projectProgressId->id)->first();
         
@@ -1243,8 +1243,18 @@ class OfficerController extends Controller
 
     //  CM DASHBOARD
     public function DetailedDashboard(){
-      $projects=Auth::user()->AssignedProjectTeam
-      return view('_Monitoring.monitoringDashboard.index');
+      $projects= Project::select('projects.*')
+      ->leftjoin('assigned_projects','projects.id','assigned_projects.project_id')
+      ->leftjoin('assigned_project_teams','assigned_projects.id','assigned_project_teams.assigned_project_id')
+      ->where('assigned_project_teams.user_id',Auth::id())
+      ->where('assigned_projects.complete',0)
+      ->where('project_type_id',2)
+      ->where('acknowledge',1)
+      ->where('status',1)
+      ->get();
+
+      // $projects=Auth::user()->AssignedProjectTeam
+      return view('_Monitoring.monitoringDashboard.index',compact('projects'));
     }
 
     }

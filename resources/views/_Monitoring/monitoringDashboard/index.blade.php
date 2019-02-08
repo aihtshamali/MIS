@@ -30,60 +30,72 @@ object-fit: cover;
         <div class="row">
             <div class="col-xs-12">
                 <div class="carousel-inner">
-                    <div class="item active">
+                  @php
+                      $i=0;
+                  @endphp
+                  @foreach ($projects as $project)
+                <div class="item {{$i==0 ? 'active' : ''}}">
                       <div class="col-md-12 row">
-                        <div class="col-md-12">
-                          <h3 class="topheading">First Project Name</h3>
+                          <div class="col-md-12">
+                            <h3 class="topheading">{{$project->title}}</h3>
+                          </div>
                         </div>
-                      </div>
-                      <div class="col-md-12 border-bottom border-top">
-                        <div class="col-md-2">
-                          <b class="hedingTxt">GS No<span class="pull-right hidden-xs hidden-sm">:</span></b>
+                        <div class="col-md-12 border-bottom border-top">
+                          <div class="col-md-2">
+                            <b class="hedingTxt">GS No<span class="pull-right hidden-xs hidden-sm">:</span></b>
+                          </div>
+                          <div class="col-md-2">
+                          <b class="hedingInt">{{$project->financial_year}}/{{$project->ADP}}</b>
+                          </div>
+                          <div class="col-md-2">
+                            <b class="hedingTxt">Project Cost<span class="pull-right hidden-xs hidden-sm">:</span></b>
+                          </div>
+                          <div class="col-md-2">
+                          <b class="hedingInt">{{$project->ProjectDetail->orignal_cost}} million {{$project->ProjectDetail->currency}}</b>
+                          </div>
+                          <div class="col-md-2">
+                            <b class="hedingTxt">Status Alert<span class="pull-right hidden-xs hidden-sm">:</span></b>
+                          </div>
+                          <div class="col-md-2">
+                            <a href="{{ route('Summary') }}">
+                              <b class="statusTxt" id="status">30%</b>
+                            </a>
+                          </div>
                         </div>
-                        <div class="col-md-2">
-                          <b class="hedingInt">123456789</b>
-                        </div>
-                        <div class="col-md-2">
-                          <b class="hedingTxt">Project Cost<span class="pull-right hidden-xs hidden-sm">:</span></b>
-                        </div>
-                        <div class="col-md-2">
-                          <b class="hedingInt">400 million PKR</b>
-                        </div>
-                        <div class="col-md-2">
-                          <b class="hedingTxt">Status Alert<span class="pull-right hidden-xs hidden-sm">:</span></b>
-                        </div>
-                        <div class="col-md-2">
-                          <a href="{{ route('Summary') }}">
-                            <b class="statusTxt" id="status">30%</b>
-                          </a>
-                        </div>
-                      </div>
-                      <div class="col-md-12 border-bottom">
-                        <div class="col-md-2">
-                          <b class="hedingTxt">Financial Progress<span class="pull-right hidden-xs hidden-sm">:</span></b>
-                        </div>
-                        <div class="col-md-2">
-                          <b class="hedingInt">12%</b>
-                        </div>
-                        <div class="col-md-2">
-                          <b class="hedingTxt">Physical Progress<span class="pull-right hidden-xs hidden-sm">:</span></b>
-                        </div>
-                        <div class="col-md-2">
-                          <b class="hedingInt">40%</b>
-                        </div>
+                        <div class="col-md-12 border-bottom">
+                          <div class="col-md-2">
+                            <b class="hedingTxt">Financial Progress<span class="pull-right hidden-xs hidden-sm">:</span></b>
+                          </div>
+                          <div class="col-md-2">
+                            <b class="hedingInt">12%</b>
+                          </div>
+                          <div class="col-md-2">
+                            <b class="hedingTxt">Physical Progress<span class="pull-right hidden-xs hidden-sm">:</span></b>
+                          </div>
+                          <div class="col-md-2">
+                            <b class="hedingInt">40%</b>
+                          </div>
 
-                      </div>
-                        <div class="col-md-8 col-md-offset-2 carousel-content pdt3p">
-                            <div>
-                              <img src="{{asset('monitoringDashboard/img/a (1).jpg')}}" alt="Chicago" style="width:100%;">
-                            </div>
                         </div>
+                          <div class="col-md-8 col-md-offset-2 carousel-content pdt3p">
+                              <div>
+                                @if ($project->AssignedProject->MProjectProgress->last()->MAppAttachment->last())
+                                  @php
+                                     $attachment= $project->AssignedProject->MProjectProgress->last()->MAppAttachment->last()
+                                  @endphp
+                                  <img src="{{asset('storage/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement)}}" alt="Chicago" style="width:100%;">  
+                                @else
+                                  <img src="{{asset('monitoringDashboard/img/a (1).jpg')}}" alt="Chicago" style="width:100%;">
+                                @endif
+                              </div>
+                          </div>
+                      </div>
+                  
                     </div>
-                </div>
+                  @endforeach
+
             </div>
         </div>
-
-
     </div>
     <div class="arrowstiQ">
       <a class="left carousel-control" href="#text-carousel" data-slide="prev" style="left: 14% !important;">

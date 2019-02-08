@@ -20,7 +20,7 @@ class MUserVisitlocation extends Model
     public function MProjectKpi(){
         return $this->hasMany('App\MProjectKpi');
     }
-    public function MAppAttachments(){
-        return $this->hasMany('App\MAppAttachments');
+    public function MAppAttachment(){
+        return $this->hasMany('App\MAppAttachment');
     }
 }
