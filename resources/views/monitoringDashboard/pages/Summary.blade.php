@@ -78,7 +78,7 @@
       </form>
     </div>
   </div>
-    <div class="card-block margin-top table-border-style col-md-10 col-md-offset-1 border nopad">
+    <div class="card-block margin-top table-border-style col-md-10 col-md-offset-1 nopad box-shadow">
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead>
