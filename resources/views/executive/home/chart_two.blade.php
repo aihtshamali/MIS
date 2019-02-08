@@ -189,14 +189,14 @@
 
 <script>
   function loadDataTable(){
-    $('table.officer_projects').DataTable({
-      dom: 'Bfrtip',
-          buttons: [
-              'copy', 'csv', 'excel', 'pdf', 'print'
-          ]
-    });
-    $('.dt-buttons').addClass('col-md-6')
-    $('.dataTables_filter').addClass('col-md-6').css('text-align','right');
+    // $('table.officer_projects').DataTable({
+    //   dom: 'Bfrtip',
+    //       buttons: [
+    //           'copy', 'csv', 'excel', 'pdf', 'print'
+    //       ]
+    // });
+    // $('.dt-buttons').addClass('col-md-6')
+    // $('.dataTables_filter').addClass('col-md-6').css('text-align','right');
   }
 
 let chart = am4core.create("chartdiv2", am4charts.XYChart);
@@ -322,60 +322,4 @@ $(document).on('click','g.amcharts-graph-column',function(){
     $('#Modal'+data).modal('show');
 });
 </script>
-{{-- <script>
-        var st = [];
-        $i = 0;
-        officers.forEach(element => {
-          st.push ({
-            "value" : element.id,
-            "Name":element.first_name +" "+element.last_name ,
-            "Number of Projects": assigned_projects[$i]
-          });
-          $i++;
-        });
-        var chart = AmCharts.makeChart( "chartdiv2", {
-        "type": "serial",
-        "theme": "light",
-        "dataProvider":st,
-        "valueAxes": [ {
-          "title" : "Project Numbers",
-          "gridColor": "#FFFFFF",
-          "gridAlpha": 0.2,
-          "dashLength": 0
-        } ],
-        "gridAboveGraphs": true,
-        "startDuration": 1,
-        "graphs": [ {
-          "balloonText": "[[category]]: <b>[[value]]</b>",
-          "fillAlphas": 0.8,
-          "lineAlpha": 0.2,
-          "type": "column",
-          "labelText": "[[value]]",
-          "valueField": "Number of Projects"
-        } ],
-        "chartCursor": {
-          "categoryBalloonEnabled": false,
-          "cursorAlpha": 0,
-          "zoomable": false
-        },
-        "categoryField": "Name",
-        "categoryAxis": {
-          "title" : "Officers",
-          "gridPosition": "middle",
-          "autoGridCount": false,
-          "equalSpacing": true,
-          "gridCount": 1000,
-          "gridAlpha": 0,
-          "tickPosition": "middle",
-          "tickLength": 5,
-          "labelRotation":30,
-          // "ignoreAxisWidth": true,
-          "autoWrap": true
-        },
-        "export": {
-          "enabled": true
-        }
-
-      } );
-    </script> --}}
 @endsection
