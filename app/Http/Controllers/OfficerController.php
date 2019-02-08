@@ -680,10 +680,10 @@ class OfficerController extends Controller
         $result_from_app = MAppAttachments::where('m_project_progress_id',$projectProgressId->id)->get();
        
         $financial_cost=MProjectCost::where('m_project_progress_id',$projectProgressId->id)->first();
-        $financial_progress=($financial_cost->utilization_against_releases/$financial_cost->total_release_to_date)*100;
-
         
-      
+        $financial_progress=0.0;
+        if($financial_cost)
+            $financial_progress=($financial_cost->utilization_against_releases/$financial_cost->total_release_to_date)*100;    
        
         \JavaScript::put([
           'projectWithRevised'=>$projectWithRevised,
