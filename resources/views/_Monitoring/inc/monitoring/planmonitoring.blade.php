@@ -7,10 +7,10 @@
                     <a class="nav-link active PlanDoc" data-toggle="tab" href="#PlanDocDiv"
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Documents</b></a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link financialphase" data-toggle="tab" href="#financial" id="fpli"
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Financial Phasing</b></a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link i-dates" data-toggle="tab" href="#i-dates" id="pdli"
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Project Design</b></a>
@@ -22,6 +22,10 @@
                 <li class="nav-item">
                     <a class="nav-link  kpis" data-toggle="tab" href="#kpis" role="tab" id="kpisss"
                         aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Plan ( KPI's)</b></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link proloc" data-toggle="tab" href="#prolocDiv" role="tab" id="proloc"
+                        aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Project Location</b></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link activities" data-toggle="tab" href="#activities" id="tali"
@@ -119,7 +123,7 @@
                                 @if($j==1)
                                 <div class="col-sm-2 addbtn text_center">
                                         <button class="btn btn-sm btn-info" type="button" id="add_more_compAct" tabindex=100>+</button>
-                                </div>    
+                                </div>
                                 @else
                                 <div class="col-sm-2 removecompAct text_center">
                                      <button class="btn btn-sm btn-danger" title="Delete Component {{$j}}" type="button" id=""  tabindex=101>-</button>
@@ -128,7 +132,7 @@
                             </div>
                             @php
                                 $j++;
-                            @endphp        
+                            @endphp
                         @empty
                             <div class="DisInlineflex newClasscompAct mb_2 col-md-12">
                                     <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Component 1</label>
@@ -140,7 +144,7 @@
                                     </div>
                             </div>
                         @endforelse
-                        
+
                       </div>
                       <button class="btn aho col-md-2 offset-md-10" type="submit" id="saveObjComp">Save & Proceed</button>
                   </div>
@@ -224,7 +228,7 @@
                     </div>
                    </form>
                 </div>
-                <div class="tab-pane active" id="kpis" role="tabpanel" aria-expanded="false" style="display:none;">
+                <div class="tab-pane" id="kpis" role="tabpanel" aria-expanded="false" style="display:none;">
                 <form class="serializeform" action="{{route('kpiComponentMapping')}}" method="post">
                     {{ csrf_field() }}
                     <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
@@ -246,14 +250,14 @@
                                         @endphp
                                         @foreach ($mPlanKpiComponents as $item)
                                             @if($item->m_project_kpi_id == $Kpi->id)
-                                                <option class='optiontest' data-value='{{$Kpi->id}}' selected >{{$Kpi->name}}</option> 
+                                                <option class='optiontest' data-value='{{$Kpi->id}}' selected >{{$Kpi->name}}</option>
                                                 @php
                                                     $flag=false;
                                                 @endphp
                                             @endif
                                         @endforeach
                                       @if($flag)
-                                        <option class='optiontest' data-value='{{$Kpi->id}}'>{{$Kpi->name}}</option> 
+                                        <option class='optiontest' data-value='{{$Kpi->id}}'>{{$Kpi->name}}</option>
                                       @endif
                                      @endforeach
                                 </select>
@@ -280,6 +284,9 @@
                         </div>
                     </div>
                   </form>
+                </div>
+                <div class="tab-pane" id="prolocDiv" role="tabpanel" aria-expanded="false" style="display:none;">
+                  prolocDiv
                 </div>
                 <div class="tab-pane " id="activities" role="tabpanel" aria-expanded="false" style="display:none;">
                 <form class="serializeform" action="{{route('componentActivities')}}" method="post">
@@ -309,7 +316,7 @@
                                             @foreach ($comp->MPlanComponentActivitiesMapping as $item)
                                             <div class="row col-md-9 offset-md-1 form-group component_Activities">
                                                 <div class="col-md-11 mb_1">
-                                                <input type="text" class="form-control" placeholder="Add Task" value="{{$item->activity}}" name="c_activity_{{$j}}[]"> 
+                                                <input type="text" class="form-control" placeholder="Add Task" value="{{$item->activity}}" name="c_activity_{{$j}}[]">
                                                 </div>
                                                 <div class="col-md-1"><button class="btn btn-danger btn-sm" name="remove_activity[]" onclick="removerow(this)" type="button">-</button></div>
                                                 </div>
@@ -381,7 +388,7 @@
                                 <div class="col-md-2 mr_0_1"><h5 class="form-txt-primary"><b>Cost</b></h5></div>
                                 <div class="col-md-2 mr_0_1"><h5 class="form-txt-primary"><b>Amount</b></h5></div>
                             </div>
-                            <div class="costcomp">    
+                            <div class="costcomp">
                             @foreach ($ComponentActivities as $activities)
                             <div class="col-md-12" style="display:inline-flex;">
                                     <label  class="text_left col-md-3"><b>{{$activities->MPlanComponent->component}}</b> <br> - {{$activities->activity}} </label>

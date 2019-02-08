@@ -14,18 +14,18 @@ class UpdateMPlanKpicomponentMappings extends Migration
     public function up()
     {
        
-            Schema::disableForeignKeyConstraints();
-            Schema::table('m_plan_kpicomponent_mappings', function (Blueprint $table) {
-                $table->dropIndex(['general_kpi_id']); 
-                $table->dropForeign(['general_kpi_id']); 
-                $table->dropColumn(['general_kpi_id']);
+            // Schema::disableForeignKeyConstraints();
+            // Schema::table('m_plan_kpicomponent_mappings', function (Blueprint $table) {
+            //     $table->dropIndex(['general_kpi_id']); 
+            //     $table->dropForeign(['general_kpi_id']); 
+            //     $table->dropColumn(['general_kpi_id']);
 
-                });
-            Schema::enableForeignKeyConstraints();
-            Schema::table('m_plan_kpicomponent_mappings', function (Blueprint $table) {
-            $table->integer('m_project_kpi_id')->unsigned()->index()->nullable();
-            $table->foreign('m_project_kpi_id')->references('id')->on('m_project_kpis')->onDelete('no action');
-            });
+            //     });
+            // Schema::enableForeignKeyConstraints();
+            // Schema::table('m_plan_kpicomponent_mappings', function (Blueprint $table) {
+            // $table->integer('m_project_kpi_id')->unsigned()->index()->nullable();
+            // $table->foreign('m_project_kpi_id')->references('id')->on('m_project_kpis')->onDelete('no action');
+            // });
               
     }
     
