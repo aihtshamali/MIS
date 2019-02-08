@@ -89,7 +89,7 @@ ul, #myUL {
         </ul>
     <!-- ---------------- end tree vie ------------------ -->
     <!-- ----------------- start photo gallery -------------------- -->
-    <h2 class="txtdecundlin pointer photogallary">Photo Gallery</h2>
+    <h2 class="txtdecundlin pointer photogallary" title="click to Expand photo gallary">Photo Gallery</h2>
 		<div class="row photogallaryDiv nodisplay">
             <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                 <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
@@ -218,7 +218,7 @@ ul, #myUL {
             </div>
         </div>
         <!-- ----------------------- end photo gallery ------------------ -->
-        <h2 class="txtdecundlin vidgallary pointer">Video Gallery</h2>
+        <h2 class="txtdecundlin vidgallary pointer" title="click to Expand video gallary">Video Gallery</h2>
         <!-- ----------------------- start video Gallery ---------------- -->
         <div class="row vidgallaryDiv nodisplay">
           <div class="col-lg-3 col-md-3 col-xs-6 thumb pdlfrt2">
