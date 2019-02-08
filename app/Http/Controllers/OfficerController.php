@@ -56,6 +56,8 @@ use App\MAssignedKpiLevel1;
 use App\MAssignedKpiLevel2;
 use App\MAssignedKpiLevel3;
 use App\MAssignedKpiLevel4;
+use App\District;
+use App\PlantripCity;
 use Illuminate\Support\Facades\Redirect;
 use DB;
 class OfficerController extends Controller
@@ -513,7 +515,9 @@ class OfficerController extends Controller
         $m_project_costs->technical_sanction_cost = $request->technical_sanction_cost;
         $m_project_costs->contract_award_cost = $request->contract_award_cost;
         $m_project_costs->save();
-        return redirect()->back();
+        $msg='Saved';
+        return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
+        // return redirect()->back();
       }
 
       public function monitoring_inprogress_dates_saved(Request $request){
@@ -528,7 +532,9 @@ class OfficerController extends Controller
         $m_project_dates->admin_approval_date = $request->admin_approval_date;
         $m_project_dates->actual_start_date = $request->actual_start_date;
         $m_project_dates->save();
-        return redirect()->back();
+        $msg='Saved';
+        return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
+        // return redirect()->back();
       }
 
       public function monitoring_inrogress_organizations_saved(Request $request){
@@ -542,7 +548,9 @@ class OfficerController extends Controller
         $m_project_organizations->operation_and_management = $request->operation_and_management;
         $m_project_organizations->contractor_or_supplier = $request->contractor_or_supplier;
         $m_project_organizations->save();
-        return redirect()->back();
+        $msg='Saved';
+        return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
+        // return redirect()->back();
       }
 
       public function monitoring_inprogress_location_saved(Request $request){
@@ -559,21 +567,27 @@ class OfficerController extends Controller
         $m_project_location->longitude = $request->longitude;
         $m_project_location->latitude = $request->latitude;
         $m_project_location->save();
-        return redirect()->back();
+        $msg='Saved';
+        return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
+        // return redirect()->back();
       }
 
       public function monitoring_inprogressSingle(Request $request)
       {
 
-       
         
         if($request->project_id==null)
-          return redirect()->back();
-
+        return redirect()->back();
+        
         $project=AssignedProject::where('project_id',$request->project_id)->orderBy('created_at','desc')->first();
         $total_previousProject = MProjectProgress::where('assigned_project_id',$project->id)->orderBy('created_at', 'desc')->get();
         $previousProject = null;
         $projectProgress = null;
+        if(isset($request->status) && $request->status=="conductMonitoring"){
+          $first=$total_previousProject->first();
+          $first->project_status="ONGOING";
+          $first->save();
+        }
         if($total_previousProject->count()){
           // One New Monitoring (it shouldn't be here)
           $previousProject = $total_previousProject->first();
@@ -671,7 +685,8 @@ class OfficerController extends Controller
         // dd($ComponentActivities);
         $Kpis =MProjectKpi::where('status',1)->get();
         $mPlanKpiComponents=$projectProgressId->MPlanKpicomponentMapping;
-
+        $cities=PlantripCity::orderBy('name')->get();
+        $districts=District::orderBy('name')->get();
         $org_project=Project::where('id',$request->project_id)->first();
         $org_projectId=$org_project->id;
         // dd($org_project->AssignedExecutingAgencies);
@@ -684,7 +699,7 @@ class OfficerController extends Controller
         ]);
       //  dd();
       // dd($progresses);
-        return view('_Monitoring._Officer.projects.inprogressSingle',compact('org_project','org_projectId','projectProgressId','mPlanKpiComponents','ComponentActivities','monitoringProjectId','Kpis','components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
+        return view('_Monitoring._Officer.projects.inprogressSingle',compact('org_project','districts','cities','org_projectId','projectProgressId','mPlanKpiComponents','ComponentActivities','monitoringProjectId','Kpis','components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
       }
       public function monitoring_review_form(Request $request)
       {

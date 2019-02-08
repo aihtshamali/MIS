@@ -103,7 +103,6 @@
 
 @endsection
 @section('content')
-
     {{-- frozen panel for plan and conduct monitoring  --}}
     <div class="fixed bg-g hidden-sm hidden-xs topSummary capitalize" style="">
     <div class="bg-w border_top bg-w" style="padding:0.25rem !important;" >
@@ -224,8 +223,14 @@
                                         <div class="slide"></div>
                                       </li>
                                   </ul>
-                                    <!-- Tab panes -->
-                                    <div class="tab-content card-block">
+                                    <!-- Tab panes --> 
+                                    @php
+                                        $teamflag=false;
+                                      $teamflag =  $project->AssignedProjectTeam->where('user_id',Auth::id())->first()->team_lead==1;
+                                      if(count($project->AssignedProjectTeam)==1)
+                                         $teamflag=true;
+                                    @endphp
+                                    <div class="tab-content card-block" style="">
                                         @include('_Monitoring/inc/monitoring/reviewDiv')
                                         @include('_Monitoring/inc/monitoring/planmonitoring')
                                         @include('_Monitoring/inc/monitoring/conduct_monitoring')
@@ -433,26 +438,29 @@
 
 
 $(document).ready(function(){
-
-
+    if("{{$teamflag}}"!=true){
+        $('form.serializeform :input,form.serializeform :button,form.serializeform select').attr('disabled','disabled');
+    }    
     var compData='';
     var activities='';
     var sponsoringAgency='';
     var executingAgency='';
 
-        function getWBS(route,id){
+    function getWBS(route,id){
         axios.get(route,{
      params:{
          "assigned_project_id":id,
      }
      })
      .then((response) => {
-         console.log(response.data.m_kpi.sector);
-         var ds = response.data.m_kpi.sector[0];
-        var oc = $('#WBSChart').orgchart({
-        'data' : ds,
-        'nodeContent': 'title'
-        });
+         var ds ='';
+         for (let i = 0; i < response.data.m_kpi.sector.length; i++) {
+             ds = response.data.m_kpi.sector[i];
+            var oc = $('#WBSChart').orgchart({
+            'data' : ds,
+            'nodeContent': 'title'
+            });
+         }
 
      //   $('.'+response.data.role+'_unassigned_counter').text(response.data.unassigned);
      })
@@ -461,10 +469,13 @@ $(document).ready(function(){
      });
 
    }
-
+   var wbs=true;
 
    $('.summaryNav').on('click', function () {
-        getWBS('{{route("getProjectKpi")}}',"{{$project->id}}");
+        if(wbs){
+            getWBS('{{route("getProjectKpi")}}',"{{$project->id}}");            
+            wbs=false;
+        }
     });
         (function($) {
             console.log();
@@ -562,8 +573,8 @@ $(document).ready(function(){
 //    })();
 
     // WBS Chart Start
-(function($) {
-  $(function() {
+// (function($) {
+//   $(function() {
 //    var ds = {
 //      'name': 'Infrastructure Projects',
 //      'children': [
@@ -602,27 +613,27 @@ $(document).ready(function(){
 //      }]
 //     };
 
-axios.get('{{route("getProjectKpi")}}',{
-     params:{
-         "assigned_project_id":"{{$project->id}}",
-     }
-     })
-     .then((response) => {
-         console.log(response.data.m_kpi.sector);
-         var ds = response.data.m_kpi.sector[0];
-        var oc = $('#WBSChart').orgchart({
-        'data' : ds,
-        'nodeContent': 'title'
-        });
+// axios.get('{{route("getProjectKpi")}}',{
+//      params:{
+//          "assigned_project_id":"{{$project->id}}",
+//      }
+//      })
+//      .then((response) => {
+//          console.log(response.data.m_kpi.sector);
+//          var ds = response.data.m_kpi.sector[0];
+//         var oc = $('#WBSChart').orgchart({
+//         'data' : ds,
+//         'nodeContent': 'title'
+//         });
 
-     //   $('.'+response.data.role+'_unassigned_counter').text(response.data.unassigned);
-     })
-     .catch(function (error) {
-       console.log(error);
-     });
+//      //   $('.'+response.data.role+'_unassigned_counter').text(response.data.unassigned);
+//      })
+//      .catch(function (error) {
+//        console.log(error);
+//      });
 
-  });
-})(jQuery);
+//   });
+// })(jQuery);
 
   $('form.serializeform').on('submit',function(e){
 
