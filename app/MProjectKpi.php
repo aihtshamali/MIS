@@ -21,4 +21,7 @@ class MProjectKpi extends Model
   public function MPlanKpicomponentMapping(){
     return $this->hasMany('App\MPlanKpicomponentMapping');
   }
+  public function MUserVisitlocation(){
+    return $this->belongsTo('App\MUserVisitlocation');
+}
 }

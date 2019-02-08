@@ -7,10 +7,10 @@
                     <a class="nav-link active PlanDoc" data-toggle="tab" href="#PlanDocDiv"
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Documents</b></a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link financialphase" data-toggle="tab" href="#financial" id="fpli"
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Financial Phasing</b></a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link i-dates" data-toggle="tab" href="#i-dates" id="pdli"
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Project Design</b></a>
