@@ -164,12 +164,12 @@
                         <label for="actual_start_date" class="">Actual Start Date </label>
                     </div>
                     <div class="col-md-2 ln_ht12">
-                        <label for="progress" class="">Physical Progress %: <span><b>{{$project->progress}} %</b></span></label>
+                        <label for="" name="phy_progress" id="phy_progress" class="">Physical Progress %: <span><b  style="font-size:13px;">{{$project->progress}} %</b></span></label>
                     </div>
                     <div class="col-md-2">
                         {{-- <label for="Financial" class="">Financial Progress %</label> --}}
-                        {{-- <input type="text"  id="financial_progress" class="frozen_pane" name="financial_progress"> --}}
-                        <label for="progress" class="">Financial Progress %: <span><b>{{$project->progress}} %</b></span></label>
+                        {{-- <input type="text"  id="f_progress" class="" name="f_progress" value=""> --}}
+                    <label for="" name="f_progress" id="f_progress" class="">Financial Progress: <span ><b style="font-size:13px;">{{$financial_progress}}%</b></span></label>
                     </div>
                     <div class="col-md-2">
                         <label for="last_monitoring" class="">Last Monitoring Date </label>
@@ -249,37 +249,28 @@
                             <tbody>
                                 <tr>
                                     <td><i class="icofont icofont-contrast"></i> Project:</td>
-                                    <td class="text-right"><span class="f-right"><a href="#"> {{$project->Project->title}}</a></span></td>
+                                    <td class="text-center"><span class="f-center"><a href="#"> {{$project->Project->title}}</a></span></td>
                                 </tr>
                                 <tr>
-                                    <td><i class="icofont icofont-meeting-add"></i> Updated:</td>
-                                    <td class="text-right">{{$progresses->updated_at}}</td>
+                                    <td><i class="icofont icofont-meeting-add"></i> Financial Progress:</td>
+                                <td class="text-center">{{$financial_progress}}%</td>
                                 </tr>
                                 <tr>
-                                    <td><i class="icofont icofont-id-card"></i> Created:</td>
-                                    <td class="text-right">{{$progresses->created_at}}</td>
+                                    <td><i class="icofont icofont-id-card"></i> Physical Progress:</td>
+                                    <td class="text-center">%</td>
                                 </tr>
                                 <tr>
-                                    <td><i class="icofont icofont-spinner-alt-5"></i> Priority:</td>
-                                    <td class="text-right">
-                                        <div class="btn-group">
-                                            <a href="#">
-                                                <i class="icofont icofont-upload m-r-5"></i> Highest
-                                            </a>
-                                        </div>
-                                    </td>
+                                    <td><i class="icofont icofont-user"></i> Assigned by:</td>
+                                    <td class="text-center">({{$project->getassignedperson($project->assigned_by)->designation}}) {{$project->getassignedperson($project->assigned_by)->first_name}}{{$project->getassignedperson($project->assigned_by)->last_name}} </td>
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-spinner-alt-3"></i> Revisions:</td>
-                                    <td class="text-right">{{$progresses->count()}}</td>
+                                    <td class="text-center">{{$progresses->count()}}</td>
                                 </tr>
-                                <tr>
-                                    <td><i class="icofont icofont-ui-love-add"></i> Assigned by:</td>
-                                    <td class="text-right"><a href="#">{{$project->getassignedperson($project->assigned_by)->first_name}} <{{$project->getassignedperson($project->assigned_by)->last_name}}/a></td>
-                                </tr>
+                                
                                 <tr>
                                     <td><i class="icofont icofont-washing-machine"></i> Status:</td>
-                                    <td class="text-right">{{$project->Project->status}}</td>
+                                    <td class="text-center">{{$project->Project->status}}</td>
                                 </tr>
                             </tbody>
                         </table>
