@@ -1243,6 +1243,7 @@ class OfficerController extends Controller
 
     //  CM DASHBOARD
     public function DetailedDashboard(){
+      $projects=Auth::user()->AssignedProjectTeam
       return view('_Monitoring.monitoringDashboard.index');
     }
 
