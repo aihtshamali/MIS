@@ -58,7 +58,7 @@ object-fit: cover;
                           </a>
                         </div>
                       </div>
-                      <div class="col-md-12 border-bottom border-top">
+                      <div class="col-md-12 border-bottom">
                         <div class="col-md-2">
                           <b class="hedingTxt">Financial Progress<span class="pull-right hidden-xs hidden-sm">:</span></b>
                         </div>
@@ -71,7 +71,7 @@ object-fit: cover;
                         <div class="col-md-2">
                           <b class="hedingInt">40%</b>
                         </div>
-                        
+
                       </div>
                         <div class="col-md-8 col-md-offset-2 carousel-content pdt3p">
                             <div>
