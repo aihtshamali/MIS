@@ -64,7 +64,7 @@ ul, #myUL {
     <div class="container">
 	     <div class="pdlfrt2">
     <!-- ---------------- start tree vie ------------------ -->
-        <h2 class="txtdecundlin pointer">Tree View</h2>
+        {{-- <h2 class="txtdecundlin pointer">Tree View</h2>
         <ul id="myUL">
           <li><span class="caret caret-down">Beverages</span>
             <ul class="nested active">
@@ -86,7 +86,7 @@ ul, #myUL {
               </li>
             </ul>
           </li>
-        </ul>
+        </ul> --}}
     <!-- ---------------- end tree vie ------------------ -->
     <!-- ----------------- start photo gallery -------------------- -->
     <h2 class="txtdecundlin pointer photogallary">Photo Gallery</h2>
