@@ -126,11 +126,11 @@
                 </div>
                 <div class="tab-pane active" id="stakeholder" role="tabpanel"
                     aria-expanded="true">
-                
+
                     <div class="card z-depth-right-0">
                         <div class="card-header">
                             <h4>Stakeholders</h4>
-                          
+
                         </div>
                         <form action="{{route('savestakeholders')}}" class="" method="POST">
                                 {{ csrf_field() }}
@@ -140,11 +140,11 @@
                                     <table class="table  table-bordered nowrap">
                                         <thead>
                                             <tr>
-                                               
+
                                                 <th>Executing Stakeholders</th>
                                                 <th>Name</th>
                                                 <th>Designation</th>
-                                                
+
                                                 <th>Contact #</th>
                                                 <th>Email </th>
                                                 <th></th>
@@ -152,15 +152,15 @@
                                         </thead>
                                         <tbody id="Executingstakeholders">
                                             <tr>
-                                               
+
                                                 <td>
                                                     <div class="col-md-12">
                                                         <select id="" name="stakeholderExecuting[]" class="form-control form-control-primary" data-placeholder="" style="width: 100%;">
                                                             <option value="" disabled selected> Select Here</option>
                                                             @foreach ($org_project->AssignedExecutingAgencies as $executing)
-                                                            <option value="{{$executing->id}}" >{{$executing->ExecutingAgency->name}}</option>                                                                
+                                                            <option value="{{$executing->id}}" >{{$executing->ExecutingAgency->name}}</option>
                                                             @endforeach
-                                                            
+
                                                         </select>
                                                     </div>
                                                 </td>
@@ -188,7 +188,7 @@
                                     <table class="table  table-bordered nowrap">
                                         <thead>
                                             <tr>
-                                               
+
                                                 <th>Sponsoring Stakeholders</th>
                                                 <th>Name</th>
                                                 <th>Designation</th>
@@ -199,15 +199,15 @@
                                         </thead>
                                         <tbody id="Sponsoringstakeholders">
                                             <tr>
-                                               
+
                                                 <td>
                                                     <div class="col-md-12">
                                                         <select id="" name="Sponsoringstakeholder[]" class="form-control form-control-primary " data-placeholder="" style="width: 100%;">
                                                                 <option value="" disabled selected> Select Here</option>
                                                                 @foreach ($org_project->AssignedSponsoringAgencies as $sponsoring)
-                                                                <option value="{{$sponsoring->id}}" >{{$sponsoring->SponsoringAgency->name}}</option>                                                                
+                                                                <option value="{{$sponsoring->id}}" >{{$sponsoring->SponsoringAgency->name}}</option>
                                                                 @endforeach
-                                                            
+
                                                         </select>
                                                     </div>
                                                 </td>
@@ -235,7 +235,7 @@
                                     <table class="table  table-bordered nowrap">
                                         <thead>
                                             <tr>
-                                               
+
                                                 <th>BeneFiciary Stakeholder</th>
                                                 <th>Name</th>
                                                 <th>Designation</th>
@@ -246,7 +246,7 @@
                                         </thead>
                                         <tbody id="Beneficiarystakeholders">
                                             <tr>
-                                                
+
                                                 <td>
                                                     <div class="col-md-12">
                                                        <input type="text" name="Beneficiarystakeholder[]" class="form-control" placeholder="Beneficiary">
@@ -506,7 +506,7 @@
                                                 <td>{{$issue->description}}</td>
 
                                                 <td>
-                                                    
+
                                                     <div class="checkbox-fade fade-in-success m-0">
                                                         <label>
                                                             {{-- {{$issue->MAssignedProjectHealthSafety[0]->status == 'yes' ? 'checked' : '' }} --}}

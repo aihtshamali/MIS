@@ -2,7 +2,6 @@
 <html>
 <head>
   <meta charset="utf-8">
-
   <title>@yield('title')</title>
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Tell the browser to be responsive to screen width -->
@@ -87,7 +86,7 @@
                             </a>
                         </div>
                         <div class="navbar-container container-fluid">
-                            <ul class="nav-left col-md-5">
+                            <ul class="nav-left">
                               <li onclick="goBack()" class="backforbtn"><img src="{{asset('backbtn.png')}}" width="15px" title="back" alt=""></li>
                               <li onclick="goforward()" class="backforbtn"><img src="{{asset('backbtn.png')}}" width="14.5px" style="transform: rotate(180deg);" title="forward" alt=""></li>
                                 <li class="header-search">
@@ -105,7 +104,7 @@
                                     </a>
                                 </li>
                             </ul>
-                            <ul class="nav-right col-md-4">
+                            <ul class="nav-right">
                               <li class="user-profile header-notification float-right">
                               <div class="dropdown-primary dropdown">
                                   <div class="dropdown-toggle" data-toggle="dropdown">

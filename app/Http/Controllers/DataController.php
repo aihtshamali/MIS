@@ -164,6 +164,10 @@ class DataController extends Controller
           $data = new MAppAttachments();
           $file_path = $request->file('ionicfile')->path();
           $file_extension = $request->file('ionicfile')->getMimeType();
+          if (!is_dir('storage/uploads/monitoring/')) {
+            // dir doesn't exist, make it
+            mkdir('storage/uploads/monitoring/');
+          }
           $request->file('ionicfile')->store('public/uploads/monitoring/'.$request->m_project_progress_id.'/');
           $data->project_attachement=$request->file('ionicfile')->hashName();
           // $data->project_attachement=base64_encode(file_get_contents($file_path));

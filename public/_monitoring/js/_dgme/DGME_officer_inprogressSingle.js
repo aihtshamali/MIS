@@ -13,37 +13,38 @@ $(document).ready(function () {
         $('input:checkbox').not(this).prop('checked', false);
     });
 
- 
-    // SPECIAL KPI
-    // $(document).on('click','.addspecialkpi',function(){
-    //     $(this).hide()
-    //     $(this).parent().find('.delspecialkpi').removeClass('nodisplay')
-    //     $(`<div class="row col-md-12">
-    //       <input type="text" class="form-control specialin col-md-11" placeholder="Type KPI here...">
-    //       <button class="col-md-1 btn addspecialkpi" type="button">+</button>
-    //       <button class="col-md-1 btn btn-danger btn-sm btn nodisplay delspecialkpi" type="button">-</button>
-    //     </div>`).appendTo('#appendspecialkpi')
-    //     var t = $(this).parent().find('.specialin').val();
+    $(".golbtn").click(function () {
+        $(this).parent().hide(100);
+    });
+    // $(".topSummary").mouseleave(function () {
+    //     $(".uptiQ").hide(100);
+    // });
+    $(".uptiQ").click(function () {
+        // $('this').hide();
+        $(".downtiQ").show('slow');
+        $(".topSummary ").slideUp("slow");
+        $(".mainTabsAndNav").animate({ marginTop: '0%' }, 1000);
+    });
+    $(".downtiQ").click(function () {
+        // $('.downtiQ').hide();
+        $(".uptiQ").show(100);
+        $(".topSummary ").slideDown("slow");
+        $(".mainTabsAndNav").animate({ marginTop: '6%' }, 1000);
+    });
 
-    //     $(`<li id='` + t.replace(/\s+/g, '_').replace('(', '').replace(')', '') + `' class="col-md-12 row"><div class='col-md-6'>
-    //         `+ t + `</div>
-    //         <div class="col-md-6">
-    //             <select class="kpisel col-sm-12" multiple="multiple">
-    //               `+ compopt +`
-    //             </select>
-    //         </div>
-    //         </li>`).appendTo('#addkpi')
 
-    //         $('.kpisel').select2()
-    // })
-    // $(document).on('click','.delspecialkpi',function(){
-    //     var t = $(this).parent().find('.specialin').val();
-    //     t = t.replace(/\s+/g, '_').replace('(', '').replace(')', '')
-    //     console.log(t);
-    //     $('#addkpi').find('#'+t).remove()
-    //     $(this).parent().remove()
-    // })
-// SPECIAL KPI END
+
+   //financial progress
+   $("#u_against_rel, #total_release_to_date").keyup( function(){
+    var utilization_against_releases = $("#u_against_rel").val();
+    var total_release_to_date = $("#total_release_to_date").val();
+
+    var result = ( utilization_against_releases/total_release_to_date)*100;
+    result= result.toFixed(2);
+    $("#f_progress").val(result);
+
+
+});
 
     //FINANCIAL PHASING
     $(document).on('keyup', '.count-me', function () {
@@ -115,24 +116,24 @@ $(document).ready(function () {
 
     var start_date=moment(projectWithRevised.project_detail.planned_start_date);
     var end_date=moment(projectWithRevised.project_detail.planned_end_date);
-    
+
     let orig_period=moment.duration(end_date.diff(start_date));
     var orig = { "cost": projectWithRevised.project_detail.orignal_cost, "period": Math.round(orig_period.asMonths()), "date":  start_date.format("D MMM Y")};
 
     var revs = []
-    
+
     projectWithRevised.revised_approved_cost.forEach( function (value,index) {
         if(value && projectWithRevised.revised_end_date[index] ){
             let start_date1=moment(projectWithRevised.project_detail.revised_start_date);
             let end_date1=moment(projectWithRevised.revised_end_date[index].end_date);
             let revs_period=moment.duration(end_date1.diff(start_date1));
-            revs.push({ "cost": value.cost, "period": Math.round(revs_period.asMonths()), "date":  start_date1.format("D MMM Y")})    
+            revs.push({ "cost": value.cost, "period": Math.round(revs_period.asMonths()), "date":  start_date1.format("D MMM Y")})
         }
      })
     // { "cost": "450", "period": "33", "date": '15 September 2013' },
     // { "cost": "479", "period": "33", "date": '15 September 2013' },
     // { "cost": "479", "period": "37", "date": '15 September 2013' }
-   
+
 
     var revisionTable = `<div>
     <h5 style="padding-top:20px;padding-bottom:10px;clear:both;" class="revisedLabel">Revised 1</h5>
@@ -265,10 +266,11 @@ $(document).ready(function () {
     //END
 
     function hideallmaintabs() {
-        $('#summary').hide();
+        $('#reviewDiv').hide();
         $('#p_monitoring').hide();
         $('#c_monitoring').hide();
-        $('#reviewDiv').hide();
+        $('#r_monitoring').hide();
+        $('#summary').hide();
     }
 
     $('.summaryNav').on('click', function () {
@@ -278,6 +280,8 @@ $(document).ready(function () {
         $('#summary').show();
         $('.p_details').show(1000);
         $(".topSummary").hide('slow');
+        $(".downtiQ").hide('slow');
+        $(".uptiQ").hide('slow');
         $(".mainTabsAndNav").animate({ marginTop: '0px' }, 500);
         $(".mainTabsAndNav").removeClass("mt_6p");
     });
@@ -290,6 +294,8 @@ $(document).ready(function () {
         $('#p_monitoring').show();
         $('#PlanDocDiv').show();
         $('.PlanDoc').addClass('active');
+        $(".uptiQ").show('slow');
+        $(".downtiQ").hide();
     });
     function hideall() {
         $('#PlanDocDiv').hide();
@@ -313,6 +319,7 @@ $(document).ready(function () {
         $('#reviewDiv').hide();
         $('#TimesDiv').hide();
         $('#CostingDiv').hide();
+        $('#prolocDiv').hide();
     }
 
 
@@ -329,7 +336,23 @@ $(document).ready(function () {
         $('.mainTabsAndNav').removeClass("col-md-8").addClass("col-md-12");
         $('.mainTabsAndNav').animate({ marginTop: '6%' }, 1000);
         $(".topSummary").show('slow');
+        $(".uptiQ").show('slow');
+        $(".downtiQ").hide();
     });
+    $('.resultNav').on('click', function () {
+        hideallmaintabs();
+        hideall();
+        $('.nav-link').removeClass('active');
+        $('.r_monitoring').addClass('active');
+        $('#r_monitoring').show();
+        $('.mainTabsAndNav').removeClass("col-md-8").addClass("col-md-12");
+        $('.mainTabsAndNav').animate({ marginTop: '6%' }, 1000);
+        $(".topSummary").show('slow');
+        $('.p_details').hide();
+        $(".uptiQ").show('slow');
+        $(".downtiQ").hide();
+    });
+
     $('.CostingTab').on('click', function () {
         hideall();
         $('#CostingDiv').show();
@@ -359,12 +382,16 @@ $(document).ready(function () {
         hideall();
         $('#activities').show();
         $("#kpisss").removeClass("active");
-        $("#tali").addClass("active");
+        $("#proloc").addClass("active");
     });
 
     $('.kpis').on('click', function () {
         hideall();
         $('#kpis').show();
+    });
+    $('.proloc').on('click', function () {
+        hideall();
+        $('#prolocDiv').show();
     });
     $('.PlanDoc').on('click', function () {
         hideall();
@@ -393,6 +420,7 @@ $(document).ready(function () {
         $('#summary').hide();
         $('.p_details').hide();
         $('.mainTabsAndNav').removeClass("col-md-8").addClass("col-md-12");
+        $(".uptiQ").show('slow');
     });
     $('.financialphase').on('click', function () {
         hideall();
@@ -530,27 +558,27 @@ var Ea='';
 function executingAgencyforCM(agencies)
 {
     console.log(agencies,'executing');
-       
+
     agencies.forEach(function (val,index) {
         Ea  = Ea+ `
             <option value="`+val.id+`">`+val.executing_agency_id+`</option>
         `;
-    }); 
+    });
 }
 var Sa='';
 function sponsoringAgencyforCM(agencies)
 {
     console.log(agencies,'okiiii');
-    
+
     // var agency = $(this).val();
     // var count = 1;
-       
+
     agencies.forEach(function (val,index) {
-        // console.log(val.sponsoring_agency_id.SponsoringAgency.name,'id');  
+        // console.log(val.sponsoring_agency_id.SponsoringAgency.name,'id');
         Sa  = Sa+ `
             <option value="`+val.id+`">`+val.sponsoring_agency_id+`</option>
         `;
-        
+
     });
 
     // $('.select2').select2();
@@ -578,7 +606,7 @@ $('button#addmoresponsoring').click(function (e) {
 
 $('button#addmoreben').click(function (e) {
     var add_stakeholder = `<tr>
-  
+
     <td>
         <div class="col-md-12">
         <input type="text" name="Beneficiarystakeholder[]" class="form-control" placeholder="Beneficiary">
@@ -656,7 +684,7 @@ $(document).on('click', '#add_activity', function (e) {
     // console.log('there');
     var add_activities = `<div class="row col-md-9 offset-md-1 form-group component_Activities">
         <div class="col-md-11 mb_1">
-        <input type="text" class="form-control" placeholder="Add Task" name="c_activity_`+id_component+`[]"> 
+        <input type="text" class="form-control" placeholder="Add Task" name="c_activity_`+id_component+`[]">
         </div>
         <div class="col-md-1"><button class="btn btn-danger btn-sm" name="remove_activity[]" onclick="removerow(this)"  type="button">-</button></div>
         </div>`;
@@ -673,7 +701,7 @@ $('.select2').select2();
 function ObjectiveComponent(components,objectives){
     $("#planMactivities").children().remove();
     $("#ObjCompHere").children().remove();
-  
+
       var comps = $(this).val();
       var count = 1;
           var compOpt='';
@@ -683,13 +711,13 @@ function ObjectiveComponent(components,objectives){
           `;
       });
       console.log(compOpt);
-      
- 
+
+
       objectives.forEach(function (val,index) {
           var ObjCompHere = `
                           <li class="row mb_2"
-                              
-                              <span id="objectiveHere" class="float-left col-md-6"> 
+
+                              <span id="objectiveHere" class="float-left col-md-6">
                                   <input type="hidden" value="`+val.id+`" name="objective[]">
                                  <span  class="float-left col-md-6">
                                  `+val.objective+`
@@ -697,12 +725,12 @@ function ObjectiveComponent(components,objectives){
                               </span>
                               <span class="float-right col-md-6">
                               <select class="select2 col-md-12" id="component" name="mappedComp_`+index+`[]" multiple="multiple">
-                              `+compOpt+`   
+                              `+compOpt+`
                               </select>
                               </span>
                               </li>
                               `;
-          
+
           var t = $(ObjCompHere);
           t.appendTo('#ObjCompHere');
           $('.select2').select2()
@@ -720,7 +748,7 @@ function ObjectiveComponent(components,objectives){
 
 //     var comps = $(this).val();
 //     var count = 1;
-        
+
 //     $('input[name^=comp]').each(function () {
 //         var val = $(this).val();
 //         var addTask = `
@@ -749,13 +777,13 @@ function ObjectiveComponent(components,objectives){
 //                             </span>
 //                           </li>`
 //         var options = ""
-       
+
 //         $('input[name^=comp]').each(function () {
-            
+
 //             options += "<option value='" + $(this).val() + "'>" + $(this).val() + "</option>"
 //         });
 //         compopt = options
-       
+
 //         var t = $(ObjCompHere)
 //         t.find('#objvalue' + oc + '').text($(this).val())
 //         $(options).appendTo(t.find('#option' + oc + ''))
@@ -796,7 +824,7 @@ function ObjectiveComponentTime(CompActivityMapping)
     });
     console.log(d);
     console.log(t);
-    
+
     $('div.comptaskl').append($(d));
     $('div.costcomp').append($(t));
 }
@@ -851,10 +879,10 @@ var compOpt='';
 function componentsfroConductMonitoring(components)
 {
     console.log(components);
-    
+
     var comps = $(this).val();
     var count = 1;
-       
+
     components.forEach(function (val,index) {
         compOpt  = compOpt+ `
             <option value="`+val.id+`">`+val.component+`</option>
@@ -865,7 +893,7 @@ function componentsfroConductMonitoring(components)
 var countforconduct=0;
 $('button#add_more_component').click(function (e) {
     console.log(compOpt);
-    
+
     var add_component = `<div class="row components">
                         <div class="form-group col-md-1 offset-md-1 ">
                         <br>
@@ -883,10 +911,10 @@ $('button#add_more_component').click(function (e) {
                         </div>
                         </div>`;
                         $('.kpisel').select2();
-                       
+
     $('.oneComponentQA').append(add_component);
     countforconduct++;
-    
+
 });
 var objct = $("#objct").val() ? parseInt($("#objct").val()) : 1 ;
 objct++;
@@ -897,7 +925,7 @@ function autoindex() {
     for (i = 0; i < sib.length; i++) {
         var cl_array = sib[i].getAttribute('class').split(' ');
         var val = "";
-        
+
         for (var j = 0; j < cl_array.length; j++) {
             if (cl_array[j].startsWith('newClass1')) {
                 val = cl_array[j];
@@ -1048,13 +1076,13 @@ function activitiesfroConductMonitoring(activities)
 {
     var comps = $(this).val();
     var count = 1;
-       
+
     activities.forEach(function (val,index) {
         activitiesforConductmonitoring  = activitiesforConductmonitoring+ `
             <option value="`+val.id+`">`+val.activity+`</option>
         `;
     });
-   
+
 }
 function add_activityInComp(e,myc) {
     var countforcomponent=myc;
@@ -1088,7 +1116,7 @@ function add_activityInComp(e,myc) {
         <label for=""><b>Remarks</b></label><br>
         <textarea name="qa_remarks_`+countforcomponent+`[]" id="qa_remarks" style="height:37px !important;" class="form-control" type="text"></textarea>
         </div>
-        
+
         <div class="form-group col-md-1">
          <br><button class="btn btn-danger btn-sm" onclick="removerow(this)" name="remove_Comp_activity[]"><span style="font-size:12px;">-</span></button>
         </div>
@@ -1104,5 +1132,3 @@ function removerow(e) {
 function removeIssuerow(e) {
     $(e).parent().parent().remove();
 }
-
-  

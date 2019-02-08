@@ -35,13 +35,13 @@ td{white-space: unset !important;}
 @endsection
 @section('content')
 <div class="row">
-    <div class="col-md-6 col-xl-12">
+    <div class="col-md-12">
             <div class="card widget-card-1">
                 <div class="card-block-small">
-                    <i class="feather icon-home bg-c-yellow card1-icon"></i>
+                    <i class="feather icon-home bg-c-yellow card1-icon hidden-sm hidden-xs"></i>
                     <span class="text-c-yellow f-w-600 pointer"> <span style="color:black">Welcome</span>
                         @auth
-                          {{Auth::user()->first_name}} {{Auth::user()->last_name}}
+                          {{Auth::user()->first_name}} {{Auth::user()->last_name}} <small>({{Auth::user()->designation}})</small> 
                         @endauth <span style="color:black;">to Monitoring dashboard.</span>
                     </span>
                     <div class="progress clearfix mt2 clrornge">
@@ -60,95 +60,95 @@ td{white-space: unset !important;}
                             <div class="tab-pane visitRequests active" id="visitrequests" role="tabpanel" aria-expanded="false">
                                 <div class="row">
                                     <div class="col-md-12">
-                                            @if($tripcounts==0)
-                                            <p><h5 style="text-align :center;">No Visit Requests</h5></p>
-                                            @else
+                                        @if($tripcounts==0)
+                                        <p><h5 style="text-align :center;">No Visit Requests</h5></p>
+                                        @else
 
-                                                <div class="card">
-                                                    <div class="card-block">
-                                                      <div class="table-responsive ">
-                                                          <table id="#" class="table table-bordered nowrap">
-                                                              <thead>
-                                                              <tr>
-                                                                  <th style="text-align:center;">Sr #.</th>
-                                                                  <th style="text-align:center;">Requestee Name</th>
-                                                                  <th style="text-align:center;">Request Purpose</th>
-                                                                  <th style="text-align:center;">Trip Type</th>
-                                                                  <th style="text-align:center;">Assigned Driver</th>
-                                                                  <th style="text-align:center;">Assigned Vehicle</th>
-                                                                  <th style="text-align:center;"></th>
-                                                                  <th style="text-align:center;"></th>
+                                  <div class="card">
+                                    <div class="card-block">
+                                      <div class="table-responsive ">
+                                          <table id="#" class="table table-bordered nowrap">
+                                              <thead>
+                                              <tr>
+                                                  <th style="text-align:center;">Sr #.</th>
+                                                  <th style="text-align:center;">Requestee Name</th>
+                                                  <th style="text-align:center;">Request Purpose</th>
+                                                  <th style="text-align:center;">Trip Type</th>
+                                                  <th style="text-align:center;">Assigned Driver</th>
+                                                  <th style="text-align:center;">Assigned Vehicle</th>
+                                                  <th style="text-align:center;"></th>
+                                                  <th style="text-align:center;"></th>
 
 
-                                                              </tr>
-                                                              </thead>
-                                                              <tbody>
-                                                                  @php
-                                                                   $i=1;
-                                                                  @endphp
-                                                            @foreach ($triprequests as $triprequest)
-                                                                <tr>
-                                                                    <td>
-                                                                         @php
-                                                                   echo $i++;
-                                                                    @endphp
-                                                                    </td>
-                                                                    <td style="text-align:center;">
-                                                                            {{$triprequest->first_name}}   {{$triprequest->last_name}}
-                                                                    </td>
-                                                                    <td style="">
-                                                                        <ol>
-                                                                        @foreach ($triprequest->PlantripPurpose as $plantripPurpose)
+                                              </tr>
+                                              </thead>
+                                              <tbody>
+                                                  @php
+                                                   $i=1;
+                                                  @endphp
+                                            @foreach ($triprequests as $triprequest)
+                                                <tr>
+                                                    <td>
+                                                         @php
+                                                   echo $i++;
+                                                    @endphp
+                                                    </td>
+                                                    <td style="text-align:center;">
+                                                        {{$triprequest->first_name}}   {{$triprequest->last_name}}
+                                                    </td>
+                                                    <td style="">
+                                                        <ol>
+                                                        @foreach ($triprequest->PlantripPurpose as $plantripPurpose)
 
                                                                                 @if(isset($plantripPurpose->PlantripVisitreason->name) && $plantripPurpose->PlantripVisitreason->name == "Meeting" || $plantripPurpose->PlantripVisitreason->name == "Other")
-                                                                        <li>{{$plantripPurpose->PlantripVisitedproject->description}} - <b>{{$plantripPurpose->PlantripVisitreason->name}}</b></li>
-                                                                            @elseif(isset($plantripPurpose->PlantripVisitreason->name) &&  $plantripPurpose->PlantripVisitreason->name=="Monitoring" || $plantripPurpose->PlantripVisitreason->name=="Evaluation")
-                                                                                @if(isset($plantripPurpose->PlantripVisitedproject->AssignedProject->Project->title))
-                                                                        <li>{{$plantripPurpose->PlantripVisitedproject->AssignedProject->Project->title}} - <b>{{$plantripPurpose->PlantripVisitreason->name}}</b></li>
-                                                                                @endif
-                                                                            @endif
+                          <li>{{$plantripPurpose->PlantripVisitedproject->description}} - <b>{{$plantripPurpose->PlantripVisitreason->name}}</b></li>
+                              @elseif(isset($plantripPurpose->PlantripVisitreason->name) &&  $plantripPurpose->PlantripVisitreason->name=="Monitoring" || $plantripPurpose->PlantripVisitreason->name=="Evaluation")
+                                  @if(isset($plantripPurpose->PlantripVisitedproject->AssignedProject->Project->title))
+                          <li>{{$plantripPurpose->PlantripVisitedproject->AssignedProject->Project->title}} - <b>{{$plantripPurpose->PlantripVisitreason->name}}</b></li>
+                                  @endif
+                              @endif
 
 
-                                                                        @endforeach
-                                                                    </ol>
-                                                                </td>
-                                                                    <td style="text-align:center;"> {{$triprequest->PlantripTriptype->name}}</td>
-                                                                    <td style="text-align:center;">
-                                                                        {{-- $triprequests[0]->VmisRequestToTransportOfficer->VmisAssignedDriver[0]->VmisDriver->User->first_name) --}}
-                                                                        @forelse ($triprequest->VmisRequestToTransportOfficer->VmisAssignedDriver as $driver)
-                                                                            {{$driver->VmisDriver->User->first_name}}
-                                                                            {{$driver->VmisDriver->User->last_name}},
-                                                                        @empty
-                                                                            <p>Not Assigned</p>
-                                                                        @endforelse
-                                                                    </td>
-                                                                        <td style="text-align:center;">
-                                                                          @forelse ($triprequest->VmisRequestToTransportOfficer->VmisAssignedVehicle as $vehicle)
-                                                                              {{$vehicle->VmisVehicle->name}} ,
-                                                                          @empty
-                                                                              <p>Not Assigned</p>
-                                                                          @endforelse
-                                                                    </td>
-                                                                    <td>
-                                                                    <a href="{{route('visitrequestSummary',$triprequest->id)}}" class="btn btn-primary btn-sm"><b>View Full Summary</b></a></td>
-                                                                    <td>
-                                                                    <form action="{{route('visitrequestDescision')}}" method="POST" enctype="multipart/form-data" id="">
-                                                                        {{ csrf_field() }}
-                                                                        <input type="hidden" name="request_descision" value="2">
-                                                                    <input type="hidden" name="triprequest_id" value="{{$triprequest->id}}">
-                                                                            <button type="submit" class="btn btn-success btn-sm"><b>Approve</b></button>
-                                                                       </form>
-                                                                       <br>
-                                                                       <form action="{{route('visitrequestDescision')}}" method="POST" enctype="multipart/form-data" id="">
-                                                                        {{ csrf_field() }}
-                                                                        <input type="hidden" name="request_descision" value="3">
-                                                                <input type="hidden" name="triprequest_id" value="{{$triprequest->id}}">
-                                                                        <button type="button" class="btn btn-danger btn-sm"><b>Dis Approve</b></button>
-                                                                    </form>
-                                                                    </td>
+                          @endforeach
+                      </ol>
+                  </td>
+                      <td style="text-align:center;"> {{$triprequest->PlantripTriptype->name}}</td>
+                      <td style="text-align:center;">
+                          {{-- $triprequests[0]->VmisRequestToTransportOfficer->VmisAssignedDriver[0]->VmisDriver->User->first_name) --}}
+                          @forelse ($triprequest->VmisRequestToTransportOfficer->VmisAssignedDriver as $driver)
+                              {{$driver->VmisDriver->User->first_name}}
+                              {{$driver->VmisDriver->User->last_name}},
+                          @empty
+                              <p>Not Assigned</p>
+                          @endforelse
+                      </td>
+                          <td style="text-align:center;">
+                            @forelse ($triprequest->VmisRequestToTransportOfficer->VmisAssignedVehicle as $vehicle)
+                                {{$vehicle->VmisVehicle->name}} ,
+                            @empty
+                                <p>Not Assigned</p>
+                            @endforelse
+                      </td>
+                      <td>
+                      <a href="{{route('visitrequestSummary',$triprequest->id)}}" class="btn btn-primary btn-sm"><b>View Full Summary</b></a></td>
+                      <td>
+                      <form action="{{route('visitrequestDescision')}}" method="POST" enctype="multipart/form-data" id="">
+                          {{ csrf_field() }}
+                          <input type="hidden" name="request_descision" value="2">
+                      <input type="hidden" name="triprequest_id" value="{{$triprequest->id}}">
+                              <button type="submit" class="btn btn-success btn-sm"><b>Approve</b></button>
+                         </form>
+                         <br>
+                         <form action="{{route('visitrequestDescision')}}" method="POST" enctype="multipart/form-data" id="">
+                          {{ csrf_field() }}
+                          <input type="hidden" name="request_descision" value="3">
+                  <input type="hidden" name="triprequest_id" value="{{$triprequest->id}}">
+                          <button type="button" class="btn btn-danger btn-sm"><b>Dis Approve</b></button>
+                      </form>
+                      </td>
 
-                                                                </tr>
-                                                                @endforeach
+                  </tr>
+                  @endforeach
 
 
                                                               </tbody>
@@ -264,7 +264,7 @@ td{white-space: unset !important;}
                                                                                        <label class="badge badge-md badge-primary">Pending At TO End</label>
                                                                                        @endif
                                                                                     @elseif($off->VmisRequestToTransportOfficer->approval_status=='2')
-                                                                                <label class="badge badge-md badge-success">Recommended <br> Waiting For DG's Approval</label> 
+                                                                                <label class="badge badge-md badge-success">Recommended <br> Waiting For DG's Approval</label>
                                                                                     @if(isset($off->PlantripRemark))
                                                                                         <p><b>Remarks:</b>
                                                                                         @foreach($off->PlantripRemark as $tripR)
@@ -273,25 +273,25 @@ td{white-space: unset !important;}
                                                                                         </p>
                                                                                     @endif
                                                                                     @elseif($off->VmisRequestToTransportOfficer->approval_status=='3' )
-                                                                                    <label class="badge badge-md badge-success">Not Recommended by {{$off->VmisRequestToTransportOfficer->User->first_name}} {{$off->VmisRequestToTransportOfficer->User->last_name}} </label> 
+                                                                                    <label class="badge badge-md badge-success">Not Recommended by {{$off->VmisRequestToTransportOfficer->User->first_name}} {{$off->VmisRequestToTransportOfficer->User->last_name}} </label>
                                                                                         @if(isset($off->PlantripRemark))
                                                                                             <p><b>Remarks:</b>
                                                                                             @foreach($off->PlantripRemark as $tripR)
                                                                                             {{$tripR->remarks}}
                                                                                             @endforeach
-                                                                                            </p>    
+                                                                                            </p>
                                                                                         @endif
                                                                                     @elseif($off->VmisRequestToTransportOfficer->approval_status=='4' && $off->approval_status == 'Approved')
-                                                                                    <label class="badge badge-md badge-success">Approved by {{$off->VmisRequestToTransportOfficer->User->first_name}} {{$off->VmisRequestToTransportOfficer->User->last_name}} </label> 
+                                                                                    <label class="badge badge-md badge-success">Approved by {{$off->VmisRequestToTransportOfficer->User->first_name}} {{$off->VmisRequestToTransportOfficer->User->last_name}} </label>
                                                                                         @if(isset($off->PlantripRemark))
                                                                                             <p><b>Remarks:</b>
                                                                                             @foreach($off->PlantripRemark as $tripR)
                                                                                             {{$tripR->remarks}}
                                                                                             @endforeach
-                                                                                            </p>    
+                                                                                            </p>
                                                                                         @endif
                                                                                 @elseif($off->VmisRequestToTransportOfficer->approval_status=='5' && $off->approval_status == 'Not Approved')
-                                                                                <label class="badge badge-md badge-danger">Disapproved By  {{$off->VmisRequestToTransportOfficer->User->first_name}} {{$off->VmisRequestToTransportOfficer->User->last_name}} </label> 
+                                                                                <label class="badge badge-md badge-danger">Disapproved By  {{$off->VmisRequestToTransportOfficer->User->first_name}} {{$off->VmisRequestToTransportOfficer->User->last_name}} </label>
                                                                                 @if(isset($off->PlantripRemark))
                                                                                 <p><b>Remarks:</b>
                                                                                 @foreach($off->PlantripRemark as $tripR)

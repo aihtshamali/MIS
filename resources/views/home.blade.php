@@ -67,11 +67,21 @@
                   <div class="hero-content app-hero-content text-center">
                       <div class="row justify-content-md-center">
                           <div class="col-md-10">
-                              <h1 class="wow fadeInUp" data-wow-delay="0s">DIRECTORATE GENERAL MONITORING & EVALUATION</h1>
+                              <h1 class="wow fadeInUp" data-wow-delay="0s">
+                                DIRECTORATE GENERAL MONITORING & EVALUATION
+                              </h1>
+                              <h4>
+
+                              </h4>
                               <p class="wow fadeInUp" data-wow-delay="0.2s">
+                                <span style="font-size: 18px;font-weight: 700;">
+                                  @auth
+                                  {{Auth::user()->first_name}} {{Auth::user()->last_name}}
+                                  @endauth ,
+                                </span>
                                   Welcome to the official INTRANET website of Directorate General Monitoring & Evaluation, Punjab. We invite you to get to know our organization by exploring this site on which you will learn about our mission, vision and objectives. The site also provides information about different projects and provides access to valuable statistics. We hope…
                               </p>
-                 
+
                           </div>
                           <div class="col-md-12">
                               <div class="hero-image">
@@ -260,7 +270,7 @@
                   <a href="{{route('visitRequest_dashboard')}}" class="tile green"> -->
                     <!-- if(Auth::id()=='2012') -->
                         <!-- if($tripcounts==null || $tripcounts=='0' )
-                        <b class="noti" style="display:none;"></b>     
+                        <b class="noti" style="display:none;"></b>
                         else
                         <b class="noti">
                             $tripcounts
@@ -268,7 +278,7 @@
                         endif -->
                     <!-- elseif(Auth::id()=='2011') -->
                         <!-- if($tripcountsFordg==null || $tripcountsFordg=='0' )
-                        <b class="noti" style="display:none;"></b>     
+                        <b class="noti" style="display:none;"></b>
                         else
                         <b class="noti">
                         $tripcountsFordg
