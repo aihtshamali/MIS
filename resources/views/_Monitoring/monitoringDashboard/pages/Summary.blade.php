@@ -10,7 +10,7 @@
 <!-- Hover table card start -->
 <div class="container">
   <div class="border-bottom col-md-10 col-md-offset-1">
-    <h2 class="topheading">Projects List</h2>
+    <h2 class="topheading">Projects Summary</h2>
   </div>
   <div class="col-md-10 col-md-offset-1">
     <div class="row border-bottom">
