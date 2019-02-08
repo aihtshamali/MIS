@@ -289,13 +289,13 @@ Route::post('/printerfunction','AdminHumanResourceController@printer');
 
 
 Route::get('/minitoringDashboard', function () {
-    return view('monitoringDashboard.index');
+    return view('_Monitoring.monitoringDashboard.index');
 })->name('minitoringDashboard');
 Route::get('/Summary', function () {
-    return view('monitoringDashboard.pages.Summary');
+    return view('_Monitoring.monitoringDashboard.pages.Summary');
 })->name('Summary');
 Route::get('/projctlist', function () {
-    return view('monitoringDashboard.pages.projctlist');
+    return view('_Monitoring.monitoringDashboard.pages.projctlist');
 })->name('projctlist');
 Route::get('/403',function(){
   return view('403');

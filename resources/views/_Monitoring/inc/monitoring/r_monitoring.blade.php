@@ -3,7 +3,7 @@
 outline: none !important;
 box-shadow: none !important;
 }
-
+.pointer{cursor: pointer;}
 #image-gallery .modal-footer{
 display: block;
 }
@@ -16,40 +16,119 @@ margin-bottom: 15px;
 }
 /* video */
 video{width: 100% !important;padding: 2%;border: 1px solid #77777747;border-radius: 3px;}
+/* start tree view */
+ul, #myUL {
+  list-style-type: none;
+}
+
+#myUL {
+  margin: 0;
+  padding: 0;
+}
+
+.caret {
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari 3.1+ */
+  -moz-user-select: none; /* Firefox 2+ */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none;
+}
+
+.caret::before {
+  content: "\25B6";
+  color: black;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.caret-down::before {
+  -ms-transform: rotate(90deg); /* IE 9 */
+  -webkit-transform: rotate(90deg); /* Safari */'
+  transform: rotate(90deg);
+}
+
+.nested {
+  /* display: block; */
+  padding-left: 2% !important;
+}
+
+.active {
+  display: block;
+}
+.caret{color: #01a9ac !important;}
+.caret::before{color: #01a9ac !important;}
+/* end tree view */
 </style>
 <div class="tab-pane" id="r_monitoring" role="tabpanel" style="display:none;">
   <div class="border col-md-12 row">
     <div class="container">
-	<div class="pdlfrt2">
+	     <div class="pdlfrt2">
+    <!-- ---------------- start tree vie ------------------ -->
+        {{-- <h2 class="txtdecundlin pointer">Tree View</h2>
+        <ul id="myUL">
+          <li><span class="caret caret-down">Beverages</span>
+            <ul class="nested active">
+              <li>Water</li>
+              <li>Coffee</li>
+              <li><span class="caret caret-down">Tea</span>
+                <ul class="nested active">
+                  <li>Black Tea</li>
+                  <li>White Tea</li>
+                  <li><span class="caret caret-down">Green Tea</span>
+                    <ul class="nested active">
+                      <li>Sencha</li>
+                      <li>Gyokuro</li>
+                      <li>Matcha</li>
+                      <li>Pi Lo Chun</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul> --}}
+    <!-- ---------------- end tree vie ------------------ -->
     <!-- ----------------- start photo gallery -------------------- -->
-    <h2 class="txtdecundlin">Photo Gallery</h2>
-		<div class="row">
+    <h2 class="txtdecundlin pointer photogallary" title="click to Expand photo gallary">Photo Gallery</h2>
+		<div class="row photogallaryDiv nodisplay">
+<<<<<<< HEAD
             <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                 <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
                    data-image="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
                    data-target="#image-gallery">
                     <img class="img-thumbnail"
                          src="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                         alt="Another alt text">
+                         alt="">
                 </a>
             </div>
             <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+=======
+      @foreach ($result_from_app as $attachment)
+      <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+        <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
+           data-image="{{asset('storage/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement)}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" data-target="#image-gallery">
+            <img class="img-thumbnail" src="{{asset('storage/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement)}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Another alt text">
+        </a>
+    </div>
+      @endforeach
+
+            {{-- <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                 <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
                    data-image="https://images.pexels.com/photos/158971/pexels-photo-158971.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
                    data-target="#image-gallery">
                     <img class="img-thumbnail"
                          src="https://images.pexels.com/photos/158971/pexels-photo-158971.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                         alt="Another alt text">
+                         alt="">
                 </a>
-            </div>
+            </div> --}}
 
-            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            {{-- <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                 <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
                    data-image="https://images.pexels.com/photos/305070/pexels-photo-305070.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
                    data-target="#image-gallery">
                     <img class="img-thumbnail"
                          src="https://images.pexels.com/photos/305070/pexels-photo-305070.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                         alt="Another alt text">
+                         alt="">
                 </a>
             </div>
             <div class="col-lg-3 col-md-4 col-xs-6 thumb">
@@ -58,7 +137,7 @@ video{width: 100% !important;padding: 2%;border: 1px solid #77777747;border-radi
                    data-target="#image-gallery">
                     <img class="img-thumbnail"
                          src="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                         alt="Another alt text">
+                         alt="">
                 </a>
             </div>
             <div class="col-lg-3 col-md-4 col-xs-6 thumb">
@@ -67,7 +146,7 @@ video{width: 100% !important;padding: 2%;border: 1px solid #77777747;border-radi
                    data-target="#image-gallery">
                     <img class="img-thumbnail"
                          src="https://images.pexels.com/photos/158971/pexels-photo-158971.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                         alt="Another alt text">
+                         alt="">
                 </a>
             </div>
 
@@ -79,7 +158,7 @@ video{width: 100% !important;padding: 2%;border: 1px solid #77777747;border-radi
                    data-target="#image-gallery">
                     <img class="img-thumbnail"
                          src="https://images.pexels.com/photos/305070/pexels-photo-305070.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                         alt="Another alt text">
+                         alt="">
                 </a>
             </div>
             <div class="col-lg-3 col-md-4 col-xs-6 thumb">
@@ -88,12 +167,12 @@ video{width: 100% !important;padding: 2%;border: 1px solid #77777747;border-radi
                    data-target="#image-gallery">
                     <img class="img-thumbnail"
                          src="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                         alt="Another alt text">
+                         alt="">
                 </a>
             </div>
             <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                 <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="Im so nice" data-image="https://images.pexels.com/photos/158971/pexels-photo-158971.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" data-target="#image-gallery">
-                    <img class="img-thumbnail" src="https://images.pexels.com/photos/158971/pexels-photo-158971.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Another alt text">
+                    <img class="img-thumbnail" src="https://images.pexels.com/photos/158971/pexels-photo-158971.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="">
                 </a>
             </div>
 
@@ -105,7 +184,7 @@ video{width: 100% !important;padding: 2%;border: 1px solid #77777747;border-radi
                    data-target="#image-gallery">
                     <img class="img-thumbnail"
                          src="https://images.pexels.com/photos/305070/pexels-photo-305070.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                         alt="Another alt text">
+                         alt="">
                 </a>
             </div>
             <div class="col-lg-3 col-md-4 col-xs-6 thumb">
@@ -114,7 +193,7 @@ video{width: 100% !important;padding: 2%;border: 1px solid #77777747;border-radi
                    data-target="#image-gallery">
                     <img class="img-thumbnail"
                          src="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                         alt="Another alt text">
+                         alt="">
                 </a>
             </div>
             <div class="col-lg-3 col-md-4 col-xs-6 thumb">
@@ -123,9 +202,9 @@ video{width: 100% !important;padding: 2%;border: 1px solid #77777747;border-radi
                    data-target="#image-gallery">
                     <img class="img-thumbnail"
                          src="https://images.pexels.com/photos/158971/pexels-photo-158971.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                         alt="Another alt text">
+                         alt="">
                 </a>
-            </div>
+            </div> --}}
         </div>
 
 
@@ -151,9 +230,9 @@ video{width: 100% !important;padding: 2%;border: 1px solid #77777747;border-radi
             </div>
         </div>
         <!-- ----------------------- end photo gallery ------------------ -->
-        <h2 class="txtdecundlin">Video Gallery</h2>
+        <h2 class="txtdecundlin vidgallary pointer" title="click to Expand video gallary">Video Gallery</h2>
         <!-- ----------------------- start video Gallery ---------------- -->
-        <div class="row">
+        <div class="row vidgallaryDiv nodisplay">
           <div class="col-lg-3 col-md-3 col-xs-6 thumb pdlfrt2">
           <video controls>
             <source src="https://www.w3schools.com/tags/movie.mp4" type="video/mp4">
