@@ -15,7 +15,7 @@ use App\MAssignedKpiLevel1;
 use App\MAssignedKpiLevel2;
 use App\MAssignedKpiLevel3;
 use App\MAssignedKpiLevel4;
-use App\MAppAttachments;
+use App\MAppAttachment;
 // use App\GeneralKpi;
 
 class DataController extends Controller
@@ -166,7 +166,7 @@ class DataController extends Controller
 
         // $i = 0;
         // while($request->hasFile('ionicfile'.$i)){
-          $data = new MAppAttachments();
+          $data = new MAppAttachment();
           $file_path = $request->file('ionicfile')->path();
           $file_extension = $request->file('ionicfile')->getMimeType();
           if (!is_dir('storage/uploads/monitoring/')) {

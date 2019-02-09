@@ -19,7 +19,7 @@
   {{-- {{ dd(Session::get('tab')) }} --}}
   <div class="tab-content tabs card-block">
       <div class="tab-pane active" id="costDiv" role="tabpanel">
-        <form class="review" action="{{ route('Monitoring_inprogressCostSaved') }}" method="POST">
+        <form class="review serializeform" action="{{ route('Monitoring_inprogressCostSaved') }}" method="POST">
           {{ csrf_field() }}
           <input type="hidden" name="assigned_project_id" value="{{$project->id}}">
           <div class="costDiv pd_1 clearfix">
@@ -144,13 +144,19 @@
     </form>
       </div>
       <div class="tab-pane" id="locationDiv" role="tabpanel">
-        <form class="" action="{{ route('Monitoring_inprogressLocationSaved') }}" method="post">
+        <form class="serializeform" action="{{ route('Monitoring_inprogressLocationSaved') }}" method="post">
           {{ csrf_field() }}
           <input type="hidden" name="assigned_project_id" value="{{$project->id}}">
           <div class="TimeDiv pd_1 clearfix">
           <div class="form-group row mb_2">
               <label class="col-sm-3 font-15">District</label>
               <div class="col-sm-9">
+                {{-- <select name="district" id="" class="form-control">
+                  <option value="">Select District</option>
+                  @foreach ($project->Project->AssignedDistricts as $district)
+                    <option value="{{$district->District->name}}" {{($district->District->name==$location->district) ? 'selected' : ''}}>{{$district->District->name}}</option>
+                  @endforeach
+                </select> --}}
                 <input type="text" name="district" class="form-control" placeholder="District"
                 @if ($location)
                   value="{{ $location->district }}"
@@ -163,13 +169,23 @@
           <div class="form-group row mb_2">
               <label class="col-sm-3 font-15">City</label>
               <div class="col-sm-9">
-                <input type="text" name="city" class="form-control" placeholder="City"
+                  <select name="city" id="" class="form-control">
+                      <option value="">Select City</option>
+                      @foreach ($cities as $city)
+                        @if (isset($location->city))
+                        <option value="{{$city->name}}" {{($city->name==$location->city) ? 'selected' : ''}}>{{$city->name}}</option>
+                        @else
+                        <option value="{{$city->name}}">{{$city->name}}</option>                            
+                        @endif
+                      @endforeach
+                  </select>
+                {{-- <input type="text" name="city" class="form-control" placeholder="City"
                 @if ($location)
                   value="{{ $location->city }}"
                 @else
                   value=""
                 @endif
-                />
+                /> --}}
               </div>
           </div>
           <div class="form-group row mb_2">

@@ -103,7 +103,6 @@
 
 @endsection
 @section('content')
-
     {{-- frozen panel for plan and conduct monitoring  --}}
     <div class="fixed bg-g hidden-sm hidden-xs topSummary capitalize" style="">
     <div class="bg-w border_top bg-w" style="padding:0.25rem !important;" >
@@ -164,12 +163,12 @@
                         <label for="actual_start_date" class="">Actual Start Date </label>
                     </div>
                     <div class="col-md-2 ln_ht12">
-                        <label for="" name="phy_progress" id="phy_progress" class="">Physical Progress %: <span><b  style="font-size:13px;">{{$project->progress}} %</b></span></label>
+                        <label for="" name="phy_progress" id="phy_progress" class="">Physical Progress: <span><b  style="font-size:13px;">{{calculateMPhysicalProgress($project->MProjectProgress->last()->id)}}%</b></span></label>
                     </div>
                     <div class="col-md-2">
                         {{-- <label for="Financial" class="">Financial Progress %</label> --}}
                         {{-- <input type="text"  id="f_progress" class="" name="f_progress" value=""> --}}
-                    <label for="" name="f_progress" id="f_progress" class="">Financial Progress: <span ><b style="font-size:13px;">{{$financial_progress}}%</b></span></label>
+                    <label for="" name="f_progress" id="f_progress" class="">Financial Progress: <span ><b style="font-size:13px;">{{calculateMFinancialProgress($project->MProjectProgress->last()->id)}}%</b></span></label>
                     </div>
                     <div class="col-md-2">
                         <label for="last_monitoring" class="">Last Monitoring Date </label>
@@ -224,8 +223,14 @@
                                         <div class="slide"></div>
                                       </li>
                                   </ul>
-                                    <!-- Tab panes -->
-                                    <div class="tab-content card-block">
+                                    <!-- Tab panes --> 
+                                    @php
+                                        $teamflag=false;
+                                      $teamflag =  $project->AssignedProjectTeam->where('user_id',Auth::id())->first()->team_lead==1;
+                                      if(count($project->AssignedProjectTeam)==1)
+                                         $teamflag=true;
+                                    @endphp
+                                    <div class="tab-content card-block" style="">
                                         @include('_Monitoring/inc/monitoring/reviewDiv')
                                         @include('_Monitoring/inc/monitoring/planmonitoring')
                                         @include('_Monitoring/inc/monitoring/conduct_monitoring')
@@ -253,11 +258,11 @@
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-meeting-add"></i> Financial Progress:</td>
-                                <td class="text-center">{{$financial_progress}}%</td>
+                                <td class="text-center">{{calculateMFinancialProgress($project->MProjectProgress->last()->id)}}%</td>
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-id-card"></i> Physical Progress:</td>
-                                    <td class="text-center">%</td>
+                                    <td class="text-center">{{calculateMPhysicalProgress($project->MProjectProgress->last()->id)}}%</td>
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-user"></i> Assigned by:</td>
@@ -270,7 +275,7 @@
                                 
                                 <tr>
                                     <td><i class="icofont icofont-washing-machine"></i> Status:</td>
-                                    <td class="text-center">{{$project->Project->status}}</td>
+                                    <td class="text-center">{{$project->Project->status ? 'Active' : 'In-Active'}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -424,38 +429,46 @@
 
 
 $(document).ready(function(){
-
-
+    if("{{$teamflag}}"!=true){
+        $('form.serializeform :input,form.serializeform :button,form.serializeform select').attr('disabled','disabled');
+    }    
     var compData='';
     var activities='';
     var sponsoringAgency='';
     var executingAgency='';
 
-        function getWBS(route,id){
+    function getWBS(route,id){
         axios.get(route,{
      params:{
          "assigned_project_id":id,
      }
      })
      .then((response) => {
-         console.log(response.data.m_kpi.sector);
-         var ds = response.data.m_kpi.sector[0];
-        var oc = $('#WBSChart').orgchart({
-        'data' : ds,
-        'nodeContent': 'title'
-        });
+         var ds ='';
+         for (let i = 0; i < response.data.m_kpi.sector.length; i++) {
+             console.log(response.data.m_kpi.sector);
+             
+             ds = response.data.m_kpi.sector[i];
+            var oc = $('#WBSChart').orgchart({
+            'data' : ds,
+            'nodeContent': 'title'
+            });
+         }
 
-     //   $('.'+response.data.role+'_unassigned_counter').text(response.data.unassigned);
+    //    $('.'+response.data.role+'_unassigned_counter').text(response.data.unassigned);
      })
      .catch(function (error) {
        console.log(error);
      });
 
    }
-
+   var wbs=true;
 
    $('.summaryNav').on('click', function () {
-        getWBS('{{route("getProjectKpi")}}',"{{$project->id}}");
+        if(wbs){
+            getWBS('{{route("getProjectKpi")}}',"{{$project->id}}");            
+            wbs=false;
+        }
     });
         (function($) {
             console.log();
@@ -553,8 +566,8 @@ $(document).ready(function(){
 //    })();
 
     // WBS Chart Start
-(function($) {
-  $(function() {
+// (function($) {
+//   $(function() {
 //    var ds = {
 //      'name': 'Infrastructure Projects',
 //      'children': [
@@ -593,27 +606,27 @@ $(document).ready(function(){
 //      }]
 //     };
 
-axios.get('{{route("getProjectKpi")}}',{
-     params:{
-         "assigned_project_id":"{{$project->id}}",
-     }
-     })
-     .then((response) => {
-         console.log(response.data.m_kpi.sector);
-         var ds = response.data.m_kpi.sector[0];
-        var oc = $('#WBSChart').orgchart({
-        'data' : ds,
-        'nodeContent': 'title'
-        });
+// axios.get('{{route("getProjectKpi")}}',{
+//      params:{
+//          "assigned_project_id":"{{$project->id}}",
+//      }
+//      })
+//      .then((response) => {
+//          console.log(response.data.m_kpi.sector);
+//          var ds = response.data.m_kpi.sector[0];
+//         var oc = $('#WBSChart').orgchart({
+//         'data' : ds,
+//         'nodeContent': 'title'
+//         });
 
-     //   $('.'+response.data.role+'_unassigned_counter').text(response.data.unassigned);
-     })
-     .catch(function (error) {
-       console.log(error);
-     });
+//      //   $('.'+response.data.role+'_unassigned_counter').text(response.data.unassigned);
+//      })
+//      .catch(function (error) {
+//        console.log(error);
+//      });
 
-  });
-})(jQuery);
+//   });
+// })(jQuery);
 
   $('form.serializeform').on('submit',function(e){
 
