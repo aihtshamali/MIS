@@ -260,6 +260,17 @@ Route::post('/onnewprojectselect','DataEntryController@newproject');
 Route::resource('projects','ProjectController');
 Route::post('/financial_year','AdminHumanResourceController@financial_year')->name('fetch_financial_year');
 Route::post('/project_financial_year','ProjectController@financial_year')->name('fetch_project_financial_year');
+
+
+// CM DASHBOARD
+Route::get('/minitoringDashboard', 'OfficerController@DetailedDashboard')->name('minitoringDashboard');
+Route::get('/Summary', function () {
+  return view('_Monitoring.monitoringDashboard.pages.Summary');
+})->name('Summary');
+Route::get('/projctlist', function () {
+  return view('_Monitoring.monitoringDashboard.pages.projctlist');
+})->name('projctlist');
+
 });
 
 //for adminhr
@@ -287,16 +298,6 @@ Route::get('/dashboard',"HomeController@dashboard")->name("evaluation_dashboard"
 Route::post('/printerfunction','AdminHumanResourceController@printer');
 
 
-
-Route::get('/minitoringDashboard', function () {
-    return view('monitoringDashboard.index');
-})->name('minitoringDashboard');
-Route::get('/Summary', function () {
-    return view('monitoringDashboard.pages.Summary');
-})->name('Summary');
-Route::get('/projctlist', function () {
-    return view('monitoringDashboard.pages.projctlist');
-})->name('projctlist');
 Route::get('/403',function(){
   return view('403');
 });

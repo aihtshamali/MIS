@@ -33,13 +33,13 @@
                                 <!-- Tab panes -->
                                 <div class="tab-content card-block">
                                     <div class="tab-pane active" id="home3" role="tabpanel">
-                                      @include('inc/inprogress/new')
+                                      @include('_Monitoring/_Officer/projects/Tabs/new')
                                     </div>
                                     <div class="tab-pane" id="profile3" role="tabpanel">
-                                      @include('inc/inprogress/ongoing')
+                                      @include('_Monitoring/_Officer/projects/Tabs/ongoing')
                                     </div>
                                     <div class="tab-pane" id="messages6" role="tabpanel">
-                                      @include('inc/inprogress/previos')
+                                      @include('_Monitoring/_Officer/projects/Tabs/previos')
                                     </div>
                                 </div>
                             </div>
