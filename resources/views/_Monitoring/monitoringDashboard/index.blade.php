@@ -67,13 +67,13 @@ object-fit: cover;
                             <b class="hedingTxt">Financial Progress<span class="pull-right hidden-xs hidden-sm">:</span></b>
                           </div>
                           <div class="col-md-2">
-                            <b class="hedingInt">12%</b>
+                            <b class="hedingInt">{{calculateMFinancialProgress($project->AssignedProject->MProjectProgress->last()->id)}}%</b>
                           </div>
                           <div class="col-md-2">
                             <b class="hedingTxt">Physical Progress<span class="pull-right hidden-xs hidden-sm">:</span></b>
                           </div>
                           <div class="col-md-2">
-                            <b class="hedingInt">40%</b>
+                            <b class="hedingInt">{{calculateMPhysicalProgress($project->AssignedProject->MProjectProgress->last()->id)}}%</b>
                           </div>
 
                         </div>
@@ -83,16 +83,18 @@ object-fit: cover;
                                   @php
                                      $attachment= $project->AssignedProject->MProjectProgress->last()->MAppAttachment->last()
                                   @endphp
-                                  <img src="{{asset('storage/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement)}}" alt="Chicago" style="width:100%;">  
+                                  <img src="{{asset('storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement)}}" alt="Chicago" style="width:100%;">  
                                 @else
                                   <img src="{{asset('monitoringDashboard/img/a (1).jpg')}}" alt="Chicago" style="width:100%;">
                                 @endif
                               </div>
                           </div>
                       </div>
-                  
+                      @php
+                          $i++;
+                      @endphp
+                      @endforeach
                     </div>
-                  @endforeach
 
             </div>
         </div>

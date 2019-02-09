@@ -151,19 +151,19 @@
           <div class="form-group row mb_2">
               <label class="col-sm-3 font-15">District</label>
               <div class="col-sm-9">
-                <select name="district" id="" class="form-control">
+                {{-- <select name="district" id="" class="form-control">
                   <option value="">Select District</option>
                   @foreach ($project->Project->AssignedDistricts as $district)
                     <option value="{{$district->District->name}}" {{($district->District->name==$location->district) ? 'selected' : ''}}>{{$district->District->name}}</option>
                   @endforeach
-                </select>
-                {{-- <input type="text" name="district" class="form-control" placeholder="District"
+                </select> --}}
+                <input type="text" name="district" class="form-control" placeholder="District"
                 @if ($location)
                   value="{{ $location->district }}"
                 @else
                   value=""
                 @endif
-                /> --}}
+                />
               </div>
           </div>
           <div class="form-group row mb_2">
@@ -172,7 +172,11 @@
                   <select name="city" id="" class="form-control">
                       <option value="">Select City</option>
                       @foreach ($cities as $city)
+                        @if (isset($location->city))
                         <option value="{{$city->name}}" {{($city->name==$location->city) ? 'selected' : ''}}>{{$city->name}}</option>
+                        @else
+                        <option value="{{$city->name}}">{{$city->name}}</option>                            
+                        @endif
                       @endforeach
                   </select>
                 {{-- <input type="text" name="city" class="form-control" placeholder="City"

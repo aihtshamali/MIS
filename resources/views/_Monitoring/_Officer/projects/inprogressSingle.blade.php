@@ -163,12 +163,12 @@
                         <label for="actual_start_date" class="">Actual Start Date </label>
                     </div>
                     <div class="col-md-2 ln_ht12">
-                        <label for="" name="phy_progress" id="phy_progress" class="">Physical Progress %: <span><b  style="font-size:13px;">{{$project->progress}} %</b></span></label>
+                        <label for="" name="phy_progress" id="phy_progress" class="">Physical Progress: <span><b  style="font-size:13px;">{{calculateMPhysicalProgress($project->MProjectProgress->last()->id)}}%</b></span></label>
                     </div>
                     <div class="col-md-2">
                         {{-- <label for="Financial" class="">Financial Progress %</label> --}}
                         {{-- <input type="text"  id="f_progress" class="" name="f_progress" value=""> --}}
-                    <label for="" name="f_progress" id="f_progress" class="">Financial Progress: <span ><b style="font-size:13px;">{{$financial_progress}}%</b></span></label>
+                    <label for="" name="f_progress" id="f_progress" class="">Financial Progress: <span ><b style="font-size:13px;">{{calculateMFinancialProgress($project->MProjectProgress->last()->id)}}%</b></span></label>
                     </div>
                     <div class="col-md-2">
                         <label for="last_monitoring" class="">Last Monitoring Date </label>
@@ -258,11 +258,11 @@
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-meeting-add"></i> Financial Progress:</td>
-                                <td class="text-center">{{$financial_progress}}%</td>
+                                <td class="text-center">{{calculateMFinancialProgress($project->MProjectProgress->last()->id)}}%</td>
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-id-card"></i> Physical Progress:</td>
-                                    <td class="text-center">%</td>
+                                    <td class="text-center">{{calculateMPhysicalProgress($project->MProjectProgress->last()->id)}}%</td>
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-user"></i> Assigned by:</td>
@@ -275,7 +275,7 @@
                                 
                                 <tr>
                                     <td><i class="icofont icofont-washing-machine"></i> Status:</td>
-                                    <td class="text-center">{{$project->Project->status}}</td>
+                                    <td class="text-center">{{$project->Project->status ? 'Active' : 'In-Active'}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -446,6 +446,8 @@ $(document).ready(function(){
      .then((response) => {
          var ds ='';
          for (let i = 0; i < response.data.m_kpi.sector.length; i++) {
+             console.log(response.data.m_kpi.sector);
+             
              ds = response.data.m_kpi.sector[i];
             var oc = $('#WBSChart').orgchart({
             'data' : ds,
@@ -453,7 +455,7 @@ $(document).ready(function(){
             });
          }
 
-     //   $('.'+response.data.role+'_unassigned_counter').text(response.data.unassigned);
+    //    $('.'+response.data.role+'_unassigned_counter').text(response.data.unassigned);
      })
      .catch(function (error) {
        console.log(error);
