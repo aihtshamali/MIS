@@ -691,13 +691,13 @@ class OfficerController extends Controller
         $org_project=Project::where('id',$request->project_id)->first();
         $org_projectId=$org_project->id;
 
-        $result_from_app = MAppAttachments::where('m_project_progress_id',$projectProgressId->id)->get();
+        $result_from_app = MAppAttachment::where('m_project_progress_id',$projectProgressId->id)->get();
 
         $financial_cost=MProjectCost::where('m_project_progress_id',$projectProgressId->id)->first();
-
-        $financial_progress=0.0;
-        if($financial_cost)
-            $financial_progress=($financial_cost->utilization_against_releases/$financial_cost->total_release_to_date)*100;
+        //
+        // $financial_progress=0.0;
+        // if($financial_cost)
+        //     $financial_progress=($financial_cost->utilization_against_releases/$financial_cost->total_release_to_date)*100;
 
         \JavaScript::put([
           'projectWithRevised'=>$projectWithRevised,
@@ -706,7 +706,7 @@ class OfficerController extends Controller
         ]);
       //  dd();
       // dd($progresses);
-        return view('_Monitoring._Officer.projects.inprogressSingle',compact('financial_progress','result_from_app','org_project','districts','cities','org_projectId','projectProgressId','mPlanKpiComponents','ComponentActivities','monitoringProjectId','Kpis','components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
+        return view('_Monitoring._Officer.projects.inprogressSingle',compact('result_from_app','org_project','districts','cities','org_projectId','projectProgressId','mPlanKpiComponents','ComponentActivities','monitoringProjectId','Kpis','components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
       }
       public function monitoring_review_form(Request $request)
       {

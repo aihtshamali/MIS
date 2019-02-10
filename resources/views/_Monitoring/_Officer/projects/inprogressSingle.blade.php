@@ -147,11 +147,11 @@
                               $revisedFinalCost= $cost->cost;
                             @endphp
                           @endforeach
-                          {{$revisedFinalCost}}
+                          {{round($revisedFinalCost,2)}}
                         </b></span></label>
                     </div>
                     <div class="col-md-2 ln_ht12">
-                        <label for="project_cost" class="">Original Approve Cost: <span><b>{{$project->Project->ProjectDetail->orignal_cost}}</b></span></label>
+                        <label for="project_cost" class="">Original Approve Cost: <span><b>{{round($project->Project->ProjectDetail->orignal_cost,2)}}</b></span></label>
                     </div>
                     <div class="col-md-2">
                         <label for="planned_start_date" class="">Planned Start Date: <span><b>{{$project->Project->ProjectDetail->planned_start_date}}</b></span></label>
@@ -223,7 +223,7 @@
                                         <div class="slide"></div>
                                       </li>
                                   </ul>
-                                    <!-- Tab panes --> 
+                                    <!-- Tab panes -->
                                     @php
                                         $teamflag=false;
                                       $teamflag =  $project->AssignedProjectTeam->where('user_id',Auth::id())->first()->team_lead==1;
@@ -272,7 +272,7 @@
                                     <td><i class="icofont icofont-spinner-alt-3"></i> Revisions:</td>
                                     <td class="text-center">{{$progresses->count()}}</td>
                                 </tr>
-                                
+
                                 <tr>
                                     <td><i class="icofont icofont-washing-machine"></i> Status:</td>
                                     <td class="text-center">{{$project->Project->status ? 'Active' : 'In-Active'}}</td>
@@ -431,7 +431,7 @@
 $(document).ready(function(){
     if("{{$teamflag}}"!=true){
         $('form.serializeform :input,form.serializeform :button,form.serializeform select').attr('disabled','disabled');
-    }    
+    }
     var compData='';
     var activities='';
     var sponsoringAgency='';
@@ -447,7 +447,7 @@ $(document).ready(function(){
          var ds ='';
          for (let i = 0; i < response.data.m_kpi.sector.length; i++) {
              console.log(response.data.m_kpi.sector);
-             
+
              ds = response.data.m_kpi.sector[i];
             var oc = $('#WBSChart').orgchart({
             'data' : ds,
@@ -466,7 +466,7 @@ $(document).ready(function(){
 
    $('.summaryNav').on('click', function () {
         if(wbs){
-            getWBS('{{route("getProjectKpi")}}',"{{$project->id}}");            
+            getWBS('{{route("getProjectKpi")}}',"{{$project->id}}");
             wbs=false;
         }
     });
