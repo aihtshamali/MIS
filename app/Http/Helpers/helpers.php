@@ -6,9 +6,9 @@ if (! function_exists('calculateMFinancialProgress')) {
         $financial_progress=0.0;
         if($financial_cost)
             $financial_progress=($financial_cost->utilization_against_releases/$financial_cost->total_release_to_date)*100;
-        return $financial_progress;    
+        return $financial_progress;
     }
-    
+
   }
 if (! function_exists('calculateMPhysicalProgress')) {
    function calculateMPhysicalProgress($m_project_progress_id){
@@ -49,7 +49,7 @@ if (! function_exists('calculateMPhysicalProgress')) {
       foreach($arr as $val){
         $sum+=$val;
       }
-      
+
       return $sum/count($arr);
   }
 }
