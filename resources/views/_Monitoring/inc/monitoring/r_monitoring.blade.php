@@ -143,7 +143,7 @@ ul, #myUL {
           <div class="col-lg-3 col-md-3 col-xs-6 thumb pdlfrt2">
           <video controls>
             <source src="https://www.w3schools.com/tags/movie.mp4" type="video/mp4">
-            <source src="https://www.w3schools.com/tags/movie.ogg" type="video/ogg">
+            <!-- <source src="https://www.w3schools.com/tags/movie.ogg" type="video/ogg"> -->
             Your browser does not support the video tag.
           </video>
         </div>

@@ -163,12 +163,12 @@
                         <label for="actual_start_date" class="">Actual Start Date </label>
                     </div>
                     <div class="col-md-2 ln_ht12">
-                        <label for="" name="phy_progress" id="phy_progress" class="">Physical Progress: <span><b  style="font-size:13px;">{{calculateMPhysicalProgress($project->MProjectProgress->last()->id)}}%</b></span></label>
+                        <label for="" name="phy_progress" id="phy_progress" class="">Physical Progress: <span><b  style="font-size:13px;">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%</b></span></label>
                     </div>
                     <div class="col-md-2">
                         {{-- <label for="Financial" class="">Financial Progress %</label> --}}
                         {{-- <input type="text"  id="f_progress" class="" name="f_progress" value=""> --}}
-                    <label for="" name="f_progress" id="f_progress" class="">Financial Progress: <span ><b style="font-size:13px;">{{calculateMFinancialProgress($project->MProjectProgress->last()->id)}}%</b></span></label>
+                    <label for="" name="f_progress" id="f_progress" class="">Financial Progress: <span ><b style="font-size:13px;">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</b></span></label>
                     </div>
                     <div class="col-md-2">
                         <label for="last_monitoring" class="">Last Monitoring Date </label>
@@ -258,11 +258,11 @@
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-meeting-add"></i> Financial Progress:</td>
-                                <td class="text-center">{{calculateMFinancialProgress($project->MProjectProgress->last()->id)}}%</td>
+                                <td class="text-center">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</td>
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-id-card"></i> Physical Progress:</td>
-                                    <td class="text-center">{{calculateMPhysicalProgress($project->MProjectProgress->last()->id)}}%</td>
+                                    <td class="text-center">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id),2)}}%</td>
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-user"></i> Assigned by:</td>

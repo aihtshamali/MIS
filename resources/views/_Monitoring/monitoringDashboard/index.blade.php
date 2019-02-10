@@ -67,13 +67,13 @@ object-fit: cover;
                             <b class="hedingTxt">Financial Progress<span class="pull-right hidden-xs hidden-sm">:</span></b>
                           </div>
                           <div class="col-md-2">
-                            <b class="hedingInt">{{calculateMFinancialProgress($project->AssignedProject->MProjectProgress->last()->id)}}%</b>
+                            <b class="hedingInt">{{round(calculateMFinancialProgress($project->AssignedProject->MProjectProgress->last()->id),2)}}%</b>
                           </div>
                           <div class="col-md-2">
                             <b class="hedingTxt">Physical Progress<span class="pull-right hidden-xs hidden-sm">:</span></b>
                           </div>
                           <div class="col-md-2">
-                            <b class="hedingInt">{{calculateMPhysicalProgress($project->AssignedProject->MProjectProgress->last()->id)}}%</b>
+                            <b class="hedingInt">{{round(calculateMPhysicalProgress($project->AssignedProject->MProjectProgress->last()->id),2)}}%</b>
                           </div>
 
                         </div>

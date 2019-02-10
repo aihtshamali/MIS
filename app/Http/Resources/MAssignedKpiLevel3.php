@@ -23,6 +23,7 @@ class MAssignedKpiLevel3 extends Resource
           "completed" => $this->completed,
           "remarks" => $this->remarks,
           "weightage" => $this->MProjectLevel3Kpi->weightage,
+          "current_weightage" => $this->current_weightage,
           "children" => MAssignedKpiLevel4Resource::collection($this->MAssignedKpiLevel4),
           "status" => $this->status,
         ];
