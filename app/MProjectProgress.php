@@ -85,6 +85,9 @@ class MProjectProgress extends Model
     } 
     public function MUserVisitlocation(){
       return $this->hasMany('App\MUserVisitlocation');
-  }
+    }
+    public function MAppAttachment(){
+      return $this->hasMany('App\MAppAttachment');
+    }
 
 }
