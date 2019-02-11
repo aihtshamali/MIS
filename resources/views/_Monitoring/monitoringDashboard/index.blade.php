@@ -58,7 +58,7 @@ object-fit: cover;
                           </div>
                           <div class="col-md-2">
                             <a href="{{ route('Summary') }}">
-                              <b class="statusTxt" id="status">30%</b>
+                              <b class="statusTxt" id="status">{{(round(calculateMFinancialProgress($project->AssignedProject->MProjectProgress->last()->id),2) + round(calculateMPhysicalProgress($project->AssignedProject->MProjectProgress->last()->id),2)) / 2}} %</b>
                             </a>
                           </div>
                         </div>

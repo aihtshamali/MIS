@@ -692,7 +692,6 @@ class OfficerController extends Controller
         $org_projectId=$org_project->id;
 
         $result_from_app = MAppAttachment::where('m_project_progress_id',$projectProgressId->id)->get();
-
         $financial_cost=MProjectCost::where('m_project_progress_id',$projectProgressId->id)->first();
         //
         // $financial_progress=0.0;

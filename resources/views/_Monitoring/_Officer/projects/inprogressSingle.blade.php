@@ -160,7 +160,7 @@
                         <label for="planned_end_date" class="">Planned End Date: <span><b>{{$project->Project->ProjectDetail->planned_end_date}}</b></span> </label>
                     </div>
                     <div class="col-md-2">
-                        <label for="actual_start_date" class="">Actual Start Date </label>
+                        <label for="actual_start_date" class="">Actual Start Date: <span><b  style="font-size:13px;">{{$dates->actual_start_date}}</b></span> </label>
                     </div>
                     <div class="col-md-2 ln_ht12">
                         <label for="" name="phy_progress" id="phy_progress" class="">Physical Progress: <span><b  style="font-size:13px;">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%</b></span></label>

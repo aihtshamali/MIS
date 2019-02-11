@@ -23,6 +23,7 @@ class MAssignedKpiLevel1 extends Resource
           "remarks" => $this->remarks,
           "weightage" => $this->MProjectLevel1Kpi->weightage,
           "current_weightage" => $this->current_weightage,
+          "title" => $this->current_weightage.' %',
           "children" => MAssignedKpiLevel2Resource::collection($this->MAssignedKpiLevel2),
           "status" => $this->status,
           // "created_at" => null,
