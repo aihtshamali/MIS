@@ -153,4 +153,7 @@
         </div> --}}
 {{-- end newtiQ map --}}
     </fieldset>
+    <div class="pull-right" style="padding-top:2%">
+      <button type="button" class="btn btn-success btn-lg" disabled name="Complete">Complete This Monitoring</button>
+    </div>
 </div>

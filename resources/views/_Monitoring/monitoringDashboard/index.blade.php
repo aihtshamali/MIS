@@ -51,14 +51,14 @@ object-fit: cover;
                             <b class="hedingTxt">Project Cost<span class="pull-right hidden-xs hidden-sm">:</span></b>
                           </div>
                           <div class="col-md-2">
-                          <b class="hedingInt">{{$project->ProjectDetail->orignal_cost}} million {{$project->ProjectDetail->currency}}</b>
+                          <b class="hedingInt">{{round($project->ProjectDetail->orignal_cost,2)}} million {{$project->ProjectDetail->currency}}</b>
                           </div>
                           <div class="col-md-2">
                             <b class="hedingTxt">Status Alert<span class="pull-right hidden-xs hidden-sm">:</span></b>
                           </div>
                           <div class="col-md-2">
                             <a href="{{ route('Summary') }}">
-                              <b class="statusTxt" id="status">30%</b>
+                              <b class="statusTxt" id="status">{{(round(calculateMFinancialProgress($project->AssignedProject->MProjectProgress->last()->id),2) + round(calculateMPhysicalProgress($project->AssignedProject->MProjectProgress->last()->id),2)) / 2}} %</b>
                             </a>
                           </div>
                         </div>
@@ -67,13 +67,13 @@ object-fit: cover;
                             <b class="hedingTxt">Financial Progress<span class="pull-right hidden-xs hidden-sm">:</span></b>
                           </div>
                           <div class="col-md-2">
-                            <b class="hedingInt">{{calculateMFinancialProgress($project->AssignedProject->MProjectProgress->last()->id)}}%</b>
+                            <b class="hedingInt">{{round(calculateMFinancialProgress($project->AssignedProject->MProjectProgress->last()->id),2)}}%</b>
                           </div>
                           <div class="col-md-2">
                             <b class="hedingTxt">Physical Progress<span class="pull-right hidden-xs hidden-sm">:</span></b>
                           </div>
                           <div class="col-md-2">
-                            <b class="hedingInt">{{calculateMPhysicalProgress($project->AssignedProject->MProjectProgress->last()->id)}}%</b>
+                            <b class="hedingInt">{{round(calculateMPhysicalProgress($project->AssignedProject->MProjectProgress->last()->id),2)}}%</b>
                           </div>
 
                         </div>
@@ -83,7 +83,7 @@ object-fit: cover;
                                   @php
                                      $attachment= $project->AssignedProject->MProjectProgress->last()->MAppAttachment->last()
                                   @endphp
-                                  <img src="{{asset('storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement)}}" alt="Chicago" style="width:100%;">  
+                                  <img src="{{asset('storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement)}}" alt="Chicago" style="width:100%;">
                                 @else
                                   <img src="{{asset('monitoringDashboard/img/a (1).jpg')}}" alt="Chicago" style="width:100%;">
                                 @endif

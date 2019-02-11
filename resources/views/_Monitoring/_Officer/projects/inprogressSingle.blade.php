@@ -147,11 +147,11 @@
                               $revisedFinalCost= $cost->cost;
                             @endphp
                           @endforeach
-                          {{$revisedFinalCost}}
+                          {{round($revisedFinalCost,2)}}
                         </b></span></label>
                     </div>
                     <div class="col-md-2 ln_ht12">
-                        <label for="project_cost" class="">Original Approve Cost: <span><b>{{$project->Project->ProjectDetail->orignal_cost}}</b></span></label>
+                        <label for="project_cost" class="">Original Approve Cost: <span><b>{{round($project->Project->ProjectDetail->orignal_cost,2)}}</b></span></label>
                     </div>
                     <div class="col-md-2">
                         <label for="planned_start_date" class="">Planned Start Date: <span><b>{{$project->Project->ProjectDetail->planned_start_date}}</b></span></label>
@@ -160,15 +160,15 @@
                         <label for="planned_end_date" class="">Planned End Date: <span><b>{{$project->Project->ProjectDetail->planned_end_date}}</b></span> </label>
                     </div>
                     <div class="col-md-2">
-                        <label for="actual_start_date" class="">Actual Start Date </label>
+                        <label for="actual_start_date" class="">Actual Start Date: <span><b  style="font-size:13px;">{{$dates->actual_start_date}}</b></span> </label>
                     </div>
                     <div class="col-md-2 ln_ht12">
-                        <label for="" name="phy_progress" id="phy_progress" class="">Physical Progress: <span><b  style="font-size:13px;">{{calculateMPhysicalProgress($project->MProjectProgress->last()->id)}}%</b></span></label>
+                        <label for="" name="phy_progress" id="phy_progress" class="">Physical Progress: <span><b  style="font-size:13px;">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%</b></span></label>
                     </div>
                     <div class="col-md-2">
                         {{-- <label for="Financial" class="">Financial Progress %</label> --}}
                         {{-- <input type="text"  id="f_progress" class="" name="f_progress" value=""> --}}
-                    <label for="" name="f_progress" id="f_progress" class="">Financial Progress: <span ><b style="font-size:13px;">{{calculateMFinancialProgress($project->MProjectProgress->last()->id)}}%</b></span></label>
+                    <label for="" name="f_progress" id="f_progress" class="">Financial Progress: <span ><b style="font-size:13px;">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</b></span></label>
                     </div>
                     <div class="col-md-2">
                         <label for="last_monitoring" class="">Last Monitoring Date </label>
@@ -223,7 +223,7 @@
                                         <div class="slide"></div>
                                       </li>
                                   </ul>
-                                    <!-- Tab panes --> 
+                                    <!-- Tab panes -->
                                     @php
                                         $teamflag=false;
                                       $teamflag =  $project->AssignedProjectTeam->where('user_id',Auth::id())->first()->team_lead==1;
@@ -258,11 +258,11 @@
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-meeting-add"></i> Financial Progress:</td>
-                                <td class="text-center">{{calculateMFinancialProgress($project->MProjectProgress->last()->id)}}%</td>
+                                <td class="text-center">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</td>
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-id-card"></i> Physical Progress:</td>
-                                    <td class="text-center">{{calculateMPhysicalProgress($project->MProjectProgress->last()->id)}}%</td>
+                                    <td class="text-center">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id),2)}}%</td>
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-user"></i> Assigned by:</td>
@@ -272,7 +272,7 @@
                                     <td><i class="icofont icofont-spinner-alt-3"></i> Revisions:</td>
                                     <td class="text-center">{{$progresses->count()}}</td>
                                 </tr>
-                                
+
                                 <tr>
                                     <td><i class="icofont icofont-washing-machine"></i> Status:</td>
                                     <td class="text-center">{{$project->Project->status ? 'Active' : 'In-Active'}}</td>
@@ -431,7 +431,7 @@
 $(document).ready(function(){
     if("{{$teamflag}}"!=true){
         $('form.serializeform :input,form.serializeform :button,form.serializeform select').attr('disabled','disabled');
-    }    
+    }
     var compData='';
     var activities='';
     var sponsoringAgency='';
@@ -447,7 +447,7 @@ $(document).ready(function(){
          var ds ='';
          for (let i = 0; i < response.data.m_kpi.sector.length; i++) {
              console.log(response.data.m_kpi.sector);
-             
+
              ds = response.data.m_kpi.sector[i];
             var oc = $('#WBSChart').orgchart({
             'data' : ds,
@@ -466,7 +466,7 @@ $(document).ready(function(){
 
    $('.summaryNav').on('click', function () {
         if(wbs){
-            getWBS('{{route("getProjectKpi")}}',"{{$project->id}}");            
+            getWBS('{{route("getProjectKpi")}}',"{{$project->id}}");
             wbs=false;
         }
     });

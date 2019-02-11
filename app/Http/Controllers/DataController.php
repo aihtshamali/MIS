@@ -120,7 +120,6 @@ class DataController extends Controller
                 $m_assigned_kpi_level1->completed = $value3['completed'];
                 $m_assigned_kpi_level1->remarks = $value3['remarks'];
                 $m_assigned_kpi_level1->current_weightage = $value3['current_weightage'];
-
                 $m_assigned_kpi_level1->save();
                 foreach ($value3['children'] as $value4) {
                   $m_assigned_kpi_level2 = MAssignedKpiLevel2::find($value4['id']);
