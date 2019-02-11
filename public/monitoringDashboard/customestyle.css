@@ -161,5 +161,6 @@ body
     padding: 0% !important;
   }
 .pdt3p{padding-top: 3% !important;}
-.inline-flex{display: inline-flex !important;}
+.inline-flex{display: flex;
+align-items: flex-start;}
 .box-shadow{box-shadow: 3px 6px 37px #8b977b;}
