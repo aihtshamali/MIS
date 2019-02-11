@@ -83,7 +83,7 @@
                             <div class="DisInlineflex newClass{{$i}} mb_2 col-md-12">
                                 <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Objective {{$i}}</label>
                                     <div class="col-sm-7">
-                                    <input type="text" class="form-control form-txt-primary" name="obj[]" placeholder="Objective {{$i}}" value="{{$obj->objective}}">
+                                    <input type="text" class="form-control" name="obj[]" placeholder="Objective {{$i}}" value="{{$obj->objective}}">
                                     </div>
                                     @if($i==1)
                                         <div class="col-sm-2 addbtn text_center">
@@ -102,7 +102,7 @@
                             <div class="DisInlineflex newClass1 mb_2 col-md-12">
                                 <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Objective 1</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control form-txt-primary" name="obj[]" placeholder="Objective 1">
+                                    <input type="text" class="form-control" name="obj[]" placeholder="Objective 1">
                                 </div>
                                 <div class="col-sm-2 addbtn text_center">
                                     <button class="btn btn-sm btn-info" type="button" id="add_more_objective"  tabindex=1>+</button>
@@ -118,7 +118,7 @@
                         <div class="DisInlineflex newClasscompAct{{$j}} mb_2 col-md-12">
                                 <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Component {{$j}}</label>
                                 <div class="col-sm-7">
-                                <input type="text" name="comp[]"  class="form-control form-txt-primary" value="{{$comp->component}}" placeholder="Component {{$j}}">
+                                <input type="text" name="comp[]"  class="form-control" value="{{$comp->component}}" placeholder="Component {{$j}}">
                                 </div>
                                 @if($j==1)
                                 <div class="col-sm-2 addbtn text_center">
@@ -137,7 +137,7 @@
                             <div class="DisInlineflex newClasscompAct mb_2 col-md-12">
                                     <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Component 1</label>
                                     <div class="col-sm-7">
-                                        <input type="text" name="comp[]" class="form-control form-txt-primary" placeholder="Component 1">
+                                        <input type="text" name="comp[]" class="form-control" placeholder="Component 1">
                                     </div>
                                     <div class="col-sm-2 addbtn text_center">
                                         <button class="btn btn-sm btn-info" type="button" id="add_more_compAct" tabindex=100>+</button>
@@ -196,28 +196,27 @@
                             <h5 class="textlef pd_1_2 col-md-6"><b>Component</b></h5>
                         </div>
                         <ul class="pd_1_6" id="ObjCompHere">
+                          @php
+                          $i=0;
+                          @endphp
+                          @foreach ($objectives as $obj)
                             <li class="row mb_2">
-                                @php
-                                 $i=0;
-                                @endphp
-                                    @foreach ($objectives as $obj)
-
-                                    <span id="objectiveHere" name=""  class="float-left col-md-6">
-                                        <input type="hidden" value="{{$obj->id}}" name="objective[]">
-                                        {{$obj->objective}}
-                                    </span>
-                                    <span class="float-right col-md-6">
-                                    <select class="select2 col-md-12" id="component" name="mappedComp_{{$i}}[]" multiple="multiple">
-                                       @foreach ($components as $comp)
-                                       <option value={{$comp->id}}>{{$comp->component}}</option>
-                                       @endforeach
-                                    </select>
-                                    </span>
-                                    @php
-                                    $i++;
-                                   @endphp
-                                    @endforeach
-                                    </li>
+                              <span id="objectiveHere" name=""  class="float-left col-md-6">
+                                <input type="hidden" value="{{$obj->id}}" name="objective[]">
+                                {{$obj->objective}}
+                            </span>
+                            <span class="float-right col-md-6">
+                            <select class="select2 col-md-12" id="component" name="mappedComp_{{$i}}[]" multiple="multiple">
+                               @foreach ($components as $comp)
+                               <option value={{$comp->id}}>{{$comp->component}}</option>
+                               @endforeach
+                            </select>
+                            </span>
+                          </li>
+                          @php
+                          $i++;
+                          @endphp
+                          @endforeach
                         </ul>
                         {{-- <button class="btn aho col-md-3 btn btn-alert offset-md-7 " type="button" style="background: #406765;border: 1px solid; " id="ObjCompShowSum">Show Summary</button> --}}
                         <button class="btn aho col-md-1 btn btn-primary pull-right" type="submit" id="saveCompagainstObj">Save </button>
@@ -306,7 +305,7 @@
                                   @foreach ($components as $comp)
                                     <div class="row form-group compTask">
                                         <div class="col-md-4 offset-md-1">
-                                         <label for=""> <b class="headText form-txt-primary" id="compname"> {{$comp->component}} </b></label>
+                                         <label for=""> <b class="headText" id="compname"> {{$comp->component}} </b></label>
                                         <input type="hidden" name="compforactivity[]" value="{{$comp->id}}" />
                                         </div>
                                         <div class="col-md-2 offset-md-4 mb_1 Taskbut" id="add_activity" data-id="{{$j}}" style="padding-top:0.6%;">

@@ -8,7 +8,7 @@ box-shadow: none !important;
 display: block;
 }
 .modal-lg{max-width: 660px !important;}
-.img-thumbnail{min-height: 100% !important;max-height: 100% !important;}
+.img-thumbnail{object-fit: cover !important;height: 100% !important;}
 .thumb{
 margin-top: 15px;
 margin-bottom: 15px;
@@ -90,7 +90,7 @@ ul, #myUL {
     <!-- ---------------- end tree vie ------------------ -->
     <!-- ----------------- start photo gallery -------------------- -->
     <h2 class="txtdecundlin pointer photogallary" title="click to Expand photo gallary">Photo Gallery</h2>
-		<div class="row photogallaryDiv nodisplay col-md-12">
+		<div class="row photogallaryDiv nodisplay col-md-12" style="padding-bottom:5%">
             <!-- <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                 <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
                    data-image="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
@@ -106,8 +106,8 @@ ul, #myUL {
         <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
            data-image="{{'http://172.16.10.11/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" data-target="#image-gallery">
             <img class="img-thumbnail" src="{{'http://172.16.10.11/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Another alt text">
-            <b class="float-left">{{$i++}}) &nbsp;&nbsp;</b>
-            <b class=""> {{date('d M Y',strtotime($attachment->created_at))}} </b>
+            <b class="float-left">#: {{$i++}}</b>
+            <b class="float-right" style="padding:0% 10%">Date: {{date('d M Y',strtotime($attachment->created_at))}} </b>
         </a>
     </div>
       @endforeach
@@ -116,22 +116,25 @@ ul, #myUL {
 
 
         <div class="modal fade" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-lg" style="width:30% !important">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="image-gallery-title"></h4>
+                        <!-- <h4 class="modal-title" id="image-gallery-title"></h4>
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                        </button> -->
+                        <div class="col-md-12">
+                          <button type="button" class="btn btn-secondary float-left" id="show-previous-image"><i class="fa fa-arrow-left"></i>
+                          </button>
+
                         </button>
+                          <button type="button" id="show-next-image" class="btn btn-secondary float-right"><i class="fa fa-arrow-right"></i>
+                        </div>
                     </div>
                     <div class="modal-body">
                         <img id="image-gallery-image" class="img-responsive col-md-12" src="">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary float-left" id="show-previous-image"><i class="fa fa-arrow-left"></i>
-                        </button>
 
-                        <button type="button" id="show-next-image" class="btn btn-secondary float-right"><i class="fa fa-arrow-right"></i>
-                        </button>
                     </div>
                 </div>
             </div>
@@ -139,7 +142,7 @@ ul, #myUL {
         <!-- ----------------------- end photo gallery ------------------ -->
         <h2 class="txtdecundlin vidgallary pointer" title="click to Expand video gallary">Video Gallery</h2>
         <!-- ----------------------- start video Gallery ---------------- -->
-        <div class="row vidgallaryDiv nodisplay">
+        <div class="row vidgallaryDiv nodisplay col-md-12">
           @foreach($result_from_app->where('type','video/mp4') as $video)
           <div class="col-lg-3 col-md-3 col-xs-6 thumb pdlfrt2">
           <video controls>
@@ -147,6 +150,8 @@ ul, #myUL {
             <source src="{{'http://172.16.10.11/storage/uploads/monitoring/'.$video->m_project_progress_id.'/'.$video->project_attachement}}" type="video/ogg">
             Your browser does not support the video tag.
           </video>
+          <b class="float-left">#: {{$i++}}</b>
+          <b class="float-right" style="padding:0% 10%">Date: {{date('d M Y',strtotime($attachment->created_at))}} </b>
         </div>
         @endforeach
         </div>

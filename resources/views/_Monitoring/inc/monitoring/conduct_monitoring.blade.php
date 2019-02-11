@@ -1,3 +1,8 @@
+<style scoped>
+.select2-container--default .select2-selection--single{
+  height: 37px !important;
+}
+</style>
 <div class="tab-pane" id="c_monitoring" role="tabpanel" style="display:none;">
     <div class="row">
         <div class="col-lg-12 col-xl-12 col-md-12 col-sm-6">
