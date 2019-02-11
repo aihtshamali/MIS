@@ -272,10 +272,19 @@
                         <!-- Form Basic Wizard card end -->
                     </div>
                     <div class="col-xl-3 col-lg-12 nodisplay p_details" style="padding-left: 15px !important;  padding-right: 15px !important;">
+<<<<<<< HEAD
                       <div class="card">
                         <div class="card-header">
                           <h5 class="card-header-text"><i class="icofont icofont-ui-note m-r-10"></i> Project Details</h5>
                         </div>
+=======
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-header-text"><i class="icofont icofont-ui-note m-r-10"></i> Project Details</h5>
+                    </div>
+                    <div class="card-block task-details">
+                        <table class="table table-border table-xs">
+>>>>>>> 51171b2ea64c3303e4b3c87e42771f59468ac8bb
                         <div class="card-block task-details">
                           <table class="table table-border table-xs">
                             <tbody>

@@ -23,10 +23,10 @@
                     <a class="nav-link  kpis" data-toggle="tab" href="#kpis" role="tab" id="kpisss"
                         aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Plan ( KPI's)</b></a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link proloc" data-toggle="tab" href="#prolocDiv" role="tab" id="proloc"
                         aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Project Location</b></a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link activities" data-toggle="tab" href="#activities" id="tali"
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Tasks</b></a>
@@ -39,35 +39,50 @@
                     <a class="nav-link CostingTab" data-toggle="tab" href="#CostingDiv" id="cosli"
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Costing</b></a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link PAT" data-toggle="tab" href="#PAT"
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Plan A Trip</b></a>
-                </li>
+                </li> --}}
             </ul>
             <div class="tab-content tabs card-block active">
-            <form class="serializeform" action="{{route('saveMonitoringAttachments')}}" method="post" enctype="multipart/form-data">
                 <div class="tab-pane active" id="PlanDocDiv" role="tabpanel" aria-expanded="true">
+                <div class="row" style="margin-top:5%; margin-bottom: 10%;">
+                        @if(isset($project_documents))
+                        <div class="col-md-3">
+                            <label for=""><h6><b>Documents</b></h6></label>
+                        </div>
+                        <div class="col-md-6">
+                            @foreach ($project_documents as $project_document)
+                            <label for=""> <b>{{$project_document->$attachment_name}} : {{$project_document->$project_attachment}} </b></label>
+                            @endforeach
+                        </div>
+                        @else
+                            <div class="col-md-12"><h3 style="text-align: center;">No Documents Attached </h3></div>
+                        @endif
+                    </div>
+                  <form class="serializeform" action="{{route('saveMonitoringAttachments')}}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="row">
-                        <div class="col-md-3">
-                        <div class="btn col-md-10 offset-md-1 btn-primary btn-block">
+                        <div class="col-md-3 ">
+                        <div class="btn col-md-10 offset-md-2 btn-primary btn-block">
                             <input type="file" id="html_btn" name="planmonitoringfile" title='Click to add Files' />
                             <span>Upload File</span>
                         </div>
                         </div>
-                        <div class="col-md-3 col-md-offset-2">
+                        <div class="col-md-3 offset-md-1">
                             <input type="text" name="file_name" class="placeholder" style="width: 100%;padding: 2%;"
                             placeholder="Type File Name"/>
                         </div>
                         <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
                     </div>
                     <div class="row ">
-                    <div class="col-md-12">
+                    <div class="col-md-3 offset-md-6">
                         <button type="submit" class="btn btn-success pull-right" name="submit">Submit</button>
                     </div>
                     </div>
+                 </form>
+
                 </div>
-            </form>
                 <div class="tab-pane" id="i-dates" role="tabpanel" aria-expanded="false">
                   <form class="serializeform" action="{{ route('projectDesignMonitoring') }}" method="post">
                         {{ csrf_field() }}
@@ -199,24 +214,34 @@
                           @php
                           $i=0;
                           @endphp
-                          @foreach ($objectives as $obj)
                             <li class="row mb_2">
-                              <span id="objectiveHere" name=""  class="float-left col-md-6">
-                                <input type="hidden" value="{{$obj->id}}" name="objective[]">
-                                {{$obj->objective}}
-                            </span>
-                            <span class="float-right col-md-6">
-                            <select class="select2 col-md-12" id="component" name="mappedComp_{{$i}}[]" multiple="multiple">
-                               @foreach ($components as $comp)
-                               <option value={{$comp->id}}>{{$comp->component}}</option>
-                               @endforeach
-                            </select>
-                            </span>
-                          </li>
-                          @php
-                          $i++;
-                          @endphp
-                          @endforeach
+                                @php
+                                 $i=0;
+                                @endphp
+                                    @foreach ($objectives as $obj)
+                                        <span id="objectiveHere" name=""  class="float-left col-md-6">
+                                            <input type="hidden" value="{{$obj->id}}" name="objective[]">
+                                            {{$obj->objective}}
+                                        </span>
+                                        <span class="float-right col-md-6">
+                                        <select class="select2 col-md-12" id="component" name="mappedComp_{{$i}}[]" multiple="multiple">
+                                        @foreach ($components as $comp)
+                                        <option
+                                                @foreach ($comp->MPlanObjectivecomponentMapping as $mappedComp)
+                                                    @if($mappedComp->m_plan_objective_id == $obj->id)
+                                                    {{"selected"}}
+                                                    @endif
+                                                @endforeach
+                                            value="{{$comp->id}}" >{{$comp->component}}
+                                        </option>
+                                        @endforeach
+                                        </select>
+                                        </span>
+                                    @php
+                                    $i++;
+                                   @endphp
+                                    @endforeach
+                                    </li>
                         </ul>
                         {{-- <button class="btn aho col-md-3 btn btn-alert offset-md-7 " type="button" style="background: #406765;border: 1px solid; " id="ObjCompShowSum">Show Summary</button> --}}
                         <button class="btn aho col-md-1 btn btn-primary pull-right" type="submit" id="saveCompagainstObj">Save </button>
@@ -347,13 +372,12 @@
                             <div class="row form-group">
                                 <h5 class="col-md-6 textlef mb_2">Activities</h5>
                                 <h5 class="col-md-4 textlef mb_2">Duration In Days</h5>
-                                {{-- {{dd($ComponentActivities)}} --}}
                                 <div class="comptaskl col-md-12">
                                     @foreach ($ComponentActivities as $activities)
                                     <div id='comptaskl' class="col-md-12 row" style="margin-top:5px; padding-left:2% !important;">
                                         <div class="col-md-6">
                                             <label for=""><b>{{$activities->MPlanComponent->component}}</b> <br> - {{$activities->activity}}</label>
-                                            <input type="hidden" name="componentActivityId[]" value={{$activities->id}}>
+                                            <input type="hidden" name="componentActivityId[]" value="{{$activities->id}}">
                                         </div>
                                         <div class="col-md-4" style="">
                                                 <input type="text" name="daysinduration[]" value="@if(isset($activities->MPlanComponentactivityDetailMapping->duration)) {{$activities->MPlanComponentactivityDetailMapping->duration}} @endif" class="form-control">
