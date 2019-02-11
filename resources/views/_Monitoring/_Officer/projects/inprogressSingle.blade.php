@@ -100,18 +100,28 @@
 .modal-open, .modal{overflow-x: scroll !important;}
 /* .orgchart{background: #fff !important;} */
 .primarybold{color: #01a9ac !important; font-weight: 900 !important;}
+.orrbold{color: #ff7220 !important; font-weight: 900 !important;}
 </style>
 
 @endsection
 @section('content')
     {{-- frozen panel for plan and conduct monitoring  --}}
     <div class="fixed bg-g hidden-sm hidden-xs topSummary capitalize" style="">
-    <div class="bg-w border_top bg-w" style="padding:0.5% !important;" >
+    <div class="bg-w border_top bg-w" style="padding:0% 0% 0.5% 1% !important;" >
       <style scoped>
           .form-group{margin-bottom:0rem !important;border:none !important;background-color:transparent !important;}
           .form-group{padding: 0.05rem 0.75rem !important;}
           .col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto{padding-left: 0px !important;padding-right: 0px !important;}
-          label{margin-bottom:0rem !important;border:none !important;background-color:transparent !important;padding:0rem 0.3rem !important;font-size: 12px !important;}
+          label{margin-bottom:0rem !important;border:none !important;background-color:transparent !important;padding:0rem 0.3rem !important;
+            /* font-size: 12px !important; */
+            font-size: inherit;
+          }
+          .font-18{font-size: 18px !important;}
+          .fontf_sh{font-size: 14px !important;font-weight: 600 !important;}
+          /* .progress-bar{color: #000 !important;} */
+          .progress-bar-success {background-color: #007b1b;}
+          .progress{background: #6967674f !important;}
+          .pdz_six{padding: 0% 6% !important;}
         @media only screen and (max-width: 1024px)
           {
             .topSummary
@@ -121,28 +131,59 @@
           }
       </style>
                   <div class="col-md-12">
-                      <b class="primarybold">
-                        Project Title:
-                        <span>{{$project->Project->title}}</span>
+                    <center>
+                      <b class="primarybold mb_1 font-18">
+                        <span>Project Title</span> <span class=""> :</span>
+                        <span class="black">{{$project->Project->title}}</span>
                       </b>
+                    </center>
+                  </div>
+                  <div class="col-md-12 ln_ht12">
+                      <b for="project_cost" class=""><span >Location: </span><span>
+                        @foreach ($project->Project->AssignedDistricts as $district)
+                          {{$district->District->name}},
+                        @endforeach
+                      </span></b>
                   </div>
                 <div class="form-group row">
                     <div class="col-md-3">
-                        <b for="GS_no" class=""><span class="primarybold">GS #: </span><span>{{$project->Project->ADP}}</span></b>
-                    </div>
-                    <div class="col-md-3 ln_ht12">
-                        <b for="project_cost" class=""><span class="primarybold">Location: </span><span>
-                          @foreach ($project->Project->AssignedDistricts as $district)
-                            {{$district->District->name}},
-                          @endforeach
-                        </span></b>
+                        <b for="GS_no" class=" mb_1 fontf_sh"><span >GS #: </span><span>{{$project->Project->ADP}}</span></b>
                     </div>
                     <div class="col-md-3">
-                        <b for="PHI" class="primarybold">PHI </b>
+                        <b for="planned_end_date" class=" mb_1 fontf_sh"><span >Planned End Date: </span><span>{{$project->Project->ProjectDetail->planned_end_date}}</span> </b>
+                    </div>
+                    <div class="col-md-3">
+                        <b for="actual_start_date" class=" mb_1 fontf_sh"><span >Actual Start Date: </span><span>@if(isset($dates->actual_start_date))
+                          {{$dates->actual_start_date}}
+                          @endif</span> </b>
+                    </div>
+                    <!-- <div class="col-md-3">
+                        <b for="PHI" >PHI </b>
                         <input name="phi" id="#phi" type="number" class="frozen_pane" style="width:70% !important;"/>
+                    </div> -->
+                    <div class="col-md-3">
+                        <b for="planned_start_date" class=" mb_1 fontf_sh"><span >Planned Start Date: </span><span>{{$project->Project->ProjectDetail->planned_start_date}}</span></b>
                     </div>
                     <div class="col-md-3 ln_ht12">
-                        <b for="Location" class=""><span class="primarybold">final Revised Cost:</span> <span>
+                      <b for="" name="phy_progress" id="phy_progress" class="primarybold mb_1 fontf_sh"><span  class="float-left">Physical Progress: </span>
+                        <span class="pdz_six">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%</span>
+                        <!-- <div class="progress col-md-5 float-right" style="margin: 1.5% 5%;">
+                            <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width: {{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> {{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%
+                            </div>
+                        </div> -->
+                        </b>
+                    </div>
+                    <div class="col-md-3">
+                      <b for="" name="f_progress" id="f_progress" class="primarybold mb_1 fontf_sh"><span class="float-left" >Financial Progress:</span>
+                        <span class="pdz_six">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</span>
+                        <!-- <div class="progress col-md-5 float-right" style="margin: 1.5% 5%;">
+                            <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width: {{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> {{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%
+                            </div>
+                        </div> -->
+                      </b>
+                    </div>
+                    <div class="col-md-3 ln_ht12">
+                        <b for="Location" class=" mb_1 fontf_sh"><span >final Revised Cost:</span> <span>
                           @php
                             $revisedFinalCost=0;
                           @endphp
@@ -151,34 +192,15 @@
                               $revisedFinalCost= $cost->cost;
                             @endphp
                           @endforeach
-                          {{round($revisedFinalCost,2)}}
+                          {{round($revisedFinalCost,2)}} million PKR
                         </b></span></label>
                     </div>
                     <div class="col-md-3 ln_ht12">
-                        <b for="project_cost" class=""><span class="primarybold">Original Approve Cost:</span> <span>{{round($project->Project->ProjectDetail->orignal_cost,2)}}</span></b>
+                        <b for="project_cost" class=" mb_1 fontf_sh"><span >Original Approve Cost:</span> <span>{{round($project->Project->ProjectDetail->orignal_cost,2)}} million PKR</span></b>
                     </div>
-                    <div class="col-md-3">
-                        <b for="planned_start_date" class=""><span class="primarybold">Planned Start Date: </span><span>{{$project->Project->ProjectDetail->planned_start_date}}</span></b>
-                    </div>
-                    <div class="col-md-3">
-                        <b for="planned_end_date" class=""><span class="primarybold">Planned End Date: </span><span>{{$project->Project->ProjectDetail->planned_end_date}}</span> </b>
-                    </div>
-                    <div class="col-md-3">
-                        <b for="actual_start_date" class=""><span class="primarybold">Actual Start Date: </span><span>@if(isset($dates->actual_start_date))
-                          {{$dates->actual_start_date}}
-                          @endif</span> </b>
-                    </div>
-                    <div class="col-md-3 ln_ht12">
-                        <b for="" name="phy_progress" id="phy_progress" class=""><span class="primarybold">Physical Progress: </span><span>{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%</span></b>
-                    </div>
-                    <div class="col-md-3">
-                        {{-- <label for="Financial" class="">Financial Progress %</label> --}}
-                        {{-- <input type="text"  id="f_progress" class="" name="f_progress" value=""> --}}
-                    <b for="" name="f_progress" id="f_progress" class=""><span class="primarybold">Financial Progress:</span> <span >{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</span></b>
-                    </div>
-                    <div class="col-md-3">
-                        <b for="last_monitoring" class=""><span class="primarybold">Last Monitoring Date </span></b>
-                    </div>
+                    <!-- <div class="col-md-3">
+                        <b for="last_monitoring" class=""><span >Last Monitoring Date </span></b>
+                    </div> -->
                 </div>
         </div>
     </div>
@@ -249,8 +271,7 @@
                         </div>
                         <!-- Form Basic Wizard card end -->
                     </div>
-            </div>
-            <div class="col-xl-3 col-lg-12 nodisplay p_details" style="padding-left: 15px !important;  padding-right: 15px !important;">
+                    <div class="col-xl-3 col-lg-12 nodisplay p_details" style="padding-left: 15px !important;  padding-right: 15px !important;">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-header-text"><i class="icofont icofont-ui-note m-r-10"></i> Project Details</h5>
@@ -314,6 +335,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
 
         </div>

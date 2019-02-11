@@ -58,7 +58,7 @@ object-fit: cover;
                           </div>
                           <div class="col-md-2">
                             <a href="{{ route('Summary') }}">
-                              <b class="statusTxt" id="status">{{(round(calculateMFinancialProgress($project->AssignedProject->MProjectProgress->last()->id),2) + round(calculateMPhysicalProgress($project->AssignedProject->MProjectProgress->last()->id),2)) / 2}} %</b>
+                              <b class="statusTxt status" id="">{{(round(calculateMFinancialProgress($project->AssignedProject->MProjectProgress->last()->id),2) + round(calculateMPhysicalProgress($project->AssignedProject->MProjectProgress->last()->id),2)) / 2}} %</b>
                             </a>
                           </div>
                         </div>
@@ -85,7 +85,7 @@ object-fit: cover;
                                   @endphp
                                   <img src="{{'http://172.16.10.11/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}" alt="Chicago" style="width:100%;">
                                 @else
-                                  <img src="{{'http://172.16.10.11/storage/monitoringDashboard/img/a (1).jpg'}}" alt="Chicago" style="width:100%;">
+                                  <img src="{{'http://172.16.10.11/storage/monitoringDashboard/img/a (1).jpg'}}" alt="" style="width:100%;">
                                 @endif
                               </div>
                           </div>
