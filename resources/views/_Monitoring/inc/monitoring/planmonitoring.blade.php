@@ -81,7 +81,7 @@
                     </div>
                     </div>
                  </form>
-                 
+
                 </div>
                 <div class="tab-pane" id="i-dates" role="tabpanel" aria-expanded="false">
                   <form class="serializeform" action="{{ route('projectDesignMonitoring') }}" method="post">
@@ -214,7 +214,6 @@
                           @php
                           $i=0;
                           @endphp
-                          @foreach ($objectives as $obj)
                             <li class="row mb_2">
                                 @php
                                  $i=0;
@@ -227,9 +226,9 @@
                                         <span class="float-right col-md-6">
                                         <select class="select2 col-md-12" id="component" name="mappedComp_{{$i}}[]" multiple="multiple">
                                         @foreach ($components as $comp)
-                                        <option  
+                                        <option
                                                 @foreach ($comp->MPlanObjectivecomponentMapping as $mappedComp)
-                                                    @if($mappedComp->m_plan_objective_id == $obj->id)  
+                                                    @if($mappedComp->m_plan_objective_id == $obj->id)
                                                     {{"selected"}}
                                                     @endif
                                                 @endforeach
@@ -373,13 +372,12 @@
                             <div class="row form-group">
                                 <h5 class="col-md-6 textlef mb_2">Activities</h5>
                                 <h5 class="col-md-4 textlef mb_2">Duration In Days</h5>
-                                {{-- {{dd($ComponentActivities)}} --}}
                                 <div class="comptaskl col-md-12">
                                     @foreach ($ComponentActivities as $activities)
                                     <div id='comptaskl' class="col-md-12 row" style="margin-top:5px; padding-left:2% !important;">
                                         <div class="col-md-6">
                                             <label for=""><b>{{$activities->MPlanComponent->component}}</b> <br> - {{$activities->activity}}</label>
-                                            <input type="hidden" name="componentActivityId[]" value={{$activities->id}}>
+                                            <input type="hidden" name="componentActivityId[]" value="{{$activities->id}}">
                                         </div>
                                         <div class="col-md-4" style="">
                                                 <input type="text" name="daysinduration[]" value="@if(isset($activities->MPlanComponentactivityDetailMapping->duration)) {{$activities->MPlanComponentactivityDetailMapping->duration}} @endif" class="form-control">

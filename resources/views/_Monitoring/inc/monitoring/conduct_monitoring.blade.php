@@ -103,7 +103,7 @@
                                                         </td>
                                                         <td>
                                                             @if(isset($qa->MPlanComponentActivitiesMapping->activity) && $qa->MPlanComponentActivitiesMapping->activity!=null)
-                                                            {{$qa->MPlanComponentActivitiesMapping->activity}} 
+                                                            {{$qa->MPlanComponentActivitiesMapping->activity}}
                                                             @else
                                                                 <p style="color:red"> Not Added</p>
                                                                 @endif
@@ -162,7 +162,7 @@
 
                                       <label for="generalFeedback[{{$gf->id}}]" class="btn btn-success btn-sm btn-outline-success">
                                           YES</label>
-                                      <input type="radio" value="{{$gf->id}}_yes" 
+                                      <input type="radio" value="{{$gf->id}}_yes"
                                             @if($gf->MAssignedProjectFeedBack->m_project_progress_id==$progresses->id)
                                                  @if($gf->MAssignedProjectFeedBack->answer== 'yes') {{"checked"}} @endif
                                             @endif
@@ -174,7 +174,7 @@
                                           <input type="radio" value="{{$gf->id}}_no"
                                             @if($gf->MAssignedProjectFeedBack->m_project_progress_id==$progresses->id)
                                               @if($gf->MAssignedProjectFeedBack->answer== 'no') {{"checked"}} @endif
-                                            @endif 
+                                            @endif
                                            name="generalFeedback[{{$gf->id}}]">
                                   </div>
                                   <div class="col-md-1"></div>
@@ -189,7 +189,7 @@
                             </div>
                           </form>
                         </div>
-                       
+
                     </div>
                 </div>
                 <div class="tab-pane active" id="stakeholder" role="tabpanel"
@@ -221,7 +221,7 @@
                                             </tr>
                                         </thead>
                                         <tbody id="Executingstakeholders">
-                                                
+
                                                 @if(isset($executingStakeholders) && $executingStakeholders!=NULL)
                                                 @foreach ($executingStakeholders as $assignedexecuter)
                                                     <tr>
@@ -230,8 +230,8 @@
                                                             <select id="" name="stakeholderExecuting[]" class="form-control form-control-primary" data-placeholder="" style="width: 100%;">
                                                                 <option value="" disabled selected> Select Here</option>
                                                                     @foreach ($org_project->AssignedExecutingAgencies as $executing)
-                                                                        <option 
-                                                                            @if($assignedexecuter->assigned_executing_agency_id == $executing->id)  
+                                                                        <option
+                                                                            @if($assignedexecuter->assigned_executing_agency_id == $executing->id)
                                                                             {{"selected"}}
                                                                             @endif
 
@@ -260,7 +260,7 @@
                                                                 <select id="" name="stakeholderExecuting[]" class="form-control form-control-primary" data-placeholder="" style="width: 100%;">
                                                                     <option value="" disabled selected> Select Here</option>
                                                                         @foreach ($org_project->AssignedExecutingAgencies as $executing)
-                                                                            <option 
+                                                                            <option
                                                                             value="{{$executing->id}}" >{{$executing->ExecutingAgency->name}}
                                                                         </option>
                                                                         @endforeach
@@ -276,7 +276,7 @@
                                                             <td><input type="text" name="Executingstakeholder_email[]"
                                                                     class="form-control"  /></td>
                                                                     <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td></tr>`
-        
+
                                                         </tr>
                                         </tbody>
 
@@ -310,10 +310,10 @@
                                                         <select id="" name="Sponsoringstakeholder[]" class="form-control form-control-primary " data-placeholder="" style="width: 100%;">
                                                                 <option value="" disabled selected> Select Here</option>
                                                                 @foreach ($org_project->AssignedSponsoringAgencies as $sponsoring)
-                                                                <option 
-                                                                @if($Sp->assigned_sponsoring_agency_id == $sponsoring->id)  
+                                                                <option
+                                                                @if($Sp->assigned_sponsoring_agency_id == $sponsoring->id)
                                                                  {{"selected"}}
-                                                                 @endif  
+                                                                 @endif
                                                                 value="{{$sponsoring->id}}" >{{$sponsoring->SponsoringAgency->name}}</option>
                                                                 @endforeach
 
@@ -416,9 +416,9 @@
                                                             class="form-control" /></td>
                                                     <td><button type="button" class=" form-control btn btn-danger btn-outline-danger"
                                                          onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td>
-                                                   
+
                                                 </tr>
-                                          
+
                                         </tbody>
 
                                     </table>
@@ -666,10 +666,10 @@
                                                     <div class="checkbox-fade fade-in-success m-0">
                                                         <label>
                                                             {{-- {{$issue->MAssignedProjectHealthSafety[0]->status == 'yes' ? 'checked' : '' }} --}}
-                                                            <input type="radio" name="status[{{$key}}]" 
-                                                            
-                                                               @if($issue->MAssignedProjectHealthSafety->m_project_progress_id==$progresses->id && $issue->MAssignedProjectHealthSafety->status== 'yes') {{"checked"}} @endif 
-                                                               
+                                                            <input type="radio" name="status[{{$key}}]"
+
+                                                               @if(isset($issue->MAssignedProjectHealthSafety) && $issue->MAssignedProjectHealthSafety->m_project_progress_id==$progresses->id && $issue->MAssignedProjectHealthSafety->status== 'yes') {{"checked"}} @endif
+
                                                                value="{{$issue->id}}_yes" id="" >
                                                             <span class="cr">
                                                                 <i class="cr-icon icofont icofont-ui-check txt-success"></i>
@@ -680,8 +680,8 @@
                                                 <td>
                                                     <div class="checkbox-fade fade-in-danger m-0">
                                                         <label>
-                                                            <input type="radio" name="status[{{$key}}]" value="{{$issue->id}}_no" 
-                                                            @if($issue->MAssignedProjectHealthSafety->m_project_progress_id==$progresses->id && $issue->MAssignedProjectHealthSafety->status== 'no')
+                                                            <input type="radio" name="status[{{$key}}]" value="{{$issue->id}}_no"
+                                                            @if(isset($issue->MAssignedProjectHealthSafety) && $issue->MAssignedProjectHealthSafety->m_project_progress_id==$progresses->id && $issue->MAssignedProjectHealthSafety->status== 'no')
                                                              {{"checked"}}
                                                               @endif
                                                             id="" >
