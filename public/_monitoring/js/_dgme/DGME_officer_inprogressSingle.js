@@ -277,6 +277,7 @@ $(document).ready(function () {
         hideallmaintabs();
         hideall();
         $('.mainTabsAndNav').removeClass("col-md-12").addClass("col-md-9");
+        // $('this > a').addClass("active");
         $('#summary').show();
         $('.p_details').show(1000);
         $(".topSummary").hide('slow');
