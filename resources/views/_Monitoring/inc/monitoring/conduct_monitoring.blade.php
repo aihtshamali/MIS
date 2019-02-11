@@ -712,7 +712,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane" id="procu" role="tabpanel" aria-expanded="true">
+                <div class="tab-pane nodisplay" id="procu" role="tabpanel" aria-expanded="true">
                   <div class="card-block">
                       <div class="col-md-12">
                           <form action="{{route('savehealthsafety')}}" method="POST" class="serializeform">

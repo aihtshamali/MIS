@@ -47,22 +47,14 @@ object-fit: cover;
                           <div class="col-md-2">
                           <b class="hedingInt">{{$project->financial_year}}/{{$project->ADP}}</b>
                           </div>
-                          <div class="col-md-2">
-                            <b class="hedingTxt">Project Cost<span class="pull-right hidden-xs hidden-sm">:</span></b>
-                          </div>
-                          <div class="col-md-2">
-                          <b class="hedingInt">{{round($project->ProjectDetail->orignal_cost,2)}} million {{$project->ProjectDetail->currency}}</b>
-                          </div>
-                          <div class="col-md-2">
+                          <!-- <div class="col-md-2">
                             <b class="hedingTxt">Status Alert<span class="pull-right hidden-xs hidden-sm">:</span></b>
-                          </div>
-                          <div class="col-md-2">
+                          </div> -->
+                          <!-- <div class="col-md-2">
                             <a href="{{ route('Summary') }}">
                               <b class="statusTxt status" id="">{{(round(calculateMFinancialProgress($project->AssignedProject->MProjectProgress->last()->id),2) + round(calculateMPhysicalProgress($project->AssignedProject->MProjectProgress->last()->id),2)) / 2}} %</b>
                             </a>
-                          </div>
-                        </div>
-                        <div class="col-md-12 border-bottom">
+                          </div> -->
                           <div class="col-md-2">
                             <b class="hedingTxt">Financial Progress<span class="pull-right hidden-xs hidden-sm">:</span></b>
                           </div>
@@ -75,7 +67,15 @@ object-fit: cover;
                           <div class="col-md-2">
                             <b class="hedingInt">{{round(calculateMPhysicalProgress($project->AssignedProject->MProjectProgress->last()->id),2)}}%</b>
                           </div>
+                        </div>
+                        <div class="col-md-12 border-bottom">
 
+                          <div class="col-md-2">
+                            <b class="hedingTxt">Project Cost<span class="pull-right hidden-xs hidden-sm">:</span></b>
+                          </div>
+                          <div class="col-md-2">
+                          <b class="hedingInt">{{round($project->ProjectDetail->orignal_cost,2)}} million {{$project->ProjectDetail->currency}}</b>
+                          </div>                          
                         </div>
                           <div class="col-md-8 col-md-offset-2 carousel-content pdt3p">
                               <div>
