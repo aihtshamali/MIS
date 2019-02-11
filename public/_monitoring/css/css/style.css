@@ -12381,7 +12381,7 @@ body.menu-bottom #collapse-menu {
     cursor: pointer;
     -webkit-transition: all ease-in 0.3s;
     transition: all ease-in 0.3s;
-    font-size: 27px !important;
+    font-size: 27px;
 }
 
 .btn-info:hover {

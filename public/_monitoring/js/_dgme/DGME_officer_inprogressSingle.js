@@ -309,6 +309,7 @@ $(document).ready(function () {
         $('#risks').hide();
         $('#HSE').hide();
         $('#procuremnet').hide();
+        $('#procu').hide();
         $('#kpis').hide();
         $('#activities').hide();
         $('#kpis').hide();

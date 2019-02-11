@@ -102,7 +102,7 @@
                                     </div>
                                     @if($i==1)
                                         <div class="col-sm-2 addbtn text_center">
-                                                <button class="btn btn-sm btn-info" type="button" id="add_more_objective"  tabindex=1>+</button>
+                                                <button class="btn btn-sm btn-info" type="button" style="font-size:27px !important;" id="add_more_objective"  tabindex=1>+</button>
                                         </div>
                                     @else
                                         <div class="col-sm-2 removeObjective text_center">
@@ -137,7 +137,7 @@
                                 </div>
                                 @if($j==1)
                                 <div class="col-sm-2 addbtn text_center">
-                                        <button class="btn btn-sm btn-info" type="button" id="add_more_compAct" tabindex=100>+</button>
+                                        <button class="btn btn-sm btn-info" type="button" style="font-size:27px !important;" id="add_more_compAct" tabindex=100>+</button>
                                 </div>
                                 @else
                                 <div class="col-sm-2 removecompAct text_center">
@@ -211,14 +211,14 @@
                             <h5 class="textlef pd_1_2 col-md-6"><b>Component</b></h5>
                         </div>
                         <ul class="pd_1_6" id="ObjCompHere">
+                          <!-- @php
+                          $i=0;
+                          @endphp -->
                           @php
                           $i=0;
                           @endphp
+                          @foreach ($objectives as $obj)
                             <li class="row mb_2">
-                                @php
-                                 $i=0;
-                                @endphp
-                                    @foreach ($objectives as $obj)
                                         <span id="objectiveHere" name=""  class="float-left col-md-6">
                                             <input type="hidden" value="{{$obj->id}}" name="objective[]">
                                             {{$obj->objective}}
@@ -237,11 +237,11 @@
                                         @endforeach
                                         </select>
                                         </span>
+                                    </li>
                                     @php
                                     $i++;
-                                   @endphp
+                                    @endphp
                                     @endforeach
-                                    </li>
                         </ul>
                         {{-- <button class="btn aho col-md-3 btn btn-alert offset-md-7 " type="button" style="background: #406765;border: 1px solid; " id="ObjCompShowSum">Show Summary</button> --}}
                         <button class="btn aho col-md-1 btn btn-primary pull-right" type="submit" id="saveCompagainstObj">Save </button>
