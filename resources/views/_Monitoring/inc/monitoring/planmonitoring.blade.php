@@ -53,7 +53,7 @@
                         </div>
                         <div class="col-md-6">
                             @foreach ($project_documents as $project_document)
-                            <label for=""> <b>{{$project_document->$attachment_name}} : {{$project_document->$project_attachment}} </b></label>
+                            <label for=""> <b>{{$project_document->attachment_name}} </b></label>
                             @endforeach
                         </div>
                         @else

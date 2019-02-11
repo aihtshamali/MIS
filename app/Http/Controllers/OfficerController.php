@@ -591,13 +591,13 @@ class OfficerController extends Controller
         $total_previousProject = MProjectProgress::where('assigned_project_id',$project->id)->orderBy('created_at', 'desc')->get();
         $previousProject = null;
         $projectProgress = null;
-        
+
         if(isset($request->status) && $request->status=="conductMonitoring"){
           $first=$total_previousProject->first();
           $first->project_status="ONGOING";
           $first->save();
         }
-        
+
         if($total_previousProject->count())
         {
           // One New Monitoring (it shouldn't be here)
@@ -643,11 +643,11 @@ class OfficerController extends Controller
 
         // ConductMonitoring
         $generalFeedback=MGeneralFeedBack::where('status',1)->get();
-        
+
         $issue_types=MIssueType::where('status',1)->get();
-        
+
         $healthsafety=MHealthSafety::where('status',1)->get();
-        
+
         $projectProgressId=$progresses;
         $monitoringProjectId=$projectProgressId->id;
 
@@ -675,7 +675,7 @@ class OfficerController extends Controller
 
         // dd($ComponentActivities);
         $Kpis =MProjectKpi::where('status',1)->get();
-        
+
         $mPlanKpiComponents=$projectProgressId->MPlanKpicomponentMapping;
         $cities=PlantripCity::orderBy('name')->get();
         $districts=District::orderBy('name')->get();
@@ -684,8 +684,8 @@ class OfficerController extends Controller
 
         $result_from_app = MAppAttachment::where('m_project_progress_id',$projectProgressId->id)->get();
         $financial_cost=MProjectCost::where('m_project_progress_id',$projectProgressId->id)->first();
-      
-       $project_documents= MProjectAttachment::where('m_project_progress_id',$projectProgressId->id)->first();
+
+       $project_documents= MProjectAttachment::where('m_project_progress_id',$projectProgressId->id)->get();
 
        //stakeholders
        $executingStakeholders= MExecutingStakeholder::where('m_project_progress_id',$projectProgressId->id)->get();
@@ -693,7 +693,7 @@ class OfficerController extends Controller
        $B_Stakeholders= MBeneficiaryStakeholder::where('m_project_progress_id',$projectProgressId->id)->get();
 
        $qualityassesments=MConductQualityassesment::where('m_project_progress_id',$projectProgressId->id)->get();
-      
+
         \JavaScript::put([
           'projectWithRevised'=>$projectWithRevised,
          'components'=> $components,
