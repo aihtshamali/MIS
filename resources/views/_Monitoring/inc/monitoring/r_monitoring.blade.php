@@ -101,11 +101,11 @@ ul, #myUL {
                 </a>
             </div> -->
             <?php $i=1; ?>
-      @foreach ($result_from_app as $attachment)
+      @foreach ($result_from_app->where('type','image/jpeg') as $attachment)
       <div class="col-lg-3 col-md-4 col-xs-6 thumb" style="text-align: -webkit-center !important;">
         <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
-           data-image="{{asset('storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement)}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" data-target="#image-gallery">
-            <img class="img-thumbnail" src="{{asset('storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement)}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Another alt text">
+           data-image="{{'http://172.16.10.11/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" data-target="#image-gallery">
+            <img class="img-thumbnail" src="{{'http://172.16.10.11/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Another alt text">
             <b class="float-left">{{$i++}}) &nbsp;&nbsp;</b>
             <b class=""> {{date('d M Y',strtotime($attachment->created_at))}} </b>
         </a>
@@ -143,8 +143,8 @@ ul, #myUL {
           @foreach($result_from_app->where('type','video/mp4') as $video)
           <div class="col-lg-3 col-md-3 col-xs-6 thumb pdlfrt2">
           <video controls>
-            <source src="{{asset('storage/uploads/monitoring/'.$video->m_project_progress_id.'/'.$video->project_attachement)}}" type="video/mp4">
-            <source src="{{asset('storage/uploads/monitoring/'.$video->m_project_progress_id.'/'.$video->project_attachement)}}" type="video/ogg">
+            <source src="{{'http://172.16.10.11/storage/uploads/monitoring/'.$video->m_project_progress_id.'/'.$video->project_attachement}}" type="video/mp4">
+            <source src="{{'http://172.16.10.11/storage/uploads/monitoring/'.$video->m_project_progress_id.'/'.$video->project_attachement}}" type="video/ogg">
             Your browser does not support the video tag.
           </video>
         </div>
