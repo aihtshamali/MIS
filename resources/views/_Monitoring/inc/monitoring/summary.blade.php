@@ -1,4 +1,4 @@
-<div class="tab-pane" id="summary" role="tabpanel">
+<div class="tab-pane nodisplay" id="summary" role="tabpanel">
     <fieldset>
         <div class="form-group row">
             <div class="col-md-1 col-sm-1">

@@ -249,71 +249,71 @@
                         </div>
                         <!-- Form Basic Wizard card end -->
                     </div>
-            </div>
-            <div class="col-xl-3 col-lg-12 nodisplay p_details" style="padding-left: 15px !important;  padding-right: 15px !important;">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-header-text"><i class="icofont icofont-ui-note m-r-10"></i> Project Details</h5>
-                    </div>
-                    <div class="card-block task-details">
-                        <table class="table table-border table-xs">
+                    <div class="col-xl-3 col-lg-12 nodisplay p_details" style="padding-left: 15px !important;  padding-right: 15px !important;">
+                      <div class="card">
+                        <div class="card-header">
+                          <h5 class="card-header-text"><i class="icofont icofont-ui-note m-r-10"></i> Project Details</h5>
+                        </div>
+                        <div class="card-block task-details">
+                          <table class="table table-border table-xs">
                             <tbody>
-                                <tr>
-                                    <td><i class="icofont icofont-contrast"></i> Project:</td>
-                                    <td class="text-center"><span class="f-center"><a href="#"> {{$project->Project->title}}</a></span></td>
-                                </tr>
-                                <tr>
-                                    <td><i class="icofont icofont-meeting-add"></i> Financial Progress:</td>
+                              <tr>
+                                <td><i class="icofont icofont-contrast"></i> Project:</td>
+                                <td class="text-center"><span class="f-center"><a href="#"> {{$project->Project->title}}</a></span></td>
+                              </tr>
+                              <tr>
+                                <td><i class="icofont icofont-meeting-add"></i> Financial Progress:</td>
                                 <td class="text-center">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="icofont icofont-id-card"></i> Physical Progress:</td>
-                                    <td class="text-center">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id),2)}}%</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="icofont icofont-user"></i> Assigned by:</td>
-                                    <td class="text-center">({{$project->getassignedperson($project->assigned_by)->designation}}) {{$project->getassignedperson($project->assigned_by)->first_name}}{{$project->getassignedperson($project->assigned_by)->last_name}} </td>
-                                </tr>
-                                <tr>
-                                    <td><i class="icofont icofont-spinner-alt-3"></i> Revisions:</td>
-                                    <td class="text-center">{{$progresses->count()}}</td>
-                                </tr>
+                              </tr>
+                              <tr>
+                                <td><i class="icofont icofont-id-card"></i> Physical Progress:</td>
+                                <td class="text-center">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id),2)}}%</td>
+                              </tr>
+                              <tr>
+                                <td><i class="icofont icofont-user"></i> Assigned by:</td>
+                                <td class="text-center">({{$project->getassignedperson($project->assigned_by)->designation}}) {{$project->getassignedperson($project->assigned_by)->first_name}}{{$project->getassignedperson($project->assigned_by)->last_name}} </td>
+                              </tr>
+                              <tr>
+                                <td><i class="icofont icofont-spinner-alt-3"></i> Revisions:</td>
+                                <td class="text-center">{{$progresses->count()}}</td>
+                              </tr>
 
-                                <tr>
-                                    <td><i class="icofont icofont-washing-machine"></i> Status:</td>
-                                    <td class="text-center">{{$project->Project->status ? 'Active' : 'In-Active'}}</td>
-                                </tr>
+                              <tr>
+                                <td><i class="icofont icofont-washing-machine"></i> Status:</td>
+                                <td class="text-center">{{$project->Project->status ? 'Active' : 'In-Active'}}</td>
+                              </tr>
                             </tbody>
-                        </table>
-                    </div>
-                    <div class="card-footer">
-                        <div>
+                          </table>
+                        </div>
+                        <div class="card-footer">
+                          <div>
                             <span>
-                                <a href="#!" class="text-muted m-r-10 f-16"><i class="icofont icofont-random"></i> </a>
+                              <a href="#!" class="text-muted m-r-10 f-16"><i class="icofont icofont-random"></i> </a>
                             </span>
                             <span class="m-r-10">
-                                <a href="#!" class="text-muted f-16"><i class="icofont icofont-options"></i></a>
+                              <a href="#!" class="text-muted f-16"><i class="icofont icofont-options"></i></a>
                             </span>
                             <div class="dropdown-secondary dropdown d-inline-block">
-                                <button class="btn btn-sm btn-primary dropdown-toggle waves-light" type="button" id="dropdown3"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icofont icofont-navigation-menu"></i></button>
-                                <div class="dropdown-menu" aria-labelledby="dropdown3" data-dropdown-in="fadeIn"
-                                    data-dropdown-out="fadeOut">
-                                    <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-checked m-r-10"></i>Check
-                                        in</a>
-                                    <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-attachment m-r-10"></i>Attach
-                                        screenshot</a>
-                                    <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-rotation m-r-10"></i>Reassign</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-edit-alt m-r-10"></i>Edit
-                                        task</a>
+                              <button class="btn btn-sm btn-primary dropdown-toggle waves-light" type="button" id="dropdown3"
+                              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icofont icofont-navigation-menu"></i></button>
+                              <div class="dropdown-menu" aria-labelledby="dropdown3" data-dropdown-in="fadeIn"
+                              data-dropdown-out="fadeOut">
+                              <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-checked m-r-10"></i>Check
+                                in</a>
+                                <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-attachment m-r-10"></i>Attach
+                                  screenshot</a>
+                                  <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-rotation m-r-10"></i>Reassign</a>
+                                  <div class="dropdown-divider"></div>
+                                  <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-edit-alt m-r-10"></i>Edit
+                                    task</a>
                                     <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-close m-r-10"></i>Remove</a>
+                                  </div>
+                                  <!-- end of dropdown menu -->
                                 </div>
-                                <!-- end of dropdown menu -->
+                              </div>
                             </div>
+                          </div>
                         </div>
-                    </div>
-                </div>
             </div>
 
         </div>
