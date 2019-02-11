@@ -15,7 +15,7 @@ use App\MAssignedKpiLevel1;
 use App\MAssignedKpiLevel2;
 use App\MAssignedKpiLevel3;
 use App\MAssignedKpiLevel4;
-use App\MAppAttachments;
+use App\MAppAttachment;
 // use App\GeneralKpi;
 
 class DataController extends Controller
@@ -119,24 +119,28 @@ class DataController extends Controller
               if($m_assigned_kpi_level1){
                 $m_assigned_kpi_level1->completed = $value3['completed'];
                 $m_assigned_kpi_level1->remarks = $value3['remarks'];
+                $m_assigned_kpi_level1->current_weightage = $value3['current_weightage'];
                 $m_assigned_kpi_level1->save();
                 foreach ($value3['children'] as $value4) {
                   $m_assigned_kpi_level2 = MAssignedKpiLevel2::find($value4['id']);
                   if($m_assigned_kpi_level2){
                     $m_assigned_kpi_level2->completed = $value4['completed'];
                     $m_assigned_kpi_level2->remarks = $value4['remarks'];
+                    $m_assigned_kpi_level2->current_weightage = $value4['current_weightage'];
                     $m_assigned_kpi_level2->save();
                     foreach ($value4['children'] as $value5) {
                       $m_assigned_kpi_level3 = MAssignedKpiLevel3::find($value5['id']);
                       if($m_assigned_kpi_level3){
                         $m_assigned_kpi_level3->completed = $value5['completed'];
                         $m_assigned_kpi_level3->remarks = $value5['remarks'];
+                        $m_assigned_kpi_level3->current_weightage = $value5['current_weightage'];
                         $m_assigned_kpi_level3->save();
                         foreach ($value5['children'] as $value6) {
                           $m_assigned_kpi_level4 = MAssignedKpiLevel4::find($value6['id']);
                           if($m_assigned_kpi_level4){
                             $m_assigned_kpi_level4->completed = $value6['completed'];
                             $m_assigned_kpi_level4->remarks = $value6['remarks'];
+                            $m_assigned_kpi_level4->current_weightage = $value6['current_weightage'];
                             $m_assigned_kpi_level4->save();
                           }
                         }
@@ -161,7 +165,7 @@ class DataController extends Controller
 
         // $i = 0;
         // while($request->hasFile('ionicfile'.$i)){
-          $data = new MAppAttachments();
+          $data = new MAppAttachment();
           $file_path = $request->file('ionicfile')->path();
           $file_extension = $request->file('ionicfile')->getMimeType();
           if (!is_dir('storage/uploads/monitoring/')) {

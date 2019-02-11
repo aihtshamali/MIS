@@ -100,110 +100,18 @@ ul, #myUL {
                          alt="">
                 </a>
             </div> -->
-      @foreach ($result_from_app as $attachment)
-      <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <?php $i=1; ?>
+      @foreach ($result_from_app->where('type','image/jpeg') as $attachment)
+      <div class="col-lg-3 col-md-4 col-xs-6 thumb" style="text-align: -webkit-center !important;">
         <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
-           data-image="{{asset('storage/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement)}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" data-target="#image-gallery">
-            <img class="img-thumbnail" src="{{asset('storage/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement)}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Another alt text">
-            <b class="float-left">Name</b>
-            <b class="float-right">Date</b>
+           data-image="{{'http://172.16.10.11/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" data-target="#image-gallery">
+            <img class="img-thumbnail" src="{{'http://172.16.10.11/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Another alt text">
+            <b class="float-left">{{$i++}}) &nbsp;&nbsp;</b>
+            <b class=""> {{date('d M Y',strtotime($attachment->created_at))}} </b>
         </a>
     </div>
       @endforeach
 
-            {{-- <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
-                   data-image="https://images.pexels.com/photos/158971/pexels-photo-158971.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                   data-target="#image-gallery">
-                    <img class="img-thumbnail"
-                         src="https://images.pexels.com/photos/158971/pexels-photo-158971.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                         alt="">
-                </a>
-            </div> --}}
-
-            {{-- <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
-                   data-image="https://images.pexels.com/photos/305070/pexels-photo-305070.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                   data-target="#image-gallery">
-                    <img class="img-thumbnail"
-                         src="https://images.pexels.com/photos/305070/pexels-photo-305070.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                         alt="">
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="Test1"
-                   data-image="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                   data-target="#image-gallery">
-                    <img class="img-thumbnail"
-                         src="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                         alt="">
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="Im so nice"
-                   data-image="https://images.pexels.com/photos/158971/pexels-photo-158971.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                   data-target="#image-gallery">
-                    <img class="img-thumbnail"
-                         src="https://images.pexels.com/photos/158971/pexels-photo-158971.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                         alt="">
-                </a>
-            </div>
-
-
-
-            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="Im so nice"
-                   data-image="https://images.pexels.com/photos/305070/pexels-photo-305070.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                   data-target="#image-gallery">
-                    <img class="img-thumbnail"
-                         src="https://images.pexels.com/photos/305070/pexels-photo-305070.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                         alt="">
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="Im so nice"
-                   data-image="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                   data-target="#image-gallery">
-                    <img class="img-thumbnail"
-                         src="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                         alt="">
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="Im so nice" data-image="https://images.pexels.com/photos/158971/pexels-photo-158971.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" data-target="#image-gallery">
-                    <img class="img-thumbnail" src="https://images.pexels.com/photos/158971/pexels-photo-158971.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="">
-                </a>
-            </div>
-
-
-
-            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="Im so nice"
-                   data-image="https://images.pexels.com/photos/305070/pexels-photo-305070.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                   data-target="#image-gallery">
-                    <img class="img-thumbnail"
-                         src="https://images.pexels.com/photos/305070/pexels-photo-305070.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                         alt="">
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="Im so nice"
-                   data-image="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                   data-target="#image-gallery">
-                    <img class="img-thumbnail"
-                         src="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                         alt="">
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="Im so nice"
-                   data-image="https://images.pexels.com/photos/158971/pexels-photo-158971.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                   data-target="#image-gallery">
-                    <img class="img-thumbnail"
-                         src="https://images.pexels.com/photos/158971/pexels-photo-158971.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                         alt="">
-                </a>
-            </div> --}}
         </div>
 
 
@@ -232,40 +140,15 @@ ul, #myUL {
         <h2 class="txtdecundlin vidgallary pointer" title="click to Expand video gallary">Video Gallery</h2>
         <!-- ----------------------- start video Gallery ---------------- -->
         <div class="row vidgallaryDiv nodisplay">
+          @foreach($result_from_app->where('type','video/mp4') as $video)
           <div class="col-lg-3 col-md-3 col-xs-6 thumb pdlfrt2">
           <video controls>
-            <source src="https://www.w3schools.com/tags/movie.mp4" type="video/mp4">
-            <source src="https://www.w3schools.com/tags/movie.ogg" type="video/ogg">
+            <source src="{{'http://172.16.10.11/storage/uploads/monitoring/'.$video->m_project_progress_id.'/'.$video->project_attachement}}" type="video/mp4">
+            <source src="{{'http://172.16.10.11/storage/uploads/monitoring/'.$video->m_project_progress_id.'/'.$video->project_attachement}}" type="video/ogg">
             Your browser does not support the video tag.
           </video>
         </div>
-          <div class="col-lg-3 col-md-3 col-xs-6 thumb pdlfrt2">
-          <video controls>
-            <source src="https://www.w3schools.com/tags/movie.mp4" type="video/mp4">
-            <source src="https://www.w3schools.com/tags/movie.ogg" type="video/ogg">
-            Your browser does not support the video tag.
-          </video>
-        </div>
-          <div class="col-lg-3 col-md-3 col-xs-6 thumb pdlfrt2">
-          <video controls>
-            <source src="https://www.w3schools.com/tags/movie.mp4" type="video/mp4">
-            <source src="https://www.w3schools.com/tags/movie.ogg" type="video/ogg">
-            Your browser does not support the video tag.
-          </video>
-        </div>
-          <div class="col-lg-3 col-md-3 col-xs-6 thumb pdlfrt2">
-          <video controls>
-            <source src="https://www.w3schools.com/tags/movie.mp4" type="video/mp4">
-            <source src="https://www.w3schools.com/tags/movie.ogg" type="video/ogg">
-            Your browser does not support the video tag.
-          </video>
-        </div>
-          <div class="col-lg-3 col-md-3 col-xs-6 thumb pdlfrt2">
-          <video controls>
-            <source src="https://www.w3schools.com/tags/movie.mp4" type="video/mp4">
-            <source src="https://www.w3schools.com/tags/movie.ogg" type="video/ogg">
-            Your browser does not support the video tag.
-          </video>
+        @endforeach
         </div>
         </div>
         <!-- ----------------------- end video Gallery ---------------- -->

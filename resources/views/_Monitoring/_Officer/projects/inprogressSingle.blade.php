@@ -104,7 +104,6 @@
 
 @endsection
 @section('content')
-
     {{-- frozen panel for plan and conduct monitoring  --}}
     <div class="fixed bg-g hidden-sm hidden-xs topSummary capitalize" style="">
     <div class="bg-w border_top bg-w" style="padding:0.5% !important;" >
@@ -128,21 +127,21 @@
                       </b>
                   </div>
                 <div class="form-group row">
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <b for="GS_no" class=""><span class="primarybold">GS #: </span><span>{{$project->Project->ADP}}</span></b>
                     </div>
-                    <div class="col-md-2 ln_ht12">
+                    <div class="col-md-3 ln_ht12">
                         <b for="project_cost" class=""><span class="primarybold">Location: </span><span>
                           @foreach ($project->Project->AssignedDistricts as $district)
                             {{$district->District->name}},
                           @endforeach
                         </span></b>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <b for="PHI" class="primarybold">PHI </b>
                         <input name="phi" id="#phi" type="number" class="frozen_pane" style="width:70% !important;"/>
                     </div>
-                    <div class="col-md-2 ln_ht12">
+                    <div class="col-md-3 ln_ht12">
                         <b for="Location" class=""><span class="primarybold">final Revised Cost:</span> <span>
                           @php
                             $revisedFinalCost=0;
@@ -152,31 +151,33 @@
                               $revisedFinalCost= $cost->cost;
                             @endphp
                           @endforeach
-                          {{$revisedFinalCost}}
-                        </span></b>
+                          {{round($revisedFinalCost,2)}}
+                        </b></span></label>
                     </div>
-                    <div class="col-md-2 ln_ht12">
-                        <b for="project_cost" class=""><span class="primarybold">Original Approve Cost:</span> <span>{{$project->Project->ProjectDetail->orignal_cost}}</b></label>
+                    <div class="col-md-3 ln_ht12">
+                        <b for="project_cost" class=""><span class="primarybold">Original Approve Cost:</span> <span>{{round($project->Project->ProjectDetail->orignal_cost,2)}}</span></b>
                     </div>
-                    <div class="col-md-2">
-                        <label for="planned_start_date" class="">Planned Start Date: <span><b>{{$project->Project->ProjectDetail->planned_start_date}}</b></span></label>
+                    <div class="col-md-3">
+                        <b for="planned_start_date" class=""><span class="primarybold">Planned Start Date: </span><span>{{$project->Project->ProjectDetail->planned_start_date}}</span></b>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <b for="planned_end_date" class=""><span class="primarybold">Planned End Date: </span><span>{{$project->Project->ProjectDetail->planned_end_date}}</span> </b>
                     </div>
-                    <div class="col-md-2">
-                        <b for="actual_start_date" class=""><span class="primarybold">Actual Start Date :</span></b>
+                    <div class="col-md-3">
+                        <b for="actual_start_date" class=""><span class="primarybold">Actual Start Date: </span><span>@if(isset($dates->actual_start_date))
+                          {{$dates->actual_start_date}}
+                          @endif</span> </b>
                     </div>
-                    <div class="col-md-2 ln_ht12">
-                        <b for="" name="phy_progress" id="phy_progress" class=""><span class="primarybold">Physical Progress:</span> <span style="font-size:13px;">{{$project->progress}} %</span></b>
+                    <div class="col-md-3 ln_ht12">
+                        <b for="" name="phy_progress" id="phy_progress" class=""><span class="primarybold">Physical Progress: </span><span>{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%</span></b>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         {{-- <label for="Financial" class="">Financial Progress %</label> --}}
                         {{-- <input type="text"  id="f_progress" class="" name="f_progress" value=""> --}}
-                    <b for="" name="f_progress" id="f_progress" class=""><span class="primarybold">Financial Progress:</span> <span style="font-size:13px;">{{$financial_progress}}%</span></b>
+                    <b for="" name="f_progress" id="f_progress" class=""><span class="primarybold">Financial Progress:</span> <span >{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</span></b>
                     </div>
-                    <div class="col-md-2">
-                        <label for="last_monitoring" class="">Last Monitoring Date </label>
+                    <div class="col-md-3">
+                        <b for="last_monitoring" class=""><span class="primarybold">Last Monitoring Date </span></b>
                     </div>
                 </div>
         </div>
@@ -229,7 +230,13 @@
                                       </li>
                                   </ul>
                                     <!-- Tab panes -->
-                                    <div class="tab-content card-block">
+                                    @php
+                                        $teamflag=false;
+                                      $teamflag =  $project->AssignedProjectTeam->where('user_id',Auth::id())->first()->team_lead==1;
+                                      if(count($project->AssignedProjectTeam)==1)
+                                         $teamflag=true;
+                                    @endphp
+                                    <div class="tab-content card-block" style="">
                                         @include('_Monitoring/inc/monitoring/reviewDiv')
                                         @include('_Monitoring/inc/monitoring/planmonitoring')
                                         @include('_Monitoring/inc/monitoring/conduct_monitoring')
@@ -257,11 +264,11 @@
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-meeting-add"></i> Financial Progress:</td>
-                                <td class="text-center">{{$financial_progress}}%</td>
+                                <td class="text-center">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</td>
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-id-card"></i> Physical Progress:</td>
-                                    <td class="text-center">%</td>
+                                    <td class="text-center">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id),2)}}%</td>
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-user"></i> Assigned by:</td>
@@ -274,7 +281,7 @@
 
                                 <tr>
                                     <td><i class="icofont icofont-washing-machine"></i> Status:</td>
-                                    <td class="text-center">{{$project->Project->status}}</td>
+                                    <td class="text-center">{{$project->Project->status ? 'Active' : 'In-Active'}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -428,38 +435,46 @@
 
 
 $(document).ready(function(){
-
-
+    if("{{$teamflag}}"!=true){
+        $('form.serializeform :input,form.serializeform :button,form.serializeform select').attr('disabled','disabled');
+    }
     var compData='';
     var activities='';
     var sponsoringAgency='';
     var executingAgency='';
 
-        function getWBS(route,id){
+    function getWBS(route,id){
         axios.get(route,{
      params:{
          "assigned_project_id":id,
      }
      })
      .then((response) => {
-         console.log(response.data.m_kpi.sector);
-         var ds = response.data.m_kpi.sector[0];
-        var oc = $('#WBSChart').orgchart({
-        'data' : ds,
-        'nodeContent': 'title'
-        });
+         var ds ='';
+         for (let i = 0; i < response.data.m_kpi.sector.length; i++) {
+             console.log(response.data.m_kpi.sector);
 
-     //   $('.'+response.data.role+'_unassigned_counter').text(response.data.unassigned);
+             ds = response.data.m_kpi.sector[i];
+            var oc = $('#WBSChart').orgchart({
+            'data' : ds,
+            'nodeContent': 'title'
+            });
+         }
+
+    //    $('.'+response.data.role+'_unassigned_counter').text(response.data.unassigned);
      })
      .catch(function (error) {
        console.log(error);
      });
 
    }
-
+   var wbs=true;
 
    $('.summaryNav').on('click', function () {
-        getWBS('{{route("getProjectKpi")}}',"{{$project->id}}");
+        if(wbs){
+            getWBS('{{route("getProjectKpi")}}',"{{$project->id}}");
+            wbs=false;
+        }
     });
         (function($) {
             console.log();
@@ -557,8 +572,8 @@ $(document).ready(function(){
 //    })();
 
     // WBS Chart Start
-(function($) {
-  $(function() {
+// (function($) {
+//   $(function() {
 //    var ds = {
 //      'name': 'Infrastructure Projects',
 //      'children': [
@@ -597,27 +612,27 @@ $(document).ready(function(){
 //      }]
 //     };
 
-axios.get('{{route("getProjectKpi")}}',{
-     params:{
-         "assigned_project_id":"{{$project->id}}",
-     }
-     })
-     .then((response) => {
-         console.log(response.data.m_kpi.sector);
-         var ds = response.data.m_kpi.sector[0];
-        var oc = $('#WBSChart').orgchart({
-        'data' : ds,
-        'nodeContent': 'title'
-        });
+// axios.get('{{route("getProjectKpi")}}',{
+//      params:{
+//          "assigned_project_id":"{{$project->id}}",
+//      }
+//      })
+//      .then((response) => {
+//          console.log(response.data.m_kpi.sector);
+//          var ds = response.data.m_kpi.sector[0];
+//         var oc = $('#WBSChart').orgchart({
+//         'data' : ds,
+//         'nodeContent': 'title'
+//         });
 
-     //   $('.'+response.data.role+'_unassigned_counter').text(response.data.unassigned);
-     })
-     .catch(function (error) {
-       console.log(error);
-     });
+//      //   $('.'+response.data.role+'_unassigned_counter').text(response.data.unassigned);
+//      })
+//      .catch(function (error) {
+//        console.log(error);
+//      });
 
-  });
-})(jQuery);
+//   });
+// })(jQuery);
 
   $('form.serializeform').on('submit',function(e){
 

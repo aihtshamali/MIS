@@ -361,11 +361,11 @@
                     <div class="card z-depth-right-0">
                         <div class="card-header">
                             <h4>Risks</h4>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                            <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit.
                             Sunt similique totam harum sit. Quibusdam libero, harum rem
                             quam repellendus adipisci. Repellat sapiente asperiores
                             numquam beatae at distinctio quaerat reiciendis
-                            repudiandae.
+                            repudiandae. -->
                             <div class="progress clearfix mt2 clrornge" style="margin: 3% 0% 0%;">
                               <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span class="persontagetiQ" style="color:#fff !important;padding:0px !important;margin:0px !important;">25%</span></div>
                             </div>
