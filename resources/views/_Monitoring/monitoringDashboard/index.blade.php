@@ -79,13 +79,13 @@ object-fit: cover;
                         </div>
                           <div class="col-md-8 col-md-offset-2 carousel-content pdt3p">
                               <div>
-                                @if ($project->AssignedProject->MProjectProgress->last()->MAppAttachment->last())
+                                @if ($project->AssignedProject->MProjectProgress->last()->MAppAttachment->where('type','image/jpeg')->last())
                                   @php
-                                     $attachment= $project->AssignedProject->MProjectProgress->last()->MAppAttachment->last()
+                                     $attachment= $project->AssignedProject->MProjectProgress->last()->MAppAttachment->where('type','image/jpeg')->last()
                                   @endphp
-                                  <img src="{{asset('storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement)}}" alt="Chicago" style="width:100%;">
+                                  <img src="{{'http://172.16.10.11/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}" alt="Chicago" style="width:100%;">
                                 @else
-                                  <img src="{{asset('monitoringDashboard/img/a (1).jpg')}}" alt="Chicago" style="width:100%;">
+                                  <img src="{{'http://172.16.10.11/storage/monitoringDashboard/img/a (1).jpg'}}" alt="Chicago" style="width:100%;">
                                 @endif
                               </div>
                           </div>
