@@ -225,6 +225,14 @@
                                         </span>
                                         <span class="float-right col-md-6">
                                         <select class="select2 col-md-12" id="component" name="mappedComp_{{$i}}[]" multiple="multiple">
+                                          <style scoped>
+                                            .select2-container--default .select2-selection--multiple .select2-selection__rendered li{
+                                              background: #01a9ac !important;
+                                              color: #fff !important;
+                                              padding: 2% 4% !important;
+                                              margin: 1% !important;
+                                            }
+                                          </style>
                                         @foreach ($components as $comp)
                                         <option
                                                 @foreach ($comp->MPlanObjectivecomponentMapping as $mappedComp)
