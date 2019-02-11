@@ -99,6 +99,7 @@
 .tdprocu{padding: 0px !important;text-align: center !important;}
 .modal-open, .modal{overflow-x: scroll !important;}
 /* .orgchart{background: #fff !important;} */
+.primarybold{color: #01a9ac !important; font-weight: 900 !important;}
 </style>
 
 @endsection
@@ -106,7 +107,7 @@
 
     {{-- frozen panel for plan and conduct monitoring  --}}
     <div class="fixed bg-g hidden-sm hidden-xs topSummary capitalize" style="">
-    <div class="bg-w border_top bg-w" style="padding:0.25rem !important;" >
+    <div class="bg-w border_top bg-w" style="padding:0.5% !important;" >
       <style scoped>
           .form-group{margin-bottom:0rem !important;border:none !important;background-color:transparent !important;}
           .form-group{padding: 0.05rem 0.75rem !important;}
@@ -121,25 +122,28 @@
           }
       </style>
                   <div class="col-md-12">
-                      <label for="project_title" class="">Project Title: <span><b>{{$project->Project->title}}</b></span></label>
+                      <b class="primarybold">
+                        Project Title:
+                        <span>{{$project->Project->title}}</span>
+                      </b>
                   </div>
                 <div class="form-group row">
                     <div class="col-md-2">
-                        <label for="GS_no" class="">GS #: <span><b>{{$project->Project->ADP}}</b></span></label>
+                        <b for="GS_no" class=""><span class="primarybold">GS #: </span><span>{{$project->Project->ADP}}</span></b>
                     </div>
                     <div class="col-md-2 ln_ht12">
-                        <label for="project_cost" class="">Location: <span><b>
+                        <b for="project_cost" class=""><span class="primarybold">Location: </span><span>
                           @foreach ($project->Project->AssignedDistricts as $district)
                             {{$district->District->name}},
                           @endforeach
-                        </b></span></label>
+                        </span></b>
                     </div>
                     <div class="col-md-2">
-                        <label for="PHI" class="">PHI </label>
-                        <input name="phi" id="#phi" type="number" class="frozen_pane widthInh"/>
+                        <b for="PHI" class="primarybold">PHI </b>
+                        <input name="phi" id="#phi" type="number" class="frozen_pane" style="width:70% !important;"/>
                     </div>
                     <div class="col-md-2 ln_ht12">
-                        <label for="Location" class="">final Revised Cost: <span><b>
+                        <b for="Location" class=""><span class="primarybold">final Revised Cost:</span> <span>
                           @php
                             $revisedFinalCost=0;
                           @endphp
@@ -149,27 +153,27 @@
                             @endphp
                           @endforeach
                           {{$revisedFinalCost}}
-                        </b></span></label>
+                        </span></b>
                     </div>
                     <div class="col-md-2 ln_ht12">
-                        <label for="project_cost" class="">Original Approve Cost: <span><b>{{$project->Project->ProjectDetail->orignal_cost}}</b></span></label>
+                        <b for="project_cost" class=""><span class="primarybold">Original Approve Cost:</span> <span>{{$project->Project->ProjectDetail->orignal_cost}}</b></label>
                     </div>
                     <div class="col-md-2">
                         <label for="planned_start_date" class="">Planned Start Date: <span><b>{{$project->Project->ProjectDetail->planned_start_date}}</b></span></label>
                     </div>
                     <div class="col-md-2">
-                        <label for="planned_end_date" class="">Planned End Date: <span><b>{{$project->Project->ProjectDetail->planned_end_date}}</b></span> </label>
+                        <b for="planned_end_date" class=""><span class="primarybold">Planned End Date: </span><span>{{$project->Project->ProjectDetail->planned_end_date}}</span> </b>
                     </div>
                     <div class="col-md-2">
-                        <label for="actual_start_date" class="">Actual Start Date </label>
+                        <b for="actual_start_date" class=""><span class="primarybold">Actual Start Date :</span></b>
                     </div>
                     <div class="col-md-2 ln_ht12">
-                        <label for="" name="phy_progress" id="phy_progress" class="">Physical Progress %: <span><b  style="font-size:13px;">{{$project->progress}} %</b></span></label>
+                        <b for="" name="phy_progress" id="phy_progress" class=""><span class="primarybold">Physical Progress:</span> <span style="font-size:13px;">{{$project->progress}} %</span></b>
                     </div>
                     <div class="col-md-2">
                         {{-- <label for="Financial" class="">Financial Progress %</label> --}}
                         {{-- <input type="text"  id="f_progress" class="" name="f_progress" value=""> --}}
-                    <label for="" name="f_progress" id="f_progress" class="">Financial Progress: <span ><b style="font-size:13px;">{{$financial_progress}}%</b></span></label>
+                    <b for="" name="f_progress" id="f_progress" class=""><span class="primarybold">Financial Progress:</span> <span style="font-size:13px;">{{$financial_progress}}%</span></b>
                     </div>
                     <div class="col-md-2">
                         <label for="last_monitoring" class="">Last Monitoring Date </label>
@@ -267,7 +271,7 @@
                                     <td><i class="icofont icofont-spinner-alt-3"></i> Revisions:</td>
                                     <td class="text-center">{{$progresses->count()}}</td>
                                 </tr>
-                                
+
                                 <tr>
                                     <td><i class="icofont icofont-washing-machine"></i> Status:</td>
                                     <td class="text-center">{{$project->Project->status}}</td>

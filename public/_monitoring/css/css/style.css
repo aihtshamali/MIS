@@ -25253,7 +25253,7 @@ body.dark #styleSelector .form-control {
   .downtiQ, .uptiQ{z-index: 9999 !important;position: fixed;right: 0;}
   .pdlfrt2{padding: 0% 2% !important;}
   .txtdecundlin{text-decoration: underline !important;text-decoration-color: #01a9ac !important;transition: all 900ms ease;
-  -webkit-transition: all 900ms ease;}
+  -webkit-transition: all 900ms ease;width:fit-content !important;}
   .txtdecundlin:hover{text-decoration: underline !important;text-decoration-color: #353c4e !important;color: #01a9ac !important;transition: all 900ms ease;
   -webkit-transition: all 900ms ease;}
   .clrSky{color: #01a9ac !important}
