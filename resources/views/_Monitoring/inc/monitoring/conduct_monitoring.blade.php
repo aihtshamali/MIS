@@ -29,11 +29,11 @@
                     <a class="nav-link procurement" data-toggle="tab" href="#procu"
                         role="tab" aria-expanded="true"><b style="font-size:14px; font-weight:bold;">Procurement</b></a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link gllery" data-toggle="tab" href="#Gallery"
                         role="tab" aria-expanded="false">
                         <b style="font-size:14px; font-weight:bold;">Photos&Videos</b></a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link Documents" data-toggle="tab" href="#Documents"
                         role="tab" aria-expanded="false">
@@ -68,6 +68,71 @@
                                 </div>
                         </form>
                         </div>
+                        @if(isset($qualityassesments) && $qualityassesments!=Null )
+                            <div class="card z-depth-right-0">
+                                    <div class="card-header">
+                                        <h4>Quality Assesment Summary</h4>
+                                    </div>
+                                    <div class="card-block">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="table  table-bordered nowrap">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Component</th>
+                                                            <th>Activity</th>
+                                                            <th>Assesment</th>
+                                                            <th>Progress</th>
+                                                            <th>Remarks</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($qualityassesments as $qa)
+                                                        <tr>
+                                                        <td>
+                                                            @if(isset($qa->MPlanComponent->component) && $qa->MPlanComponent->component!=null)
+                                                            {{$qa->MPlanComponent->component}}
+                                                            @else
+                                                            <p style="color:red"> Not Added</p>
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            @if(isset($qa->MPlanComponentActivitiesMapping->activity) && $qa->MPlanComponentActivitiesMapping->activity!=null)
+                                                            {{$qa->MPlanComponentActivitiesMapping->activity}} 
+                                                            @else
+                                                                <p style="color:red"> Not Added</p>
+                                                                @endif
+                                                            </td>
+                                                        <td>
+                                                            @if(isset($qa->assesment) && $qa->assesment!=null)
+                                                            {{$qa->assesment}}
+                                                            @else
+                                                            <p style="color:red"> Not Added</p>
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                                @if(isset($qa->progressinPercentage) && $qa->progressinPercentage!=null)
+                                                                {{$qa->progressinPercentage}}
+                                                                @else
+                                                                <p style="color:red"> Not Added</p>
+                                                                @endif
+                                                        </td>
+                                                        <td>
+                                                                @if(isset($qa->remarks) && $qa->remarks!=null)
+                                                                {{$qa->remarks}}
+                                                                @else
+                                                                <p style="color:red"> Not Added</p>
+                                                                @endif
+                                                        </td>
+                                                        </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        @endif
                         <div class="card z-depth-right-0">
                         <div class="card-header">
                             <h4>General Feed Back</h4>
@@ -92,12 +157,20 @@
 
                                       <label for="generalFeedback[{{$gf->id}}]" class="btn btn-success btn-sm btn-outline-success">
                                           YES</label>
-                                          <input type="radio" value="{{$gf->id}}_yes" name="generalFeedback[{{$gf->id}}]">
+                                      <input type="radio" value="{{$gf->id}}_yes" 
+                                            @if($gf->MAssignedProjectFeedBack->m_project_progress_id==$progresses->id)
+                                                 @if($gf->MAssignedProjectFeedBack->answer== 'yes') {{"checked"}} @endif
+                                            @endif
+                                       name="generalFeedback[{{$gf->id}}]">
                                   </div>
                                   <div class="col-md-1">
                                       <label for="generalFeedback[{{$gf->id}}]" class="btn btn-danger btn-sm btn-outline-danger">
                                           NO</label>
-                                          <input type="radio" value="{{$gf->id}}_no" name="generalFeedback[{{$gf->id}}]">
+                                          <input type="radio" value="{{$gf->id}}_no"
+                                            @if($gf->MAssignedProjectFeedBack->m_project_progress_id==$progresses->id)
+                                              @if($gf->MAssignedProjectFeedBack->answer== 'no') {{"checked"}} @endif
+                                            @endif 
+                                           name="generalFeedback[{{$gf->id}}]">
                                   </div>
                                   <div class="col-md-1"></div>
                               </div>
@@ -111,17 +184,7 @@
                             </div>
                           </form>
                         </div>
-                        {{-- <div class="card-footer">
-                            <h6><b>Comments</b></h6>
-                            <div class="form-group row">
-                                <div class="col-md-12">
-                                    <p class="block form-control">
-                                        <!-- Lorem ipsum dolor sit amet consectetur
-                                        adipisicing elit. Dicta, eligendi! -->
-                                    </p>
-                                </div>
-                            </div>
-                        </div> --}}
+                       
                     </div>
                 </div>
                 <div class="tab-pane active" id="stakeholder" role="tabpanel"
@@ -147,35 +210,69 @@
 
                                                 <th>Contact #</th>
                                                 <th>Email </th>
-                                                <th></th>
+                                                <th><button type="button" name="add[]"
+                                                    class=" form-control btn btn-success "
+                                                    id="addmoreexecuting" style="size:14px;">+</button></th>
                                             </tr>
                                         </thead>
                                         <tbody id="Executingstakeholders">
-                                            <tr>
+                                                
+                                                @if(isset($executingStakeholders) && $executingStakeholders!=NULL)
+                                                @foreach ($executingStakeholders as $assignedexecuter)
+                                                    <tr>
+                                                        <td>
+                                                        <div class="col-md-12">
+                                                            <select id="" name="stakeholderExecuting[]" class="form-control form-control-primary" data-placeholder="" style="width: 100%;">
+                                                                <option value="" disabled selected> Select Here</option>
+                                                                    @foreach ($org_project->AssignedExecutingAgencies as $executing)
+                                                                        <option 
+                                                                            @if($assignedexecuter->assigned_executing_agency_id == $executing->id)  
+                                                                            {{"selected"}}
+                                                                            @endif
 
-                                                <td>
-                                                    <div class="col-md-12">
-                                                        <select id="" name="stakeholderExecuting[]" class="form-control form-control-primary" data-placeholder="" style="width: 100%;">
-                                                            <option value="" disabled selected> Select Here</option>
-                                                            @foreach ($org_project->AssignedExecutingAgencies as $executing)
-                                                            <option value="{{$executing->id}}" >{{$executing->ExecutingAgency->name}}</option>
-                                                            @endforeach
+                                                                            value="{{$executing->id}}" >{{$executing->ExecutingAgency->name}}
+                                                                        </option>
+                                                                    @endforeach
+                                                                    </select>
+                                                                </div>
+                                                                    </td>
+                                                                <td><input type="text" name="Executingstakeholder_name[]"
+                                                                class="form-control" value="{{$assignedexecuter->name}}" /></td>
+                                                                        <td><input type="text" name="Executingstakeholder_designation[]"
+                                                                            class="form-control" value="{{$assignedexecuter->designation}}" /> </td>
+                                                                <td><input type="text" name="Executingstakeholder_number[]"
+                                                                        class="form-control" value="{{$assignedexecuter->contactNo}}" /></td>
+                                                                <td><input type="text" name="Executingstakeholder_email[]"
+                                                                        class="form-control" value="{{$assignedexecuter->email}}" /></td>
+                                                                        <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td></tr>`
 
-                                                        </select>
-                                                    </div>
-                                                </td>
-                                                <td><input type="text" name="Executingstakeholder_name[]"
-                                                        class="form-control" /></td>
-                                                        <td><input type="text" name="Executingstakeholder_designation[]"
-                                                            class="form-control" /> </td>
-                                                <td><input type="text" name="Executingstakeholder_number[]"
-                                                        class="form-control" /></td>
-                                                <td><input type="text" name="Executingstakeholder_email[]"
-                                                        class="form-control" /></td>
-                                                <td><button type="button" name="add[]"
-                                                        class=" form-control btn btn-success "
-                                                        id="addmoreexecuting" style="size:14px;">+</button></td>
-                                            </tr>
+                                                    </tr>
+                                                @endforeach
+                                                @endif
+                                                <tr>
+                                                        <td>
+                                                            <div class="col-md-12">
+                                                                <select id="" name="stakeholderExecuting[]" class="form-control form-control-primary" data-placeholder="" style="width: 100%;">
+                                                                    <option value="" disabled selected> Select Here</option>
+                                                                        @foreach ($org_project->AssignedExecutingAgencies as $executing)
+                                                                            <option 
+                                                                            value="{{$executing->id}}" >{{$executing->ExecutingAgency->name}}
+                                                                        </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                                    </td>
+                                                                <td><input type="text" name="Executingstakeholder_name[]"
+                                                                class="form-control" /></td>
+                                                                    <td><input type="text" name="Executingstakeholder_designation[]"
+                                                                        class="form-control" /> </td>
+                                                            <td><input type="text" name="Executingstakeholder_number[]"
+                                                                    class="form-control"  /></td>
+                                                            <td><input type="text" name="Executingstakeholder_email[]"
+                                                                    class="form-control"  /></td>
+                                                                    <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td></tr>`
+        
+                                                        </tr>
                                         </tbody>
 
                                     </table>
@@ -194,12 +291,44 @@
                                                 <th>Designation</th>
                                                 <th>Contact #</th>
                                                 <th>Email </th>
-                                                <th></th>
+                                                <th><button type="button" name="add[]"
+                                                    class=" form-control btn btn-success "
+                                                    id="addmoresponsoring" style="size:14px;">+</button></th>
                                             </tr>
                                         </thead>
                                         <tbody id="Sponsoringstakeholders">
-                                            <tr>
+                                            @if(isset($sponsoringStakeholders) && $sponsoringStakeholders!=NULL)
+                                            @foreach ($sponsoringStakeholders as $Sp)
+                                              <tr>
+                                                <td>
+                                                    <div class="col-md-12">
+                                                        <select id="" name="Sponsoringstakeholder[]" class="form-control form-control-primary " data-placeholder="" style="width: 100%;">
+                                                                <option value="" disabled selected> Select Here</option>
+                                                                @foreach ($org_project->AssignedSponsoringAgencies as $sponsoring)
+                                                                <option 
+                                                                @if($Sp->assigned_sponsoring_agency_id == $sponsoring->id)  
+                                                                 {{"selected"}}
+                                                                 @endif  
+                                                                value="{{$sponsoring->id}}" >{{$sponsoring->SponsoringAgency->name}}</option>
+                                                                @endforeach
 
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                                    <td><input type="text" name="Sponsoringstakeholder_name[]"
+                                                    class="form-control" value="{{$Sp->name}}" /></td>
+                                                            <td><input type="text" name="Sponsoringstakeholder_designation[]"
+                                                            class="form-control" value="{{$Sp->designation}}" /> </td>
+                                                    <td><input type="text" name="Sponsoringstakeholder_number[]"
+                                                    class="form-control" value={{$Sp->contactNo}}/></td>
+                                                    <td><input type="text" name="Sponsoringstakeholder_email[]"
+                                                            class="form-control" value={{$Sp->email}} /></td>
+                                                            <td><button type="button" class=" form-control btn btn-danger btn-outline-danger"
+                                                            onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td>
+                                               </tr>
+                                            @endforeach
+                                            @endif
+                                            <tr>
                                                 <td>
                                                     <div class="col-md-12">
                                                         <select id="" name="Sponsoringstakeholder[]" class="form-control form-control-primary " data-placeholder="" style="width: 100%;">
@@ -212,17 +341,17 @@
                                                     </div>
                                                 </td>
                                                     <td><input type="text" name="Sponsoringstakeholder_name[]"
-                                                            class="form-control" /></td>
+                                                    class="form-control" /></td>
                                                             <td><input type="text" name="Sponsoringstakeholder_designation[]"
-                                                                class="form-control" /> </td>
+                                                            class="form-control"  /> </td>
                                                     <td><input type="text" name="Sponsoringstakeholder_number[]"
-                                                            class="form-control" /></td>
+                                                    class="form-control" /> </td>
                                                     <td><input type="text" name="Sponsoringstakeholder_email[]"
-                                                            class="form-control" /></td>
-                                                <td><button type="button" name="add[]"
-                                                        class=" form-control btn btn-success "
-                                                        id="addmoresponsoring" style="size:14px;">+</button></td>
-                                            </tr>
+                                                            class="form-control"  /></td>
+                                                 <td><button type="button" class=" form-control btn btn-danger btn-outline-danger"
+                                                     onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td>
+                                                </tr>
+
                                         </tbody>
 
                                     </table>
@@ -241,28 +370,50 @@
                                                 <th>Designation</th>
                                                 <th>Email </th>
                                                 <th>Contact #</th>
-                                                <th></th>
+                                                <th><button type="button" name="add[]"
+                                                    class=" form-control btn btn-success "
+                                                    id="addmoreben" style="size:14px;">+</button></th>
                                             </tr>
                                         </thead>
                                         <tbody id="Beneficiarystakeholders">
+                                               @if(isset($B_Stakeholders) && $B_Stakeholders!=NULL)
+                                               @foreach ($B_Stakeholders as $B_S)
+                                                <tr>
+                                                    <td>
+                                                        <div class="col-md-12">
+                                                        <input type="text" name="Beneficiarystakeholder[]" value= "{{$B_S->Beneficiary}}" class="form-control" placeholder="Beneficiary">
+                                                        </div>
+                                                    </td>
+                                                    <td><input type="text" name="Beneficiarystakeholder_name[]"
+                                                            class="form-control" value= "{{$B_S->name}}" /></td>
+                                                            <td><input type="text" name="Beneficiarystakeholder_designation[]"
+                                                                class="form-control" value= "{{$B_S->designation}}" /> </td>
+                                                    <td><input type="text" name="Beneficiarystakeholder_email[]"class="form-control" value= "{{$B_S->email}}" /></td>
+                                                    <td><input type="text" name="Beneficiarystakeholder_number[] "
+                                                            class="form-control" value= "{{$B_S->contactNo}}" /></td>
+                                                    <td><button type="button" class=" form-control btn btn-danger btn-outline-danger"
+                                                         onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td>
+                                                </tr>
+                                                @endforeach
+                                               @endif
                                             <tr>
-
-                                                <td>
-                                                    <div class="col-md-12">
-                                                       <input type="text" name="Beneficiarystakeholder[]" class="form-control" placeholder="Beneficiary">
-                                                    </div>
-                                                </td>
-                                                <td><input type="text" name="Beneficiarystakeholder_name[]"
-                                                        class="form-control" /></td>
-                                                        <td><input type="text" name="Beneficiarystakeholder_designation[]"
-                                                            class="form-control" /> </td>
-                                                <td><input type="text" name="Beneficiarystakeholder_email[]"class="form-control" /></td>
-                                                <td><input type="text" name="Beneficiarystakeholder_number[] "
-                                                        class="form-control" /></td>
-                                                <td><button type="button" name="add[]"
-                                                        class=" form-control btn btn-success "
-                                                        id="addmoreben" style="size:14px;">+</button></td>
-                                            </tr>
+                                                    <td>
+                                                        <div class="col-md-12">
+                                                           <input type="text" name="Beneficiarystakeholder[]" class="form-control" placeholder="Beneficiary">
+                                                        </div>
+                                                    </td>
+                                                    <td><input type="text" name="Beneficiarystakeholder_name[]"
+                                                            class="form-control" /></td>
+                                                            <td><input type="text" name="Beneficiarystakeholder_designation[]"
+                                                                class="form-control" /> </td>
+                                                    <td><input type="text" name="Beneficiarystakeholder_email[]"class="form-control" /></td>
+                                                    <td><input type="text" name="Beneficiarystakeholder_number[] "
+                                                            class="form-control" /></td>
+                                                    <td><button type="button" class=" form-control btn btn-danger btn-outline-danger"
+                                                         onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td>
+                                                   
+                                                </tr>
+                                          
                                         </tbody>
 
                                     </table>
@@ -510,7 +661,11 @@
                                                     <div class="checkbox-fade fade-in-success m-0">
                                                         <label>
                                                             {{-- {{$issue->MAssignedProjectHealthSafety[0]->status == 'yes' ? 'checked' : '' }} --}}
-                                                            <input type="radio" name="status[{{$key}}]" value="{{$issue->id}}_yes" id="" >
+                                                            <input type="radio" name="status[{{$key}}]" 
+                                                            
+                                                               @if($issue->MAssignedProjectHealthSafety->m_project_progress_id==$progresses->id && $issue->MAssignedProjectHealthSafety->status== 'yes') {{"checked"}} @endif 
+                                                               
+                                                               value="{{$issue->id}}_yes" id="" >
                                                             <span class="cr">
                                                                 <i class="cr-icon icofont icofont-ui-check txt-success"></i>
                                                             </span>
@@ -520,7 +675,11 @@
                                                 <td>
                                                     <div class="checkbox-fade fade-in-danger m-0">
                                                         <label>
-                                                            <input type="radio" name="status[{{$key}}]" value="{{$issue->id}}_no" id="" >
+                                                            <input type="radio" name="status[{{$key}}]" value="{{$issue->id}}_no" 
+                                                            @if($issue->MAssignedProjectHealthSafety->m_project_progress_id==$progresses->id && $issue->MAssignedProjectHealthSafety->status== 'no')
+                                                             {{"checked"}}
+                                                              @endif
+                                                            id="" >
                                                             <span class="cr">
                                                                 <i class="cr-icon icofont icofont-ui-check txt-danger"></i>
                                                             </span>
