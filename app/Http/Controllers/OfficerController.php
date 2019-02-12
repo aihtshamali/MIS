@@ -695,6 +695,19 @@ class OfficerController extends Controller
        $qualityassesments=MConductQualityassesment::where('m_project_progress_id',$projectProgressId->id)->get();
        $m_assigned_issues = MAssignedProjectIssue::where('m_project_progress_id',$projectProgressId->id)->get();
        
+            // MAssignedKpiLevel1;
+            // MAssignedKpiLevel2;
+            // MAssignedKpiLevel3;
+            // MAssignedKpiLevel4;
+        $physical_progress=0.0;
+        $phy_progress_Sum=[];
+
+        $level_1=MAssignedKpiLevel1::where('m_project_progress_id',$projectProgressId->id)->get();
+      // dd($level_1[0]->MAssignedKpiLevel2[1]->MAssignedKpiLevel3);
+        // monitoring_kpi_recursion($level_1);
+        dd(weight($level_1));
+
+
         \JavaScript::put([
           'projectWithRevised'=>$projectWithRevised,
          'components'=> $components,
@@ -708,6 +721,51 @@ class OfficerController extends Controller
         'org_projectId','projectProgressId','mPlanKpiComponents','ComponentActivities',
         'monitoringProjectId','Kpis','components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
       }
+
+      public function weight($level_1){
+        $wl1 = 0;
+        $wl2 = 0;
+        $wl3 = 0;
+        $wl4 = 0;
+
+            
+        foreach ($level_1 as $item)
+        {
+          $wl2 = 0;
+          foreach ($item->MAssignedKpiLevel2 as $item2)
+          {
+            $check2 = true;
+            $wl3 = 0;
+            foreach ($item2->MAssignedKpiLevel3 as $item3)
+            {
+              $check3 = true;
+              $wl4 = 0;
+              foreach ($item3->MAssignedKpiLevel4 as $item4)
+              {
+                $wl4 += $item4->current_weightage;
+                $check3 = false;
+              }
+
+              if(!$check3){
+                $wl3 += $wl4;
+              }
+              else {
+                $wl3 += $item3->current_weightage;
+              }
+              $check2 = false;
+            }
+            if(!$check2){
+              $wl2 += $wl3;
+            }
+            else {
+              $wl2 += $item2->current_weightage;
+            }
+          }
+          $wl1 += $wl2;
+        }
+        return $wl1;        
+      }
+
       public function monitoring_review_form(Request $request)
       {
         // print_r(json_decode($request->data));
