@@ -2,6 +2,10 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/css/dataTables.bootstrap4.min.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/pages/data-table/css/buttons.dataTables.min.css')}}" />
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/responsive.bootstrap4.min.css')}}" />
+<style>
+  table.dataTable.nowrap th, table.dataTable.nowrap td{white-space: normal !important;}
+  .table td, .table th{vertical-align: inherit !important;}
+</style>
 @section('content')
 <div class="row">
     <div class="col-md-12">
@@ -33,13 +37,13 @@
                                 <!-- Tab panes -->
                                 <div class="tab-content card-block">
                                     <div class="tab-pane active" id="home3" role="tabpanel">
-                                      @include('inc/inprogress/new')
+                                      @include('_Monitoring/_Officer/projects/Tabs/new')
                                     </div>
                                     <div class="tab-pane" id="profile3" role="tabpanel">
-                                      @include('inc/inprogress/ongoing')
+                                      @include('_Monitoring/_Officer/projects/Tabs/ongoing')
                                     </div>
                                     <div class="tab-pane" id="messages6" role="tabpanel">
-                                      @include('inc/inprogress/previos')
+                                      @include('_Monitoring/_Officer/projects/Tabs/previos')
                                     </div>
                                 </div>
                             </div>

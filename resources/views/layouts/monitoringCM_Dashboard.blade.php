@@ -11,7 +11,7 @@
   @yield('styleTags')
 </head>
 <body>
-  <div class="col-md-12 border-bottom header">
+  <div class="col-md-12 border-bottom header inline-flex">
     <div class="col-md-2">
       <a href="{{route('minitoringDashboard')}}">
         <img class="w_46p" id="logo" src="{{ asset('dgme.png')}}" alt="DGME Logo" />

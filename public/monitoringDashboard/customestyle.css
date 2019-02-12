@@ -13,18 +13,21 @@ body
   {
     /* background: #50860921 !important; */
     /* background: linear-gradient(to bottom right, #fff , #fff, #C6D4B1) !important; */
-    min-height: 100% !important
-    background: #c6d4b136 !important
+    /* min-height: 100% !important; */
+    /* background: #c6d4b136 !important; */
+    /* background: linear-gradient(to bottom right, #FFF, #C6D4B1) !important; */
   }
 .hedingTxt
   {
-    font-size: 23px !important;
+    font-size: 15px !important;
     color: #687753 !important;
+    vertical-align: -webkit-baseline-middle;
   }
 .hedingInt
   {
     font-weight: 300 !important;
-    font-size: 23px !important;
+    font-size: 17px !important;
+    vertical-align: -webkit-baseline-middle;
     /* color: #687753 !important; */
   }
 .hedingTxtLvlTwo
@@ -53,10 +56,10 @@ body
     font-weight: bold;
   }
 .carousel-control.right{-webkit-gradient(linear,left top,right top,from(rgba(0, 0, 0, 0)),to(rgba(0, 0, 0, 0))) !important}
-.carousel-control{width: 0px !important;color: #53776f !important;opacity: 1 !important;font-size: 52px !important;}
+.carousel-control{width: 0px !important;color: #53776f !important;font-size: 52px !important;}
 .arrowstiQ
   {
-    /* margin-top: 25%; */
+    margin-top: 7%;
     /* position: absolute; */
     width: 98%;
   }
@@ -97,14 +100,14 @@ body
   }
 .pd4p
   {
-    padding: 4% !important;
+    padding: 2% 0% !important;
   }
 .statusTxt
   {
     width: 100%;
-    padding: 3% 22%;
-    font-size: 25px;
-    border-radius: 11px;
+    padding: 1% 11%;
+    font-size: 19px;
+    border-radius: 5px;
   }
 .border
   {
@@ -157,3 +160,7 @@ body
   {
     padding: 0% !important;
   }
+.pdt3p{padding-top: 3% !important;}
+.inline-flex{display: flex;
+align-items: flex-start;}
+.box-shadow{box-shadow: 3px 6px 37px #8b977b;}

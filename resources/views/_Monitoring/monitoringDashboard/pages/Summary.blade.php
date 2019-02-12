@@ -10,41 +10,41 @@
 <!-- Hover table card start -->
 <div class="container">
   <div class="border-bottom col-md-10 col-md-offset-1">
-    <h2 class="topheading">Projects List</h2>
+    <h2 class="topheading">Projects Summary</h2>
   </div>
   <div class="col-md-10 col-md-offset-1">
     <div class="row border-bottom">
       <div class="col-md-6">
-        <b class="hedingTxtLvlTwo">Total No of project CFY<span class="pull-right hidden-xs hidden-sm">:</span></b>
+        <b class="hedingTxt">Total No of project CFY<span class="pull-right hidden-xs hidden-sm">:</span></b>
       </div>
       <div class="col-md-6">
-        <b class="hedingIntLvlTwo">123</b>
+        <b class="hedingInt">123</b>
       </div>
     </div>
     <div class="row border-bottom">
       <div class="col-md-6">
-        <b class="hedingTxtLvlTwo">Total ADP Cost<span class="pull-right hidden-xs hidden-sm">:</span></b>
+        <b class="hedingTxt">Total ADP Cost<span class="pull-right hidden-xs hidden-sm">:</span></b>
       </div>
       <div class="col-md-6">
-        <b class="hedingIntLvlTwo">400 million PKR</b>
+        <b class="hedingInt">400 million PKR</b>
       </div>
     </div>
   </div>
   <div class="clearfix col-md-10 col-md-offset-1">
     <div class="row border-bottom">
       <div class="col-md-6">
-        <b class="hedingTxtLvlTwo">DGM&E monitoring projects (No)<span class="pull-right hidden-xs hidden-sm">:</span></b>
+        <b class="hedingTxt">DGM&E monitoring projects (No)<span class="pull-right hidden-xs hidden-sm">:</span></b>
       </div>
       <div class="col-md-6">
-        <b class="hedingIntLvlTwo">123</b>
+        <b class="hedingInt">123</b>
       </div>
     </div>
     <div class="row border-bottom">
       <div class="col-md-6">
-        <b class="hedingTxtLvlTwo">ADP cost of project (monitoring project cost)<span class="pull-right hidden-xs hidden-sm">:</span></b>
+        <b class="hedingTxt">ADP cost of project (monitoring project cost)<span class="pull-right hidden-xs hidden-sm">:</span></b>
       </div>
       <div class="col-md-6">
-        <b class="hedingIntLvlTwo">400 million PKR</b>
+        <b class="hedingInt">400 million PKR</b>
       </div>
     </div>
     <div class="row margin-top">
@@ -78,7 +78,7 @@
       </form>
     </div>
   </div>
-    <div class="card-block margin-top table-border-style col-md-10 col-md-offset-1 border nopad">
+    <div class="card-block margin-top table-border-style col-md-10 col-md-offset-1 nopad box-shadow">
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead>
