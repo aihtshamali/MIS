@@ -510,6 +510,81 @@
                                             </div>
                                         </div>
                                     </form>
+                                    @if(isset($m_assigned_issues) && $m_assigned_issues!=Null )
+                                        <div class="card z-depth-right-0">
+                                                <div class="card-header">
+                                                    <h4>Issues and Observations Summary</h4>
+                                                </div>
+                                                <div class="card-block">
+                                                    <div class="col-md-12">
+                                                        <div class="table-responsive">
+                                                            <table class="table  table-bordered nowrap">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Issues</th>
+                                                                        <th>Issue Type</th>
+                                                                        <th>Severity</th>
+                                                                        <th>Sponsoring Agency</th>
+                                                                        <th>Executing Agency</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach($m_assigned_issues as $mai)
+                                                                    <tr>
+                                                                    <td>
+                                                                        @if(isset($mai->issue))
+                                                                        {{$mai->issue}}
+                                                                        @else
+                                                                        <p style="color:red"> Not Added</p>
+                                                                        @endif
+                                                                    </td>
+                                                                    <td>
+                                                                        @if(isset($mai->MIssueType) && $mai->MIssueType!=null)
+                                                                        {{$mai->MIssueType->name}}
+                                                                        @else
+                                                                            <p style="color:red"> Not Added</p>
+                                                                            @endif
+                                                                        </td>
+                                                                    <td>
+                                                                        @if(isset($mai->severity))
+                                                                          @if($mai->severity == 1)
+                                                                            Very High
+                                                                          @elseif($mai->severity == 2)
+                                                                            High
+                                                                          @elseif($mai->severity == 3)
+                                                                            Medium
+                                                                          @elseif($mai->severity == 4)
+                                                                            Low
+                                                                          @elseif($mai->severity == 5)
+                                                                            Very Low
+                                                                          @endif
+                                                                        @else
+                                                                        <p style="color:red"> Not Added</p>
+                                                                        @endif
+                                                                    </td>
+                                                                    <td>
+                                                                            @if(isset($mai->SponsoringAgency) && $mai->SponsoringAgency!=null)
+                                                                            {{$mai->SponsoringAgency->name}}
+                                                                            @else
+                                                                            <p style="color:red"> Not Added</p>
+                                                                            @endif
+                                                                    </td>
+                                                                    <td>
+                                                                            @if(isset($mai->ExecutingAgency) && $mai->ExecutingAgency!=null)
+                                                                            {{$mai->ExecutingAgency->name}}
+                                                                            @else
+                                                                            <p style="color:red"> Not Added</p>
+                                                                            @endif
+                                                                    </td>
+                                                                    </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    @endif
                                 </div>
                     </div>
                 </div>

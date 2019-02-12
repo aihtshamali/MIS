@@ -8,10 +8,14 @@ class SponsoringAgency extends Model
 {
     public function AssignedSponsoringAgency(){
         return $this->hasMany('App\AssignedSponsoringAgency');
-    }    
+    }
 
     public function subsector()
     {
       return $this->belongsTo('App\SubSector');
+    }
+
+    public function MAssignedProjectIssue(){
+      return $this->hasMany('App\MAssignedProjectIssue');
     }
 }
