@@ -693,7 +693,8 @@ class OfficerController extends Controller
        $B_Stakeholders= MBeneficiaryStakeholder::where('m_project_progress_id',$projectProgressId->id)->get();
 
        $qualityassesments=MConductQualityassesment::where('m_project_progress_id',$projectProgressId->id)->get();
-
+       $m_assigned_issues = MAssignedProjectIssue::where('m_project_progress_id',$projectProgressId->id)->get();
+       
         \JavaScript::put([
           'projectWithRevised'=>$projectWithRevised,
          'components'=> $components,
@@ -702,7 +703,7 @@ class OfficerController extends Controller
         // dd($generalFeedback[0]u->MAssignedProjectFeedBack->answer);
         // dd($components[0]->MPlanObjectivecomponentMapping[0]->m_plan_objective_id);
         return view('_Monitoring._Officer.projects.inprogressSingle'
-        ,compact('qualityassesments','B_Stakeholders','sponsoringStakeholders','executingStakeholders',
+        ,compact('m_assigned_issues','qualityassesments','B_Stakeholders','sponsoringStakeholders','executingStakeholders',
         'project_documents','result_from_app','org_project','districts','cities',
         'org_projectId','projectProgressId','mPlanKpiComponents','ComponentActivities',
         'monitoringProjectId','Kpis','components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
