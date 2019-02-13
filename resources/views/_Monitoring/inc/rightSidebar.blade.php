@@ -50,10 +50,6 @@
                                @yield('content')
                             </div>
                         </div>
-                        {{-- Settings --}}
-                        {{-- <div id="styleSelector">
-
-                        </div> --}}
                     </div>
                 </div>
             </div>

@@ -83,6 +83,7 @@
         background-color: transparent !important;
       }
     .select2-container--default .select2-selection--multiple .select2-selection__choice span{color: #fff !important;}
+    /* .select2-container--default .select2-selection--multiple .select2-selection__choice span{color: #777 !important;} */
     .select2-container--default.select2-container--focus .select2-selection--multiple {border: 1px solid #01a9ac !important;border-top-color: rgb(1, 169, 172) !important;border-top-style: solid !important;border-top-width: 1px !important;border-right-color: rgb(1, 169, 172) !important;border-right-style: solid !important;border-right-width: 1px !important;border-bottom-color: rgb(1, 169, 172) !important;border-bottom-style: solid !important;border-bottom-width: 1px !important;border-left-color:rgb(1, 169, 172) !important;border-left-style: solid !important;border-left-width: 1px !important;border-image-source: initial !important;border-image-slice: initial !important;border-image-width: initial !important;border-image-outset: initial !important;border-image-repeat: initial !important;
 }
     .select2-container{width: 100% !important;}
@@ -318,33 +319,32 @@
                             </tbody>
                           </table>
                         </div>
-                        <div class="card-footer">
-                          <div>
-                            <span>
-                              <a href="#!" class="text-muted m-r-10 f-16"><i class="icofont icofont-random"></i> </a>
-                            </span>
-                            <span class="m-r-10">
-                              <a href="#!" class="text-muted f-16"><i class="icofont icofont-options"></i></a>
-                            </span>
-                            <div class="dropdown-secondary dropdown d-inline-block">
-                              <button class="btn btn-sm btn-primary dropdown-toggle waves-light" type="button" id="dropdown3"
-                              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icofont icofont-navigation-menu"></i></button>
-                              <div class="dropdown-menu" aria-labelledby="dropdown3" data-dropdown-in="fadeIn"
-                              data-dropdown-out="fadeOut">
-                              <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-checked m-r-10"></i>Check
-                                in</a>
-                                <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-attachment m-r-10"></i>Attach
-                                  screenshot</a>
-                                  <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-rotation m-r-10"></i>Reassign</a>
-                                  <div class="dropdown-divider"></div>
-                                  <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-edit-alt m-r-10"></i>Edit
-                                    task</a>
-                                    <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-close m-r-10"></i>Remove</a>
+                          <!-- <div class="card-footer">
+                            <div>
+                              <span>
+                                <a href="#!" class="text-muted m-r-10 f-16"><i class="icofont icofont-random"></i> </a>
+                              </span>
+                              <span class="m-r-10">
+                                <a href="#!" class="text-muted f-16"><i class="icofont icofont-options"></i></a>
+                              </span>
+                              <div class="dropdown-secondary dropdown d-inline-block">
+                                <button class="btn btn-sm btn-primary dropdown-toggle waves-light" type="button" id="dropdown3"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icofont icofont-navigation-menu"></i></button>
+                                <div class="dropdown-menu" aria-labelledby="dropdown3" data-dropdown-in="fadeIn"
+                                data-dropdown-out="fadeOut">
+                                <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-checked m-r-10"></i>Check
+                                  in</a>
+                                  <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-attachment m-r-10"></i>Attach
+                                    screenshot</a>
+                                    <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-rotation m-r-10"></i>Reassign</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-edit-alt m-r-10"></i>Edit
+                                      task</a>
+                                      <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-close m-r-10"></i>Remove</a>
+                                    </div>
                                   </div>
-                                  <!-- end of dropdown menu -->
                                 </div>
-                              </div>
-                            </div>
+                              </div> -->
                           </div>
                         </div>
             </div>
@@ -909,6 +909,30 @@ var check = true
 // $('.nested').parent().on('click', function (){
 //   $('.nested').css('display','none');
 // })
-
+// zoom image start
+// var previous=0;
+//
+// $('.imggaltiQ').click(function(){
+//     previous=$(this);
+//
+//     previous.removeClass("fullWidth");
+//     previous.addClass("halfWidth");
+//     previous.css({'cursor':'zoom-in'});
+//     // console.log($('#'+previous).width());
+//     // console.log($('#'+previous).width()/$('#'+previous).parent().width() * 100);
+//     var trmp = $(this).width()/$(this).parent().width() * 100;
+//     trmp = Math.ceil(trmp/100)*100;
+//
+//     if($(this).width()!=trmp)
+//     {
+//       console.log(this);
+//
+//     previous.removeClass("halfWidth");
+//     previous.addClass("fullWidth");
+//     $(this).css({'cursor':'zoom-out'});
+//     }
+//
+// });
+// zoom image end
 </script>
 @endsection
