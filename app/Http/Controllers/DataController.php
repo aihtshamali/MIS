@@ -10,12 +10,15 @@ use App\AssignedSubSector;
 use App\Http\Resources\AssignedProject as AssignedResource;
 use App\Http\Resources\User as UserResource;
 use App\Http\Resources\MProjectKpi as MProjectKpiResource;
+use App\Http\Resources\MAppVersionlog as MAppVersionlogResource;
 use App\Http\Resources\MPlanKpicomponentMapping as MPlanKpicomponentMappingResource;
 use App\MAssignedKpiLevel1;
 use App\MAssignedKpiLevel2;
 use App\MAssignedKpiLevel3;
 use App\MAssignedKpiLevel4;
 use App\MAppAttachment;
+use App\MAppVersionlog;
+
 // use App\GeneralKpi;
 
 class DataController extends Controller
@@ -191,6 +194,10 @@ class DataController extends Controller
         // return response()->json(["response" => "true"]);
         // $data =  json_decode($request->data, true);
         // return $data;
+      }
+
+      public function appVersion(){
+        return new MAppVersionlogResource(MAppVersionlog::where('status',1)->first());
       }
 
 }
