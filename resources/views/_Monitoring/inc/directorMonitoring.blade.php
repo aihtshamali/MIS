@@ -10,7 +10,7 @@
                                 <span class="pcoded-mtext">Dashboard</span>
                             </a>
                             <ul class="pcoded-submenu">
-                                <li class="active">
+                                <li class="">
                                     <a href="{{url('monitoring_dashboard')}}">
                                         <span class="pcoded-mtext">Home</span>
                                     </a>
@@ -21,7 +21,7 @@
                                     </a>
                                 </li>
                                 <li class="#">
-                                    <a href="dashboard-analytics.html">
+                                    <a href="{{route('analytics')}}">
                                         <span class="pcoded-mtext">Analytics</span>
                                         <span class="pcoded-badge label label-info ">NEW</span>
                                     </a>
@@ -298,7 +298,7 @@
                     <ul class="pcoded-item pcoded-left-item">
                         <li class="pcoded-hasmenu">
                             <a href="javascript:void(0)">
-                                    
+
                                 <span class="pcoded-micon"><i class="zmdi zmdi-car"></i></span>
                                 <span class="pcoded-mtext" >Plan A Visit</span>
                             </a>
@@ -860,7 +860,7 @@
                             </ul>
                         </li>
                     </ul> --}}
-{{-- 
+{{--
                     <div class="pcoded-navigatio-lavel">App</div>
                     <ul class="pcoded-item pcoded-left-item">
                         <li class=" ">
@@ -1004,7 +1004,7 @@
                             </ul>
                         </li>
                     </ul> --}}
-                   
+
                     <div class="pcoded-navigatio-lavel">Planner</div>
                     <ul class="pcoded-item pcoded-left-item">
                         <li class="pcoded-hasmenu ">
@@ -1036,7 +1036,7 @@
                             </a>
                         </li>
                     </ul>
-{{-- 
+{{--
                     <div class="pcoded-navigatio-lavel">Other</div>
                     <ul class="pcoded-item pcoded-left-item">
                         <li class="pcoded-hasmenu ">
@@ -1109,14 +1109,8 @@
                             </div>
                         </div>
 
-                        <div id="styleSelector">
-
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-   
-  
