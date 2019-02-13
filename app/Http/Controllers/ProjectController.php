@@ -764,7 +764,7 @@ class ProjectController extends Controller
 
   public function viewMonitoringForm()
   {
-    $projects=Project::where('project_type_id','2')->get();
+    $projects=Project::where('project_type_id','2')->where('user_id',Auth::id())->get();
     return view('_Monitoring._Dataentry.view',compact('projects'));
   }
 }
