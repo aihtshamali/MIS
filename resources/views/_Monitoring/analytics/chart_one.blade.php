@@ -10,43 +10,32 @@
 @endsection
 @section('content')
 <div class="row col-md-12 pdlfrt1">
-  <div class="col-md-3 pdlfrt1 mtb">
+  <div class="col-md-12 pdlfrt1 mtb">
     <div class="border col-md-12">
-      <a href="{{route('m_chart_one')}}">
           <div id="chartdiv"></div>
-      </a>
-    </div>
-  </div>
-  <div class="col-md-3 pdlfrt1 mtb">
-    <div class="border col-md-12">
-        Put AM Charts here...
-    </div>
-  </div>
-  <div class="col-md-3 pdlfrt1 mtb">
-    <div class="border col-md-12">
-        Put AM Charts here...
-    </div>
-  </div>
-  <div class="col-md-3 pdlfrt1 mtb">
-    <div class="border col-md-12">
-        Put AM Charts here...
-    </div>
-  </div>
-  <div class="col-md-3 pdlfrt1 mtb">
-    <div class="border col-md-12">
-        Put AM Charts here...
-    </div>
-  </div>
-  <div class="col-md-3 pdlfrt1 mtb">
-    <div class="border col-md-12">
-        Put AM Charts here...
+          <div class="card-footer">
+            <div style="padding:5px;display:inline-block;">
+            <span class="lightblue">-</span>
+            <label style="vertical-align:-webkit-baseline-middle;">{{$total_projects}} Total Projects</label>
+        </div>
+        <div style="padding:5px; display:inline-block;">
+            <span class="dark-grey">-</span>
+            <label style="vertical-align:-webkit-baseline-middle;">{{$total_projects-$inprogress_projects-$completed_projects}} Total Un-Assigned Projects</label>
+        </div>
+        <div style="padding:5px; display:inline-block;">
+                <span class="darkblue">-</span>
+                <label style="vertical-align:-webkit-baseline-middle;">{{$inprogress_projects}} Total InProgress Projects</label>
+            </div>
+        <div style="padding:5px; display:inline-block;">
+                <span class="purple">-</span>
+                <label style="vertical-align:-webkit-baseline-middle;">{{$completed_projects}} Completed Projects</label>
+            </div>
+        </div>
     </div>
   </div>
 </div>
 @endsection
 @section('js_scripts')
-{{-- <script src="{{asset('js/AdminLTE/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('js/AdminLTE/dataTables.bootstrap.min.js')}}"></script> --}}
 <script src="{{asset('js/app.js')}}"></script>
 <script>
   let chart = am4core.create("chartdiv", am4charts.XYChart);
