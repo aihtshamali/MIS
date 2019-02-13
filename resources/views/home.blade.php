@@ -222,6 +222,7 @@
                         <p>Visit Monitoring</p>
                       </a>
                   </div>
+                  <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
                   <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.6s">
                       <a href="{{route('evaluation_dashboard')}}" class="tile orange">
                         <h3 class="title">Evaluation</h3>
