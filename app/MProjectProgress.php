@@ -83,5 +83,11 @@ class MProjectProgress extends Model
     public function MExecutingStakeholder(){
       return $this->hasMany('App\MExecutingStakeholder');
     } 
+    public function MUserVisitlocation(){
+      return $this->hasMany('App\MUserVisitlocation');
+    }
+    public function MAppAttachment(){
+      return $this->hasMany('App\MAppAttachment');
+    }
 
 }

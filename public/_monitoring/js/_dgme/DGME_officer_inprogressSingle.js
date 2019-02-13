@@ -32,36 +32,19 @@ $(document).ready(function () {
         $(".mainTabsAndNav").animate({ marginTop: '6%' }, 1000);
     });
 
-    // SPECIAL KPI
-    // $(document).on('click','.addspecialkpi',function(){
-    //     $(this).hide()
-    //     $(this).parent().find('.delspecialkpi').removeClass('nodisplay')
-    //     $(`<div class="row col-md-12">
-    //       <input type="text" class="form-control specialin col-md-11" placeholder="Type KPI here...">
-    //       <button class="col-md-1 btn addspecialkpi" type="button">+</button>
-    //       <button class="col-md-1 btn btn-danger btn-sm btn nodisplay delspecialkpi" type="button">-</button>
-    //     </div>`).appendTo('#appendspecialkpi')
-    //     var t = $(this).parent().find('.specialin').val();
 
-    //     $(`<li id='` + t.replace(/\s+/g, '_').replace('(', '').replace(')', '') + `' class="col-md-12 row"><div class='col-md-6'>
-    //         `+ t + `</div>
-    //         <div class="col-md-6">
-    //             <select class="kpisel col-sm-12" multiple="multiple">
-    //               `+ compopt +`
-    //             </select>
-    //         </div>
-    //         </li>`).appendTo('#addkpi')
 
-    //         $('.kpisel').select2()
-    // })
-    // $(document).on('click','.delspecialkpi',function(){
-    //     var t = $(this).parent().find('.specialin').val();
-    //     t = t.replace(/\s+/g, '_').replace('(', '').replace(')', '')
-    //     console.log(t);
-    //     $('#addkpi').find('#'+t).remove()
-    //     $(this).parent().remove()
-    // })
-// SPECIAL KPI END
+   //financial progress
+   $("#u_against_rel, #total_release_to_date").keyup( function(){
+    var utilization_against_releases = $("#u_against_rel").val();
+    var total_release_to_date = $("#total_release_to_date").val();
+
+    var result = ( utilization_against_releases/total_release_to_date)*100;
+    result= result.toFixed(2);
+    $("#f_progress").val(result);
+
+
+});
 
     //FINANCIAL PHASING
     $(document).on('keyup', '.count-me', function () {
@@ -294,6 +277,7 @@ $(document).ready(function () {
         hideallmaintabs();
         hideall();
         $('.mainTabsAndNav').removeClass("col-md-12").addClass("col-md-9");
+        // $('this > a').addClass("active");
         $('#summary').show();
         $('.p_details').show(1000);
         $(".topSummary").hide('slow');
@@ -325,6 +309,7 @@ $(document).ready(function () {
         $('#risks').hide();
         $('#HSE').hide();
         $('#procuremnet').hide();
+        $('#procu').hide();
         $('#kpis').hide();
         $('#activities').hide();
         $('#kpis').hide();
@@ -336,6 +321,7 @@ $(document).ready(function () {
         $('#reviewDiv').hide();
         $('#TimesDiv').hide();
         $('#CostingDiv').hide();
+        $('#prolocDiv').hide();
     }
 
 
@@ -398,12 +384,16 @@ $(document).ready(function () {
         hideall();
         $('#activities').show();
         $("#kpisss").removeClass("active");
-        $("#tali").addClass("active");
+        $("#proloc").addClass("active");
     });
 
     $('.kpis').on('click', function () {
         hideall();
         $('#kpis').show();
+    });
+    $('.proloc').on('click', function () {
+        hideall();
+        $('#prolocDiv').show();
     });
     $('.PlanDoc').on('click', function () {
         hideall();

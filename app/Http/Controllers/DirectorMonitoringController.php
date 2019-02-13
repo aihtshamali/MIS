@@ -54,12 +54,19 @@ class DirectorMonitoringController extends Controller
       ->get();
       // TODO
       $priority='low_priority';
+      // dd($projects);
       return view('_Monitoring._Director.unassigned',['projects'=>$projects,'priority'=>$priority]);
     }
 
     public function monitoring_inprogressprojects()
     {
-      return view('_Monitoring._Director.inprogress');
+      $projects=AssignedProject::select('assigned_projects.*')->where('assigned_by',Auth::id())
+         ->leftjoin('projects','projects.id','assigned_projects.project_id')
+         ->where('projects.status',1)
+         ->where('complete',0)
+         ->get();
+      // dd($projects[0]->Project->ProjectDetail);
+      return view('_Monitoring._Director.inprogress',['projects'=>$projects]);
     }
     public function monitoring_completeprojects()
     {

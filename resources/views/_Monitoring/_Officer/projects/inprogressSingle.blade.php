@@ -72,8 +72,17 @@
     .bg_or{background: #fe936524;}
     .mr_0_1{margin:0% 1% !important;}
     /* p{clear: both !important;} */
-    .select2-container--default .select2-selection--multiple .select2-selection__rendered li{color: #131010b8 !important;background: transparent !important;border: none;}
-    .select2-container--default .select2-selection--multiple .select2-selection__choice span{color: #777 !important;}
+    /* .select2-container--default .select2-selection--multiple .select2-selection__rendered li{color: #131010b8 !important;background: transparent !important;border: none;} */
+    .select2-container--default .select2-selection--multiple .select2-selection__rendered li{
+        background: #119e36 !important;
+        color: #fff !important;
+        padding: 2% 4% !important;
+        margin: 1% !important;
+      }
+      .select2-container--default .select2-selection--multiple .select2-selection__rendered .select2-search--inline{
+        background-color: transparent !important;
+      }
+    .select2-container--default .select2-selection--multiple .select2-selection__choice span{color: #fff !important;}
     .select2-container--default.select2-container--focus .select2-selection--multiple {border: 1px solid #01a9ac !important;border-top-color: rgb(1, 169, 172) !important;border-top-style: solid !important;border-top-width: 1px !important;border-right-color: rgb(1, 169, 172) !important;border-right-style: solid !important;border-right-width: 1px !important;border-bottom-color: rgb(1, 169, 172) !important;border-bottom-style: solid !important;border-bottom-width: 1px !important;border-left-color:rgb(1, 169, 172) !important;border-left-style: solid !important;border-left-width: 1px !important;border-image-source: initial !important;border-image-slice: initial !important;border-image-width: initial !important;border-image-outset: initial !important;border-image-repeat: initial !important;
 }
     .select2-container{width: 100% !important;}
@@ -99,19 +108,29 @@
 .tdprocu{padding: 0px !important;text-align: center !important;}
 .modal-open, .modal{overflow-x: scroll !important;}
 /* .orgchart{background: #fff !important;} */
+.primarybold{color: #01a9ac !important; font-weight: 900 !important;}
+.orrbold{color: #ff7220 !important; font-weight: 900 !important;}
 </style>
 
 @endsection
 @section('content')
-
     {{-- frozen panel for plan and conduct monitoring  --}}
     <div class="fixed bg-g hidden-sm hidden-xs topSummary capitalize" style="">
-    <div class="bg-w border_top bg-w" style="padding:0.25rem !important;" >
+    <div class="bg-w border_top bg-w" style="padding:0% 0% 0.5% 1% !important;" >
       <style scoped>
           .form-group{margin-bottom:0rem !important;border:none !important;background-color:transparent !important;}
           .form-group{padding: 0.05rem 0.75rem !important;}
           .col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto{padding-left: 0px !important;padding-right: 0px !important;}
-          label{margin-bottom:0rem !important;border:none !important;background-color:transparent !important;padding:0rem 0.3rem !important;font-size: 12px !important;}
+          label{margin-bottom:0rem !important;border:none !important;background-color:transparent !important;padding:0rem 0.3rem !important;
+            /* font-size: 12px !important; */
+            font-size: inherit;
+          }
+          .font-18{font-size: 18px !important;}
+          .fontf_sh{font-size: 14px !important;font-weight: 600 !important;}
+          /* .progress-bar{color: #000 !important;} */
+          .progress-bar-success {background-color: #007b1b;}
+          .progress{background: #6967674f !important;}
+          .pdz_six{padding: 0% 6% !important;}
         @media only screen and (max-width: 1024px)
           {
             .topSummary
@@ -121,25 +140,59 @@
           }
       </style>
                   <div class="col-md-12">
-                      <label for="project_title" class="">Project Title: <span><b>{{$project->Project->title}}</b></span></label>
+                    <center>
+                      <b class="primarybold mb_1 font-18">
+                        <span>Project Title</span> <span class=""> :</span>
+                        <span class="black">{{$project->Project->title}}</span>
+                      </b>
+                    </center>
+                  </div>
+                  <div class="col-md-12 ln_ht12">
+                      <b for="project_cost" class=""><span >Location: </span><span>
+                        @foreach ($project->Project->AssignedDistricts as $district)
+                          {{$district->District->name}},
+                        @endforeach
+                      </span></b>
                   </div>
                 <div class="form-group row">
-                    <div class="col-md-2">
-                        <label for="GS_no" class="">GS #: <span><b>{{$project->Project->ADP}}</b></span></label>
+                    <div class="col-md-3">
+                        <b for="GS_no" class=" mb_1 fontf_sh"><span >GS #: </span><span>{{$project->Project->ADP}}</span></b>
                     </div>
-                    <div class="col-md-2 ln_ht12">
-                        <label for="project_cost" class="">Location: <span><b>
-                          @foreach ($project->Project->AssignedDistricts as $district)
-                            {{$district->District->name}},
-                          @endforeach
-                        </b></span></label>
+                    <div class="col-md-3">
+                        <b for="planned_end_date" class=" mb_1 fontf_sh"><span >Planned End Date: </span><span>{{$project->Project->ProjectDetail->planned_end_date}}</span> </b>
                     </div>
-                    <div class="col-md-2">
-                        <label for="PHI" class="">PHI </label>
-                        <input name="phi" id="#phi" type="number" class="frozen_pane widthInh"/>
+                    <div class="col-md-3">
+                        <b for="actual_start_date" class=" mb_1 fontf_sh"><span >Actual Start Date: </span><span>@if(isset($dates->actual_start_date))
+                          {{$dates->actual_start_date}}
+                          @endif</span> </b>
                     </div>
-                    <div class="col-md-2 ln_ht12">
-                        <label for="Location" class="">final Revised Cost: <span><b>
+                    <!-- <div class="col-md-3">
+                        <b for="PHI" >PHI </b>
+                        <input name="phi" id="#phi" type="number" class="frozen_pane" style="width:70% !important;"/>
+                    </div> -->
+                    <div class="col-md-3">
+                        <b for="planned_start_date" class=" mb_1 fontf_sh"><span >Planned Start Date: </span><span>{{$project->Project->ProjectDetail->planned_start_date}}</span></b>
+                    </div>
+                    <div class="col-md-3 ln_ht12">
+                      <b for="" name="phy_progress" id="phy_progress" class="primarybold mb_1 fontf_sh"><span  class="float-left">Physical Progress: </span>
+                        <span class="pdz_six">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%</span>
+                        <!-- <div class="progress col-md-5 float-right" style="margin: 1.5% 5%;">
+                            <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width: {{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> {{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%
+                            </div>
+                        </div> -->
+                        </b>
+                    </div>
+                    <div class="col-md-3">
+                      <b for="" name="f_progress" id="f_progress" class="primarybold mb_1 fontf_sh"><span class="float-left" >Financial Progress:</span>
+                        <span class="pdz_six">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</span>
+                        <!-- <div class="progress col-md-5 float-right" style="margin: 1.5% 5%;">
+                            <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width: {{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> {{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%
+                            </div>
+                        </div> -->
+                      </b>
+                    </div>
+                    <div class="col-md-3 ln_ht12">
+                        <b for="Location" class=" mb_1 fontf_sh"><span >final Revised Cost:</span> <span>
                           @php
                             $revisedFinalCost=0;
                           @endphp
@@ -148,32 +201,15 @@
                               $revisedFinalCost= $cost->cost;
                             @endphp
                           @endforeach
-                          {{$revisedFinalCost}}
+                          {{round($revisedFinalCost,2)}} million PKR
                         </b></span></label>
                     </div>
-                    <div class="col-md-2 ln_ht12">
-                        <label for="project_cost" class="">Original Approve Cost: <span><b>{{$project->Project->ProjectDetail->orignal_cost}}</b></span></label>
+                    <div class="col-md-3 ln_ht12">
+                        <b for="project_cost" class=" mb_1 fontf_sh"><span >Original Approve Cost:</span> <span>{{round($project->Project->ProjectDetail->orignal_cost,2)}} million PKR</span></b>
                     </div>
-                    <div class="col-md-2">
-                        <label for="planned_start_date" class="">Planned Start Date: <span><b>{{$project->Project->ProjectDetail->planned_start_date}}</b></span></label>
-                    </div>
-                    <div class="col-md-2">
-                        <label for="planned_end_date" class="">Planned End Date: <span><b>{{$project->Project->ProjectDetail->planned_end_date}}</b></span> </label>
-                    </div>
-                    <div class="col-md-2">
-                        <label for="actual_start_date" class="">Actual Start Date </label>
-                    </div>
-                    <div class="col-md-2 ln_ht12">
-                        <label for="progress" class="">Physical Progress %: <span><b>{{$project->progress}} %</b></span></label>
-                    </div>
-                    <div class="col-md-2">
-                        {{-- <label for="Financial" class="">Financial Progress %</label> --}}
-                        {{-- <input type="text"  id="financial_progress" class="frozen_pane" name="financial_progress"> --}}
-                        <label for="progress" class="">Financial Progress %: <span><b>{{$project->progress}} %</b></span></label>
-                    </div>
-                    <div class="col-md-2">
-                        <label for="last_monitoring" class="">Last Monitoring Date </label>
-                    </div>
+                    <!-- <div class="col-md-3">
+                        <b for="last_monitoring" class=""><span >Last Monitoring Date </span></b>
+                    </div> -->
                 </div>
         </div>
     </div>
@@ -225,7 +261,13 @@
                                       </li>
                                   </ul>
                                     <!-- Tab panes -->
-                                    <div class="tab-content card-block">
+                                    @php
+                                        $teamflag=false;
+                                      $teamflag =  $project->AssignedProjectTeam->where('user_id',Auth::id())->first()->team_lead==1;
+                                      if(count($project->AssignedProjectTeam)==1)
+                                         $teamflag=true;
+                                    @endphp
+                                    <div class="tab-content card-block" style="">
                                         @include('_Monitoring/inc/monitoring/reviewDiv')
                                         @include('_Monitoring/inc/monitoring/planmonitoring')
                                         @include('_Monitoring/inc/monitoring/conduct_monitoring')
@@ -238,80 +280,74 @@
                         </div>
                         <!-- Form Basic Wizard card end -->
                     </div>
-            </div>
-            <div class="col-xl-3 col-lg-12 nodisplay p_details" style="padding-left: 15px !important;  padding-right: 15px !important;">
+                    <div class="col-xl-3 col-lg-12 nodisplay p_details" style="padding-left: 15px !important;  padding-right: 15px !important;">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-header-text"><i class="icofont icofont-ui-note m-r-10"></i> Project Details</h5>
                     </div>
                     <div class="card-block task-details">
                         <table class="table table-border table-xs">
+                        <div class="card-block task-details">
+                          <table class="table table-border table-xs">
                             <tbody>
-                                <tr>
-                                    <td><i class="icofont icofont-contrast"></i> Project:</td>
-                                    <td class="text-right"><span class="f-right"><a href="#"> {{$project->Project->title}}</a></span></td>
-                                </tr>
-                                <tr>
-                                    <td><i class="icofont icofont-meeting-add"></i> Updated:</td>
-                                    <td class="text-right">{{$progresses->updated_at}}</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="icofont icofont-id-card"></i> Created:</td>
-                                    <td class="text-right">{{$progresses->created_at}}</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="icofont icofont-spinner-alt-5"></i> Priority:</td>
-                                    <td class="text-right">
-                                        <div class="btn-group">
-                                            <a href="#">
-                                                <i class="icofont icofont-upload m-r-5"></i> Highest
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><i class="icofont icofont-spinner-alt-3"></i> Revisions:</td>
-                                    <td class="text-right">{{$progresses->count()}}</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="icofont icofont-ui-love-add"></i> Assigned by:</td>
-                                    <td class="text-right"><a href="#">{{$project->getassignedperson($project->assigned_by)->first_name}} <{{$project->getassignedperson($project->assigned_by)->last_name}}/a></td>
-                                </tr>
-                                <tr>
-                                    <td><i class="icofont icofont-washing-machine"></i> Status:</td>
-                                    <td class="text-right">{{$project->Project->status}}</td>
-                                </tr>
+                              <tr>
+                                <td><i class="icofont icofont-contrast"></i> Project:</td>
+                                <td class="text-center"><span class="f-center"><a href="#"> {{$project->Project->title}}</a></span></td>
+                              </tr>
+                              <tr>
+                                <td><i class="icofont icofont-meeting-add"></i> Financial Progress:</td>
+                                <td class="text-center">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</td>
+                              </tr>
+                              <tr>
+                                <td><i class="icofont icofont-id-card"></i> Physical Progress:</td>
+                                <td class="text-center">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id),2)}}%</td>
+                              </tr>
+                              <tr>
+                                <td><i class="icofont icofont-user"></i> Assigned by:</td>
+                                <td class="text-center">({{$project->getassignedperson($project->assigned_by)->designation}}) {{$project->getassignedperson($project->assigned_by)->first_name}}{{$project->getassignedperson($project->assigned_by)->last_name}} </td>
+                              </tr>
+                              <tr>
+                                <td><i class="icofont icofont-spinner-alt-3"></i> Revisions:</td>
+                                <td class="text-center">{{$progresses->count()}}</td>
+                              </tr>
+
+                              <tr>
+                                <td><i class="icofont icofont-washing-machine"></i> Status:</td>
+                                <td class="text-center">{{$project->Project->status ? 'Active' : 'In-Active'}}</td>
+                              </tr>
                             </tbody>
-                        </table>
-                    </div>
-                    <div class="card-footer">
-                        <div>
+                          </table>
+                        </div>
+                        <div class="card-footer">
+                          <div>
                             <span>
-                                <a href="#!" class="text-muted m-r-10 f-16"><i class="icofont icofont-random"></i> </a>
+                              <a href="#!" class="text-muted m-r-10 f-16"><i class="icofont icofont-random"></i> </a>
                             </span>
                             <span class="m-r-10">
-                                <a href="#!" class="text-muted f-16"><i class="icofont icofont-options"></i></a>
+                              <a href="#!" class="text-muted f-16"><i class="icofont icofont-options"></i></a>
                             </span>
                             <div class="dropdown-secondary dropdown d-inline-block">
-                                <button class="btn btn-sm btn-primary dropdown-toggle waves-light" type="button" id="dropdown3"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icofont icofont-navigation-menu"></i></button>
-                                <div class="dropdown-menu" aria-labelledby="dropdown3" data-dropdown-in="fadeIn"
-                                    data-dropdown-out="fadeOut">
-                                    <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-checked m-r-10"></i>Check
-                                        in</a>
-                                    <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-attachment m-r-10"></i>Attach
-                                        screenshot</a>
-                                    <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-rotation m-r-10"></i>Reassign</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-edit-alt m-r-10"></i>Edit
-                                        task</a>
+                              <button class="btn btn-sm btn-primary dropdown-toggle waves-light" type="button" id="dropdown3"
+                              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icofont icofont-navigation-menu"></i></button>
+                              <div class="dropdown-menu" aria-labelledby="dropdown3" data-dropdown-in="fadeIn"
+                              data-dropdown-out="fadeOut">
+                              <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-checked m-r-10"></i>Check
+                                in</a>
+                                <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-attachment m-r-10"></i>Attach
+                                  screenshot</a>
+                                  <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-rotation m-r-10"></i>Reassign</a>
+                                  <div class="dropdown-divider"></div>
+                                  <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-edit-alt m-r-10"></i>Edit
+                                    task</a>
                                     <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-close m-r-10"></i>Remove</a>
+                                  </div>
+                                  <!-- end of dropdown menu -->
                                 </div>
-                                <!-- end of dropdown menu -->
+                              </div>
                             </div>
+                          </div>
                         </div>
-                    </div>
-                </div>
+            </div>
             </div>
 
         </div>
@@ -433,38 +469,46 @@
 
 
 $(document).ready(function(){
-
-
+    if("{{$teamflag}}"!=true){
+        $('form.serializeform :input,form.serializeform :button,form.serializeform select').attr('disabled','disabled');
+    }
     var compData='';
     var activities='';
     var sponsoringAgency='';
     var executingAgency='';
 
-        function getWBS(route,id){
+    function getWBS(route,id){
         axios.get(route,{
      params:{
          "assigned_project_id":id,
      }
      })
      .then((response) => {
-         console.log(response.data.m_kpi.sector);
-         var ds = response.data.m_kpi.sector[0];
-        var oc = $('#WBSChart').orgchart({
-        'data' : ds,
-        'nodeContent': 'title'
-        });
+         var ds ='';
+         for (let i = 0; i < response.data.m_kpi.sector.length; i++) {
+             console.log(response.data.m_kpi.sector);
 
-     //   $('.'+response.data.role+'_unassigned_counter').text(response.data.unassigned);
+             ds = response.data.m_kpi.sector[i];
+            var oc = $('#WBSChart').orgchart({
+            'data' : ds,
+            'nodeContent': 'title'
+            });
+         }
+
+    //    $('.'+response.data.role+'_unassigned_counter').text(response.data.unassigned);
      })
      .catch(function (error) {
        console.log(error);
      });
 
    }
-
+   var wbs=true;
 
    $('.summaryNav').on('click', function () {
-        getWBS('{{route("getProjectKpi")}}',"{{$project->id}}");
+        if(wbs){
+            getWBS('{{route("getProjectKpi")}}',"{{$project->id}}");
+            wbs=false;
+        }
     });
         (function($) {
             console.log();
@@ -562,8 +606,8 @@ $(document).ready(function(){
 //    })();
 
     // WBS Chart Start
-(function($) {
-  $(function() {
+// (function($) {
+//   $(function() {
 //    var ds = {
 //      'name': 'Infrastructure Projects',
 //      'children': [
@@ -602,27 +646,27 @@ $(document).ready(function(){
 //      }]
 //     };
 
-axios.get('{{route("getProjectKpi")}}',{
-     params:{
-         "assigned_project_id":"{{$project->id}}",
-     }
-     })
-     .then((response) => {
-         console.log(response.data.m_kpi.sector);
-         var ds = response.data.m_kpi.sector[0];
-        var oc = $('#WBSChart').orgchart({
-        'data' : ds,
-        'nodeContent': 'title'
-        });
+// axios.get('{{route("getProjectKpi")}}',{
+//      params:{
+//          "assigned_project_id":"{{$project->id}}",
+//      }
+//      })
+//      .then((response) => {
+//          console.log(response.data.m_kpi.sector);
+//          var ds = response.data.m_kpi.sector[0];
+//         var oc = $('#WBSChart').orgchart({
+//         'data' : ds,
+//         'nodeContent': 'title'
+//         });
 
-     //   $('.'+response.data.role+'_unassigned_counter').text(response.data.unassigned);
-     })
-     .catch(function (error) {
-       console.log(error);
-     });
+//      //   $('.'+response.data.role+'_unassigned_counter').text(response.data.unassigned);
+//      })
+//      .catch(function (error) {
+//        console.log(error);
+//      });
 
-  });
-})(jQuery);
+//   });
+// })(jQuery);
 
   $('form.serializeform').on('submit',function(e){
 
@@ -824,5 +868,47 @@ $(document)
   }
   e.preventDefault(); // prevent the default action (scroll / move caret)
 });
+</script>
+<!-- start treeview -->
+<script type="text/javascript">
+var toggler = document.getElementsByClassName("caret");
+var i;
+
+for (i = 0; i < toggler.length; i++) {
+toggler[i].addEventListener("click", function() {
+  this.parentElement.querySelector(".nested").classList.toggle("active");
+  this.parentElement.querySelector(".nested").classList.toggle("nodisplay");
+  this.classList.toggle("caret-right");
+  this.classList.toggle("caret-down");
+});
+}
+</script>
+<!-- end treeview -->
+<script type="text/javascript">
+var check = true
+  $('.photogallary').on('click', function () {
+    if(check){
+      $('.photogallaryDiv').css('display','inline-flex');
+    }
+    else{
+      $('.photogallaryDiv').css('display','none');
+    }
+    check = !check
+  });
+  $('.vidgallary').on('click', function () {
+    if(check){
+      $('.vidgallaryDiv').css('display','inline-flex');
+    }
+    else{
+      $('.vidgallaryDiv').css('display','none');
+    }
+    check = !check
+  });
+</script>
+<script type="text/javascript">
+// $('.nested').parent().on('click', function (){
+//   $('.nested').css('display','none');
+// })
+
 </script>
 @endsection

@@ -56,6 +56,10 @@ use App\MAssignedKpiLevel1;
 use App\MAssignedKpiLevel2;
 use App\MAssignedKpiLevel3;
 use App\MAssignedKpiLevel4;
+use App\District;
+use App\PlantripCity;
+
+use App\MAppAttachment;
 use Illuminate\Support\Facades\Redirect;
 use DB;
 class OfficerController extends Controller
@@ -78,7 +82,7 @@ class OfficerController extends Controller
       }
       public function review_forms(Request $request)
       {
-      // dd($request->all());
+       // dd($request->all());
         $data=AssignedProject::find($request->assigned_project_id);
         $data->acknowledge='1';
         // dd($data);
@@ -138,7 +142,6 @@ class OfficerController extends Controller
         return view('officer.evaluation_projects.new_assigned',['officerInProgressCount'=>$officerInProgressCount,'officerAssignedCount'=>$officerAssignedCount,'officer'=>$officer]);
       }
 
-
       public function review_form($id)
       {
         $officerAssignedCount=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
@@ -166,7 +169,7 @@ class OfficerController extends Controller
         return response()->json($projectcomponents);
 
       }
-      
+
       public function getAssignedExecutingAgency(Request $request)
       {
         $exeagency = AssignedExecutingAgency::where('project_id',$request->originalProjectId)->get();
@@ -179,16 +182,16 @@ class OfficerController extends Controller
       public function getAssignedSponsoringAgency(Request $request)
       {
 
-      $sponsoringagency = AssignedSponsoringAgency::where('project_id',$request->originalProjectId)->get();
-      $size= count($sponsoringagency);
-      // return response()->json($size);
-      $sa=[];
-      return response()->json($sponsoringagency);
-      for($i=0; $i<$size ; $i++)
-      {
-       array_push($sa, $sponsoringagency->SponsoringAgency);
-      }
-        // return response()->json($sa);
+        $sponsoringagency = AssignedSponsoringAgency::where('project_id',$request->originalProjectId)->get();
+        $size= count($sponsoringagency);
+        // return response()->json($size);
+        $sa=[];
+        return response()->json($sponsoringagency);
+        for($i=0; $i<$size ; $i++)
+        {
+        array_push($sa, $sponsoringagency->SponsoringAgency);
+        }
+          // return response()->json($sa);
 
       }
 
@@ -199,7 +202,7 @@ class OfficerController extends Controller
         ->where('m_project_progress_id',$request->MProjectProgressId)
         ->get();
         return response()->json($projectactivities);
-        
+
       }
 
       public function evaluation_inprogress()
@@ -232,130 +235,132 @@ class OfficerController extends Controller
 
       public function evaluation_activities($id)
        {
-        if (!is_dir('storage/uploads/projects/project_activities/'.Auth::user()->username)) {
-        // dir doesn't exist, make it
-        mkdir('storage/uploads/projects/project_activities/'.Auth::user()->username);
-        }
-        //storing files of current project in folder
-        $activities=Project::find($id)->AssignedProject->AssignedProjectActivity;
-        foreach ($activities as $act) {
-        foreach ($act->AssignedActivityAttachments as $attachment) {
-          file_put_contents('storage/uploads/projects/project_activities/'.Auth::user()->username.'/'.$attachment->attachment_name.'.'.$attachment->type,base64_decode($attachment->project_attachements));
-        }
-        }
-       //saving progress
-       $assigned_progress=Project::find($id)->AssignedProject;
-       $average_progress=round($assigned_progress->progress, 0, PHP_ROUND_HALF_UP);
-      $officerAssignedCount=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
-      ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
-      ->where('acknowledge','0')
-      ->where('user_id',Auth::id())
-      ->count();
-      $officerInProgressCount=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
-      ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
-      ->where('user_id',Auth::id())
-      ->where('acknowledge','1')
-      ->count();
-      $project_data=AssignedProject::select('assigned_projects.*')
-      ->leftJoin('assigned_project_teams','assigned_projects.id','assigned_project_teams.assigned_project_id')
-      ->where('assigned_projects.acknowledge','1')->where('assigned_projects.project_id',$id)
-      ->first();
-      $activity_documents=ActivityDocument::where('status',1)->get();
-      $icons = [
-                'pdf' => 'pdf',
-                'doc' => 'word',
-                'docx' => 'word',
-                'xls' => 'excel',
-                'xlsx' => 'excel',
-                'ppt' => 'powerpoint',
-                'pptx' => 'powerpoint',
-                'txt' => 'text',
-                'png' => 'image',
-                'jpg' => 'image',
-                'jpeg' => 'image',
-            ];
-        $assignedDocuments=AssignedActivityDocument::where('assigned_project_id',$project_data->id)->get();
+          if (!is_dir('storage/uploads/projects/project_activities/'.Auth::user()->username)) {
+          // dir doesn't exist, make it
+          mkdir('storage/uploads/projects/project_activities/'.Auth::user()->username);
+          }
+          //storing files of current project in folder
+          $activities=Project::find($id)->AssignedProject->AssignedProjectActivity;
+          foreach ($activities as $act) {
+          foreach ($act->AssignedActivityAttachments as $attachment) {
+            file_put_contents('storage/uploads/projects/project_activities/'.Auth::user()->username.'/'.$attachment->attachment_name.'.'.$attachment->type,base64_decode($attachment->project_attachements));
+          }
+          }
+        //saving progress
+        $assigned_progress=Project::find($id)->AssignedProject;
+        $average_progress=round($assigned_progress->progress, 0, PHP_ROUND_HALF_UP);
+        $officerAssignedCount=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
+        ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
+        ->where('acknowledge','0')
+        ->where('user_id',Auth::id())
+        ->count();
+        $officerInProgressCount=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
+        ->leftjoin('assigned_project_teams','assigned_project_teams.assigned_project_id','assigned_projects.id')
+        ->where('user_id',Auth::id())
+        ->where('acknowledge','1')
+        ->count();
+        $project_data=AssignedProject::select('assigned_projects.*')
+        ->leftJoin('assigned_project_teams','assigned_projects.id','assigned_project_teams.assigned_project_id')
+        ->where('assigned_projects.acknowledge','1')->where('assigned_projects.project_id',$id)
+        ->first();
+        $activity_documents=ActivityDocument::where('status',1)->get();
+        $icons = [
+                  'pdf' => 'pdf',
+                  'doc' => 'word',
+                  'docx' => 'word',
+                  'xls' => 'excel',
+                  'xlsx' => 'excel',
+                  'ppt' => 'powerpoint',
+                  'pptx' => 'powerpoint',
+                  'txt' => 'text',
+                  'png' => 'image',
+                  'jpg' => 'image',
+                  'jpeg' => 'image',
+              ];
+          $assignedDocuments=AssignedActivityDocument::where('assigned_project_id',$project_data->id)->get();
 
-      return view('officer.evaluation_projects.activities',['assignedDocuments'=>$assignedDocuments,'activity_documents'=>$activity_documents,'activities'=>$activities,'average_progress'=>$average_progress,'icons'=>$icons,'project_data'=>$project_data,'project_id'=>$id,'officerInProgressCount'=>$officerInProgressCount,'officerAssignedCount'=>$officerAssignedCount]);
-    }
-    public function AssignActivityDocument(Request $request){
-      // dd($request->all());
-      $PreassignedDocumentsCount=AssignedActivityDocument::where('assigned_project_id',$request->assigned_project_id)->count(); //
-
-      foreach ($request->activity_document_id as $docs) {
-        $assignedDocuments=new AssignedActivityDocument();
-        $assignedDocuments->assigned_project_activity_id=$request->assigned_activity_id;
-        $assignedDocuments->activity_document_id=$docs;
-        $assignedDocuments->assigned_project_id=$request->assigned_project_id;
-        $assignedDocuments->save();
-      }
-      if($PreassignedDocumentsCount)
+        return view('officer.evaluation_projects.activities',['assignedDocuments'=>$assignedDocuments,'activity_documents'=>$activity_documents,'activities'=>$activities,'average_progress'=>$average_progress,'icons'=>$icons,'project_data'=>$project_data,'project_id'=>$id,'officerInProgressCount'=>$officerInProgressCount,'officerAssignedCount'=>$officerAssignedCount]);
+       }
+     public function AssignActivityDocument(Request $request)
       {
-        for ($i=0; $i <3 ; $i++) {
-          $assigned_project_activity = AssignedProjectActivity::find($request->assigned_activity_id+$i);
-          $prev_prog=$assigned_project_activity->progress;
-          $LatestassignedDocumentsCount=AssignedActivityDocument::where('assigned_project_id',$request->assigned_project_id)->count(); //
-          $temp=$prev_prog/(100/$PreassignedDocumentsCount);
-          $New=100/($LatestassignedDocumentsCount);
-          $newprogress=($New*$temp);
-          $assigned_project_activity->progress=round($newprogress,0,PHP_ROUND_HALF_UP );
+        // dd($request->all());
+        $PreassignedDocumentsCount=AssignedActivityDocument::where('assigned_project_id',$request->assigned_project_id)->count(); //
+
+        foreach ($request->activity_document_id as $docs) {
+          $assignedDocuments=new AssignedActivityDocument();
+          $assignedDocuments->assigned_project_activity_id=$request->assigned_activity_id;
+          $assignedDocuments->activity_document_id=$docs;
+          $assignedDocuments->assigned_project_id=$request->assigned_project_id;
+          $assignedDocuments->save();
+        }
+        if($PreassignedDocumentsCount)
+        {
+          for ($i=0; $i <3 ; $i++) {
+            $assigned_project_activity = AssignedProjectActivity::find($request->assigned_activity_id+$i);
+            $prev_prog=$assigned_project_activity->progress;
+            $LatestassignedDocumentsCount=AssignedActivityDocument::where('assigned_project_id',$request->assigned_project_id)->count(); //
+            $temp=$prev_prog/(100/$PreassignedDocumentsCount);
+            $New=100/($LatestassignedDocumentsCount);
+            $newprogress=($New*$temp);
+            $assigned_project_activity->progress=round($newprogress,0,PHP_ROUND_HALF_UP );
+            $assigned_project_activity->save();
+          }
+        }
+        return redirect()->back();
+      }
+      public function saveDocAttachments(Request $request)
+      {
+        // print_r($request->hasFile('activity_attachment'));
+        if($request->activity_attachment){
+          $data =  $request['data'];
+          $percentage = strtok($data,",");
+          $project_id = strtok(",");
+          $activity_id = strtok(",");
+          $assigned_project_activity = AssignedProjectActivity::find($activity_id);
+          $assigned_project_activity->progress = $percentage;
+          $assigned_project_activity1 = AssignedProjectActivity::find(($activity_id+1));
+          if($assigned_project_activity->start_date && !$assigned_project_activity1->start_date ){
+            // $assigned_project_activity->start_date=date('Y-m-d');
+            $assigned_project_activity1->start_date=date('Y-m-d');
+            $assigned_project_activity1->save();
+          }
+          if($percentage==100)
+            $assigned_project_activity->end_date=date('Y-m-d');
           $assigned_project_activity->save();
+
+          $attach=ActivityDocument::find($request->activity_document_id);
+          $data =new AssignedActivityAttachment();
+          $file_path = $request->file('activity_attachment')->path();
+          $file_extension = $request->file('activity_attachment')->getClientOriginalExtension();
+          $data->project_attachements=base64_encode(file_get_contents($file_path));
+          $data->assigned_project_activity_id=$request->attachment_activity;
+          $data->type = $file_extension;
+          $data->attachment_name=$attach->name;
+          $data->assigned_project_activity_id=$request->assigned_project_activity_id;
+          $data->assigned_activity_document_id=$request->assigned_activity_document_id;
+          $data->save();
+        //
+          $assigned_project_activities_id = $assigned_project_activity->id;
+          $assigned_project_activities_progress_log = new AssignedProjectActivityProgressLog();
+          $assigned_project_activities_progress_log->assigned_project_activities_id = $assigned_project_activities_id;
+          $assigned_project_activities_progress_log->progress = $percentage;
+          $assigned_project_activities_progress_log->save();
+          //Saving GLobal Percentage
+          $project = AssignedProject::find($assigned_project_activity->project_id);
+          $project_activities = $project->AssignedProjectActivity;
+          $total_progress = 0;
+          $percentage_array = [15.26,8.26,10.05,6.99,8.03,8.16,14.79,8.23,2.77,9.35,4.17,3.94];
+          $i = 0;
+          foreach($project_activities as $pa){
+            $total_progress = ($total_progress  +  ( ($pa->progress/100.0) * $percentage_array[$i] ));
+            $i += 1;
+          }
+          // return $total_progress;
+          $project->progress = $total_progress;
+          $project->save();
+          return 'Done';
         }
       }
-      return redirect()->back();
-    }
-    public function saveDocAttachments(Request $request){
-      // print_r($request->hasFile('activity_attachment'));
-      if($request->activity_attachment){
-        $data =  $request['data'];
-        $percentage = strtok($data,",");
-        $project_id = strtok(",");
-        $activity_id = strtok(",");
-        $assigned_project_activity = AssignedProjectActivity::find($activity_id);
-        $assigned_project_activity->progress = $percentage;
-        $assigned_project_activity1 = AssignedProjectActivity::find(($activity_id+1));
-        if($assigned_project_activity->start_date && !$assigned_project_activity1->start_date ){
-          // $assigned_project_activity->start_date=date('Y-m-d');
-          $assigned_project_activity1->start_date=date('Y-m-d');
-          $assigned_project_activity1->save();
-        }
-        if($percentage==100)
-          $assigned_project_activity->end_date=date('Y-m-d');
-        $assigned_project_activity->save();
- 
-        $attach=ActivityDocument::find($request->activity_document_id);
-        $data =new AssignedActivityAttachment();
-        $file_path = $request->file('activity_attachment')->path();
-        $file_extension = $request->file('activity_attachment')->getClientOriginalExtension();
-        $data->project_attachements=base64_encode(file_get_contents($file_path));
-        $data->assigned_project_activity_id=$request->attachment_activity;
-        $data->type = $file_extension;
-        $data->attachment_name=$attach->name;
-        $data->assigned_project_activity_id=$request->assigned_project_activity_id;
-        $data->assigned_activity_document_id=$request->assigned_activity_document_id;
-        $data->save();
-      //
-        $assigned_project_activities_id = $assigned_project_activity->id;
-        $assigned_project_activities_progress_log = new AssignedProjectActivityProgressLog();
-        $assigned_project_activities_progress_log->assigned_project_activities_id = $assigned_project_activities_id;
-        $assigned_project_activities_progress_log->progress = $percentage;
-        $assigned_project_activities_progress_log->save();
-        //Saving GLobal Percentage
-        $project = AssignedProject::find($assigned_project_activity->project_id);
-        $project_activities = $project->AssignedProjectActivity;
-        $total_progress = 0;
-        $percentage_array = [15.26,8.26,10.05,6.99,8.03,8.16,14.79,8.23,2.77,9.35,4.17,3.94];
-        $i = 0;
-        foreach($project_activities as $pa){
-          $total_progress = ($total_progress  +  ( ($pa->progress/100.0) * $percentage_array[$i] ));
-          $i += 1;
-        }
-        // return $total_progress;
-        $project->progress = $total_progress;
-        $project->save();
-        return 'Done';
-      }
-    }
       public function projectCompleted(Request $request)
       {
         $projectCompleted = AssignedProject::find($request->assigned_project_id);
@@ -454,7 +459,8 @@ class OfficerController extends Controller
         $project->save();
         return 'Done';
       }
-      public function save_dates(Request $request){
+      public function save_dates(Request $request)
+      {
         $assigned_project=AssignedProjectActivity::find($request->assigned_project_activity_id);
         $assigned_project->start_date=$request->start_date;
         $assigned_project->end_date=$request->end_date;
@@ -496,7 +502,9 @@ class OfficerController extends Controller
         return view('_Monitoring._Officer.projects.completed');
       }
 
-      public function monitoring_inprogress_costs_saved(Request $request){
+      public function monitoring_inprogress_costs_saved(Request $request)
+      {
+
         $total_progresses = AssignedProject::find($request->assigned_project_id)->MProjectProgress;
         $m_project_costs = MProjectCost::where('m_project_progress_id',$total_progresses[count($total_progresses)-1]->id)->first();
         if(!$m_project_costs){
@@ -513,10 +521,13 @@ class OfficerController extends Controller
         $m_project_costs->technical_sanction_cost = $request->technical_sanction_cost;
         $m_project_costs->contract_award_cost = $request->contract_award_cost;
         $m_project_costs->save();
-        return redirect()->back();
+        $msg='Saved';
+        return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
+        // return redirect()->back();
       }
 
-      public function monitoring_inprogress_dates_saved(Request $request){
+      public function monitoring_inprogress_dates_saved(Request $request)
+      {
         $total_progresses = AssignedProject::find($request->assigned_project_id)->MProjectProgress;
         $m_project_dates = MProjectDate::where('m_project_progress_id',$total_progresses[count($total_progresses)-1]->id)->first();
         if(!$m_project_dates){
@@ -528,10 +539,13 @@ class OfficerController extends Controller
         $m_project_dates->admin_approval_date = $request->admin_approval_date;
         $m_project_dates->actual_start_date = $request->actual_start_date;
         $m_project_dates->save();
-        return redirect()->back();
+        $msg='Saved';
+        return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
+        // return redirect()->back();
       }
 
-      public function monitoring_inrogress_organizations_saved(Request $request){
+      public function monitoring_inrogress_organizations_saved(Request $request)
+      {
         $total_progresses = AssignedProject::find($request->assigned_project_id)->MProjectProgress;
         $m_project_organizations = MProjectOrganization::where('m_project_progress_id',$total_progresses[count($total_progresses)-1]->id)->first();
         if(!$m_project_organizations){
@@ -542,10 +556,13 @@ class OfficerController extends Controller
         $m_project_organizations->operation_and_management = $request->operation_and_management;
         $m_project_organizations->contractor_or_supplier = $request->contractor_or_supplier;
         $m_project_organizations->save();
-        return redirect()->back();
+        $msg='Saved';
+        return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
+        // return redirect()->back();
       }
 
-      public function monitoring_inprogress_location_saved(Request $request){
+      public function monitoring_inprogress_location_saved(Request $request)
+      {
         $total_progresses = AssignedProject::find($request->assigned_project_id)->MProjectProgress;
         $m_project_location = MProjectLocation::where('m_project_progress_id',$total_progresses[count($total_progresses)-1]->id)->first();
         if(!$m_project_location){
@@ -559,65 +576,53 @@ class OfficerController extends Controller
         $m_project_location->longitude = $request->longitude;
         $m_project_location->latitude = $request->latitude;
         $m_project_location->save();
-        return redirect()->back();
+        $msg='Saved';
+        return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
+        // return redirect()->back();
       }
 
       public function monitoring_inprogressSingle(Request $request)
       {
 
-       
-        
         if($request->project_id==null)
-          return redirect()->back();
+        return redirect()->back();
 
         $project=AssignedProject::where('project_id',$request->project_id)->orderBy('created_at','desc')->first();
         $total_previousProject = MProjectProgress::where('assigned_project_id',$project->id)->orderBy('created_at', 'desc')->get();
         $previousProject = null;
         $projectProgress = null;
-        if($total_previousProject->count()){
+
+        if(isset($request->status) && $request->status=="conductMonitoring"){
+          $first=$total_previousProject->first();
+          $first->project_status="ONGOING";
+          $first->save();
+        }
+
+        if($total_previousProject->count())
+        {
           // One New Monitoring (it shouldn't be here)
           $previousProject = $total_previousProject->first();
-          // It will change 
+          // It will change
           //TODO
           // $previousProject->quarter = $previousProject->quarter + 1;
           // $previousProject->save();
           $projectProgress=$previousProject;
-
-          
-        }else{
+        }
+        else
+        {
           //Moving Project Progress from New Attachment to Inprogress
           $project->acknowledge = 1;
           $project->save();
 
           $projectProgress = new MProjectProgress();
-          $projectProgress->quarter = 1;    
+          $projectProgress->quarter = 1;
           $projectProgress->assigned_project_id = $project->id;
           $projectProgress->project_status = 'ACTIVE';
           $projectProgress->status = 1;
           $projectProgress->user_id = Auth::id();
           $projectProgress->save();
-            
-        }
-        // dd(count($total_previousProject));
 
-        // Old Code
-        
-        // if(count($total_previousProject) > 0)
-        //   $previousProject = $total_previousProject->last();
-        // if(!$previousProject){
-        //   $projectProgress = new MProjectProgress();
-        //   $projectProgress->assigned_project_id = $project->id;
-        //   if($previousProject!=null){
-        //     $projectProgress->quarter = $previousProject->quarter + 1;
-        //   }
-        //   else{
-        //     $projectProgress->quarter = 1;
-        //   }
-        //   $projectProgress->project_status = 'ACTIVE';
-        //   $projectProgress->status = 1;
-        //   $projectProgress->user_id = Auth::id();
-        //   $projectProgress->save();
-        // }
+        }
 
         $progresses = $projectProgress;
         $costs = null;
@@ -638,15 +643,14 @@ class OfficerController extends Controller
 
         // ConductMonitoring
         $generalFeedback=MGeneralFeedBack::where('status',1)->get();
+
         $issue_types=MIssueType::where('status',1)->get();
+
         $healthsafety=MHealthSafety::where('status',1)->get();
-        // dd($healthsafety[1]->MAssignedProjectHealthSafety[0]->status);
-        // dd($project->Project->AssignedExecutingAgencies);
-        
-        // Chwli
-        // $projectProgressId= MProjectProgress::where('assigned_project_id',$project->id)->get();
+
         $projectProgressId=$progresses;
         $monitoringProjectId=$projectProgressId->id;
+
         $objectives =MPlanObjective::where('status',1)
         ->where('m_project_progress_id',$projectProgressId->id)
         ->get();
@@ -668,24 +672,100 @@ class OfficerController extends Controller
         $ComponentActivities = MPlanComponentActivitiesMapping::where('status',1)
         ->where('m_project_progress_id',$projectProgressId->id)
         ->get();
+
         // dd($ComponentActivities);
         $Kpis =MProjectKpi::where('status',1)->get();
-        $mPlanKpiComponents=$projectProgressId->MPlanKpicomponentMapping;
 
+        $mPlanKpiComponents=$projectProgressId->MPlanKpicomponentMapping;
+        $cities=PlantripCity::orderBy('name')->get();
+        $districts=District::orderBy('name')->get();
         $org_project=Project::where('id',$request->project_id)->first();
         $org_projectId=$org_project->id;
-        // dd($org_project->AssignedExecutingAgencies);
-        // $executing=$org_projectId->AssignedExecutingAgencies;
-        // dd($executing);
+
+        $result_from_app = MAppAttachment::where('m_project_progress_id',$projectProgressId->id)->get();
+        $financial_cost=MProjectCost::where('m_project_progress_id',$projectProgressId->id)->first();
+
+       $project_documents= MProjectAttachment::where('m_project_progress_id',$projectProgressId->id)->get();
+
+       //stakeholders
+       $executingStakeholders= MExecutingStakeholder::where('m_project_progress_id',$projectProgressId->id)->get();
+       $sponsoringStakeholders= MSponsoringStakeholder::where('m_project_progress_id',$projectProgressId->id)->get();
+       $B_Stakeholders= MBeneficiaryStakeholder::where('m_project_progress_id',$projectProgressId->id)->get();
+
+       $qualityassesments=MConductQualityassesment::where('m_project_progress_id',$projectProgressId->id)->get();
+       $m_assigned_issues = MAssignedProjectIssue::where('m_project_progress_id',$projectProgressId->id)->get();
+       
+            // MAssignedKpiLevel1;
+            // MAssignedKpiLevel2;
+            // MAssignedKpiLevel3;
+            // MAssignedKpiLevel4;
+        $physical_progress=0.0;
+        $phy_progress_Sum=[];
+
+        $level_1=MAssignedKpiLevel1::where('m_project_progress_id',$projectProgressId->id)->get();
+      // dd($level_1[0]->MAssignedKpiLevel2[1]->MAssignedKpiLevel3);
+        // monitoring_kpi_recursion($level_1);
+        dd(weight($level_1));
+
+
         \JavaScript::put([
           'projectWithRevised'=>$projectWithRevised,
          'components'=> $components,
          'monitoringProjectId'=> $monitoringProjectId
         ]);
-      //  dd();
-      // dd($progresses);
-        return view('_Monitoring._Officer.projects.inprogressSingle',compact('org_project','org_projectId','projectProgressId','mPlanKpiComponents','ComponentActivities','monitoringProjectId','Kpis','components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
+        // dd($generalFeedback[0]u->MAssignedProjectFeedBack->answer);
+        // dd($components[0]->MPlanObjectivecomponentMapping[0]->m_plan_objective_id);
+        return view('_Monitoring._Officer.projects.inprogressSingle'
+        ,compact('m_assigned_issues','qualityassesments','B_Stakeholders','sponsoringStakeholders','executingStakeholders',
+        'project_documents','result_from_app','org_project','districts','cities',
+        'org_projectId','projectProgressId','mPlanKpiComponents','ComponentActivities',
+        'monitoringProjectId','Kpis','components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
       }
+
+      public function weight($level_1){
+        $wl1 = 0;
+        $wl2 = 0;
+        $wl3 = 0;
+        $wl4 = 0;
+
+            
+        foreach ($level_1 as $item)
+        {
+          $wl2 = 0;
+          foreach ($item->MAssignedKpiLevel2 as $item2)
+          {
+            $check2 = true;
+            $wl3 = 0;
+            foreach ($item2->MAssignedKpiLevel3 as $item3)
+            {
+              $check3 = true;
+              $wl4 = 0;
+              foreach ($item3->MAssignedKpiLevel4 as $item4)
+              {
+                $wl4 += $item4->current_weightage;
+                $check3 = false;
+              }
+
+              if(!$check3){
+                $wl3 += $wl4;
+              }
+              else {
+                $wl3 += $item3->current_weightage;
+              }
+              $check2 = false;
+            }
+            if(!$check2){
+              $wl2 += $wl3;
+            }
+            else {
+              $wl2 += $item2->current_weightage;
+            }
+          }
+          $wl1 += $wl2;
+        }
+        return $wl1;        
+      }
+
       public function monitoring_review_form(Request $request)
       {
         // print_r(json_decode($request->data));
@@ -695,7 +775,8 @@ class OfficerController extends Controller
       // ---- Officers Charts --------
 
       // Total Projects
-      public function officer_chart_one(){
+      public function officer_chart_one()
+      {
         // Charts
         $actual_total_projects = Project::select('projects.*')
         ->leftJoin('assigned_projects','projects.id','assigned_projects.project_id')
@@ -753,8 +834,49 @@ class OfficerController extends Controller
           return view('officer.charts.officer_chart_one',['total_projects'=>$actual_total_projects ,'inprogress_projects'=>$inprogress_projects ,'completed_projects'=>$completed_projects]);
       }
 
-
-      public function officer_chart_two(){
+      public function calculateMFinancialProgress($m_project_progress_id)
+      {
+        $financial_cost=MProjectCost::where('m_project_progress_id',$m_project_progress_id)->orderBy('created_at','desc')->first();
+        $financial_progress=0.0;
+        if($financial_cost)
+            $financial_progress=($financial_cost->utilization_against_releases/$financial_cost->total_release_to_date)*100;
+      }
+      public function calculateMPhysicalProgress($m_project_progress_id)
+      {
+          $kpiCompMapping=MPlanKpicomponentMapping::where('m_project_progress_id',$m_project_progress_id)->get();
+          $arr=array_fill(0,$kpiCompMapping->count(),0);
+          $i=0;
+          foreach($kpiCompMapping as $main)
+          {
+            foreach($main->MAssignedKpiLevel1 as $lv1){
+              foreach($lv1->MAssignedKpiLevel2 as $lv2){
+                foreach($lv2->MAssignedKpiLevel3 as $lv3){
+                  foreach($lv3->MAssignedKpiLevel4 as $lv4){
+                    $we=$lv4->current_weightage;
+                    if(!$we)
+                      $we=0;
+                    $arr[$i]+=$we;
+                  }
+                  $we=$lv3->current_weightage;
+                  if(!$we)
+                    $we=0;
+                  $arr[$i]+=$we;
+                }
+                $we=$lv2->current_weightage;
+                if(!$we)
+                  $we=0;
+                $arr[$i]+=$we;
+              }
+              $we=$lv1->current_weightage;
+              if(!$we)
+                $we=0;
+              $arr[$i]+=$we;
+            }
+            $i++;
+          }
+      }
+      public function officer_chart_two()
+      {
         $projects=AssignedProject::select('assigned_projects.*')
         ->leftJoin('projects','projects.id','assigned_projects.project_id')
         ->leftJoin('assigned_project_teams','assigned_project_teams.id','assigned_projects.project_id')
@@ -797,10 +919,8 @@ class OfficerController extends Controller
           ]);
           return view('officer.charts.officer_chart_two');
       }
-
-
-
-      public function officer_chart_three(){
+      public function officer_chart_three()
+      {
         $activities= AssignedProjectActivity::all();
         $projects_activities_progress = array_fill(0, 12, 0);
          $activities_data = DB::select(
@@ -828,7 +948,8 @@ class OfficerController extends Controller
           ]);
         return view('officer.charts.officer_chart_three',[ 'activities' => $activities ,'projects_activities_progress'=>$projects_activities_progress]);
       }
-      public function saveGeneralFeedBack(Request $request){
+      public function saveGeneralFeedBack(Request $request)
+      {
         foreach ($request->generalFeedback as $gf) {
           $temp=explode("_",$gf);
           $m_general_feed_back_id=$temp[0];
@@ -847,7 +968,8 @@ class OfficerController extends Controller
           $generalFeedback->save();
         }
       }
-      public function saveMissues(Request $request){
+      public function saveMissues(Request $request)
+      {
         foreach($request->issue as $key=>$issue){
           $project_issue = new MAssignedProjectIssue();
           $project_issue->issue=$issue;
@@ -863,7 +985,8 @@ class OfficerController extends Controller
         }
       }
 
-      public function savehealthsafety(Request $request){
+      public function savehealthsafety(Request $request)
+      {
         foreach ($request->status as $key=>$healthsafety) {
           $temp=explode("_",$healthsafety);
           $hs=$temp[0];
@@ -876,7 +999,7 @@ class OfficerController extends Controller
           else
             $healthSafety=new MAssignedProjectHealthSafety();
           $healthSafety->m_health_safety_id=$hs;
-          $healthSafety->user_id=Auth::id(); 
+          $healthSafety->user_id=Auth::id();
           $healthSafety->status=$answer;
           $healthSafety->remarks=$request->comments[$key];
           $healthSafety->m_project_progress_id=$request->m_project_progress_id;
@@ -892,10 +1015,10 @@ class OfficerController extends Controller
          {
           //  MPlanObjective::where('m_project_progress_id',$request->m_project_progress_id)->delete();
            $msg="Updated";
-         } 
+         }
         foreach($request->obj as $objective)
           {
-            $objectives= new MPlanObjective(); 
+            $objectives= new MPlanObjective();
             $objectives->m_project_progress_id = $request->m_project_progress_id;
             $objectives->user_id=Auth::id();
             $objectives->objective=$objective;
@@ -906,7 +1029,7 @@ class OfficerController extends Controller
             {
               // MPlanComponent::where('m_project_progress_id',$request->m_project_progress_id)->delete();
               $msg="Updated";
-            } 
+            }
           foreach($request->comp as $component)
           {
             $components=new MPlanComponent();
@@ -921,7 +1044,7 @@ class OfficerController extends Controller
           $components=MPlanComponent::where('m_project_progress_id',$request->m_project_progress_id)->get();
 
           return response()->json(["type"=>"success","msg"=>$msg." Successfully","data"=>["objectives"=>$objectives,"components"=>$components],"resType"=>"ObjectiveAndComponents"]);
-          
+
       }
 
       public function mappingOfObj(Request $request)
@@ -959,7 +1082,7 @@ class OfficerController extends Controller
           foreach($_POST['mappedKpicomponent_'.$i] as $mappComp)
           {
             $kpiCompMapping= new MPlanKpicomponentMapping();
-            
+
             $kpiCompMapping->m_project_progress_id = $request->m_project_progress_id;
             $kpiCompMapping->m_project_kpi_id=$kpi;
             $kpiCompMapping->user_id=Auth::id();
@@ -986,7 +1109,7 @@ class OfficerController extends Controller
                   $kpiCompMapping3->m_assigned_kpi_level2_id= $kpiCompMapping2->id;
                   $kpiCompMapping3->m_project_level3_kpis_id= $lev3->id;
                   $kpiCompMapping3->save();
-        
+
                   foreach ($kpiCompMapping3->MProjectLevel3Kpi->MProjectLevel4Kpi as $lev4) {
                     $kpiCompMapping4= new MAssignedKpiLevel4();
                     $kpiCompMapping4->m_project_progress_id= $request->m_project_progress_id;
@@ -1012,7 +1135,7 @@ class OfficerController extends Controller
         {
           // MPlanComponentActivitiesMapping::where('m_project_progress_id',$request->m_project_progress_id)->delete();
           $msg="Updated";
-        } 
+        }
         $i=0;
         foreach($request->compforactivity as $compActivity)
         {
@@ -1036,7 +1159,7 @@ class OfficerController extends Controller
         ->get();
         return response()->json(["type"=>"success","msg"=>$msg." Successfully", "resType"=>"forTime","data"=>["CompActivityMapping"=>$CompActivityMapping]]);
       }
-       
+
 
       public function activities_duration(Request $request)
       {
@@ -1046,7 +1169,7 @@ class OfficerController extends Controller
         // {
         //   MPlanComponentactivityDetailMapping::where('m_project_progress_id',$request->m_project_progress_id)->delete();
         //   $msg="Updated";
-        // } 
+        // }
 
         $size=count($request->componentActivityId);
         for($i=0 ; $i < $size ; $i++ )
@@ -1059,7 +1182,7 @@ class OfficerController extends Controller
         }
         // $CompActivityDetails=MPlanComponentactivityDetailMapping::where('m_project_progress_id',$request->m_project_progress_id)->get();
         return response()->json(["type"=>"success","msg"=>" Successfully"]);
-   
+
       }
 
       public function Costing(Request $request)
@@ -1069,12 +1192,12 @@ class OfficerController extends Controller
         // {
         //   MPlanComponentactivityDetailMapping::where('m_project_progress_id',$request->m_project_progress_id)->delete();
         //   $msg="Updated";
-        // } 
+        // }
         $size=count($request->activityId);
         for($i=0 ; $i < $size ; $i++ )
         {
             $CompActivityDetails = MPlanComponentactivityDetailMapping::find($request->activityId[$i]);
-            $CompActivityDetails->user_id=Auth::id();           
+            $CompActivityDetails->user_id=Auth::id();
             $CompActivityDetails->unit =$request->Unit[$i];
             $CompActivityDetails->quantity=$request->Quantity[$i];
             $CompActivityDetails->cost=$request->Cost[$i];
@@ -1084,7 +1207,7 @@ class OfficerController extends Controller
         }
         // $CompActivityDetails=MPlanComponentactivityDetailMapping::where('m_project_progress_id',$request->m_project_progress_id)->get();
         return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
-   
+
       }
       public function saveMonitoringAttachments(Request $request)
       {
@@ -1114,19 +1237,19 @@ class OfficerController extends Controller
 
       // return dd($request->all());
       // return response()->json($request->all());
-      
+
       $i=0;
-       
+
          while(1)
          {
-         
-          
+
+
            if(isset($_POST['activitiesforconduct_'.$i]))
-           { 
+           {
              $k=0;
-             foreach($_POST['activitiesforconduct_'.$i] as $activity) 
+             foreach($_POST['activitiesforconduct_'.$i] as $activity)
             {
-            
+
             $qualityassesment = new MConductQualityassesment();
 
             $qualityassesment->m_project_progress_id = $request->m_project_progress_id;
@@ -1138,7 +1261,7 @@ class OfficerController extends Controller
               // dd($activity);
             if(isset($_POST['qualityassesment_'.$i][$k]))
             $qualityassesment->assesment=$_POST['qualityassesment_'.$i][$k];
-           
+
             if(isset($_POST['progresspercentage_'.$i][$k]))
             $qualityassesment->progressinPercentage=$_POST['progresspercentage_'.$i][$k];
 
@@ -1146,20 +1269,21 @@ class OfficerController extends Controller
             $qualityassesment->remarks=$_POST['qa_remarks_'.$i][$k];
             $qualityassesment->save();
             $k++;
-          } 
+          }
          $i++;
         }
         else
           break;
       }
-      
+
       return redirect()->back();
 
-    
+
      }
 
      public function savestakeholders(Request $request)
      {
+      //  dd($request);
         $i =0;
         $j=0;
         $k=0;
@@ -1213,9 +1337,27 @@ class OfficerController extends Controller
          $benef_st->contactNo=$request->Beneficiarystakeholder_number[$k];
         $benef_st->save();
         $k++;
-         
+
        }
        return redirect()->back();
      }
+
+
+    //  CM DASHBOARD
+    public function DetailedDashboard()
+    {
+      $projects= Project::select('projects.*')
+      ->leftjoin('assigned_projects','projects.id','assigned_projects.project_id')
+      ->leftjoin('assigned_project_teams','assigned_projects.id','assigned_project_teams.assigned_project_id')
+      ->where('assigned_project_teams.user_id',Auth::id())
+      ->where('assigned_projects.complete',0)
+      ->where('project_type_id',2)
+      ->where('acknowledge',1)
+      ->where('status',1)
+      ->get();
+
+      // $projects=Auth::user()->AssignedProjectTeam
+      return view('_Monitoring.monitoringDashboard.index',compact('projects'));
+    }
 
     }

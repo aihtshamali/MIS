@@ -10,4 +10,7 @@ class ExecutingAgency extends Model
         return $this->hasMany('App\AssignedExecutingAgency');
     }
 
+    public function MAssignedProjectIssue(){
+      return $this->hasMany('App\MAssignedProjectIssue');
+    }
 }
