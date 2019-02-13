@@ -63,10 +63,11 @@
                                     <td>{{$project->Project->title}}</td>
                                     <td>
                                         @foreach ($project->AssignedProjectTeam as $team)
+                                        {{$project}}
                                         @if ($team->team_lead==1)
-                                            <span style="font-weight:bold;color:blue">{{$team->user->first_name}}  {{$team->user->last_name}} -</span>
+                                            <span style="font-weight:bold;color:blue">{{$team->User->first_name}}  {{$team->User->last_name}} -</span>
                                         @else
-                                            <span class="">{{$team->user->first_name}} {{$team->user->last_name}}</span>
+                                            <span class="">{{$team->User->first_name}} {{$team->User->last_name}}</span>
                                         @endif
                                         @endforeach
                                     </td>
