@@ -6,38 +6,44 @@
 <style media="screen">
   .mtb{margin: 1% 0% !important;}
   .pdlfrt1{padding: 0% 1% !important;}
+  .page-body{background: #fff;box-shadow: 3px 0px 23px #00000040;}
+  .mxh3h{max-height: 300px !important;transition: all 900ms ease;
+  -webkit-transition: all 900ms ease;cursor: pointer;}
+  .mxh3h:hover{box-shadow: 9px 6px 15px #85c5e340; transition:transition: all 900ms ease;
+  -webkit-transition: all 900ms ease;}
+  #chartdiv{height: 300px !important;}
 </style>
 @endsection
 @section('content')
 <div class="row col-md-12 pdlfrt1">
-  <div class="col-md-3 pdlfrt1 mtb">
+  <div class="col-md-4 pdlfrt1 mtb mxh3h">
     <div class="border col-md-12">
       <a href="{{route('m_chart_one')}}">
           <div id="chartdiv"></div>
       </a>
     </div>
   </div>
-  <div class="col-md-3 pdlfrt1 mtb">
+  <div class="col-md-4 pdlfrt1 mtb mxh3h mxh3h">
     <div class="border col-md-12">
         Put AM Charts here...
     </div>
   </div>
-  <div class="col-md-3 pdlfrt1 mtb">
+  <div class="col-md-4 pdlfrt1 mtb mxh3h mxh3h">
     <div class="border col-md-12">
         Put AM Charts here...
     </div>
   </div>
-  <div class="col-md-3 pdlfrt1 mtb">
+  <div class="col-md-4 pdlfrt1 mtb mxh3h">
     <div class="border col-md-12">
         Put AM Charts here...
     </div>
   </div>
-  <div class="col-md-3 pdlfrt1 mtb">
+  <div class="col-md-4 pdlfrt1 mtb mxh3h">
     <div class="border col-md-12">
         Put AM Charts here...
     </div>
   </div>
-  <div class="col-md-3 pdlfrt1 mtb">
+  <div class="col-md-4 pdlfrt1 mtb mxh3h">
     <div class="border col-md-12">
         Put AM Charts here...
     </div>

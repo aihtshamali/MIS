@@ -5,30 +5,35 @@
 @section('styleTags')
 <style media="screen">
   .mtb{margin: 1% 0% !important;}
+  .lightblue{padding: 5% 5%;background: #3d46b3;}
+  .dark-grey{padding: 5% 5%;background: #777;}
+  .darkblue{padding: 5% 5%;background: #0404ef;}
+  .purple{padding: 5% 5%;background: #a50da5;}
   .pdlfrt1{padding: 0% 1% !important;}
+  .page-body{background: #fff;box-shadow: 3px 0px 23px #00000040;}
 </style>
 @endsection
 @section('content')
 <div class="row col-md-12 pdlfrt1">
   <div class="col-md-12 pdlfrt1 mtb">
-    <div class="border col-md-12">
+    <div class="col-md-12">
           <div id="chartdiv"></div>
-          <div class="card-footer">
-            <div style="padding:5px;display:inline-block;">
-            <span class="lightblue">-</span>
-            <label style="vertical-align:-webkit-baseline-middle;">{{$total_projects}} Total Projects</label>
-        </div>
-        <div style="padding:5px; display:inline-block;">
-            <span class="dark-grey">-</span>
-            <label style="vertical-align:-webkit-baseline-middle;">{{$total_projects-$inprogress_projects-$completed_projects}} Total Un-Assigned Projects</label>
-        </div>
-        <div style="padding:5px; display:inline-block;">
-                <span class="darkblue">-</span>
-                <label style="vertical-align:-webkit-baseline-middle;">{{$inprogress_projects}} Total InProgress Projects</label>
+          <div class="card-footer col-md-12 row">
+            <div class="col-md-3">
+              <span class="col-md-1 lightblue float-left"></span>
+              <span class="col-md-10 float-left" style="vertical-align:-webkit-baseline-middle;">&nbsp;{{$total_projects}} Total Projects</span>
             </div>
-        <div style="padding:5px; display:inline-block;">
-                <span class="purple">-</span>
-                <label style="vertical-align:-webkit-baseline-middle;">{{$completed_projects}} Completed Projects</label>
+            <div class="col-md-3">
+                <span class="col-md-1 dark-grey float-left"></span>
+                <span class="col-md-10 float-left" style="vertical-align:-webkit-baseline-middle;">&nbsp;{{$total_projects-$inprogress_projects-$completed_projects}} Total Un-Assigned Projects</span>
+            </div>
+            <div class="col-md-3">
+              <span class="col-md-1 darkblue float-left"></span>
+              <span class="col-md-10 float-left" style="vertical-align:-webkit-baseline-middle;">&nbsp;{{$inprogress_projects}} Total InProgress Projects</span>
+            </div>
+            <div class="col-md-3">
+              <span class="col-md-1 purple float-left"></span>
+              <span class="col-md-10 float-left" style="vertical-align:-webkit-baseline-middle;">&nbsp;{{$completed_projects}} Completed Projects</span>
             </div>
         </div>
     </div>
