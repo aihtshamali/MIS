@@ -18,7 +18,7 @@
   <div class="col-md-12 pdlfrt1 mtb">
     <div class="col-md-12">
           <div id="chartdiv"></div>
-          <div class="card-footer col-md-12 row">
+          {{-- <div class="card-footer col-md-12 row">
             <div class="col-md-3">
               <span class="col-md-1 lightblue float-left"></span>
               <span class="col-md-10 float-left" style="vertical-align:-webkit-baseline-middle;">&nbsp;{{$total_projects}} Total Projects</span>
@@ -35,15 +35,15 @@
               <span class="col-md-1 purple float-left"></span>
               <span class="col-md-10 float-left" style="vertical-align:-webkit-baseline-middle;">&nbsp;{{$completed_projects}} Completed Projects</span>
             </div>
-        </div>
+        </div> --}}
     </div>
   </div>
 </div>
 @endsection
 @section('js_scripts')
-{{-- {{-- <script src="{{asset('js/app.js')}}"></script> --}}
+<script src="{{asset('js/app.js')}}"></script>
 <script>
-  am4core.useTheme(am4themes);
+  // am4core.useTheme(am4themes);
   // am4core.useTheme(am4themes_animated);
   let chart = am4core.create("chartdiv", am4charts.XYChart);
 
@@ -84,12 +84,12 @@ categoryAxis.renderer.labels.template.adapter.add("dy", function(dy, target) {
 
 var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 
-chart.colors.list = [
-  am4core.color("#845EC2"),
-  am4core.color("#D65DB1"),
-  am4core.color("#FF6F91"),
-  am4core.color("#FF9671"),
-];
+// chart.colors.list = [
+//   am4core.color("#845EC2"),
+//   am4core.color("#D65DB1"),
+//   am4core.color("#FF6F91"),
+//   am4core.color("#FF9671"),
+// ];
 
 // Create series
 var series = chart.series.push(new am4charts.ColumnSeries());
@@ -99,10 +99,10 @@ series.name = "Value";
 series.columns.template.tooltipText = "{categoryX}: [bold]{valueY}[/]";
 series.columns.template.fillOpacity = .8;
 
-// var valueLabel = series.bullets.push(new am4charts.LabelBullet());
-// valueLabel.label.text = "{categoryX}: {valueY}[/]";
-// valueLabel.label.fontSize = 15;
-// valueLabel.label.verticalCenter = "bottom";
+var valueLabel = series.bullets.push(new am4charts.LabelBullet());
+valueLabel.label.text = "{categoryX}: {valueY}[/]";
+valueLabel.label.fontSize = 15;
+valueLabel.label.verticalCenter = "bottom";
 
 // var columnTemplate = series.columns.template;
 // columnTemplate.strokeWidth = 2;
