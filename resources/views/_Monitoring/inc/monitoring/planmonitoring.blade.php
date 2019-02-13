@@ -1,3 +1,6 @@
+<style>
+
+</style>
 <div class="tab-pane " id="p_monitoring" role="tabpanel">
     <div class="row">
         <div class="col-lg-12 col-xl-12 col-md-12 col-sm-6">
@@ -211,20 +214,21 @@
                             <h5 class="textlef pd_1_2 col-md-6"><b>Component</b></h5>
                         </div>
                         <ul class="pd_1_6" id="ObjCompHere">
+                          <!-- @php
+                          $i=0;
+                          @endphp -->
                           @php
                           $i=0;
                           @endphp
+                          @foreach ($objectives as $obj)
                             <li class="row mb_2">
-                                @php
-                                 $i=0;
-                                @endphp
-                                    @foreach ($objectives as $obj)
                                         <span id="objectiveHere" name=""  class="float-left col-md-6">
                                             <input type="hidden" value="{{$obj->id}}" name="objective[]">
                                             {{$obj->objective}}
                                         </span>
                                         <span class="float-right col-md-6">
                                         <select class="select2 col-md-12" id="component" name="mappedComp_{{$i}}[]" multiple="multiple">
+
                                         @foreach ($components as $comp)
                                         <option
                                                 @foreach ($comp->MPlanObjectivecomponentMapping as $mappedComp)
@@ -237,11 +241,11 @@
                                         @endforeach
                                         </select>
                                         </span>
+                                    </li>
                                     @php
                                     $i++;
-                                   @endphp
+                                    @endphp
                                     @endforeach
-                                    </li>
                         </ul>
                         {{-- <button class="btn aho col-md-3 btn btn-alert offset-md-7 " type="button" style="background: #406765;border: 1px solid; " id="ObjCompShowSum">Show Summary</button> --}}
                         <button class="btn aho col-md-1 btn btn-primary pull-right" type="submit" id="saveCompagainstObj">Save </button>

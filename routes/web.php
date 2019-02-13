@@ -296,7 +296,9 @@ Route::group(['middleware'=>['permission:can.problematicremark']],function(){
 
 Route::get('/dashboard',"HomeController@dashboard")->name("evaluation_dashboard");
 Route::post('/printerfunction','AdminHumanResourceController@printer');
-
+Route::get('/analytics', function () {
+    return view('_Monitoring/analytics/analytics');
+})->name('analytics');
 
 Route::get('/403',function(){
   return view('403');
