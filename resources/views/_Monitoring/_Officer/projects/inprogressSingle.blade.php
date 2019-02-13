@@ -308,7 +308,7 @@
                               </tr>
                               <tr>
                                 <td><i class="icofont icofont-spinner-alt-3"></i> Revisions:</td>
-                                <td class="text-center">{{$progresses->count()}}</td>
+                                <td class="text-center">{{count($project->MProjectProgress)}}</td>
                               </tr>
 
                               <tr>

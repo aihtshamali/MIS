@@ -58,7 +58,7 @@
                          />
                     </div>
                     <div class="form-group">
-                        <label for="" class="col-form-label"><b>Utilization Against Cost Allocation :</b></label>
+                        <label for="" class="col-form-label"><b>Utilization : </b></label>
                         <br>
                     <input type="text" step="0.01" class="form-control" name="utilization_against_cost_allocation" id="utilization_allocation"
                     @if ($costs)
@@ -175,7 +175,7 @@
                         @if (isset($location->city))
                         <option value="{{$city->name}}" {{($city->name==$location->city) ? 'selected' : ''}}>{{$city->name}}</option>
                         @else
-                        <option value="{{$city->name}}">{{$city->name}}</option>                            
+                        <option value="{{$city->name}}">{{$city->name}}</option>
                         @endif
                       @endforeach
                   </select>
