@@ -223,6 +223,12 @@
                       </a>
                   </div>
                   <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
+                      <a href="https://a2.files.diawi.com/app-file/NgqXhxp0wHgv3sHs7SyC.apk" class="tile purple">
+                        <h3 class="title">Monitoring App</h3>
+                        <hr/>
+                        <p>Download Monitoring App</p>
+                      </a>
+                  </div>
                   <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.6s">
                       <a href="{{route('evaluation_dashboard')}}" class="tile orange">
                         <h3 class="title">Evaluation</h3>
