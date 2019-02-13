@@ -53,7 +53,7 @@
                                <th>Assigning Forum</th>
                                 <th>Project Type</th>
                                 {{-- <th>Action</th> --}}
-                                
+
                             </tr>
                             </thead>
                             <tbody>
@@ -63,7 +63,6 @@
                                     <td>{{$project->Project->title}}</td>
                                     <td>
                                         @foreach ($project->AssignedProjectTeam as $team)
-                                        {{$project}}
                                         @if ($team->team_lead==1)
                                             <span style="font-weight:bold;color:blue">{{$team->User->first_name}}  {{$team->User->last_name}} -</span>
                                         @else
@@ -76,11 +75,11 @@
                                      <td>{{$project->Project->ProjectType->name}}</td>
                                 </tr>
                               @endforeach
-                                
+
                             </tbody>
                         </table>
                     </div>
-                </div>   
+                </div>
         </div>
         <div class="card-footer"></div>
     </div>
