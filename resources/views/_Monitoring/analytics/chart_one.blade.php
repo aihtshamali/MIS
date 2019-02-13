@@ -36,25 +36,31 @@
 </div>
 @endsection
 @section('js_scripts')
-<script src="{{asset('js/app.js')}}"></script>
+{{-- {{-- <script src="{{asset('js/app.js')}}"></script> --}}
 <script>
+  am4core.useTheme(am4themes);
+  // am4core.useTheme(am4themes_animated);
   let chart = am4core.create("chartdiv", am4charts.XYChart);
 
   chart.data = [{
     "Type": "Total Projects",
-    "value": total_projects
+    "value": total_projects,
+    // "color": "#6600ff"
   },
   {
     "Type": "UnAssigned Projects",
-    "value": total_projects-inprogress_projects-completed_projects
+    "value": total_projects-inprogress_projects-completed_projects,
+    // "color": "#0099e6"
   },
   {
     "Type": "InProgress Projects",
-    "value": inprogress_projects
+    "value": inprogress_projects,
+    // "color": "#4dc3ff"
   },
   {
     "Type": "Completed Projects",
-    "value": completed_projects
+    "value": completed_projects,
+    // "color": "#40bf80"
   }];
 
 // Create axes
@@ -73,6 +79,13 @@ categoryAxis.renderer.labels.template.adapter.add("dy", function(dy, target) {
 
 var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 
+chart.colors.list = [
+  am4core.color("#845EC2"),
+  am4core.color("#D65DB1"),
+  am4core.color("#FF6F91"),
+  am4core.color("#FF9671"),
+];
+
 // Create series
 var series = chart.series.push(new am4charts.ColumnSeries());
 series.dataFields.valueY = "value";
@@ -81,8 +94,13 @@ series.name = "Value";
 series.columns.template.tooltipText = "{categoryX}: [bold]{valueY}[/]";
 series.columns.template.fillOpacity = .8;
 
-var columnTemplate = series.columns.template;
-columnTemplate.strokeWidth = 2;
-columnTemplate.strokeOpacity = 1;
+// var valueLabel = series.bullets.push(new am4charts.LabelBullet());
+// valueLabel.label.text = "{categoryX}: {valueY}[/]";
+// valueLabel.label.fontSize = 15;
+// valueLabel.label.verticalCenter = "bottom";
+
+// var columnTemplate = series.columns.template;
+// columnTemplate.strokeWidth = 2;
+// columnTemplate.strokeOpacity = 1;
 </script>
 @endsection
