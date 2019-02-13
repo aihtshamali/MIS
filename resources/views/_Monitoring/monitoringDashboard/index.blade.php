@@ -47,45 +47,45 @@ object-fit: cover;
                           <div class="col-md-2">
                           <b class="hedingInt">{{$project->financial_year}}/{{$project->ADP}}</b>
                           </div>
-                          <div class="col-md-2">
-                            <b class="hedingTxt">Project Cost<span class="pull-right hidden-xs hidden-sm">:</span></b>
-                          </div>
-                          <div class="col-md-2">
-                          <b class="hedingInt">{{$project->ProjectDetail->orignal_cost}} million {{$project->ProjectDetail->currency}}</b>
-                          </div>
-                          <div class="col-md-2">
+                          <!-- <div class="col-md-2">
                             <b class="hedingTxt">Status Alert<span class="pull-right hidden-xs hidden-sm">:</span></b>
-                          </div>
-                          <div class="col-md-2">
+                          </div> -->
+                          <!-- <div class="col-md-2">
                             <a href="{{ route('Summary') }}">
-                              <b class="statusTxt" id="status">30%</b>
+                              <b class="statusTxt status" id="">{{(round(calculateMFinancialProgress($project->AssignedProject->MProjectProgress->last()->id),2) + round(calculateMPhysicalProgress($project->AssignedProject->MProjectProgress->last()->id),2)) / 2}} %</b>
                             </a>
-                          </div>
-                        </div>
-                        <div class="col-md-12 border-bottom">
+                          </div> -->
                           <div class="col-md-2">
                             <b class="hedingTxt">Financial Progress<span class="pull-right hidden-xs hidden-sm">:</span></b>
                           </div>
                           <div class="col-md-2">
-                            <b class="hedingInt">{{calculateMFinancialProgress($project->AssignedProject->MProjectProgress->last()->id)}}%</b>
+                            <b class="hedingInt">{{round(calculateMFinancialProgress($project->AssignedProject->MProjectProgress->last()->id),2)}}%</b>
                           </div>
                           <div class="col-md-2">
                             <b class="hedingTxt">Physical Progress<span class="pull-right hidden-xs hidden-sm">:</span></b>
                           </div>
                           <div class="col-md-2">
-                            <b class="hedingInt">{{calculateMPhysicalProgress($project->AssignedProject->MProjectProgress->last()->id)}}%</b>
+                            <b class="hedingInt">{{round(calculateMPhysicalProgress($project->AssignedProject->MProjectProgress->last()->id),2)}}%</b>
                           </div>
+                        </div>
+                        <div class="col-md-12 border-bottom">
 
+                          <div class="col-md-2">
+                            <b class="hedingTxt">Project Cost<span class="pull-right hidden-xs hidden-sm">:</span></b>
+                          </div>
+                          <div class="col-md-2">
+                          <b class="hedingInt">{{round($project->ProjectDetail->orignal_cost,2)}} million {{$project->ProjectDetail->currency}}</b>
+                          </div>                          
                         </div>
                           <div class="col-md-8 col-md-offset-2 carousel-content pdt3p">
                               <div>
-                                @if ($project->AssignedProject->MProjectProgress->last()->MAppAttachment->last())
+                                @if ($project->AssignedProject->MProjectProgress->last()->MAppAttachment->where('type','image/jpeg')->last())
                                   @php
-                                     $attachment= $project->AssignedProject->MProjectProgress->last()->MAppAttachment->last()
+                                     $attachment= $project->AssignedProject->MProjectProgress->last()->MAppAttachment->where('type','image/jpeg')->last()
                                   @endphp
-                                  <img src="{{asset('storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement)}}" alt="Chicago" style="width:100%;">  
+                                  <img src="{{'http://172.16.10.11/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}" alt="Chicago" style="width:100%;">
                                 @else
-                                  <img src="{{asset('monitoringDashboard/img/a (1).jpg')}}" alt="Chicago" style="width:100%;">
+                                  <img src="{{'http://172.16.10.11/storage/monitoringDashboard/img/a (1).jpg'}}" alt="" style="width:100%;">
                                 @endif
                               </div>
                           </div>

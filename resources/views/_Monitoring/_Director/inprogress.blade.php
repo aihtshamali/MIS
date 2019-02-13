@@ -2,6 +2,38 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/css/dataTables.bootstrap4.min.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/pages/data-table/css/buttons.dataTables.min.css')}}" />
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/responsive.bootstrap4.min.css')}}" />
+<style media="screen">
+    .pcoded .pcoded-navbar .pcoded-item{width: 100% !important;}
+        .header-content{
+          padding:10px;
+        }
+        table.projects th , td{
+          text-align: center !important;
+        }
+        .veryHigh{
+          height: 100%;
+        }
+        .parent {
+          overflow: hidden;
+          position: relative;
+          width: 100%;
+        }
+        .priority{
+          /* background: #fff; */
+       opacity: .4;
+       color:black;
+       font-weight: bold;
+        }
+        .child-right {
+          background:green;
+          height: 100%;
+          width: 50%;
+          position: absolute;
+          right: 0;
+          top: 0;
+        }
+
+      </style>
 @section('content')
 <div class="row">
     <div class="col-md-12">
@@ -14,28 +46,36 @@
                                 class="table table-bordered table-stripped nowrap">
                             <thead>
                             <tr>
+                                <th>Project #</th>
                                 <th>Project Name</th>
-                                <th>Sector</th>
-                                <th>Progress</th>
-                                <th>SNE</th>
+                                <th>Assigned To</th>
+                                 <th>Project Score</th>
+                               <th>Assigning Forum</th>
+                                <th>Project Type</th>
                                 {{-- <th>Action</th> --}}
                                 
                             </tr>
                             </thead>
                             <tbody>
+                                @foreach($projects as $project)
                                 <tr>
-                                    <td>Dummy Project</td>
-                                    <td>Dummy Sector</td>
-                                    
-                                    <td><div class="progress">
-                                            <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width: 35%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> 35%</div>
-                                        </div></td>
-                                        <td>DUMMY SNE</td>
-                                    {{-- <td>
-                                    <a href="{{route('monitoring_inprogressSingle')}}" class="btn btn-md  btn-info"> Conduct Monitoring</a>
-                                    </td> --}}
+                                    <td>{{$project->Project->project_no}}</td>
+                                    <td>{{$project->Project->title}}</td>
+                                    <td>
+                                        @foreach ($project->AssignedProjectTeam as $team)
+                                        {{$project}}
+                                        @if ($team->team_lead==1)
+                                            <span style="font-weight:bold;color:blue">{{$team->User->first_name}}  {{$team->User->last_name}} -</span>
+                                        @else
+                                            <span class="">{{$team->User->first_name}} {{$team->User->last_name}}</span>
+                                        @endif
+                                        @endforeach
+                                    </td>
+                                    <td>{{round($project->Project->score,2,PHP_ROUND_HALF_UP) }}</td>
+                                    <td>{{ $project->Project->ProjectDetail->AssigningForum->name }}</td>
+                                     <td>{{$project->Project->ProjectType->name}}</td>
                                 </tr>
-
+                              @endforeach
                                 
                             </tbody>
                         </table>

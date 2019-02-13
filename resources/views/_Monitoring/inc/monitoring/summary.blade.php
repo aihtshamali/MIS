@@ -1,4 +1,4 @@
-<div class="tab-pane" id="summary" role="tabpanel">
+<div class="tab-pane nodisplay" id="summary" role="tabpanel">
     <fieldset>
         <div class="form-group row">
             <div class="col-md-1 col-sm-1">
@@ -153,4 +153,7 @@
         </div> --}}
 {{-- end newtiQ map --}}
     </fieldset>
+    <div class="pull-right" style="padding-top:2%">
+      <button type="button" class="btn btn-success btn-lg" disabled name="Complete">Complete This Monitoring</button>
+    </div>
 </div>

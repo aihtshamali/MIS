@@ -439,7 +439,7 @@
               </div>
           </div>
           {{-- start news slider --}}
-          <div id="content-wrapper">
+          <!-- <div id="content-wrapper">
             <div class="inner clearfix">
               <section id="main-content">
                   <div id="demos">
@@ -470,7 +470,7 @@
                         </div>
                       </section>
                     </div>
-                  </div>
+                  </div> -->
           {{-- end news slider --}}
           <!-- Footer Section -->
           <div class="footer">

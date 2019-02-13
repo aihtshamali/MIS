@@ -62,14 +62,15 @@ class ExecutiveController extends Controller
       ['vehicles'=>$vehicles,'drivers'=>$drivers,'triprequest'=>$triprequest,'purposeCounts'=>$purposeCounts,'nameofrequestee'=>$nameofrequestee]);
   }
 
-
     //  HOME FOLDER
-    public function conduct_pdwp_meeting(){
+    public function conduct_pdwp_meeting()
+    {
       $meetings = HrMeetingPDWP::where('status',1)->orderBy('updated_at', 'desc')->get();
       return view('executive.home.pdwp_meeting',compact('meetings'));
     }
 
-    public function list_agendas(Request $req){
+    public function list_agendas(Request $req)
+    {
       $meeting = HrMeetingPDWP::find($req->meeting_no);
       $agendas = $meeting->HrAgenda;
       $adp = AdpProject::orderBy('gs_no')->get();
@@ -85,7 +86,8 @@ class ExecutiveController extends Controller
       return view('executive.home.pdwp_meeting_agendas',compact('meeting','agendas','hr_decisions','sectors','meeting_types','agenda_types','agenda_statuses','adp'));
 
     }
-    public function CommentAgenda(Request $req ){
+    public function CommentAgenda(Request $req )
+    {
       // dd($req->all());
       $i=0;
       foreach ($req->agenda_id as $agenda_id) {
@@ -109,7 +111,8 @@ class ExecutiveController extends Controller
       }
       return redirect()->route('Conduct_PDWP_Meeting');
     }
-    public function index(){
+    public function index()
+    {
       $unassigned=Project::select('projects.*')
      ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
      ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
@@ -143,7 +146,8 @@ class ExecutiveController extends Controller
 
       return view('executive.home.index',['unassigned'=>$unassigned,'completed'=>$completed,'assignedtoManager'=>$assignedtoManager,'assigned'=>$assigned]);
     }
-    public function getSectorWise(){
+    public function getSectorWise()
+    {
       $projects=AssignedProject::select('assigned_projects.*')
       ->leftJoin('assigned_sub_sectors','assigned_sub_sectors.project_id','assigned_projects.project_id')
       ->leftJoin('sub_sectors','assigned_sub_sectors.sub_sector_id','sub_sectors.id')
@@ -422,21 +426,23 @@ class ExecutiveController extends Controller
       return view('executive.home.pems_tab');
     }
     // chart1
-    public function chart_one(){
+    public function chart_one()
+    {
       $actual_total_projects = Project::where('project_type_id',1)->where('status',1)->get();
       $total_projects = $actual_total_projects->count();
-      // $total_assigned_projects = count(AssignedProjectManager::all());
+
       $inprogress_projects = AssignedProject::select('assigned_projects.*')
       ->leftJoin('projects','projects.id','assigned_projects.project_id')
       ->where('project_type_id',1)
       ->where('projects.status',1)
       ->where('complete',0)->count();
+
       $completed_projects = AssignedProject::select('assigned_projects.*')
       ->leftJoin('projects','projects.id','assigned_projects.project_id')
       ->where('project_type_id',1)
       ->where('projects.status',1)
       ->where('complete',1)->count();
-      // $total_assigned_projects = ($total_projects - $inprogress_projects)-$completed_projects;
+
       $actual_total_assigned_projects=Project::select('projects.*')
       ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
       ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
@@ -445,6 +451,7 @@ class ExecutiveController extends Controller
       ->where('projects.project_type_id',1)
       ->where('projects.status',1)
       ->get();
+      
       $total_assigned_projects = $actual_total_assigned_projects->count();
       $model = new User();
       $officers = $model->hydrate(
