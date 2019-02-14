@@ -23,6 +23,7 @@ height: 135px;
 } */
 .fullWidth{width: 100% !important;}
 .halfWidth{width: 50% !important;}
+html{overflow-x: hidden;}
 /* video */
 video{width: 100% !important;padding: 2%;border: 1px solid #77777747;border-radius: 3px;}
 /* start tree view */
@@ -124,7 +125,7 @@ ul, #myUL {
         </div>
 
 
-        <div class="modal fade" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="overflow-x: hidden !important;">
             <div class="modal-dialog modal-lg" style="width:30% !important">
                 <div class="modal-content">
                     <div class="modal-header">
