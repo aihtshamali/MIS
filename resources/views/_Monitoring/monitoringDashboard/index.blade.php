@@ -28,6 +28,12 @@
   overflow: hidden;
   border-radius: 7px !important;
 }
+#chartdiv5 {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 7px !important;
+}
 th{
   background: #524572;
   /* background: #5e986f; */
@@ -192,7 +198,7 @@ object-fit: cover;
     </div>
   </div>
   <div class="col-md-8">
-
+    <div id="chartdiv5"></div>
   </div>
 </div>
 
@@ -209,9 +215,6 @@ object-fit: cover;
 <script src="js/app.js" charset="utf-8"></script>
 <!-- Chart code -->
 <script>
-// Themes begin
-// am4core.useTheme(am4themes_animated);
-// Themes end
 
 // Create chart instance
 var chart = am4core.create("chartdiv", am4charts.XYChart);
@@ -258,7 +261,7 @@ series.tensionX = 0.77;
 var range = valueAxis.createSeriesRange(series);
 range.value = 0;
 range.endValue = 1000;
-range.contents.stroke = am4core.color("#524572");
+range.contents.stroke = am4core.color("#6b75dc");
 // range.contents.fill = am4core.color("#fff");
 range.contents.fill = range.contents.stroke;
 
@@ -269,9 +272,6 @@ range.contents.fill = range.contents.stroke;
 chart.cursor = new am4charts.XYCursor();
 </script>
 <script>
-// Themes begin
-// am4core.useTheme(am4themes_animated);
-// Themes end
 
 // Define icons
 var icon1 = "data:image/svg+xml;charset=utf-8;base64,PHN2ZyB3aWR0aD0iMTc2IiBoZWlnaHQ9Ijg4OSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNODcuODIuMDY2djc2LjQzNmwtNC4wNjUgMi45ODR2NjUuNDE4bC0yLjkwNCAzLjQ0My0uNzc0IDYzLjEyMy01LjIyOCA1LjczOHY2MS45NzVsLTIuMzIzIDQuODItLjc3NCAxNzguNTgtOS42OCAyLjI5Ni0uNzc1IDEyOC41NC05LjEgMy4yMTR2MTE5LjU4OWwtNS42MTQgMS4xNDgtLjc3NCA4NC4wMS03LjU1IDEuMTQ4djQ5LjM1aC04LjMyNnYxMS4wMThoLTYuOTd2OC4yNjRILjd2MjAuNjU4aDE3NC40MzdWODcxLjE2aC0xNy40MjR2LTguMjY0aC0xMS4yM3YtOS42NGwtNy4zNTYtLjIzLS45NjgtNzMuNjgxLTcuNTUtLjkxOC45NjctOTguOTMtNy45MzgtMS44MzctLjc3NC0xMjIuMTE0LTYuOTctMS44MzYtMS4zNTUtMTM4LjE4Mi01LjYxNC03LjU3NFYzMDcuMTg3bC02LjAwMi05LjQxMXYuMjMtMzkuOTRsLTQuMjYtMy42NzMtLjc3NC0zNi45NTVoLS45Njh2LTQ2LjU5NmwtMy44NzItNi44ODZ2LTYwLjEzOWwtMy42NzgtMi45ODQtLjM4OC0yMS4xMTdWLjA2NmgtMS4xNjF6IiBmaWxsPSIjMDAwMDAwIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48L3N2Zz4=";
@@ -350,69 +350,124 @@ gradient1.addColor(am4core.color("#12576985"));
 gradient1.rotation = 90;
 chart1.background.fill = gradient1;
 </script>
+<!-- Cumulative chart -->
 <script>
-// Themes begin
-// am4core.useTheme(am4themes_animated);
-// Themes end
-
 // Create chart instance
 var chart2 = am4core.create("chartdiv2", am4charts.XYChart);
-chart2.paddingRight = 20;
+
+// Increase contrast by taking evey second color
+chart2.colors.step = 2;
 
 // Add data
-chart2.data = [{
-  "year": "1st monitoring",
-  "value": 30
-}, {
-  "year": "2nd monitoring",
-  "value": 80
-}, {
-  "year": "3rd monitoring",
-  "value": 50
-}, {
-  "year": "4th monitoring",
-  "value": 70
-}];
+chart2.data = generateChartData();
 
 // Create axes
-var categoryAxis = chart2.xAxes.push(new am4charts.CategoryAxis());
-categoryAxis.dataFields.category = "year";
-categoryAxis.renderer.minGridDistance = 50;
-categoryAxis.renderer.grid.template.location = 0.5;
-categoryAxis.startLocation = 0.5;
-categoryAxis.endLocation = 0.5;
+var dateAxis = chart2.xAxes.push(new am4charts.DateAxis());
+dateAxis.renderer.minGridDistance = 50;
 
-// Pre zoom
-// char
-
-// Create value axis
-var valueAxis = chart2.yAxes.push(new am4charts.ValueAxis());
-valueAxis.baseValue = 0;
 // Create series
-var series = chart2.series.push(new am4charts.LineSeries());
-series.dataFields.valueY = "value";
-series.dataFields.categoryX = "year";
-series.strokeWidth = 2;
-series.tensionX = 0.77;
+function createAxisAndSeries(field, name, opposite) {
+  var valueAxis = chart2.yAxes.push(new am4charts.ValueAxis());
 
-var range = valueAxis.createSeriesRange(series);
-range.value = 0;
-range.endValue = 1000;
-range.contents.stroke = am4core.color("#65adb9");
-range.contents.fill = range.contents.stroke;
+  var series = chart2.series.push(new am4charts.LineSeries());
+  series.dataFields.valueY = field;
+  series.dataFields.dateX = "date";
+  series.strokeWidth = 2;
+  series.yAxis = valueAxis;
+  series.name = name;
+  series.tooltipText = "{name}: [bold]{valueY}[/]";
+  series.tensionX = 0.8;
 
-// Add scrollbar
-// var scrollbarX = new am4charts.XYChartScrollbar();
-// scrollbarX.series.push(series);
-// chart2.scrollbarX = scrollbarX;
+  var interfaceColors = new am4core.InterfaceColorSet();
 
+  // switch(bullet) {
+  //   case "triangle":
+  //     var bullet = series.bullets.push(new am4charts.Bullet());
+  //     bullet.width = 12;
+  //     bullet.height = 12;
+  //     bullet.horizontalCenter = "middle";
+  //     bullet.verticalCenter = "middle";
+  //
+  //     var triangle = bullet.createChild(am4core.Triangle);
+  //     triangle.stroke = interfaceColors.getFor("background");
+  //     triangle.strokeWidth = 2;
+  //     triangle.direction = "top";
+  //     triangle.width = 12;
+  //     triangle.height = 12;
+  //     break;
+  //   case "rectangle":
+  //     var bullet = series.bullets.push(new am4charts.Bullet());
+  //     bullet.width = 10;
+  //     bullet.height = 10;
+  //     bullet.horizontalCenter = "middle";
+  //     bullet.verticalCenter = "middle";
+  //
+  //     var rectangle = bullet.createChild(am4core.Rectangle);
+  //     rectangle.stroke = interfaceColors.getFor("background");
+  //     rectangle.strokeWidth = 2;
+  //     rectangle.width = 10;
+  //     rectangle.height = 10;
+  //     break;
+  //   default:
+  //     var bullet = series.bullets.push(new am4charts.CircleBullet());
+  //     bullet.circle.stroke = interfaceColors.getFor("background");
+  //     bullet.circle.strokeWidth = 2;
+  //     break;
+  // }
+
+  valueAxis.renderer.line.strokeOpacity = 1;
+  valueAxis.renderer.line.strokeWidth = 2;
+  valueAxis.renderer.line.stroke = series.stroke;
+  valueAxis.renderer.labels.template.fill = series.stroke;
+  valueAxis.renderer.opposite = opposite;
+  valueAxis.renderer.grid.template.disabled = true;
+}
+
+createAxisAndSeries("visits", "Visits", false, "circle");
+// createAxisAndSeries("views", "Views", true, "triangle");
+createAxisAndSeries("hits", "Hits", true, "rectangle");
+
+// Add legend
+chart2.legend = new am4charts.Legend();
+
+// Add cursor
 chart2.cursor = new am4charts.XYCursor();
-</script>
-<script>
-// Themes begin
-// am4core.useTheme(am4themes_animated);
-// Themes end
 
+// generate some random data, quite different range
+function generateChartData() {
+  var chartData = [];
+  var firstDate = new Date();
+  firstDate.setDate(firstDate.getDate() - 100);
+  firstDate.setHours(0, 0, 0, 0);
+
+  var visits = 70;
+  var hits = 60;
+  // var views = 8700;
+
+  for (var i = 0; i < 15; i++) {
+    // we create date objects here. In your data, you can have date strings
+    // and then set format of your dates using chart2.dataDateFormat property,
+    // however when possible, use date objects, as this will speed up chart rendering.
+    var newDate = new Date(firstDate);
+    newDate.setDate(newDate.getDate() + i);
+
+    visits += Math.round((Math.random()<0.5?1:-1)*Math.random()*10);
+    hits += Math.round((Math.random()<0.5?1:-1)*Math.random()*10);
+    // views += Math.round((Math.random()<0.5?1:-1)*Math.random()*10);
+
+    chartData.push({
+      date: newDate,
+      visits: visits,
+      hits: hits
+      // views: views
+    });
+  }
+  return chartData;
+}
+</script>
+<!-- end Cumulative -->
+<!-- chartdiv3 Start -->
+<script>
 // Create chart instance
 var chart3 = am4core.create("chartdiv3", am4charts.XYChart);
 chart3.paddingRight = 20;
@@ -525,4 +580,170 @@ $(document).ready(function()
   }
 });
 </script>
+<!-- start gant chart -->
+<script>
+// Themes begin
+// am4core.useTheme(am4themes_animated);
+// Themes end
+
+var chart5 = am4core.create("chartdiv5", am4charts.XYChart);
+chart5.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+chart5.paddingRight = 30;
+chart5.dateFormatter.inputDateFormat = "yyyy-MM-dd HH:mm";
+
+var colorSet = new am4core.ColorSet();
+colorSet.saturation = 0.4;
+
+chart5.data = [ {
+  "category": "Module #1",
+  "start": "2016-01-01",
+  "end": "2016-01-14",
+  "color": colorSet.getIndex(0).brighten(0),
+  "task": "Gathering requirements"
+}, {
+  "category": "Module #1",
+  "start": "2016-01-16",
+  "end": "2016-01-27",
+  "color": colorSet.getIndex(0).brighten(0.4),
+  "task": "Producing specifications"
+}, {
+  "category": "Module #1",
+  "start": "2016-02-05",
+  "end": "2016-04-18",
+  "color": colorSet.getIndex(0).brighten(0.8),
+  "task": "Development"
+}, {
+  "category": "Module #1",
+  "start": "2016-04-18",
+  "end": "2016-04-30",
+  "color": colorSet.getIndex(0).brighten(1.2),
+  "task": "Testing and QA"
+}, {
+  "category": "Module #2",
+  "start": "2016-01-08",
+  "end": "2016-01-10",
+  "color": colorSet.getIndex(2).brighten(0),
+  "task": "Gathering requirements"
+}, {
+  "category": "Module #2",
+  "start": "2016-01-12",
+  "end": "2016-01-15",
+  "color": colorSet.getIndex(2).brighten(0.4),
+  "task": "Producing specifications"
+}, {
+  "category": "Module #2",
+  "start": "2016-01-16",
+  "end": "2016-02-05",
+  "color": colorSet.getIndex(2).brighten(0.8),
+  "task": "Development"
+}, {
+  "category": "Module #2",
+  "start": "2016-02-10",
+  "end": "2016-02-18",
+  "color": colorSet.getIndex(2).brighten(1.2),
+  "task": "Testing and QA"
+}, {
+  "category": "Module #3",
+  "start": "2016-01-02",
+  "end": "2016-01-08",
+  "color": colorSet.getIndex(4).brighten(0),
+  "task": "Gathering requirements"
+}, {
+  "category": "Module #3",
+  "start": "2016-01-08",
+  "end": "2016-01-16",
+  "color": colorSet.getIndex(4).brighten(0.4),
+  "task": "Producing specifications"
+}, {
+  "category": "Module #3",
+  "start": "2016-01-19",
+  "end": "2016-03-01",
+  "color": colorSet.getIndex(4).brighten(0.8),
+  "task": "Development"
+}, {
+  "category": "Module #3",
+  "start": "2016-03-12",
+  "end": "2016-04-05",
+  "color": colorSet.getIndex(4).brighten(1.2),
+  "task": "Testing and QA"
+}, {
+  "category": "Module #4",
+  "start": "2016-01-01",
+  "end": "2016-01-19",
+  "color": colorSet.getIndex(6).brighten(0),
+  "task": "Gathering requirements"
+}, {
+  "category": "Module #4",
+  "start": "2016-01-19",
+  "end": "2016-02-03",
+  "color": colorSet.getIndex(6).brighten(0.4),
+  "task": "Producing specifications"
+}, {
+  "category": "Module #4",
+  "start": "2016-03-20",
+  "end": "2016-04-25",
+  "color": colorSet.getIndex(6).brighten(0.8),
+  "task": "Development"
+}, {
+  "category": "Module #4",
+  "start": "2016-04-27",
+  "end": "2016-05-15",
+  "color": colorSet.getIndex(6).brighten(1.2),
+  "task": "Testing and QA"
+}, {
+  "category": "Module #5",
+  "start": "2016-01-01",
+  "end": "2016-01-12",
+  "color": colorSet.getIndex(8).brighten(0),
+  "task": "Gathering requirements"
+}, {
+  "category": "Module #5",
+  "start": "2016-01-12",
+  "end": "2016-01-19",
+  "color": colorSet.getIndex(8).brighten(0.4),
+  "task": "Producing specifications"
+}, {
+  "category": "Module #5",
+  "start": "2016-01-19",
+  "end": "2016-03-01",
+  "color": colorSet.getIndex(8).brighten(0.8),
+  "task": "Development"
+}, {
+  "category": "Module #5",
+  "start": "2016-03-08",
+  "end": "2016-03-30",
+  "color": colorSet.getIndex(8).brighten(1.2),
+  "task": "Testing and QA"
+} ];
+
+chart5.dateFormatter.dateFormat = "yyyy-MM-dd";
+chart5.dateFormatter.inputDateFormat = "yyyy-MM-dd";
+
+var categoryAxis = chart5.yAxes.push(new am4charts.CategoryAxis());
+categoryAxis.dataFields.category = "category";
+categoryAxis.renderer.grid.template.location = 0;
+categoryAxis.renderer.inversed = true;
+
+var dateAxis = chart5.xAxes.push(new am4charts.DateAxis());
+dateAxis.renderer.minGridDistance = 70;
+dateAxis.baseInterval = { count: 1, timeUnit: "day" };
+// dateAxis.max = new Date(2018, 0, 1, 24, 0, 0, 0).getTime();
+//dateAxis.strictMinMax = true;
+dateAxis.renderer.tooltipLocation = 0;
+
+var series1 = chart5.series.push(new am4charts.ColumnSeries());
+series1.columns.template.width = am4core.percent(80);
+series1.columns.template.tooltipText = "{task}: [bold]{openDateX}[/] - [bold]{dateX}[/]";
+
+series1.dataFields.openDateX = "start";
+series1.dataFields.dateX = "end";
+series1.dataFields.categoryY = "category";
+series1.columns.template.propertyFields.fill = "color"; // get color from data
+series1.columns.template.propertyFields.stroke = "color";
+series1.columns.template.strokeOpacity = 1;
+
+chart5.scrollbarX = new am4core.Scrollbar();
+</script>
+<!-- end gant chart -->
 @endsection
