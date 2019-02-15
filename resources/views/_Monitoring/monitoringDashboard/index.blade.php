@@ -30,7 +30,7 @@
 }
 #chartdiv5 {
   width: 100%;
-  height: 500px;
+  height: 300px;
   overflow: hidden;
   border-radius: 7px !important;
 }
