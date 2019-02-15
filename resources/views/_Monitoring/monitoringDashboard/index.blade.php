@@ -105,11 +105,12 @@ object-fit: cover;
 .float-right{float: right !important;}
 .arrowstiQ{position: fixed !important;width: 98% !important;z-index: 9999 !important;}
 .carousel-control {width: fit-content !important;color: #5e986f !important;font-size: 52px !important;opacity: 1 !important;}
+.txt-black{color: #000 !important;}
 </style>
 @endsection
 @section('content')
 <div class="col-md-12">
-  <h3 class="topheading">Delivery of better extension servioces to accelerate fish culture prctices.</h3>
+  <h3 class="topheading txt-black">Delivery of better extension servioces to accelerate fish culture prctices.</h3>
   <table>
     <tr>
       <th>#</th>
@@ -156,12 +157,12 @@ object-fit: cover;
 <div class="col-md-3 float-right">
   <div class="col-md-12 mt3p">
     <div class="card update-card nopad">
-      <div id="chartdiv1"></div>
+      <div id="chartdiv"></div>
     </div>
   </div>
   <div class="col-md-12 mt3p">
-    <div class="card bg-c-yellow update-card nopad">
-    <div id="chartdiv"></div>
+    <div class="card update-card nopad">
+      <div id="chartdiv1"></div>
   </div>
 </div>
   <div class="col-md-12 mt3p">
@@ -356,9 +357,9 @@ label.label.text = "{height} %";
 label.dy = -15;
 
 let gradient1 = new am4core.LinearGradient();
-gradient1.addColor(am4core.color("#967720"));
-gradient1.addColor(am4core.color("#af6c19"));
-gradient1.addColor(am4core.color("#08291e"));
+gradient1.addColor(am4core.color("#65adb9"));
+gradient1.addColor(am4core.color("#65adb9"));
+gradient1.addColor(am4core.color("#12576985"));
 gradient1.rotation = 90;
 chart1.background.fill = gradient1;
 </script>
@@ -371,20 +372,20 @@ var chart2 = am4core.create("chartdiv2", am4charts.XYChart);
 
 // Add data
 chart2.data = [{
-  "country": "USA",
-  "visits": 2025
+  "country": "1st year",
+  "visits": 90
 }, {
-  "country": "China",
-  "visits": 1882
+  "country": "2nd year",
+  "visits": 75
 }, {
-  "country": "Japan",
-  "visits": 1809
+  "country": "3rd year",
+  "visits": 60
 }, {
-  "country": "Germany",
-  "visits": 1322
+  "country": "4th year",
+  "visits": 80
 }, {
-  "country": "UK",
-  "visits": 1122
+  "country": "5th year",
+  "visits": 20
 }];
 
 // Create axes
