@@ -1,5 +1,7 @@
 <style>
-
+.ms-selection ul li{background: #119e36 !important;color: #fff !important;}
+.ms-container .ms-selectable li.ms-hover{background-color: #119e36;}
+/* 01a9ac */
 </style>
 <div class="tab-pane " id="p_monitoring" role="tabpanel">
     <div class="row">

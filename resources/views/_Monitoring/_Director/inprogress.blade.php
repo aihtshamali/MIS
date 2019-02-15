@@ -63,7 +63,6 @@
                                     <td>{{$project->Project->title}}</td>
                                     <td>
                                         @foreach ($project->AssignedProjectTeam as $team)
-                                        {{$project}}
                                         @if ($team->team_lead==1)
                                             <span style="font-weight:bold;color:blue">{{$team->User->first_name}}  {{$team->User->last_name}} -</span>
                                         @else
