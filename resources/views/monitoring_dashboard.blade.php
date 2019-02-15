@@ -114,7 +114,6 @@ td{white-space: unset !important;}
                   </td>
                       <td style="text-align:center;"> {{$triprequest->PlantripTriptype->name}}</td>
                       <td style="text-align:center;">
-                          {{-- $triprequests[0]->VmisRequestToTransportOfficer->VmisAssignedDriver[0]->VmisDriver->User->first_name) --}}
                           @forelse ($triprequest->VmisRequestToTransportOfficer->VmisAssignedDriver as $driver)
                               {{$driver->VmisDriver->User->first_name}}
                               {{$driver->VmisDriver->User->last_name}},
