@@ -16,7 +16,10 @@
                             <tr>
                                 <th>Project Name</th>
                                 <th>Sector</th>
-                                <th>Progress</th>
+                                <th>Assigned To</th>
+                                <th>Planned Start Date</th>
+                                <th>Physical Progress</th>
+                                <th>Financial Progress</th>
                                 {{-- <th>Action</th> --}}
 
                             </tr>
@@ -24,16 +27,40 @@
                             <tbody>
                               @foreach ($projects as $project)
                                 <tr>
-                                    <td>{{$project->Project->title}}</td>
-                                    <td>@foreach ($project->Project->AssignedSubSectors as $subsector)
-                                      {{$subsector->SubSector->Sector->name}}
-                                    @endforeach</td>
+                                    <td><a style="font-size:15px;" href="{{route('minitoringDashboard')}}">{{$project->Project->title}}</a></td>
+                                    <td>
+                                      @foreach ($project->Project->AssignedSubSectors as $subsector)
+                                        {{$subsector->SubSector->Sector->name}}
+                                      @endforeach
+                                    </td>
+                                    <td>
+                                        @foreach ($project->Project->AssignedProject->AssignedProjectTeam as $team)
+                                        @if ($team->team_lead==1)
+                                            <span style="font-weight:bold;color:blue">{{$team->User->first_name}}  {{$team->User->last_name}} -</span>
+                                        @else
+                                            <span class="">{{$team->User->first_name}} {{$team->User->last_name}}</span>
+                                        @endif
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                      {{date('d-M-Y',strtotime($project->Project->ProjectDetail->planned_start_date))}}
+                                    </td>
+                                    <td>
+                                      <div class="progress">
+                                      <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width:
+                                      @if($project->Project->AssignedProject!==NULL && $project->Project->AssignedProject->MProjectProgress->last()!==NULL){{round(calculateMPhysicalProgress($project->Project->AssignedProject->MProjectProgress->last()->id,2))}}@else{{0}}@endif%"
+                                         aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">@if($project->Project->AssignedProject!==NULL && $project->Project->AssignedProject->MProjectProgress->last()!==NULL) {{round(calculateMPhysicalProgress($project->Project->AssignedProject->MProjectProgress->last()->id,2))}} @else 0 @endif%</div>
+                                        </div>
+                                    </td>
 
                                     <td>
                                       <div class="progress">
-                                            <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width: 35%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> 35%</div>
+                                            <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width:
+                                            @if($project->Project->AssignedProject!==NULL && $project->Project->AssignedProject->MProjectProgress->last()!==NULL){{round(calculateMFinancialProgress($project->Project->AssignedProject->MProjectProgress->last()->id,2))}}@else{{0}}@endif%"
+                                            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">@if($project->Project->AssignedProject!==NULL && $project->Project->AssignedProject->MProjectProgress->last()!==NULL) {{round(calculateMFinancialProgress($project->Project->AssignedProject->MProjectProgress->last()->id,2))}} @else 0 @endif%</div>
                                         </div>
-                                      </td>
+                                    </td>
+                                    
                                     {{-- <td>
                                     <a href="{{route('monitoring_inprogressSingle')}}" class="btn btn-md  btn-info"> Conduct Monitoring</a>
                                     </td> --}}
@@ -50,6 +77,13 @@
 </div>
 @endsection
 @section('js_scripts')
+<script>
+$(document).ready(function() {
+    $('#simpletable').DataTable( {
+        "order": [[ 4, "desc" ]]
+    } );
+} );
+</script>
 <script src="{{asset('_monitoring/js/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
 

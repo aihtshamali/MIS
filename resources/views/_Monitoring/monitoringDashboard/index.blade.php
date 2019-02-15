@@ -83,9 +83,9 @@ object-fit: cover;
                                   @php
                                      $attachment= $project->AssignedProject->MProjectProgress->last()->MAppAttachment->where('type','image/jpeg')->last()
                                   @endphp
-                                  <img src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}" alt="Chicago" style="width:100%;">
+                                  <img src="{{'http://172.16.10.11/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}" alt="Chicago" style="width:100%;">
                                 @else
-                                  <img src="{{'http://172.16.10.14/storage/monitoringDashboard/img/a (1).jpg'}}" alt="" style="width:100%;">
+                                  <img src="{{'http://172.16.10.11/storage/monitoringDashboard/img/a (1).jpg'}}" alt="" style="width:100%;">
                                 @endif
                               </div>
                           </div>
