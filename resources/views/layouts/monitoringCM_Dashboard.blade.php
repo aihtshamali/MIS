@@ -12,13 +12,13 @@
 </head>
 <body>
   <div class="col-md-12 border-bottom header inline-flex">
-    <div class="col-md-2">
+    <div class="col-md-1">
       <a href="{{route('minitoringDashboard')}}">
         <img class="w_46p" id="logo" src="{{ asset('dgme.png')}}" alt="DGME Logo" />
       </a>
     </div>
-    <div class="col-md-8">
-      <h2 class="text-center">Monitoring Dashboard</h2>
+    <div class="col-md-10">
+      <h2 class="text-center">Directorate General Monitoring & Evaluation / Monitoring Dashboard</h2>
     </div>
   </div>
   <div class="col-md-12" style="margin-bottom:6%;">

@@ -99,6 +99,7 @@
 }
 .headText{font-size: 15px;text-transform: capitalize;}
 .boldText{font-weight: 900;}
+/* active page */
 .New_Assignments a{color : #FE8A7D !important;}
 .Monitoring_Projects{color : #FE8A7D !important;}
 .red{color: #F22525 !important;font-size: 21px;font-weight: 900;}
