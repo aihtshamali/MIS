@@ -134,22 +134,32 @@ object-fit: cover;
       <td>Actual Start Date</td>
       <td>Planned Start Date</td>
       <td>Planned End Date</td>
+      <td>Original Approved Cost</td>
       <td>Final Revised Cost</td>
-      <td>Original Approve Cost</td>
       <td>Financial Progress</td>
       <td>Physical Progress</td>
       <!-- <td>Total projects of Monitoring</td> -->
       <!-- <td>Total projects in progress of Monitoring</td> -->
     </tr>
     <tr>
-      <td>2018-19/5762</td>
-      <td>2014-08-01</td>
-      <td>2014-07-01</td>
-      <td>2019-06-30</td>
-      <td>398 Million PKR</td>
-      <td>392.79 Million PKR</td>
-      <td class="yel">50%</td>
-      <td class="blue">76%</td>
+      <td>{{$project->financial_year}}/{{$project->ADP}}</td>
+      <td>@if($progress->MProjectDate){{date('d-M-Y',strtotime($progress->MProjectDate->actual_start_date))}}@else Not Added @endif</td>
+      <td>{{date('d-M-Y',strtotime($project->ProjectDetail->planned_start_date))}}</td>
+      <td>{{date('d-M-Y',strtotime($project->ProjectDetail->planned_end_date))}}</td>
+      <td>{{round($project->ProjectDetail->orignal_cost,2)}} Million PKR</td>
+      <td>
+        @if($project->RevisedApprovedCost->last())
+          {{round($project->RevisedApprovedCost->last()->cost,2)}}
+        @else
+          0
+        @endif
+        Million PKR</td>
+        <td id="financial">
+          @if($project->AssignedProject!==NULL && $progress!==NULL){{round(calculateMFinancialProgress($progress->id,2))}}@else{{0}}@endif%
+        </td>
+        <td id="physical">
+          @if($project->AssignedProject!==NULL && $progress!==NULL){{round(calculateMPhysicalProgress($progress->id,2))}}@else{{0}}@endif%
+        </td>
       <!-- <td>77</td> -->
       <!-- <td>60</td> -->
     </tr>
@@ -207,17 +217,19 @@ object-fit: cover;
 var chart = am4core.create("chartdiv", am4charts.XYChart);
 chart.paddingRight = 20;
 
+
+var st = [{"year":0,"value":0}];
+    var i = 1;
+    financial_progress_values.forEach(element => {
+      st.push ({
+        "year":i,
+        "value": element
+      });
+      i++;
+    });
+
 // Add data
-chart.data = [{
-  "year": "1st Monitoring",
-  "value": 30
-}, {
-  "year": "2nd Monitoring",
-  "value": 80
-}, {
-  "year": "3rd Monitoring",
-  "value": 50
-}];
+chart.data = st;
 
 // Create axes
 var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
@@ -235,6 +247,7 @@ categoryAxis.endLocation = 0.5;
 // Create value axis
 var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 valueAxis.baseValue = 0;
+valueAxis.max = 80;
 // Create series
 var series = chart.series.push(new am4charts.LineSeries());
 series.dataFields.valueY = "value";
@@ -405,16 +418,18 @@ var chart3 = am4core.create("chartdiv3", am4charts.XYChart);
 chart3.paddingRight = 20;
 
 // Add data
-chart3.data = [{
-  "year": "1st Monitoring",
-  "value": 30
-}, {
-  "year": "2nd Monitoring",
-  "value": 80
-}, {
-  "year": "3rd Monitoring",
-  "value": 50
-}];
+
+var st = [{"year":0,"value":0}];
+    var i = 1;
+    physical_progress_values.forEach(element => {
+      st.push ({
+        "year":i,
+        "value": element
+      });
+      i++;
+    });
+
+chart3.data = st;
 
 // Create axes
 var categoryAxis = chart3.xAxes.push(new am4charts.CategoryAxis());
@@ -432,6 +447,7 @@ categoryAxis.endLocation = 0.5;
 // Create value axis
 var valueAxis = chart3.yAxes.push(new am4charts.ValueAxis());
 valueAxis.baseValue = 0;
+valueAxis.max = 80;
 // Create series
 var series = chart3.series.push(new am4charts.LineSeries());
 series.dataFields.valueY = "value";
@@ -451,5 +467,62 @@ range.contents.fill = range.contents.stroke;
 // scrollbarX.series.push(series);
 // chart3.scrollbarX = scrollbarX;
 chart3.cursor = new am4charts.XYCursor();
+</script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+  var status = $(document.getElementById('financial'));
+  let temp = actual_progress;
+  console.log(temp);
+  
+  if (temp-financial_progress <= 25) {
+    status.className = '';
+    status.addClass('green');
+  }
+  else if (temp-financial_progress <= 50) {
+    status.className = '';
+    status.addClass('yel');
+  }
+  // else if (temp<= 75 && temp>= 50) {
+  //   status.addClass('blue');
+  // }
+  else if (temp-financial_progress <= 75) {
+    status.className = '';
+    status.addClass('orange');
+  }
+  else if (temp-financial_progress<=100) {
+    status.className = '';
+    status.addClass('red');
+  }
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function()
+{
+  var status = $(document.getElementById('physical'));
+  let temp = actual_progress;
+  console.log(temp);
+  
+  if (temp-physical_progress <= 25) {
+    status.className = '';
+    status.addClass('green');
+  }
+  else if (temp-physical_progress <= 50) {
+    status.className = '';
+    status.addClass('yel');
+  }
+  // else if (temp<= 75 && temp>= 50) {
+  //   status.addClass('blue');
+  // }
+  else if (temp-physical_progress <= 75) {
+    status.className = '';
+    status.addClass('orange');
+  }
+  else if (temp-physical_progress<=100) {
+    status.className = '';
+    status.addClass('red');
+  }
+});
 </script>
 @endsection

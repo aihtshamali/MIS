@@ -195,19 +195,16 @@
                     </div>
                     <div class="col-md-3 ln_ht12">
                         <b for="Location" class=" mb_1 fontf_sh"><span >final Revised Cost:</span> <span>
-                          @php
-                            $revisedFinalCost=0;
-                          @endphp
-                          @foreach ($project->Project->RevisedApprovedCost as $cost)
-                            @php
-                              $revisedFinalCost= $cost->cost;
-                            @endphp
-                          @endforeach
-                          {{round($revisedFinalCost,2)}} million PKR
+                          @if($project->Project->RevisedApprovedCost->last())
+                            {{round($project->Project->RevisedApprovedCost->last()->cost,2)}}
+                          @else
+                            0
+                          @endif
+                           Million PKR
                         </b></span></label>
                     </div>
                     <div class="col-md-3 ln_ht12">
-                        <b for="project_cost" class=" mb_1 fontf_sh"><span >Original Approve Cost:</span> <span>{{round($project->Project->ProjectDetail->orignal_cost,2)}} million PKR</span></b>
+                        <b for="project_cost" class=" mb_1 fontf_sh"><span >Original Approve Cost:</span> <span>{{round($project->Project->ProjectDetail->orignal_cost,2)}} Million PKR</span></b>
                     </div>
                     <!-- <div class="col-md-3">
                         <b for="last_monitoring" class=""><span >Last Monitoring Date </span></b>

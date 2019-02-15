@@ -27,28 +27,5 @@
 <script src="{{asset('monitoringDashboard/jquery.min.js')}}"></script>
 <script src="{{asset('monitoringDashboard/bootstrap.min.js')}}"></script>
 @yield('script')
-<script type="text/javascript">
-$(document).ready(function()
-{
-  var status = $(document.getElementById('status'));
-  console.log();
-  var temp= parseInt(status.text().split('%')[0]);
-  if (temp<= 33) {
-    status.addClass('red');
-  }
-  else if (temp <= 72 && temp >=33) {
-    status.addClass('yel');
-  }
-  // else if (temp<= 75 && temp>= 50) {
-  //   status.addClass('blue');
-  // }
-  else if (temp<= 99 && temp>= 72) {
-    status.addClass('green');
-  }
-  else if (temp== 100) {
-    status.addClass('complete');
-  }
-})
-</script>
 </body>
 </html>

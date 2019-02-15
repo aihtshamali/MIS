@@ -23,8 +23,8 @@ return [
   // Monitoring Module
     '_Monitoring._Officer.projects.inprogressSingle',
     '_Monitoring/analytics/analytics',
-    '_Monitoring/analytics/chart_one'
-
+    '_Monitoring/analytics/chart_one',
+    '_Monitoring/monitoringDashboard/index'
   ],
 
     /*
