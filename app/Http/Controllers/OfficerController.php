@@ -540,7 +540,7 @@ class OfficerController extends Controller
         $m_project_dates->actual_start_date = $request->actual_start_date;
         $m_project_dates->save();
         $msg='Saved';
-        return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
+        return redirect()->back();
         // return redirect()->back();
       }
 
@@ -1344,20 +1344,57 @@ class OfficerController extends Controller
 
 
     //  CM DASHBOARD
-    public function DetailedDashboard()
+    public function DetailedDashboard(Request $request)
     {
-      $projects= Project::select('projects.*')
-      ->leftjoin('assigned_projects','projects.id','assigned_projects.project_id')
-      ->leftjoin('assigned_project_teams','assigned_projects.id','assigned_project_teams.assigned_project_id')
-      ->where('assigned_project_teams.user_id',Auth::id())
-      ->where('assigned_projects.complete',0)
-      ->where('project_type_id',2)
-      ->where('acknowledge',1)
-      ->where('status',1)
-      ->get();
+      $project = Project::find($request->project_id);
+      $assigned_project = $project->AssignedProject;
+      $financial_progress = 0;
+      $physical_progress = 0;
+      $progress_divided = 0;
+      $actual_progress = 0;
+      $count_progress = 0;
+      $physical_progress_values = [];
+      $financial_progress_values = [];
+      if($assigned_project){
+        $progress = $assigned_project->MProjectProgress->last();
+        $total_progress = $assigned_project->MProjectProgress;
+        $count_progress = $total_progress->count();
+        if($count_progress > 0){
+          foreach($total_progress as $tp){
+            array_push($physical_progress_values,round(calculateMPhysicalProgress($tp->id,2)));
+            array_push($financial_progress_values,round(calculateMFinancialProgress($tp->id,2)));
+          }
+        }
+        if($progress){
+          $financial_progress = round(calculateMFinancialProgress($progress->id,2));
+          $physical_progress = round(calculateMPhysicalProgress($progress->id,2));
 
+          $actual_progress = date_diff(date_create($progress->MProjectDate->actual_start_date),date_create($project->ProjectDetail->planned_end_date));
+          $gestation = $actual_progress->format('%y');
+
+          $progress_divided = round(100/$gestation,2);
+          $actual_progress = $progress_divided*($gestation - date_diff(date_create(date('d-m-Y')),date_create($project->ProjectDetail->planned_end_date))->format('%y'));
+        }
+      }
+      // $projects= Project::select('projects.*')
+      // ->leftjoin('assigned_projects','projects.id','assigned_projects.project_id')
+      // ->leftjoin('assigned_project_teams','assigned_projects.id','assigned_project_teams.assigned_project_id')
+      // ->where('assigned_project_teams.user_id',Auth::id())
+      // ->where('assigned_projects.complete',0)
+      // ->where('project_type_id',2)
+      // ->where('acknowledge',1)
+      // ->where('status',1)
+      // ->get();
+      \JavaScript::put([
+        'financial_progress' => $financial_progress,
+        'physical_progress' => $physical_progress,
+        'actual_progress' => $actual_progress,
+        'count_progress' => $count_progress,
+        'physical_progress_values' => $physical_progress_values,
+        'financial_progress_values' => $financial_progress_values
+      ]);
       // $projects=Auth::user()->AssignedProjectTeam
-      return view('_Monitoring.monitoringDashboard.index',compact('projects'));
+      return view('_Monitoring.monitoringDashboard.index',compact('progress','project','gestation'));
     }
 
     }
