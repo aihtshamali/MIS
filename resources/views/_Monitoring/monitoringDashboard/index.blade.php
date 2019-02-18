@@ -271,6 +271,63 @@ range.contents.fill = range.contents.stroke;
 // chart.scrollbarX = scrollbarX;
 chart.cursor = new am4charts.XYCursor();
 </script>
+
+<script>
+
+// Create chart instance
+var chart = am4core.create("chartdiv2", am4charts.XYChart);
+chart.paddingRight = 20;
+
+
+var st = [{"year":0,"value":0,"value2":0}];
+    var i =0;
+    financial_progress_values.forEach(element => {
+      st.push ({
+        "year":i+1,
+        "value": element,
+        "value2":physical_progress_values[i]
+      });
+      i++;
+    });
+    console.log(st);
+    
+
+// Add data
+chart.data = st;
+
+// Create axes
+var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+categoryAxis.dataFields.category = "year";
+categoryAxis.renderer.minGridDistance = 50;
+categoryAxis.renderer.grid.template.location = 0.5;
+categoryAxis.startLocation = 0.5;
+categoryAxis.endLocation = 0.5;
+
+// Create value axis
+var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+valueAxis.baseValue = 0;
+valueAxis.max = 80;
+
+//Create Series
+var series2 = chart.series.push(new am4charts.LineSeries());
+series2.dataFields.valueY = "value2";
+series2.dataFields.categoryX = "year";
+series2.strokeWidth = 2;
+series2.tensionX = 0.77;
+series2.name = "Physical Progress";
+// Create series
+var series = chart.series.push(new am4charts.LineSeries());
+series.dataFields.valueY = "value";
+series.dataFields.categoryX = "year";
+series.strokeWidth = 2;
+series.tensionX = 0.77;
+series.name = "Financial Progress";
+
+// Add legend
+chart.legend = new am4charts.Legend();
+chart.cursor = new am4charts.XYCursor();
+</script>
+
 <script>
 
 // Define icons
@@ -351,7 +408,7 @@ gradient1.rotation = 90;
 chart1.background.fill = gradient1;
 </script>
 <!-- Cumulative chart -->
-<script>
+{{-- <script>
 // Create chart instance
 var chart2 = am4core.create("chartdiv2", am4charts.XYChart);
 
@@ -464,7 +521,7 @@ function generateChartData() {
   }
   return chartData;
 }
-</script>
+</script> --}}
 <!-- end Cumulative -->
 <!-- chartdiv3 Start -->
 <script>
