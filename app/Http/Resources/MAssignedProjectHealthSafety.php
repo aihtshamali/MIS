@@ -16,7 +16,7 @@ class MAssignedProjectHealthSafety extends Resource
     {
         return [
             "id" => $this->id,
-            "m_health_safety_id" => $this->MHealthSafety->name,
+            "m_health_safety" => $this->MHealthSafety->description,
             "status" => ($this->status == 'yes' ? true : false),
             "remarks" => $this->remarks,
             // "m_project_progress_id" => "3",
