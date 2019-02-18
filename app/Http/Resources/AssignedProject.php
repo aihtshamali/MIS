@@ -21,7 +21,7 @@ class AssignedProject extends Resource
     {
         return [
           "id" => $this->id,
-          "m_project_progress_id" => $this->when($this->MProjectProgress != null,$this->MProjectProgress->last()),
+          "m_project_progress_id" => $this->when($this->MProjectProgress != null,$this->MProjectProgress->last()->id),
           "project" => $this->when($this->project->project_type_id == 2,new ProjectResource($this->project)),
           "assigned_date" => $this->assigned_date,
           "completion_date" => $this->completion_date,
