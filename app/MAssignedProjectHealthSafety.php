@@ -12,4 +12,7 @@ class MAssignedProjectHealthSafety extends Model
   public function MHealthSafety(){
     return $this->belongsTo('App\MHealthSafety');
   }
+  public function MProjectProgress(){
+    return $this->belongsTo('App\MProjectProgress');
+  }
 }
