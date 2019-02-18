@@ -12,12 +12,14 @@ use App\Http\Resources\User as UserResource;
 use App\Http\Resources\MProjectKpi as MProjectKpiResource;
 use App\Http\Resources\MAppVersionlog as MAppVersionlogResource;
 use App\Http\Resources\MPlanKpicomponentMapping as MPlanKpicomponentMappingResource;
+use App\Http\Resources\MAssignedProjectHealthSafety as MAssignedProjectHealthSafetyResource;
 use App\MAssignedKpiLevel1;
 use App\MAssignedKpiLevel2;
 use App\MAssignedKpiLevel3;
 use App\MAssignedKpiLevel4;
 use App\MAppAttachment;
 use App\MAppVersionlog;
+use App\MAssignedProjectHealthSafety;
 
 // use App\GeneralKpi;
 
@@ -198,6 +200,10 @@ class DataController extends Controller
 
       public function appVersion(){
         return new MAppVersionlogResource(MAppVersionlog::where('status',1)->first());
+      }
+
+      public function assignedHealtSafety(Request $request){
+        return MAssignedProjectHealthSafetyResource::collection(MAssignedProjectHealthSafety::where('m_project_progress_id',$request->m_project_progress_id)->get());
       }
 
 }
