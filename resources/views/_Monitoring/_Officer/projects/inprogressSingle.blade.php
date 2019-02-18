@@ -499,7 +499,7 @@ $(document).ready(function(){
      .then((response) => {
          var ds ='';
          for (let i = 0; i < response.data.m_kpi.sector.length; i++) {
-             console.log(response.data.m_kpi.sector);
+            //  console.log(response.data.m_kpi.sector);
 
              ds = response.data.m_kpi.sector[i];
             var oc = $('#WBSChart').orgchart({
@@ -524,7 +524,6 @@ $(document).ready(function(){
         }
     });
         (function($) {
-            console.log();
 
                 axios.post('{{route("getProjectComponents")}}',{
                       MProjectProgressId:'<?= $monitoringProjectId ?>'
@@ -549,7 +548,6 @@ $(document).ready(function(){
                     })
                     .then(response => {
                         activities=response.data
-                       console.log(response,"sad");
                        activitiesfroConductMonitoring(activities)
 
                     }
@@ -569,7 +567,6 @@ $(document).ready(function(){
                     // console.log("sponsoring");
                     .then(response => {
                         sponsoringAgency=response.data
-                       console.log(response,"sponsoring");
                        sponsoringAgencyforCM(sponsoringAgency)
 
                     }
@@ -589,7 +586,6 @@ $(document).ready(function(){
                     // console.log("sponsoring");
                     .then(response => {
                         executingAgency=response.data
-                       console.log(response,"executingAgency");
                        executingAgencyforCM(executingAgency)
 
                     }
@@ -724,14 +720,11 @@ $(document).ready(function(){
   var compopt='';
   $('li.optiontest').on('click', function () {
         compopt='';
-    console.log(compData);
 
         for (let index = 0; index < compData.length; index++) {
             compopt+='<option value="'+compData[index].id+'">'+compData[index].component+'</option>';
-            console.log(index);
 
         }
-        console.log(compopt,compData.length);
 
         var t = $(this).attr('id').toString()
         var b = true;
@@ -742,15 +735,18 @@ $(document).ready(function(){
 
             if (b) {
                var Li=`<li id='` + t.split('-s')[0]+'-selection' + `' class="col-md-12 row" style="margin-top:5px;">
-                    <div class='col-md-6'>
+                    <div class='col-md-4'>
                         <span name="kpiname[]"> `+ $(this).text() + `</span>
 
                        <input type="hidden" name='kpinamesId[]' value='`+$(this).attr('data-value')+`'/>
-                        </div>
-                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-5">
                         <select class="kpisel col-sm-12" name='mappedKpicomponent_`+count+`[]' multiple="multiple" id="optionsHere">
                     `+ compopt +`
                         </select>
+                    </div>
+                    <div class="col-md-3">
+                      <input name="weightage[]" id="" class="col-md-11 float-right form-control" placeholder="Weightage" type="text" style="text-align:center;height: 45px;border: 1px solid #807d7d8a !important;" value="">
                     </div>
                     </li>`;
                     count++;

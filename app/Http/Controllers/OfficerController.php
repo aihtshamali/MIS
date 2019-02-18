@@ -1085,11 +1085,12 @@ class OfficerController extends Controller
       }
       public function kpiComponentMapping(Request $request)
       {
-        // return response()->json($request->all());
+        // dd($request->all());
         // $projectProgressId= MProjectProgress::where('assigned_project_id',$request->project_progress_no)->get();
         $i=0;
         foreach($request->kpinamesId as $kpi)
         {
+          // dd($request->all());
           // return response()->json($mappComp);
           if(isset($_POST['mappedKpicomponent_'.$i]))
           foreach($_POST['mappedKpicomponent_'.$i] as $mappComp)
@@ -1100,6 +1101,7 @@ class OfficerController extends Controller
             $kpiCompMapping->m_project_kpi_id=$kpi;
             $kpiCompMapping->user_id=Auth::id();
             $kpiCompMapping->m_plan_component_id=$mappComp;
+            $kpiCompMapping->weightage=$request->weightage[$i];
             $kpiCompMapping->status= true;
             $kpiCompMapping->save();
             foreach ($kpiCompMapping->MProjectKpi->MProjectLevel1Kpi as $lev1) {
