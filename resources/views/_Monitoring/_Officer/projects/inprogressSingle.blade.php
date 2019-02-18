@@ -117,6 +117,14 @@
 @endsection
 @section('content')
     {{-- frozen panel for plan and conduct monitoring  --}}
+    @php
+        $maintab='review';
+        $innertab='';
+        if(\Session::has('maintab')){
+          $maintab=\Session::get('maintab');
+          $innertab=\Session::get('innertab');
+        }
+    @endphp
     <div class="fixed bg-g hidden-sm hidden-xs topSummary capitalize" style="">
     <div class="bg-w border_top bg-w" style="padding:0% 0% 0.5% 1% !important;" >
       <style scoped>
@@ -239,7 +247,7 @@
                                   <!-- Nav tabs -->
                                   <ul class="nav nav-tabs md-tabs" role="tablist">
                                       <li class="nav-item reviewTab">
-                                          <a class="nav-link active" data-toggle="tab" href="#reviewDiv" role="tab"><span style="font-size:14px; font-weight:bold;">REVIEW</span></a>
+                                          <a class="nav-link {{isset($maintab) && $maintab=='review' ? 'active' : ''}}" data-toggle="tab" href="#reviewDiv" role="tab"><span style="font-size:14px; font-weight:bold;">REVIEW</span></a>
                                           <div class="slide"></div>
                                       </li>
                                       <li class="nav-item planNav">
@@ -467,6 +475,13 @@
 
 
 $(document).ready(function(){
+    var success="{{Session::get('success')}}";
+    if(success){
+      toast({
+              type: 'success',
+              title: success
+            })
+    }
     if("{{$teamflag}}"!=true){
         $('form.serializeform :input,form.serializeform :button,form.serializeform select').attr('disabled','disabled');
     }
@@ -666,45 +681,45 @@ $(document).ready(function(){
 //   });
 // })(jQuery);
 
-  $('form.serializeform').on('submit',function(e){
+  // $('form.serializeform').on('submit',function(e){
 
-    e.preventDefault();
-      $.ajax( {
-      data: new FormData(this),
-      type: $( this ).attr( 'method' ),
-      url: $(this).attr('action'),
-      cache:false,
-      contentType: false,
-      processData: false,
-      dataType: "json",
-      success: function( feedback ){
-          console.log(feedback);
-          if(feedback.resType=="ObjectiveAndComponents"){
-            ObjectiveComponent(feedback.data.components,feedback.data.objectives);
-          }
-          if(feedback.resType=="forTime"){
-            ObjectiveComponentTime(feedback.data.CompActivityMapping);
-            console.log('done');
+  //   e.preventDefault();
+  //     $.ajax( {
+  //     data: new FormData(this),
+  //     type: $( this ).attr( 'method' ),
+  //     url: $(this).attr('action'),
+  //     cache:false,
+  //     contentType: false,
+  //     processData: false,
+  //     dataType: "json",
+  //     success: function( feedback ){
+  //         console.log(feedback);
+  //         if(feedback.resType=="ObjectiveAndComponents"){
+  //           ObjectiveComponent(feedback.data.components,feedback.data.objectives);
+  //         }
+  //         if(feedback.resType=="forTime"){
+  //           ObjectiveComponentTime(feedback.data.CompActivityMapping);
+  //           console.log('done');
 
-          }
-        //   if(feedback){
-            toast({
-            type: feedback.type,
-            title: feedback.msg
-          })
-        //   }
-        //   else{
-            //   alert("Data saved successfully");
-        //   }
-      },
-      error:function(err){
-            toast({
-            type: 'error',
-            title: err
-            })
-          }
-    });
-  });
+  //         }
+  //       //   if(feedback){
+  //           toast({
+  //           type: feedback.type,
+  //           title: feedback.msg
+  //         })
+  //       //   }
+  //       //   else{
+  //           //   alert("Data saved successfully");
+  //       //   }
+  //     },
+  //     error:function(err){
+  //           toast({
+  //           type: 'error',
+  //           title: err
+  //           })
+  //         }
+  //   });
+  // });
   var count=0;
   var compopt='';
   $('li.optiontest').on('click', function () {

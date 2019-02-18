@@ -522,8 +522,12 @@ class OfficerController extends Controller
         $m_project_costs->contract_award_cost = $request->contract_award_cost;
         $m_project_costs->save();
         $msg='Saved';
-        return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
-        // return redirect()->back();
+        // Copy from here
+        $tabs=explode("_",$request->page_tabs);
+        $maintab=$tabs[0];
+        $innertab=$tabs[1];
+        // return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
+        return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
       }
 
       public function monitoring_inprogress_dates_saved(Request $request)
@@ -557,8 +561,11 @@ class OfficerController extends Controller
         $m_project_organizations->contractor_or_supplier = $request->contractor_or_supplier;
         $m_project_organizations->save();
         $msg='Saved';
-        return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
-        // return redirect()->back();
+        $tabs=explode("_",$request->page_tabs);
+        $maintab=$tabs[0];
+        $innertab=$tabs[1];
+        // return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
+        return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);        // return redirect()->back();
       }
 
       public function monitoring_inprogress_location_saved(Request $request)
@@ -577,7 +584,11 @@ class OfficerController extends Controller
         $m_project_location->latitude = $request->latitude;
         $m_project_location->save();
         $msg='Saved';
-        return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
+        $tabs=explode("_",$request->page_tabs);
+        $maintab=$tabs[0];
+        $innertab=$tabs[1];
+        // return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
+        return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
         // return redirect()->back();
       }
 
@@ -639,7 +650,8 @@ class OfficerController extends Controller
 
         $sectors  = Sector::where('status','1')->get();
         $sub_sectors = SubSector::where('status','1')->get();
-        $tab = 'cost';
+        // $maintab = 'review';
+        // $innertab = 'location';
 
         // ConductMonitoring
         $generalFeedback=MGeneralFeedBack::where('status',1)->get();
@@ -719,7 +731,8 @@ class OfficerController extends Controller
         ,compact('m_assigned_issues','qualityassesments','B_Stakeholders','sponsoringStakeholders','executingStakeholders',
         'project_documents','result_from_app','org_project','districts','cities',
         'org_projectId','projectProgressId','mPlanKpiComponents','ComponentActivities',
-        'monitoringProjectId','Kpis','components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
+        'monitoringProjectId','Kpis','components','objectives','sectors','sub_sectors','project','costs','location',
+        'organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
       }
 
       public function weight($level_1){
