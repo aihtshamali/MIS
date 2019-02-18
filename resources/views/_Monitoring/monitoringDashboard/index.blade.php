@@ -126,7 +126,7 @@ object-fit: cover;
 @endsection
 @section('content')
 <div class="col-md-12">
-  <h3 class="topheading txt-black">Delivery of better extension servioces to accelerate fish culture prctices.</h3>
+  <h3 class="topheading txt-black">{{$project->title}}</h3>
   <table class="col-md-12">
     <tr>
       <th>#</th>
@@ -194,7 +194,7 @@ object-fit: cover;
 <div class="row col-md-12 mt3p">
 <div class="col-md-4">
     <div class="">
-      <img src="http://172.16.10.11/storage/uploads/monitoring/3/SligJesgm8aHjs7sBhOsECC5NQhrIrH9sVe0cb4H.jpeg" alt="" style="width:100%;">
+      <img src="http://172.16.10.14/storage/uploads/monitoring/{{$project->AssignedProject->MProjectProgress->last()->id}}/{{$project->AssignedProject->MProjectProgress->last()->MAppAttachment->where('type','image/jpeg')->last()->project_attachement}}" alt="" style="width:100%;">
     </div>
   </div>
   <div class="col-md-8">
