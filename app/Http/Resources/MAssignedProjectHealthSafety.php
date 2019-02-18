@@ -14,6 +14,15 @@ class MAssignedProjectHealthSafety extends Resource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            "id" => $this->id,
+            "m_health_safety" => $this->MHealthSafety->description,
+            "status" => ($this->status == 'yes' ? true : false),
+            "remarks" => $this->remarks,
+            // "m_project_progress_id" => "3",
+            "created_at" => $this->created_at,
+            "updated_at" => $this->updated_at
+            // "user_id" => "3036"
+        ];
     }
 }
