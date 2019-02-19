@@ -149,7 +149,7 @@ object-fit: cover;
     </tr>
     <tr>
       <td>{{$project->financial_year}}/{{$project->ADP}}</td>
-      <td>@if($progress->MProjectDate){{date('d-M-Y',strtotime($progress->MProjectDate->actual_start_date))}}@else Not Added @endif</td>
+      <td>@if($progress && $progress->MProjectDate){{date('d-M-Y',strtotime($progress->MProjectDate->actual_start_date))}}@else Not Added @endif</td>
       <td>{{date('d-M-Y',strtotime($project->ProjectDetail->planned_start_date))}}</td>
       <td>{{date('d-M-Y',strtotime($project->ProjectDetail->planned_end_date))}}</td>
       <td>{{round($project->ProjectDetail->orignal_cost,2)}} Million PKR</td>
@@ -179,22 +179,22 @@ object-fit: cover;
       </div>
     </div>
     <div class="col-md-4">
-        <h3 class="text-center txt-black">Cumulative Progress</h3>
+        <h3 class="text-center txt-black">Financial Progress</h3>
         <div class="card update-card nopad ">
-          <div id="chartdiv2"></div>
+          <div id="chartdiv" class="bggraygradient"></div>
         </div>
-</div>
-<div class="col-md-4">
-    <h3 class="text-center txt-black">Financial Progress</h3>
-    <div class="card update-card nopad">
-      <div id="chartdiv" class="bggraygradient"></div>
     </div>
-</div>
+    <div class="col-md-4">
+      <h3 class="text-center txt-black">Cumulative Progress</h3>
+      <div class="card update-card nopad">
+          <div id="chartdiv2"></div>
+      </div>
+    </div>
 </div>
 <div class="row col-md-12 mt3p">
 <div class="col-md-4">
     <div class="">
-      <img src="http://172.16.10.14/storage/uploads/monitoring/{{$project->AssignedProject->MProjectProgress->last()->id}}/{{$project->AssignedProject->MProjectProgress->last()->MAppAttachment->where('type','image/jpeg')->last()->project_attachement}}" alt="" style="width:100%;">
+      <img alt="NO PIC ADDED" src="http://172.16.10.14/storage/uploads/monitoring/@if($project->AssignedProject && $project->AssignedProject->MProjectProgress->last()){{$project->AssignedProject->MProjectProgress->last()->id}}/{{$project->AssignedProject->MProjectProgress->last()->MAppAttachment->where('type','image/jpeg')->last()->project_attachement}}@endif" alt="" style="width:100%;">
     </div>
   </div>
   <div class="col-md-8">
