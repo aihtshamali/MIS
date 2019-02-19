@@ -11,7 +11,7 @@
   -webkit-transition: all 900ms ease;cursor: pointer;}
   .mxh3h:hover{box-shadow: 9px 6px 15px #85c5e340; transition:transition: all 900ms ease;
   -webkit-transition: all 900ms ease;}
-  #chartdiv{height: 300px !important;}
+  #chartdiv, #chartdiv2{height: 300px !important;}
 </style>
 @endsection
 @section('content')
@@ -166,10 +166,10 @@ valueAxis2.min = 0;
 //        },
 //        methods: {
 //         fillModal(data,name){
-           
+
 //            this.officer_projects=data
 //            this.officer_name=name
-//            loadDataTable()      
+//            loadDataTable()
 //          }
 //        },
 //      })
@@ -199,7 +199,7 @@ function createSeries(field, name,color="#67b7dc") {
   labelBullet.label.text = "{valueY}";
   labelBullet.locationY = 0.5;
 
-  
+
 
   // OnCLick EVENT
   series.columns.template.events.on("hit", function(ev) {
