@@ -1353,6 +1353,7 @@ class OfficerController extends Controller
       $progress_divided = 0;
       $actual_progress = 0;
       $count_progress = 0;
+      $gestation = 0;
       $physical_progress_values = [];
       $financial_progress_values = [];
       if($assigned_project){
@@ -1370,10 +1371,14 @@ class OfficerController extends Controller
           $physical_progress = round(calculateMPhysicalProgress($progress->id,2));
 
           $actual_progress = date_diff(date_create($progress->MProjectDate->actual_start_date),date_create($project->ProjectDetail->planned_end_date));
-          $gestation = $actual_progress->format('%y');
+          $gestation = ($actual_progress->format('%a')/365);
 
           $progress_divided = round(100/$gestation,2);
-          $actual_progress = $progress_divided*($gestation - date_diff(date_create(date('d-m-Y')),date_create($project->ProjectDetail->planned_end_date))->format('%y'));
+          if(date_create(date('d-m-Y')) > date_create($project->ProjectDetail->planned_end_date)){
+            $actual_progress = 100;
+          }
+          else
+            $actual_progress = $progress_divided*($gestation - date_diff(date_create(date('d-m-Y')),date_create($project->ProjectDetail->planned_end_date))->format('%y'));
         }
       }
       // $projects= Project::select('projects.*')
