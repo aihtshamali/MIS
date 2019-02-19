@@ -10,10 +10,6 @@ class MProjectProgress extends Model
         return $this->belongsTo('App\AssignedProject');
     }
 
-    public function MAssignedProjectHealthSafety(){
-        return $this->hasMany('App\MAssignedProjectHealthSafety');
-    }
-
     public function MPlanObjectivecomponentMapping(){
       return $this->hasMany('App\MPlanObjectivecomponentMapping');
     }
@@ -25,7 +21,9 @@ class MProjectProgress extends Model
     public function MAssignedKpiLevel1(){
       return $this->hasMany('App\MAssignedKpiLevel1');
     }
-
+    public function MAssignedProjectIssue(){
+      return $this->hasMany('App\MAssignedProjectIssue');
+    }
     public function MAssignedKpiLevel2(){
       return $this->hasMany('App\MAssignedKpiLevel2');
     }
@@ -77,21 +75,32 @@ class MProjectProgress extends Model
     }
     public function MConductQualityassesment(){
       return $this->hasMany('App\MConductQualityassesment');
-    } 
+    }
     public function MBeneficiaryStakeholder(){
       return $this->hasMany('App\MBeneficiaryStakeholder');
-    } 
+    }
     public function MSponsoringStakeholder(){
       return $this->hasMany('App\MSponsoringStakeholder');
-    } 
+    }
     public function MExecutingStakeholder(){
       return $this->hasMany('App\MExecutingStakeholder');
-    } 
+    }
     public function MUserVisitlocation(){
       return $this->hasMany('App\MUserVisitlocation');
     }
     public function MAppAttachment(){
       return $this->hasMany('App\MAppAttachment');
     }
+    public function MProjectAttachment(){
+      return $this->hasMany('App\MProjectAttachment');
+    }
+    public function MAssignedProjectFeedBack(){
+      return $this->hasMany('App\MAssignedProjectFeedBack');
+    }
+    public function MAssignedProjectHealthSafety(){
+      return $this->hasMany('App\MAssignedProjectHealthSafety');
+    }
+
+
 
 }

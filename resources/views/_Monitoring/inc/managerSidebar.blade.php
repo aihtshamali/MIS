@@ -21,7 +21,7 @@
                                     </a>
                                 </li>
                                 <li class="#">
-                                    <a href="dashboard-analytics.html">
+                                <a href="{{route('analytics')}}">
                                         <span class="pcoded-mtext">Analytics</span>
                                         <span class="pcoded-badge label label-info ">NEW</span>
                                     </a>
