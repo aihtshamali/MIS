@@ -323,6 +323,8 @@ $(document).ready(function () {
         $('#TimesDiv').hide();
         $('#CostingDiv').hide();
         $('#prolocDiv').hide();
+        $('#galleryDiv').hide();
+        $('#WBSDiv').hide();
     }
 
 

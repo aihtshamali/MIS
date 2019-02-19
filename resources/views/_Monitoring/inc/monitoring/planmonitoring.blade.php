@@ -3,45 +3,45 @@
 .ms-container .ms-selectable li.ms-hover{background-color: #119e36;}
 /* 01a9ac */
 </style>
-<div class="tab-pane " id="p_monitoring" role="tabpanel">
+<div class="tab-pane {{isset($maintab) && $maintab=='plan' ? 'active' : ''}}" id="p_monitoring" role="tabpanel">
     <div class="row">
         <div class="col-lg-12 col-xl-12 col-md-12 col-sm-6">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs tabs p_tabs" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active PlanDoc" data-toggle="tab" href="#PlanDocDiv"
+                    <a class="nav-link {{isset($innertab) && $innertab=='documents' ? 'active' : ''}} PlanDoc" data-toggle="tab" href="#PlanDocDiv"
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Documents</b></a>
                 </li>
-                {{-- <li class="nav-item">
+                <!-- {{-- <li class="nav-item">
                     <a class="nav-link financialphase" data-toggle="tab" href="#financial" id="fpli"
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Financial Phasing</b></a>
-                </li> --}}
+                </li> --}} -->
                 <li class="nav-item">
-                    <a class="nav-link i-dates" data-toggle="tab" href="#i-dates" id="pdli"
+                    <a class="nav-link {{isset($innertab) && $innertab == 'projectdesign' ? 'active' : ''}} i-dates" data-toggle="tab" href="#i-dates" id="pdli"
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Project Design</b></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link MOBtab" id="MOBtab" data-toggle="tab" href="#MOBdiv"
+                    <a class="nav-link {{isset($innertab) && $innertab=="Mapping" ? "active" : ""}} MOBtab" id="MOBtab" data-toggle="tab" href="#MOBdiv"
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Mapping Of objectives</b></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  kpis" data-toggle="tab" href="#kpis" role="tab" id="kpisss"
+                    <a class='nav-link {{isset($innertab) && $innertab=="KPI" ? "active" : ""}} kpis' data-toggle="tab" href="#kpis" role="tab" id="kpisss"
                         aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Plan ( KPI's)</b></a>
                 </li>
-                {{-- <li class="nav-item">
+                <!-- {{-- <li class="nav-item">
                     <a class="nav-link proloc" data-toggle="tab" href="#prolocDiv" role="tab" id="proloc"
                         aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Project Location</b></a>
-                </li> --}}
+                </li> --}} -->
                 <li class="nav-item">
-                    <a class="nav-link activities" data-toggle="tab" href="#activities" id="tali"
+                    <a class='nav-link {{isset($innertab) && $innertab=="task" ? "active" : ""}} activities' data-toggle="tab" href="#activities" id="tali"
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Tasks</b></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link TimeTab" data-toggle="tab" href="#TimesDiv" id="tili"
+                    <a class='nav-link {{isset($innertab) && $innertab=="time" ? "active" : ""}} TimeTab' data-toggle="tab" href="#TimesDiv" id="tili"
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Time</b></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link CostingTab" data-toggle="tab" href="#CostingDiv" id="cosli"
+                    <a class='nav-link {{isset($innertab) && $innertab=="Costing" ? "active" : ""}} CostingTab' data-toggle="tab" href="#CostingDiv" id="cosli"
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Costing</b></a>
                 </li>
                 {{-- <li class="nav-item">
@@ -49,8 +49,8 @@
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Plan A Trip</b></a>
                 </li> --}}
             </ul>
-            <div class="tab-content tabs card-block active">
-                <div class="tab-pane active" id="PlanDocDiv" role="tabpanel" aria-expanded="true">
+            <div class="tab-content tabs card-block {{isset($maintab) && $maintab=='plan' ? 'active' : ''}}">
+                <div class="tab-pane {{isset($innertab) && $innertab=='documents' ? 'active' : ''}}" id="PlanDocDiv" role="tabpanel" aria-expanded="true">
                 <div class="row" style="margin-top:5%; margin-bottom: 10%;">
                         @if(isset($project_documents))
                         <div class="col-md-3">
@@ -71,6 +71,7 @@
                         <div class="col-md-3 ">
                         <div class="btn col-md-10 offset-md-2 btn-primary btn-block">
                             <input type="file" id="html_btn" name="planmonitoringfile" title='Click to add Files' />
+                            <input type="hidden" name="page_tabs" value="plan_projectdesign">
                             <span>Upload File</span>
                         </div>
                         </div>
@@ -88,11 +89,12 @@
                  </form>
 
                 </div>
-                <div class="tab-pane" id="i-dates" role="tabpanel" aria-expanded="false">
+                <div class="tab-pane {{isset($innertab) && $innertab=='projectdesign' ? 'active' : ''}}" id="i-dates" role="tabpanel" aria-expanded="false">
                   <form class="serializeform" action="{{ route('projectDesignMonitoring') }}" method="post">
                         {{ csrf_field() }}
                         <div class="row">
                             <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
+                            <input type="hidden" name="page_tabs" value="plan_Mapping">
                             <input type="hidden" name="objct" id="objct" value="{{count($objectives)}}">
                             <input type="hidden" name="compAct" id="compAct" value="{{count($components)}}">
                             <div class="col-md-6 objtivesNew border_right pd_1_2">
@@ -205,12 +207,13 @@
                     </div>
                   </form>
                 </div>
-                <div class="tab-pane" id="MOBdiv" role="tabpanel" aria-expanded="false">
+                <div class='tab-pane {{isset($innertab) && $innertab=="Mapping" ? "active" : ""}}' id="MOBdiv" role="tabpanel" aria-expanded="false">
                    <form class="serializeform" action="{{ route('mappingOfObj') }}" method="post">
                         {{ csrf_field() }}
                     <div class="row col-md-12 border">
                         <div class="col-md-8 offset-md-2 ">
                         <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
+                        <input type="hidden" name="page_tabs" value="plan_KPI">
                         <div class="row">
                             <h5 class="textlef pd_1_2 col-md-6"><b>Objectives</b></h5>
                             <h5 class="textlef pd_1_2 col-md-6"><b>Component</b></h5>
@@ -258,10 +261,11 @@
                     </div>
                    </form>
                 </div>
-                <div class="tab-pane" id="kpis" role="tabpanel" aria-expanded="false" style="display:none;">
+                <div class='tab-pane {{isset($innertab) && $innertab=="KPI" ? "active" : ""}}' id="kpis" role="tabpanel" aria-expanded="false" style="">
                 <form class="serializeform" action="{{route('kpiComponentMapping')}}" method="post">
                     {{ csrf_field() }}
                     <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
+                    <input type="hidden" name="page_tabs" value="plan_task">
 
                     <div class="card m-0 z-depth-right-0">
                         <div class="card-header">
@@ -315,13 +319,14 @@
                     </div>
                   </form>
                 </div>
-                <div class="tab-pane" id="prolocDiv" role="tabpanel" aria-expanded="false" style="display:none;">
+                <div class="tab-pane " id="prolocDiv" role="tabpanel" aria-expanded="false" style="display:none;">
                   prolocDiv
                 </div>
-                <div class="tab-pane " id="activities" role="tabpanel" aria-expanded="false" style="display:none;">
+                <div class='tab-pane {{isset($innertab) && $innertab=="task" ? "active" : ""}}' id="activities" role="tabpanel" aria-expanded="false" style="display:none;">
                 <form class="serializeform" action="{{route('componentActivities')}}" method="post">
                     {{ csrf_field() }}
                     <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
+                    <input type="hidden" name="page_tabs" value="plan_time">
                     <div class="card">
                         <div class="card-header"></div>
                         <div class="card-block">
@@ -368,11 +373,12 @@
                     </div>
                   </form>
                 </div>
-                <div class="tab-pane " id="TimesDiv" role="tabpanel" aria-expanded="false"
-                    style="display:none;">
+                <div class='tab-pane {{isset($innertab) && $innertab=="time" ? "active" : ""}}' id="TimesDiv" role="tabpanel" aria-expanded="false"
+                    style="">
                 <form class="serializeform" action="{{route('activities_duration')}}" method="post">
                     {{ csrf_field() }}
                     <div class="card">
+                      <input type="hidden" name="page_tabs" value="plan_Costing">
                         <div class="card-header"></div>
                         <div class="card-block">
                             <div class="row form-group">
@@ -401,11 +407,12 @@
                     </div>
                   </form>
                 </div>
-                <div class="tab-pane " id="CostingDiv" role="tabpanel" aria-expanded="false"
-                    style="display:none;">
+                <div class='tab-pane {{isset($innertab) && $innertab=="costing" ? "active" : ""}}' id="CostingDiv" role="tabpanel" aria-expanded="false"
+                    style="">
                  <form class="serializeform" action="{{route('Costing')}}" method="post">
                   {{ csrf_field() }}
                     <div class="card">
+                      <input type="hidden" name="page_tabs" value="conduct_QA">
                         <div class="card-header"></div>
                         <div class="card-block" id='costcomp'>
                             <div class="col-md-12" style="display:inline-flex;margin-bottom:5%;">

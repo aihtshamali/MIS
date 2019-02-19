@@ -119,7 +119,7 @@
     {{-- frozen panel for plan and conduct monitoring  --}}
     @php
         $maintab='review';
-        $innertab='';
+        $innertab='cost';
         if(\Session::has('maintab')){
           $maintab=\Session::get('maintab');
           $innertab=\Session::get('innertab');
@@ -251,7 +251,7 @@
                                           <div class="slide"></div>
                                       </li>
                                       <li class="nav-item planNav">
-                                          <a class="nav-link" data-toggle="tab" href="#p_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">PLAN MONITORING</span></a>
+                                          <a class="nav-link {{isset($maintab) && $maintab=='plan' ? 'active' : ''}}" data-toggle="tab" href="#p_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">PLAN MONITORING</span></a>
                                           <div class="slide"></div>
                                       </li>
                                       <li class="nav-item conductNav">

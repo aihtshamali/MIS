@@ -1,9 +1,9 @@
-<div class="tab-pane active" id="reviewDiv" role="tabpanel">
+<div class="tab-pane {{isset($maintab) && $maintab=='review' ? 'active' : ''}}"      id="reviewDiv" role="tabpanel">
 <div class="col-md-12">
   <!-- Nav tabs -->
   <ul class="nav nav-tabs  tabs" role="tablist">
       <li class="nav-item ">
-          <a class="nav-link {{isset($innertab) && $innertab!='' ? '' : 'active'}} costTab" data-toggle="tab" href="#costDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Cost</b></a>
+          <a class="nav-link {{isset($innertab) && $innertab=='cost' ? '' : 'active'}} costTab" data-toggle="tab" href="#costDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Cost</b></a>
       </li>
       <li class="nav-item">
           <a class="nav-link {{isset($innertab) && $innertab=='location' ? 'active' : ''}}"  data-toggle="tab" href="#locationDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Location</b></a>
@@ -18,7 +18,7 @@
   <!-- Tab panes -->
   {{-- {{ dd(Session::get('tab')) }} --}}
   <div class="tab-content tabs card-block">
-      <div class="tab-pane {{isset($innertab) && $innertab!='' ? '' : 'active'}}" id="costDiv" role="tabpanel">
+      <div class="tab-pane {{isset($innertab) && $innertab=='cost' ? '' : 'active'}}" id="costDiv" role="tabpanel">
         <form class="review serializeform" action="{{ route('Monitoring_inprogressCostSaved') }}" method="POST">
           {{ csrf_field() }}
           <input type="hidden" name="assigned_project_id" value="{{$project->id}}">
@@ -148,7 +148,7 @@
         <form class="serializeform" action="{{ route('Monitoring_inprogressLocationSaved') }}" method="post">
           {{ csrf_field() }}
           <input type="hidden" name="assigned_project_id" value="{{$project->id}}">
-          <input type="hidden" name="page_tabs" value="plan_agencies">
+          <input type="hidden" name="page_tabs" value="review_agencies">
 
           <div class="TimeDiv pd_1 clearfix">
           <div class="form-group row mb_2">
@@ -178,7 +178,7 @@
                         @if (isset($location->city))
                         <option value="{{$city->name}}" {{($city->name==$location->city) ? 'selected' : ''}}>{{$city->name}}</option>
                         @else
-                        <option value="{{$city->name}}">{{$city->name}}</option>                            
+                        <option value="{{$city->name}}">{{$city->name}}</option>
                         @endif
                       @endforeach
                   </select>
@@ -270,7 +270,7 @@
         <form class="" action="{{ route('Monitoring_inprogressDateSaved') }}" method="post">
           {{ csrf_field() }}
           <input type="hidden" name="assigned_project_id" value="{{$project->id}}">
-                <input type="hidden" name="page_tabs" value="plan_documents">
+                <input type="hidden" name="page_tabs" value="review_documents">
           <div class="dates pd_1 clearfix">
           <div class="form-group row mb_2">
               <label class="col-sm-3 font-15">Project Approval Date</label>

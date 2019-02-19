@@ -706,7 +706,7 @@ class OfficerController extends Controller
 
        $qualityassesments=MConductQualityassesment::where('m_project_progress_id',$projectProgressId->id)->get();
        $m_assigned_issues = MAssignedProjectIssue::where('m_project_progress_id',$projectProgressId->id)->get();
-       
+
             // MAssignedKpiLevel1;
             // MAssignedKpiLevel2;
             // MAssignedKpiLevel3;
@@ -741,7 +741,7 @@ class OfficerController extends Controller
         $wl3 = 0;
         $wl4 = 0;
 
-            
+
         foreach ($level_1 as $item)
         {
           $wl2 = 0;
@@ -776,7 +776,7 @@ class OfficerController extends Controller
           }
           $wl1 += $wl2;
         }
-        return $wl1;        
+        return $wl1;
       }
 
       public function monitoring_review_form(Request $request)
@@ -1056,7 +1056,13 @@ class OfficerController extends Controller
           $objectives=MPlanObjective::where('m_project_progress_id',$request->m_project_progress_id)->get();
           $components=MPlanComponent::where('m_project_progress_id',$request->m_project_progress_id)->get();
 
-          return response()->json(["type"=>"success","msg"=>$msg." Successfully","data"=>["objectives"=>$objectives,"components"=>$components],"resType"=>"ObjectiveAndComponents"]);
+          $tabs=explode("_",$request->page_tabs);
+          $maintab=$tabs[0];
+          $innertab=$tabs[1];
+          // return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
+          return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
+
+          // return response()->json(["type"=>"success","msg"=>$msg." Successfully","data"=>["objectives"=>$objectives,"components"=>$components],"resType"=>"ObjectiveAndComponents"]);
 
       }
 
@@ -1080,8 +1086,12 @@ class OfficerController extends Controller
           }
           $i++;
         }
-
-        return response()->json(["type"=>"success","msg"=>"Saved Successfully"]);
+        $tabs=explode("_",$request->page_tabs);
+        $maintab=$tabs[0];
+        $innertab=$tabs[1];
+        // return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
+        return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
+        // return response()->json(["type"=>"success","msg"=>"Saved Successfully"]);
       }
       public function kpiComponentMapping(Request $request)
       {
@@ -1136,8 +1146,12 @@ class OfficerController extends Controller
           }
           $i++;
         }
-
-        return response()->json(["type"=>"success","msg"=>"Saved Successfully"]);
+        $tabs=explode("_",$request->page_tabs);
+        $maintab=$tabs[0];
+        $innertab=$tabs[1];
+        // return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
+        return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
+        // return response()->json(["type"=>"success","msg"=>"Saved Successfully"]);
       }
 
       public function componentActivities(Request $request)
@@ -1170,7 +1184,12 @@ class OfficerController extends Controller
         ->with('MPlanComponent')
         ->where('m_plan_component_activities_mappings.m_project_progress_id',$request->m_project_progress_id)
         ->get();
-        return response()->json(["type"=>"success","msg"=>$msg." Successfully", "resType"=>"forTime","data"=>["CompActivityMapping"=>$CompActivityMapping]]);
+        $tabs=explode("_",$request->page_tabs);
+        $maintab=$tabs[0];
+        $innertab=$tabs[1];
+        // return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
+        return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
+        // return response()->json(["type"=>"success","msg"=>$msg." Successfully", "resType"=>"forTime","data"=>["CompActivityMapping"=>$CompActivityMapping]]);
       }
 
 
@@ -1193,8 +1212,13 @@ class OfficerController extends Controller
             $CompActivityDetails->save();
 
         }
+        $tabs=explode("_",$request->page_tabs);
+        $maintab=$tabs[0];
+        $innertab=$tabs[1];
+        // return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
+        return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
         // $CompActivityDetails=MPlanComponentactivityDetailMapping::where('m_project_progress_id',$request->m_project_progress_id)->get();
-        return response()->json(["type"=>"success","msg"=>" Successfully"]);
+        // return response()->json(["type"=>"success","msg"=>" Successfully"]);
 
       }
 
@@ -1236,14 +1260,14 @@ class OfficerController extends Controller
           $data->type = $file_extension;
           $data->user_id = Auth::id();
           $data->attachment_name=$request->file_name;
-          if($data->save())
-          {
-            return response()->json(["type"=>"success","msg"=>"Saved Successfully"]);
-          }else{
-            return response()->json(["type"=>"error","msg"=>"Something went wrong1!"]);
-          }
+
         }
-        return response()->json(["type"=>"error","msg"=>"Something went wrong2!"]);
+        $tabs=explode("_",$request->page_tabs);
+        $maintab=$tabs[0];
+        $innertab=$tabs[1];
+        // dd($maintab,$innertab);
+        // return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
+        return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
       }
      public function saveQualityAssesment(Request $request)
      {

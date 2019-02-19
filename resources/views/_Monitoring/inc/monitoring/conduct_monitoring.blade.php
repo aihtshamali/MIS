@@ -3,13 +3,13 @@
   height: 37px !important;
 }
 </style>
-<div class="tab-pane" id="c_monitoring" role="tabpanel" style="display:none;">
+<div class="tab-pane {{isset($maintab) && $maintab=='conduct' ? 'active' : ''}}" id="c_monitoring" role="tabpanel" style="">
     <div class="row">
         <div class="col-lg-12 col-xl-12 col-md-12 col-sm-6">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs tabs" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link quality_assesment" data-toggle="tab" href="#quality_assesment"
+                    <a class='nav-link {{isset($innertab) && $innertab=="QA" ? "active" : ""}} quality_assesment' data-toggle="tab" href="#quality_assesment"
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Quality
                             Assesment</b></a>
                 </li>
@@ -47,7 +47,7 @@
             </ul>
             <!-- Tab panes -->
             <div class="tab-content tabs card-block">
-                <div class="tab-pane" id="quality_assesment" role="tabpanel"
+                <div class='tab-pane{{isset($innertab) && $innertab=="QA" ? "active" : ""}}' id="quality_assesment" role="tabpanel"
                     aria-expanded="false">
                     <div class="card z-depth-right-0">
                         <div class="card-header">
