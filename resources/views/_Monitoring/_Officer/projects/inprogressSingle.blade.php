@@ -287,29 +287,33 @@
                           <table class="table table-border table-xs">
                             <tbody>
                               <tr>
+                                <td><i class="icofont icofont-ebook"></i> Generate Report :</td>
+                              <td class="text-center" style="vertical-align:middle;"><span class="f-center"><a href="{{route('generate_monitoring_report',['project_id'=>$project->id])}}"><b style="color:red;">Click here to view & download report</b></a></span></td>
+                              </tr>
+                              <tr>
                                 <td><i class="icofont icofont-contrast"></i> Project:</td>
-                                <td class="text-center"><span class="f-center"><a href="#"> {{$project->Project->title}}</a></span></td>
+                                <td class="text-center" style="vertical-align:middle;"><span class="f-center"><a href="#"> {{$project->Project->title}}</a></span></td>
                               </tr>
                               <tr>
                                 <td><i class="icofont icofont-meeting-add"></i> Financial Progress:</td>
-                                <td class="text-center">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</td>
+                                <td class="text-center" style="vertical-align:middle;">{{calculateMFinancialProgress($project->MProjectProgress->last()->id),2}}%</td>
                               </tr>
                               <tr>
                                 <td><i class="icofont icofont-id-card"></i> Physical Progress:</td>
-                                <td class="text-center">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id),2)}}%</td>
+                                <td class="text-center" style="vertical-align:middle;">{{calculateMPhysicalProgress($project->MProjectProgress->last()->id),2}}%</td>
                               </tr>
                               <tr>
                                 <td><i class="icofont icofont-user"></i> Assigned by:</td>
-                                <td class="text-center">({{$project->getassignedperson($project->assigned_by)->designation}}) {{$project->getassignedperson($project->assigned_by)->first_name}}{{$project->getassignedperson($project->assigned_by)->last_name}} </td>
+                                <td class="text-center" style="vertical-align:middle;">({{$project->getassignedperson($project->assigned_by)->designation}}) {{$project->getassignedperson($project->assigned_by)->first_name}}{{$project->getassignedperson($project->assigned_by)->last_name}} </td>
                               </tr>
                               <tr>
                                 <td><i class="icofont icofont-spinner-alt-3"></i> Revisions:</td>
-                                <td class="text-center">{{$progresses->count()}}</td>
+                                <td class="text-center" style="vertical-align:middle;">{{$progresses->count()}}</td>
                               </tr>
 
                               <tr>
                                 <td><i class="icofont icofont-washing-machine"></i> Status:</td>
-                                <td class="text-center">{{$project->Project->status ? 'Active' : 'In-Active'}}</td>
+                                <td class="text-center" style="vertical-align:middle;">{{$project->Project->status ? 'Active' : 'In-Active'}}</td>
                               </tr>
                             </tbody>
                           </table>
