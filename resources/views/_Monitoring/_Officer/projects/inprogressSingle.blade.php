@@ -186,19 +186,11 @@
                     <div class="col-md-3 ln_ht12">
                       <b for="" name="phy_progress" id="phy_progress" class="primarybold mb_1 fontf_sh"><span  class="float-left">Physical Progress: </span>
                         <span class="pdz_six">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%</span>
-                        <!-- <div class="progress col-md-5 float-right" style="margin: 1.5% 5%;">
-                            <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width: {{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> {{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%
-                            </div>
-                        </div> -->
                         </b>
                     </div>
                     <div class="col-md-3">
                       <b for="" name="f_progress" id="f_progress" class="primarybold mb_1 fontf_sh"><span class="float-left" >Financial Progress:</span>
                         <span class="pdz_six">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</span>
-                        <!-- <div class="progress col-md-5 float-right" style="margin: 1.5% 5%;">
-                            <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width: {{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> {{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%
-                            </div>
-                        </div> -->
                       </b>
                     </div>
                     <div class="col-md-3 ln_ht12">
@@ -214,9 +206,6 @@
                     <div class="col-md-3 ln_ht12">
                         <b for="project_cost" class=" mb_1 fontf_sh"><span >Original Approve Cost:</span> <span>{{round($project->Project->ProjectDetail->orignal_cost,2)}} Million PKR</span></b>
                     </div>
-                    <!-- <div class="col-md-3">
-                        <b for="last_monitoring" class=""><span >Last Monitoring Date </span></b>
-                    </div> -->
                 </div>
         </div>
     </div>
@@ -325,34 +314,8 @@
                             </tbody>
                           </table>
                         </div>
-                          <!-- <div class="card-footer">
-                            <div>
-                              <span>
-                                <a href="#!" class="text-muted m-r-10 f-16"><i class="icofont icofont-random"></i> </a>
-                              </span>
-                              <span class="m-r-10">
-                                <a href="#!" class="text-muted f-16"><i class="icofont icofont-options"></i></a>
-                              </span>
-                              <div class="dropdown-secondary dropdown d-inline-block">
-                                <button class="btn btn-sm btn-primary dropdown-toggle waves-light" type="button" id="dropdown3"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icofont icofont-navigation-menu"></i></button>
-                                <div class="dropdown-menu" aria-labelledby="dropdown3" data-dropdown-in="fadeIn"
-                                data-dropdown-out="fadeOut">
-                                <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-checked m-r-10"></i>Check
-                                  in</a>
-                                  <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-attachment m-r-10"></i>Attach
-                                    screenshot</a>
-                                    <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-rotation m-r-10"></i>Reassign</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-edit-alt m-r-10"></i>Edit
-                                      task</a>
-                                      <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-close m-r-10"></i>Remove</a>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div> -->
-                          </div>
-                        </div>
+                      </div>
+                    </div>
             </div>
             </div>
 

@@ -20,7 +20,10 @@ class MProjectKpi extends Model
   }
   public function MPlanKpicomponentMapping(){
     return $this->hasMany('App\MPlanKpicomponentMapping');
-  }
+  }    
+  public function MAssignedKpi(){
+    return $this->hasMany('App\MAssignedKpi');
+  }    
   public function MUserVisitlocation(){
     return $this->belongsTo('App\MUserVisitlocation');
 }

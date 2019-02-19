@@ -14,12 +14,12 @@ if (! function_exists('calculateMFinancialProgress')) {
   }
 if (! function_exists('calculateMPhysicalProgress')) {
    function calculateMPhysicalProgress($m_project_progress_id){
-      $kpiCompMapping=App\MPlanKpicomponentMapping::where('m_project_progress_id',$m_project_progress_id)->get();
-      $arr=array_fill(0,$kpiCompMapping->count(),0);
+      $mAssignedKpi=App\MAssignedKpi::where('m_project_progress_id',$m_project_progress_id)->get();
+      $arr=array_fill(0,$mAssignedKpi->count(),0);
       $i=0;
-      if(!count($kpiCompMapping))
+      if(!count($mAssignedKpi))
         return 0;
-      foreach($kpiCompMapping as $main)
+      foreach($mAssignedKpi as $main)
       {
         foreach($main->MAssignedKpiLevel1 as $lv1){
           foreach($lv1->MAssignedKpiLevel2 as $lv2){
@@ -53,6 +53,7 @@ if (! function_exists('calculateMPhysicalProgress')) {
       }
 
       return $sum/count($arr);
+      return 0;
   }
 }
 function ProjectProgressAcctoDate($project_id){
