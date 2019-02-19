@@ -15,4 +15,10 @@ class MAssignedProjectIssue extends Model
     public function ExecutingAgency(){
       return $this->belongsTo('App\ExecutingAgency');
     }
-}
+    public function MProjectProgress(){
+      return $this->belongsTo('App\MProjectProgress');
+    }
+
+    
+  }
+

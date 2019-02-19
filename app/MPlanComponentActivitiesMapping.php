@@ -13,7 +13,7 @@ class MPlanComponentActivitiesMapping extends Model
         return $this->belongsTo('App\MProjectProgress');
       } 
       public function MPlanComponentactivityDetailMapping(){
-        return $this->hasOne('App\MPlanComponentactivityDetailMapping');
+        return $this->hasOne('App\MPlanComponentactivityDetailMapping','m_plan_component_activities_mapping_id');
       }
       public function MConductQualityassesment(){
         return $this->hasMany('App\MConductQualityassesment');
