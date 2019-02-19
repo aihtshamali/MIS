@@ -584,10 +584,12 @@ class OfficerController extends Controller
       public function monitoring_inprogressSingle(Request $request)
       {
 
+      
         if($request->project_id==null)
         return redirect()->back();
 
         $project=AssignedProject::where('project_id',$request->project_id)->orderBy('created_at','desc')->first();
+        // dd($project);
         $total_previousProject = MProjectProgress::where('assigned_project_id',$project->id)->orderBy('created_at', 'desc')->get();
         $previousProject = null;
         $projectProgress = null;
@@ -695,10 +697,6 @@ class OfficerController extends Controller
        $qualityassesments=MConductQualityassesment::where('m_project_progress_id',$projectProgressId->id)->get();
        $m_assigned_issues = MAssignedProjectIssue::where('m_project_progress_id',$projectProgressId->id)->get();
        
-            // MAssignedKpiLevel1;
-            // MAssignedKpiLevel2;
-            // MAssignedKpiLevel3;
-            // MAssignedKpiLevel4;
         $physical_progress=0.0;
         $phy_progress_Sum=[];
 
@@ -722,49 +720,49 @@ class OfficerController extends Controller
         'monitoringProjectId','Kpis','components','objectives','sectors','sub_sectors','project','costs','location','organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
       }
 
-      public function weight($level_1){
-        $wl1 = 0;
-        $wl2 = 0;
-        $wl3 = 0;
-        $wl4 = 0;
+      // public function weight($level_1){
+      //   $wl1 = 0;
+      //   $wl2 = 0;
+      //   $wl3 = 0;
+      //   $wl4 = 0;
 
             
-        foreach ($level_1 as $item)
-        {
-          $wl2 = 0;
-          foreach ($item->MAssignedKpiLevel2 as $item2)
-          {
-            $check2 = true;
-            $wl3 = 0;
-            foreach ($item2->MAssignedKpiLevel3 as $item3)
-            {
-              $check3 = true;
-              $wl4 = 0;
-              foreach ($item3->MAssignedKpiLevel4 as $item4)
-              {
-                $wl4 += $item4->current_weightage;
-                $check3 = false;
-              }
+      //   foreach ($level_1 as $item)
+      //   {
+      //     $wl2 = 0;
+      //     foreach ($item->MAssignedKpiLevel2 as $item2)
+      //     {
+      //       $check2 = true;
+      //       $wl3 = 0;
+      //       foreach ($item2->MAssignedKpiLevel3 as $item3)
+      //       {
+      //         $check3 = true;
+      //         $wl4 = 0;
+      //         foreach ($item3->MAssignedKpiLevel4 as $item4)
+      //         {
+      //           $wl4 += $item4->current_weightage;
+      //           $check3 = false;
+      //         }
 
-              if(!$check3){
-                $wl3 += $wl4;
-              }
-              else {
-                $wl3 += $item3->current_weightage;
-              }
-              $check2 = false;
-            }
-            if(!$check2){
-              $wl2 += $wl3;
-            }
-            else {
-              $wl2 += $item2->current_weightage;
-            }
-          }
-          $wl1 += $wl2;
-        }
-        return $wl1;        
-      }
+      //         if(!$check3){
+      //           $wl3 += $wl4;
+      //         }
+      //         else {
+      //           $wl3 += $item3->current_weightage;
+      //         }
+      //         $check2 = false;
+      //       }
+      //       if(!$check2){
+      //         $wl2 += $wl3;
+      //       }
+      //       else {
+      //         $wl2 += $item2->current_weightage;
+      //       }
+      //     }
+      //     $wl1 += $wl2;
+      //   }
+      //   return $wl1;        
+      // }
 
       public function monitoring_review_form(Request $request)
       {
@@ -1341,7 +1339,16 @@ class OfficerController extends Controller
        }
        return redirect()->back();
      }
-
+  
+     public function generate_monitoring_report(Request $request)
+     {
+      $project=MProjectProgress::where('assigned_project_id',$request->project_id)->orderBy('created_at','desc')->first();
+      // 
+        // dd($project->MAssignedProjectHealthSafety[0]->MHealthSafety);
+      //  dd($project->MPlanComponentActivitiesMapping[0]->MPlanComponentactivityDetailMapping);
+      // dd($project->MProjectAttachment);
+       return view('_Monitoring._Officer.projects.report',compact('project'));
+     }
 
     //  CM DASHBOARD
     public function DetailedDashboard(Request $request)

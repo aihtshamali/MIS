@@ -53,7 +53,7 @@
                                <th>Assigning Forum</th>
                                 <th>Project Type</th>
                                 {{-- <th>Action</th> --}}
-                                
+
                             </tr>
                             </thead>
                             <tbody>
@@ -75,11 +75,11 @@
                                      <td>{{$project->Project->ProjectType->name}}</td>
                                 </tr>
                               @endforeach
-                                
+
                             </tbody>
                         </table>
                     </div>
-                </div>   
+                </div>
         </div>
         <div class="card-footer"></div>
     </div>

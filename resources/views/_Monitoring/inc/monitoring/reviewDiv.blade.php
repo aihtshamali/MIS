@@ -57,8 +57,8 @@
                         @endif
                          />
                     </div>
-                    <!-- <div class="form-group">
-                        <label for="" class="col-form-label"><b>Utilization Against Cost Allocation :</b></label>
+                    <div class="form-group">
+                        <label for="" class="col-form-label"><b>Utilization : </b></label>
                         <br>
                     <input type="text" step="0.01" class="form-control" name="utilization_against_cost_allocation" id="utilization_allocation"
                     @if ($costs)
