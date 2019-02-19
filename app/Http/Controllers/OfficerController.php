@@ -703,7 +703,7 @@ class OfficerController extends Controller
         $level_1=MAssignedKpiLevel1::where('m_project_progress_id',$projectProgressId->id)->get();
       // dd($level_1[0]->MAssignedKpiLevel2[1]->MAssignedKpiLevel3);
         // monitoring_kpi_recursion($level_1);
-        // dd(weight($level_1));
+        // dd(weight($level_1))o;
 
 
         \JavaScript::put([
