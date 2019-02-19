@@ -25,7 +25,7 @@
   </div>
   <div class="col-md-4 pdlfrt1 mtb mxh3h mxh3h">
     <div class="border col-md-12">
-        Put AM Charts here...
+    <a href="{{route('m_chart_two')}}">Click</a>
     </div>
   </div>
   <div class="col-md-4 pdlfrt1 mtb mxh3h mxh3h">
