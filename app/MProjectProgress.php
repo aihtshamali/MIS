@@ -21,7 +21,9 @@ class MProjectProgress extends Model
     public function MAssignedKpiLevel1(){
       return $this->hasMany('App\MAssignedKpiLevel1');
     }
-
+    public function MAssignedProjectIssue(){
+      return $this->hasMany('App\MAssignedProjectIssue');
+    }
     public function MAssignedKpiLevel2(){
       return $this->hasMany('App\MAssignedKpiLevel2');
     }
@@ -89,5 +91,16 @@ class MProjectProgress extends Model
     public function MAppAttachment(){
       return $this->hasMany('App\MAppAttachment');
     }
+    public function MProjectAttachment(){
+      return $this->hasMany('App\MProjectAttachment');
+    }
+    public function MAssignedProjectFeedBack(){
+      return $this->hasMany('App\MAssignedProjectFeedBack');
+    }
+    public function MAssignedProjectHealthSafety(){
+      return $this->hasMany('App\MAssignedProjectHealthSafety');
+    }
+    
+    
 
 }
