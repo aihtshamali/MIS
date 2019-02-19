@@ -25,7 +25,7 @@ class CreateMAssignedKpisTable extends Migration
             $table->integer('user_id')->unsigned()->index()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('no action');
             
-            $table->string('weightage')->nullable();
+            $table->string('weightage')->default("1");
 
             $table->timestamps();
         });
