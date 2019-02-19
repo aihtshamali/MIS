@@ -300,7 +300,9 @@ Route::group(['middleware'=>['permission:can.problematicremark']],function(){
 
 Route::get('/dashboard',"HomeController@dashboard")->name("evaluation_dashboard");
 Route::post('/printerfunction','AdminHumanResourceController@printer');
-
+Route::get('/analytics','MonitoringChartController@index')->name('analytics');
+Route::get('/m_chart_one','MonitoringChartController@m_chart_one')->name('m_chart_one');
+Route::get('/m_chart_two','MonitoringChartController@m_chart_two')->name('m_chart_two');
 
 Route::get('/403',function(){
   return view('403');

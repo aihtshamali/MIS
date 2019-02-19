@@ -21,8 +21,11 @@ return [
     'officer/charts/officer_chart_two',
     'officer/charts/officer_chart_three',
   // Monitoring Module
-    '_Monitoring._Officer.projects.inprogressSingle'
-
+    '_Monitoring._Officer.projects.inprogressSingle',
+    '_Monitoring/analytics/analytics',
+    '_Monitoring/analytics/chart_one',
+    '_Monitoring/analytics/chart_two',
+    '_Monitoring/monitoringDashboard/index'
   ],
 
     /*

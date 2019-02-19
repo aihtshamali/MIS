@@ -12,8 +12,7 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-backward" ></i>Back</a></li>
-        <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li>
-       
+        <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li>       
       </ol>
     </section>
 
@@ -60,7 +59,7 @@
           <div class="box box-warning">
                 <div class="box-header with-border">
                   <h3 class="box-title">Average Officer Performance</h3>
-    
+
                   <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                     </button>
@@ -96,7 +95,7 @@
             </div>
             <!-- /.box-body -->
           </div>
-          
+
 
          {{--  Chart 5--}}
           <div class="box box-warning">
@@ -121,7 +120,7 @@
           <div class="box box-warning">
                 <div class="box-header with-border">
                   <h3 class="box-title">Average MIN &amp; MAX Time For Activities </h3>
-    
+
                   <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                     </button>

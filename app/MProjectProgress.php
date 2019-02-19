@@ -10,6 +10,10 @@ class MProjectProgress extends Model
         return $this->belongsTo('App\AssignedProject');
     }
 
+    public function MAssignedProjectHealthSafety(){
+        return $this->hasMany('App\MAssignedProjectHealthSafety');
+    }
+
     public function MPlanObjectivecomponentMapping(){
       return $this->hasMany('App\MPlanObjectivecomponentMapping');
     }
