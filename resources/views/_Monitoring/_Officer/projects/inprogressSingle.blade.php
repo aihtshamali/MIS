@@ -177,7 +177,7 @@
                     </div>
                     <div class="col-md-3 ln_ht12">
                       <b for="" name="phy_progress" id="phy_progress" class="primarybold mb_1 fontf_sh"><span  class="float-left">Physical Progress: </span>
-                        <span class="pdz_six">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%</span>
+                        <span class="pdz_six">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2),1)}}%</span>
                         <!-- <div class="progress col-md-5 float-right" style="margin: 1.5% 5%;">
                             <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width: {{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> {{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%
                             </div>
@@ -186,9 +186,9 @@
                     </div>
                     <div class="col-md-3">
                       <b for="" name="f_progress" id="f_progress" class="primarybold mb_1 fontf_sh"><span class="float-left" >Financial Progress:</span>
-                        <span class="pdz_six">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</span>
+                        <span class="pdz_six">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id,2),1)}}%</span>
                         <!-- <div class="progress col-md-5 float-right" style="margin: 1.5% 5%;">
-                            <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width: {{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> {{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%
+                            <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar"" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> {{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%
                             </div>
                         </div> -->
                       </b>
@@ -290,29 +290,33 @@
                           <table class="table table-border table-xs">
                             <tbody>
                               <tr>
+                                <td><i class="icofont icofont-ebook"></i> Generate Report :</td>
+                              <td class="text-center" style="vertical-align:middle;"><span class="f-center"><a href="{{route('generate_monitoring_report',['project_id'=>$project->id])}}"><b style="color:red;">Click here to view & download report</b></a></span></td>
+                              </tr>
+                              <tr>
                                 <td><i class="icofont icofont-contrast"></i> Project:</td>
-                                <td class="text-center"><span class="f-center"><a href="#"> {{$project->Project->title}}</a></span></td>
+                                <td class="text-center" style="vertical-align:middle;"><span class="f-center"><a href="#"> {{$project->Project->title}}</a></span></td>
                               </tr>
                               <tr>
                                 <td><i class="icofont icofont-meeting-add"></i> Financial Progress:</td>
-                                <td class="text-center">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</td>
+                                <td class="text-center" style="vertical-align:middle;">{{calculateMFinancialProgress($project->MProjectProgress->last()->id),2}}%</td>
                               </tr>
                               <tr>
                                 <td><i class="icofont icofont-id-card"></i> Physical Progress:</td>
-                                <td class="text-center">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id),2)}}%</td>
+                                <td class="text-center" style="vertical-align:middle;">{{calculateMPhysicalProgress($project->MProjectProgress->last()->id),2}}%</td>
                               </tr>
                               <tr>
                                 <td><i class="icofont icofont-user"></i> Assigned by:</td>
-                                <td class="text-center">({{$project->getassignedperson($project->assigned_by)->designation}}) {{$project->getassignedperson($project->assigned_by)->first_name}}{{$project->getassignedperson($project->assigned_by)->last_name}} </td>
+                                <td class="text-center" style="vertical-align:middle;">({{$project->getassignedperson($project->assigned_by)->designation}}) {{$project->getassignedperson($project->assigned_by)->first_name}}{{$project->getassignedperson($project->assigned_by)->last_name}} </td>
                               </tr>
                               <tr>
                                 <td><i class="icofont icofont-spinner-alt-3"></i> Revisions:</td>
-                                <td class="text-center">{{$progresses->count()}}</td>
+                                <td class="text-center" style="vertical-align:middle;">{{$progresses->count()}}</td>
                               </tr>
 
                               <tr>
                                 <td><i class="icofont icofont-washing-machine"></i> Status:</td>
-                                <td class="text-center">{{$project->Project->status ? 'Active' : 'In-Active'}}</td>
+                                <td class="text-center" style="vertical-align:middle;">{{$project->Project->status ? 'Active' : 'In-Active'}}</td>
                               </tr>
                             </tbody>
                           </table>

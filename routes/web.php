@@ -156,6 +156,7 @@ Route::prefix('manager')->middleware('role:manager|directorevaluation')->group(f
     Route::get('/monitoring_complete','DirectorMonitoringController@monitoring_completeprojects')->name('Monitoring_complete_projects');
     Route::get('/monitoring_assigntoconsultant','ProjectAssignController@DPM_AssignToConsultant')->name('Monitoring_assignToconsultant');
     Route::post('/monitoring_assigntoconsultant','ProjectAssignController@store_from_Mdirector')->name('store_from_Mdirector');
+    
 
 });
 Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
@@ -202,13 +203,12 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
   Route::post('/monitoring_inprogress_location_saved','OfficerController@monitoring_inprogress_location_saved')->name('Monitoring_inprogressLocationSaved');
   Route::get('/monitoring_completedAssignment','OfficerController@monitoring_completedAssignments')->name('Monitoring_completedAssignments');
   Route::get('/monitoring_sInprogress','OfficerController@monitoring_inprogressSingle')->name('monitoring_inprogressSingle');
+  
+  //Review Tab
   Route::post('/monitoring_review_form','OfficerController@monitoring_review_form')->name('monitoring_review_form');
-  Route::post('/saveGeneralFeedBack','OfficerController@saveGeneralFeedBack')->name('saveGeneralFeedBack');
-  Route::post('/saveMissues','OfficerController@saveMissues')->name('saveMissues');
-  Route::post('/savehealthsafety','OfficerController@savehealthsafety')->name('savehealthsafety');
+  
+  //Plan Monitoring Tab
   Route::post('/saveMonitoringAttachments','OfficerController@saveMonitoringAttachments')->name('saveMonitoringAttachments');
-
-  Route::post('/saveQualityAssesment','OfficerController@saveQualityAssesment')->name('saveQualityAssesment');
   Route::post('/projectDesignMonitoring','OfficerController@projectDesignMonitoring')->name('projectDesignMonitoring');
   Route::post('/mappingOfObj','OfficerController@mappingOfObj')->name('mappingOfObj');
   Route::post('/getProjectComponents','OfficerController@getProjectComponents')->name('getProjectComponents');
@@ -219,23 +219,27 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
   Route::post('/activities_duration','OfficerController@activities_duration')->name('activities_duration');
   Route::post('/Costing','OfficerController@Costing')->name('Costing');
 
+  //Conduct Monitoring Tab
+  Route::post('/saveQualityAssesment','OfficerController@saveQualityAssesment')->name('saveQualityAssesment');
+  Route::post('/saveGeneralFeedBack','OfficerController@saveGeneralFeedBack')->name('saveGeneralFeedBack');
+  Route::post('/saveMissues','OfficerController@saveMissues')->name('saveMissues');
+  Route::post('/savehealthsafety','OfficerController@savehealthsafety')->name('savehealthsafety');
+  
   Route::post('/stakeholders','OfficerController@savestakeholders')->name('savestakeholders');
-
   Route::post('/getAssignedSponsoringAgency','OfficerController@getAssignedSponsoringAgency')->name('getAssignedSponsoringAgency');
-
   Route::post('/getAssignedExecutingAgency','OfficerController@getAssignedExecutingAgency')->name('getAssignedExecutingAgency');
+
+  //Summary Tab
+  Route::get('/generate_monitoring_report','OfficerController@generate_monitoring_report')->name('generate_monitoring_report');
 
 });
 
-// Monitoring group
-Route::group(['middleware' => ['role:dataentry|officer|monitor|manager|directormonitoring']],function () {
-Route::get('/visitrequestSummary/{id}','ExecutiveController@visitRequestSummary')->name('visitrequestSummary');
-// MonitoringDashbaord
+ // Monitoring group
+  Route::group(['middleware' => ['role:dataentry|officer|monitor|manager|directormonitoring']],function () {
+  Route::get('/visitrequestSummary/{id}','ExecutiveController@visitRequestSummary')->name('visitrequestSummary');
+ 
+  // MonitoringDashbaord
   Route::get('/monitoring_dashboard','HomeController@monitoringDashboard')->name('monitoring_dashboard');
-
-  // Route::get('/monitoring_dashboard',function(){
-  //   return view('monitoring_dashboard');
-  // })->name("monitoring_dashboard");
 
   // monitoring
   Route::get('/monitoringP','ProjectController@createMonitoringEntryForm')->name('createMonitoringEntryForm');
