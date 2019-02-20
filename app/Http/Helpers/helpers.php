@@ -17,6 +17,7 @@ if (! function_exists('calculateMPhysicalProgress')) {
       $mAssignedKpi=App\MAssignedKpi::where('m_project_progress_id',$m_project_progress_id)->get();
       $arr=array_fill(0,$mAssignedKpi->count(),0);
       $i=0;
+      $weight=0;
       if(!count($mAssignedKpi))
         return 0;
       foreach($mAssignedKpi as $main)
@@ -46,13 +47,14 @@ if (! function_exists('calculateMPhysicalProgress')) {
           $arr[$i]+=$we;
         }
         $i++;
+        $weight+=$main->weightage;
       }
       $sum=0;
       foreach($arr as $val){
         $sum+=$val;
       }
 
-      return $sum/count($arr);
+      return $sum/$weight;
       return 0;
   }
 }
