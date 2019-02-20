@@ -18,6 +18,10 @@ class MProjectProgress extends Model
       return $this->hasMany('App\MPlanKpicomponentMapping');
     }
 
+    public function MAssignedKpi(){
+      return $this->hasMany('App\MAssignedKpi');
+    }
+
     public function MAssignedKpiLevel1(){
       return $this->hasMany('App\MAssignedKpiLevel1');
     }

@@ -117,6 +117,14 @@
 @endsection
 @section('content')
     {{-- frozen panel for plan and conduct monitoring  --}}
+    @php
+        $maintab='review';
+        $innertab='';
+        if(\Session::has('maintab')){
+          $maintab=\Session::get('maintab');
+          $innertab=\Session::get('innertab');
+        }
+    @endphp
     <div class="fixed bg-g hidden-sm hidden-xs topSummary capitalize" style="">
     <div class="bg-w border_top bg-w" style="padding:0% 0% 0.5% 1% !important;" >
       <style scoped>
@@ -177,20 +185,12 @@
                     </div>
                     <div class="col-md-3 ln_ht12">
                       <b for="" name="phy_progress" id="phy_progress" class="primarybold mb_1 fontf_sh"><span  class="float-left">Physical Progress: </span>
-                        <span class="pdz_six">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2),1)}}%</span>
-                        <!-- <div class="progress col-md-5 float-right" style="margin: 1.5% 5%;">
-                            <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width: {{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> {{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%
-                            </div>
-                        </div> -->
+                        <span class="pdz_six">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%</span>
                         </b>
                     </div>
                     <div class="col-md-3">
                       <b for="" name="f_progress" id="f_progress" class="primarybold mb_1 fontf_sh"><span class="float-left" >Financial Progress:</span>
-                        <span class="pdz_six">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id,2),1)}}%</span>
-                        <!-- <div class="progress col-md-5 float-right" style="margin: 1.5% 5%;">
-                            <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar"" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> {{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%
-                            </div>
-                        </div> -->
+                        <span class="pdz_six">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</span>
                       </b>
                     </div>
                     <div class="col-md-3 ln_ht12">
@@ -206,9 +206,6 @@
                     <div class="col-md-3 ln_ht12">
                         <b for="project_cost" class=" mb_1 fontf_sh"><span >Original Approve Cost:</span> <span>{{round($project->Project->ProjectDetail->orignal_cost,2)}} Million PKR</span></b>
                     </div>
-                    <!-- <div class="col-md-3">
-                        <b for="last_monitoring" class=""><span >Last Monitoring Date </span></b>
-                    </div> -->
                 </div>
         </div>
     </div>
@@ -239,7 +236,7 @@
                                   <!-- Nav tabs -->
                                   <ul class="nav nav-tabs md-tabs" role="tablist">
                                       <li class="nav-item reviewTab">
-                                          <a class="nav-link active" data-toggle="tab" href="#reviewDiv" role="tab"><span style="font-size:14px; font-weight:bold;">REVIEW</span></a>
+                                          <a class="nav-link {{isset($maintab) && $maintab=='review' ? 'active' : ''}}" data-toggle="tab" href="#reviewDiv" role="tab"><span style="font-size:14px; font-weight:bold;">REVIEW</span></a>
                                           <div class="slide"></div>
                                       </li>
                                       <li class="nav-item planNav">
@@ -321,34 +318,8 @@
                             </tbody>
                           </table>
                         </div>
-                          <!-- <div class="card-footer">
-                            <div>
-                              <span>
-                                <a href="#!" class="text-muted m-r-10 f-16"><i class="icofont icofont-random"></i> </a>
-                              </span>
-                              <span class="m-r-10">
-                                <a href="#!" class="text-muted f-16"><i class="icofont icofont-options"></i></a>
-                              </span>
-                              <div class="dropdown-secondary dropdown d-inline-block">
-                                <button class="btn btn-sm btn-primary dropdown-toggle waves-light" type="button" id="dropdown3"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icofont icofont-navigation-menu"></i></button>
-                                <div class="dropdown-menu" aria-labelledby="dropdown3" data-dropdown-in="fadeIn"
-                                data-dropdown-out="fadeOut">
-                                <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-checked m-r-10"></i>Check
-                                  in</a>
-                                  <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-attachment m-r-10"></i>Attach
-                                    screenshot</a>
-                                    <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-rotation m-r-10"></i>Reassign</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-edit-alt m-r-10"></i>Edit
-                                      task</a>
-                                      <a class="dropdown-item waves-light waves-effect" href="#!"><i class="icofont icofont-close m-r-10"></i>Remove</a>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div> -->
-                          </div>
-                        </div>
+                      </div>
+                    </div>
             </div>
             </div>
 
@@ -471,6 +442,13 @@
 
 
 $(document).ready(function(){
+    var success="{{Session::get('success')}}";
+    if(success){
+      toast({
+              type: 'success',
+              title: success
+            })
+    }
     if("{{$teamflag}}"!=true){
         $('form.serializeform :input,form.serializeform :button,form.serializeform select').attr('disabled','disabled');
     }
@@ -488,7 +466,7 @@ $(document).ready(function(){
      .then((response) => {
          var ds ='';
          for (let i = 0; i < response.data.m_kpi.sector.length; i++) {
-             console.log(response.data.m_kpi.sector);
+            //  console.log(response.data.m_kpi.sector);
 
              ds = response.data.m_kpi.sector[i];
             var oc = $('#WBSChart').orgchart({
@@ -513,7 +491,6 @@ $(document).ready(function(){
         }
     });
         (function($) {
-            console.log();
 
                 axios.post('{{route("getProjectComponents")}}',{
                       MProjectProgressId:'<?= $monitoringProjectId ?>'
@@ -538,7 +515,6 @@ $(document).ready(function(){
                     })
                     .then(response => {
                         activities=response.data
-                       console.log(response,"sad");
                        activitiesfroConductMonitoring(activities)
 
                     }
@@ -558,7 +534,6 @@ $(document).ready(function(){
                     // console.log("sponsoring");
                     .then(response => {
                         sponsoringAgency=response.data
-                       console.log(response,"sponsoring");
                        sponsoringAgencyforCM(sponsoringAgency)
 
                     }
@@ -578,7 +553,6 @@ $(document).ready(function(){
                     // console.log("sponsoring");
                     .then(response => {
                         executingAgency=response.data
-                       console.log(response,"executingAgency");
                        executingAgencyforCM(executingAgency)
 
                     }
@@ -670,57 +644,54 @@ $(document).ready(function(){
 //   });
 // })(jQuery);
 
-  $('form.serializeform').on('submit',function(e){
+  // $('form.serializeform').on('submit',function(e){
 
-    e.preventDefault();
-      $.ajax( {
-      data: new FormData(this),
-      type: $( this ).attr( 'method' ),
-      url: $(this).attr('action'),
-      cache:false,
-      contentType: false,
-      processData: false,
-      dataType: "json",
-      success: function( feedback ){
-          console.log(feedback);
-          if(feedback.resType=="ObjectiveAndComponents"){
-            ObjectiveComponent(feedback.data.components,feedback.data.objectives);
-          }
-          if(feedback.resType=="forTime"){
-            ObjectiveComponentTime(feedback.data.CompActivityMapping);
-            console.log('done');
+  //   e.preventDefault();
+  //     $.ajax( {
+  //     data: new FormData(this),
+  //     type: $( this ).attr( 'method' ),
+  //     url: $(this).attr('action'),
+  //     cache:false,
+  //     contentType: false,
+  //     processData: false,
+  //     dataType: "json",
+  //     success: function( feedback ){
+  //         console.log(feedback);
+  //         if(feedback.resType=="ObjectiveAndComponents"){
+  //           ObjectiveComponent(feedback.data.components,feedback.data.objectives);
+  //         }
+  //         if(feedback.resType=="forTime"){
+  //           ObjectiveComponentTime(feedback.data.CompActivityMapping);
+  //           console.log('done');
 
-          }
-        //   if(feedback){
-            toast({
-            type: feedback.type,
-            title: feedback.msg
-          })
-        //   }
-        //   else{
-            //   alert("Data saved successfully");
-        //   }
-      },
-      error:function(err){
-            toast({
-            type: 'error',
-            title: err
-            })
-          }
-    });
-  });
+  //         }
+  //       //   if(feedback){
+  //           toast({
+  //           type: feedback.type,
+  //           title: feedback.msg
+  //         })
+  //       //   }
+  //       //   else{
+  //           //   alert("Data saved successfully");
+  //       //   }
+  //     },
+  //     error:function(err){
+  //           toast({
+  //           type: 'error',
+  //           title: err
+  //           })
+  //         }
+  //   });
+  // });
   var count=0;
   var compopt='';
   $('li.optiontest').on('click', function () {
         compopt='';
-    console.log(compData);
 
         for (let index = 0; index < compData.length; index++) {
             compopt+='<option value="'+compData[index].id+'">'+compData[index].component+'</option>';
-            console.log(index);
 
         }
-        console.log(compopt,compData.length);
 
         var t = $(this).attr('id').toString()
         var b = true;
@@ -731,15 +702,18 @@ $(document).ready(function(){
 
             if (b) {
                var Li=`<li id='` + t.split('-s')[0]+'-selection' + `' class="col-md-12 row" style="margin-top:5px;">
-                    <div class='col-md-6'>
+                    <div class='col-md-4'>
                         <span name="kpiname[]"> `+ $(this).text() + `</span>
 
                        <input type="hidden" name='kpinamesId[]' value='`+$(this).attr('data-value')+`'/>
-                        </div>
-                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-5">
                         <select class="kpisel col-sm-12" name='mappedKpicomponent_`+count+`[]' multiple="multiple" id="optionsHere">
                     `+ compopt +`
                         </select>
+                    </div>
+                    <div class="col-md-3">
+                      <input name="weightage[]" id="" class="col-md-11 float-right form-control" placeholder="Weightage" type="text" style="text-align:center;height: 45px;border: 1px solid #807d7d8a !important;" value="">
                     </div>
                     </li>`;
                     count++;
