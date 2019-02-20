@@ -3,27 +3,28 @@
   <!-- Nav tabs -->
   <ul class="nav nav-tabs  tabs" role="tablist">
       <li class="nav-item ">
-          <a class="nav-link active costTab" data-toggle="tab" href="#costDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Cost</b></a>
+          <a class="nav-link {{isset($innertab) && $innertab!='' ? '' : 'active'}} costTab" data-toggle="tab" href="#costDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Cost</b></a>
       </li>
       <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#locationDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Location</b></a>
+          <a class="nav-link {{isset($innertab) && $innertab=='location' ? 'active' : ''}}"  data-toggle="tab" href="#locationDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Location</b></a>
       </li>
       <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#AgeOrgDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Agencies & Organization</b></a>
+          <a class='nav-link {{isset($innertab) && $innertab=="agencies" ? "active" : ""}}' data-toggle="tab" href="#AgeOrgDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Agencies & Organization</b></a>
       </li>
       <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#DatesDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Dates</b></a>
+          <a class='nav-link {{isset($innertab) && $innertab=="dates" ? "active" : ""}} ' data-toggle="tab" href="#DatesDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Dates</b></a>
       </li>
   </ul>
   <!-- Tab panes -->
   {{-- {{ dd(Session::get('tab')) }} --}}
   <div class="tab-content tabs card-block">
-      <div class="tab-pane active" id="costDiv" role="tabpanel">
+      <div class="tab-pane {{isset($innertab) && $innertab!='' ? '' : 'active'}}" id="costDiv" role="tabpanel">
         <form class="review serializeform" action="{{ route('Monitoring_inprogressCostSaved') }}" method="POST">
           {{ csrf_field() }}
           <input type="hidden" name="assigned_project_id" value="{{$project->id}}">
           <div class="costDiv pd_1 clearfix">
               <div class="card-header">
+                <input type="hidden" name="page_tabs" value="review_location">
                   <h4>FINANCIAL COST</h4>
                   <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Sunt similique totam harum sit. Quibusdam libero, harum rem
@@ -143,10 +144,12 @@
       </div>
     </form>
       </div>
-      <div class="tab-pane" id="locationDiv" role="tabpanel">
+      <div class="tab-pane {{isset($innertab) && $innertab=='location' ? 'active' : ''}}"  id="locationDiv" role="tabpanel">
         <form class="serializeform" action="{{ route('Monitoring_inprogressLocationSaved') }}" method="post">
           {{ csrf_field() }}
           <input type="hidden" name="assigned_project_id" value="{{$project->id}}">
+          <input type="hidden" name="page_tabs" value="plan_agencies">
+
           <div class="TimeDiv pd_1 clearfix">
           <div class="form-group row mb_2">
               <label class="col-sm-3 font-15">District</label>
@@ -228,10 +231,12 @@
         <input type="submit" class="btn btn-primary btn-sm primaryClr" value="Save & Proceed"/>
       </form>
       </div>
-      <div class="tab-pane" id="AgeOrgDiv" role="tabpanel">
+      <div class="tab-pane {{isset($innertab) && $innertab=='agencies' ? 'active' : ''}}" id="AgeOrgDiv" role="tabpanel">
         <form class="" action="{{ route('Monitoring_inprogressOrganizationSaved') }}" method="post">
           {{ csrf_field() }}
           <input type="hidden" name="assigned_project_id" value="{{$project->id}}">
+          <input type="hidden" name="page_tabs" value="review_dates">
+
           <div class="age_orgDiv pd_1 clearfix">
           <div class="form-group row mb_2">
               <label class="col-sm-3 font-15">Operation & Management</label>
@@ -261,10 +266,11 @@
         <input type="submit" class="btn btn-primary btn-sm primaryClr" value="Save & Proceed"/>
       </form>
       </div>
-      <div class="tab-pane" id="DatesDiv" role="tabpanel">
+      <div class="tab-pane {{isset($innertab) && $innertab=='dates' ? 'active' : ''}}" id="DatesDiv" role="tabpanel">
         <form class="" action="{{ route('Monitoring_inprogressDateSaved') }}" method="post">
           {{ csrf_field() }}
           <input type="hidden" name="assigned_project_id" value="{{$project->id}}">
+                <input type="hidden" name="page_tabs" value="plan_documents">
           <div class="dates pd_1 clearfix">
           <div class="form-group row mb_2">
               <label class="col-sm-3 font-15">Project Approval Date</label>

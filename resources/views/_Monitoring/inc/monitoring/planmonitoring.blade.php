@@ -269,8 +269,8 @@
                         </div>
                         <div class="card-block">
                           <div class="row form-group">
-                            <div class="col-md-5">
-                                <h5 class="mb_2">Choose KPI(s)</h4>
+                              <div class="col-md-5">
+                                  <h5 class="mb_2">Choose KPI(s)</h4>
                                 <select id='custom-headers' class="searchable yesearch"
                                     multiple='multiple'>
                                     {{-- <h1>here</h1> --}}
