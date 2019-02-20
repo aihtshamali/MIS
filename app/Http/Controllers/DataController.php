@@ -13,6 +13,7 @@ use App\Http\Resources\MProjectKpi as MProjectKpiResource;
 use App\Http\Resources\MAppVersionlog as MAppVersionlogResource;
 use App\Http\Resources\MPlanKpicomponentMapping as MPlanKpicomponentMappingResource;
 use App\Http\Resources\MAssignedProjectHealthSafety as MAssignedProjectHealthSafetyResource;
+use App\Http\Resources\MAssignedKpi as MAssignedKpiResource;
 use App\MAssignedKpiLevel1;
 use App\MAssignedKpiLevel2;
 use App\MAssignedKpiLevel3;
@@ -76,13 +77,13 @@ class DataController extends Controller
           // return $project;
           // $sub_sectors = $project->project->AssignedSubSectors;
           $index = 0;
-          $project_progresses = $project->MProjectProgress->last()->MPlanKpicomponentMapping;
+          $project_progresses = $project->MProjectProgress->last()->MAssignedKpi;
           $m_project_kpis = ["m_kpi"=>["sector"=>[]],"general_kpi"=>[]];
 
           //Removing General Kpi from Array And Adding them to final Array
           foreach ($project_progresses as $value) {
             if($value->MProjectKpi->sector_id == NULL){
-              array_push($m_project_kpis["general_kpi"],new MPlanKpicomponentMappingResource($value));
+              array_push($m_project_kpis["general_kpi"],new MAssignedKpiResource($value));
               unset($project_progresses[$index]);
             }
             $index ++;
@@ -97,7 +98,7 @@ class DataController extends Controller
           // Placing results to corresponding Sectors Respectively
           foreach ($sectors as $key => $sector) {
             foreach ($project_progresses as $progress) {
-                array_push($sectors[$progress->MProjectKpi->Sector->name],new MPlanKpicomponentMappingResource($progress));
+                array_push($sectors[$progress->MProjectKpi->Sector->name],new MAssignedKpiResource($progress));
             }
           }
 

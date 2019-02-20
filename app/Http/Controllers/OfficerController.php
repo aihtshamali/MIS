@@ -1107,7 +1107,7 @@ class OfficerController extends Controller
           $assignedKpi->m_project_kpi_id=$kpi;
           $assignedKpi->m_project_progress_id=$request->m_project_progress_id;
           $assignedKpi->user_id=Auth::id();
-          $assignedKpi->weightage=$request->weightage[$i];          
+          $assignedKpi->weightage=($request->weightage[$i] == NULL ? 1:$request->weightage[$i]);          
           $assignedKpi->save();
 
           foreach ($assignedKpi->MProjectKpi->MProjectLevel1Kpi as $lev1) {
