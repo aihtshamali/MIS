@@ -255,13 +255,14 @@ valueAxis.max = 80;
 var series = chart.series.push(new am4charts.LineSeries());
 series.dataFields.valueY = "value";
 series.dataFields.categoryX = "year";
+series.stroke = am4core.color("#1c491f");
 series.strokeWidth = 2;
 series.tensionX = 0.77;
 
 var range = valueAxis.createSeriesRange(series);
 range.value = 0;
 range.endValue = 1000;
-range.contents.stroke = am4core.color("#6b75dc");
+// range.contents.stroke = am4core.color("#6b75dc");
 // range.contents.fill = am4core.color("#fff");
 range.contents.fill = range.contents.stroke;
 
@@ -319,6 +320,7 @@ series2.name = "Physical Progress";
 var series = chart.series.push(new am4charts.LineSeries());
 series.dataFields.valueY = "value";
 series.dataFields.categoryX = "year";
+series.stroke = am4core.color("#1c491f");
 series.strokeWidth = 2;
 series.tensionX = 0.77;
 series.name = "Financial Progress";
@@ -401,9 +403,9 @@ label.label.text = "{height} %";
 label.dy = -15;
 
 let gradient1 = new am4core.LinearGradient();
-gradient1.addColor(am4core.color("#65adb9"));
-gradient1.addColor(am4core.color("#65adb9"));
-gradient1.addColor(am4core.color("#12576985"));
+// gradient1.addColor(am4core.color("#65adb9"));
+// gradient1.addColor(am4core.color("#65adb9"));
+// gradient1.addColor(am4core.color("#12576985"));
 gradient1.rotation = 90;
 chart1.background.fill = gradient1;
 </script>
