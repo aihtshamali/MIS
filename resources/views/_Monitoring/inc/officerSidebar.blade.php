@@ -74,14 +74,14 @@
                         </li>
                     </ul>
                     <div class="pcoded-navigatio-lavel"></div>
-                    <ul class="pcoded-item pcoded-left-item">
+                    {{-- <ul class="pcoded-item pcoded-left-item">
                       <li class="ms-hover">
-                        <a href="{{route('minitoringDashboard')}}">
+                        <a href="{{route('monitoringDashboard')}}">
                           <span class="pcoded-micon"><i class="zmdi zmdi-assignment"></i></span>
                           <span class="pcoded-mtext" >Monitoring Dashboard</span>
                         </a>
                       </li>
-                    </ul>
+                    </ul> --}}
                 </div>
             </nav>
             <div class="pcoded-content">

@@ -13,7 +13,7 @@
 <body>
   <div class="col-md-12 border-bottom header inline-flex">
     <div class="col-md-1">
-      <a href="{{route('minitoringDashboard')}}">
+      <a href="{{route('monitoringDashboard')}}">
         <img class="w_46p" id="logo" src="{{ asset('dgme.png')}}" alt="DGME Logo" />
       </a>
     </div>

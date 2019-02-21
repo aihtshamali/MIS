@@ -27,7 +27,7 @@
                             <tbody>
                               @foreach ($projects as $project)
                                 <tr>
-                                    <td><a style="font-size:15px;" href="{{route('minitoringDashboard',['project_id'=>$project->Project->id])}}">{{$project->Project->title}}</a></td>
+                                    <td><a style="font-size:15px;" href="{{route('monitoringDashboard',['project_id'=>$project->Project->id])}}">{{$project->Project->title}}</a></td>
                                     <td>
                                       @foreach ($project->Project->AssignedSubSectors as $subsector)
                                         {{$subsector->SubSector->Sector->name}}

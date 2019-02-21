@@ -267,7 +267,7 @@ Route::post('/project_financial_year','ProjectController@financial_year')->name(
 
 
 // CM DASHBOARD
-Route::get('/minitoringDashboard', 'OfficerController@DetailedDashboard')->name('minitoringDashboard');
+Route::get('/minitoringDashboard', 'OfficerController@DetailedDashboard')->name('monitoringDashboard');
 Route::get('/Summary', function () {
   return view('_Monitoring.monitoringDashboard.pages.Summary');
 })->name('Summary');
