@@ -353,7 +353,8 @@
       }
 
       if (selectables.length > 0){
-        selectables.addClass('ms-selected').hide();
+        // Changed
+        // selectables.addClass('ms-selected').hide();
         selections.addClass('ms-selected').show();
 
         options.prop('selected', true);

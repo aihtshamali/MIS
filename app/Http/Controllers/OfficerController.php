@@ -58,7 +58,7 @@ use App\MAssignedKpiLevel3;
 use App\MAssignedKpiLevel4;
 use App\District;
 use App\PlantripCity;
-
+use App\MAssignedKpi;
 use App\MAppAttachment;
 use Illuminate\Support\Facades\Redirect;
 use DB;
@@ -719,7 +719,7 @@ class OfficerController extends Controller
         $level_1=MAssignedKpiLevel1::where('m_project_progress_id',$projectProgressId->id)->get();
       // dd($level_1[0]->MAssignedKpiLevel2[1]->MAssignedKpiLevel3);
         // monitoring_kpi_recursion($level_1);
-        // dd(weight($level_1));
+        // dd(weight($level_1))o;
 
 
         \JavaScript::put([
@@ -849,47 +849,47 @@ class OfficerController extends Controller
           return view('officer.charts.officer_chart_one',['total_projects'=>$actual_total_projects ,'inprogress_projects'=>$inprogress_projects ,'completed_projects'=>$completed_projects]);
       }
 
-      public function calculateMFinancialProgress($m_project_progress_id)
-      {
-        $financial_cost=MProjectCost::where('m_project_progress_id',$m_project_progress_id)->orderBy('created_at','desc')->first();
-        $financial_progress=0.0;
-        if($financial_cost)
-            $financial_progress=($financial_cost->utilization_against_releases/$financial_cost->total_release_to_date)*100;
-      }
-      public function calculateMPhysicalProgress($m_project_progress_id)
-      {
-          $kpiCompMapping=MPlanKpicomponentMapping::where('m_project_progress_id',$m_project_progress_id)->get();
-          $arr=array_fill(0,$kpiCompMapping->count(),0);
-          $i=0;
-          foreach($kpiCompMapping as $main)
-          {
-            foreach($main->MAssignedKpiLevel1 as $lv1){
-              foreach($lv1->MAssignedKpiLevel2 as $lv2){
-                foreach($lv2->MAssignedKpiLevel3 as $lv3){
-                  foreach($lv3->MAssignedKpiLevel4 as $lv4){
-                    $we=$lv4->current_weightage;
-                    if(!$we)
-                      $we=0;
-                    $arr[$i]+=$we;
-                  }
-                  $we=$lv3->current_weightage;
-                  if(!$we)
-                    $we=0;
-                  $arr[$i]+=$we;
-                }
-                $we=$lv2->current_weightage;
-                if(!$we)
-                  $we=0;
-                $arr[$i]+=$we;
-              }
-              $we=$lv1->current_weightage;
-              if(!$we)
-                $we=0;
-              $arr[$i]+=$we;
-            }
-            $i++;
-          }
-      }
+      // public function calculateMFinancialProgress($m_project_progress_id)
+      // {
+      //   $financial_cost=MProjectCost::where('m_project_progress_id',$m_project_progress_id)->orderBy('created_at','desc')->first();
+      //   $financial_progress=0.0;
+      //   if($financial_cost)
+      //       $financial_progress=($financial_cost->utilization_against_releases/$financial_cost->total_release_to_date)*100;
+      // }
+      // public function calculateMPhysicalProgress($m_project_progress_id)
+      // {
+      //     $kpiCompMapping=MPlanKpicomponentMapping::where('m_project_progress_id',$m_project_progress_id)->get();
+      //     $arr=array_fill(0,$kpiCompMapping->count(),0);
+      //     $i=0;
+      //     foreach($kpiCompMapping as $main)
+      //     {
+      //       foreach($main->MAssignedKpiLevel1 as $lv1){
+      //         foreach($lv1->MAssignedKpiLevel2 as $lv2){
+      //           foreach($lv2->MAssignedKpiLevel3 as $lv3){
+      //             foreach($lv3->MAssignedKpiLevel4 as $lv4){
+      //               $we=$lv4->current_weightage;
+      //               if(!$we)
+      //                 $we=0;
+      //               $arr[$i]+=$we;
+      //             }
+      //             $we=$lv3->current_weightage;
+      //             if(!$we)
+      //               $we=0;
+      //             $arr[$i]+=$we;
+      //           }
+      //           $we=$lv2->current_weightage;
+      //           if(!$we)
+      //             $we=0;
+      //           $arr[$i]+=$we;
+      //         }
+      //         $we=$lv1->current_weightage;
+      //         if(!$we)
+      //           $we=0;
+      //         $arr[$i]+=$we;
+      //       }
+      //       $i++;
+      //     }
+      // }
       public function officer_chart_two()
       {
         $projects=AssignedProject::select('assigned_projects.*')
@@ -1120,11 +1120,12 @@ class OfficerController extends Controller
       }
       public function kpiComponentMapping(Request $request)
       {
-        // return response()->json($request->all());
+        // dd($request->all());
         // $projectProgressId= MProjectProgress::where('assigned_project_id',$request->project_progress_no)->get();
         $i=0;
         foreach($request->kpinamesId as $kpi)
         {
+          // dd($request->all());
           // return response()->json($mappComp);
           if(isset($_POST['mappedKpicomponent_'.$i]))
           foreach($_POST['mappedKpicomponent_'.$i] as $mappComp)
@@ -1135,15 +1136,23 @@ class OfficerController extends Controller
             $kpiCompMapping->m_project_kpi_id=$kpi;
             $kpiCompMapping->user_id=Auth::id();
             $kpiCompMapping->m_plan_component_id=$mappComp;
+            // $kpiCompMapping->weightage=$request->weightage[$i];
             $kpiCompMapping->status= true;
             $kpiCompMapping->save();
-            foreach ($kpiCompMapping->MProjectKpi->MProjectLevel1Kpi as $lev1) {
-              $kpiCompMapping1= new MAssignedKpiLevel1();
-              $kpiCompMapping1->m_project_progress_id= $request->m_project_progress_id;
-              $kpiCompMapping1->m_plan_kpicomponent_mappings_id= $kpiCompMapping->id;
-              $kpiCompMapping1->m_project_level1_kpis_id= $lev1->id;
-              $kpiCompMapping1->save();
+          }
+          $assignedKpi= new MAssignedKpi();
+          $assignedKpi->m_project_kpi_id=$kpi;
+          $assignedKpi->m_project_progress_id=$request->m_project_progress_id;
+          $assignedKpi->user_id=Auth::id();
+          $assignedKpi->weightage=($request->weightage[$i] == NULL ? 1:$request->weightage[$i]);          
+          $assignedKpi->save();
 
+          foreach ($assignedKpi->MProjectKpi->MProjectLevel1Kpi as $lev1) {
+            $kpiCompMapping1= new MAssignedKpiLevel1();
+            $kpiCompMapping1->m_project_progress_id= $request->m_project_progress_id;
+            $kpiCompMapping1->m_assigned_kpi_id=$assignedKpi->id;
+            $kpiCompMapping1->m_project_level1_kpis_id= $lev1->id;
+            $kpiCompMapping1->save();
               foreach ($kpiCompMapping1->MProjectLevel1Kpi->MProjectLevel2Kpi as $lev2) {
                 $kpiCompMapping2= new MAssignedKpiLevel2();
                 $kpiCompMapping2->m_project_progress_id= $request->m_project_progress_id;
@@ -1168,7 +1177,6 @@ class OfficerController extends Controller
                 }
               }
             }
-          }
           $i++;
         }
         $tabs=explode("_",$request->page_tabs);
