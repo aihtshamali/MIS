@@ -1,11 +1,16 @@
 @extends('_Monitoring.layouts.upperNavigation')
-<link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/css/dataTables.bootstrap4.min.css')}}" />
-<link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/pages/data-table/css/buttons.dataTables.min.css')}}" />
-<link rel="stylesheet" href="{{ asset('_monitoring/css/css/responsive.bootstrap4.min.css')}}" />
-<style>
-  table.dataTable.nowrap th, table.dataTable.nowrap td{white-space: normal !important;}
-  .table td, .table th{vertical-align: inherit !important;}
-</style>
+
+@section('styleTags')
+    <link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/css/dataTables.bootstrap4.min.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/pages/data-table/css/buttons.dataTables.min.css')}}" />
+    <link rel="stylesheet" href="{{ asset('_monitoring/css/css/responsive.bootstrap4.min.css')}}" />
+
+    <style>
+    table.dataTable.nowrap th, table.dataTable.nowrap td{white-space: normal !important;}
+    .table td, .table th{vertical-align: inherit !important;}
+    </style>
+@endsection
+
 @section('content')
 <div class="row">
     <div class="col-md-12">
