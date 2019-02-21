@@ -35,6 +35,7 @@
 
 {{-- This is dgme custom css for this page only ,write here any css you want to Ok!!! --}}
 <link rel="stylesheet" href="{{asset('_monitoring/css/css/_dgme/DGME_officer_inprogressSingle.css')}}" />
+<link href="{{asset('lightRoom/lightgallery.css')}}" rel="stylesheet">
 <style media="screen">
     /* html{scroll-behavior: smooth;} */
     .paddtopbottom1per{padding: 1% 0% !important;}
@@ -254,7 +255,7 @@
                                           <a class="nav-link {{isset($maintab) && $maintab=='plan' ? 'active' : ''}}" data-toggle="tab" href="#p_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">PLAN MONITORING</span></a>
                                           <div class="slide"></div>
                                       </li>
-                                      <li class="nav-item conductNav">
+                                      <li class="nav-item conductNav  {{isset($maintab) && $maintab=='conduct' ? 'active' : ''}}">
                                           <a class="nav-link" data-toggle="tab" href="#c_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">CONDUCT MONITORING</span></a>
                                           <div class="slide"></div>
                                       </li>
@@ -951,5 +952,11 @@ var check = true
 //
 // });
 // zoom image end
+$(document).ready(function(){
+    $('#lightgallery').lightGallery();
+});
 </script>
+<script src="{{asset('lightRoom/picturefill.min.js')}}"></script>
+<script src="{{asset('lightRoom/lightgallery-all.min.js')}}"></script>
+<script src="{{asset('lightRoom/jquery.mousewheel.min.js')}}"></script>
 @endsection

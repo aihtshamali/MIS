@@ -270,7 +270,7 @@
         <form class="" action="{{ route('Monitoring_inprogressDateSaved') }}" method="post">
           {{ csrf_field() }}
           <input type="hidden" name="assigned_project_id" value="{{$project->id}}">
-                <input type="hidden" name="page_tabs" value="review_documents">
+                <input type="hidden" name="page_tabs" value="plan_documents">
           <div class="dates pd_1 clearfix">
           <div class="form-group row mb_2">
               <label class="col-sm-3 font-15">Project Approval Date</label>

@@ -4,9 +4,10 @@ if (! function_exists('calculateMFinancialProgress')) {
     {
         $financial_cost=App\MProjectCost::where('m_project_progress_id',$m_project_progress_id)->orderBy('created_at','desc')->first();
         $financial_progress=0.0;
+        // dd($financial_cost->total_release_to_date);
         if(isset($financial_cost->total_release_to_date)&&!$financial_cost->total_release_to_date)
           return 0;
-        if($financial_cost)
+        if($financial_cost && $financial_cost->total_release_to_date!=null && $financial_cost->total_release_to_date!=0.0)
             $financial_progress=($financial_cost->utilization_against_releases/$financial_cost->total_release_to_date)*100;
         return $financial_progress;
     }

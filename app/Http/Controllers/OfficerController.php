@@ -526,7 +526,6 @@ class OfficerController extends Controller
         $tabs=explode("_",$request->page_tabs);
         $maintab=$tabs[0];
         $innertab=$tabs[1];
-        // return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
         return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
       }
 
@@ -544,7 +543,12 @@ class OfficerController extends Controller
         $m_project_dates->actual_start_date = $request->actual_start_date;
         $m_project_dates->save();
         $msg='Saved';
-        return redirect()->back();
+        $tabs=explode("_",$request->page_tabs);
+        $maintab=$tabs[0];
+        $innertab=$tabs[1];
+        // return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
+        return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
+        // return redirect()->back();
         // return redirect()->back();
       }
 
@@ -977,6 +981,11 @@ class OfficerController extends Controller
           $generalFeedback->answer=$answer;
           $generalFeedback->m_project_progress_id=$request->m_project_progress_id;
           $generalFeedback->save();
+          // Copy from here
+          $tabs=explode("_",$request->page_tabs);
+          $maintab=$tabs[0];
+          $innertab=$tabs[1];
+          return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
         }
       }
       public function saveMissues(Request $request)
@@ -993,6 +1002,12 @@ class OfficerController extends Controller
           $project_issue->executing_agency_id=$request->executing_department[$key];
           $project_issue->m_project_progress_id=$request->m_project_progress_id;
           $project_issue->save();
+          // Copy from here
+          $tabs=explode("_",$request->page_tabs);
+          // dd($request->all());
+          $maintab=$tabs[0];
+          $innertab=$tabs[1];
+          return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
         }
       }
 
@@ -1015,6 +1030,18 @@ class OfficerController extends Controller
           $healthSafety->remarks=$request->comments[$key];
           $healthSafety->m_project_progress_id=$request->m_project_progress_id;
           $healthSafety->save();
+          // Copy from here
+          $tabs=explode("_",$request->page_tabs);
+          // dd($request->all());
+          $maintab=$tabs[0];
+          $innertab=$tabs[1];
+          // Copy from here
+          $tabs=explode("_",$request->page_tabs);
+          // dd($request->all());
+          $maintab=$tabs[0];
+          $innertab=$tabs[1];
+          return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
+          // return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
         }
       }
 
@@ -1241,8 +1268,12 @@ class OfficerController extends Controller
 
         }
         // $CompActivityDetails=MPlanComponentactivityDetailMapping::where('m_project_progress_id',$request->m_project_progress_id)->get();
-        return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
-
+        // return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
+        // Copy from here
+        $tabs=explode("_",$request->page_tabs);
+        $maintab=$tabs[0];
+        $innertab=$tabs[1];
+        return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
       }
       public function saveMonitoringAttachments(Request $request)
       {
@@ -1374,7 +1405,12 @@ class OfficerController extends Controller
         $k++;
 
        }
-       return redirect()->back();
+       // return redirect()->back();
+       // Copy from here
+       $tabs=explode("_",$request->page_tabs);
+       $maintab=$tabs[0];
+       $innertab=$tabs[1];
+       return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
      }
 
      public function generate_monitoring_report(Request $request)

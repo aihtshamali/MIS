@@ -325,6 +325,7 @@ $(document).ready(function () {
         $('#prolocDiv').hide();
         $('#galleryDiv').hide();
         $('#WBSDiv').hide();
+        $('#r_monitoring').hide();
     }
 
 

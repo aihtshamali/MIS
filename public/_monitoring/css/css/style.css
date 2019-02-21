@@ -23866,7 +23866,7 @@ span.value {
     }
     .nav-item a span{padding: 0% 2% !important;}
     .nav-tabs .nav-item{display: inline-block !important;padding: 0% 1% !important;}
-    .active{color: #29b6b9 !important;}
+    .active{color: #29b6b9 !important; display: block !important;}
     .nav-tabs .slide {
         width: calc(100% / 1) !important
     }
@@ -25280,7 +25280,7 @@ body.dark #styleSelector .form-control {
     transition: all 900ms ease;
     -webkit-transition: all 900ms ease;
   }
-  .downtiQ, .uptiQ{z-index: 9999 !important;position: fixed;right: 0;}
+  .downtiQ, .uptiQ{z-index: 999 !important;position: fixed;right: 0;}
   .pdlfrt2{padding: 0% 2% !important;}
   .txtdecundlin{text-decoration: underline !important;text-decoration-color: #01a9ac !important;transition: all 900ms ease;
   -webkit-transition: all 900ms ease;width:fit-content !important;}
