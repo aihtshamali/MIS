@@ -186,9 +186,9 @@ ul, #myUL {
 </style>
 <div class="tab-pane" id="r_monitoring" role="tabpanel" style="display:none;">
   <div class="col-md-12">
-    <ul class="nav nav-tabs col-md-12 tabs" role="tablist">
+    <ul class="nav nav-tabs col-md-12 tabs resultNavBar" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#home1" role="tab">Gallery</a>
+            <a class="nav-link galnav active" data-toggle="tab" href="#home1" role="tab">Gallery</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#profile1" role="tab">WBS</a>

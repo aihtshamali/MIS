@@ -284,6 +284,10 @@ $(document).ready(function () {
         $(".topSummary").hide('slow');
         $(".downtiQ").hide('slow');
         $(".uptiQ").hide('slow');
+        $(".reviewNavBar").hide();
+        $(".planNavBar").hide();
+        $(".conductNavBar").hide();
+        $(".resultNavBar").hide();
         $(".mainTabsAndNav").animate({ marginTop: '0px' }, 500);
         $(".mainTabsAndNav").removeClass("mt_6p");
     });
@@ -295,9 +299,13 @@ $(document).ready(function () {
         $('.mainTabsAndNav').removeClass("col-md-9").addClass("col-md-12");
         $('#p_monitoring').show();
         $('#PlanDocDiv').show();
+        $('.planNavBar').show();
+        $('.conductNavBar').hide();
+        $('.resultNavBar').hide();
         $('.PlanDoc').addClass('active');
         $(".uptiQ").show('slow');
         $(".downtiQ").hide();
+        $(".reviewNavBar").hide();
     });
     function hideall() {
         $('#PlanDocDiv').hide();
@@ -337,19 +345,24 @@ $(document).ready(function () {
         $('#quality_assesment').show();
         $('#c_monitoring').show();
         $('#quality_assesment').show();
+        $('.conductNavBar').show();
+        $('.resultNavBarr').show();
         $('#p_monitoring').hide();
+        $('.planNavBar').hide();
         $('.p_details').hide();
         $('.mainTabsAndNav').removeClass("col-md-8").addClass("col-md-12");
         $('.mainTabsAndNav').animate({ marginTop: '6%' }, 1000);
         $(".topSummary").show('slow');
         $(".uptiQ").show('slow');
         $(".downtiQ").hide();
+        $(".reviewNavBar").hide();
     });
     $('.resultNav').on('click', function () {
         hideallmaintabs();
         hideall();
         $('.nav-link').removeClass('active');
         $('.r_monitoring').addClass('active');
+        $('.galnav').addClass('active');
         $('#r_monitoring').show();
         $('.mainTabsAndNav').removeClass("col-md-8").addClass("col-md-12");
         $('.mainTabsAndNav').animate({ marginTop: '6%' }, 1000);
@@ -357,6 +370,10 @@ $(document).ready(function () {
         $('.p_details').hide();
         $(".uptiQ").show('slow');
         $(".downtiQ").hide();
+        $(".reviewNavBar").hide();
+        $(".planNavBar").hide();
+        $(".conductNavBar").hide();
+        $(".resultNavBar").show();
     });
 
     $('.CostingTab').on('click', function () {
@@ -418,13 +435,17 @@ $(document).ready(function () {
         $(".nav-link").removeClass('active');
         $(".costTab").addClass('active');
         $(".topSummary").show('slow');
+        $(".reviewNavBar").show();
         $('#reviewDiv').show();
         $('#costDiv').show();
         $(".mainTabsAndNav").animate({ marginTop: '6%' }, 1000);
         $('#p_monitoring').hide();
         $('#c_monitoring').hide();
+        $('.planNavBar').hide();
         $('#summary').hide();
         $('.p_details').hide();
+        $('.conductNavBar').hide();
+        $('.resultNavBar').hide();
         $('.mainTabsAndNav').removeClass("col-md-8").addClass("col-md-12");
         $(".uptiQ").show('slow');
     });

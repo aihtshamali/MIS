@@ -5,9 +5,9 @@
 </style>
 <div class="tab-pane {{isset($maintab) && $maintab=='plan' ? 'active' : ''}}" id="p_monitoring" role="tabpanel">
     <div class="row">
-        <div class="col-lg-12 col-xl-12 col-md-12 col-sm-6">
+        <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12 ">
             <!-- Nav tabs -->
-            <ul class="nav nav-tabs tabs p_tabs" role="tablist">
+            <ul class="nav nav-tabs tabs p_tabs planNavBar" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link {{isset($innertab) && $innertab=='documents' ? 'active' : ''}} PlanDoc" data-toggle="tab" href="#PlanDocDiv"
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Documents</b></a>
