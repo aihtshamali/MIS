@@ -298,7 +298,11 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
     }, {
       "Type": "Completed\nProjects",
       "Number of Projects": completed_projects
-    } ],
+    } ,
+    {
+      "Type":"Stopped\nProjects",
+      "Number of Projects":stopped_projects
+    }],
     "valueAxes": [ {
       "gridColor": "#FFFFFF",
       "gridAlpha": 0.2,

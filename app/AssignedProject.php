@@ -71,6 +71,10 @@ class AssignedProject extends Model
     {
       return $this->hasMany('App\MProjectProgress');
     }
-
+    public function StoppedProject()
+    {
+      return $this->hasMany('App\StoppedProject');
+    }
+    
 
 }
