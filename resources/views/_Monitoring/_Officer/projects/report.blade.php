@@ -2,9 +2,35 @@
 @section('title')
   Monitoring Report | DGME
 @endsection
-@section('content')
-<button class="pull-right" onclick="Export2Doc('exportContent');">Export as Doc</button>
 
+@section('styleTags')
+<link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/loading.css')}}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/loading-btn.css')}}"/>
+
+<style>
+#loader
+  {
+    display: none;
+    background: #fffbfb87;
+    padding: 20% 0% 0% 48%;
+    position: fixed;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+  }
+  .loader img{width: 60px !important;margin: auto;}
+  .skin-blue .main-header .navbar{position: fixed !important;width: 100% !important;}
+</style>
+@endsection
+
+@section('content')
+<div class="sastaloader" style="position: absolute;z-index:9999;width: 100%;height: 100%;border: 1px solid;top: 0px;left: 0px;background: #ffffff73;display:none;">
+    <center>
+            <img src="https://gifimage.net/wp-content/uploads/2018/04/preloader-gif-transparent-background-14.gif" alt="" style="margin-top:20%;width:47px;" />
+    </center>
+</div>
+<div id="spinner" style="background:url('https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'); #000 center no-repeat;opacity:.5;width:100%;height:100%;display:none;position:absolute" ></div>
+<button type="button" name="exp_button" class=" exp_button btn btn-md btn-info" onclick="Export2Doc('exportContent');" style="">Download Document</button>
 <div class="card" id='exportContent'>
     <div class="card-header">
         <img src="" alt="">
@@ -958,4 +984,63 @@
     <div class="card-footer"></div>
 
 </div>
+@endsection
+@section('js_scripts')
+<script type="text/javascript">
+    // //<![CDATA[
+    // function download(element,filename=''){
+    //     var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
+    //         var postHtml = "</body></html>";
+    //         var html = preHtml+document.getElementById(element).innerHTML+postHtml;
+        
+    //         var blob = new Blob(['\ufeff', html], {
+    //             type: 'application/msword'
+    //         });
+            
+    //         // Specify link url
+    //         var url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
+            
+    //         // Specify file name
+    //         filename = filename?filename+'.doc':'document.doc';
+            
+    //         // Create download link element
+    //         var downloadLink = document.createElement("a");
+        
+    //         document.body.appendChild(downloadLink);
+            
+    //         if(navigator.msSaveOrOpenBlob ){
+    //             navigator.msSaveOrOpenBlob(blob, filename);
+    //         }else{
+    //             // Create a link to the file
+    //             downloadLink.href = url;
+                
+    //             // Setting the file name
+    //             downloadLink.download = filename;
+                
+    //             //triggering the function
+    //             downloadLink.click();
+    //         }
+            
+    //         document.body.removeChild(downloadLink);
+
+    //     document.getElementById('spinner').style.display='';
+    //     frame = document.createElement("iframe");
+    //     frame.onload=function(){document.getElementById('spinner').style.display='none';}
+    //     frame.src=url;
+    //     document.body.appendChild(frame);
+    // }
+    // //]]>
+</script>
+<script>
+$('.exp_button').on('click', function() {
+//     var $this = $(this);
+//   $this.button('loading');
+//     setTimeout(function() {
+//        $this.button('reset');
+//    }, 8000);
+$('.sastaloader').fadeIn('slow', function(){
+    $('.sastaloader').delay(700).fadeOut(); 
+});
+});
+</script>
 @endsection

@@ -10,6 +10,7 @@ use App\AssignedProject;
 use App\AssignedProjectManager;
 use App\User;
 use App\Sector;
+use App\StoppedProject;
 use Auth;
 use DB;
 use App\AssignedProjectTeam;
@@ -93,16 +94,42 @@ class DirectorEvaluationController extends Controller
       }
 
       public function evaluation_Inprogressprojects(){
-         $assigned=AssignedProject::where('assigned_by',Auth::id())
+         $assigned=AssignedProject::select('assigned_projects.*')
+         ->where('assigned_by',Auth::id())
          ->leftjoin('projects','projects.id','assigned_projects.project_id')
          ->where('projects.status',1)
          ->where('complete',0)
+         ->where('stopped',false)
          ->get();
+
+         $stoppedProjects=AssignedProject::select('assigned_projects.*')
+         ->where('assigned_by',Auth::id())
+         ->leftjoin('projects','projects.id','assigned_projects.project_id')
+         ->where('projects.status',1)
+         ->where('complete',0)
+         ->where('stopped',true)
+         ->get();
+
          $officers = User::where('users.status',1)->get();
          $projects = $assigned;
          $sectors = Sector::where('status',1)->get();
-         return view('Director.Evaluation.Evaluation_projects.assigned',compact('assigned','officers','projects','sectors'));
-      }
+         return view('Director.Evaluation.Evaluation_projects.assigned',compact('stoppedProjects','assigned','officers','projects','sectors'));
+      } 
+
+      public function stopAssignedProject(Request $request)
+      {
+          
+          $assigned_project=AssignedProject::find($request->assigned_project_id);
+          $assigned_project->stopped=true;
+          $assigned_project->save();
+          $StoppedProject=new StoppedProject();
+         
+          $StoppedProject->assigned_project_id=$assigned_project->id;
+          $StoppedProject->user_id=Auth::id();
+          $StoppedProject->remarks=$request->remarks;
+          $StoppedProject->save();
+          return redirect()->back();
+      } 
 
       public function evaluation_Completedprojects(){
          $projects = AssignedProject::where('complete',1)->get();

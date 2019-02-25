@@ -59,6 +59,13 @@
     margin: 2px;
 
   }
+  .orange{
+    color:#e08e0b;
+    font-size: 0px;
+    background-color:#e08e0b;
+    padding: 9px;
+    margin: 2px;
+  }
   .card-footer{
   height:15%;
 
@@ -120,6 +127,10 @@
                         <div style="padding:5px; display:inline-block;">
                                 <span class="purple">-</span>
                                 <label style="vertical-align:-webkit-baseline-middle;">{{$completed_projects}} Completed Projects</label>
+                            </div>
+                            <div style="padding:5px; display:inline-block;">
+                                <span class="orange">-</span>
+                                <label style="vertical-align:-webkit-baseline-middle;">{{$stopped_projects}} Stopped Projects</label>
                             </div>
                         </div>
                     </div>
@@ -441,6 +452,80 @@
           </div>
           <!-- /.modal-dialog -->
         </div>
+        <div class="modal fade in" id="myModal4" style="display: block; padding-right: 17px;display:none">
+            <div class="modal-dialog" style="width:90%">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                  <h4 class="modal-title">Projects</h4>
+                </div>
+                <div class="modal-body">
+                            <div class="box">
+                              <div class="box-header">
+                                <h3 class="box-title">Stopped Projects</h3>
+                              </div>
+                              <!-- /.box-header -->
+                              <div class="box-body">
+                                <table id="example2" class="table table-bordered table-striped">
+                                  <thead>
+                                  <tr>
+                                    <th>SR #</th>
+                                    <th>Project No</th>
+                                    <th>GS #</th>
+                                    <th>Name</th>
+                                    <th>Sector</th>
+                                    <th>Cost</th>
+                                    <th>Status</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody id="tbody">
+                                    @php
+                                      $counter = 1;
+                                    @endphp
+                                    @foreach ($total_projects as $stopped_total_project)
+                                    @if($stopped_total_project->AssignedProject && $stopped_total_project->AssignedProject->stopped == true)
+                                      <tr>
+                                        <td>{{  $counter++ }}</td>
+                                        <td>{{$stopped_total_project->project_no}}</td>
+                                        <td style="width:120px">{{$stopped_total_project->financial_year}} / {{$stopped_total_project->ADP}}</td>
+                                        <td>{{$stopped_total_project->title}}</td>
+                                        <td>
+                                        @foreach ($stopped_total_project->AssignedSubSectors as $sub_sectors)
+                                          {{ $sub_sectors->SubSector->name }}
+                                        @endforeach
+                                        </td>
+                                        <td>{{round($stopped_total_project->ProjectDetail->orignal_cost,2,PHP_ROUND_HALF_UP)}}</td>
+                                        @if($stopped_total_project->AssignedProject)
+                                        @if($stopped_total_project->AssignedProject->stopped!=null)
+                                          <td>Stopped</td>
+                                        @elseif ($stopped_total_project->AssignedProject->complete == 0)
+                                          <td>InProgress</td>
+                                        @elseif($stopped_total_project->AssignedProject->complete == 1)
+                                          <td>Completed</td>
+                                        @endif
+                                      @else
+                                        <td>Not Assigned</td>
+                                      @endif
+                                    </tr>
+                                    @endif
+                                    @endforeach
+                                  </tbody>
+                                </table>
+                              </div>
+                              <!-- /.box-body -->
+                            </div>
+                            <!-- /.box -->
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                  {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+                </div>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+          </div>
     </section>
 
 </div>
@@ -489,7 +574,13 @@ $('#example4').DataTable()
       "Type": "Completed\nProjects\n({{$completed_projects}})",
       "Number of Projects": (completed_projects/total_projects*100).toFixed(2) < 1 && (completed_projects/total_projects*100).toFixed(2) > 0 ? 1 : (completed_projects/total_projects*100).toFixed(2),
       "color": "#8A0CCF"
-    } ],
+    },
+    {
+      "Type": "Stopped\nProjects\n({{$stopped_projects}})",
+      "Number of Projects": (stopped_projects/total_projects*100).toFixed(2) < 1 && (stopped_projects/total_projects*100).toFixed(2) > 0 ? 1 : (stopped_projects/total_projects*100).toFixed(2),
+      "color": "#e08e0b"
+    } 
+     ],
     "valueAxes": [ {
       "title" : "Percentage",
       "gridColor": "#FFFFFF",
@@ -530,7 +621,7 @@ $('#example4').DataTable()
 </script>
 <script type="text/javascript">
 $(document).on('click','g',function(){
-  var data=$(this).attr('aria-label').split('\n')[0];
+  var data=$(this).attr('aria-label').split('\n')[0];  
   if(data === " Total")
     $('#myModal').modal('show');
   else if(data === " UnAssigned")
@@ -539,6 +630,8 @@ $(document).on('click','g',function(){
     $('#myModal2').modal('show');
   else if(data === " Completed")
     $('#myModal3').modal('show');
+    else if(data === " Stopped")
+    $('#myModal4').modal('show');
 
 });
 </script>
