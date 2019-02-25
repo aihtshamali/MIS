@@ -128,7 +128,90 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          {{--  Chart 1  --}}
+            <div class="box1 box-warning">
+                <div class="box-header with-border">
+                  <h3 class="box-title">STOPPED PROJECTS</h3>
+    
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <div class="box-body2">
+                    <div class="table-responsive">
+                      <table class="table table-hover table-striped">
+                        <tbody>
+                            <thead>
+                                <th></th>
+                                <th>Project Number</th>
+                                <th>Project Name</th>
+                                <th>Team Members</th>
+                                <th>Priority</th>
+                                <th>Score</th>
+                                <th>Assigned Duration</th>
+                                <th>Progress</th>
+                                <th></th>
+                              </thead>
+                              <tbody>
+                                @foreach ($stoppedProjects as $S_assigned)
+                                  <tr>
+                                  <td>
+                                    <form class="" action="{{route('create_from_director')}}" method="get">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="reAssign" value="1">
+                                        <input type="hidden" name="project_id" value="{{$S_assigned->project->id}}">
+                                        <input type="hidden" name="priority" value="{{$S_assigned->priority}}">
+                                      <button class="btn btn-primary" type="submit">Re Assign</button>
+                                    </form>
+                                  </td>
+                                    <td>{{$S_assigned->project->project_no}}</td>
+                                    <td>{{$S_assigned->project->title}}</td>
+                                    <td>
+                                        @foreach ($S_assigned->AssignedProjectTeam as $team)
+                                        @if ($team->team_lead==1)
+                                          <span style="font-weight:bold;color:blue">{{$team->user->first_name}}  {{$team->user->last_name}} -</span>
+                                        @else
+                                          <span class="">{{$team->user->first_name}} {{$team->user->last_name}}</span>
+                                        @endif
+                                      @endforeach
+    
+                                    </td>
+                                    <td>
+                                      {{ $S_assigned->project->ProjectDetail->AssigningForum->name }}
+                                    </td>
+                                    <td>
+                                      {{ round($S_assigned->project->score,2,PHP_ROUND_HALF_UP) }}
+                                    </td>
+    
+                                    <td>
+                                      @php
+                                        $interval = date_diff(date_create(date('Y-m-d h:i:s',strtotime($S_assigned->created_at))), date_create(date('Y-m-d h:i:s')))->format('%m Month %d Day %h Hours');
+                                        // $duration=$interval->format();
+                                      @endphp
+                                      {{-- {{$S_assigned->created_at}} --}}
+                                      {{$interval}}
+                                      {{-- {{dd($interval)}} --}}
+                                      {{-- {{$duration}} --}}
+                                    </td>
+                                    <td><div class="progress">
+                                        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+                                          aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo 20+$S_assigned->progress; ?>% ">
+                                        {{round($S_assigned->progress, 0, PHP_ROUND_HALF_UP) }}% Complete
+                                          </div>
+    
+                                        </div></td>
+    
+                                  </tr>
+    
+                                @endforeach
+                              </tbody>
+                        </tbody>
+                      </table>
+                    </div>
+                </div>
+    
+          </div>
           <div class="box1 box-warning">
             <div class="box-header with-border">
               <h3 class="box-title">ASSIGNED PROJECTS</h3>
@@ -139,11 +222,13 @@
                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
               </div>
             </div>
+            
             <div class="box-body1">
                 <div class="table-responsive">
                   <table class="table table-hover table-striped">
                     <tbody>
                         <thead>
+                            <th></th>
                             <th>Project Number</th>
                             <th>Project Name</th>
                             <th>Team Members</th>
@@ -157,6 +242,14 @@
 
                             @foreach ($assigned as $assigned)
                               <tr>
+                              <td>
+                                <form action="{{route('stopAssignedProject')}}" method="post" >
+                                {{ csrf_field() }}
+                                  <button type="button" class="stopBtn btn btn-md btn-danger" rel='popover' data-placement='bottom' data-original-title='Remarks' data-html="true" 
+                                  data-content="<input type='hidden' name='assigned_project_id' value='{{$assigned->id}}'>
+                                  <input type='text' name='remarks'> <button type='submit' class='btn btn-success'> Save </button>">Stop Project</button>
+                                </form>
+                              </td>
                                 <td>{{$assigned->project->project_no}}</td>
                                 <td>{{$assigned->project->title}}</td>
                                 <td>
@@ -201,10 +294,9 @@
                     </tbody>
                   </table>
                 </div>
+            </div>
           </div>
-
-          </div>
-        </div>
+       
       </div>
 
 
@@ -215,11 +307,20 @@
   <script type="text/javascript" src="{!! asset('js/AdminLTE/moment.min.js') !!}"></script>
   <script type="text/javascript" src="{!! asset('js/AdminLTE/daterangepicker.js') !!}"></script>
   <script type="text/javascript">
+    $(document).ready(function(){
 
+      $('.stopBtn').popover();
+
+      $('.stopBtn').on('click', function (e) {
+        $('.stopBtn').not(this).popover('hide');
+      });
+   
+    });
   $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()
   });
+
   //
   // $('#daterange-btn').daterangepicker(
   //   {
