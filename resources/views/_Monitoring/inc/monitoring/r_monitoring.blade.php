@@ -188,7 +188,7 @@ ul, #myUL {
   <div class="col-md-12">
     <ul class="nav nav-tabs col-md-12 tabs resultNavBar" role="tablist">
         <li class="nav-item">
-            <a class="nav-link galnav active" data-toggle="tab" href="#home1" role="tab">Gallery</a>
+            <a class="nav-link galnav" data-toggle="tab" href="#home1" role="tab">Gallery</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#profile1" role="tab">WBS</a>
@@ -196,7 +196,7 @@ ul, #myUL {
     </ul>
     <div class="container">
       <div class="tab-content tabs card-block">
-          <div class="tab-pane active" id="home1" role="tabpanel">
+          <div class="tab-pane" id="home1" role="tabpanel">
             <div class="pdlfrt2">
          <!-- ----------------- start photo gallery -------------------- -->
          <h2 class="txtdecundlin pointer photogallary" title="click to Expand photo gallary">Photo Gallery</h2>
@@ -272,7 +272,7 @@ ul, #myUL {
                @foreach($result_from_app->where('type','video/mp4') as $video)
                <div class="col-lg-3 col-md-3 col-xs-6 thumb pdlfrt2">
                  <b class="float-left">#: {{$i++}}</b>
-               <video controls autoplay>
+               <video controls>
                  <source src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$video->m_project_progress_id.'/'.$video->project_attachement}}" type="video/mp4">
                  <source src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$video->m_project_progress_id.'/'.$video->project_attachement}}" type="video/ogg">
                  Your browser does not support the video tag.

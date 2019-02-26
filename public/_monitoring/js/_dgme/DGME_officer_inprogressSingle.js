@@ -346,7 +346,7 @@ $(document).ready(function () {
         $('#c_monitoring').show();
         $('#quality_assesment').show();
         $('.conductNavBar').show();
-        $('.resultNavBarr').show();
+        $('.resultNavBarr').hide();
         $('#p_monitoring').hide();
         $('.planNavBar').hide();
         $('.p_details').hide();
@@ -361,7 +361,7 @@ $(document).ready(function () {
         hideallmaintabs();
         hideall();
         $('.nav-link').removeClass('active');
-        $('.r_monitoring').addClass('active');
+        $('#r_monitoring').addClass('active');
         $('.galnav').addClass('active');
         $('#r_monitoring').show();
         $('.mainTabsAndNav').removeClass("col-md-8").addClass("col-md-12");

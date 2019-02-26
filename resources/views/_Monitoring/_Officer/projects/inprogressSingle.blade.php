@@ -229,8 +229,6 @@
                 </div>
                 <!-- end hide project detail btn -->
                     <div class="card" style="box-shadow: 0px 0px 33px #77777769;">
-                        <div class="card-header">
-                        </div>
                         <div class="card-block">
                             <div class="row m-b-30">
                                 <div class="col-md-12">
@@ -277,7 +275,8 @@
                         </div>
                         <!-- Form Basic Wizard card end -->
                     </div>
-                    <div class="col-xl-3 col-lg-12 nodisplay p_details" style="padding-left: 15px !important;  padding-right: 15px !important;">
+                    </div>
+                    <div class="col-md-3 nodisplay p_details" style="padding-left: 15px !important;  padding-right: 15px !important;">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-header-text"><i class="icofont icofont-ui-note m-r-10"></i> Project Details</h5>
@@ -321,7 +320,6 @@
                         </div>
                       </div>
                     </div>
-            </div>
             </div>
 
         </div>

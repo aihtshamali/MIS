@@ -1144,7 +1144,7 @@ class OfficerController extends Controller
           $assignedKpi->m_project_kpi_id=$kpi;
           $assignedKpi->m_project_progress_id=$request->m_project_progress_id;
           $assignedKpi->user_id=Auth::id();
-          $assignedKpi->weightage=($request->weightage[$i] == NULL ? 1:$request->weightage[$i]);          
+          $assignedKpi->weightage=($request->weightage[$i] == NULL ? 1:$request->weightage[$i]);
           $assignedKpi->save();
 
           foreach ($assignedKpi->MProjectKpi->MProjectLevel1Kpi as $lev1) {
@@ -1442,6 +1442,7 @@ class OfficerController extends Controller
       $actual_progress = 0;
       $count_progress = 0;
       $gestation = 0;
+      $result_from_app=null;
       $physical_progress_values = [];
       $financial_progress_values = [];
       if($assigned_project){
@@ -1457,6 +1458,7 @@ class OfficerController extends Controller
         if($progress){
           $financial_progress = round(calculateMFinancialProgress($progress->id,2));
           $physical_progress = round(calculateMPhysicalProgress($progress->id,2));
+          $result_from_app = MAppAttachment::where('m_project_progress_id',$progress->id)->get();
 
           $actual_progress = date_diff(date_create($progress->MProjectDate->actual_start_date),date_create($project->ProjectDetail->planned_end_date));
           $gestation = ($actual_progress->format('%a')/365);
@@ -1487,7 +1489,7 @@ class OfficerController extends Controller
         'financial_progress_values' => $financial_progress_values
       ]);
       // $projects=Auth::user()->AssignedProjectTeam
-      return view('_Monitoring.monitoringDashboard.index',compact('progress','project','gestation'));
+      return view('_Monitoring.monitoringDashboard.index',compact('progress','result_from_app','project','gestation'));
     }
 
     }
