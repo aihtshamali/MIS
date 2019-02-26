@@ -1,7 +1,7 @@
 <div class="tab-pane {{isset($maintab) && $maintab=='review' ? 'active' : ''}}"      id="reviewDiv" role="tabpanel">
-<div class="col-md-12">
+<div class="col-md-12 reviewNavBar">
   <!-- Nav tabs -->
-  <ul class="nav nav-tabs reviewNavBar tabs" role="tablist">
+  <ul class="nav nav-tabs tabs" role="tablist">
       <li class="nav-item ">
           <a class="nav-link {{isset($innertab) && $innertab=='cost' ? 'active' : ''}} costTab" data-toggle="tab" href="#costDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Cost</b></a>
       </li>
