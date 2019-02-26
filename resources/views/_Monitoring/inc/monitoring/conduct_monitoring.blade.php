@@ -5,9 +5,9 @@
 </style>
 <div class="tab-pane {{isset($maintab) && $maintab=='conduct' ? 'active' : ''}}" id="c_monitoring" role="tabpanel">
     <div class="row">
-        <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12 ">
+        <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12  conductNavBar">
             <!-- Nav tabs -->
-            <ul class="nav nav-tabs tabs conductNavBar" role="tablist">
+            <ul class="nav nav-tabs tabs" role="tablist">
                 <li class="nav-item">
                     <a class='nav-link {{isset($innertab) && $innertab=="QA" ? "active" : ""}} quality_assesment' data-toggle="tab" href="#quality_assesment"
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Quality

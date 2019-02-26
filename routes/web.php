@@ -142,7 +142,7 @@ Route::prefix('manager')->middleware('role:manager|directorevaluation')->group(f
 
     Route::get('/projects_assigned','DirectorEvaluationController@totalProjectAssigned')->name('totalProjectAssignedtoOfficers');
     Route::post('/stopAssignedProject','DirectorEvaluationController@stopAssignedProject')->name('stopAssignedProject');
-    
+
   });
 
   //for Monitoring Director
@@ -158,7 +158,7 @@ Route::prefix('manager')->middleware('role:manager|directorevaluation')->group(f
     Route::get('/monitoring_complete','DirectorMonitoringController@monitoring_completeprojects')->name('Monitoring_complete_projects');
     Route::get('/monitoring_assigntoconsultant','ProjectAssignController@DPM_AssignToConsultant')->name('Monitoring_assignToconsultant');
     Route::post('/monitoring_assigntoconsultant','ProjectAssignController@store_from_Mdirector')->name('store_from_Mdirector');
-    
+
 
 });
 Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
@@ -205,10 +205,10 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
   Route::post('/monitoring_inprogress_location_saved','OfficerController@monitoring_inprogress_location_saved')->name('Monitoring_inprogressLocationSaved');
   Route::get('/monitoring_completedAssignment','OfficerController@monitoring_completedAssignments')->name('Monitoring_completedAssignments');
   Route::get('/monitoring_sInprogress','OfficerController@monitoring_inprogressSingle')->name('monitoring_inprogressSingle');
-  
+
   //Review Tab
   Route::post('/monitoring_review_form','OfficerController@monitoring_review_form')->name('monitoring_review_form');
-  
+
   //Plan Monitoring Tab
   Route::post('/saveMonitoringAttachments','OfficerController@saveMonitoringAttachments')->name('saveMonitoringAttachments');
   Route::post('/projectDesignMonitoring','OfficerController@projectDesignMonitoring')->name('projectDesignMonitoring');
@@ -226,20 +226,18 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
   Route::post('/saveGeneralFeedBack','OfficerController@saveGeneralFeedBack')->name('saveGeneralFeedBack');
   Route::post('/saveMissues','OfficerController@saveMissues')->name('saveMissues');
   Route::post('/savehealthsafety','OfficerController@savehealthsafety')->name('savehealthsafety');
-  
+
   Route::post('/stakeholders','OfficerController@savestakeholders')->name('savestakeholders');
   Route::post('/getAssignedSponsoringAgency','OfficerController@getAssignedSponsoringAgency')->name('getAssignedSponsoringAgency');
   Route::post('/getAssignedExecutingAgency','OfficerController@getAssignedExecutingAgency')->name('getAssignedExecutingAgency');
 
-  //Summary Tab
-  Route::get('/generate_monitoring_report','OfficerController@generate_monitoring_report')->name('generate_monitoring_report');
 
 });
 
  // Monitoring group
   Route::group(['middleware' => ['role:dataentry|officer|monitor|manager|directormonitoring']],function () {
   Route::get('/visitrequestSummary/{id}','ExecutiveController@visitRequestSummary')->name('visitrequestSummary');
- 
+
   // MonitoringDashbaord
   Route::get('/monitoring_dashboard','HomeController@monitoringDashboard')->name('monitoring_dashboard');
 
@@ -267,6 +265,9 @@ Route::resource('projects','ProjectController');
 Route::post('/financial_year','AdminHumanResourceController@financial_year')->name('fetch_financial_year');
 Route::post('/project_financial_year','ProjectController@financial_year')->name('fetch_project_financial_year');
 
+
+  //Summary Tab
+Route::get('/generate_monitoring_report','OfficerController@generate_monitoring_report')->name('generate_monitoring_report');
 
 // CM DASHBOARD
 Route::get('/minitoringDashboard', 'OfficerController@DetailedDashboard')->name('monitoringDashboard');

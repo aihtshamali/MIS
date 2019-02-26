@@ -3,6 +3,7 @@
   DGME | Monitoring Dashboard
 @endsection
 @section('styleTags')
+<link href="{{asset('lightRoom/lightgallery.css')}}" rel="stylesheet">
 <style type="text/css">
 #chartdiv {
   width: 100%;
@@ -122,6 +123,122 @@ object-fit: cover;
 .carousel-control {width: fit-content !important;color: #5e986f !important;font-size: 52px !important;opacity: 1 !important;}
 .txt-black{color: #000 !important;}
 .bggraygradient{background: linear-gradient(to left, #CCCCCC, #EEEEEE, #EEEEEE, #CCCCCC) !important;}
+/* Gallery */
+.demo-gallery > ul {
+    margin-bottom: 0;
+  }
+  .demo-gallery > ul > li {
+      float: left;
+      margin-bottom: 15px;
+      /* margin-right: 20px;
+      width: 200px; */
+  }
+  .demo-gallery > ul > li a {
+    border: 3px solid #FFF;
+    border-radius: 3px;
+    display: block;
+    overflow: hidden;
+    position: relative;
+    float: left;
+  }
+  .demo-gallery > ul > li a > img {
+    -webkit-transition: -webkit-transform 0.15s ease 0s;
+    -moz-transition: -moz-transform 0.15s ease 0s;
+    -o-transition: -o-transform 0.15s ease 0s;
+    transition: transform 0.15s ease 0s;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+  }
+  /* .demo-gallery > ul > li a:hover > img {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
+  } */
+  .demo-gallery > ul > li a:hover .demo-gallery-poster > img {
+    opacity: 1;
+  }
+  .demo-gallery > ul > li a .demo-gallery-poster {
+    background-color: rgba(0, 0, 0, 0.1);
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    -webkit-transition: background-color 0.15s ease 0s;
+    -o-transition: background-color 0.15s ease 0s;
+    transition: background-color 0.15s ease 0s;
+  }
+  .demo-gallery > ul > li a .demo-gallery-poster > img {
+    left: 50%;
+    margin-left: -10px;
+    margin-top: -10px;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    -webkit-transition: opacity 0.3s ease 0s;
+    -o-transition: opacity 0.3s ease 0s;
+    transition: opacity 0.3s ease 0s;
+  }
+  .demo-gallery > ul > li a:hover .demo-gallery-poster {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .demo-gallery .justified-gallery > a > img {
+    -webkit-transition: -webkit-transform 0.15s ease 0s;
+    -moz-transition: -moz-transform 0.15s ease 0s;
+    -o-transition: -o-transform 0.15s ease 0s;
+    transition: transform 0.15s ease 0s;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+    height: 100%;
+    width: 100%;
+  }
+  .demo-gallery .justified-gallery > a:hover > img {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+  .demo-gallery .justified-gallery > a:hover .demo-gallery-poster > img {
+    opacity: 1;
+  }
+  .demo-gallery .justified-gallery > a .demo-gallery-poster {
+    background-color: rgba(0, 0, 0, 0.1);
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    -webkit-transition: background-color 0.15s ease 0s;
+    -o-transition: background-color 0.15s ease 0s;
+    transition: background-color 0.15s ease 0s;
+  }
+  .demo-gallery .justified-gallery > a .demo-gallery-poster > img {
+    left: 50%;
+    margin-left: -10px;
+    margin-top: -10px;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    -webkit-transition: opacity 0.3s ease 0s;
+    -o-transition: opacity 0.3s ease 0s;
+    transition: opacity 0.3s ease 0s;
+  }
+  .demo-gallery .justified-gallery > a:hover .demo-gallery-poster {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .demo-gallery .video .demo-gallery-poster img {
+    height: 48px;
+    margin-left: -24px;
+    margin-top: -24px;
+    opacity: 0.8;
+    width: 48px;
+  }
+  .demo-gallery.dark > ul > li a {
+    border: 3px solid #04070a;
+  }
+  .home .demo-gallery {
+    padding-bottom: 80px;
+  }
 </style>
 @endsection
 @section('content')
@@ -194,6 +311,20 @@ object-fit: cover;
 <div class="row col-md-12 mt3p">
 <div class="col-md-4">
     <div class="">
+      <!-- <div class="demo-gallery">
+        <ul id="lightgallery" class="list-unstyled row">
+          < ?php $i=1; ?>
+          @if($result_from_app!=null)
+          @foreach ($result_from_app->where('type','image/jpeg') as $attachment)
+            <li class="col-xs-6 col-sm-4 col-md-3" data-responsive="" data-src="http://172.16.10.14/storage/uploads/monitoring/@if($project->AssignedProject && $project->AssignedProject->MProjectProgress->last()){{$project->AssignedProject->MProjectProgress->last()->id}}/{{$project->AssignedProject->MProjectProgress->last()->MAppAttachment->where('type','image/jpeg')->last()->project_attachement}}@endif" data-sub-html="<h4>Date</h4><p>{{date('d M Y',strtotime($attachment->created_at))}} </p>">
+            </li>
+            @endforeach
+            <a href="">
+            <img class="img-responsive" src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
+            </a>
+            @endif
+        </ul>
+      </div> -->
       <img alt="NO PIC ADDED" src="http://172.16.10.14/storage/uploads/monitoring/@if($project->AssignedProject && $project->AssignedProject->MProjectProgress->last()){{$project->AssignedProject->MProjectProgress->last()->id}}/{{$project->AssignedProject->MProjectProgress->last()->MAppAttachment->where('type','image/jpeg')->last()->project_attachement}}@endif" alt="" style="width:100%;">
     </div>
   </div>
@@ -291,7 +422,7 @@ var st = [{"year":0,"value":0,"value2":0}];
       i++;
     });
     console.log(st);
-    
+
 
 // Add data
 chart.data = st;
@@ -588,7 +719,7 @@ $(document).ready(function()
   var status = $(document.getElementById('financial'));
   let temp = actual_progress;
   console.log(temp);
-  
+
   if (temp-financial_progress <= 25) {
     status.className = '';
     status.addClass('green');
@@ -617,7 +748,7 @@ $(document).ready(function()
   var status = $(document.getElementById('physical'));
   let temp = actual_progress;
   console.log(temp);
-  
+
   if (temp-physical_progress <= 25) {
     status.className = '';
     status.addClass('green');
@@ -762,5 +893,14 @@ series1.columns.template.strokeOpacity = 1;
 
 chart5.scrollbarX = new am4core.Scrollbar();
 </script>
+<script>
+$(document).ready(function(){
+    $('#lightgallery').lightGallery();
+});
+</script>
+
+<script src="{{asset('lightRoom/picturefill.min.js')}}"></script>
+<script src="{{asset('lightRoom/lightgallery-all.min.js')}}"></script>
+<script src="{{asset('lightRoom/jquery.mousewheel.min.js')}}"></script>
 <!-- end gant chart -->
 @endsection

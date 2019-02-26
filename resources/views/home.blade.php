@@ -76,8 +76,8 @@
                               <p class="wow fadeInUp" data-wow-delay="0.2s">
                                 <span style="font-size: 18px;font-weight: 700;">
                                   @auth
-                                  {{Auth::user()->first_name}} {{Auth::user()->last_name}}
-                                  @endauth ,
+                                  {{Auth::user()->first_name}} {{Auth::user()->last_name}} ,
+                                  @endauth
                                 </span>
                                   Welcome to the official INTRANET website of Directorate General Monitoring & Evaluation, Punjab. We invite you to get to know our organization by exploring this site on which you will learn about our mission, vision and objectives. The site also provides information about different projects and provides access to valuable statistics. We hope…
                               </p>
