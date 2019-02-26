@@ -126,10 +126,15 @@ class User extends Authenticatable implements JWTSubject
   public function MExecutingStakeholder(){
     return $this->hasMany('App\MExecutingStakeholder');
   } 
-  public function MUserVisitlocation(){
-    return $this->hasMany('App\MUserVisitlocation');
-}
-public function MProjectAttachment(){
-  return $this->hasMany('App\MProjectAttachment');
-}
+    public function MUserVisitlocation(){
+      return $this->hasMany('App\MUserVisitlocation');
+  }
+  public function MProjectAttachment(){
+    return $this->hasMany('App\MProjectAttachment');
+  }
+  public function StoppedProject()
+  {
+    return $this->hasMany('App\StoppedProject');
+  }
+
 }

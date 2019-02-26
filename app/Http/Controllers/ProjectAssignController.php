@@ -155,8 +155,11 @@ class ProjectAssignController extends Controller
 
     public function store_from_director(Request $request)
     {
+      
       $check = AssignedProject::where('project_id',$request->project_id)->first();
-      if(isset($check)){
+      if(isset($check)){ // Reassignment
+        $check->stopped=null;
+        $check->save();
         $team = $check->AssignedProjectTeam;
         foreach ($team as $t) {
           $team_log = new AssignedProjectTeamLog();
@@ -205,6 +208,7 @@ class ProjectAssignController extends Controller
         $assignProject->assigned_date=$current_time;
         $assignProject->priority=$priority;
         $assignProject->assigned_by=Auth::id();
+        $assignProject->stopped=false;
         $assignProject->save();
         $table_name='assigned_projects';
         $table_id=$assignProject->id;
@@ -482,13 +486,9 @@ class ProjectAssignController extends Controller
        ->get();
        return view('_Monitoring._Manager.assignToConsultant',['priority'=>$priority,'project_id'=>$request->project_id,'officers'=>$officers,'directors'=>$directors]);
     }
-    public function DPM_StoreProjectData(Request $request)
-    {
-      // TODO
-    }
+  
      public function store(Request $request)
      {
-       // dd($request->all());
         if($request->priority=='high_priority'){
           $priority=3;
         }
@@ -506,6 +506,7 @@ class ProjectAssignController extends Controller
          $assignProject->project_id=$request->project_id;
          $assignProject->assigned_date=$current_time;
          $assignProject->priority=$priority;
+         $assignProject->stopped=false;
          $assignProject->assigned_by=Auth::id();
          // dd($assignProject->project);
          $assignProject->save();

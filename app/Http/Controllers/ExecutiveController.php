@@ -177,6 +177,7 @@ class ExecutiveController extends Controller
       ->leftJoin('projects','projects.id','assigned_projects.project_id')
       ->where('project_type_id',1)
       ->where('complete',0)
+      ->where("stopped",false)
       ->where('projects.status',1)
       ->count();
       $completed_projects = AssignedProject::select('assigned_projects.*')
@@ -185,6 +186,14 @@ class ExecutiveController extends Controller
       ->where('complete',1)
       ->where('projects.status',1)
       ->count();
+      $stopped_projects = AssignedProject::select('assigned_projects.*')
+      ->leftJoin('projects','projects.id','assigned_projects.project_id')
+      ->where('project_type_id',1)
+      ->where('complete',0)
+      ->where('stopped',true)
+      ->where('projects.status',1)
+      ->count();
+
       $total_assigned_projects=Project::select('projects.*')
       ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
       ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
@@ -400,6 +409,7 @@ class ExecutiveController extends Controller
         'total_assigned_projects' => $total_assigned_projects,
         'inprogress_projects' => $inprogress_projects,
         'completed_projects' => $completed_projects,
+        'stopped_projects'=>$stopped_projects,
         'officers' => $officers,
         'activities'=> $activities,
         'assigned_projects' => $assigned_projects,
@@ -430,10 +440,11 @@ class ExecutiveController extends Controller
     {
       $actual_total_projects = Project::where('project_type_id',1)->where('status',1)->get();
       $total_projects = $actual_total_projects->count();
-
+// dd($total_projects[0]->AssignedProject);
       $inprogress_projects = AssignedProject::select('assigned_projects.*')
       ->leftJoin('projects','projects.id','assigned_projects.project_id')
       ->where('project_type_id',1)
+      ->where('stopped',false)
       ->where('projects.status',1)
       ->where('complete',0)->count();
 
@@ -451,6 +462,14 @@ class ExecutiveController extends Controller
       ->where('projects.project_type_id',1)
       ->where('projects.status',1)
       ->get();
+
+      $stopped_projects = AssignedProject::select('assigned_projects.*')
+      ->leftJoin('projects','projects.id','assigned_projects.project_id')
+      ->where('project_type_id',1)
+      ->where('complete',0)
+      ->where('stopped',true)
+      ->where('projects.status',1)
+      ->count();
       
       $total_assigned_projects = $actual_total_assigned_projects->count();
       $model = new User();
@@ -460,9 +479,11 @@ class ExecutiveController extends Controller
         )
         );
 
+        // dd($stopped_projects);
       \JavaScript::put([
         'actual_total_projects' => $actual_total_projects,
         'total_projects' => $total_projects,
+        'stopped_projects'=>$stopped_projects,
         'total_assigned_projects' => $total_assigned_projects,
         'actual_total_assigned_projects' => $actual_total_assigned_projects,
         'inprogress_projects' => $inprogress_projects,
@@ -470,7 +491,7 @@ class ExecutiveController extends Controller
         'officers' => $officers,
 
         ]);
-      return view('executive.home.chart_one',['actual_total_assigned_projects' => $actual_total_assigned_projects,'total_projects'=>$actual_total_projects ,'total_assigned_projects'=>$total_assigned_projects ,'inprogress_projects'=>$inprogress_projects ,'completed_projects'=>$completed_projects]);
+      return view('executive.home.chart_one',['stopped_projects'=>$stopped_projects,'actual_total_assigned_projects' => $actual_total_assigned_projects,'total_projects'=>$actual_total_projects ,'total_assigned_projects'=>$total_assigned_projects ,'inprogress_projects'=>$inprogress_projects ,'completed_projects'=>$completed_projects]);
     }
     // chart2
     public function chart_two(){

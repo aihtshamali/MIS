@@ -141,6 +141,8 @@ Route::prefix('manager')->middleware('role:manager|directorevaluation')->group(f
     Route::post('getCompletedProjects','DirectorEvaluationController@getCompletedProjects')->name('getofficerscompleted');
 
     Route::get('/projects_assigned','DirectorEvaluationController@totalProjectAssigned')->name('totalProjectAssignedtoOfficers');
+    Route::post('/stopAssignedProject','DirectorEvaluationController@stopAssignedProject')->name('stopAssignedProject');
+    
   });
 
   //for Monitoring Director
