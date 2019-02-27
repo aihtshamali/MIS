@@ -8,6 +8,8 @@ if (! function_exists('calculateMFinancialProgress')) {
         return 0;
         if($financial_cost && $financial_cost->total_release_to_date>0)
             $financial_progress=($financial_cost->utilization_against_releases/$financial_cost->total_release_to_date)*100;
+        else
+          return 0;
         return $financial_progress;
     }
 

@@ -104,6 +104,12 @@ class MProjectProgress extends Model
     public function MAssignedProjectHealthSafety(){
       return $this->hasMany('App\MAssignedProjectHealthSafety');
     }
+    public function MAssignedUserLocation(){
+      return $this->hasMany('App\MAssignedUserLocation');
+    }
+    public function MAssignedUserKpi(){
+      return $this->hasMany('App\MAssignedUserKpi');
+    }
 
 
 
