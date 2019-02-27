@@ -27,6 +27,7 @@ use App\AdpProject;
 use App\HrDecision;
 use App\SubSector;
 use App\Sector;
+use App\District;
 use \DateTime;
 use \DateTimeZone;
 use App\PlantripTriprequest;
@@ -322,6 +323,20 @@ class ExecutiveController extends Controller
               array_push($projects_wrt_sectors,$subsectors_data);
           }
 
+          $districts=District::where('status',1)->get();
+          $projects_wrt_districts =[];
+
+          foreach($districts as $dis)
+            {
+              $districts_data=DB::select(
+
+                'getProjectsDistrict' .' '. $dis->id);
+
+                array_push($projects_wrt_districts,$districts_data);
+            }
+
+
+
           foreach($sectors  as $sec)
            {
             $assignedsectors_data=DB::select(
@@ -431,7 +446,9 @@ class ExecutiveController extends Controller
         'projectsprogress'=>$projectsprogress,
         'projectsprogressranges'=>$projectsprogressranges,
         'categories'=>$categories,
-        'Sneprojects'=>$Sneprojects
+        'Sneprojects'=>$Sneprojects,
+        'districts' => $districts,
+        'projects_wrt_districts'=>$projects_wrt_districts
       ]);
       return view('executive.home.pems_tab');
     }
@@ -440,7 +457,7 @@ class ExecutiveController extends Controller
     {
       $actual_total_projects = Project::where('project_type_id',1)->where('status',1)->get();
       $total_projects = $actual_total_projects->count();
-// dd($total_projects[0]->AssignedProject);
+        // dd($total_projects[0]->AssignedProject);
       $inprogress_projects = AssignedProject::select('assigned_projects.*')
       ->leftJoin('projects','projects.id','assigned_projects.project_id')
       ->where('project_type_id',1)
@@ -494,7 +511,8 @@ class ExecutiveController extends Controller
       return view('executive.home.chart_one',['stopped_projects'=>$stopped_projects,'actual_total_assigned_projects' => $actual_total_assigned_projects,'total_projects'=>$actual_total_projects ,'total_assigned_projects'=>$total_assigned_projects ,'inprogress_projects'=>$inprogress_projects ,'completed_projects'=>$completed_projects]);
     }
     // chart2
-    public function chart_two(){
+    public function chart_two()
+    {
       $model = new User();
       $officers = $model->hydrate(
         DB::select(
@@ -538,7 +556,8 @@ class ExecutiveController extends Controller
         'assigned_projects' => $assigned_projects,
         'individual_projects' => $individual_projects
         ]);
-      return view('executive.home.chart_two',['officers' => $officers,'assigned_projects' => $assigned_projects,'actual_assigned_projects' => $actual_assigned_projects]);
+      return view('executive.home.chart_two',['officers' => $officers,'assigned_projects' => $assigned_projects,
+      'actual_assigned_projects' => $actual_assigned_projects]);
     }
 
     // chart3
@@ -569,8 +588,11 @@ class ExecutiveController extends Controller
           array_push($total_assigned_projects,count($data_3));
           array_push($actual_assigned_inprogress_projects,$data_2);
           array_push($actual_total_assigned_projects,$data_3);
-        }
-
+        } 
+        // dd($actual_total_assigned_projects);
+        // $listofOfficerData= array(
+        //   ""=>[]
+        // );
       \JavaScript::put([
         'officers' => $officers,
         'assigned_inprogress_projects' => $assigned_inprogress_projects,
@@ -578,11 +600,12 @@ class ExecutiveController extends Controller
         'actual_assigned_inprogress_projects' => $actual_assigned_inprogress_projects,
         'actual_total_assigned_projects' => $actual_total_assigned_projects
         ]);
-      return view('executive.home.chart_three');
+      return view('executive.home.chart_three',['actual_total_assigned_projects' => $actual_total_assigned_projects]);
     }
 
     // chart4
-    public function chart_four(){
+    public function chart_four()
+    {
       $model = new User();
       $officers = $model->hydrate(
         DB::select(
@@ -609,7 +632,8 @@ class ExecutiveController extends Controller
       return view('executive.home.chart_four',['officers' => $officers,'assigned_completed_projects' => $assigned_completed_projects]);
     }
     // chart5
-    public function chart_five(){
+    public function chart_five()
+    {
       $model = new User();
       $officers = $model->hydrate(
         DB::select(
@@ -654,7 +678,8 @@ class ExecutiveController extends Controller
       return view('executive.home.chart_five',['officers' => $officers ,'assigned_current_projects'=>$assigned_current_projects]);
     }
     // chart 6
-    public function chart_six(){
+    public function chart_six()
+    {
       $activities= AssignedProjectActivity::all();
 
 
@@ -686,7 +711,8 @@ class ExecutiveController extends Controller
     }
 
     // chart7
-    public function chart_seven(){
+    public function chart_seven()
+    {
       $sub_Sectors=SubSector::where('status',1)->get();
 
 
@@ -710,7 +736,9 @@ class ExecutiveController extends Controller
     }
 
     // chart8
-    public function chart_eight(){
+    public function chart_eight()
+    {
+
       $sectors=Sector::where('status',1)->get();
       $assignedprojects_wrt_sectors=[];
       $inprogressprojects_wrt_sectors =[];
@@ -753,7 +781,8 @@ class ExecutiveController extends Controller
     }
 
     // chart 9
-    public function chart_nine(){
+    public function chart_nine()
+    {
       $activities= ProjectActivity::all();
       $time_against_activities=[];
       foreach($activities as $act)
@@ -784,7 +813,8 @@ class ExecutiveController extends Controller
     }
 
     // chart 10
-    public function chart_ten(){
+    public function chart_ten()
+    {
       $activities= ProjectActivity::all();
       $time_against_activities=[];
       $min_time_against_activities=[];
@@ -861,7 +891,8 @@ class ExecutiveController extends Controller
     }
 
     //chart 11
-    public function GlobalProgressWiseChart(){
+    public function GlobalProgressWiseChart()
+    {
       $projects=AssignedProject::select('assigned_projects.*')
       ->leftJoin('projects','projects.id','assigned_projects.project_id')
       ->where('project_type_id',1)
@@ -903,7 +934,8 @@ class ExecutiveController extends Controller
         return view('executive.home.global_progress_wise_chart');
     }
     //chart 12
-    public function SneWiseChart(){
+    public function SneWiseChart()
+    {
       $projects=Project::where('project_type_id',1)->where('status',1)->get();
       $categories=array();
       array_push($categories,'NOT SET');
@@ -978,7 +1010,31 @@ class ExecutiveController extends Controller
         ]);
         return view('executive.home.sne_wise_chart',compact('actual_Sneprojects'));
     }
+   
+     //chart 13
+    public function chart_thirteen()
+    {
+      $districts=District::where('status',1)->get();
 
+
+      $projects_wrt_districts =[];
+
+      foreach($districts as $dis)
+        {
+          $districts_data=DB::select(
+
+            'getProjectsDistrict' .' '. $dis->id);
+
+            array_push($projects_wrt_districts,$districts_data);
+        }
+
+      \JavaScript::put([
+        'districts' => $districts,
+        'projects_wrt_districts'=>$projects_wrt_districts
+
+        ]);
+      return view('executive.home.chart_13',['districts' => $districts, 'projects_wrt_districts'=>$projects_wrt_districts]);
+    }
 
     public function pmms_index(){
       $unassigned=Project::select('projects.*')

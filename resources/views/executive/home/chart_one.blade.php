@@ -181,8 +181,8 @@
                                       @foreach ($total_project->AssignedSubSectors as $sub_sectors)
                                         {{ $sub_sectors->SubSector->name }}
                                       @endforeach
-                                      </td>
                                       <td>{{round($total_project->ProjectDetail->orignal_cost,2,PHP_ROUND_HALF_UP)}}</td>
+                                      </td>
                                       @if($total_project->AssignedProject)
                                       @if ($total_project->AssignedProject->complete == 0)
                                         <td>InProgress</td>
