@@ -138,10 +138,10 @@
                               <td>@{{officer_project.project_no}}</td>
                               <td>@{{officer_project.financial_year}} / @{{officer_project.ADP}}</td>
                               <td>@{{officer_project.title}}</td>
-                              <td>@{{officer_project.orignal_cost}} Million</td>
+                              <td>@{{(Number(officer_project.orignal_cost).toFixed(2))}} Million</td>
                               <td>@{{officer_name}}</td>
                               <td>@{{officer_project.assigned_date}}</td>
-                              <td>@{{officer_project.progress}}%</td>
+                              <td>@{{(Number(officer_project.progress).toFixed(2))}}%</td>
                             </tr>
                           </tbody>
                         </table>
@@ -189,14 +189,7 @@
 
 <script>
   function loadDataTable(){
-    // $('table.officer_projects').DataTable({
-    //   dom: 'Bfrtip',
-    //       buttons: [
-    //           'copy', 'csv', 'excel', 'pdf', 'print'
-    //       ]
-    // });
-    // $('.dt-buttons').addClass('col-md-6')
-    // $('.dataTables_filter').addClass('col-md-6').css('text-align','right');
+    
   }
 
 let chart = am4core.create("chartdiv2", am4charts.XYChart);
