@@ -194,9 +194,9 @@ ul, #myUL {
             <a class="nav-link" data-toggle="tab" href="#profile1" role="tab">WBS</a>
         </li>
     </ul>
-    <div class="container">
+    <div class="container r_monitoringDivv">
       <div class="tab-content tabs card-block">
-          <div class="tab-pane" id="home1" role="tabpanel">
+          <div class="tab-pane active" id="home1" role="tabpanel">
             <div class="pdlfrt2">
          <!-- ----------------- start photo gallery -------------------- -->
          <h2 class="txtdecundlin pointer photogallary" title="click to Expand photo gallary">Photo Gallery</h2>

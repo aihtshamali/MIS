@@ -4,12 +4,12 @@
                 <div class="pcoded-inner-navbar main-menu">
                     <div class="pcoded-navigatio-lavel">Navigation</div>
                     <ul class="pcoded-item pcoded-left-item">
-                        <li class="pcoded-hasmenu active pcoded-trigger">
+                        <li class="pcoded-hasmenu">
                             <a href="javascript:void(0)">
                                 <span class="pcoded-micon"><i class="feather icon-home"></i></span>
                                 <span class="pcoded-mtext">Dashboard</span>
                             </a>
-                            <ul class="pcoded-submenu">
+                            <ul class="pcoded-submenu dashboard">
                                 <li class="">
                                     <a href="{{url('monitoring_dashboard')}}">
                                         <span class="pcoded-mtext">Home</span>
@@ -20,10 +20,10 @@
                                         <span class="pcoded-mtext">CRM</span>
                                     </a>
                                 </li>
-                                <li class="#">
+                                <li class="analytics">
                                     <a href="{{route('analytics')}}">
                                         <span class="pcoded-mtext">Analytics</span>
-                                        <span class="pcoded-badge label label-info ">NEW</span>
+                                        <!-- <span class="pcoded-badge label label-info ">NEW</span> -->
                                     </a>
                                 </li>
                             </ul>

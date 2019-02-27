@@ -290,6 +290,7 @@ $(document).ready(function () {
         $(".resultNavBar").hide();
         $(".mainTabsAndNav").animate({ marginTop: '0px' }, 500);
         $(".mainTabsAndNav").removeClass("mt_6p");
+        $('#r_monitoring').hide();
     });
 
     $('.planNav').on('click', function () {
@@ -306,6 +307,8 @@ $(document).ready(function () {
         $(".uptiQ").show('slow');
         $(".downtiQ").hide();
         $(".reviewNavBar").hide();
+        $(".r_monitoringDivv").hide();
+        $('#r_monitoring').hide();
     });
     function hideall() {
         $('#PlanDocDiv').hide();
@@ -334,6 +337,7 @@ $(document).ready(function () {
         $('#galleryDiv').hide();
         $('#WBSDiv').hide();
         $('#r_monitoring').hide();
+        $('.r_monitoringDivv').hide();
     }
 
 
@@ -356,6 +360,8 @@ $(document).ready(function () {
         $(".uptiQ").show('slow');
         $(".downtiQ").hide();
         $(".reviewNavBar").hide();
+        $(".r_monitoringDivv").hide();        
+        $('#r_monitoring').hide();
     });
     $('.resultNav').on('click', function () {
         hideallmaintabs();
@@ -374,6 +380,7 @@ $(document).ready(function () {
         $(".planNavBar").hide();
         $(".conductNavBar").hide();
         $(".resultNavBar").show();
+        $(".r_monitoringDivv").show();
     });
 
     $('.CostingTab').on('click', function () {
@@ -446,6 +453,8 @@ $(document).ready(function () {
         $('.p_details').hide();
         $('.conductNavBar').hide();
         $('.resultNavBar').hide();
+        $('.r_monitoringDivv').hide();
+        $('#r_monitoring').hide();
         $('.mainTabsAndNav').removeClass("col-md-8").addClass("col-md-12");
         $(".uptiQ").show('slow');
     });

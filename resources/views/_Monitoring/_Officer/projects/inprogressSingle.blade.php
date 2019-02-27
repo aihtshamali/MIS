@@ -103,6 +103,7 @@
 /* active page */
 .New_Assignments a{color : #FE8A7D !important;}
 .Monitoring_Projects{color : #FE8A7D !important;}
+/* end active */
 .red{color: #F22525 !important;font-size: 21px;font-weight: 900;}
 .blue{color: #7942FA !important;font-size: 21px;font-weight: 900;}
 .sky{color: #42BDFA !important;font-size: 21px;font-weight: 900;}
@@ -113,6 +114,10 @@
 /* .orgchart{background: #fff !important;} */
 .primarybold{color: #01a9ac !important; font-weight: 900 !important;}
 .orrbold{color: #ff7220 !important; font-weight: 900 !important;}
+.redtXt{font-size: 15px;font-weight: 900;color: #fff !important;font-size: 15px;text-shadow: 1px 3px 21px blueviolet !important;font-weight: 900;background: #d60e0e;border-radius: 5px;margin-left: 7%;}
+.orangetXt{font-size: 15px;font-weight: 900;color: #fff !important;font-size: 15px;text-shadow: 1px 3px 21px blueviolet !important;font-weight: 900;background: #f39440;border-radius: 5px;margin-left: 7%;}
+.yeltXt{font-size: 15px;font-weight: 900;color: #fff !important;font-size: 15px;text-shadow: 1px 3px 21px blueviolet !important;font-weight: 900;background: #c7c30d;border-radius: 5px;margin-left: 7%;}
+.greentXt{font-size: 15px;font-weight: 900;color: #fff !important;font-size: 15px;text-shadow: 1px 3px 21px blueviolet !important;font-weight: 900;background: green;border-radius: 5px;margin-left: 7%;}
 </style>
 
 @endsection
@@ -186,12 +191,12 @@
                     </div>
                     <div class="col-md-3 ln_ht12">
                       <b for="" name="phy_progress" id="phy_progress" class="primarybold mb_1 fontf_sh"><span  class="float-left">Physical Progress: </span>
-                        <span class="pdz_six">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%</span>
+                        <span class="pdz_six" id="Physicalprog">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%</span>
                         </b>
                     </div>
                     <div class="col-md-3">
                       <b for="" name="f_progress" id="f_progress" class="primarybold mb_1 fontf_sh"><span class="float-left" >Financial Progress:</span>
-                        <span class="pdz_six">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</span>
+                        <span class="pdz_six" id="financialprog">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</span>
                       </b>
                     </div>
                     <div class="col-md-3 ln_ht12">
@@ -916,4 +921,50 @@ $(document).ready(function(){
 <script src="{{asset('lightRoom/picturefill.min.js')}}"></script>
 <script src="{{asset('lightRoom/lightgallery-all.min.js')}}"></script>
 <script src="{{asset('lightRoom/jquery.mousewheel.min.js')}}"></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+  var financialprogtxt = $('#financialprog').text();
+  var financialprog = $('#financialprog');
+  var financialprogtxtsplit = financialprogtxt.replace("%", "");
+  if (financialprogtxtsplit <= 25) {
+    financialprog.attr("class", "pdz_six redtXt");
+  }
+  else if (financialprogtxtsplit <= 50) {
+    financialprog.attr("class", "orangetXt pdz_six");
+  }
+  // else if (temp<= 75 && temp>= 50) {
+  //   status.addClass('blue');
+  // }
+  else if (financialprogtxtsplit <= 75) {
+    financialprog.attr("class", "pdz_six yeltXt");
+  }
+  else if (financialprogtxtsplit <=100) {
+    financialprog.attr("class", "pdz_six greentXt");
+  }
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+  var Physicalprogtxt = $('#Physicalprog').text();
+  var Physicalprog = $('#Physicalprog');
+  var Physicalprogtxtsplit = Physicalprogtxt.replace("%", "");
+  if (Physicalprogtxtsplit <= 25) {
+    Physicalprog.attr("class", "pdz_six redtXt");
+  }
+  else if (Physicalprogtxtsplit <= 50) {
+    Physicalprog.attr("class", "orangetXt pdz_six");
+  }
+  // else if (temp<= 75 && temp>= 50) {
+  //   status.addClass('blue');
+  // }
+  else if (Physicalprogtxtsplit <= 75) {
+    Physicalprog.attr("class", "pdz_six yeltXt");
+  }
+  else if (Physicalprogtxtsplit <=100) {
+    Physicalprog.attr("class", "pdz_six greentXt");
+  }
+});
+</script>
 @endsection

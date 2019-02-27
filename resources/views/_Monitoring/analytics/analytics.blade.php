@@ -12,6 +12,10 @@
   .mxh3h:hover{box-shadow: 9px 6px 15px #85c5e340; transition:transition: all 900ms ease;
   -webkit-transition: all 900ms ease;}
   #chartdiv, #chartdiv2{height: 300px !important;}
+  /* active page */
+  .dashboard{color : #FE8A7D !important;}
+  .analytics a{color : #FE8A7D !important;}
+  /* end active */
 </style>
 @endsection
 @section('content')
@@ -30,27 +34,6 @@
     </a>
     </div>
   </div>
-  <div class="col-md-4 pdlfrt1 mtb mxh3h mxh3h">
-    <div class="border col-md-12">
-        Put AM Charts here...
-    </div>
-  </div>
-  <div class="col-md-4 pdlfrt1 mtb mxh3h">
-    <div class="border col-md-12">
-        Put AM Charts here...
-    </div>
-  </div>
-  <div class="col-md-4 pdlfrt1 mtb mxh3h">
-    <div class="border col-md-12">
-        Put AM Charts here...
-    </div>
-  </div>
-  <div class="col-md-4 pdlfrt1 mtb mxh3h">
-    <div class="border col-md-12">
-        Put AM Charts here...
-    </div>
-  </div>
-</div>
 @endsection
 @section('js_scripts')
 {{-- <script src="{{asset('js/AdminLTE/jquery.dataTables.min.js')}}"></script>
