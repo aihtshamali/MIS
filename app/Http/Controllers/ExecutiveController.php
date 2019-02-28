@@ -573,27 +573,34 @@ class ExecutiveController extends Controller
       $total_assigned_projects = [];
       $actual_assigned_inprogress_projects = [];
       $actual_total_assigned_projects = [];
-      foreach($officers as $officer){
+      $allProjectsData=[];
+      foreach($officers as $officer)
+      {
         if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad" || (preg_match('#M[u|o]hammad*#i', $officer->first_name)==1))
         {
           $officer->first_name = "M.";
         }
-          $data_2 = DB::select(
-            'getOfficersInProgressProjectsById' .' '.$officer->id
-          );
-          $data_3 = DB::select(
-            'getOfficersAssignedProjectById'.' '.$officer->id
-          );
-          array_push($assigned_inprogress_projects,count($data_2));
-          array_push($total_assigned_projects,count($data_3));
-          array_push($actual_assigned_inprogress_projects,$data_2);
-          array_push($actual_total_assigned_projects,$data_3);
-        } 
-        // dd($actual_total_assigned_projects);
-        // $listofOfficerData= array(
-        //   ""=>[]
-        // );
+        $data_2 = DB::select(
+          'getOfficersInProgressProjectsById' .' '.$officer->id
+        );
+        $data_3 = DB::select(
+          'getOfficersAssignedProjectById'.' '.$officer->id
+        );
+        $temp=[$officer->first_name." ".$officer->last_name =>[
+          "InProgress" => $data_2,
+          "Total" => $data_3
+          ]
+      ];
+      array_push($allProjectsData,$temp);
+      array_push($assigned_inprogress_projects,count($data_2));
+      array_push($total_assigned_projects,count($data_3));
+      array_push($actual_assigned_inprogress_projects,$data_2);
+      array_push($actual_total_assigned_projects,$data_3);
+    }       
+    // dd($allProjectsData);  
+    // dd(response()->json($allProjectsData));
       \JavaScript::put([
+        'allProjectsData'=>$allProjectsData,
         'officers' => $officers,
         'assigned_inprogress_projects' => $assigned_inprogress_projects,
         'total_assigned_projects' => $total_assigned_projects,
@@ -613,6 +620,7 @@ class ExecutiveController extends Controller
         )
         );
         $assigned_completed_projects = [];
+        $total_assigned_completed_projects=[];
         foreach($officers as $officer){
           if($officer->first_name == "Muhammad" || $officer->first_name == "Mohammad" || (preg_match('#M[u|o]hammad*#i', $officer->first_name)==1))
           {
@@ -622,11 +630,14 @@ class ExecutiveController extends Controller
             'getOfficersCompletedProjectsById' .' '.$officer->id
           );
           array_push($assigned_completed_projects,count($data_3));
+          array_push($total_assigned_completed_projects,$data_3);
         }
+        // dd($total_assigned_completed_projects);
 
       \JavaScript::put([
         'officers' => $officers,
         'assigned_completed_projects' => $assigned_completed_projects,
+        'total_assigned_completed_projects' => $total_assigned_completed_projects,
 
         ]);
       return view('executive.home.chart_four',['officers' => $officers,'assigned_completed_projects' => $assigned_completed_projects]);
@@ -684,6 +695,7 @@ class ExecutiveController extends Controller
 
 
       $projects_activities_progress = array_fill(0, 12, 0);
+      $projects_against_activities = array_fill(0,12,["projects"=>[]]);
 
          $activities_data = DB::select(
           'getActiviesProgress'
@@ -698,11 +710,17 @@ class ExecutiveController extends Controller
           }
         }
       }
+      // dd($final);
       foreach ($final as $val) {
         $projects_activities_progress[$val->project_activity_id-1]++;
+        array_push($projects_against_activities[$val->project_activity_id-1]["projects"],$val);
       }
+      // dd($projects_against_activities);
+      // dd($projects_activities_progress);
+    
 
       \JavaScript::put([
+        'projects_against_activities'=>$projects_against_activities,
         'activities' => ProjectActivity::all(),
         'projects_activities_progress'=>$projects_activities_progress
 
