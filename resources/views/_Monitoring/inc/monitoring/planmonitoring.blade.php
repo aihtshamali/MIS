@@ -105,16 +105,16 @@
                             <div class="DisInlineflex newClass{{$i}} mb_2 col-md-12">
                                 <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Objective {{$i}}</label>
                                     <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="obj[]" placeholder="Objective {{$i}}" value="{{$obj->objective}}">
+                                    <input type="text" disabled class="form-control" placeholder="Objective {{$i}}" value="{{$obj->objective}}">
                                     </div>
                                     @if($i==1)
                                         <div class="col-sm-2 addbtn text_center">
                                                 <button class="btn btn-sm btn-info" type="button" id="add_more_objective"  tabindex=1>+</button>
                                         </div>
                                     @else
-                                        <div class="col-sm-2 removeObjective text_center">
+                                        {{-- <div class="col-sm-2 removeObjective text_center">
                                                 <button class="btn btn-sm btn-danger" title="Delete Objective {{$i}}" type="button" id="" tabindex={{$i}}>-</button>
-                                            </div>
+                                            </div> --}}
                                     @endif
                                 </div>
                                 @php
@@ -140,16 +140,16 @@
                         <div class="DisInlineflex newClasscompAct{{$j}} mb_2 col-md-12">
                                 <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Component {{$j}}</label>
                                 <div class="col-sm-7">
-                                <input type="text" name="comp[]"  class="form-control" value="{{$comp->component}}" placeholder="Component {{$j}}">
+                                <input type="text" disabled class="form-control" value="{{$comp->component}}" placeholder="Component {{$j}}">
                                 </div>
                                 @if($j==1)
                                 <div class="col-sm-2 addbtn text_center">
                                         <button class="btn btn-sm btn-info" type="button" id="add_more_compAct" tabindex=100>+</button>
                                 </div>
                                 @else
-                                <div class="col-sm-2 removecompAct text_center">
+                                {{-- <div class="col-sm-2 removecompAct text_center">
                                      <button class="btn btn-sm btn-danger" title="Delete Component {{$j}}" type="button" id=""  tabindex=101>-</button>
-                                </div>
+                                </div> --}}
                                 @endif
                             </div>
                             @php
@@ -219,21 +219,17 @@
                             <h5 class="textlef pd_1_2 col-md-6"><b>Component</b></h5>
                         </div>
                         <ul class="pd_1_6" id="ObjCompHere">
-                          <!-- @php
-                          $i=0;
-                          @endphp -->
                           @php
                           $i=0;
                           @endphp
                           @foreach ($objectives as $obj)
                             <li class="row mb_2">
-                                        <span id="objectiveHere" name=""  class="float-left col-md-6">
-                                            <input type="hidden" value="{{$obj->id}}" name="objective[]">
-                                            {{$obj->objective}}
-                                        </span>
-                                        <span class="float-right col-md-6">
+                                    <span id="objectiveHere" name=""  class="float-left col-md-6">
+                                        <input type="hidden" value="{{$obj->id}}" name="objective[]">
+                                        {{$obj->objective}}
+                                    </span>
+                                    <span class="float-right col-md-6">
                                         <select class="select2 col-md-12" id="component" name="mappedComp_{{$i}}[]" multiple="multiple">
-
                                         @foreach ($components as $comp)
                                         <option
                                                 @foreach ($comp->MPlanObjectivecomponentMapping as $mappedComp)
@@ -245,12 +241,12 @@
                                         </option>
                                         @endforeach
                                         </select>
-                                        </span>
-                                    </li>
-                                    @php
-                                    $i++;
-                                    @endphp
-                                    @endforeach
+                                    </span>
+                            </li>
+                            @php
+                                $i++;
+                            @endphp
+                        @endforeach
                         </ul>
                         {{-- <button class="btn aho col-md-3 btn btn-alert offset-md-7 " type="button" style="background: #406765;border: 1px solid; " id="ObjCompShowSum">Show Summary</button> --}}
                         <button class="btn aho col-md-1 btn btn-primary pull-right" type="submit" id="saveCompagainstObj">Save </button>
@@ -272,6 +268,39 @@
                             <h4>KPI(s)</h4>
                         </div>
                         <div class="card-block">
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <h5 class="mb_2">Previous Mapped Kpis</h5>
+                                    {{-- {{dump($mPlanKpiComponents)}} --}}
+                                    <div class="col-md-12 row">
+                                         <div class="col-md-4 text-center">
+                                             <h5>KPIs</h5>
+                                         </div>   
+                                         <div class="col-md-4 text-center">
+                                             <h5>Component</h5>
+                                         </div>   
+                                         <div class="col-md-4 text-center">
+                                             <h5>Weightage</h5>
+                                         </div>   
+                                    </div>
+                                    @foreach ($mPlanKpiComponents as $item)
+                                    <div class="col-md-12 row">
+                                         <div class="col-md-4 text-center">
+                                             {{$item->MProjectKpi->name}}
+                                         </div>   
+                                         <div class="col-md-4 text-center">
+                                             {{$item->MPlanComponent->component}}
+                                         </div>   
+                                         <div class="col-md-4 text-center">
+                                             {{$item->weightage}}
+                                         </div>   
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        {{-- Choose KPI New --}}
+                        <div class="card-block">
                           <div class="row form-group">
                               <div class="col-md-5">
                                   <h5 class="mb_2">Choose KPI(s)</h4>
@@ -279,20 +308,7 @@
                                     multiple='multiple'>
                                     {{-- <h1>here</h1> --}}
                                      @foreach ($Kpis as $Kpi)
-                                        @php
-                                            $flag=true;
-                                        @endphp
-                                        @foreach ($mPlanKpiComponents as $item)
-                                            @if($item->m_project_kpi_id == $Kpi->id)
-                                                <option class='optiontest' data-value='{{$Kpi->id}}' selected >{{$Kpi->name}}</option>
-                                                @php
-                                                    $flag=false;
-                                                @endphp
-                                            @endif
-                                        @endforeach
-                                      @if($flag)
                                         <option class='optiontest' data-value='{{$Kpi->id}}'>{{$Kpi->name}}</option>
-                                      @endif
                                      @endforeach
                                 </select>
 

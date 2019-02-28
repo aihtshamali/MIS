@@ -47,7 +47,7 @@
   <header class="main-header">
 
       <!-- Logo -->
-      <a href="{{url('/predashboard')}}" class="logo">
+      <a href="{{route('predashboard')}}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>DG</b>ME</span>
       <!-- logo for regular state and mobile devices -->

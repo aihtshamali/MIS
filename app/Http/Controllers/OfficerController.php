@@ -1097,6 +1097,7 @@ class OfficerController extends Controller
       {
         // $projectProgressId= MProjectProgress::where('assigned_project_id',$request->project_progress_no)->get();
         // $objectives =MPlanObjective::where('status',1)->count();
+        MPlanObjectivecomponentMapping::where('m_project_progress_id',$request->m_project_progress_id)->delete();
         $i=0;
         foreach($request->objective as $objective)
         {

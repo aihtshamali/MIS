@@ -88,6 +88,7 @@ Route::prefix('manager')->middleware('role:manager|directorevaluation')->group(f
   Route::get('/chart_ten','ExecutiveController@chart_ten')->name('chart_ten');
   Route::get('/chart_eleven','ExecutiveController@GlobalProgressWiseChart')->name('GlobalProgressWiseChart');
   Route::get('/chart_twelve','ExecutiveController@SneWiseChart')->name('SneWiseChart');
+  Route::get('/chart_thirteen','ExecutiveController@chart_thirteen')->name('districtWise');
   Route::get('/pems_tab','ExecutiveController@pems_index')->name('Exec_pems_tab');
 });
 
