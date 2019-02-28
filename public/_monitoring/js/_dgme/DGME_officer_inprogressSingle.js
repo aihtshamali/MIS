@@ -1214,10 +1214,19 @@ $(document).ready(function(){
     $(this).prev().remove();
     $(this).remove();
   });
+  var user_location_id_count=2;
   $('#CloneUserKPI').click(function(){
-    $("#CloneThisUserKPI").clone().appendTo('.CloneUserKPIHere');
-    $('.select2').select2();
-    $('.delLastChild').each(function(index){
+    let data=$("#CloneThisUserKPI").clone();
+      let user_div = data.find('select')[0];
+      let location_div = data.find('select')[1];
+      let user_location = "user_location_id_" + user_location_id_count;
+      let project_kpi = "m_project_kpi_id_" + (user_location_id_count) + '[]';
+      $(user_div).attr('name', user_location);
+      $(location_div).attr('name', project_kpi);
+      data.appendTo('.CloneUserKPIHere');
+      $("#counts_user_location_id").attr('value', ++user_location_id_count);
+      $('.select2').select2();
+      $('.delLastChild').each(function(index){
       if(index == 0 || index == 1)
         {
 

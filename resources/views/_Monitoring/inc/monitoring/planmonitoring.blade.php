@@ -102,7 +102,7 @@
                         {{ csrf_field() }}
                         <div class="row">
                             <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
-                            <input type="hidden" name="page_tabs" value="plan_Mapping">
+                            <input type="hidden" name="page_tabs" value="plan_userlocDiv">
                             <input type="hidden" name="objct" id="objct" value="{{count($objectives)}}">
                             <input type="hidden" name="compAct" id="compAct" value="{{count($components)}}">
                             <div class="col-md-6 objtivesNew border_right pd_1_2">
@@ -230,7 +230,8 @@
                 <form action="{{route('saveUserLocation')}}" method="POST" >
                     {{ csrf_field() }}
                 <input type="hidden" name="progress_id" value="{{$projectProgressId->id}}">
-                <input type="hidden" name="counts" value="" id="counts_user_location">
+                <input type="hidden" name="counts" value="0" id="counts_user_location">
+                <input type="hidden" name="page_tabs" value="plan_Mapping">
                   <div class="row col-md-12">
                     <style media="screen" scoped>
                       .select2-container--default .select2-selection--multiple .select2-selection__rendered li{padding: 0% !important};
@@ -398,6 +399,10 @@
                 </div>
                 <div class="tab-pane " id="userKPIDiv" role="tabpanel" aria-expanded="false" style="display:none;">
                   <!-- headings -->
+                <form action="{{route('saveUserKpi')}}" method="post">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
+                    <input type="hidden" name="page_tabs" value="plan_task">
                   <div class="row col-md-12">
                     <div class="col-md-5 text-center">
                       <h4>User</h4>
@@ -410,28 +415,36 @@
                   <!-- user Location content -->
                   <div class="row col-md-12">
                     <div class="row col-md-10" id="CloneThisUserKPI" style="margin-bottom:1% !important;">
-                      <div class="col-md-6 text-center">
+                      <div class="col-md-5 text-center">
                         <div class="col-md-10 offset-md-1 delLastChild">
-                        <select class="select2" id="" name="" multiple="multiple">
-                          <option value="">1</option>
-                          <option value="">2</option>
-                          <option value="">3</option>
-                          <option value="">4</option>
-                          <option value="">5</option>
+                            <input type="hidden" name="counts" id="counts_user_location_id" value="0">
+                            <select class="select2" id="" name="user_location_id_1">
+                                @foreach ($projectProgressId->MAssignedUserLocation as $mUserLocation)
+                                    <option  value="{{$mUserLocation->id}}">{{$mUserLocation->User->first_name}} {{$mUserLocation->User->last_name}} - {{$mUserLocation->District->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                      </div>
+                      <div class="col-md-5 text-center">
+                        <div class="col-md-10 offset-md-1 delLastChild">
+                        <select class="select2" id="" name="m_project_kpi_id_1[]" multiple="multiple">
+                            @php
+                                $arr=array();
+                            @endphp
+                            @foreach ($projectProgressId->MPlanKpicomponentMapping as $kpiComponent)
+                                @if (!in_array($kpiComponent->MProjectKpi->name,$arr))
+                                    <option value="{{$kpiComponent->MProjectKpi->id}}">{{$kpiComponent->MProjectKpi->name}}</option>
+                                    @php
+                                        array_push($arr,$kpiComponent->MProjectKpi->name);
+                                    @endphp
+                                @endif
+                            @endforeach
                         </select>
                       </div>
                       </div>
-                      <div class="col-md-6 text-center">
-                        <div class="col-md-10 offset-md-1 delLastChild">
-                        <select class="select2" id="" name="" multiple="multiple">
-                          <option value="">1</option>
-                          <option value="">2</option>
-                          <option value="">3</option>
-                          <option value="">4</option>
-                          <option value="">5</option>
-                        </select>
-                      </div>
-                      </div>
+                       <div class="col-md-2">
+                            <input name="weightage[]" id="" class="col-md-11 float-right form-control" placeholder="Weightage" type="text" style="text-align:center;border: 1px solid #807d7d8a !important;" value="">
+                        </div>
                     </div>
                     <div class="col-sm-2 text_center">
                       <button class="btn btn-sm btn-info" type="button" id="CloneUserKPI">+</button>
@@ -439,11 +452,18 @@
                   </div>
                   <div class="row col-md-12 CloneUserKPIHere">
                   </div>
+                    <div class="card-footer">
+                        <div class="col-md-3 offset-md-9">
+                            <button class="btn btn-primary btn-md activities" type="submit">Save </button>
+                        </div>
+                    </div>
                   <!-- end user Location content -->
+               
+                </form>
                 </div>
-                <div class="tab-pane " id="prolocDiv" role="tabpanel" aria-expanded="false" style="display:none;">
+                {{-- <div class="tab-pane " id="prolocDiv" role="tabpanel" aria-expanded="false" style="display:none;">
                   prolocDiv
-                </div>
+                </div> --}}
                 <div class='tab-pane {{isset($innertab) && $innertab=="task" ? "active" : ""}}' id="activities" role="tabpanel" aria-expanded="false" style="display:none;">
                 <form class="serializeform" action="{{route('componentActivities')}}" method="post">
                     {{ csrf_field() }}
@@ -473,10 +493,10 @@
                                             @foreach ($comp->MPlanComponentActivitiesMapping as $item)
                                             <div class="row col-md-9 offset-md-1 form-group component_Activities">
                                                 <div class="col-md-11 mb_1">
-                                                <input type="text" class="form-control" placeholder="Add Task" value="{{$item->activity}}" name="c_activity_{{$j}}[]">
+                                                     <input type="text" class="form-control" placeholder="Add Task" value="{{$item->activity}}" name="c_activity_{{$j}}[]">
                                                 </div>
                                                 <div class="col-md-1"><button class="btn btn-danger btn-sm" name="remove_activity[]" onclick="removerow(this)" type="button">-</button></div>
-                                                </div>
+                                            </div>
                                             @endforeach
                                         </div>
                                     </div>
