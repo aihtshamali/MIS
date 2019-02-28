@@ -21,12 +21,20 @@
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Project Design</b></a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link userlocTab" data-toggle="tab" href="#userlocDiv" id=""
+                        role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">User Location</b></a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link {{isset($innertab) && $innertab=="Mapping" ? "active" : ""}} MOBtab" id="MOBtab" data-toggle="tab" href="#MOBdiv"
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Mapping Of objectives</b></a>
                 </li>
                 <li class="nav-item">
                     <a class='nav-link {{isset($innertab) && $innertab=="KPI" ? "active" : ""}} kpis' data-toggle="tab" href="#kpis" role="tab" id="kpisss"
                         aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Plan ( KPI's)</b></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link userKPITab" data-toggle="tab" href="#userKPIDiv" id=""
+                        role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">User KPI</b></a>
                 </li>
                 <!-- {{-- <li class="nav-item">
                     <a class="nav-link proloc" data-toggle="tab" href="#prolocDiv" role="tab" id="proloc"
@@ -207,6 +215,54 @@
                     </div>
                   </form>
                 </div>
+                <div class='tab-pane userlocDiv' id="userlocDiv" role="tabpanel" aria-expanded="false">
+                  <!-- headings -->
+                  <div class="row col-md-12">
+                    <div class="col-md-5 text-center">
+                      <h4>User</h4>
+                    </div>
+                    <div class="col-md-5 text-center">
+                      <h4>Location</h4>
+                    </div>
+                  </div>
+                  <!-- end heading -->
+                  <!-- user Location content -->
+                  <div class="row col-md-12">
+                    <style media="screen" scoped>
+                      .select2-container--default .select2-selection--multiple .select2-selection__rendered li{padding: 0% !important};
+                    </style>
+                    <div class="row col-md-10" id="CloneThisUserLoc" style="margin-bottom:1% !important;">
+                      <div class="col-md-6 text-center">
+                        <div class="col-md-10 offset-md-1 delLastLocChild">
+                        <select class="select2" id="" name="" multiple="multiple">
+                          <option value="">1</option>
+                          <option value="">2</option>
+                          <option value="">3</option>
+                          <option value="">4</option>
+                          <option value="">5</option>
+                        </select>
+                      </div>
+                      </div>
+                      <div class="col-md-6 text-center">
+                        <div class="col-md-10 offset-md-1 delLastLocChild">
+                        <select class="select2" id="" name="" multiple="multiple">
+                          <option value="">1</option>
+                          <option value="">2</option>
+                          <option value="">3</option>
+                          <option value="">4</option>
+                          <option value="">5</option>
+                        </select>
+                      </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-2 text_center">
+                      <button class="btn btn-sm btn-info" type="button" id="CloneUserLoc">+</button>
+                    </div>
+                  </div>
+                  <div class="row col-md-12 CloneUserLocHere">
+                  </div>
+                  <!-- end user Location content -->
+                </div>
                 <div class='tab-pane {{isset($innertab) && $innertab=="Mapping" ? "active" : ""}}' id="MOBdiv" role="tabpanel" aria-expanded="false">
                    <form class="serializeform" action="{{ route('mappingOfObj') }}" method="post">
                         {{ csrf_field() }}
@@ -275,25 +331,25 @@
                                     <div class="col-md-12 row">
                                          <div class="col-md-4 text-center">
                                              <h5>KPIs</h5>
-                                         </div>   
+                                         </div>
                                          <div class="col-md-4 text-center">
                                              <h5>Component</h5>
-                                         </div>   
+                                         </div>
                                          <div class="col-md-4 text-center">
                                              <h5>Weightage</h5>
-                                         </div>   
+                                         </div>
                                     </div>
                                     @foreach ($mPlanKpiComponents as $item)
                                     <div class="col-md-12 row">
                                          <div class="col-md-4 text-center">
                                              {{$item->MProjectKpi->name}}
-                                         </div>   
+                                         </div>
                                          <div class="col-md-4 text-center">
                                              {{$item->MPlanComponent->component}}
-                                         </div>   
+                                         </div>
                                          <div class="col-md-4 text-center">
                                              {{$item->weightage}}
-                                         </div>   
+                                         </div>
                                     </div>
                                     @endforeach
                                 </div>
@@ -317,7 +373,8 @@
                               <div class="border_right col-md-6"></div>
                               <div class="col-md-6"></div>
                             </div>
-                            <div class="col-md-6" style="padding-left:3% !important;">                                                                            <div class="row col-md-12">
+                            <div class="col-md-6" style="padding-left:3% !important;">
+                              <div class="row col-md-12">
                                 <ul class="col-md-12 row" id='addkpi'>
                                     <h5 class=" mb_2">KPIs</h5>
 
@@ -334,6 +391,51 @@
                         </div>
                     </div>
                   </form>
+                </div>
+                <div class="tab-pane " id="userKPIDiv" role="tabpanel" aria-expanded="false" style="display:none;">
+                  <!-- headings -->
+                  <div class="row col-md-12">
+                    <div class="col-md-5 text-center">
+                      <h4>User</h4>
+                    </div>
+                    <div class="col-md-5 text-center">
+                      <h4>Selected KPIs</h4>
+                    </div>
+                  </div>
+                  <!-- end heading -->
+                  <!-- user Location content -->
+                  <div class="row col-md-12">
+                    <div class="row col-md-10" id="CloneThisUserKPI" style="margin-bottom:1% !important;">
+                      <div class="col-md-6 text-center">
+                        <div class="col-md-10 offset-md-1 delLastChild">
+                        <select class="select2" id="" name="" multiple="multiple">
+                          <option value="">1</option>
+                          <option value="">2</option>
+                          <option value="">3</option>
+                          <option value="">4</option>
+                          <option value="">5</option>
+                        </select>
+                      </div>
+                      </div>
+                      <div class="col-md-6 text-center">
+                        <div class="col-md-10 offset-md-1 delLastChild">
+                        <select class="select2" id="" name="" multiple="multiple">
+                          <option value="">1</option>
+                          <option value="">2</option>
+                          <option value="">3</option>
+                          <option value="">4</option>
+                          <option value="">5</option>
+                        </select>
+                      </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-2 text_center">
+                      <button class="btn btn-sm btn-info" type="button" id="CloneUserKPI">+</button>
+                    </div>
+                  </div>
+                  <div class="row col-md-12 CloneUserKPIHere">
+                  </div>
+                  <!-- end user Location content -->
                 </div>
                 <div class="tab-pane " id="prolocDiv" role="tabpanel" aria-expanded="false" style="display:none;">
                   prolocDiv
