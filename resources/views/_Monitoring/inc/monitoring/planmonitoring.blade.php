@@ -227,6 +227,10 @@
                   </div>
                   <!-- end heading -->
                   <!-- user Location content -->
+                <form action="{{route('saveUserLocation')}}" method="POST" >
+                    {{ csrf_field() }}
+                <input type="hidden" name="progress_id" value="{{$projectProgressId->id}}">
+                <input type="hidden" name="counts" value="" id="counts_user_location">
                   <div class="row col-md-12">
                     <style media="screen" scoped>
                       .select2-container--default .select2-selection--multiple .select2-selection__rendered li{padding: 0% !important};
@@ -234,23 +238,19 @@
                     <div class="row col-md-10" id="CloneThisUserLoc" style="margin-bottom:1% !important;">
                       <div class="col-md-6 text-center">
                         <div class="col-md-10 offset-md-1 delLastLocChild">
-                        <select class="select2" id="" name="" multiple="multiple">
-                          <option value="">1</option>
-                          <option value="">2</option>
-                          <option value="">3</option>
-                          <option value="">4</option>
-                          <option value="">5</option>
+                        <select class="select2" id="" name="user_location_1">
+                            @foreach($team as $t)
+                                    <option value="{{$t->User->id}}">{{$t->User->first_name}}</option>
+                            @endforeach
                         </select>
                       </div>
                       </div>
                       <div class="col-md-6 text-center">
                         <div class="col-md-10 offset-md-1 delLastLocChild">
-                        <select class="select2" id="" name="" multiple="multiple">
-                          <option value="">1</option>
-                          <option value="">2</option>
-                          <option value="">3</option>
-                          <option value="">4</option>
-                          <option value="">5</option>
+                        <select class="select2" id="" name="location_user_1[]" multiple="multiple">
+                            @foreach ($assigned_districts as $ad)
+                                <option value="{{$ad->District->id}}">{{$ad->District->name }}</option>
+                            @endforeach
                         </select>
                       </div>
                       </div>
@@ -260,8 +260,12 @@
                     </div>
                   </div>
                   <div class="row col-md-12 CloneUserLocHere">
-                  </div>
-                  <!-- end user Location content -->
+                </div>
+                <!-- end user Location content -->
+                <div class="pull-right mr-5">
+                    <button type="submit" class="btn btn-success">Save</button>
+                </div>
+                </form>
                 </div>
                 <div class='tab-pane {{isset($innertab) && $innertab=="Mapping" ? "active" : ""}}' id="MOBdiv" role="tabpanel" aria-expanded="false">
                    <form class="serializeform" action="{{ route('mappingOfObj') }}" method="post">

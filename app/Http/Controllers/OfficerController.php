@@ -10,6 +10,7 @@ use App\Sector;
 use App\SubSector;
 use App\AssignedProjectManager;
 use App\AssignedProject;
+use App\AssignedDistrict;
 use App\AssignedProjectActivityProgressLog;
 use App\ProjectDetail;
 use App\AssignedActivityAttachment;
@@ -60,6 +61,7 @@ use App\District;
 use App\PlantripCity;
 use App\MAssignedKpi;
 use App\MAppAttachment;
+use App\MAssignedUserLocation;
 use Illuminate\Support\Facades\Redirect;
 use DB;
 class OfficerController extends Controller
@@ -719,6 +721,9 @@ class OfficerController extends Controller
         $phy_progress_Sum=[];
 
         $level_1=MAssignedKpiLevel1::where('m_project_progress_id',$projectProgressId->id)->get();
+        $team = AssignedProjectTeam::where('assigned_project_id',$project->id)->get();
+        $assigned_districts = AssignedDistrict::where('project_id',$request->project_id)->get();
+        // dd($assigned_districts[0]->District);
       // dd($level_1[0]->MAssignedKpiLevel2[1]->MAssignedKpiLevel3);
         // monitoring_kpi_recursion($level_1);
         // dd(weight($level_1))o;
@@ -736,7 +741,7 @@ class OfficerController extends Controller
         'project_documents','result_from_app','org_project','districts','cities',
         'org_projectId','projectProgressId','mPlanKpiComponents','ComponentActivities',
         'monitoringProjectId','Kpis','components','objectives','sectors','sub_sectors','project','costs','location',
-        'organization','dates','progresses','generalFeedback','issue_types','healthsafety'));
+        'organization','dates','progresses','generalFeedback','issue_types','healthsafety','team','assigned_districts'));
       }
 
       // public function weight($level_1){
@@ -1495,4 +1500,28 @@ class OfficerController extends Controller
       return view('_Monitoring.monitoringDashboard.index',compact('progress','result_from_app','project','gestation'));
     }
 
+    public function saveUserLocation(Request $request){
+      // dd($request->all());
+      $counter = 1;
+      $user = "user_location_";
+      $location = "location_user_";
+      while($counter < $request->counts){
+        if($request[$user.$counter]){
+          $inner_counter = 1;
+          foreach($request[$location.$inner_counter] as $d){
+            // dd("herer");
+            $m_assigned_user_location = new MAssignedUserLocation();
+            $m_assigned_user_location->user_id = $request[$user.$counter];
+            $m_assigned_user_location->district_id = $d;
+            $m_assigned_user_location->assigned_by = Auth::id();
+            $m_assigned_user_location->m_project_progress_id = $request->progress_id;
+            $m_assigned_user_location->save();
+            $inner_counter++;
+          }
+        }
+        $counter++;
+      }
+      dd('done');
     }
+
+}

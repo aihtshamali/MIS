@@ -1179,8 +1179,18 @@ function removeIssuerow(e) {
     $(e).parent().parent().remove();
 }
 $(document).ready(function(){
+    let user_location_count = 2;
+    let location_user_count = 2;
   $('#CloneUserLoc').click(function(){
-    $("#CloneThisUserLoc").clone().appendTo('.CloneUserLocHere');
+    let data = $("#CloneThisUserLoc").clone();
+    let user_div = data.find('select')[0];
+    let location_div = data.find('select')[1];
+    let new_user = "user_location_"+user_location_count++;
+    let new_location = "location_user_"+(location_user_count++) + '[]';
+    $(user_div).attr('name',new_user);
+    $(location_div).attr('name',new_location);
+    data.appendTo('.CloneUserLocHere');
+    $("#counts_user_location").attr('value', user_location_count);
     $('.select2').select2();
     $('.delLastLocChild').each(function(index){
       if(index == 0 || index == 1)
