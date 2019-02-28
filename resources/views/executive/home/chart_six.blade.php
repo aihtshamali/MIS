@@ -96,6 +96,59 @@
                     <div class="col-md-1"></div>
                 </div>
             </div>
+            <div class="modal fade in" id="Modal" style="display: block; padding-right: 17px;display:none">
+              <div class="modal-dialog" style="width:90%">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title"></h4>
+                  </div>
+                  <div class="modal-body">
+                              <div class="box">
+                                <div class="box-header">
+                                  <h3 class="box-title"></h3>
+                                </div>
+                                <!-- /.box-header -->
+                                <div class="box-body">
+                                  <table id="example" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                      <th>SR #</th>
+                                      <th>Project No</th>
+                                      <th>GS #</th>
+                                      <th>Name</th>
+                                      <th>Cost</th>
+                                    <th>Assigned Date</th>
+                                    
+                                    </tr>
+                                    </thead>
+                                    <tbody id="tbody">
+                                        <tr v-for="(row,index) in d">
+                                          <td>@{{index+1}}</td>
+                                        <td>@{{row.project_no }}</td>
+                                          <td style="width:120px">@{{row.financial_year}} / @{{row.ADP}}</td>
+                                          <td>@{{row.title }}</td>
+                                          <td>@{{(Number(row.orignal_cost).toFixed(2))}} Million</td>
+                                          <td>@{{row.assigned_date}}</td>
+                                                                        
+                                        </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <!-- /.box-body -->
+                              </div>
+                              <!-- /.box -->
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                    {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+                  </div>
+                </div>
+                <!-- /.modal-content -->
+              </div>
+              <!-- /.modal-dialog -->
+            </div>
     </section>
 
 </div>
@@ -113,7 +166,29 @@
 <script src="{{asset('js/charts/chalk.js')}}"></script>
 <script src="{{asset('js/charts/light.js')}}"></script>
 <script src="{{asset('js/charts/patterns.js')}}"></script>
-
+<script type="text/javascript">
+  // $('#example').DataTable();
+  var VueModal = new Vue({
+  
+    el:"#Modal",
+    data : {
+      title : "Projects",
+      name: "",
+      field: "",
+      d:[],
+    },
+    methods:{
+      rows: function(event)
+      {
+          this.name = event.item.category;
+          $('.modal-title').text(this.name);
+          this.d=projects_against_activities[event.index].projects;
+          $('#Modal').modal('show');
+      }
+    }
+  
+  });
+</script>
 <script>
     var st = [];
      $i = 0;
@@ -171,5 +246,6 @@
      }
 
    } );
+   chart.addListener('clickGraphItem',VueModal.rows);
   </script>
 @endsection
