@@ -338,6 +338,8 @@ $(document).ready(function () {
         $('#WBSDiv').hide();
         $('#r_monitoring').hide();
         $('.r_monitoringDivv').hide();
+        $('#userlocDiv').hide();
+        $('#userKPIDiv').hide();
     }
 
 
@@ -360,7 +362,7 @@ $(document).ready(function () {
         $(".uptiQ").show('slow');
         $(".downtiQ").hide();
         $(".reviewNavBar").hide();
-        $(".r_monitoringDivv").hide();        
+        $(".r_monitoringDivv").hide();
         $('#r_monitoring').hide();
     });
     $('.resultNav').on('click', function () {
@@ -471,6 +473,14 @@ $(document).ready(function () {
     $('.MOBtab').on('click', function () {
         hideall();
         $('#MOBdiv').show();
+    });
+    $('.userlocTab').on('click', function () {
+        hideall();
+        $('#userlocDiv').show();
+    });
+    $('.userKPITab').on('click', function () {
+        hideall();
+        $('#userKPIDiv').show();
     });
     // $('.planNav').on('click',function(){
     // hideall();
@@ -1168,3 +1178,56 @@ function removerow(e) {
 function removeIssuerow(e) {
     $(e).parent().parent().remove();
 }
+$(document).ready(function(){
+  $('#CloneUserLoc').click(function(){
+    $("#CloneThisUserLoc").clone().appendTo('.CloneUserLocHere');
+    $('.select2').select2();
+    $('.delLastLocChild').each(function(index){
+      if(index == 0 || index == 1)
+        {
+
+        }
+        else{
+      $(this).children().last().hide();
+    }
+    });
+    // var i=0;
+    var removeSib = `
+    <div class="col-sm-2 text_center RemoveUserLoc">
+      <button class=" btn btn-sm btn-danger" type="button" id="">-</button>
+    </div>
+    `
+    $(removeSib).appendTo('.CloneUserLocHere');
+    // console.log('hre');
+  });
+  $(document).on('click', '.RemoveUserLoc', function(){
+    $(this).prev().remove();
+    $(this).remove();
+  });
+  $('#CloneUserKPI').click(function(){
+    $("#CloneThisUserKPI").clone().appendTo('.CloneUserKPIHere');
+    $('.select2').select2();
+    $('.delLastChild').each(function(index){
+      if(index == 0 || index == 1)
+        {
+
+        }
+        else{
+      $(this).children().last().hide();
+    }
+    });
+    // var i=0;
+    var removeSibKPI = `
+    <div class="col-sm-2 text_center RemoveUserKPI">
+      <button class=" btn btn-sm btn-danger" type="button" id="">-</button>
+    </div>
+    `
+    $(removeSibKPI).appendTo('.CloneUserKPIHere');
+    // $(this).next()remove();
+    // console.log('hre');
+  });
+  $(document).on('click','.RemoveUserKPI', function(){
+    $(this).prev().remove();
+    $(this).remove();
+  });
+});

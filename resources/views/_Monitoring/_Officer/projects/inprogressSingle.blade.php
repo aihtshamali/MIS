@@ -77,7 +77,7 @@
     .select2-container--default .select2-selection--multiple .select2-selection__rendered li{
         background: #119e36 !important;
         color: #fff !important;
-        padding: 2% 4% !important;
+        padding: 2% 4%;
         margin: 1% !important;
       }
       .select2-container--default .select2-selection--multiple .select2-selection__rendered .select2-search--inline{
@@ -717,7 +717,7 @@ $(document).ready(function(){
                         </select>
                     </div>
                     <div class="col-md-3">
-                      <input name="weightage[]" id="" class="col-md-11 float-right form-control" placeholder="Weightage" type="text" style="text-align:center;height: 45px;border: 1px solid #807d7d8a !important;" value="">
+                      <input name="weightage[]" id="" class="col-md-11 float-right form-control" placeholder="Weightage" type="text" style="text-align:center;border: 1px solid #807d7d8a !important;" value="">
                     </div>
                     </li>`;
                     count++;
