@@ -10,6 +10,7 @@ use App\Http\Resources\User as UserResource;
 use App\Http\Resources\AssigningForumSubList as AssigningForumSubListResource;
 use App\Http\Resources\ProjectDetail as ProjectDetailResource;
 use App\Http\Resources\AssignedDistrict as AssignedDistrictResource;
+use App\Http\Resources\MAssignedUserLocation as MAssignedUserLocationResource;
 
 
 class Project extends Resource
@@ -38,6 +39,7 @@ class Project extends Resource
           "financial_year" => $this->financial_year,
           "status" => $this->status,
           "district" => AssignedDistrict::collection($this->AssignedDistricts),
+          "mdistrict" => $this->when($this->AssignedProject->MProjectProgress->last()->MAssignedUserLocation != NULL,MAssignedUserLocationResource::collection($this->AssignedProject->MProjectProgress->last()->MAssignedUserLocation)),
           "project_detail" => new ProjectDetailResource($this->ProjectDetail),
           // "district" => DistrictResource::collection($this->AssignedDistricts->District),
         ];

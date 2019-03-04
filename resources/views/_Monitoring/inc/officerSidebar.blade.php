@@ -4,22 +4,20 @@
                 <div class="pcoded-inner-navbar main-menu">
                     <div class="pcoded-navigatio-lavel">Navigation</div>
                     <ul class="pcoded-item pcoded-left-item">
-                        <li class="pcoded-hasmenu active pcoded-trigger">
+                        <li class="pcoded-hasmenu">
                             <a href="javascript:void(0)">
                                 <span class="pcoded-micon"><i class="feather icon-home"></i></span>
-                                <span class="pcoded-mtext">Dashboard</span>
+                                <span class="pcoded-mtext homeul">Dashboard</span>
                             </a>
                             <ul class="pcoded-submenu">
-                                <li class="">
+                                <li class="homeli">
                                     <a href="{{url('monitoring_dashboard')}}">
-                                        <span class="pcoded-mtext">Home</span>
+                                        <span class="pcoded-mtext ">Home</span>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-
                     </ul>
-
                     <div class="pcoded-navigatio-lavel">Projects</div>
                     <ul class="pcoded-item pcoded-left-item">
                         <li class="pcoded-hasmenu">
@@ -31,21 +29,21 @@
                                 <li class="New_Assignments" >
                                 <a href="{{route('Monitoring_newAssignments')}}">
                                         <span class="pcoded-mtext">New Assignments</span>
-                                        <span class="pcoded-badge label label-danger">0</span>
+                                        <!-- <span class="pcoded-badge label label-danger">0</span> -->
 
                                     </a>
                                 </li>
-                                <li class=" ">
+                                <li class="InProgress">
                                 <a href="{{route('Monitoring_inprogressAssignments')}}">
                                         <span class="pcoded-mtext" >In Progress</span>
-                                        <span class="pcoded-badge label label-warning">0</span>
+                                        <!-- <span class="pcoded-badge label label-warning">0</span> -->
 
                                     </a>
                                 </li>
-                                <li class=" ">
+                                <li class="Completed">
                                 <a href="{{route('Monitoring_completedAssignments')}}">
                                         <span class="pcoded-mtext" >Completed</span>
-                                        <span class="pcoded-badge label label-success">0</span>
+                                        <!-- <span class="pcoded-badge label label-success">0</span> -->
                                     </a>
                                 </li>
                             </ul>

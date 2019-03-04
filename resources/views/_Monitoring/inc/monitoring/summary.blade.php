@@ -9,7 +9,7 @@
                     <div class="card-header"></div>
                     <div class="card-block">
                         <div class="animation-model">
-                           
+
                                 <button type="button"
                                 class="btn btn-primary btn-outline-info waves-effect md-trigger "
                                 style="text-align:center; vertical-align:middle; font-size:13px; margin-top: -10%;margin-left: 10%;"

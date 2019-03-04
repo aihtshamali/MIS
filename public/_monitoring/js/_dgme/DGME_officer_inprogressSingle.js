@@ -284,8 +284,13 @@ $(document).ready(function () {
         $(".topSummary").hide('slow');
         $(".downtiQ").hide('slow');
         $(".uptiQ").hide('slow');
+        $(".reviewNavBar").hide();
+        $(".planNavBar").hide();
+        $(".conductNavBar").hide();
+        $(".resultNavBar").hide();
         $(".mainTabsAndNav").animate({ marginTop: '0px' }, 500);
         $(".mainTabsAndNav").removeClass("mt_6p");
+        $('#r_monitoring').hide();
     });
 
     $('.planNav').on('click', function () {
@@ -295,9 +300,15 @@ $(document).ready(function () {
         $('.mainTabsAndNav').removeClass("col-md-9").addClass("col-md-12");
         $('#p_monitoring').show();
         $('#PlanDocDiv').show();
+        $('.planNavBar').show();
+        $('.conductNavBar').hide();
+        $('.resultNavBar').hide();
         $('.PlanDoc').addClass('active');
         $(".uptiQ").show('slow');
         $(".downtiQ").hide();
+        $(".reviewNavBar").hide();
+        $(".r_monitoringDivv").hide();
+        $('#r_monitoring').hide();
     });
     function hideall() {
         $('#PlanDocDiv').hide();
@@ -323,6 +334,12 @@ $(document).ready(function () {
         $('#TimesDiv').hide();
         $('#CostingDiv').hide();
         $('#prolocDiv').hide();
+        $('#galleryDiv').hide();
+        $('#WBSDiv').hide();
+        $('#r_monitoring').hide();
+        $('.r_monitoringDivv').hide();
+        $('#userlocDiv').hide();
+        $('#userKPIDiv').hide();
     }
 
 
@@ -334,19 +351,26 @@ $(document).ready(function () {
         $('#quality_assesment').show();
         $('#c_monitoring').show();
         $('#quality_assesment').show();
+        $('.conductNavBar').show();
+        $('.resultNavBarr').hide();
         $('#p_monitoring').hide();
+        $('.planNavBar').hide();
         $('.p_details').hide();
         $('.mainTabsAndNav').removeClass("col-md-8").addClass("col-md-12");
         $('.mainTabsAndNav').animate({ marginTop: '6%' }, 1000);
         $(".topSummary").show('slow');
         $(".uptiQ").show('slow');
         $(".downtiQ").hide();
+        $(".reviewNavBar").hide();
+        $(".r_monitoringDivv").hide();
+        $('#r_monitoring').hide();
     });
     $('.resultNav').on('click', function () {
         hideallmaintabs();
         hideall();
         $('.nav-link').removeClass('active');
-        $('.r_monitoring').addClass('active');
+        $('#r_monitoring').addClass('active');
+        $('.galnav').addClass('active');
         $('#r_monitoring').show();
         $('.mainTabsAndNav').removeClass("col-md-8").addClass("col-md-12");
         $('.mainTabsAndNav').animate({ marginTop: '6%' }, 1000);
@@ -354,6 +378,11 @@ $(document).ready(function () {
         $('.p_details').hide();
         $(".uptiQ").show('slow');
         $(".downtiQ").hide();
+        $(".reviewNavBar").hide();
+        $(".planNavBar").hide();
+        $(".conductNavBar").hide();
+        $(".resultNavBar").show();
+        $(".r_monitoringDivv").show();
     });
 
     $('.CostingTab').on('click', function () {
@@ -415,13 +444,19 @@ $(document).ready(function () {
         $(".nav-link").removeClass('active');
         $(".costTab").addClass('active');
         $(".topSummary").show('slow');
+        $(".reviewNavBar").show();
         $('#reviewDiv').show();
         $('#costDiv').show();
         $(".mainTabsAndNav").animate({ marginTop: '6%' }, 1000);
         $('#p_monitoring').hide();
         $('#c_monitoring').hide();
+        $('.planNavBar').hide();
         $('#summary').hide();
         $('.p_details').hide();
+        $('.conductNavBar').hide();
+        $('.resultNavBar').hide();
+        $('.r_monitoringDivv').hide();
+        $('#r_monitoring').hide();
         $('.mainTabsAndNav').removeClass("col-md-8").addClass("col-md-12");
         $(".uptiQ").show('slow');
     });
@@ -438,6 +473,14 @@ $(document).ready(function () {
     $('.MOBtab').on('click', function () {
         hideall();
         $('#MOBdiv').show();
+    });
+    $('.userlocTab').on('click', function () {
+        hideall();
+        $('#userlocDiv').show();
+    });
+    $('.userKPITab').on('click', function () {
+        hideall();
+        $('#userKPIDiv').show();
     });
     // $('.planNav').on('click',function(){
     // hideall();
@@ -1135,3 +1178,75 @@ function removerow(e) {
 function removeIssuerow(e) {
     $(e).parent().parent().remove();
 }
+$(document).ready(function(){
+    let user_location_count = 2;
+    let location_user_count = 2;
+  $('#CloneUserLoc').click(function(){
+    let data = $("#CloneThisUserLoc").clone();
+    let user_div = data.find('select')[0];
+    let location_div = data.find('select')[1];
+    let new_user = "user_location_"+user_location_count++;
+    let new_location = "location_user_"+(location_user_count++) + '[]';
+    $(user_div).attr('name',new_user);
+    $(location_div).attr('name',new_location);
+    data.appendTo('.CloneUserLocHere');
+    $("#counts_user_location").attr('value', user_location_count);
+    $('.select2').select2();
+    $('.delLastLocChild').each(function(index){
+      if(index == 0 || index == 1)
+        {
+
+        }
+        else{
+      $(this).children().last().hide();
+    }
+    });
+    // var i=0;
+    var removeSib = `
+    <div class="col-sm-2 text_center RemoveUserLoc">
+      <button class=" btn btn-sm btn-danger" type="button" id="">-</button>
+    </div>
+    `
+    $(removeSib).appendTo('.CloneUserLocHere');
+    // console.log('hre');
+  });
+  $(document).on('click', '.RemoveUserLoc', function(){
+    $(this).prev().remove();
+    $(this).remove();
+  });
+  var user_location_id_count=2;
+  $('#CloneUserKPI').click(function(){
+    let data=$("#CloneThisUserKPI").clone();
+      let user_div = data.find('select')[0];
+      let location_div = data.find('select')[1];
+      let user_location = "user_location_id_" + user_location_id_count;
+      let project_kpi = "m_project_kpi_id_" + (user_location_id_count) + '[]';
+      $(user_div).attr('name', user_location);
+      $(location_div).attr('name', project_kpi);
+      data.appendTo('.CloneUserKPIHere');
+      $("#counts_user_location_id").attr('value', ++user_location_id_count);
+      $('.select2').select2();
+      $('.delLastChild').each(function(index){
+      if(index == 0 || index == 1)
+        {
+
+        }
+        else{
+      $(this).children().last().hide();
+    }
+    });
+    // var i=0;
+    var removeSibKPI = `
+    <div class="col-sm-2 text_center RemoveUserKPI">
+      <button class=" btn btn-sm btn-danger" type="button" id="">-</button>
+    </div>
+    `
+    $(removeSibKPI).appendTo('.CloneUserKPIHere');
+    // $(this).next()remove();
+    // console.log('hre');
+  });
+  $(document).on('click','.RemoveUserKPI', function(){
+    $(this).prev().remove();
+    $(this).remove();
+  });
+});
