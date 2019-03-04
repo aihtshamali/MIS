@@ -230,7 +230,7 @@
                 <form action="{{route('saveUserLocation')}}" method="POST" >
                     {{ csrf_field() }}
                 <input type="hidden" name="progress_id" value="{{$projectProgressId->id}}">
-                <input type="hidden" name="counts" value="0" id="counts_user_location">
+                <input type="hidden" name="counts" value="1" id="counts_user_location">
                 <input type="hidden" name="page_tabs" value="plan_Mapping">
                   <div class="row col-md-12">
                     <style media="screen" scoped>
@@ -417,7 +417,7 @@
                     <div class="row col-md-10" id="CloneThisUserKPI" style="margin-bottom:1% !important;">
                       <div class="col-md-5 text-center">
                         <div class="col-md-10 offset-md-1 delLastChild">
-                            <input type="hidden" name="counts" id="counts_user_location_id" value="0">
+                            <input type="hidden" name="counts" id="counts_user_location_id" value="1">
                             <select class="select2" id="" name="user_location_id_1">
                                 @foreach ($projectProgressId->MAssignedUserLocation as $mUserLocation)
                                     <option  value="{{$mUserLocation->id}}">{{$mUserLocation->User->first_name}} {{$mUserLocation->User->last_name}} - {{$mUserLocation->District->name}}</option>

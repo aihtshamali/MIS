@@ -609,7 +609,18 @@ class OfficerController extends Controller
         return redirect()->back();
 
         $project=AssignedProject::where('project_id',$request->project_id)->orderBy('created_at','desc')->first();
-        // dd($project);
+        $team = $project->AssignedProjectTeam;
+        $team_lead_check = false;
+        if($team->count() > 1){
+          foreach($team as $t){
+            if($t->User->id == Auth::id() && $t->team_lead == 1){
+              $team_lead_check = true;
+            }
+          }
+        }
+        else{
+          $team_lead_check = true;
+        }
         $total_previousProject = MProjectProgress::where('assigned_project_id',$project->id)->orderBy('created_at', 'desc')->get();
         $previousProject = null;
         $projectProgress = null;
@@ -733,7 +744,8 @@ class OfficerController extends Controller
         \JavaScript::put([
           'projectWithRevised'=>$projectWithRevised,
          'components'=> $components,
-         'monitoringProjectId'=> $monitoringProjectId
+         'monitoringProjectId'=> $monitoringProjectId,
+         'team_lead_check' => $team_lead_check
         ]);
         // dd($generalFeedback[0]u->MAssignedProjectFeedBack->answer);
         // dd($components[0]->MPlanObjectivecomponentMapping[0]->m_plan_objective_id);
@@ -1473,8 +1485,10 @@ class OfficerController extends Controller
           $financial_progress = round(calculateMFinancialProgress($progress->id,2));
           $physical_progress = round(calculateMPhysicalProgress($progress->id,2));
           $result_from_app = MAppAttachment::where('m_project_progress_id',$progress->id)->get();
-
+          if($progress->MProjectDate)
           $actual_progress = date_diff(date_create($progress->MProjectDate->actual_start_date),date_create($project->ProjectDetail->planned_end_date));
+          else
+          $actual_progress = date_diff(date_create(date('Y-m-d')),date_create($project->ProjectDetail->planned_end_date));
           $gestation = ($actual_progress->format('%a')/365);
 
           $progress_divided = round(100/$gestation,2);
@@ -1511,17 +1525,17 @@ class OfficerController extends Controller
       $counter = 1;
       $user = "user_location_";
       $location = "location_user_";
-      while($counter < $request->counts){
+      while($counter <= $request->counts){
         if($request[$user.$counter]){
           $inner_counter = 1;
           foreach($request[$location.$inner_counter] as $d){
-            // dd("herer");
             $m_assigned_user_location = new MAssignedUserLocation();
             $m_assigned_user_location->user_id = $request[$user.$counter];
             $m_assigned_user_location->district_id = $d;
             $m_assigned_user_location->assigned_by = Auth::id();
             $m_assigned_user_location->m_project_progress_id = $request->progress_id;
             $m_assigned_user_location->save();
+            // dd($m_assigned_user_location);
             $inner_counter++;
           }
         }
