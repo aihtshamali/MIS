@@ -1511,17 +1511,17 @@ class OfficerController extends Controller
       $counter = 1;
       $user = "user_location_";
       $location = "location_user_";
-      while($counter < $request->counts){
+      while($counter <= $request->counts){
         if($request[$user.$counter]){
           $inner_counter = 1;
           foreach($request[$location.$inner_counter] as $d){
-            // dd("herer");
             $m_assigned_user_location = new MAssignedUserLocation();
             $m_assigned_user_location->user_id = $request[$user.$counter];
             $m_assigned_user_location->district_id = $d;
             $m_assigned_user_location->assigned_by = Auth::id();
             $m_assigned_user_location->m_project_progress_id = $request->progress_id;
             $m_assigned_user_location->save();
+            // dd($m_assigned_user_location);
             $inner_counter++;
           }
         }
