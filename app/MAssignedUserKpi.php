@@ -15,4 +15,7 @@ class MAssignedUserKpi extends Model
   public function MProjectKpi(){
     return $this->belongsTo('App\MProjectKpi');
   }
+  public function MAssignedKpi(){
+    return $this->hasMany('App\MAssignedKpi');
+  }
 }

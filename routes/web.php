@@ -223,6 +223,8 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
   Route::post('/Costing','OfficerController@Costing')->name('Costing');
 
   //Conduct Monitoring Tab
+  Route::post('/saveUserLocation','OfficerController@saveUserLocation')->name('saveUserLocation');
+  Route::post('/saveUserKpi','OfficerController@saveUserKpi')->name('saveUserKpi');
   Route::post('/saveQualityAssesment','OfficerController@saveQualityAssesment')->name('saveQualityAssesment');
   Route::post('/saveGeneralFeedBack','OfficerController@saveGeneralFeedBack')->name('saveGeneralFeedBack');
   Route::post('/saveMissues','OfficerController@saveMissues')->name('saveMissues');

@@ -165,7 +165,7 @@
                   </div>
                   <div class="col-md-12 ln_ht12">
                       <b for="project_cost" class=""><span >Location: </span><span>
-                        @foreach ($project->Project->AssignedDistricts as $district)
+                        @foreach ($assigned_districts as $district)
                           {{$district->District->name}},
                         @endforeach
                       </span></b>

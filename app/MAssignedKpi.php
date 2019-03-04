@@ -10,8 +10,11 @@ class MAssignedKpi extends Model
       return $this->belongsTo('App\MProjectProgress');
     }
 
-    public function MProjectKpi(){
-      return $this->belongsTo('App\MProjectKpi');
+    // public function MProjectKpi(){
+    //   return $this->belongsTo('App\MProjectKpi');
+    // }
+    public function MAssignedUserKpi(){
+      return $this->belongsTo('App\MAssignedUserKpi');
     }
 
     public function MAssignedKpiLevel1(){
