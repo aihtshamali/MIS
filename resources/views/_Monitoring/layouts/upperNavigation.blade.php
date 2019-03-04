@@ -87,8 +87,8 @@
                         </div>
                         <div class="navbar-container container-fluid">
                             <ul class="nav-left">
-                              <li onclick="goBack()" class="backforbtn"><img src="{{asset('backbtn.png')}}" width="15px" title="back" alt=""></li>
-                              <li onclick="goforward()" class="backforbtn"><img src="{{asset('backbtn.png')}}" width="14.5px" style="transform: rotate(180deg);" title="forward" alt=""></li>
+                              <li onclick="goBack()" class="backforbtn" style=""><img src="{{asset('backbtn.png')}}" width="20px" title="back" alt=""></li>
+                              <li onclick="goforward()" class="backforbtn" style="margin: 0% 4%;"><img src="{{asset('backbtn.png')}}" width="19.5px" style="transform: rotate(180deg);" title="forward" alt=""></li>
                                 <li class="header-search">
                                     <div class="main-search morphsearch-search">
                                         <div class="input-group">
@@ -152,36 +152,6 @@
 
                                       </div>
                                   </li>
-                          <li class="header-notification float-right">
-                            <div class="dropdown-primary dropdown">
-                                <div class="displayChatbox dropdown-toggle" data-toggle="dropdown">
-                                    <i class="feather icon-message-square"></i>
-                                    <span class="badge bg-c-green">0</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="header-notification float-right">
-                            <div class="dropdown-primary dropdown">
-                                <div class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="feather icon-bell"></i>
-                                    <span class="badge bg-c-pink">0</span>
-                                </div>
-                        <ul class="show-notification notification-view dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                            <li>
-                                <h6>Notifications</h6>
-                                <label class="label label-danger">New</label>
-                            </li>
-                            <li>
-                                <div class="media">
-                                    <img class="d-flex align-self-center img-radius" src={{asset('_monitoring/css/images/avatar-4.jpg')}} alt="Generic placeholder image">
-                                    <div class="media-body">
-                                        <h5 class="notification-user">Dummy</h5>
-                                        <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
-                                        <span class="notification-time">30 minutes ago</span>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
                             </div>
                         </li>
                         </ul>
@@ -343,36 +313,36 @@
             var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
             var postHtml = "</body></html>";
             var html = preHtml+document.getElementById(element).innerHTML+postHtml;
-        
+
             var blob = new Blob(['\ufeff', html], {
                 type: 'application/msword'
             });
-            
+
             // Specify link url
             var url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
-            
+
             // Specify file name
             filename = filename?filename+'.doc':'document.doc';
-            
+
             // Create download link element
             var downloadLink = document.createElement("a");
-        
+
             document.body.appendChild(downloadLink);
-            
+
             if(navigator.msSaveOrOpenBlob ){
                 navigator.msSaveOrOpenBlob(blob, filename);
             }else{
                 // Create a link to the file
                 downloadLink.href = url;
-                
+
                 // Setting the file name
                 downloadLink.download = filename;
-                
+
                 //triggering the function
                 downloadLink.click();
             }
-            
+
             document.body.removeChild(downloadLink);
         }
-        </script>    
+        </script>
 </html>

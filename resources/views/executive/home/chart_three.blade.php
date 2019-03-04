@@ -102,12 +102,12 @@
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">@{{title}}</h4>
+                    <h4 class="modal-title"></h4>
                   </div>
                   <div class="modal-body">
                               <div class="box">
                                 <div class="box-header">
-                                  <h3 class="box-title">@{{title}}</h3>
+                                  <h3 class="box-title"></h3>
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
@@ -118,28 +118,21 @@
                                       <th>Project No</th>
                                       <th>GS #</th>
                                       <th>Name</th>
-                                      <th>Sector</th>
-                                      <th>Cost</th>
-                                      <th>Status</th>
-                                      <th>Officer</th>
-                                      <th>Progress</th>
+                                        <th>Cost</th>
+                                    <th>Assigned Date</th>
+                                    <th>Progress</th>
                                     </tr>
                                     </thead>
                                     <tbody id="tbody">
-                                        <tr v-for="row in d">
-                                          <td>@{{ row.project_no }}</td>
-                                          <td>Empty</td>
-                                          <td style="width:120px">Nothingf</td>
-                                          <td>Nothin</td>
-                                          <td>
-                                          Nothin
-                                          </td>
-                                          <td>Nothing</td>
-                                          <td>Nothing</td>
-
-                                          <td>Nothing
-                                          </td>
-                                          <td>Nothing
+                                        <tr v-for="(row,index) in d">
+                                          <td>@{{index+1}}</td>
+                                        <td>@{{row.project_no }}</td>
+                                          <td style="width:120px">@{{row.financial_year}} / @{{row.ADP}}</td>
+                                          <td>@{{row.title }}</td>
+                                          <td>@{{(Number(row.orignal_cost).toFixed(2))}} Million</td>
+                                          <td>@{{row.assigned_date}}</td>
+                                          <td>@{{(Number(row.progress).toFixed(2))}}%</td>
+                                        
                                         </tr>
                                     </tbody>
                                   </table>
@@ -176,17 +169,8 @@
 <script src="{{asset('js/charts/light.js')}}"></script>
 <script src="{{asset('js/charts/patterns.js')}}"></script>
 <script type="text/javascript">
-
-// $(document).on('click','g.amcharts-graph-column',function(){
-//   var data=$(this).attr('aria-label').split(' ');
-//   console.log(data);
-//     // $('#Modal'+data).modal('show');
-// });
-
-
-
-
-var modal = new Vue({
+// $('#example').DataTable();
+var VueModal = new Vue({
 
   el:"#Modal",
   data : {
@@ -197,95 +181,27 @@ var modal = new Vue({
   },
   methods:{
     rows: function(event){
-      this.name = event['item'].category;
-      this.field = event['target'].valueField;
-      if(this.field == "Total Projects"){
-        actual_total_assigned_projects.forEach(element =>{
-          element.forEach(ele=>{
-            this.d.push({project_no:ele.project_no})
-          });
-        });
-      }
-      $('#Modal').modal('show');
+        console.log(event);
+        
+        this.name = event.item.category;
+        this.field = event.target.title.split(" ")[0];
+        $('.modal-title').text(this.field+' Projects');
+          if(this.field=="Total" && typeof allProjectsData[event.index][this.name].Total !== 'undefined'){
+              this.d=allProjectsData[event.index][this.name].Total;
+          }
+          else if(this.field=="InProgress" && typeof allProjectsData[event.index][this.name].InProgress !== 'undefined'){
+                    this.d=allProjectsData[event.index][this.name].InProgress;
+          }
+              $('#Modal').modal('show');
 
     }
   }
 
 });
-
-// $(document).on('click','g.amcharts-graph-column',function(){
-//   // var data=$(this).attr('aria-label').replace(/[\s+,\.+]/g, '');
-//   console.log($(this).attr('aria-label'));
-//     // $('#Modal'+data).modal('show');
-// });
 </script>
-<script>
-        // var st = [];
-        //  $i = 0;
-        //  officers.forEach(element => {
-        //    st.push ({
-        //      "Name":element.first_name + " " + element.last_name,
-        //      "InProgress Projects": assigned_inprogress_projects[$i],
-        //      "Total Projects": total_assigned_projects[$i]
-        //    });
-        //    $i++;
-        //  });
-       //   var chart = AmCharts.makeChart( "chartdiv", {
-       //   "type": "serial",
-       //   "theme": "light",
-       //   "dataProvider":st,
-       //   "valueAxes": [ {
-       //     "title" : "Project Numbers",
-       //     "gridColor": "#FFFFFF",
-       //     "gridAlpha": 0.2,
-       //     "dashLength": 0
-       //   } ],
-       //   "gridAboveGraphs": true,
-       //   "startDuration": 1,
-       //   "graphs": [ {
-       //     "balloonText": "[[category]]: <b>[[value]]</b>",
-       //     "fillAlphas": 0.8,
-       //     "lineAlpha": 0.2,
-       //     "type": "column",
-       //     "labelText": "[[value]]",
-       //     "valueField": "Total Projects"
-       //   },
-       //   {
-       //     "balloonText": "[[category]]: <b>[[value]]</b>",
-       //     "fillAlphas": 0.8,
-       //     "lineAlpha": 0.2,
-       //     "type": "column",
-       //     "labelText": "[[value]]",
-       //     "valueField": "InProgress Projects"
-       //   }
-       //  ],
-       //   "chartCursor": {
-       //     "categoryBalloonEnabled": false,
-       //     "cursorAlpha": 0,
-       //     "zoomable": false
-       //   },
-       //   "categoryField": "Name",
-       //   "categoryAxis": {
-       //     "title":"Officers",
-       //      "autoGridCount": false,
-       //      "equalSpacing": true,
-       //      "gridCount": 1000,
-       //     "gridPosition": "middle",
-       //     "gridAlpha": 0,
-       //     "tickPosition": "middle",
-       //     "tickLength": 5,
-       //     "labelRotation":30,
-       //     // "ignoreAxisWidth": true,
-       //     "autoWrap": true
-       //   },
-       //   "export": {
-       //     "enabled": true
-       //   }
-       //
-       // } );
-     </script>
 
-     <script type="text/javascript">
+
+<script type="text/javascript">
      var st = [];
       $i = 0;
       officers.forEach(element => {
@@ -349,10 +265,28 @@ var modal = new Vue({
                 "enabled": true
                }
 
-            });
-
-            chart.addListener('clickGraphItem',modal.rows);
-
-
+            });         
+            chart.addListener('clickGraphItem',VueModal.rows);
      </script>
+
+<script type="text/javascript">
+  // $(document).on('click','g',function(){
+  //   if($(this).attr('aria-label')){
+
+  //   var d=$(this).attr('aria-label').split(" ");
+  //   d.pop(); // to remove last index
+  //   var ProjectType=d.shift(); // to remove first index
+  //   d.shift(); // to remove second index
+  //   var name=d.join(' ');
+  //   allProjectsData.forEach(element => {
+  //     if(element[name][ProjectType]){
+  //       modal.d=element[name][ProjectType]
+  //     }
+  //   });
+  //     $('#Modal1').modal('show');
+  //   }
+   
+  
+  // });
+  </script>
 @endsection

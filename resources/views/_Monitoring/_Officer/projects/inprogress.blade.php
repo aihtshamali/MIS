@@ -8,6 +8,10 @@
     <style>
     table.dataTable.nowrap th, table.dataTable.nowrap td{white-space: normal !important;}
     .table td, .table th{vertical-align: inherit !important;}
+    /* active page */
+    .InProgress a{color : #FE8A7D !important;}
+    .Monitoring_Projects{color : #FE8A7D !important;}
+    /* end active */
     </style>
 @endsection
 

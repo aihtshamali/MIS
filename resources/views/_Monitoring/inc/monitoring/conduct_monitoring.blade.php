@@ -3,35 +3,35 @@
   height: 37px !important;
 }
 </style>
-<div class="tab-pane" id="c_monitoring" role="tabpanel" style="display:none;">
+<div class="tab-pane {{isset($maintab) && $maintab=='conduct' ? 'active' : ''}}" id="c_monitoring" role="tabpanel">
     <div class="row">
-        <div class="col-lg-12 col-xl-12 col-md-12 col-sm-6">
+        <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12  conductNavBar">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs tabs" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link quality_assesment" data-toggle="tab" href="#quality_assesment"
+                    <a class='nav-link {{isset($innertab) && $innertab=="QA" ? "active" : ""}} quality_assesment' data-toggle="tab" href="#quality_assesment"
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Quality
                             Assesment</b></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link stakeholder" data-toggle="tab" href="#stakeholder"
+                    <a class='nav-link  {{isset($innertab) && $innertab=="stake" ? "active" : ""}} stakeholder' data-toggle="tab" href="#stakeholder"
                         role="tab" aria-expanded="true"><b style="font-size:14px; font-weight:bold;">Stakeholders</b></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link issues" data-toggle="tab" href="#issues" role="tab"
+                    <a class='nav-link  {{isset($innertab) && $innertab=="issue" ? "active" : ""}} issues' data-toggle="tab" href="#issues" role="tab"
                         aria-expanded="true"><b style="font-size:14px; font-weight:bold;">Issues</b></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link risks" data-toggle="tab" href="#risks" role="tab"
+                    <a class='nav-link {{isset($innertab) && $innertab=="risk" ? "active" : ""}} risks' data-toggle="tab" href="#risks" role="tab"
                         aria-expanded="true"><b style="font-size:14px; font-weight:bold;">Risks</b></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link HSE" data-toggle="tab" href="#HSE" role="tab"
+                    <a class='nav-link {{isset($innertab) && $innertab=="HSE" ? "active" : ""}} HSE' data-toggle="tab" href="#HSE" role="tab"
                         aria-expanded="true"><b style="font-size:14px; font-weight:bold;">Health
                             Safety Enviornment</b></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link procurement" data-toggle="tab" href="#procu"
+                    <a class='nav-link {{isset($innertab) && $innertab=="proc" ? "active" : ""}} procurement' data-toggle="tab" href="#procu"
                         role="tab" aria-expanded="true"><b style="font-size:14px; font-weight:bold;">Procurement</b></a>
                 </li>
                 {{-- <li class="nav-item">
@@ -39,7 +39,7 @@
                         role="tab" aria-expanded="false">
                         <b style="font-size:14px; font-weight:bold;">Photos&Videos</b></a>
                 </li> --}}
-                <li class="nav-item">
+                <li class='nav-item  {{isset($innertab) && $innertab=="docs" ? "active" : ""}}'>
                     <a class="nav-link Documents" data-toggle="tab" href="#Documents"
                         role="tab" aria-expanded="false">
                         <b style="font-size:14px; font-weight:bold;">Documents</b></a>
@@ -47,8 +47,7 @@
             </ul>
             <!-- Tab panes -->
             <div class="tab-content tabs card-block">
-                <div class="tab-pane" id="quality_assesment" role="tabpanel"
-                    aria-expanded="false">
+                <div class='tab-pane {{isset($innertab) && $innertab=="QA" ? "active" : ""}}' id="quality_assesment" role="tabpanel">
                     <div class="card z-depth-right-0">
                         <div class="card-header">
                             <h4>Quality Assesment</h4>
@@ -147,6 +146,7 @@
                           <form action="{{route('saveGeneralFeedBack')}}" class="serializeform" method="POST">
                             {{ csrf_field() }}
                             <input type="hidden" name="m_project_progress_id" value="{{$progresses->id}}">
+                            <input type="hidden" name="page_tabs" value="conduct_stake">
                             @foreach ($generalFeedback as $key => $gf)
                               <div class=" form-group row">
                                   <div class="col-md-1"></div>
@@ -192,8 +192,7 @@
 
                     </div>
                 </div>
-                <div class="tab-pane active" id="stakeholder" role="tabpanel"
-                    aria-expanded="true">
+                <div class='tab-pane {{isset($innertab) && $innertab=="stake" ? "active" : ""}}' id="stakeholder" role="tabpanel">
 
                     <div class="card z-depth-right-0">
                         <div class="card-header">
@@ -202,6 +201,7 @@
                         </div>
                         <form action="{{route('savestakeholders')}}" class="" method="POST">
                                 {{ csrf_field() }}
+                                <input type="hidden" name="page_tabs" value="conduct_issue">
                         <div class="card-block">
                             <div class="col-md-12">
                                 <div class="table-responsive">
@@ -437,7 +437,7 @@
                     </div>
 
                 </div>
-                <div class="tab-pane active" id="issues" role="tabpanel" aria-expanded="true">
+                <div class='tab-pane {{isset($innertab) && $innertab=="issue" ? "active" : ""}}' id="issues" role="tabpanel">
                     <div class="card z-depth-right-0">
                         <div class="card-header">
                             <h4>Issues and Observations</h4>
@@ -451,6 +451,7 @@
                             <form action="{{route('saveMissues')}}" method="POST" class="serializeform">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="m_project_progress_id" value="{{$progresses->id}}">
+                                <input type="hidden" name="page_tabs" value="conduct_HSE">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered nowrap">
                                         <thead>
@@ -588,7 +589,7 @@
                                 </div>
                     </div>
                 </div>
-                <div class="tab-pane active" id="risks" role="tabpanel" aria-expanded="true">
+                <div class='tab-pane {{isset($innertab) && $innertab=="risk" ? "active" : ""}}' id="risks" role="tabpanel">
                     <div class="card z-depth-right-0">
                         <div class="card-header">
                             <h4>Risks</h4>
@@ -703,7 +704,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane" id="HSE" role="tabpanel" aria-expanded="true">
+                <div class='tab-pane {{isset($innertab) && $innertab=="HSE" ? "active" : ""}}' id="HSE" role="tabpanel" aria-expanded="true">
                     <div class="card z-depth-right-0">
                         <div class="card-header">
                             <h4>Health Safety Enviornment</h4>
@@ -718,6 +719,7 @@
                                 <form action="{{route('savehealthsafety')}}" method="POST" class="serializeform">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="m_project_progress_id" value="{{$progresses->id}}">
+                                <input type="hidden" name="page_tabs" value="conduct_proc">
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-stripped nowrap">
                                         <thead>
@@ -787,12 +789,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane nodisplay" id="procu" role="tabpanel" aria-expanded="true">
+                <div class='tab-pane {{isset($innertab) && $innertab=="proc" ? "active" : ""}}' id="procu" role="tabpanel" aria-expanded="true">
                   <div class="card-block">
                       <div class="col-md-12">
                           <form action="{{route('savehealthsafety')}}" method="POST" class="serializeform">
                           {{ csrf_field() }}
                           <input type="hidden" name="m_project_progress_id" value="{{$progresses->id}}">
+                          <input type="hidden" name="page_tabs" value="conduct_docs">
                           <div class="table-responsive">
                               <table class="table table-bordered table-stripped nowrap">
                                   <thead>
@@ -834,37 +837,7 @@
                       </div>
                   </div>
                 </div>
-                <div class="tab-pane " id="Gallery" role="tabpanel" aria-expanded="false"
-                    style="display:none;">
-                    <div class="container">
-                      <div class="col-md-12 col-sm-12">
-
-                        <!-- Our markup, the important part here! -->
-                        <div id="drag-and-drop-zone" class="dm-uploader">
-                          <h3 class="mb-5 mt-5 text-muted text_center">Drag &amp; drop files here</h3>
-
-                          <div class="btn btn-primary btn-block">
-                            <input type="file" id="html_btn" title='Click to add Files' />
-                              <span>Open the file Browser</span>
-                          </div>
-                        </div><!-- /uploader -->
-
-                      </div>
-                      <div class="col-md-12 col-sm-12">
-                        <div class="card">
-                          <div class="card-header">
-                            File List
-                          </div>
-
-                          <ul class="list-unstyled p-2 d-flex flex-column col" id="files">
-                            <li class="text-muted text-center empty">No files uploaded.</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                </div>
-                <div class="tab-pane " id="Documents" role="tabpanel" aria-expanded="false"
-                    style="display:none;">
+                <div class='tab-pane {{isset($innertab) && $innertab=="docs" ? "active" : ""}}' id="Documents" role="tabpanel" aria-expanded="false">
                     <div class="container">
                     </div>
                 </div>
