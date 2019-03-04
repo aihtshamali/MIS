@@ -444,8 +444,15 @@
 <script src="{{asset('_monitoring/js/_dgme/DGME_officer_inprogressSingle.js')}}"></script>
 <script>
 
-
 $(document).ready(function(){
+  
+    console.log("Team Lead Check " +team_lead_check);
+  if(!team_lead_check){
+    
+    $('input').prop('disabled',true);
+    $('select').prop('disabled',true);
+    $('button').prop('disabled',true);
+  }  
     var success="{{Session::get('success')}}";
     if(success){
       toast({
