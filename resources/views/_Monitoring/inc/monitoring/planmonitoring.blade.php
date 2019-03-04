@@ -229,7 +229,7 @@
                   <!-- user Location content -->
                   <div class="row col-md-12">
                     <style media="screen" scoped>
-                      .select2-container--default .select2-selection--multiple .select2-selection__rendered li{padding: 0% !important};
+                      .select2-container--default .select2-selection--multiple .select2-selection__rendered li{padding: 1% !important};
                     </style>
                     <div class="row col-md-10" id="CloneThisUserLoc" style="margin-bottom:1% !important;">
                       <div class="col-md-6 text-center">
