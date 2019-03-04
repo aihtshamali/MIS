@@ -169,8 +169,8 @@
 <script src="{{asset('js/charts/light.js')}}"></script>
 <script src="{{asset('js/charts/patterns.js')}}"></script>
 <script type="text/javascript">
-$('#example').DataTable();
-var modal = new Vue({
+// $('#example').DataTable();
+var VueModal = new Vue({
 
   el:"#Modal",
   data : {
@@ -181,29 +181,23 @@ var modal = new Vue({
   },
   methods:{
     rows: function(event){
-      this.name = event['item'].category;
-      this.field = event['target'].valueField;
-      $('.modal-title').text('InProgress Projects');
-      if(this.field == "Total Projects"){
-        $('.modal-title').text('Total Projects');
-        actual_total_assigned_projects.forEach(element =>{
-          element.forEach(ele=>{
-            this.d.push({project_no:ele.project_no,financial_year:ele.financial_year,ADP:ele.ADP,
-            title:ele.title,
-            orignal_cost:ele.orignal_cost,assigned_date:ele.assigned_date,progress:ele.progress})
-            
-
-          });
-        });
-      }
-      $('#Modal').modal('show');
+        console.log(event);
+        
+        this.name = event.item.category;
+        this.field = event.target.title.split(" ")[0];
+        $('.modal-title').text(this.field+' Projects');
+          if(this.field=="Total" && typeof allProjectsData[event.index][this.name].Total !== 'undefined'){
+              this.d=allProjectsData[event.index][this.name].Total;
+          }
+          else if(this.field=="InProgress" && typeof allProjectsData[event.index][this.name].InProgress !== 'undefined'){
+                    this.d=allProjectsData[event.index][this.name].InProgress;
+          }
+              $('#Modal').modal('show');
 
     }
   }
 
 });
-
-
 </script>
 
 
@@ -271,24 +265,28 @@ var modal = new Vue({
                 "enabled": true
                }
 
-            });
-
-            chart.addListener('clickGraphItem',modal.rows);
-
-
+            });         
+            chart.addListener('clickGraphItem',VueModal.rows);
      </script>
 
-{{-- <script type="text/javascript">
-  $(document).on('click','g',function(){
-    if($(this).attr('aria-label')){
+<script type="text/javascript">
+  // $(document).on('click','g',function(){
+  //   if($(this).attr('aria-label')){
 
-    var d=$(this).attr('aria-label').split(" ")[0];  
-    console.log(d);
-    if(d === "Total")
-      $('#Modal1').modal('show');
-    }
+  //   var d=$(this).attr('aria-label').split(" ");
+  //   d.pop(); // to remove last index
+  //   var ProjectType=d.shift(); // to remove first index
+  //   d.shift(); // to remove second index
+  //   var name=d.join(' ');
+  //   allProjectsData.forEach(element => {
+  //     if(element[name][ProjectType]){
+  //       modal.d=element[name][ProjectType]
+  //     }
+  //   });
+  //     $('#Modal1').modal('show');
+  //   }
    
   
-  });
-  </script> --}}
+  // });
+  </script>
 @endsection
