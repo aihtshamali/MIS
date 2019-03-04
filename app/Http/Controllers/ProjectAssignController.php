@@ -158,7 +158,7 @@ class ProjectAssignController extends Controller
       
       $check = AssignedProject::where('project_id',$request->project_id)->first();
       if(isset($check)){ // Reassignment
-        $check->stopped=null;
+        $check->stopped=false;
         $check->save();
         $team = $check->AssignedProjectTeam;
         foreach ($team as $t) {
