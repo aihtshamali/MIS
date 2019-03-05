@@ -18,7 +18,7 @@ class MAssignedKpi extends Resource
         return [
           "id" => $this->id,
           // "m_project_progress_id" => "1",
-          "name" => $this->MProjectKpi->name,
+          "name" => $this->MAssignedUserKpi->MProjectKpi->name,
           "children" => MAssignedKpiLevel1Resource::collection($this->MAssignedKpiLevel1)
           // "m_plan_component_id" => "2",
           // "status" => "1",

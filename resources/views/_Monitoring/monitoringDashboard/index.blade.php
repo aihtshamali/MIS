@@ -311,21 +311,22 @@ object-fit: cover;
 <div class="row col-md-12 mt3p">
 <div class="col-md-4">
     <div class="">
-      <!-- <div class="demo-gallery">
+      {{-- <div class="demo-gallery">
         <ul id="lightgallery" class="list-unstyled row">
-          < ?php $i=1; ?>
-          @if($result_from_app!=null)
-          @foreach ($result_from_app->where('type','image/jpeg') as $attachment)
+          @if($result_from_app->where('type','image/jpeg')!=null)
+          @foreach ($result_from_app->where('type','image/jpeg')->get() as $attachment)
             <li class="col-xs-6 col-sm-4 col-md-3" data-responsive="" data-src="http://172.16.10.14/storage/uploads/monitoring/@if($project->AssignedProject && $project->AssignedProject->MProjectProgress->last()){{$project->AssignedProject->MProjectProgress->last()->id}}/{{$project->AssignedProject->MProjectProgress->last()->MAppAttachment->where('type','image/jpeg')->last()->project_attachement}}@endif" data-sub-html="<h4>Date</h4><p>{{date('d M Y',strtotime($attachment->created_at))}} </p>">
             </li>
-            @endforeach
+          @endforeach
             <a href="">
             <img class="img-responsive" src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
             </a>
             @endif
         </ul>
-      </div> -->
+      </div> --}}
+      @if($project->AssignedProject->MProjectProgress->last()->MAppAttachment->where('type','image/jpeg')->last())
       <img alt="NO PIC ADDED" src="http://172.16.10.14/storage/uploads/monitoring/@if($project->AssignedProject && $project->AssignedProject->MProjectProgress->last()){{$project->AssignedProject->MProjectProgress->last()->id}}/{{$project->AssignedProject->MProjectProgress->last()->MAppAttachment->where('type','image/jpeg')->last()->project_attachement}}@endif" alt="" style="width:100%;">
+      @endif
     </div>
   </div>
   <div class="col-md-8">
