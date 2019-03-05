@@ -96,6 +96,53 @@
                     <div class="col-md-1"></div>
                 </div>
             </div>
+            <div class="modal fade in" id="Modal" style="display: block; padding-right: 17px;display:none">
+                <div class="modal-dialog" style="width:90%">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                      <h4 class="modal-title"></h4>
+                    </div>
+                    <div class="modal-body">
+                                <div class="box">
+                                  <div class="box-header">
+                                    <h3 class="box-title"></h3>
+                                  </div>
+                                  <!-- /.box-header -->
+                                  <div class="box-body">
+                                    <table id="example" class="table table-bordered table-striped">
+                                      <thead>
+                                      <tr>
+                                        <th>Officer</th>
+                                        <th>Click to View</th>
+                                      </tr>
+                                      </thead>
+                                      <tbody id="tbody">
+                                          <tr>
+                                            {{-- <td>@{{row}}</td> --}}
+                                          <td>@{{d.first_name}}-@{{d.last_name}}</td>
+                                          <td>
+                                            <a class="btn btn-md btn-success" v-on:click="goto_route(d.id)" >
+                                              Check Profile<small>(Read Only View)</small></a>
+                                          </td>
+                                          </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                  <!-- /.box-body -->
+                                </div>
+                                <!-- /.box -->
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                      {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+                    </div>
+                  </div>
+                  <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+              </div>
     </section>
 
 </div>
@@ -114,6 +161,32 @@
 <script src="{{asset('js/charts/light.js')}}"></script>
 <script src="{{asset('js/charts/patterns.js')}}"></script>
 <script>
+  var VueModal = new Vue({
+el:"#Modal",
+data : {
+  title : "Projects",
+  name: "",
+  field: "",
+  d:[],
+},
+methods:{
+  rows: function(event){
+      console.log(officers);
+      this.name = event.item.category;
+      this.d=officers[event.index];
+      // console.log(this.d);      
+      $('#Modal').modal('show');
+
+  },
+  goto_route: function (param1) {
+      route = '{{ route('ViewAsOfficerNewAssignments', ['id' => '?useridfromchart?']) }}'
+      location.href = route.replace('?useridfromchart?', param1)
+}
+  
+}
+
+});
+
   var st = [];
   $i = 0;
 
@@ -171,5 +244,6 @@
   }
 
   });
+  chart.addListener('clickGraphItem',VueModal.rows);
     </script>
 @endsection
