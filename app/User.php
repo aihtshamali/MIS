@@ -90,6 +90,9 @@ class User extends Authenticatable implements JWTSubject
     public function OfficerPositionLog(){
       return $this->hasMany('App\OfficerPositionLog');
     }
+    public function MAssignedUserLocation(){
+      return $this->hasMany('App\MAssignedUserLocation');
+    }
     public function VmisDriver(){
       return $this->hasOne('App\VmisDriver');
   }

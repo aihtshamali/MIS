@@ -35,6 +35,7 @@
 
 {{-- This is dgme custom css for this page only ,write here any css you want to Ok!!! --}}
 <link rel="stylesheet" href="{{asset('_monitoring/css/css/_dgme/DGME_officer_inprogressSingle.css')}}" />
+<link href="{{asset('lightRoom/lightgallery.css')}}" rel="stylesheet">
 <style media="screen">
     /* html{scroll-behavior: smooth;} */
     .paddtopbottom1per{padding: 1% 0% !important;}
@@ -76,7 +77,7 @@
     .select2-container--default .select2-selection--multiple .select2-selection__rendered li{
         background: #119e36 !important;
         color: #fff !important;
-        padding: 2% 4% !important;
+        padding: 2% 4%;
         margin: 1% !important;
       }
       .select2-container--default .select2-selection--multiple .select2-selection__rendered .select2-search--inline{
@@ -102,6 +103,7 @@
 /* active page */
 .New_Assignments a{color : #FE8A7D !important;}
 .Monitoring_Projects{color : #FE8A7D !important;}
+/* end active */
 .red{color: #F22525 !important;font-size: 21px;font-weight: 900;}
 .blue{color: #7942FA !important;font-size: 21px;font-weight: 900;}
 .sky{color: #42BDFA !important;font-size: 21px;font-weight: 900;}
@@ -112,6 +114,10 @@
 /* .orgchart{background: #fff !important;} */
 .primarybold{color: #01a9ac !important; font-weight: 900 !important;}
 .orrbold{color: #ff7220 !important; font-weight: 900 !important;}
+.redtXt{font-size: 15px;font-weight: 900;color: #fff !important;font-size: 15px;text-shadow: 1px 3px 21px blueviolet !important;font-weight: 900;background: #d60e0e;border-radius: 5px;margin-left: 7%;}
+.orangetXt{font-size: 15px;font-weight: 900;color: #fff !important;font-size: 15px;text-shadow: 1px 3px 21px blueviolet !important;font-weight: 900;background: #f39440;border-radius: 5px;margin-left: 7%;}
+.yeltXt{font-size: 15px;font-weight: 900;color: #fff !important;font-size: 15px;text-shadow: 1px 3px 21px blueviolet !important;font-weight: 900;background: #c7c30d;border-radius: 5px;margin-left: 7%;}
+.greentXt{font-size: 15px;font-weight: 900;color: #fff !important;font-size: 15px;text-shadow: 1px 3px 21px blueviolet !important;font-weight: 900;background: green;border-radius: 5px;margin-left: 7%;}
 </style>
 
 @endsection
@@ -119,7 +125,7 @@
     {{-- frozen panel for plan and conduct monitoring  --}}
     @php
         $maintab='review';
-        $innertab='';
+        $innertab='cost';
         if(\Session::has('maintab')){
           $maintab=\Session::get('maintab');
           $innertab=\Session::get('innertab');
@@ -159,7 +165,7 @@
                   </div>
                   <div class="col-md-12 ln_ht12">
                       <b for="project_cost" class=""><span >Location: </span><span>
-                        @foreach ($project->Project->AssignedDistricts as $district)
+                        @foreach ($assigned_districts as $district)
                           {{$district->District->name}},
                         @endforeach
                       </span></b>
@@ -185,12 +191,12 @@
                     </div>
                     <div class="col-md-3 ln_ht12">
                       <b for="" name="phy_progress" id="phy_progress" class="primarybold mb_1 fontf_sh"><span  class="float-left">Physical Progress: </span>
-                        <span class="pdz_six">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%</span>
+                        <span class="pdz_six" id="Physicalprog">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%</span>
                         </b>
                     </div>
                     <div class="col-md-3">
                       <b for="" name="f_progress" id="f_progress" class="primarybold mb_1 fontf_sh"><span class="float-left" >Financial Progress:</span>
-                        <span class="pdz_six">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</span>
+                        <span class="pdz_six" id="financialprog">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</span>
                       </b>
                     </div>
                     <div class="col-md-3 ln_ht12">
@@ -228,8 +234,6 @@
                 </div>
                 <!-- end hide project detail btn -->
                     <div class="card" style="box-shadow: 0px 0px 33px #77777769;">
-                        <div class="card-header">
-                        </div>
                         <div class="card-block">
                             <div class="row m-b-30">
                                 <div class="col-md-12">
@@ -240,10 +244,10 @@
                                           <div class="slide"></div>
                                       </li>
                                       <li class="nav-item planNav">
-                                          <a class="nav-link" data-toggle="tab" href="#p_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">PLAN MONITORING</span></a>
+                                          <a class="nav-link {{isset($maintab) && $maintab=='plan' ? 'active' : ''}}" data-toggle="tab" href="#p_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">PLAN MONITORING</span></a>
                                           <div class="slide"></div>
                                       </li>
-                                      <li class="nav-item conductNav">
+                                      <li class="nav-item conductNav  {{isset($maintab) && $maintab=='conduct' ? 'active' : ''}}">
                                           <a class="nav-link" data-toggle="tab" href="#c_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">CONDUCT MONITORING</span></a>
                                           <div class="slide"></div>
                                       </li>
@@ -276,7 +280,8 @@
                         </div>
                         <!-- Form Basic Wizard card end -->
                     </div>
-                    <div class="col-xl-3 col-lg-12 nodisplay p_details" style="padding-left: 15px !important;  padding-right: 15px !important;">
+                    </div>
+                    <div class="col-md-3 nodisplay p_details" style="padding-left: 15px !important;  padding-right: 15px !important;">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-header-text"><i class="icofont icofont-ui-note m-r-10"></i> Project Details</h5>
@@ -320,7 +325,6 @@
                         </div>
                       </div>
                     </div>
-            </div>
             </div>
 
         </div>
@@ -440,8 +444,15 @@
 <script src="{{asset('_monitoring/js/_dgme/DGME_officer_inprogressSingle.js')}}"></script>
 <script>
 
-
 $(document).ready(function(){
+  
+    console.log("Team Lead Check " +team_lead_check);
+  if(!team_lead_check){
+    
+    $('input').prop('disabled',true);
+    $('select').prop('disabled',true);
+    $('button').prop('disabled',true);
+  }  
     var success="{{Session::get('success')}}";
     if(success){
       toast({
@@ -460,15 +471,15 @@ $(document).ready(function(){
     function getWBS(route,id){
         axios.get(route,{
      params:{
-         "assigned_project_id":id,
+         "user_location_id":id,
      }
      })
      .then((response) => {
          var ds ='';
-         for (let i = 0; i < response.data.m_kpi.sector.length; i++) {
-            //  console.log(response.data.m_kpi.sector);
+             console.log(response);
+         for (let i = 0; i < response.data.length; i++) {
 
-             ds = response.data.m_kpi.sector[i];
+             ds = response.data[i];
             var oc = $('#WBSChart').orgchart({
             'data' : ds,
             'nodeContent': 'title'
@@ -486,7 +497,11 @@ $(document).ready(function(){
 
    $('.summaryNav').on('click', function () {
         if(wbs){
-            getWBS('{{route("getProjectKpi")}}',"{{$project->id}}");
+          assigned_user_locations.forEach(element => {
+            console.log('sa');
+            
+            getWBS('{{route("getProjectKpi")}}',element.id);            
+          });
             wbs=false;
         }
     });
@@ -713,7 +728,7 @@ $(document).ready(function(){
                         </select>
                     </div>
                     <div class="col-md-3">
-                      <input name="weightage[]" id="" class="col-md-11 float-right form-control" placeholder="Weightage" type="text" style="text-align:center;height: 45px;border: 1px solid #807d7d8a !important;" value="">
+                      <input name="weightage[]" id="" class="col-md-11 float-right form-control" placeholder="Weightage" type="text" style="text-align:center;border: 1px solid #807d7d8a !important;" value="">
                     </div>
                     </li>`;
                     count++;
@@ -910,5 +925,57 @@ var check = true
 //
 // });
 // zoom image end
+$(document).ready(function(){
+    $('#lightgallery').lightGallery();
+});
+</script>
+<script src="{{asset('lightRoom/picturefill.min.js')}}"></script>
+<script src="{{asset('lightRoom/lightgallery-all.min.js')}}"></script>
+<script src="{{asset('lightRoom/jquery.mousewheel.min.js')}}"></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+  var financialprogtxt = $('#financialprog').text();
+  var financialprog = $('#financialprog');
+  var financialprogtxtsplit = financialprogtxt.replace("%", "");
+  if (financialprogtxtsplit <= 25) {
+    financialprog.attr("class", "pdz_six redtXt");
+  }
+  else if (financialprogtxtsplit <= 50) {
+    financialprog.attr("class", "orangetXt pdz_six");
+  }
+  // else if (temp<= 75 && temp>= 50) {
+  //   status.addClass('blue');
+  // }
+  else if (financialprogtxtsplit <= 75) {
+    financialprog.attr("class", "pdz_six yeltXt");
+  }
+  else if (financialprogtxtsplit <=100) {
+    financialprog.attr("class", "pdz_six greentXt");
+  }
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+  var Physicalprogtxt = $('#Physicalprog').text();
+  var Physicalprog = $('#Physicalprog');
+  var Physicalprogtxtsplit = Physicalprogtxt.replace("%", "");
+  if (Physicalprogtxtsplit <= 25) {
+    Physicalprog.attr("class", "pdz_six redtXt");
+  }
+  else if (Physicalprogtxtsplit <= 50) {
+    Physicalprog.attr("class", "orangetXt pdz_six");
+  }
+  // else if (temp<= 75 && temp>= 50) {
+  //   status.addClass('blue');
+  // }
+  else if (Physicalprogtxtsplit <= 75) {
+    Physicalprog.attr("class", "pdz_six yeltXt");
+  }
+  else if (Physicalprogtxtsplit <=100) {
+    Physicalprog.attr("class", "pdz_six greentXt");
+  }
+});
 </script>
 @endsection

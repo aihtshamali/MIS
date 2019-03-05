@@ -21,6 +21,7 @@ use App\MAssignedKpiLevel4;
 use App\MAppAttachment;
 use App\MAppVersionlog;
 use App\MAssignedProjectHealthSafety;
+use App\MAssignedUserLocation;
 
 // use App\GeneralKpi;
 
@@ -73,39 +74,37 @@ class DataController extends Controller
         // }
 
         public function getProjectKpi(Request $request){
-          $project = AssignedProject::find($request->assigned_project_id);
+          // $project = AssignedProject::find($request->assigned_project_id);
           // return $project;
           // $sub_sectors = $project->project->AssignedSubSectors;
           $index = 0;
-          $project_progresses = $project->MProjectProgress->last()->MAssignedKpi;
-          $m_project_kpis = ["m_kpi"=>["sector"=>[]],"general_kpi"=>[]];
+          $location = MAssignedUserLocation::where('id',$request->user_location_id)->first();
+          $user_kpi = $location->MAssignedUserKpi;
+          // return $user_kpi;
+          $project_progresses = [];
+          foreach($user_kpi as $uk)
+            foreach($uk->MAssignedKpi as $mak)
+              array_push($project_progresses,new MAssignedKpiResource($mak));
+          return $project_progresses;
+          // $m_project_kpis = ["m_kpi"=>["sector"=>[]],"general_kpi"=>[]];
 
-          //Removing General Kpi from Array And Adding them to final Array
-          foreach ($project_progresses as $value) {
-            if($value->MProjectKpi->sector_id == NULL){
-              array_push($m_project_kpis["general_kpi"],new MAssignedKpiResource($value));
-              unset($project_progresses[$index]);
-            }
-            $index ++;
-          }
+          // //Fetching Sectors from Array
+          // $sectors = [];
+          // foreach ($project_progresses as $value) {
+          //   $sectors = array_merge($sectors,array($value->MProjectKpi->Sector->name=>[]));
+          // }
+          // $sectors = array_unique($sectors);
+          // // Placing results to corresponding Sectors Respectively
+          // foreach ($sectors as $key => $sector) {
+          //   foreach ($project_progresses as $progress) {
+          //       array_push($sectors[$progress->MProjectKpi->Sector->name],new MAssignedKpiResource($progress));
+          //   }
+          // }
 
-          //Fetching Sectors from Array
-          $sectors = [];
-          foreach ($project_progresses as $value) {
-            $sectors = array_merge($sectors,array($value->MProjectKpi->Sector->name=>[]));
-          }
-          $sectors = array_unique($sectors);
-          // Placing results to corresponding Sectors Respectively
-          foreach ($sectors as $key => $sector) {
-            foreach ($project_progresses as $progress) {
-                array_push($sectors[$progress->MProjectKpi->Sector->name],new MAssignedKpiResource($progress));
-            }
-          }
-
-          foreach ($sectors as $key => $value) {
-            array_push($m_project_kpis["m_kpi"]["sector"],["name"=>$key,"children"=>$value]);
-          }
-          return $m_project_kpis;
+          // foreach ($sectors as $key => $value) {
+          //   array_push($m_project_kpis["m_kpi"]["sector"],["name"=>$key,"children"=>$value]);
+          // }
+          // return $m_project_kpis;
           // return $m_project_kpis;
         //   foreach ($sub_sectors as $sub_sector) {
         //     array_push($sectors,$sub_sector->SubSector->Sector);
@@ -118,9 +117,9 @@ class DataController extends Controller
 
       public function setProjectKpi(Request $request){
         $data =  json_decode($request->data, true);
-        foreach ($data['m_kpi']['sector'] as $value) {
-          foreach ($value['children'] as $value2) {
-            foreach ($value2['children'] as $value3) {
+        foreach ($data as $value) {
+          // foreach ($value['children'] as $value2) {
+            foreach ($value['children'] as $value3) {
               $m_assigned_kpi_level1 = MAssignedKpiLevel1::find($value3['id']);
               if($m_assigned_kpi_level1){
                 $m_assigned_kpi_level1->completed = $value3['completed'];
@@ -156,7 +155,7 @@ class DataController extends Controller
                 }
               }
             };
-          };
+          // };
         };
         // foreach ($data as $key => $value) {
         //   return $value;

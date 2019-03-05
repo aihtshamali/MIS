@@ -2,7 +2,11 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/css/dataTables.bootstrap4.min.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/pages/data-table/css/buttons.dataTables.min.css')}}" />
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/responsive.bootstrap4.min.css')}}" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 @section('content')
+<style>
+.hovsky:hover{color: #19a7ba !important;}
+</style>
 <div class="row">
     <div class="col-md-12">
     <div class="card z-depth-5">
@@ -20,6 +24,7 @@
                                 <th>Planned Start Date</th>
                                 <th>Physical Progress</th>
                                 <th>Financial Progress</th>
+                                <th>Summary</th>
                                 {{-- <th>Action</th> --}}
 
                             </tr>
@@ -60,7 +65,10 @@
                                             aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">@if($project->Project->AssignedProject!==NULL && $project->Project->AssignedProject->MProjectProgress->last()!==NULL) {{round(calculateMFinancialProgress($project->Project->AssignedProject->MProjectProgress->last()->id,2))}} @else 0 @endif%</div>
                                         </div>
                                     </td>
-                                    
+
+                                    <td>
+                                      <a href="{{route('generate_monitoring_report',['project_id'=>$project->Project->AssignedProject->id])}}" target="_blank" class="hovsky" style="color: #4f5c5f9e; font-size:36px !important;"><center><i class="fas fa-address-card"></i></center></a>
+                                    </td>
                                     {{-- <td>
                                     <a href="{{route('monitoring_inprogressSingle')}}" class="btn btn-md  btn-info"> Conduct Monitoring</a>
                                     </td> --}}

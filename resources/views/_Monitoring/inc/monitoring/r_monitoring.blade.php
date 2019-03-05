@@ -68,108 +68,252 @@ ul, #myUL {
 .caret{color: #01a9ac !important;}
 .caret::before{color: #01a9ac !important;}
 /* end tree view */
+.demo-gallery > ul {
+    margin-bottom: 0;
+  }
+  .demo-gallery > ul > li {
+      float: left;
+      margin-bottom: 15px;
+      /* margin-right: 20px;
+      width: 200px; */
+  }
+  .demo-gallery > ul > li a {
+    border: 3px solid #FFF;
+    border-radius: 3px;
+    display: block;
+    overflow: hidden;
+    position: relative;
+    float: left;
+  }
+  .demo-gallery > ul > li a > img {
+    -webkit-transition: -webkit-transform 0.15s ease 0s;
+    -moz-transition: -moz-transform 0.15s ease 0s;
+    -o-transition: -o-transform 0.15s ease 0s;
+    transition: transform 0.15s ease 0s;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+  }
+  /* .demo-gallery > ul > li a:hover > img {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
+  } */
+  .demo-gallery > ul > li a:hover .demo-gallery-poster > img {
+    opacity: 1;
+  }
+  .demo-gallery > ul > li a .demo-gallery-poster {
+    background-color: rgba(0, 0, 0, 0.1);
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    -webkit-transition: background-color 0.15s ease 0s;
+    -o-transition: background-color 0.15s ease 0s;
+    transition: background-color 0.15s ease 0s;
+  }
+  .demo-gallery > ul > li a .demo-gallery-poster > img {
+    left: 50%;
+    margin-left: -10px;
+    margin-top: -10px;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    -webkit-transition: opacity 0.3s ease 0s;
+    -o-transition: opacity 0.3s ease 0s;
+    transition: opacity 0.3s ease 0s;
+  }
+  .demo-gallery > ul > li a:hover .demo-gallery-poster {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .demo-gallery .justified-gallery > a > img {
+    -webkit-transition: -webkit-transform 0.15s ease 0s;
+    -moz-transition: -moz-transform 0.15s ease 0s;
+    -o-transition: -o-transform 0.15s ease 0s;
+    transition: transform 0.15s ease 0s;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+    height: 100%;
+    width: 100%;
+  }
+  .demo-gallery .justified-gallery > a:hover > img {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+  .demo-gallery .justified-gallery > a:hover .demo-gallery-poster > img {
+    opacity: 1;
+  }
+  .demo-gallery .justified-gallery > a .demo-gallery-poster {
+    background-color: rgba(0, 0, 0, 0.1);
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    -webkit-transition: background-color 0.15s ease 0s;
+    -o-transition: background-color 0.15s ease 0s;
+    transition: background-color 0.15s ease 0s;
+  }
+  .demo-gallery .justified-gallery > a .demo-gallery-poster > img {
+    left: 50%;
+    margin-left: -10px;
+    margin-top: -10px;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    -webkit-transition: opacity 0.3s ease 0s;
+    -o-transition: opacity 0.3s ease 0s;
+    transition: opacity 0.3s ease 0s;
+  }
+  .demo-gallery .justified-gallery > a:hover .demo-gallery-poster {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .demo-gallery .video .demo-gallery-poster img {
+    height: 48px;
+    margin-left: -24px;
+    margin-top: -24px;
+    opacity: 0.8;
+    width: 48px;
+  }
+  .demo-gallery.dark > ul > li a {
+    border: 3px solid #04070a;
+  }
+  .home .demo-gallery {
+    padding-bottom: 80px;
+  }
 </style>
 <div class="tab-pane" id="r_monitoring" role="tabpanel" style="display:none;">
-  <div class="border col-md-12 row">
-    <div class="container">
-	     <div class="pdlfrt2">
-    <!-- ---------------- start tree vie ------------------ -->
-        {{-- <h2 class="txtdecundlin pointer">Tree View</h2>
-        <ul id="myUL">
-          <li><span class="caret caret-down">Beverages</span>
-            <ul class="nested active">
-              <li>Water</li>
-              <li>Coffee</li>
-              <li><span class="caret caret-down">Tea</span>
-                <ul class="nested active">
-                  <li>Black Tea</li>
-                  <li>White Tea</li>
-                  <li><span class="caret caret-down">Green Tea</span>
+  <div class="col-md-12">
+    <ul class="nav nav-tabs col-md-12 tabs resultNavBar" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link galnav" data-toggle="tab" href="#home1" role="tab">Gallery</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#profile1" role="tab">WBS</a>
+        </li>
+    </ul>
+    <div class="container r_monitoringDivv">
+      <div class="tab-content tabs card-block">
+          <div class="tab-pane active" id="home1" role="tabpanel">
+            <div class="pdlfrt2">
+         <!-- ----------------- start photo gallery -------------------- -->
+         <h2 class="txtdecundlin pointer photogallary" title="click to Expand photo gallary">Photo Gallery</h2>
+     		<div class="photogallaryDiv nodisplay col-md-12" style="padding-bottom:2%">
+                 <!-- <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                     <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
+                        data-image="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                        data-target="#image-gallery">
+                         <img class="img-thumbnail"
+                              src="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                              alt="">
+                     </a>
+                 </div> -->
+                 <div class="demo-gallery">
+                   <ul id="lightgallery" class="list-unstyled row">
+                     <?php $i=1; ?>
+               @foreach ($result_from_app->where('type','image/jpeg') as $attachment)
+                       <li class="col-xs-6 col-sm-4 col-md-3" data-responsive="" data-src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" data-sub-html="<h4>Date</h4><p>{{date('d M Y',strtotime($attachment->created_at))}} </p>">
+                           <a href="">
+                             <b class="float-left">#: {{$i++}}</b>
+                           <img class="img-responsive" src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
+                           <b class="float-right" style="padding:0% 10%">Date: {{date('d M Y',strtotime($attachment->created_at))}} </b>
+                           </a>
+                       </li>
+                @endforeach
+                   </ul>
+               </div>
+                 <!-- old gallery
+           @foreach ($result_from_app->where('type','image/jpeg') as $attachment)
+           <div class="col-lg-3 col-md-4 col-xs-6 thumb" style="text-align: -webkit-center !important;">
+             <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
+                data-image="{{'http://172.16.10.14/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" data-target="#image-gallery">
+                <b class="float-left">#: {{$i++}}</b>
+                 <img class="img-thumbnail" src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Another alt text">
+                 <b class="float-right" style="padding:0% 10%">Date: {{date('d M Y',strtotime($attachment->created_at))}} </b>
+             </a>
+         </div>
+           @endforeach -->
+
+             </div>
+
+
+             <!-- <div class="modal fade" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="overflow-x: hidden !important;">
+                 <div class="modal-dialog modal-lg" style="width:30% !important">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             < <h4 class="modal-title" id="image-gallery-title"></h4>
+                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                             </button> ->
+                             <div class="col-md-12">
+                               <button type="button" class="btn btn-secondary float-left" id="show-previous-image"><i class="fa fa-arrow-left"></i>
+                               </button>
+
+                             </button>
+                               <button type="button" id="show-next-image" class="btn btn-secondary float-right"><i class="fa fa-arrow-right"></i>
+                             </div>
+                         </div>
+                         <div class="modal-body">
+                           <center>
+                             <img id="image-gallery-image" class="img-responsive col-md-12 imggaltiQ" src="">
+                           </center>
+                         </div>
+                         <div class="modal-footer">
+
+                         </div>
+                     </div>
+                 </div>
+             </div> -->
+             <!-- ----------------------- end photo gallery ------------------ -->
+             <h2 class="txtdecundlin vidgallary pointer" title="click to Expand video gallary">Video Gallery</h2>
+             <!-- ----------------------- start video Gallery ---------------- -->
+             <div class="row vidgallaryDiv nodisplay col-md-12">
+               @foreach($result_from_app->where('type','video/mp4') as $video)
+               <div class="col-lg-3 col-md-3 col-xs-6 thumb pdlfrt2">
+                 <b class="float-left">#: {{$i++}}</b>
+               <video controls>
+                 <source src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$video->m_project_progress_id.'/'.$video->project_attachement}}" type="video/mp4">
+                 <source src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$video->m_project_progress_id.'/'.$video->project_attachement}}" type="video/ogg">
+                 Your browser does not support the video tag.
+               </video>
+               <b class="float-right" style="padding:0% 10%">Date: {{date('d M Y',strtotime($attachment->created_at))}} </b>
+             </div>
+             @endforeach
+             </div>
+             </div>
+             <!-- ----------------------- end video Gallery ---------------- -->
+          </div>
+          <div class="tab-pane" id="profile1" role="tabpanel">
+            <!-- ---------------- start tree vie ------------------ -->
+            <div class="pdlfrt2">
+                <h2 class="txtdecundlin pointer">WBS</h2>
+                <ul id="myUL">
+                  <li><span class="caret caret-down">Beverages</span>
                     <ul class="nested active">
-                      <li>Sencha</li>
-                      <li>Gyokuro</li>
-                      <li>Matcha</li>
-                      <li>Pi Lo Chun</li>
+                      <li>Water</li>
+                      <li>Coffee</li>
+                      <li><span class="caret caret-down">Tea</span>
+                        <ul class="nested active">
+                          <li>Black Tea</li>
+                          <li>White Tea</li>
+                          <li><span class="caret caret-down">Green Tea</span>
+                            <ul class="nested active">
+                              <li>Sencha</li>
+                              <li>Gyokuro</li>
+                              <li>Matcha</li>
+                              <li>Pi Lo Chun</li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
                     </ul>
                   </li>
                 </ul>
-              </li>
-            </ul>
-          </li>
-        </ul> --}}
-    <!-- ---------------- end tree vie ------------------ -->
-    <!-- ----------------- start photo gallery -------------------- -->
-    <h2 class="txtdecundlin pointer photogallary" title="click to Expand photo gallary">Photo Gallery</h2>
-		<div class="row photogallaryDiv nodisplay col-md-12" style="padding-bottom:5%">
-            <!-- <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
-                   data-image="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                   data-target="#image-gallery">
-                    <img class="img-thumbnail"
-                         src="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                         alt="">
-                </a>
-            </div> -->
-            <?php $i=1; ?>
-      @foreach ($result_from_app->where('type','image/jpeg') as $attachment)
-      <div class="col-lg-3 col-md-4 col-xs-6 thumb" style="text-align: -webkit-center !important;">
-        <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
-           data-image="{{'http://172.16.10.14/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" data-target="#image-gallery">
-           <b class="float-left">#: {{$i++}}</b>
-            <img class="img-thumbnail" src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Another alt text">
-            <b class="float-right" style="padding:0% 10%">Date: {{date('d M Y',strtotime($attachment->created_at))}} </b>
-        </a>
-    </div>
-      @endforeach
-
+              </div>
+            <!-- ---------------- end tree vie ------------------ -->
+          </div>
         </div>
-
-
-        <div class="modal fade" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="overflow-x: hidden !important;">
-            <div class="modal-dialog modal-lg" style="width:30% !important">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <!-- <h4 class="modal-title" id="image-gallery-title"></h4>
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span>
-                        </button> -->
-                        <div class="col-md-12">
-                          <button type="button" class="btn btn-secondary float-left" id="show-previous-image"><i class="fa fa-arrow-left"></i>
-                          </button>
-
-                        </button>
-                          <button type="button" id="show-next-image" class="btn btn-secondary float-right"><i class="fa fa-arrow-right"></i>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                      <center>
-                        <img id="image-gallery-image" class="img-responsive col-md-12 imggaltiQ" src="">
-                      </center>
-                    </div>
-                    <div class="modal-footer">
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- ----------------------- end photo gallery ------------------ -->
-        <h2 class="txtdecundlin vidgallary pointer" title="click to Expand video gallary">Video Gallery</h2>
-        <!-- ----------------------- start video Gallery ---------------- -->
-        <div class="row vidgallaryDiv nodisplay col-md-12">
-          @foreach($result_from_app->where('type','video/mp4') as $video)
-          <div class="col-lg-3 col-md-3 col-xs-6 thumb pdlfrt2">
-            <b class="float-left">#: {{$i++}}</b>
-          <video controls autoplay>
-            <source src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$video->m_project_progress_id.'/'.$video->project_attachement}}" type="video/mp4">
-            <source src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$video->m_project_progress_id.'/'.$video->project_attachement}}" type="video/ogg">
-            Your browser does not support the video tag.
-          </video>
-          <b class="float-right" style="padding:0% 10%">Date: {{date('d M Y',strtotime($attachment->created_at))}} </b>
-        </div>
-        @endforeach
-        </div>
-        </div>
-        <!-- ----------------------- end video Gallery ---------------- -->
-	</div>
-</div>
+  	</div>
   </div>
 </div>

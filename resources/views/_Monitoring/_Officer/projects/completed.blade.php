@@ -3,6 +3,12 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/pages/data-table/css/buttons.dataTables.min.css')}}" />
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/responsive.bootstrap4.min.css')}}" />
 @section('content')
+<style>
+/* active page */
+.Completed a{color : #FE8A7D !important;}
+.Monitoring_Projects{color : #FE8A7D !important;}
+/* end active */
+</style>
 <div class="row">
     <div class="col-md-12">
     <div class="card z-depth-5">
@@ -18,7 +24,7 @@
                                 <th>Sector</th>
                                 <th>Assigned By</th>
                                 <th>Progress</th>
-                                
+
                             </tr>
                             </thead>
                             <tbody>
@@ -31,11 +37,11 @@
                                         </div></td>
                                 </tr>
 
-                                
+
                             </tbody>
                         </table>
                     </div>
-                </div>   
+                </div>
         </div>
         <div class="card-footer"></div>
     </div>
