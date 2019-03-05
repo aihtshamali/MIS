@@ -34,11 +34,11 @@ DGME | Add Project
 @section('content')
 <div class="row">
     <div class="col-md-7 ">
-        <form action="{{route('projects.store')}}" name="dataentryForm" id="" method="POST">
+        <form action="{{route('projects.store')}}" class="dataentryForm" name="dataentryForm" id="" method="POST">
           {{ csrf_field() }}
         <div class="card">
 
-            <div class="card-header"> <h4><b>Add New Monitoring Project</b></h4></div>
+            <div class="card-header"> <h4><b>Add New Monitoring project</b></h4></div>
             <div class="card-block">
                 <div class="form-group row">
                     <div class="col-md-12">
@@ -809,6 +809,13 @@ $(document).on('change','#gs_no,#financial_year',function(){
 //      $("#districts").val('').trigger('change');
 //    }
 // });
-
+$(document).ready(function(){
+  $(document).on('click', 'button.confirm', function(){
+      $('form.dataentryForm').submit();
+  });
+  $('form.dataentryForm').on('submit', function( e ) {
+    e.preventDefault();
+    });
+    });
 </script>
 @endsection

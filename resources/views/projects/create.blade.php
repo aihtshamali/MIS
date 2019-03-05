@@ -46,13 +46,37 @@ vertical-align: super;
 #section2{
   display: none;
 }
+.modal-dialog {
+    right: auto;
+    left: 0% !important;
+    width: fit-content !important;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
   </style>
 @endsection
 @section('content')
-
 <!-- Content Wrapper. Contains page content -->
+<div id="testmodal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Confirmation</h4>
+            </div>
+            <div class="modal-body">
+                <p>Do you want to save changes you made to document before closing?</p>
+                <p class="text-warning"><small>If you don't save, your changes will be lost.</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="submitform btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="content-wrapper">
-  <form class="form-horizontal" action="{{route('projects.store')}}" method="POST" enctype="multipart/form-data">
+  <form class="form-horizontal dataentryForm" action="{{route('projects.store')}}" method="POST" enctype="multipart/form-data">
     {{csrf_field()}}
   <section id="section1">
     <div id="outerbox" class="box box-default">
@@ -431,11 +455,9 @@ vertical-align: super;
     </div>
     </div>
   </div>
-  <input type="submit" class="btn btn-success pull-right" style="margin-top:10px" value="ADD Project">
-
+  <input type="submit" class="btn btn-success pull-right onClickPop show-modal" style="margin-top:10px" value="ADD Project">
 </div>
 </div>
-
 <div class="col-md-6" >
 <div class="box box-info">
           <div class="box-header with-border">
@@ -1003,6 +1025,39 @@ if(opt == ""){
 
 }else
 $('#table1').show("slow");
+});
+$(document).ready(function(){
+  // $(".onClickPop").click(function(){
+  //
+  // });
+//   $(document).ready(function(){
+//   var show_btn=$('.show-modal');
+//   //$("#testmodal").modal('show');
+// });
+//
+// $(function() {
+
+  // To Submit the Above form
+        $('button.submitform').on('click',function(){
+            $('form.dataentryForm').submit();
+        });
+
+// Opening Modal for Confirmation
+        $('form.dataentryForm').on('submit', function( e ) {
+          e.preventDefault();
+          $('.show-modal').click(function(){
+            $("#testmodal").modal('show');
+        });
+          // console.log($('form.dataentryForm input :invalid').length);
+          // console.log('s');
+
+            // Custombox.open({
+            //     target: '#testmodal-1',
+            //     effect: 'fadein'
+            // });
+            // e.preventDefault();
+        // });
+    });
 });
 </script>
 @endsection
