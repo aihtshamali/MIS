@@ -255,9 +255,9 @@
                                 <td>
                                     @foreach ($assigned->AssignedProjectTeam as $team)
                                     @if ($team->team_lead==1)
-                                      <span style="font-weight:bold;color:blue">{{$team->user->first_name}}  {{$team->user->last_name}} -</span>
+                                <span style="font-weight:bold;color:red"><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}">{{$team->user->first_name}}  {{$team->user->last_name}}</a> - </span>
                                     @else
-                                      <span class="">{{$team->user->first_name}} {{$team->user->last_name}}</span>
+                                      <span class=""><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}">{{$team->user->first_name}} {{$team->user->last_name}}</a></span>
                                     @endif
                                   @endforeach
 
