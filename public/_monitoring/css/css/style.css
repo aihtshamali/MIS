@@ -43,13 +43,25 @@ h6 {
 p {
     font-size: 13px
 }
-
 @media only screen and (min-width: 1400px) {
     p {
         font-size: 14px
     }
 }
-
+@media (min-width: 1700px) and (max-width: 1799px) {
+    .topSummary
+    {
+        margin-top: -2.6% !important;
+        margin-left: -2.5% !important;
+    }
+}
+@media (min-width: 1900px) and (max-width: 2100px) {
+    .topSummary
+    {
+        margin-top:-2% !important;
+        margin-left:-1.9% !important;
+    }
+}
 .media-left {
     padding-right: 20px
 }
