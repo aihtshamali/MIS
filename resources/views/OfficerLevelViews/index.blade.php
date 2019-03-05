@@ -1,4 +1,4 @@
-@extends('layouts.uppernav')
+-@extends('layouts.uppernav')
 @section('styletag')
 <style media="screen">
   .InProgressProjects{

@@ -32,14 +32,19 @@ class ViewAsOfficerController extends Controller
       ->where('complete','True')
       ->where('acknowledge','1')
       ->get();
-
+// dd($completedProjects);
       return view('officerLevelViews.index',['user'=>$user,'NewAssignedprojects'=>$NewAssignedprojects,'inProgressProjects'=>$InProgressProjects,'CompletedProjects'=>$completedProjects]);
     }
 
     // Activities Page
 
-    public function ViewOfficerActivities($id,$user_id){
-      if (!is_dir('storage/uploads/projects/project_activities/'.User::find($user_id)->username)) {
+    public function ViewOfficerActivities(Request $request){
+      $user_id=$request->user_id;
+      $id=$request->project_id;
+      if(!is_dir('storage/uploads/projects/project_activities')){
+        mkdir('storage/uploads/projects/project_activities');
+      }
+      elseif (!is_dir('storage/uploads/projects/project_activities/'.User::find($user_id)->username)) {
       // dir doesn't exist, make it
         mkdir('storage/uploads/projects/project_activities/'.User::find($user_id)->username);
       }
