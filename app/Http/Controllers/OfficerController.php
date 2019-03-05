@@ -1551,7 +1551,12 @@ class OfficerController extends Controller
     $tabs=explode("_",$request->page_tabs);
     $maintab=$tabs[0];
     $innertab=$tabs[1];
-    return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
+    // return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
+     // Copy from here
+     $tabs=explode("_",$request->page_tabs);
+     $maintab=$tabs[0];
+     $innertab=$tabs[1];
+     return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
     }
     public function saveUserKpi(Request $request){
       $counter = 1;
