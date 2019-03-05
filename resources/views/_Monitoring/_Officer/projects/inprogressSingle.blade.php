@@ -471,15 +471,15 @@ $(document).ready(function(){
     function getWBS(route,id){
         axios.get(route,{
      params:{
-         "assigned_project_id":id,
+         "user_location_id":id,
      }
      })
      .then((response) => {
          var ds ='';
-         for (let i = 0; i < response.data.m_kpi.sector.length; i++) {
-            //  console.log(response.data.m_kpi.sector);
+             console.log(response);
+         for (let i = 0; i < response.data.length; i++) {
 
-             ds = response.data.m_kpi.sector[i];
+             ds = response.data[i];
             var oc = $('#WBSChart').orgchart({
             'data' : ds,
             'nodeContent': 'title'
@@ -497,7 +497,11 @@ $(document).ready(function(){
 
    $('.summaryNav').on('click', function () {
         if(wbs){
-            getWBS('{{route("getProjectKpi")}}',"{{$project->id}}");
+          assigned_user_locations.forEach(element => {
+            console.log('sa');
+            
+            getWBS('{{route("getProjectKpi")}}',element.id);            
+          });
             wbs=false;
         }
     });

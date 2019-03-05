@@ -1185,9 +1185,12 @@ $(document).ready(function(){
     let data = $("#CloneThisUserLoc").clone();
     let user_div = data.find('select')[0];
     let location_div = data.find('select')[1];
-    let new_user = "user_location_"+user_location_count++;
+    let site_div = data.find('input.site_name');
+    let new_user = "user_location_"+user_location_count;
+    let new_site = "site_name_"+user_location_count++;
     let new_location = "location_user_"+(location_user_count++) + '[]';
     $(user_div).attr('name',new_user);
+    $(site_div).attr('name',new_site);
     $(location_div).attr('name',new_location);
     data.appendTo('.CloneUserLocHere');
     $("#counts_user_location").attr('value', user_location_count);

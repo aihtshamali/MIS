@@ -237,7 +237,7 @@
                       .select2-container--default .select2-selection--multiple .select2-selection__rendered li{padding: 0% !important};
                     </style>
                     <div class="row col-md-10" id="CloneThisUserLoc" style="margin-bottom:1% !important;">
-                      <div class="col-md-6 text-center">
+                      <div class="col-md-5 text-center">
                         <div class="col-md-10 offset-md-1 delLastLocChild">
                         <select class="select2" id="" name="user_location_1">
                             @foreach($team as $t)
@@ -246,7 +246,7 @@
                         </select>
                       </div>
                       </div>
-                      <div class="col-md-6 text-center">
+                      <div class="col-md-5 text-center">
                         <div class="col-md-10 offset-md-1 delLastLocChild">
                         <select class="select2" id="" name="location_user_1[]" multiple="multiple">
                             @foreach ($assigned_districts as $ad)
@@ -254,6 +254,11 @@
                             @endforeach
                         </select>
                       </div>
+                    </div>
+                    <div class="col-md-2 text-center">
+                    <div class="col-md-12">
+                        <input type="text" placeholder="Site Name" name="site_name_1" class="site_name form-control">
+                    </div>
                       </div>
                     </div>
                     <div class="col-sm-2 text_center">
@@ -420,7 +425,7 @@
                             <input type="hidden" name="counts" id="counts_user_location_id" value="1">
                             <select class="select2" id="" name="user_location_id_1">
                                 @foreach ($projectProgressId->MAssignedUserLocation as $mUserLocation)
-                                    <option  value="{{$mUserLocation->id}}">{{$mUserLocation->User->first_name}} {{$mUserLocation->User->last_name}} - {{$mUserLocation->District->name}}</option>
+                            <option  value="{{$mUserLocation->id}}">{{$mUserLocation->User->first_name}} {{$mUserLocation->User->last_name}} - {{$mUserLocation->District->name}} -{{$mUserLocation->site_name}}</option>
                                 @endforeach
                             </select>
                         </div>
