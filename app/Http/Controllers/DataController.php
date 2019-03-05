@@ -117,9 +117,9 @@ class DataController extends Controller
 
       public function setProjectKpi(Request $request){
         $data =  json_decode($request->data, true);
-        foreach ($data['m_kpi']['sector'] as $value) {
-          foreach ($value['children'] as $value2) {
-            foreach ($value2['children'] as $value3) {
+        foreach ($data as $value) {
+          // foreach ($value['children'] as $value2) {
+            foreach ($value['children'] as $value3) {
               $m_assigned_kpi_level1 = MAssignedKpiLevel1::find($value3['id']);
               if($m_assigned_kpi_level1){
                 $m_assigned_kpi_level1->completed = $value3['completed'];
@@ -155,7 +155,7 @@ class DataController extends Controller
                 }
               }
             };
-          };
+          // };
         };
         // foreach ($data as $key => $value) {
         //   return $value;
