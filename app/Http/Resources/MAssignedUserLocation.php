@@ -18,6 +18,7 @@ class MAssignedUserLocation extends Resource
     {
         return [
             "id"=> $this->id,
+            "site_name"=> $this->site_name,
             "district" => $this->when($this->user_id == Auth::id(),new DistrictResource($this->District)),
         ];
     }

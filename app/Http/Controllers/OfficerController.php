@@ -735,6 +735,9 @@ class OfficerController extends Controller
         $level_1=MAssignedKpiLevel1::where('m_project_progress_id',$projectProgressId->id)->get();
         $team = AssignedProjectTeam::where('assigned_project_id',$project->id)->get();
         $assigned_districts = AssignedDistrict::where('project_id',$request->project_id)->get();
+
+        $user_locations=$projectProgressId->MAssignedUserLocation;
+        // dd($user_locations);
         // dd($assigned_districts[0]->District);
       // dd($level_1[0]->MAssignedKpiLevel2[1]->MAssignedKpiLevel3);
         // monitoring_kpi_recursion($level_1);
@@ -745,7 +748,8 @@ class OfficerController extends Controller
           'projectWithRevised'=>$projectWithRevised,
          'components'=> $components,
          'monitoringProjectId'=> $monitoringProjectId,
-         'team_lead_check' => $team_lead_check
+         'team_lead_check' => $team_lead_check,
+         'assigned_user_locations'=>$user_locations
         ]);
         // dd($generalFeedback[0]u->MAssignedProjectFeedBack->answer);
         // dd($components[0]->MPlanObjectivecomponentMapping[0]->m_plan_objective_id);
@@ -1525,12 +1529,14 @@ class OfficerController extends Controller
       $counter = 1;
       $user = "user_location_";
       $location = "location_user_";
+      $site = "site_name_";
       while($counter <= $request->counts){
         if($request[$user.$counter]){
           $inner_counter = 1;
           foreach($request[$location.$inner_counter] as $d){
             $m_assigned_user_location = new MAssignedUserLocation();
             $m_assigned_user_location->user_id = $request[$user.$counter];
+            $m_assigned_user_location->site_name = $request[$site.$counter];
             $m_assigned_user_location->district_id = $d;
             $m_assigned_user_location->assigned_by = Auth::id();
             $m_assigned_user_location->m_project_progress_id = $request->progress_id;
