@@ -33,7 +33,7 @@
                         aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Plan ( KPI's)</b></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link userKPITab" data-toggle="tab" href="#userKPIDiv" id=""
+                    <a class='nav-link {{isset($innertab) && $innertab=="uderKPI" ? "active" : ""}} userKPITab' data-toggle="tab" href="#userKPIDiv" id=""
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">User KPI</b></a>
                 </li>
                 <!-- {{-- <li class="nav-item">
@@ -330,7 +330,7 @@
                 <form class="serializeform" action="{{route('kpiComponentMapping')}}" method="post">
                     {{ csrf_field() }}
                     <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
-                    <input type="hidden" name="page_tabs" value="plan_task">
+                    <input type="hidden" name="page_tabs" value="plan_uderKPI">
 
                     <div class="card m-0 z-depth-right-0">
                         <div class="card-header">
@@ -398,14 +398,14 @@
                         </div>
                         <div class="card-footer">
                             <div class="col-md-3 offset-md-9">
-                            <button class="btn btn-primary btn-md activities saveNnextbtn" type="submit" id="svkp">Save </button>
+                            <button class="btn btn-primary btn-md" type="submit" id="">Save </button>
 
                             </div>
                         </div>
                     </div>
                   </form>
                 </div>
-                <div class="tab-pane " id="userKPIDiv" role="tabpanel" aria-expanded="false" style="display:none;">
+                <div class='tab-pane {{isset($innertab) && $innertab=="uderKPI" ? "active" : ""}}' id="userKPIDiv" role="tabpanel" aria-expanded="false" style="display:none;">
                   <!-- headings -->
                 <form action="{{route('saveUserKpi')}}" method="post">
                     {{ csrf_field() }}
@@ -454,7 +454,7 @@
                       </div>
                       </div>
                        <div class="col-md-2">
-                            <input name="weightage[]" id="" class="col-md-11 float-right form-control" placeholder="Weightage" type="text" style="text-align:center;border: 1px solid #807d7d8a !important;" value="">
+                            <input name="weightage[]" id="" type="number" class="col-md-11 float-right form-control" placeholder="Weightage" style="text-align:center;border: 1px solid #807d7d8a !important;" value="">
                         </div>
                     </div>
                     <div class="col-sm-2 text_center">

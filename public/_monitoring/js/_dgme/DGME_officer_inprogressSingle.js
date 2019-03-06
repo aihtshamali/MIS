@@ -393,29 +393,29 @@ $(document).ready(function () {
         hideall();
         $('#procu').show();
     });
-    $('#did').on('click', function () {
-        hideall();
-        $('#CostingDiv').show();
-        $("#tili").removeClass("active");
-        $("#cosli").addClass("active");
-    });
+    // $('#did').on('click', function () {
+    //     hideall();
+    //     $('#CostingDiv').show();
+    //     $("#tili").removeClass("active");
+    //     $("#cosli").addClass("active");
+    // });
     $('.TimeTab').on('click', function () {
         hideall();
         $('#TimesDiv').show();
     });
 
-    $('#saveTasks').on('click', function () {
-        hideall();
-        $('#TimesDiv').show();
-        $("#tali").removeClass("active");
-        $("#tili").addClass("active");
-    });
-    $('#svkp').on('click', function () {
-        hideall();
-        $('#activities').show();
-        $("#kpisss").removeClass("active");
-        $("#proloc").addClass("active");
-    });
+    // $('#saveTasks').on('click', function () {
+    //     hideall();
+    //     $('#TimesDiv').show();
+    //     $("#tali").removeClass("active");
+    //     $("#tili").addClass("active");
+    // });
+    // $('#svkp').on('click', function () {
+    //     hideall();
+    //     $('#activities').show();
+    //     $("#kpisss").removeClass("active");
+    //     $("#proloc").addClass("active");
+    // });
 
     $('.kpis').on('click', function () {
         hideall();
@@ -464,12 +464,12 @@ $(document).ready(function () {
         hideall();
         $('#financial').show();
     });
-    $('#saveObjComp').on('click', function () {
-        hideall();
-        $('#MOBdiv').show();
-        $('#MOBtab').addClass("active");
-        $('#pdli').removeClass("active");
-    });
+    // $('#saveObjComp').on('click', function () {
+    //     hideall();
+    //     $('#MOBdiv').show();
+    //     $('#MOBtab').addClass("active");
+    //     $('#pdli').removeClass("active");
+    // });
     $('.MOBtab').on('click', function () {
         hideall();
         $('#MOBdiv').show();
