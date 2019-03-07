@@ -25310,3 +25310,5 @@ body.dark #styleSelector .form-control {
 .text_center .btn-danger {
   font-size: 27px !important;
 }
+::selection {color: #FE8A7D !important;background: transparent !important;}
+::-moz-selection {color: #FE8A7D !important;background: transparent !important;}

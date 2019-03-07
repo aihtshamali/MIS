@@ -336,38 +336,6 @@
                         <div class="card-header">
                             <h4>KPI(s)</h4>
                         </div>
-                        <div class="card-block">
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <h5 class="mb_2">Previous Mapped Kpis</h5>
-                                    {{-- {{dump($mPlanKpiComponents)}} --}}
-                                    <div class="col-md-12 row">
-                                         <div class="col-md-4 text-center">
-                                             <h5>KPIs</h5>
-                                         </div>
-                                         <div class="col-md-4 text-center">
-                                             <h5>Component</h5>
-                                         </div>
-                                         <div class="col-md-4 text-center">
-                                             <h5>Weightage</h5>
-                                         </div>
-                                    </div>
-                                    @foreach ($mPlanKpiComponents as $item)
-                                    <div class="col-md-12 row">
-                                         <div class="col-md-4 text-center">
-                                             {{$item->MProjectKpi->name}}
-                                         </div>
-                                         <div class="col-md-4 text-center">
-                                             {{$item->MPlanComponent->component}}
-                                         </div>
-                                         <div class="col-md-4 text-center">
-                                             {{$item->weightage}}
-                                         </div>
-                                    </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
                         {{-- Choose KPI New --}}
                         <div class="card-block">
                           <div class="row form-group">
@@ -400,6 +368,39 @@
                             <div class="col-md-3 offset-md-9">
                             <button class="btn btn-primary btn-md" type="submit" id="">Save </button>
 
+                            </div>
+                        </div>
+                        
+                        <div class="card-block">
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <h5 class="mb_2">Previous Mapped Kpis</h5>
+                                    {{-- {{dump($mPlanKpiComponents)}} --}}
+                                    <div class="col-md-12 row">
+                                         <div class="col-md-4 text-center">
+                                             <h5>KPIs</h5>
+                                         </div>
+                                         <div class="col-md-4 text-center">
+                                             <h5>Component</h5>
+                                         </div>
+                                         <div class="col-md-4 text-center">
+                                             <h5>Weightage</h5>
+                                         </div>
+                                    </div>
+                                    @foreach ($mPlanKpiComponents as $item)
+                                    <div class="col-md-12 row">
+                                         <div class="col-md-4 text-center">
+                                             {{$item->MProjectKpi->name}}
+                                         </div>
+                                         <div class="col-md-4 text-center">
+                                             {{$item->MPlanComponent->component}}
+                                         </div>
+                                         <div class="col-md-4 text-center">
+                                             {{$item->weightage}}
+                                         </div>
+                                    </div>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                     </div>
