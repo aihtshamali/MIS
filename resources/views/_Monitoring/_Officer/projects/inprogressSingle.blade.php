@@ -36,6 +36,7 @@
 {{-- This is dgme custom css for this page only ,write here any css you want to Ok!!! --}}
 <link rel="stylesheet" href="{{asset('_monitoring/css/css/_dgme/DGME_officer_inprogressSingle.css')}}" />
 <link href="{{asset('lightRoom/lightgallery.css')}}" rel="stylesheet">
+
 <style media="screen">
     /* html{scroll-behavior: smooth;} */
     .paddtopbottom1per{padding: 1% 0% !important;}
@@ -393,7 +394,7 @@
 <script src="{{asset('_monitoring/js/bootstrap-daterangepicker/js/daterangepicker.js')}}"></script>
 <script src="{{asset('_monitoring/css/pages/advance-elements/custom-picker.js')}}"></script>
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script> -->
 <script src="{{asset('_monitoring/js/sweetalert/js/sweetalert.min.js')}}"></script>
 <script src="{{asset('_monitoring/css/js/modalEffects.js')}}"></script>
 <script src="{{asset('_monitoring/css/js/classie.js')}}"></script>
@@ -419,6 +420,11 @@
 <script src="{{asset('_monitoring/js/jquery.dm-uploader.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/demo-ui.js')}}"></script>
 <script src="{{asset('_monitoring/js/demo-config.js')}}"></script>
+{{-- end js for file upload  --}}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.3/js/jquery.orgchart.js"></script>
+<script src="{{asset('_monitoring/js/_dgme/DGME_officer_inprogressSingle.js')}}"></script>
+
 {{-- this is custom dgme js for this page only Ok ? if you want to add kindly add here dont mess here!! --}}
 <!-- File item template -->
 <script type="text/html" id="files-template">
@@ -439,20 +445,18 @@
     </div>
 </li>
 </script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.3/js/jquery.orgchart.js"></script>
-<script src="{{asset('_monitoring/js/_dgme/DGME_officer_inprogressSingle.js')}}"></script>
+
 <script>
 
 $(document).ready(function(){
   
-    console.log("Team Lead Check " +team_lead_check);
-  if(!team_lead_check){
+  //   console.log("Team Lead Check " +team_lead_check);
+  // if(!team_lead_check){
     
-    $('input').prop('disabled',true);
-    $('select').prop('disabled',true);
-    $('button').prop('disabled',true);
-  }  
+  //   $('input').prop('disabled',true);
+  //   $('select').prop('disabled',true);
+  //   $('button').prop('disabled',true);
+  // }  
     var success="{{Session::get('success')}}";
     if(success){
       toast({
@@ -977,5 +981,245 @@ $(document).ready(function()
     Physicalprog.attr("class", "pdz_six greentXt");
   }
 });
+</script>
+<!-- for test upload -->
+<script>
+    const dropArea = document.getElementById('drop--area');
+
+    ['dragenter', 'dragover'].forEach(event => {
+    dropArea.addEventListener(event, function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        dropArea.classList.add('highlight');
+    });
+    });
+
+    ['dragleave', 'drop'].forEach(event => {
+    dropArea.addEventListener(event, function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        dropArea.classList.remove('highlight');
+    });
+    });
+
+    dropArea.addEventListener('drop', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    let dt = e.dataTransfer;
+    let files = dt.files;
+    handleFiles(files).then(result => {
+        console.log(result.children)
+    })
+    });
+
+    function handleFiles(files) {
+    return new Promise((resolve, reject) => {
+        const Files = Array.from(files);
+        const createFileId = ( length ) => {
+        let str = "";
+        for ( ; str.length < length; str += Math.random().toString( 36 ).substr( 2 ));
+        return str.substr( 0, length );
+        }
+        Files.forEach(file => {
+        file.id = createFileId((Math.round(file.lastModified * 100)/file.lastModified));
+        uploadFile(file);
+        previewFile(file);
+        });
+        
+        resolve(document.getElementById('gallery'));
+    })
+    }
+
+    function previewFile(file) {
+    const reader = new FileReader();
+    //console.log('file:id', file.id)
+    reader.readAsDataURL(file);
+    reader.onloadend = function() {
+        const img = document.createElement('img');
+        const fig = document.createElement('figure');
+        const spanOne = document.createElement('span');
+        const spanTwo = document.createElement('span');
+        const mainSpan = document.createElement('span');
+        const progressSpan = document.createElement('span');
+        fig.classList.add('preview');
+        img.classList.add('img');
+        mainSpan.classList.add('mainSpan');
+        spanOne.classList.add('spanOne');
+        spanTwo.classList.add('spanTwo');
+        progressSpan.classList.add('progressSpan');
+        progressSpan.id = file.id;
+        mainSpan.onclick = function (e) {
+        this.parentElement.remove();
+        }
+        img.src = reader.result;
+        [spanOne, spanTwo].forEach(item => {
+        mainSpan.appendChild(item);
+        });
+        [img, mainSpan, progressSpan].forEach(item => {
+        fig.appendChild(item);
+        });
+        document.getElementById('gallery').appendChild(fig);
+    }
+    }
+
+    function uploadFile(file) {
+    const config = {
+        headers: { "X-Requested-With": "XMLHttpRequest" },
+        onUploadProgress: function (progressEvent) {
+        let progress = Math.round((progressEvent.loaded * 100.0) / progressEvent.total);
+        if (document.getElementById(`${file.id}`) !== null) {
+            document.getElementById(`${file.id}`).style.height = `${100 - progress}%`;
+        }
+        }
+    }
+    const url = 'https://api.cloudinary.com/v1_1/dxlhzerlq/upload';
+    const data = new FormData();
+    data.append("upload_preset", "acjlrvii"); //append cloudinary specific config
+    data.append('file', file);
+    axios.post(url, data, config).then(res => {
+    if (res.data) {
+        const uploadedImgData = res.data;
+        const imgTag = document.getElementById(`${file.id}`).previousSibling.previousSibling;
+        imgTag.src = uploadedImgData.url;
+        imgTag.dataset.data = JSON.stringify(uploadedImgData);
+        document.getElementById(`${file.id}`).parentElement.classList.remove('preview');
+        document.getElementById(`${file.id}`).parentElement.classList.add('done');
+        //console.log(imgTag);
+    }
+    }).catch(err => {
+        console.log(err);
+    })
+    } 
+    </script>
+    <script>
+//Reference: 
+//https://www.onextrapixel.com/2012/12/10/how-to-create-a-custom-file-input-with-jquery-css3-and-php/
+;(function($) {
+
+// Browser supports HTML5 multiple file?
+var multipleSupport = typeof $('<input/>')[0].multiple !== 'undefined',
+    isIE = /msie/i.test( navigator.userAgent );
+
+$.fn.customFile = function() {
+
+  return this.each(function() {
+
+    var $file = $(this).addClass('custom-file-upload-hidden'), // the original file input
+        $wrap = $('<div class="file-upload-wrapper">'),
+        $input = $('<input type="text" class="file-upload-input" />'),
+        // Button that will be used in non-IE browsers
+        $button = $('<button type="button" class="file-upload-button">Select Videos</button>'),
+        // Hack for IE
+        $label = $('<label class="file-upload-button" for="'+ $file[0].id +'">Select Videos</label>');
+
+    // Hide by shifting to the left so we
+    // can still trigger events
+    $file.css({
+      position: 'absolute',
+      left: '-9999px'
+    });
+
+    $wrap.insertAfter( $file )
+      .append( $file, $input, ( isIE ? $label : $button ) );
+
+    // Prevent focus
+    $file.attr('tabIndex', -1);
+    $button.attr('tabIndex', -1);
+
+    $button.click(function () {
+      $file.focus().click(); // Open dialog
+    });
+
+    $file.change(function() {
+
+      var files = [], fileArr, filename;
+
+      // If multiple is supported then extract
+      // all filenames from the file array
+      if ( multipleSupport ) {
+        fileArr = $file[0].files;
+        for ( var i = 0, len = fileArr.length; i < len; i++ ) {
+          files.push( fileArr[i].name );
+        }
+        filename = files.join(', ');
+
+      // If not supported then just take the value
+      // and remove the path to just show the filename
+      } else {
+        filename = $file.val().split('\\').pop();
+      }
+
+      $input.val( filename ) // Set the value
+        .attr('title', filename) // Show filename in title tootlip
+        .focus(); // Regain focus
+
+    });
+
+    $input.on({
+      blur: function() { $file.trigger('blur'); },
+      keydown: function( e ) {
+        if ( e.which === 13 ) { // Enter
+          if ( !isIE ) { $file.trigger('click'); }
+        } else if ( e.which === 8 || e.which === 46 ) { // Backspace & Del
+          // On some browsers the value is read-only
+          // with this trick we remove the old input and add
+          // a clean clone with all the original events attached
+          $file.replaceWith( $file = $file.clone( true ) );
+          $file.trigger('change');
+          $input.val('');
+        } else if ( e.which === 9 ){ // TAB
+          return;
+        } else { // All other keys
+          return false;
+        }
+      }
+    });
+
+  });
+
+};
+
+// Old browser fallback
+if ( !multipleSupport ) {
+  $( document ).on('change', 'input.customfile', function() {
+
+    var $this = $(this),
+        // Create a unique ID so we
+        // can attach the label to the input
+        uniqId = 'customfile_'+ (new Date()).getTime(),
+        $wrap = $this.parent(),
+
+        // Filter empty input
+        $inputs = $wrap.siblings().find('.file-upload-input')
+          .filter(function(){ return !this.value }),
+
+        $file = $('<input type="file" id="'+ uniqId +'" name="'+ $this.attr('name') +'"/>');
+
+    // 1ms timeout so it runs after all other events
+    // that modify the value have triggered
+    setTimeout(function() {
+      // Add a new input
+      if ( $this.val() ) {
+        // Check for empty fields to prevent
+        // creating new inputs when changing files
+        if ( !$inputs.length ) {
+          $wrap.after( $file );
+          $file.customFile();
+        }
+      // Remove and reorganize inputs
+      } else {
+        $inputs.parent().remove();
+        // Move the input so it's always last on the list
+        $wrap.appendTo( $wrap.parent() );
+        $wrap.find('input').focus();
+      }
+    }, 1);
+
+  });
+}
+
+}(jQuery));
+
+$('input[type=file]').customFile();
 </script>
 @endsection

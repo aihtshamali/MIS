@@ -529,6 +529,8 @@ $(document).ready(function () {
     $('.Documents').on('click', function () {
         hideall();
         $('#Documents').show();
+        $('#r_monitoring').hide();
+        $('.resultNavBar').hide();
     });
 });
 
