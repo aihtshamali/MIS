@@ -580,18 +580,22 @@ class OfficerController extends Controller
       public function monitoring_inprogress_location_saved(Request $request)
       {
         $total_progresses = AssignedProject::find($request->assigned_project_id)->MProjectProgress;
-        $m_project_location = MProjectLocation::where('m_project_progress_id',$total_progresses[count($total_progresses)-1]->id)->first();
-        if(!$m_project_location){
+        // $m_project_location = MProjectLocation::where('m_project_progress_id',$total_progresses[count($total_progresses)-1]->id)->first();
+        // if(!$m_project_location){
+        //   $m_project_location = new MProjectLocation();
+        // }
+        foreach ($request->district as $district) {
           $m_project_location = new MProjectLocation();
+          $m_project_location->user_id= Auth::id();
+          $m_project_location->m_project_progress_id = $total_progresses[count($total_progresses)-1]->id;
+          $m_project_location->district = $district;
+          // $m_project_location->city = $request->city;
+          $m_project_location->city = null;
+          $m_project_location->gps = $request->gps;
+          $m_project_location->longitude = $request->longitude;
+          $m_project_location->latitude = $request->latitude;
+          $m_project_location->save();
         }
-        $m_project_location->user_id= Auth::id();
-        $m_project_location->m_project_progress_id = $total_progresses[count($total_progresses)-1]->id;
-        $m_project_location->district = $request->district;
-        $m_project_location->city = $request->city;
-        $m_project_location->gps = $request->gps;
-        $m_project_location->longitude = $request->longitude;
-        $m_project_location->latitude = $request->latitude;
-        $m_project_location->save();
         $msg='Saved';
         $tabs=explode("_",$request->page_tabs);
         $maintab=$tabs[0];
@@ -1316,7 +1320,7 @@ class OfficerController extends Controller
       public function saveMonitoringAttachments(Request $request)
       {
         // return response()->json($request->all());
-
+        // dd($request->all());
         if($request->hasFile('planmonitoringfile')){
           $file_path = $request->file('planmonitoringfile')->path();
           $file_extension = $request->file('planmonitoringfile')->getClientOriginalExtension();
@@ -1327,7 +1331,7 @@ class OfficerController extends Controller
           $data->type = $file_extension;
           $data->user_id = Auth::id();
           $data->attachment_name=$request->file_name;
-
+          $data->save();
         }
         $tabs=explode("_",$request->page_tabs);
         $maintab=$tabs[0];
