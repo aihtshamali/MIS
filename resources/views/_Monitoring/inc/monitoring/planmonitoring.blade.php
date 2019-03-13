@@ -420,7 +420,7 @@
                   <!-- user Location content -->
                   <div class="row col-md-12">
                     <div class="row col-md-10" id="CloneThisUserKPI" style="margin-bottom:1% !important;">
-                      <div class="col-md-5 text-center">
+                      <div class="col-md-4 text-center">
                         <div class="col-md-10 offset-md-1 delLastChild">
                             <input type="hidden" name="counts" id="counts_user_location_id" value="1">
                             <select class="select2" id="" name="user_location_id_1">
@@ -430,7 +430,7 @@
                             </select>
                         </div>
                       </div>
-                      <div class="col-md-5 text-center">
+                      <div class="col-md-4 text-center">
                         <div class="col-md-10 offset-md-1 delLastChild">
                         <select class="select2" id="" name="m_project_kpi_id_1[]" multiple="multiple">
                             @php
@@ -449,6 +449,9 @@
                       </div>
                        <div class="col-md-2">
                             <input name="weightage[]" id="" class="col-md-11 float-right form-control" placeholder="Weightage" type="text" style="text-align:center;border: 1px solid #807d7d8a !important;" value="">
+                        </div>
+                        <div class="col-md-2">
+                            <input name="cost[]" id="" class="col-md-11 float-right form-control" placeholder="Cost" type="text" style="text-align:center;border: 1px solid #807d7d8a !important;" value="">
                         </div>
                     </div>
                     <div class="col-sm-2 text_center">

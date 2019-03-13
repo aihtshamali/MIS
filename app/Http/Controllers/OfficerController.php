@@ -1554,10 +1554,11 @@ class OfficerController extends Controller
     return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
     }
     public function saveUserKpi(Request $request){
+      // dd($request);
       $counter = 1;
       $user = "user_location_id_";
       $project_kpi = "m_project_kpi_id_";
-      while($counter <=$request->counts){
+      while($counter<=$request->counts){
         if($request[$user.$counter]){
           $i=0;
           $inner_counter = 1;
@@ -1565,6 +1566,7 @@ class OfficerController extends Controller
             $mAssignedUserkpi = new MAssignedUserKpi();
             $mAssignedUserkpi->m_assigned_user_location_id = $request[$user.$counter];
             $mAssignedUserkpi->m_project_kpi_id = $d;
+            $mAssignedUserkpi->cost =$request->cost;
             // $mAssignedUserkpi->assigned_by = Auth::id();
             $mAssignedUserkpi->m_project_progress_id = $request->m_project_progress_id;
             // dd($mAssignedUserkpi);
