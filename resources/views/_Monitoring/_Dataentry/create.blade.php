@@ -275,7 +275,7 @@ DGME | Add Project
 
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn btn-success alert-confirm m-b-10" style=" margin-left: 80%;" >Add Project</button>
+                <button type="submit" class="btn btn-success alert-confirm m-b-10 show-confirmation-modal" style=" margin-left: 80%;" >Add Project</button>
             </div>
         </div>
     </form>
@@ -475,7 +475,7 @@ DGME | Add Project
 <script>
 $(document).on('change','#gs_no,#financial_year',function(){
    var arr = $(this).val();
-   console.log(arr);
+//    console.log(arr);
    if($(this).attr('id') == 'gs_no' && $('#financial_year').val() == projects[arr].financial_year){
      $('#titleproject').val(projects[arr].name_of_scheme);
      $('#summary_title').empty();
@@ -690,7 +690,7 @@ $(document).on('change', '#assigningForum', function() {
     $('select').on('change',function(e){
     var class_value = $(this).attr("id");
     var opt = $(this).val();
-    console.log(opt);
+    // console.log(opt);
     var values = "";
     if(opt == ""){
         $("#summary_" + class_value).hide("slow");
@@ -706,7 +706,7 @@ $(document).on('change', '#assigningForum', function() {
     $(document).on('change','input',function(){
     var class_value = $(this).attr("id");
     var opt = $(this).val();
-    console.log(opt);
+    // console.log(opt);
     if(opt == ""){
         $("#summary_" + class_value).hide("slow");
     }
@@ -813,7 +813,7 @@ $(document).ready(function(){
   $(document).on('click', 'button.confirm', function(){
       $('form.dataentryForm').submit();
   });
-  $('form.dataentryForm').on('submit', function( e ) {
+  $('form.dataentryForm').on('click','button.show-confirmation-modal', function( e ) {
     e.preventDefault();
     });
     });

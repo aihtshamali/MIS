@@ -589,7 +589,7 @@ vertical-align: super;
 <script>
  $(document).on('change','#adp,#financial_year',function(){
     var arr = $(this).val();
-    console.log(arr);
+    // console.log(arr);
     if($(this).attr('id') == 'adp' && $('#financial_year').val() == projects[arr].financial_year){
       $('#titleproject').val(projects[arr].name_of_scheme);
       $('#summary_title').empty();
@@ -733,7 +733,7 @@ $('input').on('change',function(){
 });
 
 $('#sne_data').on('change',function(e){
-  console.log('here');
+  // console.log('here');
   opt = $("#sne_data :selected").val();
   if(opt == "COST"){
     $("#sne_cost").show('slow')
@@ -812,12 +812,12 @@ $(document).on('change', '#sectors', function() {
   // console.log(opt);
   $.ajax({
     method: 'POST', // Type of response and matches what we said in the route
-    url: '/onsectorselect', // This is the url we gave in the route
+    url: '{{route("sectorselect")}}', // This is the url we gave in the route
     data: {
       "_token": "{{ csrf_token() }}",
       'data' : opt}, // a JSON object to send back
     success: function(response){ // What to do if we succeed
-      console.log(response);
+      // console.log(response);
       $("#sub_sectors").empty();
       $.each(response, function () {
           $('#sub_sectors').append("<option value=\""+this.id+"\">"+this.name+"</option>");
@@ -912,7 +912,7 @@ $(document).ready(function(){
               e.preventDefault();
               var fieldNum = this.id.charAt(this.id.length-1);
               var fieldID = "#field" + fieldNum;
-              console.log(fieldID);
+              // console.log(fieldID);
 
               $('.added'+fieldNum).remove();
             //   $(fieldID).remove();
@@ -1038,7 +1038,7 @@ $(document).ready(function(){
 // $(function() {
 
   // To Submit the Above form
-        $('button.submitform').on('click',function(){
+        $('button.submitform').on('click',function(){        
             $('form.dataentryForm').submit();
         });
 
