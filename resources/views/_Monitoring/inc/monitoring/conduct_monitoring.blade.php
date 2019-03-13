@@ -1,10 +1,11 @@
-<style scoped>
+<div class="tab-pane {{isset($maintab) && $maintab=='conduct' ? 'active' : ''}}" id="c_monitoring" role="tabpanel">
+<style scoped="true">
 .select2-container--default .select2-selection--single{
   height: 37px !important;
 }
 /* file upload */
 
-.custom-file-upload {
+/* .custom-file-upload {
   display: block;
   width: auto;
   font-size: 16px;
@@ -14,13 +15,13 @@
   display: block;
   margin-bottom: 5px;
 }
-file-upload-wrapper
-. {
+.file-upload-wrapper
+ {
   position: relative;
   margin-bottom: 5px;
 }
 
-.file-upload-input {
+.file-upload-input-conductMonitoring {
   width: 82%;
   color: #404e67;
   font-size: 16px;
@@ -33,18 +34,18 @@ file-upload-wrapper
   transition: all 0.2s ease-in;
   float: left;
 }
-.file-upload-input:hover, .file-upload-input:focus {
+.file-upload-input-conductMonitoring:hover, .file-upload-input-conductMonitoring:focus {
   background-color: #ab3326;
   outline: none;
 }
 
-.file-upload-button {
+.file-upload-button-conductMonitoring {
   cursor: pointer;
   display: inline-block;
   color: #fff;
-  font-size: 16px;
+  font-size: 14px;
   text-transform: uppercase;
-  padding: 11px 20px;
+  padding: 1em;
   border: none;
   margin-left: -1px;
   background-color: #01a9ac;
@@ -54,7 +55,8 @@ file-upload-wrapper
   -webkit-transition: all 0.2s ease-in;
   transition: all 0.2s ease-in;
   border-radius: 0.7em;
-}
+  font-weight: 600;
+} */
 /* .file-upload-button:hover {
   background-color: #404E67;
 } */
@@ -196,7 +198,6 @@ file-upload-wrapper
     cursor: pointer;
     }
 </style>
-<div class="tab-pane {{isset($maintab) && $maintab=='conduct' ? 'active' : ''}}" id="c_monitoring" role="tabpanel">
     <div class="row">
         <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12  conductNavBar">
             <!-- Nav tabs -->
@@ -1041,7 +1042,8 @@ file-upload-wrapper
                         </div>
                         <div class="custom-file-upload">
                             <h4 class="text-primary" for="file">Upload Videos: </h4> 
-                            <input type="file" id="file" name="myfiles[]" multiple />
+                            <!-- <input type="file" id="file" name="myfiles[]" multiple /> -->
+                            <input type="file" accepts="video/*" multiple>
                         </div>
                     </div>
                 </div>

@@ -148,6 +148,7 @@
           .progress-bar-success {background-color: #007b1b;}
           .progress{background: #6967674f !important;}
           .pdz_six{padding: 0% 6% !important;}
+          .topsummaryinput{font-size: 14px !important;padding: 0px !important;font-weight: 600 !important;border: none !important;color:#1e2d52 !important;max-width:115px !important}
         @media only screen and (max-width: 1024px)
           {
             .topSummary
@@ -176,6 +177,9 @@
                         <b for="GS_no" class=" mb_1 fontf_sh"><span >GS #: </span><span>{{$project->Project->ADP}}</span></b>
                     </div>
                     <div class="col-md-3">
+                        <b for="planned_start_date" class=" mb_1 fontf_sh"><span >Planned Start Date: </span><span>{{$project->Project->ProjectDetail->planned_start_date}}</span></b>
+                    </div>
+                    <div class="col-md-3">
                         <b for="planned_end_date" class=" mb_1 fontf_sh"><span >Planned End Date: </span><span>{{$project->Project->ProjectDetail->planned_end_date}}</span> </b>
                     </div>
                     <div class="col-md-3">
@@ -183,13 +187,22 @@
                           {{$dates->actual_start_date}}
                           @endif</span> </b>
                     </div>
+                    <div class="col-md-3">
+                        <b for="Date_of_visit" class=" mb_1 fontf_sh"><span >Date of visit: </span><span><input type="text" class="topsummaryinput" value="Date of visit"></span> </b>
+                    </div>
+                    <div class="col-md-3">
+                        <b for="gestation Period" class=" mb_1 fontf_sh"><span>gestation Period: </span><span><input type="text" class="topsummaryinput" value="2 year"></span> </b>
+                    </div>
+                    <div class="col-md-3">
+                        <b for="total_cost" class=" mb_1 fontf_sh"><span>Total COST: </span><span><input type="text" class="topsummaryinput" value="114.5"></span> </b>
+                    </div>
+                    <div class="col-md-3">
+                        <b for="Actual_cost_consumed" class=" mb_1 fontf_sh"><span>Actual Cost Consumed: </span><span><input type="text" class="topsummaryinput" value="89"></span> </b>
+                    </div>
                     <!-- <div class="col-md-3">
                         <b for="PHI" >PHI </b>
                         <input name="phi" id="#phi" type="number" class="frozen_pane" style="width:70% !important;"/>
                     </div> -->
-                    <div class="col-md-3">
-                        <b for="planned_start_date" class=" mb_1 fontf_sh"><span >Planned Start Date: </span><span>{{$project->Project->ProjectDetail->planned_start_date}}</span></b>
-                    </div>
                     <div class="col-md-3 ln_ht12">
                       <b for="" name="phy_progress" id="phy_progress" class="primarybold mb_1 fontf_sh"><span  class="float-left">Physical Progress: </span>
                         <span class="pdz_six" id="Physicalprog">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%</span>
@@ -1091,135 +1104,4 @@ $(document).ready(function()
     })
     } 
     </script>
-    <script>
-//Reference: 
-//https://www.onextrapixel.com/2012/12/10/how-to-create-a-custom-file-input-with-jquery-css3-and-php/
-;(function($) {
-
-// Browser supports HTML5 multiple file?
-var multipleSupport = typeof $('<input/>')[0].multiple !== 'undefined',
-    isIE = /msie/i.test( navigator.userAgent );
-
-$.fn.customFile = function() {
-
-  return this.each(function() {
-
-    var $file = $(this).addClass('custom-file-upload-hidden'), // the original file input
-        $wrap = $('<div class="file-upload-wrapper">'),
-        $input = $('<input type="text" class="file-upload-input" />'),
-        // Button that will be used in non-IE browsers
-        $button = $('<button type="button" class="file-upload-button">Select Videos</button>'),
-        // Hack for IE
-        $label = $('<label class="file-upload-button" for="'+ $file[0].id +'">Select Videos</label>');
-
-    // Hide by shifting to the left so we
-    // can still trigger events
-    $file.css({
-      position: 'absolute',
-      left: '-9999px'
-    });
-
-    $wrap.insertAfter( $file )
-      .append( $file, $input, ( isIE ? $label : $button ) );
-
-    // Prevent focus
-    $file.attr('tabIndex', -1);
-    $button.attr('tabIndex', -1);
-
-    $button.click(function () {
-      $file.focus().click(); // Open dialog
-    });
-
-    $file.change(function() {
-
-      var files = [], fileArr, filename;
-
-      // If multiple is supported then extract
-      // all filenames from the file array
-      if ( multipleSupport ) {
-        fileArr = $file[0].files;
-        for ( var i = 0, len = fileArr.length; i < len; i++ ) {
-          files.push( fileArr[i].name );
-        }
-        filename = files.join(', ');
-
-      // If not supported then just take the value
-      // and remove the path to just show the filename
-      } else {
-        filename = $file.val().split('\\').pop();
-      }
-
-      $input.val( filename ) // Set the value
-        .attr('title', filename) // Show filename in title tootlip
-        .focus(); // Regain focus
-
-    });
-
-    $input.on({
-      blur: function() { $file.trigger('blur'); },
-      keydown: function( e ) {
-        if ( e.which === 13 ) { // Enter
-          if ( !isIE ) { $file.trigger('click'); }
-        } else if ( e.which === 8 || e.which === 46 ) { // Backspace & Del
-          // On some browsers the value is read-only
-          // with this trick we remove the old input and add
-          // a clean clone with all the original events attached
-          $file.replaceWith( $file = $file.clone( true ) );
-          $file.trigger('change');
-          $input.val('');
-        } else if ( e.which === 9 ){ // TAB
-          return;
-        } else { // All other keys
-          return false;
-        }
-      }
-    });
-
-  });
-
-};
-
-// Old browser fallback
-if ( !multipleSupport ) {
-  $( document ).on('change', 'input.customfile', function() {
-
-    var $this = $(this),
-        // Create a unique ID so we
-        // can attach the label to the input
-        uniqId = 'customfile_'+ (new Date()).getTime(),
-        $wrap = $this.parent(),
-
-        // Filter empty input
-        $inputs = $wrap.siblings().find('.file-upload-input')
-          .filter(function(){ return !this.value }),
-
-        $file = $('<input type="file" id="'+ uniqId +'" name="'+ $this.attr('name') +'"/>');
-
-    // 1ms timeout so it runs after all other events
-    // that modify the value have triggered
-    setTimeout(function() {
-      // Add a new input
-      if ( $this.val() ) {
-        // Check for empty fields to prevent
-        // creating new inputs when changing files
-        if ( !$inputs.length ) {
-          $wrap.after( $file );
-          $file.customFile();
-        }
-      // Remove and reorganize inputs
-      } else {
-        $inputs.parent().remove();
-        // Move the input so it's always last on the list
-        $wrap.appendTo( $wrap.parent() );
-        $wrap.find('input').focus();
-      }
-    }, 1);
-
-  });
-}
-
-}(jQuery));
-
-$('input[type=file]').customFile();
-</script>
 @endsection
