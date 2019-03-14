@@ -266,11 +266,11 @@
                             <input type="text" placeholder="Site Name" name="site_name_1" class="site_name form-control">
                         </div>
                     </div>
-                    <div class="col-md-3 text-center">
+                    {{-- <div class="col-md-3 text-center">
                         <div class="col-md-10 offset-md-1">
-                            <input type="date" placeholder="date" name="dateLoc" class="site_name form-control">
+                            <input type="date" placeholder="date" name="dateLoc_1" class="loc_date form-control">
                         </div>
-                    </div>
+                    </div> --}}
                     </div>
                     <div class="col-sm-1 text_center">
                       <button class="btn btn-sm btn-info" title="Add" type="button" id="CloneUserLoc">+</button>
@@ -420,7 +420,8 @@
                     {{ csrf_field() }}
                     <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
                     <input type="hidden" name="page_tabs" value="plan_task">
-                  <div class="row col-md-12 form-txt-primary">
+                    <input type="hidden" name="counts" id="counts_user_location_id" value="1+">
+                  <div class="row col-md-12">
                     <div class="col-md-4 text-center">
                       <h4 class="form-txt-primary">User</h4>
                     </div>
@@ -435,9 +436,8 @@
                   <!-- user Location content -->
                   <div class="row col-md-12">
                     <div class="row col-md-10" id="CloneThisUserKPI" style="margin-bottom:1% !important;">
-                      <div class="col-md-5 text-center">
+                      <div class="col-md-4 text-center">
                         <div class="col-md-10 offset-md-1 delLastChild">
-                            <input type="hidden" name="counts" id="counts_user_location_id" value="1">
                             <select class="select2" id="" name="user_location_id_1">
                                 @foreach ($projectProgressId->MAssignedUserLocation as $mUserLocation)
                             <option  value="{{$mUserLocation->id}}">{{$mUserLocation->User->first_name}} {{$mUserLocation->User->last_name}} - {{$mUserLocation->District->name}} -{{$mUserLocation->site_name}}</option>
@@ -445,7 +445,7 @@
                             </select>
                         </div>
                       </div>
-                      <div class="col-md-5 text-center">
+                      <div class="col-md-4 text-center">
                         <div class="col-md-10 offset-md-1 delLastChild">
                         <select class="select2" id="" name="m_project_kpi_id_1[]" multiple="multiple">
                             @php
@@ -464,6 +464,9 @@
                       </div>
                        <div class="col-md-2">
                             <input name="weightage[]" id="" type="number" class="col-md-11 float-right form-control" placeholder="Weightage" style="text-align:center;border: 1px solid #807d7d8a !important;" value="">
+                        </div>
+                        <div class="col-md-2">
+                            <input name="cost[]" id="" class="col-md-11 float-right form-control" placeholder="Cost" type="text" style="text-align:center;border: 1px solid #807d7d8a !important;" value="">
                         </div>
                     </div>
                     <div class="col-sm-2 text_center">

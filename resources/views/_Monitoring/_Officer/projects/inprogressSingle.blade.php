@@ -189,39 +189,28 @@
                           @endif</span> </b>
                     </div>
                     <div class="col-md-3">
-                        <b for="Date_of_visit" class=" mb_1 fontf_sh"><span >Date of visit: </span><span><input type="text" class="topsummaryinput" value="Date of visit"></span> </b>
+                    <b for="Date_of_visit" class=" mb_1 fontf_sh"><span >Date of visit: </span><span><input type="text" class="topsummaryinput" 
+                      @if($first_visit_date->first_visit_date)
+                      value="{{$first_visit_date->first_visit_date}}"
+                      @else
+                      value=""
+                      @endif
+                      ></span> </b>
                     </div>
                     <div class="col-md-3">
-                        <b for="gestation Period" class=" mb_1 fontf_sh"><span>gestation Period: </span><span><input type="text" class="topsummaryinput" value="2 year"></span> </b>
+                    <b for="gestation Period" class=" mb_1 fontf_sh"><span>Gestation Period: </span><span>
+                      
+                       {{$gestation_period}}
+                     
+                    </span> </b>
                     </div>
-                    <div class="col-md-3">
-                        <b for="total_cost" class=" mb_1 fontf_sh"><span>Total Cost: </span><span><input type="text" class="topsummaryinput" value="114.5"></span> </b>
-                    </div>
-                    <div class="col-md-3">
-                        <b for="total_cost" class=" mb_1 fontf_sh"><span>Earned Value: </span><span><input type="text" class="topsummaryinput" value="114.5"></span> </b>
-                    </div>
-                    <div class="col-md-3">
-                        <b for="total_cost" class=" mb_1 fontf_sh"><span>Actual Value: </span><span><input type="text" class="topsummaryinput" value="testing"></span> </b>
-                    </div>
-                    <div class="col-md-3">
-                        <b for="total_cost" class=" mb_1 fontf_sh" title="Cost Performace Index"><span>CPI: </span><span><input type="text" class="topsummaryinput" value="testing"></span> </b>
-                    </div>
-                    <div class="col-md-3">
-                        <b for="total_cost" class=" mb_1 fontf_sh" title="Schedule Performance Index"><span>SPI: </span><span><input type="text" class="topsummaryinput" value="testing"></span> </b>
-                    </div>
-                    <div class="col-md-3">
-                        <b for="Actual_cost_consumed" class=" mb_1 fontf_sh"><span>Actual Cost Consumed: </span><span><input type="text" class="topsummaryinput" value="89"></span> </b>
-                    </div>
-                    <!-- <div class="col-md-3">
-                        <b for="PHI" >PHI </b>
-                        <input name="phi" id="#phi" type="number" class="frozen_pane" style="width:70% !important;"/>
-                    </div> -->
-                    <div class="col-md-3 ln_ht12">
+                       <div class="col-md-3 ln_ht12">
                         <b for="project_cost" class=" mb_1 fontf_sh"><span >Original Approve Cost:</span> <span>{{round($project->Project->ProjectDetail->orignal_cost,2)}} Million PKR</span></b>
                     </div>
                     <div class="col-md-3 ln_ht12">
                         <b for="project_cost" class=" mb_1 fontf_sh"><span >Estimaed AT Completion:</span> <span>testing</span></b>
                     </div>
+
                     <div class="col-md-3 ln_ht12">
                         <b for="Location" class=" mb_1 fontf_sh"><span >final Revised Cost:</span> <span>
                           @if($project->Project->RevisedApprovedCost->last())
@@ -234,12 +223,12 @@
                     </div>
                     <div class="col-md-3 ln_ht12">
                       <b for="" name="phy_progress" id="phy_progress" class="primarybold mb_1 fontf_sh"><span  class="float-left">Planned Progress %: </span>
-                        <span class="pdz_six" id="PlannedProg">82%</span>
+                      <span class="pdz_six" id="PlannedProg">{{round(calculatePlannedProgress($project->MProjectProgress->last()->id),2)}}%</span>
                         </b>
                     </div>
                     <div class="col-md-3 ln_ht12">
                       <b for="" name="phy_progress" id="phy_progress" class="primarybold mb_1 fontf_sh"><span  class="float-left">Physical Progress: </span>
-                        <span class="pdz_six" id="Physicalprog">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%</span>
+                        <span class="pdz_six" id="Physicalprog">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id),2)}}%</span>
                         </b>
                     </div>
                     <div class="col-md-3">
@@ -247,7 +236,22 @@
                         <span class="pdz_six" id="financialprog">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</span>
                       </b>
                     </div>
+                  <div class="col-md-3">
+                    <b for="earned_value" class=" mb_1 fontf_sh"><span >Earned Value: </span><span>{{round(calculateEarnedvalue($project->MProjectProgress->last()->id),2)}} %</span></b>
                 </div>
+                <div class="col-md-3">
+                  <b for="actual_value" class=" mb_1 fontf_sh"><span >Planned Value: </span><span>{{round(calculatePlannedValue($project->MProjectProgress->last()->id),2)}} </span></b>
+              </div>
+              <div class="col-md-3">
+              <b for="cost_performance" class=" mb_1 fontf_sh"><span >Cost Performace Index (CPI): </span><span>{{round(costPerformanceindex($project->MProjectProgress->last()->id),4)}}%</span></b>
+            </div>
+            <div class="col-md-3">
+            <b for="spi" class=" mb_1 fontf_sh"><span >Schedule Performance Index (SPI): </span><span>{{round(scheduledPerformanceindex($project->MProjectProgress->last()->id),3)}}%</span></b>
+          </div>
+          <div class="col-md-3">
+          <b for="eac" class=" mb_1 fontf_sh"><span >Estimaed At Completion : </span><span>{{round(estimatedAtCompletion($project->MProjectProgress->last()->id),4)}}</span></b>
+        </div>
+          </div>
         </div>
     </div>
     <!--start show project detail btn-->
@@ -764,6 +768,12 @@ $(document).ready(function(){
                         <select class="kpisel col-sm-12" name='mappedKpicomponent_`+count+`[]' multiple="multiple" id="optionsHere">
                     `+ compopt +`
                         </select>
+                    </div>
+                    <div class="col-md-2">
+                      <input name="weightage[]" id="" class="col-md-11 float-right form-control" placeholder="Weightage" type="text" style="text-align:center;border: 1px solid #807d7d8a !important;" value="">
+                    </div>
+                    <div class="col-md-1">
+                      <input name="cost[]" id="" class="col-md-11 float-right form-control" placeholder="Cost" type="text" style="text-align:center;border: 1px solid #807d7d8a !important;" value="">
                     </div>
                     </li>`;
                     count++;
