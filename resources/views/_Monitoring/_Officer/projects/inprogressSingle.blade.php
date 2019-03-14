@@ -132,7 +132,7 @@
           $innertab=\Session::get('innertab');
         }
     @endphp
-    <div class="fixed bg-g hidden-sm hidden-xs topSummary capitalize" style="">
+    <div class="fixed bg-g hidden-sm hidden-xs topSummary capitalize nodisplay" style="">
     <div class="bg-w border_top bg-w" style="padding:0% 0% 0.5% 1% !important;" >
       <style scoped>
           .form-group{margin-bottom:0rem !important;border:none !important;background-color:transparent !important;}
@@ -194,7 +194,19 @@
                         <b for="gestation Period" class=" mb_1 fontf_sh"><span>gestation Period: </span><span><input type="text" class="topsummaryinput" value="2 year"></span> </b>
                     </div>
                     <div class="col-md-3">
-                        <b for="total_cost" class=" mb_1 fontf_sh"><span>Total COST: </span><span><input type="text" class="topsummaryinput" value="114.5"></span> </b>
+                        <b for="total_cost" class=" mb_1 fontf_sh"><span>Total Cost: </span><span><input type="text" class="topsummaryinput" value="114.5"></span> </b>
+                    </div>
+                    <div class="col-md-3">
+                        <b for="total_cost" class=" mb_1 fontf_sh"><span>Earned Value: </span><span><input type="text" class="topsummaryinput" value="114.5"></span> </b>
+                    </div>
+                    <div class="col-md-3">
+                        <b for="total_cost" class=" mb_1 fontf_sh"><span>Actual Value: </span><span><input type="text" class="topsummaryinput" value="testing"></span> </b>
+                    </div>
+                    <div class="col-md-3">
+                        <b for="total_cost" class=" mb_1 fontf_sh" title="Cost Performace Index"><span>CPI: </span><span><input type="text" class="topsummaryinput" value="testing"></span> </b>
+                    </div>
+                    <div class="col-md-3">
+                        <b for="total_cost" class=" mb_1 fontf_sh" title="Schedule Performance Index"><span>SPI: </span><span><input type="text" class="topsummaryinput" value="testing"></span> </b>
                     </div>
                     <div class="col-md-3">
                         <b for="Actual_cost_consumed" class=" mb_1 fontf_sh"><span>Actual Cost Consumed: </span><span><input type="text" class="topsummaryinput" value="89"></span> </b>
@@ -204,14 +216,10 @@
                         <input name="phi" id="#phi" type="number" class="frozen_pane" style="width:70% !important;"/>
                     </div> -->
                     <div class="col-md-3 ln_ht12">
-                      <b for="" name="phy_progress" id="phy_progress" class="primarybold mb_1 fontf_sh"><span  class="float-left">Physical Progress: </span>
-                        <span class="pdz_six" id="Physicalprog">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%</span>
-                        </b>
+                        <b for="project_cost" class=" mb_1 fontf_sh"><span >Original Approve Cost:</span> <span>{{round($project->Project->ProjectDetail->orignal_cost,2)}} Million PKR</span></b>
                     </div>
-                    <div class="col-md-3">
-                      <b for="" name="f_progress" id="f_progress" class="primarybold mb_1 fontf_sh"><span class="float-left" >Financial Progress:</span>
-                        <span class="pdz_six" id="financialprog">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</span>
-                      </b>
+                    <div class="col-md-3 ln_ht12">
+                        <b for="project_cost" class=" mb_1 fontf_sh"><span >Estimaed AT Completion:</span> <span>testing</span></b>
                     </div>
                     <div class="col-md-3 ln_ht12">
                         <b for="Location" class=" mb_1 fontf_sh"><span >final Revised Cost:</span> <span>
@@ -224,13 +232,25 @@
                         </b></span></label>
                     </div>
                     <div class="col-md-3 ln_ht12">
-                        <b for="project_cost" class=" mb_1 fontf_sh"><span >Original Approve Cost:</span> <span>{{round($project->Project->ProjectDetail->orignal_cost,2)}} Million PKR</span></b>
+                      <b for="" name="phy_progress" id="phy_progress" class="primarybold mb_1 fontf_sh"><span  class="float-left">Planned Progress %: </span>
+                        <span class="pdz_six" id="PlannedProg">82%</span>
+                        </b>
+                    </div>
+                    <div class="col-md-3 ln_ht12">
+                      <b for="" name="phy_progress" id="phy_progress" class="primarybold mb_1 fontf_sh"><span  class="float-left">Physical Progress: </span>
+                        <span class="pdz_six" id="Physicalprog">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%</span>
+                        </b>
+                    </div>
+                    <div class="col-md-3">
+                      <b for="" name="f_progress" id="f_progress" class="primarybold mb_1 fontf_sh"><span class="float-left" >Financial Progress:</span>
+                        <span class="pdz_six" id="financialprog">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</span>
+                      </b>
                     </div>
                 </div>
         </div>
     </div>
     <!--start show project detail btn-->
-      <div class="col-md-1 hidden-sm hidden-xs text-center downtiQ nodisplay"  title="Show Project Detail">
+      <div class="col-md-1 hidden-sm hidden-xs text-center downtiQ "  title="Show Project Detail">
         <div class="offset-md-2 col-md-5 border golbtn">
           <i class="fa fa-angle-double-down"></i>
         </div>
@@ -239,9 +259,9 @@
 
     {{-- end of frozen panel --}}
     <div class="row">
-            <div class="col-md-12 mainTabsAndNav mt_6p" style="padding-left: 15px !important;padding-right: 15px !important;">
+            <div class="col-md-12 mainTabsAndNav" style="padding-left: 15px !important;padding-right: 15px !important;">
                 <!-- start hide project detail btn -->
-                <div class="col-md-1 hidden-sm hidden-xs text-center uptiQ" title="Hide Detail">
+                <div class="col-md-1 hidden-sm hidden-xs text-center uptiQ nodisplay" title="Hide Detail">
                   <div class="offset-md-2 col-md-5 border golbtn">
                     <i class="fa fa-angle-double-up"></i>
                   </div>
@@ -992,6 +1012,29 @@ $(document).ready(function()
   }
   else if (Physicalprogtxtsplit <=100) {
     Physicalprog.attr("class", "pdz_six greentXt");
+  }
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+  var PlannedProgtxt = $('#PlannedProg').text();
+  var PlannedProg = $('#PlannedProg');
+  var PlannedProgtxtsplit = PlannedProgtxt.replace("%", "");
+  if (PlannedProgtxtsplit <= 25) {
+    PlannedProg.attr("class", "pdz_six redtXt");
+  }
+  else if (PlannedProgtxtsplit <= 50) {
+    PlannedProg.attr("class", "orangetXt pdz_six");
+  }
+  // else if (temp<= 75 && temp>= 50) {
+  //   status.addClass('blue');
+  // }
+  else if (PlannedProgtxtsplit <= 75) {
+    PlannedProg.attr("class", "pdz_six yeltXt");
+  }
+  else if (PlannedProgtxtsplit <=100) {
+    PlannedProg.attr("class", "pdz_six greentXt");
   }
 });
 </script>
