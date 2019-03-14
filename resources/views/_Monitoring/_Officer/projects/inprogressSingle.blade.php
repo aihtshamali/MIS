@@ -765,9 +765,6 @@ $(document).ready(function(){
                     `+ compopt +`
                         </select>
                     </div>
-                    <div class="col-md-3">
-                      <input name="weightage[]" id="" class="col-md-11 float-right form-control" placeholder="Weightage" type="number" style="text-align:center;border: 1px solid #807d7d8a !important;" value="">
-                    </div>
                     </li>`;
                     count++;
                 $(Li).appendTo('#addkpi')

@@ -154,25 +154,25 @@
           <div class="form-group row mb_2">
               <label class="col-sm-3 font-15">District</label>
               <div class="col-sm-9">
-                {{-- <select name="district" id="" class="form-control">
+                <select name="district[]" id="" class="select2" multiple>
                   <option value="">Select District</option>
                   @foreach ($project->Project->AssignedDistricts as $district)
-                    <option value="{{$district->District->name}}" {{($district->District->name==$location->district) ? 'selected' : ''}}>{{$district->District->name}}</option>
+                    <option value="{{$district->District->name}}" >{{$district->District->name}}</option>
                   @endforeach
-                </select> --}}
-                <input type="text" name="district" class="form-control" placeholder="District"
+                </select> 
+                <!-- <input type="text" name="district" class="form-control" placeholder="District"
                 @if ($location)
                   value="{{ $location->district }}"
                 @else
                   value=""
-                @endif
-                />
+                @endif 
+                />-->
               </div>
           </div>
-          <div class="form-group row mb_2">
+          <!-- <div class="form-group row mb_2">
               <label class="col-sm-3 font-15">City</label>
               <div class="col-sm-9">
-                  <select name="city" id="" class="form-control">
+                   <select name="city" id="" class="form-control">
                       <option value="">Select City</option>
                       @foreach ($cities as $city)
                         @if (isset($location->city))
@@ -181,7 +181,7 @@
                         <option value="{{$city->name}}">{{$city->name}}</option>
                         @endif
                       @endforeach
-                  </select>
+                  </select> 
                 {{-- <input type="text" name="city" class="form-control" placeholder="City"
                 @if ($location)
                   value="{{ $location->city }}"
@@ -190,7 +190,7 @@
                 @endif
                 /> --}}
               </div>
-          </div>
+          </div> -->
           <div class="form-group row mb_2">
               <label class="col-sm-3 font-15">GPS</label>
               <div class="col-sm-9">

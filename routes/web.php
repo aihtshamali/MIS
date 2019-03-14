@@ -59,7 +59,7 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::resource('district','DistrictController');
     Route::resource('assigning_forum','AssigningForumController');
     Route::resource('approving_forum','ApprovingForumController');
-
+   
     // Monitoring m_project_kpis
     Route::resource('/mprojectkpis','MonitoringProjectKpiController');
 
@@ -90,6 +90,9 @@ Route::prefix('manager')->middleware('role:manager|directorevaluation')->group(f
   Route::get('/chart_twelve','ExecutiveController@SneWiseChart')->name('SneWiseChart');
   Route::get('/chart_thirteen','ExecutiveController@chart_thirteen')->name('districtWise');
   Route::get('/pems_tab','ExecutiveController@pems_index')->name('Exec_pems_tab');
+  Route::get('/ViewAsOfficerNewAssignments/{user_id}','ViewAsOfficerController@ViewAsOfficerNewAssignments')->name('ViewAsOfficerNewAssignments');
+  Route::get('/ViewOfficerActivities','ViewAsOfficerController@ViewOfficerActivities')->name('ViewAsOfficerActivities');
+
 });
 
 
@@ -258,7 +261,7 @@ Route::post('/getunassignedProjectCounter','ProjectCounterController@getUnassign
 Route::post('/getinProgressProjectCounter','ProjectCounterController@getInProgressCounter')->name('inProgressCounter');
 Route::post('/getAssignedProjectCounter','ProjectCounterController@getAssignedProjectCounter')->name('assignedCounter');
 Route::post('/getCompletedCounter','ProjectCounterController@getCompletedCounter')->name('completedCounter');
-Route::post('/onsectorselect','DataEntryController@onSectorSelect');
+Route::post('/onsectorselect','DataEntryController@onSectorSelect')->name('sectorselect');
 Route::post('/onsubsectorselect','DataEntryController@onSub_SectorSelect');
 Route::post('/getMonitoringProjectNumber','DataEntryController@getMonitoringProjectData');
 Route::post('/onAssigningForumselect','DataEntryController@onAssigningForumselect');

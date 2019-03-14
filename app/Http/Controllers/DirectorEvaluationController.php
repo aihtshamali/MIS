@@ -197,6 +197,7 @@ class DirectorEvaluationController extends Controller
         $projects = AssignedProject::select('assigned_projects.*')
         ->leftJoin('projects','projects.id','assigned_projects.project_id')
         ->where('projects.project_type_id',1)
+        ->where('projects.status',1)
         ->get();
         return view('Director.Evaluation.Evaluation_projects.re_assign',compact('projects'));
       }
