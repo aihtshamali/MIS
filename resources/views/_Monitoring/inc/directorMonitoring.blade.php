@@ -15,11 +15,11 @@
                                         <span class="pcoded-mtext">Home</span>
                                     </a>
                                 </li>
-                                <li class="#">
+                                <!-- <li class="#">
                                     <a href="dashboard-crm.html">
                                         <span class="pcoded-mtext">CRM</span>
                                     </a>
-                                </li>
+                                </li> -->
                                 <li class="analytics">
                                     <a href="{{route('analytics')}}">
                                         <span class="pcoded-mtext">Analytics</span>

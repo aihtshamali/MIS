@@ -1,4 +1,10 @@
 <?php
+// namespace App\Http\Controllers;
+// use Illuminate\Http\Request;
+// use Illuminate\Support\Collection;
+// use App\Http\Controllers\Controller;
+// use App\MProjectProgress;
+
 if (! function_exists('calculateMFinancialProgress')) {
      function calculateMFinancialProgress($m_project_progress_id)
     {
@@ -16,8 +22,12 @@ if (! function_exists('calculateMFinancialProgress')) {
   }
 if (! function_exists('calculateMPhysicalProgress')) {
    function calculateMPhysicalProgress($m_project_progress_id){
+    //  dd($cost);
       $mAssignedKpi=App\MAssignedKpi::where('m_project_progress_id',$m_project_progress_id)->get();
+      $original_cost=App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->ProjectDetail->orignal_cost;
+      // dd($original_cost);
       $arr=array_fill(0,$mAssignedKpi->count(),0);
+      $cost=array();
       $i=0;
       $weight=0;
       if(!count($mAssignedKpi))
@@ -49,14 +59,24 @@ if (! function_exists('calculateMPhysicalProgress')) {
           $arr[$i]+=$we;
         }
         $i++;
+        array_push($cost,$main->cost);
         $weight+=$main->weightage;
+
       }
       $sum=0;
-      foreach($arr as $val){
-        $sum+=$val;
-      }
+      // dd($arr,$cost);
+      $phy_prog = array_map( function($cost_arr, $arr_new)
+       {
+        return $cost_arr * ($arr_new/100);
+       }, $cost, $arr);
 
-      return $sum/$weight;
+      $total_phyProgres= array_sum($phy_prog);
+      $physical_progress=($total_phyProgres/$original_cost)*100; 
+      // foreach($arr as $val){
+      //   $sum+=$val;
+      // }
+        // dd($physical_progress);
+      return $physical_progress;
       return 0;
   }
 }

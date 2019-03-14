@@ -21,11 +21,11 @@
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Project Design</b></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link userlocTab" data-toggle="tab" href="#userlocDiv" id=""
+                    <a class="nav-link {{isset($innertab) && $innertab == 'userLoc' ? 'active' : ''}} userlocTab" data-toggle="tab" href="#userlocDiv" id=""
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">User Location</b></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{isset($innertab) && $innertab=="Mapping" ? "active" : ""}} MOBtab" id="MOBtab" data-toggle="tab" href="#MOBdiv"
+                    <a class='nav-link {{isset($innertab) && $innertab=="Mapping" ? "active" : ""}} MOBtab' id="MOBtab" data-toggle="tab" href="#MOBdiv"
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Mapping Of objectives</b></a>
                 </li>
                 <li class="nav-item">
@@ -66,7 +66,7 @@
                         </div>
                         <div class="col-md-6">
                             @foreach ($project_documents as $project_document)
-                            <label for=""> <b>{{$project_document->attachment_name}} : </b></label>
+                            <label for=""> <b>{{$project_document->attachment_name}}, </b></label>
                             @endforeach
                         </div>
                         @else
@@ -102,7 +102,7 @@
                         {{ csrf_field() }}
                         <div class="row">
                             <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
-                            <input type="hidden" name="page_tabs" value="plan_userlocDiv">
+                            <input type="hidden" name="page_tabs" value="plan_userLoc">
                             <input type="hidden" name="objct" id="objct" value="{{count($objectives)}}">
                             <input type="hidden" name="compAct" id="compAct" value="{{count($components)}}">
                             <div class="col-md-6 objtivesNew border_right pd_1_2">
@@ -215,14 +215,17 @@
                     </div>
                   </form>
                 </div>
-                <div class='tab-pane userlocDiv' id="userlocDiv" role="tabpanel" aria-expanded="false">
+                <div class="tab-pane {{isset($innertab) && $innertab == 'userLoc' ? 'active' : ''}} userlocDiv" id="userlocDiv" role="tabpanel" aria-expanded="false">
                   <!-- headings -->
                   <div class="row col-md-12">
-                    <div class="col-md-5 text-center">
+                    <div class="col-md-4 text-center">
                       <h4>User</h4>
                     </div>
-                    <div class="col-md-5 text-center">
+                    <div class="col-md-4 text-center">
                       <h4>Location</h4>
+                    </div>
+                    <div class="col-md-2 text-center">
+                      <h4>Site Name</h4>
                     </div>
                   </div>
                   <!-- end heading -->
@@ -234,7 +237,7 @@
                 <input type="hidden" name="page_tabs" value="plan_Mapping">
                   <div class="row col-md-12">
                     <style media="screen" scoped>
-                      .select2-container--default .select2-selection--multiple .select2-selection__rendered li{padding: 0% !important};
+                      .select2-container--default .select2-selection--multiple .select2-selection__rendered li{padding: 1% !important};
                     </style>
                     <div class="row col-md-10" id="CloneThisUserLoc" style="margin-bottom:1% !important;">
                       <div class="col-md-5 text-center">
@@ -408,12 +411,16 @@
                     {{ csrf_field() }}
                     <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
                     <input type="hidden" name="page_tabs" value="plan_task">
+                    <input type="hidden" name="counts" id="counts_user_location_id" value="1+">
                   <div class="row col-md-12">
-                    <div class="col-md-5 text-center">
+                    <div class="col-md-4 text-center">
                       <h4>User</h4>
                     </div>
-                    <div class="col-md-5 text-center">
+                    <div class="col-md-4 text-center">
                       <h4>Selected KPIs</h4>
+                    </div>
+                    <div class="col-md-2 text-center">
+                      <h4>Weightage</h4>
                     </div>
                   </div>
                   <!-- end heading -->
@@ -422,7 +429,6 @@
                     <div class="row col-md-10" id="CloneThisUserKPI" style="margin-bottom:1% !important;">
                       <div class="col-md-4 text-center">
                         <div class="col-md-10 offset-md-1 delLastChild">
-                            <input type="hidden" name="counts" id="counts_user_location_id" value="1">
                             <select class="select2" id="" name="user_location_id_1">
                                 @foreach ($projectProgressId->MAssignedUserLocation as $mUserLocation)
                             <option  value="{{$mUserLocation->id}}">{{$mUserLocation->User->first_name}} {{$mUserLocation->User->last_name}} - {{$mUserLocation->District->name}} -{{$mUserLocation->site_name}}</option>

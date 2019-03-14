@@ -182,16 +182,13 @@
                           {{$dates->actual_start_date}}
                           @endif</span> </b>
                     </div>
-                    <!-- <div class="col-md-3">
-                        <b for="PHI" >PHI </b>
-                        <input name="phi" id="#phi" type="number" class="frozen_pane" style="width:70% !important;"/>
-                    </div> -->
+
                     <div class="col-md-3">
                         <b for="planned_start_date" class=" mb_1 fontf_sh"><span >Planned Start Date: </span><span>{{$project->Project->ProjectDetail->planned_start_date}}</span></b>
                     </div>
                     <div class="col-md-3 ln_ht12">
                       <b for="" name="phy_progress" id="phy_progress" class="primarybold mb_1 fontf_sh"><span  class="float-left">Physical Progress: </span>
-                        <span class="pdz_six" id="Physicalprog">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id,2))}}%</span>
+                        <span class="pdz_six" id="Physicalprog">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id),2)}}%</span>
                         </b>
                     </div>
                     <div class="col-md-3">
@@ -199,6 +196,7 @@
                         <span class="pdz_six" id="financialprog">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</span>
                       </b>
                     </div>
+
                     <div class="col-md-3 ln_ht12">
                         <b for="Location" class=" mb_1 fontf_sh"><span >final Revised Cost:</span> <span>
                           @if($project->Project->RevisedApprovedCost->last())
@@ -210,9 +208,27 @@
                         </b></span></label>
                     </div>
                     <div class="col-md-3 ln_ht12">
-                        <b for="project_cost" class=" mb_1 fontf_sh"><span >Original Approve Cost:</span> <span>{{round($project->Project->ProjectDetail->orignal_cost,2)}} Million PKR</span></b>
+                        <b for="project_cost" class=" mb_1 fontf_sh"><span >Original Approve Cost:</span> <span>{{round($project->Project->ProjectDetail->orignal_cost,2)}}<small>Million PKR</small></small></span></b>
                     </div>
+                    <div class="col-md-3">
+                      <b for="planned_progress" class=" mb_1 fontf_sh"><span >Planned Progress: </span><span> 0 </span></b>
+                  </div>
+                  <div class="col-md-3">
+                    <b for="earned_value" class=" mb_1 fontf_sh"><span >Earned Value: </span><span> 0 </span></b>
                 </div>
+                <div class="col-md-3">
+                  <b for="actual_value" class=" mb_1 fontf_sh"><span >Actual Value: </span><span> 0 </span></b>
+              </div>
+              <div class="col-md-3">
+                <b for="cost_performance" class=" mb_1 fontf_sh"><span >Cost Performace Index (CPI): </span><span> 0 </span></b>
+            </div>
+            <div class="col-md-3">
+              <b for="spi" class=" mb_1 fontf_sh"><span >Schedule Performance Index (SPI): </span><span> 0 </span></b>
+          </div>
+          <div class="col-md-3">
+            <b for="eac" class=" mb_1 fontf_sh"><span >Estimaed At Completion : </span><span> 0 </span></b>
+        </div>
+          </div>
         </div>
     </div>
     <!--start show project detail btn-->

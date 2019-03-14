@@ -34,11 +34,11 @@ DGME | Add Project
 @section('content')
 <div class="row">
     <div class="col-md-7 ">
-        <form action="{{route('projects.store')}}" name="dataentryForm" id="" method="POST">
+        <form action="{{route('projects.store')}}" class="dataentryForm" name="dataentryForm" id="" method="POST">
           {{ csrf_field() }}
         <div class="card">
 
-            <div class="card-header"> <h4><b>Add New Monitoring Project</b></h4></div>
+            <div class="card-header"> <h4><b>Add New Monitoring project</b></h4></div>
             <div class="card-block">
                 <div class="form-group row">
                     <div class="col-md-12">
@@ -275,7 +275,7 @@ DGME | Add Project
 
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn btn-success alert-confirm m-b-10" style=" margin-left: 80%;" >Add Project</button>
+                <button type="submit" class="btn btn-success alert-confirm m-b-10 show-confirmation-modal" style=" margin-left: 80%;" >Add Project</button>
             </div>
         </div>
     </form>
@@ -475,7 +475,7 @@ DGME | Add Project
 <script>
 $(document).on('change','#gs_no,#financial_year',function(){
    var arr = $(this).val();
-   console.log(arr);
+//    console.log(arr);
    if($(this).attr('id') == 'gs_no' && $('#financial_year').val() == projects[arr].financial_year){
      $('#titleproject').val(projects[arr].name_of_scheme);
      $('#summary_title').empty();
@@ -690,7 +690,7 @@ $(document).on('change', '#assigningForum', function() {
     $('select').on('change',function(e){
     var class_value = $(this).attr("id");
     var opt = $(this).val();
-    console.log(opt);
+    // console.log(opt);
     var values = "";
     if(opt == ""){
         $("#summary_" + class_value).hide("slow");
@@ -706,7 +706,7 @@ $(document).on('change', '#assigningForum', function() {
     $(document).on('change','input',function(){
     var class_value = $(this).attr("id");
     var opt = $(this).val();
-    console.log(opt);
+    // console.log(opt);
     if(opt == ""){
         $("#summary_" + class_value).hide("slow");
     }
@@ -809,6 +809,13 @@ $(document).on('change','#gs_no,#financial_year',function(){
 //      $("#districts").val('').trigger('change');
 //    }
 // });
-
+$(document).ready(function(){
+  $(document).on('click', 'button.confirm', function(){
+      $('form.dataentryForm').submit();
+  });
+  $('form.dataentryForm').on('click','button.show-confirmation-modal', function( e ) {
+    e.preventDefault();
+    });
+    });
 </script>
 @endsection
