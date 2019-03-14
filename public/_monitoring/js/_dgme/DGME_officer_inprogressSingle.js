@@ -1208,7 +1208,7 @@ $(document).ready(function(){
     });
     // var i=0;
     var removeSib = `
-    <div class="col-sm-2 text_center RemoveUserLoc">
+    <div class="col-sm-1 text_center RemoveUserLoc">
       <button class=" btn btn-sm btn-danger" type="button" id="">-</button>
     </div>
     `

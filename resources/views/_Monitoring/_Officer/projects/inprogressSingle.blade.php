@@ -119,6 +119,7 @@
 .orangetXt{font-size: 15px;font-weight: 900;color: #fff !important;font-size: 15px;text-shadow: 1px 3px 21px blueviolet !important;font-weight: 900;background: #f39440;border-radius: 5px;margin-left: 7%;}
 .yeltXt{font-size: 15px;font-weight: 900;color: #fff !important;font-size: 15px;text-shadow: 1px 3px 21px blueviolet !important;font-weight: 900;background: #c7c30d;border-radius: 5px;margin-left: 7%;}
 .greentXt{font-size: 15px;font-weight: 900;color: #fff !important;font-size: 15px;text-shadow: 1px 3px 21px blueviolet !important;font-weight: 900;background: green;border-radius: 5px;margin-left: 7%;}
+.select2-container .select2-selection--single{padding: 2% 0% 13% 0%}
 </style>
 
 @endsection

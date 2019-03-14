@@ -218,14 +218,17 @@
                 <div class="tab-pane {{isset($innertab) && $innertab == 'userLoc' ? 'active' : ''}} userlocDiv" id="userlocDiv" role="tabpanel" aria-expanded="false">
                   <!-- headings -->
                   <div class="row col-md-12">
-                    <div class="col-md-4 text-center">
+                    <div class="col-md-3 text-center">
                       <h4>User</h4>
                     </div>
-                    <div class="col-md-4 text-center">
+                    <div class="col-md-2 text-center">
                       <h4>Location</h4>
                     </div>
-                    <div class="col-md-2 text-center">
+                    <div class="col-md-3 text-center">
                       <h4>Site Name</h4>
+                    </div>
+                    <div class="col-md-2 text-center">
+                      <h4>Date</h4>
                     </div>
                   </div>
                   <!-- end heading -->
@@ -239,8 +242,8 @@
                     <style media="screen" scoped>
                       .select2-container--default .select2-selection--multiple .select2-selection__rendered li{padding: 1% !important};
                     </style>
-                    <div class="row col-md-10" id="CloneThisUserLoc" style="margin-bottom:1% !important;">
-                      <div class="col-md-5 text-center">
+                    <div class="row col-md-11" id="CloneThisUserLoc" style="margin-bottom:1% !important;">
+                      <div class="col-md-3 text-center">
                         <div class="col-md-10 offset-md-1 delLastLocChild">
                         <select class="select2" id="" name="user_location_1">
                             @foreach($team as $t)
@@ -249,7 +252,7 @@
                         </select>
                       </div>
                       </div>
-                      <div class="col-md-5 text-center">
+                      <div class="col-md-3 text-center">
                         <div class="col-md-10 offset-md-1 delLastLocChild">
                         <select class="select2" id="" name="location_user_1[]" multiple="multiple">
                             @foreach ($assigned_districts as $ad)
@@ -258,13 +261,18 @@
                         </select>
                       </div>
                     </div>
-                    <div class="col-md-2 text-center">
-                    <div class="col-md-12">
-                        <input type="text" placeholder="Site Name" name="site_name_1" class="site_name form-control">
+                    <div class="col-md-3 text-center">
+                        <div class="col-md-10 offset-md-1">
+                            <input type="text" placeholder="Site Name" name="site_name_1" class="site_name form-control">
+                        </div>
                     </div>
-                      </div>
+                    <div class="col-md-3 text-center">
+                        <div class="col-md-10 offset-md-1">
+                            <input type="date" placeholder="date" name="dateLoc" class="site_name form-control">
+                        </div>
                     </div>
-                    <div class="col-sm-2 text_center">
+                    </div>
+                    <div class="col-sm-1 text_center">
                       <button class="btn btn-sm btn-info" type="button" id="CloneUserLoc">+</button>
                     </div>
                   </div>
