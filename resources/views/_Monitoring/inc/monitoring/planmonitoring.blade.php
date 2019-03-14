@@ -219,16 +219,16 @@
                   <!-- headings -->
                   <div class="row col-md-12">
                     <div class="col-md-3 text-center">
-                      <h4>User</h4>
+                      <h4 class="form-txt-primary">User</h4>
                     </div>
                     <div class="col-md-2 text-center">
-                      <h4>Location</h4>
+                      <h4 class="form-txt-primary">Location</h4>
                     </div>
                     <div class="col-md-3 text-center">
-                      <h4>Site Name</h4>
+                      <h4 class="form-txt-primary">Site Name</h4>
                     </div>
                     <div class="col-md-2 text-center">
-                      <h4>Date</h4>
+                      <h4 class="form-txt-primary">Date</h4>
                     </div>
                   </div>
                   <!-- end heading -->
@@ -273,7 +273,7 @@
                     </div>
                     </div>
                     <div class="col-sm-1 text_center">
-                      <button class="btn btn-sm btn-info" type="button" id="CloneUserLoc">+</button>
+                      <button class="btn btn-sm btn-info" title="Add" type="button" id="CloneUserLoc">+</button>
                     </div>
                   </div>
                   <div class="row col-md-12 CloneUserLocHere">
@@ -342,7 +342,7 @@
 
                     <div class="card m-0 z-depth-right-0">
                         <div class="card-header">
-                            <h4>KPI(s)</h4>
+                            <h4 class="form-txt-primary">KPI(s)</h4>
                         </div>
                         {{-- Choose KPI New --}}
                         <div class="card-block">
@@ -420,15 +420,15 @@
                     {{ csrf_field() }}
                     <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
                     <input type="hidden" name="page_tabs" value="plan_task">
-                  <div class="row col-md-12">
+                  <div class="row col-md-12 form-txt-primary">
                     <div class="col-md-4 text-center">
-                      <h4>User</h4>
+                      <h4 class="form-txt-primary">User</h4>
                     </div>
                     <div class="col-md-4 text-center">
-                      <h4>Selected KPIs</h4>
+                      <h4 class="form-txt-primary">Selected KPIs</h4>
                     </div>
                     <div class="col-md-2 text-center">
-                      <h4>Weightage</h4>
+                      <h4 class="form-txt-primary">Weightage</h4>
                     </div>
                   </div>
                   <!-- end heading -->
@@ -544,8 +544,8 @@
                         <div class="card-header"></div>
                         <div class="card-block">
                             <div class="row form-group">
-                                <h5 class="col-md-6 textlef mb_2">Activities</h5>
-                                <h5 class="col-md-4 textlef mb_2">Duration In Days</h5>
+                                <h4 class="col-md-6 textlef mb_2 form-txt-primary">Activities</h4>
+                                <h4 class="col-md-4 textlef mb_2 form-txt-primary">Duration In Days</h4>
                                 <div class="comptaskl col-md-12">
                                     @foreach ($ComponentActivities as $activities)
                                     <div id='comptaskl' class="col-md-12 row" style="margin-top:5px; padding-left:2% !important;">
@@ -578,9 +578,7 @@
                         <div class="card-header"></div>
                         <div class="card-block" id='costcomp'>
                             <div class="col-md-12" style="display:inline-flex;margin-bottom:5%;">
-                                <h5 class="text_left col-md-3 form-txt-primary">
-                                <b>Activities</b>
-                                </h5>
+                                <h4 class="text_left col-md-3 form-txt-primary"><b>Activities</b></h4>
                                 <div class="col-md-2 mr_0_1"><h5 class="form-txt-primary"><b>Unit</b></h5></div>
                                 <div class="col-md-2 mr_0_1"><h5 class="form-txt-primary"><b>Quantity</b></h5></div>
                                 <div class="col-md-2 mr_0_1"><h5 class="form-txt-primary"><b>Cost</b></h5></div>
