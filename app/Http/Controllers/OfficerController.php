@@ -499,6 +499,10 @@ class OfficerController extends Controller
         ->where('acknowledge',1)
         ->where('status',1)
         ->get();
+        // $start_Date=date_create($project->Project->ProjectDetail->planned_start_date);
+        // $end_date=date_create($project->Project->ProjectDetail->planned_end_date);
+        // $interval_period=date_diff($start_Date,$end_date);
+        // $gestation_period=$interval_period->format('%y Year , %m month , %d days');
         return view('_Monitoring._Officer.projects.inprogress',['projects'=>$projects]);
       }
 
@@ -546,6 +550,7 @@ class OfficerController extends Controller
         $m_project_dates->project_approval_date = $request->project_approval_date;
         $m_project_dates->admin_approval_date = $request->admin_approval_date;
         $m_project_dates->actual_start_date = $request->actual_start_date;
+        $m_project_dates->first_visit_date=$request->Date_Of_Visit;
         $m_project_dates->save();
         $msg='Saved';
         $tabs=explode("_",$request->page_tabs);
@@ -747,7 +752,13 @@ class OfficerController extends Controller
         // monitoring_kpi_recursion($level_1);
         // dd(weight($level_1))o;
 
-
+        $start_Date=date_create($project->Project->ProjectDetail->planned_start_date);
+        $end_date=date_create($project->Project->ProjectDetail->planned_end_date);
+        $interval_period=date_diff($start_Date,$end_date);
+        $gestation_period=$interval_period->format('%y Year , %m month , %d days');
+        
+        $first_visit_date=MProjectDate::where('m_project_progress_id',$projectProgressId->id)->first();
+        
         \JavaScript::put([
           'projectWithRevised'=>$projectWithRevised,
          'components'=> $components,
@@ -758,7 +769,7 @@ class OfficerController extends Controller
         // dd($generalFeedback[0]u->MAssignedProjectFeedBack->answer);
         // dd($components[0]->MPlanObjectivecomponentMapping[0]->m_plan_objective_id);
         return view('_Monitoring._Officer.projects.inprogressSingle'
-        ,compact('m_assigned_issues','qualityassesments','B_Stakeholders','sponsoringStakeholders'
+        ,compact('first_visit_date','gestation_period','m_assigned_issues','qualityassesments','B_Stakeholders','sponsoringStakeholders'
         ,'executingStakeholders',
         'project_documents','result_from_app','org_project','districts','cities',
         'org_projectId','projectProgressId','mPlanKpiComponents','ComponentActivities',
@@ -1529,19 +1540,22 @@ class OfficerController extends Controller
     }
 
     public function saveUserLocation(Request $request){
-      // dd($request->all());
       $counter = 1;
       $user = "user_location_";
       $location = "location_user_";
       $site = "site_name_";
+      $date="dateLoc_";
       while($counter <= $request->counts){
-        if($request[$user.$counter]){
+        if($request[$user.$counter])
+        {
           $inner_counter = 1;
-          foreach($request[$location.$inner_counter] as $d){
+          foreach($request[$location.$inner_counter] as $d)
+          {
             $m_assigned_user_location = new MAssignedUserLocation();
             $m_assigned_user_location->user_id = $request[$user.$counter];
             $m_assigned_user_location->site_name = $request[$site.$counter];
             $m_assigned_user_location->district_id = $d;
+            // $m_assigned_user_location->planned_visit_date=$request[$date.$counter];
             $m_assigned_user_location->assigned_by = Auth::id();
             $m_assigned_user_location->m_project_progress_id = $request->progress_id;
             $m_assigned_user_location->save();

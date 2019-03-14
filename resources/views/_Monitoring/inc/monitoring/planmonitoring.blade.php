@@ -33,7 +33,7 @@
                         aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Plan ( KPI's)</b></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link userKPITab" data-toggle="tab" href="#userKPIDiv" id=""
+                    <a class='nav-link {{isset($innertab) && $innertab=="uderKPI" ? "active" : ""}} userKPITab' data-toggle="tab" href="#userKPIDiv" id=""
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">User KPI</b></a>
                 </li>
                 <!-- {{-- <li class="nav-item">
@@ -218,14 +218,17 @@
                 <div class="tab-pane {{isset($innertab) && $innertab == 'userLoc' ? 'active' : ''}} userlocDiv" id="userlocDiv" role="tabpanel" aria-expanded="false">
                   <!-- headings -->
                   <div class="row col-md-12">
-                    <div class="col-md-4 text-center">
+                    <div class="col-md-3 text-center">
                       <h4>User</h4>
                     </div>
-                    <div class="col-md-4 text-center">
+                    <div class="col-md-2 text-center">
                       <h4>Location</h4>
                     </div>
-                    <div class="col-md-2 text-center">
+                    <div class="col-md-3 text-center">
                       <h4>Site Name</h4>
+                    </div>
+                    <div class="col-md-2 text-center">
+                      <h4>Date</h4>
                     </div>
                   </div>
                   <!-- end heading -->
@@ -239,8 +242,8 @@
                     <style media="screen" scoped>
                       .select2-container--default .select2-selection--multiple .select2-selection__rendered li{padding: 1% !important};
                     </style>
-                    <div class="row col-md-10" id="CloneThisUserLoc" style="margin-bottom:1% !important;">
-                      <div class="col-md-5 text-center">
+                    <div class="row col-md-11" id="CloneThisUserLoc" style="margin-bottom:1% !important;">
+                      <div class="col-md-3 text-center">
                         <div class="col-md-10 offset-md-1 delLastLocChild">
                         <select class="select2" id="" name="user_location_1">
                             @foreach($team as $t)
@@ -249,7 +252,7 @@
                         </select>
                       </div>
                       </div>
-                      <div class="col-md-5 text-center">
+                      <div class="col-md-3 text-center">
                         <div class="col-md-10 offset-md-1 delLastLocChild">
                         <select class="select2" id="" name="location_user_1[]" multiple="multiple">
                             @foreach ($assigned_districts as $ad)
@@ -258,13 +261,18 @@
                         </select>
                       </div>
                     </div>
-                    <div class="col-md-2 text-center">
-                    <div class="col-md-12">
-                        <input type="text" placeholder="Site Name" name="site_name_1" class="site_name form-control">
+                    <div class="col-md-3 text-center">
+                        <div class="col-md-10 offset-md-1">
+                            <input type="text" placeholder="Site Name" name="site_name_1" class="site_name form-control">
+                        </div>
                     </div>
-                      </div>
+                    {{-- <div class="col-md-3 text-center">
+                        <div class="col-md-10 offset-md-1">
+                            <input type="date" placeholder="date" name="dateLoc_1" class="loc_date form-control">
+                        </div>
+                    </div> --}}
                     </div>
-                    <div class="col-sm-2 text_center">
+                    <div class="col-sm-1 text_center">
                       <button class="btn btn-sm btn-info" type="button" id="CloneUserLoc">+</button>
                     </div>
                   </div>
@@ -330,12 +338,47 @@
                 <form class="serializeform" action="{{route('kpiComponentMapping')}}" method="post">
                     {{ csrf_field() }}
                     <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
-                    <input type="hidden" name="page_tabs" value="plan_task">
+                    <input type="hidden" name="page_tabs" value="plan_uderKPI">
 
                     <div class="card m-0 z-depth-right-0">
                         <div class="card-header">
                             <h4>KPI(s)</h4>
                         </div>
+                        {{-- Choose KPI New --}}
+                        <div class="card-block">
+                          <div class="row form-group">
+                              <div class="col-md-5">
+                                  <h5 class="mb_2">Choose KPI(s)</h4>
+                                <select id='custom-headers' class="searchable yesearch"
+                                    multiple='multiple'>
+                                    {{-- <h1>here</h1> --}}
+                                     @foreach ($Kpis as $Kpi)
+                                        <option class='optiontest' data-value='{{$Kpi->id}}'>{{$Kpi->name}}</option>
+                                     @endforeach
+                                </select>
+
+                            </div>
+                            <div class="row col-md-1">
+                              <div class="border_right col-md-6"></div>
+                              <div class="col-md-6"></div>
+                            </div>
+                            <div class="col-md-6" style="padding-left:3% !important;">
+                              <div class="row col-md-12">
+                                <ul class="col-md-12 row" id='addkpi'>
+                                    <h5 class=" mb_2">KPIs</h5>
+
+                                </ul>
+                              </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="col-md-3 offset-md-9">
+                            <button class="btn btn-primary btn-md" type="submit" id="">Save </button>
+
+                            </div>
+                        </div>
+                        
                         <div class="card-block">
                             <div class="row form-group">
                                 <div class="col-md-12">
@@ -368,44 +411,10 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- Choose KPI New --}}
-                        <div class="card-block">
-                          <div class="row form-group">
-                              <div class="col-md-5">
-                                  <h5 class="mb_2">Choose KPI(s)</h4>
-                                <select id='custom-headers' class="searchable yesearch"
-                                    multiple='multiple'>
-                                    {{-- <h1>here</h1> --}}
-                                     @foreach ($Kpis as $Kpi)
-                                        <option class='optiontest' data-value='{{$Kpi->id}}'>{{$Kpi->name}}</option>
-                                     @endforeach
-                                </select>
-
-                            </div>
-                            <div class="row col-md-1">
-                              <div class="border_right col-md-6"></div>
-                              <div class="col-md-6"></div>
-                            </div>
-                            <div class="col-md-6" style="padding-left:3% !important;">
-                              <div class="row col-md-12">
-                                <ul class="col-md-12 row" id='addkpi'>
-                                    <h5 class=" mb_2">KPIs</h5>
-
-                                </ul>
-                              </div>
-                            </div>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <div class="col-md-3 offset-md-9">
-                            <button class="btn btn-primary btn-md activities saveNnextbtn" type="submit" id="svkp">Save </button>
-
-                            </div>
-                        </div>
                     </div>
                   </form>
                 </div>
-                <div class="tab-pane " id="userKPIDiv" role="tabpanel" aria-expanded="false" style="display:none;">
+                <div class='tab-pane {{isset($innertab) && $innertab=="uderKPI" ? "active" : ""}}' id="userKPIDiv" role="tabpanel" aria-expanded="false" style="display:none;">
                   <!-- headings -->
                 <form action="{{route('saveUserKpi')}}" method="post">
                     {{ csrf_field() }}
@@ -454,7 +463,7 @@
                       </div>
                       </div>
                        <div class="col-md-2">
-                            <input name="weightage[]" id="" class="col-md-11 float-right form-control" placeholder="Weightage" type="text" style="text-align:center;border: 1px solid #807d7d8a !important;" value="">
+                            <input name="weightage[]" id="" type="number" class="col-md-11 float-right form-control" placeholder="Weightage" style="text-align:center;border: 1px solid #807d7d8a !important;" value="">
                         </div>
                         <div class="col-md-2">
                             <input name="cost[]" id="" class="col-md-11 float-right form-control" placeholder="Cost" type="text" style="text-align:center;border: 1px solid #807d7d8a !important;" value="">

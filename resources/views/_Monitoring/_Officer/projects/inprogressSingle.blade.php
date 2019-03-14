@@ -36,6 +36,7 @@
 {{-- This is dgme custom css for this page only ,write here any css you want to Ok!!! --}}
 <link rel="stylesheet" href="{{asset('_monitoring/css/css/_dgme/DGME_officer_inprogressSingle.css')}}" />
 <link href="{{asset('lightRoom/lightgallery.css')}}" rel="stylesheet">
+
 <style media="screen">
     /* html{scroll-behavior: smooth;} */
     .paddtopbottom1per{padding: 1% 0% !important;}
@@ -118,6 +119,7 @@
 .orangetXt{font-size: 15px;font-weight: 900;color: #fff !important;font-size: 15px;text-shadow: 1px 3px 21px blueviolet !important;font-weight: 900;background: #f39440;border-radius: 5px;margin-left: 7%;}
 .yeltXt{font-size: 15px;font-weight: 900;color: #fff !important;font-size: 15px;text-shadow: 1px 3px 21px blueviolet !important;font-weight: 900;background: #c7c30d;border-radius: 5px;margin-left: 7%;}
 .greentXt{font-size: 15px;font-weight: 900;color: #fff !important;font-size: 15px;text-shadow: 1px 3px 21px blueviolet !important;font-weight: 900;background: green;border-radius: 5px;margin-left: 7%;}
+.select2-container .select2-selection--single{padding: 2% 0% 13% 0%}
 </style>
 
 @endsection
@@ -131,7 +133,7 @@
           $innertab=\Session::get('innertab');
         }
     @endphp
-    <div class="fixed bg-g hidden-sm hidden-xs topSummary capitalize" style="">
+    <div class="fixed bg-g hidden-sm hidden-xs topSummary capitalize nodisplay" style="">
     <div class="bg-w border_top bg-w" style="padding:0% 0% 0.5% 1% !important;" >
       <style scoped>
           .form-group{margin-bottom:0rem !important;border:none !important;background-color:transparent !important;}
@@ -147,6 +149,7 @@
           .progress-bar-success {background-color: #007b1b;}
           .progress{background: #6967674f !important;}
           .pdz_six{padding: 0% 6% !important;}
+          .topsummaryinput{font-size: 14px !important;padding: 0px !important;font-weight: 600 !important;border: none !important;color:#1e2d52 !important;max-width:115px !important}
         @media only screen and (max-width: 1024px)
           {
             .topSummary
@@ -175,6 +178,9 @@
                         <b for="GS_no" class=" mb_1 fontf_sh"><span >GS #: </span><span>{{$project->Project->ADP}}</span></b>
                     </div>
                     <div class="col-md-3">
+                        <b for="planned_start_date" class=" mb_1 fontf_sh"><span >Planned Start Date: </span><span>{{$project->Project->ProjectDetail->planned_start_date}}</span></b>
+                    </div>
+                    <div class="col-md-3">
                         <b for="planned_end_date" class=" mb_1 fontf_sh"><span >Planned End Date: </span><span>{{$project->Project->ProjectDetail->planned_end_date}}</span> </b>
                     </div>
                     <div class="col-md-3">
@@ -182,19 +188,27 @@
                           {{$dates->actual_start_date}}
                           @endif</span> </b>
                     </div>
-
                     <div class="col-md-3">
-                        <b for="planned_start_date" class=" mb_1 fontf_sh"><span >Planned Start Date: </span><span>{{$project->Project->ProjectDetail->planned_start_date}}</span></b>
+                    <b for="Date_of_visit" class=" mb_1 fontf_sh"><span >Date of visit: </span><span><input type="text" class="topsummaryinput" 
+                      @if($first_visit_date->first_visit_date)
+                      value="{{$first_visit_date->first_visit_date}}"
+                      @else
+                      value=""
+                      @endif
+                      ></span> </b>
+                    </div>
+                    <div class="col-md-3">
+                    <b for="gestation Period" class=" mb_1 fontf_sh"><span>Gestation Period: </span><span>
+                      
+                       {{$gestation_period}}
+                     
+                    </span> </b>
+                    </div>
+                       <div class="col-md-3 ln_ht12">
+                        <b for="project_cost" class=" mb_1 fontf_sh"><span >Original Approve Cost:</span> <span>{{round($project->Project->ProjectDetail->orignal_cost,2)}} Million PKR</span></b>
                     </div>
                     <div class="col-md-3 ln_ht12">
-                      <b for="" name="phy_progress" id="phy_progress" class="primarybold mb_1 fontf_sh"><span  class="float-left">Physical Progress: </span>
-                        <span class="pdz_six" id="Physicalprog">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id),2)}}%</span>
-                        </b>
-                    </div>
-                    <div class="col-md-3">
-                      <b for="" name="f_progress" id="f_progress" class="primarybold mb_1 fontf_sh"><span class="float-left" >Financial Progress:</span>
-                        <span class="pdz_six" id="financialprog">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</span>
-                      </b>
+                        <b for="project_cost" class=" mb_1 fontf_sh"><span >Estimaed AT Completion:</span> <span>testing</span></b>
                     </div>
 
                     <div class="col-md-3 ln_ht12">
@@ -208,31 +222,40 @@
                         </b></span></label>
                     </div>
                     <div class="col-md-3 ln_ht12">
-                        <b for="project_cost" class=" mb_1 fontf_sh"><span >Original Approve Cost:</span> <span>{{round($project->Project->ProjectDetail->orignal_cost,2)}}<small>Million PKR</small></small></span></b>
+                      <b for="" name="phy_progress" id="phy_progress" class="primarybold mb_1 fontf_sh"><span  class="float-left">Planned Progress %: </span>
+                      <span class="pdz_six" id="PlannedProg">{{round(calculatePlannedProgress($project->MProjectProgress->last()->id),2)}}%</span>
+                        </b>
+                    </div>
+                    <div class="col-md-3 ln_ht12">
+                      <b for="" name="phy_progress" id="phy_progress" class="primarybold mb_1 fontf_sh"><span  class="float-left">Physical Progress: </span>
+                        <span class="pdz_six" id="Physicalprog">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id),2)}}%</span>
+                        </b>
                     </div>
                     <div class="col-md-3">
-                      <b for="planned_progress" class=" mb_1 fontf_sh"><span >Planned Progress: </span><span> 0 </span></b>
-                  </div>
+                      <b for="" name="f_progress" id="f_progress" class="primarybold mb_1 fontf_sh"><span class="float-left" >Financial Progress:</span>
+                        <span class="pdz_six" id="financialprog">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</span>
+                      </b>
+                    </div>
                   <div class="col-md-3">
-                    <b for="earned_value" class=" mb_1 fontf_sh"><span >Earned Value: </span><span> 0 </span></b>
+                    <b for="earned_value" class=" mb_1 fontf_sh"><span >Earned Value: </span><span>{{round(calculateEarnedvalue($project->MProjectProgress->last()->id),2)}} %</span></b>
                 </div>
                 <div class="col-md-3">
-                  <b for="actual_value" class=" mb_1 fontf_sh"><span >Actual Value: </span><span> 0 </span></b>
+                  <b for="actual_value" class=" mb_1 fontf_sh"><span >Planned Value: </span><span>{{round(calculatePlannedValue($project->MProjectProgress->last()->id),2)}} </span></b>
               </div>
               <div class="col-md-3">
-                <b for="cost_performance" class=" mb_1 fontf_sh"><span >Cost Performace Index (CPI): </span><span> 0 </span></b>
+              <b for="cost_performance" class=" mb_1 fontf_sh"><span >Cost Performace Index (CPI): </span><span>{{round(costPerformanceindex($project->MProjectProgress->last()->id),4)}}%</span></b>
             </div>
             <div class="col-md-3">
-              <b for="spi" class=" mb_1 fontf_sh"><span >Schedule Performance Index (SPI): </span><span> 0 </span></b>
+            <b for="spi" class=" mb_1 fontf_sh"><span >Schedule Performance Index (SPI): </span><span>{{round(scheduledPerformanceindex($project->MProjectProgress->last()->id),3)}}%</span></b>
           </div>
           <div class="col-md-3">
-            <b for="eac" class=" mb_1 fontf_sh"><span >Estimaed At Completion : </span><span> 0 </span></b>
+          <b for="eac" class=" mb_1 fontf_sh"><span >Estimaed At Completion : </span><span>{{round(estimatedAtCompletion($project->MProjectProgress->last()->id),4)}}</span></b>
         </div>
           </div>
         </div>
     </div>
     <!--start show project detail btn-->
-      <div class="col-md-1 hidden-sm hidden-xs text-center downtiQ nodisplay"  title="Show Project Detail">
+      <div class="col-md-1 hidden-sm hidden-xs text-center downtiQ "  title="Show Project Detail">
         <div class="offset-md-2 col-md-5 border golbtn">
           <i class="fa fa-angle-double-down"></i>
         </div>
@@ -241,9 +264,9 @@
 
     {{-- end of frozen panel --}}
     <div class="row">
-            <div class="col-md-12 mainTabsAndNav mt_6p" style="padding-left: 15px !important;padding-right: 15px !important;">
+            <div class="col-md-12 mainTabsAndNav" style="padding-left: 15px !important;padding-right: 15px !important;">
                 <!-- start hide project detail btn -->
-                <div class="col-md-1 hidden-sm hidden-xs text-center uptiQ" title="Hide Detail">
+                <div class="col-md-1 hidden-sm hidden-xs text-center uptiQ nodisplay" title="Hide Detail">
                   <div class="offset-md-2 col-md-5 border golbtn">
                     <i class="fa fa-angle-double-up"></i>
                   </div>
@@ -409,7 +432,7 @@
 <script src="{{asset('_monitoring/js/bootstrap-daterangepicker/js/daterangepicker.js')}}"></script>
 <script src="{{asset('_monitoring/css/pages/advance-elements/custom-picker.js')}}"></script>
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script> -->
 <script src="{{asset('_monitoring/js/sweetalert/js/sweetalert.min.js')}}"></script>
 <script src="{{asset('_monitoring/css/js/modalEffects.js')}}"></script>
 <script src="{{asset('_monitoring/css/js/classie.js')}}"></script>
@@ -435,6 +458,11 @@
 <script src="{{asset('_monitoring/js/jquery.dm-uploader.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/demo-ui.js')}}"></script>
 <script src="{{asset('_monitoring/js/demo-config.js')}}"></script>
+{{-- end js for file upload  --}}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.3/js/jquery.orgchart.js"></script>
+<script src="{{asset('_monitoring/js/_dgme/DGME_officer_inprogressSingle.js')}}"></script>
+
 {{-- this is custom dgme js for this page only Ok ? if you want to add kindly add here dont mess here!! --}}
 <!-- File item template -->
 <script type="text/html" id="files-template">
@@ -455,20 +483,18 @@
     </div>
 </li>
 </script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.3/js/jquery.orgchart.js"></script>
-<script src="{{asset('_monitoring/js/_dgme/DGME_officer_inprogressSingle.js')}}"></script>
+
 <script>
 
 $(document).ready(function(){
   
-    console.log("Team Lead Check " +team_lead_check);
-  if(!team_lead_check){
+  //   console.log("Team Lead Check " +team_lead_check);
+  // if(!team_lead_check){
     
-    $('input').prop('disabled',true);
-    $('select').prop('disabled',true);
-    $('button').prop('disabled',true);
-  }  
+  //   $('input').prop('disabled',true);
+  //   $('select').prop('disabled',true);
+  //   $('button').prop('disabled',true);
+  // }  
     var success="{{Session::get('success')}}";
     if(success){
       toast({
@@ -997,4 +1023,136 @@ $(document).ready(function()
   }
 });
 </script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+  var PlannedProgtxt = $('#PlannedProg').text();
+  var PlannedProg = $('#PlannedProg');
+  var PlannedProgtxtsplit = PlannedProgtxt.replace("%", "");
+  if (PlannedProgtxtsplit <= 25) {
+    PlannedProg.attr("class", "pdz_six redtXt");
+  }
+  else if (PlannedProgtxtsplit <= 50) {
+    PlannedProg.attr("class", "orangetXt pdz_six");
+  }
+  // else if (temp<= 75 && temp>= 50) {
+  //   status.addClass('blue');
+  // }
+  else if (PlannedProgtxtsplit <= 75) {
+    PlannedProg.attr("class", "pdz_six yeltXt");
+  }
+  else if (PlannedProgtxtsplit <=100) {
+    PlannedProg.attr("class", "pdz_six greentXt");
+  }
+});
+</script>
+<!-- for test upload -->
+<script>
+    const dropArea = document.getElementById('drop--area');
+
+    ['dragenter', 'dragover'].forEach(event => {
+    dropArea.addEventListener(event, function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        dropArea.classList.add('highlight');
+    });
+    });
+
+    ['dragleave', 'drop'].forEach(event => {
+    dropArea.addEventListener(event, function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        dropArea.classList.remove('highlight');
+    });
+    });
+
+    dropArea.addEventListener('drop', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    let dt = e.dataTransfer;
+    let files = dt.files;
+    handleFiles(files).then(result => {
+        console.log(result.children)
+    })
+    });
+
+    function handleFiles(files) {
+    return new Promise((resolve, reject) => {
+        const Files = Array.from(files);
+        const createFileId = ( length ) => {
+        let str = "";
+        for ( ; str.length < length; str += Math.random().toString( 36 ).substr( 2 ));
+        return str.substr( 0, length );
+        }
+        Files.forEach(file => {
+        file.id = createFileId((Math.round(file.lastModified * 100)/file.lastModified));
+        uploadFile(file);
+        previewFile(file);
+        });
+        
+        resolve(document.getElementById('gallery'));
+    })
+    }
+
+    function previewFile(file) {
+    const reader = new FileReader();
+    //console.log('file:id', file.id)
+    reader.readAsDataURL(file);
+    reader.onloadend = function() {
+        const img = document.createElement('img');
+        const fig = document.createElement('figure');
+        const spanOne = document.createElement('span');
+        const spanTwo = document.createElement('span');
+        const mainSpan = document.createElement('span');
+        const progressSpan = document.createElement('span');
+        fig.classList.add('preview');
+        img.classList.add('img');
+        mainSpan.classList.add('mainSpan');
+        spanOne.classList.add('spanOne');
+        spanTwo.classList.add('spanTwo');
+        progressSpan.classList.add('progressSpan');
+        progressSpan.id = file.id;
+        mainSpan.onclick = function (e) {
+        this.parentElement.remove();
+        }
+        img.src = reader.result;
+        [spanOne, spanTwo].forEach(item => {
+        mainSpan.appendChild(item);
+        });
+        [img, mainSpan, progressSpan].forEach(item => {
+        fig.appendChild(item);
+        });
+        document.getElementById('gallery').appendChild(fig);
+    }
+    }
+
+    function uploadFile(file) {
+    const config = {
+        headers: { "X-Requested-With": "XMLHttpRequest" },
+        onUploadProgress: function (progressEvent) {
+        let progress = Math.round((progressEvent.loaded * 100.0) / progressEvent.total);
+        if (document.getElementById(`${file.id}`) !== null) {
+            document.getElementById(`${file.id}`).style.height = `${100 - progress}%`;
+        }
+        }
+    }
+    const url = 'https://api.cloudinary.com/v1_1/dxlhzerlq/upload';
+    const data = new FormData();
+    data.append("upload_preset", "acjlrvii"); //append cloudinary specific config
+    data.append('file', file);
+    axios.post(url, data, config).then(res => {
+    if (res.data) {
+        const uploadedImgData = res.data;
+        const imgTag = document.getElementById(`${file.id}`).previousSibling.previousSibling;
+        imgTag.src = uploadedImgData.url;
+        imgTag.dataset.data = JSON.stringify(uploadedImgData);
+        document.getElementById(`${file.id}`).parentElement.classList.remove('preview');
+        document.getElementById(`${file.id}`).parentElement.classList.add('done');
+        //console.log(imgTag);
+    }
+    }).catch(err => {
+        console.log(err);
+    })
+    } 
+    </script>
 @endsection

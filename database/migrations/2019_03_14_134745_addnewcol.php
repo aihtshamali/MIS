@@ -13,9 +13,10 @@ class Addnewcol extends Migration
      */
     public function up()
     {
-        Schema::table('m_user_visitlocations', function (Blueprint $table) {
-            $table->date('planned_visit_date')->default(0);
+        Schema::table('m_project_dates', function (Blueprint $table) {
+            $table->date('first_visit_date')->nullable()->default(null);
            });
+
     }
 
     /**

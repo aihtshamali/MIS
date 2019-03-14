@@ -80,6 +80,102 @@ if (! function_exists('calculateMPhysicalProgress')) {
       return 0;
   }
 }
+
+
+function calculatePlannedProgress($m_project_progress_id)
+{
+  $planned_start_date=date_create(App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->ProjectDetail->planned_start_date);
+  $planned_end_date=date_create(App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->ProjectDetail->planned_end_date);
+  $interval_period1=date_diff($planned_start_date,$planned_end_date);
+  
+  //original gestation period
+  $planned_gestation_period=$interval_period1->format('%a');
+
+  $visit_start_Date=date_create(App\MProjectProgress::find($m_project_progress_id)->MProjectDate->first_visit_date);  
+  $interval_period2=date_diff($visit_start_Date,$planned_start_date);
+  // planned progress geatation period
+  $gestation_period=$interval_period2->format('%a');
+
+  $planned_progress=($gestation_period/$planned_gestation_period)*100;
+   return $planned_progress;
+   return 0;
+
+  
+  
+}
+
+function calculateEarnedvalue($m_project_progress_id)
+{
+  $physical_progress=calculateMPhysicalProgress($m_project_progress_id);
+
+  $original_cost=App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->ProjectDetail->orignal_cost;
+  $revised_approved_cost=App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->RevisedApprovedCost->last();
+   
+  if($revised_approved_cost)
+  {
+    $earnedvalue= ($physical_progress/100) * $revised_approved_cost->cost;
+  }
+  else{
+    $earnedvalue= ($physical_progress/100) * $original_cost;
+  }
+  // dd($earnedvalue);
+  return $earnedvalue;
+
+}
+
+function calculatePlannedValue($m_project_progress_id)
+{
+  $planned_progress=calculatePlannedProgress($m_project_progress_id);
+  $original_cost=App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->ProjectDetail->orignal_cost;
+  $revised_approved_cost=App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->RevisedApprovedCost->last();
+   
+  if($revised_approved_cost)
+  {
+    $plannedvalue= ($planned_progress/100) * $revised_approved_cost->cost;
+  }
+  else{
+    $plannedvalue= ($planned_progress/100) * $original_cost;
+  }
+  // dd($plannedvalue);
+  return $plannedvalue;
+
+}
+function costPerformanceindex($m_project_progress_id)
+{
+  $earned_value=calculateEarnedvalue($m_project_progress_id);
+  $actual_consumed_Cost=App\MProjectProgress::find($m_project_progress_id)->MProjectCost->total_release_to_date;
+  // dd($actual_consmed_Cost);
+  $cpi=$earned_value/$actual_consumed_Cost;
+  
+  return $cpi;
+
+}
+function scheduledPerformanceindex($m_project_progress_id)
+{
+  $earned_value=calculateEarnedvalue($m_project_progress_id);
+  $planned_value=calculatePlannedValue($m_project_progress_id);
+  $spi=$earned_value/$planned_value;
+  return $spi;
+
+}
+
+function estimatedAtCompletion($m_project_progress_id)
+{
+  $cpi=costPerformanceindex($m_project_progress_id);
+  
+  $original_cost=App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->ProjectDetail->orignal_cost;
+  $revised_approved_cost=App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->RevisedApprovedCost->last();
+   
+  if($revised_approved_cost)
+  {
+    $estimatedAtCompletion= $revised_approved_cost->cost/$cpi ;
+  }
+  else{
+    $estimatedAtCompletion= $original_cost/$cpi;
+  }
+  // dd($earnedvalue);
+  return $estimatedAtCompletion;
+}
 function ProjectProgressAcctoDate($project_id){
   $project=App\Project::find(1403);
   $revised_end_date=$project->RevisedEndDate;
