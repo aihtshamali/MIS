@@ -1247,7 +1247,7 @@ $(document).ready(function(){
     });
     // var i=0;
     var removeSibKPI = `
-    <div class="col-sm-2 text_center RemoveUserKPI">
+    <div class="col-sm-1 text_center RemoveUserKPI">
       <button class=" btn btn-sm btn-danger" type="button" id="">-</button>
     </div>
     `

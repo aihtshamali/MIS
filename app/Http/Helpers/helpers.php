@@ -90,7 +90,9 @@ function calculatePlannedProgress($m_project_progress_id)
   
   //original gestation period
   $planned_gestation_period=$interval_period1->format('%a');
-
+  
+  if(!isset(App\MProjectProgress::find($m_project_progress_id)->MProjectDate->first_visit_date)) //if FirstVisit Date not set
+    return 0;
   $visit_start_Date=date_create(App\MProjectProgress::find($m_project_progress_id)->MProjectDate->first_visit_date);  
   $interval_period2=date_diff($visit_start_Date,$planned_start_date);
   // planned progress geatation period
@@ -143,6 +145,8 @@ function calculatePlannedValue($m_project_progress_id)
 function costPerformanceindex($m_project_progress_id)
 {
   $earned_value=calculateEarnedvalue($m_project_progress_id);
+  if(!isset(App\MProjectProgress::find($m_project_progress_id)->MProjectCost->total_release_to_date))
+    return 0;
   $actual_consumed_Cost=App\MProjectProgress::find($m_project_progress_id)->MProjectCost->total_release_to_date;
   // dd($actual_consmed_Cost);
   $cpi=$earned_value/$actual_consumed_Cost;
@@ -154,6 +158,8 @@ function scheduledPerformanceindex($m_project_progress_id)
 {
   $earned_value=calculateEarnedvalue($m_project_progress_id);
   $planned_value=calculatePlannedValue($m_project_progress_id);
+  if($planned_value==0)
+    return $planned_value;
   $spi=$earned_value/$planned_value;
   return $spi;
 
@@ -165,7 +171,8 @@ function estimatedAtCompletion($m_project_progress_id)
   
   $original_cost=App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->ProjectDetail->orignal_cost;
   $revised_approved_cost=App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->RevisedApprovedCost->last();
-   
+  if($cpi==0)
+    return 0;
   if($revised_approved_cost)
   {
     $estimatedAtCompletion= $revised_approved_cost->cost/$cpi ;

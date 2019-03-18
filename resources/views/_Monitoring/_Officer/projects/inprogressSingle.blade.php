@@ -190,7 +190,7 @@
                     </div>
                     <div class="col-md-3">
                     <b for="Date_of_visit" class=" mb_1 fontf_sh"><span >Date of visit: </span><span><input type="text" class="topsummaryinput" 
-                      @if($first_visit_date->first_visit_date)
+                      @if(isset($first_visit_date->first_visit_date))
                       value="{{$first_visit_date->first_visit_date}}"
                       @else
                       value=""
@@ -198,7 +198,7 @@
                       ></span> </b>
                     </div>
                     <div class="col-md-3">
-                    <b for="gestation Period" class=" mb_1 fontf_sh"><span>Gestation Period: </span><span>
+                    <b for="gestation Period" class=" mb_1 fontf_sh"><span title="Gestation Period">GP: </span><span>
                       
                        {{$gestation_period}}
                      
@@ -209,17 +209,6 @@
                     </div>
                     <div class="col-md-3 ln_ht12">
                         <b for="project_cost" class=" mb_1 fontf_sh"><span >Estimaed AT Completion:</span> <span>testing</span></b>
-                    </div>
-
-                    <div class="col-md-3 ln_ht12">
-                        <b for="Location" class=" mb_1 fontf_sh"><span >final Revised Cost:</span> <span>
-                          @if($project->Project->RevisedApprovedCost->last())
-                            {{round($project->Project->RevisedApprovedCost->last()->cost,2)}}
-                          @else
-                            0
-                          @endif
-                           Million PKR
-                        </b></span></label>
                     </div>
                     <div class="col-md-3 ln_ht12">
                       <b for="" name="phy_progress" id="phy_progress" class="primarybold mb_1 fontf_sh"><span  class="float-left">Planned Progress %: </span>
@@ -235,6 +224,16 @@
                       <b for="" name="f_progress" id="f_progress" class="primarybold mb_1 fontf_sh"><span class="float-left" >Financial Progress:</span>
                         <span class="pdz_six" id="financialprog">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</span>
                       </b>
+                    </div>
+                    <div class="col-md-3 ln_ht12">
+                        <b for="Location" class=" mb_1 fontf_sh"><span >final Revised Cost:</span> <span>
+                          @if($project->Project->RevisedApprovedCost->last())
+                            {{round($project->Project->RevisedApprovedCost->last()->cost,2)}}
+                          @else
+                            0
+                          @endif
+                           Million PKR
+                        </b></span></label>
                     </div>
                   <div class="col-md-3">
                     <b for="earned_value" class=" mb_1 fontf_sh"><span >Earned Value: </span><span>{{round(calculateEarnedvalue($project->MProjectProgress->last()->id),2)}} %</span></b>

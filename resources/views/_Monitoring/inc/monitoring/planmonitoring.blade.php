@@ -221,15 +221,15 @@
                     <div class="col-md-3 text-center">
                       <h4 class="form-txt-primary">User</h4>
                     </div>
-                    <div class="col-md-2 text-center">
+                    <div class="col-md-4 text-center">
                       <h4 class="form-txt-primary">Location</h4>
                     </div>
                     <div class="col-md-3 text-center">
                       <h4 class="form-txt-primary">Site Name</h4>
                     </div>
-                    <div class="col-md-2 text-center">
+                    <!-- <div class="col-md-2 text-center">
                       <h4 class="form-txt-primary">Date</h4>
-                    </div>
+                    </div> -->
                   </div>
                   <!-- end heading -->
                   <!-- user Location content -->
@@ -243,7 +243,7 @@
                       .select2-container--default .select2-selection--multiple .select2-selection__rendered li{padding: 1% !important};
                     </style>
                     <div class="row col-md-11" id="CloneThisUserLoc" style="margin-bottom:1% !important;">
-                      <div class="col-md-3 text-center">
+                      <div class="col-md-4 text-center">
                         <div class="col-md-10 offset-md-1 delLastLocChild">
                         <select class="select2" id="" name="user_location_1">
                             @foreach($team as $t)
@@ -252,7 +252,7 @@
                         </select>
                       </div>
                       </div>
-                      <div class="col-md-3 text-center">
+                      <div class="col-md-4 text-center">
                         <div class="col-md-10 offset-md-1 delLastLocChild">
                         <select class="select2" id="" name="location_user_1[]" multiple="multiple">
                             @foreach ($assigned_districts as $ad)
@@ -261,9 +261,9 @@
                         </select>
                       </div>
                     </div>
-                    <div class="col-md-3 text-center">
+                    <div class="col-md-4 text-center">
                         <div class="col-md-10 offset-md-1">
-                            <input type="text" placeholder="Site Name" name="site_name_1" class="site_name form-control">
+                            <input type="text" placeholder="Site Name" name="site_name_1" class="site_name form-control" />
                         </div>
                     </div>
                     {{-- <div class="col-md-3 text-center">
@@ -423,10 +423,17 @@
                     <input type="hidden" name="counts" id="counts_user_location_id" value="1+">
                   <div class="row col-md-12">
                     <div class="col-md-4 text-center">
-                      <h4 class="form-txt-primary">User</h4>
+                        <div class="col-md-10 offset-md-1">
+                            <h4 class="form-txt-primary">User</h4>
+                        </div>
                     </div>
-                    <div class="col-md-4 text-center">
-                      <h4 class="form-txt-primary">Selected KPIs</h4>
+                    <div class="col-md-3 text-center">
+                        <div class="col-md-10 offset-md-1">
+                            <h4 class="form-txt-primary">Selected KPIs</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-2 text-center">
+                      <h4 class="form-txt-primary">Cost</h4>
                     </div>
                     <div class="col-md-2 text-center">
                       <h4 class="form-txt-primary">Weightage</h4>
@@ -435,7 +442,7 @@
                   <!-- end heading -->
                   <!-- user Location content -->
                   <div class="row col-md-12">
-                    <div class="row col-md-10" id="CloneThisUserKPI" style="margin-bottom:1% !important;">
+                    <div class="row col-md-11" id="CloneThisUserKPI" style="margin-bottom:1% !important;">
                       <div class="col-md-4 text-center">
                         <div class="col-md-10 offset-md-1 delLastChild">
                             <select class="select2" id="" name="user_location_id_1">
@@ -462,14 +469,14 @@
                         </select>
                       </div>
                       </div>
-                       <div class="col-md-2">
-                            <input name="weightage[]" id="" type="number" class="col-md-11 float-right form-control" placeholder="Weightage" style="text-align:center;border: 1px solid #807d7d8a !important;" value="">
-                        </div>
                         <div class="col-md-2">
-                            <input name="cost[]" id="" class="col-md-11 float-right form-control" placeholder="Cost" type="text" style="text-align:center;border: 1px solid #807d7d8a !important;" value="">
+                            <input name="cost[]" id="" class="col-md-11 float-right form-control" placeholder="Cost" type="text" style="text-align:center;border: 1px solid #807d7d8a !important;padding: 8% 0% 8% 0% !important;" value="">
+                        </div>                        
+                       <div class="col-md-2">
+                            <input name="weightage[]" id="" type="number" class="col-md-11 float-right form-control" placeholder="Weightage" style="text-align:center;border: 1px solid #807d7d8a !important;padding: 8% 0% 8% 0% !important;" value="">
                         </div>
                     </div>
-                    <div class="col-sm-2 text_center">
+                    <div class="col-sm-1 text_center">
                       <button class="btn btn-sm btn-info" type="button" id="CloneUserKPI">+</button>
                     </div>
                   </div>
