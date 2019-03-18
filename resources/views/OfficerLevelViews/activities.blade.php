@@ -446,7 +446,7 @@
                                   </input>
                                 </a>
                               @endif
-                            <a class="btn" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" data-content="Start Date: <input class='form-control' type='date' name='start_date' value='{{$activity->start_date}}' required>End Date:<input type='date' class='form-control' value='{{$activity->end_date}}' name='end_date' required><button type='button' class='btn btn-success pull-right' onClick='saveDates({{$activity->id}},this)'>Update</button>" >
+                            <a class="btn" rel='popover' data-placement='bottom' data-original-title='Confirm' data-html="true" disabled data-content="Start Date: <input class='form-control' type='date' name='start_date' value='{{$activity->start_date}}' required>End Date:<input type='date' class='form-control' value='{{$activity->end_date}}' name='end_date' required><button type='button' class='btn btn-success pull-right' onClick='saveDates({{$activity->id}},this)'>Update</button>" >
                               <div class="percentBox">
                                 <p>Dates</p>
                               </div>

@@ -1,9 +1,203 @@
-<style scoped>
+<div class="tab-pane {{isset($maintab) && $maintab=='conduct' ? 'active' : ''}}" id="c_monitoring" role="tabpanel">
+<style scoped="true">
 .select2-container--default .select2-selection--single{
   height: 37px !important;
 }
+/* file upload */
+
+/* .custom-file-upload {
+  display: block;
+  width: auto;
+  font-size: 16px;
+  margin-top: 30px;
+}
+.custom-file-upload label {
+  display: block;
+  margin-bottom: 5px;
+}
+.file-upload-wrapper
+ {
+  position: relative;
+  margin-bottom: 5px;
+}
+
+.file-upload-input-conductMonitoring {
+  width: 82%;
+  color: #404e67;
+  font-size: 16px;
+  float:right !important;
+  padding: 11px 17px;
+  border: none;
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+  float: left;
+}
+.file-upload-input-conductMonitoring:hover, .file-upload-input-conductMonitoring:focus {
+  background-color: #ab3326;
+  outline: none;
+}
+
+.file-upload-button-conductMonitoring {
+  cursor: pointer;
+  display: inline-block;
+  color: #fff;
+  font-size: 14px;
+  text-transform: uppercase;
+  padding: 1em;
+  border: none;
+  margin-left: -1px;
+  background-color: #01a9ac;
+  float: left;
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+  border-radius: 0.7em;
+  font-weight: 600;
+} */
+/* .file-upload-button:hover {
+  background-color: #404E67;
+} */
+/* upload images */
+@keyframes spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    }
+    #drop--area {
+    display: block;
+    /* margin: 2rem auto;
+    border: .2rem solid #01a9ac;
+    border-radius: 1rem;
+    padding: 3rem; */
+    }
+    #drop--area>form>.file-upload-wrapper>input[type="text"] {display:none !important;}  
+    #drop--area>form>.file-upload-wrapper>button {display:none !important;}
+    #drop--area.highlight {
+    border: .2rem dashed #34495e;
+    }
+
+    #file--input {
+    margin-bottom: 1rem;
+    background: blue;
+    height: 100%;
+    display: none;
+    }
+
+    #gallery {
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    }
+
+    .preview {
+    height: 18rem;
+    width: 18rem;
+    overflow: hidden;
+    position: relative;
+    margin: 2rem .5rem 0;
+    }
+    .preview::before {
+    content: '';
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    border: .5rem solid transparent;
+    border-color: transparent transparent transparent #fff;
+    transition: all .5s ease-in;
+    background: transparent;
+    position: absolute;
+    top: 23%;
+    left: 20%;
+    animation: spinner 1s linear 1s infinite;
+    }
+
+    .progressSpan {
+    background: #2c3e50;
+    opacity: .6;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 1000;
+    transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+    top: 0;
+    left: 0;
+    }
+
+    .done {
+    height: 45%;
+    width: 24%;
+    overflow: hidden;
+    position: relative;
+    margin: 1% 0.5%;
+    border: 1px dashed #404e67;
+    }
+
+    .done>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    }
+
+    .mainSpan {
+    position: absolute;
+    width: 2.5rem;
+    height: 2.5rem;
+    z-index: 2000;
+    top: 3.2%;
+    right: 10%;
+    cursor: pointer;
+    opacity: .9;
+    }
+
+    .spanOne {
+    position: absolute;
+    background: #404e67;
+    top: 2.2%;
+    right: 34%;
+    width: 11%;
+    height: 55%;
+    transform: rotate(-50deg);
+    cursor: pointer;
+    }
+
+    .spanTwo {
+    position: absolute;
+    background: #404e67;
+    z-index: 2000;
+    top: 3.2%;
+    right: 34%;
+    width: 11%;
+    height: 55%;
+    transform: rotate(50deg);
+    cursor: pointer;
+    }
+
+    .button {
+    display: inline-block;
+    padding: 1rem !important;
+    background-color: #01a9ac !important;
+    color: #fff;
+    font-weight: 900;
+    text-transform: uppercase;
+    border-radius: .7em;
+    margin-left: .6rem;
+    }
+    .button:hover {
+    background-color: #2c3e50;
+    cursor: pointer;
+    }
 </style>
-<div class="tab-pane {{isset($maintab) && $maintab=='conduct' ? 'active' : ''}}" id="c_monitoring" role="tabpanel">
     <div class="row">
         <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12  conductNavBar">
             <!-- Nav tabs -->
@@ -42,7 +236,7 @@
                 <li class='nav-item  {{isset($innertab) && $innertab=="docs" ? "active" : ""}}'>
                     <a class="nav-link Documents" data-toggle="tab" href="#Documents"
                         role="tab" aria-expanded="false">
-                        <b style="font-size:14px; font-weight:bold;">Documents</b></a>
+                        <b style="font-size:14px; font-weight:bold;">upload image & video</b></a>
                 </li>
             </ul>
             <!-- Tab panes -->
@@ -839,6 +1033,18 @@
                 </div>
                 <div class='tab-pane {{isset($innertab) && $innertab=="docs" ? "active" : ""}}' id="Documents" role="tabpanel" aria-expanded="false">
                     <div class="container">
+                        <div id="drop--area">
+                            <form action="" class="form" id="form">
+                                <input type="file" id="file--input" multiple accept="image/*" onchange="handleFiles(this.files)">
+                                <label for="file--input" class="button">Select Images</label>
+                                <div id="gallery"></div>
+                            </form>
+                        </div>
+                        <div class="custom-file-upload">
+                            <h4 class="text-primary" for="file">Upload Videos: </h4> 
+                            <!-- <input type="file" id="file" name="myfiles[]" multiple /> -->
+                            <input type="file" accepts="video/*" multiple>
+                        </div>
                     </div>
                 </div>
                 {{-- <div class="tab-pane active" id="procurment" role="tabpanel"

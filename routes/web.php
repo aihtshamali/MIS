@@ -261,7 +261,7 @@ Route::post('/getunassignedProjectCounter','ProjectCounterController@getUnassign
 Route::post('/getinProgressProjectCounter','ProjectCounterController@getInProgressCounter')->name('inProgressCounter');
 Route::post('/getAssignedProjectCounter','ProjectCounterController@getAssignedProjectCounter')->name('assignedCounter');
 Route::post('/getCompletedCounter','ProjectCounterController@getCompletedCounter')->name('completedCounter');
-Route::post('/onsectorselect','DataEntryController@onSectorSelect');
+Route::post('/onsectorselect','DataEntryController@onSectorSelect')->name('sectorselect');
 Route::post('/onsubsectorselect','DataEntryController@onSub_SectorSelect');
 Route::post('/getMonitoringProjectNumber','DataEntryController@getMonitoringProjectData');
 Route::post('/onAssigningForumselect','DataEntryController@onAssigningForumselect');

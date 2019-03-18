@@ -4,10 +4,10 @@ var compopt = ""
 $(document).ready(function () {
     $('[data-toggle="popover"]').popover();
 
-    $(".planNav").click(function () {
-        $(".topSummary").show('slow');
-        $(".mainTabsAndNav").animate({ marginTop: '6%' }, 1000);
-    });
+    // $(".planNav").click(function () {
+    //     $(".topSummary").show('slow');
+    //     $(".mainTabsAndNav").animate({ marginTop: '6%' }, 1000);
+    // });
 
     $('input:checkbox').click(function () {
         $('input:checkbox').not(this).prop('checked', false);
@@ -29,7 +29,7 @@ $(document).ready(function () {
         // $('.downtiQ').hide();
         $(".uptiQ").show(100);
         $(".topSummary ").slideDown("slow");
-        $(".mainTabsAndNav").animate({ marginTop: '6%' }, 1000);
+        $(".mainTabsAndNav").animate({ marginTop: '12%' }, 1000);
     });
 
 
@@ -304,8 +304,8 @@ $(document).ready(function () {
         $('.conductNavBar').hide();
         $('.resultNavBar').hide();
         $('.PlanDoc').addClass('active');
-        $(".uptiQ").show('slow');
-        $(".downtiQ").hide();
+        // $(".uptiQ").show('slow');
+        $(".downtiQ").show();
         $(".reviewNavBar").hide();
         $(".r_monitoringDivv").hide();
         $('#r_monitoring').hide();
@@ -357,10 +357,10 @@ $(document).ready(function () {
         $('.planNavBar').hide();
         $('.p_details').hide();
         $('.mainTabsAndNav').removeClass("col-md-8").addClass("col-md-12");
-        $('.mainTabsAndNav').animate({ marginTop: '6%' }, 1000);
-        $(".topSummary").show('slow');
-        $(".uptiQ").show('slow');
-        $(".downtiQ").hide();
+        // $('.mainTabsAndNav').animate({ marginTop: '6%' }, 1000);
+        // $(".topSummary").show('slow');
+        // $(".uptiQ").show('slow');
+        $(".downtiQ").show();
         $(".reviewNavBar").hide();
         $(".r_monitoringDivv").hide();
         $('#r_monitoring').hide();
@@ -373,11 +373,11 @@ $(document).ready(function () {
         $('.galnav').addClass('active');
         $('#r_monitoring').show();
         $('.mainTabsAndNav').removeClass("col-md-8").addClass("col-md-12");
-        $('.mainTabsAndNav').animate({ marginTop: '6%' }, 1000);
-        $(".topSummary").show('slow');
+        // $('.mainTabsAndNav').animate({ marginTop: '6%' }, 1000);
+        // $(".topSummary").show('slow');
         $('.p_details').hide();
-        $(".uptiQ").show('slow');
-        $(".downtiQ").hide();
+        // $(".uptiQ").show('slow');
+        $(".downtiQ").show();
         $(".reviewNavBar").hide();
         $(".planNavBar").hide();
         $(".conductNavBar").hide();
@@ -393,29 +393,29 @@ $(document).ready(function () {
         hideall();
         $('#procu').show();
     });
-    $('#did').on('click', function () {
-        hideall();
-        $('#CostingDiv').show();
-        $("#tili").removeClass("active");
-        $("#cosli").addClass("active");
-    });
+    // $('#did').on('click', function () {
+    //     hideall();
+    //     $('#CostingDiv').show();
+    //     $("#tili").removeClass("active");
+    //     $("#cosli").addClass("active");
+    // });
     $('.TimeTab').on('click', function () {
         hideall();
         $('#TimesDiv').show();
     });
 
-    $('#saveTasks').on('click', function () {
-        hideall();
-        $('#TimesDiv').show();
-        $("#tali").removeClass("active");
-        $("#tili").addClass("active");
-    });
-    $('#svkp').on('click', function () {
-        hideall();
-        $('#activities').show();
-        $("#kpisss").removeClass("active");
-        $("#proloc").addClass("active");
-    });
+    // $('#saveTasks').on('click', function () {
+    //     hideall();
+    //     $('#TimesDiv').show();
+    //     $("#tali").removeClass("active");
+    //     $("#tili").addClass("active");
+    // });
+    // $('#svkp').on('click', function () {
+    //     hideall();
+    //     $('#activities').show();
+    //     $("#kpisss").removeClass("active");
+    //     $("#proloc").addClass("active");
+    // });
 
     $('.kpis').on('click', function () {
         hideall();
@@ -443,11 +443,11 @@ $(document).ready(function () {
         hideall();
         $(".nav-link").removeClass('active');
         $(".costTab").addClass('active');
-        $(".topSummary").show('slow');
+        // $(".topSummary").show('slow');
         $(".reviewNavBar").show();
         $('#reviewDiv').show();
         $('#costDiv').show();
-        $(".mainTabsAndNav").animate({ marginTop: '6%' }, 1000);
+        // $(".mainTabsAndNav").animate({ marginTop: '6%' }, 1000);
         $('#p_monitoring').hide();
         $('#c_monitoring').hide();
         $('.planNavBar').hide();
@@ -458,18 +458,18 @@ $(document).ready(function () {
         $('.r_monitoringDivv').hide();
         $('#r_monitoring').hide();
         $('.mainTabsAndNav').removeClass("col-md-8").addClass("col-md-12");
-        $(".uptiQ").show('slow');
+        $(".downtiQ").show('slow');
     });
     $('.financialphase').on('click', function () {
         hideall();
         $('#financial').show();
     });
-    $('#saveObjComp').on('click', function () {
-        hideall();
-        $('#MOBdiv').show();
-        $('#MOBtab').addClass("active");
-        $('#pdli').removeClass("active");
-    });
+    // $('#saveObjComp').on('click', function () {
+    //     hideall();
+    //     $('#MOBdiv').show();
+    //     $('#MOBtab').addClass("active");
+    //     $('#pdli').removeClass("active");
+    // });
     $('.MOBtab').on('click', function () {
         hideall();
         $('#MOBdiv').show();
@@ -529,6 +529,8 @@ $(document).ready(function () {
     $('.Documents').on('click', function () {
         hideall();
         $('#Documents').show();
+        $('#r_monitoring').hide();
+        $('.resultNavBar').hide();
     });
 });
 
@@ -1186,12 +1188,15 @@ $(document).ready(function(){
     let user_div = data.find('select')[0];
     let location_div = data.find('select')[1];
     let site_div = data.find('input.site_name');
+    // let date_div = data.find('input.loc_date');
     let new_user = "user_location_"+user_location_count;
-    let new_site = "site_name_"+user_location_count++;
+    let new_site = "site_name_"+user_location_count ;
     let new_location = "location_user_"+(location_user_count++) + '[]';
+    // let mydate ="dateLoc_"+user_location_count++;
     $(user_div).attr('name',new_user);
     $(site_div).attr('name',new_site);
     $(location_div).attr('name',new_location);
+    // $(date_div).attr('name',mydate);
     data.appendTo('.CloneUserLocHere');
     $("#counts_user_location").attr('value', user_location_count);
     $('.select2').select2();
@@ -1206,8 +1211,8 @@ $(document).ready(function(){
     });
     // var i=0;
     var removeSib = `
-    <div class="col-sm-2 text_center RemoveUserLoc">
-      <button class=" btn btn-sm btn-danger" type="button" id="">-</button>
+    <div class="col-sm-1 text_center RemoveUserLoc">
+      <button class=" btn btn-sm btn-danger"title="Remove" type="button" id="">-</button>
     </div>
     `
     $(removeSib).appendTo('.CloneUserLocHere');
@@ -1217,17 +1222,19 @@ $(document).ready(function(){
     $(this).prev().remove();
     $(this).remove();
   });
-  var user_location_id_count=2;
+  var user_location_id_count=1;
+//   $("#counts_user_location_id").val(user_location_id_count);
+  
   $('#CloneUserKPI').click(function(){
     let data=$("#CloneThisUserKPI").clone();
-      let user_div = data.find('select')[0];
+    let user_div = data.find('select')[0];
       let location_div = data.find('select')[1];
       let user_location = "user_location_id_" + user_location_id_count;
       let project_kpi = "m_project_kpi_id_" + (user_location_id_count) + '[]';
       $(user_div).attr('name', user_location);
       $(location_div).attr('name', project_kpi);
       data.appendTo('.CloneUserKPIHere');
-      $("#counts_user_location_id").attr('value', ++user_location_id_count);
+      $("#counts_user_location_id").val(++user_location_id_count);
       $('.select2').select2();
       $('.delLastChild').each(function(index){
       if(index == 0 || index == 1)
@@ -1240,7 +1247,7 @@ $(document).ready(function(){
     });
     // var i=0;
     var removeSibKPI = `
-    <div class="col-sm-2 text_center RemoveUserKPI">
+    <div class="col-sm-1 text_center RemoveUserKPI">
       <button class=" btn btn-sm btn-danger" type="button" id="">-</button>
     </div>
     `
