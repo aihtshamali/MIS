@@ -71,7 +71,7 @@ if (! function_exists('calculateMPhysicalProgress')) {
        }, $cost, $arr);
 
       $total_phyProgres= array_sum($phy_prog);
-      $physical_progress=($total_phyProgres/$original_cost)*100; 
+      $physical_progress=($total_phyProgres/$original_cost); 
       // foreach($arr as $val){
       //   $sum+=$val;
       // }

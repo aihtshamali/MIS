@@ -1588,6 +1588,9 @@ class OfficerController extends Controller
           $inner_counter = 1;
           foreach($request[$project_kpi.$counter] as $d)
           {
+            
+
+
             $mAssignedUserkpi = new MAssignedUserKpi();
             $mAssignedUserkpi->m_assigned_user_location_id = $request[$user.$counter];
             $mAssignedUserkpi->m_project_kpi_id = $d;
