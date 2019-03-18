@@ -763,16 +763,10 @@ $(document).ready(function(){
 
                        <input type="hidden" name='kpinamesId[]' value='`+$(this).attr('data-value')+`'/>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-8">
                         <select class="kpisel col-sm-12" name='mappedKpicomponent_`+count+`[]' multiple="multiple" id="optionsHere">
                     `+ compopt +`
                         </select>
-                    </div>
-                    <div class="col-md-2">
-                      <input name="weightage[]" id="" class="col-md-11 float-right form-control" placeholder="Weightage" type="text" style="text-align:center;border: 1px solid #807d7d8a !important;" value="">
-                    </div>
-                    <div class="col-md-1">
-                      <input name="cost[]" id="" class="col-md-11 float-right form-control" placeholder="Cost" type="text" style="text-align:center;border: 1px solid #807d7d8a !important;" value="">
                     </div>
                     </li>`;
                     count++;
