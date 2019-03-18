@@ -217,6 +217,42 @@
                 </div>
                 <div class="tab-pane {{isset($innertab) && $innertab == 'userLoc' ? 'active' : ''}} userlocDiv" id="userlocDiv" role="tabpanel" aria-expanded="false">
                   <!-- headings -->
+                  @if($projectProgressId->MAssignedKpi)
+                  <div class="row">
+                    <h4 style="text-align: center;">Saved Kpis</h4>
+                    <div class="col-md-12 table-responsive">
+                          <table class="table  table-bordered nowrap"  id="countit">
+                              <thead>
+                                  <tr>
+                                      <th>Sr #</th>
+                                      <th>User</th>
+                                      <th>District</th>
+                                      <th>Site Name</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  @php
+                                   $i=1;   
+                                  @endphp
+                                  @foreach ($projectProgressId->MAssignedUserLocation as $userloc)
+                                  <tr>
+                                  <td>{{$i++}}</td>
+                                   <td>{{$userloc->User->first_name}}</td>  
+                                  <td>{{$userloc->District->name}}</td>  
+                                    <td>
+                                        @if($userloc->site_name != Null)
+                                        {{$userloc->site_name}}
+                                        @else
+                                        <span style="color:red"><b>Not Added</b></span>
+                                        @endif
+                                    </td>  
+                                  </tr> 
+                                  @endforeach
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+                  @endif
                   <div class="row col-md-12">
                     <div class="col-md-3 text-center">
                       <h4 class="form-txt-primary">User</h4>
@@ -227,9 +263,6 @@
                     <div class="col-md-3 text-center">
                       <h4 class="form-txt-primary">Site Name</h4>
                     </div>
-                    <!-- <div class="col-md-2 text-center">
-                      <h4 class="form-txt-primary">Date</h4>
-                    </div> -->
                   </div>
                   <!-- end heading -->
                   <!-- user Location content -->
@@ -238,50 +271,47 @@
                 <input type="hidden" name="progress_id" value="{{$projectProgressId->id}}">
                 <input type="hidden" name="counts" value="1" id="counts_user_location">
                 <input type="hidden" name="page_tabs" value="plan_Mapping">
-                  <div class="row col-md-12">
+            
+                <div class="row col-md-12">
                     <style media="screen" scoped>
                       .select2-container--default .select2-selection--multiple .select2-selection__rendered li{padding: 1% !important};
                     </style>
                     <div class="row col-md-11" id="CloneThisUserLoc" style="margin-bottom:1% !important;">
-                      <div class="col-md-4 text-center">
-                        <div class="col-md-10 offset-md-1 delLastLocChild">
-                        <select class="select2" id="" name="user_location_1">
-                            @foreach($team as $t)
-                                    <option value="{{$t->User->id}}">{{$t->User->first_name}}</option>
-                            @endforeach
-                        </select>
-                      </div>
-                      </div>
-                      <div class="col-md-4 text-center">
-                        <div class="col-md-10 offset-md-1 delLastLocChild">
-                        <select class="select2" id="" name="location_user_1[]" multiple="multiple">
-                            @foreach ($assigned_districts as $ad)
-                                <option value="{{$ad->District->id}}">{{$ad->District->name }}</option>
-                            @endforeach
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                        <div class="col-md-10 offset-md-1">
-                            <input type="text" placeholder="Site Name" name="site_name_1" class="site_name form-control" />
+                        <div class="col-md-4 text-center">
+                            <div class="col-md-10 offset-md-1 delLastLocChild">
+                            <select class="select2" id="" name="user_location_1">
+                                @foreach($team as $t)
+                                        <option value="{{$t->User->id}}">{{$t->User->first_name}}</option>
+                                @endforeach
+                            </select>
+                            </div>
                         </div>
-                    </div>
-                    {{-- <div class="col-md-3 text-center">
-                        <div class="col-md-10 offset-md-1">
-                            <input type="date" placeholder="date" name="dateLoc_1" class="loc_date form-control">
+                        <div class="col-md-4 text-center">
+                            <div class="col-md-10 offset-md-1 delLastLocChild">
+                            <select class="select2" id="" name="location_user_1[]" multiple="multiple">
+                                @foreach ($assigned_districts as $ad)
+                                    <option value="{{$ad->District->id}}">{{$ad->District->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
-                    </div> --}}
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div class="col-md-10 offset-md-1">
+                                <input type="text" placeholder="Site Name" name="site_name_1" class="site_name form-control" />
+                            </div>
+                        </div>
+                  
                     </div>
                     <div class="col-sm-1 text_center">
                       <button class="btn btn-sm btn-info" title="Add" type="button" id="CloneUserLoc">+</button>
                     </div>
                   </div>
                   <div class="row col-md-12 CloneUserLocHere">
-                </div>
-                <!-- end user Location content -->
-                <div class="pull-right mr-5">
-                    <button type="submit" class="btn btn-success">Save</button>
-                </div>
+                  </div>
+                    <!-- end user Location content -->
+                    <div class="pull-right mr-5">
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
                 </form>
                 </div>
                 <div class='tab-pane {{isset($innertab) && $innertab=="Mapping" ? "active" : ""}}' id="MOBdiv" role="tabpanel" aria-expanded="false">
@@ -421,6 +451,48 @@
                     <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
                     <input type="hidden" name="page_tabs" value="plan_task">
                     <input type="hidden" name="counts" id="counts_user_location_id" value="1+">
+                    @if($projectProgressId->MAssignedKpi !=null)
+                    <div class="row">
+                      <h4 style="text-align: center;">Saved Kpis</h4>
+                      <div class="col-md-12 table-responsive">
+                            <table class="table  table-bordered nowrap"  id="countit">
+                                <thead>
+                                    <tr>
+                                        <th>Sr #</th>
+                                        <th>User</th>
+                                        <th>KPI</th>
+                                        <th>Cost</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                     $i=1;   
+                                    @endphp
+                                    @foreach ($projectProgressId->MAssignedKpi as $userkpi)
+                                    <tr>
+                                    <td>{{$i++}}</td>
+                                     <td>{{$userkpi->User->first_name}}</td>  
+                                    <td>{{$userkpi->MAssignedUserKpi->MProjectKpi->name}}</td>  
+                                      <td>
+                                        @if($userkpi->cost)  
+                                        {{$userkpi->cost}} <small>PKR in Millions</small>
+                                     @else
+                                        <span style="color:red"><b>Not Added</b></span>
+                                        @endif
+                                    </td>  
+                                    </tr> 
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    @endif
+                
+                  <div class="row">
+                      
+                        <h4>User Kpis</h4>
+                      
+                  </div>
                   <div class="row col-md-12">
                     <div class="col-md-4 text-center">
                         <div class="col-md-10 offset-md-1">
@@ -445,7 +517,7 @@
                     <div class="row col-md-11" id="CloneThisUserKPI" style="margin-bottom:1% !important;">
                       <div class="col-md-4 text-center">
                         <div class="col-md-10 offset-md-1 delLastChild">
-                            <select class="select2" id="" name="user_location_id_1">
+                            <select class="select2" id="" name="user_location_id[]">
                                 @foreach ($projectProgressId->MAssignedUserLocation as $mUserLocation)
                             <option  value="{{$mUserLocation->id}}">{{$mUserLocation->User->first_name}} {{$mUserLocation->User->last_name}} - {{$mUserLocation->District->name}} -{{$mUserLocation->site_name}}</option>
                                 @endforeach
@@ -454,7 +526,7 @@
                       </div>
                       <div class="col-md-4 text-center">
                         <div class="col-md-10 offset-md-1 delLastChild">
-                        <select class="select2" id="" name="m_project_kpi_id_1[]" multiple="multiple">
+                        <select class="select2" id="" name="m_project_kpi_id[]">
                             @php
                                 $arr=array();
                             @endphp
@@ -470,10 +542,10 @@
                       </div>
                       </div>
                         <div class="col-md-2">
-                            <input name="cost[]" id="" class="col-md-11 float-right form-control" placeholder="Cost" type="text" style="text-align:center;border: 1px solid #807d7d8a !important;padding: 8% 0% 8% 0% !important;" value="">
+                            <input name="cost[]" id="" class="col-md-11 float-right form-control" placeholder="Cost" type="text" style="text-align:center;border: 1px solid #807d7d8a !important;padding: 7% 0% 7% 0% !important;" value="">
                         </div>                        
                        <div class="col-md-2">
-                            <input name="weightage[]" id="" type="number" class="col-md-11 float-right form-control" placeholder="Weightage" style="text-align:center;border: 1px solid #807d7d8a !important;padding: 8% 0% 8% 0% !important;" value="">
+                            <input name="weightage[]" id="" type="number" class="col-md-11 float-right form-control" placeholder="Weightage" style="text-align:center;border: 1px solid #807d7d8a !important;padding: 7% 0% 7% 0% !important;" value="">
                         </div>
                     </div>
                     <div class="col-sm-1 text_center">

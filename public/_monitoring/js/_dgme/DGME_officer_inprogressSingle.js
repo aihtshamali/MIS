@@ -605,7 +605,6 @@ $('button#addmoreexecuting').click(function (e) {
 var Ea='';
 function executingAgencyforCM(agencies)
 {
-    console.log(agencies,'executing');
 
     agencies.forEach(function (val,index) {
         Ea  = Ea+ `
@@ -616,8 +615,6 @@ function executingAgencyforCM(agencies)
 var Sa='';
 function sponsoringAgencyforCM(agencies)
 {
-    console.log(agencies,'okiiii');
-
     // var agency = $(this).val();
     // var count = 1;
 
@@ -679,8 +676,6 @@ $('button#add-more-issues').click(function (e) {
     var temp =  $('tbody#add-issue-here').children().first().clone();
     temp.children().last().remove();
     temp.append('<td><button class="btn btn-sm btn-danger" id="remove-issue" onclick="removeIssuerow(this)" name="remove[]" type="button">-</button></td>');
-    console.log(temp);
-
     $(temp).appendTo('#add-issue-here')
 });
 $('button#add-more').click(function (e) {
@@ -870,8 +865,6 @@ function ObjectiveComponentTime(CompActivityMapping)
          </div>
      </div>`;
     });
-    console.log(d);
-    console.log(t);
 
     $('div.comptaskl').append($(d));
     $('div.costcomp').append($(t));
@@ -940,8 +933,6 @@ function componentsfroConductMonitoring(components)
 }
 var countforconduct=0;
 $('button#add_more_component').click(function (e) {
-    console.log(compOpt);
-
     var add_component = `<div class="row components">
                         <div class="form-group col-md-1 offset-md-1 ">
                         <br>
@@ -964,32 +955,24 @@ $('button#add_more_component').click(function (e) {
     countforconduct++;
 
 });
-var objct = $("#objct").val() ? parseInt($("#objct").val()) : 1 ;
+var objct = $("#objct").val()!=0 ? parseInt($("#objct").val()) : 1 ;
 objct++;
 function autoindex() {
     var sib = $(document).find('.newClass1').siblings();
-    console.log(sib);
-    var i = 0;
-    for (i = 0; i < sib.length; i++) {
-        var cl_array = sib[i].getAttribute('class').split(' ');
-        var val = "";
 
-        for (var j = 0; j < cl_array.length; j++) {
-            if (cl_array[j].startsWith('newClass1')) {
-                val = cl_array[j];
-                break;
-            }
-        }
-        if (val != "") {
-            $('.' + val + ' > label').text('Objective ' + (i + 2));
-            $('.' + val + ' > div > input').attr('placeholder', 'Objective ' + (i + 2));
-            $('.' + val).addClass('newClass' + (i + 2)).removeClass(val);
-        }
-    }
+    sib.removeClass (function (index, css) {
+        return (css.match (/(^|\s)newClass\S+/g) || []).join(' ');
+    })
+    sib.each(function(entry) {
+        $(this).children('div').children('input').attr('placeholder', 'Objective ' + (entry+2))
+        $(this).children('label').text('Objective ' + (entry+2))
+        $(this).addClass('newClass'+(entry+2))  
+    
+    })     
+
     objct = i + 2;
 }
 $('#add_more_objective').click(function (e) {
-    // var newClass='obj_'objct++;
     var add_objective = `<div class="DisInlineflex newClass` + objct + ` mb_2 col-md-12">
                                 <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Objective ` + objct + `</label>
                                 <div class="col-sm-7">
@@ -1014,27 +997,19 @@ $(document).on('click', '.removeObjective', function () {
 });
 
 
-var compAct = $("#compAct").val() ? parseInt($("#compAct").val()) : 1;
+var compAct = $("#compAct").val() != 0 ? parseInt($("#compAct").val()) : 1;
 compAct++;
 function autoindexcomp() {
     var sib = $(document).find('.newClasscompAct1').siblings();
-    // console.log(sib);
-    var i = 0;
-    for (i = 0; i < sib.length; i++) {
-        var cl_array = sib[i].getAttribute('class').split(' ');
-        var val = "";
-        for (var j = 0; j < cl_array.length; j++) {
-            if (cl_array[j].startsWith('newClasscompAct1')) {
-                val = cl_array[j];
-                break;
-            }
-        }
-        if (val != "") {
-            $('.' + val + ' > label').text('Component ' + (i + 2));
-            $('.' + val + ' > div > input').attr('placeholder', 'Component ' + (i + 2));
-            $('.' + val).addClass('newClasscompAct' + (i + 2)).removeClass(val);
-        }
-    }
+     sib.removeClass (function (index, css) {
+        return (css.match (/(^|\s)newClasscompAct\S+/g) || []).join(' ');
+    })
+    sib.each(function(entry) {
+        $(this).children('div').children('input').attr('placeholder', 'Component  ' + (entry+2))
+        $(this).children('label').text('Component ' + (entry+2))
+        $(this).addClass('newClasscompAct'+(entry+2))  
+    
+    })     
     compAct = i + 2;
 }
 $('#add_more_compAct').click(function (e) {
@@ -1226,11 +1201,11 @@ $(document).ready(function(){
 //   $("#counts_user_location_id").val(user_location_id_count);
   
   $('#CloneUserKPI').click(function(){
-    let data=$("#CloneThisUserKPI").clone();
-    let user_div = data.find('select')[0];
+      let data=$("#CloneThisUserKPI").clone();
+      let user_div = data.find('select')[0];
       let location_div = data.find('select')[1];
-      let user_location = "user_location_id_" + user_location_id_count;
-      let project_kpi = "m_project_kpi_id_" + (user_location_id_count) + '[]';
+      let user_location = "user_location_id[]";
+      let project_kpi = "m_project_kpi_id[]";
       $(user_div).attr('name', user_location);
       $(location_div).attr('name', project_kpi);
       data.appendTo('.CloneUserKPIHere');
@@ -1242,8 +1217,8 @@ $(document).ready(function(){
 
         }
         else{
-      $(this).children().last().hide();
-    }
+            $(this).children().last().hide();
+        }
     });
     // var i=0;
     var removeSibKPI = `
