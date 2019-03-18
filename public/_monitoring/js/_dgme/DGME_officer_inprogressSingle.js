@@ -988,7 +988,6 @@ function autoindex() {
     }
     objct = i + 2;
 }
-objct = 2;
 $('#add_more_objective').click(function (e) {
     // var newClass='obj_'objct++;
     var add_objective = `<div class="DisInlineflex newClass` + objct + ` mb_2 col-md-12">
@@ -1038,7 +1037,6 @@ function autoindexcomp() {
     }
     compAct = i + 2;
 }
-compAct = 2;
 $('#add_more_compAct').click(function (e) {
     // var newClass='obj_'objct++;
     var compActTab = 101;
