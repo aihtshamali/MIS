@@ -421,6 +421,25 @@
                     <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
                     <input type="hidden" name="page_tabs" value="plan_task">
                     <input type="hidden" name="counts" id="counts_user_location_id" value="1+">
+                 
+                    <div class="row">
+                      <h4 class="text-center">Saved Kpis</h4>
+                      <div class="col-md-12 table-responsive">
+                            <table class="table  table-bordered nowrap"  id="countit">
+                                <thead>
+                                    <tr>
+                                        <th>Sr #</th>
+                                        <th>User</th>
+                                        <th>KPI</th>
+                                        <th>Cost</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                   <div class="row col-md-12">
                     <div class="col-md-4 text-center">
                         <div class="col-md-10 offset-md-1">
