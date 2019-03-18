@@ -199,41 +199,58 @@
                         </b>
                     </div>
                     <div class="col-md-3">
-                    <b for="Date_of_visit" class=" mb_1 fontf_sh"><span >Date of visit: </span><span><input type="text" class="topsummaryinput" 
+                    <b for="Date_of_visit" class=" mb_1 fontf_sh"><span >First Visit Date: </span><span><input type="text" class="topsummaryinput" 
                       @if(isset($first_visit_date->first_visit_date))
-                      value="{{$first_visit_date->first_visit_date}}"
+                      @php
+                      $originalDate=$first_visit_date->first_visit_date;
+                       $date = date("d-M-Y", strtotime($originalDate));
+                      //  echo $date;
+                      @endphp
+                      value="{{$date}}"
                       @else
                       value=""
                       @endif
                       ></span> </b>
                     </div>
                     <div class="col-md-3">
-                      <b for="planned_start_date" class=" mb_1 fontf_sh"><span >Planned Start Date: </span><span>{{$project->Project->ProjectDetail->planned_start_date}}</span></b>
+                      <b for="planned_start_date" class=" mb_1 fontf_sh"><span >Planned Start Date: </span>
+                        <span>
+                          @php
+                          $originalDate=$project->Project->ProjectDetail->planned_start_date;
+                           $date = date("d-M-Y", strtotime($originalDate));
+                          //  echo $date;
+                          @endphp
+                          {{$date}}
+                        </span>
+                      </b>
                   </div>
                   <div class="col-md-3">
-                      <b for="planned_end_date" class=" mb_1 fontf_sh"><span >Planned End Date: </span><span>{{$project->Project->ProjectDetail->planned_end_date}}</span> </b>
+                      <b for="planned_end_date" class=" mb_1 fontf_sh"><span >Planned End Date: </span>
+                        <span>
+                            @php
+                          $originalDate=$project->Project->ProjectDetail->planned_end_date;
+                           $date = date("d-M-Y", strtotime($originalDate));
+                          //  echo $date;
+                          @endphp
+                          {{$date}}
+                        </span>
+                      </b>
                   </div>
                   <div class="col-md-3">
-                      <b for="actual_start_date" class=" mb_1 fontf_sh"><span >Actual Start Date: </span><span>@if(isset($dates->actual_start_date))
-                        {{$dates->actual_start_date}}
-                        @endif</span> </b>
-                  </div>
-                    {{-- <div class="col-md-3">
-                    <b for="gestation Period" class=" mb_1 fontf_sh"><span title="Gestation Period">GP: </span><span>
-                      
-                       {{$gestation_period}}
-                     
-                    </span> </b>
-                    </div>
-                       <div class="col-md-3 ln_ht12">
-                        <b for="project_cost" class=" mb_1 fontf_sh"><span >Original Approve Cost:</span> <span>{{round($project->Project->ProjectDetail->orignal_cost,2)}} Million PKR</span></b>
-                    </div>
-                    
-                    <div class="col-md-3 ln_ht12">
-                      <b for="" name="phy_progress" id="phy_progress" class="primarybold mb_1 fontf_sh"><span  class="float-left">Planned Progress %: </span>
-                      <span class="pdz_six" id="PlannedProg">{{round(calculatePlannedProgress($project->MProjectProgress->last()->id),2)}}%</span>
+                      <b for="actual_start_date" class=" mb_1 fontf_sh"><span >Actual Start Date: </span>
+                        <span>
+                          @if(isset($dates->actual_start_date))
+                          @php
+                          $originalDate=$dates->actual_start_date;
+                           $date = date("d-M-Y", strtotime($originalDate));
+                          //  echo $date;
+                          @endphp
+                          {{$date}}
+                          
+                        @endif
+                        </span> 
                         </b>
-                    </div> --}}
+                  </div>
                     <div class="col-md-3 ln_ht12">
                       <b for="" name="phy_progress" id="phy_progress" class="primarybold mb_1 fontf_sh"><span  class="float-left">Planned Progress %: </span>
                       <span class="pdz_six" id="PlannedProg">{{round(calculatePlannedProgress($project->MProjectProgress->last()->id),2)}}%</span>
