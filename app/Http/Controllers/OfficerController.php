@@ -1540,6 +1540,7 @@ class OfficerController extends Controller
     }
 
     public function saveUserLocation(Request $request){
+      // dd($request->all());
       $counter = 1;
       $user = "user_location_";
       $location = "location_user_";
@@ -1548,8 +1549,8 @@ class OfficerController extends Controller
       while($counter <= $request->counts){
         if($request[$user.$counter])
         {
-          $inner_counter = 1;
-          foreach($request[$location.$inner_counter] as $d)
+          // $inner_counter = 1;
+          foreach($request[$location.$counter] as $d)
           {
             $m_assigned_user_location = new MAssignedUserLocation();
             $m_assigned_user_location->user_id = $request[$user.$counter];
@@ -1560,15 +1561,11 @@ class OfficerController extends Controller
             $m_assigned_user_location->m_project_progress_id = $request->progress_id;
             $m_assigned_user_location->save();
             // dd($m_assigned_user_location);
-            $inner_counter++;
+            // $inner_counter++;
           }
         }
         $counter++;
       }
-      // Copy from here
-    $tabs=explode("_",$request->page_tabs);
-    $maintab=$tabs[0];
-    $innertab=$tabs[1];
     // return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
      // Copy from here
      $tabs=explode("_",$request->page_tabs);
