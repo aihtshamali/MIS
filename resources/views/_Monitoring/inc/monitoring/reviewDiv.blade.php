@@ -73,7 +73,7 @@
                 </div>
                 <div class="col-md-4 ">
                     <div class="form-group">
-                        <label for="" class="col-form-label"><b>Release To Date of Fiscal Year :</b></label>
+                        <label for="" class="col-form-label"><b>Release To Date :</b></label>
                         <br>
                         <input type="text" step="0.01" class="form-control" name="release_to_date_of_fiscal_year" id="release_to_date"
                         @if ($costs)
@@ -95,7 +95,7 @@
                         />
                     </div>
                     <div class="form-group">
-                        <label for="" class="col-form-label"><b>Utilization :</b></label>
+                        <label for="" class="col-form-label"><b>Total Utilization :</b></label>
                         <br>
                         <input type="text" class="form-control" name="utilization_against_releases" id="u_against_rel"
                         @if ($costs)
