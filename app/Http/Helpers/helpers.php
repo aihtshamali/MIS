@@ -34,19 +34,23 @@ if (! function_exists('calculateMPhysicalProgress')) {
         return 0;
       foreach($mAssignedKpi as $main)
       {
-        foreach($main->MAssignedKpiLevel1 as $lv1){
-          foreach($lv1->MAssignedKpiLevel2 as $lv2){
-            foreach($lv2->MAssignedKpiLevel3 as $lv3){
-              foreach($lv3->MAssignedKpiLevel4 as $lv4){
+        foreach($main->MAssignedKpiLevel1 as $lv1)
+        {
+          foreach($lv1->MAssignedKpiLevel2 as $lv2)
+          {
+            foreach($lv2->MAssignedKpiLevel3 as $lv3)
+            {
+              foreach($lv3->MAssignedKpiLevel4 as $lv4)
+              {
                 $we=$lv4->current_weightage;
                 if(!$we)
                   $we=0;
                 $arr[$i]+=$we;
               }
-              $we=$lv3->current_weightage;
-              if(!$we)
-                $we=0;
-              $arr[$i]+=$we;
+                $we=$lv3->current_weightage;
+                if(!$we)
+                  $we=0;
+                $arr[$i]+=$we;
             }
             $we=$lv2->current_weightage;
             if(!$we)
@@ -60,6 +64,7 @@ if (! function_exists('calculateMPhysicalProgress')) {
         }
         $i++;
         array_push($cost,$main->cost);
+        // dd($cost);
         $weight+=$main->weightage;
 
       }
@@ -71,6 +76,7 @@ if (! function_exists('calculateMPhysicalProgress')) {
        }, $cost, $arr);
 
       $total_phyProgres= array_sum($phy_prog);
+
       $physical_progress=($total_phyProgres/$original_cost); 
       // foreach($arr as $val){
       //   $sum+=$val;
