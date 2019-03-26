@@ -308,6 +308,18 @@
                 />
               </div>
           </div>
+          <div class="form-group row mb_2">
+              <label class="col-sm-3 font-15">Date Of Visit</label>
+              <div class="col-sm-9">
+                <input type="date" class="form-control" name="Date_Of_Visit" placeholder="Date Of Visit"
+                @if ($dates)
+                value="{{$dates->first_visit_date }}"
+              @else
+                value=""
+              @endif
+                />
+              </div>
+          </div>
           <button type="submit" class="btn btn-primary btn-sm float-right" name="submit">Submit</button>
         </div>
       </form>

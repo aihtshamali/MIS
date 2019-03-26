@@ -4,10 +4,10 @@ var compopt = ""
 $(document).ready(function () {
     $('[data-toggle="popover"]').popover();
 
-    $(".planNav").click(function () {
-        $(".topSummary").show('slow');
-        $(".mainTabsAndNav").animate({ marginTop: '6%' }, 1000);
-    });
+    // $(".planNav").click(function () {
+    //     $(".topSummary").show('slow');
+    //     $(".mainTabsAndNav").animate({ marginTop: '6%' }, 1000);
+    // });
 
     $('input:checkbox').click(function () {
         $('input:checkbox').not(this).prop('checked', false);
@@ -29,7 +29,7 @@ $(document).ready(function () {
         // $('.downtiQ').hide();
         $(".uptiQ").show(100);
         $(".topSummary ").slideDown("slow");
-        $(".mainTabsAndNav").animate({ marginTop: '6%' }, 1000);
+        $(".mainTabsAndNav").animate({ marginTop: '12%' }, 1000);
     });
 
 
@@ -304,8 +304,8 @@ $(document).ready(function () {
         $('.conductNavBar').hide();
         $('.resultNavBar').hide();
         $('.PlanDoc').addClass('active');
-        $(".uptiQ").show('slow');
-        $(".downtiQ").hide();
+        // $(".uptiQ").show('slow');
+        $(".downtiQ").show();
         $(".reviewNavBar").hide();
         $(".r_monitoringDivv").hide();
         $('#r_monitoring').hide();
@@ -357,10 +357,10 @@ $(document).ready(function () {
         $('.planNavBar').hide();
         $('.p_details').hide();
         $('.mainTabsAndNav').removeClass("col-md-8").addClass("col-md-12");
-        $('.mainTabsAndNav').animate({ marginTop: '6%' }, 1000);
-        $(".topSummary").show('slow');
-        $(".uptiQ").show('slow');
-        $(".downtiQ").hide();
+        // $('.mainTabsAndNav').animate({ marginTop: '6%' }, 1000);
+        // $(".topSummary").show('slow');
+        // $(".uptiQ").show('slow');
+        $(".downtiQ").show();
         $(".reviewNavBar").hide();
         $(".r_monitoringDivv").hide();
         $('#r_monitoring').hide();
@@ -373,11 +373,11 @@ $(document).ready(function () {
         $('.galnav').addClass('active');
         $('#r_monitoring').show();
         $('.mainTabsAndNav').removeClass("col-md-8").addClass("col-md-12");
-        $('.mainTabsAndNav').animate({ marginTop: '6%' }, 1000);
-        $(".topSummary").show('slow');
+        // $('.mainTabsAndNav').animate({ marginTop: '6%' }, 1000);
+        // $(".topSummary").show('slow');
         $('.p_details').hide();
-        $(".uptiQ").show('slow');
-        $(".downtiQ").hide();
+        // $(".uptiQ").show('slow');
+        $(".downtiQ").show();
         $(".reviewNavBar").hide();
         $(".planNavBar").hide();
         $(".conductNavBar").hide();
@@ -393,29 +393,29 @@ $(document).ready(function () {
         hideall();
         $('#procu').show();
     });
-    $('#did').on('click', function () {
-        hideall();
-        $('#CostingDiv').show();
-        $("#tili").removeClass("active");
-        $("#cosli").addClass("active");
-    });
+    // $('#did').on('click', function () {
+    //     hideall();
+    //     $('#CostingDiv').show();
+    //     $("#tili").removeClass("active");
+    //     $("#cosli").addClass("active");
+    // });
     $('.TimeTab').on('click', function () {
         hideall();
         $('#TimesDiv').show();
     });
 
-    $('#saveTasks').on('click', function () {
-        hideall();
-        $('#TimesDiv').show();
-        $("#tali").removeClass("active");
-        $("#tili").addClass("active");
-    });
-    $('#svkp').on('click', function () {
-        hideall();
-        $('#activities').show();
-        $("#kpisss").removeClass("active");
-        $("#proloc").addClass("active");
-    });
+    // $('#saveTasks').on('click', function () {
+    //     hideall();
+    //     $('#TimesDiv').show();
+    //     $("#tali").removeClass("active");
+    //     $("#tili").addClass("active");
+    // });
+    // $('#svkp').on('click', function () {
+    //     hideall();
+    //     $('#activities').show();
+    //     $("#kpisss").removeClass("active");
+    //     $("#proloc").addClass("active");
+    // });
 
     $('.kpis').on('click', function () {
         hideall();
@@ -443,11 +443,11 @@ $(document).ready(function () {
         hideall();
         $(".nav-link").removeClass('active');
         $(".costTab").addClass('active');
-        $(".topSummary").show('slow');
+        // $(".topSummary").show('slow');
         $(".reviewNavBar").show();
         $('#reviewDiv').show();
         $('#costDiv').show();
-        $(".mainTabsAndNav").animate({ marginTop: '6%' }, 1000);
+        // $(".mainTabsAndNav").animate({ marginTop: '6%' }, 1000);
         $('#p_monitoring').hide();
         $('#c_monitoring').hide();
         $('.planNavBar').hide();
@@ -458,18 +458,18 @@ $(document).ready(function () {
         $('.r_monitoringDivv').hide();
         $('#r_monitoring').hide();
         $('.mainTabsAndNav').removeClass("col-md-8").addClass("col-md-12");
-        $(".uptiQ").show('slow');
+        $(".downtiQ").show('slow');
     });
     $('.financialphase').on('click', function () {
         hideall();
         $('#financial').show();
     });
-    $('#saveObjComp').on('click', function () {
-        hideall();
-        $('#MOBdiv').show();
-        $('#MOBtab').addClass("active");
-        $('#pdli').removeClass("active");
-    });
+    // $('#saveObjComp').on('click', function () {
+    //     hideall();
+    //     $('#MOBdiv').show();
+    //     $('#MOBtab').addClass("active");
+    //     $('#pdli').removeClass("active");
+    // });
     $('.MOBtab').on('click', function () {
         hideall();
         $('#MOBdiv').show();
@@ -529,6 +529,8 @@ $(document).ready(function () {
     $('.Documents').on('click', function () {
         hideall();
         $('#Documents').show();
+        $('#r_monitoring').hide();
+        $('.resultNavBar').hide();
     });
 });
 
@@ -603,7 +605,6 @@ $('button#addmoreexecuting').click(function (e) {
 var Ea='';
 function executingAgencyforCM(agencies)
 {
-    console.log(agencies,'executing');
 
     agencies.forEach(function (val,index) {
         Ea  = Ea+ `
@@ -614,8 +615,6 @@ function executingAgencyforCM(agencies)
 var Sa='';
 function sponsoringAgencyforCM(agencies)
 {
-    console.log(agencies,'okiiii');
-
     // var agency = $(this).val();
     // var count = 1;
 
@@ -677,8 +676,6 @@ $('button#add-more-issues').click(function (e) {
     var temp =  $('tbody#add-issue-here').children().first().clone();
     temp.children().last().remove();
     temp.append('<td><button class="btn btn-sm btn-danger" id="remove-issue" onclick="removeIssuerow(this)" name="remove[]" type="button">-</button></td>');
-    console.log(temp);
-
     $(temp).appendTo('#add-issue-here')
 });
 $('button#add-more').click(function (e) {
@@ -868,8 +865,6 @@ function ObjectiveComponentTime(CompActivityMapping)
          </div>
      </div>`;
     });
-    console.log(d);
-    console.log(t);
 
     $('div.comptaskl').append($(d));
     $('div.costcomp').append($(t));
@@ -938,8 +933,6 @@ function componentsfroConductMonitoring(components)
 }
 var countforconduct=0;
 $('button#add_more_component').click(function (e) {
-    console.log(compOpt);
-
     var add_component = `<div class="row components">
                         <div class="form-group col-md-1 offset-md-1 ">
                         <br>
@@ -962,32 +955,24 @@ $('button#add_more_component').click(function (e) {
     countforconduct++;
 
 });
-var objct = $("#objct").val() ? parseInt($("#objct").val()) : 1 ;
+var objct = $("#objct").val()!=0 ? parseInt($("#objct").val()) : 1 ;
 objct++;
 function autoindex() {
     var sib = $(document).find('.newClass1').siblings();
-    console.log(sib);
-    var i = 0;
-    for (i = 0; i < sib.length; i++) {
-        var cl_array = sib[i].getAttribute('class').split(' ');
-        var val = "";
 
-        for (var j = 0; j < cl_array.length; j++) {
-            if (cl_array[j].startsWith('newClass1')) {
-                val = cl_array[j];
-                break;
-            }
-        }
-        if (val != "") {
-            $('.' + val + ' > label').text('Objective ' + (i + 2));
-            $('.' + val + ' > div > input').attr('placeholder', 'Objective ' + (i + 2));
-            $('.' + val).addClass('newClass' + (i + 2)).removeClass(val);
-        }
-    }
+    sib.removeClass (function (index, css) {
+        return (css.match (/(^|\s)newClass\S+/g) || []).join(' ');
+    })
+    sib.each(function(entry) {
+        $(this).children('div').children('input').attr('placeholder', 'Objective ' + (entry+2))
+        $(this).children('label').text('Objective ' + (entry+2))
+        $(this).addClass('newClass'+(entry+2))  
+    
+    })     
+
     objct = i + 2;
 }
 $('#add_more_objective').click(function (e) {
-    // var newClass='obj_'objct++;
     var add_objective = `<div class="DisInlineflex newClass` + objct + ` mb_2 col-md-12">
                                 <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Objective ` + objct + `</label>
                                 <div class="col-sm-7">
@@ -1012,27 +997,19 @@ $(document).on('click', '.removeObjective', function () {
 });
 
 
-var compAct = $("#compAct").val() ? parseInt($("#compAct").val()) : 1;
+var compAct = $("#compAct").val() != 0 ? parseInt($("#compAct").val()) : 1;
 compAct++;
 function autoindexcomp() {
     var sib = $(document).find('.newClasscompAct1').siblings();
-    // console.log(sib);
-    var i = 0;
-    for (i = 0; i < sib.length; i++) {
-        var cl_array = sib[i].getAttribute('class').split(' ');
-        var val = "";
-        for (var j = 0; j < cl_array.length; j++) {
-            if (cl_array[j].startsWith('newClasscompAct1')) {
-                val = cl_array[j];
-                break;
-            }
-        }
-        if (val != "") {
-            $('.' + val + ' > label').text('Component ' + (i + 2));
-            $('.' + val + ' > div > input').attr('placeholder', 'Component ' + (i + 2));
-            $('.' + val).addClass('newClasscompAct' + (i + 2)).removeClass(val);
-        }
-    }
+     sib.removeClass (function (index, css) {
+        return (css.match (/(^|\s)newClasscompAct\S+/g) || []).join(' ');
+    })
+    sib.each(function(entry) {
+        $(this).children('div').children('input').attr('placeholder', 'Component  ' + (entry+2))
+        $(this).children('label').text('Component ' + (entry+2))
+        $(this).addClass('newClasscompAct'+(entry+2))  
+    
+    })     
     compAct = i + 2;
 }
 $('#add_more_compAct').click(function (e) {
@@ -1186,12 +1163,15 @@ $(document).ready(function(){
     let user_div = data.find('select')[0];
     let location_div = data.find('select')[1];
     let site_div = data.find('input.site_name');
+    // let date_div = data.find('input.loc_date');
     let new_user = "user_location_"+user_location_count;
-    let new_site = "site_name_"+user_location_count++;
+    let new_site = "site_name_"+user_location_count ;
     let new_location = "location_user_"+(location_user_count++) + '[]';
+    // let mydate ="dateLoc_"+user_location_count++;
     $(user_div).attr('name',new_user);
     $(site_div).attr('name',new_site);
     $(location_div).attr('name',new_location);
+    // $(date_div).attr('name',mydate);
     data.appendTo('.CloneUserLocHere');
     $("#counts_user_location").attr('value', user_location_count);
     $('.select2').select2();
@@ -1206,8 +1186,8 @@ $(document).ready(function(){
     });
     // var i=0;
     var removeSib = `
-    <div class="col-sm-2 text_center RemoveUserLoc">
-      <button class=" btn btn-sm btn-danger" type="button" id="">-</button>
+    <div class="col-sm-1 text_center RemoveUserLoc">
+      <button class=" btn btn-sm btn-danger"title="Remove" type="button" id="">-</button>
     </div>
     `
     $(removeSib).appendTo('.CloneUserLocHere');
@@ -1217,17 +1197,19 @@ $(document).ready(function(){
     $(this).prev().remove();
     $(this).remove();
   });
-  var user_location_id_count=2;
+  var user_location_id_count=1;
+//   $("#counts_user_location_id").val(user_location_id_count);
+  
   $('#CloneUserKPI').click(function(){
-    let data=$("#CloneThisUserKPI").clone();
+      let data=$("#CloneThisUserKPI").clone();
       let user_div = data.find('select')[0];
       let location_div = data.find('select')[1];
-      let user_location = "user_location_id_" + user_location_id_count;
-      let project_kpi = "m_project_kpi_id_" + (user_location_id_count) + '[]';
+      let user_location = "user_location_id[]";
+      let project_kpi = "m_project_kpi_id[]";
       $(user_div).attr('name', user_location);
       $(location_div).attr('name', project_kpi);
       data.appendTo('.CloneUserKPIHere');
-      $("#counts_user_location_id").attr('value', ++user_location_id_count);
+      $("#counts_user_location_id").val(++user_location_id_count);
       $('.select2').select2();
       $('.delLastChild').each(function(index){
       if(index == 0 || index == 1)
@@ -1235,12 +1217,12 @@ $(document).ready(function(){
 
         }
         else{
-      $(this).children().last().hide();
-    }
+            $(this).children().last().hide();
+        }
     });
     // var i=0;
     var removeSibKPI = `
-    <div class="col-sm-2 text_center RemoveUserKPI">
+    <div class="col-sm-1 text_center RemoveUserKPI">
       <button class=" btn btn-sm btn-danger" type="button" id="">-</button>
     </div>
     `

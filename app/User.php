@@ -139,5 +139,9 @@ class User extends Authenticatable implements JWTSubject
   {
     return $this->hasMany('App\StoppedProject');
   }
+  public function MAssignedKpi()
+  {
+    return $this->hasMany('App\MAssignedKpi');
+  }
 
 }

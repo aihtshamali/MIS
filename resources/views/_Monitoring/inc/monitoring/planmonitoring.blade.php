@@ -33,7 +33,7 @@
                         aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Plan ( KPI's)</b></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link userKPITab" data-toggle="tab" href="#userKPIDiv" id=""
+                    <a class='nav-link {{isset($innertab) && $innertab=="uderKPI" ? "active" : ""}} userKPITab' data-toggle="tab" href="#userKPIDiv" id=""
                         role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">User KPI</b></a>
                 </li>
                 <!-- {{-- <li class="nav-item">
@@ -217,15 +217,51 @@
                 </div>
                 <div class="tab-pane {{isset($innertab) && $innertab == 'userLoc' ? 'active' : ''}} userlocDiv" id="userlocDiv" role="tabpanel" aria-expanded="false">
                   <!-- headings -->
+                  @if($projectProgressId->MAssignedKpi)
+                  <div class="row">
+                    <h4 style="text-align: center;">Saved Kpis</h4>
+                    <div class="col-md-12 table-responsive">
+                          <table class="table  table-bordered nowrap"  id="countit">
+                              <thead>
+                                  <tr>
+                                      <th>Sr #</th>
+                                      <th>User</th>
+                                      <th>District</th>
+                                      <th>Site Name</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  @php
+                                   $i=1;   
+                                  @endphp
+                                  @foreach ($projectProgressId->MAssignedUserLocation as $userloc)
+                                  <tr>
+                                  <td>{{$i++}}</td>
+                                   <td>{{$userloc->User->first_name}}</td>  
+                                  <td>{{$userloc->District->name}}</td>  
+                                    <td>
+                                        @if($userloc->site_name != Null)
+                                        {{$userloc->site_name}}
+                                        @else
+                                        <span style="color:red"><b>Not Added</b></span>
+                                        @endif
+                                    </td>  
+                                  </tr> 
+                                  @endforeach
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+                  @endif
                   <div class="row col-md-12">
-                    <div class="col-md-4 text-center">
-                      <h4>User</h4>
+                    <div class="col-md-3 text-center">
+                      <h4 class="form-txt-primary">User</h4>
                     </div>
                     <div class="col-md-4 text-center">
-                      <h4>Location</h4>
+                      <h4 class="form-txt-primary">Location</h4>
                     </div>
-                    <div class="col-md-2 text-center">
-                      <h4>Site Name</h4>
+                    <div class="col-md-3 text-center">
+                      <h4 class="form-txt-primary">Site Name</h4>
                     </div>
                   </div>
                   <!-- end heading -->
@@ -235,45 +271,47 @@
                 <input type="hidden" name="progress_id" value="{{$projectProgressId->id}}">
                 <input type="hidden" name="counts" value="1" id="counts_user_location">
                 <input type="hidden" name="page_tabs" value="plan_Mapping">
-                  <div class="row col-md-12">
+            
+                <div class="row col-md-12">
                     <style media="screen" scoped>
                       .select2-container--default .select2-selection--multiple .select2-selection__rendered li{padding: 1% !important};
                     </style>
-                    <div class="row col-md-10" id="CloneThisUserLoc" style="margin-bottom:1% !important;">
-                      <div class="col-md-5 text-center">
-                        <div class="col-md-10 offset-md-1 delLastLocChild">
-                        <select class="select2" id="" name="user_location_1">
-                            @foreach($team as $t)
-                                    <option value="{{$t->User->id}}">{{$t->User->first_name}}</option>
-                            @endforeach
-                        </select>
-                      </div>
-                      </div>
-                      <div class="col-md-5 text-center">
-                        <div class="col-md-10 offset-md-1 delLastLocChild">
-                        <select class="select2" id="" name="location_user_1[]" multiple="multiple">
-                            @foreach ($assigned_districts as $ad)
-                                <option value="{{$ad->District->id}}">{{$ad->District->name }}</option>
-                            @endforeach
-                        </select>
-                      </div>
+                    <div class="row col-md-11" id="CloneThisUserLoc" style="margin-bottom:1% !important;">
+                        <div class="col-md-4 text-center">
+                            <div class="col-md-10 offset-md-1 delLastLocChild">
+                            <select class="select2" id="" name="user_location_1">
+                                @foreach($team as $t)
+                                        <option value="{{$t->User->id}}">{{$t->User->first_name}}</option>
+                                @endforeach
+                            </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div class="col-md-10 offset-md-1 delLastLocChild">
+                            <select class="select2" id="" name="location_user_1[]" multiple="multiple">
+                                @foreach ($assigned_districts as $ad)
+                                    <option value="{{$ad->District->id}}">{{$ad->District->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div class="col-md-10 offset-md-1">
+                                <input type="text" placeholder="Site Name" name="site_name_1" class="site_name form-control" />
+                            </div>
+                        </div>
+                  
                     </div>
-                    <div class="col-md-2 text-center">
-                    <div class="col-md-12">
-                        <input type="text" placeholder="Site Name" name="site_name_1" class="site_name form-control">
-                    </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-2 text_center">
-                      <button class="btn btn-sm btn-info" type="button" id="CloneUserLoc">+</button>
+                    <div class="col-sm-1 text_center">
+                      <button class="btn btn-sm btn-info" title="Add" type="button" id="CloneUserLoc">+</button>
                     </div>
                   </div>
                   <div class="row col-md-12 CloneUserLocHere">
-                </div>
-                <!-- end user Location content -->
-                <div class="pull-right mr-5">
-                    <button type="submit" class="btn btn-success">Save</button>
-                </div>
+                  </div>
+                    <!-- end user Location content -->
+                    <div class="pull-right mr-5">
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
                 </form>
                 </div>
                 <div class='tab-pane {{isset($innertab) && $innertab=="Mapping" ? "active" : ""}}' id="MOBdiv" role="tabpanel" aria-expanded="false">
@@ -330,12 +368,47 @@
                 <form class="serializeform" action="{{route('kpiComponentMapping')}}" method="post">
                     {{ csrf_field() }}
                     <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
-                    <input type="hidden" name="page_tabs" value="plan_task">
+                    <input type="hidden" name="page_tabs" value="plan_uderKPI">
 
                     <div class="card m-0 z-depth-right-0">
                         <div class="card-header">
-                            <h4>KPI(s)</h4>
+                            <h4 class="form-txt-primary">KPI(s)</h4>
                         </div>
+                        {{-- Choose KPI New --}}
+                        <div class="card-block">
+                          <div class="row form-group">
+                              <div class="col-md-5">
+                                  <h5 class="mb_2">Choose KPI(s)</h4>
+                                <select id='custom-headers' class="searchable yesearch"
+                                    multiple='multiple'>
+                                    {{-- <h1>here</h1> --}}
+                                     @foreach ($Kpis as $Kpi)
+                                        <option class='optiontest' data-value='{{$Kpi->id}}'>{{$Kpi->name}}</option>
+                                     @endforeach
+                                </select>
+
+                            </div>
+                            <div class="row col-md-1">
+                              <div class="border_right col-md-6"></div>
+                              <div class="col-md-6"></div>
+                            </div>
+                            <div class="col-md-6" style="padding-left:3% !important;">
+                              <div class="row col-md-12">
+                                <ul class="col-md-12 row" id='addkpi'>
+                                    <h5 class=" mb_2">KPIs</h5>
+
+                                </ul>
+                              </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="col-md-3 offset-md-9">
+                            <button class="btn btn-primary btn-md" type="submit" id="">Save </button>
+
+                            </div>
+                        </div>
+                        
                         <div class="card-block">
                             <div class="row form-group">
                                 <div class="col-md-12">
@@ -368,77 +441,93 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- Choose KPI New --}}
-                        <div class="card-block">
-                          <div class="row form-group">
-                              <div class="col-md-5">
-                                  <h5 class="mb_2">Choose KPI(s)</h4>
-                                <select id='custom-headers' class="searchable yesearch"
-                                    multiple='multiple'>
-                                    {{-- <h1>here</h1> --}}
-                                     @foreach ($Kpis as $Kpi)
-                                        <option class='optiontest' data-value='{{$Kpi->id}}'>{{$Kpi->name}}</option>
-                                     @endforeach
-                                </select>
-
-                            </div>
-                            <div class="row col-md-1">
-                              <div class="border_right col-md-6"></div>
-                              <div class="col-md-6"></div>
-                            </div>
-                            <div class="col-md-6" style="padding-left:3% !important;">
-                              <div class="row col-md-12">
-                                <ul class="col-md-12 row" id='addkpi'>
-                                    <h5 class=" mb_2">KPIs</h5>
-
-                                </ul>
-                              </div>
-                            </div>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <div class="col-md-3 offset-md-9">
-                            <button class="btn btn-primary btn-md activities saveNnextbtn" type="submit" id="svkp">Save </button>
-
-                            </div>
-                        </div>
                     </div>
                   </form>
                 </div>
-                <div class="tab-pane " id="userKPIDiv" role="tabpanel" aria-expanded="false" style="display:none;">
+                <div class='tab-pane {{isset($innertab) && $innertab=="uderKPI" ? "active" : ""}}' id="userKPIDiv" role="tabpanel" aria-expanded="false" style="display:none;">
                   <!-- headings -->
                 <form action="{{route('saveUserKpi')}}" method="post">
                     {{ csrf_field() }}
                     <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
                     <input type="hidden" name="page_tabs" value="plan_task">
+                    <input type="hidden" name="counts" id="counts_user_location_id" value="1+">
+                    @if($projectProgressId->MAssignedKpi !=null)
+                    <div class="row">
+                      <h4 style="text-align: center;">Saved Kpis</h4>
+                      <div class="col-md-12 table-responsive">
+                            <table class="table  table-bordered nowrap"  id="countit">
+                                <thead>
+                                    <tr>
+                                        <th>Sr #</th>
+                                        <th>User</th>
+                                        <th>KPI</th>
+                                        <th>Cost</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                     $i=1;   
+                                    @endphp
+                                    @foreach ($projectProgressId->MAssignedKpi as $userkpi)
+                                    <tr>
+                                    <td>{{$i++}}</td>
+                                     <td>{{$userkpi->User->first_name}}</td>  
+                                    <td>@if(isset($userkpi->MAssignedUserKpi->MProjectKpi->name))
+                                        {{$userkpi->MAssignedUserKpi->MProjectKpi->name}}@endif</td>  
+                                      <td>
+                                        @if($userkpi->cost)  
+                                        {{$userkpi->cost}} <small>PKR in Millions</small>
+                                     @else
+                                        <span style="color:red"><b>Not Added</b></span>
+                                        @endif
+                                    </td>  
+                                    </tr> 
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    @endif
+                
+                  <div class="row">
+                      
+                        <h4>User Kpis</h4>
+                      
+                  </div>
                   <div class="row col-md-12">
                     <div class="col-md-4 text-center">
-                      <h4>User</h4>
+                        <div class="col-md-10 offset-md-1">
+                            <h4 class="form-txt-primary">User</h4>
+                        </div>
                     </div>
-                    <div class="col-md-4 text-center">
-                      <h4>Selected KPIs</h4>
+                    <div class="col-md-3 text-center">
+                        <div class="col-md-10 offset-md-1">
+                            <h4 class="form-txt-primary">Selected KPIs</h4>
+                        </div>
                     </div>
                     <div class="col-md-2 text-center">
-                      <h4>Weightage</h4>
+                      <h4 class="form-txt-primary">Cost</h4>
+                    </div>
+                    <div class="col-md-2 text-center">
+                      <h4 class="form-txt-primary">Weightage</h4>
                     </div>
                   </div>
                   <!-- end heading -->
                   <!-- user Location content -->
                   <div class="row col-md-12">
-                    <div class="row col-md-10" id="CloneThisUserKPI" style="margin-bottom:1% !important;">
-                      <div class="col-md-5 text-center">
+                    <div class="row col-md-11" id="CloneThisUserKPI" style="margin-bottom:1% !important;">
+                      <div class="col-md-4 text-center">
                         <div class="col-md-10 offset-md-1 delLastChild">
-                            <input type="hidden" name="counts" id="counts_user_location_id" value="1">
-                            <select class="select2" id="" name="user_location_id_1">
+                            <select class="select2" id="" name="user_location_id[]">
                                 @foreach ($projectProgressId->MAssignedUserLocation as $mUserLocation)
                             <option  value="{{$mUserLocation->id}}">{{$mUserLocation->User->first_name}} {{$mUserLocation->User->last_name}} - {{$mUserLocation->District->name}} -{{$mUserLocation->site_name}}</option>
                                 @endforeach
                             </select>
                         </div>
                       </div>
-                      <div class="col-md-5 text-center">
+                      <div class="col-md-4 text-center">
                         <div class="col-md-10 offset-md-1 delLastChild">
-                        <select class="select2" id="" name="m_project_kpi_id_1[]" multiple="multiple">
+                        <select class="select2" id="" name="m_project_kpi_id[]">
                             @php
                                 $arr=array();
                             @endphp
@@ -453,11 +542,14 @@
                         </select>
                       </div>
                       </div>
+                        <div class="col-md-2">
+                            <input name="cost[]" id="" class="col-md-11 float-right form-control" placeholder="Cost" type="text" style="text-align:center;border: 1px solid #807d7d8a !important;padding: 7% 0% 7% 0% !important;" value="">
+                        </div>                        
                        <div class="col-md-2">
-                            <input name="weightage[]" id="" class="col-md-11 float-right form-control" placeholder="Weightage" type="text" style="text-align:center;border: 1px solid #807d7d8a !important;" value="">
+                            <input name="weightage[]" id="" type="number" class="col-md-11 float-right form-control" placeholder="Weightage" style="text-align:center;border: 1px solid #807d7d8a !important;padding: 7% 0% 7% 0% !important;" value="">
                         </div>
                     </div>
-                    <div class="col-sm-2 text_center">
+                    <div class="col-sm-1 text_center">
                       <button class="btn btn-sm btn-info" type="button" id="CloneUserKPI">+</button>
                     </div>
                   </div>
@@ -535,8 +627,8 @@
                         <div class="card-header"></div>
                         <div class="card-block">
                             <div class="row form-group">
-                                <h5 class="col-md-6 textlef mb_2">Activities</h5>
-                                <h5 class="col-md-4 textlef mb_2">Duration In Days</h5>
+                                <h4 class="col-md-6 textlef mb_2 form-txt-primary">Activities</h4>
+                                <h4 class="col-md-4 textlef mb_2 form-txt-primary">Duration In Days</h4>
                                 <div class="comptaskl col-md-12">
                                     @foreach ($ComponentActivities as $activities)
                                     <div id='comptaskl' class="col-md-12 row" style="margin-top:5px; padding-left:2% !important;">
@@ -569,9 +661,7 @@
                         <div class="card-header"></div>
                         <div class="card-block" id='costcomp'>
                             <div class="col-md-12" style="display:inline-flex;margin-bottom:5%;">
-                                <h5 class="text_left col-md-3 form-txt-primary">
-                                <b>Activities</b>
-                                </h5>
+                                <h4 class="text_left col-md-3 form-txt-primary"><b>Activities</b></h4>
                                 <div class="col-md-2 mr_0_1"><h5 class="form-txt-primary"><b>Unit</b></h5></div>
                                 <div class="col-md-2 mr_0_1"><h5 class="form-txt-primary"><b>Quantity</b></h5></div>
                                 <div class="col-md-2 mr_0_1"><h5 class="form-txt-primary"><b>Cost</b></h5></div>
