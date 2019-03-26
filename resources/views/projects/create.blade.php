@@ -1038,26 +1038,23 @@ $(document).ready(function(){
 // $(function() {
 
   // To Submit the Above form
-        $('button.submitform').on('click',function(){        
+        $('button.submitform').on('click',function(){   
             $('form.dataentryForm').submit();
         });
 
 // Opening Modal for Confirmation
-        $('form.dataentryForm').on('submit', function( e ) {
+        $('.onClickPop').on('click', function( e ) {
           e.preventDefault();
-          $('.show-modal').click(function(){
             $("#testmodal").modal('show');
-        });
           // console.log($('form.dataentryForm input :invalid').length);
           // console.log('s');
-
             // Custombox.open({
             //     target: '#testmodal-1',
             //     effect: 'fadein'
             // });
             // e.preventDefault();
         // });
-    });
+        });
 });
 </script>
 @endsection

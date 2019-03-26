@@ -472,7 +472,8 @@
                                     <tr>
                                     <td>{{$i++}}</td>
                                      <td>{{$userkpi->User->first_name}}</td>  
-                                    <td>{{$userkpi->MAssignedUserKpi->MProjectKpi->name}}</td>  
+                                    <td>@if(isset($userkpi->MAssignedUserKpi->MProjectKpi->name))
+                                        {{$userkpi->MAssignedUserKpi->MProjectKpi->name}}@endif</td>  
                                       <td>
                                         @if($userkpi->cost)  
                                         {{$userkpi->cost}} <small>PKR in Millions</small>
