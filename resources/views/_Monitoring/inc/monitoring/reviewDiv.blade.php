@@ -1,3 +1,7 @@
+<style scopped>
+ .district .select2-container--default .select2-selection--multiple .select2-selection__rendered li{padding: 0% !important;margin:0px !important;}
+ .district .select2-container--default .select2-selection--multiple{border: 1px solid #aaaaaa73 !important;}
+</style>
 <div class="tab-pane {{isset($maintab) && $maintab=='review' ? 'active' : ''}}"      id="reviewDiv" role="tabpanel">
 <div class="col-md-12 reviewNavBar">
   <!-- Nav tabs -->
@@ -6,13 +10,13 @@
           <a class="nav-link {{isset($innertab) && $innertab=='cost' ? 'active' : ''}} costTab" data-toggle="tab" href="#costDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Cost</b></a>
       </li>
       <li class="nav-item">
-          <a class="nav-link {{isset($innertab) && $innertab=='location' ? 'active' : ''}}"  data-toggle="tab" href="#locationDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Location</b></a>
+          <a class="nav-link {{isset($innertab) && $innertab=='location' ? 'active' : ''}} LocationTab"  data-toggle="tab" href="#locationDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Location</b></a>
       </li>
       <li class="nav-item">
-          <a class='nav-link {{isset($innertab) && $innertab=="agencies" ? "active" : ""}}' data-toggle="tab" href="#AgeOrgDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Agencies & Organization</b></a>
+          <a class='nav-link {{isset($innertab) && $innertab=="agencies" ? "active" : ""}} AgeOrgTab' data-toggle="tab" href="#AgeOrgDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Agencies & Organization</b></a>
       </li>
       <li class="nav-item">
-          <a class='nav-link {{isset($innertab) && $innertab=="dates" ? "active" : ""}} ' data-toggle="tab" href="#DatesDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Dates</b></a>
+          <a class='nav-link {{isset($innertab) && $innertab=="dates" ? "active" : ""}} datestabrev' data-toggle="tab" href="#DatesDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Dates</b></a>
       </li>
   </ul>
   <!-- Tab panes -->
@@ -139,7 +143,7 @@
           <div class="TimeDiv pd_1 clearfix">
           <div class="form-group row mb_2">
               <label class="col-sm-3 font-15">District</label>
-              <div class="col-sm-9">
+              <div class="col-sm-9 district">
                 <select name="district[]" id="" class="select2" multiple>
                   <option value="">Select District</option>
                   @foreach ($project->Project->AssignedDistricts as $district)

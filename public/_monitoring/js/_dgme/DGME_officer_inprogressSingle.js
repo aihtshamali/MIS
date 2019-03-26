@@ -340,6 +340,10 @@ $(document).ready(function () {
         $('.r_monitoringDivv').hide();
         $('#userlocDiv').hide();
         $('#userKPIDiv').hide();
+        $('#costDiv').hide();
+        $('#locationDiv').hide();
+        $('#AgeOrgDiv').hide();
+        $('#DatesDiv').hide();
     }
 
 
@@ -463,6 +467,22 @@ $(document).ready(function () {
     $('.financialphase').on('click', function () {
         hideall();
         $('#financial').show();
+    });
+    $('.costTab').on('click', function () {
+        hideall();
+        $('#costDiv').show();
+    });
+    $('.LocationTab').on('click', function () {
+        hideall();
+        $('#locationDiv').show();
+    });
+    $('.AgeOrgTab').on('click', function () {
+        hideall();
+        $('#AgeOrgDiv').show();
+    });
+    $('.datestabrev').on('click', function () {
+        hideall();
+        $('#DatesDiv').show();
     });
     // $('#saveObjComp').on('click', function () {
     //     hideall();
@@ -955,7 +975,7 @@ $('button#add_more_component').click(function (e) {
     countforconduct++;
 
 });
-var objct = $("#objct").val() ? parseInt($("#objct").val()) : 1 ;
+var objct = $("#objct").val()!=0 ? parseInt($("#objct").val()) : 1 ;
 objct++;
 function autoindex() {
     var sib = $(document).find('.newClass1').siblings();
@@ -997,7 +1017,7 @@ $(document).on('click', '.removeObjective', function () {
 });
 
 
-var compAct = $("#compAct").val() ? parseInt($("#compAct").val()) : 1;
+var compAct = $("#compAct").val() != 0 ? parseInt($("#compAct").val()) : 1;
 compAct++;
 function autoindexcomp() {
     var sib = $(document).find('.newClasscompAct1').siblings();
@@ -1201,11 +1221,11 @@ $(document).ready(function(){
 //   $("#counts_user_location_id").val(user_location_id_count);
   
   $('#CloneUserKPI').click(function(){
-    let data=$("#CloneThisUserKPI").clone();
-    let user_div = data.find('select')[0];
+      let data=$("#CloneThisUserKPI").clone();
+      let user_div = data.find('select')[0];
       let location_div = data.find('select')[1];
-      let user_location = "user_location_id_" + user_location_id_count;
-      let project_kpi = "m_project_kpi_id_" + (user_location_id_count) + '[]';
+      let user_location = "user_location_id[]";
+      let project_kpi = "m_project_kpi_id[]";
       $(user_div).attr('name', user_location);
       $(location_div).attr('name', project_kpi);
       data.appendTo('.CloneUserKPIHere');
@@ -1217,8 +1237,8 @@ $(document).ready(function(){
 
         }
         else{
-      $(this).children().last().hide();
-    }
+            $(this).children().last().hide();
+        }
     });
     // var i=0;
     var removeSibKPI = `
