@@ -344,6 +344,7 @@ $(document).ready(function () {
         $('#locationDiv').hide();
         $('#AgeOrgDiv').hide();
         $('#DatesDiv').hide();
+        $('.resultNavBar').hide();
     }
 
 
