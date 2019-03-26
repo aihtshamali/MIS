@@ -340,6 +340,10 @@ $(document).ready(function () {
         $('.r_monitoringDivv').hide();
         $('#userlocDiv').hide();
         $('#userKPIDiv').hide();
+        $('#costDiv').hide();
+        $('#locationDiv').hide();
+        $('#AgeOrgDiv').hide();
+        $('#DatesDiv').hide();
     }
 
 
@@ -463,6 +467,22 @@ $(document).ready(function () {
     $('.financialphase').on('click', function () {
         hideall();
         $('#financial').show();
+    });
+    $('.costTab').on('click', function () {
+        hideall();
+        $('#costDiv').show();
+    });
+    $('.LocationTab').on('click', function () {
+        hideall();
+        $('#locationDiv').show();
+    });
+    $('.AgeOrgTab').on('click', function () {
+        hideall();
+        $('#AgeOrgDiv').show();
+    });
+    $('.datestabrev').on('click', function () {
+        hideall();
+        $('#DatesDiv').show();
     });
     // $('#saveObjComp').on('click', function () {
     //     hideall();
