@@ -4,6 +4,8 @@
 @endsection
 @section('styleTags')
   <style media="screen">
+.navbar-logo,.pcoded-navbar{display:none !important;}
+.pcoded[theme-layout="vertical"][vertical-placement="left"][vertical-nav-type="expanded"][vertical-effect="shrink"] .pcoded-content{margin-left:0px !important;}
     .pdlf6
       {
         padding-left: 6% !important;
@@ -70,10 +72,10 @@
     <div class="col-md-2 usermain">
       <div class="greyShadow userDiv border bd-rad">
       <center><img src="{{asset('male-user.png')}}" class="col-md-12" alt="Employee image"></center>
-      <h5 class="col-md-12 pdlf6">name</h5>
+      <h5 class="col-md-12 pdlf6">Aihtsham</h5>
       <p class="col-md-12 nopad">
         <b class="col-md-6">Role</b>
-        <b class="col-md-6">testing</b>
+        <b class="col-md-6">It Consultant</b>
       </p>
       <p class="col-md-12 nopad">
         <b class="col-md-6">Time</b>
