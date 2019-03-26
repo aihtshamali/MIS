@@ -35,8 +35,8 @@
               {{-- {{ dd($costs) }} --}}
         <div class="card-block">
             <div class="row">
-                <div class="col-md-4 offset-md-2">
-                    <div class="form-group">
+                <div class="col-md-8 offset-md-2">
+                    <div class="col-md-5 float-left form-group">
                         <label for="" class="col-form-label"><b>ADP Allocation of Fiscal Year :</b></label>
                         <br>
                         <input type="number" step="0.01" class="form-control" name="adp_allocation_of_fiscal_year" id="ADP_allocation_cost"
@@ -47,43 +47,7 @@
                         @endif
                         />
                     </div>
-                    <div class="form-group">
-                        <label for="" class="col-form-label"><b>Total Allocation by that time (Cumulative):</b></label>
-                        <br>
-                        <input type="text" step="0.01" class="form-control" name="total_allocation_by_that_time" id="ADP_allocation_cost"
-                        @if ($costs)
-                          value="{{ round($costs->total_allocation_by_that_time,2,PHP_ROUND_HALF_UP) }}"
-                        @else
-                          value=""
-                        @endif
-                         />
-                    </div>
-                    <!-- <div class="form-group">
-                        <label for="" class="col-form-label"><b>Utilization : </b></label>
-                        <br>
-                    <input type="text" step="0.01" class="form-control" name="utilization_against_cost_allocation" id="utilization_allocation"
-                    @if ($costs)
-                      value="{{ round($costs->utilization_against_cost_allocation,2,PHP_ROUND_HALF_UP) }}"
-                    @else
-                      value=""
-                    @endif
-                    />
-
-                    </div> -->
-                </div>
-                <div class="col-md-4 ">
-                    <div class="form-group">
-                        <label for="" class="col-form-label"><b>Release To Date of Fiscal Year :</b></label>
-                        <br>
-                        <input type="text" step="0.01" class="form-control" name="release_to_date_of_fiscal_year" id="release_to_date"
-                        @if ($costs)
-                          value="{{ round($costs->release_to_date_of_fiscal_year,2,PHP_ROUND_HALF_UP) }}"
-                        @else
-                          value=""
-                        @endif
-                        />
-                    </div>
-                    <div class="form-group">
+                    <div class="col-md-5 offset-md-1 float-left form-group">
                         <label for="" class="col-form-label"><b>Total Releases To Date :</b></label>
                         <br>
                         <input type="text" step="0.01" class="form-control" name="total_release_to_date" id="total_release_to_date"
@@ -94,7 +58,18 @@
                         @endif
                         />
                     </div>
-                    <div class="form-group">
+                    <div class="col-md-5 float-left form-group">
+                        <label for="" class="col-form-label"><b>Release To Date of Fiscal Year :</b></label>
+                        <br>
+                        <input type="text" step="0.01" class="form-control" name="release_to_date_of_fiscal_year" id="release_to_date"
+                        @if ($costs)
+                          value="{{ round($costs->release_to_date_of_fiscal_year,2,PHP_ROUND_HALF_UP) }}"
+                        @else
+                          value=""
+                        @endif
+                        />
+                    </div>
+                    <div class="col-md-5 offset-md-1 float-left form-group">                        
                         <label for="" class="col-form-label"><b>Utilization :</b></label>
                         <br>
                         <input type="text" class="form-control" name="utilization_against_releases" id="u_against_rel"
@@ -105,12 +80,23 @@
                         @endif
                         />
                     </div>
+                    <div class="col-md-5 float-left form-group">
+                        <label for="" class="col-form-label"><b>Total Allocation by that time (Cumulative):</b></label>
+                        <br>
+                        <input type="text" step="0.01" class="form-control" name="total_allocation_by_that_time" id="ADP_allocation_cost"
+                        @if ($costs)
+                          value="{{ round($costs->total_allocation_by_that_time,2,PHP_ROUND_HALF_UP) }}"
+                        @else
+                          value=""
+                        @endif
+                         />
+                    </div>
                 </div>
 
             </div>
             <div class="row">
-                <div class="col-md-10 offset-md-1">
-                   <div class="divider"></div>
+                <div class="divider col-md-12"></div>
+                <div class="col-md-12 row">
                    <div class="col-md-4 offset-md-2">
                       <div class="form-group">
                         <label for="" class="col-form-label"><b>Technical Sanction Cost:</b></label>
