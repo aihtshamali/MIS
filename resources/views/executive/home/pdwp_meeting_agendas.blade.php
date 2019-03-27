@@ -213,10 +213,10 @@ li div{
 
             </div>
             <button  class="btn btn-success pull-right conduct"  type="button">Conduct the meeting</button>
-            <button  class="btn btn-success pull-left add-agenda"  type="button">Add New Agenda</button>
+            {{-- <button  class="btn btn-success pull-left add-agenda"  type="button">Add New Agenda</button> --}}
         </div>
 
-        <section id="section_agenda" class="content col-md-12" style="display:none;">
+        {{-- <section id="section_agenda" class="content col-md-12" style="display:none;">
             <div id="outerbox" class="box yewali_1 box-default">
                 <div  class="box-header with-border">
                     <div class="form-group row" style="margin-left:20px;margin-right:20px" id="main">
@@ -263,7 +263,6 @@ li div{
                                             @endif
                                         @endfor
                                     </select>
-                                {{-- <input class="form-control" type="text"style="text-align:center;" name="financial_year" value="2017-2018"> --}}
                             </div>
                             <div class="col-md-1">
                                 <label for="" style="font-size:25px">/</label>
@@ -271,15 +270,13 @@ li div{
                             <div class="col-md-4" style="padding:0 !important">
                                 <select class="form-control  select2 " name="adp_no[]" id="adp">
                                     <option value="0">Select GS #</option>
-                                    <?php $counting = 0?>
+                                    <php $counting = 0?>
                                     @foreach ($adp as $a)
-                                        <option value="{{$a->gs_no}},<?php echo $counting?>">{{$a->gs_no}}</option>
-                                        <?php $counting += 1?>
+                                        <option value="{{$a->gs_no}},<php echo $counting?>">{{$a->gs_no}}</option>
+                                        <php $counting += 1?>
                                     @endforeach
                                     </select>
-                                {{-- <input class="form-control" id="ex2" name="adp_no[]" type="text"style="text-align:center;"> --}}
                             </div>
-                            {{-- </div> --}}
                             <div>
                                 <label for="name_of_scheme">Name Of the Scheme</label>
                                 <input class="form-control" id="name_of_scheme" name="name_of_scheme[]" type="text"style="text-align:center;">
@@ -390,14 +387,14 @@ li div{
 
                                 </select>
                             </div>
-                        <div>
-                            <input type="file" id="attachment" class="pull-left" name="section2_attachments[]" value="">
-                        </div>
+                            <div>
+                                <input type="file" id="attachment" class="pull-left" name="section2_attachments[]" value="">
+                            </div>
                         </section>
-                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
 
   </section>
 
@@ -485,7 +482,7 @@ li div{
                                         </div>
                                     </div>
 
-                                    <div>
+                                    {{-- <div>
                                         <label >Decision</label>
                                         <select  name="agenda_decision[]" class="form-control select2" style="text-align: center !important" id="">
                                           <option value="">Select Decision</option>
@@ -493,7 +490,7 @@ li div{
                                               <option value="{{$decision->id}}">{{$decision->name}}</option>
                                             @endforeach
                                         </select>
-                                    </div>
+                                    </div> --}}
 
                                     <div>
                                         <label >Comments</label>
@@ -577,7 +574,7 @@ li div{
                                         </div>
                                     </div>
 
-                                    <div>
+                                    {{-- <div>
                                         <label >Decision</label>
                                         <select  name="agenda_decision[]" class="form-control select2" style="text-align: center !important" id="">
                                           <option value="">Select Decision</option>
@@ -585,7 +582,7 @@ li div{
                                             <option value="{{$decision->id}}">{{$decision->name}}</option>
                                           @endforeach
                                         </select>
-                                    </div>
+                                    </div> --}}
 
                                     <div>
                                         <label >Comments</label>

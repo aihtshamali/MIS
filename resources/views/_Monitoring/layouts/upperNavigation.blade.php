@@ -94,7 +94,7 @@
                                         <div class="input-group">
                                             <span class="input-group-addon search-close"><i class="feather icon-x"></i></span>
                                             <input type="text" class="form-control" id="myInputiQ" style="border:none !important;">
-                                            <span class="input-group-addon search-btn"><i class="feather icon-search"></i></span>
+                                            <!-- <span class="input-group-addon search-btn"><i class="feather icon-search"></i></span> -->
                                         </div>
                                     </div>
                                 </li>

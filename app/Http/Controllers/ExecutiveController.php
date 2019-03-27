@@ -87,9 +87,10 @@ class ExecutiveController extends Controller
       return view('executive.home.pdwp_meeting_agendas',compact('meeting','agendas','hr_decisions','sectors','meeting_types','agenda_types','agenda_statuses','adp'));
 
     }
+    
     public function CommentAgenda(Request $req )
     {
-      // dd($req->all());
+      
       $i=0;
       foreach ($req->agenda_id as $agenda_id) {
         $agenda= HrAgenda::find($agenda_id);
@@ -100,12 +101,14 @@ class ExecutiveController extends Controller
           $agenda->agenda_actual_end_time=$req->actual_end_time[$i];
         }
         $agenda->save();
-        if(isset($req->agenda_decision[$i]) && $req->agenda_decision[$i]!=""){
+        // dd($req->all());
+        if(isset($req->agenda_comments[$i]) && $req->agenda_comments[$i]!=""){
           $agendaDecision= new HrProjectDecision();
           $agendaDecision->hr_meeting_p_d_w_p_id=$req->hr_meeting_id;
-          $agendaDecision->hr_decision_id=$req->agenda_decision[$i];
+          // $agendaDecision->hr_decision_id=$req->agenda_decision[$i];
           $agendaDecision->comments=$req->agenda_comments[$i];
           $agendaDecision->hr_agenda_id=$agenda_id;
+          $agendaDecision->comments_user_id=Auth::id();
           $agendaDecision->save();
         }
         $i++;
@@ -797,7 +800,17 @@ class ExecutiveController extends Controller
       return view('executive.home.chart_eight' ,['sectors'=> $sectors, 'assignedprojects_wrt_sectors'=>$assignedprojects_wrt_sectors,  'inprogressprojects_wrt_sectors'=>$inprogressprojects_wrt_sectors,
       'totalprojects_wrt_sectors'=>$totalprojects_wrt_sectors,'completedprojects_wrt_sectors'=>$completedprojects_wrt_sectors]);
     }
-
+    // attendance
+    public function attendance()
+    {
+      return view('_Monitoring.attendance.attendancedashboard');
+      // return view('_Monitoring.attendance');
+      // return view('Attendance');
+    }
+    public function dailyattendance()
+    {
+      return view('_Monitoring.attendance.dailyattendance');
+    }
     // chart 9
     public function chart_nine()
     {

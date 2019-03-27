@@ -132,8 +132,6 @@
                     <input type="text" name="adp_allocation" class="form-control" value="{{$agenda->adp_allocation}}">
                   </td>
                   <td>
-                    {{-- <input type="file" name="attachments" class="form-control"> --}}
-                    {{-- {{dd($agenda->HrMeetingPDWP)}} --}}
                     @if(isset($agenda->HrAttachment->attachments))
                       <a href="{{asset('storage/uploads/projects/project_agendas/'.$agenda->HrAttachment->attachments)}}" download>{{$agenda->HrAttachment->attachments}}</a>
                       <input type="file" name="hr_attachment" value="">
@@ -141,28 +139,20 @@
                     @endif
                   </td>
                   <td>
+                      @if (isset($agenda->HrMomAttachment->attachment))
+                        <a href="{{asset('/storage/uploads/projects/meetings_mom/'.$agenda->HrMomAttachment->attachment)}}" download> {{$agenda->HrMomAttachment->attachment}}</a>
+                        <div>
+                            <input type="hidden" name="meeting_id" value={{$meeting->id}}>
+                            <input type="hidden" name="hr_agenda_id" value={{$agenda->id}}>
+                            <input type="file" id="attachmentt" class="attach_moms pull-left" name="attach_moms">
+                        </div>
+                      @endif
+                    </td>
+                  <td>
                     {{ csrf_field() }}
                     <button type="submit" name="button" class="btn btn-success">SAVE</button>
                   </td>
                 </form>
-                  <td>
-                    {{-- {{dd($agenda->HrMomAttachment->attachment)}} --}}
-                      @if (isset($agenda->HrMomAttachment->attachment))
-                        <a href="{{asset('/storage/uploads/projects/meetings_mom/'.$agenda->HrMomAttachment->attachment)}}" download> {{$agenda->HrMomAttachment->attachment}}</a>
-                      @else
-                        <div>
-                          <form class="attach_moms_form" action="{{route('save_moms')}}" method="post" enctype="multipart/form-data">
-                            {{ csrf_field() }}
-                            <input type="hidden" name="meeting_id" value={{$meeting->id}}>
-                            <input type="hidden" name="hr_agenda_id" value={{$agenda->id}}>
-                            <input type="file" id="attachmentt" class="attach_moms pull-left" name="attach_moms">
-                            <input type="submit"  class="btn btn-success" value="Attach">
-                          </form>
-                        </div>
-                      @endif
-                        {{-- <a class="btn btn-success pull-left" id="testread">Test</a> --}}
-
-                    </td>
               </tr>
           @endforeach
       </table>

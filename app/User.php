@@ -143,5 +143,10 @@ class User extends Authenticatable implements JWTSubject
   {
     return $this->hasMany('App\MAssignedKpi');
   }
+  public function HrProjectDecision()
+  {
+    return $this->hasMany('App\HrProjectDecision','comments_user_id');
+  }
+ 
 
 }

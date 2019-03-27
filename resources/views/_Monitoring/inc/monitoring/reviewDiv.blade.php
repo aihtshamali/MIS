@@ -1,3 +1,7 @@
+<style scopped>
+ .district .select2-container--default .select2-selection--multiple .select2-selection__rendered li{padding: 0% !important;margin:0px !important;}
+ .district .select2-container--default .select2-selection--multiple{border: 1px solid #aaaaaa73 !important;}
+</style>
 <div class="tab-pane {{isset($maintab) && $maintab=='review' ? 'active' : ''}}"      id="reviewDiv" role="tabpanel">
 <div class="col-md-12 reviewNavBar">
   <!-- Nav tabs -->
@@ -6,13 +10,13 @@
           <a class="nav-link {{isset($innertab) && $innertab=='cost' ? 'active' : ''}} costTab" data-toggle="tab" href="#costDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Cost</b></a>
       </li>
       <li class="nav-item">
-          <a class="nav-link {{isset($innertab) && $innertab=='location' ? 'active' : ''}}"  data-toggle="tab" href="#locationDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Location</b></a>
+          <a class="nav-link {{isset($innertab) && $innertab=='location' ? 'active' : ''}} LocationTab"  data-toggle="tab" href="#locationDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Location</b></a>
       </li>
       <li class="nav-item">
-          <a class='nav-link {{isset($innertab) && $innertab=="agencies" ? "active" : ""}}' data-toggle="tab" href="#AgeOrgDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Agencies & Organization</b></a>
+          <a class='nav-link {{isset($innertab) && $innertab=="agencies" ? "active" : ""}} AgeOrgTab' data-toggle="tab" href="#AgeOrgDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Agencies & Organization</b></a>
       </li>
       <li class="nav-item">
-          <a class='nav-link {{isset($innertab) && $innertab=="dates" ? "active" : ""}} ' data-toggle="tab" href="#DatesDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Dates</b></a>
+          <a class='nav-link {{isset($innertab) && $innertab=="dates" ? "active" : ""}} datestabrev' data-toggle="tab" href="#DatesDiv" role="tab"><b style="font-size:14px; font-weight:bold;">Dates</b></a>
       </li>
   </ul>
   <!-- Tab panes -->
@@ -35,8 +39,8 @@
               {{-- {{ dd($costs) }} --}}
         <div class="card-block">
             <div class="row">
-                <div class="col-md-4 offset-md-2">
-                    <div class="form-group">
+                <div class="col-md-8 offset-md-2">
+                    <div class="col-md-5 float-left form-group">
                         <label for="" class="col-form-label"><b>ADP Allocation of Fiscal Year :</b></label>
                         <br>
                         <input type="number" step="0.01" class="form-control" name="adp_allocation_of_fiscal_year" id="ADP_allocation_cost"
@@ -47,43 +51,7 @@
                         @endif
                         />
                     </div>
-                    <div class="form-group">
-                        <label for="" class="col-form-label"><b>Total Allocation by that time (Cumulative):</b></label>
-                        <br>
-                        <input type="text" step="0.01" class="form-control" name="total_allocation_by_that_time" id="ADP_allocation_cost"
-                        @if ($costs)
-                          value="{{ round($costs->total_allocation_by_that_time,2,PHP_ROUND_HALF_UP) }}"
-                        @else
-                          value=""
-                        @endif
-                         />
-                    </div>
-                    <!-- <div class="form-group">
-                        <label for="" class="col-form-label"><b>Utilization : </b></label>
-                        <br>
-                    <input type="text" step="0.01" class="form-control" name="utilization_against_cost_allocation" id="utilization_allocation"
-                    @if ($costs)
-                      value="{{ round($costs->utilization_against_cost_allocation,2,PHP_ROUND_HALF_UP) }}"
-                    @else
-                      value=""
-                    @endif
-                    />
-
-                    </div> -->
-                </div>
-                <div class="col-md-4 ">
-                    <div class="form-group">
-                        <label for="" class="col-form-label"><b>Release To Date of Fiscal Year :</b></label>
-                        <br>
-                        <input type="text" step="0.01" class="form-control" name="release_to_date_of_fiscal_year" id="release_to_date"
-                        @if ($costs)
-                          value="{{ round($costs->release_to_date_of_fiscal_year,2,PHP_ROUND_HALF_UP) }}"
-                        @else
-                          value=""
-                        @endif
-                        />
-                    </div>
-                    <div class="form-group">
+                    <div class="col-md-5 offset-md-1 float-left form-group">
                         <label for="" class="col-form-label"><b>Total Releases To Date :</b></label>
                         <br>
                         <input type="text" step="0.01" class="form-control" name="total_release_to_date" id="total_release_to_date"
@@ -94,7 +62,18 @@
                         @endif
                         />
                     </div>
-                    <div class="form-group">
+                    <div class="col-md-5 float-left form-group">
+                        <label for="" class="col-form-label"><b>Release To Date of Fiscal Year :</b></label>
+                        <br>
+                        <input type="text" step="0.01" class="form-control" name="release_to_date_of_fiscal_year" id="release_to_date"
+                        @if ($costs)
+                          value="{{ round($costs->release_to_date_of_fiscal_year,2,PHP_ROUND_HALF_UP) }}"
+                        @else
+                          value=""
+                        @endif
+                        />
+                    </div>
+                    <div class="col-md-5 offset-md-1 float-left form-group">                        
                         <label for="" class="col-form-label"><b>Utilization :</b></label>
                         <br>
                         <input type="text" class="form-control" name="utilization_against_releases" id="u_against_rel"
@@ -105,12 +84,23 @@
                         @endif
                         />
                     </div>
+                    <div class="col-md-5 float-left form-group">
+                        <label for="" class="col-form-label"><b>Total Allocation by that time (Cumulative):</b></label>
+                        <br>
+                        <input type="text" step="0.01" class="form-control" name="total_allocation_by_that_time" id="ADP_allocation_cost"
+                        @if ($costs)
+                          value="{{ round($costs->total_allocation_by_that_time,2,PHP_ROUND_HALF_UP) }}"
+                        @else
+                          value=""
+                        @endif
+                         />
+                    </div>
                 </div>
 
             </div>
             <div class="row">
-                <div class="col-md-10 offset-md-1">
-                   <div class="divider"></div>
+                <div class="divider col-md-12"></div>
+                <div class="col-md-12 row">
                    <div class="col-md-4 offset-md-2">
                       <div class="form-group">
                         <label for="" class="col-form-label"><b>Technical Sanction Cost:</b></label>
@@ -153,7 +143,7 @@
           <div class="TimeDiv pd_1 clearfix">
           <div class="form-group row mb_2">
               <label class="col-sm-3 font-15">District</label>
-              <div class="col-sm-9">
+              <div class="col-sm-9 district">
                 <select name="district[]" id="" class="select2" multiple>
                   <option value="">Select District</option>
                   @foreach ($project->Project->AssignedDistricts as $district)
