@@ -21,4 +21,8 @@ class HrAgenda extends Model
     public function HrMomAttachment(){
         return $this->hasOne('App\HrMomAttachment');
     }
+    public function HrProjectDecision(){
+        return $this->hasOne('App\HrProjectDecision');
+    }
+    
 }

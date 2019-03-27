@@ -277,19 +277,19 @@
                         </b>
                     </div> --}}
                   <div class="col-md-3">
-                    <p for="earned_value" class=" mb_1"><span class="fontf_sh">Earned Value: </span><span>{{round(calculateEarnedvalue($project->MProjectProgress->last()->id),2)}} %</span></p>
+                    <p for="earned_value" class=" mb_1"><span class="fontf_sh">Earned Value: </span><span>{{round(calculateEarnedvalue($project->MProjectProgress->last()->id),2)}} </span></p>
                 </div>
                 <div class="col-md-3">
                   <P for="actual_value" class=" mb_1"><span class="fontf_sh">Planned Value: </span><span>{{round(calculatePlannedValue($project->MProjectProgress->last()->id),2)}} </span></p>
               </div>
               <div class="col-md-3">
-              <p for="cost_performance" class=" mb_1"><span class="fontf_sh">Cost Performace Index (CPI): </span><span>{{round(costPerformanceindex($project->MProjectProgress->last()->id),4)}}%</span></p>
+              <p for="cost_performance" class=" mb_1"><span class="fontf_sh">Cost Performace Index (CPI): </span><span>{{round(costPerformanceindex($project->MProjectProgress->last()->id),2)}}%</span></p>
             </div>
             <div class="col-md-3">
-            <p for="spi" class=" mb_1"><span class="fontf_sh">Schedule Performance Index (SPI): </span><span>{{round(scheduledPerformanceindex($project->MProjectProgress->last()->id),3)}}%</span></p>
+            <p for="spi" class=" mb_1"><span class="fontf_sh">Schedule Performance Index (SPI): </span><span>{{round(scheduledPerformanceindex($project->MProjectProgress->last()->id),2)}}%</span></p>
           </div>
           <div class="col-md-3">
-          <p for="eac" class=" mb_1"><span class="fontf_sh">Estimaed At Completion : </span><span>{{round(estimatedAtCompletion($project->MProjectProgress->last()->id),4)}}</span></p>
+          <p for="eac" class=" mb_1"><span class="fontf_sh">Estimaed At Completion : </span><span>{{round(estimatedAtCompletion($project->MProjectProgress->last()->id),2)}}</span></p>
         </div>
           </div>
         </div>

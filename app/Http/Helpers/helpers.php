@@ -61,7 +61,6 @@ if (! function_exists('calculateMPhysicalProgress')) {
         $i++;
         array_push($cost,$main->cost);
         $weight+=$main->weightage;
-
       }
       $sum=0;
       // dd($arr,$cost);
