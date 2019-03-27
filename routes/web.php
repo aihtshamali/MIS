@@ -21,6 +21,10 @@ Route::get('/upload', function () {
     return view('file_upload');
 });
 
+// attendance start
+Route::get('/attendance','ExecutiveController@attendance')->name('attendance');
+Route::get('/dailyattendance','ExecutiveController@dailyattendance')->name('dailyattendance');
+// attendance end
 // Route::post('/home','HomeController@upload');
 
 Route::get('/','HomeController@index')->name('predashboard');
@@ -320,9 +324,9 @@ Route::get('/m_chart_two','MonitoringChartController@m_chart_two')->name('m_char
 Route::get('/403',function(){
   return view('403');
 });
-Route::get('/Attendance',function(){
-  return view('Attendance');
-});
+// Route::get('/Attendance',function(){
+//   return view('Attendance');
+// });
 Route::get('/dgv',function(){
   return view('hassan.dg');
 });

@@ -800,7 +800,17 @@ class ExecutiveController extends Controller
       return view('executive.home.chart_eight' ,['sectors'=> $sectors, 'assignedprojects_wrt_sectors'=>$assignedprojects_wrt_sectors,  'inprogressprojects_wrt_sectors'=>$inprogressprojects_wrt_sectors,
       'totalprojects_wrt_sectors'=>$totalprojects_wrt_sectors,'completedprojects_wrt_sectors'=>$completedprojects_wrt_sectors]);
     }
-
+    // attendance
+    public function attendance()
+    {
+      return view('_Monitoring.attendance.attendancedashboard');
+      // return view('_Monitoring.attendance');
+      // return view('Attendance');
+    }
+    public function dailyattendance()
+    {
+      return view('_Monitoring.attendance.dailyattendance');
+    }
     // chart 9
     public function chart_nine()
     {
