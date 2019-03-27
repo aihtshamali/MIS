@@ -70,7 +70,13 @@ Route::group(['middleware' => ['role:admin']], function () {
 });
 
 
+Route::prefix('manager')->middleware('role:manager|directorevaluation|director_Monitor')->group(function () {
+// PDWP MEETING MODULE
+Route::get('/conduct_pdwp_meeting','ExecutiveController@conduct_pdwp_meeting')->name('Conduct_PDWP_Meeting');
+Route::get('/list_agendas','ExecutiveController@list_agendas')->name('List_Agendas');
+Route::post('/agenda_comment_store','ExecutiveController@CommentAgenda')->name('store_agenda_comments');
 
+});
 
 // For Manager & Director Charts
 Route::prefix('manager')->middleware('role:manager|directorevaluation')->group(function () {
@@ -113,11 +119,7 @@ Route::prefix('manager')->middleware('role:manager|directorevaluation')->group(f
     Route::resource('assignproject','ProjectAssignController');
     Route::get('/evaluation_reviewed','ExecutiveController@reviewed_projects');
 
-    // PDWP MEETING MODULE
-    Route::get('/conduct_pdwp_meeting','ExecutiveController@conduct_pdwp_meeting')->name('Conduct_PDWP_Meeting');
-    Route::get('/list_agendas','ExecutiveController@list_agendas')->name('List_Agendas');
-    Route::post('/agenda_comment_store','ExecutiveController@CommentAgenda')->name('store_agenda_comments');
-
+    
     // MONITORING MODULE
     Route::get('/m_unassignedprojects','ExecutiveController@monitoring_unassigned')->name('monitoring_unassigned');
     Route::get('/m_assigntoconsultant','ProjectAssignController@assignToConsultant')->name('assign_To_consultant');
@@ -292,9 +294,11 @@ Route::get('/projctlist', function () {
 
 //for adminhr
 Route::prefix('hr')->middleware('role:adminhr|manager')->group(function () {
-  Route::post('/save_moms','AdminHumanResourceController@saveMoms')->name('save_moms');
+  // Route::post('/save_moms','AdminHumanResourceController@saveMoms')->name('save_moms');
   Route::resource('admin','AdminHumanResourceController');
   Route::post('/save_agendax','AdminHumanResourceController@save_agendax')->name('agendax');
+  Route::post('/descisionAgendax','AdminHumanResourceController@DescisionAgenda')->name('DescisionAgenda');
+
   // Route::get('/search_agendas','AdminHumanResourceController@search_agendas')->name('search_agendas');
   // Route::get('/','inHumanResourceController@index')->name('index_meeting');
 });

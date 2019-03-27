@@ -49,7 +49,13 @@
 @section('content')
 <div class="content-wrapper">
 
-
+    @if (\Session::has('error'))
+    <div class="alert alert-danger">
+        <ul>
+            <li>{!! \Session::get('error') !!}</li>
+        </ul>
+    </div>
+@endif
   <section class="content-header">
     <h1>
     Meeting No {{$agendas[0]->HrMeetingPDWP->id}}
@@ -63,81 +69,116 @@
   </section>
 
   <section class="content">
+     <div class="col-md-12">
       <table class="table table-borderd">
-          <tr>
-              <th>
-                  Agenda Item
-              </th>
-              <th>
-                  ADP No
-              </th>
-              <th>
-                  Name of Scheme
-              </th>
-              <th>
-                  Estimated Cost
-              </th>
-              <th>
-                  ADP Allocation
+            <tr>
+                <th>
+                    Agenda Item
                 </th>
                 <th>
-                  Attachments
+                    ADP No
                 </th>
                 <th>
-                    Attach MOMs
+                    Name of Scheme
                 </th>
-          </tr>
-          <?php $var = 1?>
-          @foreach ($agendas as $agenda)
-              <tr>
-                  <td>
-                    {{$agenda->agenda_item}}
-                  </td>
-                  <td>
-                    @if($agenda->adp_no)
-                    {{$agenda->adp_no}}
-                    @else
-                    No ADP
-                    @endif
-                  </td>
-
-                  <td>
-                    {{$agenda->scheme_name}}
-                  </td>
-                  <td>
-                    {{$agenda->estimated_cost}}
-                  </td>
-                  <td>
-                    {{$agenda->adp_allocation}}
-                  </td>
-                  <td>
-                    {{-- <input type="file" name="attachments" class="form-control"> --}}
-                    {{-- {{dd($agenda->HrMeetingPDWP)}} --}}
-                    @if(isset($agenda->HrAttachment->attachments))
-                  <a href="{{asset('storage/uploads/projects/project_agendas/'.$agenda->HrAttachment->attachments)}}" download>{{$agenda->HrAttachment->attachments}}</a>
-                  @endif
-                  </td>
-                  <td>
-                    {{-- {{dd($agenda->HrMomAttachment->attachment)}} --}}
-                      @if (isset($agenda->HrMomAttachment->attachment))
-                        <a href="{{asset('/storage/uploads/projects/meetings_mom/'.$agenda->HrMomAttachment->attachment)}}" download> {{$agenda->HrMomAttachment->attachment}}</a>
-                      @else
-                        <div>
-                          <form class="attach_moms_form" action="{{route('save_moms')}}" method="post" enctype="multipart/form-data">
-                            {{ csrf_field() }}
-                            <input type="hidden" name="meeting_id" value={{$meeting->id}}>
-                            <input type="hidden" name="hr_agenda_id" value={{$agenda->id}}>
-                            <input type="file" id="attachmentt" class="attach_moms pull-left" name="attach_moms">
-                            <input type="submit"  class="btn btn-success" value="Attach">
-                          </form>
-                        </div>
-                      @endif
-                        {{-- <a class="btn btn-success pull-left" id="testread">Test</a> --}}
-
+                <th>
+                    Estimated Cost
+                </th>
+                <th>
+                    ADP Allocation
+                  </th>
+                  <th>
+                    Attachments
+                  </th>
+                  <th>
+                      Attach M-O-M(s)
+                  </th>
+                  <th>
+                    Agenda Descision
+                  </th>
+            </tr>
+            <?php $var = 1?>
+            @foreach ($agendas as $agenda)
+                <tr>
+                    <td>
+                      {{$agenda->agenda_item}}
                     </td>
-              </tr>
-          @endforeach
-      </table>
+                    <td>
+                      @if($agenda->adp_no)
+                      {{$agenda->adp_no}}
+                      @else
+                      No ADP
+                      @endif
+                    </td>
+
+                    <td>
+                      {{$agenda->scheme_name}}
+                    </td>
+                    <td>
+                      {{$agenda->estimated_cost}}
+                    </td>
+                    <td>
+                      {{$agenda->adp_allocation}}
+                    </td>
+                    <td>
+                      {{-- <input type="file" name="attachments" class="form-control"> --}}
+                      {{-- {{dd($agenda->HrMeetingPDWP)}} --}}
+                      @if(isset($agenda->HrAttachment->attachments))
+                    <a href="{{asset('storage/uploads/projects/project_agendas/'.$agenda->HrAttachment->attachments)}}" download>{{$agenda->HrAttachment->attachments}}</a>
+                    @endif
+                    </td>
+                    <td>
+                      {{-- {{dd($agenda->HrMomAttachment->attachment)}} --}}
+                        @if (isset($agenda->HrMomAttachment->attachment))
+                          <a href="{{asset('/storage/uploads/projects/meetings_mom/'.$agenda->HrMomAttachment->attachment)}}" download> {{$agenda->HrMomAttachment->attachment}}</a>
+                        @else
+                          <div>
+                            <form class="attach_moms_form" action="{{route('save_moms')}}" method="post" enctype="multipart/form-data">
+                              {{ csrf_field() }}
+                              <input type="hidden" name="meeting_id" value={{$meeting->id}}>
+                              <input type="hidden" name="hr_agenda_id" value={{$agenda->id}}>
+                              <input type="file" id="attachmentt" class="attach_moms pull-left" name="attach_moms">
+                            
+                              <input type="submit"  class="btn btn-success" value="Attach">
+                            </form>
+                          </div>
+                        @endif
+                          {{-- <a class="btn btn-success pull-left" id="testread">Test</a> --}}
+
+                      </td>
+                      <td>
+                          @if (isset($agenda->HrProjectDecision->hr_decision_id))
+                            @if($agenda->HrProjectDecision->hr_decision_id=='1')
+                            <span style="color:Green"><b>{{$agenda->HrProjectDecision->HrDecision->name}}</b></span>
+                            @elseif($agenda->HrProjectDecision->hr_decision_id=='2')
+                            <span style="color:orange"><b>{{$agenda->HrProjectDecision->HrDecision->name}}</b></span>
+                            @elseif($agenda->HrProjectDecision->hr_decision_id=='3')
+                            <span style="color:red"><b>{{$agenda->HrProjectDecision->HrDecision->name}}</b></span>
+                            @else
+                            <b>{{$agenda->HrProjectDecision->HrDecision->name}}</b>
+                            @endif
+                        @else
+                          <div>
+                        <form action="{{route('DescisionAgenda')}}" method="post">
+                          {{ csrf_field() }}
+                          <select  name="agenda_decision" class="form-control select2" style="text-align: center !important" id="">
+                              <option value="">Select Decision</option>
+                              @foreach ($hr_decisions as $decision)
+                                  <option value="{{$decision->id}}">{{$decision->name}}</option>
+                              @endforeach
+                          </select>
+                          <input type="hidden" name="meeting_id" value={{$meeting->id}}>
+                          <input type="hidden" name="hr_agenda_id" value={{$agenda->id}}>
+                          <button class="btn btn-success end pull-right"  type="submit">Submit</button>
+                        </form>
+                          </div>
+                           @endif
+                      </td>
+                </tr>
+            @endforeach
+        </table>
+      </div>
+
       <div class="col-md-7">
         <button id="add_agenda" class="btn btn-info pull-right newadd">Add Agenda</button>
       </div>
@@ -177,7 +218,8 @@
       </form>
 
       {{-- END NEW FORM --}}
-  </section>
+  
+    </section>
 </div>
 @endsection
 @section('scripttags')

@@ -161,7 +161,7 @@
               <span>H R M S</span>
           </a>
         </li>
-
+        
         {{--  Calender  --}}
         <li>
           <a href="calender">
@@ -335,7 +335,21 @@
          </a>
         </li>
        @endrole
+        {{-- PDWP MEETING --}}
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-share"></i> <span>PDWP Meeting</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
 
+          </a>
+          <ul class="treeview-menu">
+          <li><a href="{{route('Conduct_PDWP_Meeting')}}"><i class="fa fa-circle-o"></i> Conduct Meeting <span class="pull-right-container">
+              <span class="label label-primary pull-right">new</span>
+            </span></a></li>
+          </ul>
+        </li>
       </ul>
     </section>
     <!-- /.sidebar -->
