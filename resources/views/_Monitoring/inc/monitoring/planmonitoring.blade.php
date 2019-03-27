@@ -266,7 +266,7 @@
                     <div class="col-md-2 text-center">
                       <h4 class="form-txt-primary">Start Date</h4>
                     </div>
-                    <div class="col-md-2 text-center">
+                    <div class="col-md-2" style="left:1% !important;">
                       <h4 class="form-txt-primary">End Date</h4>
                     </div>
                   </div>
