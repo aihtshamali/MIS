@@ -517,7 +517,7 @@
                     <div class="row col-md-11" id="CloneThisUserKPI" style="margin-bottom:1% !important;">
                       <div class="col-md-4 text-center">
                         <div class="col-md-10 offset-md-1 delLastChild">
-                            <select class="select2" id="" name="user_location_id_1">
+                            <select class="select2" id="" name="user_location_id[]">
                                 @foreach ($projectProgressId->MAssignedUserLocation as $mUserLocation)
                             <option  value="{{$mUserLocation->id}}">{{$mUserLocation->User->first_name}} {{$mUserLocation->User->last_name}} - {{$mUserLocation->District->name}} -{{$mUserLocation->site_name}}</option>
                                 @endforeach
@@ -526,7 +526,7 @@
                       </div>
                       <div class="col-md-4 text-center">
                         <div class="col-md-10 offset-md-1 delLastChild">
-                        <select class="select2" id="" name="m_project_kpi_id_1[]">
+                        <select class="select2" id="" name="m_project_kpi_id[]">
                             @php
                                 $arr=array();
                             @endphp

@@ -1540,6 +1540,7 @@ class OfficerController extends Controller
     }
 
     public function saveUserLocation(Request $request){
+      // dd($request->all());
       $counter = 1;
       $user = "user_location_";
       $location = "location_user_";
@@ -1548,8 +1549,8 @@ class OfficerController extends Controller
       while($counter <= $request->counts){
         if($request[$user.$counter])
         {
-          $inner_counter = 1;
-          foreach($request[$location.$inner_counter] as $d)
+          // $inner_counter = 1;
+          foreach($request[$location.$counter] as $d)
           {
             $m_assigned_user_location = new MAssignedUserLocation();
             $m_assigned_user_location->user_id = $request[$user.$counter];
@@ -1560,15 +1561,11 @@ class OfficerController extends Controller
             $m_assigned_user_location->m_project_progress_id = $request->progress_id;
             $m_assigned_user_location->save();
             // dd($m_assigned_user_location);
-            $inner_counter++;
+            // $inner_counter++;
           }
         }
         $counter++;
       }
-      // Copy from here
-    $tabs=explode("_",$request->page_tabs);
-    $maintab=$tabs[0];
-    $innertab=$tabs[1];
     // return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
      // Copy from here
      $tabs=explode("_",$request->page_tabs);
@@ -1577,74 +1574,60 @@ class OfficerController extends Controller
      return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
     }
     public function saveUserKpi(Request $request){
-      // dd($request);
-      $j=0;
-      $counter = 1;
-      $user = "user_location_id_";
-      $project_kpi = "m_project_kpi_id_";
-      while($counter<=$request->counts){
-        if($request[$user.$counter]){
-          $i=0;
-          $inner_counter = 1;
-          foreach($request[$project_kpi.$counter] as $d)
-          {
-            
+      $i=0;
+      foreach($request->user_location_id as $d)
+      {
+        $mAssignedUserkpi = new MAssignedUserKpi();
+        $mAssignedUserkpi->m_assigned_user_location_id = $d;
+        $mAssignedUserkpi->m_project_kpi_id = $request->m_project_kpi_id[$i];
+        $mAssignedUserkpi->m_project_progress_id = $request->m_project_progress_id;
+        $mAssignedUserkpi->save();
 
+        // Assigned Kpi
+        $assignedKpi= new MAssignedKpi();
+        $assignedKpi->m_assigned_user_kpi_id=$mAssignedUserkpi->id;
+        $assignedKpi->m_project_progress_id=$request->m_project_progress_id;
+        $assignedKpi->user_id=Auth::id();
+        $assignedKpi->weightage=($request->weightage[$i] == NULL ? 1 : $request->weightage[$i]);
+        $assignedKpi->cost=$request->cost[$i] == NULL ? 0 : $request->cost[$i];
+        $assignedKpi->save();
+        foreach ($assignedKpi->MAssignedUserKpi->MProjectKpi->MProjectLevel1Kpi as $lev1) 
+        {
+          $kpiCompMapping1= new MAssignedKpiLevel1();
+          $kpiCompMapping1->m_project_progress_id= $request->m_project_progress_id;
+          $kpiCompMapping1->m_assigned_kpi_id=$assignedKpi->id;
+          $kpiCompMapping1->m_project_level1_kpis_id= $lev1->id;
+          $kpiCompMapping1->save();
 
-            $mAssignedUserkpi = new MAssignedUserKpi();
-            $mAssignedUserkpi->m_assigned_user_location_id = $request[$user.$counter];
-            $mAssignedUserkpi->m_project_kpi_id = $d;
-            $mAssignedUserkpi->m_project_progress_id = $request->m_project_progress_id;
-            $mAssignedUserkpi->save();
-
-            // Assigned Kpi
-            $assignedKpi= new MAssignedKpi();
-            $assignedKpi->m_assigned_user_kpi_id=$mAssignedUserkpi->id;
-            $assignedKpi->m_project_progress_id=$request->m_project_progress_id;
-            $assignedKpi->user_id=Auth::id();
-            $assignedKpi->weightage=($request->weightage[$i] == NULL ? 1:$request->weightage[$i]);
-            $assignedKpi->cost=$request->cost[$i];
-            $assignedKpi->save();
-            foreach ($assignedKpi->MAssignedUserKpi->MProjectKpi->MProjectLevel1Kpi as $lev1) 
+            foreach ($kpiCompMapping1->MProjectLevel1Kpi->MProjectLevel2Kpi as $lev2) 
             {
-              $kpiCompMapping1= new MAssignedKpiLevel1();
-              $kpiCompMapping1->m_project_progress_id= $request->m_project_progress_id;
-              $kpiCompMapping1->m_assigned_kpi_id=$assignedKpi->id;
-              $kpiCompMapping1->m_project_level1_kpis_id= $lev1->id;
-              $kpiCompMapping1->save();
-                foreach ($kpiCompMapping1->MProjectLevel1Kpi->MProjectLevel2Kpi as $lev2) 
+              $kpiCompMapping2= new MAssignedKpiLevel2();
+              $kpiCompMapping2->m_project_progress_id= $request->m_project_progress_id;
+              $kpiCompMapping2->m_assigned_kpi_level1_id= $kpiCompMapping1->id;
+              $kpiCompMapping2->m_project_level2_kpis_id= $lev2->id;
+              $kpiCompMapping2->save();
+
+              foreach ($kpiCompMapping2->MProjectLevel2Kpi->MProjectLevel3Kpi as $lev3) 
+              {
+                $kpiCompMapping3= new MAssignedKpiLevel3();
+                $kpiCompMapping3->m_project_progress_id= $request->m_project_progress_id;
+                $kpiCompMapping3->m_assigned_kpi_level2_id= $kpiCompMapping2->id;
+                $kpiCompMapping3->m_project_level3_kpis_id= $lev3->id;
+                $kpiCompMapping3->save();
+
+              foreach ($kpiCompMapping3->MProjectLevel3Kpi->MProjectLevel4Kpi as $lev4)
                 {
-                  $kpiCompMapping2= new MAssignedKpiLevel2();
-                  $kpiCompMapping2->m_project_progress_id= $request->m_project_progress_id;
-                  $kpiCompMapping2->m_assigned_kpi_level1_id= $kpiCompMapping1->id;
-                  $kpiCompMapping2->m_project_level2_kpis_id= $lev2->id;
-                  $kpiCompMapping2->save();
-
-                  foreach ($kpiCompMapping2->MProjectLevel2Kpi->MProjectLevel3Kpi as $lev3) 
-                  {
-                    $kpiCompMapping3= new MAssignedKpiLevel3();
-                    $kpiCompMapping3->m_project_progress_id= $request->m_project_progress_id;
-                    $kpiCompMapping3->m_assigned_kpi_level2_id= $kpiCompMapping2->id;
-                    $kpiCompMapping3->m_project_level3_kpis_id= $lev3->id;
-                    $kpiCompMapping3->save();
-
-                  foreach ($kpiCompMapping3->MProjectLevel3Kpi->MProjectLevel4Kpi as $lev4)
-                    {
-                      $kpiCompMapping4= new MAssignedKpiLevel4();
-                      $kpiCompMapping4->m_project_progress_id= $request->m_project_progress_id;
-                      $kpiCompMapping4->m_assigned_kpi_level3_id= $kpiCompMapping3->id;
-                      $kpiCompMapping4->m_project_level4_kpis_id= $lev4->id;
-                      $kpiCompMapping4->save();
-                    }
-                  }
+                  $kpiCompMapping4= new MAssignedKpiLevel4();
+                  $kpiCompMapping4->m_project_progress_id= $request->m_project_progress_id;
+                  $kpiCompMapping4->m_assigned_kpi_level3_id= $kpiCompMapping3->id;
+                  $kpiCompMapping4->m_project_level4_kpis_id= $lev4->id;
+                  $kpiCompMapping4->save();
                 }
+              }
             }
-            $i++;
-            $inner_counter++;          
-          }
         }
-        $counter++;
-      }
+        $i++;
+      }       
          // Copy from here
        $tabs=explode("_",$request->page_tabs);
        $maintab=$tabs[0];
