@@ -8,10 +8,10 @@
   <style>
 
 #outerbox{
-  width: 50%;
+  /* width: 50%; */
   text-align: center;
   /* position:fixed; */
-  left: 30%;
+  /* left: 30%; */
   /* top: 30%; */
   /* margin-top: 30%; */
   /* top:30%; */

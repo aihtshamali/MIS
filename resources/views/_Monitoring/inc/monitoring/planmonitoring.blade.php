@@ -254,14 +254,20 @@
                   </div>
                   @endif
                   <div class="row col-md-12">
-                    <div class="col-md-3 text-center">
+                    <div class="col-md-2 text-center">
                       <h4 class="form-txt-primary">User</h4>
                     </div>
-                    <div class="col-md-4 text-center">
+                    <div class="col-md-3 text-center">
                       <h4 class="form-txt-primary">Location</h4>
                     </div>
-                    <div class="col-md-3 text-center">
+                    <div class="col-md-2" style="text-align: right;right:1% !important;">
                       <h4 class="form-txt-primary">Site Name</h4>
+                    </div>
+                    <div class="col-md-2 text-center">
+                      <h4 class="form-txt-primary">Start Date</h4>
+                    </div>
+                    <div class="col-md-2 text-center">
+                      <h4 class="form-txt-primary">End Date</h4>
                     </div>
                   </div>
                   <!-- end heading -->
@@ -277,7 +283,7 @@
                       .select2-container--default .select2-selection--multiple .select2-selection__rendered li{padding: 1% !important};
                     </style>
                     <div class="row col-md-11" id="CloneThisUserLoc" style="margin-bottom:1% !important;">
-                        <div class="col-md-4 text-center">
+                        <div class="col-md-3 text-center">
                             <div class="col-md-10 offset-md-1 delLastLocChild">
                             <select class="select2" id="" name="user_location_1">
                                 @foreach($team as $t)
@@ -286,7 +292,7 @@
                             </select>
                             </div>
                         </div>
-                        <div class="col-md-4 text-center">
+                        <div class="col-md-3 text-center">
                             <div class="col-md-10 offset-md-1 delLastLocChild">
                             <select class="select2" id="" name="location_user_1[]" multiple="multiple">
                                 @foreach ($assigned_districts as $ad)
@@ -295,9 +301,19 @@
                             </select>
                         </div>
                         </div>
-                        <div class="col-md-4 text-center">
+                        <div class="col-md-2 text-center">
                             <div class="col-md-10 offset-md-1">
                                 <input type="text" placeholder="Site Name" name="site_name_1" class="site_name form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <div class="col-md-10 offset-md-1">
+                                <input type="date" placeholder="Site Name" name="site_name_1" class="site_name form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <div class="col-md-10 offset-md-1">
+                                <input type="date" placeholder="Site Name" name="site_name_1" class="site_name form-control" />
                             </div>
                         </div>
                   
