@@ -16,5 +16,8 @@ class HrProjectDecision extends Model
     public function HrMeetingPDWP(){
         return $this->belongsTo('App\HrMeetingPDWP');
     }
+    public function User(){
+        return $this->belongsTo('App\User','comments_user_id');
+      }
     //
 }

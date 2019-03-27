@@ -87,7 +87,7 @@ h4:hover span{border-top: 4px solid #f0ad4e !important;-webkit-transition: all 6
       @foreach ($data as $key => $value)
         {{-- {{dd($key)}} --}}
         <div id="{{ $key }}" style="display:none">
-        <table class="table table-borderd">
+        <table class="table table-borderd" id="dt">
           <tr>
             <th>
               Meeting ID
@@ -109,6 +109,7 @@ h4:hover span{border-top: 4px solid #f0ad4e !important;-webkit-transition: all 6
             </th>
 
           </tr>
+          {{-- {{dd($value)}} --}}
         @foreach ($value as $v)
             {{-- @foreach ($vs as $v) --}}
               <tr>
@@ -149,7 +150,11 @@ h4:hover span{border-top: 4px solid #f0ad4e !important;-webkit-transition: all 6
 </div>
 @endsection
 @section('scripttags')
+<script src="{{asset('js/AdminLTE/dataTables.bootstrap.min.js')}}"></script>
 <script>
+  
+  // $('#dt').DataTable();
+
     $('.select2').select2();
     $('.searchAgenda').on('change',function(){
         console.log($(this).val());
