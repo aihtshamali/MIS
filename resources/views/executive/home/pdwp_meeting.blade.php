@@ -83,7 +83,7 @@
                       {{$meeting->id}}
                   </td>
                   <td>
-                    <a href="{{route('List_Agendas',['meeting_no'=>$meeting->id])}}">
+                    <a href="{{route('List_Agendas',['meeting_no'=>$meeting->id])}}" target="_blank">
                     @if($meeting->meeting_no)
                       {{$meeting->meeting_no}}
                       @else
@@ -91,7 +91,7 @@
                       @endif
                     </a>
                   </td>
-                
+
                   <td>
                       {{$meeting->HrMeetingType->meeting_name}}
                   </td>
@@ -106,5 +106,5 @@
 @endsection
 @section('scripttags')
 
-          
+
 @endsection
