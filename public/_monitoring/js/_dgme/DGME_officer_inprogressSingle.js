@@ -1208,7 +1208,7 @@ $(document).ready(function(){
     // var i=0;
     var removeSib = `
     <div class="col-sm-1 text_center RemoveUserLoc">
-      <button class=" btn btn-sm btn-danger float-right" title="Remove" type="button" id="">-</button>
+      <button class=" btn btn-sm btn-danger" title="Remove" type="button" id="">-</button>
     </div>
     `
     $(removeSib).appendTo('.CloneUserLocHere');
