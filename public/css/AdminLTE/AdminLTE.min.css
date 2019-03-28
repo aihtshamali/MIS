@@ -721,7 +721,8 @@ a:hover {
 
 .sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>.treeview-menu {
     top: 44px;
-    margin-left: 0
+    margin-left: 27%;
+    z-index: 9999;
 }
 
 .sidebar-expanded-on-hover .content-wrapper,
