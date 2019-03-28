@@ -312,12 +312,12 @@
                         </div>
                         <div class="col-md-2 text-center">
                             <div class="col-md-11 offset-md-1">
-                                <input type="date" placeholder="" name="siteStart" class="site_name form-control" />
+                                <input type="date" placeholder="" name="site_start_1" class="site_start form-control" />
                             </div>
                         </div>
                         <div class="col-md-2 text-center">
                             <div class="col-md-11 offset-md-1">
-                                <input type="date" placeholder="" name="siteEnd" class="site_name form-control" />
+                                <input type="date" placeholder="" name="site_end_1" class="site_end form-control" />
                             </div>
                         </div>
                   
