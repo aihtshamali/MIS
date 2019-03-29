@@ -87,10 +87,10 @@
                   Attachments
                 </th>
                 <th>
-                  Action
+                    Attach MOMs
                 </th>
                 <th>
-                    Attach MOMs
+                   Action
                 </th>
           </tr>
           <?php $var = 1?>
