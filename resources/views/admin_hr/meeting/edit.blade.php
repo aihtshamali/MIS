@@ -141,6 +141,7 @@
                   <td>
                       @if (isset($agenda->HrMomAttachment->attachment))
                         <a href="{{asset('/storage/uploads/projects/meetings_mom/'.$agenda->HrMomAttachment->attachment)}}" download> {{$agenda->HrMomAttachment->attachment}}</a>
+                        @else
                         <div>
                             <input type="hidden" name="meeting_id" value={{$meeting->id}}>
                             <input type="hidden" name="hr_agenda_id" value={{$agenda->id}}>
