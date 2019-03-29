@@ -96,18 +96,18 @@ class AdminHumanResourceController extends Controller
     //     // dd($agendas);
     //     return view('admin_hr.meeting',compact('agendas'));
     // }
-    // public function saveMoms(Request $request){
-    //   if($request->hasFile('attach_moms')){
-    //   $HRamiG=new HrMomAttachment();
-    //   $HRamiG->hr_agenda_id=$request->hr_agenda_id;
-    //   $meeting_filename = "PDWP-MOM-".$request->hr_agenda_id;
-    //   $file_path = $request->file('attach_moms')->path();
-    //   $HRamiG->attachment_file = base64_encode(file_get_contents($file_path));
-    //   $HRamiG->attachment = $meeting_filename.'.'.$request->file('attach_moms')->getClientOriginalExtension();
-    //   $HRamiG->save();
-    // }
-    // return redirect()->back();
-    // }
+    public function saveMoms(Request $request){
+      if($request->hasFile('attach_moms')){
+      $HRamiG=new HrMomAttachment();
+      $HRamiG->hr_agenda_id=$request->hr_agenda_id;
+      $meeting_filename = "PDWP-MOM-".$request->hr_agenda_id;
+      $file_path = $request->file('attach_moms')->path();
+      $HRamiG->attachment_file = base64_encode(file_get_contents($file_path));
+      $HRamiG->attachment = $meeting_filename.'.'.$request->file('attach_moms')->getClientOriginalExtension();
+      $HRamiG->save();
+    }
+    return redirect()->back();
+    }
 
     public function financial_year(Request $request){
       $adp = AdpProject::where('financial_year',$request->financial_year)->orderBy('gs_no')->get();
@@ -368,7 +368,8 @@ class AdminHumanResourceController extends Controller
         $agenda->save();
 
         if($request->hasFile('attach_moms')){
-          $HRamiG=new HrMomAttachment();
+          $HRamiG= HrMomAttachment::where('hr_agenda_id',$request->hr_agenda_id)->first() 
+          ? HrMomAttachment::where('hr_agenda_id',$request->hr_agenda_id)->first() : new HrMomAttachment();
           $HRamiG->hr_agenda_id=$request->hr_agenda_id;
           $meeting_filename = "PDWP-MOM-".$request->hr_agenda_id;
           $file_path = $request->file('attach_moms')->path();
