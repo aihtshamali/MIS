@@ -257,20 +257,7 @@
                       <p>Visit Plan My Trip</p>
                     </a>
                 </div>
-                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.8s">
-                  <a href="" class="tile green">
-                    <h3 class="title">Inquires</h3>
-                    <hr/>
-                    <p>Visit Inquires</p>
-                  </a>
-                </div>
-                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.9s">
-                  <a href="{{route('trip.create')}}" class="tile orange">
-                    <h3 class="title">Plan My Trip</h3>
-                    <hr/>
-                    <p>Visit Plan My Trip</p>
-                  </a>
-                </div>
+                
                 @endrole
                 @role('manager')
                 <!-- <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.0s">
