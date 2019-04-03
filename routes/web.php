@@ -294,7 +294,7 @@ Route::get('/projctlist', function () {
 
 //for adminhr
 Route::prefix('hr')->middleware('role:adminhr|manager')->group(function () {
-  // Route::post('/save_moms','AdminHumanResourceController@saveMoms')->name('save_moms');
+  Route::post('/save_moms','AdminHumanResourceController@saveMoms')->name('save_moms');
   Route::resource('admin','AdminHumanResourceController');
   Route::post('/save_agendax','AdminHumanResourceController@save_agendax')->name('agendax');
   Route::post('/descisionAgendax','AdminHumanResourceController@DescisionAgenda')->name('DescisionAgenda');

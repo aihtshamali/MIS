@@ -214,6 +214,15 @@
                   </a>
                 </div>
                 @endrole
+                @role('manager')
+                  <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
+                      <a href="http://192.168.5.2:8085/" class="tile purple">
+                        <h3 class="title">HR</h3>
+                        <hr/>
+                        <p>Visit Attendance System</p>
+                      </a>
+                  </div>
+                @endrole
                 @role('officer|evaluator|monitor|manager|directormonitoring|directorevaluation|dataentry')
                   <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
                       <a href="{{route('monitoring_dashboard')}}" class="tile purple">
@@ -222,18 +231,18 @@
                         <p>Visit Monitoring</p>
                       </a>
                   </div>
-                  <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
-                      <a href="https://i.diawi.com/oy4KSn" class="tile purple">
-                        <h3 class="title">Monitoring App</h3>
-                        <hr/>
-                        <p>Download Monitoring App</p>
-                      </a>
-                  </div>
                   <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.6s">
                       <a href="{{route('evaluation_dashboard')}}" class="tile orange">
                         <h3 class="title">Evaluation</h3>
                         <hr/>
                         <p>Visit Evaluation</p>
+                      </a>
+                  </div>
+                  <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
+                      <a href="https://i.diawi.com/oy4KSn" class="tile purple">
+                        <h3 class="title">Monitoring App</h3>
+                        <hr/>
+                        <p>Download Monitoring App</p>
                       </a>
                   </div>
                   <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.7s">

@@ -1545,6 +1545,8 @@ class OfficerController extends Controller
       $user = "user_location_";
       $location = "location_user_";
       $site = "site_name_";
+      $siteSDate = "site_start_";
+      $siteEDate = "site_end_";
       $date="dateLoc_";
       while($counter <= $request->counts){
         if($request[$user.$counter])
@@ -1555,13 +1557,15 @@ class OfficerController extends Controller
             $m_assigned_user_location = new MAssignedUserLocation();
             $m_assigned_user_location->user_id = $request[$user.$counter];
             $m_assigned_user_location->site_name = $request[$site.$counter];
+            $m_assigned_user_location->site_start_date = $request[$siteSDate.$counter];
+            $m_assigned_user_location->site_end_date = $request[$siteEDate.$counter];
             $m_assigned_user_location->district_id = $d;
             // $m_assigned_user_location->planned_visit_date=$request[$date.$counter];
             $m_assigned_user_location->assigned_by = Auth::id();
             $m_assigned_user_location->m_project_progress_id = $request->progress_id;
             $m_assigned_user_location->save();
             // dd($m_assigned_user_location);
-            // $inner_counter++;
+            // $inner_counter++; 
           }
         }
         $counter++;

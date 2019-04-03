@@ -248,8 +248,8 @@
                                         <span style="color:red"><b>Not Added</b></span>
                                         @endif
                                     </td> 
-                                    <td>aho</td> 
-                                    <td>aho</td> 
+                                <td>{{$userloc->site_start_date ? $userloc->site_start_date : '-'}}</td> 
+                                <td>{{$userloc->site_end_date ? $userloc->site_end_date : '-'}}</td> 
                                   </tr> 
                                   @endforeach
                               </tbody>
@@ -312,12 +312,12 @@
                         </div>
                         <div class="col-md-2 text-center">
                             <div class="col-md-11 offset-md-1">
-                                <input type="date" placeholder="" name="siteStart" class="form-control" style="padding: 0.6rem 0rem !important;" />
+                                <input type="date" placeholder="" name="site_start_1" class="site_start form-control"style="padding: 0.6rem 0rem !important;" />
                             </div>
                         </div>
                         <div class="col-md-2 text-center">
                             <div class="col-md-11 offset-md-1">
-                                <input type="date" placeholder="" name="siteEnd" class="form-control" style="padding: 0.6rem 0rem !important;" />
+                                <input type="date" placeholder="" name="site_end_1" class="site_end form-control" style="padding: 0.6rem 0rem !important;" />
                             </div>
                         </div>
                   

@@ -91,7 +91,7 @@
                       @endif
                     </a>
                   </td>
-                
+
                   <td>
                       {{$meeting->HrMeetingType->meeting_name}}
                   </td>
@@ -106,5 +106,5 @@
 @endsection
 @section('scripttags')
 
-          
+
 @endsection
