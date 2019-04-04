@@ -14,6 +14,7 @@ use App\Http\Resources\MAppVersionlog as MAppVersionlogResource;
 use App\Http\Resources\MPlanKpicomponentMapping as MPlanKpicomponentMappingResource;
 use App\Http\Resources\MAssignedProjectHealthSafety as MAssignedProjectHealthSafetyResource;
 use App\Http\Resources\MAssignedKpi as MAssignedKpiResource;
+use App\Http\Resources\MAssignedProjectIssue as MAssignedProjectIssueResource;
 use App\MAssignedKpiLevel1;
 use App\MAssignedKpiLevel2;
 use App\MAssignedKpiLevel3;
@@ -22,6 +23,7 @@ use App\MAppAttachment;
 use App\MAppVersionlog;
 use App\MAssignedProjectHealthSafety;
 use App\MAssignedUserLocation;
+use App\MAssignedProjectIssue;
 
 // use App\GeneralKpi;
 
@@ -206,4 +208,19 @@ class DataController extends Controller
         return MAssignedProjectHealthSafetyResource::collection(MAssignedProjectHealthSafety::where('m_project_progress_id',$request->m_project_progress_id)->get());
       }
 
+      public function assignedProjectIssue(Request $request){
+        return MAssignedProjectIssueResource::collection(MAssignedProjectIssue::where('m_project_progress_id',$request->m_project_progress_id)->get());
+      }
+
+      public function setAssignedProjectIssue(Request $request){
+        $m_assigned_project_issue = new MAssignedProjectIssue();
+        $m_assigned_project_issue->m_project_progress_id = $request->m_project_progress_id;
+        $m_assigned_project_issue->issue = $request->issue;
+        $m_assigned_project_issue->m_issue_type_id = $request->m_issue_type_id;
+        $m_assigned_project_issue->severity = $request->severity;
+        $m_assigned_project_issue->sponsoring_agency_id = $request->sponsoring_agency_id;
+        $m_assigned_project_issue->executing_agency_id = $request->executing_agency_id;
+        $m_assigned_project_issue->user_id = Auth::id();
+        $m_assigned_project_issue->save();
+      }
 }
