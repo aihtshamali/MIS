@@ -5,6 +5,7 @@
   <link rel="stylesheet" href="{{asset('bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css')}}" />
 
   <link rel="stylesheet" href="{{asset('css/AdminLTE/dataTables.bootstrap.min.css')}}">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <style>
 h4:hover{color: #f0ad4e !important;-webkit-transition: all 600ms ease;transition: all 600ms ease;border-bottom: 1px solid;}
 h4{-webkit-transition: all 600ms ease;transition: all 600ms ease;width: fit-content;margin-left: 3%;float: left;width: fit-content;border-bottom: 1px solid transparent;}
@@ -87,31 +88,32 @@ h4:hover span{border-top: 4px solid #f0ad4e !important;-webkit-transition: all 6
       @foreach ($data as $key => $value)
         {{-- {{dd($key)}} --}}
         <div id="{{ $key }}" style="display:none">
-        <table class="table table-borderd">
+        <table id="myTable" class="table table-striped table-bordered table-sm" id="dt">
           <tr>
-            <th>
+            <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(1)')" style="cursor:pointer">
               Meeting ID
             </th>
-            <th>
+            <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(2)')" style="cursor:pointer">
               Meeting No
             </th>
-            <th>
+            <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(3)')" style="cursor:pointer">
               Meeting Type
             </th>
-            <th>
+            <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(4)')" style="cursor:pointer">
               Date
             </th>
-            <th>
+            <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(5)')" style="cursor:pointer">
               Attachment
             </th>
-            <th>
+            <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(6)')" style="cursor:pointer">
               Action
             </th>
 
           </tr>
+          {{-- {{dd($value)}} --}}
         @foreach ($value as $v)
             {{-- @foreach ($vs as $v) --}}
-              <tr>
+              <tr class="item">
                 <td>
                   {{$v->id}}
                 </td>
@@ -149,7 +151,12 @@ h4:hover span{border-top: 4px solid #f0ad4e !important;-webkit-transition: all 6
 </div>
 @endsection
 @section('scripttags')
+<script src="{{asset('js/AdminLTE/dataTables.bootstrap.min.js')}}"></script>
+<script src="https://www.w3schools.com/lib/w3.js"></script>
 <script>
+  
+  // $('#dt').DataTable();
+
     $('.select2').select2();
     $('.searchAgenda').on('change',function(){
         console.log($(this).val());

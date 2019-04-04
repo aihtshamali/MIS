@@ -324,7 +324,7 @@ object-fit: cover;
             @endif
         </ul>
       </div> --}}
-      @if($project->AssignedProject->MProjectProgress->last()->MAppAttachment->where('type','image/jpeg')->last())
+      @if(count($project->AssignedProject->MProjectProgress) && $project->AssignedProject->MProjectProgress->last()->MAppAttachment->where('type','image/jpeg')->last())
       <img alt="NO PIC ADDED" src="http://172.16.10.14/storage/uploads/monitoring/@if($project->AssignedProject && $project->AssignedProject->MProjectProgress->last()){{$project->AssignedProject->MProjectProgress->last()->id}}/{{$project->AssignedProject->MProjectProgress->last()->MAppAttachment->where('type','image/jpeg')->last()->project_attachement}}@endif" alt="" style="width:100%;">
       @endif
     </div>

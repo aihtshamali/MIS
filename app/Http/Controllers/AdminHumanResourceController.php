@@ -9,6 +9,8 @@ use App\HrMeetingType;
 use App\HrMeetingPDWP;
 use App\HrAgenda;
 use App\HrMom;
+use App\HrDecision;
+use App\HrProjectDecision;
 use App\HrAttachment;
 use Carbon;
 use App\AgendaType;
@@ -230,14 +232,31 @@ class AdminHumanResourceController extends Controller
         $sectors = HrSector::all();
         $meeting_types = HrMeetingType::all();
         $agenda_types = AgendaType::all();
+        $hr_decisions=HrDecision::where('status',1)->get();
         $agendas = $meeting->HrAgenda;
         \JavaScript::put([
             'projects' => $adp
           ]);
-        return view('admin_hr.meeting.show',compact('agendas','meeting','agenda_statuses','adp','sectors','meeting_types','agenda_types'));
+        return view('admin_hr.meeting.show',compact('hr_decisions','agendas','meeting','agenda_statuses','adp','sectors','meeting_types','agenda_types'));
 
     }
-
+    public function DescisionAgenda(Request $req)
+    {
+      $agendaDecision= HrProjectDecision::where('hr_meeting_p_d_w_p_id',$req->meeting_id)
+      ->where('hr_agenda_id',$req->hr_agenda_id)
+      ->first();
+      if(isset($agendaDecision) && $agendaDecision!=null )
+      {
+        $agendaDecision->hr_decision_id=$req->agenda_decision;
+        $agendaDecision->save();
+        return redirect()->back();
+       }
+       else
+       {
+        return redirect()->back()->with('error', 'Meeting Not Attended'); 
+       }
+      
+   }
     public function save_agendax(Request $request)
     {
         // dd($request->all());
@@ -347,6 +366,17 @@ class AdminHumanResourceController extends Controller
           $hr_attachment_table->save();
         }
         $agenda->save();
+
+        if($request->hasFile('attach_moms')){
+          $HRamiG= HrMomAttachment::where('hr_agenda_id',$request->hr_agenda_id)->first() 
+          ? HrMomAttachment::where('hr_agenda_id',$request->hr_agenda_id)->first() : new HrMomAttachment();
+          $HRamiG->hr_agenda_id=$request->hr_agenda_id;
+          $meeting_filename = "PDWP-MOM-".$request->hr_agenda_id;
+          $file_path = $request->file('attach_moms')->path();
+          $HRamiG->attachment_file = base64_encode(file_get_contents($file_path));
+          $HRamiG->attachment = $meeting_filename.'.'.$request->file('attach_moms')->getClientOriginalExtension();
+          $HRamiG->save();
+        }
         return redirect()->back();
     }
 
