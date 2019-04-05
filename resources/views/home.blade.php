@@ -298,11 +298,19 @@ Home Page | DGME MIS
                     </a>
                 </div>
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.3s">
+<<<<<<< HEAD
                     <a href="#!" class="tile purple">
                         <h3 class="title">Human Resource System</h3>
                         <hr />
                         <p>visit HR System</p>
                     </a>
+=======
+                  <a href="{{route('dispatch_form')}}" class="tile purple">
+                    <h3 class="title">Dispatch Management System</h3>
+                    <hr/>
+                    <p>visit Dispatch System</p>
+                  </a>
+>>>>>>> 880e603a01feb4d8af62ffa17f384f2246ba1d20
                 </div>
                 @endrole
                 @role('manager')

@@ -25,6 +25,11 @@ class AdminHumanResourceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+     public function dispatch_form()
+     {
+       return view('admin_hr.dispatch.create');
+     }
     public function index()
     {
         $meetings = HrMeetingPDWP::all();
