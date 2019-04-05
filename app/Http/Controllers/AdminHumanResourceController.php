@@ -12,9 +12,16 @@ use App\HrMom;
 use App\HrDecision;
 use App\HrProjectDecision;
 use App\HrAttachment;
+use App\DispatchLetterDoctype;
+use App\DispatchLetterPriority;
+use App\DispatchLetter;
+use App\DispatchLetterCc;
 use Carbon;
 use App\AgendaType;
 use App\HrProjectType;
+use App\User;
+use App\UserDetail;
+
 use App\AdpProject;
 use JavaScript;
 use App\HrMomAttachment;
@@ -28,8 +35,22 @@ class AdminHumanResourceController extends Controller
     
      public function dispatch_form()
      {
-       return view('admin_hr.dispatch.create');
+       $doctypes=DispatchLetterDoctype::all();
+       $priorities=DispatchLetterPriority::all();
+       $officers=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
+       ->leftJoin('user_details','user_details.user_id','users.id')
+       ->leftJoin('role_user','role_user.user_id','users.id')
+       ->leftJoin('roles','roles.id','role_user.role_id')
+       ->orderBy('roles.name','ASC')
+       ->where('roles.name','officer')
+       ->orWhere('roles.name','directorevaluation')
+       ->orWhere('roles.name','directormonitoring')
+       ->orWhere('roles.name','manager')
+       ->get();
+       return view('admin_hr.dispatch.create',compact('doctypes','priorities','officers'));
      }
+
+
     public function index()
     {
         $meetings = HrMeetingPDWP::all();

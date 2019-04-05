@@ -37,16 +37,19 @@
                                         <div class="col-md-4 offset-md-2 form-group">
                                             <label for=""><b>Priority</b></label>
                                             <select name="d_priority" id="" class="form-control">
-                                                <option value="">Normal</option>
-                                                <option value="">Urgent</option>
+                                                    <option value="" disabled selected >Select Priority</option>
+                                                @foreach ($priorities as $priority)
+                                                    <option value="{{$priority->id}}">{{$priority->name}}</option>                                                    
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="col-md-4 form-group">
                                             <label for=""><b>Doc Type</b></label>
                                             <select name="d_doctype" id="" class="form-control">
-                                                <option value="">Letter</option>
-                                                <option value="">Noting</option>
-                                                <option value="">Summary</option>
+                                                    <option value="" disabled selected >Select Doctype</option>
+                                                @foreach ($doctypes as $doctype)
+                                                    <option value="{{$doctype->id}}">{{$doctype->name}}</option>                                                    
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -70,21 +73,20 @@
                                         <div class="col-md-4 offset-md-2 form-group">
                                             <label for=""><b>Sender</b></label>
                                             <select name="d_Sender" id="" class="form-control">
-                                                <option value="">1</option>
-                                                <option value="">1</option>
-                                                <option value="">1</option>
-                                                <option value="">1</option>
-                                                <option value="">1</option>
+                                                <option value="" disabled selected >Select Sender Name</option>
+                                                    @foreach ($officers as $officer)
+                                                        <option value="{{$officer->id}}">{{$officer->first_name}} {{$officer->last_name}} - {{$officer->designation}}</option>                                                    
+                                                    @endforeach                                                
+                                                </select>
                                             </select>
                                         </div>
                                         <div class="col-md-4 form-group">
                                             <label for=""><b>CC</b></label>
-                                            <select name="cc" id="" class="form-control">
-                                                <option value="">1</option>
-                                                <option value="">1</option>
-                                                <option value="">1</option>
-                                                <option value="">1</option>
-                                                <option value="">1</option>
+                                            <select name="cc[]" id="" class="form-control" >
+                                             <option value="" disabled selected >Select CC Names</option>
+                                                @foreach ($officers as $officer)
+                                            <option value="{{$officer->id}}">{{$officer->first_name}} {{$officer->last_name}} - {{$officer->designation}}</option>                                                    
+                                                @endforeach                                                
                                             </select>
                                         </div>
                                     </div>
