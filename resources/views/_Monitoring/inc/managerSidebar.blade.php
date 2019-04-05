@@ -82,7 +82,7 @@
                             </ul>
                         </li>
                     </ul>
-                    <div class="pcoded-navigatio-lavel">HR(Human Resource)</div>
+                    <!-- <div class="pcoded-navigatio-lavel">HR(Human Resource)</div>
                     <ul class="pcoded-item">
                         <li class="">
                             <a href="{{route('attendance')}}">
@@ -91,7 +91,7 @@
                                 <span class="pcoded-mtext" >Attendance Sheet</span>
                             </a>
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
             </nav>
             <div class="pcoded-content">

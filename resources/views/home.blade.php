@@ -307,9 +307,9 @@ Home Page | DGME MIS
                 @endrole
                 @role('manager')
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
-                    <a href="http://192.168.5.2:8085/" class="tile purple">
+                    <a href="http://127.0.0.1:8081/" class="tile purple">
                         <h3 class="title">HR</h3>
-                        <hr />
+                        <hr/>
                         <p>Visit Attendance System</p>
                     </a>
                 </div>
