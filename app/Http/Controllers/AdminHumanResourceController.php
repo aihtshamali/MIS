@@ -93,6 +93,7 @@ class AdminHumanResourceController extends Controller
             'meetings_data' => $data
         ]);
         $agendas=HrAgenda::all();
+        // dd($data);
         return view('admin_hr.meeting.index',compact('meetings','agendas','data'));
     }
 
@@ -360,11 +361,13 @@ class AdminHumanResourceController extends Controller
       $meeting_types = HrMeetingType::all();
       $agenda_types = AgendaType::all();
       $agendas = $meeting->HrAgenda;
+      $hr_decisions=HrDecision::where('status',1)->get();
       \JavaScript::put([
           'projects' => $adp
       ]);
-
-      return view('admin_hr.meeting.edit',compact('agendas','meeting','agenda_statuses','adp','sectors','meeting_types','agenda_types'));
+      // dd($agendas[0]->HrProjectDecision->HrDecision->name);
+      // dd($agendas[0]->HrProjectDecision->name);
+      return view('admin_hr.meeting.edit',compact('hr_decisions','agendas','meeting','agenda_statuses','adp','sectors','meeting_types','agenda_types'));
 
     }
 
@@ -386,7 +389,8 @@ class AdminHumanResourceController extends Controller
         $agenda->financial_year = $request->financial_year;
         $agenda->adp_allocation = $request->adp_allocation;
         $hr_attachment_table = $agenda->HrAttachment;
-        if($request->hasFile('hr_attachment')){
+        if($request->hasFile('hr_attachment'))
+        {
           $file_path = $request->file('hr_attachment')->path();
           $hr_attachment_table->attachment_file = base64_encode(file_get_contents($file_path));
           $hr_attachment_table->save();
@@ -403,6 +407,13 @@ class AdminHumanResourceController extends Controller
           $HRamiG->attachment = $meeting_filename.'.'.$request->file('attach_moms')->getClientOriginalExtension();
           $HRamiG->save();
         }
+        $agendaDecision= HrProjectDecision::where('hr_meeting_p_d_w_p_id',$request->meeting_id)->where('hr_agenda_id',$request->hr_agenda_id)->first();
+        if(isset($agendaDecision) && $agendaDecision!=null )
+        {
+          $agendaDecision->hr_decision_id=$request->agenda_decision;
+          $agendaDecision->save();
+         }
+         
         return redirect()->back();
     }
 

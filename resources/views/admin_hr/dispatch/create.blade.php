@@ -14,7 +14,7 @@
         </h1>
     </section>
         <section class="content">
-                <form action="">
+        <form action="{{route('dispatchLetterCreated')}}" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
                         <div class="box">
                             <div class="box-body ">  

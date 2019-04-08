@@ -63,6 +63,13 @@
   </section>
 
   <section class="content">
+      @if (\Session::has('error'))
+      <div class="alert alert-danger">
+          <ul>
+              <li>{!! \Session::get('error') !!}</li>
+          </ul>
+      </div>
+  @endif
       <table class="table table-borderd">
           <tr>
               <th>
@@ -89,6 +96,8 @@
                 <th>
                     Attach MOMs
                 </th>
+                <th>Comments</th>
+                <th>Agenda Descision</th>
                 <th>
                    Action
                 </th>
@@ -141,16 +150,45 @@
                   <td>
                       @if (isset($agenda->HrMomAttachment->attachment))
                         <a href="{{asset('/storage/uploads/projects/meetings_mom/'.$agenda->HrMomAttachment->attachment)}}" download> {{$agenda->HrMomAttachment->attachment}}</a>
+                        <div>
+                            <input type="file" id="attachmentt" class="attach_moms pull-left" name="attach_moms">
+                        </div>
                         @else
                         <div>
-                            <input type="hidden" name="meeting_id" value={{$meeting->id}}>
-                            <input type="hidden" name="hr_agenda_id" value={{$agenda->id}}>
                             <input type="file" id="attachmentt" class="attach_moms pull-left" name="attach_moms">
                         </div>
                       @endif
                     </td>
+                    <td>
+                        @if(isset($agenda->HrProjectDecision->hr_meeting_p_d_w_p_id))
+                    <label for="">{{$agenda->HrProjectDecision->comments}}</label>
+                        @endif
+                    </td>
+                    <td>
+                      @if (isset($agenda->HrProjectDecision->hr_decision_id))
+                        @if($agenda->HrProjectDecision->hr_decision_id=='1')
+                        <span style="color:Green"><b>{{$agenda->HrProjectDecision->HrDecision->name}}</b></span>
+                        @elseif($agenda->HrProjectDecision->hr_decision_id=='2')
+                        <span style="color:orange"><b>{{$agenda->HrProjectDecision->HrDecision->name}}</b></span>
+                        @elseif($agenda->HrProjectDecision->hr_decision_id=='3')
+                        <span style="color:red"><b>{{$agenda->HrProjectDecision->HrDecision->name}}</b></span>
+                        @else
+                        <b>{{$agenda->HrProjectDecision->HrDecision->name}}</b>
+                        @endif
+                    @else
+                     <label for=""> Meeting not conducted yet.</label>
+                      <select  name="agenda_decision" class="form-control select2" style="text-align: center !important" id="">
+                        <option value="">Select Decision</option>
+                        @foreach ($hr_decisions as $decision)
+                            <option value="{{$decision->id}}">{{$decision->name}}</option>
+                        @endforeach
+                    </select>
+                    @endif
+                    </td>
                   <td>
                     {{ csrf_field() }}
+                    <input type="hidden" name="meeting_id" value={{$meeting->id}}>
+                    <input type="hidden" name="hr_agenda_id" value={{$agenda->id}}>
                     <button type="submit" name="button" class="btn btn-success">SAVE</button>
                   </td>
                 </form>

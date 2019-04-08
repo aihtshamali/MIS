@@ -115,7 +115,7 @@ h4:hover span{border-top: 4px solid #f0ad4e !important;-webkit-transition: all 6
             {{-- @foreach ($vs as $v) --}}
               <tr class="item">
                 <td>
-                  {{$v->id}}
+                  {{$v->id}} /{{$key}}
                 </td>
                 <td>
                   <a href="{{route('admin.show',$v->id)}}">
