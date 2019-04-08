@@ -43,6 +43,15 @@
 .list-group-item{
   border: none;
 }
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+  white-space: nowrap !important;
+  padding: 3px !important;
+  text-align: center !important;
+}
+input[type="file"] {
+    width: 100% !important;
+}
+body, table{overflow-x: scroll !important}
   </style>
 @endsection
 
@@ -70,7 +79,7 @@
           </ul>
       </div>
   @endif
-      <table class="table table-borderd">
+      <table class="table table-bordered">
           <tr>
               <th>
                   Agenda Item
