@@ -115,10 +115,10 @@
                       {{$agenda->scheme_name}}
                     </td>
                     <td>
-                      {{$agenda->estimated_cost}}
+                      {{ round($agenda->estimated_cost,2)}}
                     </td>
                     <td>
-                      {{$agenda->adp_allocation}}
+                      {{round($agenda->adp_allocation,2)}}
                     </td>
                     <td>
                       {{-- <input type="file" name="attachments" class="form-control"> --}}
@@ -126,24 +126,12 @@
                       @if(isset($agenda->HrAttachment->attachments))
                     <a href="{{asset('storage/uploads/projects/project_agendas/'.$agenda->HrAttachment->attachments)}}" download>{{$agenda->HrAttachment->attachments}}</a>
                     @endif
-                    </td>
+                   
+                  </td>
                     <td>
-                      {{-- {{dd($agenda->HrMomAttachment->attachment)}} --}}
                         @if (isset($agenda->HrMomAttachment->attachment))
                           <a href="{{asset('/storage/uploads/projects/meetings_mom/'.$agenda->HrMomAttachment->attachment)}}" download> {{$agenda->HrMomAttachment->attachment}}</a>
-                        @else
-                          <div>
-                            <form class="attach_moms_form" action="{{route('save_moms')}}" method="post" enctype="multipart/form-data">
-                              {{ csrf_field() }}
-                              <input type="hidden" name="meeting_id" value={{$meeting->id}}>
-                              <input type="hidden" name="hr_agenda_id" value={{$agenda->id}}>
-                              <input type="file" id="attachmentt" class="attach_moms pull-left" name="attach_moms">
-                            
-                              <input type="submit"  class="btn btn-success" value="Attach">
-                            </form>
-                          </div>
                         @endif
-                          {{-- <a class="btn btn-success pull-left" id="testread">Test</a> --}}
 
                       </td>
                       <td>
@@ -157,21 +145,8 @@
                             @else
                             <b>{{$agenda->HrProjectDecision->HrDecision->name}}</b>
                             @endif
-                        @else
-                          <div>
-                        <form action="{{route('DescisionAgenda')}}" method="post">
-                          {{ csrf_field() }}
-                          <select  name="agenda_decision" class="form-control select2" style="text-align: center !important" id="">
-                              <option value="">Select Decision</option>
-                              @foreach ($hr_decisions as $decision)
-                                  <option value="{{$decision->id}}">{{$decision->name}}</option>
-                              @endforeach
-                          </select>
-                          <input type="hidden" name="meeting_id" value={{$meeting->id}}>
-                          <input type="hidden" name="hr_agenda_id" value={{$agenda->id}}>
-                          <button class="btn btn-success end pull-right"  type="submit">Submit</button>
-                        </form>
-                          </div>
+                          @else
+                          <label for=""> Meeting not conducted yet.</label>
                            @endif
                       </td>
                 </tr>
@@ -186,9 +161,9 @@
       {{-- //NEW FORM --}}
       <form class="form-horizontal" id="form_send" action="{{route('agendax')}}" method="POST" enctype="multipart/form-data">
         {{csrf_field()}}
-      <input type="hidden" name="meeting_id" id="" value="{{$agendas[0]->HrMeetingPDWP->id}}">
-      <section id="section2" class="content col-md-12" style="display:none;">
-          <div id="outerbox" class="box yewali_1 box-default">
+        <input type="hidden" name="meeting_id" id="" value="{{$agendas[0]->HrMeetingPDWP->id}}">
+        <section id="section2" class="content col-md-12" style="display:none;">
+            <div id="outerbox" class="box yewali_1 box-default">
             <div  class="box-header with-border">
                 <ul class="list-group" id="isme">
                   <li class="list-group-item " id="field">

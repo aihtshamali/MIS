@@ -22,6 +22,7 @@
                                 <th>Sector</th>
                                 <th>Assigned To</th>
                                 <th>Planned Start Date</th>
+                                <th>Planned End Date</th>
                                 <th>Physical Progress</th>
                                 <th>Financial Progress</th>
                                 <th>Summary</th>
@@ -49,6 +50,9 @@
                                     </td>
                                     <td>
                                       {{date('d-M-Y',strtotime($project->Project->ProjectDetail->planned_start_date))}}
+                                    </td>
+                                    <td>
+                                      {{date('d-M-Y',strtotime($project->Project->ProjectDetail->planned_end_date))}}
                                     </td>
                                     <td>
                                       <div class="progress">

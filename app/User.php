@@ -147,6 +147,13 @@ class User extends Authenticatable implements JWTSubject
   {
     return $this->hasMany('App\HrProjectDecision','comments_user_id');
   }
- 
+  public function dispatch_letters()
+  {
+    return $this->hasMany('App\dispatch_letters','sender_id');
+  }
+  public function DispatchLetterCc()
+  {
+    return $this->hasMany('App\DispatchLetterCc');
+  }
 
 }

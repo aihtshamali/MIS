@@ -32,13 +32,7 @@
         <li class="header">Navigations</li>
 
         @role('officer|evaluator|monitor')
-        {{--  /Profile  --}}
-        {{-- <li >
-          <a href="#">
-            <i class="fa fa-user"></i>
-            <span>My Profile</span>
-          </a>
-        </li> --}}
+       
          {{--  /dashboard  --}}
         <li>
           <a href="{{url('/dashboard')}}">
