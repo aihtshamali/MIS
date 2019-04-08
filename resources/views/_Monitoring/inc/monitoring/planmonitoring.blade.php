@@ -491,12 +491,16 @@
                                     @foreach ($projectProgressId->MAssignedKpi as $userkpi)
                                     <tr>
                                     <td>{{$i++}}</td>
-                                     <td>{{$userkpi->User->first_name}}</td>  
+                                     <td>
+                                     {{$userkpi->MAssignedUserKpi->MAssignedUserLocation->User->first_name}} {{$userkpi->MAssignedUserKpi->MAssignedUserLocation->User->last_name}} - {{$userkpi->MAssignedUserKpi->MAssignedUserLocation->District->name}} -{{$userkpi->MAssignedUserKpi->MAssignedUserLocation->site_name}}
+                                     
+                                     
+                                     </td>  
                                     <td>@if(isset($userkpi->MAssignedUserKpi->MProjectKpi->name))
                                         {{$userkpi->MAssignedUserKpi->MProjectKpi->name}}@endif</td>  
                                       <td>
                                         @if($userkpi->cost)  
-                                        {{$userkpi->cost}} <small>PKR in Millions</small>
+                                        {{round($userkpi->cost,3)}} <small>PKR in Millions</small>
                                      @else
                                         <span style="color:red"><b>Not Added</b></span>
                                         @endif
@@ -538,9 +542,12 @@
                     <div class="row col-md-11" id="CloneThisUserKPI" style="margin-bottom:1% !important;">
                       <div class="col-md-4 text-center">
                         <div class="col-md-10 offset-md-1 delLastChild">
+                            @php $kpicount=1; @endphp
                             <select class="select2" id="" name="user_location_id[]">
+                                
                                 @foreach ($projectProgressId->MAssignedUserLocation as $mUserLocation)
-                            <option  value="{{$mUserLocation->id}}">{{$mUserLocation->User->first_name}} {{$mUserLocation->User->last_name}} - {{$mUserLocation->District->name}} -{{$mUserLocation->site_name}}</option>
+                                
+                            <option  value="{{$mUserLocation->id}}">{{$kpicount++}} - {{$mUserLocation->User->first_name}} {{$mUserLocation->User->last_name}} - {{$mUserLocation->District->name}} -{{$mUserLocation->site_name}}</option>
                                 @endforeach
                             </select>
                         </div>
