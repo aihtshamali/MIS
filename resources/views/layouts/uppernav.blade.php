@@ -60,6 +60,17 @@
             -moz-transition: all 1s ease;
             -o-transition: all 1s ease;
         }
+
+        table.dataTable td,
+        table.dataTable th {
+            text-align: center !important;
+            font-size: 16px !important;
+            padding-bottom: 1% !important;
+        }
+
+        .info h4 {
+            color: #fff !important;
+        }
     </style>
 </head>
 
@@ -89,7 +100,7 @@
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
-                        
+
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
                             <a class="dropdown-toggle showBoxtiQ" data-toggle="dropdown">
@@ -324,6 +335,12 @@
 
             // }
         }
+    })
+</script>
+
+<script>
+    $(function() {
+        $('.example1').DataTable();
     })
 </script>
 

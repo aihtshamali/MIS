@@ -137,7 +137,7 @@
         @foreach ($data as $key => $value)
         {{-- {{dd($key)}} --}}
         <div id="{{ $key }}" style="display:none">
-            <table id="example1" class="table table-bordered table-striped">
+            <table class="example1 col-md-12" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>
@@ -244,10 +244,5 @@
         $('.' + $(this).attr('class')).attr('style', 'color:#f0ad4e');
         $('.' + $(this > span).attr('class')).attr('style', 'border-top:4px solid #f0ad4e');
     });
-</script>
-<script>
-    $(function() {
-        $('#example1').DataTable();
-    })
 </script>
 @endsection 

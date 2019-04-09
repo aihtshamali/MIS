@@ -61,7 +61,7 @@
     </section>
 
     <section class="content">
-        <table id="example1" class="table table-bordered table-striped">
+        <table class="example1 col-md-12" class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>
@@ -124,9 +124,4 @@
 </div>
 @endsection
 @section('scripttags')
-<script>
-    $(function() {
-        $('#example1').DataTable();
-    })
-</script>
 @endsection 
