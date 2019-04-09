@@ -207,10 +207,10 @@
                   </a>
                 </div>
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.3s">
-                  <a href="#!" class="tile purple">
-                    <h3 class="title">Human Resource System</h3>
+                  <a href="{{route('dispatch_form')}}" class="tile purple">
+                    <h3 class="title">Dispatch Management System</h3>
                     <hr/>
-                    <p>visit HR System</p>
+                    <p>visit Dispatch System</p>
                   </a>
                 </div>
                 @endrole

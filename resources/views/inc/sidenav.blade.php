@@ -206,16 +206,21 @@
         <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
-            <span>Projects</span>
-            <span class="pull-right-container">
-              {{-- <span class="label label-primary pull-right">Add new Project</span> --}}
-            </span>
+            <span>PDWP Meeting</span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{route('admin.create')}}"><i class="fa fa-circle-o"></i>Add PDWP MEETING</a></li>
-            {{-- @endpermission --}}
-            {{-- <li><a href="{{url('/assignproject')}}"><i class="fa fa-circle-o"></i>Assign Projects</a></li>--}}
-          <li><a href="{{route('admin.index')}}"><i class="fa fa-circle-o"></i>View All </a></li>
+            <li><a href="{{route('admin.create')}}"><i class="fa fa-circle-o"></i>Add New Meeting</a></li>
+            <li><a href="{{route('admin.index')}}"><i class="fa fa-circle-o"></i>View All </a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-files-o"></i>
+            <span>Dispatch Letter</span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{route('dispatch_form')}}"><i class="fa fa-circle-o"></i>Add New Letter</a></li>
+            {{-- <li><a href="{{route('admin.index')}}"><i class="fa fa-circle-o"></i>View All </a></li> --}}
           </ul>
         </li>
         @endrole

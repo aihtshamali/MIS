@@ -12,9 +12,16 @@ use App\HrMom;
 use App\HrDecision;
 use App\HrProjectDecision;
 use App\HrAttachment;
+use App\DispatchLetterDoctype;
+use App\DispatchLetterPriority;
+use App\DispatchLetter;
+use App\DispatchLetterCc;
 use Carbon;
 use App\AgendaType;
 use App\HrProjectType;
+use App\User;
+use App\UserDetail;
+
 use App\AdpProject;
 use JavaScript;
 use App\HrMomAttachment;
@@ -25,6 +32,25 @@ class AdminHumanResourceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+     public function dispatch_form()
+     {
+       $doctypes=DispatchLetterDoctype::all();
+       $priorities=DispatchLetterPriority::all();
+       $officers=User::select('roles.*','role_user.*','users.*','user_details.sector_id')
+       ->leftJoin('user_details','user_details.user_id','users.id')
+       ->leftJoin('role_user','role_user.user_id','users.id')
+       ->leftJoin('roles','roles.id','role_user.role_id')
+       ->orderBy('roles.name','ASC')
+       ->where('roles.name','officer')
+       ->orWhere('roles.name','directorevaluation')
+       ->orWhere('roles.name','directormonitoring')
+       ->orWhere('roles.name','manager')
+       ->get();
+       return view('admin_hr.dispatch.create',compact('doctypes','priorities','officers'));
+     }
+
+
     public function index()
     {
         $meetings = HrMeetingPDWP::all();
@@ -67,6 +93,7 @@ class AdminHumanResourceController extends Controller
             'meetings_data' => $data
         ]);
         $agendas=HrAgenda::all();
+        // dd($data);
         return view('admin_hr.meeting.index',compact('meetings','agendas','data'));
     }
 
@@ -334,11 +361,13 @@ class AdminHumanResourceController extends Controller
       $meeting_types = HrMeetingType::all();
       $agenda_types = AgendaType::all();
       $agendas = $meeting->HrAgenda;
+      $hr_decisions=HrDecision::where('status',1)->get();
       \JavaScript::put([
           'projects' => $adp
       ]);
-
-      return view('admin_hr.meeting.edit',compact('agendas','meeting','agenda_statuses','adp','sectors','meeting_types','agenda_types'));
+      // dd($agendas[0]->HrProjectDecision->HrDecision->name);
+      // dd($agendas[0]->HrProjectDecision->name);
+      return view('admin_hr.meeting.edit',compact('hr_decisions','agendas','meeting','agenda_statuses','adp','sectors','meeting_types','agenda_types'));
 
     }
 
@@ -360,7 +389,8 @@ class AdminHumanResourceController extends Controller
         $agenda->financial_year = $request->financial_year;
         $agenda->adp_allocation = $request->adp_allocation;
         $hr_attachment_table = $agenda->HrAttachment;
-        if($request->hasFile('hr_attachment')){
+        if($request->hasFile('hr_attachment'))
+        {
           $file_path = $request->file('hr_attachment')->path();
           $hr_attachment_table->attachment_file = base64_encode(file_get_contents($file_path));
           $hr_attachment_table->save();
@@ -377,6 +407,13 @@ class AdminHumanResourceController extends Controller
           $HRamiG->attachment = $meeting_filename.'.'.$request->file('attach_moms')->getClientOriginalExtension();
           $HRamiG->save();
         }
+        $agendaDecision= HrProjectDecision::where('hr_meeting_p_d_w_p_id',$request->meeting_id)->where('hr_agenda_id',$request->hr_agenda_id)->first();
+        if(isset($agendaDecision) && $agendaDecision!=null )
+        {
+          $agendaDecision->hr_decision_id=$request->agenda_decision;
+          $agendaDecision->save();
+         }
+         
         return redirect()->back();
     }
 
