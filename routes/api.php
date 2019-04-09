@@ -24,7 +24,6 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('assignedProject','DataController@getAssignedProject');
 });
 Route::get('projectRelatedKpi','DataController@getProjectKpi');
-Route::get('projectRelatedKpi','DataController@getProjectKpi');
 Route::get('assignedHealtSafety','DataController@assignedHealtSafety');
 Route::post('projectRelatedKpiStorage','DataController@setProjectKpi');
 Route::post('projectData','DataController@setProjectData');
