@@ -188,6 +188,7 @@
 </div>
 @endsection
 @section('scripttags')
+<<<<<<< HEAD
 <script>
     // $(document).ready(function() {
     //     $('#example').DataTable();
@@ -213,4 +214,6 @@
     })
 </script>
 
+=======
+>>>>>>> a644e6ae9503355c188f968689f821d6967877e4
 @endsection 
