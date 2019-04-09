@@ -77,7 +77,7 @@
         border: none;
     }
 
-    table {
+    /* table {
         width: 100% !important;
     }
 
@@ -101,7 +101,7 @@
     table.dataTable thead .sorting_desc_disabled:after,
     table.dataTable thead .sorting_desc_disabled:before {
         bottom: .5em;
-    }
+    } */
 </style>
 @endsection
 
@@ -137,62 +137,88 @@
         @foreach ($data as $key => $value)
         {{-- {{dd($key)}} --}}
         <div id="{{ $key }}" style="display:none">
-            <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
-                <tr>
-                    <th>
-                        Meeting ID
-                    </th>
-                    <th>
-                        Meeting No
-                    </th>
-                    <th>
-                        Meeting Type
-                    </th>
-                    <th>
-                        Date
-                    </th>
-                    <th>
-                        Attachment
-                    </th>
-                    <th>
-                        Action
-                    </th>
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            Meeting ID
+                        </th>
+                        <th>
+                            Meeting No
+                        </th>
+                        <th>
+                            Meeting Type
+                        </th>
+                        <th>
+                            Date
+                        </th>
+                        <th>
+                            Attachment
+                        </th>
+                        <th>
+                            Action
+                        </th>
 
-                </tr>
-                {{-- {{dd($value)}} --}}
-                @foreach ($value as $v)
-                {{-- @foreach ($vs as $v) --}}
-                <tr class="item">
-                    <td>
-                        {{$v->id}}
-                    </td>
-                    <td>
-                        <a href="{{route('admin.show',$v->id)}}">
-                            @if($v->meeting_no)
-                            {{$v->meeting_no}}
-                            @else
-                            No Meeting No
-                            @endif
-                        </a>
-                    </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{-- {{dd($value)}} --}}
+                    @foreach ($value as $v)
+                    {{-- @foreach ($vs as $v) --}}
+                    <tr>
+                        <td>
+                            {{$v->id}}
+                        </td>
+                        <td>
+                            <a href="{{route('admin.show',$v->id)}}">
+                                @if($v->meeting_no)
+                                {{$v->meeting_no}}
+                                @else
+                                No Meeting No
+                                @endif
+                            </a>
+                        </td>
 
-                    <td>
-                        {{$v->HrMeetingType->meeting_name}}
-                    </td>
-                    <td>
-                        {{$v->scheduled_date}}
-                    </td>
-                    <td>
-                        <a href="{{asset('storage/uploads/projects/pdwp_meeting/'.$v->attachment)}}" download>{{$v->attachment}}</a>
+                        <td>
+                            {{$v->HrMeetingType->meeting_name}}
+                        </td>
+                        <td>
+                            {{$v->scheduled_date}}
+                        </td>
+                        <td>
+                            <a href="{{asset('storage/uploads/projects/pdwp_meeting/'.$v->attachment)}}" download>{{$v->attachment}}</a>
 
-                    </td>
-                    <td>
-                        <a href="{{ route('admin.edit',$v->id) }} " class="btn btn-success">EDIT</a>
-                    </td>
+                        </td>
+                        <td>
+                            <a href="{{ route('admin.edit',$v->id) }} " class="btn btn-success">EDIT</a>
+                        </td>
 
-                </tr>
-                {{-- @endforeach --}}
-                @endforeach
+                    </tr>
+                    {{-- @endforeach --}}
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>
+                            Meeting ID
+                        </th>
+                        <th>
+                            Meeting No
+                        </th>
+                        <th>
+                            Meeting Type
+                        </th>
+                        <th>
+                            Date
+                        </th>
+                        <th>
+                            Attachment
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
         @endforeach
@@ -218,9 +244,10 @@
         $('.' + $(this).attr('class')).attr('style', 'color:#f0ad4e');
         $('.' + $(this > span).attr('class')).attr('style', 'border-top:4px solid #f0ad4e');
     });
-    $(document).ready(function() {
-        $('#dtBasicExample').DataTable();
-        $('.dataTables_length').addClass('bs-select');
-    });
+</script>
+<script>
+    $(function() {
+        $('#example1').DataTable();
+    })
 </script>
 @endsection 
