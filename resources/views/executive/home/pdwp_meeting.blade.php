@@ -61,7 +61,12 @@
     </section>
 
     <section class="content">
-        <table id="example1" class="table table-bordered table-striped">
+        <div class="col-md-12 row" style="cursor:pointer;display:inline;">
+            @foreach ($data as $key => $value)
+            <h4 class="{{ $key }}">Meetings Data {{ $key }} <span class="caret"></span></h4>
+            @endforeach
+        </div>
+        {{-- <table id="example1" class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>
@@ -103,7 +108,11 @@
                 </tr>
                 @endforeach
             </tbody>
-            <tfoot>
+        </table> --}}
+        @foreach ($data as $key => $value)
+        <div id="{{ $key }}" style="display:none">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
                 <tr>
                     <th>
                         Meeting ID
@@ -114,19 +123,94 @@
                     <th>
                         Meeting Type
                     </th>
+                    <th> Meeting Agenda(s)/Scheme(s)</th>
                     <th>
                         Date
                     </th>
+                    <th>
+                        Attachment
+                    </th>
+                   
                 </tr>
-            </tfoot>
+            </thead>
+            <tbody>
+                @foreach ($value as $v)
+                <tr>
+                    <td>
+                        {{$v->id}} / {{ $key }}
+                    </td>
+                    <td>
+                       
+                        <a href="{{route('List_Agendas',['meeting_no'=>$v->id])}}" target="_blank">
+                            @if($v->meeting_no)
+                            {{$v->meeting_no}}
+                            @else
+                            No Meeting No
+                            @endif
+                        </a>
+                    </td>
+
+                    <td>
+                        {{$v->HrMeetingType->meeting_name}}
+                    </td>
+                    <td>
+                      <ol>
+                        @foreach ($v->HrAgenda as $agenda)
+                          <li> {{$agenda->scheme_name}}</li>
+                          @endforeach
+                        </ol>
+                    </td>
+                    <td>
+                        @php
+                        $originalDate=$v->scheduled_date;
+                         $date = date("d-M-Y", strtotime($originalDate));
+                        //  echo $date;
+                        @endphp
+                        {{$date}}
+                    </td>
+                    <td>
+                        <a href="{{asset('storage/uploads/projects/pdwp_meeting/'.$v->attachment)}}" download>{{$v->attachment}}</a>
+
+                    </td>
+                    {{-- <td>
+                        <a href="{{ route('admin.edit',$v->id) }} " class="btn btn-success">EDIT</a>
+                    </td> --}}
+
+                </tr>
+                {{-- @endforeach --}}
+                @endforeach
+            </tbody>
+           
         </table>
+        </div>
+    @endforeach
     </section>
 </div>
 @endsection
 @section('scripttags')
 <script>
+    // $(document).ready(function() {
+    //     $('#example').DataTable();
+    // });
+    $('.select2').select2();
+    $('.searchAgenda').on('change', function() {
+        console.log($(this).val());
+        location = "/hr/admin/" + $(this).val();
+    });
+    $(document).on('click', 'div > h4', function() {
+        $('h4').attr('style', 'color:black');
+        $('.caret').attr('style', 'color:black');
+        $('.display').hide();
+        $('.display').removeClass('display');
+        $('#' + $(this).attr('class')).toggle().addClass("display")
+        $('.' + $(this).attr('class')).attr('style', 'color:#f0ad4e');
+        $('.' + $(this > span).attr('class')).attr('style', 'border-top:4px solid #f0ad4e');
+    });
+</script>
+<script>
     $(function() {
         $('#example1').DataTable();
     })
 </script>
+
 @endsection 

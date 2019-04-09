@@ -135,8 +135,7 @@
             @endforeach
         </div>
         @foreach ($data as $key => $value)
-        {{-- {{dd($key)}} --}}
-        <div id="{{ $key }}" style="display:none">
+            <div id="{{ $key }}" style="display:none">
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -199,7 +198,7 @@
                 </tbody>
                
             </table>
-        </div>
+            </div>
         @endforeach
     </section>
 </div>
