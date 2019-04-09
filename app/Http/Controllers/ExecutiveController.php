@@ -83,7 +83,7 @@ class ExecutiveController extends Controller
       \JavaScript::put([
           'projects' => $adp
       ]);
-
+      // dd($agendas[1]->HrProjectDecision->hr_decision_id);
       return view('executive.home.pdwp_meeting_agendas',compact('meeting','agendas','hr_decisions','sectors','meeting_types','agenda_types','agenda_statuses','adp'));
 
     }

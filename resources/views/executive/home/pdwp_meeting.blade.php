@@ -73,6 +73,7 @@
               <th>
                   Meeting Type
               </th>
+              <th>Meeting Agendas/Schemes</th>
               <th>
                   Date
               </th>
@@ -91,12 +92,17 @@
                       @endif
                     </a>
                   </td>
-
                   <td>
                       {{$meeting->HrMeetingType->meeting_name}}
                   </td>
+                  <td></td>
                   <td>
-                      {{$meeting->scheduled_date}}
+                      @php
+                      $MeetingDate=$meeting->scheduled_date;
+                       $MeetingDate = date("d-M-Y", strtotime($MeetingDate));
+                      //  echo $date;
+                      @endphp
+                      {{$MeetingDate}}
                   </td>
               </tr>
           @endforeach
