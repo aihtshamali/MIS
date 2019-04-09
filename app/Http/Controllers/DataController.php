@@ -14,14 +14,20 @@ use App\Http\Resources\MAppVersionlog as MAppVersionlogResource;
 use App\Http\Resources\MPlanKpicomponentMapping as MPlanKpicomponentMappingResource;
 use App\Http\Resources\MAssignedProjectHealthSafety as MAssignedProjectHealthSafetyResource;
 use App\Http\Resources\MAssignedKpi as MAssignedKpiResource;
+use App\Http\Resources\MAssignedProjectIssue as MAssignedProjectIssueResource;
 use App\MAssignedKpiLevel1;
 use App\MAssignedKpiLevel2;
 use App\MAssignedKpiLevel3;
 use App\MAssignedKpiLevel4;
+use App\MAssignedKpiLevel1Log;
+use App\MAssignedKpiLevel2Log;
+use App\MAssignedKpiLevel3Log;
+use App\MAssignedKpiLevel4Log;
 use App\MAppAttachment;
 use App\MAppVersionlog;
 use App\MAssignedProjectHealthSafety;
 use App\MAssignedUserLocation;
+use App\MAssignedProjectIssue;
 
 // use App\GeneralKpi;
 
@@ -122,6 +128,13 @@ class DataController extends Controller
             foreach ($value['children'] as $value3) {
               $m_assigned_kpi_level1 = MAssignedKpiLevel1::find($value3['id']);
               if($m_assigned_kpi_level1){
+                //Adding Logs
+                $m_assigned_kpi_level1_log = new MAssignedKpiLevel1Log();
+                $m_assigned_kpi_level1_log->completed = $m_assigned_kpi_level1->completed;
+                $m_assigned_kpi_level1_log->remarks = $m_assigned_kpi_level1->remarks;
+                $m_assigned_kpi_level1_log->current_weightage = $m_assigned_kpi_level1->current_weightage;
+                $m_assigned_kpi_level1_log->save();
+                //New Data
                 $m_assigned_kpi_level1->completed = $value3['completed'];
                 $m_assigned_kpi_level1->remarks = $value3['remarks'];
                 $m_assigned_kpi_level1->current_weightage = $value3['current_weightage'];
@@ -129,6 +142,13 @@ class DataController extends Controller
                 foreach ($value3['children'] as $value4) {
                   $m_assigned_kpi_level2 = MAssignedKpiLevel2::find($value4['id']);
                   if($m_assigned_kpi_level2){
+                    //Adding Logs
+                    $m_assigned_kpi_level2_log = new MAssignedKpiLevel2Log();
+                    $m_assigned_kpi_level2_log->completed = $m_assigned_kpi_level2->completed;
+                    $m_assigned_kpi_level2_log->remarks = $m_assigned_kpi_level2->remarks;
+                    $m_assigned_kpi_level2_log->current_weightage = $m_assigned_kpi_level2->current_weightage;
+                    $m_assigned_kpi_level2_log->save();
+                    //New Data
                     $m_assigned_kpi_level2->completed = $value4['completed'];
                     $m_assigned_kpi_level2->remarks = $value4['remarks'];
                     $m_assigned_kpi_level2->current_weightage = $value4['current_weightage'];
@@ -136,6 +156,13 @@ class DataController extends Controller
                     foreach ($value4['children'] as $value5) {
                       $m_assigned_kpi_level3 = MAssignedKpiLevel3::find($value5['id']);
                       if($m_assigned_kpi_level3){
+                        //Adding Logs
+                        $m_assigned_kpi_level3_log = new MAssignedKpiLevel3Log();
+                        $m_assigned_kpi_level3_log->completed = $m_assigned_kpi_level3->completed;
+                        $m_assigned_kpi_level3_log->remarks = $m_assigned_kpi_level3->remarks;
+                        $m_assigned_kpi_level3_log->current_weightage = $m_assigned_kpi_level3->current_weightage;
+                        $m_assigned_kpi_level3_log->save();
+                        //New Data
                         $m_assigned_kpi_level3->completed = $value5['completed'];
                         $m_assigned_kpi_level3->remarks = $value5['remarks'];
                         $m_assigned_kpi_level3->current_weightage = $value5['current_weightage'];
@@ -143,6 +170,13 @@ class DataController extends Controller
                         foreach ($value5['children'] as $value6) {
                           $m_assigned_kpi_level4 = MAssignedKpiLevel4::find($value6['id']);
                           if($m_assigned_kpi_level4){
+                            //Adding Logs
+                            $m_assigned_kpi_level4_log =new MAssignedKpiLevel4Log();
+                            $m_assigned_kpi_level4_log->completed = $m_assigned_kpi_level4->completed;
+                            $m_assigned_kpi_level4_log->remarks = $m_assigned_kpi_level4->remarks;
+                            $m_assigned_kpi_level4_log->current_weightage = $m_assigned_kpi_level4->current_weightage;
+                            $m_assigned_kpi_level4_log->save();
+                            //New Data
                             $m_assigned_kpi_level4->completed = $value6['completed'];
                             $m_assigned_kpi_level4->remarks = $value6['remarks'];
                             $m_assigned_kpi_level4->current_weightage = $value6['current_weightage'];
@@ -206,4 +240,19 @@ class DataController extends Controller
         return MAssignedProjectHealthSafetyResource::collection(MAssignedProjectHealthSafety::where('m_project_progress_id',$request->m_project_progress_id)->get());
       }
 
+      public function assignedProjectIssue(Request $request){
+        return MAssignedProjectIssueResource::collection(MAssignedProjectIssue::where('m_project_progress_id',$request->m_project_progress_id)->get());
+      }
+
+      public function setAssignedProjectIssue(Request $request){
+        $m_assigned_project_issue = new MAssignedProjectIssue();
+        $m_assigned_project_issue->m_project_progress_id = $request->m_project_progress_id;
+        $m_assigned_project_issue->issue = $request->issue;
+        $m_assigned_project_issue->m_issue_type_id = $request->m_issue_type_id;
+        $m_assigned_project_issue->severity = $request->severity;
+        $m_assigned_project_issue->sponsoring_agency_id = $request->sponsoring_agency_id;
+        $m_assigned_project_issue->executing_agency_id = $request->executing_agency_id;
+        $m_assigned_project_issue->user_id = Auth::id();
+        $m_assigned_project_issue->save();
+      }
 }
