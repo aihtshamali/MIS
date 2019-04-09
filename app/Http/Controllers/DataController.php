@@ -129,7 +129,7 @@ class DataController extends Controller
               $m_assigned_kpi_level1 = MAssignedKpiLevel1::find($value3['id']);
               if($m_assigned_kpi_level1){
                 //Adding Logs
-                $m_assigned_kpi_level1_log = MAssignedKpiLevel1Log();
+                $m_assigned_kpi_level1_log = new MAssignedKpiLevel1Log();
                 $m_assigned_kpi_level1_log->completed = $m_assigned_kpi_level1->completed;
                 $m_assigned_kpi_level1_log->remarks = $m_assigned_kpi_level1->remarks;
                 $m_assigned_kpi_level1_log->current_weightage = $m_assigned_kpi_level1->current_weightage;
@@ -143,7 +143,7 @@ class DataController extends Controller
                   $m_assigned_kpi_level2 = MAssignedKpiLevel2::find($value4['id']);
                   if($m_assigned_kpi_level2){
                     //Adding Logs
-                    $m_assigned_kpi_level2_log = MAssignedKpiLevel2Log();
+                    $m_assigned_kpi_level2_log = new MAssignedKpiLevel2Log();
                     $m_assigned_kpi_level2_log->completed = $m_assigned_kpi_level2->completed;
                     $m_assigned_kpi_level2_log->remarks = $m_assigned_kpi_level2->remarks;
                     $m_assigned_kpi_level2_log->current_weightage = $m_assigned_kpi_level2->current_weightage;
@@ -157,7 +157,7 @@ class DataController extends Controller
                       $m_assigned_kpi_level3 = MAssignedKpiLevel3::find($value5['id']);
                       if($m_assigned_kpi_level3){
                         //Adding Logs
-                        $m_assigned_kpi_level3_log = MAssignedKpiLevel3Log();
+                        $m_assigned_kpi_level3_log = new MAssignedKpiLevel3Log();
                         $m_assigned_kpi_level3_log->completed = $m_assigned_kpi_level3->completed;
                         $m_assigned_kpi_level3_log->remarks = $m_assigned_kpi_level3->remarks;
                         $m_assigned_kpi_level3_log->current_weightage = $m_assigned_kpi_level3->current_weightage;
@@ -171,7 +171,7 @@ class DataController extends Controller
                           $m_assigned_kpi_level4 = MAssignedKpiLevel4::find($value6['id']);
                           if($m_assigned_kpi_level4){
                             //Adding Logs
-                            $m_assigned_kpi_level4_log = MAssignedKpiLevel4Log();
+                            $m_assigned_kpi_level4_log =new MAssignedKpiLevel4Log();
                             $m_assigned_kpi_level4_log->completed = $m_assigned_kpi_level4->completed;
                             $m_assigned_kpi_level4_log->remarks = $m_assigned_kpi_level4->remarks;
                             $m_assigned_kpi_level4_log->current_weightage = $m_assigned_kpi_level4->current_weightage;
