@@ -530,9 +530,9 @@ a:hover {
 }
 
 .user-panel>.image>img {
-    width: 100%;
-    max-width: 48px;
-    height: 45px
+    /* width: 100%; */
+    max-width: 32px;
+    height: 32px
 }
 
 .user-panel>.info {
