@@ -25,6 +25,7 @@ if (! function_exists('calculateMPhysicalProgress')) {
     //  dd($cost);
       $mAssignedKpi=App\MAssignedKpi::where('m_project_progress_id',$m_project_progress_id)->get();
       $original_cost=App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->ProjectDetail->orignal_cost;
+     $financial_cost=App\MProjectCost::where('m_project_progress_id',$m_project_progress_id)->orderBy('created_at','desc')->first();
       // dd($original_cost);
       $arr=array_fill(0,$mAssignedKpi->count(),0);
       $cost=array();
@@ -76,7 +77,7 @@ if (! function_exists('calculateMPhysicalProgress')) {
 
       $total_phyProgres= array_sum($phy_prog);
 
-      $physical_progress=($total_phyProgres/$original_cost); 
+      $physical_progress=($total_phyProgres/$financial_cost->total_release_to_date); 
       // foreach($arr as $val){
       //   $sum+=$val;
       // }
@@ -114,35 +115,40 @@ function calculatePlannedProgress($m_project_progress_id)
 function calculateEarnedvalue($m_project_progress_id)
 {
   $physical_progress=calculateMPhysicalProgress($m_project_progress_id);
+  $financial_cost=App\MProjectCost::where('m_project_progress_id',$m_project_progress_id)->orderBy('created_at','desc')->first();
+     $earnedvalue= ($physical_progress/100) * $financial_cost->total_release_to_date;
 
-  $original_cost=App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->ProjectDetail->orignal_cost;
-  $revised_approved_cost=App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->RevisedApprovedCost->last();
+  // $original_cost=App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->ProjectDetail->orignal_cost;
+  // $revised_approved_cost=App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->RevisedApprovedCost->last();
+  // if($revised_approved_cost)
+  // {
+    //   $earnedvalue= ($physical_progress/100) * $revised_approved_cost->cost;
+    // }
+    // else{
+      //   $earnedvalue= ($physical_progress/100) * $original_cost;
+      // }
+      // dd($earnedvalue);
    
-  if($revised_approved_cost)
-  {
-    $earnedvalue= ($physical_progress/100) * $revised_approved_cost->cost;
-  }
-  else{
-    $earnedvalue= ($physical_progress/100) * $original_cost;
-  }
-  // dd($earnedvalue);
-  return $earnedvalue;
+    return $earnedvalue;
 
 }
 
 function calculatePlannedValue($m_project_progress_id)
 {
   $planned_progress=calculatePlannedProgress($m_project_progress_id);
-  $original_cost=App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->ProjectDetail->orignal_cost;
-  $revised_approved_cost=App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->RevisedApprovedCost->last();
+   $financial_cost=App\MProjectCost::where('m_project_progress_id',$m_project_progress_id)->orderBy('created_at','desc')->first();
+     $plannedvalue= ($planned_progress/100) * $financial_cost->total_release_to_date;
+  // $original_cost=App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->ProjectDetail->orignal_cost;
+  // $revised_approved_cost=App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->RevisedApprovedCost->last();
    
-  if($revised_approved_cost)
-  {
-    $plannedvalue= ($planned_progress/100) * $revised_approved_cost->cost;
-  }
-  else{
-    $plannedvalue= ($planned_progress/100) * $original_cost;
-  }
+  // if($revised_approved_cost)
+  // {
+  //   $plannedvalue= ($planned_progress/100) * $revised_approved_cost->cost;
+  // }
+  // else{
+  //   $plannedvalue= ($planned_progress/100) * $original_cost;
+  // }
+ 
   // dd($plannedvalue);
   return $plannedvalue;
 
@@ -174,18 +180,20 @@ function estimatedAtCompletion($m_project_progress_id)
 {
   $cpi=costPerformanceindex($m_project_progress_id);
   
-  $original_cost=App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->ProjectDetail->orignal_cost;
-  $revised_approved_cost=App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->RevisedApprovedCost->last();
+  // $original_cost=App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->ProjectDetail->orignal_cost;
+  // $revised_approved_cost=App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->RevisedApprovedCost->last();
+  // if($revised_approved_cost)
+  // {
+  //   $estimatedAtCompletion= $revised_approved_cost->cost/$cpi ;
+  // }
+  // else{
+  //   $estimatedAtCompletion= $original_cost/$cpi;
+  // }
+  // dd($earnedvalue);
+   $financial_cost=App\MProjectCost::where('m_project_progress_id',$m_project_progress_id)->orderBy('created_at','desc')->first(); 
   if($cpi==0)
     return 0;
-  if($revised_approved_cost)
-  {
-    $estimatedAtCompletion= $revised_approved_cost->cost/$cpi ;
-  }
-  else{
-    $estimatedAtCompletion= $original_cost/$cpi;
-  }
-  // dd($earnedvalue);
+  $estimatedAtCompletion=$financial_cost->total_release_to_date/$cpi;
   return $estimatedAtCompletion;
 }
 function ProjectProgressAcctoDate($project_id){

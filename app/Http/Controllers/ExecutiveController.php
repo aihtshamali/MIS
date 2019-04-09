@@ -66,8 +66,46 @@ class ExecutiveController extends Controller
     //  HOME FOLDER
     public function conduct_pdwp_meeting()
     {
+      // $meetings = HrMeetingPDWP::where('status',1)->orderBy('updated_at', 'desc')->get();
       $meetings = HrMeetingPDWP::where('status',1)->orderBy('updated_at', 'desc')->get();
-      return view('executive.home.pdwp_meeting',compact('meetings'));
+      $data = [];
+      foreach ($meetings as $meeting) {
+        if(count($meeting->HrAgenda)>0){
+          $index = $meeting->HrAgenda[0]->financial_year;
+          if($index==""){
+            $index = "NotAssigned";
+          }
+          if(isset($data[$index])){
+            $data += [
+              $index => array_push($data[$index],$meeting),
+            ];
+          }
+          else{
+            $data += [
+              $index => [$meeting],
+            ];
+          }
+        }
+        else{
+          $index = "NoAgenda";
+          if(isset($data[$index])){
+            $data += [
+              $index => array_push($data[$index],$meeting),
+            ];
+          }
+          else{
+            $data += [
+              $index => [$meeting],
+            ];
+          }
+        }
+  
+      }
+      \JavaScript::put([
+          'meetings_data' => $data
+      ]);
+      $agendas=HrAgenda::all();
+      return view('executive.home.pdwp_meeting',compact('meetings','agendas','data'));
     }
 
     public function list_agendas(Request $req)
@@ -83,7 +121,7 @@ class ExecutiveController extends Controller
       \JavaScript::put([
           'projects' => $adp
       ]);
-
+      // dd($agendas[1]->HrProjectDecision->hr_decision_id);
       return view('executive.home.pdwp_meeting_agendas',compact('meeting','agendas','hr_decisions','sectors','meeting_types','agenda_types','agenda_statuses','adp'));
 
     }

@@ -197,30 +197,9 @@
                     {{-- @endforeach --}}
                     @endforeach
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <th>
-                            Meeting ID
-                        </th>
-                        <th>
-                            Meeting No
-                        </th>
-                        <th>
-                            Meeting Type
-                        </th>
-                        <th>
-                            Date
-                        </th>
-                        <th>
-                            Attachment
-                        </th>
-                        <th>
-                            Action
-                        </th>
-                    </tr>
-                </tfoot>
+               
             </table>
-        </div>
+            </div>
         @endforeach
     </section>
 </div>
