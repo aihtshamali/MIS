@@ -28,6 +28,7 @@ Route::get('assignedHealtSafety','DataController@assignedHealtSafety');
 Route::post('projectRelatedKpiStorage','DataController@setProjectKpi');
 Route::post('projectData','DataController@setProjectData');
 Route::get('appVersion','DataController@appVersion');
+Route::post('setAssignedProjectIssue','DataController@setAssignedProjectIssue');
 // Route::get('/chats','ChatController@index');
 // Route::get('/notifications/{user}','NotificationController@index');
 // // dd(Auth);
