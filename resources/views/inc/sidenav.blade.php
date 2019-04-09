@@ -9,13 +9,13 @@
         </div>
         <div class="pull-left info">
           @role('admin')
-          <p>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</p>
+          <h4>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</h4>
           @endrole
           @role('adminhr')
-          <p>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</p>
+          <h4>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</h4>
           @endrole
           @role('dataentry')
-          <p>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</p>
+          <h4>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</h4>
           @endrole
           {{-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> --}}
         </div>
@@ -37,7 +37,7 @@
         <li class="header">Navigations</li>
         <li>
           <a href="{{url('/dashboard')}}">
-            <i class="fa fa-user"></i>
+            <i class="fa fa-home"></i>
             <span>Home</span>
           </a>
         </li>
@@ -217,7 +217,7 @@
 
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-files-o"></i>
+            <i class="fa fa-list"></i>
             <span>PDWP Meeting</span>
           </a>
           <ul class="treeview-menu">
