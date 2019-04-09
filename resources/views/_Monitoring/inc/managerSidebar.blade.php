@@ -40,21 +40,21 @@
                                 <li class="">
                                 <a href="{{route('monitoring_unassigned')}}">
                                         <span class="pcoded-mtext">New Assignments</span>
-                                        <span class="pcoded-badge label label-danger">0</span>
+                                        <!-- <span class="pcoded-badge label label-danger">0</span> -->
 
                                     </a>
                                 </li>
                                 <li class=" ">
                                 <a href="{{route('monitoring_inprogress')}}">
                                         <span class="pcoded-mtext" >In Progress</span>
-                                        <span class="pcoded-badge label label-warning">0</span>
+                                        <!-- <span class="pcoded-badge label label-warning">0</span> -->
 
                                     </a>
                                 </li>
                                 <li class=" ">
                                 <a href="{{route('monitoring_completed')}}">
                                         <span class="pcoded-mtext" >Completed</span>
-                                        <span class="pcoded-badge label label-success">0</span>
+                                        <!-- <span class="pcoded-badge label label-success">0</span> -->
                                     </a>
                                 </li>
                             </ul>
@@ -82,7 +82,7 @@
                             </ul>
                         </li>
                     </ul>
-                    <div class="pcoded-navigatio-lavel">HR(Human Resource)</div>
+                    <!-- <div class="pcoded-navigatio-lavel">HR(Human Resource)</div>
                     <ul class="pcoded-item">
                         <li class="">
                             <a href="{{route('attendance')}}">
@@ -91,7 +91,7 @@
                                 <span class="pcoded-mtext" >Attendance Sheet</span>
                             </a>
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
             </nav>
             <div class="pcoded-content">
