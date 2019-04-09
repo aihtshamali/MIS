@@ -444,4 +444,12 @@ class HomeController extends Controller
         ]);
         return view('executive.home.global_progress_wise_chart');
     }
+  public function PDWBforDC()
+  {
+    return view( 'PDWBforDC.PDWBforDC');
+    }
+  public function FinancialYearPDWP()
+  {
+    return view( 'PDWBforDC.FinancialYearPDWP');
+    }
 }

@@ -85,9 +85,7 @@ class AdminHumanResourceController extends Controller
               ];
             }
           }
-          // if($meeting->attachment_file){
-          //   file_put_contents('storage/uploads/projects/pdwp_meeting/'.$meeting->attachment,base64_decode($meeting->attachment_file));
-          // }
+    
         }
         \JavaScript::put([
             'meetings_data' => $data
