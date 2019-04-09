@@ -55,6 +55,9 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::post('/usersandroles','RolesPermissionsUsersController@rolesandusersstore');
     Route::post('/usersandpermissions','RolesPermissionsUsersController@usersandpermissionstore');
 
+    Route::delete('admin/projects/{id}', 'ProjectController@destroy')->name('admin_projects_destroy');
+    Route::get('admin/projects/remove', 'ProjectController@ProjectRemove')->name('admin_projects_remove');
+
     Route::get('/rolespermissionsusers/view','RolesPermissionsUsersController@index');
     Route::resource('project_type','ProjectTypeController');
     Route::resource('evaluation_type','EvaluationTypeController');

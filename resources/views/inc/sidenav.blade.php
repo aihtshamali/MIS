@@ -178,6 +178,18 @@
                   <li><a href="{{route('district.index')}}"><i class="fa fa-circle-o"></i>View District</a></li>
                 </ul>
               </li>
+            <li class="treeview">
+                <a href="#">
+                  <i class="fa fa-files-o"></i>
+                  <span>Delete Projects</span>
+                  <span class="pull-right-container">
+                    {{-- <span class="label label-primary pull-right">Add new Project</span> --}}
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="{{route('admin_projects_remove')}}"><i class="fa fa-circle-o"></i>All Projects</a></li>
+                </ul>
+              </li>
 
 
 
