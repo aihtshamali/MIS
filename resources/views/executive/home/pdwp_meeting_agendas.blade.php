@@ -204,20 +204,6 @@ li div{
                                 <input type="text" disabled class="form-control" value="{{$agenda->AgendaType->name}}">
                             </div>
 
-                            {{-- <div class="col-md-2">
-                                <div class="row">
-                                        <label for="ex2">ADP No.</label>
-                                </div>
-                                <div class="row" style="padding:0 !important">
-                                    <div class="col-md-6"style="padding:0 !important">
-                                       <div style="font-size:18px;"> 2017-18/ </div>
-                                    </div>
-                                    <div class="col-md-6"style="padding:0 !important">
-                                        <input disabled value="{{$agenda->adp_no}}"class="form-control" id="ex2" name="adp_no[]" type="text"style="text-align:center;">
-                                    </div>
-                                </div>
-                            </div> --}}
-
                             <div class="col-md-8">
                                 <label for="name_of_scheme">Topic Name</label>
                                 <input disabled value="{{$agenda->scheme_name}}" class="form-control" id="name_of_scheme" name="name_of_scheme[]" type="text"style="text-align:center;">
@@ -230,14 +216,6 @@ li div{
                                 <input disabled value="{{$agenda->HrSector->name}}" class="form-control" id="name_of_scheme" name="sector[]" type="text"style="text-align:center;">
                             </div>
 
-                            {{-- <div class="col-md-3">
-                                <label for="estimated_cost">Estimated Cost</label>
-                                <input disabled value="{{$agenda->estimated_cost}}" class="form-control" id="estimated_cost" name="estimated_cost[]" type="number" step = "0.01" style="text-align:center;">
-                            </div>
-                            <div class="col-md-2">
-                                <label for="adp_allocation">ADP Allocation</label>
-                                <input disabled value="{{$agenda->adp_allocation}}" class="form-control" id="adp_allocation" name="adp_allocation[]" type="number" step = "0.01"style="text-align:center;">
-                            </div> --}}
                             <div class="col-md-2">
                                 <label for="adp_allocation">Start Time</label>
                                 <input disabled value="{{$agenda->start_timeofagenda}}" class="form-control" id="adp_allocation" name="start_timeofagenda[]" type="text"style="text-align:center;">
@@ -490,11 +468,11 @@ li div{
 
                                     <div>
                                         <label for="estimated_cost">Estimated Cost</label>
-                                        <input disabled value="{{$agenda->estimated_cost}}" class="form-control" id="estimated_cost" name="estimated_cost[]" type="number" step = "0.01" style="text-align:center;">
+                                        <input disabled value="{{round($agenda->estimated_cost,2)}}" class="form-control" id="estimated_cost" name="estimated_cost[]" type="number" step = "0.01" style="text-align:center;">
                                     </div>
                                     <div>
                                         <label for="adp_allocation">ADP Allocation</label>
-                                        <input disabled value="{{$agenda->adp_allocation}}" class="form-control" id="adp_allocation" name="adp_allocation[]" type="number" step = "0.01"style="text-align:center;">
+                                        <input disabled value="{{round($agenda->adp_allocation,3)}}" class="form-control" id="adp_allocation" name="adp_allocation[]" type="number" step = "0.01"style="text-align:center;">
                                     </div>
                                     <input type="hidden" name="agenda_id[]" value="{{$agenda->id}}">
                                     <div class="form-group" id="datepick" style="margin-top:10px">
@@ -505,36 +483,38 @@ li div{
                                     <div class="form-group" id="datepick" style="margin-top:10px">
                                         <label for="">Actual Start Time</label>
                                         <div class='input-group col-sm-12 date get_time' id='my_time' style="padding: 0 !important">
-                                            <input type='text' id="my_time"  name="actual_start_time[]" class="form-control" />
-                                            <span class="input-group-addon ">
-                                                <span class="glyphicon glyphicon-time"></span>
-                                            </span>
+                                            @if(isset($agenda->agenda_actual_start_time))
+                                                <input type='text' id="my_time"  disabled value ="{{$agenda->agenda_actual_start_time}}" name="actual_start_time[]" class="form-control" />
+                                            @else
+                                            <input type='text' id="my_time"  value ="{{$agenda->agenda_actual_start_time}}" name="actual_start_time[]" class="form-control" />
+                                                <span class="input-group-addon ">
+                                                    <span class="glyphicon glyphicon-time"></span>
+                                                </span>
+                                            @endif
                                         </div>
                                     </div>
 
                                     <div class="form-group" id="datepick" style="margin-top:10px">
                                         <label for="">Actual End Time</label>
                                         <div class='input-group col-sm-12 date get_time' id='my_time' style="padding: 0 !important">
-                                            <input type='text' id="my_time"  name="actual_end_time[]" class="form-control" />
+                                            @if(isset($agenda->agenda_actual_end_time))
+                                            <input type='text' id="my_time" disabled  value ="{{$agenda->agenda_actual_end_time}}" name="actual_end_time[]" class="form-control" />
+                                           @else
+                                           <input type='text' id="my_time"   name="actual_end_time[]" class="form-control" />
                                             <span class="input-group-addon ">
                                                 <span class="glyphicon glyphicon-time"></span>
                                             </span>
+                                            @endif
                                         </div>
                                     </div>
 
-                                    {{-- <div>
-                                        <label >Decision</label>
-                                        <select  name="agenda_decision[]" class="form-control select2" style="text-align: center !important" id="">
-                                          <option value="">Select Decision</option>
-                                            @foreach ($hr_decisions as $decision)
-                                              <option value="{{$decision->id}}">{{$decision->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div> --}}
-
                                     <div>
                                         <label >Comments</label>
-                                        <textarea rows="4" value="" class="form-control" id="name_of_scheme" name="agenda_comments[]"></textarea>
+                                        @if(isset($agenda->HrProjectDecision->comments))
+                                        <input disabled value="{{$agenda->HrProjectDecision->comments}}" class="form-control" id="adp_allocation" name="start_timeofagenda[]" type="text" style="text-align:center;">
+                                        @else
+                                        <textarea rows="4" value="" class="form-control" id="" name="agenda_comments[]"></textarea>
+                                        @endif
                                     </div>
 
                                     <div  id="<?php echo $var?>" style="margin-top:20px">
