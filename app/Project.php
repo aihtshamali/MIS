@@ -61,5 +61,9 @@ class Project extends Model
     {
       return $this->hasMany('App\ProblematicRemarks');
     }
+    public function ProjectLog()
+    {
+      return $this->hasMany('App\ProjectLog');
+    }
 
 }

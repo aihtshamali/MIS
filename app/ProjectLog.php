@@ -22,6 +22,9 @@ class ProjectLog extends Model
       return $this->belongsTo('App\AssigningForum');
     }
 
+    public function Project(){
+      return $this->belongsTo('App\Project');
+    }
     public function ApprovingForum()
     {
       return $this->belongsTo('App\ApprovingForum');
