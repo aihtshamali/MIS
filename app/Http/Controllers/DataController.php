@@ -132,7 +132,11 @@ class DataController extends Controller
                 $m_assigned_kpi_level1_log = new MAssignedKpiLevel1Log();
                 $m_assigned_kpi_level1_log->completed = $m_assigned_kpi_level1->completed;
                 $m_assigned_kpi_level1_log->remarks = $m_assigned_kpi_level1->remarks;
+                $m_assigned_kpi_level1_log->weightage = $m_assigned_kpi_level1->weightage;
+                $m_assigned_kpi_level1_log->status = $m_assigned_kpi_level1->status;
                 $m_assigned_kpi_level1_log->current_weightage = $m_assigned_kpi_level1->current_weightage;
+                $m_assigned_kpi_level1_log->m_project_progress_id = $m_assigned_kpi_level1->m_project_progress_id;
+                $m_assigned_kpi_level1_log->m_project_level1_kpis_id = $m_assigned_kpi_level1->m_project_level1_kpis_id;
                 $m_assigned_kpi_level1_log->save();
                 //New Data
                 $m_assigned_kpi_level1->completed = $value3['completed'];
@@ -147,6 +151,11 @@ class DataController extends Controller
                     $m_assigned_kpi_level2_log->completed = $m_assigned_kpi_level2->completed;
                     $m_assigned_kpi_level2_log->remarks = $m_assigned_kpi_level2->remarks;
                     $m_assigned_kpi_level2_log->current_weightage = $m_assigned_kpi_level2->current_weightage;
+                    $m_assigned_kpi_level2_log->weightage = $m_assigned_kpi_level2->weightage;
+                    $m_assigned_kpi_level2_log->m_project_progress_id = $m_assigned_kpi_level2->m_project_progress_id;
+                    $m_assigned_kpi_level2_log->m_assigned_kpi_level1_id = $m_assigned_kpi_level2->m_assigned_kpi_level1_id;
+                    $m_assigned_kpi_level2_log->m_project_level2_kpis_id = $m_assigned_kpi_level2->m_project_level2_kpis_id;
+                    $m_assigned_kpi_level2_log->status = $m_assigned_kpi_level2->status;
                     $m_assigned_kpi_level2_log->save();
                     //New Data
                     $m_assigned_kpi_level2->completed = $value4['completed'];
@@ -161,6 +170,11 @@ class DataController extends Controller
                         $m_assigned_kpi_level3_log->completed = $m_assigned_kpi_level3->completed;
                         $m_assigned_kpi_level3_log->remarks = $m_assigned_kpi_level3->remarks;
                         $m_assigned_kpi_level3_log->current_weightage = $m_assigned_kpi_level3->current_weightage;
+                        $m_assigned_kpi_level3_log->status = $m_assigned_kpi_level3->status;
+                        $m_assigned_kpi_level3_log->weightage = $m_assigned_kpi_level3->weightage;
+                        $m_assigned_kpi_level3_log->m_project_progress_id = $m_assigned_kpi_level3->m_project_progress_id;
+                        $m_assigned_kpi_level3_log->m_assigned_kpi_level2_id = $m_assigned_kpi_level3->m_assigned_kpi_level2_id;
+                        $m_assigned_kpi_level3_log->m_project_level3_kpis_id = $m_assigned_kpi_level3->m_project_level3_kpis_id;
                         $m_assigned_kpi_level3_log->save();
                         //New Data
                         $m_assigned_kpi_level3->completed = $value5['completed'];
@@ -175,6 +189,11 @@ class DataController extends Controller
                             $m_assigned_kpi_level4_log->completed = $m_assigned_kpi_level4->completed;
                             $m_assigned_kpi_level4_log->remarks = $m_assigned_kpi_level4->remarks;
                             $m_assigned_kpi_level4_log->current_weightage = $m_assigned_kpi_level4->current_weightage;
+                            $m_assigned_kpi_level4_log->weightage = $m_assigned_kpi_level4->weightage;
+                            $m_assigned_kpi_level4_log->status = $m_assigned_kpi_level4->status;
+                            $m_assigned_kpi_level4_log->m_project_progress_id = $m_assigned_kpi_level4->m_project_progress_id;
+                            $m_assigned_kpi_level4_log->m_assigned_kpi_level3_id = $m_assigned_kpi_level4->m_assigned_kpi_level3_id;
+                            $m_assigned_kpi_level4_log->m_project_level4_kpis_id = $m_assigned_kpi_level4->m_project_level4_kpis_id;
                             $m_assigned_kpi_level4_log->save();
                             //New Data
                             $m_assigned_kpi_level4->completed = $value6['completed'];
