@@ -220,7 +220,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="{{route('dispatch_form')}}"><i class="fa fa-circle-o"></i>Add New Letter</a></li>
-            {{-- <li><a href="{{route('admin.index')}}"><i class="fa fa-circle-o"></i>View All </a></li> --}}
+            <li><a href="{{route('dispatchLetterIndex')}}"><i class="fa fa-circle-o"></i>View All Letters</a></li>
           </ul>
         </li>
         @endrole

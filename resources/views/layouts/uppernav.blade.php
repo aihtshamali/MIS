@@ -65,7 +65,7 @@
         table.dataTable th {
             text-align: center !important;
             font-size: 16px !important;
-            padding-bottom: 1% !important;
+            padding-bottom: 1%;
         }
 
         .info h4 {

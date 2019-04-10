@@ -283,13 +283,14 @@ Home Page | DGME MIS
                         <p>visit PDWP Meetings</p>
                     </a>
                 </div>
-                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
-                    <a href="http://127.0.0.1:8081/dispatch" class="tile purple">
-                        <h3 class="title">Dispatch</h3>
-                        <hr />
-                        <p>Dispatch System</p>
-                    </a>
-                </div>
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.3s">
+                        <a href="{{route('dispatch_form')}}" class="tile purple">
+                            <h3 class="title">Dispatch Management System</h3>
+                            <hr />
+                            <p>visit Dispatch System</p>
+                        </a>
+                    </div>
+                
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.3s">
                     <a href="#!" class="tile purple">
                         <h3 class="title">LMS</h3>
@@ -304,13 +305,7 @@ Home Page | DGME MIS
                         <p>visit HR System</p>
                     </a>
                 </div>
-                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.3s">
-                    <a href="{{route('dispatch_form')}}" class="tile purple">
-                        <h3 class="title">Dispatch Management System</h3>
-                        <hr />
-                        <p>visit Dispatch System</p>
-                    </a>
-                </div>
+               
                 @endrole
                 @role('manager')
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
