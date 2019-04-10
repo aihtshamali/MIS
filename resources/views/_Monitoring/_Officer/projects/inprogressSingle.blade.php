@@ -459,7 +459,7 @@
 @endsection
 @section("js_scripts")
 <!-- Multiselect js -->
-<script src="{{asset('js/app.js')}}"></script>
+<!-- <script src="{{asset('js/app.js')}}"></script> -->
 <script src="{{asset('_monitoring/js/select2/js/select2.full.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/bootstrap-multiselect/js/bootstrap-multiselect.js')}}"></script>
 <script src="{{asset('_monitoring/js/multiselect/js/jquery.multi-select.js')}}"></script>
@@ -472,7 +472,7 @@
 <script src="{{asset('_monitoring/js/bootstrap-daterangepicker/js/daterangepicker.js')}}"></script>
 <script src="{{asset('_monitoring/css/pages/advance-elements/custom-picker.js')}}"></script>
 
-<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script> -->
+<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13">ye pele cmntd th</script> -->
 <script src="{{asset('_monitoring/js/sweetalert/js/sweetalert.min.js')}}"></script>
 <script src="{{asset('_monitoring/css/js/modalEffects.js')}}"></script>
 <script src="{{asset('_monitoring/css/js/classie.js')}}"></script>

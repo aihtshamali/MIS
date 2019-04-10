@@ -40,21 +40,21 @@
                                 <li class="">
                                 <a href="{{route('Monitoring_unassigned_projects')}}">
                                         <span class="pcoded-mtext">New Assignments</span>
-                                        <span class="pcoded-badge label label-danger">0</span>
+                                        <!-- <span class="pcoded-badge label label-danger">0</span> -->
 
                                     </a>
                                 </li>
                                 <li class=" ">
                                 <a href="{{route('Monitoring_inprogress_projects')}}">
                                         <span class="pcoded-mtext" >In Progress</span>
-                                        <span class="pcoded-badge label label-warning">0</span>
+                                        <!-- <span class="pcoded-badge label label-warning">0</span> -->
 
                                     </a>
                                 </li>
                                 <li class=" ">
                                 <a href="{{route('Monitoring_complete_projects')}}">
                                         <span class="pcoded-mtext" >Completed</span>
-                                        <span class="pcoded-badge label label-success">0</span>
+                                        <!-- <span class="pcoded-badge label label-success">0</span> -->
                                     </a>
                                 </li>
                                 {{-- <li class=" ">
@@ -237,7 +237,7 @@
                             <a href="sticky.html">
                                 <span class="pcoded-micon"><i class="feather icon-cpu"></i></span>
                                 <span class="pcoded-mtext" >Sticky Notes</span>
-                                <span class="pcoded-badge label label-danger">HOT</span>
+                                <!-- <span class="pcoded-badge label label-danger">HOT</span> -->
                             </a>
                         </li>
                         <li class="pcoded-hasmenu">
@@ -978,7 +978,7 @@
                             <a href="javascript:void(0)">
                                 <span class="pcoded-micon"><i class="feather icon-award"></i></span>
                                 <span class="pcoded-mtext" >Job Search</span>
-                                <span class="pcoded-badge label label-danger">NEW</span>
+                                <!-- <span class="pcoded-badge label label-danger">NEW</span> -->
                             </a>
                             <ul class="pcoded-submenu">
                                 <li class="">
