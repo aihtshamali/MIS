@@ -305,6 +305,8 @@ Route::prefix('hr')->middleware('role:adminhr|manager')->group(function () {
   Route::post('/descisionAgendax','AdminHumanResourceController@DescisionAgenda')->name('DescisionAgenda');
   
   Route::get('/dispatch_form','AdminHumanResourceController@dispatch_form')->name('dispatch_form');
+  Route::post('/dispatchLetterCreated','AdminHumanResourceController@dispatchLetterCreated')->name('dispatchLetterCreated');
+  Route::get('/dispatchLetterIndex','AdminHumanResourceController@dispatchLetterIndex')->name('dispatchLetterIndex');
 
   // Route::get('/search_agendas','AdminHumanResourceController@search_agendas')->name('search_agendas');
   // Route::get('/','inHumanResourceController@index')->name('index_meeting');

@@ -16,12 +16,12 @@ use App\DispatchLetterDoctype;
 use App\DispatchLetterPriority;
 use App\DispatchLetter;
 use App\DispatchLetterCc;
-use Carbon;
 use App\AgendaType;
 use App\HrProjectType;
 use App\User;
 use App\UserDetail;
-
+use Auth;
+use Carbon;
 use App\AdpProject;
 use JavaScript;
 use App\HrMomAttachment;
@@ -50,6 +50,50 @@ class AdminHumanResourceController extends Controller
        return view('admin_hr.dispatch.create',compact('doctypes','priorities','officers'));
      }
 
+     public function dispatchLetterCreated(Request $request)
+     {
+    
+      $newDispatch_letter= new DispatchLetter();
+      $newDispatch_letter->dispatch_no=$request->dispatch_num;
+      $newDispatch_letter->issue_date=$request->date;
+      $newDispatch_letter->subject=$request->letter_subject;
+      $newDispatch_letter->courier_company=$request->courier_c;
+      $newDispatch_letter->post_office=$request->post_office;
+      $newDispatch_letter->address_dept=$request->address_dept;
+      $newDispatch_letter->remarks=$request->remarks;
+      $newDispatch_letter->sender_id=$request->d_Sender;
+      $newDispatch_letter->dispatch_letter_priority_id=$request->d_priority;
+      $newDispatch_letter->dispatch_letter_doctype_id=$request->d_doctype;
+      if($request->hasFile('d_letter_attachment'))
+        {
+        $meeting_filename = "Dispatch-Letter".$request->dispatch_no;
+        $file_path = $request->file('d_letter_attachment')->path();
+        $newDispatch_letter->scan_document = base64_encode(file_get_contents($file_path));
+        $newDispatch_letter->document_name= $meeting_filename.'.'.$request->file('d_letter_attachment')->getClientOriginalExtension();
+        $newDispatch_letter->save();
+        }
+      foreach($request->cc as $cc)
+      {
+        $newDispatch_letter_cc = new  DispatchLetterCc();
+        $newDispatch_letter_cc->dispatch_letter_id=$newDispatch_letter->id;
+        $newDispatch_letter_cc->user_id=$cc;
+        $newDispatch_letter_cc->save();
+      }  
+            
+       return redirect()->back();
+     }
+  
+     public function dispatchLetterIndex()
+     {
+       $letters=DispatchLetter::all();
+       foreach($letters as $letter)
+       {
+        if($letter->document_name)
+        { file_put_contents('storage/uploads/projects/dispatch_letters/'.$letter->document_name,base64_decode($letter->scan_document));
+        }
+      }
+       return view('admin_hr.dispatch.index',compact('letters'));
+     }
 
     public function index()
     {
@@ -114,15 +158,11 @@ class AdminHumanResourceController extends Controller
 
         return view('admin_hr.meeting.create',compact('sectors','meeting_types','agenda_types','agenda_statuses','adp'));
     }
-    // public function search_agendas(){
-    //     // dd('hell');
-
-    //     $agendas=HrAgenda::all();
-    //     // dd($agendas);
-    //     return view('admin_hr.meeting',compact('agendas'));
-    // }
-    public function saveMoms(Request $request){
-      if($request->hasFile('attach_moms')){
+ 
+    public function saveMoms(Request $request)
+    {
+      if($request->hasFile('attach_moms'))
+      {
       $HRamiG=new HrMomAttachment();
       $HRamiG->hr_agenda_id=$request->hr_agenda_id;
       $meeting_filename = "PDWP-MOM-".$request->hr_agenda_id;
@@ -130,11 +170,12 @@ class AdminHumanResourceController extends Controller
       $HRamiG->attachment_file = base64_encode(file_get_contents($file_path));
       $HRamiG->attachment = $meeting_filename.'.'.$request->file('attach_moms')->getClientOriginalExtension();
       $HRamiG->save();
-    }
-    return redirect()->back();
+      }
+        return redirect()->back();
     }
 
-    public function financial_year(Request $request){
+    public function financial_year(Request $request)
+    {
       $adp = AdpProject::where('financial_year',$request->financial_year)->orderBy('gs_no')->get();
       return $adp;
     }
@@ -221,14 +262,6 @@ class AdminHumanResourceController extends Controller
                 $j += 1;
                 $c += 1;
             }
-
-                // if($request->$attachments){
-                //     dd($request->attachments[$i]);
-                // }
-                // dd($request);
-
-
-
 
         }
         return redirect()->route('admin.show',$hr_meeting->id);
@@ -409,6 +442,15 @@ class AdminHumanResourceController extends Controller
         if(isset($agendaDecision) && $agendaDecision!=null )
         {
           $agendaDecision->hr_decision_id=$request->agenda_decision;
+          $agendaDecision->save();
+         }
+         else
+         {
+          $agendaDecision= new HrProjectDecision();
+          $agendaDecision->hr_meeting_p_d_w_p_id=$request->meeting_id;
+          $agendaDecision->hr_agenda_id=$request->hr_agenda_id;
+          $agendaDecision->hr_decision_id=$request->agenda_decision;
+          $agendaDecision->comments_user_id=Auth::id();
           $agendaDecision->save();
          }
          
