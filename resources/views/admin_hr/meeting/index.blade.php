@@ -77,6 +77,11 @@
         border: none;
     }
 
+    thead input {
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+    }
     /* table {
         width: 100% !important;
     }
@@ -167,12 +172,13 @@
                     {{-- @foreach ($vs as $v) --}}
                     <tr>
                         <td>
-                            {{$v->id}}
+                            {{$v->id}}/{{ $key }}
                         </td>
                         <td>
                             <a href="{{route('admin.show',$v->id)}}">
                                 @if($v->meeting_no)
                                 {{$v->meeting_no}}
+                                {{-- {{explode('-',$v->meeting_no)[0]}} --}}
                                 @else
                                 No Meeting No
                                 @endif
@@ -183,7 +189,7 @@
                             {{$v->HrMeetingType->meeting_name}}
                         </td>
                         <td>
-                            {{$v->scheduled_date}}
+                            {{date('d-m-Y',strtotime($v->scheduled_date))}}
                         </td>
                         <td>
                             <a href="{{asset('storage/uploads/projects/pdwp_meeting/'.$v->attachment)}}" download>{{$v->attachment}}</a>
@@ -223,5 +229,23 @@
         $('.' + $(this).attr('class')).attr('style', 'color:#f0ad4e');
         $('.' + $(this > span).attr('class')).attr('style', 'border-top:4px solid #f0ad4e');
     });
+
+    $('.example1 thead th').each( function () {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title.trim()+'" />' );
+    } );
+
+    var table = $('.example1').DataTable();
+    table.columns().every( function () {
+        var that = this;
+ 
+        $( 'input', this.header() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
 </script>
 @endsection 
