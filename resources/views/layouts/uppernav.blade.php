@@ -71,6 +71,14 @@
         .info h4 {
             color: #fff !important;
         }
+
+        .nav-pills>li+li {
+            margin-left: 3% !important;
+        }
+
+        .nav-pills>li {
+            background: transparent !important;;
+        }
     </style>
 </head>
 

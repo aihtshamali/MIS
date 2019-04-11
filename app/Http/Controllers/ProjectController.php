@@ -184,7 +184,7 @@ class ProjectController extends Controller
       $project->save();
       // dd($request->all());
 
-      $project_id = Project::latest()->first()->id;
+      $project_id =$project->id;
       $project_detail = new ProjectDetail();
       if(isset($request->sne) && $request->sne){
         $project_detail->sne = $request->sne;
@@ -490,6 +490,7 @@ class ProjectController extends Controller
       $project = new ProjectLog();
       $project_original = Project::find($id);
       // dd($project_original->AssignedDistricts);
+      $project->project_id=$id;
       $project->assigned_project_id=AssignedProject::where('project_id',$id)->first()->id;
       if($request->title != NULL){
         $project->title = $request->title;
@@ -694,7 +695,11 @@ class ProjectController extends Controller
       $notification->save();
       return redirect()->route('new_evaluation');
     }
-
+    public function ProjectRemove(){
+      $projects=Project::where('project_type_id',1)->get();
+      $monitoring_projects=Project::where('project_type_id',2)->get();
+      return view('projects.delete',compact('projects', 'monitoring_projects'));
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -703,7 +708,89 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $project = Project::find($id);
+      if($project->count()){
+        $project->AssignedDistricts()->delete();
+        $project->RevisedEndDate()->delete();
+        // if()
+        $project->ProblematicRemarks()->delete();
+        $project->RevisedApprovedCost()->delete();
+        $project-> AssignedSubSectors()->delete();
+
+        $project-> AssignedSponsoringAgencies()->delete();
+        $project-> AssigningForumSubList()->delete();
+        
+        $project->AssignedProjectManager()->delete();
+        if($project->AssignedProject){
+          
+          $project->AssignedProject->AssignedProjectTeam()->delete();
+            $project->AssignedProject-> AssignedProjectActivity()->delete();
+            if($project->project_type_id=='2'){
+            // dd($project->AssignedProject->MPhysicalActivity());
+            // $project->AssignedProject-> MPhysicalActivity()->delete();
+            // $project->AssignedProject-> MQualityAssesment()->delete();
+            // $project->AssignedProject-> MStakeHolder()->delete();
+            
+            foreach ($project->AssignedProject->MProjectProgress as $progresses) {
+              $progresses->MPlanObjectivecomponentMapping()->delete();
+              $progresses-> MAssignedProjectIssue()->delete();
+              $progresses-> MProjectDate()->delete();
+              $progresses-> MProjectOrganization()->delete();
+              $progresses-> MProjectCost()->delete();
+              $progresses-> MProjectLocation()->delete();
+              
+              $progresses->MAssignedProjectIssue()->delete();
+              $progresses-> MPlanKpicomponentMapping()->delete();
+              $progresses-> MAssignedProjectMappingObjective()->delete();
+              $progresses-> MAssignedProjectObjective()->delete();
+              $progresses-> MAssignedProjectComponent()->delete();
+              $progresses-> MFinancialPhase()->delete();
+              $progresses-> MConductQualityassesment()->delete();
+              $progresses-> MPlanComponentActivitiesMapping()->delete();
+              $progresses-> MPlanObjective()->delete();
+              $progresses-> MPlanComponent()->delete();
+              $progresses-> MBeneficiaryStakeholder()->delete();
+              $progresses-> MSponsoringStakeholder()->delete();
+              $progresses-> MExecutingStakeholder()->delete();
+              $progresses-> MUserVisitlocation()->delete();
+              // TODO : Delete Files too
+              $progresses-> MAppAttachment()->delete();
+              $progresses-> MProjectAttachment()->delete();
+              
+              $progresses-> MAssignedProjectFeedBack()->delete();
+              $progresses-> MAssignedProjectHealthSafety()->delete();
+
+              $progresses-> MAssignedKpiLevel4()->delete();
+              $progresses-> MAssignedKpiLevel3()->delete();
+              $progresses-> MAssignedKpiLevel2()->delete();
+              $progresses-> MAssignedKpiLevel1()->delete();
+              $progresses-> MAssignedKpi()->delete();
+              $progresses-> MAssignedUserKpi()->delete();
+              $progresses-> MAssignedUserLocation()->delete();
+              }
+              
+              $project->AssignedProject->MProjectProgress()->delete();
+              $project->AssignedExecutingAgencies()->delete();
+
+            }
+            
+            if($project->AssignedProject->AssignedProjectActivity->count())
+            {
+              $project->AssignedProject->AssignedProjectActivity->AssignedActivityAttachments()->delete();
+              $project->AssignedProject->AssignedProjectActivity->AssignedActivityDocument()->delete();
+            } 
+            $project->AssignedProject->AssignedProjectActivity()->delete();
+            $project->AssignedProject->ProjectLog()->delete();
+
+          }
+        }
+          // $project->EvaluationType()->delete();
+          // $project->ProjectType()->delete();
+
+          $project->ProjectLog()->delete();
+          $project->ProjectDetail()->delete();
+          $project->delete();
+          return redirect()->back();
     }
 
 
