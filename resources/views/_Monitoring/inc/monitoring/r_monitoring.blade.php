@@ -214,10 +214,10 @@ ul, #myUL {
                    <ul id="lightgallery" class="list-unstyled row">
                      <?php $i=1; ?>
                @foreach ($result_from_app->where('type','image/jpeg') as $attachment)
-                       <li class="col-xs-6 col-sm-4 col-md-3" data-responsive="" data-src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" data-sub-html="<h4>Date</h4><p>{{date('d M Y',strtotime($attachment->created_at))}} </p>">
+                       <li class="col-xs-6 col-sm-4 col-md-3" data-responsive="" data-src="{{'/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" data-sub-html="<h4>Date</h4><p>{{date('d M Y',strtotime($attachment->created_at))}} </p>">
                            <a href="">
                              <b class="float-left">#: {{$i++}}</b>
-                           <img class="img-responsive" src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
+                           <img class="img-responsive" src="{{'/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
                            <b class="float-right" style="padding:0% 10%">Date: {{date('d M Y',strtotime($attachment->created_at))}} </b>
                            </a>
                        </li>
@@ -273,8 +273,8 @@ ul, #myUL {
                <div class="col-lg-3 col-md-3 col-xs-6 thumb pdlfrt2">
                  <b class="float-left">#: {{$i++}}</b>
                <video controls>
-                 <source src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$video->m_project_progress_id.'/'.$video->project_attachement}}" type="video/mp4">
-                 <source src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$video->m_project_progress_id.'/'.$video->project_attachement}}" type="video/ogg">
+                 <source src="{{'/storage/uploads/monitoring/'.$video->m_project_progress_id.'/'.$video->project_attachement}}" type="video/mp4">
+                 <source src="{{'/storage/uploads/monitoring/'.$video->m_project_progress_id.'/'.$video->project_attachement}}" type="video/ogg">
                  Your browser does not support the video tag.
                </video>
                <b class="float-right" style="padding:0% 10%">Date: {{date('d M Y',strtotime($attachment->created_at))}} </b>
