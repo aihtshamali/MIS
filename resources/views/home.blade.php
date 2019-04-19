@@ -359,13 +359,13 @@ Home Page | DGME MIS
                         <p>Visit Inquires</p>
                     </a>
                 </div>
-                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.9s">
+                <!-- <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.9s">
                     <a href="{{route('trip.create')}}" class="tile orange">
                         <h3 class="title">Plan My Trip</h3>
                         <hr />
                         <p>Visit Plan My Trip</p>
                     </a>
-                </div>
+                </div> -->
 
                 @endrole
                 @role('manager')
@@ -400,13 +400,13 @@ Home Page | DGME MIS
                 </div> -->
                 @endrole
                 @role('transportofficer')
-                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.0s">
+                <!-- <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.0s">
                     <a href="http://vmis.dgme.gov.pk:8081/" class="tile green">
                         <h3 class="title">Vehicle Management System</h3>
                         <hr />
                         <p>visit VMIS</p>
                     </a>
-                </div>
+                </div> -->
                 @endrole
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.2s">
                     <a href="" class="tile green">
