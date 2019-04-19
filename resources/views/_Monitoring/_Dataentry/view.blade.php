@@ -39,7 +39,9 @@ th, td{white-space: normal !important;}
                               </td>
                               <td>
                                 {{-- {{dd($project->ProjectDe)}} --}}
+                                @if(isset($project->ProjectDetail->orignal_cost))
                                 {{$project->ProjectDetail->orignal_cost}}
+                                @endif
                               </td>
                               <td>
                                 <a href="{{route('projects.show',$project->id)}}" class="btn btn-sm btn-info">View Project</a>
