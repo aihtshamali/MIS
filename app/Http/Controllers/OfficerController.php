@@ -65,6 +65,10 @@ use App\MAssignedUserLocation;
 use App\MAssignedUserKpi;
 use Illuminate\Support\Facades\Redirect;
 use DB;
+use App\MProjectLevel1Kpi;
+use App\MProjectLevel2Kpi;
+use App\MProjectLevel3Kpi;
+use App\MProjectLevel4Kpi;
 class OfficerController extends Controller
 {
 
@@ -1638,5 +1642,78 @@ class OfficerController extends Controller
        $innertab=$tabs[1];
        return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
     }
+
+    public function customkpiComponentMapping(Request $request)
+    {
+      // dd($request->all());
+      $m_project_kpi = new MProjectKpi();
+      $m_project_kpi->name = $request->level1;
+      $m_project_kpi->standard = 0;
+      $m_project_kpi->status = 1;
+      
+      //Mapping Components
+      if(isset($request->component_mapped)){
+        $m_project_kpi->save();
+        foreach($request->component_mapped as $comp){
+          $component_mapping = new MPlanKpicomponentMapping();
+          $component_mapping->m_project_progress_id = $request->m_project_progress_id;
+          $component_mapping->m_plan_component_id = $comp;
+          $component_mapping->user_id = Auth::id();
+          $component_mapping->status = 1;
+          $component_mapping->m_project_kpi_id = $m_project_kpi->id;
+          $component_mapping->save();
+        }
+      }
+      else{
+        return redirect()->back();
+      }
+
+      $level1 = 1;
+      while(isset($request['level1_'.$level1])){
+        $level2 = 0;
+        $m_project_level1_kpi = new MProjectLevel1Kpi();
+        $m_project_level1_kpi->name = $request['level1_'.$level1];
+        $m_project_level1_kpi->weightage = 100;
+        $m_project_level1_kpi->status = 1;
+        $m_project_level1_kpi->m_project_kpi_id = $m_project_kpi->id;
+        $m_project_level1_kpi->save();
+        while(isset($request['level1_'.$level1.'_'.$level2])){
+          $level3 = 0;
+          $m_project_level2_kpi = new MProjectLevel2Kpi();
+          $m_project_level2_kpi->name = $request['level1_'.$level1.'_'.$level2];
+          // $m_project_level2_kpi->weightage = $request['weightage_level1_'.$level1.'_'.$level2];
+          $m_project_level2_kpi->status = 1;
+          $m_project_level2_kpi->m_project_level1_kpi_id = $m_project_level1_kpi->id;
+          $m_project_level2_kpi->save();
+          while(isset($request['level1_'.$level1.'_'.$level2.'_'.$level3])){
+            $level4 = 0;
+            $m_project_level3_kpi = new MProjectLevel3Kpi();
+            $m_project_level3_kpi->name = $request['level1_'.$level1.'_'.$level2.'_'.$level3];
+            // $m_project_level3_kpi->weightage = $request['weightage_level1_'.$level1.'_'.$level2.'_'.$level3];
+            $m_project_level3_kpi->status = 1;
+            $m_project_level3_kpi->m_project_level2_kpi = $m_project_level2_kpi->id;
+          $m_project_level3_kpi->save();
+            while(isset($request['level1_'.$level1.'_'.$level2.'_'.$level3.'_'.$level4])){
+              $m_project_level4_kpi = new MProjectLevel4Kpi();
+              $m_project_level4_kpi->name = $request['level1_'.$level1.'_'.$level2.'_'.$level3.'_'.$level4];
+              // $m_project_level4_kpi->weightage = $request['weightage_level1_'.$level1.'_'.$level2.'_'.$level3.'_'.$level4];
+              $m_project_level4_kpi->status = 1;
+              $m_project_level4_kpi->m_project_level3_kpi = $m_project_level3_kpi->id;
+            $m_project_level4_kpi->save();
+              $level4++;
+            }
+            $level3++;
+          }
+          $level2++;
+        }
+        $level1++;
+      }
+
+      $tabs=explode("_",$request->page_tabs);
+      $maintab=$tabs[0];
+      $innertab=$tabs[1];
+      return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
+    }
+
 
 }

@@ -397,18 +397,28 @@
                 </b>
             </div>
             <div class="CustomKPIsDiv nodisplay clearfix">
-                <form class="serializeform" action="{{route('kpiComponentMapping')}}" method="post">
                     <div class="card m-0 z-depth-right-0">
                         <div class="card-header">
                             <h4 class="form-txt-primary"> Custom KPIs</h4>
                         </div>
-                        <div class="card-block">
+                        <form id="customForm" class="" action="{{route('customkpiComponentMapping')}}" method="post">
+                        {{csrf_field()}}
+                        <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
+                        <input type="hidden" name="page_tabs" value="plan_uderKPI"> <div class="card-block">
                             <div class="customeKPIsHere form-group">
                                 <div class="col-md-12">
                                     <div class="DisInlineflex mb_2 col-md-12">
                                         <label class="col-sm-1 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level 1</label>
-                                        <div class="col-sm-7">
-                                            <input type="text" class="form-control" placeholder="aye bitch u there?????">
+                                        <div class="col-sm-5">
+                                            <input type="text" name="level1" class="form-control" placeholder="Enter Kpi">
+                                        </div>
+                                        <div class="col-sm-4 ml-3">
+                                            {{-- <input type="text" name="level1" class="form-control" placeholder="Enter Kpi"> --}}
+                                            <select name="component_mapped[]" required class="select2" multiple="multiple">
+                                                @foreach ($components as $item)
+                                                    <option value="{{$item->id}}">{{$item->component}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                         <div class="col-sm-2 text_center">
                                             <button class="btn btn-sm btn-info" type="button" id="addcustomeKPIs" tabindex="1">+</button>
@@ -417,8 +427,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </form>
+                        <button type="button" id="customButton" class="btn btn-success pull-right mr-5">SAVE</button>
+                        </form>
+                </div>
             </div>
             <div class="col-md-12 expandheader clearfix">
                 <b class="float-left font-15 pdlfrt form-txt-primary">Default KPIs</b>
