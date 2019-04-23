@@ -1481,9 +1481,141 @@ $(document).ready(function() {
       .remove();
     $(this).remove();
   });
+
   var user_location_id_count = 1;
   //   $("#counts_user_location_id").val(user_location_id_count);
 
+  $(".defaultkpiplus").click(function () {
+    $(".defaultKPIsDiv").show();
+    // $(".defaultKPIs").show("slow");
+    $(".defaultkpiplus").hide();
+    $(".defaultkpiminus").show();
+  });
+  $(".defaultkpiminus").click(function () {
+    $(".defaultKPIsDiv").hide();
+    // $(".defaultKPIs").hide("slow");
+    $(".defaultkpiplus").show();
+    $(".defaultkpiminus").hide();
+  });
+  $(".Customkpiplus").click(function () {
+    $(".CustomKPIsDiv").show();
+    // $(".defaultKPIs").show("slow");
+    $(".Customkpiplus").hide();
+    $(".Customkpiminus").show();
+  });
+  $(".Customkpiminus").click(function () {
+    $(".CustomKPIsDiv").hide();
+    // $(".defaultKPIs").hide("slow");
+    $(".Customkpiplus").show();
+    $(".Customkpiminus").hide();
+  });
+  var p = 1;
+  var child = 1;
+  var childl2 = 0;
+  var child2 = 0;
+  var child3 = 0;
+  var child4 = 0;
+  var childl3 = 0;
+  var childl4 = 0;
+  $("#addcustomeKPIs").click(function () {
+    var customeKPIs =`
+      <div class="col-md-12">
+          <div class="DisInlineflex mb_2 col-md-12">
+              <label class="col-sm-1 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level `+ ++p +`</label>
+              <div class="col-sm-7">
+                  <input type="text" name="level1_`+ child++ +`" class="form-control" placeholder="Level `+ p +`">
+              </div>
+              <div class="col-sm-1 text_center">
+                  <button class="btn btn-sm btn-info" type="button" id="addcustomeKPIs`+ p +`" tabindex="1">+</button>
+              </div>
+              <div class="col-sm-1 text_center">
+                  <button class="delcustomeKPIs btn btn-sm btn-danger" type="button" id="" tabindex="1">-</button>
+              </div>
+            </div>
+            <div class="mb_2 level`+ p +`child cloneleveltwohere clearfix">
+            </div>
+      </div>
+      `;
+    $(".customeKPIsHere").append(customeKPIs);
+    // level 2 custom kpi
+    $("#addcustomeKPIs"+ p).click(function () {
+      var parent = $($(this).parent().siblings()[1]).find('input').attr('name');
+      var customeKPIslevel2 = `
+        <div class="col-md-12">
+            <div class="DisInlineflex mb_2 col-md-12">
+                <label class="col-sm-2 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level `+ ++p + ` child `+ ++childl2 +`</label>
+                <div class="col-sm-7 mr-2">
+                    <input type="text" name="`+parent.toString()+`_`+ child2++ +`" class="form-control" placeholder="Level `+ p + `">
+                </div>
+                <!-- <div class="col-sm-2">
+                    <input type="number" required name="weightage_`+parent.toString()+`_`+ child2++ +`" class="form-control" placeholder="Level `+ p + `">
+                </div> -->
+                <div class="col-sm-1 text_center">
+                  <button class="btn btn-sm btn-info" type="button" id="addcustomeKPIs`+ p +`" tabindex="1">+</button>
+              </div>
+                <div class="col-sm-1 text_center">
+                    <button class="delcustomeKPIs btn btn-sm btn-danger" type="button" id="" tabindex="1">-</button>
+                </div>
+            </div>
+            <div class="mb_2 level`+ p +`child clonelevelthreehere clearfix">
+            </div>
+        </div>
+        `;
+      $(this).parents().parents().next(".cloneleveltwohere").append(customeKPIslevel2);
+      // level 3 custom kpi
+      $("#addcustomeKPIs" + p).click(function () {
+        var parent2 = $($(this).parent().siblings()[1]).find('input').attr('name');
+         
+        var customeKPIslevel3 = `
+        <div class="col-md-12">
+            <div class="DisInlineflex mb_2 col-md-12">
+                <label class="offset-md-1 col-sm-2 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level `+ ++p + ` child `+ ++childl3 + `</label>
+                <div class="col-sm-7 mr-2">
+                    <input type="text" name="`+parent2.toString()+`_`+ child3++ +`" class="form-control" placeholder="Level `+ p + `">
+                </div>
+                <!-- <div class="col-sm-2">
+                    <input type="number" required name="weightage_`+parent2.toString()+`_`+ child3++ +`" class="form-control" placeholder="Level `+ p + `">
+                </div> -->
+                <div class="col-sm-1 text_center">
+                  <button class="btn btn-sm btn-info" type="button" id="addcustomeKPIs`+ p +`" tabindex="1">+</button>
+                </div>
+                <div class="col-sm-1 text_center">
+                    <button class="delcustomeKPIs btn btn-sm btn-danger" type="button" id="" tabindex="1">-</button>
+                </div>
+            </div>
+            <div class="mb_2 level`+ p + `child clonelevelfourhere clearfix">
+            </div>
+        </div>
+        `;
+        $(this).parents().parents().next(".clonelevelthreehere").append(customeKPIslevel3);
+        // level 4 custom kpi
+        $("#addcustomeKPIs" + p).click(function () {
+          var parent3 = $($(this).parent().siblings()[1]).find('input').attr('name');
+          var customeKPIslevel4 = `
+          <div class="col-md-12">
+              <div class="DisInlineflex mb_2 col-md-12">
+                  <label class="offset-md-2 col-sm-2 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level `+ ++p + ` child `+ ++childl4 +`</label>
+                  <div class="col-sm-7 mr-2">
+                      <input type="text" name="`+parent3.toString()+`_`+ child4++ +`" class="form-control" placeholder="Level `+ p +`">
+                  </div>
+                  <!-- <div class="col-sm-2">
+                      <input type="number" required name="weightage_`+parent3.toString()+`_`+ child4++ +`" class="form-control" placeholder="Level `+ p +`">
+                  </div> -->
+                  <div class="col-sm-1 text_center">
+                      <button class="delcustomeKPIs btn btn-sm btn-danger" type="button" id="" tabindex="1">-</button>
+                  </div>
+              </div>
+          </div>
+          `;
+            $(this).parents().parents().next(".clonelevelfourhere").append(customeKPIslevel4);
+        });
+      });
+  });
+});
+// remove custom kpis
+  $(document).on('click', 'button.delcustomeKPIs', function (){
+    $(this).parent().parent().parent().remove();
+  });
   $("#CloneUserKPI").click(function() {
     let data = $("#CloneThisUserKPI").clone();
     let user_div = data.find("select")[0];
@@ -1519,5 +1651,50 @@ $(document).ready(function() {
       .prev()
       .remove();
     $(this).remove();
+  });
+
+  $(document).on("click", "#customButton", function() {
+    $.each($('.cloneleveltwohere'),function(index,value){
+      // console.log(value);
+      var count = 0;
+      $.each($(value).children(),function(i,v){
+        let name =  $(v).find('input').attr('name').split('_');
+        let new_name = name[0]+'_'+name[1]+'_'+count;
+        $(v).find('input').attr('name',new_name);
+
+        // name = $($($(v).find('input'))[1]).attr('name').split('_');
+        // new_name = name[0]+'_'+name[1]+'_'+name[2]+'_'+count++;
+        // $($($(v).find('input'))[1]).attr('name',new_name);
+      });
+    });
+
+    $.each($('.clonelevelthreehere'),function(index,value){
+      // console.log(value);
+      var count = 0;
+      $.each($(value).children(),function(i,v){
+        let name =  $(v).find('input').attr('name').split('_');
+        let new_name = name[0]+'_'+name[1]+'_'+name[2]+'_'+count;
+        $(v).find('input').attr('name',new_name);
+
+        // name = $($($(v).find('input'))[1]).attr('name').split('_');
+        // new_name = name[0]+'_'+name[1]+'_'+name[2]+'_'+name[3]+'_'+count++;
+        // $($($(v).find('input'))[1]).attr('name',new_name);
+      });
+    });
+
+    $.each($('.clonelevelfourhere'),function(index,value){
+      // console.log(value);
+      var count = 0;
+      $.each($(value).children(),function(i,v){
+        let name =  $(v).find('input').attr('name').split('_');
+        let new_name = name[0]+'_'+name[1]+'_'+name[2]+'_'+name[3]+'_'+count;
+        $(v).find('input').attr('name',new_name);
+
+        // name = $($($(v).find('input'))[1]).attr('name').split('_');
+        // new_name = name[0]+'_'+name[1]+'_'+name[2]+'_'+name[3]+'_'+name[4]+'_'+count++;
+        // $($($(v).find('input'))[1]).attr('name',new_name);
+      });
+    });
+    $('#customForm').submit();
   });
 });
