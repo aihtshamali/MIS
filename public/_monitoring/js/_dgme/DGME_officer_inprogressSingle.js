@@ -1544,7 +1544,7 @@ $(document).ready(function() {
         <div class="col-md-12">
             <div class="DisInlineflex mb_2 col-md-12">
                 <label class="col-sm-2 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level `+ ++p + ` child `+ ++childl2 +`</label>
-                <div class="col-sm-7 mr-2">
+                <div class="col-sm-5 mr-2">
                     <input type="text" name="`+parent.toString()+`_`+ child2++ +`" class="form-control" placeholder="Level `+ p + `">
                 </div>
                  <div class="col-sm-2">
@@ -1570,7 +1570,7 @@ $(document).ready(function() {
         <div class="col-md-12">
             <div class="DisInlineflex mb_2 col-md-12">
                 <label class="offset-md-1 col-sm-2 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level `+ ++p + ` child `+ ++childl3 + `</label>
-                <div class="col-sm-7 mr-2">
+                <div class="col-sm-5 mr-2">
                     <input type="text" name="`+parent2.toString()+`_`+ child3++ +`" class="form-control" placeholder="Level `+ p + `">
                 </div>
                  <div class="col-sm-2">
@@ -1595,7 +1595,7 @@ $(document).ready(function() {
           <div class="col-md-12">
               <div class="DisInlineflex mb_2 col-md-12">
                   <label class="offset-md-2 col-sm-2 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level `+ ++p + ` child `+ ++childl4 +`</label>
-                  <div class="col-sm-7 mr-2">
+                  <div class="col-sm-5 mr-2">
                       <input type="text" name="`+parent3.toString()+`_`+ child4++ +`" class="form-control" placeholder="Level `+ p +`">
                   </div>
                    <div class="col-sm-2">
