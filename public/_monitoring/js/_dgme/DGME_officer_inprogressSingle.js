@@ -1547,9 +1547,9 @@ $(document).ready(function() {
                 <div class="col-sm-7 mr-2">
                     <input type="text" name="`+parent.toString()+`_`+ child2++ +`" class="form-control" placeholder="Level `+ p + `">
                 </div>
-                <!-- <div class="col-sm-2">
-                    <input type="number" required name="weightage_`+parent.toString()+`_`+ child2++ +`" class="form-control" placeholder="Level `+ p + `">
-                </div> -->
+                 <div class="col-sm-2">
+                    <input type="number" required name="weightage_`+ parent.toString() + `_` + child2++ + `" class="form-control" placeholder="Level ` + p + `  Weightage">
+                </div> 
                 <div class="col-sm-1 text_center">
                   <button class="btn btn-sm btn-info" type="button" id="addcustomeKPIs`+ p +`" tabindex="1">+</button>
               </div>
@@ -1573,9 +1573,9 @@ $(document).ready(function() {
                 <div class="col-sm-7 mr-2">
                     <input type="text" name="`+parent2.toString()+`_`+ child3++ +`" class="form-control" placeholder="Level `+ p + `">
                 </div>
-                <!-- <div class="col-sm-2">
-                    <input type="number" required name="weightage_`+parent2.toString()+`_`+ child3++ +`" class="form-control" placeholder="Level `+ p + `">
-                </div> -->
+                 <div class="col-sm-2">
+                    <input type="number" required name="weightage_`+parent2.toString()+`_`+ child3++ +`" class="form-control" placeholder="Level `+ p + ` Weightage">
+                </div> 
                 <div class="col-sm-1 text_center">
                   <button class="btn btn-sm btn-info" type="button" id="addcustomeKPIs`+ p +`" tabindex="1">+</button>
                 </div>
@@ -1598,9 +1598,9 @@ $(document).ready(function() {
                   <div class="col-sm-7 mr-2">
                       <input type="text" name="`+parent3.toString()+`_`+ child4++ +`" class="form-control" placeholder="Level `+ p +`">
                   </div>
-                  <!-- <div class="col-sm-2">
-                      <input type="number" required name="weightage_`+parent3.toString()+`_`+ child4++ +`" class="form-control" placeholder="Level `+ p +`">
-                  </div> -->
+                   <div class="col-sm-2">
+                      <input type="number" required name="weightage_`+parent3.toString()+`_`+ child4++ +`" class="form-control" placeholder="Level `+ p +` Weightage">
+                  </div> 
                   <div class="col-sm-1 text_center">
                       <button class="delcustomeKPIs btn btn-sm btn-danger" type="button" id="" tabindex="1">-</button>
                   </div>
