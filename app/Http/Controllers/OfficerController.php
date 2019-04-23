@@ -1681,7 +1681,7 @@ class OfficerController extends Controller
           $level3 = 0;
           $m_project_level2_kpi = new MProjectLevel2Kpi();
           $m_project_level2_kpi->name = $request['level1_'.$level1.'_'.$level2];
-          // $m_project_level2_kpi->weightage = $request['weightage_level1_'.$level1.'_'.$level2];
+          $m_project_level2_kpi->weightage = $request['weightage_level1_'.$level1.'_'.$level2];
           $m_project_level2_kpi->status = 1;
           $m_project_level2_kpi->m_project_level1_kpi_id = $m_project_level1_kpi->id;
           $m_project_level2_kpi->save();
@@ -1689,14 +1689,14 @@ class OfficerController extends Controller
             $level4 = 0;
             $m_project_level3_kpi = new MProjectLevel3Kpi();
             $m_project_level3_kpi->name = $request['level1_'.$level1.'_'.$level2.'_'.$level3];
-            // $m_project_level3_kpi->weightage = $request['weightage_level1_'.$level1.'_'.$level2.'_'.$level3];
+            $m_project_level3_kpi->weightage = $request['weightage_level1_'.$level1.'_'.$level2.'_'.$level3];
             $m_project_level3_kpi->status = 1;
             $m_project_level3_kpi->m_project_level2_kpi = $m_project_level2_kpi->id;
           $m_project_level3_kpi->save();
             while(isset($request['level1_'.$level1.'_'.$level2.'_'.$level3.'_'.$level4])){
               $m_project_level4_kpi = new MProjectLevel4Kpi();
               $m_project_level4_kpi->name = $request['level1_'.$level1.'_'.$level2.'_'.$level3.'_'.$level4];
-              // $m_project_level4_kpi->weightage = $request['weightage_level1_'.$level1.'_'.$level2.'_'.$level3.'_'.$level4];
+              $m_project_level4_kpi->weightage = $request['weightage_level1_'.$level1.'_'.$level2.'_'.$level3.'_'.$level4];
               $m_project_level4_kpi->status = 1;
               $m_project_level4_kpi->m_project_level3_kpi = $m_project_level3_kpi->id;
             $m_project_level4_kpi->save();

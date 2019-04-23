@@ -415,6 +415,7 @@
                                         <div class="col-sm-4 ml-3">
                                             {{-- <input type="text" name="level1" class="form-control" placeholder="Enter Kpi"> --}}
                                             <select name="component_mapped[]" required class="select2" multiple="multiple">
+                                                <option value="" disabled>Choose Components</option>
                                                 @foreach ($components as $item)
                                                     <option value="{{$item->id}}">{{$item->component}}</option>
                                                 @endforeach
