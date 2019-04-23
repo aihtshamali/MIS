@@ -1090,7 +1090,8 @@ $(document).ready(function()
         }
         }
     }
-    const url = 'https://api.cloudinary.com/v1_1/dxlhzerlq/upload';
+    // TODO
+    // const url = 'https://api.cloudinary.com/v1_1/dxlhzerlq/upload';
     const data = new FormData();
     data.append("upload_preset", "acjlrvii"); //append cloudinary specific config
     data.append('file', file);

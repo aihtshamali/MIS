@@ -352,68 +352,39 @@ transform: rotate(90deg);
             <h2 class="txtdecundlin pointer">WBS</h2>
             @forelse ($progresses->MAssignedUserLocation as $sites)
             <ul id="myUL">
-              <li><span class="caret caret-right">{{$sites->District->name}} / {{$sites->site_name}}
-                  @foreach ($sites->MAssignedUserKpi as $assigned_kpi)
-                  <ul class="nested nodisplay">
-                    <li>{{$assigned_kpi->MProjectKpi->name}}</li>
-                    @foreach ($assigned_kpi->MAssignedKpi as $kpi)
-                    @foreach ($kpi->MAssignedKpiLevel1 as $kpilev1)
-                    <li>
-                      <span class="caret caret-right">
-                        <ul class="nested nodisplay">
-                          <li>{{$kpilev1->MProjectLevel1Kpi->name}} - Weightage Given ({{$kpilev1->current_weightage}})
-                          </li>
-                          @foreach ($kpilev1->MAssignedKpiLevel2 as $kpilev2)
-                          <li><span class="caret caret-right">{{$kpilev2->MProjectLevel2Kpi->name}} - Weightage Given ({{$kpilev2->current_weightage}})
-                              @foreach ($kpilev2->MAssignedKpiLevel3 as $kpilev3)
-                          <li><span class="caret caret-right">{{$kpilev3->MProjectLevel3Kpi->name}} - Weightage Given ({{$kpilev3->current_weightage}})
+              <li><span class="caret caret-right">{{$sites->District->name}} / {{$sites->site_name}}</span>
+                @foreach ($sites->MAssignedUserKpi as $assigned_kpi)
+                <ul class="nested nodisplay">
+                  <li>{{$assigned_kpi->MProjectKpi->name}}</li>
+                  @foreach ($assigned_kpi->MAssignedKpi as $kpi)
+                  @foreach ($kpi->MAssignedKpiLevel1 as $kpilev1)
+                  <li><span class="caret caret-right">{{$kpilev1->MProjectLevel1Kpi->name}} - Weightage Given ({{$kpilev1->current_weightage}})</span>
+                    <ul class="nested nodisplay">
+                      @foreach ($kpilev1->MAssignedKpiLevel2 as $kpilev2)
+                      <li><span class="caret caret-right">{{$kpilev2->MProjectLevel2Kpi->name}} - Weightage Given ({{$kpilev2->current_weightage}})</span>
+                        @foreach ($kpilev2->MAssignedKpiLevel3 as $kpilev3)
+                      <li><span class="caret caret-right">{{$kpilev3->MProjectLevel3Kpi->name}} - Weightage Given ({{$kpilev3->current_weightage}})</span>
 
-                              <ul class="nested nodisplay">
-                                @foreach ($kpilev3->MAssignedKpiLevel4 as $kpilev4)
-                                <li>{{$kpilev3->MProjectLevel4Kpi->name}} - Weightage Given ({{$kpilev4->current_weightage}})</li>
-                                @endforeach
-                              </ul>
-                            </span>
-                          </li>
+                        <ul class="nested nodisplay">
+                          @foreach ($kpilev3->MAssignedKpiLevel4 as $kpilev4)
+                          <li>{{$kpilev3->MProjectLevel4Kpi->name}} - Weightage Given ({{$kpilev4->current_weightage}})</li>
                           @endforeach
-                      </span>
-                    </li>
-                    @endforeach
-                  </ul>
-                </span>
+                        </ul>
+                      </li>
+                      @endforeach
+                  </li>
+                  @endforeach
+                </ul>
               </li>
               @endforeach
               @endforeach
             </ul>
-            </span>
             </li>
             @endforeach
             </ul>
             @empty
             <p>No KPI Selected</p>
             @endforelse
-            <!-- <ul id="myUL">
-                  <li><span class="caret caret-down">Beverages</span>
-                    <ul class="nested active">
-                      <li>Water</li>
-                      <li>Coffee</li>
-                      <li><span class="caret caret-down">Tea</span>
-                        <ul class="nested active">
-                          <li>Black Tea</li>
-                          <li>White Tea</li>
-                          <li><span class="caret caret-down">Green Tea</span>
-                            <ul class="nested active">
-                              <li>Sencha</li>
-                              <li>Gyokuro</li>
-                              <li>Matcha</li>
-                              <li>Pi Lo Chun</li>
-                            </ul>
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </li>
-                </ul> -->
           </div>
           <!-- ---------------- end tree vie ------------------ -->
         </div>
