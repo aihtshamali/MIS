@@ -1662,9 +1662,9 @@ $(document).ready(function() {
         let new_name = name[0]+'_'+name[1]+'_'+count;
         $(v).find('input').attr('name',new_name);
 
-        // name = $($($(v).find('input'))[1]).attr('name').split('_');
-        // new_name = name[0]+'_'+name[1]+'_'+name[2]+'_'+count++;
-        // $($($(v).find('input'))[1]).attr('name',new_name);
+        name = $($($(v).find('input'))[1]).attr('name').split('_');
+        new_name = name[0]+'_'+name[1]+'_'+name[2]+'_'+count++;
+        $($($(v).find('input'))[1]).attr('name',new_name);
       });
     });
 
@@ -1676,9 +1676,9 @@ $(document).ready(function() {
         let new_name = name[0]+'_'+name[1]+'_'+name[2]+'_'+count;
         $(v).find('input').attr('name',new_name);
 
-        // name = $($($(v).find('input'))[1]).attr('name').split('_');
-        // new_name = name[0]+'_'+name[1]+'_'+name[2]+'_'+name[3]+'_'+count++;
-        // $($($(v).find('input'))[1]).attr('name',new_name);
+        name = $($($(v).find('input'))[1]).attr('name').split('_');
+        new_name = name[0]+'_'+name[1]+'_'+name[2]+'_'+name[3]+'_'+count++;
+        $($($(v).find('input'))[1]).attr('name',new_name);
       });
     });
 
@@ -1690,9 +1690,9 @@ $(document).ready(function() {
         let new_name = name[0]+'_'+name[1]+'_'+name[2]+'_'+name[3]+'_'+count;
         $(v).find('input').attr('name',new_name);
 
-        // name = $($($(v).find('input'))[1]).attr('name').split('_');
-        // new_name = name[0]+'_'+name[1]+'_'+name[2]+'_'+name[3]+'_'+name[4]+'_'+count++;
-        // $($($(v).find('input'))[1]).attr('name',new_name);
+        name = $($($(v).find('input'))[1]).attr('name').split('_');
+        new_name = name[0]+'_'+name[1]+'_'+name[2]+'_'+name[3]+'_'+name[4]+'_'+count++;
+        $($($(v).find('input'))[1]).attr('name',new_name);
       });
     });
     $('#customForm').submit();
