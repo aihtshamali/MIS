@@ -301,9 +301,10 @@ ul, #myUL {
                                 <ul class="nested active">
                                   <li>{{$kpilev1->MProjectLevel1Kpi->name}} - Weightage Given ({{$kpilev1->current_weightage}})</li>                                  
                                   @foreach ($kpilev1->MAssignedKpiLevel2 as $kpilev2)
-                                    <li><span class="caret caret-down">{{$kpilev2->MProjectLevel2Kpi->name}} - Weightage Given ({{$kpilev2->current_weightage}})</span>
+                                    <li>
+                                        <span class="{{count($kpilev2->MAssignedKpiLevel3) : 'caret caret-down' ? ''}}">{{$kpilev2->MProjectLevel2Kpi->name}} - Weightage Given ({{$kpilev2->current_weightage}})</span>
                                      @foreach ($kpilev2->MAssignedKpiLevel3 as $kpilev3)
-                                     <li><span class="caret caret-down">{{$kpilev3->MProjectLevel3Kpi->name}} - Weightage Given ({{$kpilev3->current_weightage}})</span>
+                                     <li><span class="{{count($kpilev3->MAssignedKpiLevel4) : 'caret caret-down' ? ''}}">{{$kpilev3->MProjectLevel3Kpi->name}} - Weightage Given ({{$kpilev3->current_weightage}})</span>
                                       
                                       <ul class="nested active">
                                       @foreach ($kpilev3->MAssignedKpiLevel4 as $kpilev4)
