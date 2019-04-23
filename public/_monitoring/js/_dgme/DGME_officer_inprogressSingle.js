@@ -1658,9 +1658,9 @@ $(document).ready(function() {
       // console.log(value);
       var count = 0;
       $.each($(value).children(),function(i,v){
-        let name =  $(v).find('input').attr('name').split('_');
+        let name =  $($($(v).find('input'))[0]).attr('name').split('_');
         let new_name = name[0]+'_'+name[1]+'_'+count;
-        $(v).find('input').attr('name',new_name);
+        $($($(v).find('input'))[0]).attr('name',new_name);
 
         name = $($($(v).find('input'))[1]).attr('name').split('_');
         new_name = name[0]+'_'+name[1]+'_'+name[2]+'_'+count++;
@@ -1672,9 +1672,9 @@ $(document).ready(function() {
       // console.log(value);
       var count = 0;
       $.each($(value).children(),function(i,v){
-        let name =  $(v).find('input').attr('name').split('_');
+        let name =  $($($(v).find('input'))[0]).attr('name').split('_');
         let new_name = name[0]+'_'+name[1]+'_'+name[2]+'_'+count;
-        $(v).find('input').attr('name',new_name);
+        $($($(v).find('input'))[0]).attr('name',new_name);
 
         name = $($($(v).find('input'))[1]).attr('name').split('_');
         new_name = name[0]+'_'+name[1]+'_'+name[2]+'_'+name[3]+'_'+count++;
@@ -1686,9 +1686,9 @@ $(document).ready(function() {
       // console.log(value);
       var count = 0;
       $.each($(value).children(),function(i,v){
-        let name =  $(v).find('input').attr('name').split('_');
+        let name =  $($($(v).find('input'))[0]).attr('name').split('_');
         let new_name = name[0]+'_'+name[1]+'_'+name[2]+'_'+name[3]+'_'+count;
-        $(v).find('input').attr('name',new_name);
+        $($($(v).find('input'))[0]).attr('name',new_name);
 
         name = $($($(v).find('input'))[1]).attr('name').split('_');
         new_name = name[0]+'_'+name[1]+'_'+name[2]+'_'+name[3]+'_'+name[4]+'_'+count++;
