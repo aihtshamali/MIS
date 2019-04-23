@@ -293,32 +293,34 @@ ul, #myUL {
                   <li><span class="caret caret-down">{{$sites->District->name}} / {{$sites->site_name}}</span>
                     @foreach ($sites->MAssignedUserKpi as $assigned_kpi)
                       <ul class="nested active">
-                        <li>{{$assigned_kpi->MProjectKpi->name}}</li>
-                          {{-- <li>Coffee</li> --}}
+                        <li><span class="caret caret-down">{{$assigned_kpi->MProjectKpi->name}}</span>
+                                <ul class="nested active">
                           @foreach ($assigned_kpi->MAssignedKpi as $kpi)                              
                             @foreach ($kpi->MAssignedKpiLevel1 as $kpilev1)
-                              <li><span class="caret caret-down"></span>
-                                <ul class="nested active">
-                                  <li>{{$kpilev1->MProjectLevel1Kpi->name}} - Weightage Given ({{$kpilev1->current_weightage}})</li>                                  
+                                  <li><span class="caret caret-down">{{$kpilev1->MProjectLevel1Kpi->name}} - Weightage Given ({{$kpilev1->current_weightage}})</span>                              
+                                    <ul class="nested active">
                                   @foreach ($kpilev1->MAssignedKpiLevel2 as $kpilev2)
                                     <li>
-                                        <span class="{{count($kpilev2->MAssignedKpiLevel3) : 'caret caret-down' ? ''}}">{{$kpilev2->MProjectLevel2Kpi->name}} - Weightage Given ({{$kpilev2->current_weightage}})</span>
+                                        <span class="{{isset($kpilev2->MAssignedKpiLevel3) && count($kpilev2->MAssignedKpiLevel3)>0 ? 'caret caret-down' : ''}}">{{$kpilev2->MProjectLevel2Kpi->name}} - Weightage Given ({{$kpilev2->current_weightage}})</span>
+                                      <ul class="nested active">
                                      @foreach ($kpilev2->MAssignedKpiLevel3 as $kpilev3)
-                                     <li><span class="{{count($kpilev3->MAssignedKpiLevel4) : 'caret caret-down' ? ''}}">{{$kpilev3->MProjectLevel3Kpi->name}} - Weightage Given ({{$kpilev3->current_weightage}})</span>
+                                     <li><span class="{{isset($kpilev3->MAssignedKpiLevel4) && count($kpilev3->MAssignedKpiLevel4)>0 ? 'caret caret-down' : ''}}">{{$kpilev3->MProjectLevel3Kpi->name}} - Weightage Given ({{$kpilev3->current_weightage}})</span>
                                       
                                       <ul class="nested active">
                                       @foreach ($kpilev3->MAssignedKpiLevel4 as $kpilev4)
-                                            <li>{{$kpilev3->MProjectLevel4Kpi->name}} - Weightage Given ({{$kpilev4->current_weightage}})</li>
+                                            <li>{{$kpilev4->MProjectLevel4Kpi->name}} - Weightage Given ({{$kpilev4->current_weightage}})</li>
                                       @endforeach                              
                                       </ul>
                                       </li>           
                                      @endforeach 
+                                      </ul>
                                     </li>
                                   @endforeach
-                                </ul>
-                              </li>                              
+                                      </ul>
                             @endforeach
                           @endforeach
+                                </ul>
+                          </li>
                         </ul>
                       </li>                        
                     @endforeach
