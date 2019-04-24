@@ -116,10 +116,9 @@ function calculateEarnedvalue($m_project_progress_id)
 {
   $physical_progress=calculateMPhysicalProgress($m_project_progress_id);
   $financial_cost=App\MProjectCost::where('m_project_progress_id',$m_project_progress_id)->orderBy('created_at','desc')->first();
-  if($financial_cost)    
+  $earnedvalue=0;
+  if(isset($financial_cost->total_release_to_date))   
     $earnedvalue= ($physical_progress/100) * $financial_cost->total_release_to_date;
-  else
-    $earnedvalue= 0;
 
   // $original_cost=App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->ProjectDetail->orignal_cost;
   // $revised_approved_cost=App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->RevisedApprovedCost->last();
@@ -140,10 +139,9 @@ function calculatePlannedValue($m_project_progress_id)
 {
   $planned_progress=calculatePlannedProgress($m_project_progress_id);
    $financial_cost=App\MProjectCost::where('m_project_progress_id',$m_project_progress_id)->orderBy('created_at','desc')->first();
-  if ($financial_cost)
-    $plannedvalue= ($planned_progress/100) * $financial_cost->total_release_to_date;
-  else
-    $plannedvalue= 0; 
+   $plannedvalue=0;
+  if(isset($financial_cost->total_release_to_date)) 
+     $plannedvalue= ($planned_progress/100) * $financial_cost->total_release_to_date;
   // $original_cost=App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->ProjectDetail->orignal_cost;
   // $revised_approved_cost=App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->RevisedApprovedCost->last();
    
