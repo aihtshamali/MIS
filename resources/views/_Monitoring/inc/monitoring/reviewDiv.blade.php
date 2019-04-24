@@ -54,7 +54,7 @@
                     <div class="col-md-5 offset-md-1 float-left form-group">
                         <label for="" class="col-form-label"><b>Total Releases To Date :</b></label>
                         <br>
-                        <input type="text" step="0.01" class="form-control" name="total_release_to_date" id="total_release_to_date"
+                        <input type="number" step="0.01" class="form-control" name="total_release_to_date" id="total_release_to_date"
                         @if ($costs)
                           value="{{ round($costs->total_release_to_date,2,PHP_ROUND_HALF_UP) }}"
                         @else
@@ -65,7 +65,7 @@
                     <div class="col-md-5 float-left form-group">
                         <label for="" class="col-form-label"><b>Release To Date of Fiscal Year :</b></label>
                         <br>
-                        <input type="text" step="0.01" class="form-control" name="release_to_date_of_fiscal_year" id="release_to_date"
+                        <input type="number" step="0.01" class="form-control" name="release_to_date_of_fiscal_year" id="release_to_date"
                         @if ($costs)
                           value="{{ round($costs->release_to_date_of_fiscal_year,2,PHP_ROUND_HALF_UP) }}"
                         @else
@@ -76,7 +76,7 @@
                     <div class="col-md-5 offset-md-1 float-left form-group">                        
                         <label for="" class="col-form-label"><b>Utilization :</b></label>
                         <br>
-                        <input type="text" class="form-control" name="utilization_against_releases" id="u_against_rel"
+                        <input type="number" class="form-control" name="utilization_against_releases" id="u_against_rel"
                         @if ($costs)
                           value="{{ round($costs->utilization_against_releases,2,PHP_ROUND_HALF_UP) }}"
                         @else
@@ -87,7 +87,7 @@
                     <div class="col-md-5 float-left form-group">
                         <label for="" class="col-form-label"><b>Total Allocation by that time (Cumulative):</b></label>
                         <br>
-                        <input type="text" step="0.01" class="form-control" name="total_allocation_by_that_time" id="ADP_allocation_cost"
+                        <input type="number" step="0.01" class="form-control" name="total_allocation_by_that_time" id="ADP_allocation_cost"
                         @if ($costs)
                           value="{{ round($costs->total_allocation_by_that_time,2,PHP_ROUND_HALF_UP) }}"
                         @else
@@ -105,7 +105,7 @@
                       <div class="form-group">
                         <label for="" class="col-form-label"><b>Technical Sanction Cost:</b></label>
                         <br>
-                        <input class="form-control" type="text" name="technical_sanction_cost" placeholder="TS Cost"
+                        <input class="form-control" type="number" name="technical_sanction_cost" placeholder="TS Cost"
                         @if ($costs)
                           value="{{ round($costs->technical_sanction_cost,2,PHP_ROUND_HALF_UP) }}"
                         @else
@@ -116,7 +116,7 @@
                       <div class="form-group">
                         <label for="" class="col-form-label"><b>Contract Award Cost :</b></label>
                         <br>
-                        <input class="form-control" type="text" name="contract_award_cost"  placeholder="Contract Cost"
+                        <input class="form-control" type="number" name="contract_award_cost"  placeholder="Contract Cost"
                         @if ($costs)
                           value="{{ round($costs->contract_award_cost,2,PHP_ROUND_HALF_UP) }}"
                         @else
@@ -184,7 +184,7 @@
           <div class="form-group row mb_2">
               <label class="col-sm-3 font-15">GPS</label>
               <div class="col-sm-9">
-                <input type="text" name="gps" class="form-control" placeholder="GPS"
+                <input type="text" disabled name="gps" class="form-control" placeholder="GPS"
                 @if ($location)
                   value="{{ $location->gps }}"
                 @else
@@ -196,7 +196,7 @@
           <div class="form-group row mb_2">
               <label class="col-sm-3 font-15">Longitude</label>
               <div class="col-sm-9">
-                <input type="text" name="longitude" class="form-control" placeholder="Longitude"
+                <input type="text" disabled  name="longitude" class="form-control" placeholder="Longitude"
                 @if ($location)
                   value="{{ $location->longitude }}"
                 @else
@@ -208,7 +208,7 @@
           <div class="form-group row mb_2">
               <label class="col-sm-3 font-15">Latitude</label>
               <div class="col-sm-9">
-                <input type="text" name="latitiude" class="form-control" placeholder="Latitude"
+                <input type="text" disabled name="latitiude" class="form-control" placeholder="Latitude"
                 @if ($location)
                   value="{{ $location->latitude }}"
                 @else
