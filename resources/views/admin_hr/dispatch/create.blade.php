@@ -21,8 +21,12 @@
                             <label for=""><b>Dispatch No.</b></label>
                             <input type="text" name="dispatch_num" class="form-control">
                         </div>
-                        <div class="col-md-4 form-group">
+                        <div class="col-md-2 form-group">
                             <a class="btn btn-success pull-left" href="hassan:" onclick="stop(this)">Scan Document</a>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for=""><b>Upload Letter</b></label>
+                            <input type="file" name="d_letter_attachment" id="">
                         </div>
                     </div>
                     <div class="row">
@@ -52,9 +56,16 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-8 offset-md-2 form-group">
+                        <div class="col-md-8 offset-md-2 form-group address_dept">
                             <label for=""><b>Address Deptt.</b></label>
-                            <textarea name="address_dept" class="form-control" id="" cols="60" rows="2"></textarea>
+                            <select name="d_address" id="" class="d_address form-control">
+                                <option value="" disabled selected>Select Address</option>
+                                <option value="other"><b>Other</b></option>
+                                <option value="1">1</option>
+                                <option value="1">1</option>
+                                <option value="1">1</option>
+                            </select>
+                            <textarea name="d_address_other" style="display:none;margin-top: 11px;" class="d_address_other form-control" id="" cols="60" rows="2"></textarea>
                         </div>
                     </div>
                     <div class="row">
@@ -100,10 +111,7 @@
                             <label for=""><b>Remarks</b></label>
                             <textarea name="remarks" class="form-control" id="" cols="60" rows="2"></textarea>
                         </div>
-                        <div class="col-md-4 offset-md-2 form-group">
-                            <label for=""><b>Upload Letter</b></label>
-                            <input type="file" name="d_letter_attachment" id="">
-                        </div>
+                     
                         <div class="col-md-4 form-group">
                             <button type="submit" class="btn btn-md btn-primary"> Submit</button>
                         </div>
@@ -119,5 +127,19 @@
 $(function () {
     $('.select2').select2();
 });
+
+$('.d_address').on('change', function ()
+                {
+
+                    if($('.d_address').val()=="other")
+                    {
+                        $('.d_address_other').show(1000);
+                    }
+                    else{
+                        $('.d_address_other').hide(1000);
+                        // $('.b_Name').show(1000);
+
+                }
+            });
 </script>
 @endsection
