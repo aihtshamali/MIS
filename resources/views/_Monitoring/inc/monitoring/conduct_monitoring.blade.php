@@ -357,8 +357,8 @@
                                       <label for="generalFeedback[{{$gf->id}}]" class="btn btn-success btn-sm btn-outline-success">
                                           YES</label>
                                       <input type="radio" value="{{$gf->id}}_yes"
-                                            @if($gf->MAssignedProjectFeedBack->m_project_progress_id==$progresses->id)
-                                                 @if($gf->MAssignedProjectFeedBack->answer== 'yes') {{"checked"}} @endif
+                                            @if(isset($gf->MAssignedProjectFeedBack->m_project_progress_id) && $gf->MAssignedProjectFeedBack->m_project_progress_id ==$progresses->id)
+                                                 @if(isset($gf->MAssignedProjectFeedBack->answer) && $gf->MAssignedProjectFeedBack->answer == 'yes') {{"checked"}} @endif
                                             @endif
                                        name="generalFeedback[{{$gf->id}}]">
                                   </div>
@@ -366,7 +366,7 @@
                                       <label for="generalFeedback[{{$gf->id}}]" class="btn btn-danger btn-sm btn-outline-danger">
                                           NO</label>
                                           <input type="radio" value="{{$gf->id}}_no"
-                                            @if($gf->MAssignedProjectFeedBack->m_project_progress_id==$progresses->id)
+                                            @if(isset($gf->MAssignedProjectFeedBack->m_project_progress_id) && $gf->MAssignedProjectFeedBack->m_project_progress_id ==$progresses->id)
                                               @if($gf->MAssignedProjectFeedBack->answer== 'no') {{"checked"}} @endif
                                             @endif
                                            name="generalFeedback[{{$gf->id}}]">

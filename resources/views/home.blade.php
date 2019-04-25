@@ -139,13 +139,6 @@ Home Page | DGME MIS
 @endsection
 @section('content')
 <div class="main" id="main">
-    {{-- start vertical auto clider --}}
-    {{-- end vertical auto clider --}}
-    <!-- Main Section-->
-    {{-- @auth --}}
-    {{-- <div class="pt_3p"></div> --}}
-    {{-- <div class="pt_3p"></div> --}}
-    {{-- @else --}}
     <div class="hero-section app-hero">
         <div class="container">
             <div class="hero-content app-hero-content text-center">
@@ -169,7 +162,6 @@ Home Page | DGME MIS
                     </div>
                     <div class="col-md-12">
                         <div class="hero-image">
-                            {{-- <img class="img-fluid" src="assets/images/app_hero_1.png" alt="" /> --}}
                             {{-- main --}}
                             <div id="testmodal" class="modal fade">
                                 <div class="modal-dialog">
@@ -217,53 +209,14 @@ Home Page | DGME MIS
                                                                     Login
                                                                 </button>
                                                             </div>
-
-                                                            {{-- <ul class="login-more p-t-50 m-b-8 modal-footer">
-                                              							<span class="txt1">
-                                              								Forgot
-                                              							</span>
-                                              							<b>
-                                              							<a href="#" class="txt2 clr_g">
-                                              									Username  /  Password?
-                                              							</a>
-                                              							</b>
-                                              							<b>
-                                              								<a href="/register" class="txt2 btn bg_g" style=" float : right; margin-left: 20px;">
-                                              									 Sign up
-                                              								</a>
-                                              							</b>
-
-                                              					</ul> --}}
                                                         </form>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        {{-- <div class="">
-                                                  <button type="button" class="btn-default" data-dismiss="modal">Close</button>
-                                              </div> --}}
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div id="testmodal-1" class="modal fade">
-                                      <div class="modal-dialog">
-                                          <div class="modal-content">
-                                              <div class="modal-header">
-                                                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                  <h4 class="modal-title">Confirmation</h4>
-                                              </div>
-                                              <div class="modal-body">
-                                                  <p>Do you want to save changes you made to document before closing?</p>
-                                                  <p class="text-warning"><small>If you don't save, your changes will be lost.</small></p>
-                                              </div>
-                                              <div class="modal-footer">
-                                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                  <button type="button" class="btn btn-primary">Save changes</button>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div> --}}
-                            {{-- end main --}}
                         </div>
                     </div>
                 </div>
@@ -339,10 +292,10 @@ Home Page | DGME MIS
                     </a>
                 </div>
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
-                    <a href="https://i.diawi.com/oy4KSn" class="tile purple">
-                        <h3 class="title">Monitoring App</h3>
+                <a href="{{route('dispatchLetterViews')}}" class="tile purple">
+                        <h3 class="title">Dispatch Letter(s)</h3>
                         <hr />
-                        <p>Download Monitoring App</p>
+                        <p>Visit Dispatch Letter</p>
                     </a>
                 </div>
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.7s">
@@ -365,8 +318,14 @@ Home Page | DGME MIS
                         <hr />
                         <p>Visit Plan My Trip</p>
                     </a>
-                </div> -->
-
+                </div>-->
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
+                    <a href="https://i.diawi.com/oy4KSn" class="tile purple">
+                        <h3 class="title">Monitoring App</h3>
+                        <hr />
+                        <p>Download Monitoring App</p>
+                    </a>
+                </div>
                 @endrole
                 @role('manager')
                 <!-- <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.0s">
@@ -579,13 +538,6 @@ Home Page | DGME MIS
     <div class="footer">
         <div class="container">
             <div class="col-md-12 text-center">
-                {{-- <img src="assets/logos/logo.png" alt="Adminty Logo" /> --}}
-                {{-- <ul class="footer-menu">
-                          <li><a href="http://demo.com">Site</a></li>
-                          <li><a href="#">Support</a></li>
-                          <li><a href="#">Terms</a></li>
-                          <li><a href="#">Privacy</a></li>
-                      </ul> --}}
                 <div class="footer-text">
                     <p>
                         Copyright © 2018 DGME. All Rights Reserved.

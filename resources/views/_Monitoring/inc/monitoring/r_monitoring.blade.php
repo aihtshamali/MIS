@@ -288,28 +288,48 @@ ul, #myUL {
             <!-- ---------------- start tree vie ------------------ -->
             <div class="pdlfrt2">
                 <h2 class="txtdecundlin pointer">WBS</h2>
-                <ul id="myUL">
-                  <li><span class="caret caret-down">Beverages</span>
-                    <ul class="nested active">
-                      <li>Water</li>
-                      <li>Coffee</li>
-                      <li><span class="caret caret-down">Tea</span>
-                        <ul class="nested active">
-                          <li>Black Tea</li>
-                          <li>White Tea</li>
-                          <li><span class="caret caret-down">Green Tea</span>
-                            <ul class="nested active">
-                              <li>Sencha</li>
-                              <li>Gyokuro</li>
-                              <li>Matcha</li>
-                              <li>Pi Lo Chun</li>
-                            </ul>
+                @forelse ($progresses->MAssignedUserLocation as $sites)
+                  <ul id="myUL">
+                  <li><span class="caret caret-down">{{$sites->District->name}} / {{$sites->site_name}}</span>
+                    @foreach ($sites->MAssignedUserKpi as $assigned_kpi)
+                      <ul class="nested active">
+                      @if(isset($assigned_kpi->MProjectKpi->name))
+                        <li><span class="caret caret-down">{{$assigned_kpi->MProjectKpi->name}}</span>
+                                <ul class="nested active">
+                          @foreach ($assigned_kpi->MAssignedKpi as $kpi)                              
+                            @foreach ($kpi->MAssignedKpiLevel1 as $kpilev1)
+                                  <li><span class="caret caret-down">{{$kpilev1->MProjectLevel1Kpi->name}} - Weightage Given ({{$kpilev1->current_weightage}})</span>                              
+                                    <ul class="nested active">
+                                  @foreach ($kpilev1->MAssignedKpiLevel2 as $kpilev2)
+                                    <li>
+                                        <span class="{{isset($kpilev2->MAssignedKpiLevel3) && count($kpilev2->MAssignedKpiLevel3)>0 ? 'caret caret-down' : ''}}">{{$kpilev2->MProjectLevel2Kpi->name}} - Weightage Given ({{$kpilev2->current_weightage}})</span>
+                                      <ul class="nested active">
+                                     @foreach ($kpilev2->MAssignedKpiLevel3 as $kpilev3)
+                                     <li><span class="{{isset($kpilev3->MAssignedKpiLevel4) && count($kpilev3->MAssignedKpiLevel4)>0 ? 'caret caret-down' : ''}}">{{$kpilev3->MProjectLevel3Kpi->name}} - Weightage Given ({{$kpilev3->current_weightage}})</span>
+                                      
+                                      <ul class="nested active">
+                                      @foreach ($kpilev3->MAssignedKpiLevel4 as $kpilev4)
+                                            <li>{{$kpilev4->MProjectLevel4Kpi->name}} - Weightage Given ({{$kpilev4->current_weightage}})</li>
+                                      @endforeach                              
+                                      </ul>
+                                      </li>           
+                                     @endforeach 
+                                      </ul>
+                                    </li>
+                                  @endforeach
+                                      </ul>
+                            @endforeach
+                          @endforeach
+                                </ul>
                           </li>
+                        @endif
                         </ul>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
+                      </li>                        
+                    @endforeach
+                  </ul>                    
+                @empty
+                    <p>No KPI Selected</p>
+                @endforelse
               </div>
             <!-- ---------------- end tree vie ------------------ -->
           </div>
