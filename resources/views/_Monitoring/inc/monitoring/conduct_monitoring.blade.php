@@ -1040,7 +1040,7 @@
                             <input type="hidden" name="m_project_progress_id" value="{{$progresses->id}}">   
                             <label for="file--input" class="button">Select Images</label>
                                 <div id="gallery"></div>
-                                <button type="submit" class="btn btn-primary" name="submitimages">Submit Images</button>
+                                <button type="submit" class="btn btn-primary" name="submitimages">Save Images</button>
                             </form>
                         </div>
                         <div class="custom-file-upload">
