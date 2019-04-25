@@ -94,7 +94,7 @@ class AdminHumanResourceController extends Controller
       }
        return view('admin_hr.dispatch.index',compact('letters'));
      }
-
+     
     public function index()
     {
         $meetings = HrMeetingPDWP::all();
