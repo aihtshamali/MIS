@@ -1649,7 +1649,6 @@ class OfficerController extends Controller
        return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
     }
 
-<<<<<<< HEAD
     public function dispatchLetterView()
     {
 
@@ -1663,7 +1662,6 @@ class OfficerController extends Controller
       // dd($letters);
       return view('admin_hr.dispatch.readOnlyviews.view',compact('letters'));
     }
-=======
     public function customkpiComponentMapping(Request $request)
     {
       // dd($request->all());
@@ -1736,6 +1734,30 @@ class OfficerController extends Controller
       return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
     }
 
+    public function saveManualImages(Request $request)
+    {
+      // dd($request->all());
+      foreach($request->file('imgs') as $imgs){
+        // dd($imgs);
+      $data = new MAppAttachment();
+      $file_path =$imgs->path();
+      $file_extension =$imgs->getMimeType();
+      if (!is_dir('storage/uploads/monitoring/')) {
+        // dir doesn't exist, make it
+        mkdir('storage/uploads/monitoring/');
+      }
+     $imgs->store('public/uploads/monitoring/'.$request->m_project_progress_id.'/');
+      $data->project_attachement=$imgs->hashName();
+      // $data->project_attachement=base64_encode(file_get_contents($file_path));
+      $data->user_id=Auth::id();
+      $data->m_project_progress_id = $request->m_project_progress_id;
+      $data->type = $file_extension;
+      $data->attachment_name=$imgs->getClientOriginalName();
+      $data->longitude=0;
+      $data->latitude=0;
+      $data->save();
+    }
+    return redirect()->back();
 
->>>>>>> da2aed85b4d52cf2c39cfa6aba61e3f5e8fba6a1
+    }
 }

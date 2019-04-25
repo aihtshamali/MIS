@@ -1034,10 +1034,13 @@
                 <div class='tab-pane {{isset($innertab) && $innertab=="docs" ? "active" : ""}}' id="Documents" role="tabpanel" aria-expanded="false">
                     <div class="container">
                         <div id="drop--area">
-                            <form action="" class="form" id="form">
-                                <input type="file" id="file--input" multiple accept="image/*" onchange="handleFiles(this.files)">
-                                <label for="file--input" class="button">Select Images</label>
+                        <form action="{{route('saveManualImages')}}" method="POST" enctype="multipart/form-data">
+                            {{ csrf_field() }}   
+                            <input type="file"  name="imgs[]" id="file--input" multiple accept="image/*" onchange="handleFiles(this.files)">
+                            <input type="hidden" name="m_project_progress_id" value="{{$progresses->id}}">   
+                            <label for="file--input" class="button">Select Images</label>
                                 <div id="gallery"></div>
+                                <button type="submit" class="btn btn-primary" name="submitimages">Submit Images</button>
                             </form>
                         </div>
                         <div class="custom-file-upload">
