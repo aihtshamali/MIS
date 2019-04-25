@@ -293,6 +293,7 @@ ul, #myUL {
                   <li><span class="caret caret-down">{{$sites->District->name}} / {{$sites->site_name}}</span>
                     @foreach ($sites->MAssignedUserKpi as $assigned_kpi)
                       <ul class="nested active">
+                      @if(isset($assigned_kpi->MProjectKpi->name))
                         <li><span class="caret caret-down">{{$assigned_kpi->MProjectKpi->name}}</span>
                                 <ul class="nested active">
                           @foreach ($assigned_kpi->MAssignedKpi as $kpi)                              
@@ -321,6 +322,7 @@ ul, #myUL {
                           @endforeach
                                 </ul>
                           </li>
+                        @endif
                         </ul>
                       </li>                        
                     @endforeach

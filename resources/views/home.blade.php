@@ -313,13 +313,14 @@ Home Page | DGME MIS
                     </a>
                 </div>
                 <!-- <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.9s">
-                    <a href="{{route('trip.create')}}" class="tile orange">
+                    <a href="{route('trip.create')}}" class="tile orange">
                         <h3 class="title">Plan My Trip</h3>
                         <hr />
                         <p>Visit Plan My Trip</p>
                     </a>
-<<<<<<< HEAD
                 </div>
+            -->
+
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
                     <a href="https://i.diawi.com/oy4KSn" class="tile purple">
                         <h3 class="title">Monitoring App</h3>
@@ -327,10 +328,6 @@ Home Page | DGME MIS
                         <p>Download Monitoring App</p>
                     </a>
                 </div>
-=======
-                </div> -->
-
->>>>>>> da2aed85b4d52cf2c39cfa6aba61e3f5e8fba6a1
                 @endrole
                 @role('manager')
                 <!-- <div class="col-sm-3 wow fadeInUp" data-wow-delay="1.0s">
