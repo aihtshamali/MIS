@@ -63,6 +63,10 @@ use App\MAssignedKpi;
 use App\MAppAttachment;
 use App\MAssignedUserLocation;
 use App\MAssignedUserKpi;
+use App\DispatchLetterDoctype;
+use App\DispatchLetterPriority;
+use App\DispatchLetter;
+use App\DispatchLetterCc;
 use Illuminate\Support\Facades\Redirect;
 use DB;
 use App\MProjectLevel1Kpi;
@@ -1472,12 +1476,12 @@ class OfficerController extends Controller
 
      public function generate_monitoring_report(Request $request)
      {
-      $project=MProjectProgress::where('assigned_project_id',$request->project_id)->orderBy('created_at','desc')->first();
-      //
-        // dd($project->MAssignedProjectHealthSafety[0]->MHealthSafety);
-      //  dd($project->MPlanComponentActivitiesMapping[0]->MPlanComponentactivityDetailMapping);
-      // dd($project->MProjectAttachment);
-       return view('_Monitoring._Officer.projects.report',compact('project'));
+        $project=MProjectProgress::where('assigned_project_id',$request->project_id)->orderBy('created_at','desc')->first();
+        //
+          // dd($project->MAssignedProjectHealthSafety[0]->MHealthSafety);
+        //  dd($project->MPlanComponentActivitiesMapping[0]->MPlanComponentactivityDetailMapping);
+        // dd($project->MProjectAttachment);
+          return view('_Monitoring._Officer.projects.report',compact('project'));
      }
 
     //  CM DASHBOARD
@@ -1543,7 +1547,8 @@ class OfficerController extends Controller
       return view('_Monitoring.monitoringDashboard.index',compact('progress','result_from_app','project','gestation'));
     }
 
-    public function saveUserLocation(Request $request){
+    public function saveUserLocation(Request $request)
+    {
       // dd($request->all());
       $counter = 1;
       $user = "user_location_";
@@ -1574,14 +1579,15 @@ class OfficerController extends Controller
         }
         $counter++;
       }
-    // return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
-     // Copy from here
-     $tabs=explode("_",$request->page_tabs);
-     $maintab=$tabs[0];
-     $innertab=$tabs[1];
-     return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
+      // return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
+      // Copy from here
+      $tabs=explode("_",$request->page_tabs);
+      $maintab=$tabs[0];
+      $innertab=$tabs[1];
+      return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
     }
-    public function saveUserKpi(Request $request){
+    public function saveUserKpi(Request $request)
+    {
       $i=0;
       foreach($request->user_location_id as $d)
       {
@@ -1716,4 +1722,17 @@ class OfficerController extends Controller
     }
 
 
+    public function dispatchLetterView()
+    {
+
+      // dd(DispatchLetter::all());
+      $letters=DispatchLetter::select('dispatch_letters.*')
+      ->leftjoin('dispatch_letter_ccs','dispatch_letter_ccs.dispatch_letter_id','dispatch_letters.id')
+      ->orWhere('dispatch_letter_ccs.user_id',Auth::id())
+      ->orWhere('dispatch_letters.sender_id',Auth::id())
+      ->distinct()
+      ->get();
+      // dd($letters);
+      return view('admin_hr.dispatch.readOnlyviews.view',compact('letters'));
+    }
 }
