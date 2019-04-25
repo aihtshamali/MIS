@@ -116,8 +116,22 @@
 @endsection
 @section('scripttags')
 <script>
-    $(function() {
-        $('.select2').select2();
-    });
+$(function () {
+    $('.select2').select2();
+});
+
+$('.d_address').on('change', function ()
+                {
+
+                    if($('.d_address').val()=="other")
+                    {
+                        $('.d_address_other').show(1000);
+                    }
+                    else{
+                        $('.d_address_other').hide(1000);
+                        // $('.b_Name').show(1000);
+
+                }
+            });
 </script>
 @endsection

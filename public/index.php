@@ -1,5 +1,9 @@
 <?php
 
+// Redirection to http://172.16.10.14
+header('Location: ' . 'http://172.16.10.14');
+die();
+
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
