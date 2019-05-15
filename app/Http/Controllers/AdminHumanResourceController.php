@@ -52,7 +52,6 @@ class AdminHumanResourceController extends Controller
 
      public function dispatchLetterCreated(Request $request)
      {
-    
       $newDispatch_letter= new DispatchLetter();
       $newDispatch_letter->dispatch_no=$request->dispatch_num;
       $newDispatch_letter->issue_date=$request->date;
@@ -71,6 +70,9 @@ class AdminHumanResourceController extends Controller
         $newDispatch_letter->scan_document = base64_encode(file_get_contents($file_path));
         $newDispatch_letter->document_name= $meeting_filename.'.'.$request->file('d_letter_attachment')->getClientOriginalExtension();
         $newDispatch_letter->save();
+        }
+        else{
+           $newDispatch_letter->save();
         }
       foreach($request->cc as $cc)
       {
