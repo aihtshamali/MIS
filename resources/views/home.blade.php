@@ -318,7 +318,7 @@ Home Page | DGME MIS
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
                     <a href="{{route('PDWP')}}" class="tile purple">
                         <h3 class="title">PDWP</h3>
-                        <hr />
+                        <hr/>
                         <p>Visit PDWP Meetings</p>
                     </a>
                 </div>
