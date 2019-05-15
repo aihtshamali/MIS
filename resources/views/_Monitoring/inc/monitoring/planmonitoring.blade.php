@@ -57,13 +57,15 @@
             </ul>
             <div class="tab-content tabs card-block {{isset($maintab) && $maintab=='plan' ? 'active' : ''}}">
                 <div class="tab-pane {{isset($innertab) && $innertab=='documents' ? 'active' : ''}}" id="PlanDocDiv" role="tabpanel" aria-expanded="true">
-                    <div class="row" style="margin-top:5%; margin-bottom: 10%;">
-                        @if(isset($project_documents))
-                        <div class="col-md-3">
+                    <div class="row">
+                        <div class="col-md-5">
                             <label for="">
-                                <h6><b>Documents</b></h6>
+                                <h4><b>Documents & Images</b></h4>
                             </label>
                         </div>
+                    </div>
+                    <div class="row" style="margin-top:5%; margin-bottom: 10%;">
+                        @if(isset($project_documents))
                         <div class="col-md-6">
                             @foreach ($project_documents as $project_document)
                             <label for=""> <b>{{$project_document->attachment_name}}, </b></label>
@@ -89,12 +91,11 @@
                                 <input type="text" name="file_name" class="placeholder" style="width: 100%;padding: 2%;" placeholder="Type File Name" />
                             </div>
                             <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
-                        </div>
-                        <div class="row ">
-                            <div class="col-md-3 offset-md-6">
+                            <div class="col-md-3 ">
                                 <button type="submit" class="btn btn-success pull-right" name="submit">Submit</button>
                             </div>
                         </div>
+                            
                     </form>
 
                 </div>

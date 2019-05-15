@@ -248,6 +248,7 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
   Route::post('/stakeholders','OfficerController@savestakeholders')->name('savestakeholders');
   Route::post('/getAssignedSponsoringAgency','OfficerController@getAssignedSponsoringAgency')->name('getAssignedSponsoringAgency');
   Route::post('/getAssignedExecutingAgency','OfficerController@getAssignedExecutingAgency')->name('getAssignedExecutingAgency');
+  Route::post('/saveManualImages','OfficerController@saveManualImages')->name('saveManualImages');
 
 
 });
@@ -274,7 +275,7 @@ Route::post('/getinProgressProjectCounter','ProjectCounterController@getInProgre
 Route::post('/getAssignedProjectCounter','ProjectCounterController@getAssignedProjectCounter')->name('assignedCounter');
 Route::post('/getCompletedCounter','ProjectCounterController@getCompletedCounter')->name('completedCounter');
 Route::post('/onsectorselect','DataEntryController@onSectorSelect')->name('sectorselect');
-Route::post('/onsubsectorselect','DataEntryController@onSub_SectorSelect');
+Route::post('/onsubsectorselect','DataEntryController@onSub_SectorSelectdispatchLetterView');
 Route::post('/getMonitoringProjectNumber','DataEntryController@getMonitoringProjectData');
 Route::post('/onAssigningForumselect','DataEntryController@onAssigningForumselect');
 Route::post('/onchangefunction','DataEntryController@onSubSectorSelect');
@@ -282,6 +283,7 @@ Route::post('/onnewprojectselect','DataEntryController@newproject');
 Route::resource('projects','ProjectController');
 Route::post('/financial_year','AdminHumanResourceController@financial_year')->name('fetch_financial_year');
 Route::post('/project_financial_year','ProjectController@financial_year')->name('fetch_project_financial_year');
+Route::get('/dispatchLetterViews','OfficerController@dispatchLetterView')->name('dispatchLetterViews');
 
 
   //Summary Tab
