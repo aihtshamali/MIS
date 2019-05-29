@@ -41,6 +41,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     @yield('styletags')
     <style>
+        .initial{background:#fff !important;}
         .inner a,
         .small-box a,
         .small-box-footer {
@@ -66,6 +67,7 @@
             text-align: center !important;
             font-size: 16px !important;
             padding-bottom: 1%;
+            word-spacing: 50% !important;
         }
 
         .info h4 {
@@ -134,11 +136,11 @@
                                     </p>
                                 </li>
                                 <!-- Menu Footer-->
-                                <li class="user-footer" style="background-color:#3c8dbc">
+                                <li class="user-footer" style="background-color:#3c8dbc;padding:0% !important;">
                                     <div class="pull-left">
                                         <a href="/profile" class="btn btn-default btn-flat">Profile</a>
                                     </div>
-                                    <div class="pull-left" style="margin-left:1.5px">
+                                    <div class="pull-left" style="margin-left:3.85px">
                                         <a href="/reset_password" class="btn btn-default btn-flat">Reset Password</a>
                                     </div>
                                     <div class="pull-right">

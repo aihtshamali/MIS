@@ -271,7 +271,7 @@ Home Page | DGME MIS
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
                     <a href="{{route('PDWP')}}" class="tile purple">
                         <h3 class="title">PDWP</h3>
-                        <hr />
+                        <hr/>
                         <p>Visit PDWP Meetings</p>
                     </a>
                 </div>
@@ -313,12 +313,14 @@ Home Page | DGME MIS
                     </a>
                 </div>
                 <!-- <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.9s">
-                    <a href="{{route('trip.create')}}" class="tile orange">
+                    <a href="{route('trip.create')}}" class="tile orange">
                         <h3 class="title">Plan My Trip</h3>
                         <hr />
                         <p>Visit Plan My Trip</p>
                     </a>
-                </div>-->
+                </div>
+            -->
+
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
                     <a href="https://i.diawi.com/oy4KSn" class="tile purple">
                         <h3 class="title">Monitoring App</h3>

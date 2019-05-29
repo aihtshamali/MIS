@@ -6,15 +6,25 @@
 @endsection
 @section('content')
 <div class="content-wrapper">
+  <!-- <div class=" col-md-3 ">
+    <iframe id="viewer" frameborder="0" scrolling="no" style="width: 100%;height: 100%;"></iframe>
+    <div class="myAttachment" >
+        <input type="file" id="attachmentt" onchange='PreviewImage(this)' class="pull-left" name="attachments[]" value="">
+        </div>
+   </div> -->
     <div class=" col-md-6 col-md-offset-3">
         <form action="{{route('dispatchLetterCreated')}}" method="POST" enctype="multipart/form-data">
             <section class="content-header" style="">
-                <h1 class="col-md-9">
+                <h1 class="col-md-5">
                     Dispatch Letter
                 </h1>
                 <div class="col-md-3 form-group">
-                    <a class="btn btn-success pull-left" href="hassan:" onclick="stop(this)">Scan Document</a>
+                    <a class="btn btn-success pull-left" href="hassanv2:" onclick="stop(this)">Scan Document</a>
+                  </div>
+                  <div class="col-md-3 form-group">
+                    <a class="btn btn-success pull-left" href="hassanduplexv2:" onclick="stop(this)">Scan Duplex Document</a>
                 </div>
+               
             </section>
             <section class="content" style="clear:both !Important;">
                 {{ csrf_field() }}
@@ -116,8 +126,28 @@
 @endsection
 @section('scripttags')
 <script>
+ function PreviewImage(e) {
+                pdffile=$(e)[0].files[0];
+                pdffile_url=URL.createObjectURL(pdffile);
+                $('#viewer').attr('src',pdffile_url);
+              }
+              $("document").ready(function()
+              {
+
+                $("#attachmentt").change(function() {
+                    console.log('asdn sanfjsdnvjkndvndsnkjx sjkx ds');
+                });
+
+              });
+
+              $(document).on('change','#attachmentt',function()
+              {
+                console.log('asdn sanfjsdnvjkndvndsnkjx sjkx ds');
+                PreviewImage();
+              })
 $(function () {
     $('.select2').select2();
+    
 });
 
 $('.d_address').on('change', function ()

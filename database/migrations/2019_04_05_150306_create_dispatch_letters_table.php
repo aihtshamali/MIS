@@ -22,10 +22,8 @@ class CreateDispatchLettersTable extends Migration
             $table->string('post_office')->nullable();
             $table->string('reg_no')->nullable();
             $table->string('address_dept')->nullable();
-            $table->string('scan_document')->nullable();
-            
+            $table->string('scan_document','MAX')->nullable();
             $table->string('document_name')->nullable();
-
             $table->string('remarks')->nullable();
             
             $table->integer('sender_id')->unsigned()->index()->nullable();
