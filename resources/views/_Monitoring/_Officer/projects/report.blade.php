@@ -278,11 +278,26 @@ Monitoring Report | DGME
         clear: both !important;
     }
 
+
+    .demo-gallery>ul>li {
+        float: left !important;
+        width: 30% !important;
+        margin: 1% !important;
+    }
+
+    .demo-gallery>ul>li>a>img {
+        width: 100% !important;
+    }
+
     @media print {
 
         @page {
             size: auto;
-            margin: 0.4px 0.4px 04px 0.07px;
+            margin: 12.3% !important;
+        }
+
+        body {
+            margin: 12.7% !important;
         }
 
         .navbar-logo,
@@ -346,11 +361,32 @@ Monitoring Report | DGME
             margin-top: 5%;
         }
 
-        #lightgallery li {
-            width: 30% !important;
+        .demo-gallery>ul>li {
             float: left !important;
+            width: 30% !important;
             margin: 1% !important;
         }
+
+        .demo-gallery>ul>li>a>img {
+            width: 100% !important;
+        }
+
+        .breakpage {
+            page-break-after: always;
+            page-break-inside: avoid;
+            -webkit-region-break-inside: avoid;
+            display: block;
+        }
+
+        .mainpage {
+            height: -webkit-fill-available !important
+        }
+
+        table {
+            page-break-before: always;
+            /* height: -webkit-fill-available !important; */
+        }
+
     }
 </style>
 @endsection
@@ -366,7 +402,7 @@ Monitoring Report | DGME
 </div>
 <div class="card" id='exportContent'>
     <!-- myCode start here -->
-    <div class="mainpage col-md-12">
+    <div class="breakpage mainpage col-md-12">
         <div class="col-md-12 row pdtop3p">
             <div class="row offset-md-1 col-md-9">
                 <img src="{{asset('dgme.png')}}" class="col-md-3 report-logo" alt="">
@@ -481,7 +517,7 @@ Monitoring Report | DGME
             </div>
         </div>
     </div>
-    <div class="col-md-12 topic pdtop3p" contenteditable="true">
+    <div class="breakpage col-md-12 topic pdtop3p" contenteditable="true">
         <h4 class="bluetxt underline">Acknowledgements</h4>
         <p class="textarea grey">
             The DGM&E Team would like to thank all those who supported us to conduct the
@@ -493,7 +529,8 @@ Monitoring Report | DGME
             providing useful feedback.
         </p>
     </div>
-    <div class="col-md-12 topic pdtop3p" contenteditable="true">
+
+    <div class="breakpage col-md-12 topic pdtop3p" contenteditable="true">
         <h4 class="bluetxt underline">Disclaimer</h4>
         <p class="grey">This report is based on the data provided by the relevant representative of the relevant
             department. DG M&E disclaims, expressed or implied, as to the accuracy or
@@ -511,7 +548,8 @@ Monitoring Report | DGME
             any health or safety-related information in this document shall not be attributable to
             DG M&E and is solely the responsibility of the relevant stakeholders.</p>
     </div>
-    <div class="col-md-12 topic pdtop3p" contenteditable="true">
+
+    <div class="breakpage col-md-12 topic pdtop3p" contenteditable="true">
         <h4 class="bluetxt underline">Executive Summary</h4>
         <p class="grey">
             With the reference of the letter No. So (R&E) 8-2/2015-G of Section officer (R&E) of
@@ -553,7 +591,8 @@ Monitoring Report | DGME
             <b class="float-right">Monitoring Team (DG M&E)</b>
         </p>
     </div>
-    <div class="col-md-12 topic pdtop3p" contenteditable="true">
+
+    <div class="breakpage col-md-12 topic pdtop3p" contenteditable="true">
         <h4 class="bluetxt text-center underline">ACRONYMS</h4>
         <div class="row">
             <div class="mgbottom1p col-md-2 bold">DGM&E:</div>
@@ -576,7 +615,8 @@ Monitoring Report | DGME
             <div class="mgbottom1p col-md-10"> Punjab Irrigated-Agriculture Productivity Improvement Project</div>
         </div>
     </div>
-    <div class="col-md-12 topic pdtop3p" contenteditable="true">
+
+    <div class="breakpage col-md-12 topic pdtop3p" contenteditable="true">
         <h4 class="sectionColor text-center underline">Section-1: INTRODUCTION & BACKGROUND</h4>
         <h4 class="bluetxt underline">1.1 Introduction </h4>
         <p class="grey">
@@ -673,7 +713,8 @@ Monitoring Report | DGME
             present near about 635 students are studying in this University as regular students.
         </p>
     </div>
-    <div class="col-md-12 topic pdtop3p" contenteditable="true">
+
+    <div class="breakpage col-md-12 topic pdtop3p" contenteditable="true">
         <h4 class="bluetxt underline">1.2 Project Description</h4>
         <p class="grey">The project description is given in the table below;<br /><br />
             <b class="pdtop1p col-md-12 text-center bold black">Table 1 Project Summary</b></p>
@@ -742,7 +783,8 @@ Monitoring Report | DGME
             </tbody>
         </table>
     </div>
-    <div class="card-block" contenteditable="true">
+
+    <div class="breakpage card-block" contenteditable="true">
         {{-- Objectives and components --}}
         <div class="row pdtop3p" style="">
             <div class="col-md-12 text-center">
@@ -1030,9 +1072,10 @@ Monitoring Report | DGME
         </div>
 
     </div>
+
     <!-- myCode ends here -->
     {{-- Conduct Monitoring --}}
-    <div class="card-block pdtop3p" contenteditable="true">
+    <div class="breakpage card-block pdtop3p" contenteditable="true">
         {{-- Quality Assesments --}}
         <div class="row pdtop3p" style="">
             <div class="col-md-12 text-center">
@@ -1454,63 +1497,6 @@ Monitoring Report | DGME
 </div>
 @endsection
 @section('js_scripts')
-<script type="text/javascript">
-    // //<![CDATA[
-    // function download(element,filename=''){
-    //     var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
-    //         var postHtml = "</body></html>";
-    //         var html = preHtml+document.getElementById(element).innerHTML+postHtml;
-
-    //         var blob = new Blob(['\ufeff', html], {
-    //             type: 'application/msword'
-    //         });
-
-    //         // Specify link url
-    //         var url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
-
-    //         // Specify file name
-    //         filename = filename?filename+'.doc':'document.doc';
-
-    //         // Create download link element
-    //         var downloadLink = document.createElement("a");
-
-    //         document.body.appendChild(downloadLink);
-
-    //         if(navigator.msSaveOrOpenBlob ){
-    //             navigator.msSaveOrOpenBlob(blob, filename);
-    //         }else{
-    //             // Create a link to the file
-    //             downloadLink.href = url;
-
-    //             // Setting the file name
-    //             downloadLink.download = filename;
-
-    //             //triggering the function
-    //             downloadLink.click();
-    //         }
-
-    //         document.body.removeChild(downloadLink);
-
-    //     document.getElementById('spinner').style.display='';
-    //     frame = document.createElement("iframe");
-    //     frame.onload=function(){document.getElementById('spinner').style.display='none';}
-    //     frame.src=url;
-    //     document.body.appendChild(frame);
-    // }
-    // //]]>
-</script>
-<script>
-    $('.exp_button').on('click', function() {
-        //     var $this = $(this);
-        //   $this.button('loading');
-        //     setTimeout(function() {
-        //        $this.button('reset');
-        //    }, 8000);
-        $('.sastaloader').fadeIn('slow', function() {
-            $('.sastaloader').delay(700).fadeOut();
-        });
-    });
-</script>
 <script>
     $(document).ready(function() {
         $('#lightgallery').lightGallery();
@@ -1518,34 +1504,5 @@ Monitoring Report | DGME
 </script>
 <script src="{{asset('lightRoom/picturefill.min.js')}}"></script>
 <script src="{{asset('lightRoom/lightgallery-all.min.js')}}"></script>
-<!-- <script src="//cdn.ckeditor.com/4.7.2/standard/ckeditor.js"></script> -->
-<!-- <script src="https://cdn.ckeditor.com/4.11.4/full-all/ckeditor.js"></script> -->
 <script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>
-<!-- <script>
-        CKEDITOR.plugins.addExternal('filebrowser', '/js/filebrowser/', 'plugin.js');
-
-        // extraPlugins needs to be set too.
-        CKEDITOR.replace('editor1', {
-            filebrowserBrowseUrl: '/browser/browse.php?type=Files',
-            filebrowserUploadUrl: '/uploader/upload.php?type=Files'
-        });
-    </script> -->
-<!-- <script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/standard/ckeditor.js"></script> -->
-<!-- <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script> -->
-<!-- <script src="/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script> -->
-<!-- <script>
-                        ClassicEditor
-                                .create( document.querySelector( '#editor' ) )
-                                .then( editor => {
-                                        console.log( editor );
-                                } )
-                                .catch( error => {
-                                        console.error( error );
-                                } );
-                </script> -->
-<script>
-    // $('textarea').ckeditor();
-    // $('.textarea').ckeditor(); // if class is prefered.
-</script>
-<!-- <script src="{{asset('lightRoom/jquery.mousewheel.min.js')}}"></script> -->
 @endsection
