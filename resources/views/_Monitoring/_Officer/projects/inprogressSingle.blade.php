@@ -866,8 +866,8 @@ var i;
 
 for (i = 0; i < toggler.length; i++) {
 toggler[i].addEventListener("click", function() {
-  this.parentElement.querySelector(".nested").classList.toggle("active");
   this.parentElement.querySelector(".nested").classList.toggle("nodisplay");
+  this.parentElement.querySelector(".nested").classList.toggle("active");
   this.classList.toggle("caret-right");
   this.classList.toggle("caret-down");
 });
@@ -1090,7 +1090,8 @@ $(document).ready(function()
         }
         }
     }
-    const url = 'https://api.cloudinary.com/v1_1/dxlhzerlq/upload';
+    // TODO
+    // const url = 'https://api.cloudinary.com/v1_1/dxlhzerlq/upload';
     const data = new FormData();
     data.append("upload_preset", "acjlrvii"); //append cloudinary specific config
     data.append('file', file);
