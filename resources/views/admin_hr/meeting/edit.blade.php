@@ -52,6 +52,7 @@ input[type="file"] {
     width: 100% !important;
 }
 body, table{overflow-x: scroll !important}
+.form-control{padding:0px !important;}
   </style>
 @endsection
 

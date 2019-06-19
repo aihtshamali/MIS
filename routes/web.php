@@ -249,6 +249,7 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
   Route::post('/stakeholders','OfficerController@savestakeholders')->name('savestakeholders');
   Route::post('/getAssignedSponsoringAgency','OfficerController@getAssignedSponsoringAgency')->name('getAssignedSponsoringAgency');
   Route::post('/getAssignedExecutingAgency','OfficerController@getAssignedExecutingAgency')->name('getAssignedExecutingAgency');
+  Route::post('/saveManualImages','OfficerController@saveManualImages')->name('saveManualImages');
 
 
 });
