@@ -270,7 +270,7 @@
         h1,
         h2,
         h3,
-        h4,
+        h1,
         h5,
         h6 {
             margin-top: 0;
@@ -388,6 +388,20 @@
             width: 100% !important;
         }
 
+        img {
+            margin: auto;
+        }
+
+        #inline {
+            display: flex;
+        }
+
+        .fullwidthprint img,
+        .auto img {
+            width: 100% !important;
+        }
+
+
         @media print {
 
             @page {
@@ -397,6 +411,11 @@
 
             body {
                 margin: 10% !important;
+            }
+
+            .fullwidthprint img,
+            .auto img {
+                width: 100% !important;
             }
 
             .navbar-logo,
@@ -426,6 +445,7 @@
                 width: 50% !important;
                 float: left !important;
             }
+
             .col-md-8 {
                 width: 100% !important;
             }
@@ -477,8 +497,12 @@
                 width: 100% !important;
             }
 
-            .breakpage h4 {
-                page-break-before: always;
+            .breakpage {
+                page-break-before: always !important;
+            }
+
+            .breakpage h1 {
+                page-break-before: always !important;
             }
 
             .mainpage {
@@ -526,29 +550,34 @@
             Print
         </button>
     </div>
-    <div class="card" id='exportContent'>
+    <div class="card" id='exportContent' contenteditable="true">
         <!-- myCode start here -->
         <div class="mainpage col-md-12">
             <div class="col-md-12 row pdtop3p">
-                <div class="row offset-md-1 col-md-9">
-                    <img src="{{asset('dgme.png')}}" class="col-md-2 report-logo" alt="">
+                <div class="row offset-md-1 col-md-9" id="inline">
+                    <div class="col-md-2 text-center auto">
+                        <img src="{{asset('dgme.png')}}" id="dgmelogo" class="col-md-2 report-logo" alt="">
+                    </div>
                     <div class="col-md-9 text-center auto">
-                        <h4 class="green">Directorate General Monitoring & Evaluation</h4>
+                        <h1 class="green">Directorate General Monitoring & Evaluation</h1>
                         <b class="grey bold">Planing & Development Department Government Of Punjab</b>
                     </div>
                 </div>
             </div>
             <div class="col-md-12 row">
-                <div class="row offset-md-2 col-md-8 fullwidthprint">
+                <div class="row offset-md-1 col-md-8 fullwidthprint">
                     <div class="col-md-12 text-center auto">
                         <h3 class="green">Monitoring reports of project</h3>
                         <h5 class="grey bold underline" contenteditable="true">{{$project->AssignedProject->Project->title}}</h5>
                     </div>
                 </div>
                 @if (isset($project->MAppAttachment->where('type','image/jpeg')[0]))
-                <img src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$project->MAppAttachment->where('type','image/jpeg')[0]->m_project_progress_id.'/'.$project->MAppAttachment->where('type','image/jpeg')[0]->project_attachement}}" alt="title image" class="col-md-8 offset-md-2 mainpageimg pdtop1p" style="max-height:300px;" alt="">
+                <div class="col-md-12 fullwidthprint">
+                    <!-- <img src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$project->MAppAttachment->where('type','image/jpeg')[0]->m_project_progress_id.'/'.$project->MAppAttachment->where('type','image/jpeg')[0]->project_attachement}}" alt="title image" class="col-md-8 offset-md-2 mainpageimg pdtop1p" style="max-height:300px;" alt=""> -->
+                    <img src="https://www.incimages.com/uploaded_files/image/970x450/getty_509107562_2000133320009280346_351827.jpg" alt="title image" class="col-md-8 offset-md-2 mainpageimg pdtop1p" style="width:100%;max-height:300px;" alt="" />
+                </div>
                 @endif
-                <div class="pdtop3p offset-md-2 col-md-8 fullwidthprint" contenteditable="true">
+                <div class="pdtop3p col-md-12 fullwidthprint" contenteditable="true">
                     <!-- <div class="row">
                     <div class="col-md-12">
                         <label><b>Project Title :</b></label>
@@ -631,14 +660,14 @@
                     </div>
                 </div>
                 <div class="clearfix"></div>
-                <div class="text-center martop4p fullwidthprint col-md-8 offset-md-2 pdtop3p">
+                <div class="text-center martop4p fullwidthprint col-md-12 pdtop3p">
                     <b class="bold">
                         4th Floor, 65- Trade Centre Block, Ayub Chowk, Johar Town, Lahore
                         042-99233177-91, <a href="mailto:info@dgmepunjab.gov.pk?Subject=Related%20DGM&E%20project%20Report%20Summary" target="_top">info@dgmepunjab.gov.pk</a>
                     </b>
                 </div>
                 <div class="clearfix"></div>
-                <div class="text-center martop4p fullwidthprint col-md-8 offset-md-2 pdtop3p" contenteditable="true">
+                <div class="text-center martop4p fullwidthprint col-md-12 pdtop3p" contenteditable="true">
                     <b class="bold">
                         April 2019
                     </b>
@@ -646,7 +675,7 @@
             </div>
         </div>
         <div class="breakpage col-md-12 topic pdtop3p" contenteditable="true">
-            <h4 class="bluetxt underline">Acknowledgements</h4>
+            <h1 class="bluetxt underline">Acknowledgements</h1>
             <p class="textarea grey">
                 The DGM&E Team would like to thank all those who supported us to conduct the
                 Monitoring of the project “Water Supply Pipeline from Kudwala to Banna Post”.
@@ -658,7 +687,7 @@
             </p>
         </div>
         <div class="breakpage col-md-12 topic pdtop3p" contenteditable="true">
-            <h4 class="bluetxt underline">Disclaimer</h4>
+            <h1 class="bluetxt underline">Disclaimer</h1>
             <p class="grey">This report is based on the data provided by the relevant representative of the relevant
                 department. DG M&E disclaims, expressed or implied, as to the accuracy or
                 completeness of any information reported herein, and disclaims and makes no pledge
@@ -676,7 +705,7 @@
                 DG M&E and is solely the responsibility of the relevant stakeholders.</p>
         </div>
         <div class="breakpage col-md-12 topic pdtop3p" contenteditable="true">
-            <h4 class="bluetxt underline">Executive Summary</h4>
+            <h1 class="bluetxt underline">Executive Summary</h1>
             <p class="grey">
                 With the reference of the letter No. So (R&E) 8-2/2015-G of Section officer (R&E) of
                 Agriculture Department, Government of Punjab in which it was requested to
@@ -692,7 +721,7 @@
                 actual expenditures were Rs. 14.818 Million.
                 DGM&E has conducted Monitoring of the project by considering all factors those
                 affect project construction performance against its planned objectives including
-                project purpose and design, strategic planning and project management and
+                project purpose and design, strategic planing and project management and
                 prepared its Monitoring report. The purpose of this Monitoring report is to monitor
                 the project in order to assess, whether the project is being constructed as per
                 approved scope & the activities of the project are within schedule & budget.
@@ -718,7 +747,7 @@
             </p>
         </div>
         <div class="breakpage col-md-12 topic pdtop3p" contenteditable="true">
-            <h4 class="bluetxt text-center underline">ACRONYMS</h4>
+            <h1 class="bluetxt text-center underline">ACRONYMS</h1>
             <div class="row">
                 <div class="mgbottom1p col-md-2 bold">DGM&E:</div>
                 <div class="mgbottom1p col-md-4"> Directorate General Monitoring & Evaluation</div>
@@ -731,9 +760,9 @@
                 <div class="mgbottom1p col-md-2 bold">MNS:</div>
                 <div class="mgbottom1p col-md-4"> Muhammad Nawaz Shareef</div>
                 <div class="mgbottom1p col-md-2 bold">PC-I:</div>
-                <div class="mgbottom1p col-md-4"> Planning Commission Performa-I</div>
+                <div class="mgbottom1p col-md-4"> Planing Commission Performa-I</div>
                 <div class="mgbottom1p col-md-2 bold">P&DB:</div>
-                <div class="mgbottom1p col-md-4"> Planning & Development Board</div>
+                <div class="mgbottom1p col-md-4"> Planing & Development Board</div>
                 <div class="mgbottom1p col-md-2 bold">PMU:</div>
                 <div class="mgbottom1p col-md-4"> Project Management Unit</div>
                 <div class="mgbottom1p col-md-2 bold">PIPIP:</div>
@@ -741,8 +770,8 @@
             </div>
         </div>
         <div class="breakpage col-md-12 topic pdtop3p" contenteditable="true">
-            <h4 class="sectionColor text-center underline">Section-1: INTRODUCTION & BACKGROUND</h4>
-            <h4 class="bluetxt underline">1.1 Introduction </h4>
+            <h1 class="sectionColor text-center underline">Section-1: INTRODUCTION & BACKGROUND</h1>
+            <h1 class="bluetxt underline">1.1 Introduction </h1>
             <p class="grey">
                 Government of the Punjab provided Rs. 15.468 million for lining of water
                 course including culverts, siphons, Nakkas and water storage ponds through ADP
@@ -838,7 +867,7 @@
             </p>
         </div>
         <div class="breakpage col-md-12 topic pdtop3p" contenteditable="true">
-            <h4 class="bluetxt underline">1.2 Project Description</h4>
+            <h1 class="bluetxt underline">1.2 Project Description</h1>
             <p class="grey">The project description is given in the table below;<br /><br />
                 <b class="pdtop1p col-md-12 text-center bold black">Table 1 Project Summary</b></p>
             <table class="table table-bordered pdtop3p">
@@ -913,7 +942,7 @@
                     <h3 class="grey underline">Plan Monitoring</h3>
                 </div>
                 <div class="col-md-12 pdtop2p">
-                    <h4 class="bluetxt underline">Planning Monitoring: Objectives & Components</h4>
+                    <h1 class="bluetxt underline">Planing Monitoring: Objectives & Components</h1>
                 </div>
             </div>
             <div class="col-md-12 row pdtop2p" style="">
@@ -979,9 +1008,9 @@
 
             {{-- Mapping of Objectives --}}
             <div class="clearfix fullwidthprint"></div>
-            <div class="row pdtop3p" style="">
+            <div class="row breakpage pdtop3p" style="">
                 <div class="col-md-12">
-                    <h4 class="bluetxt underline">Planning Monitoring: Mapping of Objectives and Components</h4>
+                    <h1 class="bluetxt underline">Planing Monitoring: Mapping of Objectives and Components</h1>
                 </div>
                 <div class="col-md-12 pdtop2p">
                     <table class="table table-bordered">
@@ -1031,9 +1060,9 @@
 
 
             {{-- Mapping of Kpis&component --}}
-            <div class="row pdtop3p" style="">
+            <div class="row breakpage pdtop3p" style="">
                 <div class="col-md-12">
-                    <h4 class="bluetxt underline">Planning Monitoring: Mapping of Kpis & Components</h4>
+                    <h1 class="bluetxt underline">Planing Monitoring: Mapping of Kpis & Components</h1>
                 </div>
             </div>
             <div class="row" style="">
@@ -1065,9 +1094,9 @@
             </div>
 
             {{-- Mapping of component Activities --}}
-            <div class="row pdtop3p" style="">
+            <div class="row breakpage pdtop3p" style="">
                 <div class="col-md-12">
-                    <h4 class="bluetxt underline">lanning Monitoring: Components & Activities</h4>
+                    <h1 class="bluetxt underline">Planing Monitoring: Components & Activities</h1>
                 </div>
             </div>
             <div class="col-md-12 row pdtop2p" style="">
@@ -1122,8 +1151,8 @@
             </div>
 
             {{-- Mapping of Activities --}}
-            <div class="col-md-12 pdtop3p" style="">
-                <h4 class="bluetxt underline row">Planning Monitoring: Activities Time & Costing</h4>
+            <div class="col-md-12 breakpage pdtop3p" style="">
+                <h1 class="bluetxt underline row">Planing Monitoring: Activities Time & Costing</h1>
             </div>
             <div class="row" style="">
                 <div class="col-md-12">
@@ -1200,10 +1229,10 @@
             {{-- Quality Assesments --}}
             <div class="row pdtop3p" style="">
                 <div class="col-md-12 text-center">
-                    <h3 class="grey underline">Conduct Monitoring</h3>
+                    <h1 class="grey underline">Conduct Monitoring</h1>
                 </div>
                 <div class="col-md-12 pdtop2p">
-                    <h4 class="bluetxt underline">Quality Assesments</h4>
+                    <h1 class="bluetxt underline">Quality Assesments</h1>
                 </div>
             </div>
             <div class="row pdtop2p" style="">
@@ -1269,9 +1298,9 @@
             </div>
 
             {{-- General Feed Backs --}}
-            <div class="row pdtop3p" style="">
+            <div class="row breakpage pdtop3p" style="">
                 <div class="col-md-12">
-                    <h4 class="bluetxt underline">General FeedBacks</h4>
+                    <h1 class="bluetxt underline">General FeedBacks</h1>
                 </div>
             </div>
             <div class="row pdtop2p" style="">
@@ -1304,9 +1333,9 @@
             </div>
 
             {{-- Stakeholders --}}
-            <div class="row pdtop3p" style="">
+            <div class="row breakpage pdtop3p" style="">
                 <div class="col-md-12">
-                    <h4 class="bluetxt unerline">Stakeholders</h4>
+                    <h1 class="bluetxt unerline">Stakeholders</h1>
                 </div>
             </div>
             @if(isset($project->MExecutingStakeholder) && $project->MExecutingStakeholder!=null)
@@ -1476,9 +1505,9 @@
             @endif
 
             {{-- issues --}}
-            <div class="row pdtop3p" style="">
+            <div class="row breakpage pdtop3p" style="">
                 <div class="col-md-12">
-                    <h4 class="bluetxt underline">Issues</h4>
+                    <h1 class="bluetxt underline">Issues</h1>
                 </div>
             </div>
             <div class="row pdtop2p" style="">
@@ -1536,9 +1565,9 @@
             </div>
 
             {{-- Health Safet Env --}}
-            <div class="row pdtop3p" style="">
+            <div class="row breakpage pdtop3p" style="">
                 <div class="col-md-12">
-                    <h4 class="bluetxt underline">Health Saftey Enviornment</h4>
+                    <h1 class="bluetxt underline">Health Saftey Enviornment</h1>
                 </div>
             </div>
             <div class="row pdtop2p" style="">
@@ -1590,14 +1619,14 @@
             {{--images--}}
             <div class="row" style="">
                 <div class="col-md-12">
-                    <h4 class="bluetxt underline">Images</h4>
+                    <h1 class="bluetxt underline">Images</h1>
                 </div>
             </div>
             <div class="demo-gallery">
                 <ul id="lightgallery" class="list-unstyled row">
                     <?php $i = 1; ?>
                     @foreach ($project->MAppAttachment->where('type','image/jpeg') as $attachment)
-                    <li class="col-xs-6 col-sm-4 col-md-3" data-responsive="" data-src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" data-sub-html="<h4>Date</h4><p>{{date('d M Y',strtotime($attachment->created_at))}} </p>">
+                    <li class="col-xs-6 col-sm-4 col-md-3" data-responsive="" data-src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" data-sub-html="<h1>Date</h1><p>{{date('d M Y',strtotime($attachment->created_at))}} </p>">
                         <a href="">
                             <b class="float-left">#: {{$i++}}</b>
                             <img class="img-responsive" src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
