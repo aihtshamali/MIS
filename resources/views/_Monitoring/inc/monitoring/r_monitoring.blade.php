@@ -258,12 +258,54 @@ transform: rotate(90deg);
     </ul>
     <div class="container r_monitoringDivv">
       <div class="tab-content tabs card-block">
-        <div class="tab-pane active" id="home1" role="tabpanel">
-          <div class="pdlfrt2">
-            <!-- ----------------- start photo gallery -------------------- -->
-            <h2 class="txtdecundlin pointer photogallary" title="click to Expand photo gallary">Photo Gallery</h2>
-            <div class="photogallaryDiv nodisplay col-md-12" style="padding-bottom:2%">
-              <!-- <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+          <div class="tab-pane active" id="home1" role="tabpanel">
+            <div class="pdlfrt2">
+         <!-- ----------------- start photo gallery -------------------- -->
+            <form action="{{route('report_images.store')}}" method="POST">
+              {{ csrf_field() }}
+
+            <div class="col-md-12">
+              <label for="">Select Image for title</label>
+              @php
+            $i=1;
+            @endphp
+            <input type="hidden" name="title" value="true">
+          <select name="report_images" class="form-control" id="">
+            <option value="">Select Title Image</option>
+            @foreach($result_from_app->where('type','image/jpeg') as $attachment)
+            <option value="{{$attachment->id}}" alt="">
+               Image - {{$i++}}
+            </option>
+              @endforeach
+            </select>
+            <input type="hidden" name="m_project_progress_id" value="{{$projectProgressId->id}}">
+            <button class="btn btn-success btn-sm" type="submit">Submit</button>
+          </div>
+        </form>
+            <form action="{{route('report_images.store')}}" method="POST">
+              {{ csrf_field() }}
+            <div class="col-md-12">
+              <label for="">Select Image for Report Section</label>
+              @php
+            $i=1;
+            @endphp
+          <select name="report_images[]" class="select2" id="" multiple method="POST">
+            <option value="">Select Report Images</option>
+            @foreach($result_from_app->where('type','image/jpeg') as $attachment)
+            <option value="{{$attachment->id}}" alt="">
+                {{$i++}}
+              </option>
+              @endforeach
+            </select>
+            <input type="hidden" name="m_project_progress_id" value="{{$projectProgressId->id}}">
+            <button class="btn btn-success btn-sm" type="submit">Submit</button>
+          </div>
+        </form>
+         <h2 class="txtdecundlin pointer photogallary" title="click to Expand photo gallary">Photo Gallery</h2>
+         
+        
+         <div class="photogallaryDiv nodisplay col-md-12" style="padding-bottom:2%">
+                 <!-- <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                      <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
                         data-image="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
                         data-target="#image-gallery">
