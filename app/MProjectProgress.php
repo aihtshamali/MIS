@@ -111,6 +111,10 @@ class MProjectProgress extends Model
       return $this->hasMany('App\MAssignedUserKpi');
     }
 
+    public function ReportImage(){
+      return $this->hasMany('App\ReportImage');
+    }
+
 
 
 }

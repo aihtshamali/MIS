@@ -270,7 +270,7 @@ transform: rotate(90deg);
             $i=1;
             @endphp
             <input type="hidden" name="title" value="true">
-          <select name="report_images" id="">
+          <select name="report_images" class="form-control" id="">
             <option value="">Select Title Image</option>
             @foreach($result_from_app->where('type','image/jpeg') as $attachment)
             <option value="{{$attachment->id}}" alt="">
@@ -282,14 +282,14 @@ transform: rotate(90deg);
             <button class="btn btn-success btn-sm" type="submit">Submit</button>
           </div>
         </form>
-            <form action="{{route('report_images.store')}}">
+            <form action="{{route('report_images.store')}}" method="POST">
               {{ csrf_field() }}
             <div class="col-md-12">
               <label for="">Select Image for Report Section</label>
               @php
             $i=1;
             @endphp
-          <select name="report_images" id="" multiple method="POST">
+          <select name="report_images[]" class="select2" id="" multiple method="POST">
             <option value="">Select Report Images</option>
             @foreach($result_from_app->where('type','image/jpeg') as $attachment)
             <option value="{{$attachment->id}}" alt="">

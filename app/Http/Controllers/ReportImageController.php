@@ -53,7 +53,7 @@ class ReportImageController extends Controller
                 $reportImage->save();
             }
         }
-        redirect()->back();
+        return redirect()->back();
     }
 
     /**

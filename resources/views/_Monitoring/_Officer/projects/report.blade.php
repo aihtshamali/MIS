@@ -396,7 +396,7 @@
             display: flex;
         }
 
-        .fullwidthprint img,
+        /* .fullwidthprint img, */
         .auto img {
             width: 100% !important;
         }
@@ -571,10 +571,10 @@
                         <h5 class="grey bold underline" contenteditable="true">{{$project->AssignedProject->Project->title}}</h5>
                     </div>
                 </div>
-                @if (isset($project->MAppAttachment->where('type','image/jpeg')[0]))
+                @if (count($project->ReportImage->where('title_image',1)))
                 <div class="col-md-12 fullwidthprint">
-                    <!-- <img src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$project->MAppAttachment->where('type','image/jpeg')[0]->m_project_progress_id.'/'.$project->MAppAttachment->where('type','image/jpeg')[0]->project_attachement}}" alt="title image" class="col-md-8 offset-md-2 mainpageimg pdtop1p" style="max-height:300px;" alt=""> -->
-                    <img src="https://www.incimages.com/uploaded_files/image/970x450/getty_509107562_2000133320009280346_351827.jpg" alt="title image" class="col-md-8 offset-md-2 mainpageimg pdtop1p" style="width:100%;max-height:300px;" alt="" />
+                    <img src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$project->id.'/'.$project->ReportImage->where('title_image',1)[0]->MAppAttachment->project_attachement}}" alt="title image" class="col-md-8 offset-md-2 mainpageimg pdtop1p" style="max-height:300px;width: 60% !important;margin-left: 20% !important;">
+                    {{-- <img src="https://www.incimages.com/uploaded_files/image/970x450/getty_509107562_2000133320009280346_351827.jpg" alt="title image" class="col-md-8 offset-md-2 mainpageimg pdtop1p" style="width:100%;max-height:300px;" alt="" /> --}}
                 </div>
                 @endif
                 <div class="pdtop3p col-md-12 fullwidthprint" contenteditable="true">
@@ -1625,12 +1625,12 @@
             <div class="demo-gallery">
                 <ul id="lightgallery" class="list-unstyled row">
                     <?php $i = 1; ?>
-                    @foreach ($project->MAppAttachment->where('type','image/jpeg') as $attachment)
-                    <li class="col-xs-6 col-sm-4 col-md-3" data-responsive="" data-src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" data-sub-html="<h1>Date</h1><p>{{date('d M Y',strtotime($attachment->created_at))}} </p>">
+                    @foreach ($project->ReportImage->where('title_image',0) as $attachment)
+                    <li class="col-xs-6 col-sm-4 col-md-3" data-responsive="" data-src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->MAppAttachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" data-sub-html="<h1>Date</h1><p>{{date('d M Y',strtotime($attachment->created_at))}} </p>">
                         <a href="">
                             <b class="float-left">#: {{$i++}}</b>
-                            <img class="img-responsive" src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
-                            <b class="float-right" style="padding:0% 10%">Date: {{date('d M Y',strtotime($attachment->created_at))}} </b>
+                            <img class="img-responsive" src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->MAppAttachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
+                            <b class="float-right" style="padding:0% 10%">Date: {{date('d M Y H:i:s',strtotime($attachment->created_at))}}<br> Location: ({{$attachment->MAppAttachment->longitude}},{{$attachment->MAppAttachment->latitude}})</b>
                         </a>
                     </li>
                     @endforeach
