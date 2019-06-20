@@ -12,4 +12,7 @@ class MAppAttachment extends Model
     public function MProjectProgress(){
         return $this->belongsTo('App\MProjectProgress');
     }
+    public function ReportImage(){
+        return $this->hasMany('App\ReportImage');
+    }
 }

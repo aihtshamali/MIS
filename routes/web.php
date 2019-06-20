@@ -200,6 +200,7 @@ Route::prefix('Evaluatorofficer')->middleware('role:evaluator|officer|transporto
   Route::post('/saveActivityAttachment','OfficerController@saveActivityAttachment')->name('saveActivityAttachment');
   Route::post('/saveDocAttachment','OfficerController@saveDocAttachments')->name('saveDocAttachment');
   Route::resource('trip','SiteVisitController');
+  Route::resource('report_images', 'ReportImageController');
   Route::post('/visitCompleted/{id}','SiteVisitController@visitCompleted')->name('visitCompleted');
 
   //Officer's Charts
