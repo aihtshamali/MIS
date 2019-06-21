@@ -297,9 +297,9 @@
             color: #687753 !important
         }
 
-        .report-logo {
+        /* .report-logo {
             height: 80% !important;
-        }
+        } */
 
         .auto {
             margin: auto !important;
@@ -400,7 +400,9 @@
         .auto img {
             width: 100% !important;
         }
-
+        .pdt3p{
+            padding-top: 3% !important;
+        }
 
         @media print {
 
@@ -528,17 +530,21 @@
 
             .mainpageimg {
                 max-height: 250px !important;
+                margin-top: 3% !important;
+                margin-bottom: 3% !important;
             }
         }
     </style>
+    <script src="{{asset('lightRoom/picturefill.min.js')}}"></script>
+    <script src="{{asset('lightRoom/lightgallery-all.min.js')}}"></script>
+    <script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>
+    <script src="{{asset('_monitoring/js/jquery/js/jquery.min.js')}}"></script>
+    <script src="{{asset('_monitoring/js/jquery-ui/js/jquery-ui.min.js')}}"></script>
     <script>
         $(document).ready(function() {
             $('#lightgallery').lightGallery();
         });
     </script>
-    <script src="{{asset('lightRoom/picturefill.min.js')}}"></script>
-    <script src="{{asset('lightRoom/lightgallery-all.min.js')}}"></script>
-    <script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>
 </head>
 
 <body>
@@ -550,34 +556,31 @@
             Print
         </button>
     </div>
-    <div class="card" id='exportContent' contenteditable="true">
+    <div class="card" id='exportContent'>
         <!-- myCode start here -->
         <div class="mainpage col-md-12">
             <div class="col-md-12 row pdtop3p">
                 <div class="row offset-md-1 col-md-9" id="inline">
                     <div class="col-md-2 text-center auto">
-                        <img src="{{asset('dgme.png')}}" id="dgmelogo" class="col-md-2 report-logo" alt="">
+                        <img src="{{asset('dgme.png')}}" id="dgmelogo" class="report-logo" alt="">
                     </div>
                     <div class="col-md-9 text-center auto">
                         <h1 class="green">Directorate General Monitoring & Evaluation</h1>
                         <b class="grey bold">Planing & Development Department Government Of Punjab</b>
+                        <div class="col-md-12 text-center auto pdt3p">
+                            <h3 class="green">Monitoring reports of project</h3>
+                            <h5 class="grey bold underline">{{$project->AssignedProject->Project->title}}</h5>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-12 row">
-                <div class="row offset-md-1 col-md-8 fullwidthprint">
-                    <div class="col-md-12 text-center auto">
-                        <h3 class="green">Monitoring reports of project</h3>
-                        <h5 class="grey bold underline" contenteditable="true">{{$project->AssignedProject->Project->title}}</h5>
-                    </div>
-                </div>
                 @if (count($project->ReportImage->where('title_image',1)))
                 <div class="col-md-12 fullwidthprint">
-                    <img src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$project->id.'/'.$project->ReportImage->where('title_image',1)[0]->MAppAttachment->project_attachement}}" alt="title image" class="col-md-8 offset-md-2 mainpageimg pdtop1p" style="max-height:300px;width: 60% !important;margin-left: 20% !important;">
-                    {{-- <img src="https://www.incimages.com/uploaded_files/image/970x450/getty_509107562_2000133320009280346_351827.jpg" alt="title image" class="col-md-8 offset-md-2 mainpageimg pdtop1p" style="width:100%;max-height:300px;" alt="" /> --}}
+                    <img src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$project->id.'/'.$project->ReportImage->where('title_image',1)[0]->MAppAttachment->project_attachement}}" alt="title image" class="col-md-8 offset-md-2 mainpageimg pdtop1p" style="width: 51% !important;margin-left: 25% !important;">
                 </div>
                 @endif
-                <div class="pdtop3p col-md-12 fullwidthprint" contenteditable="true">
+                <div class="pdtop3p col-md-12 fullwidthprint">
                     <!-- <div class="row">
                     <div class="col-md-12">
                         <label><b>Project Title :</b></label>
@@ -667,14 +670,17 @@
                     </b>
                 </div>
                 <div class="clearfix"></div>
-                <div class="text-center martop4p fullwidthprint col-md-12 pdtop3p" contenteditable="true">
+                <div class="text-center martop4p fullwidthprint col-md-12 pdtop3p">
                     <b class="bold">
-                        April 2019
+                        {{date('F Y')}}
                     </b>
                 </div>
             </div>
         </div>
-        <div class="breakpage col-md-12 topic pdtop3p" contenteditable="true">
+        <div class="breakpage col-md-12 topic pdtop3p" contenteditable="true" id="block1">
+            @if($report_data && $report_data->block1)
+            {!!html_entity_decode($report_data->block1)!!}
+            @else
             <h1 class="bluetxt underline">Acknowledgements</h1>
             <p class="textarea grey">
                 The DGM&E Team would like to thank all those who supported us to conduct the
@@ -685,8 +691,12 @@
                 & other stakeholders for their support and time to review the draft report and
                 providing useful feedback.
             </p>
+            @endif
         </div>
-        <div class="breakpage col-md-12 topic pdtop3p" contenteditable="true">
+        <div class="breakpage col-md-12 topic pdtop3p" id="block2" contenteditable="true">
+            @if($report_data && $report_data->block2)
+            {!!html_entity_decode($report_data->block2)!!}
+            @else
             <h1 class="bluetxt underline">Disclaimer</h1>
             <p class="grey">This report is based on the data provided by the relevant representative of the relevant
                 department. DG M&E disclaims, expressed or implied, as to the accuracy or
@@ -703,8 +713,12 @@
                 installations for safety or health purposes. Any other statement of compliance with
                 any health or safety-related information in this document shall not be attributable to
                 DG M&E and is solely the responsibility of the relevant stakeholders.</p>
+            @endif
         </div>
-        <div class="breakpage col-md-12 topic pdtop3p" contenteditable="true">
+        <div class="breakpage col-md-12 topic pdtop3p" id="block3" contenteditable="true">
+            @if($report_data && $report_data->block3)
+            {!!html_entity_decode($report_data->block3)!!}
+            @else
             <h1 class="bluetxt underline">Executive Summary</h1>
             <p class="grey">
                 With the reference of the letter No. So (R&E) 8-2/2015-G of Section officer (R&E) of
@@ -745,8 +759,12 @@
                 experimental farms.<br /><br />
                 <b class="float-right">Monitoring Team (DG M&E)</b>
             </p>
+            @endif
         </div>
-        <div class="breakpage col-md-12 topic pdtop3p" contenteditable="true">
+        <div class="breakpage col-md-12 topic pdtop3p" id="block4" contenteditable="true">
+            @if($report_data && $report_data->block4)
+            {!!html_entity_decode($report_data->block4)!!}
+            @else
             <h1 class="bluetxt text-center underline">ACRONYMS</h1>
             <div class="row">
                 <div class="mgbottom1p col-md-2 bold">DGM&E:</div>
@@ -768,8 +786,12 @@
                 <div class="mgbottom1p col-md-2 bold">PIPIP:</div>
                 <div class="mgbottom1p col-md-10"> Punjab Irrigated-Agriculture Productivity Improvement Project</div>
             </div>
+            @endif
         </div>
-        <div class="breakpage col-md-12 topic pdtop3p" contenteditable="true">
+        <div class="breakpage col-md-12 topic pdtop3p" id="block5" contenteditable="true">
+            @if($report_data && $report_data->block5)
+            {!!html_entity_decode($report_data->block5)!!}
+            @else
             <h1 class="sectionColor text-center underline">Section-1: INTRODUCTION & BACKGROUND</h1>
             <h1 class="bluetxt underline">1.1 Introduction </h1>
             <p class="grey">
@@ -865,8 +887,9 @@
                 university. The classes for different disciplines were started in the year 2012 and at
                 present near about 635 students are studying in this University as regular students.
             </p>
+            @endif
         </div>
-        <div class="breakpage col-md-12 topic pdtop3p" contenteditable="true">
+        <div class="breakpage col-md-12 topic pdtop3p">
             <h1 class="bluetxt underline">1.2 Project Description</h1>
             <p class="grey">The project description is given in the table below;<br /><br />
                 <b class="pdtop1p col-md-12 text-center bold black">Table 1 Project Summary</b></p>
@@ -889,53 +912,53 @@
                         @endforeach</td>
                 </tr>
                 <tr>
-                    <td class="bglightblue black bold" contenteditable="false">Sponsoring Ministry/ Agency</td>
+                    <td class="bglightblue black bold">Sponsoring Ministry/ Agency</td>
                     <td>Dummy data...</td>
                 </tr>
                 <tr>
-                    <td class="bglightblue black bold" contenteditable="false">Execution Agency</td>
+                    <td class="bglightblue black bold">Execution Agency</td>
                     <td>Dummy data...</td>
                 </tr>
                 <tr>
-                    <td class="bglightblue black bold" contenteditable="false">Operation & Maintenance</td>
+                    <td class="bglightblue black bold">Operation & Maintenance</td>
                     <td>Dummy data...</td>
                 </tr>
                 <tr>
-                    <td class="bglightblue black bold" contenteditable="false">Operation & Maintenance</td>
+                    <td class="bglightblue black bold">Operation & Maintenance</td>
                     <td>Dummy data...</td>
                 </tr>
                 <tr>
-                    <td class="bglightblue black bold" contenteditable="false">Actual Expenditure</td>
+                    <td class="bglightblue black bold">Actual Expenditure</td>
                     <td>Dummy data...</td>
                 </tr>
                 <tr>
-                    <td class="bglightblue black bold" contenteditable="false">Planned Start Date</td>
+                    <td class="bglightblue black bold">Planned Start Date</td>
                     <td>Dummy data...</td>
                 </tr>
                 <tr>
-                    <td class="bglightblue black bold" contenteditable="false">Planned End Date</td>
+                    <td class="bglightblue black bold">Planned End Date</td>
                     <td>Dummy data...</td>
                 </tr>
                 <tr>
-                    <td class="bglightblue black bold" contenteditable="false">Actual Start Date</td>
+                    <td class="bglightblue black bold">Actual Start Date</td>
                     <td>Dummy data...</td>
                 </tr>
                 <tr>
-                    <td class="bglightblue black bold" contenteditable="false">Planned Gestation Period</td>
+                    <td class="bglightblue black bold">Planned Gestation Period</td>
                     <td>Dummy data...</td>
                 </tr>
                 <tr>
-                    <td class="bglightblue black bold" contenteditable="false">Beneficiaries</td>
+                    <td class="bglightblue black bold">Beneficiaries</td>
                     <td>Dummy data...</td>
                 </tr>
                 <tr>
-                    <td class="bglightblue black bold" contenteditable="false">% Financial Utilization</td>
+                    <td class="bglightblue black bold">% Financial Utilization</td>
                     <td>Dummy data...</td>
                 </tr>
 
             </table>
         </div>
-        <div class="breakpage card-block" contenteditable="true">
+        <div class="breakpage card-block">
             {{-- Objectives and components --}}
             <div class="row pdtop3p" style="">
                 <div class="col-md-12 text-center">
@@ -1225,7 +1248,7 @@
         </div>
         <!-- myCode ends here -->
         {{-- Conduct Monitoring --}}
-        <div class="breakpage cad-block pdtop3p" contenteditable="true">
+        <div class="breakpage cad-block pdtop3p">
             {{-- Quality Assesments --}}
             <div class="row pdtop3p" style="">
                 <div class="col-md-12 text-center">
@@ -1639,6 +1662,84 @@
 
         </div>
     </div>
+    <div>
+        <button class="btn btn-success" type="button" onclick="save_report_data()">SAVE</button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+    <script>
+        CKEDITOR.inlineAll();
+        CKEDITOR.instances.block1.on('blur', function(evt) {
+            // getData() returns CKEditor's HTML content.
+            axios.post('/save_report_data', {
+                    block: 'block1',
+                    project: project_id,
+                    data: evt.editor.getData()
+                })
+                .then(function(response) {
+                    console.log(response);
+                })
+                .catch(function(error) {
+                    console.log(error);
+                })
+            // console.log(evt.editor.getData());
+        });
+        CKEDITOR.instances.block2.on('blur', function(evt) {
+            // getData() returns CKEditor's HTML content.
+            axios.post('/save_report_data', {
+                    block: 'block2',
+                    project: project_id,
+                    data: evt.editor.getData()
+                })
+                .then(function(response) {
+                    console.log(response);
+                })
+                .catch(function(error) {
+                    console.log(error);
+                })
+        });
+        CKEDITOR.instances.block3.on('blur', function(evt) {
+            // getData() returns CKEditor's HTML content.
+            axios.post('/save_report_data', {
+                    block: 'block3',
+                    project: project_id,
+                    data: evt.editor.getData()
+                })
+                .then(function(response) {
+                    console.log(response);
+                })
+                .catch(function(error) {
+                    console.log(error);
+                })
+        });
+        CKEDITOR.instances.block4.on('blur', function(evt) {
+            // getData() returns CKEditor's HTML content.
+            axios.post('/save_report_data', {
+                    block: 'block4',
+                    project: project_id,
+                    data: evt.editor.getData()
+                })
+                .then(function(response) {
+                    console.log(response);
+                })
+                .catch(function(error) {
+                    console.log(error);
+                })
+        });
+        CKEDITOR.instances.block5.on('blur', function(evt) {
+            // getData() returns CKEditor's HTML content.
+            axios.post('/save_report_data', {
+                    block: 'block5',
+                    project: project_id,
+                    data: evt.editor.getData()
+                })
+                .then(function(response) {
+                    console.log(response);
+                })
+                .catch(function(error) {
+                    console.log(error);
+                })
+        });
+    </script>
 </body>
 
 </html>

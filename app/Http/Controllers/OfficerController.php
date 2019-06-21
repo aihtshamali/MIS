@@ -73,6 +73,7 @@ use App\MProjectLevel1Kpi;
 use App\MProjectLevel2Kpi;
 use App\MProjectLevel3Kpi;
 use App\MProjectLevel4Kpi;
+use App\ReportData;
 class OfficerController extends Controller
 {
 
@@ -1477,11 +1478,34 @@ class OfficerController extends Controller
      public function generate_monitoring_report(Request $request)
      {
         $project=MProjectProgress::where('assigned_project_id',$request->project_id)->orderBy('created_at','desc')->first();
+        $report_data = ReportData::where('m_project_progress_id',$project->id)->first();
         //
           // dd($project->MAssignedProjectHealthSafety[0]->MHealthSafety);
         //  dd($project->MPlanComponentActivitiesMapping[0]->MPlanComponentactivityDetailMapping);
         // dd($project->MProjectAttachment);
-          return view('_Monitoring._Officer.projects.report',compact('project'));
+        \JavaScript::put([
+          'project_id'=>$project->id
+        ]);
+          return view('_Monitoring._Officer.projects.report',compact('project','report_data'));
+     }
+
+     //saving report Data
+     public function save_report_data(Request $request){
+       $report_data = ReportData::where('m_project_progress_id',$request->project)->first();
+       if(!$report_data){
+        $report_data = new ReportData();
+        $report_data->m_project_progress_id = $request->project;
+        $report_data->user_id = Auth::id();
+        $report_data[$request->block]= $request->data;
+        $report_data->save();
+      }
+      else{
+        $report_data->m_project_progress_id = $request->project;
+        $report_data->user_id = Auth::id();
+        $report_data[$request->block]= $request->data;
+        $report_data->save();
+      }
+       return "Data Saved";
      }
 
     //  CM DASHBOARD
