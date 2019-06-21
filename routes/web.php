@@ -289,6 +289,7 @@ Route::get('/dispatchLetterViews','OfficerController@dispatchLetterView')->name(
 
   //Summary Tab
 Route::get('/generate_monitoring_report','OfficerController@generate_monitoring_report')->name('generate_monitoring_report');
+Route::post('/save_report_data','OfficerController@save_report_data');
 
 // CM DASHBOARD
 Route::get('/minitoringDashboard', 'OfficerController@DetailedDashboard')->name('monitoringDashboard');
