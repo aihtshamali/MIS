@@ -297,9 +297,9 @@
             color: #687753 !important
         }
 
-        .report-logo {
+        /* .report-logo {
             height: 80% !important;
-        }
+        } */
 
         .auto {
             margin: auto !important;
@@ -400,7 +400,9 @@
         .auto img {
             width: 100% !important;
         }
-
+        .pdt3p{
+            padding-top: 3% !important;
+        }
 
         @media print {
 
@@ -528,6 +530,8 @@
 
             .mainpageimg {
                 max-height: 250px !important;
+                margin-top: 3% !important;
+                margin-bottom: 3% !important;
             }
         }
     </style>
@@ -536,11 +540,11 @@
     <script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>
     <script src="{{asset('_monitoring/js/jquery/js/jquery.min.js')}}"></script>
     <script src="{{asset('_monitoring/js/jquery-ui/js/jquery-ui.min.js')}}"></script>
-        <script>
-            $(document).ready(function() {
-                $('#lightgallery').lightGallery();
-            });
-        </script>
+    <script>
+        $(document).ready(function() {
+            $('#lightgallery').lightGallery();
+        });
+    </script>
 </head>
 
 <body>
@@ -558,25 +562,22 @@
             <div class="col-md-12 row pdtop3p">
                 <div class="row offset-md-1 col-md-9" id="inline">
                     <div class="col-md-2 text-center auto">
-                        <img src="{{asset('dgme.png')}}" id="dgmelogo" class="col-md-2 report-logo" alt="">
+                        <img src="{{asset('dgme.png')}}" id="dgmelogo" class="report-logo" alt="">
                     </div>
                     <div class="col-md-9 text-center auto">
                         <h1 class="green">Directorate General Monitoring & Evaluation</h1>
                         <b class="grey bold">Planing & Development Department Government Of Punjab</b>
+                        <div class="col-md-12 text-center auto pdt3p">
+                            <h3 class="green">Monitoring reports of project</h3>
+                            <h5 class="grey bold underline">{{$project->AssignedProject->Project->title}}</h5>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-12 row">
-                <div class="row offset-md-1 col-md-8 fullwidthprint">
-                    <div class="col-md-12 text-center auto">
-                        <h3 class="green">Monitoring reports of project</h3>
-                        <h5 class="grey bold underline">{{$project->AssignedProject->Project->title}}</h5>
-                    </div>
-                </div>
                 @if (count($project->ReportImage->where('title_image',1)))
                 <div class="col-md-12 fullwidthprint">
-                    <img src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$project->id.'/'.$project->ReportImage->where('title_image',1)[0]->MAppAttachment->project_attachement}}" alt="title image" class="col-md-8 offset-md-2 mainpageimg pdtop1p" style="max-height:300px;width: 60% !important;margin-left: 20% !important;">
-                    {{-- <img src="https://www.incimages.com/uploaded_files/image/970x450/getty_509107562_2000133320009280346_351827.jpg" alt="title image" class="col-md-8 offset-md-2 mainpageimg pdtop1p" style="width:100%;max-height:300px;" alt="" /> --}}
+                    <img src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$project->id.'/'.$project->ReportImage->where('title_image',1)[0]->MAppAttachment->project_attachement}}" alt="title image" class="col-md-8 offset-md-2 mainpageimg pdtop1p" style="width: 51% !important;margin-left: 25% !important;">
                 </div>
                 @endif
                 <div class="pdtop3p col-md-12 fullwidthprint">
@@ -911,53 +912,53 @@
                         @endforeach</td>
                 </tr>
                 <tr>
-                    <td class="bglightblue black bold" >Sponsoring Ministry/ Agency</td>
+                    <td class="bglightblue black bold">Sponsoring Ministry/ Agency</td>
                     <td>Dummy data...</td>
                 </tr>
                 <tr>
-                    <td class="bglightblue black bold" >Execution Agency</td>
+                    <td class="bglightblue black bold">Execution Agency</td>
                     <td>Dummy data...</td>
                 </tr>
                 <tr>
-                    <td class="bglightblue black bold" >Operation & Maintenance</td>
+                    <td class="bglightblue black bold">Operation & Maintenance</td>
                     <td>Dummy data...</td>
                 </tr>
                 <tr>
-                    <td class="bglightblue black bold" >Operation & Maintenance</td>
+                    <td class="bglightblue black bold">Operation & Maintenance</td>
                     <td>Dummy data...</td>
                 </tr>
                 <tr>
-                    <td class="bglightblue black bold" >Actual Expenditure</td>
+                    <td class="bglightblue black bold">Actual Expenditure</td>
                     <td>Dummy data...</td>
                 </tr>
                 <tr>
-                    <td class="bglightblue black bold" >Planned Start Date</td>
+                    <td class="bglightblue black bold">Planned Start Date</td>
                     <td>Dummy data...</td>
                 </tr>
                 <tr>
-                    <td class="bglightblue black bold" >Planned End Date</td>
+                    <td class="bglightblue black bold">Planned End Date</td>
                     <td>Dummy data...</td>
                 </tr>
                 <tr>
-                    <td class="bglightblue black bold" >Actual Start Date</td>
+                    <td class="bglightblue black bold">Actual Start Date</td>
                     <td>Dummy data...</td>
                 </tr>
                 <tr>
-                    <td class="bglightblue black bold" >Planned Gestation Period</td>
+                    <td class="bglightblue black bold">Planned Gestation Period</td>
                     <td>Dummy data...</td>
                 </tr>
                 <tr>
-                    <td class="bglightblue black bold" >Beneficiaries</td>
+                    <td class="bglightblue black bold">Beneficiaries</td>
                     <td>Dummy data...</td>
                 </tr>
                 <tr>
-                    <td class="bglightblue black bold" >% Financial Utilization</td>
+                    <td class="bglightblue black bold">% Financial Utilization</td>
                     <td>Dummy data...</td>
                 </tr>
 
             </table>
         </div>
-        <div class="breakpage card-block" >
+        <div class="breakpage card-block">
             {{-- Objectives and components --}}
             <div class="row pdtop3p" style="">
                 <div class="col-md-12 text-center">
@@ -1247,7 +1248,7 @@
         </div>
         <!-- myCode ends here -->
         {{-- Conduct Monitoring --}}
-        <div class="breakpage cad-block pdtop3p" >
+        <div class="breakpage cad-block pdtop3p">
             {{-- Quality Assesments --}}
             <div class="row pdtop3p" style="">
                 <div class="col-md-12 text-center">
@@ -1667,76 +1668,76 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
     <script>
         CKEDITOR.inlineAll();
-        CKEDITOR.instances.block1.on('blur', function( evt ) {
+        CKEDITOR.instances.block1.on('blur', function(evt) {
             // getData() returns CKEditor's HTML content.
-            axios.post('/save_report_data',{
-                block:'block1',
-                project:project_id,
-                data:evt.editor.getData()
-            })
-            .then(function(response){
-                console.log(response);
-            })
-            .catch(function(error){
-                console.log(error);
-            })
+            axios.post('/save_report_data', {
+                    block: 'block1',
+                    project: project_id,
+                    data: evt.editor.getData()
+                })
+                .then(function(response) {
+                    console.log(response);
+                })
+                .catch(function(error) {
+                    console.log(error);
+                })
             // console.log(evt.editor.getData());
         });
-        CKEDITOR.instances.block2.on('blur', function( evt ) {
+        CKEDITOR.instances.block2.on('blur', function(evt) {
             // getData() returns CKEditor's HTML content.
-            axios.post('/save_report_data',{
-                block:'block2',
-                project:project_id,
-                data:evt.editor.getData()
-            })
-            .then(function(response){
-                console.log(response);
-            })
-            .catch(function(error){
-                console.log(error);
-            })
+            axios.post('/save_report_data', {
+                    block: 'block2',
+                    project: project_id,
+                    data: evt.editor.getData()
+                })
+                .then(function(response) {
+                    console.log(response);
+                })
+                .catch(function(error) {
+                    console.log(error);
+                })
         });
-        CKEDITOR.instances.block3.on('blur', function( evt ) {
+        CKEDITOR.instances.block3.on('blur', function(evt) {
             // getData() returns CKEditor's HTML content.
-            axios.post('/save_report_data',{
-                block:'block3',
-                project:project_id,
-                data:evt.editor.getData()
-            })
-            .then(function(response){
-                console.log(response);
-            })
-            .catch(function(error){
-                console.log(error);
-            })
+            axios.post('/save_report_data', {
+                    block: 'block3',
+                    project: project_id,
+                    data: evt.editor.getData()
+                })
+                .then(function(response) {
+                    console.log(response);
+                })
+                .catch(function(error) {
+                    console.log(error);
+                })
         });
-        CKEDITOR.instances.block4.on('blur', function( evt ) {
+        CKEDITOR.instances.block4.on('blur', function(evt) {
             // getData() returns CKEditor's HTML content.
-            axios.post('/save_report_data',{
-                block:'block4',
-                project:project_id,
-                data:evt.editor.getData()
-            })
-            .then(function(response){
-                console.log(response);
-            })
-            .catch(function(error){
-                console.log(error);
-            })
+            axios.post('/save_report_data', {
+                    block: 'block4',
+                    project: project_id,
+                    data: evt.editor.getData()
+                })
+                .then(function(response) {
+                    console.log(response);
+                })
+                .catch(function(error) {
+                    console.log(error);
+                })
         });
-        CKEDITOR.instances.block5.on('blur', function( evt ) {
+        CKEDITOR.instances.block5.on('blur', function(evt) {
             // getData() returns CKEditor's HTML content.
-            axios.post('/save_report_data',{
-                block:'block5',
-                project:project_id,
-                data:evt.editor.getData()
-            })
-            .then(function(response){
-                console.log(response);
-            })
-            .catch(function(error){
-                console.log(error);
-            })
+            axios.post('/save_report_data', {
+                    block: 'block5',
+                    project: project_id,
+                    data: evt.editor.getData()
+                })
+                .then(function(response) {
+                    console.log(response);
+                })
+                .catch(function(error) {
+                    console.log(error);
+                })
         });
     </script>
 </body>
