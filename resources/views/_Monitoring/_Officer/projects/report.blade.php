@@ -913,15 +913,15 @@
                 </tr>
                 <tr>
                     <td class="bglightblue black bold">Sponsoring Ministry/ Agency</td>
-                    <td>Dummy data...</td>
+                    <td>@foreach ($project->AssignedProject->Project->AssignedSponsoringAgencies as $sponsoring)
+                        {{$sponsoring->SponsoringAgency->name}},
+                        @endforeach</td>
                 </tr>
                 <tr>
                     <td class="bglightblue black bold">Execution Agency</td>
-                    <td>Dummy data...</td>
-                </tr>
-                <tr>
-                    <td class="bglightblue black bold">Operation & Maintenance</td>
-                    <td>Dummy data...</td>
+                    <td>@foreach ($project->AssignedProject->Project->AssignedExecutingAgencies as $executing)
+                        {{$executing->ExecutingAgency->name}},
+                        @endforeach</td>
                 </tr>
                 <tr>
                     <td class="bglightblue black bold">Operation & Maintenance</td>
@@ -932,28 +932,30 @@
                     <td>Dummy data...</td>
                 </tr>
                 <tr>
+                
                     <td class="bglightblue black bold">Planned Start Date</td>
-                    <td>Dummy data...</td>
+                    <td>{{$project->AssignedProject->Project->ProjectDetail->planned_start_date}}</td>
                 </tr>
                 <tr>
                     <td class="bglightblue black bold">Planned End Date</td>
-                    <td>Dummy data...</td>
+                    <td>{{$project->AssignedProject->Project->ProjectDetail->planned_end_date}}</td>
                 </tr>
                 <tr>
                     <td class="bglightblue black bold">Actual Start Date</td>
-                    <td>Dummy data...</td>
+                    <td>{{$project->AssignedProject->Project->ProjectDetail->actual_start_date}}</td>
                 </tr>
                 <tr>
                     <td class="bglightblue black bold">Planned Gestation Period</td>
-                    <td>Dummy data...</td>
+                    <td>
+                    </td>
                 </tr>
                 <tr>
                     <td class="bglightblue black bold">Beneficiaries</td>
-                    <td>Dummy data...</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td class="bglightblue black bold">% Financial Utilization</td>
-                    <td>Dummy data...</td>
+                    <td></td>
                 </tr>
 
             </table>
