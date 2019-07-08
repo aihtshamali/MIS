@@ -74,6 +74,7 @@ use App\MProjectLevel2Kpi;
 use App\MProjectLevel3Kpi;
 use App\MProjectLevel4Kpi;
 use App\ReportData;
+use App\PostSne;
 class OfficerController extends Controller
 {
 
@@ -1784,4 +1785,47 @@ class OfficerController extends Controller
     return redirect()->back();
 
     }
+  public function SavePostSne(Request $request)
+  {
+    
+    $post_sne= PostSne::where('assigned_project_id', $request->assigned_project)->first();
+    if($post_sne!=null){ //Update Existing
+      if($request->post_sne=="With SNE")
+        {
+          $post_sne->sne=1;
+          if($request->sne_type== "staff_nums"){
+            $post_sne->num_of_staff = $request->num_of_staff;
+            
+          }else{
+            $dates=explode("-",$request->sne_daterange);
+            $post_sne->conditioned_start_date = $dates[0];
+            $post_sne->conditioned_end_date = $dates[1];
+          }
+        }else{
+            $post_sne->recommendation = $request->recommendation;
+            $post_sne->future_lessson = $request->future_lessson;
+          
+        }
+
+    }else{  //CREATE NEW
+      $post_sne= new PostSne();
+      if ($request->post_sne == "With SNE") {
+        $post_sne->sne = 1;
+        $post_sne->assigned_project_id = $request->assigned_project;
+        if ($request->sne_type == "staff_nums") {
+          $post_sne->num_of_staff = $request->num_of_staff;
+        } else {
+          $dates = explode("-", $request->sne_daterange);
+          $post_sne->conditioned_start_date = $dates[0];
+          $post_sne->conditioned_end_date = $dates[1];
+        }
+      } else {
+        $post_sne->recommendation = $request->recommendation;
+        $post_sne->future_lessson = $request->future_lessson;
+      }
+    }
+    $post_sne->save();
+    return redirect()->back(); 
+
+  }
 }
