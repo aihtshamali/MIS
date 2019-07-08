@@ -37,7 +37,10 @@ class ReportImageController extends Controller
     {
 
         if(isset($request->title)){
-            $reportImage=new ReportImage();
+            $reportImage= ReportImage::where('m_project_progress_id',$request->m_project_progress_id)->where('title_image', true)->first();
+            if(!$reportImage)
+                $reportImage=new ReportImage();
+
             $reportImage->m_project_progress_id= $request->m_project_progress_id;
             $reportImage->m_app_attachment_id = $request->report_images;
             $reportImage->user_id=Auth::id();

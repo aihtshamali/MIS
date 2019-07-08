@@ -155,5 +155,9 @@ class User extends Authenticatable implements JWTSubject
   {
     return $this->hasMany('App\DispatchLetterCc');
   }
+  public function PostSne()
+  {
+    return $this->hasMany('App\PostSne');
+  }
 
 }

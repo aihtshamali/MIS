@@ -266,9 +266,10 @@ transform: rotate(90deg);
 
             <div class="col-md-12">
               <label for="">Select Image for title</label>
+              <span class="pull-right capitalize" style="color:red;font-size:8px"><b>*<b>It will Update Existing TITLE IMAGE On Reselection</span>
               @php
-            $i=1;
-            @endphp
+              $i=1;
+              @endphp
             <input type="hidden" name="title" value="true">
           <select name="report_images" class="form-control" id="">
             <option value="">Select Title Image</option>

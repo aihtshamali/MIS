@@ -207,6 +207,7 @@ Route::prefix('Evaluatorofficer')->middleware('role:evaluator|officer|transporto
   Route::get('/officer_chart_one','OfficerController@officer_chart_one')->name('officer_chart_one');
   Route::get('/officer_chart_two','OfficerController@officer_chart_two')->name('officer_chart_two');
   Route::get('/officer_chart_three','OfficerController@officer_chart_three')->name('officer_chart_three');
+  Route::post('/post_sne','OfficerController@SavePostSne')->name('post_sne');
 
 });
 //Monitor officers

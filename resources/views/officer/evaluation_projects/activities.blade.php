@@ -554,8 +554,10 @@
                       </tbody>
                     </table>
                     <input type="hidden" name="assigned_project_id" style="display:inline;float:right" value="{{$project_data->id}}">
-                    <button type="submit" class="btn btn-success pull-right" @if($project_data->progress != 100 ||( $project_data->progress == 100 && $project_data->complete==1)) disabled @endif >Project Completed
-                    </button>
+                    @if(count($project_data->AssignedProjectTeam) == 1 || $project_data->AssignedProjectTeam->where('user_id',Auth::id())->where('team_lead',1)->first())
+                      <button type="submit" class="btn btn-success pull-right" @if($project_data->progress != 100 ||( $project_data->progress == 100 && $project_data->complete==1)) disabled @endif >Project Completed
+                      </button>
+                    @endif
                   </form>
                 </div>
               </div>
@@ -597,54 +599,69 @@
                 </div>
 
               </div>
-              <form action="">
+            <form action="{{route('post_sne')}}" method="POST">
+              {{csrf_field()}}
+                <input type="hidden" name="assigned_project" value="{{$project_data->id}}">
                 <div class="col-md-12" style="margin-bottom:10% !important;">
+                    <hr>
+                    <h3></h3>
                   <h5><b>POST ECM</b></h5>
-                  <div class="col-md-2">
+                  <div class="col-md-offset-3 col-md-2">
                     <h4>SNE Type</h4>
                   </div>
                   <div class="col-md-4">
-                    <div class="dropdown">
+                    <select name="post_sne" id="post_sne" class="btn btn-primary">
+                      <option hidden selected>Select Type</option>
+                      <option>With SNE</option>
+                      <option>Without SNE</option>
+                    </select>
+                    {{-- <div class="dropdown">
                       <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select SNE Type
                         <span class="caret"></span></button>
                       <ul class="dropdown-menu">
                         <li class="wsne pointer">With SNE</li>
                         <li class="wosne pointer">Without SNE</li>
                       </ul>
-                    </div>
+                    </div> --}}
                   </div>
                   <div class="col-md-12">
-                    <div class="wsneDiv nodisplay">
+                    <div class="col-md-offset-3 wsneDiv nodisplay">
                       <div class="col-md-2">
                         <h4>With SNE</h4>
                       </div>
                       <div class="col-md-4">
-                        <div class="dropdown">
+                        <select name="sne_type" id="sne_type" class="btn btn-primary">
+                        <option hidden selected>Select Type</option>
+                        <option value="staff_nums">Specific No. of Staff recomend</option>
+                        <option value="conditional_sne">Conditional SNE</option>
+                      </select>
+                        {{-- <div class="dropdown">
                           <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Type
                             <span class="caret"></span></button>
                           <ul class="dropdown-menu">
                             <li class="numostaf pointer">Specific No. of Staff recomend</li>
                             <li class="csne pointer">Conditional SNE</li>
                           </ul>
-                        </div>
+                        </div> --}}
                       </div>
                       <div class="col-md-12">
                         <div class="numostafDiv nodisplay">
                           <h4>Specific No. of Staff recomend</h4>
-                          <textarea name="" placeholder="No. Of Staff" id="" class="col-md-12 top1p" rows="2"></textarea>
+                          <textarea name="num_of_staff" placeholder="No. Of Staff" id="" class="col-md-12 top1p" rows="2"></textarea>
                         </div>
                         <div class="csneDiv nodisplay">
                           <h4>Conditional SNE</h4>
-                          <input type="text" class="top1p" name="daterange" value="01/01/2018 - 01/15/2018" />
+                          <input type="text" class="top1p" name="sne_daterange" value="01/01/2018 - 01/15/2018" />
                         </div>
                       </div>
                     </div>
                     <div class="wosneDiv nodisplay">
                       <h4>Without SNE</h4>
-                      <textarea name="" placeholder="Recomenation" id="" class="col-md-12 top1p" rows="5"></textarea>
-                      <textarea name="" placeholder="Future Lesson Learned" id="" class="col-md-12 top1p" rows="5"></textarea>
+                      <textarea name="recommendation" placeholder="Recommendation" id="" class="col-md-12 top1p" rows="5"></textarea>
+                      <textarea name="future_lessson" placeholder="Future Lesson Learned" id="" class="col-md-12 top1p" rows="5"></textarea>
                     </div>
                   </div>
+                  <input type="submit" value="Save SNE" class="btn btn-success pull-right">
                 </div>
               </form>
             </div>
@@ -932,21 +949,27 @@
     });
   });
   $(document).ready(function() {
-    $(".wsne").click(function() {
-      $(".wsneDiv").show();
-      $(".wosneDiv").hide();
+    $("#post_sne").click(function() {
+      console.log($("#post_sne").val());
+      
+      if($(this).val()=="With SNE")
+      {
+        $(".wsneDiv").show();
+        $(".wosneDiv").hide();
+      }else if($(this).val()=="Without SNE"){
+        $(".wosneDiv").show();
+        $(".wsneDiv").hide();  
+      }
     });
-    $(".wosne").click(function() {
-      $(".wosneDiv").show();
-      $(".wsneDiv").hide();
-    });
-    $(".numostaf").click(function() {
-      $(".numostafDiv").show();
-      $(".csneDiv").hide();
-    });
-    $(".csne").click(function() {
-      $(".csneDiv").show();
-      $(".numostafDiv").hide();
+    $("#sne_type").click(function() {
+      if($("#sne_type").val()=="staff_nums"){
+        $(".numostafDiv").show();
+        $(".csneDiv").hide();
+      }else if($("#sne_type").val()=="conditional_sne"){
+        $(".csneDiv").show();
+        $(".numostafDiv").hide();
+
+      }
     });
     $(function() {
       $('input[name="daterange"]').daterangepicker({
