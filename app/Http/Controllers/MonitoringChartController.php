@@ -81,6 +81,15 @@ class MonitoringChartController extends Controller
         $actual_total_projects = Project::where('project_type_id',2)->where('status',1)->get();
         $total_projects = $actual_total_projects->count();
 
+        $unassigned_projects = $projects=Project::select('projects.*')
+        ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+        ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
+        ->where('projects.project_type_id',2)
+        ->where('projects.status',1)
+        ->whereNull('assigned_projects.project_id')
+        ->whereNull('assigned_project_managers.project_id')
+        ->get();
+
         $inprogress_projects = AssignedProject::select('assigned_projects.*')
         ->leftJoin('projects','projects.id','assigned_projects.project_id')
         ->where('project_type_id',2)
@@ -97,6 +106,7 @@ class MonitoringChartController extends Controller
             'total_projects' => $total_projects,
             'inprogress_projects' => $inprogress_projects,
             'completed_projects' => $completed_projects,
+            'unassigned_projects' => $unassigned_projects
             ]);
         return view('_Monitoring/analytics/chart_one',compact('total_projects','inprogress_projects','completed_projects'));
     }

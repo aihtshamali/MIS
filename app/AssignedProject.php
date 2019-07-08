@@ -75,6 +75,10 @@ class AssignedProject extends Model
     {
       return $this->hasMany('App\StoppedProject');
     }
+    public function PostSne()
+    {
+      return $this->hasMany('App\PostSne');
+    }
     
 
 }
