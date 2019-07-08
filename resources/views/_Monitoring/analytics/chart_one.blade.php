@@ -54,7 +54,7 @@
   },
   {
     "Type": "UnAssigned Projects",
-    "value": total_projects-inprogress_projects-completed_projects,
+    "value": unassigned_projects,
     // "color": "#0099e6"
   },
   {
