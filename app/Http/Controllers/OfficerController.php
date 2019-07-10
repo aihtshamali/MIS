@@ -572,6 +572,15 @@ class OfficerController extends Controller
         // return redirect()->back();
       }
 
+      public function Monitoring_PlannedDates(Request $request)
+      {
+        
+        $project=AssignedProject::find($request->assigned_project_id)->MProjectProgress->first()->AssignedProject->Project->ProjectDetail;
+        $project->planned_start_date=$request->planned_start_date;
+        $project->planned_end_date=$request->planned_end_date;
+        $project->save();
+        return redirect()->back();
+      }
       public function monitoring_inrogress_organizations_saved(Request $request)
       {
         $total_progresses = AssignedProject::find($request->assigned_project_id)->MProjectProgress;
@@ -675,11 +684,11 @@ class OfficerController extends Controller
           $projectProgress->save();
 
         }
-
+       
         $progresses = $projectProgress;
         $costs = null;
         $costs = $progresses->MProjectCost;
-
+       
         $location = null;
         $location = $progresses->MProjectLocation;
 
@@ -776,6 +785,7 @@ class OfficerController extends Controller
          'team_lead_check' => $team_lead_check,
          'assigned_user_locations'=>$user_locations
         ]);
+       
         // dd($generalFeedback[0]u->MAssignedProjectFeedBack->answer);
         // dd($components[0]->MPlanObjectivecomponentMapping[0]->m_plan_objective_id);
         return view('_Monitoring._Officer.projects.inprogressSingle'
