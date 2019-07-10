@@ -2,7 +2,13 @@
 @section('styletags')
   <link rel="stylesheet" href="{{asset('css/AdminLTE/dataTables.bootstrap.min.css')}}">
 
+  <style media="screen">
+     
+      .table>thead>tr>th {
+    width: 25px !important;
+}
 
+  </style>
 @endsection
 @section('content')
   <div class="content-wrapper">
@@ -36,9 +42,9 @@
                 <td>
                   @foreach ($project->AssignedProjectTeam as $team)
                     @if ($team->team_lead==1)
-                      <span style="font-weight:bold;color:blue">{{$team->user->first_name}}  {{$team->user->last_name}} -</span>
+                      <span style="font-weight:bold;color:blue">{{$team->user->first_name}}  {{$team->user->last_name}} <br></span>
                     @else
-                      <span class="">{{$team->user->first_name}} {{$team->user->last_name}}</span>
+                      <span class="">{{$team->user->first_name}} {{$team->user->last_name}} <br></span>
                     @endif
                   @endforeach
                 </td>
@@ -55,16 +61,7 @@
 
 
           </tbody>
-          <tfoot>
-          <tr>
-            <th>Project #</th>
-            <th>Project Name</th>
-            <th>Department</th>
-            <th>Assigned To</th>
-            <th>Assigned By</th>
-            <th>ReAssign</th>
-          </tr>
-          </tfoot>
+        
         </table>
       </div>
       <!-- /.box-body -->

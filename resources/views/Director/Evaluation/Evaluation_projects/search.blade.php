@@ -17,6 +17,10 @@
         width: 100%;
         box-shadow: 0 1px 1px rgba(0,0,0,0.1)
       }
+      .table>thead>tr>th {
+    width: 25px !important;
+}
+
   </style>
 @endsection
 @section('content')
@@ -143,10 +147,12 @@
                   <table class="table table-hover table-striped">
                     <tbody>
                         <thead>
-                            <th>Project Number</th>
+                            <th></th>
+                            <th>Project No.</th>
                             <th>Project Name</th>
                             <th>Assigned By</th>
                             <th>Team Members</th>
+                            <th>SNE</th>
                             <th>Priority</th>
                             <th>Assigned Duration</th>
                             <th>Progress</th>
@@ -157,19 +163,26 @@
                             @foreach ($assigned as $assigned)
 
                                 <tr>
+                                  <td><form action="{{route('stopAssignedProject')}}" method="post" >
+                                      {{ csrf_field() }}
+                                        <button type="button" class="stopBtn btn btn-md btn-danger" rel='popover' data-placement='bottom' data-original-title='Remarks' data-html="true" 
+                                        data-content="<input type='hidden' name='assigned_project_id' value='{{$assigned->id}}'>
+                                        <input type='text' name='remarks'> <button type='submit' class='btn btn-success'> Save </button>">Stop Project</button>
+                                      </form></td>
                                   <td>{{$assigned->project->project_no}}</td>
                                   <td>{{$assigned->project->title}}</td>
                                   <td>{{ $assigned->user->first_name }} {{ $assigned->user->last_name }}</td>
                                   <td>
                                       @foreach ($assigned->AssignedProjectTeam as $team)
                                       @if ($team->team_lead==1)
-                                        <span style="font-weight:bold;color:blue">{{$team->user->first_name}}  {{$team->user->last_name}} -</span>
+                                        <span style="font-weight:bold;color:blue">{{$team->user->first_name}}  {{$team->user->last_name}}<br></span>
                                       @else
-                                        <span class="">{{$team->user->first_name}} {{$team->user->last_name}}</span>
+                                        <span class="">{{$team->user->first_name}} {{$team->user->last_name}} <br></span>
                                       @endif
                                     @endforeach
 
                                   </td>
+                                   <td>{{$assigned->project->ProjectDetail->sne}}</td>
                                   <td>
                                       @if ($assigned->priority==3)
                                       High

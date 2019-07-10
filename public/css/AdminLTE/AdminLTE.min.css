@@ -2956,7 +2956,8 @@ table.text-center th {
 }
 
 .table>thead>tr>th {
-    border-bottom: 2px solid #f4f4f4
+    border-bottom: 2px solid #f4f4f4;
+    max-width: 25px !important;
 }
 
 .table tr td .progress {

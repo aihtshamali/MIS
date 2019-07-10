@@ -110,6 +110,7 @@ class DirectorEvaluationController extends Controller
          ->where('stopped',true)
          ->get();
 
+        //  dd($stoppedProjects[0]->StoppedProject[0]->remarks);
          $officers = User::where('users.status',1)->get();
          $projects = $assigned;
          $sectors = Sector::where('status',1)->get();

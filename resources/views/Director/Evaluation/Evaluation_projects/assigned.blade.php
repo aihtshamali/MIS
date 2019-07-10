@@ -17,6 +17,10 @@
         width: 100%;
         box-shadow: 0 1px 1px rgba(0,0,0,0.1)
       }
+      .table>thead>tr>th {
+  width: 25px !important;
+}
+
   </style>
 @endsection
 @section('content')
@@ -131,27 +135,21 @@
             <div class="box1 box-warning">
                 <div class="box-header with-border">
                   <h3 class="box-title">STOPPED PROJECTS</h3>
-    
-                  <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                  </div>
-                </div>
                 <div class="box-body2">
                     <div class="table-responsive">
                       <table class="table table-hover table-striped">
                         <tbody>
                             <thead>
                                 <th></th>
-                                <th>Project Number</th>
+                                <th>Project No.</th>
                                 <th>Project Name</th>
                                 <th>Team Members</th>
                                 <th>Priority</th>
+                                <th>SNE</th>
                                 <th>Score</th>
                                 <th>Assigned Duration</th>
                                 <th>Progress</th>
-                                <th></th>
+                                <th>Remarks</th>
                               </thead>
                               <tbody>
                                 @foreach ($stoppedProjects as $S_assigned)
@@ -177,6 +175,7 @@
                                       @endforeach
     
                                     </td>
+                                    <td>{{$S_assigned->project->ProjectDetail->sne}}</td>
                                     <td>
                                       {{ $S_assigned->project->ProjectDetail->AssigningForum->name }}
                                     </td>
@@ -189,18 +188,17 @@
                                         $interval = date_diff(date_create(date('Y-m-d h:i:s',strtotime($S_assigned->created_at))), date_create(date('Y-m-d h:i:s')))->format('%m Month %d Day %h Hours');
                                         // $duration=$interval->format();
                                       @endphp
-                                      {{-- {{$S_assigned->created_at}} --}}
+                                   
                                       {{$interval}}
-                                      {{-- {{dd($interval)}} --}}
-                                      {{-- {{$duration}} --}}
+                                     
                                     </td>
                                     <td><div class="progress">
                                         <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
                                           aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo 20+$S_assigned->progress; ?>% ">
                                         {{round($S_assigned->progress, 0, PHP_ROUND_HALF_UP) }}% Complete
                                           </div>
-    
                                         </div></td>
+                                      <td>{{$S_assigned->StoppedProject->remarks}}</td>
     
                                   </tr>
     
@@ -210,18 +208,12 @@
                       </table>
                     </div>
                 </div>
+              </div>
     
           </div>
           <div class="box1 box-warning">
-            <div class="box-header with-border">
+            <div class="box-header ">
               <h3 class="box-title">ASSIGNED PROJECTS</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
-            </div>
             
             <div class="box-body1">
                 <div class="table-responsive">
@@ -229,9 +221,10 @@
                     <tbody>
                         <thead>
                             <th></th>
-                            <th>Project Number</th>
+                            <th>Project No.</th>
                             <th>Project Name</th>
                             <th>Team Members</th>
+                            <th>SNE</th>
                             <th>Priority</th>
                             <th>Score</th>
                             <th>Assigned Duration</th>
@@ -255,13 +248,14 @@
                                 <td>
                                     @foreach ($assigned->AssignedProjectTeam as $team)
                                     @if ($team->team_lead==1)
-                                <span style="font-weight:bold;color:red"><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}">{{$team->user->first_name}}  {{$team->user->last_name}}</a> - </span>
+                                    <span ><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}" style="font-weight:bold;color:red">{{$team->user->first_name}} {{$team->user->last_name}} </a> <br></span>
                                     @else
-                                      <span class=""><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}">{{$team->user->first_name}} {{$team->user->last_name}}</a></span>
+                                      <span class=""><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}">{{$team->user->first_name}} {{$team->user->last_name}} <br></a></span>
                                     @endif
-                                  @endforeach
+                                   @endforeach
 
                                 </td>
+                                <td>{{$assigned->project->ProjectDetail->sne}}</td>
                                 <td>
                                   {{ $assigned->project->ProjectDetail->AssigningForum->name }}
                                 </td>
