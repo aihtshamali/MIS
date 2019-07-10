@@ -23,6 +23,10 @@ use Illuminate\Support\Collection;
 use \DateTime;
 use \DateTimeZone;
 use App\MProjectLocation;
+use App\MAssignedKpiLevel1Log;
+use App\MAssignedKpiLevel2Log;
+use App\MAssignedKpiLevel3Log;
+use App\MAssignedKpiLevel4Log;
 use DB;
 class HomeController extends Controller
 {
@@ -168,6 +172,10 @@ class HomeController extends Controller
         $assigned_projects = AssignedProject::all();
         // dd($assigned_projects);
         MProjectLocation::truncate();
+        MAssignedKpiLevel4Log::truncate();
+        MAssignedKpiLevel3Log::truncate();
+        MAssignedKpiLevel2Log::truncate();
+        MAssignedKpiLevel1Log::truncate();
         foreach($assigned_projects as $ap){
           if($ap->Project->project_type_id == 2){
             if(count($ap->MProjectProgress)){
@@ -207,11 +215,11 @@ class HomeController extends Controller
                     $ri->delete();
                   }
                 }
-                if($mp->ReportData !=NULL){
-                  foreach($mp->ReportData as $rd){
-                    $rd->delete();
-                  }
-                }
+                // if($mp->ReportData !=NULL){
+                //   foreach($mp->ReportData as $rd){
+                //     $rd->delete();
+                //   }
+                // }
                 if($mp->MAssignedProjectHealthSafety !=NULL){
                   foreach($mp->MAssignedProjectHealthSafety as $maphs){
                     $maphs->delete();
@@ -263,6 +271,9 @@ class HomeController extends Controller
                 }
                 if($mp->MPlanComponentActivitiesMapping !=NULL){
                   foreach($mp->MPlanComponentActivitiesMapping as $mpcam){
+                    // dd($mpcam->MPlanComponentactivityDetailMapping);
+                    if($mpcam->MPlanComponentactivityDetailMapping != NULL)
+                      $mpcam->MPlanComponentactivityDetailMapping->delete();
                     $mpcam->delete();
                   }
                 }
@@ -285,6 +296,9 @@ class HomeController extends Controller
                   foreach($mp->MPlanComponent as $mpc){
                     $mpc->delete();
                   }
+                }
+                if($mp->ReportData !=NULL){
+                  $mp->ReportData->delete();
                 }
                 $mp->delete();
               }
