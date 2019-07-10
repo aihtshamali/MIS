@@ -114,6 +114,9 @@ class MProjectProgress extends Model
     public function ReportImage(){
       return $this->hasMany('App\ReportImage');
     }
+    public function ReportData(){
+      return $this->hasOne('App\ReportData');
+    }
 
 
 
