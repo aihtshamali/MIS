@@ -164,6 +164,8 @@ class HomeController extends Controller
       // dd($tripcounts);
         // return view('home',['tripcountsFordg'=> $tripcountsFordg ,'tripcounts'=>$tripcounts]);
 
+        //Monitoring Project Deletion Code
+        /*
         $projects = Project::where('project_type_id',2)->get();
         // $assigned_projects = AssignedProject::select('project_id')
         // ->leftJoin('projects','projects.id','assigned_projects.project_id')
@@ -312,6 +314,7 @@ class HomeController extends Controller
           $p->delete();
         }
         dd('deleted');
+        */
 
         return view('home');
 
