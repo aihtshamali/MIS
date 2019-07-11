@@ -149,11 +149,12 @@
     padding: 0px !important;
   }
 
-  .btn {
-    margin: 2% !important;
-  }
-
-  .nodisplay {
+  /* .btn {
+    margin: 0% !important;
+  } */
+  .main-header .navbar-custom-menu,
+  .main-header .navbar-right{float:left;}
+   .nodisplay {
     display: none
   }
 
