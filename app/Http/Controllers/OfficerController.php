@@ -113,7 +113,8 @@ class OfficerController extends Controller
         $data->type = $file_extension;
         $data->attachment_name=$request->attachment_name;
         $data->save();
-        }
+      }
+      return redirect()->back();
       }
 
       public function evaluation_index_officersidenav()
