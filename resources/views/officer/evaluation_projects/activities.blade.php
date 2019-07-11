@@ -153,7 +153,13 @@
     margin: 0% !important;
   } */
   .main-header .navbar-custom-menu,
-  .main-header .navbar-right{float:left;}
+  .main-header .navbar-right{
+        float: right;
+    margin-left: -41px;
+    position: absolute;
+    right: 4%;
+    top: 1%;
+    }
    .nodisplay {
     display: none
   }
