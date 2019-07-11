@@ -49,7 +49,7 @@
                                         <div class="col-md-4" >
                                             <ul>
                                                 <li><b>GS #:</b> <span class="pull-right">{{$project->ADP}}</span></li>
-                                                <li><b>Cost: </b> <span class="pull-right">{{$project->ProjectDetail->orignal_cost}}</span></li>
+                                                <li><b>Cost: </b> <span class="pull-right">@if($project->ProjectDetail){{$project->ProjectDetail->orignal_cost}}@endif</span></li>
                                                 <li><b>Sector: </b> <span class="pull-right">
                                                   @foreach ($project->AssignedSubSectors as $subsector)
                                                     {{$subsector->SubSector->Sector->name}},

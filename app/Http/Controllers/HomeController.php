@@ -22,6 +22,11 @@ use App\MPlanKpicomponentMapping;
 use Illuminate\Support\Collection;
 use \DateTime;
 use \DateTimeZone;
+use App\MProjectLocation;
+use App\MAssignedKpiLevel1Log;
+use App\MAssignedKpiLevel2Log;
+use App\MAssignedKpiLevel3Log;
+use App\MAssignedKpiLevel4Log;
 use DB;
 class HomeController extends Controller
 {
@@ -158,6 +163,159 @@ class HomeController extends Controller
       // $tripcounts=$triprequests->count();
       // dd($tripcounts);
         // return view('home',['tripcountsFordg'=> $tripcountsFordg ,'tripcounts'=>$tripcounts]);
+
+        //Monitoring Project Deletion Code
+        /*
+        $projects = Project::where('project_type_id',2)->get();
+        // $assigned_projects = AssignedProject::select('project_id')
+        // ->leftJoin('projects','projects.id','assigned_projects.project_id')
+        // ->where('projects.project_type_id',2)
+        // ->get();
+        $assigned_projects = AssignedProject::all();
+        // dd($assigned_projects);
+        MProjectLocation::truncate();
+        MAssignedKpiLevel4Log::truncate();
+        MAssignedKpiLevel3Log::truncate();
+        MAssignedKpiLevel2Log::truncate();
+        MAssignedKpiLevel1Log::truncate();
+        foreach($assigned_projects as $ap){
+          if($ap->Project->project_type_id == 2){
+            if(count($ap->MProjectProgress)){
+              foreach($ap->MProjectProgress as $mp){
+                if($mp->MProjectCost !=NULL){
+                  $mp->MProjectCost->delete();
+                }
+                if($mp->MPlanObjectivecomponentMapping !=NULL){
+                  foreach($mp->MPlanObjectivecomponentMapping as $mpoc){
+                    $mpoc->delete();
+                  }
+                }
+                if($mp->MPlanKpicomponentMapping !=NULL){
+                  foreach($mp->MPlanKpicomponentMapping as $mpkcm){
+                    $mpkcm->delete();
+                  }
+                }
+                if($mp->MAssignedKpi !=NULL){
+                  foreach($mp->MAssignedKpi as $mak){
+                    foreach($mak->MAssignedKpiLevel1 as $mak1){
+                      foreach($mak1->MAssignedKpiLevel2 as $mak2){
+                        foreach($mak2->MAssignedKpiLevel3 as $mak3){
+                          foreach($mak3->MAssignedKpiLevel4 as $mak4){
+                            $mak4->delete();
+                          }
+                          $mak3->delete();
+                        }
+                        $mak2->delete();
+                      }
+                      $mak1->delete();
+                    }
+                    $mak->delete();
+                  }
+                }
+                if($mp->ReportImage !=NULL){
+                  foreach($mp->ReportImage as $ri){
+                    $ri->delete();
+                  }
+                }
+                // if($mp->ReportData !=NULL){
+                //   foreach($mp->ReportData as $rd){
+                //     $rd->delete();
+                //   }
+                // }
+                if($mp->MAssignedProjectHealthSafety !=NULL){
+                  foreach($mp->MAssignedProjectHealthSafety as $maphs){
+                    $maphs->delete();
+                  }
+                }
+                if($mp->MProjectAttachment !=NULL){
+                  foreach($mp->MProjectAttachment as $mpa){
+                    $mpa->delete();
+                  }
+                }
+                if($mp->MAssignedUserKpi !=NULL){
+                  foreach($mp->MAssignedUserKpi as $mauk){
+                    $mauk->delete();
+                  }
+                }
+                if($mp->MAssignedUserLocation !=NULL){
+                  foreach($mp->MAssignedUserLocation as $maul){
+                    $maul->delete();
+                  }
+                }
+                if($mp->MConductQualityassesment !=NULL){
+                  foreach($mp->MConductQualityassesment as $mcqa){
+                    $mcqa->delete();
+                  }
+                }
+                if($mp->MExecutingStakeholder !=NULL){
+                  foreach($mp->MExecutingStakeholder as $mes){
+                    $mes->delete();
+                  }
+                }
+                if($mp->MSponsoringStakeholder !=NULL){
+                  foreach($mp->MSponsoringStakeholder as $mss){
+                    $mss->delete();
+                  }
+                }
+                if($mp->MProjectDate !=NULL){
+                  $mp->MProjectDate->delete();
+                }
+                // if($mp->MProjectLocation != NULL){
+                //   $mp->MProjectLocation->delete();
+                // }
+                if($mp->MAppAttachment !=NULL){
+                  foreach($mp->MAppAttachment as $maa){
+                    $maa->delete();
+                  }
+                }
+                if($mp->MProjectOrganization !=NULL){
+                    $mp->MProjectOrganization->delete();
+                }
+                if($mp->MPlanComponentActivitiesMapping !=NULL){
+                  foreach($mp->MPlanComponentActivitiesMapping as $mpcam){
+                    // dd($mpcam->MPlanComponentactivityDetailMapping);
+                    if($mpcam->MPlanComponentactivityDetailMapping != NULL)
+                      $mpcam->MPlanComponentactivityDetailMapping->delete();
+                    $mpcam->delete();
+                  }
+                }
+                if($mp->MAssignedProjectFeedBack !=NULL){
+                  foreach($mp->MAssignedProjectFeedBack as $mapf){
+                    $mapf->delete();
+                  }
+                }
+                if($mp->MAssignedProjectIssue !=NULL){
+                  foreach($mp->MAssignedProjectIssue as $mapi){
+                    $mapi->delete();
+                  }
+                }
+                if($mp->MPlanObjective !=NULL){
+                  foreach($mp->MPlanObjective as $mpo){
+                    $mpo->delete();
+                  }
+                }
+                if($mp->MPlanComponent !=NULL){
+                  foreach($mp->MPlanComponent as $mpc){
+                    $mpc->delete();
+                  }
+                }
+                if($mp->ReportData !=NULL){
+                  $mp->ReportData->delete();
+                }
+                $mp->delete();
+              }
+            }
+            $ap->delete();
+          }
+        }
+        foreach($projects as $p){
+          foreach($p->ProjectLog as $pl)
+            $pl->delete();
+          $p->delete();
+        }
+        dd('deleted');
+        */
+
         return view('home');
 
     }
