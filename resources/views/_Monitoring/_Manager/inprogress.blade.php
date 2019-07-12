@@ -33,6 +33,7 @@
                             <tbody>
                               @foreach ($projects as $project)
                                 <tr>
+                                    @if(isset($project->Project->AssignedProject->AssignedProjectTeam))
                                     <td><a style="font-size:15px;" href="{{route('monitoringDashboard',['project_id'=>$project->Project->id])}}">{{$project->Project->title}}</a></td>
                                     <td>
                                       @foreach ($project->Project->AssignedSubSectors as $subsector)
@@ -76,6 +77,7 @@
                                     {{-- <td>
                                     <a href="{{route('monitoring_inprogressSingle')}}" class="btn btn-md  btn-info"> Conduct Monitoring</a>
                                     </td> --}}
+                                    @endif
                                 </tr>
                               @endforeach
                             </tbody>
