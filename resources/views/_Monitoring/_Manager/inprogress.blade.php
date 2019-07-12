@@ -72,7 +72,12 @@
                                     </td>
 
                                     <td>
+                                    @if(count($project->Project->AssignedProject->MProjectProgress))
                                       <a href="{{route('generate_monitoring_report',['project_id'=>$project->Project->AssignedProject->id])}}" target="_blank" class="hovsky" style="color: #4f5c5f9e; font-size:36px !important;"><center><i class="fas fa-address-card"></i></center></a>
+                                    @else
+                                      <p> --
+                                      </p>
+                                    @endif
                                     </td>
                                     {{-- <td>
                                     <a href="{{route('monitoring_inprogressSingle')}}" class="btn btn-md  btn-info"> Conduct Monitoring</a>
