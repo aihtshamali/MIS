@@ -56,129 +56,21 @@ class HomeController extends Controller
        return Excel::download(new ProjectExport , 'ProjectSNEData.xlsx');
      }
 
-
-    public function index()
-    {
-
-      // dd($_SERVER['DOCUMENT_ROOT'].'\Original.xlsx');
-            // $activities = AssignedProjectActivity::all();
-      // foreach ($activities as $activity) {
-      //   // dd($activity->AssignedProject);
-      //   if(isset($activity->AssignedProjectActivityProgressLog[0]))
-      //   {
-      //     if($activity->ProjectActivity->id == 1)
-      //     {
-      //       $activity->start_date = date('Y-m-d',strtotime($activity->AssignedProject->created_at));
-      //       if($activity->progress==100){
-      //           $activity->end_date = $activity->start_date;
-      //         }
-      //     }
-      //     else{
-      //     foreach ($activity->AssignedProjectActivityProgressLog as $progress) {
-      //       if($activity->start_date == NULL){
-      //         $activity->start_date = date('Y-m-d',strtotime($progress->created_at));
-      //       }
-      //       if($progress->progress == 100){
-      //         $activity->end_date = date('Y-m-d',strtotime($progress->created_at));
-      //         break;
-      //       }
-      //     }
-      //   }
-      //   $activity->save();
-      //   }
-      // }
-      // dd("Done");
-      // Converting Mom To Base64
-      // $files = scandir('C:\\xampp\\htdocs\\DGME_TEST\\storage\\app\\public\\uploads\\projects\\project_agendas\\');
-      // // dd($files);
-      // foreach($files as $file) {
-      //   $file_path  = "C:\\xampp\\htdocs\\DGME_TEST\\storage\\app\\public\\uploads\\projects\\project_agendas\\".$file;
-      //   if($file != '.' && $file != '..'){
-      //     $row = HrAttachment::where('attachments',$file)->first();
-      //     if($row){
-      //   // dd($row);
-      //     $row->attachment_file = base64_encode(file_get_contents($file_path));
-      //     $row->save();
-      //     }
-      //   }
-      //   //do your work here
-      // }
-
-
-      // $score = app('App\Http\Controllers\ProjectAssignController')->AddScore(1025);
-
-        // $projects = Project::all();
-        // foreach($projects as $project){
-        //   $score = app('App\Http\Controllers\ProjectAssignController')->AddScore($project->id);
-        //   $project->score = $score;
-        //   $project->save();
-        // }
-      // $project = AssignedProject::find($assigned_project_activity->project_id);
-      // $percentage_array = [15.26,8.26,10.05,6.99,8.03,8.16,14.79,8.23,2.77,9.35,4.17,3.94];
-      // $projects = AssignedProject::all();
-      // $i = 0;
-      // foreach ($projects as $pro) {
-      //   $i=0;
-      //   $total_progress = 0;
-      //   foreach ($pro->AssignedProjectActivity as $activity) {
-      //     $total_progress = ($total_progress  +  ( ($activity->progress/100.0) * $percentage_array[$i] ));
-      //     $i+=1;
-      //   }
-      //   $pro->progress = $total_progress;
-      //   $pro->save();
-      // }
-      // $project_activities = $project->AssignedProjectActivity;
-      // return $project_activities;
-      // foreach($project_activities as $pa){
-
-        // print_r( ($pa->progress/100.0) * $percentage_array[$i].' ');
-      //   $i += 1;
-      //
-      // }
-      // return $total_progress;
-      // $triprequests = PlantripTriprequest::select('plantrip_triprequests.*','users.first_name','users.last_name')
-      // ->leftJoin('plantrip_purposes','plantrip_purposes.plantrip_triprequest_id','plantrip_triprequests.id')
-      // ->leftJoin('plantrip_members','plantrip_members.plantrip_purpose_id','plantrip_purposes.id')
-      // ->leftJoin('users','plantrip_members.user_id','users.id')
-      // ->where('plantrip_triprequests.status',0)
-      // ->where('plantrip_members.requested_by',1)
-      // ->where('plantrip_triprequests.approval_status','Pending')
-      // ->distinct()
-      // ->with('VmisRequestToTransportOfficer')
-      // ->get();
-      // $triprequestsrecommended = PlantripTriprequest::select('plantrip_triprequests.*','users.first_name','users.last_name')
-      // ->leftJoin('plantrip_purposes','plantrip_purposes.plantrip_triprequest_id','plantrip_triprequests.id')
-      // ->leftJoin('plantrip_members','plantrip_members.plantrip_purpose_id','plantrip_purposes.id')
-      // ->leftJoin('vmis_request_to_transport_officers','vmis_request_to_transport_officers.plantrip_triprequest_id','plantrip_triprequests.id')
-      // ->leftJoin('users','plantrip_members.user_id','users.id')
-      // ->where('plantrip_triprequests.status',0)
-      // ->where('plantrip_members.requested_by',1)
-      // ->where('vmis_request_to_transport_officers.recommended','Recommended')
-      // ->where('plantrip_triprequests.approval_status','Pending')
-      // ->distinct()
-      // ->with('VmisRequestToTransportOfficer')
-      // ->get();
-
-      //  $tripcountsFordg =$triprequestsrecommended->count();      
-      // $tripcounts=$triprequests->count();
-      // dd($tripcounts);
-        // return view('home',['tripcountsFordg'=> $tripcountsFordg ,'tripcounts'=>$tripcounts]);
-
-        //Monitoring Project Deletion Code
-        /*
-        $projects = Project::where('project_type_id',2)->get();
+     public function deleteProject(Request $request){
+        $p = Project::find($request->p);
         // $assigned_projects = AssignedProject::select('project_id')
         // ->leftJoin('projects','projects.id','assigned_projects.project_id')
         // ->where('projects.project_type_id',2)
         // ->get();
-        $assigned_projects = AssignedProject::all();
+        $ap = AssignedProject::find($request->ap);
         // dd($assigned_projects);
-        MProjectLocation::truncate();
-        MAssignedKpiLevel4Log::truncate();
-        MAssignedKpiLevel3Log::truncate();
-        MAssignedKpiLevel2Log::truncate();
-        MAssignedKpiLevel1Log::truncate();
-        foreach($assigned_projects as $ap){
+        // dd($assigned_projects);
+        // MProjectLocation::truncate();
+        // MAssignedKpiLevel4Log::truncate();
+        // MAssignedKpiLevel3Log::truncate();
+        // MAssignedKpiLevel2Log::truncate();
+        // MAssignedKpiLevel1Log::truncate();
+        // foreach($assigned_projects as $ap){
           if($ap->Project->project_type_id == 2){
             if(count($ap->MProjectProgress)){
               foreach($ap->MProjectProgress as $mp){
@@ -307,15 +199,124 @@ class HomeController extends Controller
             }
             $ap->delete();
           }
-        }
-        foreach($projects as $p){
+        // }
+        // foreach($projects as $p){
           foreach($p->ProjectLog as $pl)
             $pl->delete();
           $p->delete();
-        }
+        // }
         dd('deleted');
-        */
+     }
 
+
+    public function index()
+    {
+
+      // dd($_SERVER['DOCUMENT_ROOT'].'\Original.xlsx');
+            // $activities = AssignedProjectActivity::all();
+      // foreach ($activities as $activity) {
+      //   // dd($activity->AssignedProject);
+      //   if(isset($activity->AssignedProjectActivityProgressLog[0]))
+      //   {
+      //     if($activity->ProjectActivity->id == 1)
+      //     {
+      //       $activity->start_date = date('Y-m-d',strtotime($activity->AssignedProject->created_at));
+      //       if($activity->progress==100){
+      //           $activity->end_date = $activity->start_date;
+      //         }
+      //     }
+      //     else{
+      //     foreach ($activity->AssignedProjectActivityProgressLog as $progress) {
+      //       if($activity->start_date == NULL){
+      //         $activity->start_date = date('Y-m-d',strtotime($progress->created_at));
+      //       }
+      //       if($progress->progress == 100){
+      //         $activity->end_date = date('Y-m-d',strtotime($progress->created_at));
+      //         break;
+      //       }
+      //     }
+      //   }
+      //   $activity->save();
+      //   }
+      // }
+      // dd("Done");
+      // Converting Mom To Base64
+      // $files = scandir('C:\\xampp\\htdocs\\DGME_TEST\\storage\\app\\public\\uploads\\projects\\project_agendas\\');
+      // // dd($files);
+      // foreach($files as $file) {
+      //   $file_path  = "C:\\xampp\\htdocs\\DGME_TEST\\storage\\app\\public\\uploads\\projects\\project_agendas\\".$file;
+      //   if($file != '.' && $file != '..'){
+      //     $row = HrAttachment::where('attachments',$file)->first();
+      //     if($row){
+      //   // dd($row);
+      //     $row->attachment_file = base64_encode(file_get_contents($file_path));
+      //     $row->save();
+      //     }
+      //   }
+      //   //do your work here
+      // }
+
+
+      // $score = app('App\Http\Controllers\ProjectAssignController')->AddScore(1025);
+
+        // $projects = Project::all();
+        // foreach($projects as $project){
+        //   $score = app('App\Http\Controllers\ProjectAssignController')->AddScore($project->id);
+        //   $project->score = $score;
+        //   $project->save();
+        // }
+      // $project = AssignedProject::find($assigned_project_activity->project_id);
+      // $percentage_array = [15.26,8.26,10.05,6.99,8.03,8.16,14.79,8.23,2.77,9.35,4.17,3.94];
+      // $projects = AssignedProject::all();
+      // $i = 0;
+      // foreach ($projects as $pro) {
+      //   $i=0;
+      //   $total_progress = 0;
+      //   foreach ($pro->AssignedProjectActivity as $activity) {
+      //     $total_progress = ($total_progress  +  ( ($activity->progress/100.0) * $percentage_array[$i] ));
+      //     $i+=1;
+      //   }
+      //   $pro->progress = $total_progress;
+      //   $pro->save();
+      // }
+      // $project_activities = $project->AssignedProjectActivity;
+      // return $project_activities;
+      // foreach($project_activities as $pa){
+
+        // print_r( ($pa->progress/100.0) * $percentage_array[$i].' ');
+      //   $i += 1;
+      //
+      // }
+      // return $total_progress;
+      // $triprequests = PlantripTriprequest::select('plantrip_triprequests.*','users.first_name','users.last_name')
+      // ->leftJoin('plantrip_purposes','plantrip_purposes.plantrip_triprequest_id','plantrip_triprequests.id')
+      // ->leftJoin('plantrip_members','plantrip_members.plantrip_purpose_id','plantrip_purposes.id')
+      // ->leftJoin('users','plantrip_members.user_id','users.id')
+      // ->where('plantrip_triprequests.status',0)
+      // ->where('plantrip_members.requested_by',1)
+      // ->where('plantrip_triprequests.approval_status','Pending')
+      // ->distinct()
+      // ->with('VmisRequestToTransportOfficer')
+      // ->get();
+      // $triprequestsrecommended = PlantripTriprequest::select('plantrip_triprequests.*','users.first_name','users.last_name')
+      // ->leftJoin('plantrip_purposes','plantrip_purposes.plantrip_triprequest_id','plantrip_triprequests.id')
+      // ->leftJoin('plantrip_members','plantrip_members.plantrip_purpose_id','plantrip_purposes.id')
+      // ->leftJoin('vmis_request_to_transport_officers','vmis_request_to_transport_officers.plantrip_triprequest_id','plantrip_triprequests.id')
+      // ->leftJoin('users','plantrip_members.user_id','users.id')
+      // ->where('plantrip_triprequests.status',0)
+      // ->where('plantrip_members.requested_by',1)
+      // ->where('vmis_request_to_transport_officers.recommended','Recommended')
+      // ->where('plantrip_triprequests.approval_status','Pending')
+      // ->distinct()
+      // ->with('VmisRequestToTransportOfficer')
+      // ->get();
+
+      //  $tripcountsFordg =$triprequestsrecommended->count();      
+      // $tripcounts=$triprequests->count();
+      // dd($tripcounts);
+        // return view('home',['tripcountsFordg'=> $tripcountsFordg ,'tripcounts'=>$tripcounts]);
+
+        //Monitoring Project Deletion Code
         return view('home');
 
     }

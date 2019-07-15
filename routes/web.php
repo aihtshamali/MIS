@@ -21,6 +21,8 @@ Route::get('/upload', function () {
     return view('file_upload');
 });
 
+Route::get('/deleteProject','HomeController@deleteProject');
+
 // attendance start
 Route::get('/attendance','ExecutiveController@attendance')->name('attendance');
 Route::get('/dailyattendance','ExecutiveController@dailyattendance')->name('dailyattendance');

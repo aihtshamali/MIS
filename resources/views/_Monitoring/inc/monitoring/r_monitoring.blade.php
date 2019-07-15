@@ -315,6 +315,23 @@ transform: rotate(90deg);
                               alt="">
                      </a>
                  </div> -->
+<<<<<<< HEAD
+                 <div class="demo-gallery">
+                   <ul id="lightgallery" class="list-unstyled row">
+                     <?php $i=1; ?>
+               @foreach ($result_from_app->where('type','image/jpeg') as $attachment)
+                       <li class="col-xs-6 col-sm-4 col-md-3" data-responsive="" data-src="{{'/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" data-sub-html="<h4>Date</h4><p>{{date('d M Y',strtotime($attachment->created_at))}} </p>">
+                           <a href="">
+                             <b class="float-left">#: {{$i++}}</b>
+                           <img class="img-responsive" src="{{'/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
+                           <b class="float-right" style="padding:0% 10%">Date: {{date('d M Y',strtotime($attachment->created_at))}} </b>
+                           </a>
+                       </li>
+                @endforeach
+                   </ul>
+               </div>
+                 <!-- old gallery
+=======
               <div class="demo-gallery">
                 <ul id="lightgallery" class="list-unstyled row">
                   <?php $i = 1; ?>
@@ -330,6 +347,7 @@ transform: rotate(90deg);
                 </ul>
               </div>
               <!-- old gallery
+>>>>>>> 70549afb932a594499e6055cb87d8a5e78b8e28a
            @foreach ($result_from_app->where('type','image/jpeg') as $attachment)
            <div class="col-lg-3 col-md-4 col-xs-6 thumb" style="text-align: -webkit-center !important;">
              <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
@@ -370,6 +388,26 @@ transform: rotate(90deg);
                      </div>
                  </div>
              </div> -->
+<<<<<<< HEAD
+             <!-- ----------------------- end photo gallery ------------------ -->
+             <h2 class="txtdecundlin vidgallary pointer" title="click to Expand video gallary">Video Gallery</h2>
+             <!-- ----------------------- start video Gallery ---------------- -->
+             <div class="row vidgallaryDiv nodisplay col-md-12">
+               @foreach($result_from_app->where('type','video/mp4') as $video)
+               <div class="col-lg-3 col-md-3 col-xs-6 thumb pdlfrt2">
+                 <b class="float-left">#: {{$i++}}</b>
+               <video controls>
+                 <source src="{{'/storage/uploads/monitoring/'.$video->m_project_progress_id.'/'.$video->project_attachement}}" type="video/mp4">
+                 <source src="{{'/storage/uploads/monitoring/'.$video->m_project_progress_id.'/'.$video->project_attachement}}" type="video/ogg">
+                 Your browser does not support the video tag.
+               </video>
+               <b class="float-right" style="padding:0% 10%">Date: {{date('d M Y',strtotime($attachment->created_at))}} </b>
+             </div>
+             @endforeach
+             </div>
+             </div>
+             <!-- ----------------------- end video Gallery ---------------- -->
+=======
             <!-- ----------------------- end photo gallery ------------------ -->
             <h2 class="txtdecundlin vidgallary pointer" title="click to Expand video gallary">Video Gallery</h2>
             <!-- ----------------------- start video Gallery ---------------- -->
@@ -386,6 +424,7 @@ transform: rotate(90deg);
               </div>
               @endforeach
             </div>
+>>>>>>> 70549afb932a594499e6055cb87d8a5e78b8e28a
           </div>
           <!-- ----------------------- end video Gallery ---------------- -->
         </div>

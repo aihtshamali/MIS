@@ -932,7 +932,7 @@
                     <td>Dummy data...</td>
                 </tr>
                 <tr>
-                
+
                     <td class="bglightblue black bold">Planned Start Date</td>
                     <td>{{$project->AssignedProject->Project->ProjectDetail->planned_start_date}}</td>
                 </tr>
@@ -1661,7 +1661,8 @@
                     @endforeach
                 </ul>
             </div>
-
+        </div>
+        <div class="card-footer"></div>
         </div>
     </div>
     <div>

@@ -153,12 +153,23 @@
     margin: 0% !important;
   } */
   .main-header .navbar-custom-menu,
+<<<<<<< HEAD
   .main-header .navbar-right {
     float: right;
+=======
+  .main-header .navbar-right{
+        float: right;
+>>>>>>> 1237ebb49ea72eba2d17106f5daf08224d372550
     margin-left: -41px;
     position: absolute;
     right: 4%;
     top: 1%;
+<<<<<<< HEAD
+=======
+    }
+   .nodisplay {
+    display: none
+>>>>>>> 1237ebb49ea72eba2d17106f5daf08224d372550
   }
 
   .nodisplay {

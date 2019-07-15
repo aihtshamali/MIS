@@ -243,7 +243,7 @@ Home Page | DGME MIS
                             <p>visit Dispatch System</p>
                         </a>
                     </div>
-                
+
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.3s">
                     <a href="#!" class="tile purple">
                         <h3 class="title">LMS</h3>
@@ -258,11 +258,11 @@ Home Page | DGME MIS
                         <p>visit HR System</p>
                     </a>
                 </div>
-               
+
                 @endrole
                 @role('manager')
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
-                    <a href="http://mis.dgme.gov.pk:8085" class="tile purple">
+                    <a href="http://hris.dgmepunjab.gov.pk" class="tile purple">
                         <h3 class="title">HR</h3>
                         <hr />
                         <p>Visit Attendance System</p>
@@ -677,4 +677,4 @@ Home Page | DGME MIS
         }
     })
 </script>
-@endsection 
+@endsection
