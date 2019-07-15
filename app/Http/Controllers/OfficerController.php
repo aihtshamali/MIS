@@ -73,6 +73,8 @@ use App\MProjectLevel1Kpi;
 use App\MProjectLevel2Kpi;
 use App\MProjectLevel3Kpi;
 use App\MProjectLevel4Kpi;
+use App\ReportData;
+use App\PostSne;
 class OfficerController extends Controller
 {
 
@@ -111,7 +113,8 @@ class OfficerController extends Controller
         $data->type = $file_extension;
         $data->attachment_name=$request->attachment_name;
         $data->save();
-        }
+      }
+      return redirect()->back();
       }
 
       public function evaluation_index_officersidenav()
@@ -570,6 +573,15 @@ class OfficerController extends Controller
         // return redirect()->back();
       }
 
+      public function Monitoring_PlannedDates(Request $request)
+      {
+        
+        $project=AssignedProject::find($request->assigned_project_id)->MProjectProgress->first()->AssignedProject->Project->ProjectDetail;
+        $project->planned_start_date=$request->planned_start_date;
+        $project->planned_end_date=$request->planned_end_date;
+        $project->save();
+        return redirect()->back();
+      }
       public function monitoring_inrogress_organizations_saved(Request $request)
       {
         $total_progresses = AssignedProject::find($request->assigned_project_id)->MProjectProgress;
@@ -673,11 +685,11 @@ class OfficerController extends Controller
           $projectProgress->save();
 
         }
-
+       
         $progresses = $projectProgress;
         $costs = null;
         $costs = $progresses->MProjectCost;
-
+       
         $location = null;
         $location = $progresses->MProjectLocation;
 
@@ -774,6 +786,7 @@ class OfficerController extends Controller
          'team_lead_check' => $team_lead_check,
          'assigned_user_locations'=>$user_locations
         ]);
+       
         // dd($generalFeedback[0]u->MAssignedProjectFeedBack->answer);
         // dd($components[0]->MPlanObjectivecomponentMapping[0]->m_plan_objective_id);
         return view('_Monitoring._Officer.projects.inprogressSingle'
@@ -1477,11 +1490,34 @@ class OfficerController extends Controller
      public function generate_monitoring_report(Request $request)
      {
         $project=MProjectProgress::where('assigned_project_id',$request->project_id)->orderBy('created_at','desc')->first();
+        $report_data = ReportData::where('m_project_progress_id',$project->id)->first();
         //
           // dd($project->MAssignedProjectHealthSafety[0]->MHealthSafety);
         //  dd($project->MPlanComponentActivitiesMapping[0]->MPlanComponentactivityDetailMapping);
         // dd($project->MProjectAttachment);
-          return view('_Monitoring._Officer.projects.report',compact('project'));
+        \JavaScript::put([
+          'project_id'=>$project->id
+        ]);
+          return view('_Monitoring._Officer.projects.report',compact('project','report_data'));
+     }
+
+     //saving report Data
+     public function save_report_data(Request $request){
+       $report_data = ReportData::where('m_project_progress_id',$request->project)->first();
+       if(!$report_data){
+        $report_data = new ReportData();
+        $report_data->m_project_progress_id = $request->project;
+        $report_data->user_id = Auth::id();
+        $report_data[$request->block]= $request->data;
+        $report_data->save();
+      }
+      else{
+        $report_data->m_project_progress_id = $request->project;
+        $report_data->user_id = Auth::id();
+        $report_data[$request->block]= $request->data;
+        $report_data->save();
+      }
+       return "Data Saved";
      }
 
     //  CM DASHBOARD
@@ -1760,4 +1796,47 @@ class OfficerController extends Controller
     return redirect()->back();
 
     }
+  public function SavePostSne(Request $request)
+  {
+    
+    $post_sne= PostSne::where('assigned_project_id', $request->assigned_project)->first();
+    if($post_sne!=null){ //Update Existing
+      if($request->post_sne=="With SNE")
+        {
+          $post_sne->sne=1;
+          if($request->sne_type== "staff_nums"){
+            $post_sne->num_of_staff = $request->num_of_staff;
+            
+          }else{
+            $dates=explode("-",$request->sne_daterange);
+            $post_sne->conditioned_start_date = $dates[0];
+            $post_sne->conditioned_end_date = $dates[1];
+          }
+        }else{
+            $post_sne->recommendation = $request->recommendation;
+            $post_sne->future_lessson = $request->future_lessson;
+          
+        }
+
+    }else{  //CREATE NEW
+      $post_sne= new PostSne();
+      if ($request->post_sne == "With SNE") {
+        $post_sne->sne = 1;
+        $post_sne->assigned_project_id = $request->assigned_project;
+        if ($request->sne_type == "staff_nums") {
+          $post_sne->num_of_staff = $request->num_of_staff;
+        } else {
+          $dates = explode("-", $request->sne_daterange);
+          $post_sne->conditioned_start_date = $dates[0];
+          $post_sne->conditioned_end_date = $dates[1];
+        }
+      } else {
+        $post_sne->recommendation = $request->recommendation;
+        $post_sne->future_lessson = $request->future_lessson;
+      }
+    }
+    $post_sne->save();
+    return redirect()->back(); 
+
+  }
 }

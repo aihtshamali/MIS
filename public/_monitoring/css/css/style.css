@@ -15477,11 +15477,6 @@ table.fixedHeader-locked {
     background-color: #fff
 }
 
-@media print {
-    table.fixedHeader-floating {
-        display: none
-    }
-}
 
 table.dataTable th.focus,
 table.dataTable td.focus {

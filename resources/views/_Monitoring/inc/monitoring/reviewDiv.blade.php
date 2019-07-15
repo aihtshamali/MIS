@@ -312,7 +312,37 @@
           </div>
           <button type="submit" class="btn btn-primary btn-sm float-right" name="submit">Submit</button>
         </div>
-      </form>
+       </form>
+
+       <form action="{{ route('Monitoring_PlannedDates') }}" method="post">
+        {{ csrf_field() }}
+        <input type="hidden" name="assigned_project_id" value="{{$project->id}}">
+        <div class="form-group row mb_2">
+          <label class="col-sm-3 font-15">Planned Start Date</label>
+          <div class="col-sm-9">
+            <input type="date" class="form-control" name="planned_start_date" placeholder="Actual Start Date"
+            @if ($progresses->AssignedProject->Project->ProjectDetail->planned_start_date)
+            value="{{$progresses->AssignedProject->Project->ProjectDetail->planned_start_date}}"
+          @else
+              value=""
+            @endif
+            />
+          </div>
+        </div>
+        <div class="form-group row mb_2">
+          <label class="col-sm-3 font-15">Planned End Date</label>
+          <div class="col-sm-9">
+            <input type="date" class="form-control" name="planned_end_date" placeholder="Actual Start Date"
+            @if ($progresses->AssignedProject->Project->ProjectDetail->planned_end_date)
+              value="{{$progresses->AssignedProject->Project->ProjectDetail->planned_end_date}}"
+            @else
+              value=""
+            @endif
+            />
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-sm float-right" name="dates_submit">Submit</button>
+       </form>
       </div>
   </div>
 </div>
