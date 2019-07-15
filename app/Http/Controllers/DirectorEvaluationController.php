@@ -69,6 +69,10 @@ class DirectorEvaluationController extends Controller
 
         return view('Director.Evaluation.home.pmms_tab');
       }
+      public function stoppedProjects(){
+
+        return view('Director.Evaluation.stopedprojects.stopedProjects');
+      }
 
       public function tpv_index(){
         return view('Director.Evaluation.home.tpv_tab');
