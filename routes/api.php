@@ -22,6 +22,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('closed', 'DataController@closed');
     Route::get('logout','UserController@logout');
     Route::get('assignedProject','DataController@getAssignedProject');
+    Route::get('assignedMProjects','DataController@getMAssignedProject');
 });
 Route::get('projectRelatedKpi','DataController@getProjectKpi');
 Route::get('assignedHealtSafety','DataController@assignedHealtSafety');
