@@ -77,13 +77,12 @@ if (! function_exists('calculateMPhysicalProgress')) {
 
       $total_phyProgres= array_sum($phy_prog);
 
+      if(!isset($financial_cost->total_release_to_date))
+        return 0;
+
       $physical_progress=($total_phyProgres/$financial_cost->total_release_to_date); 
-      // foreach($arr as $val){
-      //   $sum+=$val;
-      // }
-        // dd($physical_progress);
       return $physical_progress;
-      return 0;
+
   }
 }
 
