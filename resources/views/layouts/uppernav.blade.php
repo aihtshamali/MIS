@@ -168,7 +168,6 @@
 
         @role('dataentry')
         @include('inc.sidenav')
-
         @endrole
 
         @role('adminhr')
@@ -196,10 +195,6 @@
         @yield('content')
 
     </div>
-
-
-
-
 </body>
 <script src="{{asset('js/Customvue.min.js')}}"></script>
 <!-- jQuery 3 -->

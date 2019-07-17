@@ -143,7 +143,6 @@
                       <table class="table table-hover table-striped">
                         <tbody>
                             <thead>
-                                <th></th>
                                 <th>Project Number</th>
                                 <th>Project Name</th>
                                 <th>Team Members</th>
@@ -156,15 +155,6 @@
                               <tbody>
                                 @foreach ($stoppedProjects as $S_assigned)
                                   <tr>
-                                  <td>
-                                    <form class="" action="{{route('create_from_director')}}" method="get">
-                                        {{ csrf_field() }}
-                                        <input type="hidden" name="reAssign" value="1">
-                                        <input type="hidden" name="project_id" value="{{$S_assigned->project->id}}">
-                                        <input type="hidden" name="priority" value="{{$S_assigned->priority}}">
-                                      <button class="btn btn-primary" type="submit">Re Assign</button>
-                                    </form>
-                                  </td>
                                     <td>{{$S_assigned->project->project_no}}</td>
                                     <td>{{$S_assigned->project->title}}</td>
                                     <td>
@@ -228,7 +218,6 @@
                   <table class="table table-hover table-striped">
                     <tbody>
                         <thead>
-                            <th></th>
                             <th>Project Number</th>
                             <th>Project Name</th>
                             <th>Team Members</th>
@@ -242,14 +231,7 @@
 
                             @foreach ($assigned as $assigned)
                               <tr>
-                              <td>
-                                <form action="{{route('stopAssignedProject')}}" method="post" >
-                                {{ csrf_field() }}
-                                  <button type="button" class="stopBtn btn btn-md btn-danger" rel='popover' data-placement='bottom' data-original-title='Remarks' data-html="true" 
-                                  data-content="<input type='hidden' name='assigned_project_id' value='{{$assigned->id}}'>
-                                  <input type='text' name='remarks'> <button type='submit' class='btn btn-success'> Save </button>">Stop Project</button>
-                                </form>
-                              </td>
+
                                 <td>{{$assigned->project->project_no}}</td>
                                 <td>{{$assigned->project->title}}</td>
                                 <td>
