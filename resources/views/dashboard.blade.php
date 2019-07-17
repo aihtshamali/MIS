@@ -58,7 +58,7 @@
 @section('content')
 <div class="content-wrapper">
     <section class="well " style="text-align:center">
-        <h3>Welcome {{ucfirst(Auth::user()->first_name)}} {{ucfirst(Auth::user()->last_name)}} <small>({{Auth::user()->designation}})</small> to your Dashboard </h3>
+        <h3>Welcome {{ucfirst(Auth::user()->first_name)}} {{ucfirst(Auth::user()->last_name)}} <small>({{Auth::user()->designation}})</small> to your Dashboard</h3>
     </section>
     @role('officer')
 

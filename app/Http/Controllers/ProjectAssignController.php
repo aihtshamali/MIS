@@ -18,6 +18,8 @@ use Carbon\Carbon;
 use DB;
 use App\ProjectActivity;
 use App\AssignedProjectActivity;
+use App\StoppedProject;
+
 class ProjectAssignController extends Controller
 {
     /**
@@ -158,6 +160,7 @@ class ProjectAssignController extends Controller
       
       $check = AssignedProject::where('project_id',$request->project_id)->first();
       if(isset($check)){ // Reassignment
+        StoppedProject::where('assigned_project_id',$check->id)->delete();
         $check->stopped=false;
         $check->save();
         $team = $check->AssignedProjectTeam;
