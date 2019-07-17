@@ -54,7 +54,6 @@
             <div class="box-body1">
                 <div class="table-responsive">
                   <table class="table table-hover table-striped" id="tableData">
-                    <tbody>
                         <thead>
                           <th>Project Number</th>
                           <th>Project Name</th>
@@ -63,7 +62,6 @@
                           <th>Score</th>
                           <th>Assigned Duration</th>
                           <th>Progress</th>
-                          <th></th>
                           <th></th>
                           </thead>
                           <tbody>
@@ -120,7 +118,6 @@
 
                             @endforeach
                           </tbody>
-                    </tbody>
                   </table>
                 </div>
             </div>
@@ -148,7 +145,7 @@
   $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()
-    $('tableData').DataTable();
+    $('#tableData').DataTable();
   });
 
   //
