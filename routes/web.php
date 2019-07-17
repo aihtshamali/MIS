@@ -150,6 +150,7 @@ Route::prefix('manager')->middleware('role:manager|directorevaluation')->group(f
     Route::get('/evaluation_assigned','DirectorEvaluationController@evaluation_assignedprojects')->name('Evaluation_evaluation_assigned');
     Route::get('/evaluation_inprogress','DirectorEvaluationController@evaluation_Inprogressprojects')->name('Evaluation_evaluation_Inprogressprojects');
     Route::get('/stoppedProjects','DirectorEvaluationController@stoppedProjects')->name('stoppedProjects');
+    Route::get('/stoppingProjects','DirectorEvaluationController@stoppingProjects')->name('stoppingProjects');
     Route::get('/evaluation_completed','DirectorEvaluationController@evaluation_Completedprojects')->name('Evaluation_evaluation_Completed');
 
     Route::get('/search','DirectorEvaluationController@searchOfficer')->name('search_officer');

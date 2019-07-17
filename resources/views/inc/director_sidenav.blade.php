@@ -82,7 +82,7 @@
         </a>
         <ul class="treeview-menu">
           <li>
-            <a href="#!"><i class="fa fa-circle-o"></i> All Assigned Projects
+            <a href="{{route('stoppingProjects')}}"><i class="fa fa-circle-o"></i> All Assigned Projects
               <span class="label label-primary pull-right"></span>
               </span>
             </a>
@@ -93,99 +93,6 @@
               </span></a></li>
         </ul>
       </li>
-      {{-- Inquiry  --}}
-      <!-- <li class="treeview">
-          <a href="#">
-            <i class="fa fa-share"></i> <span>Inquiry</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Un- Assigned <span class="pull-right-container">
-              <span class="label label-primary pull-right">new</span>
-            </span></a></li>
-            <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o"></i> In Progress
-              </a>
-            </li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li>
-          </ul>
-        </li> -->
-      {{-- Special Assign  --}}
-      <!-- <li class="treeview">
-          <a href="#">
-            <i class="fa fa-share"></i> <span>Special Assignment</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Un- Assigned <span class="pull-right-container">
-              <span class="label label-primary pull-right">new</span>
-            </span></a></li>
-            <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o"></i> In Progress
-              </a>
-            </li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li>
-          </ul>
-        </li> -->
-      {{-- Other Assign  --}}
-      <!-- <li class="treeview">
-            <a href="#">
-              <i class="fa fa-share"></i> <span>Third Party Validations</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="#"><i class="fa fa-circle-o"></i> Un- Assigned <span class="pull-right-container">
-                <span class="label label-primary pull-right">new</span>
-              </span></a></li>
-              <li class="treeview">
-                <a href="#"><i class="fa fa-circle-o"></i> In Progress
-                </a>
-              </li>
-              <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li>
-            </ul>
-          </li> -->
-
-      {{-- HRMS  --}}
-      <!-- <li class="treeview">
-            <a href="#">
-              <i class="fa fa-address-book-o"></i>
-              <span>H R M S</span>
-          </a>
-        </li> -->
-
-      {{-- Calender  --}}
-      <!-- <li>
-          <a href="calender">
-            <i class="fa fa-calendar"></i> <span>Calendar</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-red">3</small>
-              <small class="label pull-right bg-blue">17</small>
-            </span>
-          </a>
-        </li> -->
-      {{-- VMS  --}}
-      <!-- <li class="treeview">
-            <a href="#">
-              <i class="fa fa-car"></i>
-              <span>V M S</span>
-            </a>
-          </li> -->
-      {{-- FMS  --}}
-      <!-- <li class="treeview">
-          <a href="#">
-            <i class="fa fa-money"></i>
-            <span>F M I S</span>
-          </a>
-         </li> -->
       @endrole
 
 
