@@ -115,10 +115,10 @@
                       {{$agenda->scheme_name}}
                     </td>
                     <td>
-                      {{ round($agenda->estimated_cost,2)}}
+                      {{ round($agenda->estimated_cost,3)}}
                     </td>
                     <td>
-                      {{round($agenda->adp_allocation,2)}}
+                      {{round($agenda->adp_allocation,3)}}
                     </td>
                     <td>
                       {{-- <input type="file" name="attachments" class="form-control"> --}}

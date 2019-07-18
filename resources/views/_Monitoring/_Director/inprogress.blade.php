@@ -70,7 +70,7 @@
                                         @endif
                                         @endforeach
                                     </td>
-                                    <td>{{round($project->Project->score,2,PHP_ROUND_HALF_UP) }}</td>
+                                    <td>{{round($project->Project->score,3,PHP_ROUND_HALF_UP) }}</td>
                                     <td>{{ $project->Project->ProjectDetail->AssigningForum->name }}</td>
                                      <td>{{$project->Project->ProjectType->name}}</td>
                                 </tr>
