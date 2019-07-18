@@ -267,6 +267,8 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
 
   // MonitoringDashbaord
   Route::get('/monitoring_dashboard','HomeController@monitoringDashboard')->name('monitoring_dashboard');
+  // ADPGIS
+  Route::get('/ADPGIS','HomeController@ADPGIS')->name('ADPGIS');
 
   // monitoring
   Route::get('/monitoringP','ProjectController@createMonitoringEntryForm')->name('createMonitoringEntryForm');

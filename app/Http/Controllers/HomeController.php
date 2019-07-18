@@ -381,6 +381,10 @@ class HomeController extends Controller
     // dd($officer[0]->PlantripDriverRating->rating);
         return view('monitoring_dashboard',['officer'=>$officer ,'officercount'=>$officercount,'triprequests'=>$triprequests,'tripcounts'=>$tripcounts]);
     }
+    public function ADPGIS()
+    {
+        return view('ADPGIS');
+    }
     public function reset_store(Request $request)
     {
       // dd($request->all());

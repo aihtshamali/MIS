@@ -387,6 +387,7 @@ $(document).ready(function() {
     $(".mainTabsAndNav").animate({ marginTop: "0px" }, 500);
     $(".mainTabsAndNav").removeClass("mt_6p");
     $("#r_monitoring").hide();
+    $('.p_details').insertAfter('.mainTabsAndNav')
   });
 
   $(".planNav").on("click", function() {
@@ -443,6 +444,8 @@ $(document).ready(function() {
     $("#AgeOrgDiv").hide();
     $("#DatesDiv").hide();
     $(".resultNavBar").hide();
+    $("#profile1").hide();
+    $("#home1").hide();
   }
 
   $(".conductNav").on("click", function() {
@@ -475,9 +478,10 @@ $(document).ready(function() {
     $(".nav-link").removeClass("active");
     $("#r_monitoring").addClass("active");
     $(".galnav").addClass("active");
+    $("#home1").addClass("active");
     $("#r_monitoring").show();
     $(".mainTabsAndNav")
-      .removeClass("col-md-8")
+      .removeClass("col-md-9")
       .addClass("col-md-12");
     // $('.mainTabsAndNav').animate({ marginTop: '6%' }, 1000);
     // $(".topSummary").show('slow');
@@ -494,6 +498,24 @@ $(document).ready(function() {
   $(".CostingTab").on("click", function() {
     hideall();
     $("#CostingDiv").show();
+  });
+  $("#btnprofile1").on("click", function() {
+    hideall();
+    $("#profile1").show();
+    $(".r_monitoringDivv").show();
+    $("#r_monitoring").show();
+    $(".resultNavBar").show();
+    $("#home1").hide();
+    $("#home1").removeClass("active");
+  });
+  $(".galnav").on("click", function() {
+    hideall();
+    $("#profile1").hide();
+    $(".r_monitoringDivv").show();
+    $("#r_monitoring").show();
+    $(".resultNavBar").show();
+    $("#profile1").removeClass("active");
+    $("#home1").show();
   });
   $(".procurement").on("click", function() {
     hideall();
