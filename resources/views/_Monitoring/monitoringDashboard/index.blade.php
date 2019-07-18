@@ -269,19 +269,19 @@ object-fit: cover;
       <td>@if($progress && $progress->MProjectDate){{date('d-M-Y',strtotime($progress->MProjectDate->actual_start_date))}}@else Not Added @endif</td>
       <td>{{date('d-M-Y',strtotime($project->ProjectDetail->planned_start_date))}}</td>
       <td>{{date('d-M-Y',strtotime($project->ProjectDetail->planned_end_date))}}</td>
-      <td>{{round($project->ProjectDetail->orignal_cost,2)}} Million PKR</td>
+      <td>{{round($project->ProjectDetail->orignal_cost,3)}} Million PKR</td>
       <td>
         @if($project->RevisedApprovedCost->last())
-          {{round($project->RevisedApprovedCost->last()->cost,2)}}
+          {{round($project->RevisedApprovedCost->last()->cost,3)}}
         @else
           0
         @endif
         Million PKR</td>
         <td id="financial">
-          @if($project->AssignedProject!==NULL && $progress!==NULL){{round(calculateMFinancialProgress($progress->id,2))}}@else{{0}}@endif%
+          @if($project->AssignedProject!==NULL && $progress!==NULL){{round(calculateMFinancialProgress($progress->id,3))}}@else{{0}}@endif%
         </td>
         <td id="physical">
-          @if($project->AssignedProject!==NULL && $progress!==NULL){{round(calculateMPhysicalProgress($progress->id,2))}}@else{{0}}@endif%
+          @if($project->AssignedProject!==NULL && $progress!==NULL){{round(calculateMPhysicalProgress($progress->id,3))}}@else{{0}}@endif%
         </td>
       <!-- <td>77</td> -->
       <!-- <td>60</td> -->

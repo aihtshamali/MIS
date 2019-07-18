@@ -51,7 +51,7 @@
                             <div class="accordion-heading" role="tab" id="heading_{{$i}}">
                                 <h3 class="card-title accordion-title">
                                   <a class="accordion-msg" data-toggle="collapse" data-parent="#accordion" href="#collapse_{{$i}}" aria-expanded="true" aria-controls="collapse_{{$i}}">
-                                      {{$project->title}}
+                                      {{$project->project_no}} - {{$project->title}}
                                   </a>
                                 </h3>
                             </div>

@@ -185,204 +185,162 @@ $innertab=\Session::get('innertab');
           z-index: 999;
           margin-left: -4% !important;
         }
-      }
-    </style>
-    <div class="col-md-12">
-      <center>
-        <b class="primarybold mb_1 font-18">
-          <span>Project Title</span> <span class=""> :</span>
-          <span class="black">{{$project->Project->title}}</span>
-        </b>
-      </center>
-    </div>
-    <div class="col-md-12 ln_ht12">
-      <b for="project_cost" class=""><span>Location: </span></b><span>
-        @foreach ($assigned_districts as $district)
-        {{$district->District->name}},
-        @endforeach
-      </span>
-    </div>
-    <div class="form-group row">
-      <div class="col-md-3">
-        <p for="GS_no" class=" mb_1"><span class="fontf_sh">GS #: </span><span>{{$project->Project->ADP}}</span></p>
-      </div>
-      <div class="col-md-3">
-        <p for="gestation Period" class=" mb_1 "><span title="Gestation Period" class="fontf_sh">Gest. Period: </span><span>
-
-            {{$gestation_period}}
-
-          </span> </p>
-      </div>
-      <div class="col-md-3 ln_ht12">
-        <p for="project_cost" class=" mb_1 "><span class="fontf_sh">Original Approve Cost:</span> <span>{{round($project->Project->ProjectDetail->orignal_cost,2)}}<small>Million PKR</small></span></p>
-      </div>
-
-      <div class="col-md-3 ln_ht12">
-        <p for="Location" class=" mb_1 "><span class="fontf_sh">final Revised Cost:</span>
-          @if($project->Project->RevisedApprovedCost->last())
-          {{round($project->Project->RevisedApprovedCost->last()->cost,2)}}
-          @else
-          0
-          @endif
-          <small>Million PKR</small>
-        </p>
-      </div>
-      <div class="col-md-3">
-        <p for="Date_of_visit" class=" mb_1 "><span class="fontf_sh">First Visit Date: </span>
-          <span>
-            @if(isset($first_visit_date->first_visit_date))
-            @php
-            $originalDate=$first_visit_date->first_visit_date;
-            $date = date("d-M-Y", strtotime($originalDate));
-            // echo $date;
-            @endphp
-            {{$date}}
-
-            @endif
-          </span> </p>
-      </div>
-      <div class="col-md-3">
-        <p for="planned_start_date" class=" mb_1 "><span class="fontf_sh">Planned Start Date: </span>
-          <span>
-            @php
-            $originalDate=$project->Project->ProjectDetail->planned_start_date;
-            $date = date("d-M-Y", strtotime($originalDate));
-            // echo $date;
-            @endphp
-            {{$date}}
-          </span>
-        </p>
-      </div>
-      <div class="col-md-3">
-        <p for="planned_end_date" class=" mb_1"><span class="fontf_sh">Planned End Date: </span>
-          <span>
-            @php
-            $originalDate=$project->Project->ProjectDetail->planned_end_date;
-            $date = date("d-M-Y", strtotime($originalDate));
-            // echo $date;
-            @endphp
-            {{$date}}
-          </span>
-        </p>
-      </div>
-      <div class="col-md-3">
-        <p for="actual_start_date" class=" mb_1"><span class="fontf_sh">Actual Start Date: </span>
-          <span>
-            @if(isset($dates->actual_start_date))
-            @php
-            $originalDate=$dates->actual_start_date;
-            $date = date("d-M-Y", strtotime($originalDate));
-            // echo $date;
-            @endphp
-            {{$date}}
-
-            @endif
-          </span>
-        </p>
-      </div>
-      <div class="col-md-3 ln_ht12">
-        <p for="" name="phy_progress" id="phy_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Planned Progress %: </span>
-          <span class="pdz_six" id="PlannedProg">{{round(calculatePlannedProgress($project->MProjectProgress->last()->id),2)}}%</span>
-        </p>
-      </div>
-      <div class="col-md-3 ln_ht12">
-        <p for="" name="phy_progress" id="phy_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Physical Progress: </span>
-          <span class="pdz_six" id="Physicalprog">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id),2)}}%</span>
-        </p>
-      </div>
-      <div class="col-md-3">
-        <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Financial Progress:</span>
-          <span class="pdz_six" id="financialprog">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</span>
-        </p>
-      </div>
-      {{-- <div class="col-md-3 ln_ht12">
+    @endphp
+    <div class="fixed bg-g hidden-sm hidden-xs topSummary capitalize nodisplay" style="">
+    <div class="bg-w border_top bg-w" style="padding:0% 0% 0.5% 1% !important;" >
+      <style scoped>
+          .form-group{margin-bottom:0rem !important;border:none !important;background-color:transparent !important;}
+          .form-group{padding: 0.05rem 0.75rem !important;}
+          .col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto{padding-left: 0px !important;padding-right: 0px !important;}
+          label{margin-bottom:0rem !important;border:none !important;background-color:transparent !important;padding:0rem 0.3rem !important;
+            /* font-size: 12px !important; */
+            font-size: inherit;
+          }
+          .font-18{font-size: 18px !important;}
+          .fontf_sh{font-size: 14px !important;font-weight: 600 !important;}
+          /* .progress-bar{color: #000 !important;} */
+          .progress-bar-success {background-color: #007b1b;}
+          .progress{background: #6967674f !important;}
+          .pdz_six{padding: 0% 6% !important;}
+          .topsummaryinput{font-size: 14px !important;padding: 0px !important;font-weight: 600 !important;border: none !important;color:#1e2d52 !important;max-width:115px !important}
+        @media only screen and (max-width: 1024px)
+          {
+            .topSummary
+              {
+                margin-top:-4% !important;z-index:999; margin-left:-4% !important;
+              }
+          }
+      </style>
+                  <div class="col-md-12">
+                    <center>
+                      <b class="primarybold mb_1 font-18">
+                        <span>Project Title</span> <span class=""> :</span>
+                        <span class="black">{{$project->Project->title}}</span>
+                      </b>
+                    </center>
+                  </div>
+                  <div class="col-md-12 ln_ht12">
+                      <b for="project_cost" class=""><span >Location: </span></b><span>
+                        @foreach ($assigned_districts as $district)
+                          {{$district->District->name}},
+                        @endforeach
+                      </span>
+                  </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <p for="GS_no" class=" mb_1"><span class="fontf_sh">GS #: </span><span>{{$project->Project->ADP}}</span></p>
+                    </div>
+                    <div class="col-md-3">
+                      <p for="gestation Period" class=" mb_1 "><span title="Gestation Period" class="fontf_sh">Gest. Period: </span><span>
+                        
+                         {{$gestation_period}}
+                       
+                      </span> </p>
+                      </div>
+                         <div class="col-md-3 ln_ht12">
+                          <p for="project_cost" class=" mb_1 "><span class="fontf_sh">Original Approve Cost:</span> <span>{{round($project->Project->ProjectDetail->orignal_cost,3)}}<small>Million PKR</small></span></p>
+                      </div>
+                      
+                      <div class="col-md-3 ln_ht12">
+                        <p for="Location" class=" mb_1 "><span class="fontf_sh">final Revised Cost:</span> 
+                          @if($project->Project->RevisedApprovedCost->last())
+                            {{round($project->Project->RevisedApprovedCost->last()->cost,3)}}
+                          @else
+                            0
+                          @endif
+                          <small>Million PKR</small>
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+                       <p for="Date_of_visit" class=" mb_1 "><span class="fontf_sh">First Visit Date: </span>
+                        <span>
+                      @if(isset($first_visit_date->first_visit_date))
+                      @php
+                      $originalDate=$first_visit_date->first_visit_date;
+                       $date = date("d-M-Y", strtotime($originalDate));
+                      //  echo $date;
+                      @endphp
+                     {{$date}}
+                    
+                      @endif
+                      </span> </p>
+                    </div>
+                    <div class="col-md-3">
+                      <p for="planned_start_date" class=" mb_1 "><span class="fontf_sh">Planned Start Date: </span>
+                        <span>
+                          @php
+                          $originalDate=$project->Project->ProjectDetail->planned_start_date;
+                           $date = date("d-M-Y", strtotime($originalDate));
+                          //  echo $date;
+                          @endphp
+                          {{$date}}
+                        </span>
+                      </p>
+                  </div>
+                  <div class="col-md-3">
+                      <p for="planned_end_date" class=" mb_1"><span class="fontf_sh">Planned End Date: </span>
+                        <span>
+                            @php
+                          $originalDate=$project->Project->ProjectDetail->planned_end_date;
+                           $date = date("d-M-Y", strtotime($originalDate));
+                          //  echo $date;
+                          @endphp
+                          {{$date}}
+                        </span>
+                      </p>
+                  </div>
+                  <div class="col-md-3">
+                      <p for="actual_start_date" class=" mb_1"><span class="fontf_sh">Actual Start Date: </span>
+                        <span>
+                          @if(isset($dates->actual_start_date))
+                          @php
+                          $originalDate=$dates->actual_start_date;
+                           $date = date("d-M-Y", strtotime($originalDate));
+                          //  echo $date;
+                          @endphp
+                          {{$date}}
+                          
+                        @endif
+                        </span> 
+                        </p>
+                  </div>
+                    <div class="col-md-3 ln_ht12">
+                      <p for="" name="phy_progress" id="phy_progress" class="primarybold mb_1"><span  class="float-left fontf_sh">Planned Progress %: </span>
+                      <span class="pdz_six" id="PlannedProg">{{round(calculatePlannedProgress($project->MProjectProgress->last()->id),3)}}%</span>
+                        </p>
+                    </div>
+                    <div class="col-md-3 ln_ht12">
+                      <p for="" name="phy_progress" id="phy_progress" class="primarybold mb_1"><span  class="float-left fontf_sh">Physical Progress: </span>
+                        <span class="pdz_six" id="Physicalprog">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id),3)}}%</span>
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+                      <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh" >Financial Progress:</span>
+                        <span class="pdz_six" id="financialprog">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),3)}}%</span>
+                      </p>
+                    </div>
+                    {{-- <div class="col-md-3 ln_ht12">
                         <b for="Location" class=" mb_1 fontf_sh"><span >final Revised Cost:</span> 
                           @if($project->Project->RevisedApprovedCost->last())
-                            {{round($project->Project->RevisedApprovedCost->last()->cost,2)}}
-      @else
-      0
-      @endif
-      Million PKR
-      </b>
-    </div> --}}
-    <div class="col-md-3">
-      <p for="earned_value" class=" mb_1"><span class="fontf_sh">Earned Value: </span><span>{{round(calculateEarnedvalue($project->MProjectProgress->last()->id),2)}} </span></p>
-    </div>
-    <div class="col-md-3">
-      <P for="actual_value" class=" mb_1"><span class="fontf_sh">Planned Value: </span><span>{{round(calculatePlannedValue($project->MProjectProgress->last()->id),2)}} </span></p>
-    </div>
-    <div class="col-md-3">
-      <p for="cost_performance" class=" mb_1"><span class="fontf_sh">Cost Performace Index (CPI): </span><span>{{round(costPerformanceindex($project->MProjectProgress->last()->id),2)}}%</span></p>
-    </div>
-    <div class="col-md-3">
-      <p for="spi" class=" mb_1"><span class="fontf_sh">Schedule Performance Index (SPI): </span><span>{{round(scheduledPerformanceindex($project->MProjectProgress->last()->id),2)}}%</span></p>
-    </div>
-    <div class="col-md-3">
-      <p for="eac" class=" mb_1"><span class="fontf_sh">Estimaed At Completion : </span><span>{{round(estimatedAtCompletion($project->MProjectProgress->last()->id),2)}}</span></p>
-    </div>
-  </div>
-</div>
-</div>
-<!--start show project detail btn-->
-<div class="col-md-1 hidden-sm hidden-xs text-center downtiQ " title="Show Project Detail">
-  <div class="offset-md-2 col-md-5 border golbtn">
-    <i class="fa fa-angle-double-down"></i>
-  </div>
-</div>
-<!--end show project detail btn-->
-
-
-<div class="row">
-  <div class="col-md-12 mainTabsAndNav" style="padding-left: 15px !important;padding-right: 15px !important;">
-    <!-- start hide project detail btn -->
-    <div class="col-md-1 hidden-sm hidden-xs text-center uptiQ nodisplay" title="Hide Detail">
-      <div class="offset-md-2 col-md-5 border golbtn">
-        <i class="fa fa-angle-double-up"></i>
-      </div>
-    </div>
-    <!-- end hide project detail btn -->
-    <div class="card" style="box-shadow: 0px 0px 33px #77777769;">
-      <div class="card-block">
-        <div class="row m-b-30">
-          <div class="col-md-12">
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs md-tabs" role="tablist">
-              <li class="nav-item reviewTab">
-                <a class="nav-link {{isset($maintab) && $maintab=='review' ? 'active' : ''}}" data-toggle="tab" href="#reviewDiv" role="tab"><span style="font-size:14px; font-weight:bold;">REVIEW</span></a>
-                <div class="slide"></div>
-              </li>
-              <li class="nav-item planNav">
-                <a class="nav-link {{isset($maintab) && $maintab=='plan' ? 'active' : ''}}" data-toggle="tab" href="#p_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">PLAN MONITORING</span></a>
-                <div class="slide"></div>
-              </li>
-              <li class="nav-item conductNav  {{isset($maintab) && $maintab=='conduct' ? 'active' : ''}}">
-                <a class="nav-link" data-toggle="tab" href="#c_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">CONDUCT MONITORING</span></a>
-                <div class="slide"></div>
-              </li>
-              <li class="nav-item resultNav">
-                <a class="nav-link" data-toggle="tab" href="#r_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">RESULT MONITORING</span></a>
-                <div class="slide"></div>
-              </li>
-              <li class="nav-item summaryNav">
-                <a class="nav-link" data-toggle="tab" href="#summary" role="tab"><span style="font-size:14px; font-weight:bold;">SUMMARY</span></a>
-                <div class="slide"></div>
-              </li>
-            </ul>
-            <!-- Tab panes -->
-            @php
-            $teamflag=false;
-            $teamflag = $project->AssignedProjectTeam->where('user_id',Auth::id())->first()->team_lead==1;
-            if(count($project->AssignedProjectTeam)==1)
-            $teamflag=true;
-            @endphp
-            <div class="tab-content card-block" style="">
-              @include('_Monitoring/inc/monitoring/reviewDiv')
-              @include('_Monitoring/inc/monitoring/planmonitoring')
-              @include('_Monitoring/inc/monitoring/conduct_monitoring')
-              @include('_Monitoring/inc/monitoring/r_monitoring')
-              @include('_Monitoring/inc/monitoring/summary')
+                            {{round($project->Project->RevisedApprovedCost->last()->cost,3)}}
+                          @else
+                            0
+                          @endif
+                           Million PKR
+                        </b>
+                    </div> --}}
+                  <div class="col-md-3">
+                    <p for="earned_value" class=" mb_1"><span class="fontf_sh">Earned Value: </span><span>{{round(calculateEarnedvalue($project->MProjectProgress->last()->id),3)}} </span></p>
+                </div>
+                <div class="col-md-3">
+                  <P for="actual_value" class=" mb_1"><span class="fontf_sh">Planned Value: </span><span>{{round(calculatePlannedValue($project->MProjectProgress->last()->id),3)}} </span></p>
+              </div>
+              <div class="col-md-3">
+              <p for="cost_performance" class=" mb_1"><span class="fontf_sh">Cost Performace Index (CPI): </span><span>{{round(costPerformanceindex($project->MProjectProgress->last()->id),2)}}%</span></p>
             </div>
           </div>
+          <div class="col-md-3">
+          <p for="eac" class=" mb_1"><span class="fontf_sh">Estimated At Completion : </span><span>{{round(estimatedAtCompletion($project->MProjectProgress->last()->id),3)}}</span></p>
         </div>
 
       </div>
