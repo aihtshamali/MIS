@@ -643,7 +643,7 @@
                         <div class="col-md-6">
                             <label for=""><b>Original Approved Cost :</b></label>
                             <span>
-                                {{round($project->AssignedProject->Project->ProjectDetail->orignal_cost,2)}} <small> Million PKR</small>
+                                {{round($project->AssignedProject->Project->ProjectDetail->orignal_cost,3)}} <small> Million PKR</small>
                             </span>
                         </div>
                         <div class="col-md-6">
@@ -657,7 +657,7 @@
                                 $revisedFinalCost= $cost->cost;
                                 @endphp
                                 @endforeach
-                                {{round($revisedFinalCost,2)}} <small> Million PKR</small>
+                                {{round($revisedFinalCost,3)}} <small> Million PKR</small>
                             </span>
                         </div>
                     </div>
@@ -932,7 +932,7 @@
                     <td>Dummy data...</td>
                 </tr>
                 <tr>
-                
+
                     <td class="bglightblue black bold">Planned Start Date</td>
                     <td>{{$project->AssignedProject->Project->ProjectDetail->planned_start_date}}</td>
                 </tr>
@@ -1661,7 +1661,8 @@
                     @endforeach
                 </ul>
             </div>
-
+        </div>
+        <div class="card-footer"></div>
         </div>
     </div>
     <div>

@@ -32,7 +32,7 @@
                             <div class="accordion-heading" role="tab" id="headingOne">
                                 <h3 class="card-title accordion-title">
                                 <a class="accordion-msg" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    {{$project->Project->title}}
+                                  {{$project->Project->project_no}}  - {{$project->Project->title}}
                                 </a>
                             <form action="{{route('Monitoring_assignToconsultant')}}" method="GET">
                                 {{ csrf_field() }}

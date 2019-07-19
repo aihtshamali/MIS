@@ -17,10 +17,6 @@
         width: 100%;
         box-shadow: 0 1px 1px rgba(0,0,0,0.1)
       }
-      .table>thead>tr>th {
-  width: 25px !important;
-}
-
   </style>
 @endsection
 @section('content')
@@ -43,133 +39,48 @@
       {{--  sekect consulatants  --}}
       <div class="row">
         <div class="col-md-12">
-          <div class="box box-default">
-            <div class="box-header with-border">
-              <h3 class="box-title">Search Projects</h3>
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-              </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <form class="form" action="{!! route('search_officer') !!}" method="get">
-                {{ csrf_field() }}
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Select Officer</label>
-                    <select class="form-control select2" name="officer_id" style="width: 100%;">
-                      <option selected="selected" value="" >Select A Officer</option>
-                      @foreach($officers as $officer)
-                        @if($officer->hasRole('officer'))
-                        <option value="{{ $officer->id }}">{{ $officer->first_name }}  {{ $officer->last_name }} - {{ $officer->UserDetail->sector->name }}</option>
-                      @endif
-                      @endforeach
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <label>Select Project</label>
-                  <select class="form-control select2" name="project_id" style="width: 100%;">
-                    <option selected="selected" value="" >Select A Project</option>
-                    @foreach($projects as $project)
-                      <option value="{{ $project->Project->id }}">{{ $project->Project->title }}</option>
-                    @endforeach
-                  </select>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <label>Select Sector</label>
-                  <select class="form-control select2" name="sector_id" style="width: 100%;">
-                    <option selected="selected" value="" >Select A Sector</option>
-                    @foreach($sectors as $sector)
-                      <option value="{{ $sector->id }}">{{ $sector->name }}</option>
-                    @endforeach
-                  </select>
-                </div>
-              </div>
-              <div class="row" style="margin-top:10px">
-                <div class="col-md-6">
-                  <div class="col-md-6">
-                    <label for="">Starting Cost in Million</label>
-                    <input class="form-control" type="number" name="starting_cost" value="">
-                  </div>
-                  <div class="col-md-6">
-                    <label for="">Ending Cost in Million</label>
-                    <input class="form-control" type="number" name="ending_cost" value="">
-                  </div>
-                </div>
-              </div>
-              {{-- <div class="row" style="margin-top:10px">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Date range button:</label>
-                    <div class="input-group pull-right">
-                      <button type="button" class="btn btn-default pull-right" id="daterange-btn">
-                        <span>
-                          <i class="fa fa-calendar"></i> Date range picker
-                        </span>
-                        <i class="fa fa-caret-down"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div> --}}
 
-              <div class="row" style="margin-top:10px">
-                <div class="col-md-6">
-                  <button  class="btn btn-success pull-right" type="submit" name="button">Search</button>
-                </div>
-              </div>
-            </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-            
           <div class="box1 box-warning">
-            <div class="box-header ">
+            <div class="box-header with-border">
               <h3 class="box-title">ASSIGNED PROJECTS</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
             
             <div class="box-body1">
                 <div class="table-responsive">
-                  <table class="table table-hover table-striped">
-                    <tbody>
+                  <table class="table table-hover table-striped" id="tableData">
                         <thead>
-                            <th>Project Number</th>
-                            <th>Project Name</th>
-                            <th>Team Members</th>
-                            <th>SNE</th>
-                            <th>Priority</th>
-                            <th>Score</th>
-                            <th>Assigned Duration</th>
-                            <th>Progress</th>
-                            <th></th>
+                          <th>Project Number</th>
+                          <th>Project Name</th>
+                          <th>Team Members</th>
+                          <th>Priority</th>
+                          <th>Score</th>
+                          <th>Assigned Duration</th>
+                          <th>Progress</th>
+                          <th></th>
                           </thead>
                           <tbody>
 
                             @foreach ($assigned as $assigned)
                               <tr>
-
+                              
                                 <td>{{$assigned->project->project_no}}</td>
                                 <td>{{$assigned->project->title}}</td>
                                 <td>
                                     @foreach ($assigned->AssignedProjectTeam as $team)
                                     @if ($team->team_lead==1)
-                                    <span ><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}" style="font-weight:bold;color:red">{{$team->user->first_name}} {{$team->user->last_name}} </a> <br></span>
+                                <span style="font-weight:bold;color:red"><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}">{{$team->user->first_name}}  {{$team->user->last_name}}</a> - </span>
                                     @else
-                                      <span class=""><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}">{{$team->user->first_name}} {{$team->user->last_name}} <br></a></span>
+                                      <span class=""><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}">{{$team->user->first_name}} {{$team->user->last_name}}</a></span>
                                     @endif
-                                   @endforeach
+                                  @endforeach
 
                                 </td>
-                                <td>{{$assigned->project->ProjectDetail->sne}}</td>
                                 <td>
                                   {{ $assigned->project->ProjectDetail->AssigningForum->name }}
                                 </td>
@@ -194,12 +105,19 @@
                                       </div>
 
                                     </div></td>
+                                    <td>
+                                <form action="{{route('stopAssignedProject')}}" method="post" >
+                                {{ csrf_field() }}
+                                  <button type="button" class="stopBtn btn btn-md btn-danger" rel='popover' data-placement='bottom' data-original-title='Remarks' data-html="true" 
+                                  data-content="<input type='hidden' name='assigned_project_id' value='{{$assigned->id}}'>
+                                  <input type='text' name='remarks'> <button type='submit' class='btn btn-success'> Save </button>">Stop Project</button>
+                                </form>
+                              </td>
 
                               </tr>
 
                             @endforeach
                           </tbody>
-                    </tbody>
                   </table>
                 </div>
             </div>
@@ -227,6 +145,7 @@
   $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()
+    $('#tableData').DataTable();
   });
 
   //

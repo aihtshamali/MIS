@@ -21,6 +21,8 @@ Route::get('/upload', function () {
     return view('file_upload');
 });
 
+Route::get('/deleteProject','HomeController@deleteProject');
+
 // attendance start
 Route::get('/attendance','ExecutiveController@attendance')->name('attendance');
 Route::get('/dailyattendance','ExecutiveController@dailyattendance')->name('dailyattendance');
@@ -147,6 +149,8 @@ Route::prefix('manager')->middleware('role:manager|directorevaluation')->group(f
     Route::get('/inquiry','DirectorEvaluationController@inquiry_index')->name('Evaluation_inquiry_tab');
     Route::get('/evaluation_assigned','DirectorEvaluationController@evaluation_assignedprojects')->name('Evaluation_evaluation_assigned');
     Route::get('/evaluation_inprogress','DirectorEvaluationController@evaluation_Inprogressprojects')->name('Evaluation_evaluation_Inprogressprojects');
+    Route::get('/stoppedProjects','DirectorEvaluationController@stoppedProjects')->name('stoppedProjects');
+    Route::get('/stoppingProjects','DirectorEvaluationController@stoppingProjects')->name('stoppingProjects');
     Route::get('/evaluation_completed','DirectorEvaluationController@evaluation_Completedprojects')->name('Evaluation_evaluation_Completed');
 
     Route::get('/search','DirectorEvaluationController@searchOfficer')->name('search_officer');

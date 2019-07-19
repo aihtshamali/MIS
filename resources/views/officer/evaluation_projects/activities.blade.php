@@ -149,28 +149,24 @@
     padding: 0px !important;
   }
 
-  .btn {
-    margin: 2% !important;
+  /* .btn {
+    margin: 0% !important;
+  } */
+  .main-header .navbar-custom-menu,
+  .main-header .navbar-right{
+        float: right;
+    margin-left: -41px;
+    position: absolute;
+    right: 4%;
+    top: 1%;
+    }
+   .nodisplay {
+    display: none
   }
 
   .nodisplay {
     display: none
   }
-
-  /* Paste this css to your style sheet file or under head tag */
-  /* This only works with JavaScript,
-  if it's not present, don't show loader */
-  /* .no-js #loader { display: none;  }
-  .js #loader { display: block; position: absolute; left: 100px; top: 0; }
-  .se-pre-con {
-  	position: fixed;
-  	left: 0px;
-  	top: 0px;
-  	width: 100%;
-  	height: 100%;
-  	z-index: 9999;
-  	background: url(https://media.giphy.com/media/cZDRRGVuNMLOo/giphy.gif) center no-repeat #fff;
-  } */
   #loader {
     display: none;
     background: #fffbfb87;
@@ -555,8 +551,8 @@
                     </table>
                     <input type="hidden" name="assigned_project_id" style="display:inline;float:right" value="{{$project_data->id}}">
                     @if(count($project_data->AssignedProjectTeam) == 1 || $project_data->AssignedProjectTeam->where('user_id',Auth::id())->where('team_lead',1)->first())
-                      <button type="submit" class="btn btn-success pull-right" @if($project_data->progress != 100 ||( $project_data->progress == 100 && $project_data->complete==1)) disabled @endif >Project Completed
-                      </button>
+                    <button type="submit" class="btn btn-success pull-right" @if($project_data->progress != 100 ||( $project_data->progress == 100 && $project_data->complete==1)) disabled @endif >Project Completed
+                    </button>
                     @endif
                   </form>
                 </div>
@@ -599,12 +595,12 @@
                 </div>
 
               </div>
-            <form action="{{route('post_sne')}}" method="POST">
-              {{csrf_field()}}
+              <form action="{{route('post_sne')}}" method="POST">
+                {{csrf_field()}}
                 <input type="hidden" name="assigned_project" value="{{$project_data->id}}">
                 <div class="col-md-12" style="margin-bottom:10% !important;">
-                    <hr>
-                    <h3></h3>
+                  <hr>
+                  <h3></h3>
                   <h5><b>POST ECM</b></h5>
                   <div class="col-md-offset-3 col-md-2">
                     <h4>SNE Type</h4>
@@ -631,10 +627,10 @@
                       </div>
                       <div class="col-md-4">
                         <select name="sne_type" id="sne_type" class="btn btn-primary">
-                        <option hidden selected>Select Type</option>
-                        <option value="staff_nums">Specific No. of Staff recomend</option>
-                        <option value="conditional_sne">Conditional SNE</option>
-                      </select>
+                          <option hidden selected>Select Type</option>
+                          <option value="staff_nums">Specific No. of Staff recomend</option>
+                          <option value="conditional_sne">Conditional SNE</option>
+                        </select>
                         {{-- <div class="dropdown">
                           <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Type
                             <span class="caret"></span></button>
@@ -951,21 +947,20 @@
   $(document).ready(function() {
     $("#post_sne").click(function() {
       console.log($("#post_sne").val());
-      
-      if($(this).val()=="With SNE")
-      {
+
+      if ($(this).val() == "With SNE") {
         $(".wsneDiv").show();
         $(".wosneDiv").hide();
-      }else if($(this).val()=="Without SNE"){
+      } else if ($(this).val() == "Without SNE") {
         $(".wosneDiv").show();
-        $(".wsneDiv").hide();  
+        $(".wsneDiv").hide();
       }
     });
     $("#sne_type").click(function() {
-      if($("#sne_type").val()=="staff_nums"){
+      if ($("#sne_type").val() == "staff_nums") {
         $(".numostafDiv").show();
         $(".csneDiv").hide();
-      }else if($("#sne_type").val()=="conditional_sne"){
+      } else if ($("#sne_type").val() == "conditional_sne") {
         $(".csneDiv").show();
         $(".numostafDiv").hide();
 

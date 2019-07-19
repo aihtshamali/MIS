@@ -69,6 +69,48 @@ class DirectorEvaluationController extends Controller
 
         return view('Director.Evaluation.home.pmms_tab');
       }
+      public function stoppedProjects(){
+        // AssignedProjectTeam::where('user_id',Auth::id())
+          // ->whereHas('AssignedProject',function($query){
+          //   $query->whereHas('Project',function($query){
+          //     $query->where('project_type_id',1);
+          //   });
+          // })->get();
+        $stoppedProjects = StoppedProject::select('*')
+        ->whereHas('AssignedProject',function($query){
+          $query
+          ->where('stopped',true)
+          ->whereHas('Project',function($query){
+            $query->where('project_type_id',1);
+          });
+        })
+        ->get();
+        return view('Director.Evaluation.stopedprojects.stopedProjects',compact('stoppedProjects'));
+      }
+
+      public function stoppingProjects(Request $request){
+        $assigned=AssignedProject::select('assigned_projects.*')
+         ->where('assigned_by',Auth::id())
+         ->leftjoin('projects','projects.id','assigned_projects.project_id')
+         ->where('projects.status',1)
+         ->where('complete',0)
+         ->where('stopped',false)
+         ->get();
+
+         $stoppedProjects=AssignedProject::select('assigned_projects.*')
+         ->where('assigned_by',Auth::id())
+         ->leftjoin('projects','projects.id','assigned_projects.project_id')
+         ->where('projects.status',1)
+         ->where('complete',0)
+         ->where('stopped',true)
+         ->get();
+
+         $officers = User::where('users.status',1)->get();
+         $projects = $assigned;
+         $sectors = Sector::where('status',1)->get();
+         return view('Director.Evaluation.stopedprojects.stoppingProjects',compact('stoppedProjects','assigned','officers','projects','sectors'));
+
+      }
 
       public function tpv_index(){
         return view('Director.Evaluation.home.tpv_tab');

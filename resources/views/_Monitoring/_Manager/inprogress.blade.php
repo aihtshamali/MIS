@@ -33,6 +33,7 @@
                             <tbody>
                               @foreach ($projects as $project)
                                 <tr>
+                                    @if(isset($project->Project->AssignedProject->AssignedProjectTeam))
                                     <td><a style="font-size:15px;" href="{{route('monitoringDashboard',['project_id'=>$project->Project->id])}}">{{$project->Project->title}}</a></td>
                                     <td>
                                       @foreach ($project->Project->AssignedSubSectors as $subsector)
@@ -57,25 +58,31 @@
                                     <td>
                                       <div class="progress">
                                       <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width:
-                                      @if($project->Project->AssignedProject!==NULL && $project->Project->AssignedProject->MProjectProgress->last()!==NULL){{round(calculateMPhysicalProgress($project->Project->AssignedProject->MProjectProgress->last()->id,2))}}@else{{0}}@endif%"
-                                         aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">@if($project->Project->AssignedProject!==NULL && $project->Project->AssignedProject->MProjectProgress->last()!==NULL) {{round(calculateMPhysicalProgress($project->Project->AssignedProject->MProjectProgress->last()->id,2))}} @else 0 @endif%</div>
+                                      @if($project->Project->AssignedProject!==NULL && $project->Project->AssignedProject->MProjectProgress->last()!==NULL){{round(calculateMPhysicalProgress($project->Project->AssignedProject->MProjectProgress->last()->id,3))}}@else{{0}}@endif%"
+                                         aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">@if($project->Project->AssignedProject!==NULL && $project->Project->AssignedProject->MProjectProgress->last()!==NULL) {{round(calculateMPhysicalProgress($project->Project->AssignedProject->MProjectProgress->last()->id,3))}} @else 0 @endif%</div>
                                         </div>
                                     </td>
 
                                     <td>
                                       <div class="progress">
                                             <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width:
-                                            @if($project->Project->AssignedProject!==NULL && $project->Project->AssignedProject->MProjectProgress->last()!==NULL){{round(calculateMFinancialProgress($project->Project->AssignedProject->MProjectProgress->last()->id,2))}}@else{{0}}@endif%"
-                                            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">@if($project->Project->AssignedProject!==NULL && $project->Project->AssignedProject->MProjectProgress->last()!==NULL) {{round(calculateMFinancialProgress($project->Project->AssignedProject->MProjectProgress->last()->id,2))}} @else 0 @endif%</div>
+                                            @if($project->Project->AssignedProject!==NULL && $project->Project->AssignedProject->MProjectProgress->last()!==NULL){{round(calculateMFinancialProgress($project->Project->AssignedProject->MProjectProgress->last()->id,3))}}@else{{0}}@endif%"
+                                            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">@if($project->Project->AssignedProject!==NULL && $project->Project->AssignedProject->MProjectProgress->last()!==NULL) {{round(calculateMFinancialProgress($project->Project->AssignedProject->MProjectProgress->last()->id,3))}} @else 0 @endif%</div>
                                         </div>
                                     </td>
 
                                     <td>
+                                    @if(count($project->Project->AssignedProject->MProjectProgress))
                                       <a href="{{route('generate_monitoring_report',['project_id'=>$project->Project->AssignedProject->id])}}" target="_blank" class="hovsky" style="color: #4f5c5f9e; font-size:36px !important;"><center><i class="fas fa-address-card"></i></center></a>
+                                    @else
+                                      <p> --
+                                      </p>
+                                    @endif
                                     </td>
                                     {{-- <td>
                                     <a href="{{route('monitoring_inprogressSingle')}}" class="btn btn-md  btn-info"> Conduct Monitoring</a>
                                     </td> --}}
+                                    @endif
                                 </tr>
                               @endforeach
                             </tbody>

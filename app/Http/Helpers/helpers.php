@@ -77,13 +77,12 @@ if (! function_exists('calculateMPhysicalProgress')) {
 
       $total_phyProgres= array_sum($phy_prog);
 
+      if(!isset($financial_cost->total_release_to_date))
+        return 0;
+
       $physical_progress=($total_phyProgres/$financial_cost->total_release_to_date); 
-      // foreach($arr as $val){
-      //   $sum+=$val;
-      // }
-        // dd($physical_progress);
       return $physical_progress;
-      return 0;
+
   }
 }
 
@@ -162,8 +161,9 @@ function costPerformanceindex($m_project_progress_id)
   $earned_value=calculateEarnedvalue($m_project_progress_id);
   if(!isset(App\MProjectProgress::find($m_project_progress_id)->MProjectCost->total_release_to_date))
     return 0;
-  $actual_consumed_Cost=App\MProjectProgress::find($m_project_progress_id)->MProjectCost->total_release_to_date;
-  // dd($actual_consmed_Cost);
+    $actual_consumed_Cost=App\MProjectProgress::find($m_project_progress_id)->MProjectCost->total_release_to_date;
+  if($actual_consumed_Cost == 0 || !isset($actual_consumed_Cost))
+    return 0;
   $cpi=$earned_value/$actual_consumed_Cost;
   
   return $cpi;
