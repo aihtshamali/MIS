@@ -286,12 +286,11 @@
 <script src="{{asset('_monitoring/css/pages/widget/amchart/serial.js')}}"></script>
 {{-- scrollbar --}}
 <script src="{{asset('_monitoring/css/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
-<script src="{{asset('_monitoring/css/js/SmoothScroll.js')}}"></script>
+<!-- <script src="{{asset('_monitoring/css/js/SmoothScroll.js')}}"></script> -->
 <script src="{{asset('_monitoring/css/js/pcoded.min.js')}}"></script>
 <script src="{{asset('_monitoring/css/js/vartical-layout.min.js')}}"></script>
 <script src="{{asset('_monitoring/css/js/script.min.js')}}"></script>
 @yield("js_scripts")
-{{-- <script src="{{asset('_monitoring/css/js/SmoothScroll.js')}}"></script> --}}
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
