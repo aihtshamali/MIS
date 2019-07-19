@@ -243,7 +243,7 @@ var temp=new Vue({
            
            this.officer_projects=data
            this.officer_name=name
-           loadDataTable()      
+               
          }
        },
      })

@@ -116,7 +116,7 @@
                                     <tr>
                                       <th>SR #</th>
                                       <th>Project No</th>
-                                      <th>GS #</th>
+                                      <th>Financial Year/GS #</th>
                                       <th>Name</th>
                                         <th>Cost</th>
                                     <th>Assigned Date</th>
@@ -182,7 +182,7 @@ var VueModal = new Vue({
   methods:{
     rows: function(event){
         console.log(event);
-        
+        console.log(allProjectsData);
         this.name = event.item.category;
         this.field = event.target.title.split(" ")[0];
         $('.modal-title').text(this.field+' Projects');

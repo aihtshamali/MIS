@@ -1,20 +1,31 @@
 @extends('layouts.uppernav')
+@section('styletag')
+<style media="screen">
+    div.box-body1{
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 3px;
+      border-bottom-left-radius: 3px;
+      padding: 10px;
+    }
+    div.box1{
+      position: relative;
+      border-radius: 3px;
+      background: #ffffff;
+      border-top: 3px solid #d2d6de;
+      margin-bottom: 20px;
+      width: 100%;
+      box-shadow: 0 1px 1px rgba(0,0,0,0.1)
+    }
+    .table>thead>tr>th {
+width: 25px !important;
+}
 
+</style>
+@endsection
 @section('content')
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-
-  <section class="content-header">
-    <h1>
-    ASSIGNED EVALUATION PROJECTS
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-backward" ></i>Back</a></li>
-      <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li>
-
-    </ol>
-  </section>
 
   <section class="content">
       {{--  sekect consulatants  --}}
@@ -23,7 +34,7 @@
           {{--  Chart 1  --}}
           <div class="box box-warning">
             <div class="box-header with-border">
-              <h3 class="box-title">Completed Projects</h3>
+              <h2 class="box-title">Completed Projects</h2>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -34,14 +45,15 @@
 
             <div class="box-body">
                 <div class="table-responsive">
-                  <table class="table table-hover table-striped">
+                  <table id="example" class="table table-hover table-striped">
                     <thead>
                         <tr >
-                            <th>Project Number</th>
-                            <th>Project Name</th>
+                            <th>Project No.</th>
+                            <th>Project Title</th>
                             <th>Project Officers</th>
-                            <th>Date Start</th>
-                            <th>Date End</th>
+                            <th>SNE</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
                             <th>Score</th>
                             <th>Progress</th>
                           </tr>
@@ -49,17 +61,19 @@
 
                   <tbody>
                     @foreach ($projects as $project)
-                      <tr @if($project->progress < 100) style="background:red;color:white" @endif>
+                      <tr>
                         <td>{{ $project->project->project_no }}</td>
                       <td>{{ $project->project->title }}</td>
                       <td>
-                      @foreach ($project->AssignedProjectTeam as $team)
-                        {{ $team->User->first_name }} {{ $team->User->last_name }}
-                      @endforeach
-                      @if(count($project->AssignedProjectTeam) > 1)
-                      /
-                    @endif
+                          @foreach ($project->AssignedProjectTeam as $team)
+                          @if ($team->team_lead==1)
+                          <span ><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}" style="font-weight:bold;color:red">{{$team->user->first_name}} {{$team->user->last_name}} </a> <br></span>
+                          @else
+                            <span class=""><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}">{{$team->user->first_name}} {{$team->user->last_name}} <br></a></span>
+                          @endif
+                         @endforeach
                     </td>
+                    <td>{{$project->project->ProjectDetail->sne}}</td>
                     <td>
                     {{date('d-m-Y',strtotime($project->created_at))}}
                     </td>
@@ -82,6 +96,11 @@
           </div>
         </div>
       </div>
-
-
+@endsection
+@section('scripttags')
+<script>
+  $(document).ready(function() {
+    $('#example').DataTable();
+  });
+</script>
 @endsection

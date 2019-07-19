@@ -17,6 +17,9 @@
         width: 100%;
         box-shadow: 0 1px 1px rgba(0,0,0,0.1)
       }
+      .table>thead>tr>th {
+  width: 25px !important;
+}
   </style>
 @endsection
 @section('content')
@@ -34,7 +37,6 @@
 
     </ol>
   </section>
-{{--  {{dd($officers)}}  --}}
   <section class="content">
       {{--  sekect consulatants  --}}
       <div class="row">
@@ -55,10 +57,11 @@
                 <div class="table-responsive">
                   <table class="table table-hover table-striped" id="tableData">
                         <thead>
-                          <th>Project Number</th>
+                          <th>Project No.</th>
                           <th>Project Name</th>
                           <th>Team Members</th>
                           <th>Priority</th>
+                          <th>SNE</th>
                           <th>Score</th>
                           <th>Assigned Duration</th>
                           <th>Progress</th>
@@ -74,9 +77,9 @@
                                 <td>
                                     @foreach ($assigned->AssignedProjectTeam as $team)
                                     @if ($team->team_lead==1)
-                                <span style="font-weight:bold;color:red"><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}">{{$team->user->first_name}}  {{$team->user->last_name}}</a> - </span>
+                                <span ><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}" style="font-weight:bold;color:red">{{$team->user->first_name}} {{$team->user->last_name}}</a><br></span>
                                     @else
-                                      <span class=""><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}">{{$team->user->first_name}} {{$team->user->last_name}}</a></span>
+                                      <span class=""><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}">{{$team->user->first_name}} {{$team->user->last_name}}</a><br></span>
                                     @endif
                                   @endforeach
 
@@ -84,6 +87,7 @@
                                 <td>
                                   {{ $assigned->project->ProjectDetail->AssigningForum->name }}
                                 </td>
+                                <td>{{$assigned->project->ProjectDetail->sne}}</td>
                                 <td>
                                   {{ round($assigned->project->score,2,PHP_ROUND_HALF_UP) }}
                                 </td>
@@ -93,10 +97,9 @@
                                     $interval = date_diff(date_create(date('Y-m-d h:i:s',strtotime($assigned->created_at))), date_create(date('Y-m-d h:i:s')))->format('%m Month %d Day %h Hours');
                                     // $duration=$interval->format();
                                   @endphp
-                                  {{-- {{$assigned->created_at}} --}}
+                                
                                   {{$interval}}
-                                  {{-- {{dd($interval)}} --}}
-                                  {{-- {{$duration}} --}}
+                                
                                 </td>
                                 <td><div class="progress">
                                     <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"

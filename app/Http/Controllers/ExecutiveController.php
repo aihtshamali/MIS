@@ -1129,7 +1129,7 @@ class ExecutiveController extends Controller
     }
 
     public function specialassign_index(){
-      return view('executive.home.specialassign_tab',['assigned'=>$assigned,'unassigned'=>$unassigned]);
+      return view('executive.home.specialassign_tab');
     }
 
     public function inquiry_index(){

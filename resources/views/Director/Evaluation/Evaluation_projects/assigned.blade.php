@@ -72,17 +72,20 @@
               </div>
               <div class="row">
                 <div class="col-md-6">
+                    <div class="form-group">
                   <label>Select Project</label>
-                  <select class="form-control select2" name="project_id" style="width: 100%;">
-                    <option selected="selected" value="" >Select A Project</option>
-                    @foreach($projects as $project)
-                      <option value="{{ $project->Project->id }}">{{ $project->Project->title }}</option>
-                    @endforeach
-                  </select>
+                    <select class="form-control select2" name="project_id" style="width: 100%;">
+                      <option selected="selected" value="" >Select A Project</option>
+                      @foreach($projects as $project)
+                        <option value="{{ $project->Project->id }}">{{ $project->Project->title }}</option>
+                      @endforeach
+                    </select>
+                    </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
+                    <div class="form-group">
                   <label>Select Sector</label>
                   <select class="form-control select2" name="sector_id" style="width: 100%;">
                     <option selected="selected" value="" >Select A Sector</option>
@@ -91,34 +94,25 @@
                     @endforeach
                   </select>
                 </div>
+                </div>
               </div>
+
               <div class="row" style="margin-top:10px">
                 <div class="col-md-6">
-                  <div class="col-md-6">
-                    <label for="">Starting Cost in Million</label>
-                    <input class="form-control" type="number" name="starting_cost" value="">
-                  </div>
-                  <div class="col-md-6">
-                    <label for="">Ending Cost in Million</label>
-                    <input class="form-control" type="number" name="ending_cost" value="">
-                  </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="">Starting Cost in Million</label>
+                          <input class="form-control" type="number" name="starting_cost" value="">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="">Ending Cost in Million</label>
+                          <input class="form-control" type="number" name="ending_cost" value="">
+                        </div>
+                      </div>
                 </div>
               </div>
-              {{-- <div class="row" style="margin-top:10px">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Date range button:</label>
-                    <div class="input-group pull-right">
-                      <button type="button" class="btn btn-default pull-right" id="daterange-btn">
-                        <span>
-                          <i class="fa fa-calendar"></i> Date range picker
-                        </span>
-                        <i class="fa fa-caret-down"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div> --}}
 
               <div class="row" style="margin-top:10px">
                 <div class="col-md-6">
@@ -180,12 +174,8 @@
                                 <td>
                                   @php
                                     $interval = date_diff(date_create(date('Y-m-d h:i:s',strtotime($assigned->created_at))), date_create(date('Y-m-d h:i:s')))->format('%m Month %d Day %h Hours');
-                                    // $duration=$interval->format();
                                   @endphp
-                                  {{-- {{$assigned->created_at}} --}}
                                   {{$interval}}
-                                  {{-- {{dd($interval)}} --}}
-                                  {{-- {{$duration}} --}}
                                 </td>
                                 <td><div class="progress">
                                     <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
@@ -228,26 +218,6 @@
     //Initialize Select2 Elements
     $('.select2').select2()
   });
-
-  //
-  // $('#daterange-btn').daterangepicker(
-  //   {
-  //     ranges   : {
-  //       'Today'       : [moment(), moment()],
-  //       'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-  //       'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-  //       'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-  //       'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-  //       'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-  //     },
-  //     startDate: moment().subtract(29, 'days'),
-  //     endDate  : moment()
-  //   },
-  //   function (start, end) {
-  //     // $('#daterange-btn').parent().append('<input type="hidden" valu')
-  //     $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-  //   }
-  // );
 
   </script>
 
