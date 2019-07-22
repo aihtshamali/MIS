@@ -161,8 +161,9 @@ function costPerformanceindex($m_project_progress_id)
   $earned_value=calculateEarnedvalue($m_project_progress_id);
   if(!isset(App\MProjectProgress::find($m_project_progress_id)->MProjectCost->total_release_to_date))
     return 0;
-  $actual_consumed_Cost=App\MProjectProgress::find($m_project_progress_id)->MProjectCost->total_release_to_date;
-  // dd($actual_consmed_Cost);
+    $actual_consumed_Cost=App\MProjectProgress::find($m_project_progress_id)->MProjectCost->total_release_to_date;
+  if($actual_consumed_Cost == 0 || !isset($actual_consumed_Cost))
+    return 0;
   $cpi=$earned_value/$actual_consumed_Cost;
   
   return $cpi;

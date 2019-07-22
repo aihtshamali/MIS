@@ -105,13 +105,13 @@
                       </span> </p>
                       </div>
                          <div class="col-md-3 ln_ht12">
-                          <p for="project_cost" class=" mb_1 "><span class="fontf_sh">Original Approve Cost:</span> <span>{{round($project->Project->ProjectDetail->orignal_cost,2)}}<small>Million PKR</small></span></p>
+                          <p for="project_cost" class=" mb_1 "><span class="fontf_sh">Original Approve Cost:</span> <span>{{round($project->Project->ProjectDetail->orignal_cost,3)}}<small>Million PKR</small></span></p>
                       </div>
                       
                       <div class="col-md-3 ln_ht12">
                         <p for="Location" class=" mb_1 "><span class="fontf_sh">final Revised Cost:</span> 
                           @if($project->Project->RevisedApprovedCost->last())
-                            {{round($project->Project->RevisedApprovedCost->last()->cost,2)}}
+                            {{round($project->Project->RevisedApprovedCost->last()->cost,3)}}
                           @else
                             0
                           @endif
@@ -173,23 +173,23 @@
                   </div>
                     <div class="col-md-3 ln_ht12">
                       <p for="" name="phy_progress" id="phy_progress" class="primarybold mb_1"><span  class="float-left fontf_sh">Planned Progress %: </span>
-                      <span class="pdz_six" id="PlannedProg">{{round(calculatePlannedProgress($project->MProjectProgress->last()->id),2)}}%</span>
+                      <span class="pdz_six" id="PlannedProg">{{round(calculatePlannedProgress($project->MProjectProgress->last()->id),3)}}%</span>
                         </p>
                     </div>
                     <div class="col-md-3 ln_ht12">
                       <p for="" name="phy_progress" id="phy_progress" class="primarybold mb_1"><span  class="float-left fontf_sh">Physical Progress: </span>
-                        <span class="pdz_six" id="Physicalprog">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id),2)}}%</span>
+                        <span class="pdz_six" id="Physicalprog">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id),3)}}%</span>
                         </p>
                     </div>
                     <div class="col-md-3">
                       <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh" >Financial Progress:</span>
-                        <span class="pdz_six" id="financialprog">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</span>
+                        <span class="pdz_six" id="financialprog">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),3)}}%</span>
                       </p>
                     </div>
                     {{-- <div class="col-md-3 ln_ht12">
                         <b for="Location" class=" mb_1 fontf_sh"><span >final Revised Cost:</span> 
                           @if($project->Project->RevisedApprovedCost->last())
-                            {{round($project->Project->RevisedApprovedCost->last()->cost,2)}}
+                            {{round($project->Project->RevisedApprovedCost->last()->cost,3)}}
                           @else
                             0
                           @endif
@@ -197,10 +197,10 @@
                         </b>
                     </div> --}}
                   <div class="col-md-3">
-                    <p for="earned_value" class=" mb_1"><span class="fontf_sh">Earned Value: </span><span>{{round(calculateEarnedvalue($project->MProjectProgress->last()->id),2)}} </span></p>
+                    <p for="earned_value" class=" mb_1"><span class="fontf_sh">Earned Value: </span><span>{{round(calculateEarnedvalue($project->MProjectProgress->last()->id),3)}} </span></p>
                 </div>
                 <div class="col-md-3">
-                  <P for="actual_value" class=" mb_1"><span class="fontf_sh">Planned Value: </span><span>{{round(calculatePlannedValue($project->MProjectProgress->last()->id),2)}} </span></p>
+                  <P for="actual_value" class=" mb_1"><span class="fontf_sh">Planned Value: </span><span>{{round(calculatePlannedValue($project->MProjectProgress->last()->id),3)}} </span></p>
               </div>
               <div class="col-md-3">
               <p for="cost_performance" class=" mb_1"><span class="fontf_sh">Cost Performace Index (CPI): </span><span>{{round(costPerformanceindex($project->MProjectProgress->last()->id),2)}}%</span></p>
@@ -209,7 +209,7 @@
             <p for="spi" class=" mb_1"><span class="fontf_sh">Schedule Performance Index (SPI): </span><span>{{round(scheduledPerformanceindex($project->MProjectProgress->last()->id),2)}}%</span></p>
           </div>
           <div class="col-md-3">
-          <p for="eac" class=" mb_1"><span class="fontf_sh">Estimaed At Completion : </span><span>{{round(estimatedAtCompletion($project->MProjectProgress->last()->id),2)}}</span></p>
+          <p for="eac" class=" mb_1"><span class="fontf_sh">Estimated At Completion : </span><span>{{round(estimatedAtCompletion($project->MProjectProgress->last()->id),3)}}</span></p>
         </div>
           </div>
         </div>
