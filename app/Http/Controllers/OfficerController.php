@@ -737,7 +737,7 @@ class OfficerController extends Controller
         ->get();
 
         // dd($ComponentActivities);
-        $Kpis =MProjectKpi::where('status',1)->get();
+        $Kpis =MProjectKpi::where('status',1)->where('standard',1)->get();
 
         $mPlanKpiComponents=$projectProgressId->MPlanKpicomponentMapping;
         $cities=PlantripCity::orderBy('name')->get();
