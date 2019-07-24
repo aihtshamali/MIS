@@ -1,7 +1,7 @@
 "use strict";
 var oc = 1;
 var compopt = "";
-$(document).ready(function() {
+$(document).ready(function () {
   $('[data-toggle="popover"]').popover();
 
   // $(".planNav").click(function () {
@@ -9,13 +9,13 @@ $(document).ready(function() {
   //     $(".mainTabsAndNav").animate({ marginTop: '6%' }, 1000);
   // });
 
-  $("input:checkbox").click(function() {
+  $("input:checkbox").click(function () {
     $("input:checkbox")
       .not(this)
       .prop("checked", false);
   });
 
-  $(".golbtn").click(function() {
+  $(".golbtn").click(function () {
     $(this)
       .parent()
       .hide(100);
@@ -23,21 +23,25 @@ $(document).ready(function() {
   // $(".topSummary").mouseleave(function () {
   //     $(".uptiQ").hide(100);
   // });
-  $(".uptiQ").click(function() {
+  $(".uptiQ").click(function () {
     // $('this').hide();
     $(".downtiQ").show("slow");
     $(".topSummary ").slideUp("slow");
-    $(".mainTabsAndNav").animate({ marginTop: "0%" }, 1000);
+    $(".mainTabsAndNav").animate({
+      marginTop: "0%"
+    }, 1000);
   });
-  $(".downtiQ").click(function() {
+  $(".downtiQ").click(function () {
     // $('.downtiQ').hide();
     $(".uptiQ").show(100);
     $(".topSummary ").slideDown("slow");
-    $(".mainTabsAndNav").animate({ marginTop: "12%" }, 1000);
+    $(".mainTabsAndNav").animate({
+      marginTop: "12%"
+    }, 1000);
   });
 
   //financial progress
-  $("#u_against_rel, #total_release_to_date").keyup(function() {
+  $("#u_against_rel, #total_release_to_date").keyup(function () {
     var utilization_against_releases = $("#u_against_rel").val();
     var total_release_to_date = $("#total_release_to_date").val();
 
@@ -47,7 +51,7 @@ $(document).ready(function() {
   });
 
   //FINANCIAL PHASING
-  $(document).on("keyup", ".count-me", function() {
+  $(document).on("keyup", ".count-me", function () {
     var parent = $(this)
       .parent()
       .parent()
@@ -167,7 +171,7 @@ $(document).ready(function() {
 
   var revs = [];
 
-  projectWithRevised.revised_approved_cost.forEach(function(value, index) {
+  projectWithRevised.revised_approved_cost.forEach(function (value, index) {
     if (value && projectWithRevised.revised_end_date[index]) {
       let start_date1 = moment(
         projectWithRevised.project_detail.revised_start_date
@@ -224,37 +228,37 @@ $(document).ready(function() {
     for (j = 2; j <= 30; j++) {
       if (j == 9)
         substring +=
-          '<option value="200' +
-          j +
-          "-" +
-          (j + 1) +
-          '">200' +
-          j +
-          "-" +
-          (j + 1) +
-          "</option>";
+        '<option value="200' +
+        j +
+        "-" +
+        (j + 1) +
+        '">200' +
+        j +
+        "-" +
+        (j + 1) +
+        "</option>";
       else if (j > 9)
         substring +=
-          '<option value="20' +
-          j +
-          "-" +
-          (j + 1) +
-          '">20' +
-          j +
-          "-" +
-          (j + 1) +
-          "</option>";
+        '<option value="20' +
+        j +
+        "-" +
+        (j + 1) +
+        '">20' +
+        j +
+        "-" +
+        (j + 1) +
+        "</option>";
       else
         substring +=
-          '<option value="200' +
-          j +
-          "-0" +
-          (j + 1) +
-          '">200' +
-          j +
-          "-0" +
-          (j + 1) +
-          "</option>";
+        '<option value="200' +
+        j +
+        "-0" +
+        (j + 1) +
+        '">200' +
+        j +
+        "-0" +
+        (j + 1) +
+        "</option>";
     }
     var tr = `
     <tr>
@@ -363,7 +367,7 @@ $(document).ready(function() {
     $("#summary").hide();
   }
 
-  $(".summaryNav").on("click", function() {
+  $(".summaryNav").on("click", function () {
     hideallmaintabs();
     hideall();
     $(".mainTabsAndNav")
@@ -384,12 +388,15 @@ $(document).ready(function() {
     $(".planNavBar").hide();
     $(".conductNavBar").hide();
     $(".resultNavBar").hide();
-    $(".mainTabsAndNav").animate({ marginTop: "0px" }, 500);
+    $(".mainTabsAndNav").animate({
+      marginTop: "0px"
+    }, 500);
     $(".mainTabsAndNav").removeClass("mt_6p");
     $("#r_monitoring").hide();
+    $('.p_details').insertAfter('.mainTabsAndNav')
   });
 
-  $(".planNav").on("click", function() {
+  $(".planNav").on("click", function () {
     hideallmaintabs();
     $(".nav-link").removeClass("active");
     $(".p_details").hide();
@@ -408,6 +415,7 @@ $(document).ready(function() {
     $(".r_monitoringDivv").hide();
     $("#r_monitoring").hide();
   });
+
   function hideall() {
     $("#PlanDocDiv").hide();
     $("#financial").hide();
@@ -443,9 +451,11 @@ $(document).ready(function() {
     $("#AgeOrgDiv").hide();
     $("#DatesDiv").hide();
     $(".resultNavBar").hide();
+    $("#profile1").hide();
+    $("#home1").hide();
   }
 
-  $(".conductNav").on("click", function() {
+  $(".conductNav").on("click", function () {
     hideallmaintabs();
     hideall();
     $(".nav-link").removeClass("active");
@@ -469,15 +479,16 @@ $(document).ready(function() {
     $(".r_monitoringDivv").hide();
     $("#r_monitoring").hide();
   });
-  $(".resultNav").on("click", function() {
+  $(".resultNav").on("click", function () {
     hideallmaintabs();
     hideall();
     $(".nav-link").removeClass("active");
     $("#r_monitoring").addClass("active");
     $(".galnav").addClass("active");
+    $("#home1").addClass("active");
     $("#r_monitoring").show();
     $(".mainTabsAndNav")
-      .removeClass("col-md-8")
+      .removeClass("col-md-9")
       .addClass("col-md-12");
     // $('.mainTabsAndNav').animate({ marginTop: '6%' }, 1000);
     // $(".topSummary").show('slow');
@@ -491,11 +502,29 @@ $(document).ready(function() {
     $(".r_monitoringDivv").show();
   });
 
-  $(".CostingTab").on("click", function() {
+  $(".CostingTab").on("click", function () {
     hideall();
     $("#CostingDiv").show();
   });
-  $(".procurement").on("click", function() {
+  $("#btnprofile1").on("click", function () {
+    hideall();
+    $("#profile1").show();
+    $(".r_monitoringDivv").show();
+    $("#r_monitoring").show();
+    $(".resultNavBar").show();
+    $("#home1").hide();
+    $("#home1").removeClass("active");
+  });
+  $(".galnav").on("click", function () {
+    hideall();
+    $("#profile1").hide();
+    $(".r_monitoringDivv").show();
+    $("#r_monitoring").show();
+    $(".resultNavBar").show();
+    $("#profile1").removeClass("active");
+    $("#home1").show();
+  });
+  $(".procurement").on("click", function () {
     hideall();
     $("#procu").show();
   });
@@ -505,7 +534,7 @@ $(document).ready(function() {
   //     $("#tili").removeClass("active");
   //     $("#cosli").addClass("active");
   // });
-  $(".TimeTab").on("click", function() {
+  $(".TimeTab").on("click", function () {
     hideall();
     $("#TimesDiv").show();
   });
@@ -523,29 +552,29 @@ $(document).ready(function() {
   //     $("#proloc").addClass("active");
   // });
 
-  $(".kpis").on("click", function() {
+  $(".kpis").on("click", function () {
     hideall();
     $("#kpis").show();
   });
-  $(".proloc").on("click", function() {
+  $(".proloc").on("click", function () {
     hideall();
     $("#prolocDiv").show();
   });
-  $(".PlanDoc").on("click", function() {
+  $(".PlanDoc").on("click", function () {
     hideall();
     $("#PlanDocDiv").show();
   });
 
-  $(".activities").on("click", function() {
+  $(".activities").on("click", function () {
     hideall();
     $("#activities").show();
   });
 
-  $(".i-dates").on("click", function() {
+  $(".i-dates").on("click", function () {
     hideall();
     $("#i-dates").show();
   });
-  $(".reviewTab").on("click", function() {
+  $(".reviewTab").on("click", function () {
     hideall();
     $(".nav-link").removeClass("active");
     $(".costTab").addClass("active");
@@ -568,23 +597,23 @@ $(document).ready(function() {
       .addClass("col-md-12");
     $(".downtiQ").show("slow");
   });
-  $(".financialphase").on("click", function() {
+  $(".financialphase").on("click", function () {
     hideall();
     $("#financial").show();
   });
-  $(".costTab").on("click", function() {
+  $(".costTab").on("click", function () {
     hideall();
     $("#costDiv").show();
   });
-  $(".LocationTab").on("click", function() {
+  $(".LocationTab").on("click", function () {
     hideall();
     $("#locationDiv").show();
   });
-  $(".AgeOrgTab").on("click", function() {
+  $(".AgeOrgTab").on("click", function () {
     hideall();
     $("#AgeOrgDiv").show();
   });
-  $(".datestabrev").on("click", function() {
+  $(".datestabrev").on("click", function () {
     hideall();
     $("#DatesDiv").show();
   });
@@ -594,15 +623,15 @@ $(document).ready(function() {
   //     $('#MOBtab').addClass("active");
   //     $('#pdli').removeClass("active");
   // });
-  $(".MOBtab").on("click", function() {
+  $(".MOBtab").on("click", function () {
     hideall();
     $("#MOBdiv").show();
   });
-  $(".userlocTab").on("click", function() {
+  $(".userlocTab").on("click", function () {
     hideall();
     $("#userlocDiv").show();
   });
-  $(".userKPITab").on("click", function() {
+  $(".userKPITab").on("click", function () {
     hideall();
     $("#userKPIDiv").show();
   });
@@ -610,47 +639,47 @@ $(document).ready(function() {
   // hideall();
   // $('#PlanDocDiv').show();
   // });
-  $(".physical").on("click", function() {
+  $(".physical").on("click", function () {
     hideall();
     $("#physical").show();
   });
-  $(".quality_assesment").on("click", function() {
+  $(".quality_assesment").on("click", function () {
     hideall();
     $("#quality_assesment").show();
   });
-  $(".stakeholder").on("click", function() {
+  $(".stakeholder").on("click", function () {
     hideall();
     $("#stakeholder").show();
   });
-  $(".issues").on("click", function() {
+  $(".issues").on("click", function () {
     hideall();
     $("#issues").show();
   });
-  $(".risks").on("click", function() {
+  $(".risks").on("click", function () {
     hideall();
     $("#risks").show();
   });
-  $(".HSE").on("click", function() {
+  $(".HSE").on("click", function () {
     hideall();
     $("#HSE").show();
   });
-  $(".procuremnet").on("click", function() {
+  $(".procuremnet").on("click", function () {
     hideall();
     $("#procurement").show();
   });
-  $(".gllery").on("click", function() {
+  $(".gllery").on("click", function () {
     hideall();
     $("#Gallery").show();
   });
-  $(".Objectives").on("click", function() {
+  $(".Objectives").on("click", function () {
     hideall();
     $("#Objectives").show();
   });
-  $(".PAT").on("click", function() {
+  $(".PAT").on("click", function () {
     hideall();
     $("#PAT").show();
   });
-  $(".Documents").on("click", function() {
+  $(".Documents").on("click", function () {
     hideall();
     $("#Documents").show();
     $("#r_monitoring").hide();
@@ -661,21 +690,21 @@ $(document).ready(function() {
 // document.querySelector('.alert-success-msg').onclick = function(){
 // swal("Good job!", "You submitted the project!", "success");
 // };
-$(function() {
+$(function () {
   $('input[name="asd"]').daterangepicker({
     singleDatePicker: true,
     showDropdowns: true
   });
 });
 
-$(function() {
+$(function () {
   $('input[name="ts"]').daterangepicker({
     singleDatePicker: true,
     showDropdowns: true
   });
 });
 
-$(function() {
+$(function () {
   $('input[name="cwd"]').daterangepicker({
     singleDatePicker: true,
     showDropdowns: true
@@ -704,7 +733,7 @@ $(function() {
 // }
 // })
 
-$("button#addmoreexecuting").click(function(e) {
+$("button#addmoreexecuting").click(function (e) {
   var add_stakeholder =
     `<tr>
     <td>
@@ -728,8 +757,9 @@ $("button#addmoreexecuting").click(function(e) {
   $("#Executingstakeholders").append(add_stakeholder);
 });
 var Ea = "";
+
 function executingAgencyforCM(agencies) {
-  agencies.forEach(function(val, index) {
+  agencies.forEach(function (val, index) {
     Ea =
       Ea +
       `
@@ -742,11 +772,12 @@ function executingAgencyforCM(agencies) {
   });
 }
 var Sa = "";
+
 function sponsoringAgencyforCM(agencies) {
   // var agency = $(this).val();
   // var count = 1;
 
-  agencies.forEach(function(val, index) {
+  agencies.forEach(function (val, index) {
     // console.log(val.sponsoring_agency_id.SponsoringAgency.name,'id');
     Sa =
       Sa +
@@ -761,7 +792,7 @@ function sponsoringAgencyforCM(agencies) {
 
   // $('.select2').select2();
 }
-$("button#addmoresponsoring").click(function(e) {
+$("button#addmoresponsoring").click(function (e) {
   var add_stakeholder =
     `<tr>
     <td>
@@ -785,7 +816,7 @@ $("button#addmoresponsoring").click(function(e) {
   $("#Sponsoringstakeholders").append(add_stakeholder);
 });
 
-$("button#addmoreben").click(function(e) {
+$("button#addmoreben").click(function (e) {
   var add_stakeholder = `<tr>
 
     <td>
@@ -807,7 +838,7 @@ $("button#addmoreben").click(function(e) {
   $("#Beneficiarystakeholders").append(add_stakeholder);
 });
 
-$("button#add-more-issues").click(function(e) {
+$("button#add-more-issues").click(function (e) {
   var temp = $("tbody#add-issue-here")
     .children()
     .first()
@@ -821,7 +852,7 @@ $("button#add-more-issues").click(function(e) {
   );
   $(temp).appendTo("#add-issue-here");
 });
-$("button#add-more").click(function(e) {
+$("button#add-more").click(function (e) {
   var add_risks = `<tr>
                 <td><input type="text" class="form-control"></td>'
                 <td>
@@ -864,7 +895,7 @@ $("button#add-more").click(function(e) {
   $("#riskmatrix").append(add_risks);
 });
 var countactivity = 0;
-$(document).on("click", "#add_activity", function(e) {
+$(document).on("click", "#add_activity", function (e) {
   var id_component = $(this).attr("data-id");
   var activityCount = $(this).attr("data-activitycount");
   // console.log('there');
@@ -881,8 +912,8 @@ $(document).on("click", "#add_activity", function(e) {
   // $('.planMactivities').append(add_activities);
   console.log(
     $(this)
-      .parent()
-      .find("#alltasks"),
+    .parent()
+    .find("#alltasks"),
     $(this).parent()
   );
   $(this)
@@ -904,7 +935,7 @@ function ObjectiveComponent(components, objectives) {
   var comps = $(this).val();
   var count = 1;
   var compOpt = "";
-  components.forEach(function(val, index) {
+  components.forEach(function (val, index) {
     compOpt =
       compOpt +
       `
@@ -917,7 +948,7 @@ function ObjectiveComponent(components, objectives) {
   });
   console.log(compOpt);
 
-  objectives.forEach(function(val, index) {
+  objectives.forEach(function (val, index) {
     var ObjCompHere =
       `
                           <li class="row mb_2"
@@ -1017,7 +1048,7 @@ function ObjectiveComponentTime(CompActivityMapping) {
   console.log(tasks);
   var d = ``,
     t = ``;
-  tasks.forEach(function(val, index) {
+  tasks.forEach(function (val, index) {
     d =
       d +
       ` <div id='comptaskl' class="col-md-12 row" style="margin-top:5px; padding-left:2% !important;">
@@ -1104,13 +1135,14 @@ function ObjectiveComponentTime(CompActivityMapping) {
 // });
 
 var compOpt = "";
+
 function componentsfroConductMonitoring(components) {
   console.log(components);
 
   var comps = $(this).val();
   var count = 1;
 
-  components.forEach(function(val, index) {
+  components.forEach(function (val, index) {
     compOpt =
       compOpt +
       `
@@ -1124,7 +1156,7 @@ function componentsfroConductMonitoring(components) {
   $(".select2").select2();
 }
 var countforconduct = 0;
-$("button#add_more_component").click(function(e) {
+$("button#add_more_component").click(function (e) {
   var add_component =
     `<div class="row components">
                         <div class="form-group col-md-1 offset-md-1 ">
@@ -1155,15 +1187,16 @@ $("button#add_more_component").click(function(e) {
 });
 var objct = $("#objct").val() != 0 ? parseInt($("#objct").val()) : 1;
 objct++;
+
 function autoindex() {
   var sib = $(document)
     .find(".newClass1")
     .siblings();
 
-  sib.removeClass(function(index, css) {
+  sib.removeClass(function (index, css) {
     return (css.match(/(^|\s)newClass\S+/g) || []).join(" ");
   });
-  sib.each(function(entry) {
+  sib.each(function (entry) {
     $(this)
       .children("div")
       .children("input")
@@ -1176,7 +1209,7 @@ function autoindex() {
 
   objct = i + 2;
 }
-$("#add_more_objective").click(function(e) {
+$("#add_more_objective").click(function (e) {
   var add_objective =
     `<div class="DisInlineflex newClass` +
     objct +
@@ -1201,13 +1234,13 @@ $("#add_more_objective").click(function(e) {
   objct += 1;
 });
 
-$(document).on("click", ".removeObjective", function() {
+$(document).on("click", ".removeObjective", function () {
   if (
     $(this)
-      .parent()
-      .attr("class")
-      .split(" ")[0]
-      .split("ss")[1] ==
+    .parent()
+    .attr("class")
+    .split(" ")[0]
+    .split("ss")[1] ==
     objct - 1
   ) {
     $(this)
@@ -1234,14 +1267,15 @@ $(document).on("click", ".removeObjective", function() {
     
 var compAct = $("#compAct").val() != 0 ? parseInt($("#compAct").val()) : 1;
 compAct++;
+
 function autoindexcomp() {
   var sib = $(document)
     .find(".newClasscompAct1")
     .siblings();
-  sib.removeClass(function(index, css) {
+  sib.removeClass(function (index, css) {
     return (css.match(/(^|\s)newClasscompAct\S+/g) || []).join(" ");
   });
-  sib.each(function(entry) {
+  sib.each(function (entry) {
     $(this)
       .children("div")
       .children("input")
@@ -1253,7 +1287,7 @@ function autoindexcomp() {
   });
   compAct = i + 2;
 }
-$("#add_more_compAct").click(function(e) {
+$("#add_more_compAct").click(function (e) {
   // var newClass='obj_'objct++;
   var compActTab = 101;
   var add_compAct =
@@ -1281,14 +1315,14 @@ $("#add_more_compAct").click(function(e) {
   compAct += 1;
 });
 
-$(document).on("click", ".removecompAct", function() {
+$(document).on("click", ".removecompAct", function () {
   // console.log("Here");
   if (
     $(this)
-      .parent()
-      .attr("class")
-      .split(" ")[0]
-      .split("ct")[1] ==
+    .parent()
+    .attr("class")
+    .split(" ")[0]
+    .split("ct")[1] ==
     compAct - 1
   ) {
     $(this)
@@ -1302,8 +1336,8 @@ $(document).on("click", ".removecompAct", function() {
   }
 });
 
-$(document).ready(function() {
-  $("#ObjCompShowSum").click(function() {
+$(document).ready(function () {
+  $("#ObjCompShowSum").click(function () {
     $(".SumObjComp")
       .children()
       .remove();
@@ -1325,7 +1359,7 @@ $(document).ready(function() {
             </div>`;
       var has = $(SumObjComp);
       has.find("div#SumObj").text(t);
-      $("#option" + i + " option:selected").each(function() {
+      $("#option" + i + " option:selected").each(function () {
         // console.log($(this).val());
         var t = `<div>` + $(this).val() + `</div>`;
         $(t).appendTo(has.find("#SumComp"));
@@ -1358,11 +1392,12 @@ $(document).ready(function() {
 // end newly
 
 var activitiesforConductmonitoring = "";
+
 function activitiesfroConductMonitoring(activities) {
   var comps = $(this).val();
   var count = 1;
 
-  activities.forEach(function(val, index) {
+  activities.forEach(function (val, index) {
     activitiesforConductmonitoring =
       activitiesforConductmonitoring +
       `
@@ -1374,6 +1409,7 @@ function activitiesfroConductMonitoring(activities) {
         `;
   });
 }
+
 function add_activityInComp(e, myc) {
   var countforcomponent = myc;
   var add_activities_to_assess =
@@ -1442,10 +1478,10 @@ function removeIssuerow(e) {
     .parent()
     .remove();
 }
-$(document).ready(function() {
+$(document).ready(function () {
   let user_location_count = 2;
   let location_user_count = 2;
-  $("#CloneUserLoc").click(function() {
+  $("#CloneUserLoc").click(function () {
     let data = $("#CloneThisUserLoc").clone();
     let user_div = data.find("select")[0];
     let location_div = data.find("select")[1];
@@ -1457,7 +1493,7 @@ $(document).ready(function() {
     let new_site = "site_name_" + user_location_count;
     let new_site_start = "site_start_" + user_location_count;
     let new_site_end = "site_end_" + user_location_count;
-      let new_location = "location_user_" + user_location_count++ + "[]";
+    let new_location = "location_user_" + user_location_count++ + "[]";
     // let mydate ="dateLoc_"+user_location_count++;
     $(user_div).attr("name", new_user);
     $(site_div).attr("name", new_site);
@@ -1468,9 +1504,8 @@ $(document).ready(function() {
     data.appendTo(".CloneUserLocHere");
     $("#counts_user_location").attr("value", user_location_count);
     $(".select2").select2();
-    $(".delLastLocChild").each(function(index) {
-      if (index == 0 || index == 1) {
-      } else {
+    $(".delLastLocChild").each(function (index) {
+      if (index == 0 || index == 1) {} else {
         $(this)
           .children()
           .last()
@@ -1486,7 +1521,7 @@ $(document).ready(function() {
     $(removeSib).appendTo(".CloneUserLocHere");
     // console.log('hre');
   });
-  $(document).on("click", ".RemoveUserLoc", function() {
+  $(document).on("click", ".RemoveUserLoc", function () {
     $(this)
       .prev()
       .remove();
@@ -1529,46 +1564,46 @@ $(document).ready(function() {
   var childl3 = 0;
   var childl4 = 0;
   $("#addcustomeKPIs").click(function () {
-    var customeKPIs =`
+    var customeKPIs = `
       <div class="col-md-12">
           <div class="DisInlineflex mb_2 col-md-12">
-              <label class="col-sm-1 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level `+ ++p +`</label>
+              <label class="col-sm-1 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level ` + ++p + `</label>
               <div class="col-sm-7">
-                  <input type="text" name="level1_`+ child++ +`" class="form-control" placeholder="Level `+ p +`">
+                  <input type="text" name="level1_` + child++ + `" class="form-control" placeholder="Level ` + p + `">
               </div>
               <div class="col-sm-1 text_center">
-                  <button class="btn btn-sm btn-info" type="button" id="addcustomeKPIs`+ p +`" tabindex="1">+</button>
+                  <button class="btn btn-sm btn-info" type="button" id="addcustomeKPIs` + p + `" tabindex="1">+</button>
               </div>
               <div class="col-sm-1 text_center">
                   <button class="delcustomeKPIs btn btn-sm btn-danger" type="button" id="" tabindex="1">-</button>
               </div>
             </div>
-            <div class="mb_2 level`+ p +`child cloneleveltwohere clearfix">
+            <div class="mb_2 level` + p + `child cloneleveltwohere clearfix">
             </div>
       </div>
       `;
     $(".customeKPIsHere").append(customeKPIs);
     // level 2 custom kpi
-    $("#addcustomeKPIs"+ p).click(function () {
+    $("#addcustomeKPIs" + p).click(function () {
       var parent = $($(this).parent().siblings()[1]).find('input').attr('name');
       var customeKPIslevel2 = `
         <div class="col-md-12">
             <div class="DisInlineflex mb_2 col-md-12">
-                <label class="col-sm-2 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level `+ ++p + ` child `+ ++childl2 +`</label>
+                <label class="col-sm-2 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level ` + ++p + ` child ` + ++childl2 + `</label>
                 <div class="col-sm-5 mr-2">
-                    <input type="text" name="`+parent.toString()+`_`+ child2++ +`" class="form-control" placeholder="Level `+ p + `">
+                    <input type="text" name="` + parent.toString() + `_` + child2++ + `" class="form-control" placeholder="Level ` + p + `">
                 </div>
                  <div class="col-sm-2">
-                    <input type="number" required name="weightage_`+ parent.toString() + `_` + child2++ + `" class="form-control" placeholder="Level ` + p + `  Weightage">
+                    <input type="number" required name="weightage_` + parent.toString() + `_` + child2++ + `" class="form-control" placeholder="Level ` + p + `  Weightage">
                 </div> 
                 <div class="col-sm-1 text_center">
-                  <button class="btn btn-sm btn-info" type="button" id="addcustomeKPIs`+ p +`" tabindex="1">+</button>
+                  <button class="btn btn-sm btn-info" type="button" id="addcustomeKPIs` + p + `" tabindex="1">+</button>
               </div>
                 <div class="col-sm-1 text_center">
                     <button class="delcustomeKPIs btn btn-sm btn-danger" type="button" id="" tabindex="1">-</button>
                 </div>
             </div>
-            <div class="mb_2 level`+ p +`child clonelevelthreehere clearfix">
+            <div class="mb_2 level` + p + `child clonelevelthreehere clearfix">
             </div>
         </div>
         `;
@@ -1576,25 +1611,25 @@ $(document).ready(function() {
       // level 3 custom kpi
       $("#addcustomeKPIs" + p).click(function () {
         var parent2 = $($(this).parent().siblings()[1]).find('input').attr('name');
-         
+
         var customeKPIslevel3 = `
         <div class="col-md-12">
             <div class="DisInlineflex mb_2 col-md-12">
-                <label class="offset-md-1 col-sm-2 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level `+ ++p + ` child `+ ++childl3 + `</label>
+                <label class="offset-md-1 col-sm-2 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level ` + ++p + ` child ` + ++childl3 + `</label>
                 <div class="col-sm-5 mr-2">
-                    <input type="text" name="`+parent2.toString()+`_`+ child3++ +`" class="form-control" placeholder="Level `+ p + `">
+                    <input type="text" name="` + parent2.toString() + `_` + child3++ + `" class="form-control" placeholder="Level ` + p + `">
                 </div>
                  <div class="col-sm-2">
-                    <input type="number" required name="weightage_`+parent2.toString()+`_`+ child3++ +`" class="form-control" placeholder="Level `+ p + ` Weightage">
+                    <input type="number" required name="weightage_` + parent2.toString() + `_` + child3++ + `" class="form-control" placeholder="Level ` + p + ` Weightage">
                 </div> 
                 <div class="col-sm-1 text_center">
-                  <button class="btn btn-sm btn-info" type="button" id="addcustomeKPIs`+ p +`" tabindex="1">+</button>
+                  <button class="btn btn-sm btn-info" type="button" id="addcustomeKPIs` + p + `" tabindex="1">+</button>
                 </div>
                 <div class="col-sm-1 text_center">
                     <button class="delcustomeKPIs btn btn-sm btn-danger" type="button" id="" tabindex="1">-</button>
                 </div>
             </div>
-            <div class="mb_2 level`+ p + `child clonelevelfourhere clearfix">
+            <div class="mb_2 level` + p + `child clonelevelfourhere clearfix">
             </div>
         </div>
         `;
@@ -1605,12 +1640,12 @@ $(document).ready(function() {
           var customeKPIslevel4 = `
           <div class="col-md-12">
               <div class="DisInlineflex mb_2 col-md-12">
-                  <label class="offset-md-2 col-sm-2 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level `+ ++p + ` child `+ ++childl4 +`</label>
+                  <label class="offset-md-2 col-sm-2 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level ` + ++p + ` child ` + ++childl4 + `</label>
                   <div class="col-sm-5 mr-2">
-                      <input type="text" name="`+parent3.toString()+`_`+ child4++ +`" class="form-control" placeholder="Level `+ p +`">
+                      <input type="text" name="` + parent3.toString() + `_` + child4++ + `" class="form-control" placeholder="Level ` + p + `">
                   </div>
                    <div class="col-sm-2">
-                      <input type="number" required name="weightage_`+parent3.toString()+`_`+ child4++ +`" class="form-control" placeholder="Level `+ p +` Weightage">
+                      <input type="number" required name="weightage_` + parent3.toString() + `_` + child4++ + `" class="form-control" placeholder="Level ` + p + ` Weightage">
                   </div> 
                   <div class="col-sm-1 text_center">
                       <button class="delcustomeKPIs btn btn-sm btn-danger" type="button" id="" tabindex="1">-</button>
@@ -1618,16 +1653,16 @@ $(document).ready(function() {
               </div>
           </div>
           `;
-            $(this).parents().parents().next(".clonelevelfourhere").append(customeKPIslevel4);
+          $(this).parents().parents().next(".clonelevelfourhere").append(customeKPIslevel4);
         });
       });
+    });
   });
-});
-// remove custom kpis
-  $(document).on('click', 'button.delcustomeKPIs', function (){
+  // remove custom kpis
+  $(document).on('click', 'button.delcustomeKPIs', function () {
     $(this).parent().parent().parent().remove();
   });
-  $("#CloneUserKPI").click(function() {
+  $("#CloneUserKPI").click(function () {
     let data = $("#CloneThisUserKPI").clone();
     let user_div = data.find("select")[0];
     let location_div = data.find("select")[1];
@@ -1638,9 +1673,8 @@ $(document).ready(function() {
     data.appendTo(".CloneUserKPIHere");
     $("#counts_user_location_id").val(++user_location_id_count);
     $(".select2").select2();
-    $(".delLastChild").each(function(index) {
-      if (index == 0 || index == 1) {
-      } else {
+    $(".delLastChild").each(function (index) {
+      if (index == 0 || index == 1) {} else {
         $(this)
           .children()
           .last()
@@ -1657,53 +1691,53 @@ $(document).ready(function() {
     // $(this).next()remove();
     // console.log('hre');
   });
-  $(document).on("click", ".RemoveUserKPI", function() {
+  $(document).on("click", ".RemoveUserKPI", function () {
     $(this)
       .prev()
       .remove();
     $(this).remove();
   });
 
-  $(document).on("click", "#customButton", function() {
-    $.each($('.cloneleveltwohere'),function(index,value){
+  $(document).on("click", "#customButton", function () {
+    $.each($('.cloneleveltwohere'), function (index, value) {
       // console.log(value);
       var count = 0;
-      $.each($(value).children(),function(i,v){
-        let name =  $($($(v).find('input'))[0]).attr('name').split('_');
-        let new_name = name[0]+'_'+name[1]+'_'+count;
-        $($($(v).find('input'))[0]).attr('name',new_name);
+      $.each($(value).children(), function (i, v) {
+        let name = $($($(v).find('input'))[0]).attr('name').split('_');
+        let new_name = name[0] + '_' + name[1] + '_' + count;
+        $($($(v).find('input'))[0]).attr('name', new_name);
 
         name = $($($(v).find('input'))[1]).attr('name').split('_');
-        new_name = name[0]+'_'+name[1]+'_'+name[2]+'_'+count++;
-        $($($(v).find('input'))[1]).attr('name',new_name);
+        new_name = name[0] + '_' + name[1] + '_' + name[2] + '_' + count++;
+        $($($(v).find('input'))[1]).attr('name', new_name);
       });
     });
 
-    $.each($('.clonelevelthreehere'),function(index,value){
+    $.each($('.clonelevelthreehere'), function (index, value) {
       // console.log(value);
       var count = 0;
-      $.each($(value).children(),function(i,v){
-        let name =  $($($(v).find('input'))[0]).attr('name').split('_');
-        let new_name = name[0]+'_'+name[1]+'_'+name[2]+'_'+count;
-        $($($(v).find('input'))[0]).attr('name',new_name);
+      $.each($(value).children(), function (i, v) {
+        let name = $($($(v).find('input'))[0]).attr('name').split('_');
+        let new_name = name[0] + '_' + name[1] + '_' + name[2] + '_' + count;
+        $($($(v).find('input'))[0]).attr('name', new_name);
 
         name = $($($(v).find('input'))[1]).attr('name').split('_');
-        new_name = name[0]+'_'+name[1]+'_'+name[2]+'_'+name[3]+'_'+count++;
-        $($($(v).find('input'))[1]).attr('name',new_name);
+        new_name = name[0] + '_' + name[1] + '_' + name[2] + '_' + name[3] + '_' + count++;
+        $($($(v).find('input'))[1]).attr('name', new_name);
       });
     });
 
-    $.each($('.clonelevelfourhere'),function(index,value){
+    $.each($('.clonelevelfourhere'), function (index, value) {
       // console.log(value);
       var count = 0;
-      $.each($(value).children(),function(i,v){
-        let name =  $($($(v).find('input'))[0]).attr('name').split('_');
-        let new_name = name[0]+'_'+name[1]+'_'+name[2]+'_'+name[3]+'_'+count;
-        $($($(v).find('input'))[0]).attr('name',new_name);
+      $.each($(value).children(), function (i, v) {
+        let name = $($($(v).find('input'))[0]).attr('name').split('_');
+        let new_name = name[0] + '_' + name[1] + '_' + name[2] + '_' + name[3] + '_' + count;
+        $($($(v).find('input'))[0]).attr('name', new_name);
 
         name = $($($(v).find('input'))[1]).attr('name').split('_');
-        new_name = name[0]+'_'+name[1]+'_'+name[2]+'_'+name[3]+'_'+name[4]+'_'+count++;
-        $($($(v).find('input'))[1]).attr('name',new_name);
+        new_name = name[0] + '_' + name[1] + '_' + name[2] + '_' + name[3] + '_' + name[4] + '_' + count++;
+        $($($(v).find('input'))[1]).attr('name', new_name);
       });
     });
     $('#customForm').submit();

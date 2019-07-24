@@ -52,13 +52,81 @@ class DataController extends Controller
           // return AssignedResource::collection(Auth::user()->AssignedProjectTeam);
         }
 
+        // public function getMAssignedProject(){
+
+        //   $basic_details = AssignedProjectTeam::
+        //   select('assigned_projects.id as assigned_project_id',
+        //   'projects.id as project_id',
+        //   'title',
+        //   'ADP',
+        //   'financial_year',
+        //   'planned_start_date',
+        //   'planned_end_date')
+        //   ->where('assigned_project_teams.user_id',Auth::id())
+        //   ->join('assigned_projects','assigned_projects.id','assigned_project_teams.assigned_project_id')
+        //   ->join('projects','projects.id','assigned_projects.project_id')
+        //   ->join('project_details','project_details.project_id','projects.id')
+        //   ->where('projects.project_type_id',2)
+        //   ->get();
+        //   $array_of_location = [];
+        //   for($i =0; $i<count($basic_details); $i++){
+        //     if(Project::find($basic_details[$i]->project_id)
+        //     ->AssignedProject
+        //     ->MProjectProgress
+        //     ->last() != null){
+        //       $data = MAssignedUserLocation::select('m_assigned_user_locations.id as location_id','m_project_progress_id','site_name','districts.id as district_id','districts.name as district_name')->join('districts','districts.id','m_assigned_user_locations.district_id')->where('m_project_progress_id',Project::find($basic_details[$i]->project_id)->AssignedProject->MProjectProgress->last()->id)->get();
+        //       if(count($data) > 0)
+        //       $basic_details[$i]['locations'] = $data;
+        //       else
+        //       $basic_details[$i]['locations'] = null;
+        //     }
+        //     else{
+        //       $basic_details[$i]['locations'] = null;
+        //     }
+        //   }
+
+        //   return $basic_details;
+
+
+        //   // return AssignedProjectTeam::where('user_id',Auth::id())
+        //   // ->whereHas('AssignedProject',function($query){
+        //   //   $query->whereHas('Project',function($query){
+        //   //     $query->where('project_type_id',1);
+        //   //   });
+        //   // })->get();
+
+        //   //OLD
+        //   /*$basic_details = AssignedProjectTeam::
+        //   select('assigned_projects.id as assigned_project_id',
+        //   'projects.id as project_id',
+        //   'title',
+        //   'ADP',
+        //   'financial_year',
+        //   'planned_start_date',
+        //   'planned_end_date')
+        //   ->where('assigned_project_teams.user_id',Auth::id())
+        //   ->join('assigned_projects','assigned_projects.id','assigned_project_teams.assigned_project_id')
+        //   ->join('projects','projects.id','assigned_projects.project_id')
+        //   ->join('project_details','project_details.project_id','projects.id')
+        //   ->where('projects.project_type_id',2)
+        //   ->get();
+        //   $array_of_location = [];
+        //   for($i =0; $i<count($basic_details); $i++){
+        //     $basic_details[$i]['locations'] = MAssignedUserLocation::select('m_assigned_user_locations.id as location_id','m_project_progress_id','site_name','districts.id as district_id','districts.name as district_name')->join('districts','districts.id','m_assigned_user_locations.district_id')->where('m_project_progress_id',Project::find($basic_details[$i]->project_id)->AssignedProject->MProjectProgress->last()->id)->get();
+        //   }
+        //   // foreach($basic_details as $bd){
+        //   //   // if(Project::find($bd->project_id)->AssignedProject->MProjectProgress->last()->id == 19)
+        //   //   // return MAssignedUserLocation::where('m_project_progress_id',Project::find($bd->project_id)->AssignedProject->MProjectProgress->last()->id)->get();
+        //   //   // return Project::find($bd->project_id)->AssignedProject->MProjectProgress->last();
+        //   //   // $basic_details[$key];
+        //   //   array(MAssignedUserLocation::select('m_project_progress_id','site_name','districts.id as district_id','districts.name as district_name')->join('districts','districts.id','m_assigned_user_locations.district_id')->where('m_project_progress_id',Project::find($bd->project_id)->AssignedProject->MProjectProgress->last()->id)->get());
+        //   // }
+        //   return $basic_details;*/
+        //   // return array_merge((array)$basic_details,$array_of_location) ;
+        // }
+
         public function getMAssignedProject(){
-          // return AssignedProjectTeam::where('user_id',Auth::id())
-          // ->whereHas('AssignedProject',function($query){
-          //   $query->whereHas('Project',function($query){
-          //     $query->where('project_type_id',1);
-          //   });
-          // })->get();
+
           $basic_details = AssignedProjectTeam::
           select('assigned_projects.id as assigned_project_id',
           'projects.id as project_id',
@@ -75,17 +143,22 @@ class DataController extends Controller
           ->get();
           $array_of_location = [];
           for($i =0; $i<count($basic_details); $i++){
-            $basic_details[$i]['locations'] = MAssignedUserLocation::select('m_assigned_user_locations.id as location_id','m_project_progress_id','site_name','districts.id as district_id','districts.name as district_name')->join('districts','districts.id','m_assigned_user_locations.district_id')->where('m_project_progress_id',Project::find($basic_details[$i]->project_id)->AssignedProject->MProjectProgress->last()->id)->get();
+            if(Project::find($basic_details[$i]->project_id)
+            ->AssignedProject
+            ->MProjectProgress
+            ->last() != null){
+              $data = MAssignedUserLocation::select('m_assigned_user_locations.id as location_id','m_project_progress_id','site_name','districts.id as district_id','districts.name as district_name')->join('districts','districts.id','m_assigned_user_locations.district_id')->where('m_project_progress_id',Project::find($basic_details[$i]->project_id)->AssignedProject->MProjectProgress->last()->id)->get();
+              if(count($data) > 0)
+              $basic_details[$i]['locations'] = $data;
+              else
+              $basic_details[$i]['locations'] = null;
+            }
+            else{
+              $basic_details[$i]['locations'] = null;
+            }
           }
-          // foreach($basic_details as $bd){
-          //   // if(Project::find($bd->project_id)->AssignedProject->MProjectProgress->last()->id == 19)
-          //   // return MAssignedUserLocation::where('m_project_progress_id',Project::find($bd->project_id)->AssignedProject->MProjectProgress->last()->id)->get();
-          //   // return Project::find($bd->project_id)->AssignedProject->MProjectProgress->last();
-          //   // $basic_details[$key];
-          //   array(MAssignedUserLocation::select('m_project_progress_id','site_name','districts.id as district_id','districts.name as district_name')->join('districts','districts.id','m_assigned_user_locations.district_id')->where('m_project_progress_id',Project::find($bd->project_id)->AssignedProject->MProjectProgress->last()->id)->get());
-          // }
+
           return $basic_details;
-          // return array_merge((array)$basic_details,$array_of_location) ;
         }
 
         // public function getProjectKpi(Request $request){

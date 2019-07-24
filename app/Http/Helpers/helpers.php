@@ -66,7 +66,7 @@ if (! function_exists('calculateMPhysicalProgress')) {
         $i++;
         array_push($cost,$main->cost);
         // dd($cost);
-        $weight+=$main->weightage;
+        // $weight+=$main->weightage;
       }
       $sum=0;
       // dd($arr,$cost);
@@ -77,7 +77,7 @@ if (! function_exists('calculateMPhysicalProgress')) {
 
       $total_phyProgres= array_sum($phy_prog);
 
-      if(!isset($financial_cost->total_release_to_date))
+      if(!isset($financial_cost->total_release_to_date) || $financial_cost->total_release_to_date == 0)
         return 0;
 
       $physical_progress=($total_phyProgres/$financial_cost->total_release_to_date); 
