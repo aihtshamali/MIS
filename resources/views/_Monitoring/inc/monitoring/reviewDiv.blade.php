@@ -43,7 +43,7 @@
                     <div class="col-md-5 float-left form-group">
                         <label for="" class="col-form-label"><b>ADP Allocation of Fiscal Year :</b></label>
                         <br>
-                        <input type="number" step="0.01" class="form-control" name="adp_allocation_of_fiscal_year" id="ADP_allocation_cost"
+                        <input type="number" step="0.001" class="form-control" name="adp_allocation_of_fiscal_year" id="ADP_allocation_cost"
                         @if ($costs)
                           value="{{ round($costs->adp_allocation_of_fiscal_year,3,PHP_ROUND_HALF_UP) }}"
                         @else
@@ -54,7 +54,7 @@
                     <div class="col-md-5 offset-md-1 float-left form-group">
                         <label for="" class="col-form-label"><b>Total Releases To Date :</b></label>
                         <br>
-                        <input type="number" step="0.01" class="form-control" name="total_release_to_date" id="total_release_to_date"
+                        <input type="number" step="0.001" class="form-control" name="total_release_to_date" id="total_release_to_date"
                         @if ($costs)
                           value="{{ round($costs->total_release_to_date,3,PHP_ROUND_HALF_UP) }}"
                         @else
@@ -65,7 +65,7 @@
                     <div class="col-md-5 float-left form-group">
                         <label for="" class="col-form-label"><b>Release To Date of Fiscal Year :</b></label>
                         <br>
-                        <input type="number" step="0.01" class="form-control" name="release_to_date_of_fiscal_year" id="release_to_date"
+                        <input type="number" step="0.001" class="form-control" name="release_to_date_of_fiscal_year" id="release_to_date"
                         @if ($costs)
                           value="{{ round($costs->release_to_date_of_fiscal_year,3,PHP_ROUND_HALF_UP) }}"
                         @else
@@ -76,7 +76,7 @@
                     <div class="col-md-5 offset-md-1 float-left form-group">                        
                         <label for="" class="col-form-label"><b>Utilization :</b></label>
                         <br>
-                        <input type="number" class="form-control" name="utilization_against_releases" id="u_against_rel"
+                        <input type="number" step="0.001" class="form-control" name="utilization_against_releases" id="u_against_rel"
                         @if ($costs)
                           value="{{ round($costs->utilization_against_releases,3,PHP_ROUND_HALF_UP) }}"
                         @else
@@ -87,7 +87,7 @@
                     <div class="col-md-5 float-left form-group">
                         <label for="" class="col-form-label"><b>Total Allocation by that time (Cumulative):</b></label>
                         <br>
-                        <input type="number" step="0.01" class="form-control" name="total_allocation_by_that_time" id="ADP_allocation_cost"
+                        <input type="number" step="0.001" class="form-control" name="total_allocation_by_that_time" id="ADP_allocation_cost"
                         @if ($costs)
                           value="{{ round($costs->total_allocation_by_that_time,3,PHP_ROUND_HALF_UP) }}"
                         @else
@@ -105,7 +105,7 @@
                       <div class="form-group">
                         <label for="" class="col-form-label"><b>Technical Sanction Cost:</b></label>
                         <br>
-                        <input class="form-control" type="number" name="technical_sanction_cost" placeholder="TS Cost"
+                        <input class="form-control" step="0.001" type="number" name="technical_sanction_cost" placeholder="TS Cost"
                         @if ($costs)
                           value="{{ round($costs->technical_sanction_cost,3,PHP_ROUND_HALF_UP) }}"
                         @else
@@ -116,7 +116,7 @@
                       <div class="form-group">
                         <label for="" class="col-form-label"><b>Contract Award Cost :</b></label>
                         <br>
-                        <input class="form-control" type="number" name="contract_award_cost"  placeholder="Contract Cost"
+                        <input class="form-control" step="0.001" type="number" name="contract_award_cost"  placeholder="Contract Cost"
                         @if ($costs)
                           value="{{ round($costs->contract_award_cost,3,PHP_ROUND_HALF_UP) }}"
                         @else

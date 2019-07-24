@@ -108,29 +108,6 @@
                             <input type="hidden" name="objct" id="objct" value="{{count($objectives)}}">
                             <input type="hidden" name="compAct" id="compAct" value="{{count($components)}}">
                             <div class="col-md-6 objtivesNew border_right pd_1_2">
-                                @php
-                                $i=1;
-                                @endphp
-                                @forelse ($objectives as $obj)
-                                <div class="DisInlineflex newClass{{$i}} mb_2 col-md-12">
-                                    <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Objective {{$i}}</label>
-                                    <div class="col-sm-7">
-                                        <input type="text" disabled class="form-control" placeholder="Objective {{$i}}" value="{{$obj->objective}}">
-                                    </div>
-                                    @if($i==1)
-                                    <div class="col-sm-2 addbtn text_center">
-                                        <button class="btn btn-sm btn-info" type="button" id="add_more_objective" tabindex=1>+</button>
-                                    </div>
-                                    @else
-                                    {{-- <div class="col-sm-2 removeObjective text_center">
-                                                <button class="btn btn-sm btn-danger" title="Delete Objective {{$i}}" type="button" id="" tabindex={{$i}}>-</button>
-                                </div> --}}
-                                @endif
-                            </div>
-                            @php
-                            $i++;
-                            @endphp
-                            @empty
                             <div class="DisInlineflex newClass1 mb_2 col-md-12">
                                 <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Objective 1</label>
                                 <div class="col-sm-7">
@@ -140,32 +117,8 @@
                                     <button class="btn btn-sm btn-info" type="button" id="add_more_objective" tabindex=1>+</button>
                                 </div>
                             </div>
-                            @endforelse
                         </div>
                         <div class="col-md-6 compActNew border_left pd_1_2">
-                            @php
-                            $j=1;
-                            @endphp
-                            @forelse ($components as $comp)
-                            <div class="DisInlineflex newClasscompAct{{$j}} mb_2 col-md-12">
-                                <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Component {{$j}}</label>
-                                <div class="col-sm-7">
-                                    <input type="text" disabled class="form-control" value="{{$comp->component}}" placeholder="Component {{$j}}">
-                                </div>
-                                @if($j==1)
-                                <div class="col-sm-2 addbtn text_center">
-                                    <button class="btn btn-sm btn-info" type="button" id="add_more_compAct" tabindex=100>+</button>
-                                </div>
-                                @else
-                                {{-- <div class="col-sm-2 removecompAct text_center">
-                                     <button class="btn btn-sm btn-danger" title="Delete Component {{$j}}" type="button" id="" tabindex=101>-</button>
-                            </div> --}}
-                            @endif
-                        </div>
-                        @php
-                        $j++;
-                        @endphp
-                        @empty
                         <div class="DisInlineflex newClasscompAct mb_2 col-md-12">
                             <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Component 1</label>
                             <div class="col-sm-7">
@@ -175,12 +128,75 @@
                                 <button class="btn btn-sm btn-info" type="button" id="add_more_compAct" tabindex=100>+</button>
                             </div>
                         </div>
-                        @endforelse
-
                 </div>
                 <button class="btn aho col-md-2 offset-md-10" type="submit" id="saveObjComp">Save & Proceed</button>
             </div>
             </form>
+            
+            
+            <div class="row">
+                    <label for=""><h5><b>Summary Of Objectives</b></h5></label>
+            </div> 
+            <div class="row">
+                @if(isset($objectives))
+                    <div class="col-md-12">
+                    <table class="table">
+                        <tr>
+                            <th></th>
+                            <th>Objectives</th>
+                        </tr>
+                      @foreach($objectives as $obj)                       
+                        <tr>
+                            <td>
+                                <form action="{{route('deleteObjective')}}" method="POST" enctype="multipart/form-data">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="objNo" value="{{$obj->id}}">
+                                    <button class="btn btn-sm btn-danger deleteObjective"  onclick="return confirm('Are you sure?')" type="submit" id="deleteObjective" > <i class="fa fa-trash"></i> </button>
+                                </form>
+                            </td>
+                            <td> 
+                                {{$obj->objective}}
+                            </td>
+                        </tr>
+                        @endforeach
+                    </table>
+                </div>  
+                @else  
+                 <div class="col-sm-3">
+              No Objectives Entered
+              </div>
+                @endif
+            </div>
+                  
+            <div class="row">
+                    <label for=""><h5><b>Summary Of Components</b></h5></label>
+            </div> 
+                 <div class="row">
+                     <div class="col-md-12">
+                         <table class="table">
+                             <tr>
+                                 <th></th>
+                                 <th> Components</th>
+                             </tr>
+                             @foreach($components as $comp)
+                             <tr>
+                                 <td>
+                                        <form action="{{route('deleteComponent')}}"  method="POST"  enctype="multipart/form-data">
+                           
+                                            {{ csrf_field() }}
+                                            <input type="hidden" name="CompNo" value="{{$comp->id}}">
+                                            <button class="btn btn-sm btn-danger deleteComp" onclick="return confirm('Are you sure?')"  type="submit" id="deleteComp" > <i class="fa fa-trash"></i>  </button>
+                                        </form>        
+                                 </td>
+                                 <td>
+                                        {{$comp->component}}
+                                 </td>
+                             </tr>
+                             @endforeach
+                         </table>
+                     </div>
+                 </div>
+
         </div>
 
         <div class="tab-pane" id="financial" role="tabpanel" aria-expanded="false">
@@ -710,7 +726,7 @@
                     <div class="card-block">
                         <div class="row form-group">
                             <h4 class="col-md-6 textlef mb_2 form-txt-primary">Activities</h4>
-                            <h4 class="col-md-4 textlef mb_2 form-txt-primary">Duration In Days</h4>
+                            <h4 class="col-md-4 textlef mb_2 form-txt-primary">Duration In Days <span style="color:red;">*</span> </h4>
                             <div class="comptaskl col-md-12">
                                 @foreach ($ComponentActivities as $activities)
                                 <div id='comptaskl' class="col-md-12 row" style="margin-top:5px; padding-left:2% !important;">
