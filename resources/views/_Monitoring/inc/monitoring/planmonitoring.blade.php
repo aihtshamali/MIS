@@ -679,9 +679,9 @@
                                         @foreach ($comp->MPlanComponentActivitiesMapping as $item)
                                         <div class="row col-md-9 offset-md-1 form-group component_Activities">
                                             <div class="col-md-11 mb_1">
-                                                <input type="text" class="form-control" placeholder="Add Task" value="{{$item->activity}}" name="c_activity_{{$j}}[]">
+                                                <input type="text" class="form-control" placeholder="Add Task" value="{{$item->activity}}" disabled>
                                             </div>
-                                            <div class="col-md-1"><button class="btn btn-danger btn-sm" name="remove_activity[]" onclick="removerow(this)" type="button">-</button></div>
+                                            <!-- <div class="col-md-1"><button class="btn btn-danger btn-sm" type="button">-</button></div> -->
                                         </div>
                                         @endforeach
                                     </div>
