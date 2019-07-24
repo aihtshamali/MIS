@@ -21,7 +21,6 @@ use App\AssignedSponsoringAgency;
 use App\ExecutingAgency;
 use App\AssignedExecutingAgency;
 use App\ProjectActivity;
-use App\AssignedProjectTeam;
 use App\ProjectType;
 use App\Notification;
 use App\EvaluationType;
@@ -67,6 +66,7 @@ use App\DispatchLetterDoctype;
 use App\DispatchLetterPriority;
 use App\DispatchLetter;
 use App\DispatchLetterCc;
+use App\AssignedProjectTeam;
 use Illuminate\Support\Facades\Redirect;
 use DB;
 use App\MProjectLevel1Kpi;
@@ -1076,6 +1076,7 @@ class OfficerController extends Controller
 
       public function savehealthsafety(Request $request)
       {
+        // dd($request->status);
         foreach ($request->status as $key=>$healthsafety) {
           $temp=explode("_",$healthsafety);
           $hs=$temp[0];
@@ -1108,8 +1109,95 @@ class OfficerController extends Controller
         }
       }
 
+      public function deleteObjective(Request $request)
+      {
+        // dd($request);
+        if(MPlanObjectivecomponentMapping::where('m_plan_objective_id',$request->objNo)->count())
+        {
+          $del_objcomponent=MPlanObjectivecomponentMapping::where('m_plan_objective_id',$request->objNo)->delete();
+          $del_obj=MPlanObjective::where('id',$request->objNo)->delete();
+        }
+        else
+        {
+          $del_obj=MPlanObjective::where('id',$request->objNo)->delete();
+        }
+
+        return redirect()->back();
+      }
+
+      public function deleteComponent(Request $request)
+      {
+        if(MPlanObjectivecomponentMapping::where('m_plan_component_id',$request->CompNo)->count())
+        { 
+          if(MPlanKpicomponentMapping::where('m_plan_component_id',$request->CompNo)->count())
+          {
+
+            if(MPlanComponentActivitiesMapping::where('m_plan_component_id',$request->CompNo)->count())
+            {
+          // dump('ok-');
+
+              $activityid=MPlanComponentActivitiesMapping::where('m_plan_component_id',$request->CompNo)->get();
+              
+            
+              foreach($activityid as $act_id)
+              {  
+                //  dd($act_id->MPlanComponentactivityDetailMapping || $act_id->MPlanComponentactivityDetailMapping == null);
+                if($act_id->MPlanComponentactivityDetailMapping )
+                $act_id->MPlanComponentactivityDetailMapping->delete();
+                // dd('delete hogya');
+              }
+               
+                 $delactivitymapping = MPlanComponentActivitiesMapping::where('m_plan_component_id',$request->CompNo)->delete();
+              }
+              $delkpicompMapping =MPlanKpicomponentMapping::where('m_plan_component_id',$request->CompNo)->delete();
+            }
+
+            $del_objcomponent=MPlanObjectivecomponentMapping::where('m_plan_component_id',$request->CompNo)->delete();
+
+        }
+          elseif(MPlanKpicomponentMapping::where('m_plan_component_id',$request->CompNo)->count())
+          {
+            // dump('done');
+            if(MPlanComponentActivitiesMapping::where('m_plan_component_id',$request->CompNo)->count())
+            {
+              
+              $activityid=MPlanComponentActivitiesMapping::where('m_plan_component_id',$request->CompNo)->get();
+              foreach($activityid as $act_id)
+              {
+                if($act_id->MPlanComponentactivityDetailMapping){
+                  $act_id->MPlanComponentactivityDetailMapping->delete();
+
+                }
+                 
+                }
+                MPlanComponentActivitiesMapping::where('m_plan_component_id',$request->CompNo)->delete();
+                
+              }
+              MPlanKpicomponentMapping::where('m_plan_component_id',$request->CompNo)->delete();  
+            }
+            
+        elseif(MPlanComponentActivitiesMapping::where('m_plan_component_id',$request->CompNo)->count())
+        {
+           
+          $activityid=MPlanComponentActivitiesMapping::where('m_plan_component_id',$request->CompNo)->get();
+             foreach($activityid as $act_id)
+              { 
+                
+                if($act_id->MPlanComponentactivityDetailMapping)
+                    $act_id->MPlanComponentactivityDetailMapping->delete(); 
+                  }
+            
+           $delactivitymapping = MPlanComponentActivitiesMapping::where('m_plan_component_id',$request->CompNo)->delete();
+         }
+
+          MPlanComponent::where('id',$request->CompNo)->delete();
+        return redirect()->back();
+
+      }
+
       public function projectDesignMonitoring(Request $request)
       {
+        // dd($request->obj[0]);
         // $projectProgressId= MProjectProgress::where('assigned_project_id',$request->project_progress_no)->get();
         $msg="Saved";
         if(MPlanObjective::where('m_project_progress_id',$request->m_project_progress_id)->count()>0)
@@ -1117,8 +1205,9 @@ class OfficerController extends Controller
           //  MPlanObjective::where('m_project_progress_id',$request->m_project_progress_id)->delete();
            $msg="Updated";
          }
-        if( isset($request->obj) && count($request->obj))
-        foreach($request->obj as $objective)
+        if(isset($request->obj[0]))
+         {
+           foreach($request->obj as $objective)
           {
             $objectives= new MPlanObjective();
             $objectives->m_project_progress_id = $request->m_project_progress_id;
@@ -1127,13 +1216,15 @@ class OfficerController extends Controller
             $objectives->status= true;
             $objectives->save();
           }
+        }
           if(MPlanComponent::where('m_project_progress_id',$request->m_project_progress_id)->count()>0)
             {
               // MPlanComponent::where('m_project_progress_id',$request->m_project_progress_id)->delete();
               $msg="Updated";
             }
-          if( isset($request->comp) && count($request->comp))
-          foreach($request->comp as $component)
+          if(isset($request->comp[0]))
+          {
+            foreach($request->comp as $component)
           {
             $components=new MPlanComponent();
             $components->m_project_progress_id = $request->m_project_progress_id;
@@ -1142,7 +1233,7 @@ class OfficerController extends Controller
             $components->status= true;
             $components->save();
           }
-
+        }
           $objectives=MPlanObjective::where('m_project_progress_id',$request->m_project_progress_id)->get();
           $components=MPlanComponent::where('m_project_progress_id',$request->m_project_progress_id)->get();
 
@@ -1323,24 +1414,31 @@ class OfficerController extends Controller
 
       public function Costing(Request $request)
       {
+        // dd($request->all());
         $msg="Saved";
         // if(MPlanComponentactivityDetailMapping::where('m_project_progress_id',$request->m_project_progress_id)->count()>0)
         // {
         //   MPlanComponentactivityDetailMapping::where('m_project_progress_id',$request->m_project_progress_id)->delete();
         //   $msg="Updated";
         // }
+        // dd($request->activityId[0]);
         $size=count($request->activityId);
+        // dump($request->Amount);
+        // dump(MPlanComponentactivityDetailMapping::where('m_plan_component_activities_mapping_id',$request->activityId[40])->first());
+        // dd("HERRE");
         for($i=0 ; $i < $size ; $i++ )
         {
-            $CompActivityDetails = MPlanComponentactivityDetailMapping::find($request->activityId[$i]);
+            $CompActivityDetails = MPlanComponentactivityDetailMapping::where('m_plan_component_activities_mapping_id',$request->activityId[$i])->first();
             $CompActivityDetails->user_id=Auth::id();
             $CompActivityDetails->unit =$request->Unit[$i];
             $CompActivityDetails->quantity=$request->Quantity[$i];
             $CompActivityDetails->cost=$request->Cost[$i];
             $CompActivityDetails->amount=$request->Amount[$i];
             $CompActivityDetails->save();
+            // dd($CompActivityDetails);
 
         }
+        // dd("HERE");            
         // $CompActivityDetails=MPlanComponentactivityDetailMapping::where('m_project_progress_id',$request->m_project_progress_id)->get();
         // return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
         // Copy from here
@@ -1579,7 +1677,7 @@ class OfficerController extends Controller
         'physical_progress_values' => $physical_progress_values,
         'financial_progress_values' => $financial_progress_values
       ]);
-      // $projects=Auth::user()->AssignedProjectTeam
+      // $projects=Auth::user()-> 
       return view('_Monitoring.monitoringDashboard.index',compact('progress','result_from_app','project','gestation'));
     }
 

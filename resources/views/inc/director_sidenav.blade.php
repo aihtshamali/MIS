@@ -129,7 +129,7 @@
       </li>
 
       {{-- tpvs  --}}
-      <li class="treeview">
+      {{-- <li class="treeview">
         <a href="#">
           <i class="fa fa-share"></i> <span>Third Party Validations</span>
           <span class="pull-right-container">
@@ -148,7 +148,6 @@
           <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li>
         </ul>
       </li>
-      {{-- Inquiry  --}}
       <li class="treeview">
         <a href="#">
           <i class="fa fa-share"></i> <span>Inquiry</span>
@@ -168,7 +167,6 @@
           <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li>
         </ul>
       </li>
-      {{-- Special Assign  --}}
       <li class="treeview">
         <a href="#">
           <i class="fa fa-share"></i> <span>Special Assignment</span>
@@ -188,7 +186,6 @@
           <li><a href="#"><i class="fa fa-circle-o"></i> Completed</a></li>
         </ul>
       </li>
-      {{-- Other Assign  --}}
       <li class="treeview">
         <a href="#">
           <i class="fa fa-share"></i> <span>Third Party Validations</span>
@@ -209,7 +206,6 @@
         </ul>
       </li>
 
-      {{-- HRMS  --}}
       <li class="treeview">
         <a href="#">
           <i class="fa fa-address-book-o"></i>
@@ -217,7 +213,6 @@
         </a>
       </li>
 
-      {{-- Calender  --}}
       <li>
         <a href="calender">
           <i class="fa fa-calendar"></i> <span>Calendar</span>
@@ -227,20 +222,18 @@
           </span>
         </a>
       </li>
-      {{-- VMS  --}}
       <li class="treeview">
         <a href="#">
           <i class="fa fa-car"></i>
           <span>V M S</span>
         </a>
       </li>
-      {{-- FMS  --}}
       <li class="treeview">
         <a href="#">
           <i class="fa fa-money"></i>
           <span>F M I S</span>
         </a>
-      </li>
+      </li> --}}
       @endrole
       {{-- PDWP MEETING --}}
       <li class="treeview">

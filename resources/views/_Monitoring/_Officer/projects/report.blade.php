@@ -925,12 +925,12 @@
                 </tr>
                 <tr>
                     <td class="bglightblue black bold">Operation & Maintenance</td>
-                    <td>Dummy data...</td>
+                    <td>{{$project->MProjectOrganization->operation_and_management }}</td>
                 </tr>
                 <tr>
-                    <td class="bglightblue black bold">Actual Expenditure</td>
-                    <td>Dummy data...</td>
-                </tr>
+                        <td class="bglightblue black bold">Contractor & Suppliers</td>
+                        <td>{{$project->MProjectOrganization->contractor_or_supplier }}</td>
+                    </tr>
                 <tr>
 
                     <td class="bglightblue black bold">Planned Start Date</td>
