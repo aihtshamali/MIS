@@ -13,7 +13,22 @@ class UpdateWeightageColumn extends Migration
      */
     public function up()
     {
-        //
+         Schema::table('m_project_level1_kpis', function (Blueprint $table) 
+        {
+            $table->float('weightage',8,2)->nullable()->change();
+        });
+         Schema::table('m_project_level2_kpis', function (Blueprint $table) 
+        {
+            $table->float('weightage',8,2)->nullable()->change();
+        });
+         Schema::table('m_project_level3_kpis', function (Blueprint $table) 
+        {
+            $table->float('weightage',8,2)->nullable()->change();
+        });
+         Schema::table('m_project_level4_kpis', function (Blueprint $table) 
+        {
+            $table->float('weightage',8,2)->nullable()->change();
+        });
     }
 
     /**
