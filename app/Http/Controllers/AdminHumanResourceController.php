@@ -280,13 +280,15 @@ class AdminHumanResourceController extends Controller
     {
         $meeting = HrMeetingPDWP::find($id);
         $agendas = $meeting->HrAgenda;
-        // foreach($agendas as $agenda){
-        //     if($agenda->HrMomAttachment)
-        //     file_put_contents('storage/uploads/projects/meetings_mom/'.$agenda->HrMomAttachment->attachment,base64_decode($agenda->HrMomAttachment->attachment_file));
-        //     if($agenda->HrAttachment){
-        //       file_put_contents('storage/uploads/projects/project_agendas/'.$agenda->HrAttachment->attachments,base64_decode($agenda->HrAttachment->attachment_file));
-        //     }
-        // }
+        // dd($agendas[0]->HrAttachment);
+        foreach($agendas as $agenda){
+            if($agenda->HrMomAttachment)
+            file_put_contents('storage/uploads/projects/meetings_mom/'.$agenda->HrMomAttachment->attachment,base64_decode($agenda->HrMomAttachment->attachment_file));
+            if($agenda->HrAttachment){
+              file_put_contents('storage/uploads/projects/project_agendas/'.$agenda->HrAttachment->attachments,base64_decode($agenda->HrAttachment->attachment_file));
+            }
+           
+        }
         $agenda_statuses = HrProjectType::all();
         $adp = AdpProject::where('financial_year','2017-18')->orderBy('gs_no')->get();
         $sectors = HrSector::all();
