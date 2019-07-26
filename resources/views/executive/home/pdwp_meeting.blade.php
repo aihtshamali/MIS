@@ -54,9 +54,11 @@
 @section('content')
 <div class="content-wrapper">
     <section class="content">
-            <div class="container"><h1> Meetings to be conducted </h1></div>
-            <div id="exTab1" class="container">	
+           
+            <div id="exTab1" class="container box box-body box-primary">	
+                    <h4> <b>MEETING TO BE CONDUCTED </b></h4>
             <ul  class="nav nav-pills" >
+            {{-- {{dd($data)}} --}}
                     @foreach ($data as $key => $value)
                         <li class="" style="background:white;" >
                             <a  href="#{{ $key }}" data-toggle="tab"  class="clickable">Meetings Data {{ $key }} <span class="caret"></span></a>
@@ -85,6 +87,7 @@
                                 <th>
                                     Attachment
                                 </th>
+                                <th></th>
                                 
                             </tr>
                         </thead>
@@ -96,7 +99,7 @@
                                 </td>
                                 <td>
                                     
-                                    <a href="{{route('List_Agendas',['meeting_no'=>$v->id])}}" target="_blank">
+                                    <a href="{{route('admin.show',$v->id)}}" target="_blank">
                                         @if($v->meeting_no)
                                         {{$v->meeting_no}}
                                         @else
@@ -126,6 +129,7 @@
                                 <td>
                                     <a href="{{asset('storage/uploads/projects/pdwp_meeting/'.$v->attachment)}}" download>{{$v->attachment}}</a>
                                 </td>
+                                <td><a href="{{route('List_Agendas',['meeting_no'=>$v->id])}}" class="btn btn-md btn-success">Conduct Meeting</a></td>
                             </tr>
                             
                             @endforeach
