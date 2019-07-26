@@ -268,8 +268,10 @@ Home Page | DGME MIS
                         <p>Visit Attendance System</p>
                     </a>
                 </div>
+                @endrole
+                @role('directormonitoring|directorevaluation|manager')
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
-                    <a href="{{route('PDWP')}}" class="tile purple">
+                    <a href="{{route('Conduct_PDWP_Meeting')}}" class="tile purple">
                         <h3 class="title">PDWP</h3>
                         <hr/>
                         <p>Visit PDWP Meetings</p>

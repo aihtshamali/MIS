@@ -66,21 +66,26 @@ if (! function_exists('calculateMPhysicalProgress')) {
         $i++;
         array_push($cost,$main->cost);
         // dd($cost);
-        $weight+=$main->weightage;
+        
+        // $weight+=$main->weightage;
       }
       $sum=0;
-      // dd($arr,$cost);
+      // dump("Physical Progress: ");
+      // dump($arr);
+      // dump("Cost: ");
+      // dump($cost);
       $phy_prog = array_map( function($cost_arr, $arr_new)
        {
         return $cost_arr * ($arr_new/100);
        }, $cost, $arr);
-
+      // dump($phy_prog);
       $total_phyProgres= array_sum($phy_prog);
-
-      if(!isset($financial_cost->total_release_to_date))
+      //  dump("Total Physical Progress: ",$total_phyProgres);
+      if(!isset($financial_cost->total_release_to_date) || $financial_cost->total_release_to_date == 0)
         return 0;
 
-      $physical_progress=($total_phyProgres/$financial_cost->total_release_to_date); 
+      $physical_progress=($total_phyProgres/$financial_cost->total_release_to_date)*100; 
+      // dd("Physical Progress",$physical_progress);
       return $physical_progress;
 
   }
@@ -96,16 +101,20 @@ function calculatePlannedProgress($m_project_progress_id)
   //original gestation period
   $planned_gestation_period=$interval_period1->format('%a');
   
+  
   if(!isset(App\MProjectProgress::find($m_project_progress_id)->MProjectDate->first_visit_date)) //if FirstVisit Date not set
     return 0;
   $visit_start_Date=date_create(App\MProjectProgress::find($m_project_progress_id)->MProjectDate->first_visit_date);  
   $interval_period2=date_diff($visit_start_Date,$planned_start_date);
   // planned progress geatation period
   $gestation_period=$interval_period2->format('%a');
-
+  if($planned_gestation_period == 0)
+    return 0;
   $planned_progress=($gestation_period/$planned_gestation_period)*100;
+  if($planned_progress > 100)
+    $planned_progress = 100;
    return $planned_progress;
-   return 0;
+  //  return 0;
 
   
   

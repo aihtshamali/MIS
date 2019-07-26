@@ -902,11 +902,7 @@
                     <div class="card z-depth-right-0">
                         <div class="card-header">
                             <h4>Health Safety Enviornment</h4>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Sunt similique totam harum sit. Quibusdam libero, harum rem
-                            quam repellendus adipisci. Repellat sapiente asperiores
-                            numquam beatae at distinctio quaerat reiciendis
-                            repudiandae.
+                           
                         </div>
                         <div class="card-block">
                             <div class="col-md-12">

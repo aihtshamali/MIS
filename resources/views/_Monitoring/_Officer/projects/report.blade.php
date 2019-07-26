@@ -925,12 +925,12 @@
                 </tr>
                 <tr>
                     <td class="bglightblue black bold">Operation & Maintenance</td>
-                    <td>Dummy data...</td>
+                    <td>{{$project->MProjectOrganization->operation_and_management }}</td>
                 </tr>
                 <tr>
-                    <td class="bglightblue black bold">Actual Expenditure</td>
-                    <td>Dummy data...</td>
-                </tr>
+                        <td class="bglightblue black bold">Contractor & Suppliers</td>
+                        <td>{{$project->MProjectOrganization->contractor_or_supplier }}</td>
+                    </tr>
                 <tr>
 
                     <td class="bglightblue black bold">Planned Start Date</td>
@@ -1743,6 +1743,43 @@
                 })
         });
     </script>
+    <script>
+        function Export2Doc(element, filename = ''){
+            var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
+            var postHtml = "</body></html>";
+            var html = preHtml+document.getElementById(element).innerHTML+postHtml;
+
+            var blob = new Blob(['\ufeff', html], {
+                type: 'application/msword'
+            });
+
+            // Specify link url
+            var url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
+
+            // Specify file name
+            filename = filename?filename+'.doc':'document.doc';
+
+            // Create download link element
+            var downloadLink = document.createElement("a");
+
+            document.body.appendChild(downloadLink);
+
+            if(navigator.msSaveOrOpenBlob ){
+                navigator.msSaveOrOpenBlob(blob, filename);
+            }else{
+                // Create a link to the file
+                downloadLink.href = url;
+
+                // Setting the file name
+                downloadLink.download = filename;
+
+                //triggering the function
+                downloadLink.click();
+            }
+
+            document.body.removeChild(downloadLink);
+        }
+        </script>
 </body>
 
 </html>

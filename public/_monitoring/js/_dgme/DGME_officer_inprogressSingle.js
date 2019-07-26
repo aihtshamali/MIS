@@ -1253,7 +1253,18 @@ $(document).on("click", ".removeObjective", function () {
     autoindex();
   }
 });
+  // $(document).on("click", ".deleteObjective", function()    
+  // {
+  //         e.preventDefault() // Don't post the form, unless confirmed
+  //         if( confirm('Are you sure?') ) 
+  //         {
+  //             // Post the form
+  //             $(e.target).closest('form').submit() // Post the surrounding form
+  //         }
+  //     });
 
+
+    
 var compAct = $("#compAct").val() != 0 ? parseInt($("#compAct").val()) : 1;
 compAct++;
 

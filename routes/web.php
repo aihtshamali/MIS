@@ -77,7 +77,7 @@ Route::group(['middleware' => ['role:admin']], function () {
 });
 
 
-Route::prefix('manager')->middleware('role:manager|directorevaluation|director_Monitor')->group(function () {
+Route::prefix('manager')->middleware('role:manager|directorevaluation|directormonitoring')->group(function () {
 // PDWP MEETING MODULE
 Route::get('/conduct_pdwp_meeting','ExecutiveController@conduct_pdwp_meeting')->name('Conduct_PDWP_Meeting');
 Route::get('/list_agendas','ExecutiveController@list_agendas')->name('List_Agendas');
@@ -245,7 +245,8 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
   Route::post('/componentActivities','OfficerController@componentActivities')->name('componentActivities');
   Route::post('/activities_duration','OfficerController@activities_duration')->name('activities_duration');
   Route::post('/Costing','OfficerController@Costing')->name('Costing');
-
+  Route::post('/deleteObj','OfficerController@deleteObjective')->name('deleteObjective');
+  Route::post('/deleteComponent','OfficerController@deleteComponent')->name('deleteComponent');
   //Conduct Monitoring Tab
   Route::post('/saveUserLocation','OfficerController@saveUserLocation')->name('saveUserLocation');
   Route::post('/saveUserKpi','OfficerController@saveUserKpi')->name('saveUserKpi');
@@ -311,7 +312,7 @@ Route::get('/projctlist', function () {
 });
 
 //for adminhr
-Route::prefix('hr')->middleware('role:adminhr|manager')->group(function () {
+Route::prefix('hr')->middleware('role:adminhr|manager|directormonitoring|directorevaluation')->group(function () {
   Route::post('/save_moms','AdminHumanResourceController@saveMoms')->name('save_moms');
   Route::resource('admin','AdminHumanResourceController');
   Route::post('/save_agendax','AdminHumanResourceController@save_agendax')->name('agendax');
