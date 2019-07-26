@@ -147,39 +147,39 @@
                                 <div class="col-md-2">
                                     <label for="adp_allocation">Actual Start Time</label>
                                     @if(isset($agenda->agenda_actual_start_time))
-                                    <input disabled value="{{$agenda->agenda_actual_start_time}}" class="form-control" id="adp_allocation" name="start_timeofagenda[]" type="text" style="text-align:center;">
+                                    <input disabled value="{{$agenda->agenda_actual_start_time}}" class="form-control" id="" name="start_timeofagenda[]" type="text" style="text-align:center;">
                                     @else
-                                    <input disabled value="Not Entered" class="form-control" id="adp_allocation" name="agenda_actual_start_time[]" type="text" style="text-align:center;">
+                                    <input disabled value="Not Entered" class="form-control" style="background:lightcoral;" id="" name="agenda_actual_start_time[]" type="text" style="text-align:center;">
                                     @endif
                                 </div>
                                 <div class="col-md-2">
-                                    <label for="adp_allocation">Actual End Time</label>
+                                    <label for="">Actual End Time</label>
                                     @if(isset($agenda->agenda_actual_end_time))
-                                    <input disabled value="{{$agenda->agenda_actual_end_time}}" class="form-control" id="adp_allocation" name="start_timeofagenda[]" type="text" style="text-align:center;">
+                                    <input disabled value="{{$agenda->agenda_actual_end_time}}" class="form-control" id="" name="start_timeofagenda[]" type="text" style="text-align:center;">
                                     @else
-                                    <input disabled value="Not Entered" class="form-control" id="adp_allocation" name="agenda_actual_end_time[]" type="text" style="text-align:center;">
+                                    <input disabled value="Not Entered" class="form-control" id="" style="background:lightcoral;" name="agenda_actual_end_time[]" type="text" style="text-align:center;">
                                     @endif
                                 </div>
                                 <div class="col-md-2">
-                                    <label for="adp_allocation">Comments</label>
+                                    <label for="">Comments</label>
                                     @if(isset($agenda->HrProjectDecision->comments))
-                                    <input disabled value="{{$agenda->HrProjectDecision->comments}}" class="form-control" id="adp_allocation" name="start_timeofagenda[]" type="text" style="text-align:center;">
+                                    <input disabled value="{{$agenda->HrProjectDecision->comments}}" class="form-control" id="" name="start_timeofagenda[]" type="text" style="text-align:center;">
                                     @else
-                                    <input disabled value="Not Entered" class="form-control" id="adp_allocation" name="comments[]" type="text" style="text-align:center;">
+                                    <input disabled value="Not Entered" class="form-control" id="" style="background:lightcoral;" name="comments[]" type="text" style="text-align:center;">
                                     @endif
                                 </div>
                                 <div class="col-md-2">
-                                    <label for="adp_allocation">Decision</label>
+                                    <label for="">Decision</label>
                                     @if(isset($agenda->HrProjectDecision->hr_decision_id))
                                     @if($agenda->HrProjectDecision->hr_decision_id=='1')
-                                    <input disabled style="color:Green" value="{{$agenda->HrProjectDecision->HrDecision->name}}" class="form-control" id="adp_allocation" name="Decision[]" type="text" style="text-align:center;">
+                                    <input disabled style="color:Green" value="{{$agenda->HrProjectDecision->HrDecision->name}}" class="form-control" id="" name="Decision[]" type="text" style="text-align:center;">
                                     @elseif($agenda->HrProjectDecision->hr_decision_id=='2')
-                                    <input disabled style="color:orange" value="{{$agenda->HrProjectDecision->HrDecision->name}}" class="form-control" id="adp_allocation" name="Decision[]" type="text" style="text-align:center;">
+                                    <input disabled style="color:orange" value="{{$agenda->HrProjectDecision->HrDecision->name}}" class="form-control" id="" name="Decision[]" type="text" style="text-align:center;">
                                     @elseif($agenda->HrProjectDecision->hr_decision_id=='3')
-                                    <input disabled style="color:red" value="{{$agenda->HrProjectDecision->HrDecision->name}}" class="form-control" id="adp_allocation" name="Decision[]" type="text" style="text-align:center;">
+                                    <input disabled style="color:red" value="{{$agenda->HrProjectDecision->HrDecision->name}}" class="form-control" id="" name="Decision[]" type="text" style="text-align:center;">
                                     @endif
                                     @else
-                                    <input disabled value="Not Entered" class="form-control" id="adp_allocation" name="Decision[]" type="text" style="text-align:center;">
+                                    <input disabled value="Not Entered" class="form-control" id="" style="background:lightcoral;" name="Decision[]" type="text" style="text-align:center;">
                                     @endif
                                 </div>
                             </div>

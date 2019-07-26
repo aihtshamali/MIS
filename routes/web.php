@@ -312,7 +312,7 @@ Route::get('/projctlist', function () {
 });
 
 //for adminhr
-Route::prefix('hr')->middleware('role:adminhr|manager')->group(function () {
+Route::prefix('hr')->middleware('role:adminhr|manager|directormonitoring|directorevaluation')->group(function () {
   Route::post('/save_moms','AdminHumanResourceController@saveMoms')->name('save_moms');
   Route::resource('admin','AdminHumanResourceController');
   Route::post('/save_agendax','AdminHumanResourceController@save_agendax')->name('agendax');

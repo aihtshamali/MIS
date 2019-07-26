@@ -804,6 +804,7 @@ class ExecutiveController extends Controller
       $inprogressprojects_wrt_sectors =[];
       $totalprojects_wrt_sectors =[];
       $completedprojects_wrt_sectors =[];
+      $stoppedProjects_wrt_sectors =[];
       foreach($sectors  as $sec)
        {
         $assignedsectors_data=DB::select(
@@ -820,24 +821,29 @@ class ExecutiveController extends Controller
         $sectors_data_completedProjects=DB::select(
 
           'getAllSectorCompletedProjects' .' '. $sec->id);
-
+        
+        $sectors_data_stoppedProjects=DB::select(
+          'getAllSectorStoppedProjects' .' '. $sec->id
+        );
 
         array_push($assignedprojects_wrt_sectors,$assignedsectors_data);
         array_push($inprogressprojects_wrt_sectors,$inprogresssectors_data);
         array_push($totalprojects_wrt_sectors,$sectors_data_totalProjects);
         array_push($completedprojects_wrt_sectors,$sectors_data_completedProjects);
-
+        array_push($stoppedProjects_wrt_sectors,$sectors_data_stoppedProjects);
       }
       \JavaScript::put([
         'sectors'=>$sectors,
         'assignedprojects_wrt_sectors'=>$assignedprojects_wrt_sectors,
         'inprogressprojects_wrt_sectors'=>$inprogressprojects_wrt_sectors,
         'totalprojects_wrt_sectors'=>$totalprojects_wrt_sectors,
-        'completedprojects_wrt_sectors'=>$completedprojects_wrt_sectors
-
+        'completedprojects_wrt_sectors'=>$completedprojects_wrt_sectors,
+        'stoppedProjects_wrt_sectors'=>$sectors_data_stoppedProjects
         ]);
       return view('executive.home.chart_eight' ,['sectors'=> $sectors, 'assignedprojects_wrt_sectors'=>$assignedprojects_wrt_sectors,  'inprogressprojects_wrt_sectors'=>$inprogressprojects_wrt_sectors,
-      'totalprojects_wrt_sectors'=>$totalprojects_wrt_sectors,'completedprojects_wrt_sectors'=>$completedprojects_wrt_sectors]);
+      'totalprojects_wrt_sectors'=>$totalprojects_wrt_sectors,
+      'completedprojects_wrt_sectors'=>$completedprojects_wrt_sectors,'stoppedProjects_wrt_sectors'=>$sectors_data_stoppedProjects
+      ]);
     }
     // attendance
     public function attendance()
