@@ -69,7 +69,17 @@
   <section class="content" style=" margin-top: 27px;">
         <div class="box box-body box-primary col-md-12">
             <h4>
-                <b><span  style="background:#3c8dbc; padding:5px; color:white" > Meeting No {{$agendas[0]->HrMeetingPDWP->id}} </span></b>
+              {{-- {{dd($agendas[0]->HrMeetingPDWP)}} --}}
+                <b>
+                  <span  style="background:#3c8dbc; padding:5px; margin:2px; color:white" > Meeting No {{$agendas[0]->HrMeetingPDWP->id}} </span>  
+                </b>
+                <b class="pull-right">
+                  <span>
+                      @if(isset($agendas[0]->HrMeetingPDWP->attachment))
+                  <a style="background:#ed9c28; padding:5px; margin:2px; color:white" href="{{asset('/storage/uploads/projects/pdwp_meeting/'.$agendas[0]->HrMeetingPDWP->attachment)}}" download> Download Meeting Notice</a>
+                  @endif
+                  </span>
+                </b>
               </h4>
              
             <table class="table table-borderd">
@@ -90,10 +100,10 @@
                           ADP Allocation
                         </th>
                         <th>
-                          Attachments
+                          Working Paper(s)
                         </th>
                         <th>
-                            Attach M-O-M(s)
+                           M-O-M(s)
                         </th>
                         <th>
                           Agenda Descision
@@ -123,8 +133,7 @@
                             {{round($agenda->adp_allocation,3)}}
                           </td>
                           <td>
-                            {{-- <input type="file" name="attachments" class="form-control"> --}}
-                            {{-- {{dd($agenda->HrMeetingPDWP)}} --}}
+                            
                             @if(isset($agenda->HrAttachment->attachments))
                           <a href="{{asset('storage/uploads/projects/project_agendas/'.$agenda->HrAttachment->attachments)}}" download>{{$agenda->HrAttachment->attachments}}</a>
                           @endif
