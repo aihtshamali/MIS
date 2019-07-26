@@ -122,8 +122,8 @@
               "Total Projects":totalprojects_wrt_sectors[$i][0].eachtotalproject,
               "Assigned Projects": assignedprojects_wrt_sectors[$i][0].eachproject,
               "Inprogress Projects": inprogressprojects_wrt_sectors[$i][0].eachinprogressproject,
-              "Completed Projects": completedprojects_wrt_sectors[$i][0].eachcompletedproject
-
+              "Completed Projects": completedprojects_wrt_sectors[$i][0].eachcompletedproject,
+              "Stopped Project": stoppedProjects_wrt_sectors[$i][0].eachStoppedproject
             });
             $i++;
           });
@@ -188,7 +188,18 @@
              "type": "column",
                  "color": "#000000",
              "valueField": "Completed Projects"
-         }],
+         },{
+             "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
+             "fillAlphas": 0.8,
+             "labelText": "[[value]]",
+             "lineAlpha": 0.3,
+             "columnWidth":0.6,
+             "title": "Stopped Projects",
+             "type": "column",
+                 "color": "#000000",
+             "valueField": "Stopped Projects"
+         }
+        ],
          "rotate": true,
          "categoryField": "Name",
          "categoryAxis": {
