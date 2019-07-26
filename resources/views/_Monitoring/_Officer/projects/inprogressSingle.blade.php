@@ -307,11 +307,9 @@ $innertab=\Session::get('innertab');
         <span class="pdz_six" id="PlannedProg">{{round(calculatePlannedProgress($project->MProjectProgress->last()->id),3)}}%</span>
       </p>
     </div>
-    <div class="col-md-3 ln_ht12">
-      <p for="" name="phy_progress" id="phy_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Physical Progress: </span>
-        <span class="pdz_six" id="Physicalprog">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id),3)}}%</span>
-        <br /><small>(against Total Releases To Date)</small>
-      </p>
+
+    <div class="col-md-3">
+      <p for="eac" class=" mb_1"><span class="fontf_sh">Estimated At Completion : </span><span>{{round(estimatedAtCompletion($project->MProjectProgress->last()->id),3)}}</span></p>
     </div>
     <div class="col-md-3">
       <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Financial Progress:</span>
@@ -323,8 +321,11 @@ $innertab=\Session::get('innertab');
         <span class="pdz_six" id="financialprog">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),3)}}%</span>
       </p>
     </div>
-    <div class="col-md-3">
-      <p for="eac" class=" mb_1"><span class="fontf_sh">Estimated At Completion : </span><span>{{round(estimatedAtCompletion($project->MProjectProgress->last()->id),3)}}</span></p>
+    <div class="col-md-3 ln_ht12">
+      <p for="" name="phy_progress" id="phy_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Physical Progress: </span>
+        <span class="pdz_six" id="Physicalprog">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id),3)}}%</span>
+        <br /><small>(against Total Releases To Date)</small>
+      </p>
     </div>
   </div>
 </div>
