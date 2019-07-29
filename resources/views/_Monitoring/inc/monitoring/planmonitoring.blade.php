@@ -501,10 +501,9 @@
                         </div>
 
                         <div class="card-block">
-                            <div class="row form-group">
+                            {{-- <div class="row form-group">
                                 <div class="col-md-12">
                                     <h5 class="mb_2">Previous Mapped Kpis</h5>
-                                    {{-- {{dump($mPlanKpiComponents)}} --}}
                                     <div class="col-md-12 row">
                                         <div class="col-md-4 text-center">
                                             <h5>KPIs</h5>
@@ -530,7 +529,43 @@
                                     </div>
                                     @endforeach
                                 </div>
-                            </div>
+                            </div> --}}
+                            <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <table>
+                                            <thead>
+                                                <th>
+
+                                                </th>
+                                                <th>
+                                                    KPI(s)
+                                                </th>
+                                                <th>
+                                                    Components
+                                                </th>
+                                            </thead>
+                                            <tbody>
+                                            @foreach ($mPlanKpiComponents as $kpi)
+                                            {{-- {{dd($mPlanKpiComponents[0]->MProjectKpi)}} --}}
+                                                @foreach ($kpi->MProjectKpi as $item)
+                                                {{dd($item)}}
+                                                <tr>
+                                                        <td></td>
+                                                        <td>{{$item->name}}</td>
+                                                        <td>
+                                                            @foreach ($mPlanKpiComponents as $i)
+                                                                {{$i->MPlanComponent->component}}
+                                                            @endforeach
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                 
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                            </div> 
+
                         </div>
                     </div>
                 </form>
