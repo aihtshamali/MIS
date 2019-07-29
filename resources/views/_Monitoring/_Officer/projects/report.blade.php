@@ -1098,21 +1098,25 @@
                         $j=1;
                         @endphp
                         @if(isset($project->MPlanKpicomponentMapping))
-                        @foreach ($project->MPlanKpicomponentMapping as $mappedKPi)
-                        <h5 class="bluetxt underline">{{$i}}) {{$mappedKPi->MProjectKpi->name}}</h5>
-                        @foreach ($project->MPlanKpicomponentMapping as $comp)
+                        @foreach (App\MPlanKpicomponentMapping::select('m_project_kpi_id')->where('m_project_progress_id',$project->id)->groupBy('m_project_kpi_id')->get() as $mappedKPi)
+                            <h5 class="bluetxt underline">{{$i}}) {{$mappedKPi->MProjectKpi->name}}</h5>
+                            @foreach ($mappedKPi->where('m_project_kpi_id',$mappedKPi->MProjectKpi->id)->get() as $item)                            
+                                <p class="levOne grey"><span class="bluetxt">{{$j}}.</span> {{$item->MPlanComponent->component}}</p> 
+                                @php
+                                    $j++;
+                                @endphp                               
+                            @endforeach
+                        {{-- @foreach ($project->MPlanKpicomponentMapping as $comp)
                         <p class="levOne grey"><span class="bluetxt">{{$j}}.</span> {{$comp->MPlanComponent->component}}</p>
                         @php
                         $j++;
                         @endphp
+                        @endforeach --}}
+                            @php
+                                $i++;
+                                $j=1;
+                            @endphp
                         @endforeach
-                        @php
-                        $i++;
-                        $j=1;
-                        @endphp
-                        @endforeach
-
-
                         @endif
                     </span>
                 </div>
