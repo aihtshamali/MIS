@@ -416,7 +416,7 @@
             <div class="CustomKPIsDiv nodisplay clearfix">
                     <div class="card m-0 z-depth-right-0">
                         <div class="card-header">
-                            <h4 class="form-txt-primary"> Custom KPIs</h4>
+                            <h4 class="form-txt-primary"> Custom WBS</h4>
                         </div>
                         <form id="customForm" class="" action="{{route('customkpiComponentMapping')}}" method="post">
                         {{csrf_field()}}
@@ -450,7 +450,7 @@
                 </div>
             </div>
             <div class="col-md-12 expandheader clearfix">
-                <b class="float-left font-15 pdlfrt form-txt-primary">Default KPIs</b>
+                <b class="float-left font-15 pdlfrt form-txt-primary">Default WBS</b>
                 <b class="float-right pdlfrt defaultKPIs" style="">
                     <i class="fa fa-plus circlebtn defaultkpiplus" aria-hidden="true"></i>
                     <i class="fa fa-minus circlebtn defaultkpiminus nodisplay" aria-hidden="true"></i>
@@ -464,13 +464,13 @@
 
                     <div class="card m-0 z-depth-right-0">
                         <div class="card-header">
-                            <h4 class="form-txt-primary">KPIs</h4>
+                            <h4 class="form-txt-primary">WBS</h4>
                         </div>
                         {{-- Choose KPI New --}}
                         <div class="card-block">
                             <div class="row form-group">
                                 <div class="col-md-5">
-                                    <h5 class="mb_2">Choose KPI(s)</h4>
+                                    <h5 class="mb_2">Choose WBS</h4>
                                         <select id='custom-headers' class="searchable yesearch" multiple='multiple'>
                                             {{-- <h1>here</h1> --}}
                                             @foreach ($Kpis as $Kpi)
@@ -500,8 +500,10 @@
                             </div>
                         </div>
 
-                        <div class="card-block">
-                            {{-- <div class="row form-group">
+                      
+
+                        {{-- <div class="card-block">
+                            <div class="row form-group">
                                 <div class="col-md-12">
                                     <h5 class="mb_2">Previous Mapped Kpis</h5>
                                     <div class="col-md-12 row">
@@ -515,60 +517,69 @@
                                             <h5>Weightage</h5>
                                         </div>
                                     </div>
-                                    @foreach ($mPlanKpiComponents as $item)
+                                    @php
+                                     $i=0;   
+                                    @endphp
+                                    @foreach ($mPlanKpiComponents as $key=>$item)
                                     <div class="col-md-12 row">
-                                        <div class="col-md-4 text-center">
-                                            {{$item->MProjectKpi->name}}
-                                        </div>
-                                        <div class="col-md-4 text-center">
-                                            {{$item->MPlanComponent->component}}
-                                        </div>
-                                        <div class="col-md-4 text-center">
-                                            {{$item->weightage}}
-                                        </div>
+                                            <div class="col-md-4 text-center">
+                                                    {{App\MProjectKpi::find($key)->name}}
+                                            </div>    
+                                            <ul>
+
+                                        @foreach ($item as $componentsArray)
+                                                <div class="col-md-4 text-center">
+                                                        <li>{{$componentsArray->MPlanComponent->component}}</li>
+                                            </div>
+                                            <div class="col-md-4 text-center"></div>
+                                        <div class="col-md-4 text-center"></div>
+                                            
+                                        @endforeach
+                                    </ul>
+
                                     </div>
                                     @endforeach
+                                   
                                 </div>
-                            </div> --}}
-                            <div class="row form-group">
-                                    <div class="col-md-12">
-                                        <table>
-                                            <thead>
-                                                <th>
-
-                                                </th>
-                                                <th>
-                                                    KPI(s)
-                                                </th>
-                                                <th>
-                                                    Components
-                                                </th>
-                                            </thead>
-                                            <tbody>
-                                            @foreach ($mPlanKpiComponents as $kpi)
-                                            {{-- {{dd($mPlanKpiComponents[0]->MProjectKpi)}} --}}
-                                                @foreach ($kpi->MProjectKpi as $item)
-                                                {{dd($item)}}
-                                                <tr>
-                                                        <td></td>
-                                                        <td>{{$item->name}}</td>
-                                                        <td>
-                                                            @foreach ($mPlanKpiComponents as $i)
-                                                                {{$i->MPlanComponent->component}}
-                                                            @endforeach
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                                 
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
                             </div> 
-
-                        </div>
+                            
+                        </div> --}}
                     </div>
                 </form>
+            </div>
+            
+            <div class="card">
+                <div class="card-block">
+                        <table class="table table-stripped">
+                            <thead>
+                                <th>Action</th>
+                                <th>WBS</th>
+                                <th>Components</th>
+                            </thead>
+                            <tbody>
+                                @foreach ($mPlanKpiComponents as $key=>$item)
+                                    <tr>
+                                        <td>
+                                        <form action="{{route('deleteKpi')}}" method="POST" >
+                                                    {{ csrf_field() }}
+                                                    <input type="hidden" name="kpi_id" value="{{App\MProjectKpi::find($key)->id}}">
+                                        <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
+                                                    <button class="btn btn-sm btn-danger deleteKpi"  onclick="return confirm('KPI : {{App\MProjectKpi::find($key)->name}}\n1: All mapped components with this Custom/Default WBS will also be deleted. \n2: After visiting respective Project Site, One must not delete the Custom/Default Wbs.It will lead to miscalculations of progresses. \n Are you sure ?')" type="submit" id="deleteKpi" > <i class="fa fa-trash"></i> </button>
+                                                </form>
+                                        </td>
+                                        <td>{{App\MProjectKpi::find($key)->name}}</td>
+                                        <td class="text-left">
+                                            <ol>
+                                                    @foreach ($item as $componentsArray)
+                                                        <li>{{$componentsArray->MPlanComponent->component}}</li>
+                                                    @endforeach
+                                            </ol>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                </div>
             </div>
         </div>
         <div class='tab-pane {{isset($innertab) && $innertab=="uderKPI" ? "active" : ""}}' id="userKPIDiv" role="tabpanel" aria-expanded="false" style="display:none;">
