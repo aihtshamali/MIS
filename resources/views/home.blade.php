@@ -237,12 +237,12 @@ Home Page | DGME MIS
                     </a>
                 </div>
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.3s">
-                        <a href="{{route('dispatch_form')}}" class="tile purple">
-                            <h3 class="title">Dispatch Management System</h3>
-                            <hr />
-                            <p>visit Dispatch System</p>
-                        </a>
-                    </div>
+                    <a href="{{route('dispatch_form')}}" class="tile purple">
+                        <h3 class="title">Dispatch Management System</h3>
+                        <hr />
+                        <p>visit Dispatch System</p>
+                    </a>
+                </div>
 
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.3s">
                     <a href="#!" class="tile purple">
@@ -273,7 +273,7 @@ Home Page | DGME MIS
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
                     <a href="{{route('Conduct_PDWP_Meeting')}}" class="tile purple">
                         <h3 class="title">PDWP</h3>
-                        <hr/>
+                        <hr />
                         <p>Visit PDWP Meetings</p>
                     </a>
                 </div>
@@ -294,7 +294,7 @@ Home Page | DGME MIS
                     </a>
                 </div>
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
-                <a href="{{route('dispatchLetterViews')}}" class="tile purple">
+                    <a href="{{route('dispatchLetterViews')}}" class="tile purple">
                         <h3 class="title">Dispatch Letter(s)</h3>
                         <hr />
                         <p>Visit Dispatch Letter</p>
@@ -387,6 +387,11 @@ Home Page | DGME MIS
                 </div>
             </div>
         </div>
+    </div>
+    <div class="container">
+        <iframe src="https://www.google.com/maps/d/embed?mid=1OpwZDrybYiJ3H0uAZx09untMzA5D4g-Q" width="33%" height="200"></iframe>
+        <iframe src="https://www.google.com/maps/d/embed?mid=1GvN-N8aIXCqN3K5rLKAj4PSrJN5eHATD" width="33%" height="200"></iframe>
+        <iframe src="https://www.google.com/maps/d/embed?mid=1XPgEtdobqmWNajPpmJD5PGd6iLt7liTF" width="33%" height="200"></iframe>
     </div>
     @endauth
     <div class="services-section text-center" id="services">
