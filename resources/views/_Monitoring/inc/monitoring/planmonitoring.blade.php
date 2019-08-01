@@ -620,7 +620,7 @@
                         <div class="col-md-4 text-center">
                             <div class="col-md-10 offset-md-1 delLastChild">
                                 @php $kpicount=1; @endphp
-                                <select class="form-control" id="" name="user_location_id[]">
+                                <select class="form-control select2" id="" name="user_location_id[]">
 
                                     @foreach ($projectProgressId->MAssignedUserLocation as $mUserLocation)
 
@@ -631,7 +631,7 @@
                         </div>
                         <div class="col-md-4 text-center">
                             <div class="col-md-10 offset-md-1 delLastChild">
-                                <select class="form-control" id="" name="m_project_kpi_id[]">
+                                <select class="form-control select2" id="" name="m_project_kpi_id[]">
                                     @php
                                     $arr=array();
                                     @endphp
