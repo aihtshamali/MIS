@@ -228,6 +228,7 @@ Home Page | DGME MIS
     <div class="pt_3p text-center">
         <div class="container">
             <div class="row">
+
                 @role('adminhr')
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.3s">
                     <a href="{{route('evaluation_dashboard')}}" class="tile purple">
@@ -328,6 +329,13 @@ Home Page | DGME MIS
                         <h3 class="title">Monitoring App</h3>
                         <hr />
                         <p>Download Monitoring App</p>
+                    </a>
+                </div>
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
+                    <a href="{{route('summarytable')}}" class="tile purple">
+                        <h3 class="title">Table</h3>
+                        <hr />
+                        <p>Visit Table</p>
                     </a>
                 </div>
                 @endrole

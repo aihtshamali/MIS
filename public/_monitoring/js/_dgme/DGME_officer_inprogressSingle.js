@@ -851,6 +851,8 @@ $("button#add-more-issues").click(function (e) {
     '<td><button class="btn btn-sm btn-danger" id="remove-issue" onclick="removeIssuerow(this)" name="remove[]" type="button">-</button></td>'
   );
   $(temp).appendTo("#add-issue-here");
+    $(".select2").select2();
+    $(".select2-hidden-accessible").last().css("display", "none");
 });
 $("button#add-more").click(function (e) {
   var add_risks = `<tr>
