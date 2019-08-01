@@ -927,15 +927,14 @@
                                             <tr>
                                                 <td>{{$key+1}}.</td>
                                                 <td>{{$issue->description}}</td>
-
                                                 <td>
-
+                                                    
                                                     <div class="checkbox-fade fade-in-success m-0">
                                                         <label>
-                                                            {{-- {{$issue->MAssignedProjectHealthSafety[0]->status == 'yes' ? 'checked' : '' }} --}}
                                                             <input type="radio" name="status[{{$key}}]"
-
-                                                               @if(isset($issue->MAssignedProjectHealthSafety) && $issue->MAssignedProjectHealthSafety->m_project_progress_id==$progresses->id && $issue->MAssignedProjectHealthSafety->status== 'yes') {{"checked"}} @endif
+                                                               @if(isset($issue->MAssignedProjectHealthSafety) && $issue->MAssignedProjectHealthSafety->where('m_project_progress_id',$progresses->id)->first() && $issue->MAssignedProjectHealthSafety->status == "yes") 
+                                                               {{"checked"}} 
+                                                               @endif
 
                                                                value="{{$issue->id}}_yes" id="" >
                                                             <span class="cr">
@@ -948,7 +947,7 @@
                                                     <div class="checkbox-fade fade-in-danger m-0">
                                                         <label>
                                                             <input type="radio" name="status[{{$key}}]" value="{{$issue->id}}_no"
-                                                            @if(isset($issue->MAssignedProjectHealthSafety) && $issue->MAssignedProjectHealthSafety->m_project_progress_id==$progresses->id && $issue->MAssignedProjectHealthSafety->status== 'no')
+                                                            @if(isset($issue->MAssignedProjectHealthSafety) && $issue->MAssignedProjectHealthSafety->m_project_progress_id==$progresses->id && $issue->MAssignedProjectHealthSafety->status == "no")
                                                              {{"checked"}}
                                                               @endif
                                                             id="" >

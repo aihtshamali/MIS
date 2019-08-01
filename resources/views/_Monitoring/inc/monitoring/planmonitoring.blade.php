@@ -32,7 +32,7 @@
                     <a class='nav-link {{isset($innertab) && $innertab=="Mapping" ? "active" : ""}} MOBtab' id="MOBtab" data-toggle="tab" href="#MOBdiv" role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Mapping Of objectives</b></a>
                 </li>
                 <li class="nav-item">
-                    <a class='nav-link {{isset($innertab) && $innertab=="KPI" ? "active" : ""}} kpis' data-toggle="tab" href="#kpis" role="tab" id="kpisss" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Plan ( KPI's)</b></a>
+                    <a class='nav-link {{isset($innertab) && $innertab=="KPI" ? "active" : ""}} kpis' data-toggle="tab" href="#kpis" role="tab" id="kpisss" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Plan WBS</b></a>
                 </li>
                 <li class="nav-item">
                     <a class='nav-link {{isset($innertab) && $innertab=="uderKPI" ? "active" : ""}} userKPITab' data-toggle="tab" href="#userKPIDiv" id="" role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">User KPI</b></a>
@@ -407,7 +407,7 @@
         </div>
         <div class='tab-pane {{isset($innertab) && $innertab=="KPI" ? "active" : ""}}' id="kpis" role="tabpanel" aria-expanded="false" style="">
             <div class="col-md-12 expandheaderCustom clearfix">
-                <b class="float-left font-15 pdlfrt form-txt-primary">Custom KPIs</b>
+                <b class="float-left font-15 pdlfrt form-txt-primary">Custom WBS</b>
                 <b class="float-right pdlfrt CustomKPIs" style="">
                     <i class="fa fa-plus circlebtn Customkpiplus" aria-hidden="true"></i>
                     <i class="fa fa-minus circlebtn Customkpiminus nodisplay" aria-hidden="true"></i>
@@ -499,56 +499,12 @@
 
                             </div>
                         </div>
-
-                      
-
-                        {{-- <div class="card-block">
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <h5 class="mb_2">Previous Mapped Kpis</h5>
-                                    <div class="col-md-12 row">
-                                        <div class="col-md-4 text-center">
-                                            <h5>KPIs</h5>
-                                        </div>
-                                        <div class="col-md-4 text-center">
-                                            <h5>Component</h5>
-                                        </div>
-                                        <div class="col-md-4 text-center">
-                                            <h5>Weightage</h5>
-                                        </div>
-                                    </div>
-                                    @php
-                                     $i=0;   
-                                    @endphp
-                                    @foreach ($mPlanKpiComponents as $key=>$item)
-                                    <div class="col-md-12 row">
-                                            <div class="col-md-4 text-center">
-                                                    {{App\MProjectKpi::find($key)->name}}
-                                            </div>    
-                                            <ul>
-
-                                        @foreach ($item as $componentsArray)
-                                                <div class="col-md-4 text-center">
-                                                        <li>{{$componentsArray->MPlanComponent->component}}</li>
-                                            </div>
-                                            <div class="col-md-4 text-center"></div>
-                                        <div class="col-md-4 text-center"></div>
-                                            
-                                        @endforeach
-                                    </ul>
-
-                                    </div>
-                                    @endforeach
-                                   
-                                </div>
-                            </div> 
-                            
-                        </div> --}}
                     </div>
                 </form>
             </div>
             
             <div class="card">
+                <h4><b>Summary Of Saved WBS </b></h4>
                 <div class="card-block">
                         <table class="table table-stripped">
                             <thead>
@@ -560,11 +516,14 @@
                                 @foreach ($mPlanKpiComponents as $key=>$item)
                                     <tr>
                                         <td>
-                                        <form action="{{route('deleteKpi')}}" method="POST" >
+                                                {{-- {{route('deleteKpi')}} --}}
+                                                {{-- return confirm('KPI : {{App\MProjectKpi::find($key)->name}}\n1: All mapped components with this Custom/Default WBS will also be deleted. \n2: After visiting respective Project Site, One must not delete the Custom/Default Wbs.It will lead to miscalculations of progresses. \n Are you sure ?') --}}
+                                        <form action="#" method="POST" >
                                                     {{ csrf_field() }}
                                                     <input type="hidden" name="kpi_id" value="{{App\MProjectKpi::find($key)->id}}">
                                         <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
-                                                    <button class="btn btn-sm btn-danger deleteKpi"  onclick="return confirm('KPI : {{App\MProjectKpi::find($key)->name}}\n1: All mapped components with this Custom/Default WBS will also be deleted. \n2: After visiting respective Project Site, One must not delete the Custom/Default Wbs.It will lead to miscalculations of progresses. \n Are you sure ?')" type="submit" id="deleteKpi" > <i class="fa fa-trash"></i> </button>
+                                                    <button class="btn btn-sm btn-danger deleteKpi"  
+                                                    onclick="return confirm('This is Inprogress.We apologize for any inconvenience.')" type="button" id="deleteKpi" > <i class="fa fa-trash"></i> </button>
                                                 </form>
                                         </td>
                                         <td>{{App\MProjectKpi::find($key)->name}}</td>

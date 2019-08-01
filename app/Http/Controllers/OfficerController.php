@@ -717,6 +717,8 @@ class OfficerController extends Controller
         $projectProgressId=$progresses;
         $monitoringProjectId=$projectProgressId->id;
 
+        $assignedHealthSafeties = MAssignedProjectHealthSafety::where('m_project_progress_id',$progresses->id)->get();
+
         $objectives =MPlanObjective::where('status',1)
         ->where('m_project_progress_id',$projectProgressId->id)
         ->get();
@@ -1073,23 +1075,23 @@ class OfficerController extends Controller
           $project_issue->m_issue_type_id=$request->issuetype[$key];
           $project_issue->severity=$request->severity[$key];
           if($request->sponsoring_department[$key])
-          $project_issue->sponsoring_agency_id=$request->sponsoring_department[$key];
+            $project_issue->sponsoring_agency_id=$request->sponsoring_department[$key];
           if($request->executing_department[$key])
-          $project_issue->executing_agency_id=$request->executing_department[$key];
+            $project_issue->executing_agency_id=$request->executing_department[$key];
           $project_issue->m_project_progress_id=$request->m_project_progress_id;
           $project_issue->save();
-          // Copy from here
-          $tabs=explode("_",$request->page_tabs);
-          // dd($request->all());
-          $maintab=$tabs[0];
-          $innertab=$tabs[1];
-          return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
         }
+        // Copy from here
+        $tabs=explode("_",$request->page_tabs);
+        // dd($request->all());
+        $maintab=$tabs[0];
+        $innertab=$tabs[1];
+        return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
       }
 
       public function savehealthsafety(Request $request)
       {
-        // dd($request->status);
+        // dd($request->all());
         foreach ($request->status as $key=>$healthsafety) 
         {
           $temp=explode("_",$healthsafety);
@@ -1102,7 +1104,8 @@ class OfficerController extends Controller
             $healthSafety=$res;
           else
             $healthSafety=new MAssignedProjectHealthSafety();
-          $healthSafety->m_health_safety_id=$hs;
+          
+            $healthSafety->m_health_safety_id=$hs;
           $healthSafety->user_id=Auth::id();
           $healthSafety->status=$answer;
           $healthSafety->remarks=$request->comments[$key];
@@ -1722,14 +1725,16 @@ class OfficerController extends Controller
      {
         $project=MProjectProgress::where('assigned_project_id',$request->project_id)->orderBy('created_at','desc')->first();
         $report_data = ReportData::where('m_project_progress_id',$project->id)->first();
-        //
-          // dd($project->MAssignedProjectHealthSafety[0]->MHealthSafety);
+        
+        $mPlanKpiComponents=$project->MPlanKpicomponentMapping->groupBy('m_project_kpi_id');
+        // dd($MPlanKpicomponentMapping);  
+        // dd($project->MAssignedProjectHealthSafety[0]->MHealthSafety);
         //  dd($project->MPlanComponentActivitiesMapping[0]->MPlanComponentactivityDetailMapping);
         // dd($project->MProjectAttachment);
         \JavaScript::put([
           'project_id'=>$project->id
         ]);
-          return view('_Monitoring._Officer.projects.report',compact('project','report_data'));
+          return view('_Monitoring._Officer.projects.report',compact('project','report_data','mPlanKpiComponents'));
      }
 
      //saving report Data
