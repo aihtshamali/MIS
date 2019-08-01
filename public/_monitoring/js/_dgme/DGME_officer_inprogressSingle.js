@@ -852,7 +852,7 @@ $("button#add-more-issues").click(function (e) {
   );
   $(temp).appendTo("#add-issue-here");
     $(".select2").select2();
-    $(".select2-hidden-accessible").last().css("display", "none");
+    // $(".select2-hidden-accessible").last().css("display", "none");
 });
 $("button#add-more").click(function (e) {
   var add_risks = `<tr>

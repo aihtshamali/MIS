@@ -3,8 +3,6 @@
 Monitoring | DGME
 @endsection
 @section('styleTags')
-{{-- <link rel="stylesheet" href="{{ asset('css/app.css')}}" /> --}}
-
 <link rel="stylesheet" href="{{ asset('_monitoring/css/icon/icofont/css/icofont.css')}}" />
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/sweetalert.css')}}" />
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/component.css')}}" />
@@ -35,12 +33,7 @@ Monitoring | DGME
 
 {{-- This is dgme custom css for this page only ,write here any css you want to Ok!!! --}}
 <link rel="stylesheet" href="{{asset('_monitoring/css/css/_dgme/DGME_officer_inprogressSingle.css')}}" />
-<link href="{{asset('lightRoom/lightgallery.css')}}" rel="stylesheet">
-
-<style media="screen">
-  /* html{scroll-behavior: smooth;} */
-</style>
-
+<link href="{{asset('lightRoom/lightgallery.css')}}" rel="stylesheet" /> 
 @endsection
 @section('content')
 {{-- frozen panel for plan and conduct monitoring  --}}
@@ -177,10 +170,6 @@ $innertab=\Session::get('innertab');
         border: none !important;
         color: #1e2d52 !important;
         max-width: 115px !important
-      }
-
-      .select2-container--focus {
-        display: none !important;
       }
 
       @media only screen and (max-width: 1024px) {
