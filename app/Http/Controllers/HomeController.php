@@ -611,4 +611,8 @@ class HomeController extends Controller
   {
     return view( 'PDWBforDC.FinancialYearPDWP');
     }
+  public function summarytable()
+  {
+    return view( 'summarytable');
+    }
 }

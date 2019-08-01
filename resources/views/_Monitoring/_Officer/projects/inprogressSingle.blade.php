@@ -179,6 +179,10 @@ $innertab=\Session::get('innertab');
         max-width: 115px !important
       }
 
+      .select2-container--focus {
+        display: none !important;
+      }
+
       @media only screen and (max-width: 1024px) {
         .topSummary {
           margin-top: -4% !important;
