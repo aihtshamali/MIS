@@ -822,7 +822,6 @@ $("button#addmoreben").click(function (e) {
     <td>
         <div class="col-md-12">
         <input type="text" name="Beneficiarystakeholder[]" class="form-control" placeholder="Beneficiary">
-
         </div>
     </td>
     <td><input type="text" name="Beneficiarystakeholder_name[]"
@@ -837,12 +836,14 @@ $("button#addmoreben").click(function (e) {
                     <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td></tr>`;
   $("#Beneficiarystakeholders").append(add_stakeholder);
 });
-
 $("button#add-more-issues").click(function (e) {
+  
   var temp = $("tbody#add-issue-here")
     .children()
     .first()
     .clone();
+  
+  temp.children().children('span.select2').remove();    
   temp
     .children()
     .last()
@@ -851,7 +852,7 @@ $("button#add-more-issues").click(function (e) {
     '<td><button class="btn btn-sm btn-danger" id="remove-issue" onclick="removeIssuerow(this)" name="remove[]" type="button">-</button></td>'
   );
   $(temp).appendTo("#add-issue-here");
-    $(".select2").select2();
+  $("select[name='issuetype[]']").select2();
     // $(".select2-hidden-accessible").last().css("display", "none");
 });
 $("button#add-more").click(function (e) {
