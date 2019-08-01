@@ -25,4 +25,7 @@ class MAssignedKpiLevel1 extends Model
     public function MAssignedKpiLevel2(){
       return $this->hasMany('App\MAssignedKpiLevel2');
     }
+    public function MAssignedKpiLevel2Log(){
+      return $this->hasMany('App\MAssignedKpiLevel2Log');
+    }
 }

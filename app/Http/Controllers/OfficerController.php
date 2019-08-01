@@ -75,6 +75,9 @@ use App\MProjectLevel3Kpi;
 use App\MProjectLevel4Kpi;
 use App\ReportData;
 use App\PostSne;
+use App\MAssignedKpiLevel2Log;
+use App\MAssignedKpiLevel1Log;
+
 class OfficerController extends Controller
 {
 
@@ -714,6 +717,8 @@ class OfficerController extends Controller
         $projectProgressId=$progresses;
         $monitoringProjectId=$projectProgressId->id;
 
+        $assignedHealthSafeties = MAssignedProjectHealthSafety::where('m_project_progress_id',$progresses->id)->get();
+
         $objectives =MPlanObjective::where('status',1)
         ->where('m_project_progress_id',$projectProgressId->id)
         ->get();
@@ -739,7 +744,16 @@ class OfficerController extends Controller
         // dd($ComponentActivities);
         $Kpis =MProjectKpi::where('status',1)->where('standard',1)->get();
 
-        $mPlanKpiComponents=$projectProgressId->MPlanKpicomponentMapping;
+        $mPlanKpiComponents=$projectProgressId->MPlanKpicomponentMapping->groupBy('m_project_kpi_id');
+        // dd($mPlanKpiComponents);
+        // foreach (App\MPlanKpicomponentMapping::select('m_project_kpi_id')->where('m_project_progress_id',$project->id)->groupBy('m_project_kpi_id')->get() as $mappedKPi)
+        //     foreach ($mappedKPi->where('m_project_kpi_id',$mappedKPi->MProjectKpi->id)->get() as $item)    {
+
+        //     }                        
+
+
+        // $customkpis=MProjectKPI::where('id',);
+
         $cities=PlantripCity::orderBy('name')->get();
         $districts=District::orderBy('name')->get();
         $org_project=Project::where('id',$request->project_id)->first();
@@ -787,6 +801,7 @@ class OfficerController extends Controller
          'assigned_user_locations'=>$user_locations
         ]);
        
+        
         // dd($generalFeedback[0]u->MAssignedProjectFeedBack->answer);
         // dd($components[0]->MPlanObjectivecomponentMapping[0]->m_plan_objective_id);
         return view('_Monitoring._Officer.projects.inprogressSingle'
@@ -1060,24 +1075,25 @@ class OfficerController extends Controller
           $project_issue->m_issue_type_id=$request->issuetype[$key];
           $project_issue->severity=$request->severity[$key];
           if($request->sponsoring_department[$key])
-          $project_issue->sponsoring_agency_id=$request->sponsoring_department[$key];
+            $project_issue->sponsoring_agency_id=$request->sponsoring_department[$key];
           if($request->executing_department[$key])
-          $project_issue->executing_agency_id=$request->executing_department[$key];
+            $project_issue->executing_agency_id=$request->executing_department[$key];
           $project_issue->m_project_progress_id=$request->m_project_progress_id;
           $project_issue->save();
-          // Copy from here
-          $tabs=explode("_",$request->page_tabs);
-          // dd($request->all());
-          $maintab=$tabs[0];
-          $innertab=$tabs[1];
-          return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
         }
+        // Copy from here
+        $tabs=explode("_",$request->page_tabs);
+        // dd($request->all());
+        $maintab=$tabs[0];
+        $innertab=$tabs[1];
+        return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
       }
 
       public function savehealthsafety(Request $request)
       {
-        // dd($request->status);
-        foreach ($request->status as $key=>$healthsafety) {
+        // dd($request->all());
+        foreach ($request->status as $key=>$healthsafety) 
+        {
           $temp=explode("_",$healthsafety);
           $hs=$temp[0];
           $answer=$temp[1];
@@ -1088,7 +1104,8 @@ class OfficerController extends Controller
             $healthSafety=$res;
           else
             $healthSafety=new MAssignedProjectHealthSafety();
-          $healthSafety->m_health_safety_id=$hs;
+          
+            $healthSafety->m_health_safety_id=$hs;
           $healthSafety->user_id=Auth::id();
           $healthSafety->status=$answer;
           $healthSafety->remarks=$request->comments[$key];
@@ -1104,9 +1121,10 @@ class OfficerController extends Controller
           // dd($request->all());
           $maintab=$tabs[0];
           $innertab=$tabs[1];
+        }
+
           return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
           // return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
-        }
       }
 
       public function deleteObjective(Request $request)
@@ -1195,6 +1213,124 @@ class OfficerController extends Controller
 
       }
 
+      public function deleteKpi(Request $request)
+      {
+        // dd($request);
+     
+          $kpi = MProjectKpi::find($request->kpi_id);
+
+          if($kpi->standard== 1)
+          {
+            dd("i am defualt");
+          }
+          elseif($kpi->standard == 0)
+          {
+            if(MAssignedUserKpi::where('m_project_kpi_id',$kpi->id)->first())
+            {
+              $MAssignedUserKpi_id = MAssignedUserKpi::where('m_project_kpi_id',$kpi->id)->first();
+              
+              $Massignedkpi=MAssignedKpi::where('m_assigned_user_kpi_id',$MAssignedUserKpi_id->id)->first();
+              $level_1 = $Massignedkpi->MAssignedKpiLevel1[0];
+            
+              if(MAssignedKpiLevel1Log::where('m_project_level1_kpis_id',$level_1->m_project_level1_kpis_id)
+              ->where('m_project_progress_id',$request->m_project_progress_id)
+              ->count())
+              {
+                return redirect()->back()->with('This cant be deleted.');
+              }
+              else 
+              {
+                if($Massignedkpi->MAssignedKpiLevel1->count())
+                {
+                  foreach($Massignedkpi->MAssignedKpiLevel1 as $l1)
+                    {
+                      if($l1->MAssignedKpiLevel2->count())
+                      {
+                        $Massignedkpi_l2=MAssignedKpiLevel2::where('m_assigned_kpi_level1_id',$l1->id)->get();
+                        foreach($Massignedkpi_l2 as $l2)
+                        {
+                            if($l2->MAssignedKpiLevel3->count())
+                            {
+                              foreach($l2->MAssignedKpiLevel3 as $l3)
+                              {
+                                  if($l3->MAssignedKpiLevel4->count())
+                                  {
+                                    
+                                    $l3->MAssignedKpiLevel4()->delete();
+                                  }
+                              }
+                              
+                              $l2->MAssignedKpiLevel3()->delete();
+                            }
+                        }
+                        
+                        $l1->MAssignedKpiLevel2()->delete();
+                      }
+                    }
+                    $Massignedkpi->MAssignedKpiLevel1()->delete();
+                    MAssignedKpi::where('m_assigned_user_kpi_id',$MAssignedUserKpi_id->id)->delete();
+                    MAssignedUserKpi::where('m_project_kpi_id',$request->kpi_id)->delete();
+                }
+
+                foreach($kpi->MProjectLevel1Kpi as $pro_l1)
+                {
+                  if($pro_l1->MProjectLevel2Kpi->count())
+                  {
+                    foreach($pro_l1->MProjectLevel2Kpi as $pro_l2)
+                    {
+                      if($pro_l2->MProjectLevel3Kpi->count())
+                      {
+                        foreach($pro_l2->MProjectLevel3Kpi as $pro_l3)
+                        {
+                          if($pro_l3->MProjectLevel4Kpi->count())
+                          {
+                            $pro_l3->MProjectLevel4Kpi()->delete();
+                          }
+                        }
+                        $pro_l2->MProjectLevel3Kpi()->delete();
+                      }
+                    }
+                    $pro_l1->MProjectLevel2Kpi()->delete();
+                  }
+                } 
+              
+                $kpi->MProjectLevel1Kpi()->delete();              
+                MPlanKpicomponentMapping::where('m_project_kpi_id',$kpi->id)->delete();  
+                MProjectKpi::where('id',$kpi->id)->delete();
+              }
+            }
+            else
+            {
+              foreach($kpi->MProjectLevel1Kpi as $pro_l1)
+              {
+                if($pro_l1->MProjectLevel2Kpi->count())
+                {
+                  foreach($pro_l1->MProjectLevel2Kpi as $pro_l2)
+                  {
+                    if($pro_l2->MProjectLevel3Kpi->count())
+                    {
+                      foreach($pro_l2->MProjectLevel3Kpi as $pro_l3)
+                      {
+                        if($pro_l3->MProjectLevel4Kpi->count())
+                        {
+                          $pro_l3->MProjectLevel4Kpi()->delete();
+                        }
+                      }
+                      $pro_l2->MProjectLevel3Kpi()->delete();
+                    }
+                  }
+                  $pro_l1->MProjectLevel2Kpi()->delete();
+                }
+              } 
+                MPlanKpicomponentMapping::where('m_project_kpi_id',$kpi->id)->delete();  
+                MProjectKpi::where('id',$kpi->id)->delete(); 
+            }  
+          }
+            dump('done');
+            // dd('done');
+          return redirect()->back();
+      }
+    
       public function projectDesignMonitoring(Request $request)
       {
         // dd($request->obj[0]);
@@ -1589,14 +1725,16 @@ class OfficerController extends Controller
      {
         $project=MProjectProgress::where('assigned_project_id',$request->project_id)->orderBy('created_at','desc')->first();
         $report_data = ReportData::where('m_project_progress_id',$project->id)->first();
-        //
-          // dd($project->MAssignedProjectHealthSafety[0]->MHealthSafety);
+        
+        $mPlanKpiComponents=$project->MPlanKpicomponentMapping->groupBy('m_project_kpi_id');
+        // dd($MPlanKpicomponentMapping);  
+        // dd($project->MAssignedProjectHealthSafety[0]->MHealthSafety);
         //  dd($project->MPlanComponentActivitiesMapping[0]->MPlanComponentactivityDetailMapping);
         // dd($project->MProjectAttachment);
         \JavaScript::put([
           'project_id'=>$project->id
         ]);
-          return view('_Monitoring._Officer.projects.report',compact('project','report_data'));
+          return view('_Monitoring._Officer.projects.report',compact('project','report_data','mPlanKpiComponents'));
      }
 
      //saving report Data
@@ -1805,7 +1943,8 @@ class OfficerController extends Controller
       $m_project_kpi->status = 1;
       
       //Mapping Components
-      if(isset($request->component_mapped)){
+      if(isset($request->component_mapped))
+      {
         $m_project_kpi->save();
         foreach($request->component_mapped as $comp){
           $component_mapping = new MPlanKpicomponentMapping();
@@ -1817,7 +1956,8 @@ class OfficerController extends Controller
           $component_mapping->save();
         }
       }
-      else{
+      else
+      {
         return redirect()->back();
       }
 

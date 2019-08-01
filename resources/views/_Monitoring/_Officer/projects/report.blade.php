@@ -1093,31 +1093,26 @@
             <div class="row" style="">
                 <div class="col-md-12">
                     <span>
-                        @php
-                        $i=1;
-                        $j=1;
-                        @endphp
-                        @if(isset($project->MPlanKpicomponentMapping))
-                        @foreach (App\MPlanKpicomponentMapping::select('m_project_kpi_id')->where('m_project_progress_id',$project->id)->groupBy('m_project_kpi_id')->get() as $mappedKPi)
-                            <h5 class="bluetxt underline">{{$i}}) {{$mappedKPi->MProjectKpi->name}}</h5>
-                            @foreach ($mappedKPi->where('m_project_kpi_id',$mappedKPi->MProjectKpi->id)->get() as $item)                            
-                                <p class="levOne grey"><span class="bluetxt">{{$j}}.</span> {{$item->MPlanComponent->component}}</p> 
-                                @php
-                                    $j++;
-                                @endphp                               
-                            @endforeach
-                        {{-- @foreach ($project->MPlanKpicomponentMapping as $comp)
-                        <p class="levOne grey"><span class="bluetxt">{{$j}}.</span> {{$comp->MPlanComponent->component}}</p>
-                        @php
-                        $j++;
-                        @endphp
-                        @endforeach --}}
-                            @php
-                                $i++;
-                                $j=1;
-                            @endphp
-                        @endforeach
-                        @endif
+                        <table class="table table-bordered">
+                                <thead>
+                                    <th class="bglightblue black bold">WBS</th>
+                                    <th class="bglightblue black bold">Components</th>
+                                </thead>
+                                <tbody>
+                                    @foreach ($mPlanKpiComponents as $key=>$item)
+                                        <tr>
+                                            <td>{{App\MProjectKpi::find($key)->name}}</td>
+                                            <td class="text-left">
+                                                <ol>
+                                                        @foreach ($item as $componentsArray)
+                                                            <li>{{$componentsArray->MPlanComponent->component}}</li>
+                                                        @endforeach
+                                                </ol>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                     </span>
                 </div>
             </div>
@@ -1204,6 +1199,7 @@
                         $i=1;
 
                         @endphp
+                        {{-- {{dd($project->MPlanComponentActivitiesMapping[0]->MplanComponent)}} --}}
                         @foreach ($project->MPlanComponentActivitiesMapping as $compActivity)
                         <tr>
                             <td>{{$i}}</td>
