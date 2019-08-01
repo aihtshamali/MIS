@@ -660,7 +660,7 @@
                                             <tr>
                                                 <td><input type="text" name="issue[]" style="width:100%;padding:2%;" /></td>
                                                 <td>
-                                                    <select name="issuetype[]" class="form-control form-control-primary select2" data-placeholder="" style="width: 100%;">
+                                                    <select id="issues2" name="issuetype[]" class="form-control form-control-primary select2" data-placeholder="" style="width: 100%;">
                                                             @foreach($issue_types as $issue)
                                                             <option value="{{$issue->id}}" >{{$issue->name}}</option>
                                                             @endforeach
