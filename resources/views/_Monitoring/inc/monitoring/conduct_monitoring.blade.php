@@ -341,7 +341,7 @@
                             {{ csrf_field() }}
                             <input type="hidden" name="m_project_progress_id" value="{{$progresses->id}}">
                             <input type="hidden" name="page_tabs" value="conduct_stake">
-                            @foreach ($generalFeedback as $key => $gf)
+                            @foreach ($assignedGeneralFeedbacks as $key => $gf)
                               <div class=" form-group row">
                                   <div class="col-md-1"></div>
                                   <div class="col-md-1">
@@ -349,7 +349,7 @@
                                   </div>
 
                                   <div class="col-md-5">
-                                      <b><label for="">{{$gf->name}}</label></b>
+                                      <b><label for="">{{$gf->MGeneralFeedBack->name}}</label></b>
                                   </div>
 
                                   <div class="col-md-1">
@@ -357,8 +357,8 @@
                                       <label for="generalFeedback[{{$gf->id}}]" class="btn btn-success btn-sm btn-outline-success">
                                           YES</label>
                                       <input type="radio" value="{{$gf->id}}_yes"
-                                            @if(isset($gf->MAssignedProjectFeedBack->m_project_progress_id) && $gf->MAssignedProjectFeedBack->m_project_progress_id ==$progresses->id)
-                                                 @if(isset($gf->MAssignedProjectFeedBack->answer) && $gf->MAssignedProjectFeedBack->answer == 'yes') {{"checked"}} @endif
+                                            @if(isset($gf->m_project_progress_id) && $gf->m_project_progress_id ==$progresses->id)
+                                                 @if(isset($gf->answer) && $gf->answer == 'yes') {{"checked"}} @endif
                                             @endif
                                        name="generalFeedback[{{$gf->id}}]">
                                   </div>
@@ -366,14 +366,14 @@
                                       <label for="generalFeedback[{{$gf->id}}]" class="btn btn-danger btn-sm btn-outline-danger">
                                           NO</label>
                                           <input type="radio" value="{{$gf->id}}_no"
-                                            @if(isset($gf->MAssignedProjectFeedBack->m_project_progress_id) && $gf->MAssignedProjectFeedBack->m_project_progress_id ==$progresses->id)
-                                              @if($gf->MAssignedProjectFeedBack->answer== 'no') {{"checked"}} @endif
+                                            @if(isset($gf->m_project_progress_id) && $gf->m_project_progress_id ==$progresses->id)
+                                              @if($gf->answer== 'no') {{"checked"}} @endif
                                             @endif
                                            name="generalFeedback[{{$gf->id}}]">
                                   </div>
                                   <div class="col-md-1"></div>
                               </div>
-                          @endforeach
+                            @endforeach
                             <div class="form-group row">
                               <div class="col-md-10"></div>
                                 <div class="col-md-1">

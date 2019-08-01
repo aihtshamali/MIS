@@ -151,7 +151,7 @@
                                 <form action="{{route('deleteObjective')}}" method="POST" enctype="multipart/form-data">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="objNo" value="{{$obj->id}}">
-                                    <button class="btn btn-sm btn-danger deleteObjective"  onclick="return confirm('Are you sure?')" type="submit" id="deleteObjective" > <i class="fa fa-trash"></i> </button>
+                                    <button class="btn btn-sm btn-danger deleteObjective"  onclick="return confirm('Deletion of objective will lead to delete all the mappings of this objective.Are you sure?')" type="submit" id="deleteObjective" > <i class="fa fa-trash"></i> </button>
                                 </form>
                             </td>
                             <td> 
@@ -185,7 +185,7 @@
                            
                                             {{ csrf_field() }}
                                             <input type="hidden" name="CompNo" value="{{$comp->id}}">
-                                            <button class="btn btn-sm btn-danger deleteComp" onclick="return confirm('Are you sure?')"  type="submit" id="deleteComp" > <i class="fa fa-trash"></i>  </button>
+                                            <button class="btn btn-sm btn-danger deleteComp" onclick="return confirm('Deletion of component will lead to delete this respective component from all mapped places.Are you sure?')"  type="submit" id="deleteComp" > <i class="fa fa-trash"></i>  </button>
                                         </form>        
                                  </td>
                                  <td>
@@ -425,14 +425,14 @@
                             <div class="customeKPIsHere form-group">
                                 <div class="col-md-12">
                                     <div class="DisInlineflex mb_2 col-md-12">
-                                        <label class="col-sm-1 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level 1</label>
+                                        <label class="col-sm-1 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level 1<span style="color:red">*</span></label>
                                         <div class="col-sm-5">
-                                            <input type="text" name="level1" class="form-control" placeholder="Enter Kpi">
+                                            <input type="text" name="level1" required="required" class="form-control" placeholder="Enter WBS">
                                         </div>
                                         <div class="col-sm-4 ml-3">
-                                            {{-- <input type="text" name="level1" class="form-control" placeholder="Enter Kpi"> --}}
-                                            <select name="component_mapped[]" required class="select2" multiple="multiple">
-                                                <option value="" disabled>Choose Components</option>
+                                            <label for="">Components <span style="color:red">*</span></label>
+                                            <select name="component_mapped[]" required="required" class="select2" multiple="multiple"> <span style="color:red">*</span>
+                                                <option value="" disabled>Choose Components</option> 
                                                 @foreach ($components as $item)
                                                     <option value="{{$item->id}}">{{$item->component}}</option>
                                                 @endforeach
@@ -445,7 +445,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="button" id="customButton" class="btn btn-success pull-right mr-5">SAVE</button>
+                        <button type="button" id="customButton"  onclick="return confirm('Are You Sure?')"  class="btn btn-success pull-right mr-5">SAVE</button>
                         </form>
                 </div>
             </div>
@@ -486,7 +486,7 @@
                                 <div class="col-md-6" style="padding-left:3% !important;">
                                     <div class="row col-md-12">
                                         <ul class="col-md-12 row" id='addkpi'>
-                                            <h5 class=" mb_2">KPIs</h5>
+                                            <h5 class=" mb_2">WBS</h5>
 
                                         </ul>
                                     </div>
@@ -517,13 +517,13 @@
                                     <tr>
                                         <td>
                                                 {{-- {{route('deleteKpi')}} --}}
-                                                {{-- return confirm('KPI : {{App\MProjectKpi::find($key)->name}}\n1: All mapped components with this Custom/Default WBS will also be deleted. \n2: After visiting respective Project Site, One must not delete the Custom/Default Wbs.It will lead to miscalculations of progresses. \n Are you sure ?') --}}
-                                        <form action="#" method="POST" >
+                                                {{-- return confirm('This is Inprogress.We apologize for any inconvenience.')" --}}
+                                        <form action="{{route('deleteKpi')}}" method="POST" >
                                                     {{ csrf_field() }}
                                                     <input type="hidden" name="kpi_id" value="{{App\MProjectKpi::find($key)->id}}">
                                         <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
                                                     <button class="btn btn-sm btn-danger deleteKpi"  
-                                                    onclick="return confirm('This is Inprogress.We apologize for any inconvenience.')" type="button" id="deleteKpi" > <i class="fa fa-trash"></i> </button>
+                                                    onclick="return confirm('KPI : {{App\MProjectKpi::find($key)->name}}\n1: All mapped components with this Custom/Default WBS will also be deleted. \n2: After visiting respective Project Site, One must not delete the Custom/Default Wbs.It will lead to miscalculations of progresses. \n Are you sure ?')" type="submit" id="deleteKpi" > <i class="fa fa-trash"></i> </button>
                                                 </form>
                                         </td>
                                         <td>{{App\MProjectKpi::find($key)->name}}</td>
@@ -627,9 +627,10 @@
                 <div class="row">
                     <h4 style="text-align: center;">Summary of User Assigned WBS</h4>
                     <div class="col-md-12 table-responsive">
-                        <table class="table  table-bordered nowrap" id="countit">
+                        <table class="table table-bordered nowrap" id="countit">
                             <thead>
                                 <tr>
+                                    <th></th>
                                     <th>Sr #</th>
                                     <th>User</th>
                                     <th>KPI</th>
@@ -642,6 +643,15 @@
                                 @endphp
                                 @foreach ($projectProgressId->MAssignedKpi as $userkpi)
                                 <tr>
+                                    <td>
+                                        <form action="{{route('deleteUserAssignedKpi')}}" method="POST" >
+                                            {{ csrf_field() }}
+                                            <input type="hidden" name="kpi_id" value="{{$userkpi->MAssignedUserKpi->MProjectKpi->id}}">
+                                                    <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
+                                            <button class="btn btn-sm btn-danger deleteKpi"  
+                                            onclick="return confirm('Deleting {{$userkpi->MAssignedUserKpi->MProjectKpi->name }} .... \n Deleting respective WBS will delete the assigned cost to it, but mapping will not be deleted from here.You can assign it again.\n Are you sure?')" type="submit" id="deleteKpi" > <i class="fa fa-trash"></i> </button>
+                                        </form>
+                                    </td>
                                     <td>{{$i++}}</td>
                                     <td>
                                         {{$userkpi->MAssignedUserKpi->MAssignedUserLocation->User->first_name}} {{$userkpi->MAssignedUserKpi->MAssignedUserLocation->User->last_name}} - {{$userkpi->MAssignedUserKpi->MAssignedUserLocation->District->name}} -{{$userkpi->MAssignedUserKpi->MAssignedUserLocation->site_name}}
