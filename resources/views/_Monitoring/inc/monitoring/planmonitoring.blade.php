@@ -35,7 +35,7 @@
                     <a class='nav-link {{isset($innertab) && $innertab=="KPI" ? "active" : ""}} kpis' data-toggle="tab" href="#kpis" role="tab" id="kpisss" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Plan WBS</b></a>
                 </li>
                 <li class="nav-item">
-                    <a class='nav-link {{isset($innertab) && $innertab=="uderKPI" ? "active" : ""}} userKPITab' data-toggle="tab" href="#userKPIDiv" id="" role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">User KPI</b></a>
+                    <a class='nav-link {{isset($innertab) && $innertab=="uderKPI" ? "active" : ""}} userKPITab' data-toggle="tab" href="#userKPIDiv" id="" role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">User WBS</b></a>
                 </li>
                 <!-- {{-- <li class="nav-item">
                     <a class="nav-link proloc" data-toggle="tab" href="#prolocDiv" role="tab" id="proloc"
@@ -548,52 +548,8 @@
                 <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
                 <input type="hidden" name="page_tabs" value="plan_task">
                 <input type="hidden" name="counts" id="counts_user_location_id" value="1+">
-                @if($projectProgressId->MAssignedKpi !=null)
                 <div class="row">
-                    <h4 style="text-align: center;">Saved Kpis</h4>
-                    <div class="col-md-12 table-responsive">
-                        <table class="table  table-bordered nowrap" id="countit">
-                            <thead>
-                                <tr>
-                                    <th>Sr #</th>
-                                    <th>User</th>
-                                    <th>KPI</th>
-                                    <th>Cost</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                $i=1;
-                                @endphp
-                                @foreach ($projectProgressId->MAssignedKpi as $userkpi)
-                                <tr>
-                                    <td>{{$i++}}</td>
-                                    <td>
-                                        {{$userkpi->MAssignedUserKpi->MAssignedUserLocation->User->first_name}} {{$userkpi->MAssignedUserKpi->MAssignedUserLocation->User->last_name}} - {{$userkpi->MAssignedUserKpi->MAssignedUserLocation->District->name}} -{{$userkpi->MAssignedUserKpi->MAssignedUserLocation->site_name}}
-
-
-                                    </td>
-                                    <td>@if(isset($userkpi->MAssignedUserKpi->MProjectKpi->name))
-                                        {{$userkpi->MAssignedUserKpi->MProjectKpi->name}}@endif</td>
-                                    <td>
-                                        @if($userkpi->cost)
-                                        {{round($userkpi->cost,3)}} <small>PKR in Millions</small>
-                                        @else
-                                        <span style="color:red"><b>Not Added</b></span>
-                                        @endif
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                @endif
-
-                <div class="row">
-
-                    <h4>User Kpis</h4>
-
+                    <h4>Assign User To Wbs</h4>
                 </div>
                 <div class="row col-md-12">
                     <div class="col-md-4 text-center">
@@ -667,6 +623,47 @@
                 <!-- end user Location content -->
 
             </form>
+            @if($projectProgressId->MAssignedKpi !=null)
+                <div class="row">
+                    <h4 style="text-align: center;">Summary of User Assigned WBS</h4>
+                    <div class="col-md-12 table-responsive">
+                        <table class="table  table-bordered nowrap" id="countit">
+                            <thead>
+                                <tr>
+                                    <th>Sr #</th>
+                                    <th>User</th>
+                                    <th>KPI</th>
+                                    <th>Cost</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php
+                                $i=1;
+                                @endphp
+                                @foreach ($projectProgressId->MAssignedKpi as $userkpi)
+                                <tr>
+                                    <td>{{$i++}}</td>
+                                    <td>
+                                        {{$userkpi->MAssignedUserKpi->MAssignedUserLocation->User->first_name}} {{$userkpi->MAssignedUserKpi->MAssignedUserLocation->User->last_name}} - {{$userkpi->MAssignedUserKpi->MAssignedUserLocation->District->name}} -{{$userkpi->MAssignedUserKpi->MAssignedUserLocation->site_name}}
+
+
+                                    </td>
+                                    <td>@if(isset($userkpi->MAssignedUserKpi->MProjectKpi->name))
+                                        {{$userkpi->MAssignedUserKpi->MProjectKpi->name}}@endif</td>
+                                    <td>
+                                        @if($userkpi->cost)
+                                        {{round($userkpi->cost,3)}} <small>PKR in Millions</small>
+                                        @else
+                                        <span style="color:red"><b>Not Added</b></span>
+                                        @endif
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                @endif
         </div>
         {{-- <div class="tab-pane " id="prolocDiv" role="tabpanel" aria-expanded="false" style="display:none;">
                   prolocDiv

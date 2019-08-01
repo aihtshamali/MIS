@@ -786,7 +786,7 @@
                 <div class='tab-pane {{isset($innertab) && $innertab=="risk" ? "active" : ""}}' id="risks" role="tabpanel">
                     <div class="card z-depth-right-0">
                         <div class="card-header">
-                            <h4>Risks</h4>
+                            <h4>Risks </h4>
                             <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit.
                             Sunt similique totam harum sit. Quibusdam libero, harum rem
                             quam repellendus adipisci. Repellat sapiente asperiores
