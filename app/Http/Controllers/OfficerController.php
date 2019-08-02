@@ -75,6 +75,9 @@ use App\MProjectLevel3Kpi;
 use App\MProjectLevel4Kpi;
 use App\ReportData;
 use App\PostSne;
+use App\MAssignedKpiLevel2Log;
+use App\MAssignedKpiLevel1Log;
+
 class OfficerController extends Controller
 {
 
@@ -714,6 +717,9 @@ class OfficerController extends Controller
         $projectProgressId=$progresses;
         $monitoringProjectId=$projectProgressId->id;
 
+        $assignedHealthSafeties = MAssignedProjectHealthSafety::where('m_project_progress_id',$progresses->id)->get();
+        $assignedGeneralFeedbacks= MAssignedProjectFeedBack::where('m_project_progress_id',$progresses->id)->get();
+        // dd($assignedGeneralFeedbacks);
         $objectives =MPlanObjective::where('status',1)
         ->where('m_project_progress_id',$projectProgressId->id)
         ->get();
@@ -739,7 +745,16 @@ class OfficerController extends Controller
         // dd($ComponentActivities);
         $Kpis =MProjectKpi::where('status',1)->where('standard',1)->get();
 
-        $mPlanKpiComponents=$projectProgressId->MPlanKpicomponentMapping;
+        $mPlanKpiComponents=$projectProgressId->MPlanKpicomponentMapping->groupBy('m_project_kpi_id');
+        // dd($mPlanKpiComponents);
+        // foreach (App\MPlanKpicomponentMapping::select('m_project_kpi_id')->where('m_project_progress_id',$project->id)->groupBy('m_project_kpi_id')->get() as $mappedKPi)
+        //     foreach ($mappedKPi->where('m_project_kpi_id',$mappedKPi->MProjectKpi->id)->get() as $item)    {
+
+        //     }                        
+
+
+        // $customkpis=MProjectKPI::where('id',);
+
         $cities=PlantripCity::orderBy('name')->get();
         $districts=District::orderBy('name')->get();
         $org_project=Project::where('id',$request->project_id)->first();
@@ -766,11 +781,7 @@ class OfficerController extends Controller
         $assigned_districts = AssignedDistrict::where('project_id',$request->project_id)->get();
 
         $user_locations=$projectProgressId->MAssignedUserLocation;
-        // dd($user_locations);
-        // dd($assigned_districts[0]->District);
-      // dd($level_1[0]->MAssignedKpiLevel2[1]->MAssignedKpiLevel3);
-        // monitoring_kpi_recursion($level_1);
-        // dd(weight($level_1))o;
+
 
         $start_Date=date_create($project->Project->ProjectDetail->planned_start_date);
         $end_date=date_create($project->Project->ProjectDetail->planned_end_date);
@@ -787,11 +798,12 @@ class OfficerController extends Controller
          'assigned_user_locations'=>$user_locations
         ]);
        
+        
         // dd($generalFeedback[0]u->MAssignedProjectFeedBack->answer);
         // dd($components[0]->MPlanObjectivecomponentMapping[0]->m_plan_objective_id);
         return view('_Monitoring._Officer.projects.inprogressSingle'
         ,compact('first_visit_date','gestation_period','m_assigned_issues','qualityassesments','B_Stakeholders','sponsoringStakeholders'
-        ,'executingStakeholders',
+        ,'executingStakeholders','assignedGeneralFeedbacks',
         'project_documents','result_from_app','org_project','districts','cities',
         'org_projectId','projectProgressId','mPlanKpiComponents','ComponentActivities',
         'monitoringProjectId','Kpis','components','objectives','sectors','sub_sectors','project'
@@ -883,16 +895,7 @@ class OfficerController extends Controller
         ->where('assigned_projects.complete',1)
         ->where('assigned_project_teams.user_id',Auth::id())
         ->count();
-        // $total_assigned_projects = ($total_projects - $inprogress_projects)-$completed_projects;
-        // $actual_total_assigned_projects=Project::select('projects.*')
-        // ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
-        // ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
-        // ->whereNull('assigned_projects.project_id')
-        // ->whereNull('assigned_project_managers.project_id')
-        // ->where('projects.project_type_id',1)
-        // ->where('projects.status',1)
-        // ->get();
-        // $total_assigned_projects = $actual_total_assigned_projects->count();
+      
         $model = new User();
         $officers = $model->hydrate(
           DB::select(
@@ -1028,7 +1031,8 @@ class OfficerController extends Controller
       }
       public function saveGeneralFeedBack(Request $request)
       {
-        foreach ($request->generalFeedback as $gf) {
+        foreach ($request->generalFeedback as $gf) 
+        {
           $temp=explode("_",$gf);
           $m_general_feed_back_id=$temp[0];
           $answer=$temp[1];
@@ -1048,8 +1052,8 @@ class OfficerController extends Controller
           $tabs=explode("_",$request->page_tabs);
           $maintab=$tabs[0];
           $innertab=$tabs[1];
-          return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
         }
+        return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
       }
       public function saveMissues(Request $request)
       {
@@ -1060,24 +1064,25 @@ class OfficerController extends Controller
           $project_issue->m_issue_type_id=$request->issuetype[$key];
           $project_issue->severity=$request->severity[$key];
           if($request->sponsoring_department[$key])
-          $project_issue->sponsoring_agency_id=$request->sponsoring_department[$key];
+            $project_issue->sponsoring_agency_id=$request->sponsoring_department[$key];
           if($request->executing_department[$key])
-          $project_issue->executing_agency_id=$request->executing_department[$key];
+            $project_issue->executing_agency_id=$request->executing_department[$key];
           $project_issue->m_project_progress_id=$request->m_project_progress_id;
           $project_issue->save();
-          // Copy from here
-          $tabs=explode("_",$request->page_tabs);
-          // dd($request->all());
-          $maintab=$tabs[0];
-          $innertab=$tabs[1];
-          return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
         }
+        // Copy from here
+        $tabs=explode("_",$request->page_tabs);
+        // dd($request->all());
+        $maintab=$tabs[0];
+        $innertab=$tabs[1];
+        return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
       }
 
       public function savehealthsafety(Request $request)
       {
-        // dd($request->status);
-        foreach ($request->status as $key=>$healthsafety) {
+        // dd($request->all());
+        foreach ($request->status as $key=>$healthsafety) 
+        {
           $temp=explode("_",$healthsafety);
           $hs=$temp[0];
           $answer=$temp[1];
@@ -1088,7 +1093,8 @@ class OfficerController extends Controller
             $healthSafety=$res;
           else
             $healthSafety=new MAssignedProjectHealthSafety();
-          $healthSafety->m_health_safety_id=$hs;
+          
+            $healthSafety->m_health_safety_id=$hs;
           $healthSafety->user_id=Auth::id();
           $healthSafety->status=$answer;
           $healthSafety->remarks=$request->comments[$key];
@@ -1104,9 +1110,10 @@ class OfficerController extends Controller
           // dd($request->all());
           $maintab=$tabs[0];
           $innertab=$tabs[1];
+        }
+
           return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
           // return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
-        }
       }
 
       public function deleteObjective(Request $request)
@@ -1195,6 +1202,261 @@ class OfficerController extends Controller
 
       }
 
+      public function deleteKpi(Request $request)
+      {
+        // dd($request);
+     
+          $kpi = MProjectKpi::find($request->kpi_id);
+
+          if($kpi->standard== 1)
+          {
+            if(MAssignedUserKpi::where('m_project_kpi_id',$request->kpi_id)->where('m_project_progress_id',$request->m_project_progress_id)->count())
+            {
+              $MAssignedUserKpi_id =MAssignedUserKpi::where('m_project_kpi_id',$request->kpi_id)
+              ->where('m_project_progress_id',$request->m_project_progress_id)->first();
+              $Massignedkpi=MAssignedKpi::where('m_assigned_user_kpi_id',$MAssignedUserKpi_id->id)->first();
+            
+              $level_1 = $Massignedkpi->MAssignedKpiLevel1->first();
+            
+                if(MAssignedKpiLevel1Log::where('m_project_level1_kpis_id',$level_1->m_project_level1_kpis_id)
+                ->where('m_project_progress_id',$request->m_project_progress_id)
+                ->count())
+                {
+                  return redirect()->back()->with('This cant be deleted.');
+                }
+                else 
+                {
+                  if($Massignedkpi->MAssignedKpiLevel1->count())
+                  { 
+                      foreach($Massignedkpi->MAssignedKpiLevel1 as $l1)
+                      {
+                        //  dd($l1);
+                          if($l1->MAssignedKpiLevel2->count())
+                          {
+                            $Massignedkpi_l2=MAssignedKpiLevel2::where('m_assigned_kpi_level1_id',$l1->id)->get();
+                            foreach($Massignedkpi_l2 as $l2)
+                            {
+                              if($l2->MAssignedKpiLevel3->count())
+                              {
+                                foreach($l2->MAssignedKpiLevel3 as $l3)
+                                {
+                                  if($l3->MAssignedKpiLevel4->count())
+                                  {
+                                    
+                                    $l3->MAssignedKpiLevel4()->delete();
+                                  }
+                                }
+                                
+                                $l2->MAssignedKpiLevel3()->delete();
+                              }
+                            }
+                            
+                            $l1->MAssignedKpiLevel2()->delete();
+                          }
+                      }
+                        $Massignedkpi->MAssignedKpiLevel1()->delete();
+                  }
+                  MAssignedKpi::where('m_assigned_user_kpi_id',$MAssignedUserKpi_id->id)->delete();
+                  MAssignedUserKpi::where('m_project_kpi_id',$request->kpi_id)
+                  ->where('m_project_progress_id',$request->m_project_progress_id)
+                  ->delete();
+                }             
+                // dump('i am in1');
+                MPlanKpicomponentMapping::where('m_project_kpi_id',$kpi->id)->delete();  
+            }
+            else
+            {
+              // dump('i am in 2');
+              MPlanKpicomponentMapping::where('m_project_kpi_id',$kpi->id)->delete();  
+            }
+          }
+          elseif($kpi->standard == 0)
+          {
+            if(MAssignedUserKpi::where('m_project_kpi_id',$request->kpi_id)->where('m_project_progress_id',$request->m_project_progress_id)->count())
+            {
+              $MAssignedUserKpi_id =MAssignedUserKpi::where('m_project_kpi_id',$request->kpi_id)
+              ->where('m_project_progress_id',$request->m_project_progress_id)->first();
+              $Massignedkpi=MAssignedKpi::where('m_assigned_user_kpi_id',$MAssignedUserKpi_id->id)->first();
+            
+              $level_1 = $Massignedkpi->MAssignedKpiLevel1->first();
+            
+                if(MAssignedKpiLevel1Log::where('m_project_level1_kpis_id',$level_1->m_project_level1_kpis_id)
+                ->where('m_project_progress_id',$request->m_project_progress_id)
+                ->count())
+                {
+                  return redirect()->back()->with('This cant be deleted.');
+                }
+                else 
+                {
+                  if($Massignedkpi->MAssignedKpiLevel1->count())
+                  { 
+                      foreach($Massignedkpi->MAssignedKpiLevel1 as $l1)
+                      {
+                        //  dd($l1);
+                          if($l1->MAssignedKpiLevel2->count())
+                          {
+                            $Massignedkpi_l2=MAssignedKpiLevel2::where('m_assigned_kpi_level1_id',$l1->id)->get();
+                            foreach($Massignedkpi_l2 as $l2)
+                            {
+                              if($l2->MAssignedKpiLevel3->count())
+                              {
+                                foreach($l2->MAssignedKpiLevel3 as $l3)
+                                {
+                                  if($l3->MAssignedKpiLevel4->count())
+                                  {
+                                    
+                                    $l3->MAssignedKpiLevel4()->delete();
+                                  }
+                                }
+                                
+                                $l2->MAssignedKpiLevel3()->delete();
+                              }
+                            }
+                            
+                            $l1->MAssignedKpiLevel2()->delete();
+                          }
+                      }
+                        $Massignedkpi->MAssignedKpiLevel1()->delete();
+                    }
+                    MAssignedKpi::where('m_assigned_user_kpi_id',$MAssignedUserKpi_id->id)->delete();
+                    MAssignedUserKpi::where('m_project_kpi_id',$request->kpi_id)
+                    ->where('m_project_progress_id',$request->m_project_progress_id)
+                    ->delete();
+                    // dd('i am in');
+                    return redirect()->back();
+                }
+
+                foreach($kpi->MProjectLevel1Kpi as $pro_l1)
+                {
+                  if($pro_l1->MProjectLevel2Kpi->count())
+                  {
+                    foreach($pro_l1->MProjectLevel2Kpi as $pro_l2)
+                    {
+                      if($pro_l2->MProjectLevel3Kpi->count())
+                      {
+                        foreach($pro_l2->MProjectLevel3Kpi as $pro_l3)
+                        {
+                          if($pro_l3->MProjectLevel4Kpi->count())
+                          {
+                            $pro_l3->MProjectLevel4Kpi()->delete();
+                          }
+                        }
+                        $pro_l2->MProjectLevel3Kpi()->delete();
+                      }
+                    }
+                    $pro_l1->MProjectLevel2Kpi()->delete();
+                  }
+                } 
+              
+                $kpi->MProjectLevel1Kpi()->delete();              
+                MPlanKpicomponentMapping::where('m_project_kpi_id',$kpi->id)->delete();  
+                MProjectKpi::where('id',$kpi->id)->delete();
+              
+            }
+            else
+            {
+              foreach($kpi->MProjectLevel1Kpi as $pro_l1)
+              {
+                if($pro_l1->MProjectLevel2Kpi->count())
+                {
+                  foreach($pro_l1->MProjectLevel2Kpi as $pro_l2)
+                  {
+                    if($pro_l2->MProjectLevel3Kpi->count())
+                    {
+                      foreach($pro_l2->MProjectLevel3Kpi as $pro_l3)
+                      {
+                        if($pro_l3->MProjectLevel4Kpi->count())
+                        {
+                          $pro_l3->MProjectLevel4Kpi()->delete();
+                        }
+                      }
+                      $pro_l2->MProjectLevel3Kpi()->delete();
+                    }
+                  }
+                  $pro_l1->MProjectLevel2Kpi()->delete();
+                }
+              } 
+                MPlanKpicomponentMapping::where('m_project_kpi_id',$kpi->id)->delete();  
+                MProjectKpi::where('id',$kpi->id)->delete(); 
+            }  
+          }
+            // dump('done');
+          return redirect()->back();
+      }
+    
+   
+
+    public function deleteUserAssignedKpi(Request $request)
+    {
+  
+       $this->delUserWbs($request->kpi_id , $request->m_project_progress_id);
+       return redirect()->back();
+
+
+    }
+
+    public function delUserWbs($kpi_id , $project_id)
+    {
+      if(MAssignedUserKpi::where('m_project_kpi_id',$kpi_id)->where('m_project_progress_id',$project_id)->count())
+      {
+        $MAssignedUserKpi_id =MAssignedUserKpi::where('m_project_kpi_id',$kpi_id)->where('m_project_progress_id',$project_id)->first();
+        $Massignedkpi=MAssignedKpi::where('m_assigned_user_kpi_id',$MAssignedUserKpi_id->id)->first();
+      
+        $level_1 = $Massignedkpi->MAssignedKpiLevel1->first();
+      
+          if(MAssignedKpiLevel1Log::where('m_project_level1_kpis_id',$level_1->m_project_level1_kpis_id)
+          ->where('m_project_progress_id',$project_id)
+          ->count())
+          {
+            return redirect()->back()->with('This cant be deleted.');
+          }
+          else 
+          {
+            if($Massignedkpi->MAssignedKpiLevel1->count())
+            { 
+                foreach($Massignedkpi->MAssignedKpiLevel1 as $l1)
+                {
+                  //  dd($l1);
+                    if($l1->MAssignedKpiLevel2->count())
+                    {
+                      $Massignedkpi_l2=MAssignedKpiLevel2::where('m_assigned_kpi_level1_id',$l1->id)->get();
+                      foreach($Massignedkpi_l2 as $l2)
+                      {
+                        if($l2->MAssignedKpiLevel3->count())
+                        {
+                          foreach($l2->MAssignedKpiLevel3 as $l3)
+                          {
+                            if($l3->MAssignedKpiLevel4->count())
+                            {
+                              
+                              $l3->MAssignedKpiLevel4()->delete();
+                            }
+                          }
+                          
+                          $l2->MAssignedKpiLevel3()->delete();
+                        }
+                      }
+                      
+                      $l1->MAssignedKpiLevel2()->delete();
+                    }
+                }
+                  $Massignedkpi->MAssignedKpiLevel1()->delete();
+            }
+              MAssignedKpi::where('m_assigned_user_kpi_id',$MAssignedUserKpi_id->id)->delete();
+              MAssignedUserKpi::where('m_project_kpi_id',$kpi_id)
+              ->where('m_project_progress_id',$project_id)
+              ->delete();
+              // dd('i am in');
+              return redirect()->back();
+          }
+
+      }
+      else
+      {
+        return redirect()->back();
+      }
+    }
+
       public function projectDesignMonitoring(Request $request)
       {
         // dd($request->obj[0]);
@@ -1249,8 +1511,7 @@ class OfficerController extends Controller
 
       public function mappingOfObj(Request $request)
       {
-        // $projectProgressId= MProjectProgress::where('assigned_project_id',$request->project_progress_no)->get();
-        // $objectives =MPlanObjective::where('status',1)->count();
+       
         MPlanObjectivecomponentMapping::where('m_project_progress_id',$request->m_project_progress_id)->delete();
         $i=0;
         foreach($request->objective as $objective)
@@ -1297,43 +1558,6 @@ class OfficerController extends Controller
             $kpiCompMapping->status= true;
             $kpiCompMapping->save();
           }
-          // $assignedKpi= new MAssignedKpi();
-          // $assignedKpi->m_project_kpi_id=$kpi;
-          // $assignedKpi->m_project_progress_id=$request->m_project_progress_id;
-          // $assignedKpi->user_id=Auth::id();
-          // $assignedKpi->weightage=($request->weightage[$i] == NULL ? 1:$request->weightage[$i]);
-          // $assignedKpi->save();
-
-          // foreach ($assignedKpi->MProjectKpi->MProjectLevel1Kpi as $lev1) {
-          //   $kpiCompMapping1= new MAssignedKpiLevel1();
-          //   $kpiCompMapping1->m_project_progress_id= $request->m_project_progress_id;
-          //   $kpiCompMapping1->m_assigned_kpi_id=$assignedKpi->id;
-          //   $kpiCompMapping1->m_project_level1_kpis_id= $lev1->id;
-          //   $kpiCompMapping1->save();
-          //     foreach ($kpiCompMapping1->MProjectLevel1Kpi->MProjectLevel2Kpi as $lev2) {
-          //       $kpiCompMapping2= new MAssignedKpiLevel2();
-          //       $kpiCompMapping2->m_project_progress_id= $request->m_project_progress_id;
-          //       $kpiCompMapping2->m_assigned_kpi_level1_id= $kpiCompMapping1->id;
-          //       $kpiCompMapping2->m_project_level2_kpis_id= $lev2->id;
-          //       $kpiCompMapping2->save();
-
-          //       foreach ($kpiCompMapping2->MProjectLevel2Kpi->MProjectLevel3Kpi as $lev3) {
-          //         $kpiCompMapping3= new MAssignedKpiLevel3();
-          //         $kpiCompMapping3->m_project_progress_id= $request->m_project_progress_id;
-          //         $kpiCompMapping3->m_assigned_kpi_level2_id= $kpiCompMapping2->id;
-          //         $kpiCompMapping3->m_project_level3_kpis_id= $lev3->id;
-          //         $kpiCompMapping3->save();
-
-          //         foreach ($kpiCompMapping3->MProjectLevel3Kpi->MProjectLevel4Kpi as $lev4) {
-          //           $kpiCompMapping4= new MAssignedKpiLevel4();
-          //           $kpiCompMapping4->m_project_progress_id= $request->m_project_progress_id;
-          //           $kpiCompMapping4->m_assigned_kpi_level3_id= $kpiCompMapping3->id;
-          //           $kpiCompMapping4->m_project_level4_kpis_id= $lev4->id;
-          //           $kpiCompMapping4->save();
-          //         }
-          //       }
-          //     }
-          //   }
           $i++;
         }
         $tabs=explode("_",$request->page_tabs);
@@ -1589,18 +1813,21 @@ class OfficerController extends Controller
      {
         $project=MProjectProgress::where('assigned_project_id',$request->project_id)->orderBy('created_at','desc')->first();
         $report_data = ReportData::where('m_project_progress_id',$project->id)->first();
-        //
-          // dd($project->MAssignedProjectHealthSafety[0]->MHealthSafety);
+        
+        $mPlanKpiComponents=$project->MPlanKpicomponentMapping->groupBy('m_project_kpi_id');
+        // dd($MPlanKpicomponentMapping);  
+        // dd($project->MAssignedProjectHealthSafety[0]->MHealthSafety);
         //  dd($project->MPlanComponentActivitiesMapping[0]->MPlanComponentactivityDetailMapping);
         // dd($project->MProjectAttachment);
         \JavaScript::put([
           'project_id'=>$project->id
         ]);
-          return view('_Monitoring._Officer.projects.report',compact('project','report_data'));
+          return view('_Monitoring._Officer.projects.report',compact('project','report_data','mPlanKpiComponents'));
      }
 
      //saving report Data
-     public function save_report_data(Request $request){
+     public function save_report_data(Request $request)
+     {
        $report_data = ReportData::where('m_project_progress_id',$request->project)->first();
        if(!$report_data){
         $report_data = new ReportData();
@@ -1805,7 +2032,8 @@ class OfficerController extends Controller
       $m_project_kpi->status = 1;
       
       //Mapping Components
-      if(isset($request->component_mapped)){
+      if(isset($request->component_mapped))
+      {
         $m_project_kpi->save();
         foreach($request->component_mapped as $comp){
           $component_mapping = new MPlanKpicomponentMapping();
@@ -1817,7 +2045,8 @@ class OfficerController extends Controller
           $component_mapping->save();
         }
       }
-      else{
+      else
+      {
         return redirect()->back();
       }
 
@@ -1871,70 +2100,72 @@ class OfficerController extends Controller
     public function saveManualImages(Request $request)
     {
       // dd($request->all());
-      foreach($request->file('imgs') as $imgs){
+      foreach($request->file('imgs') as $imgs)
+      {
         // dd($imgs);
-      $data = new MAppAttachment();
-      $file_path =$imgs->path();
-      $file_extension =$imgs->getMimeType();
-      if (!is_dir('storage/uploads/monitoring/')) {
-        // dir doesn't exist, make it
-        mkdir('storage/uploads/monitoring/');
+        $data = new MAppAttachment();
+        $file_path =$imgs->path();
+        $file_extension =$imgs->getMimeType();
+        if (!is_dir('storage/uploads/monitoring/')) {
+          // dir doesn't exist, make it
+          mkdir('storage/uploads/monitoring/');
+        }
+        $imgs->store('public/uploads/monitoring/'.$request->m_project_progress_id.'/');
+          $data->project_attachement=$imgs->hashName();
+          // $data->project_attachement=base64_encode(file_get_contents($file_path));
+        $data->user_id=Auth::id();
+        $data->m_project_progress_id = $request->m_project_progress_id;
+        $data->type = $file_extension;
+        $data->attachment_name=$imgs->getClientOriginalName();
+        $data->longitude=0;
+        $data->latitude=0;
+        $data->save();
       }
-     $imgs->store('public/uploads/monitoring/'.$request->m_project_progress_id.'/');
-      $data->project_attachement=$imgs->hashName();
-      // $data->project_attachement=base64_encode(file_get_contents($file_path));
-      $data->user_id=Auth::id();
-      $data->m_project_progress_id = $request->m_project_progress_id;
-      $data->type = $file_extension;
-      $data->attachment_name=$imgs->getClientOriginalName();
-      $data->longitude=0;
-      $data->latitude=0;
-      $data->save();
-    }
-    return redirect()->back();
+       return redirect()->back();
 
     }
-  public function SavePostSne(Request $request)
-  {
-    
-    $post_sne= PostSne::where('assigned_project_id', $request->assigned_project)->first();
-    if($post_sne!=null){ //Update Existing
-      if($request->post_sne=="With SNE")
-        {
-          $post_sne->sne=1;
-          if($request->sne_type== "staff_nums"){
-            $post_sne->num_of_staff = $request->num_of_staff;
-            
+
+    public function SavePostSne(Request $request)
+    {
+      
+      $post_sne= PostSne::where('assigned_project_id', $request->assigned_project)->first();
+      if($post_sne!=null){ //Update Existing
+        if($request->post_sne=="With SNE")
+          {
+            $post_sne->sne=1;
+            if($request->sne_type== "staff_nums"){
+              $post_sne->num_of_staff = $request->num_of_staff;
+              
+            }else{
+              $dates=explode("-",$request->sne_daterange);
+              $post_sne->conditioned_start_date = $dates[0];
+              $post_sne->conditioned_end_date = $dates[1];
+            }
           }else{
-            $dates=explode("-",$request->sne_daterange);
+              $post_sne->recommendation = $request->recommendation;
+              $post_sne->future_lessson = $request->future_lessson;
+            
+          }
+
+      }else{  //CREATE NEW
+        $post_sne= new PostSne();
+        if ($request->post_sne == "With SNE") {
+          $post_sne->sne = 1;
+          $post_sne->assigned_project_id = $request->assigned_project;
+          if ($request->sne_type == "staff_nums") {
+            $post_sne->num_of_staff = $request->num_of_staff;
+          } else {
+            $dates = explode("-", $request->sne_daterange);
             $post_sne->conditioned_start_date = $dates[0];
             $post_sne->conditioned_end_date = $dates[1];
           }
-        }else{
-            $post_sne->recommendation = $request->recommendation;
-            $post_sne->future_lessson = $request->future_lessson;
-          
-        }
-
-    }else{  //CREATE NEW
-      $post_sne= new PostSne();
-      if ($request->post_sne == "With SNE") {
-        $post_sne->sne = 1;
-        $post_sne->assigned_project_id = $request->assigned_project;
-        if ($request->sne_type == "staff_nums") {
-          $post_sne->num_of_staff = $request->num_of_staff;
         } else {
-          $dates = explode("-", $request->sne_daterange);
-          $post_sne->conditioned_start_date = $dates[0];
-          $post_sne->conditioned_end_date = $dates[1];
+          $post_sne->recommendation = $request->recommendation;
+          $post_sne->future_lessson = $request->future_lessson;
         }
-      } else {
-        $post_sne->recommendation = $request->recommendation;
-        $post_sne->future_lessson = $request->future_lessson;
       }
-    }
-    $post_sne->save();
-    return redirect()->back(); 
+      $post_sne->save();
+      return redirect()->back(); 
 
-  }
+    }
 }

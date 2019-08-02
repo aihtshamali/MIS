@@ -40,6 +40,7 @@
                             <th>Project Number</th>
                             <th>Project Name</th>
                             <th>Project Officers</th>
+                            <th>SNE</th>
                             <th>Date Start</th>
                             <th>Date End</th>
                             <th>Score</th>
@@ -54,12 +55,13 @@
                       <td>{{ $project->project->title }}</td>
                       <td>
                       @foreach ($project->AssignedProjectTeam as $team)
-                        {{ $team->User->first_name }} {{ $team->User->last_name }}
+                        {{ $team->User->first_name }} {{ $team->User->last_name }} <br>
                       @endforeach
                       @if(count($project->AssignedProjectTeam) > 1)
-                      /
+                      
                     @endif
                     </td>
+                    <td>{{$project->project->ProjectDetail->sne}}</td>
                     <td>
                     {{date('d-m-Y',strtotime($project->created_at))}}
                     </td>

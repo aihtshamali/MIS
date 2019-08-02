@@ -43,6 +43,12 @@
 .list-group-item{
   border: none;
 }
+/* .table thead > th ,.table tbody > tr > td  
+{
+  padding: 6px !important;
+  width: 35% !important;
+} */
+
   </style>
 @endsection
 
@@ -83,14 +89,14 @@
               </h4>
              
             <table class="table table-borderd">
-                  <tr>
+                  <thead>
                       <th>
                           Agenda Item
                       </th>
                       <th>
                           ADP No
                       </th>
-                      <th>
+                      <th colspan=2>
                           Name of Scheme
                       </th>
                       <th>
@@ -108,10 +114,12 @@
                         <th>
                           Agenda Descision
                         </th>
-                  </tr>
-                  <?php $var = 1?>
-                  @foreach ($agendas as $agenda)
-                      <tr>
+                  </thead>
+                  <tbody>
+
+                    <?php $var = 1?>
+                    @foreach ($agendas as $agenda)
+                    <tr>
                           <td>
                             {{$agenda->agenda_item}}
                           </td>
@@ -122,8 +130,8 @@
                             No ADP
                             @endif
                           </td>
-      
-                          <td>
+                          
+                          <td colspan=2>
                             {{$agenda->scheme_name}}
                           </td>
                           <td>
@@ -135,33 +143,34 @@
                           <td>
                             
                             @if(isset($agenda->HrAttachment->attachments))
-                          <a href="{{asset('storage/uploads/projects/project_agendas/'.$agenda->HrAttachment->attachments)}}" download>{{$agenda->HrAttachment->attachments}}</a>
-                          @endif
-                         
-                        </td>
+                            <a href="{{asset('storage/uploads/projects/project_agendas/'.$agenda->HrAttachment->attachments)}}" download>{{$agenda->HrAttachment->attachments}}</a>
+                            @endif
+                            
+                          </td>
                           <td>
-                              @if (isset($agenda->HrMomAttachment->attachment))
-                                <a href="{{asset('/storage/uploads/projects/meetings_mom/'.$agenda->HrMomAttachment->attachment)}}" download> {{$agenda->HrMomAttachment->attachment}}</a>
-                              @endif
-      
-                            </td>
-                            <td>
-                                @if (isset($agenda->HrProjectDecision->hr_decision_id))
-                                  @if($agenda->HrProjectDecision->hr_decision_id=='1')
-                                  <span style="color:Green"><b>{{$agenda->HrProjectDecision->HrDecision->name}}</b></span>
-                                  @elseif($agenda->HrProjectDecision->hr_decision_id=='2')
-                                  <span style="color:orange"><b>{{$agenda->HrProjectDecision->HrDecision->name}}</b></span>
-                                  @elseif($agenda->HrProjectDecision->hr_decision_id=='3')
-                                  <span style="color:red"><b>{{$agenda->HrProjectDecision->HrDecision->name}}</b></span>
-                                  @else
+                            @if (isset($agenda->HrMomAttachment->attachment))
+                            <a href="{{asset('/storage/uploads/projects/meetings_mom/'.$agenda->HrMomAttachment->attachment)}}" download> {{$agenda->HrMomAttachment->attachment}}</a>
+                            @endif
+                            
+                          </td>
+                          <td>
+                            @if (isset($agenda->HrProjectDecision->hr_decision_id))
+                            @if($agenda->HrProjectDecision->hr_decision_id=='1')
+                            <span style="color:Green"><b>{{$agenda->HrProjectDecision->HrDecision->name}}</b></span>
+                            @elseif($agenda->HrProjectDecision->hr_decision_id=='2')
+                            <span style="color:orange"><b>{{$agenda->HrProjectDecision->HrDecision->name}}</b></span>
+                            @elseif($agenda->HrProjectDecision->hr_decision_id=='3')
+                            <span style="color:red"><b>{{$agenda->HrProjectDecision->HrDecision->name}}</b></span>
+                            @else
                                   <b>{{$agenda->HrProjectDecision->HrDecision->name}}</b>
                                   @endif
-                                @else
-                                <label for=""> Meeting not conducted yet.</label>
+                                  @else
+                                  <label for=""> Meeting not conducted yet.</label>
                                  @endif
                             </td>
-                      </tr>
-                  @endforeach
+                          </tr>
+                          @endforeach
+                        </tbody>
               </table>
          </div>
       

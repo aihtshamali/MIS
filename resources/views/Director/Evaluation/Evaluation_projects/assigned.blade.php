@@ -100,21 +100,6 @@
                   </div>
                 </div>
               </div>
-              {{-- <div class="row" style="margin-top:10px">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Date range button:</label>
-                    <div class="input-group pull-right">
-                      <button type="button" class="btn btn-default pull-right" id="daterange-btn">
-                        <span>
-                          <i class="fa fa-calendar"></i> Date range picker
-                        </span>
-                        <i class="fa fa-caret-down"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div> --}}
 
               <div class="row" style="margin-top:10px">
                 <div class="col-md-6">
@@ -128,80 +113,7 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-            <div class="box1 box-warning">
-                <div class="box-header with-border">
-                  <h3 class="box-title">STOPPED PROJECTS</h3>
-    
-                  <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                  </div>
-                </div>
-                <div class="box-body2">
-                    <div class="table-responsive">
-                      <table class="table table-hover table-striped">
-                        <tbody>
-                            <thead>
-                                <th>Project Number</th>
-                                <th>Project Name</th>
-                                <th>Team Members</th>
-                                <th>Priority</th>
-                                <th>Score</th>
-                                <th>Assigned Duration</th>
-                                <th>Progress</th>
-                                <th></th>
-                              </thead>
-                              <tbody>
-                                @foreach ($stoppedProjects as $S_assigned)
-                                  <tr>
-                                    <td>{{$S_assigned->project->project_no}}</td>
-                                    <td>{{$S_assigned->project->title}}</td>
-                                    <td>
-                                        @foreach ($S_assigned->AssignedProjectTeam as $team)
-                                        @if ($team->team_lead==1)
-                                          <span style="font-weight:bold;color:blue">{{$team->user->first_name}}  {{$team->user->last_name}} -</span>
-                                        @else
-                                          <span class="">{{$team->user->first_name}} {{$team->user->last_name}}</span>
-                                        @endif
-                                      @endforeach
-    
-                                    </td>
-                                    <td>
-                                      {{ $S_assigned->project->ProjectDetail->AssigningForum->name }}
-                                    </td>
-                                    <td>
-                                      {{ round($S_assigned->project->score,2,PHP_ROUND_HALF_UP) }}
-                                    </td>
-    
-                                    <td>
-                                      @php
-                                        $interval = date_diff(date_create(date('Y-m-d h:i:s',strtotime($S_assigned->created_at))), date_create(date('Y-m-d h:i:s')))->format('%m Month %d Day %h Hours');
-                                        // $duration=$interval->format();
-                                      @endphp
-                                      {{-- {{$S_assigned->created_at}} --}}
-                                      {{$interval}}
-                                      {{-- {{dd($interval)}} --}}
-                                      {{-- {{$duration}} --}}
-                                    </td>
-                                    <td><div class="progress">
-                                        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
-                                          aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo 20+$S_assigned->progress; ?>% ">
-                                        {{round($S_assigned->progress, 0, PHP_ROUND_HALF_UP) }}% Complete
-                                          </div>
-    
-                                        </div></td>
-    
-                                  </tr>
-    
-                                @endforeach
-                              </tbody>
-                        </tbody>
-                      </table>
-                    </div>
-                </div>
-    
-          </div>
+           
           <div class="box1 box-warning">
             <div class="box-header with-border">
               <h3 class="box-title">ASSIGNED PROJECTS</h3>
@@ -218,9 +130,10 @@
                   <table class="table table-hover table-striped">
                     <tbody>
                         <thead>
-                            <th>Project Number</th>
+                            <th>Project #</th>
                             <th>Project Name</th>
                             <th>Team Members</th>
+                            <th>SNE</th>
                             <th>Priority</th>
                             <th>Score</th>
                             <th>Assigned Duration</th>
@@ -237,13 +150,14 @@
                                 <td>
                                     @foreach ($assigned->AssignedProjectTeam as $team)
                                     @if ($team->team_lead==1)
-                                <span style="font-weight:bold;color:red"><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}">{{$team->user->first_name}}  {{$team->user->last_name}}</a> - </span>
+                                <span ><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}" style="font-weight:bold;color:red">{{$team->user->first_name}}  {{$team->user->last_name}}</a> <br> </span>
                                     @else
-                                      <span class=""><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}">{{$team->user->first_name}} {{$team->user->last_name}}</a></span>
+                                      <span class=""><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}">{{$team->user->first_name}} {{$team->user->last_name}}</a> <br></span>
                                     @endif
                                   @endforeach
 
                                 </td>
+                                <td>{{$assigned->project->ProjectDetail->sne}}</td>
                                 <td>
                                   {{ $assigned->project->ProjectDetail->AssigningForum->name }}
                                 </td>

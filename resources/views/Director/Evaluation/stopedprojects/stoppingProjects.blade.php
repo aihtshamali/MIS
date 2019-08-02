@@ -58,6 +58,7 @@
                           <th>Project Number</th>
                           <th>Project Name</th>
                           <th>Team Members</th>
+                          <th>SNE</th>
                           <th>Priority</th>
                           <th>Score</th>
                           <th>Assigned Duration</th>
@@ -74,9 +75,9 @@
                                 <td>
                                     @foreach ($assigned->AssignedProjectTeam as $team)
                                     @if ($team->team_lead==1)
-                                <span style="font-weight:bold;color:red"><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}">{{$team->user->first_name}}  {{$team->user->last_name}}</a> - </span>
+                                <span ><a style="font-weight:bold;color:red" href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}">{{$team->user->first_name}}  {{$team->user->last_name}}</a> <br></span>
                                     @else
-                                      <span class=""><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}">{{$team->user->first_name}} {{$team->user->last_name}}</a></span>
+                                      <span class=""><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}">{{$team->user->first_name}} {{$team->user->last_name}}</a> <br></span>
                                     @endif
                                   @endforeach
 
@@ -87,7 +88,7 @@
                                 <td>
                                   {{ round($assigned->project->score,2,PHP_ROUND_HALF_UP) }}
                                 </td>
-
+                                <td>{{$assigned->project->ProjectDetail->sne}}</td>
                                 <td>
                                   @php
                                     $interval = date_diff(date_create(date('Y-m-d h:i:s',strtotime($assigned->created_at))), date_create(date('Y-m-d h:i:s')))->format('%m Month %d Day %h Hours');
