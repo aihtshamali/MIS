@@ -445,7 +445,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="button" id="customButton"  onclick="return confirm('Are You Sure?')"  class="btn btn-success pull-right mr-5">SAVE</button>
+                        <button type="submit" id="customButton"  onclick="return confirm('Are You Sure?')"  class="btn btn-success pull-right mr-5">SAVE</button>
                         </form>
                 </div>
             </div>

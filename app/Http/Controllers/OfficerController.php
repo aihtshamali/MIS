@@ -1210,7 +1210,65 @@ class OfficerController extends Controller
 
           if($kpi->standard== 1)
           {
-            MPlanKpicomponentMapping::where('m_project_kpi_id',$kpi->id)->delete();  
+            if(MAssignedUserKpi::where('m_project_kpi_id',$request->kpi_id)->where('m_project_progress_id',$request->m_project_progress_id)->count())
+            {
+              $MAssignedUserKpi_id =MAssignedUserKpi::where('m_project_kpi_id',$request->kpi_id)
+              ->where('m_project_progress_id',$request->m_project_progress_id)->first();
+              $Massignedkpi=MAssignedKpi::where('m_assigned_user_kpi_id',$MAssignedUserKpi_id->id)->first();
+            
+              $level_1 = $Massignedkpi->MAssignedKpiLevel1->first();
+            
+                if(MAssignedKpiLevel1Log::where('m_project_level1_kpis_id',$level_1->m_project_level1_kpis_id)
+                ->where('m_project_progress_id',$request->m_project_progress_id)
+                ->count())
+                {
+                  return redirect()->back()->with('This cant be deleted.');
+                }
+                else 
+                {
+                  if($Massignedkpi->MAssignedKpiLevel1->count())
+                  { 
+                      foreach($Massignedkpi->MAssignedKpiLevel1 as $l1)
+                      {
+                        //  dd($l1);
+                          if($l1->MAssignedKpiLevel2->count())
+                          {
+                            $Massignedkpi_l2=MAssignedKpiLevel2::where('m_assigned_kpi_level1_id',$l1->id)->get();
+                            foreach($Massignedkpi_l2 as $l2)
+                            {
+                              if($l2->MAssignedKpiLevel3->count())
+                              {
+                                foreach($l2->MAssignedKpiLevel3 as $l3)
+                                {
+                                  if($l3->MAssignedKpiLevel4->count())
+                                  {
+                                    
+                                    $l3->MAssignedKpiLevel4()->delete();
+                                  }
+                                }
+                                
+                                $l2->MAssignedKpiLevel3()->delete();
+                              }
+                            }
+                            
+                            $l1->MAssignedKpiLevel2()->delete();
+                          }
+                      }
+                        $Massignedkpi->MAssignedKpiLevel1()->delete();
+                  }
+                  MAssignedKpi::where('m_assigned_user_kpi_id',$MAssignedUserKpi_id->id)->delete();
+                  MAssignedUserKpi::where('m_project_kpi_id',$request->kpi_id)
+                  ->where('m_project_progress_id',$request->m_project_progress_id)
+                  ->delete();
+                }             
+                // dump('i am in1');
+                MPlanKpicomponentMapping::where('m_project_kpi_id',$kpi->id)->delete();  
+            }
+            else
+            {
+              // dump('i am in 2');
+              MPlanKpicomponentMapping::where('m_project_kpi_id',$kpi->id)->delete();  
+            }
           }
           elseif($kpi->standard == 0)
           {
@@ -1383,7 +1441,7 @@ class OfficerController extends Controller
                     }
                 }
                   $Massignedkpi->MAssignedKpiLevel1()->delete();
-              }
+            }
               MAssignedKpi::where('m_assigned_user_kpi_id',$MAssignedUserKpi_id->id)->delete();
               MAssignedUserKpi::where('m_project_kpi_id',$kpi_id)
               ->where('m_project_progress_id',$project_id)
