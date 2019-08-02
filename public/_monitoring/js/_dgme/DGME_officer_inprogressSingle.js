@@ -822,7 +822,6 @@ $("button#addmoreben").click(function (e) {
     <td>
         <div class="col-md-12">
         <input type="text" name="Beneficiarystakeholder[]" class="form-control" placeholder="Beneficiary">
-
         </div>
     </td>
     <td><input type="text" name="Beneficiarystakeholder_name[]"
@@ -837,12 +836,14 @@ $("button#addmoreben").click(function (e) {
                     <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td></tr>`;
   $("#Beneficiarystakeholders").append(add_stakeholder);
 });
-
 $("button#add-more-issues").click(function (e) {
+  
   var temp = $("tbody#add-issue-here")
     .children()
     .first()
     .clone();
+  
+  temp.children().children('span.select2').remove();    
   temp
     .children()
     .last()
@@ -851,7 +852,7 @@ $("button#add-more-issues").click(function (e) {
     '<td><button class="btn btn-sm btn-danger" id="remove-issue" onclick="removeIssuerow(this)" name="remove[]" type="button">-</button></td>'
   );
   $(temp).appendTo("#add-issue-here");
-    $(".select2").select2();
+  $("select[name='issuetype[]']").select2();
     // $(".select2-hidden-accessible").last().css("display", "none");
 });
 $("button#add-more").click(function (e) {
@@ -1569,9 +1570,9 @@ $(document).ready(function () {
     var customeKPIs = `
       <div class="col-md-12">
           <div class="DisInlineflex mb_2 col-md-12">
-              <label class="col-sm-1 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level ` + ++p + `</label>
+              <label class="col-sm-1 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level  ` + ++p + ` <span style="color:red">*</span></label>
               <div class="col-sm-7">
-                  <input type="text" name="level1_` + child++ + `" class="form-control" placeholder="Level ` + p + `">
+                  <input type="text" required name="level1_` + child++ + `" class="form-control" placeholder="Level ` + p + `">
               </div>
               <div class="col-sm-1 text_center">
                   <button class="btn btn-sm btn-info" type="button" id="addcustomeKPIs` + p + `" tabindex="1">+</button>
@@ -1591,12 +1592,12 @@ $(document).ready(function () {
       var customeKPIslevel2 = `
         <div class="col-md-12">
             <div class="DisInlineflex mb_2 col-md-12">
-                <label class="col-sm-2 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level ` + ++p + ` child ` + ++childl2 + `</label>
+                <label class="col-sm-2 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level ` + ++p + ` child ` + ++childl2 + ` <span style="color:red">*</span></label>
                 <div class="col-sm-5 mr-2">
                     <input type="text" name="` + parent.toString() + `_` + child2++ + `" class="form-control" placeholder="Level ` + p + `">
                 </div>
                  <div class="col-sm-2">
-                    <input type="number" required name="weightage_` + parent.toString() + `_` + child2++ + `" class="form-control" placeholder="Level ` + p + `  Weightage">
+                 <span style="color:red">*</span>  <input type="number" required="required" name="weightage_` + parent.toString() + `_` + child2++ + `" class="form-control" placeholder="Level ` + p + `  Weightage">
                 </div> 
                 <div class="col-sm-1 text_center">
                   <button class="btn btn-sm btn-info" type="button" id="addcustomeKPIs` + p + `" tabindex="1">+</button>
@@ -1617,12 +1618,12 @@ $(document).ready(function () {
         var customeKPIslevel3 = `
         <div class="col-md-12">
             <div class="DisInlineflex mb_2 col-md-12">
-                <label class="offset-md-1 col-sm-2 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level ` + ++p + ` child ` + ++childl3 + `</label>
+                <label class="offset-md-1 col-sm-2 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level ` + ++p + ` child ` + ++childl3 + ` <span style="color:red">*</span></label>
                 <div class="col-sm-5 mr-2">
                     <input type="text" name="` + parent2.toString() + `_` + child3++ + `" class="form-control" placeholder="Level ` + p + `">
                 </div>
                  <div class="col-sm-2">
-                    <input type="number" required name="weightage_` + parent2.toString() + `_` + child3++ + `" class="form-control" placeholder="Level ` + p + ` Weightage">
+                 <span style="color:red">*</span><input type="number" required="required" name="weightage_` + parent2.toString() + `_` + child3++ + `" class="form-control" placeholder="Level ` + p + ` Weightage">
                 </div> 
                 <div class="col-sm-1 text_center">
                   <button class="btn btn-sm btn-info" type="button" id="addcustomeKPIs` + p + `" tabindex="1">+</button>
@@ -1642,12 +1643,12 @@ $(document).ready(function () {
           var customeKPIslevel4 = `
           <div class="col-md-12">
               <div class="DisInlineflex mb_2 col-md-12">
-                  <label class="offset-md-2 col-sm-2 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level ` + ++p + ` child ` + ++childl4 + `</label>
+                  <label class="offset-md-2 col-sm-2 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level ` + ++p + ` child ` + ++childl4 + ` <span style="color:red">*</span></label>
                   <div class="col-sm-5 mr-2">
                       <input type="text" name="` + parent3.toString() + `_` + child4++ + `" class="form-control" placeholder="Level ` + p + `">
                   </div>
                    <div class="col-sm-2">
-                      <input type="number" required name="weightage_` + parent3.toString() + `_` + child4++ + `" class="form-control" placeholder="Level ` + p + ` Weightage">
+                   <span style="color:red">*</span> <input type="number" required="required" name="weightage_` + parent3.toString() + `_` + child4++ + `" class="form-control" placeholder="Level ` + p + ` Weightage">
                   </div> 
                   <div class="col-sm-1 text_center">
                       <button class="delcustomeKPIs btn btn-sm btn-danger" type="button" id="" tabindex="1">-</button>
@@ -1700,6 +1701,7 @@ $(document).ready(function () {
     $(this).remove();
   });
 
+  
   $(document).on("click", "#customButton", function () {
     $.each($('.cloneleveltwohere'), function (index, value) {
       // console.log(value);
