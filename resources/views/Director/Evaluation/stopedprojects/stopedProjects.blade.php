@@ -21,6 +21,7 @@
           <th>Project No</th>
           <th>Name</th>
           <th>Remarks</th>
+          <th>SNE</th>
           <th>Stopped By</th>
           <th>Stopped Date</th>
           <th>Re Assign</th>
@@ -33,6 +34,7 @@
           <td>{{$stoppedProject->AssignedProject->Project->project_no}}</td>
           <td>{{$stoppedProject->AssignedProject->Project->title}}</td>
           <td>{{$stoppedProject->remarks}}</td>
+          <td>{{$stoppedProject->AssignedProject->Project->ProjectDetail->sne}}</td>
           <td>{{$stoppedProject->User->first_name}} {{$stoppedProject->User->last_name}}</td>
           <td>{{date('Y-m-d H:i:s',strtotime($stoppedProject->created_at))}}</td>
           <td>

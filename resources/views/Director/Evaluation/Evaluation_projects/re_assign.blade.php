@@ -21,7 +21,8 @@
           <tr>
             <th>Project #</th>
             <th>Project Name</th>
-            <th>Department</th>
+            <th>Subsector(s)/Department(s)</th>
+            <th>SNE</th>
             <th>Assigned To</th>
             <th>Assigned By</th>
             <th>ReAssign</th>
@@ -33,12 +34,13 @@
                 <td>{{ $project->project->project_no }}</td>
                 <td>{{ $project->project->title }}</td>
                 <td>{{ $project->project->AssignedSubSectors[0]->SubSector->name }}</td>
+                <td>{{$project->project->ProjectDetail->sne}}</td>
                 <td>
                   @foreach ($project->AssignedProjectTeam as $team)
                     @if ($team->team_lead==1)
-                      <span style="font-weight:bold;color:blue">{{$team->user->first_name}}  {{$team->user->last_name}} -</span>
+                      <span style="font-weight:bold;color:blue">{{$team->user->first_name}}  {{$team->user->last_name}} <br></span>
                     @else
-                      <span class="">{{$team->user->first_name}} {{$team->user->last_name}}</span>
+                      <span class="">{{$team->user->first_name}} {{$team->user->last_name}} <br> </span>
                     @endif
                   @endforeach
                 </td>
