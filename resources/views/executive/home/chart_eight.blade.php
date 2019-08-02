@@ -123,7 +123,7 @@
               "Assigned Projects": assignedprojects_wrt_sectors[$i][0].eachproject,
               "Inprogress Projects": inprogressprojects_wrt_sectors[$i][0].eachinprogressproject,
               "Completed Projects": completedprojects_wrt_sectors[$i][0].eachcompletedproject,
-              "Stopped Project": stoppedProjects_wrt_sectors[$i][0].eachStoppedproject
+             
             });
             $i++;
           });
