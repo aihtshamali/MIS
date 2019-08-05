@@ -14,7 +14,7 @@
       <div class="col-md-12" style="padding:70px">
         <div class="box box-warning ">
             <div class="box-header with-border">
-              <h3 class="box-title"><b>ASSIGNED PROJECTS</b></h3>
+              <h4 class="box-title"><b>ASSIGNED PROJECTS</b></h4>
             </div>
             <div class="box-body">
               <table id="example" class="table table-striped table-bordered" style="width:100%;">

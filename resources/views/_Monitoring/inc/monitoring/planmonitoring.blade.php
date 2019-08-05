@@ -509,12 +509,14 @@
                         <table class="table table-stripped">
                             <thead>
                                 <th>Action</th>
+                                <th>Id</th>
                                 <th>WBS</th>
                                 <th>Components</th>
                             </thead>
                             <tbody>
                                 @foreach ($mPlanKpiComponents as $key=>$item)
                                     <tr>
+                                    <td>{{$key}}</td>
                                         <td>
                                                 {{-- {{route('deleteKpi')}} --}}
                                                 {{-- return confirm('This is Inprogress.We apologize for any inconvenience.')" --}}
@@ -633,7 +635,8 @@
                                     <th></th>
                                     <th>Sr #</th>
                                     <th>User</th>
-                                    <th>KPI</th>
+                                    <th>Id</th>
+                                    <th>KPI </th>
                                     <th>Cost</th>
                                 </tr>
                             </thead>
@@ -658,6 +661,7 @@
 
 
                                     </td>
+                                    <td>{{$userkpi->MAssignedUserKpi->MProjectKpi->id}}</td>
                                     <td>@if(isset($userkpi->MAssignedUserKpi->MProjectKpi->name))
                                         {{$userkpi->MAssignedUserKpi->MProjectKpi->name}}@endif</td>
                                     <td>
