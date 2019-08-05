@@ -1217,7 +1217,7 @@ class OfficerController extends Controller
               $Massignedkpi=MAssignedKpi::where('m_assigned_user_kpi_id',$MAssignedUserKpi_id->id)->first();
             
               $level_1 = $Massignedkpi->MAssignedKpiLevel1->first();
-            
+            // dd($level_1);
                 if(MAssignedKpiLevel1Log::where('m_project_level1_kpis_id',$level_1->m_project_level1_kpis_id)
                 ->where('m_project_progress_id',$request->m_project_progress_id)
                 ->count())
@@ -1279,11 +1279,15 @@ class OfficerController extends Controller
               $Massignedkpi=MAssignedKpi::where('m_assigned_user_kpi_id',$MAssignedUserKpi_id->id)->first();
             
               $level_1 = $Massignedkpi->MAssignedKpiLevel1->first();
-            
-                if(MAssignedKpiLevel1Log::where('m_project_level1_kpis_id',$level_1->m_project_level1_kpis_id)
+              // dd($level_1);
+            // dd(MAssignedKpiLevel1Log::where('m_project_level1_kpis_id',$level_1->m_project_level1_kpis_id)
+            // ->where('m_project_progress_id',$request->m_project_progress_id)
+            // ->count());
+                if(isset($level_1) && MAssignedKpiLevel1Log::where('m_project_level1_kpis_id',$level_1->m_project_level1_kpis_id)
                 ->where('m_project_progress_id',$request->m_project_progress_id)
                 ->count())
                 {
+               
                   return redirect()->back()->with('This cant be deleted.');
                 }
                 else 
@@ -1317,7 +1321,7 @@ class OfficerController extends Controller
                           }
                       }
                         $Massignedkpi->MAssignedKpiLevel1()->delete();
-                    }
+                  }
                     MAssignedKpi::where('m_assigned_user_kpi_id',$MAssignedUserKpi_id->id)->delete();
                     MAssignedUserKpi::where('m_project_kpi_id',$request->kpi_id)
                     ->where('m_project_progress_id',$request->m_project_progress_id)
@@ -1404,7 +1408,7 @@ class OfficerController extends Controller
       
         $level_1 = $Massignedkpi->MAssignedKpiLevel1->first();
       
-          if(MAssignedKpiLevel1Log::where('m_project_level1_kpis_id',$level_1->m_project_level1_kpis_id)
+          if(isset($level_1) && MAssignedKpiLevel1Log::where('m_project_level1_kpis_id',$level_1->m_project_level1_kpis_id)
           ->where('m_project_progress_id',$project_id)
           ->count())
           {
