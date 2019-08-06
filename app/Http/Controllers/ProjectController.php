@@ -515,7 +515,10 @@ class ProjectController extends Controller
       if($request->evaluation_type != NULL){
         $project->evaluation_type_id = $request->evaluation_type;
         $project_original->evaluation_type_id = $request->evaluation_type;
+      }else if(isset($request->type_of_project)){
+        $project_original->project_type_id = $request->type_of_project;
       }
+      
       if($request->adp_no != NULL){
         $project->ADP = $request->adp_no;
         $project_original->ADP = $request->adp_no;
@@ -524,7 +527,9 @@ class ProjectController extends Controller
       $project->status = 1;
 
       $project_original_detail = $project_original->ProjectDetail;
-
+      if (isset($request->phase_of_project) && $request->phase_of_project != '' && $request->phase_of_project != NULL) {
+        $project_original_detail->sub_project_type_id = $request->phase_of_project;
+      }
       if($request->currency){
         $project->currency = $request->currency;
         $project_original_detail->currency = $request->currency;
@@ -693,7 +698,7 @@ class ProjectController extends Controller
       $notification->table_name='project_logs';
       $notification->table_id=$project->id;
       $notification->save();
-      return redirect()->route('new_evaluation');
+      return redirect()->back()->withMessage("Updated Successfully");
     }
     public function ProjectRemove(){
       $projects=Project::where('project_type_id',1)->get();
@@ -847,6 +852,58 @@ class ProjectController extends Controller
       'projects' => $final
   ]);
     return view('_Monitoring._Dataentry.create',compact('project_no','project_types','adp','sub_project_types','districts','sectors','sponsoring_departments','executing_departments','assigning_forums','current_year','approving_forums','sub_sectors'));
+  }
+  public function EditMonitoringEntryForm($id)
+  {
+    $project = Project::find($id);
+    $project_no=$project->project_no;
+    if($project_no){
+    $projectNo=explode('-',$project_no);
+    $project_no=$projectNo[0].'-'.($projectNo[1]+1);
+    }
+    else {
+      $project_no = "PRO-1";
+    }
+    // dd($project_no);
+    $sub_project_types = SubProjectType::where('project_type_id','2')->where('status','1')->get();
+    $project_types = ProjectType::where('name','Monitoring')->where('status','1')->first();
+    $districts = District::where('status','1')->get();
+    $sectors  = Sector::where('status','1')->get();
+    $sub_sectors = SubSector::where('status','1')->get();
+    $sponsoring_departments = SponsoringAgency::where('status','1')->get();
+    $executing_departments = ExecutingAgency::where('status','1')->get();
+    $assigning_forums = AssigningForum::where('status','1')->get();
+    // $assigning_forumList = AssigningForumSubList::where('status','1')->get();
+    // $project_no = Str::random();
+    $current_year = date('Y');
+    $approving_forums = ApprovingForum::where('status','1')->get();
+    $adp = AdpProject::where('financial_year','2017-18')->orderBy('gs_no')->get();
+    $data = [];
+    $keys = [];
+    foreach ($adp as $val) {
+      array_push($keys,$val->gs_no);
+      array_push($data,$val);
+    }
+    $final = array_combine($keys,$data);
+    foreach ($districts as $district) {
+      $district->name = $district->name;
+    }
+    foreach ($sectors as $sector) {
+      $sector->name = $sector->name . "/";
+    }
+    foreach ($sponsoring_departments as $sponsoring_department) {
+      $sponsoring_department->name = $sponsoring_department->name . "/";
+    }
+    foreach ($executing_departments as $executing_department) {
+      $executing_department->name = $executing_department->name . "/";
+    }
+    foreach ($assigning_forums as $assigning_forum) {
+      $assigning_forum->name = $assigning_forum->name . "/";
+    }
+    \JavaScript::put([
+      'projects' => $final
+  ]);
+    return view('_Monitoring._Dataentry.edit',compact('project','project_no','project_types','adp','sub_project_types','districts','sectors','sponsoring_departments','executing_departments','assigning_forums','current_year','approving_forums','sub_sectors'));
   }
 
   public function viewMonitoringForm()

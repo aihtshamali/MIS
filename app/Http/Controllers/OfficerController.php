@@ -189,27 +189,15 @@ class OfficerController extends Controller
 
       public function getAssignedExecutingAgency(Request $request)
       {
-        $exeagency = AssignedExecutingAgency::where('project_id',$request->originalProjectId)->get();
-        $size= count($exeagency);
-        // return response()->json($size);
-        // $sa=[];
+        $exeagency = AssignedExecutingAgency::where('project_id',$request->originalProjectId)->with('ExecutingAgency')->get();
         return response()->json($exeagency);
       }
 
       public function getAssignedSponsoringAgency(Request $request)
       {
 
-        $sponsoringagency = AssignedSponsoringAgency::where('project_id',$request->originalProjectId)->get();
-        $size= count($sponsoringagency);
-        // return response()->json($size);
-        $sa=[];
+        $sponsoringagency = AssignedSponsoringAgency::where('project_id',$request->originalProjectId)->with('SponsoringAgency')->get();
         return response()->json($sponsoringagency);
-        for($i=0; $i<$size ; $i++)
-        {
-        array_push($sa, $sponsoringagency->SponsoringAgency);
-        }
-          // return response()->json($sa);
-
       }
 
       public function getProjectActivities(Request $request)
