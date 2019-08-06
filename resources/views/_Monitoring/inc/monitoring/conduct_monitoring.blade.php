@@ -341,7 +341,7 @@
                             {{ csrf_field() }}
                             <input type="hidden" name="m_project_progress_id" value="{{$progresses->id}}">
                             <input type="hidden" name="page_tabs" value="conduct_stake">
-                            @foreach ($assignedGeneralFeedbacks as $key => $gf)
+                            @foreach ($generalFeedback as $key => $gf)
                               <div class=" form-group row">
                                   <div class="col-md-1"></div>
                                   <div class="col-md-1">
@@ -349,27 +349,31 @@
                                   </div>
 
                                   <div class="col-md-5">
-                                      <b><label for="">{{$gf->MGeneralFeedBack->name}}</label></b>
+                                      <b><label for="">{{$gf->name}}</label></b>
                                   </div>
 
                                   <div class="col-md-1">
-
                                       <label for="generalFeedback[{{$gf->id}}]" class="btn btn-success btn-sm btn-outline-success">
                                           YES</label>
                                       <input type="radio" value="{{$gf->id}}_yes"
-                                            @if(isset($gf->m_project_progress_id) && $gf->m_project_progress_id ==$progresses->id)
-                                                 @if(isset($gf->answer) && $gf->answer == 'yes') {{"checked"}} @endif
-                                            @endif
-                                       name="generalFeedback[{{$gf->id}}]">
+                                       @if(isset($gf->MAssignedProjectFeedBack) 
+                                        && $gf->MAssignedProjectFeedBack->where('m_project_progress_id',$progresses->id)->first() 
+                                        && $gf->MAssignedProjectFeedBack->answer == "yes") 
+                                        {{"checked"}} 
+                                        @endif
+                                      
+                                      name="generalFeedback[{{$gf->id}}]">
                                   </div>
                                   <div class="col-md-1">
                                       <label for="generalFeedback[{{$gf->id}}]" class="btn btn-danger btn-sm btn-outline-danger">
                                           NO</label>
                                           <input type="radio" value="{{$gf->id}}_no"
-                                            @if(isset($gf->m_project_progress_id) && $gf->m_project_progress_id ==$progresses->id)
-                                              @if($gf->answer== 'no') {{"checked"}} @endif
-                                            @endif
-                                           name="generalFeedback[{{$gf->id}}]">
+                                          @if(isset($gf->MAssignedProjectFeedBack) 
+                                        && $gf->MAssignedProjectFeedBack->where('m_project_progress_id',$progresses->id)->first() 
+                                        && $gf->MAssignedProjectFeedBack->answer == "no") 
+                                        {{"checked"}} 
+                                        @endif
+                                          name="generalFeedback[{{$gf->id}}]">
                                   </div>
                                   <div class="col-md-1"></div>
                               </div>
@@ -932,10 +936,11 @@
                                                     <div class="checkbox-fade fade-in-success m-0">
                                                         <label>
                                                             <input type="radio" name="status[{{$key}}]"
-                                                               @if(isset($issue->MAssignedProjectHealthSafety) && $issue->MAssignedProjectHealthSafety->where('m_project_progress_id',$progresses->id)->first() && $issue->MAssignedProjectHealthSafety->status == "yes") 
+                                                               @if(isset($issue->MAssignedProjectHealthSafety) 
+                                                               && $issue->MAssignedProjectHealthSafety->where('m_project_progress_id',$progresses->id)->first() 
+                                                               && $issue->MAssignedProjectHealthSafety->status == "yes") 
                                                                {{"checked"}} 
                                                                @endif
-
                                                                value="{{$issue->id}}_yes" id="" >
                                                             <span class="cr">
                                                                 <i class="cr-icon icofont icofont-ui-check txt-success"></i>
