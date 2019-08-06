@@ -238,6 +238,10 @@
                         role="tab" aria-expanded="false">
                         <b style="font-size:14px; font-weight:bold;">upload image & video</b></a>
                 </li>
+                <li class='nav-item'>
+                    <a class="nav-link observations" data-toggle="tab" href="#observations" role="tab" aria-expanded="false">
+                        <b style="font-size:14px; font-weight:bold;">Observations</b></a>
+                </li>
             </ul>
             <!-- Tab panes -->
             <div class="tab-content tabs card-block">
@@ -1049,6 +1053,13 @@
                             <input type="file" accepts="video/*" multiple>
                         </div>
                     </div>
+                </div>
+                <div class='tab-pane nodisplay' id="observations" role="tabpanel" aria-expanded="false">
+                    <form action="#!" method="POST" class="border">
+                        <textarea name="" id="short_desc" style="height:200px;" class="offset-md-1 col-md-10" placeholder="Type Ovservations Here...">
+                        Type your Observations Here....
+                    </textarea>
+                    </form>
                 </div>
                 {{-- <div class="tab-pane active" id="procurment" role="tabpanel"
                     aria-expanded="true">
