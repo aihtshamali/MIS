@@ -228,37 +228,37 @@ $(document).ready(function () {
     for (j = 2; j <= 30; j++) {
       if (j == 9)
         substring +=
-        '<option value="200' +
-        j +
-        "-" +
-        (j + 1) +
-        '">200' +
-        j +
-        "-" +
-        (j + 1) +
-        "</option>";
+          '<option value="200' +
+          j +
+          "-" +
+          (j + 1) +
+          '">200' +
+          j +
+          "-" +
+          (j + 1) +
+          "</option>";
       else if (j > 9)
         substring +=
-        '<option value="20' +
-        j +
-        "-" +
-        (j + 1) +
-        '">20' +
-        j +
-        "-" +
-        (j + 1) +
-        "</option>";
+          '<option value="20' +
+          j +
+          "-" +
+          (j + 1) +
+          '">20' +
+          j +
+          "-" +
+          (j + 1) +
+          "</option>";
       else
         substring +=
-        '<option value="200' +
-        j +
-        "-0" +
-        (j + 1) +
-        '">200' +
-        j +
-        "-0" +
-        (j + 1) +
-        "</option>";
+          '<option value="200' +
+          j +
+          "-0" +
+          (j + 1) +
+          '">200' +
+          j +
+          "-0" +
+          (j + 1) +
+          "</option>";
     }
     var tr = `
     <tr>
@@ -452,6 +452,7 @@ $(document).ready(function () {
     $("#DatesDiv").hide();
     $(".resultNavBar").hide();
     $("#profile1").hide();
+    $("#observations").hide();
     $("#home1").hide();
   }
 
@@ -685,6 +686,11 @@ $(document).ready(function () {
     $("#r_monitoring").hide();
     $(".resultNavBar").hide();
   });
+  $(".observations").on("click", function () {
+    hideallmaintabs();
+    hideall();
+    $("#observations").show();
+  });
 });
 
 // document.querySelector('.alert-success-msg').onclick = function(){
@@ -785,7 +791,7 @@ function sponsoringAgencyforCM(agencies) {
             <option value="` +
       val.id +
       `">` +
-    val.sponsoring_agency.name +
+      val.sponsoring_agency.name +
       `</option>
         `;
   });
@@ -837,13 +843,13 @@ $("button#addmoreben").click(function (e) {
   $("#Beneficiarystakeholders").append(add_stakeholder);
 });
 $("button#add-more-issues").click(function (e) {
-  
+
   var temp = $("tbody#add-issue-here")
     .children()
     .first()
     .clone();
-  
-  temp.children().children('span.select2').remove();    
+
+  temp.children().children('span.select2').remove();
   temp
     .children()
     .last()
@@ -853,7 +859,7 @@ $("button#add-more-issues").click(function (e) {
   );
   $(temp).appendTo("#add-issue-here");
   $("select[name='issuetype[]']").select2();
-    // $(".select2-hidden-accessible").last().css("display", "none");
+  // $(".select2-hidden-accessible").last().css("display", "none");
 });
 $("button#add-more").click(function (e) {
   var add_risks = `<tr>
@@ -915,8 +921,8 @@ $(document).on("click", "#add_activity", function (e) {
   // $('.planMactivities').append(add_activities);
   console.log(
     $(this)
-    .parent()
-    .find("#alltasks"),
+      .parent()
+      .find("#alltasks"),
     $(this).parent()
   );
   $(this)
@@ -1240,10 +1246,10 @@ $("#add_more_objective").click(function (e) {
 $(document).on("click", ".removeObjective", function () {
   if (
     $(this)
-    .parent()
-    .attr("class")
-    .split(" ")[0]
-    .split("ss")[1] ==
+      .parent()
+      .attr("class")
+      .split(" ")[0]
+      .split("ss")[1] ==
     objct - 1
   ) {
     $(this)
@@ -1256,18 +1262,18 @@ $(document).on("click", ".removeObjective", function () {
     autoindex();
   }
 });
-  // $(document).on("click", ".deleteObjective", function()    
-  // {
-  //         e.preventDefault() // Don't post the form, unless confirmed
-  //         if( confirm('Are you sure?') ) 
-  //         {
-  //             // Post the form
-  //             $(e.target).closest('form').submit() // Post the surrounding form
-  //         }
-  //     });
+// $(document).on("click", ".deleteObjective", function()    
+// {
+//         e.preventDefault() // Don't post the form, unless confirmed
+//         if( confirm('Are you sure?') ) 
+//         {
+//             // Post the form
+//             $(e.target).closest('form').submit() // Post the surrounding form
+//         }
+//     });
 
 
-    
+
 var compAct = $("#compAct").val() != 0 ? parseInt($("#compAct").val()) : 1;
 compAct++;
 
@@ -1322,10 +1328,10 @@ $(document).on("click", ".removecompAct", function () {
   // console.log("Here");
   if (
     $(this)
-    .parent()
-    .attr("class")
-    .split(" ")[0]
-    .split("ct")[1] ==
+      .parent()
+      .attr("class")
+      .split(" ")[0]
+      .split("ct")[1] ==
     compAct - 1
   ) {
     $(this)
@@ -1508,7 +1514,7 @@ $(document).ready(function () {
     $("#counts_user_location").attr("value", user_location_count);
     $(".select2").select2();
     $(".delLastLocChild").each(function (index) {
-      if (index == 0 || index == 1) {} else {
+      if (index == 0 || index == 1) { } else {
         $(this)
           .children()
           .last()
@@ -1572,7 +1578,7 @@ $(document).ready(function () {
           <div class="DisInlineflex mb_2 col-md-12">
               <label class="col-sm-1 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level  ` + ++p + ` <span style="color:red">*</span></label>
               <div class="col-sm-7">
-                  <input type="text" required name="level1_` + child++ + `" class="form-control" placeholder="Level ` + p + `">
+                  <input type="text" required name="level1_` + child++ + `" style="padding:2% !important;" class="form-control" placeholder="Level ` + p + `">
               </div>
               <div class="col-sm-1 text_center">
                   <button class="btn btn-sm btn-info" type="button" id="addcustomeKPIs` + p + `" tabindex="1">+</button>
@@ -1594,9 +1600,9 @@ $(document).ready(function () {
             <div class="DisInlineflex mb_2 col-md-12">
                 <label class="col-sm-2 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level ` + ++p + ` child ` + ++childl2 + ` <span style="color:red">*</span></label>
                 <div class="col-sm-5 mr-2">
-                    <input type="text" name="` + parent.toString() + `_` + child2++ + `" class="form-control" placeholder="Level ` + p + `">
+                    <input type="text" name="` + parent.toString() + `_` + child2++ + `" style="padding:2.5% !important;" class="form-control" placeholder="Level ` + p + `">
                 </div>
-                 <div class="col-sm-2">
+                 <div class="col-sm-2" style="margin-top:-2% !important;">
                  <span style="color:red">*</span>  <input type="number" required="required" name="weightage_` + parent.toString() + `_` + child2++ + `" class="form-control" placeholder="Level ` + p + `  Weightage">
                 </div> 
                 <div class="col-sm-1 text_center">
@@ -1620,9 +1626,9 @@ $(document).ready(function () {
             <div class="DisInlineflex mb_2 col-md-12">
                 <label class="offset-md-1 col-sm-2 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level ` + ++p + ` child ` + ++childl3 + ` <span style="color:red">*</span></label>
                 <div class="col-sm-5 mr-2">
-                    <input type="text" name="` + parent2.toString() + `_` + child3++ + `" class="form-control" placeholder="Level ` + p + `">
+                    <input type="text" name="` + parent2.toString() + `_` + child3++ + `" style="padding:2.5% !important;" class="form-control" placeholder="Level ` + p + `">
                 </div>
-                 <div class="col-sm-2">
+                 <div class="col-sm-2" style="margin-top:-2% !important;">
                  <span style="color:red">*</span><input type="number" required="required" name="weightage_` + parent2.toString() + `_` + child3++ + `" class="form-control" placeholder="Level ` + p + ` Weightage">
                 </div> 
                 <div class="col-sm-1 text_center">
@@ -1645,9 +1651,9 @@ $(document).ready(function () {
               <div class="DisInlineflex mb_2 col-md-12">
                   <label class="offset-md-2 col-sm-2 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level ` + ++p + ` child ` + ++childl4 + ` <span style="color:red">*</span></label>
                   <div class="col-sm-5 mr-2">
-                      <input type="text" name="` + parent3.toString() + `_` + child4++ + `" class="form-control" placeholder="Level ` + p + `">
+                      <input type="text" name="` + parent3.toString() + `_` + child4++ + `" style="padding:2.5% !important;" class="form-control" placeholder="Level ` + p + `">
                   </div>
-                   <div class="col-sm-2">
+                   <div class="col-sm-2" style="margin-top:-2% !important;">
                    <span style="color:red">*</span> <input type="number" required="required" name="weightage_` + parent3.toString() + `_` + child4++ + `" class="form-control" placeholder="Level ` + p + ` Weightage">
                   </div> 
                   <div class="col-sm-1 text_center">
@@ -1677,7 +1683,7 @@ $(document).ready(function () {
     $("#counts_user_location_id").val(++user_location_id_count);
     $(".select2").select2();
     $(".delLastChild").each(function (index) {
-      if (index == 0 || index == 1) {} else {
+      if (index == 0 || index == 1) { } else {
         $(this)
           .children()
           .last()
@@ -1701,7 +1707,7 @@ $(document).ready(function () {
     $(this).remove();
   });
 
-  
+
   $(document).on("click", "#customButton", function () {
     $.each($('.cloneleveltwohere'), function (index, value) {
       // console.log(value);
