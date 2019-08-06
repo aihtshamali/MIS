@@ -91,7 +91,8 @@ class AdminHumanResourceController extends Controller
        foreach($letters as $letter)
        {
         if($letter->document_name)
-        { file_put_contents('storage/uploads/projects/dispatch_letters/'.$letter->document_name,base64_decode($letter->scan_document));
+        { 
+          file_put_contents('storage/uploads/projects/dispatch_letters/'.$letter->document_name,base64_decode($letter->scan_document));
         }
       }
        return view('admin_hr.dispatch.index',compact('letters'));

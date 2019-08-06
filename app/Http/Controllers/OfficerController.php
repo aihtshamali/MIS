@@ -242,6 +242,10 @@ class OfficerController extends Controller
 
       public function evaluation_activities($id)
        {
+          if (!is_dir('storage/uploads/projects/project_activities')) {
+          // dir doesn't exist, make it
+          mkdir('storage/uploads/projects/project_activities');
+          }
           if (!is_dir('storage/uploads/projects/project_activities/'.Auth::user()->username)) {
           // dir doesn't exist, make it
           mkdir('storage/uploads/projects/project_activities/'.Auth::user()->username);
@@ -706,8 +710,9 @@ class OfficerController extends Controller
         $monitoringProjectId=$projectProgressId->id;
 
         $assignedHealthSafeties = MAssignedProjectHealthSafety::where('m_project_progress_id',$progresses->id)->get();
+       
         $assignedGeneralFeedbacks= MAssignedProjectFeedBack::where('m_project_progress_id',$progresses->id)->get();
-        // dd($assignedGeneralFeedbacks);
+        // dd($generalFeedback[0]->MAssignedProjectFeedBack);
         $objectives =MPlanObjective::where('status',1)
         ->where('m_project_progress_id',$projectProgressId->id)
         ->get();
@@ -752,7 +757,30 @@ class OfficerController extends Controller
         $financial_cost=MProjectCost::where('m_project_progress_id',$projectProgressId->id)->first();
 
        $project_documents= MProjectAttachment::where('m_project_progress_id',$projectProgressId->id)->get();
-
+        if (!is_dir('storage/uploads/projects/monitoring_attachments')) 
+        {
+          mkdir('storage/uploads/projects/monitoring_attachments');
+        }
+       foreach($project_documents as $p_doc)
+        {
+          if($p_doc->attachment_name)
+          {
+            file_put_contents('storage/uploads/projects/monitoring_attachments/'.$p_doc->attachment_name.'.'.$p_doc->type,base64_decode($p_doc->project_attachment));
+          }
+        }
+        $icons = [
+          'pdf' => 'pdf',
+          'doc' => 'word',
+          'docx' => 'word',
+          'xls' => 'excel',
+          'xlsx' => 'excel',
+          'ppt' => 'powerpoint',
+          'pptx' => 'powerpoint',
+          'txt' => 'text',
+          'png' => 'image',
+          'jpg' => 'image',
+          'jpeg' => 'image',
+      ];
        //stakeholders
        $executingStakeholders= MExecutingStakeholder::where('m_project_progress_id',$projectProgressId->id)->get();
        $sponsoringStakeholders= MSponsoringStakeholder::where('m_project_progress_id',$projectProgressId->id)->get();
@@ -786,7 +814,7 @@ class OfficerController extends Controller
          'assigned_user_locations'=>$user_locations
         ]);
        
-        
+      //  dd($project_documents->count()); 
         // dd($generalFeedback[0]u->MAssignedProjectFeedBack->answer);
         // dd($components[0]->MPlanObjectivecomponentMapping[0]->m_plan_objective_id);
         return view('_Monitoring._Officer.projects.inprogressSingle'
@@ -795,7 +823,7 @@ class OfficerController extends Controller
         'project_documents','result_from_app','org_project','districts','cities',
         'org_projectId','projectProgressId','mPlanKpiComponents','ComponentActivities',
         'monitoringProjectId','Kpis','components','objectives','sectors','sub_sectors','project'
-        ,'costs','location',
+        ,'costs','location','icons',
         'organization','dates','progresses','generalFeedback','issue_types','healthsafety','team'
         ,'assigned_districts'));
       }
@@ -1375,8 +1403,29 @@ class OfficerController extends Controller
             // dump('done');
           return redirect()->back();
       }
+
+      public function deleteUserLoc(Request $request)
+      {
+        // dd($request);
+        MAssignedUserLocation::where('m_project_progress_id',$request->m_project_progress_id)->where('id',$request->userloc_id)->delete();
+        // dd($ddi); 
+        dump('done');
+        $tabs=explode("_",$request->page_tabs);
+        $maintab=$tabs[0];
+        $innertab=$tabs[1];
+        // return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
+        return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Deleted Successfully']);
+
+      }
     
-   
+      public function deleteAttachment(Request $request)
+      {
+        // dd($request);
+       MProjectAttachment::where('id',$request->document_id)->where('m_project_progress_id',$request->m_project_progress_id)->delete();
+       
+       return redirect()->back();
+
+      }   
 
     public function deleteUserAssignedKpi(Request $request)
     {
