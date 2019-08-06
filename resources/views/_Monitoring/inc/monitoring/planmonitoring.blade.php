@@ -16,7 +16,9 @@
             <!-- Nav tabs -->
             <ul class="nav nav-tabs tabs p_tabs" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link {{isset($innertab) && $innertab=='documents' ? 'active' : ''}} PlanDoc" data-toggle="tab" href="#PlanDocDiv" role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Documents</b></a>
+                    <a class="nav-link {{isset($innertab) && $innertab=='documents' ? 'active' : ''}} 
+                    PlanDoc" data-toggle="tab" href="#PlanDocDiv" role="tab" aria-expanded="false">
+                    <b style="font-size:14px; font-weight:bold;">Documents</b></a>
                 </li>
                 <!-- {{-- <li class="nav-item">
                     <a class="nav-link financialphase" data-toggle="tab" href="#financial" id="fpli"
@@ -56,83 +58,127 @@
                 </li> --}}
             </ul>
             <div class="tab-content tabs card-block {{isset($maintab) && $maintab=='plan' ? 'active' : ''}}">
-                <div class="tab-pane {{isset($innertab) && $innertab=='documents' ? 'active' : ''}}" id="PlanDocDiv" role="tabpanel" aria-expanded="true">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <label for="">
-                                <h4><b>Documents & Images</b></h4>
-                            </label>
+                <div class="tab-pane {{isset($innertab) && $innertab=='documents' ? 'active' : ''}}" 
+                id="PlanDocDiv" role="tabpanel" aria-expanded="true"> 
+                    <div class="card">
+                        <div class="card-header"> <h4><b>Documents & Images</b></h4></div>
+                        <div class="card-block">
+                            <form class="serializeform" action="{{route('saveMonitoringAttachments')}}" 
+                            method="post" enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                <div class="row">
+                                    <div class="col-md-3 ">
+                                        <div class="btn col-md-10 offset-md-2 btn-primary btn-block">
+                                            <input type="file" id="html_btn" name="planmonitoringfile" title='Click to add Files' />
+                                            <input type="hidden" name="page_tabs" value="plan_projectdesign">
+                                            <span>Upload File</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 offset-md-1">
+                                        <input type="text" name="file_name" class="placeholder" style="width: 100%;padding: 2%;" placeholder="Type File Name" />
+                                    </div>
+                                    <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
+                                    <div class="col-md-3 ">
+                                        <button type="submit" class="btn btn-sm btn-success pull-right" name="submit">Submit</button>
+                                    </div>
+                                </div>
+                                    
+                            </form>
                         </div>
                     </div>
-                    <div class="row" style="margin-top:5%; margin-bottom: 10%;">
-                        @if(isset($project_documents))
-                        <div class="col-md-6">
-                            @foreach ($project_documents as $project_document)
-                            <label for=""> <b>{{$project_document->attachment_name}}, </b></label>
-                            @endforeach
-                        </div>
-                        @else
-                        <div class="col-md-12">
-                            <h3 style="text-align: center;">No Documents Attached </h3>
-                        </div>
-                        @endif
-                    </div>
-                    <form class="serializeform" action="{{route('saveMonitoringAttachments')}}" method="post" enctype="multipart/form-data">
-                        {{ csrf_field() }}
-                        <div class="row">
-                            <div class="col-md-3 ">
-                                <div class="btn col-md-10 offset-md-2 btn-primary btn-block">
-                                    <input type="file" id="html_btn" name="planmonitoringfile" title='Click to add Files' />
-                                    <input type="hidden" name="page_tabs" value="plan_projectdesign">
-                                    <span>Upload File</span>
+
+                    <div class="card">
+                        <div class="card-header">  <h4><b>Uploaded Attachments</b></h4> </div>
+                        <div class="card-block"> 
+                            @if($project_documents ->count())
+                             <div class="row" style="margin-top:5%; margin-bottom: 10%;">   
+                                <div class="offset-md-3">   
+                                <div class="table table-stripped ">
+                                    <table >
+                                        <thead>
+                                            <th></th>
+                                            <th>Title</th>
+                                            <th>Attachments</th>
+                                            <th>Upload Date & Time</th>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($project_documents as $p_doc)
+                                                <tr>
+                                                    <td>  
+                                                        <form action="{{route('deleteAttachment')}}" method="POST" enctype="multipart/form-data">
+                                                        {{ csrf_field() }}
+                                                        <input type="hidden" name="document_id" value="{{$p_doc->id}}">
+                                                        <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
+                                                        <button class="btn btn-sm btn-danger deleteObjective"  
+                                                        onclick="return confirm('Are you sure?')" type="submit" id="" > 
+                                                        <i class="fa fa-trash"></i> </button>
+                                                         </form>
+                                                    </td>
+                                                    <td>{{$p_doc->attachment_name}}</td>
+                                                    <td>
+                                                        <a href="{{asset('storage/uploads/projects/monitoring_attachments/'.$p_doc->attachment_name.'.'.$p_doc->type)}}" download> 
+                                                            <i class="fa fa-file-{{$icons[$p_doc->type]}}-o fa-1x text-center" title="{{$p_doc->attachment_name }}" /></i>    
+                                                        </a>
+                                                    </td>
+                                                    <td>{{date('d-F-Y | H:i:s', strtotime($p_doc->created_at))}}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                   
+                                </div>
                                 </div>
                             </div>
-                            <div class="col-md-3 offset-md-1">
-                                <input type="text" name="file_name" class="placeholder" style="width: 100%;padding: 2%;" placeholder="Type File Name" />
+                           @else
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h5><b>No Uploaded Attachments</b></h5>
+                                </div>
                             </div>
-                            <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
-                            <div class="col-md-3 ">
-                                <button type="submit" class="btn btn-success pull-right" name="submit">Submit</button>
-                            </div>
+                            @endif
                         </div>
-                            
-                    </form>
+                    </div>
+                   
 
                 </div>
                 <div class="tab-pane {{isset($innertab) && $innertab=='projectdesign' ? 'active' : ''}}" id="i-dates" role="tabpanel" aria-expanded="false">
-                    <form class="serializeform" action="{{ route('projectDesignMonitoring') }}" method="post">
-                        {{ csrf_field() }}
-                        <div class="row">
-                            <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
-                            <input type="hidden" name="page_tabs" value="plan_userLoc">
-                            <input type="hidden" name="objct" id="objct" value="{{count($objectives)}}">
-                            <input type="hidden" name="compAct" id="compAct" value="{{count($components)}}">
-                            <div class="col-md-6 objtivesNew border_right pd_1_2">
-                            <div class="DisInlineflex newClass1 mb_2 col-md-12">
-                                <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Objective 1</label>
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="obj[]" placeholder="Objective 1">
-                                </div>
-                                <div class="col-sm-2 addbtn text_center">
-                                    <button class="btn btn-sm btn-info" type="button" id="add_more_objective" tabindex=1>+</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 compActNew border_left pd_1_2">
-                        <div class="DisInlineflex newClasscompAct mb_2 col-md-12">
-                            <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Component 1</label>
-                            <div class="col-sm-7">
-                                <input type="text" name="comp[]" class="form-control" placeholder="Component 1">
-                            </div>
-                            <div class="col-sm-2 addbtn text_center">
-                                <button class="btn btn-sm btn-info" type="button" id="add_more_compAct" tabindex=100>+</button>
-                            </div>
-                        </div>
-                </div>
-                <button class="btn aho col-md-2 offset-md-10" type="submit" id="saveObjComp">Save & Proceed</button>
-            </div>
-            </form>
-            
+                   <div class="card">
+                       <div class="card-block">
+                            <form class="serializeform" action="{{ route('projectDesignMonitoring') }}" method="post">
+                                    {{ csrf_field() }}
+                                    <div class="row">
+                                        <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
+                                        <input type="hidden" name="page_tabs" value="plan_userLoc">
+                                        <input type="hidden" name="objct" id="objct" value="{{count($objectives)}}">
+                                        <input type="hidden" name="compAct" id="compAct" value="{{count($components)}}">
+                                        <div class="col-md-6 objtivesNew border_right pd_1_2">
+                                        <div class="DisInlineflex newClass1 mb_2 col-md-12">
+                                            <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Objective 1</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" name="obj[]" placeholder="Objective 1">
+                                            </div>
+                                            <div class="col-sm-2 addbtn text_center">
+                                                <button class="btn btn-sm btn-info" type="button" id="add_more_objective" tabindex=1>+</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 compActNew border_left pd_1_2">
+                                        <div class="DisInlineflex newClasscompAct mb_2 col-md-12">
+                                            <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Component 1</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" name="comp[]" class="form-control" placeholder="Component 1">
+                                            </div>
+                                            <div class="col-sm-2 addbtn text_center">
+                                                <button class="btn btn-sm btn-info" type="button" id="add_more_compAct" tabindex=100>+</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="btn aho col-md-2 offset-md-10" type="submit" id="saveObjComp">Save & Proceed</button>
+                                    </div>
+                                </form>
+                        
+                       </div>
+                   </div>
             
             <div class="row">
                     <label for=""><h5><b>Summary Of Objectives</b></h5></label>
@@ -235,126 +281,150 @@
         </div>
         <div class="tab-pane {{isset($innertab) && $innertab == 'userLoc' ? 'active' : ''}} userlocDiv" id="userlocDiv" role="tabpanel" aria-expanded="false">
             <!-- headings -->
+            <div class="card">
+                <div class="card-header"><h4><b>Assign Locations to Users</b></h4></div>
+                <div class="card-block">
+                    <div class="row col-md-11">
+                            <div class="col-md-3 text-center">
+                                <h4 class="form-txt-primary">User</h4>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <h4 class="form-txt-primary">Location</h4>
+                            </div>
+                            <div class="col-md-2  text-center" style="">
+                                <h4 class="form-txt-primary">Site Name</h4>
+                            </div>
+                            <div class="col-md-2  text-center">
+                                <h4 class="form-txt-primary">Start Date</h4>
+                            </div>
+                            <div class="col-md-2  text-center" style="">
+                                <h4 class="form-txt-primary">End Date</h4>
+                            </div>
+                        </div>
+                        <!-- end heading -->
+                        <!-- user Location content -->
+                        <form action="{{route('saveUserLocation')}}" method="POST">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="progress_id" value="{{$projectProgressId->id}}">
+                            <input type="hidden" name="counts" value="1" id="counts_user_location">
+                            <input type="hidden" name="page_tabs" value="plan_Mapping">
+            
+                            <div class="row col-md-12">
+                                <style media="screen" scoped>
+                                    .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
+                                        padding: 1% !important
+                                    }
+            
+                                    ;
+                                </style>
+                                <div class="col-md-11" id="CloneThisUserLoc" style="margin-bottom:1% !important;display: inline-flex;">
+                                    <div class="col-md-3 text-center">
+                                        <div class="col-md-11 offset-md-1 delLastLocChild">
+                                            <select class="select2" id="" name="user_location_1">
+                                                @foreach($team as $t)
+                                                <option value="{{$t->User->id}}">{{$t->User->first_name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 text-center">
+                                        <div class="col-md-11 offset-md-1 delLastLocChild">
+                                            <select class="select2" id="" name="location_user_1[]" multiple="multiple">
+                                                @foreach ($assigned_districts as $ad)
+                                                <option value="{{$ad->District->id}}">{{$ad->District->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <div class="col-md-11 offset-md-1">
+                                            <input type="text" placeholder="Site Name" name="site_name_1" class="site_name form-control" style="padding: 0.7rem !important;" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <div class="col-md-11 offset-md-1">
+                                            <input type="date" placeholder="" name="site_start_1" class="site_start form-control" style="padding: 0.6rem 0rem !important;" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <div class="col-md-11 offset-md-1">
+                                            <input type="date" placeholder="" name="site_end_1" class="site_end form-control" style="padding: 0.6rem 0rem !important;" />
+                                        </div>
+                                    </div>
+            
+                                </div>
+                                <div class="col-sm-1 text_center">
+                                    <button class="btn btn-sm btn-info " title="Add" type="button" id="CloneUserLoc">+</button>
+                                </div>
+                            </div>
+                            <div class="row col-md-12 CloneUserLocHere">
+                            </div>
+                            <!-- end user Location content -->
+                            <div class="pull-right mr-5">
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </div>
+                        </form>
+                </div>
+            </div>
             @if($projectProgressId->MAssignedKpi)
-            <div class="row">
-                <h4 style="text-align: center;">Saved Kpis</h4>
-                <div class="col-md-12 table-responsive">
-                    <table class="table  table-bordered nowrap" id="countit">
-                        <thead>
-                            <tr>
-                                <th>Sr #</th>
-                                <th>User</th>
-                                <th>District</th>
-                                <th>Site Name</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                            $i=1;
-                            @endphp
-                            @foreach ($projectProgressId->MAssignedUserLocation as $userloc)
-                            <tr>
-                                <td>{{$i++}}</td>
-                                <td>{{$userloc->User->first_name}}</td>
-                                <td>{{$userloc->District->name}}</td>
-                                <td>
-                                    @if($userloc->site_name != Null)
-                                    {{$userloc->site_name}}
-                                    @else
-                                    <span style="color:red"><b>Not Added</b></span>
-                                    @endif
-                                </td>
-                                <td>{{$userloc->site_start_date ? $userloc->site_start_date : '-'}}</td>
-                                <td>{{$userloc->site_end_date ? $userloc->site_end_date : '-'}}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+            <div class="card">
+                <div class="card-header"><h4><b>Summary of Assigned User Locations</b></h4></div>
+                <div class="card-block">
+                <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-stripped nowrap" id="countit">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Sr #</th>
+                                        <th>User</th>
+                                        <th>District</th>
+                                        <th>Site Name</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Last Modified</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                    $i=1;
+                                    @endphp
+                                    @foreach ($projectProgressId->MAssignedUserLocation as $userloc)
+                                    <tr>
+                                        <td>
+                                            <form action="{{route('deleteUserLoc')}}" method="POST" >
+                                                {{ csrf_field() }}
+                                                <input type="hidden" name="userloc_id" value="{{$userloc->id   }}">
+                                                    <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
+                                                <button class="btn btn-sm btn-danger deleteKpi"  
+                                                onclick="return confirm('Are you sure ?')" type="submit" id="deleteKpi" > <i class="fa fa-trash"></i> </button>
+                                            </form>
+                                        </td>
+                                        <td>{{$i++}}</td>
+                                        <td>{{$userloc->User->first_name}}</td>
+                                        <td>{{$userloc->District->name}}</td>
+                                        <td>
+                                            @if($userloc->site_name != Null)
+                                            {{$userloc->site_name}}
+                                            @else
+                                            <span style="color:red"><b>Not Added</b></span>
+                                            @endif
+                                        </td>
+                                        <td>{{$userloc->site_start_date ? $userloc->site_start_date : '-'}}</td>
+                                        <td>{{$userloc->site_end_date ? $userloc->site_end_date : '-'}}</td>
+                                        <td>{{$userloc->updated_at ? date('d-F-Y | H:i:s', strtotime($userloc->updated_at)) : '-'}}
+                                                
+                                            </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
             @endif
-            <div class="row col-md-11">
-                <div class="col-md-3 text-center">
-                    <h4 class="form-txt-primary">User</h4>
-                </div>
-                <div class="col-md-3 text-center">
-                    <h4 class="form-txt-primary">Location</h4>
-                </div>
-                <div class="col-md-2  text-center" style="">
-                    <h4 class="form-txt-primary">Site Name</h4>
-                </div>
-                <div class="col-md-2  text-center">
-                    <h4 class="form-txt-primary">Start Date</h4>
-                </div>
-                <div class="col-md-2  text-center" style="">
-                    <h4 class="form-txt-primary">End Date</h4>
-                </div>
-            </div>
-            <!-- end heading -->
-            <!-- user Location content -->
-            <form action="{{route('saveUserLocation')}}" method="POST">
-                {{ csrf_field() }}
-                <input type="hidden" name="progress_id" value="{{$projectProgressId->id}}">
-                <input type="hidden" name="counts" value="1" id="counts_user_location">
-                <input type="hidden" name="page_tabs" value="plan_Mapping">
-
-                <div class="row col-md-12">
-                    <style media="screen" scoped>
-                        .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
-                            padding: 1% !important
-                        }
-
-                        ;
-                    </style>
-                    <div class="col-md-11" id="CloneThisUserLoc" style="margin-bottom:1% !important;display: inline-flex;">
-                        <div class="col-md-3 text-center">
-                            <div class="col-md-11 offset-md-1 delLastLocChild">
-                                <select class="select2" id="" name="user_location_1">
-                                    @foreach($team as $t)
-                                    <option value="{{$t->User->id}}">{{$t->User->first_name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-3 text-center">
-                            <div class="col-md-11 offset-md-1 delLastLocChild">
-                                <select class="select2" id="" name="location_user_1[]" multiple="multiple">
-                                    @foreach ($assigned_districts as $ad)
-                                    <option value="{{$ad->District->id}}">{{$ad->District->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-2 text-center">
-                            <div class="col-md-11 offset-md-1">
-                                <input type="text" placeholder="Site Name" name="site_name_1" class="site_name form-control" style="padding: 0.7rem !important;" />
-                            </div>
-                        </div>
-                        <div class="col-md-2 text-center">
-                            <div class="col-md-11 offset-md-1">
-                                <input type="date" placeholder="" name="site_start_1" class="site_start form-control" style="padding: 0.6rem 0rem !important;" />
-                            </div>
-                        </div>
-                        <div class="col-md-2 text-center">
-                            <div class="col-md-11 offset-md-1">
-                                <input type="date" placeholder="" name="site_end_1" class="site_end form-control" style="padding: 0.6rem 0rem !important;" />
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-sm-1 text_center">
-                        <button class="btn btn-sm btn-info " title="Add" type="button" id="CloneUserLoc">+</button>
-                    </div>
-                </div>
-                <div class="row col-md-12 CloneUserLocHere">
-                </div>
-                <!-- end user Location content -->
-                <div class="pull-right mr-5">
-                    <button type="submit" class="btn btn-success">Save</button>
-                </div>
-            </form>
+          
         </div>
         <div class='tab-pane {{isset($innertab) && $innertab=="Mapping" ? "active" : ""}}' id="MOBdiv" role="tabpanel" aria-expanded="false">
             <form class="serializeform" action="{{ route('mappingOfObj') }}" method="post">
@@ -378,7 +448,7 @@
                                     {{$obj->objective}}
                                 </span>
                                 <span class="float-right col-md-6">
-                                    <select class="select2 col-md-12" id="component" name="mappedComp_{{$i}}[]" multiple="multiple">
+                                    <select class="select2 col-md-12" id="component"  disabled name="mappedComp_{{$i}}[]" multiple="multiple">
                                         @foreach ($components as $comp)
                                         <option @foreach ($comp->MPlanObjectivecomponentMapping as $mappedComp)
                                             @if($mappedComp->m_plan_objective_id == $obj->id)
@@ -545,139 +615,146 @@
         </div>
         <div class='tab-pane {{isset($innertab) && $innertab=="uderKPI" ? "active" : ""}}' id="userKPIDiv" role="tabpanel" aria-expanded="false" style="display:none;">
             <!-- headings -->
-            <form action="{{route('saveUserKpi')}}" method="post">
-                {{ csrf_field() }}
-                <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
-                <input type="hidden" name="page_tabs" value="plan_task">
-                <input type="hidden" name="counts" id="counts_user_location_id" value="1+">
-                <div class="row">
-                    <h4>Assign User To Wbs</h4>
-                </div>
-                <div class="row col-md-12">
-                    <div class="col-md-4 text-center">
-                        <div class="col-md-10 offset-md-1">
-                            <h4 class="form-txt-primary">User</h4>
-                        </div>
-                    </div>
-                    <div class="col-md-3 text-center">
-                        <div class="col-md-10 offset-md-1">
-                            <h4 class="form-txt-primary">Selected KPIs</h4>
-                        </div>
-                    </div>
-                    <div class="col-md-2 text-center">
-                        <h4 class="form-txt-primary">Cost</h4>
-                    </div>
-                    <div class="col-md-2 text-center">
-                        <h4 class="form-txt-primary">Weightage</h4>
-                    </div>
-                </div>
-                <!-- end heading -->
-                <!-- user Location content -->
-                <div class="row col-md-12">
-                    <div class="row col-md-11" id="CloneThisUserKPI" style="margin-bottom:1% !important;">
-                        <div class="col-md-4 text-center">
-                            <div class="col-md-10 offset-md-1 delLastChild">
-                                @php $kpicount=1; @endphp
-                                <select class="form-control select2" id="" name="user_location_id[]">
-
-                                    @foreach ($projectProgressId->MAssignedUserLocation as $mUserLocation)
-
-                                    <option value="{{$mUserLocation->id}}">{{$kpicount++}} - {{$mUserLocation->User->first_name}} {{$mUserLocation->User->last_name}} - {{$mUserLocation->District->name}} -{{$mUserLocation->site_name}}</option>
-                                    @endforeach
-                                </select>
+            <div class="card">
+                <div class="card-header"><h4><b>Assign User To Wbs</b></h4></div>
+                <div class="card-block"> <form action="{{route('saveUserKpi')}}" method="post">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
+                        <input type="hidden" name="page_tabs" value="plan_task">
+                        <input type="hidden" name="counts" id="counts_user_location_id" value="1+">
+                        
+                        <div class="row col-md-12">
+                            <div class="col-md-4 text-center">
+                                <div class="col-md-10 offset-md-1">
+                                    <h4 class="form-txt-primary">User</h4>
+                                </div>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <div class="col-md-10 offset-md-1">
+                                    <h4 class="form-txt-primary">Selected KPIs</h4>
+                                </div>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <h4 class="form-txt-primary">Cost</h4>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <h4 class="form-txt-primary">Weightage</h4>
                             </div>
                         </div>
-                        <div class="col-md-4 text-center">
-                            <div class="col-md-10 offset-md-1 delLastChild">
-                                <select class="form-control select2" id="" name="m_project_kpi_id[]">
-                                    @php
-                                    $arr=array();
-                                    @endphp
-                                    @foreach ($projectProgressId->MPlanKpicomponentMapping as $kpiComponent)
-                                    @if (!in_array($kpiComponent->MProjectKpi->name,$arr))
-                                    <option value="{{$kpiComponent->MProjectKpi->id}}">{{$kpiComponent->MProjectKpi->name}}</option>
-                                    @php
-                                    array_push($arr,$kpiComponent->MProjectKpi->name);
-                                    @endphp
-                                    @endif
-                                    @endforeach
-                                </select>
+                        <!-- end heading -->
+                        <!-- user Location content -->
+                        <div class="row col-md-12">
+                            <div class="row col-md-11" id="CloneThisUserKPI" style="margin-bottom:1% !important;">
+                                <div class="col-md-4 text-center">
+                                    <div class="col-md-10 offset-md-1 delLastChild">
+                                        @php $kpicount=1; @endphp
+                                        <select class="form-control select2" id="" name="user_location_id[]">
+        
+                                            @foreach ($projectProgressId->MAssignedUserLocation as $mUserLocation)
+        
+                                            <option value="{{$mUserLocation->id}}">{{$kpicount++}} - {{$mUserLocation->User->first_name}} {{$mUserLocation->User->last_name}} - {{$mUserLocation->District->name}} -{{$mUserLocation->site_name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <div class="col-md-10 offset-md-1 delLastChild">
+                                        <select class="form-control select2" id="" name="m_project_kpi_id[]">
+                                            @php
+                                            $arr=array();
+                                            @endphp
+                                            @foreach ($projectProgressId->MPlanKpicomponentMapping as $kpiComponent)
+                                            @if (!in_array($kpiComponent->MProjectKpi->name,$arr))
+                                            <option value="{{$kpiComponent->MProjectKpi->id}}">{{$kpiComponent->MProjectKpi->name}}</option>
+                                            @php
+                                            array_push($arr,$kpiComponent->MProjectKpi->name);
+                                            @endphp
+                                            @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <input name="cost[]" id="" class="col-md-11 float-right form-control" placeholder="Cost" type="text" style="text-align:center;border: 1px solid #807d7d8a !important;padding: 7% 0% 7% 0% !important;" value="">
+                                </div>
+                                <div class="col-md-2">
+                                    <input name="weightage[]" id="" type="number" class="col-md-11 float-right form-control" placeholder="Weightage" style="text-align:center;border: 1px solid #807d7d8a !important;padding: 7% 0% 7% 0% !important;" value="">
+                                </div>
+                            </div>
+                            <div class="col-sm-1 text_center">
+                                <button class="btn btn-sm btn-info" type="button" id="CloneUserKPI">+</button>
                             </div>
                         </div>
-                        <div class="col-md-2">
-                            <input name="cost[]" id="" class="col-md-11 float-right form-control" placeholder="Cost" type="text" style="text-align:center;border: 1px solid #807d7d8a !important;padding: 7% 0% 7% 0% !important;" value="">
+                        <div class="row col-md-12 CloneUserKPIHere">
                         </div>
-                        <div class="col-md-2">
-                            <input name="weightage[]" id="" type="number" class="col-md-11 float-right form-control" placeholder="Weightage" style="text-align:center;border: 1px solid #807d7d8a !important;padding: 7% 0% 7% 0% !important;" value="">
+                        <div class="card-footer">
+                            <div class="col-md-3 offset-md-9">
+                                <button class="btn btn-primary btn-md activities" type="submit">Save </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-sm-1 text_center">
-                        <button class="btn btn-sm btn-info" type="button" id="CloneUserKPI">+</button>
-                    </div>
-                </div>
-                <div class="row col-md-12 CloneUserKPIHere">
-                </div>
-                <div class="card-footer">
-                    <div class="col-md-3 offset-md-9">
-                        <button class="btn btn-primary btn-md activities" type="submit">Save </button>
-                    </div>
-                </div>
-                <!-- end user Location content -->
+                        <!-- end user Location content -->
+        
+                    </form></div>
+            </div>
 
-            </form>
-            @if($projectProgressId->MAssignedKpi !=null)
-                <div class="row">
-                    <h4 style="text-align: center;">Summary of User Assigned WBS</h4>
-                    <div class="col-md-12 table-responsive">
-                        <table class="table table-bordered nowrap" id="countit">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Sr #</th>
-                                    <th>User</th>
-                                    <th>Id</th>
-                                    <th>KPI </th>
-                                    <th>Cost</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                $i=1;
-                                @endphp
-                                @foreach ($projectProgressId->MAssignedKpi as $userkpi)
-                                <tr>
-                                    <td>
-                                        <form action="{{route('deleteUserAssignedKpi')}}" method="POST" >
-                                            {{ csrf_field() }}
-                                            <input type="hidden" name="kpi_id" value="{{$userkpi->MAssignedUserKpi->MProjectKpi->id}}">
-                                                    <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
-                                            <button class="btn btn-sm btn-danger deleteKpi"  
-                                            onclick="return confirm('Deleting {{$userkpi->MAssignedUserKpi->MProjectKpi->name }} .... \n Deleting respective WBS will delete the assigned cost to it, but mapping will not be deleted from here.You can assign it again.\n Are you sure?')" type="submit" id="deleteKpi" > <i class="fa fa-trash"></i> </button>
-                                        </form>
-                                    </td>
-                                    <td>{{$i++}}</td>
-                                    <td>
-                                        {{$userkpi->MAssignedUserKpi->MAssignedUserLocation->User->first_name}} {{$userkpi->MAssignedUserKpi->MAssignedUserLocation->User->last_name}} - {{$userkpi->MAssignedUserKpi->MAssignedUserLocation->District->name}} -{{$userkpi->MAssignedUserKpi->MAssignedUserLocation->site_name}}
+            <div class="card">
+                <div class="card-header"><h4><b>Summary of User Assigned WBS</b></h4></div>
+                <div class="card-block">@if($projectProgressId->MAssignedKpi !=null)
+                        <div class="row">
+                            <div class="col-md-12 table-responsive">
+                                <table class="table table-bordered nowrap" id="countit">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Sr #</th>
+                                            <th>User</th>
+                                            <th>Id</th>
+                                            <th>KPI </th>
+                                            <th>Cost</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                        $i=1;
+                                        @endphp
+                                        @foreach ($projectProgressId->MAssignedKpi as $userkpi)
+                                        <tr>
+                                            <td>
+                                                <form action="{{route('deleteUserAssignedKpi')}}" method="POST" >
+                                                    {{ csrf_field() }}
+                                                    <input type="hidden" name="kpi_id" value="{{$userkpi->MAssignedUserKpi->MProjectKpi->id}}">
+                                                            <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
+                                                    <button class="btn btn-sm btn-danger deleteKpi"  
+                                                    onclick="return confirm('Deleting {{$userkpi->MAssignedUserKpi->MProjectKpi->name }} .... \n Deleting respective WBS will delete the assigned cost to it, but mapping will not be deleted from here.You can assign it again.\n Are you sure?')" type="submit" id="deleteKpi" > <i class="fa fa-trash"></i> </button>
+                                                </form>
+                                            </td>
+                                            <td>{{$i++}}</td>
+                                            <td>
+                                                {{$userkpi->MAssignedUserKpi->MAssignedUserLocation->User->first_name}} {{$userkpi->MAssignedUserKpi->MAssignedUserLocation->User->last_name}} - {{$userkpi->MAssignedUserKpi->MAssignedUserLocation->District->name}} -{{$userkpi->MAssignedUserKpi->MAssignedUserLocation->site_name}}
+        
+        
+                                            </td>
+                                            <td>{{$userkpi->MAssignedUserKpi->MProjectKpi->id}}</td>
+                                            <td>@if(isset($userkpi->MAssignedUserKpi->MProjectKpi->name))
+                                                {{$userkpi->MAssignedUserKpi->MProjectKpi->name}}@endif</td>
+                                            <td>
+                                                @if($userkpi->cost)
+                                                {{round($userkpi->cost,3)}} <small>PKR in Millions</small>
+                                                @else
+                                                <span style="color:red"><b>Not Added</b></span>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        @endif</div>
+            </div>
+           
 
-
-                                    </td>
-                                    <td>{{$userkpi->MAssignedUserKpi->MProjectKpi->id}}</td>
-                                    <td>@if(isset($userkpi->MAssignedUserKpi->MProjectKpi->name))
-                                        {{$userkpi->MAssignedUserKpi->MProjectKpi->name}}@endif</td>
-                                    <td>
-                                        @if($userkpi->cost)
-                                        {{round($userkpi->cost,3)}} <small>PKR in Millions</small>
-                                        @else
-                                        <span style="color:red"><b>Not Added</b></span>
-                                        @endif
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                @endif
+            
         </div>
         {{-- <div class="tab-pane " id="prolocDiv" role="tabpanel" aria-expanded="false" style="display:none;">
                   prolocDiv

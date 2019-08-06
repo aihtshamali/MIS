@@ -249,8 +249,9 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
   Route::post('/deleteObj','OfficerController@deleteObjective')->name('deleteObjective');
   Route::post('/deleteComponent','OfficerController@deleteComponent')->name('deleteComponent');
   Route::post('/deleteKpi','OfficerController@deleteKpi')->name('deleteKpi');
-  
   Route::post('/deleteUserAssignedKpi','OfficerController@deleteUserAssignedKpi')->name('deleteUserAssignedKpi');
+  Route::post('/deleteUserLoc','OfficerController@deleteUserLoc')->name('deleteUserLoc');
+  Route::post('/deleteAttachment','OfficerController@deleteAttachment')->name('deleteAttachment');
 
   //Conduct Monitoring Tab
   Route::post('/saveUserLocation','OfficerController@saveUserLocation')->name('saveUserLocation');
