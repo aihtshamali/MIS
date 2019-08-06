@@ -1,6 +1,6 @@
 @extends('_Monitoring.layouts.upperNavigation')
 @section('title')
-DGME | Add Project
+DGME | Edit Project
 @endsection
  <!-- Select 2 css -->
  <link rel="stylesheet" href="{{ asset('_monitoring/css/css/sweetalert.css')}}" />
@@ -34,11 +34,12 @@ DGME | Add Project
 @section('content')
 <div class="row">
     <div class="col-md-7 ">
-        <form action="{{route('projects.store')}}" class="dataentryForm" name="dataentryForm" id="" method="POST">
+        <form action="{{route('projects.update',$project->id)}}" class="dataentryForm" name="dataentryForm" id="" method="POST">
           {{ csrf_field() }}
+          <input name="_method" type="hidden" value="PUT">
         <div class="card">
 
-            <div class="card-header"> <h4><b>Add New Monitoring project</b></h4></div>
+            <div class="card-header"> <h4><b>Update Monitoring project</b></h4></div>
             <div class="card-block">
                 <div class="form-group row">
                     <div class="col-md-12">
@@ -61,7 +62,7 @@ DGME | Add Project
                     <div class="form-group row">
                       <div class="col-md-12">
                           <b><label for="sectors">Project # </label></b>
-                          <input id="project_no" type="text" name="project_no" disabled value="{{$project_no}}"  class="form-control" required >
+                          <input id="project_no" type="text" name="project_no" disabled value="{{$project_no}}"  class="form-control"  >
                       </div>
                     </div>
                 <div class="form-group row">
@@ -82,7 +83,7 @@ DGME | Add Project
                         </div>
                     <div class="col-md-6">
                         <label for=""><b>GS #</b></label>
-                        <input type="text" id="gs_no" name="adp_no" class="form-control" placeholder="GS #" required>
+                        <input type="text" id="gs_no" name="adp_no" class="form-control" placeholder="GS #" >
 
                         {{-- <select class="form-control form-control-info" name="adp_no[]" id="gs_no">
                             <option value="" selected>Select GS #</option>
@@ -109,14 +110,14 @@ DGME | Add Project
                 <div class="form-group row">
                     <div class="col-md-12">
                         <b><label for="sectors">SubSectors : </label></b>
-                        <select id="SubSectors" name="sub_sectors[]" class="form-control js-example-basic-multiple" required multiple="multiple" id="SubSectors" data-placeholder="Sub Sectors"  style="width: 100%;">
+                        <select id="SubSectors" name="sub_sectors[]" class="form-control js-example-basic-multiple"  multiple="multiple" id="SubSectors" data-placeholder="Sub Sectors"  style="width: 100%;">
                         </select>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-md-12">
                     <label><b> Sponsoring Department :</b></label>
-                        <select id="sponsoringdpt" required name="sponsoring_departments[]" class="form-control js-example-basic-multiple" multiple="multiple" data-placeholder="Sponsoring Department"  style="width: 100%;">
+                        <select id="sponsoringdpt"  name="sponsoring_departments[]" class="form-control js-example-basic-multiple" multiple="multiple" data-placeholder="Sponsoring Department"  style="width: 100%;">
                         @foreach ($sponsoring_departments as $sponsoring_department)
                             <option value="{{$sponsoring_department->id}}">{{$sponsoring_department->name}}</option>
                         @endforeach
@@ -126,7 +127,7 @@ DGME | Add Project
                     <div class="form-group row">
                         <div class="col-md-12">
                         <label><b>Executing Department</b></label>
-                            <select id="executingdept" required name="executing_departments[]" class="form-control js-example-basic-multiple" multiple="multiple" data-placeholder="Executing Department"  style="width: 100%;">
+                            <select id="executingdept"  name="executing_departments[]" class="form-control js-example-basic-multiple" multiple="multiple" data-placeholder="Executing Department"  style="width: 100%;">
                             @foreach ($executing_departments as $executing_department)
                                 <option value="{{$executing_department->id}}">{{$executing_department->name}}</option>
                             @endforeach
@@ -136,7 +137,7 @@ DGME | Add Project
                     <div class="form-group row">
                         <div class="col-md-12">
                         <label><b>Assigning Forum</b></label>
-                            <select id="assigningForum" required name="assigning_forum" class="form-control js-example-basic-multiple"  multiple="multiple" data-placeholder="Assigning Forum" style="width: 100%;">
+                            <select id="assigningForum"  name="assigning_forum" class="form-control js-example-basic-multiple"  multiple="multiple" data-placeholder="Assigning Forum" style="width: 100%;">
                             <option value="">Select Assigning Forum</option>
                             @foreach ($assigning_forums as $assigning_forum)
                                 @if($assigning_forum->status == 1)
@@ -156,7 +157,7 @@ DGME | Add Project
                     <div class="form-group row">
                         <div class="col-md-12">
                         <label><b>Approving Forum</b></label>
-                            <select id="approvingForum" required name="approving_forum" class="form-control form-control-primary js-example-basic-multiple"   multiple="multiple" data-placeholder="Approving Forum" style="width: 100%;">
+                            <select id="approvingForum"  name="approving_forum" class="form-control form-control-primary js-example-basic-multiple"   multiple="multiple" data-placeholder="Approving Forum" style="width: 100%;">
                             <option value="">Select Approving Forum</option>
                             @foreach ($approving_forums as $approving_forum)
                                 <option value="{{$approving_forum->id}}">{{$approving_forum->name}}</option>
@@ -167,7 +168,7 @@ DGME | Add Project
                     <div class="form-group row">
                         <div class="col-md-12">
                         <label><b>Currency</b></label>
-                            <select class="form-control form-control-warning" required name="currency" id="currrency">
+                            <select class="form-control form-control-warning"  name="currency" id="currrency">
                             <option data-symbol="$" data-placeholder="0.00">$ USD</option>
                             <option data-symbol="Rs" data-placeholder="0.00" selected>Rs PKR</option>
                             <option data-symbol="€" data-placeholder="0.00">€ EUR</option>
@@ -186,7 +187,7 @@ DGME | Add Project
                                         <div class="form-group row">
                                             <div class="col-md-12">
                                         <label><b >Original Approved Cost</b></label>
-                                        <input type="number" required id="originalCost" step="0.001" name="original_cost" class="form-control form-control-round" placeholder="Cost">
+                                        <input type="number"  id="originalCost" step="0.001" name="original_cost" class="form-control form-control-round" placeholder="Cost">
                                     </div>
                                     </div>
                                     <div class="form-group row " id="revised_cost_id">
@@ -194,7 +195,7 @@ DGME | Add Project
                                             <div class="row">
                                                 <div class="col-md-8">
                                                     <label><b >Revised Approved Cost</b></label>
-                                                    <input type="number" required  name="revised_approved_costs[]" id="revised_approved_costs" step="0.001" class="form-control form-control-round" placeholder="Cost">
+                                                    <input type="number"   name="revised_approved_costs[]" id="revised_approved_costs" step="0.001" class="form-control form-control-round" placeholder="Cost">
                                                 </div>
                                                 <div class="col-md-2">
                                                     <button id="add-more" name="add-more[]" class="btn btn-success pull-right" style="position: relative;top: 26px;margin: -3px;" type="button">+</button>
@@ -216,13 +217,13 @@ DGME | Add Project
                                         <div class="form-group row">
                                             <div class="col-md-12">
                                                 <label><b >Planned Start Date</b></label>
-                                                <input type='date' id="planned_start_date" required name="planned_start_date" onkeyup="" class="form-control" />
+                                                <input type='date' id="planned_start_date"  name="planned_start_date" onkeyup="" class="form-control" />
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-md-12">
                                                 <label><b >Planned End Date</b></label>
-                                                <input type='date' id="planned_end_date"  required name="planned_end_date" class="form-control" />
+                                                <input type='date' id="planned_end_date"   name="planned_end_date" class="form-control" />
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -257,7 +258,7 @@ DGME | Add Project
                     <div class="form-group row">
                         <div class="col-md-12">
                         <label><b>Districts</b></label>
-                        <select id="districts" required name="districts[]" class="form-control form-control-primary js-example-basic-multiple"   multiple="multiple" data-placeholder="Districts" style="width: 100%;">
+                        <select id="districts"  name="districts[]" class="form-control form-control-primary js-example-basic-multiple"   multiple="multiple" data-placeholder="Districts" style="width: 100%;">
                                 @foreach ($districts as $district)
                                 @if($district->status == 1)
                                   <option value="{{$district->id}}">{{$district->name}}</option>
@@ -275,7 +276,7 @@ DGME | Add Project
 
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn btn-success alert-confirm m-b-10 show-confirmation-modal" style=" margin-left: 80%;" >Add Project</button>
+                <button type="submit" class="btn btn-success " style=" margin-left: 80%;" >Update</button>
             </div>
         </div>
     </form>
@@ -291,6 +292,7 @@ DGME | Add Project
                     <label><b>Project Type :</b></label>
                 </div>
                 <div class="col-md-6" id="summary_projecttype">
+                    {{$project->ProjectDetail->SubProjectType->name}} 
                 </div>
                 </div>
                 <div class="form-group row">
@@ -298,7 +300,7 @@ DGME | Add Project
                         <label><b>Project Title:</b></label>
                     </div>
                     <div class="col-md-6" id="summary_projectTitle">
-
+                        {{$project->title}}
                     </div>
                 </div>
                 <div class="form-group row">
@@ -306,7 +308,7 @@ DGME | Add Project
                         <label><b>GS # :</b></label>
                     </div>
                     <div class="col-md-6" id="summary_gs_no">
-
+                        {{$project->ADP}}
                     </div>
                 </div>
                 <div class="form-group row">
@@ -314,7 +316,9 @@ DGME | Add Project
                         <label><b>Sector(s) :</b></label>
                     </div>
                     <div class="col-md-6" id="summary_projSectors">
-
+                        @foreach ($project->AssignedSubSectors as $subsector)
+                            {{$subsector->SubSector->Sector->name}}
+                        @endforeach
                     </div>
                 </div>
                 <div class="form-group row">
@@ -322,7 +326,9 @@ DGME | Add Project
                         <label><b>Subsector(s):</b></label>
                     </div>
                     <div class="col-md-6" id="summary_SubSectors">
-
+                        @foreach ($project->AssignedSubSectors as $subsector)
+                            {{$subsector->SubSector->name}}
+                        @endforeach
                     </div>
                 </div>
                 <div class="form-group row">
@@ -330,7 +336,9 @@ DGME | Add Project
                         <label><b>Sponsoring Department(s) :</b></label>
                     </div>
                     <div class="col-md-6" id="summary_sponsoringdpt">
-
+                        @foreach ($project->AssignedSponsoringAgencies as $agency)
+                            {{$agency->SponsoringAgency->name}}
+                        @endforeach
                     </div>
                 </div>
                 <div class="form-group row">
@@ -338,15 +346,17 @@ DGME | Add Project
                         <label><b>Executing Department(s) :</b></label>
                     </div>
                     <div class="col-md-6" id="summary_executingdept">
-
+                        @foreach ($project->AssignedExecutingAgencies as $agency)
+                            {{$agency->ExecutingAgency->name}}
+                        @endforeach
                     </div>
                 </div>
                 <div class="form-group row" >
                     <div class="col-md-4">
-                         <label><b>Assigning Forum :</b></label>
+                        <label><b>Assigning Forum :</b></label>
                     </div>
                     <div class="col-md-6" id="summary_assigningForum">
-
+                        {{$project->ProjectDetail->AssigningForum->name}}
                     </div>
                 </div>
                 <div class="form-group row">
@@ -354,7 +364,7 @@ DGME | Add Project
                         <label><b>Approving Forum :</b></label>
                     </div>
                     <div class="col-md-6" id="summary_approvingForum">
-
+                        {{$project->ProjectDetail->ApprovingForum->name}}
                     </div>
                 </div>
                 <div class="form-group row">
@@ -362,7 +372,7 @@ DGME | Add Project
                         <label><b>Currency :</b></label>
                     </div>
                     <div class="col-md-6" id="summary_currrency">
-
+                        {{$project->ProjectDetail->currency}}
                     </div>
                 </div>
                 <div class="form-group row">
@@ -370,7 +380,7 @@ DGME | Add Project
                         <label><b>Original Approved Cost :</b></label>
                     </div>
                     <div class="col-md-6" id="summary_originalCost">
-
+                        {{$project->ProjectDetail->orignal_cost}}
                     </div>
                 </div>
                 <div class="form-group row">
@@ -378,7 +388,9 @@ DGME | Add Project
                         <label><b>Revised Final Cost :</b></label>
                     </div>
                     <div class="col-md-6" id="summary_revised_approved_costs">
-
+                        @foreach ($project->RevisedApprovedCost as $cost)
+                            {{$cost->cost}}
+                        @endforeach
                     </div>
                 </div>
                 <div class="form-group row">
@@ -386,7 +398,7 @@ DGME | Add Project
                         <label><b>Planned Start Date:</b></label>
                     </div>
                     <div class="col-md-6" id="summary_planned_start_date">
-
+                        {{$project->ProjectDetail->planned_start_date}}
                     </div>
                 </div>
                 <div class="form-group row">
@@ -394,7 +406,7 @@ DGME | Add Project
                         <label><b>Planned End Date:</b></label>
                     </div>
                     <div class="col-md-6" id="summary_planned_end_date">
-
+                        {{$project->ProjectDetail->planned_end_date}}
                     </div>
                 </div>
                 {{-- <div class="form-group row">
@@ -410,7 +422,7 @@ DGME | Add Project
                         <label><b>Revised Start Date :</b></label>
                     </div>
                     <div class="col-md-6" id="summary_revised_start_date">
-
+                        {{$project->ProjectDetail->revised_start_date}}
                     </div>
                 </div>
                 <div class="form-group row">
@@ -418,7 +430,9 @@ DGME | Add Project
                         <label><b>Revised End Date :</b></label>
                     </div>
                     <div class="col-md-6" id="summary_revised_end_date">
-
+                        @foreach ($project->RevisedEndDate as $endDate)
+                            {{$endDate->end_date}}                            
+                        @endforeach
                     </div>
                 </div>
                 {{-- <div class="form-group row">
@@ -434,7 +448,9 @@ DGME | Add Project
                             <label><b>Districts :</b></label>
                         </div>
                         <div class="col-md-6" id="summary_districts">
-
+                            @foreach ($project->AssignedDistricts as $district)
+                                {{$district->District->name}}
+                            @endforeach
                         </div>
                     </div>
             </div>
@@ -544,7 +560,7 @@ $(document).ready(function(){
     $('button#add-more').click(function(e){
         var revised_Cost ='<div class="col-md-12"><div class="row"><div class="col-md-8">'
         +'<label><b >Revised Approved Cost</b></label>'
-        +'<input type="number" required  name="revised_approved_costs[]" id="revised_approved_costs" step="0.001" class="form-control form-control-round" placeholder="Cost">'
+        +'<input type="number"   name="revised_approved_costs[]" id="revised_approved_costs" step="0.001" class="form-control form-control-round" placeholder="Cost">'
         +'</div>'
         +'<div class="col-md-2">'
         +'<button id="remove" name="remove[]" class="btn btn-danger add-more pull-right" onclick="removefield(this)" style="position: relative;top: 26px;margin: -3px;" type="button">-</button>'
@@ -561,12 +577,12 @@ $(document).ready(function(){
                                         +'<div class="form-group row">'
                                           +'<div class="col-md-12">'
                                             +'<label><b >Revised End Date</b></label>'
-                                              +'<input type="date" id="revised_end_date" onchange="calculaterevisedInterval(this)"  required name="revised_end_dates[]" class="form-control" />'
+                                              +'<input type="date" id="revised_end_date" onchange="calculaterevisedInterval(this)"   name="revised_end_dates[]" class="form-control" />'
                                            +'</div></div>'
                                         +'<div class="form-group row">'
                                           +'<div class="col-md-12">'
                                             +'<label><b >Revised Gestation Period</b></label>'
-                                              +'<input type="text" id="revised_gestation_period" required name="revised_gestation_period[]" class="form-control" />'
+                                              +'<input type="text" id="revised_gestation_period"  name="revised_gestation_period[]" class="form-control" />'
                                            +'</div>'
                                         +'</div>'
                                         +'<button type="button" id="remove_reviseddate" onclick="remove_revisedDate(this)" name="remove_reviseddate[]" class="btn btn-sm btn-danger">Remove</button>'
@@ -651,7 +667,7 @@ document.querySelector('.alert-confirm').onclick = function(){
 					closeOnConfirm: false
 				},
 				function(){
-					// swal("Submitted!", "Your PC-1 has been Submitted.", "success");
+					swal("Submitted!", "Your PC-1 has been Submitted.", "success");
 				});
 	};
 </script>
