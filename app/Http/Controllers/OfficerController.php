@@ -756,6 +756,10 @@ class OfficerController extends Controller
         $financial_cost=MProjectCost::where('m_project_progress_id',$projectProgressId->id)->first();
 
        $project_documents= MProjectAttachment::where('m_project_progress_id',$projectProgressId->id)->get();
+        if (!is_dir('storage/uploads/projects/monitoring_attachments')) 
+        {
+          mkdir('storage/uploads/projects/monitoring_attachments');
+        }
        foreach($project_documents as $p_doc)
         {
           if($p_doc->attachment_name)
