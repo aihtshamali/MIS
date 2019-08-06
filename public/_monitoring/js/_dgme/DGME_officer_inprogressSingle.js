@@ -1567,13 +1567,17 @@ $(document).ready(function () {
   var childl3 = 0;
   var childl4 = 0;
   $("#addcustomeKPIs").click(function () {
+    var parent = $($(this).parent().siblings()[1]).find('input').attr('name');
     var customeKPIs = `
       <div class="col-md-12">
           <div class="DisInlineflex mb_2 col-md-12">
               <label class="col-sm-1 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level  ` + ++p + ` <span style="color:red">*</span></label>
-              <div class="col-sm-7">
-                  <input type="text" required name="level1_` + child++ + `" class="form-control" placeholder="Level ` + p + `">
+              <div class="col-sm-5">
+                  <input type="text" required name="level1_` + child + `" class="form-control" placeholder="Level ` + p + `">
               </div>
+              <div class="col-sm-2">
+                 <span style="color:red">*</span>  <input type="number" required="required" name="weightage_` + parent.toString() + `_` + child++ + `" class="form-control" placeholder="Level ` + p + `  Weightage">
+                </div>
               <div class="col-sm-1 text_center">
                   <button class="btn btn-sm btn-info" type="button" id="addcustomeKPIs` + p + `" tabindex="1">+</button>
               </div>

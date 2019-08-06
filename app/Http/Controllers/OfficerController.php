@@ -2047,7 +2047,7 @@ class OfficerController extends Controller
         $level2 = 0;
         $m_project_level1_kpi = new MProjectLevel1Kpi();
         $m_project_level1_kpi->name = $request['level1_'.$level1];
-        $m_project_level1_kpi->weightage = 100;
+        $m_project_level1_kpi->weightage = $request['weightage_level1_' . $level1];
         $m_project_level1_kpi->status = 1;
         $m_project_level1_kpi->m_project_kpi_id = $m_project_kpi->id;
         $m_project_level1_kpi->save();
