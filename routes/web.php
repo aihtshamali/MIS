@@ -277,6 +277,7 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
 
   // monitoring
   Route::get('/monitoringP','ProjectController@createMonitoringEntryForm')->name('createMonitoringEntryForm');
+  Route::get('/monitoringP/{id}','ProjectController@EditMonitoringEntryForm')->name('EditMonitoringEntryForm');
   Route::get('/monitoringV','ProjectController@viewMonitoringForm')->name('viewMonitoringForm');
 
 

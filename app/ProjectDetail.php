@@ -17,6 +17,9 @@ class ProjectDetail extends Model
     public function AssigningForum(){
       return $this->belongsTo('App\AssigningForum');
     }
+    public function SubProjectType(){
+      return $this->belongsTo('App\SubProjectType');
+    }
     public function ApprovingForum()
     {
       return $this->belongsTo('App\ApprovingForum');

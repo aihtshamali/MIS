@@ -48,6 +48,7 @@
                       @endphp
                       @foreach ($projects as $project)
                         <div class="accordion-panel">
+                        <span class="pull-right">  <a href="{{route('EditMonitoringEntryForm',$project->id)}}" class="btn btn-info btn-sm">Edit</a></span> 
                             <div class="accordion-heading" role="tab" id="heading_{{$i}}">
                                 <h3 class="card-title accordion-title">
                                   <a class="accordion-msg" data-toggle="collapse" data-parent="#accordion" href="#collapse_{{$i}}" aria-expanded="true" aria-controls="collapse_{{$i}}">
