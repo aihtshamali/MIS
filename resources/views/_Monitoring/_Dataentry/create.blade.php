@@ -651,7 +651,7 @@ document.querySelector('.alert-confirm').onclick = function(){
 					closeOnConfirm: false
 				},
 				function(){
-					swal("Submitted!", "Your PC-1 has been Submitted.", "success");
+					// swal("Submitted!", "Your PC-1 has been Submitted.", "success");
 				});
 	};
 </script>
@@ -811,7 +811,7 @@ $(document).on('change','#gs_no,#financial_year',function(){
 // });
 $(document).ready(function(){
   $(document).on('click', 'button.confirm', function(){
-    //   $('form.dataentryForm').submit();
+      $('form.dataentryForm').submit();
   });
   $('form.dataentryForm').on('click','button.show-confirmation-modal', function( e ) {
     e.preventDefault();
