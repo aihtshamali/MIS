@@ -712,8 +712,9 @@ class OfficerController extends Controller
         $monitoringProjectId=$projectProgressId->id;
 
         $assignedHealthSafeties = MAssignedProjectHealthSafety::where('m_project_progress_id',$progresses->id)->get();
+       
         $assignedGeneralFeedbacks= MAssignedProjectFeedBack::where('m_project_progress_id',$progresses->id)->get();
-        // dd($assignedGeneralFeedbacks);
+        // dd($generalFeedback[0]->MAssignedProjectFeedBack);
         $objectives =MPlanObjective::where('status',1)
         ->where('m_project_progress_id',$projectProgressId->id)
         ->get();
