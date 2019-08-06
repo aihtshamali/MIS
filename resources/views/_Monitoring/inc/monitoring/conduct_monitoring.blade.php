@@ -421,7 +421,7 @@
                                                     <tr>
                                                         <td>
                                                         <div class="col-md-12">
-                                                            <select id="" name="stakeholderExecuting[]" class="form-control form-control-primary" data-placeholder="" style="width: 100%;">
+                                                            <select id="" name="" class="form-control form-control-primary" data-placeholder="" style="width: 100%;">
                                                                 <option value="" disabled selected> Select Here</option>
                                                                     @foreach ($org_project->AssignedExecutingAgencies as $executing)
                                                                         <option
@@ -435,15 +435,15 @@
                                                                     </select>
                                                                 </div>
                                                                     </td>
-                                                                <td><input type="text" name="Executingstakeholder_name[]"
+                                                                <td><input type="text" name=""
                                                                 class="form-control" value="{{$assignedexecuter->name}}" /></td>
-                                                                        <td><input type="text" name="Executingstakeholder_designation[]"
+                                                                        <td><input type="text" name=""
                                                                             class="form-control" value="{{$assignedexecuter->designation}}" /> </td>
-                                                                <td><input type="text" name="Executingstakeholder_number[]"
+                                                                <td><input type="text" name=""
                                                                         class="form-control" value="{{$assignedexecuter->contactNo}}" /></td>
-                                                                <td><input type="text" name="Executingstakeholder_email[]"
+                                                                <td><input type="text" name=""
                                                                         class="form-control" value="{{$assignedexecuter->email}}" /></td>
-                                                                        <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td></tr>`
+                                                                        <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td></tr>
 
                                                     </tr>
                                                 @endforeach
@@ -469,7 +469,7 @@
                                                                     class="form-control"  /></td>
                                                             <td><input type="text" name="Executingstakeholder_email[]"
                                                                     class="form-control"  /></td>
-                                                                    <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td></tr>`
+                                                                    <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td></tr>
 
                                                         </tr>
                                         </tbody>

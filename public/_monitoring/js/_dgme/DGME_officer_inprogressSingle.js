@@ -738,7 +738,7 @@ $("button#addmoreexecuting").click(function (e) {
     `<tr>
     <td>
         <div class="col-md-12">
-            <select id="" name="stakeholderExecuting" class="form-control form-control-primary " data-placeholder="" style="width: 100%;">
+            <select id="" name="stakeholderExecuting[]" class="form-control form-control-primary " data-placeholder="" style="width: 100%;">
                 ` +
     Ea +
     `
@@ -766,7 +766,7 @@ function executingAgencyforCM(agencies) {
             <option value="` +
       val.id +
       `">` +
-      val.executing_agency_id +
+      val.executing_agency.name +
       `</option>
         `;
   });
@@ -778,14 +778,14 @@ function sponsoringAgencyforCM(agencies) {
   // var count = 1;
 
   agencies.forEach(function (val, index) {
-    // console.log(val.sponsoring_agency_id.SponsoringAgency.name,'id');
+    // console.log(val.sponsoring_agency);
     Sa =
       Sa +
       `
             <option value="` +
       val.id +
       `">` +
-      val.sponsoring_agency_id +
+    val.sponsoring_agency.name +
       `</option>
         `;
   });
@@ -797,7 +797,7 @@ $("button#addmoresponsoring").click(function (e) {
     `<tr>
     <td>
         <div class="col-md-12">
-            <select id="" name="Sponsoringstakeholder" class="form-control form-control-primary " data-placeholder="" style="width: 100%;">
+            <select id="" name="Sponsoringstakeholder[]" class="form-control form-control-primary " data-placeholder="" style="width: 100%;">
               ` +
     Sa +
     `

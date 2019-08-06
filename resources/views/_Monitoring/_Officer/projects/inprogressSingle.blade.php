@@ -653,8 +653,8 @@ $innertab=\Session::get('innertab');
           originalProjectId: '<?= $org_projectId ?>',
           // _token: '{{ csrf_field() }}'
         })
-        // console.log("sponsoring");
         .then(response => {
+          // console.log(response);
           sponsoringAgency = response.data
           sponsoringAgencyforCM(sponsoringAgency)
 
