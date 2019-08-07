@@ -118,6 +118,10 @@ class MProjectProgress extends Model
       return $this->hasOne('App\ReportData');
     }
 
+    public function MProgressObservation(){
+      return $this->hasOne('App\MProgressObservation');
+    }
+
 
 
 }
