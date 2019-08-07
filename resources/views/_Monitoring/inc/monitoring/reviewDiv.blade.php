@@ -74,7 +74,7 @@
                         />
                     </div>
                     <div class="col-md-5 offset-md-1 float-left form-group">                        
-                        <label for="" class="col-form-label"><b>Utilization :</b></label>
+                        <label for="" class="col-form-label"><b>Total Utilization :</b></label>
                         <br>
                         <input type="number" step="0.001" class="form-control" name="utilization_against_releases" id="u_against_rel"
                         @if ($costs)
@@ -101,9 +101,9 @@
             <div class="row">
                 <div class="divider col-md-12"></div>
                 <div class="col-md-12 row">
-                   <div class="col-md-4 offset-md-2">
+                   <div class="col-md-8 offset-md-2">
                       <div class="form-group">
-                        <label for="" class="col-form-label"><b>Technical Sanction Cost:</b></label>
+                        <label for="" class="col-form-label"><b>Technical Sanction Cost ( CAPITAL ONLY ) :</b></label>
                         <br>
                         <input class="form-control" step="0.001" type="number" name="technical_sanction_cost" placeholder="TS Cost"
                         @if ($costs)
@@ -229,7 +229,7 @@
 
           <div class="age_orgDiv pd_1 clearfix">
             <div class="form-group row mb_2">
-                <label class="col-sm-3 font-15">Operation & Management</label>
+                <label class="col-sm-3 font-15">Operation & Maintenance</label>
                 <div class="col-sm-9">
                   <input type="text" name="operation_and_management" class="form-control" placeholder="Operation & Management"
                   @if ($organization)

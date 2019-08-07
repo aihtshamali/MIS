@@ -295,7 +295,7 @@ class OfficerController extends Controller
 
         return view('officer.evaluation_projects.activities',['assignedDocuments'=>$assignedDocuments,'activity_documents'=>$activity_documents,'activities'=>$activities,'average_progress'=>$average_progress,'icons'=>$icons,'project_data'=>$project_data,'project_id'=>$id,'officerInProgressCount'=>$officerInProgressCount,'officerAssignedCount'=>$officerAssignedCount]);
        }
-     public function AssignActivityDocument(Request $request)
+       public function AssignActivityDocument(Request $request)
       {
         // dd($request->all());
         $PreassignedDocumentsCount=AssignedActivityDocument::where('assigned_project_id',$request->assigned_project_id)->count(); //
@@ -473,6 +473,7 @@ class OfficerController extends Controller
         $project->save();
         return 'Done';
       }
+      
       public function save_dates(Request $request)
       {
         $assigned_project=AssignedProjectActivity::find($request->assigned_project_activity_id);
@@ -483,7 +484,15 @@ class OfficerController extends Controller
 
       }
 
-      // Methods below are for Monitoring Module
+//-------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------//
+//------------- Methods below are for Monitoring Module--------------------------//
+//-------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------//
+
 
       public function monitoring_newAssignments()
       {
@@ -578,7 +587,11 @@ class OfficerController extends Controller
         $project->planned_start_date=$request->planned_start_date;
         $project->planned_end_date=$request->planned_end_date;
         $project->save();
-        return redirect()->back();
+         $tabs=explode("_",$request->page_tabs);
+          $maintab=$tabs[0];
+          $innertab=$tabs[1];
+          return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
+
       }
       public function monitoring_inrogress_organizations_saved(Request $request)
       {
@@ -593,6 +606,7 @@ class OfficerController extends Controller
         $m_project_organizations->contractor_or_supplier = $request->contractor_or_supplier;
         $m_project_organizations->save();
         $msg='Saved';
+
         $tabs=explode("_",$request->page_tabs);
         $maintab=$tabs[0];
         $innertab=$tabs[1];
@@ -630,8 +644,6 @@ class OfficerController extends Controller
 
       public function monitoring_inprogressSingle(Request $request)
       {
-
-
         if($request->project_id==null)
         return redirect()->back();
 
@@ -742,14 +754,6 @@ class OfficerController extends Controller
         $Kpis =MProjectKpi::where('status',1)->where('standard',1)->get();
 
         $mPlanKpiComponents=$projectProgressId->MPlanKpicomponentMapping->groupBy('m_project_kpi_id');
-        // dd($mPlanKpiComponents);
-        // foreach (App\MPlanKpicomponentMapping::select('m_project_kpi_id')->where('m_project_progress_id',$project->id)->groupBy('m_project_kpi_id')->get() as $mappedKPi)
-        //     foreach ($mappedKPi->where('m_project_kpi_id',$mappedKPi->MProjectKpi->id)->get() as $item)    {
-
-        //     }                        
-
-
-        // $customkpis=MProjectKPI::where('id',);
 
         $cities=PlantripCity::orderBy('name')->get();
         $districts=District::orderBy('name')->get();
@@ -783,7 +787,7 @@ class OfficerController extends Controller
           'png' => 'image',
           'jpg' => 'image',
           'jpeg' => 'image',
-      ];
+        ];
        //stakeholders
        $executingStakeholders= MExecutingStakeholder::where('m_project_progress_id',$projectProgressId->id)->get();
        $sponsoringStakeholders= MSponsoringStakeholder::where('m_project_progress_id',$projectProgressId->id)->get();
@@ -818,10 +822,7 @@ class OfficerController extends Controller
          'team_lead_check' => $team_lead_check,
          'assigned_user_locations'=>$user_locations
         ]);
-       
-      //  dd($project_documents->count()); 
-        // dd($generalFeedback[0]u->MAssignedProjectFeedBack->answer);
-        // dd($components[0]->MPlanObjectivecomponentMapping[0]->m_plan_objective_id);
+    
         return view('_Monitoring._Officer.projects.inprogressSingle'
         ,compact('first_visit_date','gestation_period','m_assigned_issues','qualityassesments','B_Stakeholders','sponsoringStakeholders'
         ,'executingStakeholders','assignedGeneralFeedbacks',
@@ -833,59 +834,15 @@ class OfficerController extends Controller
         ,'assigned_districts','m_observations'));
       }
 
-      // public function weight($level_1){
-      //   $wl1 = 0;
-      //   $wl2 = 0;
-      //   $wl3 = 0;
-      //   $wl4 = 0;
-
-
-      //   foreach ($level_1 as $item)
-      //   {
-      //     $wl2 = 0;
-      //     foreach ($item->MAssignedKpiLevel2 as $item2)
-      //     {
-      //       $check2 = true;
-      //       $wl3 = 0;
-      //       foreach ($item2->MAssignedKpiLevel3 as $item3)
-      //       {
-      //         $check3 = true;
-      //         $wl4 = 0;
-      //         foreach ($item3->MAssignedKpiLevel4 as $item4)
-      //         {
-      //           $wl4 += $item4->current_weightage;
-      //           $check3 = false;
-      //         }
-
-      //         if(!$check3){
-      //           $wl3 += $wl4;
-      //         }
-      //         else {
-      //           $wl3 += $item3->current_weightage;
-      //         }
-      //         $check2 = false;
-      //       }
-      //       if(!$check2){
-      //         $wl2 += $wl3;
-      //       }
-      //       else {
-      //         $wl2 += $item2->current_weightage;
-      //       }
-      //     }
-      //     $wl1 += $wl2;
-      //   }
-      //   return $wl1;
-      // }
-
       public function monitoring_review_form(Request $request)
       {
         // print_r(json_decode($request->data));
         return response()->json($request->data);
       }
 
-      // ---- Officers Charts --------
-
-      // Total Projects
+     //----------------------------------------------------------//
+     //------------------Charts----------------------------------//
+  
       public function officer_chart_one()
       {
         // Charts
@@ -935,48 +892,7 @@ class OfficerController extends Controller
           ]);
           return view('officer.charts.officer_chart_one',['total_projects'=>$actual_total_projects ,'inprogress_projects'=>$inprogress_projects ,'completed_projects'=>$completed_projects]);
       }
-
-      // public function calculateMFinancialProgress($m_project_progress_id)
-      // {
-      //   $financial_cost=MProjectCost::where('m_project_progress_id',$m_project_progress_id)->orderBy('created_at','desc')->first();
-      //   $financial_progress=0.0;
-      //   if($financial_cost)
-      //       $financial_progress=($financial_cost->utilization_against_releases/$financial_cost->total_release_to_date)*100;
-      // }
-      // public function calculateMPhysicalProgress($m_project_progress_id)
-      // {
-      //     $kpiCompMapping=MPlanKpicomponentMapping::where('m_project_progress_id',$m_project_progress_id)->get();
-      //     $arr=array_fill(0,$kpiCompMapping->count(),0);
-      //     $i=0;
-      //     foreach($kpiCompMapping as $main)
-      //     {
-      //       foreach($main->MAssignedKpiLevel1 as $lv1){
-      //         foreach($lv1->MAssignedKpiLevel2 as $lv2){
-      //           foreach($lv2->MAssignedKpiLevel3 as $lv3){
-      //             foreach($lv3->MAssignedKpiLevel4 as $lv4){
-      //               $we=$lv4->current_weightage;
-      //               if(!$we)
-      //                 $we=0;
-      //               $arr[$i]+=$we;
-      //             }
-      //             $we=$lv3->current_weightage;
-      //             if(!$we)
-      //               $we=0;
-      //             $arr[$i]+=$we;
-      //           }
-      //           $we=$lv2->current_weightage;
-      //           if(!$we)
-      //             $we=0;
-      //           $arr[$i]+=$we;
-      //         }
-      //         $we=$lv1->current_weightage;
-      //         if(!$we)
-      //           $we=0;
-      //         $arr[$i]+=$we;
-      //       }
-      //       $i++;
-      //     }
-      // }
+ 
       public function officer_chart_two()
       {
         $projects=AssignedProject::select('assigned_projects.*')
@@ -1021,6 +937,7 @@ class OfficerController extends Controller
           ]);
           return view('officer.charts.officer_chart_two');
       }
+      
       public function officer_chart_three()
       {
         $activities= AssignedProjectActivity::all();
@@ -1050,6 +967,12 @@ class OfficerController extends Controller
           ]);
         return view('officer.charts.officer_chart_three',[ 'activities' => $activities ,'projects_activities_progress'=>$projects_activities_progress]);
       }
+
+      
+     //----------------------------------------------------------//
+     //------------------Charts ended----------------------------------//
+
+
       public function saveGeneralFeedBack(Request $request)
       {
         foreach ($request->generalFeedback as $gf) 
@@ -1070,10 +993,11 @@ class OfficerController extends Controller
           $generalFeedback->m_project_progress_id=$request->m_project_progress_id;
           $generalFeedback->save();
           // Copy from here
-          $tabs=explode("_",$request->page_tabs);
+          
+        }
+        $tabs=explode("_",$request->page_tabs);
           $maintab=$tabs[0];
           $innertab=$tabs[1];
-        }
         return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
       }
       public function saveMissues(Request $request)
@@ -1121,18 +1045,12 @@ class OfficerController extends Controller
           $healthSafety->remarks=$request->comments[$key];
           $healthSafety->m_project_progress_id=$request->m_project_progress_id;
           $healthSafety->save();
-          // Copy from here
-          $tabs=explode("_",$request->page_tabs);
-          // dd($request->all());
-          $maintab=$tabs[0];
-          $innertab=$tabs[1];
-          // Copy from here
-          $tabs=explode("_",$request->page_tabs);
-          // dd($request->all());
-          $maintab=$tabs[0];
-          $innertab=$tabs[1];
+         
+         
         }
-
+          $tabs=explode("_",$request->page_tabs);
+          $maintab=$tabs[0];
+          $innertab=$tabs[1];
           return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
           // return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
       }
@@ -1150,7 +1068,12 @@ class OfficerController extends Controller
           $del_obj=MPlanObjective::where('id',$request->objNo)->delete();
         }
 
-        return redirect()->back();
+            
+        $tabs=explode("_",$request->page_tabs);
+        $maintab=$tabs[0];
+        $innertab=$tabs[1];
+        return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
+
       }
 
       public function deleteComponent(Request $request)
@@ -1219,13 +1142,17 @@ class OfficerController extends Controller
          }
 
           MPlanComponent::where('id',$request->CompNo)->delete();
-        return redirect()->back();
+         
+        $tabs=explode("_",$request->page_tabs);
+        $maintab=$tabs[0];
+        $innertab=$tabs[1];
+        return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
+
 
       }
 
       public function deleteKpi(Request $request)
       {
-        // dd($request);
      
           $kpi = MProjectKpi::find($request->kpi_id);
 
@@ -1406,102 +1333,111 @@ class OfficerController extends Controller
             }  
           }
             // dump('done');
-          return redirect()->back();
+          
+        $tabs=explode("_",$request->page_tabs);
+        $maintab=$tabs[0];
+        $innertab=$tabs[1];
+        return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
+
       }
 
       public function deleteUserLoc(Request $request)
       {
-        // dd($request);
         MAssignedUserLocation::where('m_project_progress_id',$request->m_project_progress_id)->where('id',$request->userloc_id)->delete();
-        // dd($ddi); 
-        dump('done');
+
         $tabs=explode("_",$request->page_tabs);
         $maintab=$tabs[0];
         $innertab=$tabs[1];
-        // return response()->json(["type"=>"success","msg"=>$msg." Successfully"]);
         return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Deleted Successfully']);
 
       }
     
       public function deleteAttachment(Request $request)
       {
-        // dd($request);
-       MProjectAttachment::where('id',$request->document_id)->where('m_project_progress_id',$request->m_project_progress_id)->delete();
+         MProjectAttachment::where('id',$request->document_id)->where('m_project_progress_id',$request->m_project_progress_id)->delete();
        
-       return redirect()->back();
+        $tabs=explode("_",$request->page_tabs);
+        $maintab=$tabs[0];
+        $innertab=$tabs[1];
+        return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
+
+
 
       }   
 
-    public function deleteUserAssignedKpi(Request $request)
-    {
-  
-       $this->delUserWbs($request->kpi_id , $request->m_project_progress_id);
-       return redirect()->back();
-
-
-    }
-
-    public function delUserWbs($kpi_id , $project_id)
-    {
-      if(MAssignedUserKpi::where('m_project_kpi_id',$kpi_id)->where('m_project_progress_id',$project_id)->count())
+      public function deleteUserAssignedKpi(Request $request)
       {
-        $MAssignedUserKpi_id =MAssignedUserKpi::where('m_project_kpi_id',$kpi_id)->where('m_project_progress_id',$project_id)->first();
-        $Massignedkpi=MAssignedKpi::where('m_assigned_user_kpi_id',$MAssignedUserKpi_id->id)->first();
-      
-        $level_1 = $Massignedkpi->MAssignedKpiLevel1->first();
-      
-          if(isset($level_1) && MAssignedKpiLevel1Log::where('m_project_level1_kpis_id',$level_1->m_project_level1_kpis_id)
-          ->where('m_project_progress_id',$project_id)
-          ->count())
-          {
-            return redirect()->back()->with('This cant be deleted.');
-          }
-          else 
-          {
-            if($Massignedkpi->MAssignedKpiLevel1->count())
-            { 
-                foreach($Massignedkpi->MAssignedKpiLevel1 as $l1)
-                {
-                  //  dd($l1);
-                    if($l1->MAssignedKpiLevel2->count())
-                    {
-                      $Massignedkpi_l2=MAssignedKpiLevel2::where('m_assigned_kpi_level1_id',$l1->id)->get();
-                      foreach($Massignedkpi_l2 as $l2)
-                      {
-                        if($l2->MAssignedKpiLevel3->count())
-                        {
-                          foreach($l2->MAssignedKpiLevel3 as $l3)
-                          {
-                            if($l3->MAssignedKpiLevel4->count())
-                            {
-                              
-                              $l3->MAssignedKpiLevel4()->delete();
-                            }
-                          }
-                          
-                          $l2->MAssignedKpiLevel3()->delete();
-                        }
-                      }
-                      
-                      $l1->MAssignedKpiLevel2()->delete();
-                    }
-                }
-                  $Massignedkpi->MAssignedKpiLevel1()->delete();
+    
+        $this->delUserWbs($request->kpi_id , $request->m_project_progress_id);
+        $tabs=explode("_",$request->page_tabs);
+        $maintab=$tabs[0];
+        $innertab=$tabs[1];
+        return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
+
+
+      }
+
+      public function delUserWbs($kpi_id , $project_id)
+      {
+        if(MAssignedUserKpi::where('m_project_kpi_id',$kpi_id)->where('m_project_progress_id',$project_id)->count())
+        {
+          $MAssignedUserKpi_id =MAssignedUserKpi::where('m_project_kpi_id',$kpi_id)->where('m_project_progress_id',$project_id)->first();
+          $Massignedkpi=MAssignedKpi::where('m_assigned_user_kpi_id',$MAssignedUserKpi_id->id)->first();
+        
+          $level_1 = $Massignedkpi->MAssignedKpiLevel1->first();
+        
+            if(isset($level_1) && MAssignedKpiLevel1Log::where('m_project_level1_kpis_id',$level_1->m_project_level1_kpis_id)
+            ->where('m_project_progress_id',$project_id)
+            ->count())
+            {
+              return redirect()->back()->with('This cant be deleted.');
             }
-              MAssignedKpi::where('m_assigned_user_kpi_id',$MAssignedUserKpi_id->id)->delete();
-              MAssignedUserKpi::where('m_project_kpi_id',$kpi_id)
-              ->where('m_project_progress_id',$project_id)
-              ->delete();
-              // dd('i am in');
-              return redirect()->back();
-          }
+            else 
+            {
+              if($Massignedkpi->MAssignedKpiLevel1->count())
+              { 
+                  foreach($Massignedkpi->MAssignedKpiLevel1 as $l1)
+                  {
+                    //  dd($l1);
+                      if($l1->MAssignedKpiLevel2->count())
+                      {
+                        $Massignedkpi_l2=MAssignedKpiLevel2::where('m_assigned_kpi_level1_id',$l1->id)->get();
+                        foreach($Massignedkpi_l2 as $l2)
+                        {
+                          if($l2->MAssignedKpiLevel3->count())
+                          {
+                            foreach($l2->MAssignedKpiLevel3 as $l3)
+                            {
+                              if($l3->MAssignedKpiLevel4->count())
+                              {
+                                
+                                $l3->MAssignedKpiLevel4()->delete();
+                              }
+                            }
+                            
+                            $l2->MAssignedKpiLevel3()->delete();
+                          }
+                        }
+                        
+                        $l1->MAssignedKpiLevel2()->delete();
+                      }
+                  }
+                    $Massignedkpi->MAssignedKpiLevel1()->delete();
+              }
+                MAssignedKpi::where('m_assigned_user_kpi_id',$MAssignedUserKpi_id->id)->delete();
+                MAssignedUserKpi::where('m_project_kpi_id',$kpi_id)
+                ->where('m_project_progress_id',$project_id)
+                ->delete();
+                // dd('i am in');
+                return redirect()->back();
+            }
 
+        }
+        else
+        {
+          return redirect()->back();
+        }
       }
-      else
-      {
-        return redirect()->back();
-      }
-    }
 
       public function projectDesignMonitoring(Request $request)
       {
@@ -2168,7 +2104,10 @@ class OfficerController extends Controller
         $data->latitude=0;
         $data->save();
       }
-       return redirect()->back();
+       $tabs=explode("_",$request->page_tabs);
+      $maintab=$tabs[0];
+      $innertab=$tabs[1];
+      return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
 
     }
 
@@ -2216,7 +2155,8 @@ class OfficerController extends Controller
 
     }
 
-    public function save_m_observations(Request $r){
+    public function save_m_observations(Request $r)
+    {
       // dd($r->all());
       $m_observations = MProgressObservation::updateOrCreate(
         ['m_project_progress_id' => $r->m_project_progress_id],
@@ -2225,6 +2165,9 @@ class OfficerController extends Controller
       // $m_observations->m_project_progress_id = $r->m_project_progress_id;
       // $m_observations->observation = $r->observation;
       // $m_observations->save();
-      return redirect()->back();
+     $tabs=explode("_",$r->page_tabs);
+      $maintab=$tabs[0];
+      $innertab=$tabs[1];
+      return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
     }
 }
