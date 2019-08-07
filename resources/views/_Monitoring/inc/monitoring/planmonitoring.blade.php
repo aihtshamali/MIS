@@ -141,108 +141,106 @@
                    
 
                 </div>
-                <div class="tab-pane {{isset($innertab) && $innertab=='projectdesign' ? 'active' : ''}}" id="i-dates" role="tabpanel" aria-expanded="false">
-                   <div class="card">
-                       <div class="card-block">
-                            <form class="serializeform" action="{{ route('projectDesignMonitoring') }}" method="post">
-                                    {{ csrf_field() }}
-                                    <div class="row">
-                                        <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
-                                        <input type="hidden" name="page_tabs" value="plan_userLoc">
-                                        <input type="hidden" name="objct" id="objct" value="{{count($objectives)}}">
-                                        <input type="hidden" name="compAct" id="compAct" value="{{count($components)}}">
-                                        <div class="col-md-6 objtivesNew border_right pd_1_2">
-                                        <div class="DisInlineflex newClass1 mb_2 col-md-12">
-                                            <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Objective 1</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" class="form-control" name="obj[]" placeholder="Objective 1">
-                                            </div>
-                                            <div class="col-sm-2 addbtn text_center">
-                                                <button class="btn btn-sm btn-info" type="button" id="add_more_objective" tabindex=1>+</button>
-                                            </div>
-                                        </div>
+        <div class="tab-pane {{isset($innertab) && $innertab=='projectdesign' ? 'active' : ''}}" id="i-dates" role="tabpanel" aria-expanded="false">
+            <div class="card">
+                <div class="card-block">
+                    <form class="serializeform" action="{{ route('projectDesignMonitoring') }}" method="post">
+                            {{ csrf_field() }}
+                            <div class="row">
+                                <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
+                                <input type="hidden" name="page_tabs" value="plan_userLoc">
+                                <input type="hidden" name="objct" id="objct" value="{{count($objectives)}}">
+                                <input type="hidden" name="compAct" id="compAct" value="{{count($components)}}">
+                                <div class="col-md-6 objtivesNew border_right pd_1_2">
+                                <div class="DisInlineflex newClass1 mb_2 col-md-12">
+                                    <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Objective 1</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" name="obj[]" placeholder="Objective 1">
                                     </div>
-                                    <div class="col-md-6 compActNew border_left pd_1_2">
-                                        <div class="DisInlineflex newClasscompAct mb_2 col-md-12">
-                                            <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Component 1</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" name="comp[]" class="form-control" placeholder="Component 1">
-                                            </div>
-                                            <div class="col-sm-2 addbtn text_center">
-                                                <button class="btn btn-sm btn-info" type="button" id="add_more_compAct" tabindex=100>+</button>
-                                            </div>
-                                        </div>
+                                    <div class="col-sm-2 addbtn text_center">
+                                        <button class="btn btn-sm btn-info" type="button" id="add_more_objective" tabindex=1>+</button>
                                     </div>
-                                    <button class="btn aho col-md-2 offset-md-10" type="submit" id="saveObjComp">Save & Proceed</button>
+                                </div>
+                            </div>
+                            <div class="col-md-6 compActNew border_left pd_1_2">
+                                <div class="DisInlineflex newClasscompAct mb_2 col-md-12">
+                                    <label class="col-sm-3 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Component 1</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" name="comp[]" class="form-control" placeholder="Component 1">
                                     </div>
-                                </form>
-                        
-                       </div>
-                   </div>
-            
-            <div class="row">
-                    <label for=""><h5><b>Summary Of Objectives</b></h5></label>
-            </div> 
-            <div class="row">
+                                    <div class="col-sm-2 addbtn text_center">
+                                        <button class="btn btn-sm btn-info" type="button" id="add_more_compAct" tabindex=100>+</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn aho col-md-2 offset-md-10" type="submit" id="saveObjComp">Save & Proceed</button>
+                            </div>
+                        </form>
+                
+                </div>
+            </div>
+    
+            <div class="card">
+                <div class="card-header"><h4><b>Summary Of Objectives</b></h4></div>
+                <div class="card-block"><div class="row">
                 @if(isset($objectives))
                     <div class="col-md-12">
-                    <table class="table">
-                        <tr>
-                            <th></th>
-                            <th>Objectives</th>
-                        </tr>
-                      @foreach($objectives as $obj)                       
-                        <tr>
-                            <td>
-                                <form action="{{route('deleteObjective')}}" method="POST" enctype="multipart/form-data">
-                                    {{ csrf_field() }}
-                                    <input type="hidden" name="objNo" value="{{$obj->id}}">
-                                    <button class="btn btn-sm btn-danger deleteObjective"  onclick="return confirm('Deletion of objective will lead to delete all the mappings of this objective.Are you sure?')" type="submit" id="deleteObjective" > <i class="fa fa-trash"></i> </button>
-                                </form>
-                            </td>
-                            <td> 
-                                {{$obj->objective}}
-                            </td>
-                        </tr>
-                        @endforeach
-                    </table>
+                        <table class="table">
+                            <tr>
+                                <th></th>
+                                <th>Objectives</th>
+                            </tr>
+                        @foreach($objectives as $obj)                       
+                            <tr>
+                                <td>
+                                    <form action="{{route('deleteObjective')}}" method="POST" enctype="multipart/form-data">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="objNo" value="{{$obj->id}}">
+                                        <button class="btn btn-sm btn-danger deleteObjective"  onclick="return confirm('Deletion of objective will lead to delete all the mappings of this objective.Are you sure?')" type="submit" id="deleteObjective" > <i class="fa fa-trash"></i> </button>
+                                    </form>
+                                </td>
+                                <td> 
+                                    {{$obj->objective}}
+                                </td>
+                            </tr>
+                            @endforeach
+                        </table>
                 </div>  
                 @else  
-                 <div class="col-sm-3">
-              No Objectives Entered
-              </div>
-                @endif
+                <div class="col-sm-3">
+            No Objectives Entered
             </div>
-                  
-            <div class="row">
-                    <label for=""><h5><b>Summary Of Components</b></h5></label>
-            </div> 
-                 <div class="row">
-                     <div class="col-md-12">
-                         <table class="table">
-                             <tr>
-                                 <th></th>
-                                 <th> Components</th>
-                             </tr>
-                             @foreach($components as $comp)
-                             <tr>
-                                 <td>
+                @endif
+            </div></div>    
+            </div>         
+            <div class="card">
+                    <div class="card-header"><h4><b>Summary Of Components</b></h4></div>
+                    <div class="card-block"> <div class="row">
+                    <div class="col-md-12">
+                        <table class="table">
+                            <tr>
+                                <th></th>
+                                <th> Components</th>
+                            </tr>
+                            @foreach($components as $comp)
+                            <tr>
+                                <td>
                                         <form action="{{route('deleteComponent')}}"  method="POST"  enctype="multipart/form-data">
-                           
+                        
                                             {{ csrf_field() }}
                                             <input type="hidden" name="CompNo" value="{{$comp->id}}">
                                             <button class="btn btn-sm btn-danger deleteComp" onclick="return confirm('Deletion of component will lead to delete this respective component from all mapped places.Are you sure?')"  type="submit" id="deleteComp" > <i class="fa fa-trash"></i>  </button>
                                         </form>        
-                                 </td>
-                                 <td>
+                                </td>
+                                <td>
                                         {{$comp->component}}
-                                 </td>
-                             </tr>
-                             @endforeach
-                         </table>
-                     </div>
-                 </div>
-
+                                </td>
+                            </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                </div></div>
+            </div> 
         </div>
 
         <div class="tab-pane" id="financial" role="tabpanel" aria-expanded="false">
@@ -427,10 +425,11 @@
           
         </div>
         <div class='tab-pane {{isset($innertab) && $innertab=="Mapping" ? "active" : ""}}' id="MOBdiv" role="tabpanel" aria-expanded="false">
-            <form class="serializeform" action="{{ route('mappingOfObj') }}" method="post">
-                {{ csrf_field() }}
-                <div class="row col-md-12 border">
-                    <div class="col-md-8 offset-md-2 ">
+           <div class="card">
+               <form class="serializeform" action="{{ route('mappingOfObj') }}" method="post">
+                    {{ csrf_field() }}
+                    <div class="row col-md-12 ">
+                        <div class="col-md-8 offset-md-2 ">
                         <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
                         <input type="hidden" name="page_tabs" value="plan_KPI">
                         <div class="row">
@@ -470,10 +469,52 @@
                         <button class="btn aho col-md-1 btn btn-primary pull-right" type="submit" id="saveCompagainstObj">Save </button>
                     </div>
                     <div class=" col-md-8 offset-md-2 SumObjComp nodisplay">
-
+       
                     </div>
                 </div>
-            </form>
+                </form>
+            </div>
+
+            {{-- <div class="card">
+                <div class="card-header">
+                    <h4><b>Mapping Of Components Against Objectives</b></h4>
+                </div>
+                <div class="card-block">
+                 <div class="row">
+                        <div class="col-md-8 offset-md-2 ">
+                        <ul class="pd_1_6" id="ObjCompHere">
+                            @php
+                            $i=0;
+                            @endphp
+                            @foreach ($objectives as $obj)
+                            <li class="row mb_2">
+                                <span id="objectiveHere" name="" class="float-left col-md-6">
+                                    <input type="hidden" value="{{$obj->id}}" name="objective[]">
+                                    {{$obj->objective}}
+                                </span>
+                                <span class="float-right col-md-6">
+                                    <select class="select2 col-md-12" id="component"  disabled name="mappedComp_{{$i}}[]" multiple="multiple">
+                                        @foreach ($components as $comp)
+                                        <option @foreach ($comp->MPlanObjectivecomponentMapping as $mappedComp)
+                                            @if($mappedComp->m_plan_objective_id == $obj->id)
+                                            {{"selected"}}
+                                            @endif
+                                            @endforeach
+                                            value="{{$comp->id}}" >{{$comp->component}}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </span>
+                            </li>
+                            @php
+                            $i++;
+                            @endphp
+                            @endforeach
+                        </ul>
+                    </div>
+                </div> 
+            </div> --}}
+
         </div>
         <div class='tab-pane {{isset($innertab) && $innertab=="KPI" ? "active" : ""}}' id="kpis" role="tabpanel" aria-expanded="false" style="">
             <div class="col-md-12 expandheaderCustom clearfix">
@@ -497,9 +538,9 @@
                                     <div class="DisInlineflex mb_2 col-md-12">
                                         <label class="col-sm-1 text_center form-txt-primary font-15" style="padding: 0.3rem 0.3rem !important;">Level 1<span style="color:red">*</span></label>
                                         <div class="col-sm-5">
-                                            <input type="text" name="level1" required="required" class="form-control" placeholder="Enter WBS">
+                                            <input type="text" name="level1" style="padding: 4%;" required="required" class="form-control" placeholder="Enter WBS">
                                         </div>
-                                        <div class="col-sm-4 ml-3">
+                                        <div class="col-sm-4 ml-3" style="margin-top: -2%;">
                                             <label for="">Components <span style="color:red">*</span></label>
                                             <select name="component_mapped[]" required="required" class="select2" multiple="multiple"> <span style="color:red">*</span>
                                                 <option value="" disabled>Choose Components</option> 
@@ -574,7 +615,7 @@
             </div>
             
             <div class="card">
-                <h4><b>Summary Of Saved WBS </b></h4>
+                <div class="card-header"><h4><b>Summary Of Saved WBS </b></h4></div>
                 <div class="card-block">
                         <table class="table table-stripped">
                             <thead>

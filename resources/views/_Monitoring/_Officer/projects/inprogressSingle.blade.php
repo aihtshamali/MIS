@@ -488,6 +488,10 @@ $innertab=\Session::get('innertab');
 @section("js_scripts")
 <!-- Multiselect js -->
 <!-- <script src="{{asset('js/app.js')}}"></script> -->
+<script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>
+<script>
+  CKEDITOR.inline('short_desc');
+</script>
 <script src="{{asset('_monitoring/js/select2/js/select2.full.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/bootstrap-multiselect/js/bootstrap-multiselect.js')}}"></script>
 <script src="{{asset('_monitoring/js/multiselect/js/jquery.multi-select.js')}}"></script>
