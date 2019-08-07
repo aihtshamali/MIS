@@ -447,7 +447,7 @@
                                     {{$obj->objective}}
                                 </span>
                                 <span class="float-right col-md-6">
-                                    <select class="select2 col-md-12" id="component"   name="mappedComp_{{$i}}[]" multiple="multiple">
+                                    <select class="select2 col-md-12" id="component"  name="mappedComp_{{$i}}[]" multiple="multiple">
                                         @foreach ($components as $comp)
                                         <option @foreach ($comp->MPlanObjectivecomponentMapping as $mappedComp)
                                             @if($mappedComp->m_plan_objective_id == $obj->id)

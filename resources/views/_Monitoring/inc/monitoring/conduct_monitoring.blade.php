@@ -1055,10 +1055,18 @@
                     </div>
                 </div>
                 <div class='tab-pane nodisplay' id="observations" role="tabpanel" aria-expanded="false">
-                    <form action="#!" method="POST" class="border">
-                        <textarea name="" id="short_desc" style="height:200px;" class="offset-md-1 col-md-10" placeholder="Type Ovservations Here...">
-                        Type your Observations Here....
+                    <form action="{{route('save_m_observations')}}" method="POST" class="border">
+                        {{csrf_field()}}
+                        <input type="hidden" name="m_project_progress_id" value="{{$progresses->id}}">   
+                        <textarea name="observation" id="short_desc" style="height:200px;" class="offset-md-1 col-md-10">
+                        @if(isset($m_observations->observation))
+                            {{$m_observations->observation}}
+                        @else
+                            Type your Observations Here...
+                        @endif
                     </textarea>
+
+                    <button class="btn btn-success float-right mt-5" type="submit">SAVE</button>
                     </form>
                 </div>
                 {{-- <div class="tab-pane active" id="procurment" role="tabpanel"

@@ -86,6 +86,8 @@ if (! function_exists('calculateMPhysicalProgress')) {
 
       $physical_progress=($total_phyProgres/$financial_cost->total_release_to_date)*100; 
       // dd("Physical Progress",$physical_progress);
+      if($physical_progress>100)
+        $physical_progress = 100 ;
       return $physical_progress;
 
   }
