@@ -1722,6 +1722,7 @@ class OfficerController extends Controller
 
           $data =new MProjectAttachment();
           $data->project_attachement=base64_encode(file_get_contents($file_path));
+          
           $data->m_project_progress_id=$request->m_project_progress_id;
           $data->type = $file_extension;
           $data->user_id = Auth::id();
