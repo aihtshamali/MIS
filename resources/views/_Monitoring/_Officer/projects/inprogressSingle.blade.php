@@ -340,7 +340,7 @@ $innertab=\Session::get('innertab');
       </div>
     </div>
     <!-- end hide project detail btn -->
-    <div class="card" style="box-shadow: 0px 0px 33px #77777769;">
+    <div class="card" style="    margin-top: 5%; box-shadow: 0px 0px 33px #77777769;">
       <div class="card-block">
         <div class="row m-b-30">
           <div class="col-md-12">

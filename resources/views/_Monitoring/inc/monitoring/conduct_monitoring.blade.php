@@ -406,7 +406,8 @@
 
                     <div class="card z-depth-right-0">
                         <div class="card-header">
-                            <h4>Stakeholders</h4>
+                            <h4>Stakeholders </h4>
+                            <small>To edit stakeholders , Goto Inprogress Projects -> Edit Details</small>
 
                         </div>
                         <form action="{{route('savestakeholders')}}" class="" method="POST">
