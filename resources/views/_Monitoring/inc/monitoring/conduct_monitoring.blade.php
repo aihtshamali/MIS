@@ -1042,18 +1042,12 @@
                         <div id="drop--area">
                         <form action="{{route('saveManualImages')}}" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}   
-                            <input type="hidden" name="page_tabs" value="conduct_docs">
-                            <input type="file"  name="imgs[]" id="file--input" multiple accept="image/*" onchange="handleFiles(this.files)">
+                            <input type="file"  name="imgs[]" id="file--input" multiple onchange="handleFiles(this.files)">
                             <input type="hidden" name="m_project_progress_id" value="{{$progresses->id}}">   
-                            <label for="file--input" class="button">Select Images</label>
+                            <label for="file--input" class="button">Select Images or Videos</label>
                                 <div id="gallery"></div>
-                                <button type="submit" class="btn btn-primary" name="submitimages">Save Images</button>
-                        </form>
-                        </div>
-                        <div class="custom-file-upload">
-                            <h4 class="text-primary" for="file">Upload Videos: </h4> 
-                            <!-- <input type="file" id="file" name="myfiles[]" multiple /> -->
-                            <input type="file" accepts="video/*" multiple>
+                                <button type="submit" class="btn btn-primary" name="submitimages">Save</button>
+                            </form>
                         </div>
                     </div>
                 </div>

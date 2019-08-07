@@ -386,7 +386,7 @@ transform: rotate(90deg);
                   <source src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$video->m_project_progress_id.'/'.$video->project_attachement}}" type="video/ogg">
                   Your browser does not support the video tag.
                 </video>
-                <b class="float-right" style="padding:0% 10%">Date: {{date('d M Y',strtotime($attachment->created_at))}} </b>
+                <b class="float-right" style="padding:0% 10%">Date: {{date('d M Y',strtotime($video->created_at))}} </b>
               </div>
               @endforeach
             </div>
