@@ -77,6 +77,7 @@ use App\ReportData;
 use App\PostSne;
 use App\MAssignedKpiLevel2Log;
 use App\MAssignedKpiLevel1Log;
+use App\MProgressObservation;
 
 class OfficerController extends Controller
 {
@@ -806,6 +807,8 @@ class OfficerController extends Controller
         
         $first_visit_date=MProjectDate::where('m_project_progress_id',$projectProgressId->id)->first();
         
+        $m_observations = $projectProgressId->MProgressObservation;
+        
         \JavaScript::put([
           'projectWithRevised'=>$projectWithRevised,
          'components'=> $components,
@@ -825,7 +828,7 @@ class OfficerController extends Controller
         'monitoringProjectId','Kpis','components','objectives','sectors','sub_sectors','project'
         ,'costs','location','icons',
         'organization','dates','progresses','generalFeedback','issue_types','healthsafety','team'
-        ,'assigned_districts'));
+        ,'assigned_districts','m_observations'));
       }
 
       // public function weight($level_1){
@@ -2208,5 +2211,17 @@ class OfficerController extends Controller
       $post_sne->save();
       return redirect()->back(); 
 
+    }
+
+    public function save_m_observations(Request $r){
+      // dd($r->all());
+      $m_observations = MProgressObservation::updateOrCreate(
+        ['m_project_progress_id' => $r->m_project_progress_id],
+        ['user_id' => Auth::id(),'observation' => $r->observation]);
+      // $m_observations->user_id = Auth::id();
+      // $m_observations->m_project_progress_id = $r->m_project_progress_id;
+      // $m_observations->observation = $r->observation;
+      // $m_observations->save();
+      return redirect()->back();
     }
 }
