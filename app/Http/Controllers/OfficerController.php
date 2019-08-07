@@ -220,6 +220,7 @@ class OfficerController extends Controller
         ->where('projects.project_type_id','1')
         ->where('acknowledge','0')
         ->where('complete',0)
+        ->where('stopped',0)
         ->where('assigned_project_teams.user_id',Auth::id())
         ->count();
         $officer=AssignedProject::select('assigned_projects.*','assigned_project_teams.user_id')
@@ -230,6 +231,7 @@ class OfficerController extends Controller
         ->where('assigned_project_teams.user_id',Auth::id())
         ->where('acknowledge','1')
         ->where('complete',0)
+        ->where('stopped',0)
         ->get();
 
         // $progress=AssignedProject::select('assigned_projects.*','assigned_project_activities.*')
