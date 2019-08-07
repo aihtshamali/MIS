@@ -1257,6 +1257,14 @@
                     <h1 class="grey underline">Conduct Monitoring</h1>
                 </div>
                 <div class="col-md-12 pdtop2p">
+                    <h1 class="bluetxt underline">Observations</h1>
+                <div>
+                    @if(isset($project->MProgressObservation))
+                        {!!$project->MProgressObservation->observation!!}
+                    @endif
+                </div>
+                </div>
+                <div class="col-md-12 pdtop2p">
                     <h1 class="bluetxt underline">Quality Assesments</h1>
                 </div>
             </div>
