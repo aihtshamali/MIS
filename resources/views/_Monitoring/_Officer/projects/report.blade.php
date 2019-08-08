@@ -546,14 +546,31 @@
         });
     </script>
 </head>
-
+@php
+function getSeverity($num){
+    switch($num){
+        case '1':
+            return 'Very High';
+        case '2':
+            return 'High';
+        case '3':
+            return 'Medium';
+        case '4':
+            return 'Low';
+        case '5':
+            return 'Very Low';
+        default :
+         return 'Unknown';
+    }
+}
+@endphp
 <body>
     <div class="topbtnparentwidth fixbtns">
         <button type="button" name="exp_button" class="topbtns exp_button btn btn-md" onclick="Export2Doc('exportContent');">
             Download Document
         </button>
         <button class="topbtns btn btn-md" onclick="window.print()">
-            Print
+            Save as PDF
         </button>
     </div>
     <div class="card" id='exportContent'>
@@ -603,12 +620,15 @@
                             <span>{{$project->AssignedProject->Project->ADP}}</span>
                         </div>
                         <div class="col-md-6">
+
+                            <span id="planned_start_date" style="display:none">{{$project->AssignedProject->Project->ProjectDetail->planned_start_date}}</span>                            
                             <label><b>Planned Start Date :</b></label>
-                            <span>{{date('d-M-Y', strtotime($project->AssignedProject->Project->ProjectDetail->planned_start_date))}}</span>
+                            <span >{{date('d-M-Y', strtotime($project->AssignedProject->Project->ProjectDetail->planned_start_date))}}</span>
                         </div>
                         <div class="col-md-6">
+                            <span id="planned_end_date" style="display:none">{{$project->AssignedProject->Project->ProjectDetail->planned_end_date}}</span>
                             <label><b>Planned End Date :</b></label>
-                            <span>{{ date('d-M-Y', strtotime($project->AssignedProject->Project->ProjectDetail->planned_end_date))}}</span>
+                            <span >{{ date('d-M-Y', strtotime($project->AssignedProject->Project->ProjectDetail->planned_end_date))}}</span>
                         </div>
                         <div class="col-md-6">
                             <label><b>Actual Start Date :</b></label>
@@ -924,19 +944,19 @@
                 </tr>
                 <tr>
                     <td class="bglightblue black bold">Operation & Maintenance</td>
-                    <td>
-                        @if(isset($project->MProjectOrganization->operation_and_management))
-                            {{$project->MProjectOrganization->operation_and_management }}
-                        @endif
-                    </td>
+                    @if(isset($project->MProjectOrganization->operation_and_management))
+                        <td>{{$project->MProjectOrganization->operation_and_management }}</td>
+                    @else
+                        <td>-</td>
+                    @endif
                 </tr>
                 <tr>
                         <td class="bglightblue black bold">Contractor & Suppliers</td>
-                        <td>
-                            @if(isset($project->MProjectOrganization->contractor_or_supplier))
-                                {{$project->MProjectOrganization->contractor_or_supplier }}
-                            @endif
-                        </td>
+                        @if(isset($project->MProjectOrganization->contractor_or_supplier))
+                            <td>{{$project->MProjectOrganization->contractor_or_supplier }}</td>
+                        @else
+                            <td>-</td>
+                        @endif
                     </tr>
                 <tr>
 
@@ -957,7 +977,7 @@
                 </tr>
                 <tr>
                     <td class="bglightblue black bold">Planned Gestation Period</td>
-                    <td>
+                    <td class="gestation_period_column">
                     </td>
                 </tr>
 
@@ -1208,7 +1228,6 @@
                         $i=1;
 
                         @endphp
-                        {{-- {{dd($project->MPlanComponentActivitiesMapping[0]->MplanComponent)}} --}}
                         @foreach ($project->MPlanComponentActivitiesMapping as $compActivity)
                         <tr>
                             <td>{{$i}}</td>
@@ -1359,7 +1378,7 @@
                             @foreach($project->MAssignedProjectFeedBack as $fb)
                                 <tr>
                                     <td>{{$fb->MGeneralFeedBack->name}}</td>
-                                    <td>
+                                    <td class="text-capitalize">
                                         {{$fb->answer}}
                                     </td>
                                 </tr>
@@ -1551,7 +1570,7 @@
             <div class="row pdtop2p" style="">
                 <div class="col-md-12">
                     <div class="table-responsive">
-                        <table class="table  table-bordered nowrap">
+                        <table class="table text-center  table-bordered nowrap">
 
                             <tr class="bglightblue black bold">
                                 <th>Issues</th>
@@ -1578,7 +1597,7 @@
                                 </td>
                                 <td>
                                     @if(isset($ProjectIssue->severity) && $ProjectIssue->severity!=null)
-                                    {{$ProjectIssue->severity}}
+                                    {{getSeverity($ProjectIssue->severity)}}
 
                                     @endif
                                 </td>
@@ -1679,10 +1698,32 @@
         </div>
     </div>
     <div>
-        <button class="btn btn-success" type="button" onclick="save_report_data()">SAVE</button>
+        <button class="btn btn-success" type="button" onclick="save_report_data()">SAVE Report Data</button>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
     <script>
+            $(document).ready(function(){
+                var first_val = $("#planned_start_date").text();
+                var second_val = $("#planned_end_date").text();
+                var first = first_val.split('-');
+                var second = second_val.split('-');
+                var year = second[0]-first[0];
+                var month = Math.abs(second[1]-first[1]);
+                var days = Math.abs(second[2]-first[2]);
+                $("td.gestation_period_column").text(year + " Years "+month+" Months "+days+" Days");
+            });
+    </script>
+    <script>
+        $(document).ready(function(){
+            var first_val = $("#planned_start_date").text();
+            var second_val = $("#planned_end_date").text();
+            var first = first_val.split('-');
+            var second = second_val.split('-');
+            var year = second[0]-first[0];
+            var month = Math.abs(second[1]-first[1]);
+            var days = Math.abs(second[2]-first[2]);
+            $("td.gestation_period_column").text(year + " Years "+month+" Months "+days+" Days");
+        });
         CKEDITOR.inlineAll();
         CKEDITOR.instances.block1.on('blur', function(evt) {
             // getData() returns CKEditor's HTML content.
@@ -1791,6 +1832,7 @@
             }
 
             document.body.removeChild(downloadLink);
+
         }
         </script>
 </body>
