@@ -81,19 +81,82 @@ if (! function_exists('calculateMPhysicalProgress')) {
       // dump($phy_prog);
       $total_phyProgres= array_sum($phy_prog);
       //  dump("Total Physical Progress: ",$total_phyProgres);
+      
       if(!isset($financial_cost->total_release_to_date) || $financial_cost->total_release_to_date == 0)
         return 0;
 
       $physical_progress=($total_phyProgres/$financial_cost->total_release_to_date)*100; 
       // dd("Physical Progress",$physical_progress);
       if($physical_progress>100)
-        $physical_progress = 100 ;
+        $physical_progress = 100;
       return $physical_progress;
 
   }
 }
 
-
+function calculateTotalMPhysicalProgress($m_project_progress_id){
+    $mAssignedKpi=App\MAssignedKpi::where('m_project_progress_id',$m_project_progress_id)->get();
+    $original_cost=App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->ProjectDetail->orignal_cost;
+      $financial_cost=App\MProjectCost::where('m_project_progress_id',$m_project_progress_id)->orderBy('created_at','desc')->first();
+      // dd($original_cost);
+      $arr=array_fill(0,$mAssignedKpi->count(),0);
+      $cost=array();
+      $i=0;
+      $weight=0;
+      if(!count($mAssignedKpi))
+        return 0;
+      foreach($mAssignedKpi as $main)
+      {
+        foreach($main->MAssignedKpiLevel1 as $lv1)
+        {
+          foreach($lv1->MAssignedKpiLevel2 as $lv2)
+          {
+            foreach($lv2->MAssignedKpiLevel3 as $lv3)
+            {
+              foreach($lv3->MAssignedKpiLevel4 as $lv4)
+              {
+                $we=$lv4->current_weightage;
+                if(!$we)
+                  $we=0;
+                $arr[$i]+=$we;
+              }
+                $we=$lv3->current_weightage;
+                if(!$we)
+                  $we=0;
+                $arr[$i]+=$we;
+            }
+            $we=$lv2->current_weightage;
+            if(!$we)
+              $we=0;
+            $arr[$i]+=$we;
+          }
+          $we=$lv1->current_weightage;
+          if(!$we)
+            $we=0;
+          $arr[$i]+=$we;
+        }
+        $i++;
+        array_push($cost,$main->cost);
+        // dd($cost);
+        
+        // $weight+=$main->weightage;
+      }
+      $sum=0;
+      // dump("Physical Progress: ");
+      // dump($arr);
+      // dump("Cost: ");
+      // dump($cost);
+      $phy_prog = array_map( function($cost_arr, $arr_new)
+        {
+        return $cost_arr * ($arr_new/100);
+        }, $cost, $arr);
+      // dump($phy_prog);
+      $total_phyProgres= array_sum($phy_prog); 
+  if($original_cost==0)
+      return 0;
+  $Totalphysical_progress=($total_phyProgres/$original_cost)*100; 
+  return $Totalphysical_progress;
+}
 function calculatePlannedProgress($m_project_progress_id)
 {
   $planned_start_date=date_create(App\MProjectProgress::find($m_project_progress_id)->AssignedProject->Project->ProjectDetail->planned_start_date);
