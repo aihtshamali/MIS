@@ -406,10 +406,15 @@
         }
 
         @media print {
-
             @page {
+                counter-increment: page;
+                counter-reset: page 1;
                 size: auto;
                 margin: 10% !important;
+
+                @top-right {
+                    content: "Page "counter(page) " of "counter(pages);
+                }
             }
 
             body {
