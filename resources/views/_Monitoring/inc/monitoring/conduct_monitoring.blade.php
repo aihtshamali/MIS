@@ -1042,12 +1042,13 @@
                         <div id="drop--area">
                         <form action="{{route('saveManualImages')}}" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}   
+                            <input type="hidden" name="page_tabs" value="conduct_docs">
                             <input type="file"  name="imgs[]" id="file--input" multiple onchange="handleFiles(this.files)">
                             <input type="hidden" name="m_project_progress_id" value="{{$progresses->id}}">   
                             <label for="file--input" class="button">Select Images or Videos</label>
                                 <div id="gallery"></div>
-                                <button type="submit" class="btn btn-primary" name="submitimages">Save</button>
-                            </form>
+                            <button type="submit" class="btn btn-primary" name="submitimages">Save</button>
+                        </form>
                         </div>
                     </div>
                 </div>
