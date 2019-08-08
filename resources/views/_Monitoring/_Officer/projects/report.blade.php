@@ -925,11 +925,19 @@
                 </tr>
                 <tr>
                     <td class="bglightblue black bold">Operation & Maintenance</td>
-                    <td>{{$project->MProjectOrganization->operation_and_management }}</td>
+                    @if(isset($project->MProjectOrganization->operation_and_management))
+                        <td>{{$project->MProjectOrganization->operation_and_management }}</td>
+                    @else
+                        <td>-</td>
+                    @endif
                 </tr>
                 <tr>
                         <td class="bglightblue black bold">Contractor & Suppliers</td>
-                        <td>{{$project->MProjectOrganization->contractor_or_supplier }}</td>
+                        @if(isset($project->MProjectOrganization->contractor_or_supplier))
+                            <td>{{$project->MProjectOrganization->contractor_or_supplier }}</td>
+                        @else
+                            <td>-</td>
+                        @endif
                     </tr>
                 <tr>
 
