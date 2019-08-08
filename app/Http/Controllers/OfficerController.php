@@ -2104,9 +2104,11 @@ class OfficerController extends Controller
         $data->latitude=0;
         $data->save();
       }
-       $tabs=explode("_",$request->page_tabs);
-      $maintab=$tabs[0];
-      $innertab=$tabs[1];
+      $maintab = null;
+      $innertab = null;
+      //  $tabs=explode("_",$request->page_tabs);
+      // $maintab=$tabs[0];
+      // $innertab=$tabs[1];
       return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
 
     }
