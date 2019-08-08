@@ -570,7 +570,7 @@ function getSeverity($num){
             Download Document
         </button>
         <button class="topbtns btn btn-md" onclick="window.print()">
-            Print
+            Save as PDF
         </button>
     </div>
     <div class="card" id='exportContent'>
@@ -944,19 +944,19 @@ function getSeverity($num){
                 </tr>
                 <tr>
                     <td class="bglightblue black bold">Operation & Maintenance</td>
-                    <td>
-                        @if(isset($project->MProjectOrganization->operation_and_management))
-                            {{$project->MProjectOrganization->operation_and_management }}
-                        @endif
-                    </td>
+                    @if(isset($project->MProjectOrganization->operation_and_management))
+                        <td>{{$project->MProjectOrganization->operation_and_management }}</td>
+                    @else
+                        <td>-</td>
+                    @endif
                 </tr>
                 <tr>
                         <td class="bglightblue black bold">Contractor & Suppliers</td>
-                        <td>
-                            @if(isset($project->MProjectOrganization->contractor_or_supplier))
-                                {{$project->MProjectOrganization->contractor_or_supplier }}
-                            @endif
-                        </td>
+                        @if(isset($project->MProjectOrganization->contractor_or_supplier))
+                            <td>{{$project->MProjectOrganization->contractor_or_supplier }}</td>
+                        @else
+                            <td>-</td>
+                        @endif
                     </tr>
                 <tr>
 

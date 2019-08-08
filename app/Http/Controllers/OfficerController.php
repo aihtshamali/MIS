@@ -2106,9 +2106,9 @@ class OfficerController extends Controller
       }
       $maintab = null;
       $innertab = null;
-      //  $tabs=explode("_",$request->page_tabs);
-      // $maintab=$tabs[0];
-      // $innertab=$tabs[1];
+       $tabs=explode("_",$request->page_tabs);
+      $maintab=$tabs[0];
+      $innertab=$tabs[1];
       return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
 
     }
