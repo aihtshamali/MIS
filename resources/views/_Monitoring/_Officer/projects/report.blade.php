@@ -613,9 +613,8 @@
                         <div class="col-md-6">
                             <label><b>Actual Start Date :</b></label>
                             <span>
-                                @if(isset($project->AssignedProject->Project->ProjectDetail->actual_start_date))
-                                {{$project->AssignedProject->Project->ProjectDetail->actual_start_date}}
-
+                                @if(isset($project->MProjectDate->actual_start_date))
+                                {{date('d-M-Y',strtotime($project->MProjectDate->actual_start_date))}}
                                 @endif
                             </span>
                         </div>
@@ -925,37 +924,41 @@
                 </tr>
                 <tr>
                     <td class="bglightblue black bold">Operation & Maintenance</td>
-                    <td>{{$project->MProjectOrganization->operation_and_management }}</td>
+                    <td>
+                        @if(isset($project->MProjectOrganization->operation_and_management))
+                            {{$project->MProjectOrganization->operation_and_management }}
+                        @endif
+                    </td>
                 </tr>
                 <tr>
                         <td class="bglightblue black bold">Contractor & Suppliers</td>
-                        <td>{{$project->MProjectOrganization->contractor_or_supplier }}</td>
+                        <td>
+                            @if(isset($project->MProjectOrganization->contractor_or_supplier))
+                                {{$project->MProjectOrganization->contractor_or_supplier }}
+                            @endif
+                        </td>
                     </tr>
                 <tr>
 
                     <td class="bglightblue black bold">Planned Start Date</td>
-                    <td>{{$project->AssignedProject->Project->ProjectDetail->planned_start_date}}</td>
+                    <td>{{date('d-M-Y',strtotime($project->AssignedProject->Project->ProjectDetail->planned_start_date))}}</td>
                 </tr>
                 <tr>
                     <td class="bglightblue black bold">Planned End Date</td>
-                    <td>{{$project->AssignedProject->Project->ProjectDetail->planned_end_date}}</td>
+                    <td>{{date('d-M-Y',strtotime($project->AssignedProject->Project->ProjectDetail->planned_end_date))}}</td>
                 </tr>
                 <tr>
                     <td class="bglightblue black bold">Actual Start Date</td>
-                    <td>{{$project->AssignedProject->Project->ProjectDetail->actual_start_date}}</td>
+                    <td>
+                        @if(isset($project->MProjectDate->actual_start_date))
+                            {{date('d-M-Y',strtotime($project->MProjectDate->actual_start_date))}}
+                        @endif
+                    </td>
                 </tr>
                 <tr>
                     <td class="bglightblue black bold">Planned Gestation Period</td>
                     <td>
                     </td>
-                </tr>
-                <tr>
-                    <td class="bglightblue black bold">Beneficiaries</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="bglightblue black bold">% Financial Utilization</td>
-                    <td></td>
                 </tr>
 
             </table>
@@ -1148,27 +1151,33 @@
                     @endif
 
                 </table>
+
                 <table class="table table-bordered">
                     <tr>
                         <th class="bglightblue black bold">
-                            Sr.
+                            Component.
                         </th>
                         <th class="bglightblue black bold"> Activities</th>
                     </tr>
-                    @php
-                    $j=1;
-                    @endphp
-                    @foreach ($project->MPlanComponentActivitiesMapping as $Comp_activities)
-                    @if($Comp_activities->m_plan_component_id == $comp->id)
+                    
+                    @foreach ($project->MPlanComponentActivitiesMapping->groupBy('m_plan_component_id') as $key => $Comp_activities)
                     <tr>
-                        <td>{{$j}}</td>
-                        <td>{{$Comp_activities->activity}}</td>
+                        @php
+                            $j=1;
+                        @endphp
+                        <td>{{App\MPlanComponent::find($key)->component}}</td>
+                        <td>
+                            @foreach ($Comp_activities as $item)
+                                {{$j}} - 
+                                {{$item->activity}}<br>
+                                @php
+                                    $j++;    
+                                @endphp
+                            @endforeach
+                        </td>
                     </tr>
 
-                    @php
-                    $j++;
-                    @endphp
-                    @endif
+                    
                     @endforeach
 
                 </table>
@@ -1339,7 +1348,7 @@
             <div class="row pdtop2p" style="">
                 <div class="col-md-12">
                     <div class="table-responsive">
-                        <table class="table  table-bordered nowrap">
+                        <table class="table  table-bordered nowrap text-center">
 
                             <tr class="bglightblue black bold">
                                 <th>General FeedBack</th>
@@ -1347,17 +1356,13 @@
                             </tr>
 
 
-                            <tr>
-                                @foreach($project->MAssignedProjectFeedBack as $fb)
-                                <td>{{$fb->MGeneralFeedBack->name}}</td>
-                                <td>
-                                    @if($fb->answer == "yes")
-                                    {{$fb->answer}}
-                                    @elseif($fb->answer=="no")
-                                    {{$fb->answer}}
-                                    @endif
-                                </td>
-                            </tr>
+                            @foreach($project->MAssignedProjectFeedBack as $fb)
+                                <tr>
+                                    <td>{{$fb->MGeneralFeedBack->name}}</td>
+                                    <td>
+                                        {{$fb->answer}}
+                                    </td>
+                                </tr>
                             @endforeach
 
                         </table>
