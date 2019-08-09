@@ -29,9 +29,9 @@
                                     <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width: {{ $project->AssignedProject->progress }}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> {{$project->AssignedProject->progress}}%</div>
                                 </div></td>
                             <td>
-                              <a href="{{route('monitoring_inprogressSingle',['project_id'=>$project->id,'status'=>"conductMonitoring"])}}" class="btn btn-sm btn-info"> Conduct Monitoring</a>
+                              <a href="{{route('monitoring_inprogressSingle',['project_id'=>$project->id,'status'=>"conductMonitoring"])}}" class="btn btn-sm btn-primary"> Conduct Monitoring</a>
                               <br>
-                                <a href="{{route('EditMonitoringEntryForm',$project->id)}}" class="btn btn-sm btn-primary"> Edit Detail</a>
+                                <a href="{{route('EditMonitoringEntryForm',$project->id)}}" class="btn btn-sm btn-primary float-right" style="margin-top:7%;"> Edit Detail</a>
                             </td>
                         </tr>
                           @endforeach
