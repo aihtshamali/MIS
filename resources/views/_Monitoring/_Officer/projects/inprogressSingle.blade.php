@@ -300,22 +300,22 @@ $innertab=\Session::get('innertab');
     </div>
     <div class="col-md-3 ln_ht12">
       <p for="" name="phy_progress" id="phy_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Planned Progress %: </span>
-        <span class="pdz_six" id="PlannedProg">{{round(calculatePlannedProgress($project->MProjectProgress->last()->id),3)}}%</span>
+        <span class="pdz_six" id="PlannedProg">{{round(calculatePlannedProgress($project->MProjectProgress->last()->id),2)}}%</span>
       </p>
     </div>
     <div class="col-md-3">
       <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Financial Progress:</span>
-        <span class="pdz_six" id="financialprog">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),3)}}%</span>
+        <span class="pdz_six" id="financialprog">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</span>
       </p>
     </div>
     <div class="col-md-3">
       <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">All Progress:</span>
-        <span class="pdz_six" id="financialprog">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),3)}}%</span>
+        <span class="pdz_six" id="">{{round(calculateTotalMPhysicalProgress($project->MProjectProgress->last()->id),2)}}%</span>
       </p>
     </div>
     <div class="col-md-3 ln_ht12">
       <p for="" name="phy_progress" id="phy_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Physical Progress: </span>
-        <span class="pdz_six" id="Physicalprog">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id),3)}}%</span>
+        <span class="pdz_six" id="Physicalprog">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id),2)}}%</span>
         <br /><small>(against Total Releases To Date)</small>
       </p>
     </div>
@@ -408,11 +408,11 @@ $innertab=\Session::get('innertab');
                 </tr>
                 <tr>
                   <td><i class="icofont icofont-meeting-add"></i> Financial Progress:</td>
-                  <td class="text-center" style="vertical-align:middle;">{{calculateMFinancialProgress($project->MProjectProgress->last()->id),2}}%</td>
+                  <td class="text-center" style="vertical-align:middle;">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</td>
                 </tr>
                 <tr>
                   <td><i class="icofont icofont-id-card"></i> Physical Progress:</td>
-                  <td class="text-center" style="vertical-align:middle;">{{calculateMPhysicalProgress($project->MProjectProgress->last()->id),2}}%</td>
+                  <td class="text-center" style="vertical-align:middle;">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id),2)}}%</td>
                 </tr>
                 <tr>
                   <td><i class="icofont icofont-user"></i> Assigned by:</td>

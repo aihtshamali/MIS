@@ -939,11 +939,17 @@
                                                 <td>
                                                     
                                                     <div class="checkbox-fade fade-in-success m-0">
+                                                        @php
+                                                            $healthsafety = null;   
+                                                        
+                                                        if(isset($issue->MAssignedProjectHealthSafety) && 
+                                                               $issue->MAssignedProjectHealthSafety->where('m_project_progress_id',$progresses->id)->first())                                                            
+                                                            $healthsafety = $issue->MAssignedProjectHealthSafety->where('m_project_progress_id',$progresses->id)->where('m_health_safety_id',$issue->id)->first();
+                                                        @endphp
                                                         <label>
                                                             <input type="radio" name="status[{{$key}}]"
-                                                               @if(isset($issue->MAssignedProjectHealthSafety) 
-                                                               && $issue->MAssignedProjectHealthSafety->where('m_project_progress_id',$progresses->id)->first() 
-                                                               && $issue->MAssignedProjectHealthSafety->status == "yes") 
+                                                            @if(isset($healthsafety->status)
+                                                               && $healthsafety->status == "yes")
                                                                {{"checked"}} 
                                                                @endif
                                                                value="{{$issue->id}}_yes" id="" >
@@ -957,9 +963,10 @@
                                                     <div class="checkbox-fade fade-in-danger m-0">
                                                         <label>
                                                             <input type="radio" name="status[{{$key}}]" value="{{$issue->id}}_no"
-                                                            @if(isset($issue->MAssignedProjectHealthSafety) && $issue->MAssignedProjectHealthSafety->m_project_progress_id==$progresses->id && $issue->MAssignedProjectHealthSafety->status == "no")
+                                                            @if(isset($healthsafety->status)
+                                                               && $healthsafety->status == "no")
                                                              {{"checked"}}
-                                                              @endif
+                                                            @endif
                                                             id="" >
                                                             <span class="cr">
                                                                 <i class="cr-icon icofont icofont-ui-check txt-danger"></i>
@@ -1043,12 +1050,13 @@
                         <div id="drop--area">
                         <form action="{{route('saveManualImages')}}" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}   
+                            <input type="hidden" name="page_tabs" value="conduct_docs">
                             <input type="file"  name="imgs[]" id="file--input" multiple onchange="handleFiles(this.files)">
                             <input type="hidden" name="m_project_progress_id" value="{{$progresses->id}}">   
                             <label for="file--input" class="button">Select Images or Videos</label>
                                 <div id="gallery"></div>
-                                <button type="submit" class="btn btn-primary" name="submitimages">Save</button>
-                            </form>
+                            <button type="submit" class="btn btn-primary" name="submitimages">Upload Image</button>
+                        </form>
                         </div>
                     </div>
                 </div>
