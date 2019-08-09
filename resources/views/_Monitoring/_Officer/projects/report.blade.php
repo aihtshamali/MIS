@@ -507,7 +507,7 @@
 
             .breakpage {
                 page-break-before: always !important;
-                border: 1px solid #7777778c;
+                /* border: 1px solid #7777778c; */
                 padding: 1%;
                 height: 100%;
             }
