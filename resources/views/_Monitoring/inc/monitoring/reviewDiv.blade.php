@@ -231,7 +231,7 @@
             <div class="form-group row mb_2">
                 <label class="col-sm-3 font-15">Operation & Maintenance</label>
                 <div class="col-sm-9">
-                  <input type="text" name="operation_and_management" class="form-control" placeholder="Operation & Management"
+                  <input type="text" name="operation_and_management" class="form-control" placeholder="Operation & Maintenance"
                   @if ($organization)
                     value="{{ $organization->operation_and_management }}"
                   @else
