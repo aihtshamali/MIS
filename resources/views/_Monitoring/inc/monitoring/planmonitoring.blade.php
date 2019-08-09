@@ -522,7 +522,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" id="customButton"  onclick="return confirm('Are You Sure?')"  class="btn btn-success pull-right mr-5">SAVE</button>
+                                <button type="button" id="customButton"    class="btn btn-success pull-right mr-5">SAVE</button>
                                 </form>
                         </div>
                     </div>
@@ -901,3 +901,15 @@
         </div>
     </div>
 </div>
+ <script type="text/javascript">
+
+    function confSubmit(form) {
+    if (confirm("Are you sure you want to submit the form?")) {
+          form.submit();
+        }
+        
+    else {
+          alert("You decided to not submit the form!");
+        }
+        }
+</script>
