@@ -1581,7 +1581,7 @@ $(document).ready(function () {
               <div class="col-sm-5">
                   <input type="text" required name="level1_` + child + `" class="form-control" style="padding:2% !important;" placeholder="Level ` + p + `">
               </div>
-              <div class="col-sm-2">
+              <div class="col-sm-2" style="margin-top: -2.4%;margin-left: 1%;">
                  <span style="color:red">*</span>  <input type="number" required="required" name="weightage_` + parent.toString() + `_` + child++ + `" class="form-control" placeholder="Level ` + p + `  Weightage">
                 </div>
               <div class="col-sm-1 text_center">

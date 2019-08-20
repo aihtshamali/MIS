@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Summary Table | DGME</title>
     <link href="{{ asset('landingPage/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" media="all" />
     <link href="{{ asset('https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" media="all" />
     <script src="{{asset('_monitoring/js/jquery/js/jquery.min.js')}}"></script>
@@ -123,7 +123,7 @@
             table.dataTable thead .sorting_asc_disabled:after,
             table.dataTable thead .sorting_desc_disabled:before,
             table.dataTable thead .sorting_desc_disabled:after {
-                bottom: -0.1em !important;
+                bottom: 1.9em !important;
             }
         }
     </style>
@@ -247,7 +247,7 @@
                 </div>
             </div>
             <div class="relativetable margin-top-3per col-md-12 text-center">
-                <table id="example_1" class="table table-striped " style="width:100%">
+                <table id="example_1" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th colspan="4" class="text-center">Project Information</th>
