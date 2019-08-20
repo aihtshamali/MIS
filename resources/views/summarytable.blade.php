@@ -151,11 +151,8 @@
                 </h5>
             </div>
             <div class="row col-md-3 toppaddinglogos">
-                <div class="col-md-6">
-                    <img class="widthfull" id="logo" src="{{ asset('dgme.png')}}" alt="DGME Logo" />
-                </div>
-                <div class="col-md-6">
-                    <img class="widthfull" id="logo" src="{{ asset('dgme.png')}}" alt="DGME Logo" />
+                <div class="col-md-8 offset-md-2">
+                    <img class="widthfull" id="logo" src="{{ asset('ISO.jpg')}}" alt="ISO Logo" />
                 </div>
             </div>
             <div class="col-md-12  text-center">
