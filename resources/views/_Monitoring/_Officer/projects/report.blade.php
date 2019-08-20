@@ -597,18 +597,19 @@ return 'Unknown';
                     </div>
                     <div class="col-md-9 text-center auto">
                         <h1 class="green">Directorate General Monitoring & Evaluation</h1>
-                        <b class="grey bold">Planing & Development Department Government Of Punjab</b>
+                        <b class="grey bold text-capitalize">Planning & Development Department Government Of Punjab</b>
                         <div class="col-md-12 text-center auto pdt3p">
-                            <h3 class="green">Monitoring reports of project</h3>
+                            <h3 class="green text-capitalize">Monitoring reports of project</h3>
                             <h5 class="grey bold underline">{{$project->AssignedProject->Project->title}}</h5>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-12 row">
+
                 @if (count($project->ReportImage->where('title_image',1)))
                 <div class="col-md-12 fullwidthprint">
-                    <img src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$project->id.'/'.$project->ReportImage->where('title_image',1)[0]->MAppAttachment->project_attachement}}" alt="title image" class="col-md-8 offset-md-2 mainpageimg pdtop1p" style="width: 51% !important;margin-left: 25% !important;">
+                    <img src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$project->id.'/'.$project->ReportImage->where('title_image',1)->first()->MAppAttachment->project_attachement}}" alt="title image" class="col-md-8 offset-md-2 mainpageimg pdtop1p" style="width: 51% !important;margin-left: 25% !important;">
                 </div>
                 @endif
                 <div class="pdtop3p col-md-12 fullwidthprint">
