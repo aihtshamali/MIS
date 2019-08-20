@@ -313,7 +313,7 @@
           <button type="submit" class="btn btn-primary btn-sm float-right" name="submit">Submit</button>
         </div>
        </form>
-
+<!-- 
        <form action="{{ route('Monitoring_PlannedDates') }}" method="post">
         {{ csrf_field() }}
         <input type="hidden" name="assigned_project_id" value="{{$project->id}}">
@@ -342,7 +342,7 @@
           </div>
         </div>
         <button type="submit" class="btn btn-primary btn-sm float-right" name="dates_submit">Submit</button>
-       </form>
+       </form> -->
       </div>
 
   </div>
