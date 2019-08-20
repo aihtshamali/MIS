@@ -606,9 +606,10 @@ return 'Unknown';
                 </div>
             </div>
             <div class="col-md-12 row">
+
                 @if (count($project->ReportImage->where('title_image',1)))
                 <div class="col-md-12 fullwidthprint">
-                    <img src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$project->id.'/'.$project->ReportImage->where('title_image',1)[0]->MAppAttachment->project_attachement}}" alt="title image" class="col-md-8 offset-md-2 mainpageimg pdtop1p" style="width: 51% !important;margin-left: 25% !important;">
+                    <img src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$project->id.'/'.$project->ReportImage->where('title_image',1)->first()->MAppAttachment->project_attachement}}" alt="title image" class="col-md-8 offset-md-2 mainpageimg pdtop1p" style="width: 51% !important;margin-left: 25% !important;">
                 </div>
                 @endif
                 <div class="pdtop3p col-md-12 fullwidthprint">
