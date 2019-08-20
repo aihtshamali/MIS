@@ -1536,7 +1536,7 @@ $(document).ready(function () {
       .remove();
     $(this).remove();
   });
-
+ 
   var user_location_id_count = 1;
   //   $("#counts_user_location_id").val(user_location_id_count);
 
@@ -1712,7 +1712,8 @@ $(document).ready(function () {
   });
 
 
-  $(document).on("click", "#customButton", function () {
+  $(document).on("click", "#customButton", function (e) {
+    if(confirm('Are You Sure?')){
     $.each($('.cloneleveltwohere'), function (index, value) {
       // console.log(value);
       var count = 0;
@@ -1755,5 +1756,8 @@ $(document).ready(function () {
       });
     });
     $('#customForm').submit();
+  }
+  else
+    e.preventDefault();
   });
 });
