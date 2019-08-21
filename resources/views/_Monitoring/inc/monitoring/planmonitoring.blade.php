@@ -638,15 +638,15 @@
                                     </div>
                                     <div class="col-md-3 text-center">
                                         <div class="col-md-10 offset-md-1">
-                                            <h4 class="form-txt-primary">Selected KPIs</h4>
+                                            <h4 class="form-txt-primary">Selected WBS</h4>
                                         </div>
                                     </div>
                                     <div class="col-md-2 text-center">
                                         <h4 class="form-txt-primary">Cost</h4>
                                     </div>
-                                    <div class="col-md-2 text-center">
+                                    {{-- <div class="col-md-2 text-center">
                                         <h4 class="form-txt-primary">Weightage</h4>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <!-- end heading -->
                                 <!-- user Location content -->
@@ -684,9 +684,9 @@
                                         <div class="col-md-2">
                                             <input name="cost[]" id="" class="col-md-11 float-right form-control" placeholder="Cost" type="text" style="text-align:center;border: 1px solid #807d7d8a !important;padding: 7% 0% 7% 0% !important;" value="">
                                         </div>
-                                        <div class="col-md-2">
+                                        {{-- <div class="col-md-2">
                                             <input name="weightage[]" id="" type="number" class="col-md-11 float-right form-control" placeholder="Weightage" style="text-align:center;border: 1px solid #807d7d8a !important;padding: 7% 0% 7% 0% !important;" value="">
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="col-sm-1 text_center">
                                         <button class="btn btn-sm btn-info" type="button" id="CloneUserKPI">+</button>

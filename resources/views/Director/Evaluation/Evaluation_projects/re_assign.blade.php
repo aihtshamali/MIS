@@ -1,31 +1,46 @@
 @extends('layouts.uppernav')
 @section('styletags')
-  <link rel="stylesheet" href="{{asset('css/AdminLTE/dataTables.bootstrap.min.css')}}">
-
+  {{-- <link rel="stylesheet" href="{{asset('css/AdminLTE/dataTables.bootstrap.min.css')}}"> --}}
+<style>
+ ul{
+         padding-left: 0px !important;
+      }
+      ul>li{
+        list-style-type: none;
+       
+      }
+      table>thead>tr>th{
+            font-size: 15px !important;
+      }
+     
+</style>
 
 @endsection
+
 @section('content')
   <div class="content-wrapper">
-
+<section class="content-header">
+    <h1>
+    REASSIGN EVALUATION PROJECTS
+    </h1>
+    
+  </section>
     <section class="content">
           <div class="row">
             <div class="col-xs-12">
     <div class="box">
-      <div class="box-header">
-        <h3 class="box-title">Data Table With Full Features</h3>
-      </div>
       <!-- /.box-header -->
       <div class="box-body">
-        <table id="example1" class="table table-bordered table-striped">
+        <table id="example1"  data-page-length="100" class="table table-bordered table-striped compact">
           <thead>
           <tr>
             <th>Project #</th>
-            <th>Project Name</th>
+            <th style="width:25% !important;">Project Name</th>
             <th>Subsector(s)/Department(s)</th>
             <th>SNE</th>
             <th>Assigned To</th>
             <th>Assigned By</th>
-            <th>ReAssign</th>
+            <th></th>
           </tr>
           </thead>
           <tbody>
@@ -36,13 +51,19 @@
                 <td>{{ $project->project->AssignedSubSectors[0]->SubSector->name }}</td>
                 <td>{{$project->project->ProjectDetail->sne}}</td>
                 <td>
-                  @foreach ($project->AssignedProjectTeam as $team)
-                    @if ($team->team_lead==1)
-                      <span style="font-weight:bold;color:blue">{{$team->user->first_name}}  {{$team->user->last_name}} <br></span>
-                    @else
-                      <span class="">{{$team->user->first_name}} {{$team->user->last_name}} <br> </span>
-                    @endif
-                  @endforeach
+                   <ul>
+                      @foreach ($project->AssignedProjectTeam as $team)
+                      @if ($team->team_lead==1)
+                      <li>
+                        <span ><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}" style="font-weight:bold; color:red">{{$team->user->first_name}}  {{$team->user->last_name}}</a></span>
+                      </li>  
+                      @else
+                      <li>
+                        <span class=""><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}">{{$team->user->first_name}} {{$team->user->last_name}}</a></span>
+                      </li>
+                      @endif
+                    @endforeach
+                    </ul>
                 </td>
                 <td>{{ $project->User->first_name }} {{ $project->User->last_name }}</td>
                 <form class="" action="{{route('create_from_director')}}" method="get">
@@ -57,16 +78,6 @@
 
 
           </tbody>
-          <tfoot>
-          <tr>
-            <th>Project #</th>
-            <th>Project Name</th>
-            <th>Department</th>
-            <th>Assigned To</th>
-            <th>Assigned By</th>
-            <th>ReAssign</th>
-          </tr>
-          </tfoot>
         </table>
       </div>
       <!-- /.box-body -->
@@ -76,13 +87,4 @@
 </div>
 </section>
 </div>
-@endsection
-@section('scripttags')
-  <script src="{!! asset('js/AdminLTE/jquery.dataTables.min.js') !!}"></script>
-  <script type="text/javascript" src="{!! asset('js/AdminLTE/dataTables.bootstrap.min.js') !!}"></script>
-  <script type="text/javascript">
-  $(function () {
-      $('#example1').DataTable();
-    });
-    </script>
 @endsection

@@ -17,6 +17,13 @@
         width: 100%;
         box-shadow: 0 1px 1px rgba(0,0,0,0.1)
       }
+       ul{
+         padding-left: 0px !important;
+      }
+      ul>li{
+        list-style-type: none;
+       
+      }
   </style>
 @endsection
 @section('content')
@@ -53,10 +60,10 @@
             
             <div class="box-body1">
                 <div class="table-responsive">
-                  <table class="table table-hover table-striped" id="tableData">
+                  <table  data-page-length="50" class="table table-striped table-bordered compact" id="example1">
                         <thead>
-                          <th>Project Number</th>
-                          <th>Project Name</th>
+                          <th>Project #</th>
+                          <th  style="width:25% !important;">Project Name</th>
                           <th>Team Members</th>
                           <th>SNE</th>
                           <th>Priority</th>
