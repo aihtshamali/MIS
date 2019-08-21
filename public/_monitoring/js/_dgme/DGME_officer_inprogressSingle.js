@@ -1262,10 +1262,10 @@ $(document).on("click", ".removeObjective", function () {
     autoindex();
   }
 });
-// $(document).on("click", ".deleteObjective", function()    
+// $(document).on("click", ".deleteObjective", function()
 // {
 //         e.preventDefault() // Don't post the form, unless confirmed
-//         if( confirm('Are you sure?') ) 
+//         if( confirm('Are you sure?') )
 //         {
 //             // Post the form
 //             $(e.target).closest('form').submit() // Post the surrounding form
@@ -1536,7 +1536,7 @@ $(document).ready(function () {
       .remove();
     $(this).remove();
   });
- 
+
   var user_location_id_count = 1;
   //   $("#counts_user_location_id").val(user_location_id_count);
 
@@ -1608,7 +1608,7 @@ $(document).ready(function () {
                 </div>
                  <div class="col-sm-2" style="margin-top:-2% !important;">
                  <span style="color:red">*</span>  <input type="number" required="required" name="weightage_` + parent.toString() + `_` + child2++ + `" class="form-control" placeholder="Level ` + p + `  Weightage">
-                </div> 
+                </div>
                 <div class="col-sm-1 text_center">
                   <button class="btn btn-sm btn-info" type="button" id="addcustomeKPIs` + p + `" tabindex="1">+</button>
               </div>
@@ -1634,7 +1634,7 @@ $(document).ready(function () {
                 </div>
                  <div class="col-sm-2" style="margin-top:-2% !important;">
                  <span style="color:red">*</span><input type="number" required="required" name="weightage_` + parent2.toString() + `_` + child3++ + `" class="form-control" placeholder="Level ` + p + ` Weightage">
-                </div> 
+                </div>
                 <div class="col-sm-1 text_center">
                   <button class="btn btn-sm btn-info" type="button" id="addcustomeKPIs` + p + `" tabindex="1">+</button>
                 </div>
@@ -1659,7 +1659,7 @@ $(document).ready(function () {
                   </div>
                    <div class="col-sm-2" style="margin-top:-2% !important;">
                    <span style="color:red">*</span> <input type="number" required="required" name="weightage_` + parent3.toString() + `_` + child4++ + `" class="form-control" placeholder="Level ` + p + ` Weightage">
-                  </div> 
+                  </div>
                   <div class="col-sm-1 text_center">
                       <button class="delcustomeKPIs btn btn-sm btn-danger" type="button" id="" tabindex="1">-</button>
                   </div>
