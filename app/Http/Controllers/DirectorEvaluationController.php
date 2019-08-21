@@ -141,6 +141,7 @@ class DirectorEvaluationController extends Controller
          ->leftjoin('projects','projects.id','assigned_projects.project_id')
          ->where('projects.status',1)
          ->where('complete',0)
+        ->where('stopped',0)
          ->where('stopped',false)
          ->get();
 

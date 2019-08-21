@@ -17,6 +17,13 @@
         width: 100%;
         box-shadow: 0 1px 1px rgba(0,0,0,0.1)
       }
+      ul{
+         padding-left: 0px !important;
+      }
+      ul>li{
+        list-style-type: none;
+       
+      }
   </style>
 @endsection
 @section('content')
@@ -127,13 +134,15 @@
             
             <div class="box-body1">
                 <div class="table-responsive">
-                  <table class="table table-hover table-striped">
+                  <table class="table table-hover table-striped table-bordered">
                     <tbody>
                         <thead>
                             <th>Project #</th>
+                            <th>ADP #</th>
                             <th>Project Name</th>
                             <th>Team Members</th>
                             <th>SNE</th>
+                            <th>Subsector(s)</th>
                             <th>Priority</th>
                             <th>Score</th>
                             <th>Assigned Duration</th>
@@ -146,18 +155,32 @@
                               <tr>
 
                                 <td>{{$assigned->project->project_no}}</td>
+                                <th> {{$assigned->project->financial_year}}/{{$assigned->project->ADP}}</th>
                                 <td>{{$assigned->project->title}}</td>
                                 <td>
+                                  <ul>
                                     @foreach ($assigned->AssignedProjectTeam as $team)
                                     @if ($team->team_lead==1)
-                                <span ><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}" style="font-weight:bold;color:red">{{$team->user->first_name}}  {{$team->user->last_name}}</a> <br> </span>
+                                    <li>
+                                      <span ><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}" style="font-weight:bold;color:red">{{$team->user->first_name}}  {{$team->user->last_name}}</a></span>
+                                    </li>  
                                     @else
-                                      <span class=""><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}">{{$team->user->first_name}} {{$team->user->last_name}}</a> <br></span>
+                                    <li>
+                                      <span class=""><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}">{{$team->user->first_name}} {{$team->user->last_name}}</a></span>
+                                    </li>
                                     @endif
                                   @endforeach
+                                  </ul>
 
                                 </td>
                                 <td>{{$assigned->project->ProjectDetail->sne}}</td>
+                              <td>
+                               <ul>
+                                @foreach ($assigned->project->AssignedSubSectors as $item)
+                                     <li>{{$item->SubSector->name}}</li> 
+                                @endforeach
+                               </ul>
+                            </td>
                                 <td>
                                   {{ $assigned->project->ProjectDetail->AssigningForum->name }}
                                 </td>

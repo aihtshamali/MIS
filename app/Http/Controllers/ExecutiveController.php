@@ -675,7 +675,7 @@ class ExecutiveController extends Controller
           array_push($total_assigned_completed_projects,$data_3);
         }
         // dd($total_assigned_completed_projects);
-
+// dd($total_assigned_completed_projects);
       \JavaScript::put([
         'officers' => $officers,
         'assigned_completed_projects' => $assigned_completed_projects,
@@ -1027,52 +1027,65 @@ class ExecutiveController extends Controller
         if(!$project->ProjectDetail->sne){
           $Sneprojects[0]++;
           array_push($actual_Sneprojects[0],$project);
-          if($project->AssignedProject && $project->AssignedProject->complete == 1){
+          if($project->AssignedProject && $project->AssignedProject->complete == 1 ){
             $SneCompletedprojects[0]++;
           }
           else{
-            $SneInprogressprojects[0]++;
+             if($project->AssignedProject->stopped == 0)
+            {$SneInprogressprojects[0]++;}
           }
         }
         else if( $project->ProjectDetail->sne=="NO"){
           $Sneprojects[1]++;
           array_push($actual_Sneprojects[1],$project);
-          if($project->AssignedProject && $project->AssignedProject->complete == 1){
+          if($project->AssignedProject && $project->AssignedProject->complete == 1  ){
             $SneCompletedprojects[1]++;
           }
           else{
-            $SneInprogressprojects[1]++;
+            if($project->AssignedProject->stopped == 0)
+              {$SneInprogressprojects[1]++;
           }
+        }
         }
         else if($project->ProjectDetail->sne=="COST"){
           $Sneprojects[2]++;
           array_push($actual_Sneprojects[2],$project);
-          if($project->AssignedProject &&  $project->AssignedProject->complete == 1){
+          if($project->AssignedProject &&  $project->AssignedProject->complete == 1  ){
             $SneCompletedprojects[2]++;
           }
           else{
-            $SneInprogressprojects[2]++;
+             if($project->AssignedProject->stopped == 0)
+              {
+                $SneInprogressprojects[2]++;
+
+              }
           }
         }
         else if($project->ProjectDetail->sne=="STAFF"){
           $Sneprojects[3]++;
           array_push($actual_Sneprojects[3],$project);
-          if($project->AssignedProject &&  $project->AssignedProject->complete == 1){
+          if($project->AssignedProject &&  $project->AssignedProject->complete == 1  ){
             $SneCompletedprojects[3]++;
           }
           else{
-            $SneInprogressprojects[3]++;
+             if($project->AssignedProject->stopped == 0)
+              {
+                $SneInprogressprojects[3]++;
+              }
           }
         }
         else if($project->ProjectDetail->sne=="BOTH"){
           $Sneprojects[4]++;
           array_push($actual_Sneprojects[4],$project);
-          if($project->AssignedProject &&  $project->AssignedProject->complete == 1){
+          if($project->AssignedProject &&  $project->AssignedProject->complete == 1  &&  $project->AssignedProject->stopped == 0){
             $SneCompletedprojects[4]++;
           }
           else{
-            $SneInprogressprojects[4]++;
+             if($project->AssignedProject->stopped == 0)
+              { $SneInprogressprojects[4]++;
           }
+        }
+
         }
       }
 
