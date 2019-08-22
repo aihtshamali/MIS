@@ -25,7 +25,10 @@
         list-style-type: none;
        
       }
-     
+      .table.dataTable td, .table.dataTable th {
+         text-align:LEFT !important;
+    font-size: 14px !important;
+    }
   </style>
 @endsection
 @section('content')
@@ -139,7 +142,7 @@
                       <th>Project #</th>
                       <th>ADP #</th>
                       <th style="width:20% !important;">Project Name</th>
-                      <th style="width:15% !important;">Team Members</th>
+                      <th style="width:12% !important;">Team Members</th>
                       <th>SNE</th>
                       <th >Subsector(s)</th>
                       <th>Priority</th>

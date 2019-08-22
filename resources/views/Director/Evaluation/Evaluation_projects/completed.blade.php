@@ -9,6 +9,10 @@
         list-style-type: none;
        
       }
+       .table.dataTable td, .table.dataTable th {
+         text-align:LEFT !important;
+    font-size: 14px !important;
+    }
   </style>
 @endsection
 
@@ -97,7 +101,7 @@
                   </tbody>
                   </table>
                 </div>
-          </div>
+            </div>
 
           </div>
         </div>

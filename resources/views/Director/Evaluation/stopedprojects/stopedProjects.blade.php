@@ -8,6 +8,11 @@
         list-style-type: none;
        
       }
+       .table.dataTable td, .table.dataTable th {
+         text-align:LEFT !important;
+    font-size: 14px !important;
+    }
+     
      
 </style>
 @endsection
@@ -21,6 +26,7 @@
         <div class="box box-warning ">
             <div class="box-header with-border">
               <h4 class="box-title"><b>STOPPED PROJECTS</b></h4>
+              <button class="btn btn-danger" style="color:white;font-weight:bold font-size:20px;">@if(isset($stoppedProjects)){{$stoppedProjects->count()}}@endif</button>
             </div>
             <div class="box-body">
               <table id="example1" data-page-length="50" class="table table-striped table-bordered compact " style="width:100%;">

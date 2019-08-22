@@ -9,9 +9,10 @@
         list-style-type: none;
        
       }
-      table>thead>tr>th{
-            font-size: 15px !important;
-      }
+      .table.dataTable td, .table.dataTable th {
+         text-align:LEFT !important;
+    font-size: 14px !important;
+    }
      
 </style>
 
@@ -19,17 +20,20 @@
 
 @section('content')
   <div class="content-wrapper">
-<section class="content-header">
-    <h1>
-    REASSIGN EVALUATION PROJECTS
-    </h1>
-    
-  </section>
+
     <section class="content">
           <div class="row">
             <div class="col-xs-12">
-    <div class="box">
-      <!-- /.box-header -->
+    <div class="box box-primary">
+      <div class="box-header with-border">
+              <h3 class="box-title"><b> REASSIGN EVALUATION PROJECTS</b></h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
       <div class="box-body">
         <table id="example1"  data-page-length="100" class="table table-bordered table-striped compact">
           <thead>

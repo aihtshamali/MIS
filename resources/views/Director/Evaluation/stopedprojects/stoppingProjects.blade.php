@@ -1,22 +1,7 @@
 @extends('layouts.uppernav')
 @section('styletag')
   <style media="screen">
-      div.box-body1{
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 3px;
-        border-bottom-left-radius: 3px;
-        padding: 10px;
-      }
-      div.box1{
-        position: relative;
-        border-radius: 3px;
-        background: #ffffff;
-        border-top: 3px solid #d2d6de;
-        margin-bottom: 20px;
-        width: 100%;
-        box-shadow: 0 1px 1px rgba(0,0,0,0.1)
-      }
+      
        ul{
          padding-left: 0px !important;
       }
@@ -24,6 +9,11 @@
         list-style-type: none;
        
       }
+       .table.dataTable td, .table.dataTable th {
+         text-align:LEFT !important;
+    font-size: 14px !important;
+    }
+     
   </style>
 @endsection
 @section('content')
@@ -31,25 +21,17 @@
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
 
-  <section class="content-header">
-    <h1>
-    ASSIGNED EVALUATION PROJECTS <button class="btn btn-danger" style="color:white;font-weight:bold font-size:20px;">@if(isset($assigned)){{$assigned->count()}}@endif</button>
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-backward" ></i>Back</a></li>
-      <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li>
-
-    </ol>
-  </section>
+  
 {{--  {{dd($officers)}}  --}}
   <section class="content">
       {{--  sekect consulatants  --}}
       <div class="row">
         <div class="col-md-12">
 
-          <div class="box1 box-warning">
+          <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">ASSIGNED PROJECTS</h3>
+              <h3 class="box-title"><b>ASSIGNED PROJECTS</b></h3>
+              <button class="btn btn-danger" style="color:white;font-weight:bold font-size:20px;">@if(isset($assigned)){{$assigned->count()}}@endif</button>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -58,7 +40,7 @@
               </div>
             </div>
             
-            <div class="box-body1">
+            <div class="box-body">
                 <div class="table-responsive">
                   <table  data-page-length="50" class="table table-striped table-bordered compact" id="example1">
                         <thead>

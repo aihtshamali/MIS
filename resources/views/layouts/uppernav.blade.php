@@ -362,14 +362,16 @@ https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js --}}
     })
 </script>
 
-<script>
-    $(function() {
-        $('.example1').DataTable();
-    })
-</script>
 <script> 
    $(document).ready(function() {
     $('#example1').DataTable( {
+       dom: 'Bfrtip',
+        buttons: [
+           'pageLength', 'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+        
+    } );
+     $('#example2').DataTable( {
        dom: 'Bfrtip',
         buttons: [
            'pageLength', 'copy', 'csv', 'excel', 'pdf', 'print'
