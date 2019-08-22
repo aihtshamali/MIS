@@ -65,5 +65,9 @@ class Project extends Model
     {
       return $this->hasMany('App\ProjectLog');
     }
+    public function ChairmanPendingProjects()
+    {
+      return $this->hasMany('App\ChairmanPendingProject');
+    }
 
 }

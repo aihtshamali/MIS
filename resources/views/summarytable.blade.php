@@ -202,8 +202,8 @@
                 </div>
             </div>
             <div class="col-md-12  text-center">
-                <b class="col-md-12 font-14">
-                    Monitoring report of developmnt projects for Quarter April-June, 2019
+                <b class="col-md-12 font-14 text-capitalize">
+                    Monitoring report of development projects for Quarter {{date('M -', strtotime('-2 months'))}} {{date('M, Y')}}
                 </b>
             </div>
             <div class="col-md-12 text-center">

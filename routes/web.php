@@ -80,11 +80,13 @@ Route::group(['middleware' => ['role:admin']], function () {
 
 
 Route::prefix('manager')->middleware('role:manager|directorevaluation|directormonitoring')->group(function () {
-// PDWP MEETING MODULE
-Route::get('/conduct_pdwp_meeting','ExecutiveController@conduct_pdwp_meeting')->name('Conduct_PDWP_Meeting');
-Route::get('/list_agendas','ExecutiveController@list_agendas')->name('List_Agendas');
-Route::post('/agenda_comment_store','ExecutiveController@CommentAgenda')->name('store_agenda_comments');
-
+  // PDWP MEETING MODULE
+  Route::get('/conduct_pdwp_meeting','ExecutiveController@conduct_pdwp_meeting')->name('Conduct_PDWP_Meeting');
+  Route::get('/list_agendas','ExecutiveController@list_agendas')->name('List_Agendas');
+  Route::post('/agenda_comment_store','ExecutiveController@CommentAgenda')->name('store_agenda_comments');
+  // Projects for ChairmanDashboard
+  Route::post('chairmanProjects','ChairmanController@assignToDC')->name('CharimanProjectAssignToDC');
+  // Route::get('chairmanProjects','ChairmanController@assignToChairman')->name('CharimanProjectAssignToDC');
 });
 
 // For Manager & Director Charts
@@ -289,34 +291,34 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
 
 //For DataEntry
 Route::group(['middleware' => ['role:dataentry|officer|evaluator|monitor|manager|directormonitoring|directorevaluation|adminhr']],function () {
-Route::post('/getunassignedProjectCounter','ProjectCounterController@getUnassignedProjectCounter')->name('unassignedCounter');
-Route::post('/getinProgressProjectCounter','ProjectCounterController@getInProgressCounter')->name('inProgressCounter');
-Route::post('/getAssignedProjectCounter','ProjectCounterController@getAssignedProjectCounter')->name('assignedCounter');
-Route::post('/getCompletedCounter','ProjectCounterController@getCompletedCounter')->name('completedCounter');
-Route::post('/onsectorselect','DataEntryController@onSectorSelect')->name('sectorselect');
-Route::post('/onsubsectorselect','DataEntryController@onSub_SectorSelectdispatchLetterView');
-Route::post('/getMonitoringProjectNumber','DataEntryController@getMonitoringProjectData');
-Route::post('/onAssigningForumselect','DataEntryController@onAssigningForumselect');
-Route::post('/onchangefunction','DataEntryController@onSubSectorSelect');
-Route::post('/onnewprojectselect','DataEntryController@newproject');
-Route::resource('projects','ProjectController');
-Route::post('/financial_year','AdminHumanResourceController@financial_year')->name('fetch_financial_year');
-Route::post('/project_financial_year','ProjectController@financial_year')->name('fetch_project_financial_year');
-Route::get('/dispatchLetterViews','OfficerController@dispatchLetterView')->name('dispatchLetterViews');
+  Route::post('/getunassignedProjectCounter','ProjectCounterController@getUnassignedProjectCounter')->name('unassignedCounter');
+  Route::post('/getinProgressProjectCounter','ProjectCounterController@getInProgressCounter')->name('inProgressCounter');
+  Route::post('/getAssignedProjectCounter','ProjectCounterController@getAssignedProjectCounter')->name('assignedCounter');
+  Route::post('/getCompletedCounter','ProjectCounterController@getCompletedCounter')->name('completedCounter');
+  Route::post('/onsectorselect','DataEntryController@onSectorSelect')->name('sectorselect');
+  Route::post('/onsubsectorselect','DataEntryController@onSub_SectorSelectdispatchLetterView');
+  Route::post('/getMonitoringProjectNumber','DataEntryController@getMonitoringProjectData');
+  Route::post('/onAssigningForumselect','DataEntryController@onAssigningForumselect');
+  Route::post('/onchangefunction','DataEntryController@onSubSectorSelect');
+  Route::post('/onnewprojectselect','DataEntryController@newproject');
+  Route::resource('projects','ProjectController');
+  Route::post('/financial_year','AdminHumanResourceController@financial_year')->name('fetch_financial_year');
+  Route::post('/project_financial_year','ProjectController@financial_year')->name('fetch_project_financial_year');
+  Route::get('/dispatchLetterViews','OfficerController@dispatchLetterView')->name('dispatchLetterViews');
 
 
-  //Summary Tab
-Route::get('/generate_monitoring_report','OfficerController@generate_monitoring_report')->name('generate_monitoring_report');
-Route::post('/save_report_data','OfficerController@save_report_data');
+    //Summary Tab
+  Route::get('/generate_monitoring_report','OfficerController@generate_monitoring_report')->name('generate_monitoring_report');
+  Route::post('/save_report_data','OfficerController@save_report_data');
 
-// CM DASHBOARD
-Route::get('/minitoringDashboard', 'OfficerController@DetailedDashboard')->name('monitoringDashboard');
-Route::get('/Summary', function () {
-  return view('_Monitoring.monitoringDashboard.pages.Summary');
-})->name('Summary');
-Route::get('/projctlist', function () {
-  return view('_Monitoring.monitoringDashboard.pages.projctlist');
-})->name('projctlist');
+  // CM DASHBOARD
+  Route::get('/minitoringDashboard', 'OfficerController@DetailedDashboard')->name('monitoringDashboard');
+  Route::get('/Summary', function () {
+    return view('_Monitoring.monitoringDashboard.pages.Summary');
+  })->name('Summary');
+  Route::get('/projctlist', function () {
+    return view('_Monitoring.monitoringDashboard.pages.projctlist');
+  })->name('projctlist');
 
 });
 
