@@ -159,5 +159,8 @@ class User extends Authenticatable implements JWTSubject
   {
     return $this->hasMany('App\PostSne');
   }
-
+  public function ChairmanPendingProjectAssignedBy()
+  {
+    return $this->hasMany('App\ChairmanPendingProject');
+  }
 }
