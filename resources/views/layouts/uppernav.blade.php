@@ -25,7 +25,12 @@
     <link rel="stylesheet" href="{{ asset('css/AdminLTE/_all-skins.min.css')}}" />
     <link rel="stylesheet" href="{{asset('css/AdminLTE/select2.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/AdminLTE/all.css')}}">
-    <link rel="stylesheet" href="{{asset('datatableevaluation/dataTables.bootstrap.min.css')}}">
+    {{-- <link rel="stylesheet" href="{{asset('datatableevaluation/dataTables.bootstrap.min.css')}}"> --}}
+    <link rel="stylesheet" href=" https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css">
+   
+
+
     @yield('styletag')
 
 
@@ -227,6 +232,20 @@
 <script src="{{asset('js/AdminLTE/jquery.inputmask.extensions.js')}}"></script>
 <script src="{{asset('datatableevaluation/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('datatableevaluation/dataTables.bootstrap.min.js')}}"></script>
+{{-- https://code.jquery.com/jquery-3.3.1.js
+https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js --}}
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js" ></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js" ></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js" ></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js" ></script>
+
+
+
+
+
 
 @yield('scripttags')
 <script>
@@ -286,40 +305,40 @@
 </script>
 
 <script>
-    const app = new Vue({
-        el: '.notifications-menu',
-        data: {
-            notifications: {},
-            tc: 0,
-            NotificationsCount: 0,
-            user: {
-                !!Auth::user() !!
-            },
-            user_id: {
-                !!Auth::check() ? Auth::id() : 'null'!!
-            }
-        },
-        mounted() {
-            this.getNotifications();
-            // this.listen();
-        },
-        methods: {
-            getNotifications() {
-                axios.get('/api/notifications/' + this.user_id)
-                    .then((response) => {
-                        //TODO
-                        if (response.data[1] == 'officer') {
-                            this.notifications = response.data[0];
-                        } else {
-                            this.notifications = response.data[0];
-                        }
-                        if (this.notifications[0].text)
-                            this.tc = response.data.length - 1;
-                    })
-                    .catch(function(error) {
-                        console.log(error);
-                    });
-            }
+    // const app = new Vue({
+    //     el: '.notifications-menu',
+    //     data: {
+    //         notifications: {},
+    //         tc: 0,
+    //         NotificationsCount: 0,
+    //         user: {
+    //             !!Auth::user() !!
+    //         },
+    //         user_id: {
+    //             !!Auth::check() ? Auth::id() : 'null'!!
+    //         }
+    //     },
+    //     mounted() {
+    //         this.getNotifications();
+    //         // this.listen();
+    //     },
+    //     methods: {
+    //         getNotifications() {
+    //             axios.get('/api/notifications/' + this.user_id)
+    //                 .then((response) => {
+    //                     //TODO
+    //                     if (response.data[1] == 'officer') {
+    //                         this.notifications = response.data[0];
+    //                     } else {
+    //                         this.notifications = response.data[0];
+    //                     }
+    //                     if (this.notifications[0].text)
+    //                         this.tc = response.data.length - 1;
+    //                 })
+    //                 .catch(function(error) {
+    //                     console.log(error);
+    //                 });
+    //         }
             // ,
             // listen() {
             //   Echo.private('projectAssigned.'+this.user_id)
@@ -343,10 +362,23 @@
     })
 </script>
 
-<script>
-    $(function() {
-        $('.example1').DataTable();
-    })
+<script> 
+   $(document).ready(function() {
+    $('#example1').DataTable( {
+       dom: 'Bfrtip',
+        buttons: [
+           'pageLength', 'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+        
+    } );
+     $('#example2').DataTable( {
+       dom: 'Bfrtip',
+        buttons: [
+           'pageLength', 'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+        
+    } );
+} );
 </script>
 
 </html> 

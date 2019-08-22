@@ -168,6 +168,7 @@ class ExecutiveController extends Controller
       $assigned=AssignedProject::select('assigned_projects.*')
       ->leftJoin('projects','assigned_projects.project_id','projects.id')
       ->where('complete',0)
+      ->where('stopped',0)
       ->where('projects.status',1)
       ->where('projects.project_type_id',1)
       ->get();
@@ -638,9 +639,9 @@ class ExecutiveController extends Controller
       array_push($total_assigned_projects,count($data_3));
       array_push($actual_assigned_inprogress_projects,$data_2);
       array_push($actual_total_assigned_projects,$data_3);
-    }       
-    // dd($allProjectsData);  
-    // dd(response()->json($allProjectsData));
+     }       
+      // dd($allProjectsData);  
+      // dd(response()->json($allProjectsData));
       \JavaScript::put([
         'allProjectsData'=>$allProjectsData,
         'officers' => $officers,
@@ -675,7 +676,7 @@ class ExecutiveController extends Controller
           array_push($total_assigned_completed_projects,$data_3);
         }
         // dd($total_assigned_completed_projects);
-
+        // dd($total_assigned_completed_projects);
       \JavaScript::put([
         'officers' => $officers,
         'assigned_completed_projects' => $assigned_completed_projects,
@@ -1027,52 +1028,65 @@ class ExecutiveController extends Controller
         if(!$project->ProjectDetail->sne){
           $Sneprojects[0]++;
           array_push($actual_Sneprojects[0],$project);
-          if($project->AssignedProject && $project->AssignedProject->complete == 1){
+          if($project->AssignedProject && $project->AssignedProject->complete == 1 ){
             $SneCompletedprojects[0]++;
           }
           else{
-            $SneInprogressprojects[0]++;
+             if($project->AssignedProject->stopped == 0)
+            {$SneInprogressprojects[0]++;}
           }
         }
         else if( $project->ProjectDetail->sne=="NO"){
           $Sneprojects[1]++;
           array_push($actual_Sneprojects[1],$project);
-          if($project->AssignedProject && $project->AssignedProject->complete == 1){
+          if($project->AssignedProject && $project->AssignedProject->complete == 1  ){
             $SneCompletedprojects[1]++;
           }
           else{
-            $SneInprogressprojects[1]++;
+            if($project->AssignedProject->stopped == 0)
+              {$SneInprogressprojects[1]++;
           }
+        }
         }
         else if($project->ProjectDetail->sne=="COST"){
           $Sneprojects[2]++;
           array_push($actual_Sneprojects[2],$project);
-          if($project->AssignedProject &&  $project->AssignedProject->complete == 1){
+          if($project->AssignedProject &&  $project->AssignedProject->complete == 1  ){
             $SneCompletedprojects[2]++;
           }
           else{
-            $SneInprogressprojects[2]++;
+             if($project->AssignedProject->stopped == 0)
+              {
+                $SneInprogressprojects[2]++;
+
+              }
           }
         }
         else if($project->ProjectDetail->sne=="STAFF"){
           $Sneprojects[3]++;
           array_push($actual_Sneprojects[3],$project);
-          if($project->AssignedProject &&  $project->AssignedProject->complete == 1){
+          if($project->AssignedProject &&  $project->AssignedProject->complete == 1  ){
             $SneCompletedprojects[3]++;
           }
           else{
-            $SneInprogressprojects[3]++;
+             if($project->AssignedProject->stopped == 0)
+              {
+                $SneInprogressprojects[3]++;
+              }
           }
         }
         else if($project->ProjectDetail->sne=="BOTH"){
           $Sneprojects[4]++;
           array_push($actual_Sneprojects[4],$project);
-          if($project->AssignedProject &&  $project->AssignedProject->complete == 1){
+          if($project->AssignedProject &&  $project->AssignedProject->complete == 1  &&  $project->AssignedProject->stopped == 0){
             $SneCompletedprojects[4]++;
           }
           else{
-            $SneInprogressprojects[4]++;
+             if($project->AssignedProject->stopped == 0)
+              { $SneInprogressprojects[4]++;
           }
+        }
+
         }
       }
 
@@ -1112,7 +1126,8 @@ class ExecutiveController extends Controller
       return view('executive.home.chart_13',['districts' => $districts, 'projects_wrt_districts'=>$projects_wrt_districts]);
     }
 
-    public function pmms_index(){
+    public function pmms_index()
+    {
       $unassigned=Project::select('projects.*')
      ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
      ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
@@ -1125,7 +1140,8 @@ class ExecutiveController extends Controller
       return view('executive.home.pmms_tab',['assigned'=>$assigned,'assignedtoManager'=>$assignedtoManager,'unassigned'=>$unassigned]);
     }
 
-    public function tpv_index(){
+    public function tpv_index()
+    {
       $unassigned=Project::select('projects.*')
      ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
      ->whereNull('assigned_projects.project_id')
@@ -1134,11 +1150,13 @@ class ExecutiveController extends Controller
       return view('executive.home.tpv_tab',['assigned'=>$assigned,'unassigned'=>$unassigned]);
     }
 
-    public function specialassign_index(){
+    public function specialassign_index()
+    {
       return view('executive.home.specialassign_tab',['assigned'=>$assigned,'unassigned'=>$unassigned]);
     }
 
-    public function inquiry_index(){
+    public function inquiry_index()
+    {
       $unassigned=Project::select('projects.*')
      ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
      ->whereNull('assigned_projects.project_id')
@@ -1147,7 +1165,8 @@ class ExecutiveController extends Controller
       return view('executive.home.inquiry_tab',['assigned'=>$assigned,'unassigned'=>$unassigned]);
     }
 
-    public function other_index(){
+    public function other_index()
+    {
       $unassigned=Project::select('projects.*')
      ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
      ->whereNull('assigned_projects.project_id')
@@ -1156,7 +1175,8 @@ class ExecutiveController extends Controller
       return view('executive.home.other_tab',['assigned'=>$assigned,'unassigned'=>$unassigned]);
     }
 
-    public function evaluation_assignedprojects(){
+    public function evaluation_assignedprojects()
+    {
       $projects=Project::select('projects.*')
       ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
       ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
@@ -1166,26 +1186,39 @@ class ExecutiveController extends Controller
       ->where('projects.status',1)
       ->get();
 
-      $assigned=AssignedProject::all();
+      $assigned=AssignedProject::select('assigned_projects.*')
+      ->leftJoin('projects','assigned_projects.project_id','projects.id')
+      ->where('complete',0)
+      ->where('stopped',0)
+      ->where('projects.status',1)
+      ->where('projects.project_type_id',1)
+      ->get();
+
       $managerProjects=AssignedProjectManager::select('assigned_project_managers.*')
       ->leftJoin('projects','projects.id','assigned_project_managers.project_id')
+      ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
       ->where('projects.project_type_id','1')
       ->where('projects.status',1)
+      ->where('assigned_projects.complete',0)
+      ->where('assigned_projects.stopped',0)
       ->get();
-      $projects=AssignedProject::all();
+      // dd($managerProjects[0]->Project->AssignedProject->AssignedProjectTeam);
+      // $projects=AssignedProject::all();
       // $managerProjects=AssignedProjectManager::all();
       // dd($projects);
       return view('executive.evaluation.assigned',['projects'=>$projects,'managerProjects'=>$managerProjects,'assigned'=>$assigned]);
     }
     public function evaluation_completedprojects(){
-      $unassigned=Project::select('projects.*')
-     ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
-     ->where('projects.project_type_id','1')
-     ->where('projects.status',1)
-     ->whereNull('assigned_projects.project_id')
-     ->get();
-      $assigned=AssignedProject::all();
-      return view('executive.evaluation.completed',['assigned'=>$assigned,'unassigned'=>$unassigned]);
+ 
+      $completed=AssignedProject::select('assigned_projects.*')
+      ->leftJoin('projects','assigned_projects.project_id','projects.id')
+      ->where('complete',1)
+      ->where('stopped',0)
+      ->where('projects.status',1)
+      ->where('projects.project_type_id',1)
+      ->get();
+      // dd($completed);
+      return view('executive.evaluation.completed',['completed'=>$completed]);
     }
 
     public function reviewed_projects()
