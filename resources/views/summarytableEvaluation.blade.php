@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Monitoring Summary Table | DGME</title>
+    <title>Evaluation Summary Table | DGME</title>
     <link href="{{ asset('landingPage/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" media="all" />
     <link href="{{ asset('https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" media="all" />
     <script src="{{asset('_monitoring/js/jquery/js/jquery.min.js')}}"></script>
@@ -203,25 +203,26 @@
             </div>
             <div class="col-md-12  text-center">
                 <b class="col-md-12 font-14">
-                    Monitoring report of developmnt projects for Quarter April-June, 2019
+                    Evaluation report of developmnt projects for July, 2019
                 </b>
             </div>
             <div class="col-md-12 text-center">
                 <table id="example" class="table table-striped table-bordered" data-page-length="10000" style="width:100%">
                     <thead>
                         <tr class="bggrey">
-                            <th colspan="9" class="text-center">SUMMARY</th>
+                            <th colspan="10" class="text-center">SUMMARY</th>
                         </tr>
                         <tr>
-                            <th class="bggrey">Sr #.</th>
+                            <th class="bggrey">Sr. No</th>
                             <th class="bggrey">Sectors</th>
                             <th class="bggrey">Sub-Sectors</th>
-                            <th class="bggrey">Reports Issued By DGM&E<br /><small>No.</small></th>
+                            <th class="bggrey">Reports Issued By DGM&E<br /><small>(No.)</small></th>
                             <th class="bggrey">Total Cost Of Projects <br /><small>(Rs. Millions)</small></th>
-                            <th class="bggrey">Locations<br /><small>Division Wise</small></th>
-                            <th class="red">Project In Critical Phase<br /><small>No.</small></th>
-                            <th class="yellow">Projects Need Consideration<br /><small>No.</small></th>
-                            <th class="green">Projects within Defined Limits<br /><small>No.</small></th>
+                            <th class="bggrey">Locations<br /><small>(Division Wise)</small></th>
+                            <th class="bggrey">SNE Projects <small>(No.)</small></th>
+                            <th class="red">Not Successful<br /><small>(No.)</small></th>
+                            <th class="yellow">Partially Successful<br /><small>(No.)</small></th>
+                            <th class="green">Successful<br /><small>(No.)</small></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -231,6 +232,7 @@
                             <td>Edinburgh</td>
                             <td>61</td>
                             <td>2011/04/25</td>
+                            <td>$320,800</td>
                             <td>$320,800</td>
                             <td>$320,800</td>
                             <td>$320,800</td>
@@ -246,6 +248,7 @@
                             <td>$320,800</td>
                             <td>$320,800</td>
                             <td>$320,800</td>
+                            <td>$320,800</td>
                         </tr>
                         <tr>
                             <td>3.</td>
@@ -253,6 +256,7 @@
                             <td>Edinburgh</td>
                             <td>61</td>
                             <td>2011/04/25</td>
+                            <td>$320,800</td>
                             <td>$320,800</td>
                             <td>$320,800</td>
                             <td>$320,800</td>
@@ -268,37 +272,38 @@
                             <td>0</td>
                             <td>0</td>
                             <td>0</td>
+                            <td>0</td>
                         </tr>
                     </tfoot>
                 </table>
             </div>
             <div class="col-md-12 row margin-top-3per">
                 <div class="col-md-4 row">
-                    <div class="col-md-10 text-right">Critical Projects:</div>
-                    <div class="col-md-2 red fullheight text-center"><b>15</b></div>
+                    <div class="col-md-10 text-right">Not Successful:</div>
+                    <div class="col-md-2 red fullheight text-center"><b>0</b></div>
                 </div>
                 <div class="col-md-4 row">
-                    <div class="col-md-10 text-right">Projects Need Consideration:</div>
-                    <div class="col-md-2 yellow fullheight text-center"><b>12</b></div>
+                    <div class="col-md-10 text-right">Partially Successful:</div>
+                    <div class="col-md-2 yellow fullheight text-center"><b>0</b></div>
                 </div>
                 <div class="col-md-4 row">
-                    <div class="col-md-10 text-right">Projects within Defined Limits:</div>
-                    <div class="col-md-2 green fullheight text-center"><b>12</b></div>
+                    <div class="col-md-10 text-right">Successful:</div>
+                    <div class="col-md-2 green fullheight text-center"><b>0</b></div>
                 </div>
             </div>
             <div class="col-md-12 row margin-top-3per" style="padding: 0% 3%;">
                 <h5>Note:</h5>
                 <div class="col-md-12 row">
                     <div class="col-md-11 ">
-                        <b> If difference between Planned and Achieved Progress is greater by more than 20%, the Project is "Critical"</b>
+                        <b> If neither time, nor scope nor cost parameters are met, the project is Not Successful "</b>
                     </div>
                     <div class="col-md-1 red "></div>
                     <div class="col-md-11 ">
-                        <b> If difference of Planned & Achieved Progress is between 10% and 20%, the Project "Need Consideration"</b>
+                        <b> If either time, cost or scope parameters are met, the project is Partially Successful</b>
                     </div>
                     <div class="col-md-1 yellow "></div>
                     <div class="col-md-11 ">
-                        <b> If difference of Planned & Achieved Progress is less than 10%, the Project is "With in Defined Limits"</b>
+                        <b> If time, cost and scope all parameters are met, the Project is Successful</b>
                     </div>
                     <div class="col-md-1 green "></div>
                 </div>
@@ -307,41 +312,45 @@
                 <table id="example_1" data-page-length="10000" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr class="">
-                            <th colspan="5" class="bgsky text-center">Project Information</th>
+                            <th colspan="4" class="bgsky text-center">Project Information</th>
                             <th colspan="4" class="bgsky text-center">Cost</th>
                             <th colspan="2" class="bgsky text-center">Time</th>
-                            <th colspan="2" class="bgsky text-center">Scope</th>
+                            <th class="bgsky text-center">Scope</th>
+                            <th colspan="3" class="bgsky text-center">SNE Details</th>
                             <th class="bglightgreen noborderbottom"></th>
                         </tr>
                         <tr class="bglightgreen">
                             <th>Sr #.</th>
-                            <th>GS Number</th>
                             <th>Project Name</th>
                             <th>Sub Sectors</th>
                             <th>District</th>
-                            <th>Final PC-I Approved Cost<br /><small>Rs. Million</small></th>
-                            <th>Released <br /> <small>Rs. Million</small></th>
-                            <th>Utilized <br /> <small>Rs. Million</small></th>
-                            <th>Financial Progress<br /><small>(Against PC-I Cost)</small></th>
-                            <th>Planned Start</th>
-                            <th>Planned End</th>
-                            <th colspan="2"> Physical Progress (%)</th>
-                            <th style="width:5% !important" class="nobordertop noborderbottom">Status</th>
+                            <th>Final PC-I Approved Cost <br /><small>Rs. Million</small></th>
+                            <th>Released Till Evaluation <br /> <small>Rs. Million</small></th>
+                            <th>Total Utilized <br /> <small>Rs. Million</small></th>
+                            <th>% Financial Progress<br /><small>(Against PC-I Cost)</small></th>
+                            <th>Final Approved Gestaion Period<br /><small>Year</small></th>
+                            <th>Actual Gestaion Period<br /><small>Year</small></th>
+                            <th>Final Conclusion Of Project</th>
+                            <th>SNE</th>
+                            <th>Posts</th>
+                            <th>O&M Cost</th>
+                            <th style="width:5% !important" class="noborderbottom nobordertop">Overall Project</th>
                         </tr>
                         <tr class="bglightgreen">
                             <th></th>
                             <th></th>
                             <th></th>
                             <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th class="lineheightzero"><small class="lineheightone">[Col. H / F x 100]<br />%</small></th>
-                            <th class="lineheightzero"><small class="lineheightone">Date</small></th>
-                            <th class="lineheightzero"><small class="lineheightone">Date</small></th>
-                            <th class="lineheightzero"><small class="lineheightone">Planned (Againt<br />Duration of Project)</small></th>
-                            <th class="lineheightzero"><small class="lineheightone">Achieved<br />(As per Actual)</small></th>
+                            <th class="lineheightzero"><small class="lineheightone">RS. Million</small></th>
+                            <th class="lineheightzero"><small class="lineheightone">RS. Million</small></th>
+                            <th class="lineheightzero"><small class="lineheightone">RS. Million</small></th>
+                            <th class="lineheightzero"><small class="lineheightone">[Col. Q / (O x 100)]</small></th>
+                            <th class="lineheightzero"><small class="lineheightone">Year</th>
+                            <th class="lineheightzero"><small class="lineheightone">Year</small></th>
+                            <th class="lineheightzero"><small class="lineheightone">Successful/ Partially Successful/ Not Successful</small></th>
+                            <th class="lineheightzero"><small class="lineheightone">Yes/No</small></th>
+                            <th class="lineheightzero"><small class="lineheightone">(No.)</small></th>
+                            <th class="lineheightzero"><small class="lineheightone">RS. Million</small></th>
                             <th class="nobordertop"></th>
                         </tr>
                     </thead>

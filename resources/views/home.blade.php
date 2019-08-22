@@ -333,9 +333,16 @@ Home Page | DGME MIS
                 </div>
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
                     <a href="{{route('summarytable')}}" class="tile purple">
-                        <h3 class="title">Table</h3>
+                        <h3 class="title">Monitoring Table</h3>
                         <hr />
-                        <p>Visit Table</p>
+                        <p>Visit Monitoring Table</p>
+                    </a>
+                </div>
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
+                    <a href="{{route('summarytableEvaluation')}}" class="tile purple">
+                        <h3 class="title">Evaluation Table</h3>
+                        <hr />
+                        <p>Visit Evaluation Table</p>
                     </a>
                 </div>
                 @endrole

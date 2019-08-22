@@ -615,4 +615,8 @@ class HomeController extends Controller
   {
     return view( 'summarytable');
     }
+  public function summarytableEvaluation()
+  {
+    return view('summarytableEvaluation');
+    }
 }

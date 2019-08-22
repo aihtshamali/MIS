@@ -39,6 +39,7 @@ Route::group(['middleware' => ['auth']],function(){
   // monitoring_dashboard
   Route::get('/monitoring_dashboard','HomeController@monitoringDashboard')->name('monitoring_dashboard');
   Route::get('/summarytable','HomeController@summarytable')->name('summarytable');
+  Route::get('/summarytableEvaluation','HomeController@summarytableEvaluation')->name('summarytableEvaluation');
   Route::get('/PDWP','HomeController@PDWBforDC')->name('PDWP');
   Route::get( '/FinancialYear', 'HomeController@FinancialYearPDWP')->name( 'FinancialYear');
   // evaluation_dashboard
