@@ -31,7 +31,7 @@
                             <td>
                               <a href="{{route('monitoring_inprogressSingle',['project_id'=>$project->id,'status'=>"conductMonitoring"])}}" class="btn btn-sm btn-primary"> Conduct Monitoring</a>
                               <br>
-                                <a href="{{route('EditMonitoringEntryForm',$project->id)}}" class="btn btn-sm btn-primary float-right" style="margin-top:7%;"> Edit Detail</a>
+                                <a href="{{route('EditMonitoringEntryForm',$project->id)}}" class="btn btn-sm btn-warning float-right" style="margin-top:7%;"> Edit Detail</a>
                             </td>
                         </tr>
                           @endforeach

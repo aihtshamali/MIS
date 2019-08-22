@@ -423,7 +423,7 @@
 
             .fullwidthprint img,
             .auto img {
-                width: 100% !important;
+                width: 100% !important;-
             }
 
             .navbar-logo,
@@ -597,9 +597,9 @@ return 'Unknown';
                     </div>
                     <div class="col-md-9 text-center auto">
                         <h1 class="green">Directorate General Monitoring & Evaluation</h1>
-                        <b class="grey bold">Planing & Development Department Government Of Punjab</b>
+                        <b class="grey bold text-capitalize">Planning & Development Department Government Of Punjab</b>
                         <div class="col-md-12 text-center auto pdt3p">
-                            <h3 class="green">Monitoring reports of project</h3>
+                            <h3 class="green text-capitalize">Monitoring reports of project</h3>
                             <h5 class="grey bold underline">{{$project->AssignedProject->Project->title}}</h5>
                         </div>
                     </div>
