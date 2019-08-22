@@ -1,22 +1,18 @@
 @extends('layouts.uppernav')
 @section('styletag')
   <style media="screen">
-      div.box-body1{
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 3px;
-        border-bottom-left-radius: 3px;
-        padding: 10px;
+    
+       ul{
+         padding-left: 0px !important;
       }
-      div.box1{
-        position: relative;
-        border-radius: 3px;
-        background: #ffffff;
-        border-top: 3px solid #d2d6de;
-        margin-bottom: 20px;
-        width: 100%;
-        box-shadow: 0 1px 1px rgba(0,0,0,0.1)
+      ul>li{
+        list-style-type: none;
+       
       }
+      .table.dataTable td, .table.dataTable th {
+         text-align:LEFT !important;
+    font-size: 14px !important;
+    }
   </style>
 @endsection
 @section('content')
@@ -37,11 +33,11 @@
 {{--  {{dd($officers)}}  --}}
   <section class="content">
       {{--  sekect consulatants  --}}
-      <div class="row">
+       <div class="row">
         <div class="col-md-12">
-          <div class="box box-default">
+          <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Search Projects</h3>
+              <h3 class="box-title"><b>Search Projects</b></h3>
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
@@ -56,7 +52,7 @@
                   <div class="form-group">
                     <label>Select Officer</label>
                     <select class="form-control select2" name="officer_id" style="width: 100%;">
-                      <option selected="selected" value="">Select A Officer</option>
+                      <option selected="selected" value="" >Select A Officer</option>
                       @foreach($officers as $officer)
                         @if($officer->hasRole('officer'))
                         <option value="{{ $officer->id }}">{{ $officer->first_name }}  {{ $officer->last_name }} - {{ $officer->UserDetail->sector->name }}</option>
@@ -88,7 +84,7 @@
                   </select>
                 </div>
               </div>
-              <div class="row" style="margin-top:10px">
+              {{-- <div class="row" style="margin-top:10px">
                 <div class="col-md-6">
                   <div class="col-md-6">
                     <label for="">Starting Cost in Million</label>
@@ -99,117 +95,122 @@
                     <input class="form-control" type="number" name="ending_cost" value="">
                   </div>
                 </div>
-              </div>
-              {{-- <div class="row" style="margin-top:10px">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Date range button:</label>
-                    <div class="input-group pull-right">
-                      <button type="button" class="btn btn-default pull-right" id="daterange-btn">
-                        <span>
-                          <i class="fa fa-calendar"></i> Date range picker
-                        </span>
-                        <i class="fa fa-caret-down"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
               </div> --}}
+
               <div class="row" style="margin-top:10px">
                 <div class="col-md-6">
                   <button  class="btn btn-success pull-right" type="submit" name="button">Search</button>
                 </div>
               </div>
-            </form>
+             </form>
             </div>
           </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-12">
-          {{--  Chart 1  --}}
-          <div class="box1 box-warning">
-            <div class="box-header with-border">
-              <h3 class="box-title">ASSIGNED PROJECTS</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+          <div class="col-md-12">
+            
+            <div class="box box-warning">
+              <!-- /.box-header -->
+                <div class="box-header with-border">
+                  <h3 class="box-title"><b>ASSIGNED PROJECTS</b></h3>
+                  <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
               </div>
-            </div>
-            <div class="box-body1">
-                <div class="table-responsive">
-                  <table class="table table-hover table-striped">
-                    <tbody>
-                        <thead>
-                            <th>Project Number</th>
-                            <th>Project Name</th>
-                            <th>Assigned By</th>
-                            <th>Team Members</th>
-                            <th>Priority</th>
-                            <th>Assigned Duration</th>
-                            <th>Progress</th>
-                            <th></th>
-                          </thead>
-                          <tbody>
-
-                            @foreach ($assigned as $assigned)
-
-                                <tr>
-                                  <td>{{$assigned->project->project_no}}</td>
-                                  <td>{{$assigned->project->title}}</td>
-                                  <td>{{ $assigned->user->first_name }} {{ $assigned->user->last_name }}</td>
-                                  <td>
-                                      @foreach ($assigned->AssignedProjectTeam as $team)
-                                      @if ($team->team_lead==1)
-                                        <span style="font-weight:bold;color:blue">{{$team->user->first_name}}  {{$team->user->last_name}} -</span>
-                                      @else
-                                        <span class="">{{$team->user->first_name}} {{$team->user->last_name}}</span>
-                                      @endif
-                                    @endforeach
-
-                                  </td>
-                                  <td>
-                                      @if ($assigned->priority==3)
-                                      High
-                                    @elseif ($assigned->priority==2)
-                                      Normal
-                                    @else
-                                      Low
-                                    @endif
-
-                                  </td>
-
-                                  <td>
-                                    @php
-                                      $interval = date_diff(date_create(date('Y-m-d h:i:s',strtotime($assigned->created_at))), date_create(date('Y-m-d h:i:s')))->format('%m Month %d Day %h Hours');
-                                      // $duration=$interval->format();
-                                    @endphp
-                                    {{-- {{$assigned->created_at}} --}}
-                                    {{$interval}}
-                                    {{-- {{dd($interval)}} --}}
-                                    {{-- {{$duration}} --}}
-                                  </td>
-                                  <td><div class="progress">
-                                      <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
-                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo 20+$assigned->progress; ?>% ">
-                                      {{round($assigned->progress, 0, PHP_ROUND_HALF_UP) }}% Complete
-                                        </div>
-
-                                      </div></td>
-
-                                </tr>
-                            @endforeach
-                          </tbody>
-                    </tbody>
-                  </table>
                 </div>
-          </div>
-
-          </div>
+             <div class="box-body">
+                <table id="example1"  data-page-length="100" class="table table-bordered table-hover ">
+                  <thead>
+                    <tr>
+                      <th>Project #</th>
+                      <th>ADP #</th>
+                      <th style="width:20% !important;">Project Name</th>
+                      <th style="width:12% !important;">Team Members</th>
+                      <th>SNE</th>
+                      <th >Departments</th>
+                      <th>Priority</th>
+                      <th>Score</th>
+                      <th>Assigned Duration</th>
+                      <th>Progress</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($assigned as $assigned)
+                                      <tr>
+  
+                                        <td>{{$assigned->project->project_no}}</td>
+                                        <td> {{$assigned->project->financial_year}}/{{$assigned->project->ADP}}</td>
+                                        <td>{{$assigned->project->title}}</td>
+                                        <td>
+                                          <ul>
+                                            @foreach ($assigned->AssignedProjectTeam as $team)
+                                            @if ($team->team_lead==1)
+                                            <li>
+                                              <span ><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}" style="font-weight:bold; color:red">{{$team->user->first_name}}  {{$team->user->last_name}}</a></span>
+                                            </li>  
+                                            @else
+                                            <li>
+                                              <span class=""><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}">{{$team->user->first_name}} {{$team->user->last_name}}</a></span>
+                                            </li>
+                                            @endif
+                                          @endforeach
+                                          </ul>
+  
+                                        </td>
+                                        <td>{{$assigned->project->ProjectDetail->sne}}</td>
+                                      <td>
+                                       <span style="background:lightblue; padding : 5px;">
+                                            @foreach ($assigned->project->AssignedSubSectors as $item)
+                                          {{$item->SubSector->sector->name}}
+                                          @endforeach
+                                       </span>
+                                      <hr>
+                                      <ul>
+                                        @foreach ($assigned->project->AssignedSubSectors as $item)
+                                            <li>{{$item->SubSector->name}}</li> 
+                                        @endforeach
+                                      </ul>
+                                    </td>
+                                        <td>
+                                          {{ $assigned->project->ProjectDetail->AssigningForum->name }}
+                                        </td>
+                                        <td>
+                                          {{ round($assigned->project->score,2,PHP_ROUND_HALF_UP) }}
+                                        </td>
+  
+                                        <td>
+                                          @php
+                                            $interval = date_diff(date_create(date('Y-m-d h:i:s',strtotime($assigned->created_at))), date_create(date('Y-m-d h:i:s')))->format('%m Month %d Day %h Hours');
+                                            // $duration=$interval->format();
+                                          @endphp
+                                          {{-- {{$assigned->created_at}} --}}
+                                          {{$interval}}
+                                          {{-- {{dd($interval)}} --}}
+                                          {{-- {{$duration}} --}}
+                                        </td>
+                                        <td><div class="progress">
+                                            <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+                                              aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo 20+$assigned->progress; ?>% ">
+                                            {{round($assigned->progress, 0, PHP_ROUND_HALF_UP) }}% Complete
+                                              </div>
+  
+                                            </div></td>
+  
+                                      </tr>
+  
+                                    @endforeach
+  
+  
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
         </div>
       </div>
+  </section>
 
 
 @endsection
