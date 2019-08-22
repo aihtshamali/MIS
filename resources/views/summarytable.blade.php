@@ -107,6 +107,35 @@
             vertical-align: -webkit-baseline-middle !important;
         }
 
+        .bgsky {
+            background: #87ceeb82;
+            color: #000;
+        }
+
+        .bglightgreen {
+            background: #c6f7caa3;
+            color: #000;
+        }
+
+        .bggrey {
+            background: #ededed;
+            color: #000;
+        }
+
+        .table-bordered td,
+        .table-bordered th {
+            border: 1px solid #959798 !important;
+        }
+
+        small {
+            font-size: 55% !important;
+            font-weight: 600;
+        }
+
+        .margintopbottom {
+            margin: 3% 0% !important;
+        }
+
         @media (min-width: 1200px) {
             .container {
                 max-width: 96% !important;
@@ -123,7 +152,7 @@
             table.dataTable thead .sorting_asc_disabled:after,
             table.dataTable thead .sorting_desc_disabled:before,
             table.dataTable thead .sorting_desc_disabled:after {
-                bottom: 1.9em !important;
+                bottom: -0.1em !important;
             }
         }
     </style>
@@ -136,7 +165,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="margintopbottom">
         <div class="row col-md-12">
             <div class="col-md-3">
                 <div class="col-md-6 offset-md-3 toppaddinglogos">
@@ -161,18 +190,18 @@
                 </b>
             </div>
             <div class="col-md-12 text-center">
-                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                <table id="example" class="table table-striped table-bordered" data-page-length="10000" style="width:100%">
                     <thead>
-                        <tr>
+                        <tr class="bggrey">
                             <th colspan="9" class="text-center">SUMMARY</th>
                         </tr>
                         <tr>
-                            <th>Sr #.</th>
-                            <th>Sectors</th>
-                            <th>Sub-Sectos</th>
-                            <th>Reports Issued By DGM&E<br /><small>No.</small></th>
-                            <th>Total Cost Of Projects <br /><small>(Rs. Millions)</small></th>
-                            <th>Locations<br /><small>Division Wise</small></th>
+                            <th class="bggrey">Sr #.</th>
+                            <th class="bggrey">Sectors</th>
+                            <th class="bggrey">Sub-Sectos</th>
+                            <th class="bggrey">Reports Issued By DGM&E<br /><small>No.</small></th>
+                            <th class="bggrey">Total Cost Of Projects <br /><small>(Rs. Millions)</small></th>
+                            <th class="bggrey">Locations<br /><small>Division Wise</small></th>
                             <th class="red">Project In Critical Phase<br /><small>No.</small></th>
                             <th class="yellow">Projects Need Consideration<br /><small>No.</small></th>
                             <th class="green">Projects within Defined Limits<br /><small>No.</small></th>
@@ -218,60 +247,60 @@
             <div class="col-md-12 row margin-top-3per">
                 <div class="col-md-4 row">
                     <div class="col-md-10 text-right">Critical Projects:</div>
-                    <div class="col-md-2 red fullheight"></div>
+                    <div class="col-md-2 red fullheight text-center"><b>15</b></div>
                 </div>
                 <div class="col-md-4 row">
                     <div class="col-md-10 text-right">Projects Need Consideration:</div>
-                    <div class="col-md-2 yellow fullheight"></div>
+                    <div class="col-md-2 yellow fullheight text-center"><b>12</b></div>
                 </div>
                 <div class="col-md-4 row">
                     <div class="col-md-10 text-right">Projects within Defined Limits:</div>
-                    <div class="col-md-2 green fullheight"></div>
+                    <div class="col-md-2 green fullheight text-center"><b>12</b></div>
                 </div>
             </div>
             <div class="col-md-12 row margin-top-3per">
                 <h5>Note:</h5>
                 <div class="col-md-12 row">
                     <div class="col-md-11 ">
-                        <b>If Difference of Financial Progress is greater than Physical Progress by more than 20%, the Project is "Critical"</b>
+                        <b> If difference between Planned and Achieved Progress is greater by more than 20%, the Project is "Critical"</b>
                     </div>
                     <div class="col-md-1 red "></div>
                     <div class="col-md-11 ">
-                        <b> If Difference of Physical & Financial Progress is between 10% and 20%, the Project "Need Consideration"</b>
+                        <b> If difference of Planned & Achieved Progress is between 10% and 20%, the Project "Need Consideration"</b>
                     </div>
                     <div class="col-md-1 yellow "></div>
                     <div class="col-md-11 ">
-                        <b> If Difference of Physical & Financial Progress is less than 10%, the Project is "With in Defined Limits"</b>
+                        <b> If difference of Planned & Achieved Progress is less than 10%, the Project is "With in Defined Limits"</b>
                     </div>
                     <div class="col-md-1 green "></div>
                 </div>
             </div>
             <div class="relativetable margin-top-3per col-md-12 text-center">
-                <table id="example_1" class="table table-striped table-bordered" style="width:100%">
+                <table id="example_1" data-page-length="10000" class="table table-striped table-bordered" style="width:100%">
                     <thead>
-                        <tr>
-                            <th colspan="4" class="text-center">Project Information</th>
-                            <th colspan="5" class="text-center">Cost</th>
+                        <tr class="bgsky">
+                            <th colspan="5" class="text-center">Project Information</th>
+                            <th colspan="4" class="text-center">Cost</th>
                             <th colspan="2" class="text-center">Time</th>
-                            <th colspan="2" class="text-center">Scoppe</th>
+                            <th colspan="2" class="text-center">Scope</th>
                             <th></th>
                         </tr>
-                        <tr>
+                        <tr class="bglightgreen">
                             <th>Sr #.</th>
-                            <th>GS #.</th>
+                            <th>GS Number</th>
                             <th>Project Name</th>
                             <th>Sub Sectors</th>
                             <th>District</th>
-                            <th>Final PC-I Approved Cost<br/><small>Rs. Million</small></th>
-                            <th>Released <br/> <small>Rs. Million</small></th>
-                            <th>Utilized <br/> <small>Rs. Million</small></th>
-                            <th>% Financial Progress (Against Releases)</th>
+                            <th>Final PC-I Approved Cost<br /><small>Rs. Million</small></th>
+                            <th>Released <br /> <small>Rs. Million</small></th>
+                            <th>Utilized <br /> <small>Rs. Million</small></th>
+                            <th>Financial Progress<br/><small>(Against PC-I Cost)</small></th>
                             <th>Planned Start</th>
-                            <th>Gestation Period</th>
+                            <th>Planned End</th>
                             <th colspan="2"> Physical Progress (%)</th>
-                            <th>Status</th>
+                            <th style="width:5% !important">Status</th>
                         </tr>
-                        <tr>
+                        <tr class="bglightgreen">
                             <th></th>
                             <th></th>
                             <th></th>
@@ -280,11 +309,11 @@
                             <th></th>
                             <th></th>
                             <th></th>
-                            <th></th>
+                            <th><small>[Col. H / F x 100]<br/>%</small></th>
                             <th><small>Date</small></th>
-                            <th><small>Year</small></th>
-                            <th><small>Planned</small></th>
-                            <th><small>Archived</small></th>
+                            <th><small>Date</small></th>
+                            <th><small>Planned (Againt<br />Duration of Project)</small></th>
+                            <th><small>Achieved<br />(As per Actual)</small></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -301,9 +330,9 @@
                             <td>fkowhdi</td>
                             <td>fkowhdi</td>
                             <td>fkowhdi</td>
+                            <td title="Planned(Againt Duration of Project)">fkowhdi</td>
                             <td>fkowhdi</td>
-                            <td>fkowhdi</td>
-                            <td>fkowhdi</td>
+                            <td class="red"></td>
                         </tr>
                         <tr>
                             <td>2.</td>
@@ -317,9 +346,9 @@
                             <td>fkowhdi</td>
                             <td>fkowhdi</td>
                             <td>fkowhdi</td>
+                            <td title="Planned(Againt Duration of Project)">fkowhdi</td>
                             <td>fkowhdi</td>
-                            <td>fkowhdi</td>
-                            <td>fkowhdi</td>
+                            <td class="green"></td>
                         </tr>
                         <tr>
                             <td>3.</td>
@@ -333,9 +362,9 @@
                             <td>fkowhdi</td>
                             <td>fkowhdi</td>
                             <td>fkowhdi</td>
+                            <td title="Planned(Againt Duration of Project)">fkowhdi</td>
                             <td>fkowhdi</td>
-                            <td>fkowhdi</td>
-                            <td>fkowhdi</td>
+                            <td class="red"></td>
                         </tr>
                         <tr>
                             <td>4.</td>
@@ -349,9 +378,9 @@
                             <td>fkowhdi</td>
                             <td>fkowhdi</td>
                             <td>fkowhdi</td>
+                            <td title="Planned(Againt Duration of Project)">fkowhdi</td>
                             <td>fkowhdi</td>
-                            <td>fkowhdi</td>
-                            <td>fkowhdi</td>
+                            <td class="yellow"></td>
                         </tr>
                     </tbody>
                 </table>
