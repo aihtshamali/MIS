@@ -291,7 +291,7 @@
                                                             <th>Component</th>
                                                             <th>Activity</th>
                                                             <th>Assesment</th>
-                                                            <th>Progress</th>
+                                                            <th>Severity</th>
                                                             <th>Remarks</th>
                                                         </tr>
                                                     </thead>

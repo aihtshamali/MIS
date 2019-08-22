@@ -82,6 +82,7 @@ class ProjectCounterController extends Controller
           $assigned=AssignedProject::select('assigned_projects.*')
           ->leftJoin('projects','assigned_projects.project_id','projects.id')
           ->where('complete',0)
+          ->where('stopped',0)
           ->where('projects.project_type_id',1)
           ->where('projects.status',1)
           ->get()
@@ -104,6 +105,7 @@ class ProjectCounterController extends Controller
           ->leftJoin('projects','assigned_projects.project_id','projects.id')
           ->where('assigned_by',$request->user()->id)
           ->where('complete',0)
+          ->where('stopped',0)
           ->where('projects.project_type_id',1)
           ->where('projects.status',1)
           ->get()
@@ -121,6 +123,7 @@ class ProjectCounterController extends Controller
           ->where('projects.project_type_id',1)
           ->where('projects.status',1)
           ->where('complete',0)
+          ->where('stopped',0)
           ->count();
           $role='officer';
         }
@@ -134,6 +137,7 @@ class ProjectCounterController extends Controller
           $assigned=AssignedProject::select('assigned_projects.*')
           ->leftJoin('projects','assigned_projects.project_id','projects.id')
           ->where('complete',1)
+          ->where('stopped',0)
           ->where('projects.status',1)
           ->where('projects.project_type_id',1)
           ->get()->count();

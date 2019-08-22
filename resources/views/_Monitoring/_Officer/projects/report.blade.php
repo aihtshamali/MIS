@@ -423,7 +423,7 @@
 
             .fullwidthprint img,
             .auto img {
-                width: 100% !important;
+                width: 100% !important;-
             }
 
             .navbar-logo,

@@ -29,6 +29,7 @@ class ProjectAssignController extends Controller
      */
      public function index()
      {
+      //  dd('hey');
        $unassigned=Project::select('projects.*')
       ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
       ->leftJoin('assigned_project_managers','assigned_project_managers.project_id','projects.id')
