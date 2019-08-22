@@ -1445,15 +1445,22 @@ function add_activityInComp(e, myc) {
         </select>
         </div>
         <div class="form-group col-md-2">
-        <label for=""><b>Progress in %</b></label>
+        <label for=""><b>Seveirty</b></label>
         <select class=" form-control" name="progresspercentage_` +
     countforcomponent +
     `[]">
         <option value="" selected disabled>Progress Percentage</option>
-        <option value="25%">0%-25%</option>
-        <option value="50%">25%-50%</option>
-        <option value="75%">50%-75%</option>
-        <option value="100%">75%-100%</option>
+        <option value="0%">0%</option>
+        <option value="10%">10%</option>
+        <option value="20%">20%</option>
+        <option value="30%">30%</option>
+        <option value="40%">40%</option>
+        <option value="50%">50%</option>
+        <option value="60%">60%</option>
+        <option value="70%">70%</option>
+        <option value="80%">80%</option>
+        <option value="90%">90%</option>
+        <option value="100%">100%</option>
         </select>
         </div>
         <div class="form-group col-md-3">
@@ -1582,7 +1589,7 @@ $(document).ready(function () {
                   <input type="text" required name="level1_` + child + `" class="form-control" style="padding:2% !important;" placeholder="Level ` + p + `">
               </div>
               <div class="col-sm-2">
-                 <span style="color:red">*</span>  <input type="number" required="required" name="weightage_` + parent.toString() + `_` + child++ + `" class="form-control" placeholder="Level ` + p + `  Weightage">
+                 <span style="color:red">*</span>  <input type="number" min="1" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required="required" name="weightage_` + parent.toString() + `_` + child++ + `" class="form-control" placeholder="Level ` + p + `  Weightage">
                 </div>
               <div class="col-sm-1 text_center">
                   <button class="btn btn-sm btn-info" type="button" id="addcustomeKPIs` + p + `" tabindex="1">+</button>

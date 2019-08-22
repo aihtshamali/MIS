@@ -423,7 +423,7 @@
 
             .fullwidthprint img,
             .auto img {
-                width: 100% !important;
+                width: 100% !important;-
             }
 
             .navbar-logo,
@@ -1637,7 +1637,7 @@ return 'Unknown';
     </div>
     </div>
     <div>
-        <button class="btn btn-success" type="button" onclick="save_report_data()">SAVE Report Data</button>
+        <!-- <button class="btn btn-success" type="button" onclick="save_report_data()">SAVE Report Data</button> -->
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
     <script>

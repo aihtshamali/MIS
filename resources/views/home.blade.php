@@ -379,6 +379,13 @@ Home Page | DGME MIS
                     </a>
                 </div> -->
                 @endrole
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.6s">
+                    <a href="{{route('evaluation_dashboard')}}" class="tile orange">
+                        <h3 class="title">Dashboard</h3>
+                        <hr />
+                        <p>Visit Dashboard</p>
+                    </a>
+                </div>
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.2s">
                     <a href="" class="tile green">
                         <h3 class="title">My Profile</h3>
