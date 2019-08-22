@@ -1679,9 +1679,7 @@ class OfficerController extends Controller
       }
      public function saveQualityAssesment(Request $request)
      {
-
       // return dd($request->all());
-      // return response()->json($request->all());
 
       $i=0;
 

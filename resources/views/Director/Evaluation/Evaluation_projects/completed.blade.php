@@ -1,20 +1,27 @@
 @extends('layouts.uppernav')
+@section('styletags')
+  {{-- <link rel="stylesheet" href="{{asset('css/AdminLTE/dataTables.bootstrap.min.css')}}"> --}}
+  <style>
+   ul{
+         padding-left: 0px !important;
+      }
+      ul>li{
+        list-style-type: none;
+       
+      }
+       .table.dataTable td, .table.dataTable th {
+         text-align:LEFT !important;
+    font-size: 14px !important;
+    }
+  </style>
+@endsection
 
 @section('content')
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
 
-  <section class="content-header">
-    <h1>
-    ASSIGNED EVALUATION PROJECTS
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-backward" ></i>Back</a></li>
-      <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li>
-
-    </ol>
-  </section>
+  
 
   <section class="content">
       {{--  sekect consulatants  --}}
@@ -23,7 +30,8 @@
           {{--  Chart 1  --}}
           <div class="box box-warning">
             <div class="box-header with-border">
-              <h3 class="box-title">Completed Projects</h3>
+              <h3 class="box-title"><b>COMPLETED PROJECTS</b></h3>
+              <button class="btn btn-danger" style="color:white;font-weight:bold font-size:20px;">@if(isset($projects)){{$projects->count()}}@endif</button>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -34,13 +42,14 @@
 
             <div class="box-body">
                 <div class="table-responsive">
-                  <table class="table table-hover table-striped">
+                  <table id="example1" data-page-length="50" class="table table-hover table-bordered table-striped">
                     <thead>
                         <tr >
-                            <th>Project Number</th>
-                            <th>Project Name</th>
+                            <th>Project #</th>
+                            <th style="width:25% !important;">Project Name</th>
                             <th>Project Officers</th>
                             <th>SNE</th>
+                            <th style="width:15% !important;">Subsectors</th>
                             <th>Date Start</th>
                             <th>Date End</th>
                             <th>Score</th>
@@ -54,19 +63,33 @@
                         <td>{{ $project->project->project_no }}</td>
                       <td>{{ $project->project->title }}</td>
                       <td>
-                      @foreach ($project->AssignedProjectTeam as $team)
-                        {{ $team->User->first_name }} {{ $team->User->last_name }} <br>
+                     <ul>
+                        @foreach ($project->AssignedProjectTeam as $team)
+                        @if ($team->team_lead==1)
+                        <li>
+                          <span ><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}" style="font-weight:bold; color:red">{{$team->user->first_name}}  {{$team->user->last_name}}</a></span>
+                        </li>  
+                        @else
+                        <li>
+                          <span class=""><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}">{{$team->user->first_name}} {{$team->user->last_name}}</a></span>
+                        </li>
+                        @endif
                       @endforeach
-                      @if(count($project->AssignedProjectTeam) > 1)
-                      
-                    @endif
+                      </ul>
                     </td>
                     <td>{{$project->project->ProjectDetail->sne}}</td>
                     <td>
-                    {{date('d-m-Y',strtotime($project->created_at))}}
+                        <ul>
+                        @foreach ($project->project->AssignedSubSectors as $item)
+                              <li>{{$item->SubSector->name}}</li> 
+                        @endforeach
+                        </ul>
                     </td>
                     <td>
-                    {{ date('d-m-Y',strtotime($project->updated_at)) }}
+                    {{date('d-M-y',strtotime($project->created_at))}}
+                    </td>
+                    <td>
+                    {{ date('d-M-y',strtotime($project->updated_at)) }}
                     </td>
                     <td>
                       {{ round($project->project->score,2,PHP_ROUND_HALF_UP) }}
@@ -79,7 +102,7 @@
                   </tbody>
                   </table>
                 </div>
-          </div>
+            </div>
 
           </div>
         </div>
