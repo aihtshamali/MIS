@@ -638,7 +638,7 @@
                                     </div>
                                     <div class="col-md-3 text-center">
                                         <div class="col-md-10 offset-md-1">
-                                            <h4 class="form-txt-primary">Selected KPIs</h4>
+                                            <h4 class="form-txt-primary">Selected WBS</h4>
                                         </div>
                                     </div>
                                     <div class="col-md-4 text-center">
@@ -684,9 +684,15 @@
                                         <div class="col-md-4">
                                             <input name="cost[]" id="" class="col-md-11 float-right form-control" placeholder="Cost" type="text" style="text-align:center;border: 1px solid #807d7d8a !important;padding: 3.5% 0% !important;" value="">
                                         </div>
+<<<<<<< HEAD
+                                        {{-- <div class="col-md-2">
+                                            <input name="weightage[]" id="" type="number" class="col-md-11 float-right form-control" placeholder="Weightage" style="text-align:center;border: 1px solid #807d7d8a !important;padding: 7% 0% 7% 0% !important;" value="">
+                                        </div> --}}
+=======
                                         <!-- <div class="col-md-2">
                                             <input name="weightage[]" id="" type="number" class="col-md-11 float-right form-control" placeholder="Weightage" style="text-align:center;border: 1px solid #807d7d8a !important;padding: 7% 0% 7% 0% !important;" value="">
                                         </div> -->
+>>>>>>> ba3a3faabe2e4e6586015671798892fd424c1e08
                                     </div>
                                     <div class="col-sm-1 text_center">
                                         <button class="btn btn-sm btn-info" type="button" id="CloneUserKPI">+</button>

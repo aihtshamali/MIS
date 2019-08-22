@@ -84,7 +84,7 @@
                         <div class="box">
                           <!-- /.box-header -->
                           <div class="box-body">
-                            <table id="example{{ $counter++ }}" class="table table-bordered table-striped">
+                            <table id="sne{{ $counter++ }}" class="table table-bordered table-striped">
                               <thead>
                               <tr>
                                 <th>SR #</th>
@@ -333,10 +333,10 @@
 <script type="text/javascript">
 $(document).ready(function(){
 for (var i = 7; i >= 0; i--) {
-  $('#example'+i).DataTable({
+  $('#sne'+i).DataTable({
     dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+           'pageLength',  'copy', 'csv', 'excel', 'pdf', 'print'
         ]
   });
 }

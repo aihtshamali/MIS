@@ -290,7 +290,7 @@ $innertab=\Session::get('innertab');
       <P for="actual_value" class=" mb_1"><span class="fontf_sh">Planned Value: </span><span>{{round(calculatePlannedValue($project->MProjectProgress->last()->id),3)}} </span></p>
     </div>
     <div class="col-md-3">
-      <p for="cost_performance" class=" mb_1"><span class="fontf_sh">Cost Performace Index (CPI): </span><span>{{round(costPerformanceindex($project->MProjectProgress->last()->id),2)}}%</span></p>
+      <p for="cost_performance" class=" mb_1"><span class="fontf_sh">Cost Performance Index (CPI): </span><span>{{round(costPerformanceindex($project->MProjectProgress->last()->id),2)}}%</span></p>
     </div>
     <div class="col-md-3">
       <p for="spi" class=" mb_1"><span class="fontf_sh">Schedule Performance Index (SPI): </span><span>{{round(scheduledPerformanceindex($project->MProjectProgress->last()->id),2)}}%</span></p>
@@ -309,7 +309,7 @@ $innertab=\Session::get('innertab');
       </p>
     </div>
     <div class="col-md-3">
-      <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">All Progress:</span>
+      <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">All Physical Progress:</span>
         <span class="pdz_six" id="">{{round(calculateTotalMPhysicalProgress($project->MProjectProgress->last()->id),2)}}%</span>
       </p>
     </div>
