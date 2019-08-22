@@ -31,6 +31,7 @@
           <div class="box box-warning">
             <div class="box-header with-border">
               <h3 class="box-title"><b>COMPLETED PROJECTS</b></h3>
+              <button class="btn btn-danger" style="color:white;font-weight:bold font-size:20px;">@if(isset($projects)){{$projects->count()}}@endif</button>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
