@@ -369,6 +369,7 @@
                             <td>fkowhdi</td>
                             <td title="Planned(Againt Duration of Project)">fkowhdi</td>
                             <td>fkowhdi</td>
+                            <td>fkowhdi</td>
                             <td class="red"></td>
                         </tr>
                         <tr>
@@ -384,6 +385,7 @@
                             <td>fkowhdi</td>
                             <td>fkowhdi</td>
                             <td title="Planned(Againt Duration of Project)">fkowhdi</td>
+                            <td>fkowhdi</td>
                             <td>fkowhdi</td>
                             <td class="green"></td>
                         </tr>
@@ -401,6 +403,7 @@
                             <td>fkowhdi</td>
                             <td title="Planned(Againt Duration of Project)">fkowhdi</td>
                             <td>fkowhdi</td>
+                            <td>fkowhdi</td>
                             <td class="red"></td>
                         </tr>
                         <tr>
@@ -416,6 +419,7 @@
                             <td>fkowhdi</td>
                             <td>fkowhdi</td>
                             <td title="Planned(Againt Duration of Project)">fkowhdi</td>
+                            <td>fkowhdi</td>
                             <td>fkowhdi</td>
                             <td class="yellow"></td>
                         </tr>

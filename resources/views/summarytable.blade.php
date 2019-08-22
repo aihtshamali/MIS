@@ -322,7 +322,7 @@
                             <th>Final PC-I Approved Cost<br /><small>Rs. Million</small></th>
                             <th>Released <br /> <small>Rs. Million</small></th>
                             <th>Utilized <br /> <small>Rs. Million</small></th>
-                            <th>Financial Progress<br /><small>(Against PC-I Cost)</small></th>
+                            <th>% Financial Progress<br /><small>(Against PC-I Cost)</small></th>
                             <th>Planned Start</th>
                             <th>Planned End</th>
                             <th colspan="2"> Physical Progress (%)</th>
@@ -337,7 +337,7 @@
                             <th></th>
                             <th></th>
                             <th></th>
-                            <th class="lineheightzero"><small class="lineheightone">[Col. H / F x 100]<br />%</small></th>
+                            <th class="lineheightzero"><small class="lineheightone">[Col. H / F x 100]</small></th>
                             <th class="lineheightzero"><small class="lineheightone">Date</small></th>
                             <th class="lineheightzero"><small class="lineheightone">Date</small></th>
                             <th class="lineheightzero"><small class="lineheightone">Planned (Againt<br />Duration of Project)</small></th>
