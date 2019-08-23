@@ -201,7 +201,7 @@
                         <div class="main-body">
                             <div class="page-wrapper">
                                 <div class="page-body">
-                                    <!-- @yield('content') -->aho
+                                    @yield('content')
                                 </div>
                             </div>
 

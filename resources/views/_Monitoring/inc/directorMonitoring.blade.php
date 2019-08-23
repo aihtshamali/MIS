@@ -1,63 +1,63 @@
 <div class="pcoded-main-container">
-        <div class="pcoded-wrapper">
-            <nav class="pcoded-navbar">
-                <div class="pcoded-inner-navbar main-menu">
-                    <div class="pcoded-navigatio-lavel">Navigation</div>
-                    <ul class="pcoded-item pcoded-left-item">
-                        <li class="pcoded-hasmenu">
-                            <a href="javascript:void(0)">
-                                <span class="pcoded-micon"><i class="feather icon-home"></i></span>
-                                <span class="pcoded-mtext">Dashboard</span>
-                            </a>
-                            <ul class="pcoded-submenu dashboard">
-                                <li class="">
-                                    <a href="{{url('monitoring_dashboard')}}">
-                                        <span class="pcoded-mtext">Home</span>
-                                    </a>
-                                </li>
-                                <!-- <li class="#">
+    <div class="pcoded-wrapper">
+        <nav class="pcoded-navbar">
+            <div class="pcoded-inner-navbar main-menu">
+                <div class="pcoded-navigatio-lavel">Navigation</div>
+                <ul class="pcoded-item pcoded-left-item">
+                    <li class="pcoded-hasmenu">
+                        <a href="javascript:void(0)">
+                            <span class="pcoded-micon"><i class="feather icon-home"></i></span>
+                            <span class="pcoded-mtext">Dashboard</span>
+                        </a>
+                        <ul class="pcoded-submenu dashboard">
+                            <li class="">
+                                <a href="{{url('monitoring_dashboard')}}">
+                                    <span class="pcoded-mtext">Home</span>
+                                </a>
+                            </li>
+                            <!-- <li class="#">
                                     <a href="dashboard-crm.html">
                                         <span class="pcoded-mtext">CRM</span>
                                     </a>
                                 </li> -->
-                                <li class="analytics">
-                                    <a href="{{route('analytics')}}">
-                                        <span class="pcoded-mtext">Analytics</span>
-                                        <!-- <span class="pcoded-badge label label-info ">NEW</span> -->
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <div class="pcoded-navigatio-lavel">Projects</div>
-                    <ul class="pcoded-item pcoded-left-item">
-                        <li class="pcoded-hasmenu">
-                            <a href="javascript:void(0)">
-                                <span class="pcoded-micon"><i class="feather icon-airplay"></i></span>
-                                    <span class="pcoded-mtext" >Monitoring Projects</span>
-                            </a>
-                            <ul class="pcoded-submenu">
-                                <li class="">
+                            <li class="analytics">
+                                <a href="{{route('analytics')}}">
+                                    <span class="pcoded-mtext">Analytics</span>
+                                    <!-- <span class="pcoded-badge label label-info ">NEW</span> -->
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="pcoded-navigatio-lavel">Projects</div>
+                <ul class="pcoded-item pcoded-left-item">
+                    <li class="pcoded-hasmenu">
+                        <a href="javascript:void(0)">
+                            <span class="pcoded-micon"><i class="feather icon-airplay"></i></span>
+                            <span class="pcoded-mtext">Monitoring Projects</span>
+                        </a>
+                        <ul class="pcoded-submenu">
+                            <li class="">
                                 <a href="{{route('Monitoring_unassigned_projects')}}">
-                                        <span class="pcoded-mtext">New Assignments</span>
-                                        <!-- <span class="pcoded-badge label label-danger">0</span> -->
+                                    <span class="pcoded-mtext">New Assignments</span>
+                                    <!-- <span class="pcoded-badge label label-danger">0</span> -->
 
-                                    </a>
-                                </li>
-                                <li class=" ">
+                                </a>
+                            </li>
+                            <li class=" ">
                                 <a href="{{route('Monitoring_inprogress_projects')}}">
-                                        <span class="pcoded-mtext" >In Progress</span>
-                                        <!-- <span class="pcoded-badge label label-warning">0</span> -->
+                                    <span class="pcoded-mtext">In Progress</span>
+                                    <!-- <span class="pcoded-badge label label-warning">0</span> -->
 
-                                    </a>
-                                </li>
-                                <li class=" ">
+                                </a>
+                            </li>
+                            <li class=" ">
                                 <a href="{{route('Monitoring_complete_projects')}}">
-                                        <span class="pcoded-mtext" >Completed</span>
-                                        <!-- <span class="pcoded-badge label label-success">0</span> -->
-                                    </a>
-                                </li>
-                                {{-- <li class=" ">
+                                    <span class="pcoded-mtext">Completed</span>
+                                    <!-- <span class="pcoded-badge label label-success">0</span> -->
+                                </a>
+                            </li>
+                            {{-- <li class=" ">
                                     <a href="box-shadow.html">
                                         <span class="pcoded-mtext" >Box-Shadow</span>
                                     </a>
@@ -117,9 +117,9 @@
                                         <span class="pcoded-mtext" >Other</span>
                                     </a>
                                 </li> --}}
-                            </ul>
-                        </li>
-                        {{-- <li class="pcoded-hasmenu">
+                        </ul>
+                    </li>
+                    {{-- <li class="pcoded-hasmenu">
                             <a href="javascript:void(0)">
                                 <span class="pcoded-micon"><i class="feather icon-gitlab"></i></span>
                                 <span class="pcoded-mtext">Advance Components</span>
@@ -293,30 +293,30 @@
                                 </li>
                             </ul>
                         </li> --}}
-                    </ul>
-                    <div class="pcoded-navigatio-lavel">Site Visits</div>
-                    <ul class="pcoded-item pcoded-left-item">
-                        <li class="pcoded-hasmenu">
-                            <a href="javascript:void(0)">
+                </ul>
+                <div class="pcoded-navigatio-lavel">Projects</div>
+                <ul class="pcoded-item pcoded-left-item">
+                    <li class="pcoded-hasmenu">
+                        <a href="javascript:void(0)">
 
-                                <span class="pcoded-micon"><i class="zmdi zmdi-car"></i></span>
-                                <span class="pcoded-mtext" >Plan A Visit</span>
-                            </a>
-                            <ul class="pcoded-submenu">
-                                <li class=" ">
-                                    <a href="form-elements-component.html">
-                                        <span class="pcoded-mtext" >Schedule New Visit</span>
-                                    </a>
-                                </li>
-                                <li class=" ">
-                                    <a href="form-elements-add-on.html">
-                                        <span class="pcoded-mtext" >View Previous Visits</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    {{-- <div class="pcoded-navigatio-lavel">Tables</div>
+                            <span class="pcoded-micon"><i class="zmdi zmdi-car"></i></span>
+                            <span class="pcoded-mtext">Chairman Projects</span>
+                        </a>
+                        <ul class="pcoded-submenu">
+                            <li class=" ">
+                                <a href="form-elements-component.html">
+                                    <span class="pcoded-mtext">Assign to Exacutive</span>
+                                </a>
+                            </li>
+                            <li class=" ">
+                                <a href="form-elements-add-on.html">
+                                    <span class="pcoded-mtext">Assigned to Exacutive</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                {{-- <div class="pcoded-navigatio-lavel">Tables</div>
                     <ul class="pcoded-item pcoded-left-item">
                         <li class="pcoded-hasmenu">
                             <a href="javascript:void(0)">
@@ -533,7 +533,7 @@
                         </li>
                     </ul> --}}
 
-                    {{-- <div class="pcoded-navigatio-lavel">Chart And Maps</div>
+                {{-- <div class="pcoded-navigatio-lavel">Chart And Maps</div>
                     <ul class="pcoded-item pcoded-left-item">
                         <li class="pcoded-hasmenu ">
                             <a href="javascript:void(0)">
@@ -644,7 +644,7 @@
                         </li>
                     </ul> --}}
 
-                    {{-- <div class="pcoded-navigatio-lavel">Pages</div>
+                {{-- <div class="pcoded-navigatio-lavel">Pages</div>
                     <ul class="pcoded-item pcoded-left-item">
                         <li class="pcoded-hasmenu ">
                             <a href="javascript:void(0)">
@@ -860,7 +860,7 @@
                             </ul>
                         </li>
                     </ul> --}}
-{{--
+                {{--
                     <div class="pcoded-navigatio-lavel">App</div>
                     <ul class="pcoded-item pcoded-left-item">
                         <li class=" ">
@@ -1005,38 +1005,38 @@
                         </li>
                     </ul> --}}
 
-                    <div class="pcoded-navigatio-lavel">Planner</div>
-                    <ul class="pcoded-item pcoded-left-item">
-                        <li class="pcoded-hasmenu ">
-                            <a href="javascript:void(0)">
-                                <span class="pcoded-micon"><i class="feather icon-calendar"></i></span>
-                                <span class="pcoded-mtext" >Event Calendar</span>
-                            </a>
-                            <ul class="pcoded-submenu">
-                                <li class="">
-                                    <a href="event-full-calender.html">
-                                        <span class="pcoded-mtext" >Scheduler</span>
-                                    </a>
-                                </li>
-                                {{-- <li class="">
+                <div class="pcoded-navigatio-lavel">Planner</div>
+                <ul class="pcoded-item pcoded-left-item">
+                    <li class="pcoded-hasmenu ">
+                        <a href="javascript:void(0)">
+                            <span class="pcoded-micon"><i class="feather icon-calendar"></i></span>
+                            <span class="pcoded-mtext">Event Calendar</span>
+                        </a>
+                        <ul class="pcoded-submenu">
+                            <li class="">
+                                <a href="event-full-calender.html">
+                                    <span class="pcoded-mtext">Scheduler</span>
+                                </a>
+                            </li>
+                            {{-- <li class="">
                                     <a href="event-clndr.html">
                                         <span class="pcoded-mtext" >CLNDER</span>
                                         <span class="pcoded-badge label label-info">NEW</span>
                                     </a>
                                 </li> --}}
-                            </ul>
-                        </li>
-                    </ul>
-                    <div class="pcoded-navigatio-lavel">Upload Attachments</div>
-                    <ul class="pcoded-item pcoded-left-item">
+                        </ul>
+                    </li>
+                </ul>
+                <div class="pcoded-navigatio-lavel">Upload Attachments</div>
+                <ul class="pcoded-item pcoded-left-item">
                     <li class="">
-                            <a href="#">
-                                <span class="pcoded-micon"><i class="feather icon-upload-cloud"></i></span>
-                                <span class="pcoded-mtext" >File Upload</span>
-                            </a>
-                        </li>
-                    </ul>
-{{--
+                        <a href="#">
+                            <span class="pcoded-micon"><i class="feather icon-upload-cloud"></i></span>
+                            <span class="pcoded-mtext">File Upload</span>
+                        </a>
+                    </li>
+                </ul>
+                {{--
                     <div class="pcoded-navigatio-lavel">Other</div>
                     <ul class="pcoded-item pcoded-left-item">
                         <li class="pcoded-hasmenu ">
@@ -1098,19 +1098,19 @@
                             </a>
                         </li>
                     </ul> --}}
-                </div>
-            </nav>
-            <div class="pcoded-content">
-                <div class="pcoded-inner-content">
-                    <div class="main-body">
-                        <div class="page-wrapper">
-                            <div class="page-body">
-                               @yield('content')
-                            </div>
+            </div>
+        </nav>
+        <div class="pcoded-content">
+            <div class="pcoded-inner-content">
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <div class="page-body">
+                            @yield('content')
                         </div>
-
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
+</div>
