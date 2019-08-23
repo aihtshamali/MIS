@@ -75,11 +75,6 @@
                                      <td>{{$project->Project->ProjectType->name}}</td>
                                      <td>
                                        @if(isset($project->MProjectProgress) && count($project->MProjectProgress))
-                                          <form action="{{route('CharimanProjectAssignToDC')}}" method="post">
-                                            {{ csrf_field() }}
-                                            <input type="hidden" name="project_id" value="{{$project->Project->id}}">
-                                            <input type="submit" class="btn btn-info btn-sm" value="Assign to Executive">
-                                          </form> 
                                           <button class="assignExecBtn btn btn-primary btn-sm" style="margin-top:9%">+</button>
                                         @endif
                                      </td>
@@ -307,27 +302,46 @@
                                                   
                                                     <div class="col-md-3 ln_ht12">
                                                       <p for="" name="phy_progress" id="phy_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Planned Progress %: </span>
-                                                        <span class="pdz_six" id="PlannedProg">{{round(calculatePlannedProgress($project->MProjectProgress->last()->id),2)}}%</span>
+                                                        @php
+                                                            $planned_progress = round(calculatePlannedProgress($project->MProjectProgress->last()->id),2);
+                                                            $financial_progress = round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2);
+                                                            $physical_progress_against_total_cost = round(calculateTotalMPhysicalProgress($project->MProjectProgress->last()->id),2);
+                                                            $physical_progress_against_total_release_date = round(calculateMPhysicalProgress($project->MProjectProgress->last()->id),2);
+                                                        @endphp
+                                                        <span class="pdz_six" id="PlannedProg">{{$planned_progress}}%</span>
                                                       </p>
                                                     </div>
                                                     <div class="col-md-3">
                                                       <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Financial Progress:</span>
-                                                        <span class="pdz_six" id="financialprog">{{round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2)}}%</span>
-                                                      </p>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                      <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">All Progress:</span>
-                                                        <span class="pdz_six" id="">{{round(calculateTotalMPhysicalProgress($project->MProjectProgress->last()->id),2)}}%</span>
-                                                      </p>
-                                                    </div>
-                                                    <div class="col-md-3 ln_ht12">
-                                                      <p for="" name="phy_progress" id="phy_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Physical Progress: </span>
-                                                        <span class="pdz_six" id="Physicalprog">{{round(calculateMPhysicalProgress($project->MProjectProgress->last()->id),2)}}%</span>
+                                                      <span class="pdz_six" id="financialprog">{{$financial_progress}}%</span>
+                                                    </p>
+                                                  </div>
+                                                  <div class="col-md-3">
+                                                    <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Over-All Progress:</span>
+                                                      <span class="pdz_six" id="">{{$physical_progress_against_total_cost}}%</span>
+                                                    </p>
+                                                  </div>
+                                                  <div class="col-md-3 ln_ht12">
+                                                    <p for="" name="phy_progress" id="phy_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Physical Progress: </span>
+                                                        <span class="pdz_six" id="Physicalprog">{{$physical_progress_against_total_release_date}}%</span>
                                                         <br /><small>(against Total Releases To Date)</small>
                                                       </p>
                                                     </div>
                                                   </div>
+                                                  <div class="form-group pull-right">
+                                                      <form action="{{route('CharimanProjectAssignToExecutive')}}" method="post">
+                                                        {{ csrf_field() }}
+                                                        <input type="hidden" name="project_id" value="{{$project->Project->id}}">
+                                                        <input type="hidden" name="m_project_progress_id" value="{{$project->MProjectProgress->last()->id}}">
+                                                        <input type="hidden" name="planned_physical_progress" value="{{$planned_progress}}">
+                                                        <input type="hidden" name="financial_progress" value = "{{$financial_progress}}">
+                                                        <input type="hidden" name="total_physical_progress" value = "{{$physical_progress_against_total_cost}}">
+                                                        <input type="hidden" name="against_cost_physical_progress" value = "{{$physical_progress_against_total_release_date}}">
+                                                        <input type="submit" class="btn btn-info btn-sm" value="Assign to Executive">
+                                                    </form>     
+                                                  </div>      
                                             </td>
+                                            
                                       </tr>
                                     @endif
                               @endforeach
@@ -356,7 +370,7 @@
 <script>
 $(document).ready(function() {
   $('.assignExecBtn').click(function(){  
-      console.log('add')  
+      
       $(this).parent().parent().next().slideToggle("slow");
       if($(this).text() == '+'){
            $(this).removeClass('btn-primary').addClass('btn-danger')
