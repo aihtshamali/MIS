@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\MAssignedChairmanProject;
 use Illuminate\Http\Request;
 use App\MProjectProgress;
 use App\MChairmanPendingProject;
@@ -29,7 +30,14 @@ class ChairmanController extends Controller
             $chairmanProject->assigned_by = Auth::id();
             $chairmanProject->m_project_progress_id = $mProjectProgress->id;
             $chairmanProject->project_id = $mProjectProgress->AssignedProject->Project->id;
-            
+            if(isset($chairmanProject->id) && $chairmanProject->id){
+                $chairmanProject->status=0;
+                $assignedChairman = MAssignedChairmanProject::where('m_chairman_prnding_projects', $chairmanProject->id)->first();
+                if($assignedChairman->count()){
+                    $assignedChairman->status =0;
+                    $assignedChairman->update();
+                }
+            }
             $chairmanProject->save();
             return redirect()->back()->withMessage(['msg','Assigned Successfully']);
 
