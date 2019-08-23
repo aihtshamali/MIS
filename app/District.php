@@ -21,6 +21,8 @@ class District extends Model
     }
     public function MAssignedUserLocation(){
         return $this->hasMany('App\MAssignedUserLocation');
-
+    }
+    public function MChairmanProjectDistrict(){
+        return $this->hasOne('App\MChairmanProjectDistrict');
     }
 }

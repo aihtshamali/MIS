@@ -86,7 +86,7 @@ Route::prefix('manager')->middleware('role:manager|directorevaluation|directormo
   Route::get('/list_agendas','ExecutiveController@list_agendas')->name('List_Agendas');
   Route::post('/agenda_comment_store','ExecutiveController@CommentAgenda')->name('store_agenda_comments');
   // Projects for ChairmanDashboard
-  Route::post('chairmanProjects','ChairmanController@assignToDC')->name('CharimanProjectAssignToDC');
+  Route::post('chairmanProjects', 'ChairmanController@assignToExecutive')->name('CharimanProjectAssignToExecutive');
   // Route::get('chairmanProjects','ChairmanController@assignToChairman')->name('CharimanProjectAssignToDC');
 });
 

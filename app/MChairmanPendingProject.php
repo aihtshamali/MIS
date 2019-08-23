@@ -12,4 +12,10 @@ class MChairmanPendingProject extends Model
     public function Project(){
         return $this->belongsTo('App\Project');
     }
+    public function AssignedSubSectors(){
+        return $this->hasMany('App\MChairmanProjectSubSector');
+    }
+    public function AssignedDistricts(){
+        return $this->hasMany('App\MChairmanProjectDistrict');
+    }
 }

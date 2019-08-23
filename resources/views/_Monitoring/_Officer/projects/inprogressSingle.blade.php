@@ -211,7 +211,7 @@ $innertab=\Session::get('innertab');
       </div>
 
       <div class="col-md-3 ln_ht12">
-        <p for="Location" class=" mb_1 "><span class="fontf_sh">final Revised Cost:</span>
+        <p for="Location" class=" mb_1 "><span class="fontf_sh">Final Revised Cost:</span>
           @if($project->Project->RevisedApprovedCost->last())
           {{round($project->Project->RevisedApprovedCost->last()->cost,3)}}
           @else
@@ -309,7 +309,7 @@ $innertab=\Session::get('innertab');
       </p>
     </div>
     <div class="col-md-3">
-      <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">All Physical Progress:</span>
+      <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Over-all Physical Progress:</span>
         <span class="pdz_six" id="">{{round(calculateTotalMPhysicalProgress($project->MProjectProgress->last()->id),2)}}%</span>
       </p>
     </div>

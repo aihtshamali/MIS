@@ -20,7 +20,7 @@ class CreateChairmanProjectDistrictsTable extends Migration
             $table->foreign('m_chairman_pending_project_id')->references('id')->on('m_chairman_pending_projects')->onDelete('no action');
 
             $table->integer('disrict_id')->unsigned()->index()->nullable();
-            $table->foreign('disrict_id')->references('id')->on('disricts')->onDelete('no action');
+            $table->foreign('disrict_id')->references('id')->on('districts')->onDelete('no action');
             
             $table->timestamps();
         });
