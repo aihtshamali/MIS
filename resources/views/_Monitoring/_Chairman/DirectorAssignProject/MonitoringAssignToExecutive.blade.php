@@ -7,6 +7,10 @@
         width: 100% !important;
     }
 
+    td a {
+        color: #01a9ac !important;
+    }
+
     .header-content {
         padding: 10px;
     }

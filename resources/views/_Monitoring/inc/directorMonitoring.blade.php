@@ -305,12 +305,12 @@
                         <ul class="pcoded-submenu">
                             <li class=" ">
                                 <a href="{{route('MonitoringAssignToDC')}}">
-                                    <span class="pcoded-mtext">Assign to Exacutive</span>
+                                    <span class="pcoded-mtext">Assign to Executive</span>
                                 </a>
                             </li>
                             <li class=" ">
                                 <a href="{{route('MonitoringAssignedToDC')}}">
-                                    <span class="pcoded-mtext">Assigned to Exacutive</span>
+                                    <span class="pcoded-mtext">Assigned to Executive</span>
                                 </a>
                             </li>
                         </ul>

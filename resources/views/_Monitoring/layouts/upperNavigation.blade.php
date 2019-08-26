@@ -25,6 +25,7 @@
 <style media="screen">
   .backforbtn{width:5% !important;padding-top:0.3% !important;cursor:pointer;transition:all 600ms ease;    -webkit-transition: all 600ms ease;}
   .backforbtn:hover{transition:all 600ms ease;    -webkit-transition: all 600ms ease;}
+  .nodisplay{display:none;}
 </style>
 </head>
 
