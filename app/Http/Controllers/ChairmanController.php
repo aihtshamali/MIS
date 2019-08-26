@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\MAssignedChairmanProject;
+use App\AssignedProject;
 use Illuminate\Http\Request;
 use App\MProjectProgress;
 use App\MChairmanPendingProject;
 use App\Project;
 use Auth;
+
 class ChairmanController extends Controller
 {
     public function assignToExecutive(Request $request){
@@ -44,4 +46,22 @@ class ChairmanController extends Controller
         }else
             return redirect()->back()->withErrors(['error','Not Found']);
     }
+public function MonitoringAssignToDC(){
+        $projects = AssignedProject::select('assigned_projects.*')->where('assigned_by', Auth::id())
+            ->leftjoin('projects', 'projects.id', 'assigned_projects.project_id')
+            ->where('projects.status', 1)
+            ->where('complete', 0)
+            ->get();
+        // dd($projects[0]->Project->ProjectDetail);
+        return view('_Monitoring._Chairman.MonitoringAssignToExecutive', ['projects' => $projects]);
+}
+public function MonitoringAssignedToDC(){
+        $projects = AssignedProject::select('assigned_projects.*')->where('assigned_by', Auth::id())
+            ->leftjoin('projects', 'projects.id', 'assigned_projects.project_id')
+            ->where('projects.status', 1)
+            ->where('complete', 0)
+            ->get();
+        // dd($projects[0]->Project->ProjectDetail);
+        return view('_Monitoring._Chairman.MonitoringAssignedToExecutive', ['projects' => $projects]);
+}
 }
