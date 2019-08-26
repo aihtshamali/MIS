@@ -65,7 +65,7 @@ class DirectorMonitoringController extends Controller
          ->where('projects.status',1)
          ->where('complete',0)
          ->get();
-      // dd($projects[0]->Project->ProjectDetail);
+       // dd($projects[0]->Project->ProjectDetail);
       return view('_Monitoring._Director.inprogress',['projects'=>$projects]);
     }
     public function monitoring_completeprojects()

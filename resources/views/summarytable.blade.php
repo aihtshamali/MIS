@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Summary Table For Chairman</title>
+    <title>@yield('title') Summary For Chairman</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="{{ asset('_monitoring/css/icon/material-design/css/material-design-iconic-font.min.css')}}" />
     <!-- {{-- <link rel="shortcut icon" href="{{ asset('dgme.png' type="image/x-icon" /> --}} -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link href="{{ asset('https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" media="all" />
+
 
     @yield('styleTags')
     <style media="screen">
@@ -35,6 +37,173 @@
         .backforbtn:hover {
             transition: all 600ms ease;
             -webkit-transition: all 600ms ease;
+        }
+    </style>
+    <style>
+        .themecolor {
+            color: #687753;
+        }
+
+        .margin-top-3per {
+            margin-top: 3%;
+        }
+
+        .margin-top-5per {
+            margin-top: 5%;
+        }
+
+        .row {
+            margin-right: 0px !improtant;
+            margin-left: 0px !improtant;
+        }
+
+        .font-13 {
+            font-size: 13px;
+        }
+
+        .font-14 {
+            font-size: 14px;
+        }
+
+        .widthfull {
+            width: 100%;
+        }
+
+        .toppaddinglogos {
+            padding-top: 11px;
+        }
+
+        .red {
+            background-color: #bf0000;
+            color: #fde3e3;
+            width: 150px !important;
+        }
+
+        .yellow {
+            background-color: #e9e929;
+            color: #801d1d;
+            width: 150px !important;
+        }
+
+        .green {
+            background-color: #0aa70a;
+            color: #f7f7f7;
+            width: 150px !important;
+        }
+
+        .container {
+            margin-top: 2% !important;
+        }
+
+        .halfheight {
+            height: 50%;
+        }
+
+        .fullheight {
+            height: 100%;
+        }
+
+        body {
+            overflow-x: hidden
+        }
+
+        .relativetable {
+            width: 100%;
+            overflow: auto;
+        }
+
+        .table thead th {
+            vertical-align: -webkit-baseline-middle !important;
+        }
+
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: transparent !important;
+        }
+
+        table.dataTable {
+            border-left: 1px solid #777;
+            border-right: 1px solid #777;
+        }
+
+        table.dataTable thead>tr>th.sorting_asc,
+        table.dataTable thead>tr>th.sorting_desc,
+        table.dataTable thead>tr>th.sorting,
+        table.dataTable thead>tr>td.sorting_asc,
+        table.dataTable thead>tr>td.sorting_desc,
+        table.dataTable thead>tr>td.sorting {
+            padding: 3px 0px !important;
+            text-align: center !important;
+        }
+
+        table.table-bordered.dataTable th,
+        table.table-bordered.dataTable td {
+            vertical-align: -webkit-baseline-middle !important;
+        }
+
+        .bgsky {
+            background: #87ceeb82;
+            color: #000;
+        }
+
+        .bglightgreen {
+            background: #c6f7caa3;
+            color: #000;
+        }
+
+        .bggrey {
+            background: #ededed;
+            color: #000;
+        }
+
+        .table-bordered td,
+        .table-bordered th {
+            border: 1px solid #959798;
+        }
+
+        small {
+            font-size: 55% !important;
+            font-weight: 600;
+        }
+
+        .margintopbottom {
+            margin: 3% 0% !important;
+        }
+
+        .nobordertop {
+            border-top: none !important;
+        }
+
+        .noborderbottom {
+            border-bottom: none !important;
+        }
+
+        .lineheightzero {
+            line-height: 0 !important;
+        }
+
+        .lineheightone {
+            line-height: 1.2 !important;
+        }
+
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 96% !important;
+                margin: auto;
+            }
+
+            table.dataTable thead .sorting:before,
+            table.dataTable thead .sorting:after,
+            table.dataTable thead .sorting_asc:before,
+            table.dataTable thead .sorting_asc:after,
+            table.dataTable thead .sorting_desc:before,
+            table.dataTable thead .sorting_desc:after,
+            table.dataTable thead .sorting_asc_disabled:before,
+            table.dataTable thead .sorting_asc_disabled:after,
+            table.dataTable thead .sorting_desc_disabled:before,
+            table.dataTable thead .sorting_desc_disabled:after {
+                bottom: 0 !important;
+                right: 0 !important;
+            }
         }
     </style>
 </head>
@@ -178,17 +347,17 @@
                             <li class="pcoded-hasmenu">
                                 <a href="javascript:void(0)">
                                     <span class="pcoded-micon"><i class="feather icon-home"></i></span>
-                                    <span class="pcoded-mtext">Chairman Tables</span>
+                                    <span class="pcoded-mtext">Summary View</span>
                                 </a>
                                 <ul class="pcoded-submenu dashboard">
                                     <li class="">
                                         <a href="{{route('summarytableMonitoring')}}">
-                                            <span class="pcoded-mtext">Monitoring Summary Table</span>
+                                            <span class="pcoded-mtext">Monitoring Summary View</span>
                                         </a>
                                     </li>
                                     <li class="">
                                         <a href="{{route('summarytableEvaluation')}}">
-                                            <span class="pcoded-mtext">Evaluation Summary Table</span>
+                                            <span class="pcoded-mtext">Evaluation Summary View</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -241,5 +410,14 @@
 <script src="{{asset('_monitoring/css/js/pcoded.min.js')}}"></script>
 <script src="{{asset('_monitoring/css/js/vartical-layout.min.js')}}"></script>
 <script src="{{asset('_monitoring/css/js/script.min.js')}}"></script>
+<script src="{{asset('https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js')}}"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable();
+        $('#example_1').DataTable();
+    })
+</script>
 
 </html>

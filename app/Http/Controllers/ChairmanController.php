@@ -45,4 +45,13 @@ class ChairmanController extends Controller
             return redirect()->back()->withErrors(['error','Not Found']);
         dd($mProjectProgress);
     }
+public function MonitoringAssignToDC(){
+        $projects = AssignedProject::select('assigned_projects.*')->where('assigned_by', Auth::id())
+            ->leftjoin('projects', 'projects.id', 'assigned_projects.project_id')
+            ->where('projects.status', 1)
+            ->where('complete', 0)
+            ->get();
+        // dd($projects[0]->Project->ProjectDetail);
+        return view('_Monitoring._Chairman.MonitoringAssignToExacutive', ['projects' => $projects]);
+}
 }

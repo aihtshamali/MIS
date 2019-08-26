@@ -95,7 +95,7 @@
                 @if(isset($project->MProjectProgress) && count($project->MProjectProgress))
                 <tr class="nodisplay assignExecDiv" style="background-color:aliceblue">
                   <td colspan="7">
-                    <div class="bg-w border_top bg-w" style="padding:0% 0% 0.5% 1% !important;">
+                    <div class="bg-w border_top bg-w text-left" style="padding:0% 0% 0.5% 1% !important;">
                       <style scoped>
                         .form-group {
                           margin-bottom: 0rem !important;
@@ -229,7 +229,7 @@
                           }
                         }
                       </style>
-                      <div class="col-md-12">
+                      <div class="col-md-12 text-center">
                         <center>
                           <b class="primarybold mb_1 font-18">
                             <span>Project Title</span> <span class=""> :</span>
@@ -237,7 +237,7 @@
                           </b>
                         </center>
                       </div>
-                      <div class="col-md-12 ln_ht12">
+                      <div class="col-md-12 ln_ht12 text-center">
                         <b for="project_cost" class=""><span>Districts: </span></b><span>
                           @foreach ($project->Project->AssignedDistricts as $district)
                           {{$district->District->name}},
@@ -340,18 +340,6 @@
                             <br /><small>(against Total Releases To Date)</small>
                           </p>
                         </div>
-                      </div>
-                      <div class="form-group pull-right">
-                        <form action="{{route('CharimanProjectAssignToExecutive')}}" method="post">
-                          {{ csrf_field() }}
-                          <input type="hidden" name="project_id" value="{{$project->Project->id}}">
-                          <input type="hidden" name="m_project_progress_id" value="{{$project->MProjectProgress->last()->id}}">
-                          <input type="hidden" name="planned_physical_progress" value="{{$planned_progress}}">
-                          <input type="hidden" name="financial_progress" value="{{$financial_progress}}">
-                          <input type="hidden" name="total_physical_progress" value="{{$physical_progress_against_total_cost}}">
-                          <input type="hidden" name="against_cost_physical_progress" value="{{$physical_progress_against_total_release_date}}">
-                          <input type="submit" class="btn btn-info btn-sm" value="Assign to Executive">
-                        </form>
                       </div>
                   </td>
 
