@@ -372,7 +372,7 @@
   $(document).ready(function() {
     $('.assignExecBtn').click(function() {
 
-      $(this).parent().parent().next().slideToggle("slow");
+      $(this).parent().parent().next().toggle("slow");
       if ($(this).text() == '+') {
         $(this).removeClass('btn-primary').addClass('btn-danger')
         $(this).text('-');

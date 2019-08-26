@@ -56,7 +56,7 @@
             <div class="card-block">
                 <div class="card-block">
                     <div class="dt-responsive table-responsive">
-                        <table id="simpletable" class="table table-bordered table-stripped nowrap">
+                        <table id="example" class="table table-striped table-bordered table-stripped nowrap">
                             <thead>
                                 <tr>
                                     <th>Project #</th>
@@ -384,7 +384,7 @@
     $(document).ready(function() {
         $('.assignExecBtn').click(function() {
 
-            $(this).parent().parent().next().slideToggle("slow");
+            $(this).parent().parent().next().toggle("slow");
             if ($(this).text() == '+') {
                 $(this).removeClass('btn-primary').addClass('btn-danger')
                 $(this).text('-');

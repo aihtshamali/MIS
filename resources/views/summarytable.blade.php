@@ -417,7 +417,7 @@
     $(document).ready(function() {
         $('#example').DataTable();
         $('#example_1').DataTable();
-    })
+    });
 </script>
 
 </html>
