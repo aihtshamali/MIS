@@ -43,6 +43,5 @@ class ChairmanController extends Controller
 
         }else
             return redirect()->back()->withErrors(['error','Not Found']);
-        dd($mProjectProgress);
     }
 }
