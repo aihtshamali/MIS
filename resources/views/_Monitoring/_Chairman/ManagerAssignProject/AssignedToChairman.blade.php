@@ -13,6 +13,10 @@ Monitoring | Assigned To Chairman
     .hovsky:hover {
         color: #19a7ba !important;
     }
+
+    a {
+        color: #01a9ac !important;
+    }
 </style>
 <div class="row">
     <div class="col-md-12">
