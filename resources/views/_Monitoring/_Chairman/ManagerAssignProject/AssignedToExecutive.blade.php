@@ -18,7 +18,7 @@ Monitoring | Assigned To Executive
   <div class="col-md-12">
     <div class="card z-depth-5">
       <div class="card-header">
-        <h4><b>Inprogress Monitoring Projects</b></h4>
+        <h4><b>Chairman - Monitoring Projects (Assigned by DPM)</b></h4>
       </div>
       <div class="card-block">
         <div class="card-block">
@@ -33,8 +33,7 @@ Monitoring | Assigned To Executive
                   <th>Planned End Date</th>
                   <th>Physical Progress</th>
                   <th>Financial Progress</th>
-                  <th>Summary</th>
-                  {{-- <th>Action</th> --}}
+                  <th>Action</th>
 
                 </tr>
               </thead>
@@ -76,16 +75,12 @@ Monitoring | Assigned To Executive
                                             @if($project->Project->AssignedProject!==NULL && $project->Project->AssignedProject->MProjectProgress->last()!==NULL){{round(calculateMFinancialProgress($project->Project->AssignedProject->MProjectProgress->last()->id,3))}}@else{{0}}@endif%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">@if($project->Project->AssignedProject!==NULL && $project->Project->AssignedProject->MProjectProgress->last()!==NULL) {{round(calculateMFinancialProgress($project->Project->AssignedProject->MProjectProgress->last()->id,3))}} @else 0 @endif%</div>
                     </div>
                   </td>
-
                   <td>
-                    @if(count($project->Project->AssignedProject->MProjectProgress))
-                    <a href="{{route('generate_monitoring_report',['project_id'=>$project->Project->AssignedProject->id])}}" target="_blank" class="hovsky" style="color: #4f5c5f9e; font-size:36px !important;">
-                      <center><i class="fas fa-address-card"></i></center>
-                    </a>
-                    @else
-                    <p> --
-                    </p>
-                    @endif
+                      <form action="{{route('assignToChairman')}}" method="POST">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="m_chairman_project" value="{{$project->id}}">
+                        <input type="submit" class="btn btn-default" value="Assign">
+                      </form>
                   </td>
                   {{-- <td>
                                     <a href="{{route('monitoring_inprogressSingle')}}" class="btn btn-md btn-info"> Conduct Monitoring</a>

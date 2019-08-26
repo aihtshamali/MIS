@@ -15,6 +15,9 @@ class MChairmanPendingProject extends Model
     public function MAssignedChairmanProject(){
         return $this->hasOne('App\MAssignedChairmanProject');
     }
+    public function MChairmanProject(){
+        return $this->belongsTo('App\MChairmanProject');
+    }
     public function AssignedSubSectors(){
         return $this->hasMany('App\MChairmanProjectSubSector');
     }

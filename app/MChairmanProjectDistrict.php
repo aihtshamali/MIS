@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class MChairmanProjectDistrict extends Model
 {
-    public function MChairmanPendingProject(){
-        return $this->belongsTo('App\MChairmanPendingProject');
+    public function MChairmanProject(){
+        return $this->belongsTo('App\MChairmanProject');
     }
     public function District(){
         return $this->belongsTo('App\District');

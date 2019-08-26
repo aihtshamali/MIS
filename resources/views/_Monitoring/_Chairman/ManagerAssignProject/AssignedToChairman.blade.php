@@ -37,8 +37,7 @@ Monitoring | Assigned To Chairman
                                     <th>Planned End Date</th>
                                     <th>Physical Progress</th>
                                     <th>Financial Progress</th>
-                                    <th>Summary</th>
-                                    {{-- <th>Action</th> --}}
+                                    <th>Action</th>
 
                                 </tr>
                             </thead>
@@ -82,18 +81,8 @@ Monitoring | Assigned To Chairman
                                     </td>
 
                                     <td>
-                                        @if(count($project->Project->AssignedProject->MProjectProgress))
-                                        <a href="{{route('generate_monitoring_report',['project_id'=>$project->Project->AssignedProject->id])}}" target="_blank" class="hovsky" style="color: #4f5c5f9e; font-size:36px !important;">
-                                            <center><i class="fas fa-address-card"></i></center>
-                                        </a>
-                                        @else
-                                        <p> --
-                                        </p>
-                                        @endif
+                                        
                                     </td>
-                                    {{-- <td>
-                                    <a href="{{route('monitoring_inprogressSingle')}}" class="btn btn-md btn-info"> Conduct Monitoring</a>
-                                    </td> --}}
                                     @endif
                                 </tr>
                                 @endforeach
