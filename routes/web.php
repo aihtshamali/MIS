@@ -136,8 +136,8 @@ Route::prefix('manager')->middleware('role:manager|directorevaluation')->group(f
     Route::get('/m_unassignedprojects','ExecutiveController@monitoring_unassigned')->name('monitoring_unassigned');
     Route::get('/m_assigntoconsultant','ProjectAssignController@assignToConsultant')->name('assign_To_consultant');
     Route::get('/m_inprogressprojects','ExecutiveController@monitoring_inprogress')->name('monitoring_inprogress');
-    Route::get('/AssignedToExecutive', 'ExecutiveController@AssignedToExecutive')->name('AssignedToExecutive');
-    Route::get('/AssignedToChairman', 'ExecutiveController@AssignedToChairman')->name('AssignedToChairman');
+    Route::get('/AssignedToExecutive', 'ChairmanController@AssignedToExecutive')->name('AssignedToExecutive');
+    Route::get('/AssignedToChairman', 'ChairmanController@AssignedToChairman')->name('AssignedToChairman');
     Route::get('/m_completedprojects','ExecutiveController@monitoring_completed')->name('monitoring_completed');
     // Route::get('/visitrequestSummary/{id}','ExecutiveController@visitRequestSummary')->name('visitrequestSummary');
     Route::post('/visitrequestDescision','SiteVisitController@visitRequestDescision')->name('visitrequestDescision');

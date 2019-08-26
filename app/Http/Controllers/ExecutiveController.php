@@ -1247,24 +1247,6 @@ class ExecutiveController extends Controller
       ->get();
       return view('_Monitoring._Manager.inprogress',['projects'=>$projects]);
     }
-    public function AssignedToExecutive()
-    {
-      $projects=AssignedProjectManager::select('assigned_project_managers.*')
-      ->leftJoin('projects','projects.id','assigned_project_managers.project_id')
-      ->where('projects.status',1)
-      ->where('projects.project_type_id','2')
-      ->get();
-      return view('_Monitoring.ManagerAssignProject.AssignedToExecutive',['projects'=>$projects]);
-    }
-    public function AssignedToChairman()
-    {
-      $projects=AssignedProjectManager::select('assigned_project_managers.*')
-      ->leftJoin('projects','projects.id','assigned_project_managers.project_id')
-      ->where('projects.status',1)
-      ->where('projects.project_type_id','2')
-      ->get();
-      return view('_Monitoring.ManagerAssignProject.AssignedToChairman',['projects'=>$projects]);
-    }
     public function monitoring_completed()
     {
       return view('_Monitoring._Manager.completed');

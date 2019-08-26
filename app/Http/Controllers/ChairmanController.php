@@ -7,7 +7,7 @@ use App\AssignedProject;
 use Illuminate\Http\Request;
 use App\MProjectProgress;
 use App\MChairmanPendingProject;
-use App\Project;
+use App\AssignedProjectManager;
 use Auth;
 
 class ChairmanController extends Controller
@@ -45,24 +45,41 @@ class ChairmanController extends Controller
 
         }else
             return redirect()->back()->withErrors(['error','Not Found']);
-        dd($mProjectProgress);
     }
-public function MonitoringAssignToDC(){
-        $projects = AssignedProject::select('assigned_projects.*')->where('assigned_by', Auth::id())
-            ->leftjoin('projects', 'projects.id', 'assigned_projects.project_id')
+    public function MonitoringAssignToDC(){
+            $projects = AssignedProject::select('assigned_projects.*')->where('assigned_by', Auth::id())
+                ->leftjoin('projects', 'projects.id', 'assigned_projects.project_id')
+                ->where('projects.status', 1)
+                ->where('complete', 0)
+                ->get();
+            // dd($projects[0]->Project->ProjectDetail);
+            return view('_Monitoring._Chairman.DirectorAssignProject.MonitoringAssignToExecutive', ['projects' => $projects]);
+    }
+    public function MonitoringAssignedToDC(){
+            $projects = AssignedProject::select('assigned_projects.*')->where('assigned_by', Auth::id())
+                ->leftjoin('projects', 'projects.id', 'assigned_projects.project_id')
+                ->where('projects.status', 1)
+                ->where('complete', 0)
+                ->get();
+            // dd($projects[0]->Project->ProjectDetail);
+            return view('_Monitoring._Chairman.DirectorAssignProject.MonitoringAssignedToExecutive', ['projects' => $projects]);
+    }
+    public function AssignedToExecutive()
+    {
+        $projects = AssignedProjectManager::select('assigned_project_managers.*')
+            ->leftJoin('projects', 'projects.id', 'assigned_project_managers.project_id')
             ->where('projects.status', 1)
-            ->where('complete', 0)
+            ->where('projects.project_type_id', '2')
             ->get();
-        // dd($projects[0]->Project->ProjectDetail);
-        return view('_Monitoring._Chairman.MonitoringAssignToExecutive', ['projects' => $projects]);
-}
-public function MonitoringAssignedToDC(){
-        $projects = AssignedProject::select('assigned_projects.*')->where('assigned_by', Auth::id())
-            ->leftjoin('projects', 'projects.id', 'assigned_projects.project_id')
+        return view('_Monitoring._Chairman.ManagerAssignProject.AssignedToExecutive', ['projects' => $projects]);
+    }
+    public function AssignedToChairman()
+    {
+        $projects = AssignedProjectManager::select('assigned_project_managers.*')
+            ->leftJoin('projects', 'projects.id', 'assigned_project_managers.project_id')
             ->where('projects.status', 1)
-            ->where('complete', 0)
+            ->where('projects.project_type_id', '2')
             ->get();
-        // dd($projects[0]->Project->ProjectDetail);
-        return view('_Monitoring._Chairman.MonitoringAssignedToExecutive', ['projects' => $projects]);
-}
+        return view('_Monitoring._Chairman.ManagerAssignProject.AssignedToChairman', ['projects' => $projects]);
+    }
 }
