@@ -6,8 +6,6 @@ Monitoring | Assigned To Chairman
 <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/responsive.bootstrap4.min.css')}}" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-@endsection
-@section('content')
 <style>
     .hovsky:hover {
         color: #19a7ba !important;
@@ -17,10 +15,18 @@ Monitoring | Assigned To Chairman
         color: #01a9ac !important;
     }
 
-    .ellipsis::after {
-        display: none !important;
+    .form-group>.col-md-3,
+    .bg-w>.col-md-12 {
+        border-bottom: 1px solid #77777738 !important;
+        padding: 0.5% !important;
     }
+
+    /* .ellipsis::after {
+        display: none !important;
+    } */
 </style>
+@endsection
+@section('content')
 <div class="row">
     <div class="col-md-12">
         <div class="card z-depth-5">
@@ -109,11 +115,11 @@ Monitoring | Assigned To Chairman
                                             $financial_progress = round(calculateMFinancialProgress($project->Project->AssignedProject->MProjectProgress->last()->id),2);
                                             $physical_progress_against_total_cost = round(calculateTotalMPhysicalProgress($project->Project->AssignedProject->MProjectProgress->last()->id),2);
                                             $physical_progress_against_total_release_date = round(calculateMPhysicalProgress($project->Project->AssignedProject->MProjectProgress->last()->id),2);
-                                            $OverAll_Progress = $physical_progress_against_total_cost;
+                                            $Overall_Progress = $physical_progress_against_total_cost;
                                             $Physical_Progress = $physical_progress_against_total_release_date;
                                             @endphp
                                             <!-- <center><i class="fas fa-address-card"></i></center> -->
-                                            <button class="assignExecBtn btn btn-primary btn-sm" data-toggle="modal" data-projecttitle="{{$projecttitle}}" data-Districts="{{$Districts}}" data-GS="{{$GS}}" data-Sub_Sectors="{{$Sub_Sectors}}" data-Original_Approve_Cost="{{$Original_Approve_Cost}}" data-Utilized_Cost="{{$Utilized_Cost}}" data-dateplnstrt="{{$dateplnstrt}}" data-dateplnend="{{$dateplnend}}" data-dateactulstrt="{{$dateactulstrt}}" data-Planned_Progress="{{$Planned_Progress}}" data-physical_progress_against_total_release_date="{{$physical_progress_against_total_release_date}}" data-OverAll_Progress="{{$OverAll_Progress}}" data-Physical_Progress="{{$Physical_Progress}}" data-target="#myModal" style="margin-top:9%">+</button>
+                                            <button class="assignExecBtn btn btn-primary btn-sm" data-toggle="modal" data-projecttitle="{{$projecttitle}}" data-Districts="{{$Districts}}" data-GS="{{$GS}}" data-Sub_Sectors="{{$Sub_Sectors}}" data-Original_Approve_Cost="{{$Original_Approve_Cost}}" data-Utilized_Cost="{{$Utilized_Cost}}" data-dateplnstrt="{{$dateplnstrt}}" data-dateplnend="{{$dateplnend}}" data-dateactulstrt="{{$dateactulstrt}}" data-Planned_Progress="{{$Planned_Progress}}" data-physical_progress_against_total_release_date="{{$physical_progress_against_total_release_date}}" data-OverAll_Progress="{{$Overall_Progress}}" data-Physical_Progress="{{$Physical_Progress}}" data-target="#myModal" style="margin-top:9%">+</button>
                                         </a>
                                     </td>
                                     @endif
@@ -123,13 +129,13 @@ Monitoring | Assigned To Chairman
                             </tbody>
                         </table>
                         <div class="modal fade" id="myModal" role="dialog">
-                            <div class="modal-dialog">
+                            <div class="modal-dialog col-md-11">
 
                                 <!-- Modal content-->
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Modal Header</h4>
+                                        <h4 class="modal-title">Project Summary</h4>
                                     </div>
                                     <div class="modal-body">
                                         <div class="bg-w border_top bg-w text-left" style="padding:0% 0% 0.5% 1% !important;">
@@ -285,18 +291,18 @@ Monitoring | Assigned To Chairman
                                                 <div class="col-md-3">
                                                     <p for="gestation Period" class=" mb_1 ">
                                                         <span title="Gestation Period" class="fontf_sh">Sub-Sectors: </span>
-                                                        <span id="modal-Sub_Sectors"></span>
+                                                        <span id="modal-sub_sectors"></span>
                                                     </p>
                                                 </div>
                                                 <div class="col-md-3 ln_ht12">
                                                     <p for="project_cost" class=" mb_1 "><span class="fontf_sh">Original Approve Cost:</span>
-                                                        <span id="modal-Original_Approve_Cost"><small>Million PKR</small></span></p>
+                                                        <span id="modal-original_approve_cost"><small>Million</small></span></p>
                                                 </div>
 
                                                 <div class="col-md-3 ln_ht12">
                                                     <p for="Location" class=" mb_1 "><span class="fontf_sh">Utilized Cost:</span>
 
-                                                        <small id="modal-Utilized_Cost">Million PKR</small>
+                                                        <small id="modal-utilized_cost">Million</small>
                                                     </p>
                                                 </div>
                                                 <div class="col-md-3">
@@ -334,7 +340,7 @@ Monitoring | Assigned To Chairman
                                                 </div>
                                                 <div class="col-md-3">
                                                     <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Over-All Progress:</span>
-                                                        <span class="pdz_six" id="modal-overAll_progress"></span>
+                                                        <span class="pdz_six" id="modal-overall_progress"></span>
                                                     </p>
                                                 </div>
                                                 <div class="col-md-3 ln_ht12">
@@ -361,12 +367,12 @@ Monitoring | Assigned To Chairman
     </div>
     @endsection
     @section('js_scripts')
-    <script src="{{asset('_monitoring/css/js/pcoded.min.js')}}"></script>
+    <!-- <script src="{{asset('_monitoring/css/js/pcoded.min.js')}}"></script>
     <script src="{{asset('_monitoring/css/js/vartical-layout.min.js')}}"></script>
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> -->
     <script src="{{asset('_monitoring/css/js/script.min.js')}}"></script>
-    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script>
-        var ATTRIBUTES = ['projecttitle', 'districts', 'gs', 'sub_sectors', 'original_approve_cost', 'utilized_cost', 'dateplnstrt', 'dateplnend', 'dateactulstrt', 'planned_progress', 'physical_progress_against_total_release_date', 'overAll_progress', 'physical_progress'];
+        var ATTRIBUTES = ['projecttitle', 'districts', 'gs', 'sub_sectors', 'original_approve_cost', 'utilized_cost', 'dateplnstrt', 'dateplnend', 'dateactulstrt', 'planned_progress', 'physical_progress_against_total_release_date', 'overall_progress', 'physical_progress'];
         $('[data-toggle="modal"]').on('click', function(e) {
             // convert target (e.g. the button) to jquery object
             var $target = $(e.target);
@@ -386,19 +392,6 @@ Monitoring | Assigned To Chairman
                 $modalAttribute.text(dataValue || '');
             });
         });
-        // $(document).ready(function() {
-        //     $('.assignExecBtn').click(function() {
-
-        //         $(this).parent().parent().parent().next().toggle("slow");
-        //         if ($(this).text() == '+') {
-        //             $(this).removeClass('btn-primary').addClass('btn-danger')
-        //             $(this).text('-');
-        //         } else {
-        //             $(this).text('+');
-        //             $(this).removeClass('btn-danger').addClass('btn-primary')
-        //         }
-        //     });
-        // });
         $(document).ready(function() {
             $('#myTable').DataTable();
         });
