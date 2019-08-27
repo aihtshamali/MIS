@@ -9,4 +9,8 @@ class MAssignedChairmanProject extends Model
     public function MChairmanPendingProject(){
         return $this->belongsTo('App\MChairmanPendingProject');
     }
+    public function Project(){
+        return $this->belongsTo('App\Project');
+    }
+
 }

@@ -7,15 +7,20 @@ use App\AssignedProject;
 use Illuminate\Http\Request;
 use App\MProjectProgress;
 use App\MChairmanPendingProject;
+use App\MChairmanProject;
 use App\AssignedProjectManager;
+use App\MChairmanProjectDistrict;
+use App\MChairmanProjectSubSector;
 use Auth;
 
 class ChairmanController extends Controller
 {
+    // For Director
     public function assignToExecutive(Request $request){
         $mProjectProgress = MProjectProgress::findOrFail($request->m_project_progress_id);
         if($mProjectProgress){
-            $chairmanProject =  MChairmanPendingProject::where('m_project_progress_id',$mProjectProgress->id)->first() ? MChairmanPendingProject::where('m_project_progress_id', $mProjectProgress->id)->first() : new MChairmanPendingProject();
+            $chairmanProject = new MChairmanProject();
+            
             $chairmanProject->gs_num = $mProjectProgress->AssignedProject->Project->ADP;
             $chairmanProject->project_name = $mProjectProgress->AssignedProject->Project->title;
             $chairmanProject->final_pc1_approved_cost = round($mProjectProgress->AssignedProject->Project->ProjectDetail->orignal_cost,2);
@@ -25,22 +30,36 @@ class ChairmanController extends Controller
             $chairmanProject->planned_start_date = $mProjectProgress->AssignedProject->Project->ProjectDetail->planned_start_date;
             $chairmanProject->planned_end_date = $mProjectProgress->AssignedProject->Project->ProjectDetail->planned_end_date;
             $chairmanProject->actual_start_date = $mProjectProgress->MProjectDate->actual_start_date;
-
+            
             $chairmanProject->physical_progress_planned = $request->planned_physical_progress;
             $chairmanProject->physical_progress_actual = $request->total_physical_progress;
-           
-            $chairmanProject->assigned_by = Auth::id();
+            
             $chairmanProject->m_project_progress_id = $mProjectProgress->id;
             $chairmanProject->project_id = $mProjectProgress->AssignedProject->Project->id;
-            if(isset($chairmanProject->id) && $chairmanProject->id){
-                $chairmanProject->status=0;
-                $assignedChairman = MAssignedChairmanProject::where('m_chairman_prnding_projects', $chairmanProject->id)->first();
-                if($assignedChairman->count()){
-                    $assignedChairman->status =0;
-                    $assignedChairman->update();
-                }
-            }
+            $chairmanProject->status=0;
             $chairmanProject->save();
+            
+            foreach($mProjectProgress->AssignedProject->Project->AssignedSubSectors as $subsector){
+                $mChairmanSubSector = new MChairmanProjectSubSector();
+                $mChairmanSubSector->sub_sector_id = $subsector->SubSector->id;
+                $mChairmanSubSector->m_chairman_project_id = $chairmanProject->id;
+                $mChairmanSubSector->save();
+            }
+            
+            foreach($mProjectProgress->AssignedProject->Project->AssignedDistricts as $district){
+                $districts = new MChairmanProjectDistrict();
+                $districts->district_id = $district->District->id;
+                $districts->m_chairman_project_id = $chairmanProject->id;
+                $districts->save();
+            }
+            
+            $chairmanPendingProject = new MChairmanPendingProject();
+            $chairmanPendingProject->m_project_progress_id = $mProjectProgress->id;
+            $chairmanPendingProject->project_id = $mProjectProgress->AssignedProject->Project->id;
+            $chairmanPendingProject->assigned_by = Auth::id();
+            $chairmanPendingProject->m_chairman_project_id = $chairmanProject->id;
+            $chairmanPendingProject->save();
+            
             return redirect()->back()->withMessage(['msg','Assigned Successfully']);
 
         }else
@@ -64,22 +83,32 @@ class ChairmanController extends Controller
             // dd($projects[0]->Project->ProjectDetail);
             return view('_Monitoring._Chairman.DirectorAssignProject.MonitoringAssignedToExecutive', ['projects' => $projects]);
     }
+
+
+    // For Executive
     public function AssignedToExecutive()
     {
-        $projects = AssignedProjectManager::select('assigned_project_managers.*')
-            ->leftJoin('projects', 'projects.id', 'assigned_project_managers.project_id')
-            ->where('projects.status', 1)
-            ->where('projects.project_type_id', '2')
-            ->get();
+        $projects = MChairmanPendingProject::where('status','0')->get();
         return view('_Monitoring._Chairman.ManagerAssignProject.AssignedToExecutive', ['projects' => $projects]);
+    }
+    // Store (Assign to Chairman)
+    public function assignToChairman(Request $request){
+        $chairmanProject = MChairmanPendingProject::findOrFail($request->m_chairman_project);
+        $assignedChairmanProject = MAssignedChairmanProject::where('project_id',$chairmanProject->project_id)->first();
+        if(!$assignedChairmanProject){
+            $assignedChairmanProject = new MAssignedChairmanProject();
+        }
+        $assignedChairmanProject->project_id = $chairmanProject->project_id;
+        $assignedChairmanProject->m_chairman_pending_project_id = $chairmanProject->id;
+        $assignedChairmanProject->save();
+
+        $chairmanProject->status = 1;
+        $chairmanProject->save();
+        return redirect()->back();
     }
     public function AssignedToChairman()
     {
-        $projects = AssignedProjectManager::select('assigned_project_managers.*')
-            ->leftJoin('projects', 'projects.id', 'assigned_project_managers.project_id')
-            ->where('projects.status', 1)
-            ->where('projects.project_type_id', '2')
-            ->get();
+        $projects = MAssignedChairmanProject::where('status',1)->get();
         return view('_Monitoring._Chairman.ManagerAssignProject.AssignedToChairman', ['projects' => $projects]);
     }
 }

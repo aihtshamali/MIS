@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class MChairmanProjectSubSector extends Model
 {
-    public function MChairmanPendingProject()
+    public function MChairmanProject()
     {
-        return $this->belongsTo('App\MChairmanPendingProject');
+        return $this->belongsTo('App\MChairmanProject');
     }
     public function SubSector()
     {
