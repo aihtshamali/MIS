@@ -15,6 +15,12 @@ Monitoring | Assigned To Chairman
         color: #01a9ac !important;
     }
 
+    .form-group>.col-md-3,
+    .bg-w>.col-md-12 {
+        border-bottom: 1px solid #77777738 !important;
+        padding: 0.5% !important;
+    }
+
     /* .ellipsis::after {
         display: none !important;
     } */
@@ -123,13 +129,13 @@ Monitoring | Assigned To Chairman
                             </tbody>
                         </table>
                         <div class="modal fade" id="myModal" role="dialog">
-                            <div class="modal-dialog">
+                            <div class="modal-dialog col-md-11">
 
                                 <!-- Modal content-->
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Modal Header</h4>
+                                        <h4 class="modal-title">Project Summary</h4>
                                     </div>
                                     <div class="modal-body">
                                         <div class="bg-w border_top bg-w text-left" style="padding:0% 0% 0.5% 1% !important;">
@@ -285,18 +291,18 @@ Monitoring | Assigned To Chairman
                                                 <div class="col-md-3">
                                                     <p for="gestation Period" class=" mb_1 ">
                                                         <span title="Gestation Period" class="fontf_sh">Sub-Sectors: </span>
-                                                        <span id="modal-Sub_Sectors"></span>
+                                                        <span id="modal-sub_sectors"></span>
                                                     </p>
                                                 </div>
                                                 <div class="col-md-3 ln_ht12">
                                                     <p for="project_cost" class=" mb_1 "><span class="fontf_sh">Original Approve Cost:</span>
-                                                        <span id="modal-Original_Approve_Cost"><small>Million PKR</small></span></p>
+                                                        <span id="modal-original_approve_cost"><small>Million</small></span></p>
                                                 </div>
 
                                                 <div class="col-md-3 ln_ht12">
                                                     <p for="Location" class=" mb_1 "><span class="fontf_sh">Utilized Cost:</span>
 
-                                                        <small id="modal-Utilized_Cost">Million PKR</small>
+                                                        <small id="modal-utilized_cost">Million</small>
                                                     </p>
                                                 </div>
                                                 <div class="col-md-3">
@@ -363,8 +369,8 @@ Monitoring | Assigned To Chairman
     @section('js_scripts')
     <!-- <script src="{{asset('_monitoring/css/js/pcoded.min.js')}}"></script>
     <script src="{{asset('_monitoring/css/js/vartical-layout.min.js')}}"></script>
-    <script src="{{asset('_monitoring/css/js/script.min.js')}}"></script>
     <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> -->
+    <script src="{{asset('_monitoring/css/js/script.min.js')}}"></script>
     <script>
         var ATTRIBUTES = ['projecttitle', 'districts', 'gs', 'sub_sectors', 'original_approve_cost', 'utilized_cost', 'dateplnstrt', 'dateplnend', 'dateactulstrt', 'planned_progress', 'physical_progress_against_total_release_date', 'overall_progress', 'physical_progress'];
         $('[data-toggle="modal"]').on('click', function(e) {
