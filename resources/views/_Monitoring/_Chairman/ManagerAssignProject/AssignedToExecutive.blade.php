@@ -1,6 +1,6 @@
 @extends('_Monitoring.layouts.upperNavigation')
 @section('title')
-Monitoring | Assigned To Chairman
+Monitoring | Assigned To Executive
 @endsection
 @section('styleTags')
 <link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/css/dataTables.bootstrap4.min.css')}}" />

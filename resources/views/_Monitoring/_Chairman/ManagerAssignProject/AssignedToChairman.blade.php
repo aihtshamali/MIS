@@ -6,8 +6,6 @@ Monitoring | Assigned To Chairman
 <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/responsive.bootstrap4.min.css')}}" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-@endsection
-@section('content')
 <style>
     .hovsky:hover {
         color: #19a7ba !important;
@@ -17,10 +15,12 @@ Monitoring | Assigned To Chairman
         color: #01a9ac !important;
     }
 
-    .ellipsis::after {
+    /* .ellipsis::after {
         display: none !important;
-    }
+    } */
 </style>
+@endsection
+@section('content')
 <div class="row">
     <div class="col-md-12">
         <div class="card z-depth-5">
@@ -109,11 +109,11 @@ Monitoring | Assigned To Chairman
                                             $financial_progress = round(calculateMFinancialProgress($project->Project->AssignedProject->MProjectProgress->last()->id),2);
                                             $physical_progress_against_total_cost = round(calculateTotalMPhysicalProgress($project->Project->AssignedProject->MProjectProgress->last()->id),2);
                                             $physical_progress_against_total_release_date = round(calculateMPhysicalProgress($project->Project->AssignedProject->MProjectProgress->last()->id),2);
-                                            $OverAll_Progress = $physical_progress_against_total_cost;
+                                            $Overall_Progress = $physical_progress_against_total_cost;
                                             $Physical_Progress = $physical_progress_against_total_release_date;
                                             @endphp
                                             <!-- <center><i class="fas fa-address-card"></i></center> -->
-                                            <button class="assignExecBtn btn btn-primary btn-sm" data-toggle="modal" data-projecttitle="{{$projecttitle}}" data-Districts="{{$Districts}}" data-GS="{{$GS}}" data-Sub_Sectors="{{$Sub_Sectors}}" data-Original_Approve_Cost="{{$Original_Approve_Cost}}" data-Utilized_Cost="{{$Utilized_Cost}}" data-dateplnstrt="{{$dateplnstrt}}" data-dateplnend="{{$dateplnend}}" data-dateactulstrt="{{$dateactulstrt}}" data-Planned_Progress="{{$Planned_Progress}}" data-physical_progress_against_total_release_date="{{$physical_progress_against_total_release_date}}" data-OverAll_Progress="{{$OverAll_Progress}}" data-Physical_Progress="{{$Physical_Progress}}" data-target="#myModal" style="margin-top:9%">+</button>
+                                            <button class="assignExecBtn btn btn-primary btn-sm" data-toggle="modal" data-projecttitle="{{$projecttitle}}" data-Districts="{{$Districts}}" data-GS="{{$GS}}" data-Sub_Sectors="{{$Sub_Sectors}}" data-Original_Approve_Cost="{{$Original_Approve_Cost}}" data-Utilized_Cost="{{$Utilized_Cost}}" data-dateplnstrt="{{$dateplnstrt}}" data-dateplnend="{{$dateplnend}}" data-dateactulstrt="{{$dateactulstrt}}" data-Planned_Progress="{{$Planned_Progress}}" data-physical_progress_against_total_release_date="{{$physical_progress_against_total_release_date}}" data-OverAll_Progress="{{$Overall_Progress}}" data-Physical_Progress="{{$Physical_Progress}}" data-target="#myModal" style="margin-top:9%">+</button>
                                         </a>
                                     </td>
                                     @endif
@@ -334,7 +334,7 @@ Monitoring | Assigned To Chairman
                                                 </div>
                                                 <div class="col-md-3">
                                                     <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Over-All Progress:</span>
-                                                        <span class="pdz_six" id="modal-overAll_progress"></span>
+                                                        <span class="pdz_six" id="modal-overall_progress"></span>
                                                     </p>
                                                 </div>
                                                 <div class="col-md-3 ln_ht12">
@@ -361,12 +361,12 @@ Monitoring | Assigned To Chairman
     </div>
     @endsection
     @section('js_scripts')
-    <script src="{{asset('_monitoring/css/js/pcoded.min.js')}}"></script>
+    <!-- <script src="{{asset('_monitoring/css/js/pcoded.min.js')}}"></script>
     <script src="{{asset('_monitoring/css/js/vartical-layout.min.js')}}"></script>
     <script src="{{asset('_monitoring/css/js/script.min.js')}}"></script>
-    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> -->
     <script>
-        var ATTRIBUTES = ['projecttitle', 'districts', 'gs', 'sub_sectors', 'original_approve_cost', 'utilized_cost', 'dateplnstrt', 'dateplnend', 'dateactulstrt', 'planned_progress', 'physical_progress_against_total_release_date', 'overAll_progress', 'physical_progress'];
+        var ATTRIBUTES = ['projecttitle', 'districts', 'gs', 'sub_sectors', 'original_approve_cost', 'utilized_cost', 'dateplnstrt', 'dateplnend', 'dateactulstrt', 'planned_progress', 'physical_progress_against_total_release_date', 'overall_progress', 'physical_progress'];
         $('[data-toggle="modal"]').on('click', function(e) {
             // convert target (e.g. the button) to jquery object
             var $target = $(e.target);
@@ -386,19 +386,6 @@ Monitoring | Assigned To Chairman
                 $modalAttribute.text(dataValue || '');
             });
         });
-        // $(document).ready(function() {
-        //     $('.assignExecBtn').click(function() {
-
-        //         $(this).parent().parent().parent().next().toggle("slow");
-        //         if ($(this).text() == '+') {
-        //             $(this).removeClass('btn-primary').addClass('btn-danger')
-        //             $(this).text('-');
-        //         } else {
-        //             $(this).text('+');
-        //             $(this).removeClass('btn-danger').addClass('btn-primary')
-        //         }
-        //     });
-        // });
         $(document).ready(function() {
             $('#myTable').DataTable();
         });
