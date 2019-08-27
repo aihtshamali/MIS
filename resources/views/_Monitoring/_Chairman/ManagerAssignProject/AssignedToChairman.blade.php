@@ -40,11 +40,7 @@ Monitoring | Assigned To Chairman
                                     <th>Planned End Date</th>
                                     <th>Physical Progress</th>
                                     <th>Financial Progress</th>
-<<<<<<< HEAD
                                     <th>Assign</th>
-=======
-                                    <th>Action</th>
->>>>>>> 0c285c6113a20c846156c59c810fb019d6f61f7a
 
                                 </tr>
                             </thead>
@@ -87,7 +83,6 @@ Monitoring | Assigned To Chairman
                                     </td>
                                     @if($project->Project->AssignedProject->MProjectProgress->count())
                                     <td>
-<<<<<<< HEAD
                                         <a class="hovsky float-right" style="color: #4f5c5f9e; font-size:36px !important;">
                                             @php
                                             $projecttitle = $project->Project->title;
@@ -120,9 +115,6 @@ Monitoring | Assigned To Chairman
                                             <!-- <center><i class="fas fa-address-card"></i></center> -->
                                             <button class="assignExecBtn btn btn-primary btn-sm" data-toggle="modal" data-projecttitle="{{$projecttitle}}" data-Districts="{{$Districts}}" data-GS="{{$GS}}" data-Sub_Sectors="{{$Sub_Sectors}}" data-Original_Approve_Cost="{{$Original_Approve_Cost}}" data-Utilized_Cost="{{$Utilized_Cost}}" data-dateplnstrt="{{$dateplnstrt}}" data-dateplnend="{{$dateplnend}}" data-dateactulstrt="{{$dateactulstrt}}" data-Planned_Progress="{{$Planned_Progress}}" data-physical_progress_against_total_release_date="{{$physical_progress_against_total_release_date}}" data-OverAll_Progress="{{$Overall_Progress}}" data-Physical_Progress="{{$Physical_Progress}}" data-target="#myModal" style="margin-top:9%">+</button>
                                         </a>
-=======
-                                        
->>>>>>> 0c285c6113a20c846156c59c810fb019d6f61f7a
                                     </td>
                                     @endif
                                 </tr>
