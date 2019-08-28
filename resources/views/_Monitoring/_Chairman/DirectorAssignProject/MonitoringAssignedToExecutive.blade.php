@@ -138,8 +138,8 @@
                                 <!-- Modal content-->
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         <h4 class="modal-title">Project Summary</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="bg-w border_top bg-w text-left" style="padding:0% 0% 0.5% 1% !important;">

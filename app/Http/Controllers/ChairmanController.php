@@ -23,16 +23,28 @@ class ChairmanController extends Controller
             
             $chairmanProject->gs_num = $mProjectProgress->AssignedProject->Project->ADP;
             $chairmanProject->project_name = $mProjectProgress->AssignedProject->Project->title;
+            
             $chairmanProject->final_pc1_approved_cost = round($mProjectProgress->AssignedProject->Project->ProjectDetail->orignal_cost,2);
-            $chairmanProject->final_released_cost = round($mProjectProgress->MProjectCost->total_release_to_date,2);
-            $chairmanProject->final_utilized_cost = round($mProjectProgress->MProjectCost->utilization_against_releases,2);
-            $chairmanProject->financial_progress_against_pc1_cost = $request->financial_progress;
+            if(isset($mProjectProgress->MProjectCost->total_release_to_date))
+                $chairmanProject->final_released_cost = round($mProjectProgress->MProjectCost->total_release_to_date,2);
+            if(isset($mProjectProgress->MProjectCost->utilization_against_releases))
+                $chairmanProject->final_utilized_cost = round($mProjectProgress->MProjectCost->utilization_against_releases,2);
+           if($request->financial_progress)
+                $chairmanProject->financial_progress_against_pc1_cost = $request->financial_progress;
+            else    
+                $chairmanProject->financial_progress_against_pc1_cost = 0;
             $chairmanProject->planned_start_date = $mProjectProgress->AssignedProject->Project->ProjectDetail->planned_start_date;
             $chairmanProject->planned_end_date = $mProjectProgress->AssignedProject->Project->ProjectDetail->planned_end_date;
-            $chairmanProject->actual_start_date = $mProjectProgress->MProjectDate->actual_start_date;
-            
-            $chairmanProject->physical_progress_planned = $request->planned_physical_progress;
-            $chairmanProject->physical_progress_actual = $request->total_physical_progress;
+            if(isset($mProjectProgress->MProjectDate->actual_start_date))
+                $chairmanProject->actual_start_date = $mProjectProgress->MProjectDate->actual_start_date;
+            if($request->planned_physical_progress)
+                $chairmanProject->physical_progress_planned = $request->planned_physical_progress;
+            else
+                $chairmanProject->physical_progress_planned = 0;
+            if($request->total_physical_progress)
+                $chairmanProject->physical_progress_actual = $request->total_physical_progress;
+            else
+                $chairmanProject->physical_progress_actual = $request->total_physical_progress;
             
             $chairmanProject->m_project_progress_id = $mProjectProgress->id;
             $chairmanProject->project_id = $mProjectProgress->AssignedProject->Project->id;

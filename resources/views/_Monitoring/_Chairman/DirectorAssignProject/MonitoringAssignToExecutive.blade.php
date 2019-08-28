@@ -122,7 +122,7 @@
                                             $Physical_Progress = $physical_progress_against_total_release_date;
                                             @endphp
                                             <!-- <center><i class="fas fa-address-card"></i></center> -->
-                                            <button class="assignExecBtn btn btn-primary btn-sm" data-toggle="modal" data-projecttitle="{{$projecttitle}}" data-Districts="{{$Districts}}" data-GS="{{$GS}}" data-Sub_Sectors="{{$Sub_Sectors}}" data-Original_Approve_Cost="{{$Original_Approve_Cost}}" data-Utilized_Cost="{{$Utilized_Cost}}" data-dateplnstrt="{{$dateplnstrt}}" data-dateplnend="{{$dateplnend}}" data-dateactulstrt="{{$dateactulstrt}}" data-Planned_Progress="{{$Planned_Progress}}" data-physical_progress_against_total_release_date="{{$physical_progress_against_total_release_date}}" data-OverAll_Progress="{{$Overall_Progress}}" data-Physical_Progress="{{$Physical_Progress}}" data-target="#myModal" style="margin-top:9%">+</button>
+                                        <button class="assignExecBtn btn btn-primary btn-sm" data-toggle="modal" data-m_project_progress="{{$project->Project->AssignedProject->MProjectProgress->last()->id}}" data-projecttitle="{{$projecttitle}}" data-Districts="{{$Districts}}" data-GS="{{$GS}}" data-Sub_Sectors="{{$Sub_Sectors}}" data-Original_Approve_Cost="{{$Original_Approve_Cost}}" data-Utilized_Cost="{{$Utilized_Cost}}" data-financialprogress={{$financial_progress}} data-dateplnstrt="{{$dateplnstrt}}" data-dateplnend="{{$dateplnend}}" data-dateactulstrt="{{$dateactulstrt}}" data-Planned_Progress="{{$Planned_Progress}}" data-physical_progress_against_total_release_date="{{$physical_progress_against_total_release_date}}" data-OverAll_Progress="{{$Overall_Progress}}" data-Physical_Progress="{{$Physical_Progress}}" data-target="#myModal" style="margin-top:9%">+</button>
                                         </a>
                                     </td>
                                     @endif
@@ -138,8 +138,8 @@
                                 <!-- Modal content-->
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         <h4 class="modal-title">Project Summary</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="bg-w border_top bg-w text-left" style="padding:0% 0% 0.5% 1% !important;">
@@ -325,7 +325,7 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <p for="actual_start_date" class=" mb_1"><span class="fontf_sh">Actual Start Date: </span>
-                                                        <span id="modal-dateactulstrt  ">
+                                                        <span id="modal-dateactulstrt">
 
                                                         </span>
                                                     </p>
@@ -339,7 +339,7 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Financial Progress:</span>
-                                                        <span class="pdz_six" id="modal-physical_progress_against_total_release_date"></span>
+                                                        <span class="pdz_six" id="modal-financialprogress"></span>
                                                     </p>
                                                 </div>
                                                 <div class="col-md-3">
@@ -355,9 +355,21 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        
                                         <div class="modal-footer">
+                                            <form action="{{route('CharimanProjectAssignToExecutive')}}" method="post">
+                                                    {{ csrf_field() }}
+                                                    <input type="hidden" id="input-projecttitle" name="project_id" value="">
+                                                    <input type="hidden" id="input-m_project_progress_id" name="m_project_progress_id" value="">
+                                                    <input type="hidden" id="input-planned_progress" name="planned_physical_progress" value="">
+                                                    <input type="hidden" id="input-financialprogress" name="financial_progress" value="">
+                                                    <input type="hidden" id="input-overall_progress"  name="total_physical_progress" value="">
+                                                    <input type="hidden" id="input-physical_progress" name="against_cost_physical_progress" value="">
+                                                    <input type="submit" class="btn btn-info btn-sm" value="Assign to Executive">
+                                            </form>
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                         </div>
+
                                     </div>
 
                                 </div>
@@ -398,17 +410,22 @@
     });
 </script> -->
 <script>
-    var ATTRIBUTES = ['projecttitle', 'districts', 'gs', 'sub_sectors', 'original_approve_cost', 'utilized_cost', 'dateplnstrt', 'dateplnend', 'dateactulstrt', 'planned_progress', 'physical_progress_against_total_release_date', 'overall_progress', 'physical_progress'];
+    var ATTRIBUTES = ['projecttitle', 'districts', 'gs', 'sub_sectors', 
+    'original_approve_cost', 'utilized_cost', 'dateplnstrt', 'dateplnend', 
+    'dateactulstrt', 'planned_progress','financialprogress', 'physical_progress_against_total_release_date', 
+    'overall_progress', 'physical_progress'];
     $('[data-toggle="modal"]').on('click', function(e) {
         // convert target (e.g. the button) to jquery object
         var $target = $(e.target);
         // modal targeted by the button
         var modalSelector = $target.data('target');
+        $('#input-m_project_progress_id').val($target.data('m_project_progress'))
         // iterate over each possible data-* attribute
         ATTRIBUTES.forEach(function(attributeName) {
             // retrieve the dom element corresponding to current attribute
             var $modalAttribute = $(modalSelector + ' #modal-' + attributeName);
             var dataValue = $target.data(attributeName);
+            $('#input-'+attributeName).val(dataValue)
             console.log(attributeName + ': ',
                 dataValue)
             // if the attribute value is empty, $target.data() will return undefined.
