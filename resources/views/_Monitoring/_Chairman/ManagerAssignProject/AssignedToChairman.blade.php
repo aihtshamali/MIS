@@ -36,7 +36,7 @@ Monitoring | Assigned To Chairman
             <div class="card-block">
                 <div class="card-block">
                     <div class="dt-responsive table-responsive">
-                        <table id="myTable" class="table table-bordered table-stripped nowrap">
+                        <table id="myTable" class="table table-bordered table-stripped nowrap" data-page-length="5000">
                             <thead>
                                 <tr>
                                     <th>Project Name</th>
