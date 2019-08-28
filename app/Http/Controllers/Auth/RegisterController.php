@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use jeremykenedy\LaravelRoles\Models\Role;
 use Auth;
 use App\Sector;
+use App\UserSector;
 class RegisterController extends Controller
 {
     /*
@@ -90,11 +91,20 @@ class RegisterController extends Controller
             'admin_password'=> 'JzsrFyKoFpSE5Sg1ScQBskDl6d53a1ehEwYIaALQI3WOmTITn5Ko7y6WqLYe',
             'api_token'=> str_random(60)
         ]);
-        
+        $role_name = Role::find($data['role_id']); 
         $user_detail = new UserDetail();
         $user_detail->cnic=$data['cnic'];
         $user_detail->father_name=$data['father_name'];
-        $user_detail->sector_id=$data['sector_id'];
+        if($role_name->slug == 'member')
+        foreach ($data['sector_id'] as $sector) {
+            $usersectors = new UserSector();
+            $usersectors->role_id = $role_name->id;
+            $usersectors->user_id = $user->id;
+            $usersectors->sector_id  = $sector;
+            $usersectors->save();
+        }
+        else
+            $user_detail->sector_id=$data['sector_id'][0];
         $user_detail->user_id=$user->id;
         $user_detail->save();
 

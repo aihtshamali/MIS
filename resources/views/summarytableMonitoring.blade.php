@@ -48,7 +48,31 @@ Monitoring |
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    @php
+                     $i = 1;   
+                    @endphp
+                    @foreach ($arr as $key => $item)
+                        <tr>
+                        <td>{{$i++}}</td>
+                        <td><a href="{{route('summarytableMonitoring',['name'=>$key])}}">{{$key}}</a></td>
+                        <td>
+                        @foreach ($item['sub_sectors'] as $value)
+                        @if (isset($value['SHOW']))
+                        {{$value['name']}},
+                        @endif
+                        @endforeach
+                        </td>
+                    <td>{{count($item['projects'])}}</td>
+                        <td>{{$item['cost']}}</td>
+                        <td>@foreach ($item['divisions'] as $key3 => $item)
+                            {{$key3}},
+                        @endforeach</td>
+                        <td>{{$arr[$key]['critical']}}</td>
+                        <td>{{$arr[$key]['need_consideration']}}</td>
+                        <td>{{$arr[$key]['within_limits']}}</td>
+                    </tr>
+                    @endforeach
+                    {{-- <tr>
                         <td>1.</td>
                         <td>System Architect</td>
                         <td>Edinburgh</td>
@@ -80,7 +104,7 @@ Monitoring |
                         <td>$320,800</td>
                         <td>$320,800</td>
                         <td>$320,800</td>
-                    </tr>
+                    </tr> --}}
                 </tbody>
                 <tfoot>
                     <tr>
@@ -98,15 +122,15 @@ Monitoring |
         <div class="col-md-12 row margin-top-3per">
             <div class="col-md-4 row">
                 <div class="col-md-10 text-right">Critical Projects:</div>
-                <div class="col-md-2 red fullheight text-center"><b>15</b></div>
+            <div class="col-md-2 red fullheight text-center"><b>{{$global_critical}}</b></div>
             </div>
             <div class="col-md-4 row">
                 <div class="col-md-10 text-right">Projects Need Consideration:</div>
-                <div class="col-md-2 yellow fullheight text-center"><b>12</b></div>
+            <div class="col-md-2 yellow fullheight text-center"><b>{{$global_need_consideration}}</b></div>
             </div>
             <div class="col-md-4 row">
                 <div class="col-md-10 text-right">Projects within Defined Limits:</div>
-                <div class="col-md-2 green fullheight text-center"><b>12</b></div>
+            <div class="col-md-2 green fullheight text-center"><b>{{$global_within_limits}}</b></div>
             </div>
         </div>
         <div class="col-md-12 row margin-top-3per" style="padding: 0% 3%;">
@@ -126,6 +150,8 @@ Monitoring |
                 <div class="col-md-1 green "></div>
             </div>
         </div>
+        @if (isset($second_table))
+
         <div class="relativetable margin-top-3per col-md-12 text-center">
             <table id="example_1" data-page-length="10000" class="table table-striped table-bordered" style="width:100%">
                 <thead>
@@ -151,6 +177,7 @@ Monitoring |
                         <th colspan="2"> Physical Progress (%)</th>
                         <th style="width:5% !important" class="nobordertop noborderbottom">Status</th>
                     </tr>
+                    
                     <tr class="bglightgreen">
                         <th></th>
                         <th></th>
@@ -169,23 +196,40 @@ Monitoring |
                     </tr>
                 </thead>
                 <tbody>
+                        
+                    @foreach ($arr[$second_table]["projects"] as $item)
                     <tr>
                         <td>1.</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>fkowhdi</td>
-                        <td>fkowhdi</td>
-                        <td>fkowhdi</td>
-                        <td>fkowhdi</td>
-                        <td>fkowhdi</td>
-                        <td>fkowhdi</td>
-                        <td title="Planned(Againt Duration of Project)">fkowhdi</td>
-                        <td>fkowhdi</td>
-                        <td class="red"></td>
+                        <td>{{$item->gs_num}}</td>
+                        <td>{{$item->project_name}}</td>
+                        <td>@foreach ($item->AssignedSubSectors as $sub_sectors)
+                            {{$sub_sectors->SubSector->name}},
+                        @endforeach</td>
+                        <td>@foreach ($item->AssignedDistricts as $districts)
+                            {{$districts->District->name}},
+                        @endforeach</td>
+                        <td>{{round($item->final_pc1_approved_cost,2)}}</td>
+                        <td>{{round($item->final_released_cost,2)}}</td>
+                        <td>{{round($item->final_utilized_cost,2)}}</td>
+                        <td>{{$item->financial_progress_against_pc1_cost}}</td>
+                        <td>{{date('d-M-Y',strtotime($item->planned_start_date))}}</td>
+                        <td>{{date('d-M-Y',strtotime($item->planned_end_date))}}</td>
+                        <td>{{round($item->physical_progress_planned,2)}}</td>
+                        <td>{{round($item->physical_progress_actual,2)}}</td>
+                        <td class="
+                        @if ($item->critical)
+                            red
+                        @elseif($item->need_consideration)
+                            yellow
+                        @else
+                            green
+                        @endif
+                        "
+                        >
+                        </td>
                     </tr>
-                    <tr>
+                    @endforeach
+                    {{-- <tr>
                         <td>2.</td>
                         <td>System Architect</td>
                         <td>Edinburgh</td>
@@ -232,10 +276,12 @@ Monitoring |
                         <td title="Planned(Againt Duration of Project)">fkowhdi</td>
                         <td>fkowhdi</td>
                         <td class="yellow"></td>
-                    </tr>
+                    </tr> --}}
                 </tbody>
             </table>
         </div>
+        @endif
+
     </div>
 </div>
 @endsection
