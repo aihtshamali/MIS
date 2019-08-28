@@ -17,15 +17,15 @@ class CreateMChairmanProjectsTable extends Migration
             $table->increments('id');
             $table->string('gs_num')->nullable();
             $table->string('project_name')->nullable();
-            $table->string('final_pc1_approved_cost')->nullable();
-            $table->string('final_released_cost')->nullable();
-            $table->string('final_utilized_cost')->nullable();
+            $table->float('final_pc1_approved_cost')->nullable();
+            $table->float('final_released_cost')->nullable();
+            $table->float('final_utilized_cost')->nullable();
             $table->string('financial_progress_against_pc1_cost')->nullable();
             $table->string('planned_start_date')->nullable();
             $table->string('planned_end_date')->nullable();
             $table->string('actual_start_date')->nullable();
-            $table->string('physical_progress_planned')->nullable();
-            $table->string('physical_progress_actual')->nullable();
+            $table->float('physical_progress_planned')->nullable();
+            $table->float('physical_progress_actual')->nullable();
 
             $table->integer('project_id')->unsigned()->index()->nullable();
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('no action');
