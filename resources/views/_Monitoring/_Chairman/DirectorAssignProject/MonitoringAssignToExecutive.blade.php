@@ -60,7 +60,7 @@
             <div class="card-block">
                 <div class="card-block">
                     <div class="dt-responsive table-responsive">
-                        <table id="simpletable" class="table table-bordered table-stripped nowrap">
+                        <table id="simpletable" class="table table-bordered table-stripped nowrap" data-page-length="5000">
                             <thead>
                                 <tr>
                                     <th>Project #</th>
@@ -90,15 +90,58 @@
                                     <td>{{round($project->Project->score,3,PHP_ROUND_HALF_UP) }}</td>
                                     <td>{{ $project->Project->ProjectDetail->AssigningForum->name }}</td>
                                     <td>{{$project->Project->ProjectType->name}}</td>
+                                    @if($project->Project->AssignedProject->MProjectProgress->count())
                                     <td>
-                                        @if(isset($project->MProjectProgress) && count($project->MProjectProgress))
-                                        <button class="assignExecBtn btn btn-primary btn-sm" style="margin-top:9%">+</button>
-                                        @endif
+                                        <a class="hovsky float-right" style="color: #4f5c5f9e; font-size:36px !important;">
+                                            @php
+                                            $projecttitle = $project->Project->title;
+                                            $Districts= '';
+                                            foreach ($project->Project->AssignedDistricts as $district)
+                                            $Districts=$Districts.$district->District->name.', ';
+                                            $GS = $project->Project->ADP;
+                                            $Sub_Sectors = '';
+                                            foreach ($project->Project->AssignedSubSectors as $sub_sector)
+                                            $Sub_Sectors=$Sub_Sectors.$sub_sector->SubSector->name;
+                                            $Original_Approve_Cost = round($project->Project->ProjectDetail->orignal_cost,3);
+                                            $Utilized_Cost = 0;
+                                            if($project->Project->AssignedProject->MProjectProgress->last()->MProjectCost)
+                                            $Utilized_Cost =round($project->Project->AssignedProject->MProjectProgress->last()->MProjectCost->utilization_against_releases,3);
+                                            $Planned_Start_Date = $project->Project->ProjectDetail->planned_start_date;
+                                            $dateplnstrt = date("d-M-Y", strtotime($Planned_Start_Date));
+                                            $Planned_End_Date = $project->Project->ProjectDetail->planned_end_date;
+                                            $dateplnend = date("d-M-Y", strtotime($Planned_End_Date));
+                                            $Actual_Start_Date = 'NA';
+                                            if($project->Project->AssignedProject->MProjectProgress->last()->MProjectDate)
+                                            $Actual_Start_Date=$project->Project->AssignedProject->MProjectProgress->last()->MProjectDate->actual_start_date;
+                                            $dateactulstrt = date("d-M-Y", strtotime($Actual_Start_Date));
+                                            $Planned_Progress = round(calculatePlannedProgress($project->Project->AssignedProject->MProjectProgress->last()->id),2);
+                                            $financial_progress = round(calculateMFinancialProgress($project->Project->AssignedProject->MProjectProgress->last()->id),2);
+                                            $physical_progress_against_total_cost = round(calculateTotalMPhysicalProgress($project->Project->AssignedProject->MProjectProgress->last()->id),2);
+                                            $physical_progress_against_total_release_date = round(calculateMPhysicalProgress($project->Project->AssignedProject->MProjectProgress->last()->id),2);
+                                            $Overall_Progress = $physical_progress_against_total_cost;
+                                            $Physical_Progress = $physical_progress_against_total_release_date;
+                                            @endphp
+                                            <!-- <center><i class="fas fa-address-card"></i></center> -->
+                                            <button class="assignExecBtn btn btn-primary btn-sm" data-toggle="modal" data-projecttitle="{{$projecttitle}}" data-Districts="{{$Districts}}" data-GS="{{$GS}}" data-Sub_Sectors="{{$Sub_Sectors}}" data-Original_Approve_Cost="{{$Original_Approve_Cost}}" data-Utilized_Cost="{{$Utilized_Cost}}" data-dateplnstrt="{{$dateplnstrt}}" data-dateplnend="{{$dateplnend}}" data-dateactulstrt="{{$dateactulstrt}}" data-Planned_Progress="{{$Planned_Progress}}" data-physical_progress_against_total_release_date="{{$physical_progress_against_total_release_date}}" data-OverAll_Progress="{{$Overall_Progress}}" data-Physical_Progress="{{$Physical_Progress}}" data-target="#myModal" style="margin-top:9%">+</button>
+                                        </a>
                                     </td>
+                                    @endif
                                 </tr>
-                                @if(isset($project->MProjectProgress) && count($project->MProjectProgress))
-                                <tr class="nodisplay assignExecDiv" style="background-color:aliceblue">
-                                    <td colspan="7">
+
+                                @endforeach
+
+                            </tbody>
+                        </table>
+                        <div class="modal fade" id="myModal" role="dialog">
+                            <div class="modal-dialog col-md-11">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Project Summary</h4>
+                                    </div>
+                                    <div class="modal-body">
                                         <div class="bg-w border_top bg-w text-left" style="padding:0% 0% 0.5% 1% !important;">
                                             <style scoped>
                                                 .form-group {
@@ -237,134 +280,89 @@
                                                 <center>
                                                     <b class="primarybold mb_1 font-18">
                                                         <span>Project Title</span> <span class=""> :</span>
-                                                        <span class="black">{{$project->Project->title}}</span>
+                                                        <span class="black" id="modal-projecttitle"></span>
                                                     </b>
                                                 </center>
                                             </div>
                                             <div class="col-md-12 ln_ht12 text-center">
-                                                <b for="project_cost" class=""><span>Districts: </span></b><span>
-                                                    @foreach ($project->Project->AssignedDistricts as $district)
-                                                    {{$district->District->name}},
-                                                    @endforeach
-                                                </span>
+                                                <b for="project_cost" class="">Districts: </b>
+                                                <span class="black" id="modal-districts"></span>
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col-md-3">
-                                                    <p for="GS_no" class=" mb_1"><span class="fontf_sh">GS #: </span><span>{{$project->Project->ADP}}</span></p>
+                                                    <p for="GS_no" class=" mb_1"><span class="fontf_sh">GS #: </span><span id="modal-gs"></span></p>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <p for="gestation Period" class=" mb_1 ">
                                                         <span title="Gestation Period" class="fontf_sh">Sub-Sectors: </span>
-                                                        <span>
-                                                            @foreach ($project->Project->AssignedSubSectors as $sub_sector)
-                                                            {{$sub_sector->SubSector->name}}
-                                                            @endforeach
-                                                        </span>
+                                                        <span id="modal-sub_sectors"></span>
                                                     </p>
                                                 </div>
                                                 <div class="col-md-3 ln_ht12">
                                                     <p for="project_cost" class=" mb_1 "><span class="fontf_sh">Original Approve Cost:</span>
-                                                        <span>{{round($project->Project->ProjectDetail->orignal_cost,3)}}<small>Million PKR</small></span></p>
+                                                        <span id="modal-original_approve_cost"><small>Million</small></span></p>
                                                 </div>
 
                                                 <div class="col-md-3 ln_ht12">
                                                     <p for="Location" class=" mb_1 "><span class="fontf_sh">Utilized Cost:</span>
-                                                        @if($project->MProjectProgress->last()->MProjectCost)
-                                                        {{round($project->MProjectProgress->last()->MProjectCost->utilization_against_releases,3)}}
-                                                        @else
-                                                        0
-                                                        @endif
-                                                        <small>Million PKR</small>
+
+                                                        <small id="modal-utilized_cost">Million</small>
                                                     </p>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <p for="planned_start_date" class=" mb_1 "><span class="fontf_sh">Planned Start Date: </span>
-                                                        <span>
-                                                            @php
-                                                            $originalDate=$project->Project->ProjectDetail->planned_start_date;
-                                                            $date = date("d-M-Y", strtotime($originalDate));
-                                                            // echo $date;
-                                                            @endphp
-                                                            {{$date}}
+                                                        <span id="modal-dateplnstrt">
+
                                                         </span>
                                                     </p>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <p for="planned_end_date" class=" mb_1"><span class="fontf_sh">Planned End Date: </span>
-                                                        <span>
-                                                            @php
-                                                            $originalDate=$project->Project->ProjectDetail->planned_end_date;
-                                                            $date = date("d-M-Y", strtotime($originalDate));
-                                                            // echo $date;
-                                                            @endphp
-                                                            {{$date}}
+                                                        <span id="modal-dateplnend">
+
                                                         </span>
                                                     </p>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <p for="actual_start_date" class=" mb_1"><span class="fontf_sh">Actual Start Date: </span>
-                                                        <span>
-                                                            @if(isset($project->MProjectProgress->last()->MProjectDate))
-                                                            @php
-                                                            $originalDate=$project->MProjectProgress->last()->MProjectDate->actual_start_date;
-                                                            $date = date("d-M-Y", strtotime($originalDate));
-                                                            // echo $date;
-                                                            @endphp
-                                                            {{$date}}
+                                                        <span id="modal-dateactulstrt  ">
 
-                                                            @endif
                                                         </span>
                                                     </p>
                                                 </div>
 
                                                 <div class="col-md-3 ln_ht12">
                                                     <p for="" name="phy_progress" id="phy_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Planned Progress %: </span>
-                                                        @php
-                                                        $planned_progress = round(calculatePlannedProgress($project->MProjectProgress->last()->id),2);
-                                                        $financial_progress = round(calculateMFinancialProgress($project->MProjectProgress->last()->id),2);
-                                                        $physical_progress_against_total_cost = round(calculateTotalMPhysicalProgress($project->MProjectProgress->last()->id),2);
-                                                        $physical_progress_against_total_release_date = round(calculateMPhysicalProgress($project->MProjectProgress->last()->id),2);
-                                                        @endphp
-                                                        <span class="pdz_six" id="PlannedProg">{{$planned_progress}}%</span>
+
+                                                        <span class="pdz_six" id="modal-planned_progress"></span>
                                                     </p>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Financial Progress:</span>
-                                                        <span class="pdz_six" id="financialprog">{{$financial_progress}}%</span>
+                                                        <span class="pdz_six" id="modal-physical_progress_against_total_release_date"></span>
                                                     </p>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Over-All Progress:</span>
-                                                        <span class="pdz_six" id="">{{$physical_progress_against_total_cost}}%</span>
+                                                        <span class="pdz_six" id="modal-overall_progress"></span>
                                                     </p>
                                                 </div>
                                                 <div class="col-md-3 ln_ht12">
                                                     <p for="" name="phy_progress" id="phy_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Physical Progress: </span>
-                                                        <span class="pdz_six" id="Physicalprog">{{$physical_progress_against_total_release_date}}%</span>
+                                                        <span class="pdz_six" id="modal-physical_progress"></span>
                                                         <br /><small>(against Total Releases To Date)</small>
                                                     </p>
                                                 </div>
                                             </div>
-                                            <div class="form-group pull-right">
-                                                <form action="{{route('CharimanProjectAssignToExecutive')}}" method="post">
-                                                    {{ csrf_field() }}
-                                                    <input type="hidden" name="project_id" value="{{$project->Project->id}}">
-                                                    <input type="hidden" name="m_project_progress_id" value="{{$project->MProjectProgress->last()->id}}">
-                                                    <input type="hidden" name="planned_physical_progress" value="{{$planned_progress}}">
-                                                    <input type="hidden" name="financial_progress" value="{{$financial_progress}}">
-                                                    <input type="hidden" name="total_physical_progress" value="{{$physical_progress_against_total_cost}}">
-                                                    <input type="hidden" name="against_cost_physical_progress" value="{{$physical_progress_against_total_release_date}}">
-                                                    <input type="submit" class="btn btn-info btn-sm" value="Assign to Executive">
-                                                </form>
-                                            </div>
-                                    </td>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
 
-                                </tr>
-                                @endif
-                                @endforeach
-
-                            </tbody>
-                        </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -384,7 +382,7 @@
 <script src="{{asset('_monitoring/js/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js')}}"></script>
 
 <script src="{{asset('_monitoring/css/pages/data-table/js/data-table-custom.js')}}"></script>
-<script>
+<!-- <script>
     $(document).ready(function() {
         $('.assignExecBtn').click(function() {
 
@@ -397,6 +395,31 @@
                 $(this).removeClass('btn-danger').addClass('btn-primary')
             }
         });
+    });
+</script> -->
+<script>
+    var ATTRIBUTES = ['projecttitle', 'districts', 'gs', 'sub_sectors', 'original_approve_cost', 'utilized_cost', 'dateplnstrt', 'dateplnend', 'dateactulstrt', 'planned_progress', 'physical_progress_against_total_release_date', 'overall_progress', 'physical_progress'];
+    $('[data-toggle="modal"]').on('click', function(e) {
+        // convert target (e.g. the button) to jquery object
+        var $target = $(e.target);
+        // modal targeted by the button
+        var modalSelector = $target.data('target');
+        // iterate over each possible data-* attribute
+        ATTRIBUTES.forEach(function(attributeName) {
+            // retrieve the dom element corresponding to current attribute
+            var $modalAttribute = $(modalSelector + ' #modal-' + attributeName);
+            var dataValue = $target.data(attributeName);
+            console.log(attributeName + ': ',
+                dataValue)
+            // if the attribute value is empty, $target.data() will return undefined.
+            // In JS boolean expressions return operands and are not coerced into
+            // booleans. That way is dataValue is undefined, the left part of the following
+            // Boolean expression evaluate to false and the empty string will be returned
+            $modalAttribute.text(dataValue || '');
+        });
+    });
+    $(document).ready(function() {
+        $('#myTable').DataTable();
     });
 </script>
 @endsection
