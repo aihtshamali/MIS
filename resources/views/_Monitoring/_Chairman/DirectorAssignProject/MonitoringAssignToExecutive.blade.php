@@ -6,6 +6,11 @@
     .pcoded .pcoded-navbar .pcoded-item {
         width: 100% !important;
     }
+    .form-group>.col-md-3,
+    .bg-w>.col-md-12 {
+        border-bottom: 1px solid #77777738 !important;
+        padding: 0.5% !important;
+    }
 
     td a {
         color: #01a9ac !important;
@@ -92,8 +97,9 @@
                                     <td>{{$project->Project->ProjectType->name}}</td>
                                     @if($project->Project->AssignedProject->MProjectProgress->count())
                                     <td>
+                                        <p>{{$project->Project->AssignedProject->MProjectProgress->last()->MChairmanPendingProject->count() > 0 ? 'Assigned' : ''}}</p>
                                         <a class="hovsky float-right" style="color: #4f5c5f9e; font-size:36px !important;">
-                                            @php
+                                                @php
                                             $projecttitle = $project->Project->title;
                                             $Districts= '';
                                             foreach ($project->Project->AssignedDistricts as $district)

@@ -87,11 +87,7 @@ class ChairmanController extends Controller
             return view('_Monitoring._Chairman.DirectorAssignProject.MonitoringAssignToExecutive', ['projects' => $projects]);
     }
     public function MonitoringAssignedToDC(){
-            $projects = AssignedProject::select('assigned_projects.*')->where('assigned_by', Auth::id())
-                ->leftjoin('projects', 'projects.id', 'assigned_projects.project_id')
-                ->where('projects.status', 1)
-                ->where('complete', 0)
-                ->get();
+            $projects = MChairmanPendingProject::all();
             // dd($projects[0]->Project->ProjectDetail);
             return view('_Monitoring._Chairman.DirectorAssignProject.MonitoringAssignedToExecutive', ['projects' => $projects]);
     }

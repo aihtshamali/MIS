@@ -45,6 +45,11 @@
         right: 0;
         top: 0;
     }
+    .form-group>.col-md-3,
+    .bg-w>.col-md-12 {
+        border-bottom: 1px solid #77777738 !important;
+        padding: 0.5% !important;
+    }
 
     .nodisplay {
         display: none;
@@ -55,7 +60,7 @@
     <div class="col-md-12">
         <div class="card z-depth-5">
             <div class="card-header">
-                <h4><b>Inprogress Monitoring Projects</b></h4>
+                <h4><b>Monitoring Projects Assigned to Executive</b></h4>
             </div>
             <div class="card-block">
                 <div class="card-block">
@@ -77,9 +82,9 @@
                                 @foreach($projects as $project)
                                 <tr>
                                     <td>{{$project->Project->project_no}}</td>
-                                    <td>{{$project->Project->title}}</td>
+                                    <td>{{$project->MChairmanProject->project_name}}</td>
                                     <td>
-                                        @foreach ($project->AssignedProjectTeam as $team)
+                                        @foreach ($project->Project->AssignedProject->AssignedProjectTeam as $team)
                                         @if ($team->team_lead==1)
                                         <span style="font-weight:bold;color:blue">{{$team->User->first_name}} {{$team->User->last_name}} -</span>
                                         @else
@@ -90,42 +95,40 @@
                                     <td>{{round($project->Project->score,3,PHP_ROUND_HALF_UP) }}</td>
                                     <td>{{ $project->Project->ProjectDetail->AssigningForum->name }}</td>
                                     <td>{{$project->Project->ProjectType->name}}</td>
-                                    @if($project->Project->AssignedProject->MProjectProgress->count())
                                     <td>
                                         <a class="hovsky float-right" style="color: #4f5c5f9e; font-size:36px !important;">
                                             @php
-                                            $projecttitle = $project->Project->title;
+                                            $projecttitle = $project->MChairmanProject->project_name;
                                             $Districts= '';
-                                            foreach ($project->Project->AssignedDistricts as $district)
+                                            foreach ($project->MChairmanProject->AssignedDistricts as $district)
                                             $Districts=$Districts.$district->District->name.', ';
-                                            $GS = $project->Project->ADP;
+                                            $GS = $project->MChairmanProject->gs_num;
                                             $Sub_Sectors = '';
-                                            foreach ($project->Project->AssignedSubSectors as $sub_sector)
+                                            foreach ($project->MChairmanProject->AssignedSubSectors as $sub_sector)
                                             $Sub_Sectors=$Sub_Sectors.$sub_sector->SubSector->name;
                                             $Original_Approve_Cost = round($project->Project->ProjectDetail->orignal_cost,3);
                                             $Utilized_Cost = 0;
-                                            if($project->Project->AssignedProject->MProjectProgress->last()->MProjectCost)
-                                            $Utilized_Cost =round($project->Project->AssignedProject->MProjectProgress->last()->MProjectCost->utilization_against_releases,3);
-                                            $Planned_Start_Date = $project->Project->ProjectDetail->planned_start_date;
+                                            if($project->MChairmanProject->final_utilized_cost)
+                                            $Utilized_Cost =round($project->MChairmanProject->final_utilized_cost,3);
+                                            $Planned_Start_Date = $project->MChairmanProject->planned_start_date;
                                             $dateplnstrt = date("d-M-Y", strtotime($Planned_Start_Date));
-                                            $Planned_End_Date = $project->Project->ProjectDetail->planned_end_date;
+                                            $Planned_End_Date = $project->MChairmanProject->planned_end_date;
                                             $dateplnend = date("d-M-Y", strtotime($Planned_End_Date));
                                             $Actual_Start_Date = 'NA';
-                                            if($project->Project->AssignedProject->MProjectProgress->last()->MProjectDate)
-                                            $Actual_Start_Date=$project->Project->AssignedProject->MProjectProgress->last()->MProjectDate->actual_start_date;
+                                            if($project->MChairmanProject->actual_start_date)
+                                                $Actual_Start_Date=$project->MChairmanProject->actual_start_date;
                                             $dateactulstrt = date("d-M-Y", strtotime($Actual_Start_Date));
-                                            $Planned_Progress = round(calculatePlannedProgress($project->Project->AssignedProject->MProjectProgress->last()->id),2);
-                                            $financial_progress = round(calculateMFinancialProgress($project->Project->AssignedProject->MProjectProgress->last()->id),2);
-                                            $physical_progress_against_total_cost = round(calculateTotalMPhysicalProgress($project->Project->AssignedProject->MProjectProgress->last()->id),2);
+                                            $Planned_Progress = $project->MChairmanProject->physical_progress_planned;
+                                            $financial_progress = $project->MChairmanProject->financial_progress_against_pc1_cost;
+                                            $physical_progress_against_total_cost = $project->MChairmanProject->physical_progress_actual;
                                             $physical_progress_against_total_release_date = round(calculateMPhysicalProgress($project->Project->AssignedProject->MProjectProgress->last()->id),2);
                                             $Overall_Progress = $physical_progress_against_total_cost;
                                             $Physical_Progress = $physical_progress_against_total_release_date;
                                             @endphp
                                             <!-- <center><i class="fas fa-address-card"></i></center> -->
-                                            <button class="assignExecBtn btn btn-primary btn-sm" data-toggle="modal" data-projecttitle="{{$projecttitle}}" data-Districts="{{$Districts}}" data-GS="{{$GS}}" data-Sub_Sectors="{{$Sub_Sectors}}" data-Original_Approve_Cost="{{$Original_Approve_Cost}}" data-Utilized_Cost="{{$Utilized_Cost}}" data-dateplnstrt="{{$dateplnstrt}}" data-dateplnend="{{$dateplnend}}" data-dateactulstrt="{{$dateactulstrt}}" data-Planned_Progress="{{$Planned_Progress}}" data-physical_progress_against_total_release_date="{{$physical_progress_against_total_release_date}}" data-OverAll_Progress="{{$Overall_Progress}}" data-Physical_Progress="{{$Physical_Progress}}" data-target="#myModal" style="margin-top:9%">+</button>
+                                        <button class="assignExecBtn btn btn-primary btn-sm" data-toggle="modal" data-financialprogress="{{$financial_progress}}" data-projecttitle="{{$projecttitle}}" data-Districts="{{$Districts}}" data-GS="{{$GS}}" data-Sub_Sectors="{{$Sub_Sectors}}" data-Original_Approve_Cost="{{$Original_Approve_Cost}}" data-Utilized_Cost="{{$Utilized_Cost}}" data-dateplnstrt="{{$dateplnstrt}}" data-dateplnend="{{$dateplnend}}" data-dateactulstrt="{{$dateactulstrt}}" data-Planned_Progress="{{$Planned_Progress}}" data-physical_progress_against_total_release_date="{{$physical_progress_against_total_release_date}}" data-OverAll_Progress="{{$Overall_Progress}}" data-Physical_Progress="{{$Physical_Progress}}" data-target="#myModal" style="margin-top:9%">+</button>
                                         </a>
                                     </td>
-                                    @endif
                                 </tr>
 
                                 @endforeach
@@ -325,7 +328,7 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <p for="actual_start_date" class=" mb_1"><span class="fontf_sh">Actual Start Date: </span>
-                                                        <span id="modal-dateactulstrt  ">
+                                                        <span id="modal-dateactulstrt">
 
                                                         </span>
                                                     </p>
@@ -339,7 +342,7 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Financial Progress:</span>
-                                                        <span class="pdz_six" id="modal-physical_progress_against_total_release_date"></span>
+                                                        <span class="pdz_six" id="modal-financialprogress"></span>
                                                     </p>
                                                 </div>
                                                 <div class="col-md-3">
@@ -398,7 +401,8 @@
     });
 </script> -->
 <script>
-    var ATTRIBUTES = ['projecttitle', 'districts', 'gs', 'sub_sectors', 'original_approve_cost', 'utilized_cost', 'dateplnstrt', 'dateplnend', 'dateactulstrt', 'planned_progress', 'physical_progress_against_total_release_date', 'overall_progress', 'physical_progress'];
+    var ATTRIBUTES = ['projecttitle', 'districts','financialprogress',
+     'gs', 'sub_sectors', 'original_approve_cost', 'utilized_cost', 'dateplnstrt', 'dateplnend', 'dateactulstrt', 'planned_progress', 'physical_progress_against_total_release_date', 'overall_progress', 'physical_progress'];
     $('[data-toggle="modal"]').on('click', function(e) {
         // convert target (e.g. the button) to jquery object
         var $target = $(e.target);
