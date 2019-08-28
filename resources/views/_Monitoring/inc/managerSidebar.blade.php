@@ -60,7 +60,7 @@
                         </ul>
                     </li>
                 </ul>
-                <div class="pcoded-navigatio-lavel">Projects</div>
+                <div class="pcoded-navigatio-lavel">Chairman Projects</div>
                 <ul class="pcoded-item pcoded-left-item">
                     <li class="pcoded-hasmenu">
                         <a href="javascript:void(0)">
