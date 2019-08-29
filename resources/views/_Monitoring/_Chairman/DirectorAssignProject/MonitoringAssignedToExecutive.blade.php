@@ -118,9 +118,9 @@
                                             if($project->MChairmanProject->actual_start_date)
                                                 $Actual_Start_Date=$project->MChairmanProject->actual_start_date;
                                             $dateactulstrt = date("d-M-Y", strtotime($Actual_Start_Date));
-                                            $Planned_Progress = $project->MChairmanProject->physical_progress_planned;
+                                            $Planned_Progress = round($project->MChairmanProject->physical_progress_planned,2);
                                             $financial_progress = $project->MChairmanProject->financial_progress_against_pc1_cost;
-                                            $physical_progress_against_total_cost = $project->MChairmanProject->physical_progress_actual;
+                                            $physical_progress_against_total_cost = round($project->MChairmanProject->physical_progress_actual,2);
                                             $physical_progress_against_total_release_date = round(calculateMPhysicalProgress($project->Project->AssignedProject->MProjectProgress->last()->id),2);
                                             $Overall_Progress = $physical_progress_against_total_cost;
                                             $Physical_Progress = $physical_progress_against_total_release_date;
@@ -309,7 +309,7 @@
                                                 <div class="col-md-3 ln_ht12">
                                                     <p for="Location" class=" mb_1 "><span class="fontf_sh">Utilized Cost:</span>
 
-                                                        <small id="modal-utilized_cost">Million</small>
+                                                        <span id="modal-utilized_cost">Million</span>
                                                     </p>
                                                 </div>
                                                 <div class="col-md-3">
@@ -341,17 +341,17 @@
                                                     </p>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Financial Progress:</span>
+                                                    <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Financial Progress %:</span>
                                                         <span class="pdz_six" id="modal-financialprogress"></span>
                                                     </p>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Over-All Progress:</span>
+                                                    <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Over-All Progress %:</span>
                                                         <span class="pdz_six" id="modal-overall_progress"></span>
                                                     </p>
                                                 </div>
                                                 <div class="col-md-3 ln_ht12">
-                                                    <p for="" name="phy_progress" id="phy_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Physical Progress: </span>
+                                                    <p for="" name="phy_progress" id="phy_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Physical Progress %: </span>
                                                         <span class="pdz_six" id="modal-physical_progress"></span>
                                                         <br /><small>(against Total Releases To Date)</small>
                                                     </p>

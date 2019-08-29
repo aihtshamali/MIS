@@ -164,14 +164,14 @@ Monitoring |
                     </tr>
                     
                     <tr class="bglightgreen">
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
+                        <th class="lineheightzero"><small class="transparent">_</small></th>
+                        <th class="lineheightzero"><small class="transparent">_</small></th>
+                        <th class="lineheightzero"><small class="transparent">_</small></th>
+                        <th class="lineheightzero"><small class="transparent">_</small></th>
+                        <th class="lineheightzero"><small class="transparent">_</small></th>
+                        <th class="lineheightzero"><small class="transparent">_</small></th>
+                        <th class="lineheightzero"><small class="transparent">_</small></th>
+                        <th class="lineheightzero"><small class="transparent">_</small></th>
                         <th class="lineheightzero"><small class="lineheightone">[Col. H / F x 100]</small></th>
                         <th class="lineheightzero"><small class="lineheightone">Date</small></th>
                         <th class="lineheightzero"><small class="lineheightone">Date</small></th>
@@ -181,10 +181,12 @@ Monitoring |
                     </tr>
                 </thead>
                 <tbody>
-                        
+                    @php
+                        $i=1;
+                    @endphp
                     @foreach ($arr[$second_table]["projects"] as $item)
                     <tr>
-                        <td>1.</td>
+                        <td>{{$i++}}.</td>
                         <td>{{$item->gs_num}}</td>
                         <td>{{$item->project_name}}</td>
                         <td>@foreach ($item->AssignedSubSectors as $sub_sectors)

@@ -312,7 +312,7 @@
                                                 <div class="col-md-3 ln_ht12">
                                                     <p for="Location" class=" mb_1 "><span class="fontf_sh">Utilized Cost:</span>
 
-                                                        <small id="modal-utilized_cost">Million</small>
+                                                        <p id="modal-utilized_cost">Million</p>
                                                     </p>
                                                 </div>
                                                 <div class="col-md-3">
@@ -344,17 +344,17 @@
                                                     </p>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Financial Progress:</span>
+                                                    <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Financial Progress %:</span>
                                                         <span class="pdz_six" id="modal-financialprogress"></span>
                                                     </p>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Over-All Progress:</span>
+                                                    <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Over-All Progress %:</span>
                                                         <span class="pdz_six" id="modal-overall_progress"></span>
                                                     </p>
                                                 </div>
                                                 <div class="col-md-3 ln_ht12">
-                                                    <p for="" name="phy_progress" id="phy_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Physical Progress: </span>
+                                                    <p for="" name="phy_progress" id="phy_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Physical Progress %: </span>
                                                         <span class="pdz_six" id="modal-physical_progress"></span>
                                                         <br /><small>(against Total Releases To Date)</small>
                                                     </p>
@@ -371,7 +371,7 @@
                                                     <input type="hidden" id="input-financialprogress" name="financial_progress" value="">
                                                     <input type="hidden" id="input-overall_progress"  name="total_physical_progress" value="">
                                                     <input type="hidden" id="input-physical_progress" name="against_cost_physical_progress" value="">
-                                                    <input type="submit" class="btn btn-info btn-sm" value="Assign to Executive">
+                                                    <input type="submit" class="btn btn-default" style="margin-top: 14px;" value="Assign to Executive">
                                             </form>
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                         </div>

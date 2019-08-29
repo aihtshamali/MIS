@@ -5,7 +5,6 @@ Monitoring | Assigned To Chairman
 @section('styleTags')
 <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/responsive.bootstrap4.min.css')}}" />
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <style>
     .hovsky:hover {
         color: #19a7ba !important;
@@ -302,7 +301,7 @@ Monitoring | Assigned To Chairman
                                                 <div class="col-md-3 ln_ht12">
                                                     <p for="Location" class=" mb_1 "><span class="fontf_sh">Utilized Cost:</span>
 
-                                                        <small id="modal-utilized_cost">Million</small>
+                                                        <span id="modal-utilized_cost">Million</span>
                                                     </p>
                                                 </div>
                                                 <div class="col-md-3">
@@ -334,17 +333,17 @@ Monitoring | Assigned To Chairman
                                                     </p>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Financial Progress:</span>
+                                                    <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Financial Progress %:</span>
                                                         <span class="pdz_six" id="modal-financialprogress"></span>
                                                     </p>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Over-All Progress:</span>
+                                                    <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Over-All Progress %:</span>
                                                         <span class="pdz_six" id="modal-overall_progress"></span>
                                                     </p>
                                                 </div>
                                                 <div class="col-md-3 ln_ht12">
-                                                    <p for="" name="phy_progress" id="phy_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Physical Progress: </span>
+                                                    <p for="" name="phy_progress" id="phy_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Physical Progress %: </span>
                                                         <span class="pdz_six" id="modal-physical_progress"></span>
                                                         <br /><small>(against Total Releases To Date)</small>
                                                     </p>
