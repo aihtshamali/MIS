@@ -3,16 +3,27 @@
   {{-- <link rel="stylesheet" href="{{asset('css/AdminLTE/dataTables.bootstrap.min.css')}}"> --}}
   <style media="screen">
       
-      ul{
+          ul{
          padding-left: 0px !important;
+           margin-bottom: 0px !important;
       }
       ul>li{
         list-style-type: none;
-       
+      
       }
       .table.dataTable td, .table.dataTable th {
          text-align:LEFT !important;
     font-size: 14px !important;
+    }
+    hr{
+          margin-top: 8px !important;
+    margin-bottom: 2px !important ;
+    border-top: 1px solid #ccc !important;
+    }
+    .highlight_sector{
+       background:lightblue; 
+       padding : 5px;
+
     }
   </style>
 @endsection
@@ -141,7 +152,7 @@
                                       <tr>
   
                                         <td>{{$assigned->project->project_no}}</td>
-                                        <td> {{$assigned->project->financial_year}}/{{$assigned->project->ADP}}</td>
+                                        <td> {{$assigned->project->financial_year}} ({{$assigned->project->ADP}})</td>
                                         <td>{{$assigned->project->title}}</td>
                                         <td>
                                           <ul>
@@ -161,7 +172,7 @@
                                         </td>
                                         <td>{{$assigned->project->ProjectDetail->sne}}</td>
                                       <td>
-                                       <span style="background:lightblue; padding : 5px;">
+                                       <span class="highlight_sector">
                                             @foreach ($assigned->project->AssignedSubSectors as $item)
                                           {{$item->SubSector->sector->name}}
                                           @endforeach
@@ -218,8 +229,8 @@
 @endsection
 @section('scripttags')
 
-  <script type="text/javascript" src="{!! asset('js/AdminLTE/moment.js') !!}"></script>
-  <script type="text/javascript" src="{!! asset('js/AdminLTE/moment.min.js') !!}"></script>
+  {{-- <script type="text/javascript" src="{!! asset('js/AdminLTE/moment.js') !!}"></script> --}}
+  {{-- <script type="text/javascript" src="{!! asset('js/AdminLTE/moment.min.js') !!}"></script> --}}
   {{-- <script type="text/javascript" src="{!! asset('js/AdminLTE/daterangepicker.js') !!}"></script>   --}}
    
   <script type="text/javascript">

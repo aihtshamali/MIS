@@ -1,17 +1,23 @@
 @extends('layouts.uppernav')
 @section('styletag')
-  <style media="screen">
+  <style >
     
        ul{
          padding-left: 0px !important;
+           margin-bottom: 0px !important;
       }
       ul>li{
         list-style-type: none;
-       
+      
       }
       .table.dataTable td, .table.dataTable th {
          text-align:LEFT !important;
     font-size: 14px !important;
+    }
+    hr{
+          margin-top: 8px !important;
+    margin-bottom: 2px !important ;
+    border-top: 1px solid #ccc !important;
     }
   </style>
 @endsection
@@ -123,12 +129,12 @@
                 <table id="example1"  data-page-length="100" class="table table-bordered table-hover ">
                   <thead>
                     <tr>
-                      <th>Project #</th>
+                     <th>Project #</th>
                       <th>ADP #</th>
                       <th style="width:20% !important;">Project Name</th>
                       <th style="width:12% !important;">Team Members</th>
                       <th>SNE</th>
-                      <th >Departments</th>
+                      <th style="width:15% !important;">Departments</th>
                       <th>Priority</th>
                       <th>Score</th>
                       <th>Assigned Duration</th>
@@ -140,9 +146,13 @@
                                       <tr>
   
                                         <td>{{$assigned->project->project_no}}</td>
-                                        <td> {{$assigned->project->financial_year}}/{{$assigned->project->ADP}}</td>
-                                        <td>{{$assigned->project->title}}</td>
+                                        <td> {{$assigned->project->financial_year}} ({{$assigned->project->ADP}})</td>
                                         <td>
+                                          {{$assigned->project->title}} 
+                                          {{-- {{$assigned->stopped}} --}}
+                                        </td>
+                                        <td>
+                                          
                                           <ul>
                                             @foreach ($assigned->AssignedProjectTeam as $team)
                                             @if ($team->team_lead==1)
@@ -160,13 +170,13 @@
                                         </td>
                                         <td>{{$assigned->project->ProjectDetail->sne}}</td>
                                       <td>
-                                       <span style="background:lightblue; padding : 5px;">
+                                       <span style="background:lightblue; padding:3px; ">
                                             @foreach ($assigned->project->AssignedSubSectors as $item)
                                           {{$item->SubSector->sector->name}}
                                           @endforeach
                                        </span>
                                       <hr>
-                                      <ul>
+                                      <ul >
                                         @foreach ($assigned->project->AssignedSubSectors as $item)
                                             <li>{{$item->SubSector->name}}</li> 
                                         @endforeach
@@ -182,9 +192,7 @@
                                         <td>
                                           @php
                                             $interval = date_diff(date_create(date('Y-m-d h:i:s',strtotime($assigned->created_at))), date_create(date('Y-m-d h:i:s')))->format('%m Month %d Day %h Hours');
-                                            // $duration=$interval->format();
                                           @endphp
-                                          {{-- {{$assigned->created_at}} --}}
                                           {{$interval}}
                                           {{-- {{dd($interval)}} --}}
                                           {{-- {{$duration}} --}}
@@ -215,33 +223,15 @@
 
 @endsection
 @section('scripttags')
-  <script type="text/javascript" src="{!! asset('js/AdminLTE/moment.js') !!}"></script>
-  <script type="text/javascript" src="{!! asset('js/AdminLTE/moment.min.js') !!}"></script>
-  <script type="text/javascript" src="{!! asset('js/AdminLTE/daterangepicker.js') !!}"></script>
+  {{-- <script type="text/javascript" src="{!! asset('js/AdminLTE/moment.js') !!}"></script> --}}
+  {{-- <script type="text/javascript" src="{!! asset('js/AdminLTE/moment.min.js') !!}"></script> --}}
+  {{-- <script type="text/javascript" src="{!! asset('js/AdminLTE/daterangepicker.js') !!}"></script> --}}
   <script type="text/javascript">
 
   $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()
   });
-
-  // $('#daterange-btn').daterangepicker(
-  //   {
-  //     ranges   : {
-  //       'Today'       : [moment(), moment()],
-  //       'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-  //       'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-  //       'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-  //       'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-  //       'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-  //     },
-  //     startDate: moment().subtract(29, 'days'),
-  //     endDate  : moment()
-  //   },
-  //   function (start, end) {
-  //     $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-  //   }
-  // );
 
   </script>
 
