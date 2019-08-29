@@ -31,7 +31,7 @@ Monitoring | Assigned To Chairman
     <div class="col-md-12">
         <div class="card z-depth-5">
             <div class="card-header">
-                <h4><b>Inprogress Monitoring Projects</b></h4>
+                <h4><b>Assigned To Chairman (Monitoring Projects)</b></h4>
             </div>
             <div class="card-block">
                 <div class="card-block">
@@ -46,7 +46,7 @@ Monitoring | Assigned To Chairman
                                     <th>Planned End Date</th>
                                     <th>Physical Progress</th>
                                     <th>Financial Progress</th>
-                                    <th>Assign</th>
+                                    <th>Show</th>
 
                                 </tr>
                             </thead>
@@ -99,10 +99,10 @@ Monitoring | Assigned To Chairman
                                             $Sub_Sectors = '';
                                             foreach ($project->MChairmanPendingProject->MChairmanProject->AssignedSubSectors as $sub_sector)
                                             $Sub_Sectors=$Sub_Sectors.$sub_sector->SubSector->name;
-                                            $Original_Approve_Cost = $project->MChairmanPendingProject->MChairmanProject->final_pc1_approved_cost;
+                                            $Original_Approve_Cost = round($project->MChairmanPendingProject->MChairmanProject->final_pc1_approved_cost,2);
                                             $Utilized_Cost = 0;
                                             if($project->MChairmanPendingProject->MChairmanProject->final_utilized_cost)
-                                            $Utilized_Cost =round($project->MChairmanPendingProject->MChairmanProject->final_utilized_cost,3);
+                                            $Utilized_Cost =round($project->MChairmanPendingProject->MChairmanProject->final_utilized_cost,2);
                                             $Planned_Start_Date = $project->MChairmanPendingProject->MChairmanProject->planned_start_date;
                                             $dateplnstrt = date("d-M-Y", strtotime($Planned_Start_Date));
                                             $Planned_End_Date = $project->MChairmanPendingProject->MChairmanProject->planned_end_date;
@@ -111,9 +111,9 @@ Monitoring | Assigned To Chairman
                                             if($project->MChairmanPendingProject->MChairmanProject->actual_start_date)
                                                 $Actual_Start_Date=$project->MChairmanPendingProject->MChairmanProject->actual_start_date;
                                             $dateactulstrt = date("d-M-Y", strtotime($Actual_Start_Date));
-                                            $Planned_Progress = $project->MChairmanPendingProject->MChairmanProject->physical_progress_planned;
+                                            $Planned_Progress = round($project->MChairmanPendingProject->MChairmanProject->physical_progress_planned,2);
                                             $financial_progress = $project->MChairmanPendingProject->MChairmanProject->financial_progress_against_pc1_cost;
-                                            $physical_progress_against_total_cost = $project->MChairmanPendingProject->MChairmanProject->physical_progress_actual;
+                                            $physical_progress_against_total_cost = round($project->MChairmanPendingProject->MChairmanProject->physical_progress_actual,2);
                                             $physical_progress_against_total_release_date = round(calculateMPhysicalProgress($project->Project->AssignedProject->MProjectProgress->last()->id),2);
                                             $Overall_Progress = $physical_progress_against_total_cost;
                                             $Physical_Progress = $physical_progress_against_total_release_date; 
