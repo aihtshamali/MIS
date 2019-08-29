@@ -20,7 +20,7 @@ class SubSector extends Model
     return $this->hasMany('App\AssignedSubSector');
   }
   public function MChairmanProjectSubSector(){
-    return $this->hasOne('App\MChairmanProjectSubSector');
+    return $this->hasMany('App\MChairmanProjectSubSector');
   }
   // public function departments()
   // {
