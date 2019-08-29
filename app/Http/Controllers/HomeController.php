@@ -28,6 +28,11 @@ use App\MAssignedKpiLevel2Log;
 use App\MAssignedKpiLevel3Log;
 use App\MAssignedKpiLevel4Log;
 use DB;
+use Symfony\Component\HttpFoundation\Session\Session;
+use App\MAssignedChairmanProject;
+use App\MChairmanProjectSubSector;
+use App\Sector;
+
 class HomeController extends Controller
 {
     /**
@@ -614,5 +619,106 @@ class HomeController extends Controller
   public function summarytable()
   {
     return view( 'summarytable');
+    }
+  public function summarytableEvaluation()
+  {
+    // $sector = Session::get('sector');
+    return view('summarytableEvaluation');
+    }
+  public function summarytableMonitoring(Request $r)
+  {
+    $sectors = Sector::all();
+    if(Auth::user()->hasRole('chairman|manager'))
+    $sectors = Sector::all();
+    else if(Auth::user()->hasRole('member'))
+    {
+      $sec = collect();
+      $sectors = Auth::user()->UserSector;
+      foreach ($sectors as $userSector) {
+        $sec->push($userSector->Sector);
+      }
+      $sectors = $sec;
+      }
+    $arr = array();
+    $global_critical = 0;
+
+    $global_need_consideration = 0;
+    $global_within_limits = 0;
+    
+    foreach($sectors as $s){
+      $sub_sectors = $s->subsectors()->get();
+      $arr[$s->name]['sub_sectors'] = $sub_sectors->toArray();
+      $arr[$s->name]["projects"] = [];
+      $arr[$s->name]["divisions"] = [];
+      $j = 0;
+      $l = [];
+      $c = 0;
+      $d = [];
+      $critical = 0;
+      $need_consideration = 0;
+      $within_limits = 0;
+      foreach($sub_sectors as $ss){
+        $sub_s = $ss->toArray();
+        // $sub_s["projects"] = [];
+        // dd($arr);
+        //Fetching All Sub Sectors
+        $m_chairman_projects_s = $ss->MChairmanProjectSubSector;
+        // dd($m_chairman_projects_s);
+        //Fetching first Project
+        if(count($m_chairman_projects_s) > 0){
+          $p_id = $m_chairman_projects_s[0]->m_chairman_project_id;
+          $sector_id = $m_chairman_projects_s[0]->SubSector->Sector->id;
+          $i = 0;
+          foreach($m_chairman_projects_s as $m_chairman_project_sub_sectors){
+            if($i > 0 && $p_id == $m_chairman_project_sub_sectors->m_chairman_project_id){
+              if($m_chairman_project_sub_sectors->SubSector->Sector->id == $sector_id)
+                continue;
+            }
+            if($m_chairman_project_sub_sectors->sub_sector_id == $sub_s['id']){
+              // dd($m_chairman_project_sub_sectors->MChairmanProject->toArray());
+              $arr[$s->name]["sub_sectors"][$j]["SHOW"] = 1;
+              // array_push($l,$m_chairman_project_sub_sectors->MChairmanProject->toArray());
+
+              if(!array_key_exists($m_chairman_project_sub_sectors->MChairmanProject->id,$l)){
+                $c+= $m_chairman_project_sub_sectors->MChairmanProject->final_pc1_approved_cost;
+              }
+              $l[$m_chairman_project_sub_sectors->MChairmanProject->id] = $m_chairman_project_sub_sectors->MChairmanProject;
+              
+              $l[$m_chairman_project_sub_sectors->MChairmanProject->id]->critical = $l[$m_chairman_project_sub_sectors->MChairmanProject->id]->physical_progress_planned - $l[$m_chairman_project_sub_sectors->MChairmanProject->id]->physical_progress_actual > 20 ? 1 : 0;
+              $l[$m_chairman_project_sub_sectors->MChairmanProject->id]->need_consideration = $l[$m_chairman_project_sub_sectors->MChairmanProject->id]->physical_progress_planned - $l[$m_chairman_project_sub_sectors->MChairmanProject->id]->physical_progress_actual >= 10 && $l[$m_chairman_project_sub_sectors->MChairmanProject->id]->physical_progress_planned - $l[$m_chairman_project_sub_sectors->MChairmanProject->id]->physical_progress_actual <= 20 ? 1 : 0;
+              $l[$m_chairman_project_sub_sectors->MChairmanProject->id]->within_limits = $l[$m_chairman_project_sub_sectors->MChairmanProject->id]->physical_progress_planned - $l[$m_chairman_project_sub_sectors->MChairmanProject->id]->physical_progress_actual < 10 ? 1: 0;
+              
+              if (!array_key_exists($m_chairman_project_sub_sectors->MChairmanProject->id, $arr[$s->name]["projects"])) {
+                if($l[$m_chairman_project_sub_sectors->MChairmanProject->id]->critical == 1)
+                $critical++;
+                else if($l[$m_chairman_project_sub_sectors->MChairmanProject->id]->need_consideration == 1)
+                $need_consideration++;
+                else
+                $within_limits++;
+              }
+                
+              foreach($m_chairman_project_sub_sectors->MChairmanProject->AssignedDistricts as $assigned_districts){
+                $d[$assigned_districts->District->Division->name] = $assigned_districts->District->Division;
+              }
+            }
+            $i++;
+          }
+      }
+        $arr[$s->name]["projects"] = $l;
+        $arr[$s->name]["cost"] = $c;
+        $arr[$s->name]["divisions"] = $d;
+        $arr[$s->name]['critical'] = $critical;
+        $arr[$s->name]['need_consideration'] = $need_consideration;
+        $arr[$s->name]['within_limits'] = $within_limits;
+        $j++;
+        
+      }
+      $global_critical+= $arr[$s->name]['critical'];
+      $global_need_consideration+= $arr[$s->name]['need_consideration'];
+      $global_within_limits+= $arr[$s->name]['within_limits'];
+    }
+// dd($r->name);
+    $second_table = $r->name;
+    return view('summarytableMonitoring',compact('arr','global_critical','global_need_consideration','global_within_limits','second_table'));
     }
 }

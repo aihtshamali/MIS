@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
-
+use Session;
 class RedirectIfAuthenticated
 {
     /**
@@ -25,9 +25,14 @@ class RedirectIfAuthenticated
             elseif(Auth::user()->hasRole('officer')) {
               return redirect('/officer');
             }
+            else if(Auth::user()->hasRole('chairman')){
+              return redirect()->route('summarytableMonitoring');
+            }
+            else if(Auth::user()->hasRole('member')){
+              return redirect()->route('summarytableMonitoring');
+            }
             else {
               return redirect('/dashboard');
-              // code...
             }
         }
       }

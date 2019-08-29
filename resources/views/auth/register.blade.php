@@ -78,7 +78,7 @@
               <div class="col-md-6">
                 <div class="sectorSelect" data-validate="Select Sector" style="display:none">
                   <span style="color:red;">*</span><label> Select Sector :</label>
-                  <select class="form-control select2" name="sector_id" data-placeholder="Select Sector" >
+                  <select class="form-control select2" multiple="multiple" name="sector_id[]" data-placeholder="Select Sector" >
                     <option value="" ></option>
                     @foreach ($sectors as $sector)
                       <option value="{{$sector->id}}">{{$sector->name}}</option>
@@ -155,7 +155,7 @@
   <script type="text/javascript">
   $(document).ready(function() {
     $('.roleSelect').change(function(){
-      if($('.roleSelect option:selected').text()=='officer'){
+      if($('.roleSelect option:selected').text()=='officer' || $('.roleSelect option:selected').text()=='member'){
         $('.sectorSelect').show('top');
       }
       else{

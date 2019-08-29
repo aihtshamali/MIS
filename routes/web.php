@@ -39,6 +39,10 @@ Route::group(['middleware' => ['auth']],function(){
   // monitoring_dashboard
   Route::get('/monitoring_dashboard','HomeController@monitoringDashboard')->name('monitoring_dashboard');
   Route::get('/summarytable','HomeController@summarytable')->name('summarytable');
+  Route::middleware('role:manager|directorevaluation|directormonitoring|chairman|member') ->group(function () {
+    Route::get('/summarytableMonitoring','HomeController@summarytableMonitoring')->name('summarytableMonitoring');
+    Route::get('/summarytableEvaluation','HomeController@summarytableEvaluation')->name('summarytableEvaluation');
+  });
   Route::get('/PDWP','HomeController@PDWBforDC')->name('PDWP');
   Route::get( '/FinancialYear', 'HomeController@FinancialYearPDWP')->name( 'FinancialYear');
   // evaluation_dashboard
@@ -79,11 +83,13 @@ Route::group(['middleware' => ['role:admin']], function () {
 
 
 Route::prefix('manager')->middleware('role:manager|directorevaluation|directormonitoring')->group(function () {
-// PDWP MEETING MODULE
-Route::get('/conduct_pdwp_meeting','ExecutiveController@conduct_pdwp_meeting')->name('Conduct_PDWP_Meeting');
-Route::get('/list_agendas','ExecutiveController@list_agendas')->name('List_Agendas');
-Route::post('/agenda_comment_store','ExecutiveController@CommentAgenda')->name('store_agenda_comments');
-
+  // PDWP MEETING MODULE
+  Route::get('/conduct_pdwp_meeting','ExecutiveController@conduct_pdwp_meeting')->name('Conduct_PDWP_Meeting');
+  Route::get('/list_agendas','ExecutiveController@list_agendas')->name('List_Agendas');
+  Route::post('/agenda_comment_store','ExecutiveController@CommentAgenda')->name('store_agenda_comments');
+  // Projects for ChairmanDashboard
+  Route::post('chairmanProjects', 'ChairmanController@assignToExecutive')->name('CharimanProjectAssignToExecutive');
+  // Route::get('chairmanProjects','ChairmanController@assignToChairman')->name('CharimanProjectAssignToDC');
 });
 
 // For Manager & Director Charts
@@ -132,10 +138,13 @@ Route::prefix('manager')->middleware('role:manager|directorevaluation')->group(f
     Route::get('/m_unassignedprojects','ExecutiveController@monitoring_unassigned')->name('monitoring_unassigned');
     Route::get('/m_assigntoconsultant','ProjectAssignController@assignToConsultant')->name('assign_To_consultant');
     Route::get('/m_inprogressprojects','ExecutiveController@monitoring_inprogress')->name('monitoring_inprogress');
+    Route::get('/AssignedToExecutive', 'ChairmanController@AssignedToExecutive')->name('AssignedToExecutive');
     Route::get('/m_completedprojects','ExecutiveController@monitoring_completed')->name('monitoring_completed');
     // Route::get('/visitrequestSummary/{id}','ExecutiveController@visitRequestSummary')->name('visitrequestSummary');
     Route::post('/visitrequestDescision','SiteVisitController@visitRequestDescision')->name('visitrequestDescision');
-
+    // Chairman
+    Route::get('/AssignedToChairman', 'ChairmanController@AssignedToChairman')->name('AssignedToChairman');
+    Route::post('/AssignedToChairman', 'ChairmanController@assignToChairman')->name('assignToChairman');
   });
 
 
@@ -175,9 +184,12 @@ Route::prefix('manager')->middleware('role:manager|directorevaluation')->group(f
     Route::get('/monitoring_unassigned','DirectorMonitoringController@monitoring_unassignedprojects')->name('Monitoring_unassigned_projects');
     Route::get('/assignproject_M','ProjectAssignController@DPM_AssignToConsultant')->name('DPM_AssignToConsultant');
     Route::get('/monitoring_inprogress','DirectorMonitoringController@monitoring_inprogressprojects')->name('Monitoring_inprogress_projects');
+    Route::get('/MonitoringAssignToDC','ChairmanController@MonitoringAssignToDC')->name('MonitoringAssignToDC');
+    Route::get('/MonitoringAssignedToDC','ChairmanController@MonitoringAssignedToDC')->name('MonitoringAssignedToDC');
     Route::get('/monitoring_complete','DirectorMonitoringController@monitoring_completeprojects')->name('Monitoring_complete_projects');
     Route::get('/monitoring_assigntoconsultant','ProjectAssignController@DPM_AssignToConsultant')->name('Monitoring_assignToconsultant');
     Route::post('/monitoring_assigntoconsultant','ProjectAssignController@store_from_Mdirector')->name('store_from_Mdirector');
+    
 
 
 });
@@ -288,34 +300,34 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
 
 //For DataEntry
 Route::group(['middleware' => ['role:dataentry|officer|evaluator|monitor|manager|directormonitoring|directorevaluation|adminhr']],function () {
-Route::post('/getunassignedProjectCounter','ProjectCounterController@getUnassignedProjectCounter')->name('unassignedCounter');
-Route::post('/getinProgressProjectCounter','ProjectCounterController@getInProgressCounter')->name('inProgressCounter');
-Route::post('/getAssignedProjectCounter','ProjectCounterController@getAssignedProjectCounter')->name('assignedCounter');
-Route::post('/getCompletedCounter','ProjectCounterController@getCompletedCounter')->name('completedCounter');
-Route::post('/onsectorselect','DataEntryController@onSectorSelect')->name('sectorselect');
-Route::post('/onsubsectorselect','DataEntryController@onSub_SectorSelectdispatchLetterView');
-Route::post('/getMonitoringProjectNumber','DataEntryController@getMonitoringProjectData');
-Route::post('/onAssigningForumselect','DataEntryController@onAssigningForumselect');
-Route::post('/onchangefunction','DataEntryController@onSubSectorSelect');
-Route::post('/onnewprojectselect','DataEntryController@newproject');
-Route::resource('projects','ProjectController');
-Route::post('/financial_year','AdminHumanResourceController@financial_year')->name('fetch_financial_year');
-Route::post('/project_financial_year','ProjectController@financial_year')->name('fetch_project_financial_year');
-Route::get('/dispatchLetterViews','OfficerController@dispatchLetterView')->name('dispatchLetterViews');
+  Route::post('/getunassignedProjectCounter','ProjectCounterController@getUnassignedProjectCounter')->name('unassignedCounter');
+  Route::post('/getinProgressProjectCounter','ProjectCounterController@getInProgressCounter')->name('inProgressCounter');
+  Route::post('/getAssignedProjectCounter','ProjectCounterController@getAssignedProjectCounter')->name('assignedCounter');
+  Route::post('/getCompletedCounter','ProjectCounterController@getCompletedCounter')->name('completedCounter');
+  Route::post('/onsectorselect','DataEntryController@onSectorSelect')->name('sectorselect');
+  Route::post('/onsubsectorselect','DataEntryController@onSub_SectorSelectdispatchLetterView');
+  Route::post('/getMonitoringProjectNumber','DataEntryController@getMonitoringProjectData');
+  Route::post('/onAssigningForumselect','DataEntryController@onAssigningForumselect');
+  Route::post('/onchangefunction','DataEntryController@onSubSectorSelect');
+  Route::post('/onnewprojectselect','DataEntryController@newproject');
+  Route::resource('projects','ProjectController');
+  Route::post('/financial_year','AdminHumanResourceController@financial_year')->name('fetch_financial_year');
+  Route::post('/project_financial_year','ProjectController@financial_year')->name('fetch_project_financial_year');
+  Route::get('/dispatchLetterViews','OfficerController@dispatchLetterView')->name('dispatchLetterViews');
 
 
-  //Summary Tab
-Route::get('/generate_monitoring_report','OfficerController@generate_monitoring_report')->name('generate_monitoring_report');
-Route::post('/save_report_data','OfficerController@save_report_data');
+    //Summary Tab
+  Route::get('/generate_monitoring_report','OfficerController@generate_monitoring_report')->name('generate_monitoring_report');
+  Route::post('/save_report_data','OfficerController@save_report_data');
 
-// CM DASHBOARD
-Route::get('/minitoringDashboard', 'OfficerController@DetailedDashboard')->name('monitoringDashboard');
-Route::get('/Summary', function () {
-  return view('_Monitoring.monitoringDashboard.pages.Summary');
-})->name('Summary');
-Route::get('/projctlist', function () {
-  return view('_Monitoring.monitoringDashboard.pages.projctlist');
-})->name('projctlist');
+  // CM DASHBOARD
+  Route::get('/minitoringDashboard', 'OfficerController@DetailedDashboard')->name('monitoringDashboard');
+  Route::get('/Summary', function () {
+    return view('_Monitoring.monitoringDashboard.pages.Summary');
+  })->name('Summary');
+  Route::get('/projctlist', function () {
+    return view('_Monitoring.monitoringDashboard.pages.projctlist');
+  })->name('projctlist');
 
 });
 
