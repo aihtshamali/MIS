@@ -63,6 +63,7 @@ class LoginController extends Controller
       else if(Auth::user()->hasRole('member')){
           return redirect()->route('summarytableMonitoring');
       }
+      
     }
     protected function sendFailedLoginResponse(Request $request){
       $errors = [$this->username() => trans('auth.failed')];
