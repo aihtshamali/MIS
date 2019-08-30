@@ -49,7 +49,11 @@ Monitoring |
                 </thead>
                 <tbody>
                     @php
-                     $i = 1;   
+                     $i = 1; $reports = 0;
+                     $critical=0;
+                     $need_consideration=0;
+                     $within_limit = 0; 
+                     $cost = 0; 
                     @endphp
                     @foreach ($arr as $key => $item)
                         <tr>
@@ -62,59 +66,40 @@ Monitoring |
                         @endif
                         @endforeach
                         </td>
+                        @php
+                        $reports+=count($item['projects']);
+                        @endphp
                     <td>{{count($item['projects'])}}</td>
+                        @php 
+                            $cost = $cost+$item['cost'];
+                        @endphp
                         <td>{{$item['cost']}}</td>
-                        <td>@foreach ($item['divisions'] as $key3 => $item)
+                        <td>
+                        @foreach ($item['divisions'] as $key3 => $item)
                             {{$key3}},
-                        @endforeach</td>
+                        @endforeach
+                        </td>
+                        @php
+                            $critical = $critical + $arr[$key]['critical'];
+                            $need_consideration = $need_consideration + $arr[$key]['need_consideration'];
+                            $within_limit = $within_limit + $arr[$key]['within_limits'];
+                        @endphp
                         <td>{{$arr[$key]['critical']}}</td>
                         <td>{{$arr[$key]['need_consideration']}}</td>
                         <td>{{$arr[$key]['within_limits']}}</td>
                     </tr>
                     @endforeach
-                    {{-- <tr>
-                        <td>1.</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>$320,800</td>
-                        <td>$320,800</td>
-                        <td>$320,800</td>
-                        <td>$320,800</td>
-                    </tr>
-                    <tr>
-                        <td>2.</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>$320,800</td>
-                        <td>$320,800</td>
-                        <td>$320,800</td>
-                        <td>$320,800</td>
-                    </tr>
-                    <tr>
-                        <td>3.</td>
-                        <td>pdkefj9rn plcmwof</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>$320,800</td>
-                        <td>$320,800</td>
-                        <td>$320,800</td>
-                        <td>$320,800</td>
-                    </tr> --}}
+
                 </tbody>
                 <tfoot>
                     <tr>
                         <td colspan="3"><b>Total</b></td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td>{{$reports}}</td>
+                        <td>{{$cost}}</td>
                         <td></td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td>{{$critical}}</td>
+                        <td>{{$need_consideration}}</td>
+                        <td>{{$within_limit}}</td>
                     </tr>
                 </tfoot>
             </table>
@@ -179,14 +164,14 @@ Monitoring |
                     </tr>
                     
                     <tr class="bglightgreen">
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
+                        <th class="lineheightzero"><small class="transparent">_</small></th>
+                        <th class="lineheightzero"><small class="transparent">_</small></th>
+                        <th class="lineheightzero"><small class="transparent">_</small></th>
+                        <th class="lineheightzero"><small class="transparent">_</small></th>
+                        <th class="lineheightzero"><small class="transparent">_</small></th>
+                        <th class="lineheightzero"><small class="transparent">_</small></th>
+                        <th class="lineheightzero"><small class="transparent">_</small></th>
+                        <th class="lineheightzero"><small class="transparent">_</small></th>
                         <th class="lineheightzero"><small class="lineheightone">[Col. H / F x 100]</small></th>
                         <th class="lineheightzero"><small class="lineheightone">Date</small></th>
                         <th class="lineheightzero"><small class="lineheightone">Date</small></th>
@@ -196,10 +181,12 @@ Monitoring |
                     </tr>
                 </thead>
                 <tbody>
-                        
+                    @php
+                        $i=1;
+                    @endphp
                     @foreach ($arr[$second_table]["projects"] as $item)
                     <tr>
-                        <td>1.</td>
+                        <td>{{$i++}}.</td>
                         <td>{{$item->gs_num}}</td>
                         <td>{{$item->project_name}}</td>
                         <td>@foreach ($item->AssignedSubSectors as $sub_sectors)

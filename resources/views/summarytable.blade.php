@@ -38,6 +38,7 @@
             transition: all 600ms ease;
             -webkit-transition: all 600ms ease;
         }
+        .transparent{color:transparent !important;}
     </style>
     <style>
         .themecolor {
@@ -191,18 +192,35 @@
                 margin: auto;
             }
 
-            table.dataTable thead .sorting:before,
-            table.dataTable thead .sorting:after,
-            table.dataTable thead .sorting_asc:before,
-            table.dataTable thead .sorting_asc:after,
-            table.dataTable thead .sorting_desc:before,
-            table.dataTable thead .sorting_desc:after,
-            table.dataTable thead .sorting_asc_disabled:before,
-            table.dataTable thead .sorting_asc_disabled:after,
-            table.dataTable thead .sorting_desc_disabled:before,
-            table.dataTable thead .sorting_desc_disabled:after {
-                bottom: 0 !important;
-                right: 0 !important;
+            #example_1.dataTable thead .sorting:before,
+            #example_1.dataTable thead .sorting:after,
+            #example_1.dataTable thead .sorting_asc:before,
+            #example_1.dataTable thead .sorting_asc:after,
+            #example_1.dataTable thead .sorting_desc:before,
+            #example_1.dataTable thead .sorting_desc:after,
+            #example_1.dataTable thead .sorting_asc_disabled:before,
+            #example_1.dataTable thead .sorting_asc_disabled:after,
+            #example_1.dataTable thead .sorting_desc_disabled:before,
+            #example_1.dataTable thead .sorting_desc_disabled:after {
+                    bottom: 12px !important;
+                    right: 0px !important;
+                    font-size: 17px;
+                    font-weight: 900;
+            }
+            #example.dataTable thead .sorting:before,
+            #example.dataTable thead .sorting:after,
+            #example.dataTable thead .sorting_asc:before,
+            #example.dataTable thead .sorting_asc:after,
+            #example.dataTable thead .sorting_desc:before,
+            #example.dataTable thead .sorting_desc:after,
+            #example.dataTable thead .sorting_asc_disabled:before,
+            #example.dataTable thead .sorting_asc_disabled:after,
+            #example.dataTable thead .sorting_desc_disabled:before,
+            #example.dataTable thead .sorting_desc_disabled:after {
+                    bottom: 0px !important;
+                    right: 0px !important;
+                    font-size: 17px;
+                    font-weight: 900;
             }
         }
     </style>
@@ -352,12 +370,12 @@
                                 <ul class="pcoded-submenu dashboard">
                                     <li class="">
                                         <a href="{{route('summarytableMonitoring')}}">
-                                            <span class="pcoded-mtext">Monitoring Summary View</span>
+                                            <span class="">Monitoring Summary View</span>
                                         </a>
                                     </li>
                                     <li class="">
                                         <a href="{{route('summarytableEvaluation')}}">
-                                            <span class="pcoded-mtext">Evaluation Summary View</span>
+                                            <span class="">Evaluation Summary View</span>
                                         </a>
                                     </li>
                                 </ul>
