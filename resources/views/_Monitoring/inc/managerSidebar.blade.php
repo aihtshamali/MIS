@@ -82,6 +82,16 @@
                         </ul>
                     </li>
                 </ul>
+                <div class="pcoded-navigatio-lavel">Chairman Summary</div>
+                <ul class="pcoded-item pcoded-left-item">
+                    <li class="">
+                        <a href="{{route('summarytable')}}">
+
+                            <span class="pcoded-micon"><i class="zmdi zmdi-car"></i></span>
+                            <span class="pcoded-mtext">Chairman Summary</span>
+                        </a>
+                    </li>
+                </ul>
                 <!-- <div class="pcoded-navigatio-lavel">HR(Human Resource)</div>
                     <ul class="pcoded-item">
                         <li class="">

@@ -6,7 +6,6 @@ Monitoring | Assigned To Executive
 <link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/css/dataTables.bootstrap4.min.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/pages/data-table/css/buttons.dataTables.min.css')}}" />
 <link rel="stylesheet" href="{{ asset('_monitoring/css/css/responsive.bootstrap4.min.css')}}" />
-<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"> -->
 @endsection
 @section('content')
 <style>
@@ -86,11 +85,11 @@ Monitoring | Assigned To Executive
                             if($project->MChairmanProject->actual_start_date)
                                 $Actual_Start_Date=$project->MChairmanProject->actual_start_date;
                             $dateactulstrt = date("d-M-Y", strtotime($Actual_Start_Date));
-                            $Planned_Progress = $project->MChairmanProject->physical_progress_planned;
+                            $Planned_Progress = round($project->MChairmanProject->physical_progress_planned,2);
                             $financial_progress = $project->MChairmanProject->financial_progress_against_pc1_cost;
                             $physical_progress_against_total_cost = $project->MChairmanProject->physical_progress_actual;
                             $physical_progress_against_total_release_date = round(calculateMPhysicalProgress($project->Project->AssignedProject->MProjectProgress->last()->id),2);
-                            $Overall_Progress = $physical_progress_against_total_cost;
+                            $Overall_Progress = round($physical_progress_against_total_cost,2);
                             $Physical_Progress = $physical_progress_against_total_release_date;
                         @endphp
                       <!-- <center><i class="fas fa-address-card"></i></center> -->
@@ -276,7 +275,7 @@ Monitoring | Assigned To Executive
                         <div class="col-md-3 ln_ht12">
                           <p for="Location" class=" mb_1 "><span class="fontf_sh">Utilized Cost:</span>
 
-                            <small id="modal-utilized_cost">Million</small>
+                            <span id="modal-utilized_cost">0 Million</span>
                           </p>
                         </div>
                         <div class="col-md-3">
@@ -308,17 +307,17 @@ Monitoring | Assigned To Executive
                           </p>
                         </div>
                         <div class="col-md-3">
-                          <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Financial Progress:</span>
+                          <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Financial Progress %:</span>
                             <span class="pdz_six" id="modal-financialprogress"></span>
                           </p>
                         </div>
                         <div class="col-md-3">
-                          <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Over-All Progress:</span>
+                          <p for="" name="f_progress" id="f_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Over-All Progress %:</span>
                             <span class="pdz_six" id="modal-overall_progress"></span>
                           </p>
                         </div>
                         <div class="col-md-3 ln_ht12">
-                          <p for="" name="phy_progress" id="phy_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Physical Progress: </span>
+                          <p for="" name="phy_progress" id="phy_progress" class="primarybold mb_1"><span class="float-left fontf_sh">Physical Progress %: </span>
                             <span class="pdz_six" id="modal-physical_progress"></span>
                             <br /><small>(against Total Releases To Date)</small>
                           </p>
