@@ -624,13 +624,13 @@ class HomeController extends Controller
   {
     // $sector = Session::get('sector');
     return view('summarytableEvaluation');
-    }
+  }
   public function summarytableMonitoring(Request $r)
   {
-    $sectors = Sector::all();
     if(Auth::user()->hasRole('chairman|manager'))
-    $sectors = Sector::all();
-    else if(Auth::user()->hasRole('member'))
+      $sectors = Sector::where('status',1)->get();
+    
+    else if(Auth::user()->hasRole('member|chief'))
     {
       $sec = collect();
       $sectors = Auth::user()->UserSector;
@@ -638,7 +638,7 @@ class HomeController extends Controller
         $sec->push($userSector->Sector);
       }
       $sectors = $sec;
-      }
+    }    
     $arr = array();
     $global_critical = 0;
 
@@ -646,7 +646,16 @@ class HomeController extends Controller
     $global_within_limits = 0;
     
     foreach($sectors as $s){
-      $sub_sectors = $s->subsectors()->get();
+      if(Auth::user()->hasRole('chief'))
+      {
+        $sec = collect();
+        $subsectors = Auth::user()->UserSector;
+        foreach ($subsectors as $userSector) {
+          $sec->push($userSector->SubSector);
+        }
+        $sub_sectors = $sec;
+      }else
+        $sub_sectors = $s->subsectors()->get();
       $arr[$s->name]['sub_sectors'] = $sub_sectors->toArray();
       $arr[$s->name]["projects"] = [];
       $arr[$s->name]["divisions"] = [];

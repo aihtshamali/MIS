@@ -22,6 +22,10 @@ class CreateUserSectorsTable extends Migration
             $table->integer('sector_id')->unsigned()->index()->nullable();
             $table->foreign('sector_id')->references('id')->on('sectors')->onDelete('no action');
 
+            $table->integer('sub_sector_id')->unsigned()->index()->nullable();
+            $table->foreign('sub_sector_id')->references('id')->on('sub_sectors')->onDelete('no action');
+
+
             $table->integer('user_id')->unsigned()->index()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('no action');
             
