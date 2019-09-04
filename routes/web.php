@@ -39,7 +39,7 @@ Route::group(['middleware' => ['auth']],function(){
   // monitoring_dashboard
   Route::get('/monitoring_dashboard','HomeController@monitoringDashboard')->name('monitoring_dashboard');
   Route::get('/summarytable','HomeController@summarytable')->name('summarytable');
-  Route::middleware('role:manager|directorevaluation|directormonitoring|chairman|member') ->group(function () {
+  Route::middleware('role:manager|directorevaluation|directormonitoring|chairman|member|chief') ->group(function () {
     Route::get('/summarytableMonitoring','HomeController@summarytableMonitoring')->name('summarytableMonitoring');
     Route::get('/summarytableEvaluation','HomeController@summarytableEvaluation')->name('summarytableEvaluation');
   });
@@ -299,7 +299,7 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
 
 
 //For DataEntry
-Route::group(['middleware' => ['role:dataentry|officer|evaluator|monitor|manager|directormonitoring|directorevaluation|adminhr']],function () {
+Route::group(['middleware' => ['role:admin|dataentry|officer|evaluator|monitor|manager|directormonitoring|directorevaluation|adminhr']],function () {
   Route::post('/getunassignedProjectCounter','ProjectCounterController@getUnassignedProjectCounter')->name('unassignedCounter');
   Route::post('/getinProgressProjectCounter','ProjectCounterController@getInProgressCounter')->name('inProgressCounter');
   Route::post('/getAssignedProjectCounter','ProjectCounterController@getAssignedProjectCounter')->name('assignedCounter');

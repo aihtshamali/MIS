@@ -63,6 +63,9 @@ class LoginController extends Controller
       else if(Auth::user()->hasRole('member')){
           return redirect()->route('summarytableMonitoring');
       }
+      else if(Auth::user()->hasRole('chief')){
+          return redirect()->route('summarytableMonitoring');
+      }
       
     }
     protected function sendFailedLoginResponse(Request $request){

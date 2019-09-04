@@ -12,4 +12,7 @@ class UserSector extends Model
     public function Sector(){
         return $this->belongsTo('App\Sector');
     }
+    public function SubSector(){
+        return $this->belongsTo('App\SubSector');
+    }
 }
