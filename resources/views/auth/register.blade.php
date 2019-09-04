@@ -78,12 +78,14 @@
               <div class="col-md-6">
                 <div class="sectorSelect" data-validate="Select Sector" style="display:none">
                   <span style="color:red;">*</span><label> Select Sector :</label>
-                  <select class="form-control select2" name="sector_id" data-placeholder="Select Sector" >
-                    <option value="" ></option>
+                  <select id="sectors" name="sectors[]" class="form-control select2" multiple="multiple" data-placeholder="Sectors" required style="width: 100%;">
                     @foreach ($sectors as $sector)
-                      <option value="{{$sector->id}}">{{$sector->name}}</option>
+                      @if($sector->status == 1)
+                        <option value="{{$sector->id}}">{{$sector->name}}</option>
+                      @endif
                     @endforeach
                   </select>
+                     
                 </div>
 
               </div>
@@ -154,15 +156,48 @@
 @section('scripttags')
   <script type="text/javascript">
   $(document).ready(function() {
+      $('.select2').select2();
+    var subsector_div = `<select id="sub_sectors"  name="sub_sectors[]" class="subsector_select2" required multiple="multiple" data-placeholder="Sub Sectors"  style="width: 100%; display:none">
+                    <option value="" selected>Select Sub Sectors</option>
+                  </select>`;
     $('.roleSelect').change(function(){
-      if($('.roleSelect option:selected').text()=='officer'){
+      if($('.roleSelect option:selected').text()=='chief' || $('.roleSelect option:selected').text()=='officer' || $('.roleSelect option:selected').text()=='member'){
+        if($('.roleSelect option:selected').text()=='chief'){
+          $('.sectorSelect').append(subsector_div);
+          $('.subsector_select2').select2();
+          $('#sub_sectors').show('bottom')
+        }
         $('.sectorSelect').show('top');
       }
       else{
+          $('#sub_sectors').next().remove('bottom')
+          $('#sub_sectors').remove('bottom')
         $('.sectorSelect').hide('left');
 
       }
     });
+   $(document).on('change', '#sectors', function() {
+  var opt = $(this).val()
+  // console.log(opt);
+  $.ajax({
+    method: 'POST', // Type of response and matches what we said in the route
+    url: '{{route("sectorselect")}}', // This is the url we gave in the route
+    data: {
+      "_token": "{{ csrf_token() }}",
+      'data' : opt}, // a JSON object to send back
+    success: function(response){ // What to do if we succeed
+      console.log(response);
+      $("#sub_sectors").empty();
+      $.each(response, function () {
+          $('#sub_sectors').append("<option value=\""+this.id+"\">"+this.name+"</option>");
+      });
+    },
+    error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+        console.log(JSON.stringify(jqXHR));
+        console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+    }
+});
+});
   });
   </script>
 @endsection
