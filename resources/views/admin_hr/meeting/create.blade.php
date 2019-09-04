@@ -373,7 +373,7 @@
   var temp;
   var current;
   $(document).ready(function(){
-    $("#financial_year").val('2018-19');
+    $("#financial_year").val('2019-20');
   });
 $(document).on('click','.add-more',function(e){
 
@@ -434,7 +434,7 @@ $(document).on('click','.add-more',function(e){
             $('#main').children().last().remove()
           }
           var item = $(section1).attr('id','first_section'+next)
-          item.find("#financial_year").val('2018-19');
+          item.find("#financial_year").val('2019-20');
           $('#main').append(item).children().last().show('slow');
           temp = $('#agenda_type').val()
         }
@@ -446,7 +446,7 @@ $(document).on('click','.add-more',function(e){
             $('#main').children().last().remove()
           }
           var item = $(section2).attr('id','second_section'+next)
-          item.find("#financial_year").val('2018-19');
+          item.find("#financial_year").val('2019-20');
           $('#main').append(item).children().last().show('slow');
           temp = $('#agenda_type').val()
         }

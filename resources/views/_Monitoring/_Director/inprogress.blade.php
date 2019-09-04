@@ -32,7 +32,15 @@
           right: 0;
           top: 0;
         }
+.table.dataTable td, .table.dataTable th {
+         text-align:LEFT !important;
+    font-size: 12px !important;
+          }
+           .highlight_sector{
+       background:lightblue; 
+       padding : 3px;
 
+    }
       </style>
 @section('content')
 <div class="row">
@@ -42,13 +50,15 @@
         <div class="card-block">
                 <div class="card-block">
                         <div class="dt-responsive table-responsive">
-                                <table id="simpletable"
-                                class="table table-bordered table-stripped nowrap">
+                                 <table id="example1" data-page-length="100" 
+                                class="table table-bordered nowrap">
                             <thead>
                             <tr>
                                 <th>Project #</th>
                                 <th>Project Name</th>
                                 <th>Assigned To</th>
+                                <th>Departments</th>
+                                <th>Cost</th>
                                  <th>Project Score</th>
                                <th>Assigning Forum</th>
                                 <th>Project Type</th>
@@ -60,8 +70,8 @@
                                 @foreach($projects as $project)
                                 <tr>
                                     <td>{{$project->Project->project_no}}</td>
-                                    <td>{{$project->Project->title}}</td>
-                                    <td>
+                                    <td style="width:25% !important ;">{{$project->Project->title}}</td>
+                                    <td  style="width:17% !important ;">
                                         @foreach ($project->AssignedProjectTeam as $team)
                                         @if ($team->team_lead==1)
                                             <span style="font-weight:bold;color:blue">{{$team->User->first_name}}  {{$team->User->last_name}} -</span>
@@ -69,6 +79,22 @@
                                             <span class="">{{$team->User->first_name}} {{$team->User->last_name}}</span>
                                         @endif
                                         @endforeach
+                                    </td>
+                                    <td>
+                                      <span class="highlight_sector">
+                                            @foreach ($project->Project->AssignedSubSectors as $item)
+                                          <b>{{$item->SubSector->sector->name}}</b>
+                                          @endforeach
+                                       </span>
+                                      <hr>
+                                      <ul>
+                                        @foreach ($project->Project->AssignedSubSectors as $item)
+                                            <li>{{$item->SubSector->name}}</li> 
+                                        @endforeach
+                                      </ul>
+                                    </td>
+                                    <td>
+                                      {{round($project->Project->ProjectDetail->orignal_cost,3,PHP_ROUND_HALF_UP) }} Millions
                                     </td>
                                     <td>{{round($project->Project->score,3,PHP_ROUND_HALF_UP) }}</td>
                                     <td>{{ $project->Project->ProjectDetail->AssigningForum->name }}</td>
@@ -95,6 +121,18 @@
 <script src="{{asset('_monitoring/js/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js')}}"></script>
-
+<script src="{{asset('_monitoring/js/datatables.net/js/jszip.min.js')}}"></script>
+<script src="{{asset('_monitoring/js/datatables.net/js/pdfmake.min.js')}}"></script>
 <script src="{{asset('_monitoring/css/pages/data-table/js/data-table-custom.js')}}"></script>
+
+<script>
+ $('#example1').DataTable( {
+       dom: 'Bfrtip',
+        buttons: [
+           'pageLength', 'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+        
+    } );
+</script>
+
 @endsection
