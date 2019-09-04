@@ -55,6 +55,19 @@ class LoginController extends Controller
         return 'username';
     }
 
+    protected function authenticated(Request $request, $user)
+    {
+      if(Auth::user()->hasRole('chairman')){
+          return redirect()->route('summarytableMonitoring');
+      }
+      else if(Auth::user()->hasRole('member')){
+          return redirect()->route('summarytableMonitoring');
+      }
+      else if(Auth::user()->hasRole('chief')){
+          return redirect()->route('summarytableMonitoring');
+      }
+      
+    }
     protected function sendFailedLoginResponse(Request $request){
       $errors = [$this->username() => trans('auth.failed')];
 

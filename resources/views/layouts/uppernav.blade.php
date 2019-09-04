@@ -26,9 +26,9 @@
     <link rel="stylesheet" href="{{asset('css/AdminLTE/select2.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/AdminLTE/all.css')}}">
     {{-- <link rel="stylesheet" href="{{asset('datatableevaluation/dataTables.bootstrap.min.css')}}"> --}}
-    <link rel="stylesheet" href=" https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css">
-   
+    <link rel="stylesheet" href=" {{asset('datatableevaluation/jquery.dataTables.min.css')}}">
+    <link rel="stylesheet" href="{{asset('datatableevaluation/buttons.dataTables.min.css')}}">
+
 
 
     @yield('styletag')
@@ -46,7 +46,10 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     @yield('styletags')
     <style>
-        .initial{background:#fff !important;}
+        .initial {
+            background: #fff !important;
+        }
+
         .inner a,
         .small-box a,
         .small-box-footer {
@@ -84,7 +87,8 @@
         }
 
         .nav-pills>li {
-            background: transparent !important;;
+            background: transparent !important;
+            ;
         }
     </style>
 </head>
@@ -232,15 +236,13 @@
 <script src="{{asset('js/AdminLTE/jquery.inputmask.extensions.js')}}"></script>
 <script src="{{asset('datatableevaluation/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('datatableevaluation/dataTables.bootstrap.min.js')}}"></script>
-{{-- https://code.jquery.com/jquery-3.3.1.js
-https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js --}}
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js" ></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js" ></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js" ></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js" ></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js" ></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js" ></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js" ></script>
+<script src="{{asset('datatableevaluation/dataTables.buttons.min.js')}}"></script>
+<script src="{{asset('datatableevaluation/buttons.flash.min.js')}}"></script>
+<script src="{{asset('datatableevaluation/jszip.min.js')}}"></script>
+<script src="{{asset('datatableevaluation/pdfmake.min.js')}}"></script>
+<script src="{{asset('datatableevaluation/vfs_fonts.js')}}"></script>
+<script src="{{asset('datatableevaluation/buttons.html5.min.js')}}"></script>
+<script src="{{asset('datatableevaluation/buttons.print.min.js')}}"></script>
 
 
 
@@ -253,9 +255,8 @@ https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js --}}
 
     (function() {
         axios.post('{{route("unassignedCounter")}}', {
-                user: "{{Auth::user()}}"
-            })
-            .then((response) => {
+                user: " {{Auth::user()}}"
+            }).then((response) => {
                 $('.' + response.data.role + '_unassigned_counter').text(response.data.unassigned);
             })
             .catch(function(error) {
@@ -339,46 +340,46 @@ https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js --}}
     //                     console.log(error);
     //                 });
     //         }
-            // ,
-            // listen() {
-            //   Echo.private('projectAssigned.'+this.user_id)
-            //       .listen('ProjectAssignedEvent', (notification) => {
-            //         this.notifications.unshift(notification);
-            //       });
-            //       Echo.private('projectAssignedManager.'+this.user_id)
-            //           .listen('ProjectAssignedManagerEvent', (notification) => {
-            //             this.notifications.unshift(notification);
-            //             // console.log(notification);
-            //           });
-            //       // Echo.private('chats.'+this.user_id)
-            //     .listen('ChatEvent', (message) => {
-            //       this.messages.unshift(message);
-            //       console.log(message);
-            //       console.log('message');
-            //     })
+    // ,
+    // listen() {
+    //   Echo.private('projectAssigned.'+this.user_id)
+    //       .listen('ProjectAssignedEvent', (notification) => {
+    //         this.notifications.unshift(notification);
+    //       });
+    //       Echo.private('projectAssignedManager.'+this.user_id)
+    //           .listen('ProjectAssignedManagerEvent', (notification) => {
+    //             this.notifications.unshift(notification);
+    //             // console.log(notification);
+    //           });
+    //       // Echo.private('chats.'+this.user_id)
+    //     .listen('ChatEvent', (message) => {
+    //       this.messages.unshift(message);
+    //       console.log(message);
+    //       console.log('message');
+    //     })
 
-            // }
-    //     }
+    // }
+    // }
     // })
 </script>
 
-<script> 
-   $(document).ready(function() {
-    $('#example1').DataTable( {
-       dom: 'Bfrtip',
-        buttons: [
-           'pageLength', 'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
-        
-    } );
-     $('#example2').DataTable( {
-       dom: 'Bfrtip',
-        buttons: [
-           'pageLength', 'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
-        
-    } );
-} );
+<script>
+    $(document).ready(function() {
+        $('#example1').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'pageLength', 'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+
+        });
+        $('#example2').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'pageLength', 'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+
+        });
+    });
 </script>
 
-</html> 
+</html>
