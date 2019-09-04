@@ -121,6 +121,9 @@ class MProjectProgress extends Model
     public function MProgressObservation(){
       return $this->hasOne('App\MProgressObservation');
     }
+    public function MChairmanPendingProject(){
+      return $this->hasMany('App\MChairmanPendingProject');
+    }
 
 
 

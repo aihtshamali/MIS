@@ -10,6 +10,9 @@ class District extends Model
     public function Project(){
         return $this->hasMany('App\Project');
     }
+    public function Division(){
+        return $this->belongsTo('App\Division');
+    }
     public function ProjectDetail(){
         return $this->hasMany('App\ProjectDetail');
     }
@@ -21,6 +24,8 @@ class District extends Model
     }
     public function MAssignedUserLocation(){
         return $this->hasMany('App\MAssignedUserLocation');
-
+    }
+    public function MChairmanProjectDistrict(){
+        return $this->hasOne('App\MChairmanProjectDistrict');
     }
 }

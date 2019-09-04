@@ -1032,7 +1032,7 @@ class ExecutiveController extends Controller
             $SneCompletedprojects[0]++;
           }
           else{
-             if($project->AssignedProject->stopped == 0)
+             if(isset($project->AssignedProject) && $project->AssignedProject->stopped == 0)
             {$SneInprogressprojects[0]++;}
           }
         }
@@ -1043,7 +1043,7 @@ class ExecutiveController extends Controller
             $SneCompletedprojects[1]++;
           }
           else{
-            if($project->AssignedProject->stopped == 0)
+             if(isset($project->AssignedProject) && $project->AssignedProject->stopped == 0)
               {$SneInprogressprojects[1]++;
           }
         }
@@ -1055,7 +1055,7 @@ class ExecutiveController extends Controller
             $SneCompletedprojects[2]++;
           }
           else{
-             if($project->AssignedProject->stopped == 0)
+             if(isset($project->AssignedProject) && $project->AssignedProject->stopped == 0)
               {
                 $SneInprogressprojects[2]++;
 
@@ -1069,7 +1069,7 @@ class ExecutiveController extends Controller
             $SneCompletedprojects[3]++;
           }
           else{
-             if($project->AssignedProject->stopped == 0)
+             if(isset($project->AssignedProject) && $project->AssignedProject->stopped == 0)
               {
                 $SneInprogressprojects[3]++;
               }
@@ -1082,7 +1082,7 @@ class ExecutiveController extends Controller
             $SneCompletedprojects[4]++;
           }
           else{
-             if($project->AssignedProject->stopped == 0)
+             if(isset($project->AssignedProject) && $project->AssignedProject->stopped == 0)
               { $SneInprogressprojects[4]++;
           }
         }

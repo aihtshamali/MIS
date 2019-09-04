@@ -817,7 +817,7 @@ $(document).on('change', '#sectors', function() {
       "_token": "{{ csrf_token() }}",
       'data' : opt}, // a JSON object to send back
     success: function(response){ // What to do if we succeed
-      // console.log(response);
+      console.log(response);
       $("#sub_sectors").empty();
       $.each(response, function () {
           $('#sub_sectors').append("<option value=\""+this.id+"\">"+this.name+"</option>");

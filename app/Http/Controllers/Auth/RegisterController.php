@@ -11,6 +11,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use jeremykenedy\LaravelRoles\Models\Role;
 use Auth;
 use App\Sector;
+use App\SubSector;
+use App\UserSector;
 class RegisterController extends Controller
 {
     /*
@@ -80,21 +82,45 @@ class RegisterController extends Controller
     }
     protected function create(array $data)
     {
-
         $user = User::create([
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'email' => $data['email'],
-            'username' => $data['username'],
-            'password' => bcrypt($data['password']),
-            'admin_password'=> 'JzsrFyKoFpSE5Sg1ScQBskDl6d53a1ehEwYIaALQI3WOmTITn5Ko7y6WqLYe',
-            'api_token'=> str_random(60)
-        ]);
-        
-        $user_detail = new UserDetail();
-        $user_detail->cnic=$data['cnic'];
-        $user_detail->father_name=$data['father_name'];
-        $user_detail->sector_id=$data['sector_id'];
+                'first_name' => $data['first_name'],
+                'last_name' => $data['last_name'], 
+                'email' => $data['email'],
+                'username' => $data['username'],
+                'password' => bcrypt($data['password']),
+                'admin_password'=> 'JzsrFyKoFpSE5Sg1ScQBskDl6d53a1ehEwYIaALQI3WOmTITn5Ko7y6WqLYe',
+                'api_token'=> str_random(60)
+            ]);
+            $role_name = Role::find($data['role_id']); 
+            $user_detail = new UserDetail();
+            $user_detail->cnic=$data['cnic'];
+            $user_detail->father_name=$data['father_name'];
+            if($role_name->slug == 'member' || $role_name->slug == 'chief'){
+                if(isset($data['sub_sectors'])){
+                    foreach ($data['sub_sectors'] as $sector){
+                    $usersectors = new UserSector();
+                    $usersectors->role_id = $role_name->id;
+                    $usersectors->user_id = $user->id;
+                    $usersectors->sub_sector_id  = $sector;
+                    
+                    $sec = SubSector::find($usersectors->sub_sector_id);
+                    $usersectors->sector_id  = $sec->sector_id;
+                    $usersectors->save();
+
+                }
+            }else{
+                foreach ($data['sectors'] as $sector) {
+                    $usersectors = new UserSector();
+                    $usersectors->role_id = $role_name->id;
+                    $usersectors->user_id = $user->id;
+                    $usersectors->sector_id  = $sector;
+                    $usersectors->save();
+
+                }
+            }
+        }
+        else
+            $user_detail->sector_id=$data['sector_id'][0];
         $user_detail->user_id=$user->id;
         $user_detail->save();
 
