@@ -166,4 +166,8 @@ class User extends Authenticatable implements JWTSubject
   public function UserSector(){
     return $this->hasMany('App\UserSector');
   }
+  public function UserSubSector(){
+    // dd($this);
+    return $this->hasMany('App\UserSector');
+  }
 }

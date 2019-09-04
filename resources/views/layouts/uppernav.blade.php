@@ -236,8 +236,6 @@
 <script src="{{asset('js/AdminLTE/jquery.inputmask.extensions.js')}}"></script>
 <script src="{{asset('datatableevaluation/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('datatableevaluation/dataTables.bootstrap.min.js')}}"></script>
-{{-- https://code.jquery.com/jquery-3.3.1.js
-https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js --}}
 <script src="{{asset('datatableevaluation/dataTables.buttons.min.js')}}"></script>
 <script src="{{asset('datatableevaluation/buttons.flash.min.js')}}"></script>
 <script src="{{asset('datatableevaluation/jszip.min.js')}}"></script>
@@ -361,8 +359,8 @@ https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js --}}
     //     })
 
     // }
-    }
-    })
+    // }
+    // })
 </script>
 
 <script>
