@@ -149,7 +149,7 @@ class AdminHumanResourceController extends Controller
      */
     public function create()
     {
-        $current_year='2018-19';
+        $current_year='2019-20';
         $adp = AdpProject::where('financial_year',$current_year)->orderBy('gs_no')->get();
         $sectors = HrSector::all();
         $meeting_types = HrMeetingType::all();

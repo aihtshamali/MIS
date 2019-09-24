@@ -32,10 +32,15 @@
           right: 0;
           top: 0;
         }
-          .table.dataTable td, .table.dataTable th {
+.table.dataTable td, .table.dataTable th {
          text-align:LEFT !important;
-    font-size: 14px !important;
+    font-size: 12px !important;
           }
+           .highlight_sector{
+       background:lightblue; 
+       padding : 3px;
+
+    }
       </style>
 @section('content')
 <div class="row">
@@ -48,7 +53,7 @@
         <div class="card-block">
                 <div class="card-block">
                         <div class="dt-responsive table-responsive">
-                                <table id="example1" data-page-lenght='100'
+                                 <table id="example1" data-page-length="100" 
                                 class="table table-bordered nowrap">
                             <thead>
                             <tr>
@@ -69,7 +74,7 @@
                                 <tr>
                                     <td>{{$project->Project->project_no}}</td>
                                     <td style="width:25% !important ;">{{$project->Project->title}}</td>
-                                    <td style="width:17% !important ;">
+                                    <td  style="width:17% !important ;">
                                         @foreach ($project->AssignedProjectTeam as $team)
                                         @if ($team->team_lead==1)
                                             <span style="font-weight:bold;color:blue">{{$team->User->first_name}}  {{$team->User->last_name}} -</span>
@@ -81,7 +86,7 @@
                                     <td>
                                       <span class="highlight_sector">
                                             @foreach ($project->Project->AssignedSubSectors as $item)
-                                          {{$item->SubSector->sector->name}}
+                                          <b>{{$item->SubSector->sector->name}}</b>
                                           @endforeach
                                        </span>
                                       <hr>
@@ -92,7 +97,7 @@
                                       </ul>
                                     </td>
                                     <td>
-                                      {{round($project->Project->ProjectDetail->orignal_cost,3,PHP_ROUND_HALF_UP) }}Millions
+                                      {{round($project->Project->ProjectDetail->orignal_cost,3,PHP_ROUND_HALF_UP) }} Millions
                                     </td>
                                     <td>{{round($project->Project->score,3,PHP_ROUND_HALF_UP) }}</td>
                                     <td>{{ $project->Project->ProjectDetail->AssigningForum->name }}</td>
@@ -211,7 +216,8 @@
 <script src="{{asset('_monitoring/js/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js')}}"></script>
-
+<script src="{{asset('_monitoring/js/datatables.net/js/jszip.min.js')}}"></script>
+<script src="{{asset('_monitoring/js/datatables.net/js/pdfmake.min.js')}}"></script>
 <script src="{{asset('_monitoring/css/pages/data-table/js/data-table-custom.js')}}"></script>
 
 <script>
@@ -228,15 +234,6 @@
   $(document).ready(function() {
     $('.assignExecBtn').click(function() {
 
-      $(this).parent().parent().next().toggle("slow");
-      if ($(this).text() == '+') {
-        $(this).removeClass('btn-primary').addClass('btn-danger')
-        $(this).text('-');
-      } else {
-        $(this).text('+');
-        $(this).removeClass('btn-danger').addClass('btn-primary')
-      }
-    });
-  });
-</script>
+<script>
+
 @endsection
