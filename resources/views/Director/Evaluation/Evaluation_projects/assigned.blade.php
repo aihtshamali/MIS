@@ -140,7 +140,7 @@
                       <th style="width:20% !important;">Project Name</th>
                       <th style="width:12% !important;">Team Members</th>
                       <th>SNE</th>
-                      <th>Departments</th>
+                      <th  style="width:12% !important;">Departments</th>
                       <th>Priority</th>
                       <th>Score</th>
                       <th>Assigned Duration</th>

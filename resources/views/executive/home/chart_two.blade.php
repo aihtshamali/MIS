@@ -139,9 +139,9 @@
                               <td>@{{(Number(officer_project.orignal_cost).toFixed(2))}} Million</td>
                               <td  style="text-align:LEFT !important;width:17% !important; ">@{{officer_name}}</td>
                               <td>
-                                 <b>Start Date</b>@{{officer_project.assigned_date}}
+                                 <b>Start Date :</b>@{{officer_project.assigned_date}}
                                  <br>
-                                 <b>Last Modified</b>@{{officer_project.updated_at}}
+                                 <b>Last Modified :</b>@{{officer_project.updated_at}}
                               </td>
                               <td>
                                
