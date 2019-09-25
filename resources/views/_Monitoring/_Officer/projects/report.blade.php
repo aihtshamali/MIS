@@ -537,7 +537,7 @@
             #chartFinancialProgressagainstallocation{
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
              "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-                width: 1000px;
+                width: 800px;
                 height: 400px;
             }
 
@@ -604,76 +604,7 @@
             .redTxt {
                 color: red
             }
-             .rem{
-            height: 20px ;
-            width: 20px;
-            background:#a64c4c;
-            display:inline-block;
-            vertical-align: middle;
-        }
-        .fcost{
-            margin-left: 5%;
-            height: 20px;
-            width: 20px;
-            background:#8bc34a;
-            display:inline-block;
-            vertical-align: middle;
-        }
-        .planned{
-            height: 20px;
-            width: 20px;
-            background:#f44336;
-            display:inline-block;
-            vertical-align: middle;
-        }
-        .achieved{
-            margin-left: 5%;
-            height: 20px;
-            width: 20px;
-            background:#e91e63;
-            display:inline-block;
-            vertical-align: middle;
-        }
-        .variance{
-            margin-left: 5%;
-            height: 20px;
-            width: 20px;
-            background:#9c27b0;
-            display:inline-block;
-            vertical-align: middle;
-        }
-        .approvedPC1Cost{
-             /* margin-left: 5%; */
-            height: 20px;
-            width: 20px;
-            background:#5075e5;
-            display:inline-block;
-            vertical-align: middle;
-        }
-        .TU{
-            margin-left: 5%;
-            height: 20px;
-            width: 20px;
-            background:#b366b3;
-            display:inline-block;
-            vertical-align: middle;
-        }
-        .TR{
-            margin-left: 5%;
-            height: 20px;
-            width: 20px;
-            background:#8bc34a;
-            display:inline-block;
-            vertical-align: middle;
-        }
-        .RC{
-           margin-left: 5%;
-            height: 20px;
-            width: 20px;
-            background:#a64c4c;
-            display:inline-block;
-            vertical-align: middle;  
-        }
+           
              #chartdivprogressgraphs {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
              "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -697,9 +628,10 @@
             #chartFinancialProgressagainstallocation{
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
              "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-                width: 1000px;
+                width: 1050px;
                 height: 400px;
             }
+           
             
         }
     </style>
@@ -879,11 +811,6 @@ return 'Unknown';
                  <center class="">
                    <b>  Over all physical progress of the project aginst allocated scope or work</b>
                 </center>
-                <center>
-                    <span class="planned"></span> Planned Progress
-                    <span class="achieved"> </span> Achieved Progress
-                    <span class="Variance"> </span> Variance
-                </center> 
                 <center class="">
                    <div id="chartdivprogressgraphs"></div>
                 </center>
@@ -982,10 +909,6 @@ return 'Unknown';
                     <b>Financial Progress Chart Against Overall Project Approved Cost</b>
                      <br>
                 </center>
-                {{-- <center>
-                    <span class="rem"></span> Remaining Cost
-                    <span class="fcost"> </span> Financial Cost 
-                </center>  --}}
                     <div class="">
                     <div id="chartdiv_FinancialprogressCost"></div>
                     </div>
@@ -997,10 +920,6 @@ return 'Unknown';
                     <center class="text-center">
                          <b>Financial Progress Chart Against Releases</b>  <br>
                     </center> 
-                    {{-- <center>
-                        <span class="rem"></span> Remaining Cost
-                        <span class="fcost"></span> Financial Cost
-                    </center> --}}
                     <div class="">
                     <div id="chartdiv_FinancialprogressReleases"></div>
                     </div>
@@ -1175,15 +1094,10 @@ return 'Unknown';
                     <center class="">
                     <b> Financial progress chart against allocations by sponsoring agency (2014 to 2018)</b>
                     </center>
-                    <center id="legends">
-                        {{-- <span class="approvedPC1Cost"></span> Approved PC-1 Cost 
-                        <span class="TR"></span> Total Release
-                        <span class="TU"></span> Total Utilization 
-                        <span class="RC"></span> Remaining Cost --}}
+                    
+                    <center class="">
+                        <div id="chartFinancialProgressagainstallocation"></div>
                     </center>
-                <center class="">
-                    <div id="chartFinancialProgressagainstallocation"></div>
-                </center>
                 </div>
             </div>
             <table class="col-md-12">
@@ -1250,94 +1164,25 @@ return 'Unknown';
 <script src="{{asset('js/charts/serial.js')}}"></script>
 <script src="{{asset('js/charts/light.js')}}"></script>
 <script src="https://www.amcharts.com/lib/3/pie.js"></script>
-<script>
-
-    var chart = AmCharts.makeChart( "chartFinancialProgressagainstallocation", {
-    "type": "serial",
-    "theme": "light",
-    "dataProvider": [{
-    "Type": "Approved PC-1 Cost",
-    "value": 1700,
-    //  "color": "#5075e5"
-     
-    }, {
-    "Type": "Total Release",
-    "value": 500,
-     "color": "#8bc34a"
-    }, {
-    "Type": "Total Utilization",
-    "value": 600,
-     "color": "#b366b3"
-    }, {
-    "Type": "Remaining Cost",
-    "value": 1322,
-     "color": "#a64c4c"
-    }],
-      
-      "legend": {
-    "position": "bottom",
-    "marginRight": 100,
-    "autoMargins": false,
-    
-  }
-    ,
-    "valueAxes": [ {
-      "title" : "Allocation In Millions",
-      "gridColor": "#FFFFFF",
-      "gridAlpha": 0.2,
-      "dashLength": 0
-    } ],
-    "gridAboveGraphs": true,
-    "startDuration": 1,
-    "graphs": [ {
-      "balloonText": "[[category]]: <b>[[value]] Millions</b>",
-      "fillAlphas": 0.8,
-      "lineAlpha": 0.2,
-      "type": "column",
-      "labelText": "[[value]] Millions",
-      "fillColorsField": "color",
-      "valueField": "value",
-      "opacity":1,  
-    } ],
-    "chartCursor": {
-      "categoryBalloonEnabled": false,
-      "cursorAlpha": 0,
-      "zoomable": false
-    },
-    "categoryField": "Type",
-    "categoryAxis": {
-      "title" : "Financial Status",
-      "gridPosition": "middle",
-      "gridAlpha": 0,
-      "tickPosition": "middle",
-      "tickLength": 5,
-    //   "labelRotation":30,
-      // "ignoreAxisWidth": true,
-      "autoWrap": false
-    },
-    "export": {
-      "enabled": true
-    }
-  } );
-</script>
 
 <script>
     var chart = AmCharts.makeChart("chartdiv_FinancialprogressReleases", {
     "type": "pie",
     "theme": "light",
      "legend": {
-    "position": "right",
+     "position": "absolute",
+    "align":"center",
     "marginRight": 100,
     "autoMargins": false
-  },
+     },
     "dataProvider": [{
         "financial_status": "Financial Cost",
         "value": 30,
-         "color": "#8bc34a"
+         "color": "#00bcd4"
     }, {
         "financial_status": "Remainig Cost",
         "value": 71,
-        "color": "#a64c4c"
+        "color": "#8bc34a"
     }],
     "valueField": "value",
     "titleField": "financial_status",
@@ -1352,92 +1197,128 @@ return 'Unknown';
   "type": "pie",
     "theme": "light",
      "legend": {
-    "position": "right",
+    "position": "absolute",
+    "align":"center",
     "marginRight": 100,
     "autoMargins": false
   },
     "dataProvider": [{
         "financial_status": "Financial Cost",
         "value": 30,
-        "color": "#8bc34a"
+        "color": "#00bcd4"
     }, {
         "financial_status": "Remainig Cost",
         "value": 70,
-       "color": "#a64c4c"
+       "color": "#8bc34a"
     }],
     "valueField": "value",
     "titleField": "financial_status",
     "colorField": "color",
     "balloon": {
         "fixedPosition": true
-    }
+                }
+             
+
     });
     // chart.legend = new AmCharts.Legend();
 </script>
-{{-- <script>
-
-    var chart = AmCharts.makeChart( "chartdivprogressgraphs", {
-    "type": "serial",
-    "theme": "light",
-    "dataProvider": [{
-    "Type": "Planned Progress",
-    "value": 1700,
-     "color": "#3498db"
-     
-    }, {
-    "Type": "Achieved Progress",
-    "value": 500,
-     "color": "#8bc34a"
-    }, {
-    "Type": "Variance",
-    "value": -600,
-     "color": "#f1c40f"
-    }]
-    ,
-    "valueAxes": [ {
-      "title" : "Progress in %",
-      "gridColor": "#FFFFFF",
-      "gridAlpha": 0.2,
-      "dashLength": 0
-    } ],
-    "gridAboveGraphs": true,
-    "startDuration": 1,
-    "graphs": [ {
-      "balloonText": "[[category]]: <b>[[value]] Millions</b>",
-      "fillAlphas": 0.8,
-      "lineAlpha": 0.2,
-      "type": "column",
-      "labelText": "[[value]] Millions",
-      "fillColorsField": "color",
-      "valueField": "value",
-      "opacity":1,  
-    } ],
-    "chartCursor": {
-      "categoryBalloonEnabled": false,
-      "cursorAlpha": 0,
-      "zoomable": false
-    },
-    "categoryField": "Type",
-    "categoryAxis": {
-      "title" : "Progresses",
-      "gridPosition": "middle",
-      "gridAlpha": 0,
-      "tickPosition": "middle",
-      "tickLength": 5,
-    //   "labelRotation":30,
-      // "ignoreAxisWidth": true,
-      "autoWrap": false
-    },
-    "export": {
-      "enabled": true
-    }
-  } );
-</script> --}}
 
 <script src="https://www.amcharts.com/lib/4/core.js"></script>
 <script src="https://www.amcharts.com/lib/4/charts.js"></script>
 <script src="https://www.amcharts.com/lib/4/themes/material.js"></script>
-   
+
+<script>
+
+    // Themes begin
+    am4core.useTheme(am4themes_material);
+    // Themes end
+
+    var chart = am4core.create("chartFinancialProgressagainstallocation", am4charts.XYChart);
+    chart.hiddenState.properties.opacity = 0; // this makes initial fade in effect
+
+    chart.data = [{
+    "Type": "Approved PC-1 Cost",
+    "value": 1700,
+     "color": "#5075e5"
+     
+    }, {
+    "Type": "Total Release",
+    "value": 500,
+     "color": "#8bc34a"
+    }, {
+    "Type": "Total Utilization",
+    "value": 600,
+     "color": "#b366b3"
+    }, {
+    "Type": "Remaining Cost",
+    "value": 1322,
+     "color": "#a64c4c"
+    }];
+
+        // X axis
+        var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+        categoryAxis.renderer.grid.template.location = 0;
+        categoryAxis.dataFields.category = "Type";
+        categoryAxis.renderer.minGridDistance = 20;
+        categoryAxis.title.text="[bold]Financial Status"; 
+        
+        // Y axis
+        var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+        valueAxis.title.text = "[bold]Amount In Millions";
+        valueAxis.calculateTotals = true;
+        valueAxis.min = 0;
+        valueAxis.max = 2500;
+        valueAxis.strictMinMax = true;
+
+        // Chart series
+        var series = chart.series.push(new am4charts.ColumnSeries());
+        series.dataFields.categoryX = "Type";
+        series.dataFields.valueY = "value";
+        series.tooltipText = "{valueY.value} Millions";
+        series.columns.template.strokeOpacity = 0;
+        series.columns.template.tension = 1;
+        series.columns.template.width = am4core.percent(40);
+        series.columns.template.fillOpacity = 0.75;
+
+        // Hover
+        var hoverState = series.columns.template.states.create("hover");
+        hoverState.properties.fillOpacity = 1;
+        hoverState.properties.tension = 0.8;
+
+        // chart cursor   
+        chart.cursor = new am4charts.XYCursor();
+
+        // legends
+        var legend = new am4charts.Legend();
+        legend.parent = chart.chartContainer;
+        // legend.background.fill = am4core.color("#000");
+        // legend.background.fillOpacity = 0.05;
+        // legend.width = 120;f44336 ,#e91e63,#9c27b0
+        legend.align = "top";
+        legend.data = [{
+         "name": "Approved PC-1 Cost",
+         "fill":"#00bcd4"
+     
+    }, {
+    "name": "Total Release",
+    "fill":"#009688"
+        }, {
+        "name": "Total Utilization",
+        "fill":"#4caf50"
+        }, {
+        "name": "Remaining Cost",
+    "fill":"#8bc34a"
+            }];
+
+        // Add distinctive colors for each column using adapter
+        series.columns.template.adapter.add("fill", function(fill, target) {
+        return chart.colors.getIndex(target.dataItem.index+7);
+        });
+        // chart.scrollbarX = new am4core.Scrollbar();
+        // chart.scrollbarY = new am4core.Scrollbar();
+
+</script> 
+
 <script>
 
     // Themes begin
@@ -1446,32 +1327,35 @@ return 'Unknown';
 
     var chart = am4core.create("chartdivprogressgraphs", am4charts.XYChart);
     chart.hiddenState.properties.opacity = 0; // this makes initial fade in effect
-
+    
     chart.data = [{
-    "progress": "Planned",
-    "value": 3025
+    "progress": "Planned Progress",
+    "value": 30.2
     }, {
-    "progress": "Achieved",
-    "value": 1882
+    "progress": "Achieved Progress",
+    "value": 18.5
     }, {
     "progress": "Variance",
-    "value": -1809
+    "value": -18.4
     }];
 
         var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
         categoryAxis.renderer.grid.template.location = 0;
         categoryAxis.dataFields.category = "progress";
         categoryAxis.renderer.minGridDistance = 40;
+        categoryAxis.title.text="[bold]Progress"
 
         var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+        valueAxis.title.text="[bold] Progress Percentages"
+
 
         var series = chart.series.push(new am4charts.ColumnSeries());
         series.dataFields.categoryX = "progress";
         series.dataFields.valueY = "value";
-        series.tooltipText = "{valueY.value}"
+        series.tooltipText = "{valueY.value}%"
         series.columns.template.strokeOpacity = 0;
         series.columns.template.tension = 1;
-
+        series.columns.template.width = am4core.percent(40);
         series.columns.template.fillOpacity = 0.75;
 
         var hoverState = series.columns.template.states.create("hover");
@@ -1479,20 +1363,30 @@ return 'Unknown';
         hoverState.properties.tension = 0.8;
 
         chart.cursor = new am4charts.XYCursor();
-
+        var legend = new am4charts.Legend();
+        legend.parent = chart.chartContainer;
+        // legend.background.fill = am4core.color("#000");
+        // legend.background.fillOpacity = 0.05;
+        // legend.width = 120;f44336 ,#e91e63,#9c27b0
+        legend.align = "top";
+        legend.data = [{
+        "name": "Planned Progress",
+        "fill":"#f44336"
+        }, {
+        "name": "Achieved Progress",
+        "fill": "#e91e63"
+        }, {
+        "name": "Variance",
+        "fill": "#9c27b0"
+        }];
         // Add distinctive colors for each column using adapter
         series.columns.template.adapter.add("fill", function(fill, target) {
         return chart.colors.getIndex(target.dataItem.index);
         });
-
         // chart.scrollbarX = new am4core.Scrollbar();
         // chart.scrollbarY = new am4core.Scrollbar();
 
 </script> 
-
- 
-
-
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
 <script>
