@@ -16,6 +16,10 @@
     <link href="{{asset('lightRoom/lightgallery.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
     <style>
+        body{
+             
+                background:white;
+        }
         .skin-blue .main-header .navbar {
             position: fixed !important;
             width: 100% !important;
@@ -427,7 +431,76 @@
             margin: auto;
             padding: 1% 0.5%;
         }
-
+        .rem{
+            height: 20px;
+            width: 20px;
+            background:#a64c4c;
+            display:inline-block;
+            vertical-align: middle;
+        }
+        .fcost{
+            margin-left: 5%;
+            height: 20px;
+            width: 20px;
+            background:#8bc34a;
+            display:inline-block;
+            vertical-align: middle;
+        }
+        .planned{
+            height: 20px;
+            width: 20px;
+            background:#f44336;
+            display:inline-block;
+            vertical-align: middle;
+        }
+        .achieved{
+            margin-left: 5%;
+            height: 20px;
+            width: 20px;
+            background:#e91e63;
+            display:inline-block;
+            vertical-align: middle;
+        }
+        .variance{
+            margin-left: 5%;
+            height: 20px;
+            width: 20px;
+            background:#9c27b0;
+            display:inline-block;
+            vertical-align: middle;
+        }
+        .approvedPC1Cost{
+             /* margin-left: 5%; */
+            height: 20px;
+            width: 20px;
+            background:#5075e5;
+            display:inline-block;
+            vertical-align: middle;
+        }
+        .TU{
+            margin-left: 5%;
+            height: 20px;
+            width: 20px;
+            background:#b366b3;
+            display:inline-block;
+            vertical-align: middle;
+        }
+        .TR{
+            margin-left: 5%;
+            height: 20px;
+            width: 20px;
+            background:#8bc34a;
+            display:inline-block;
+            vertical-align: middle;
+        }
+        .RC{
+           margin-left: 5%;
+            height: 20px;
+            width: 20px;
+            background:#a64c4c;
+            display:inline-block;
+            vertical-align: middle;  
+        }
         table {
             margin-top: 3%;
         }
@@ -440,7 +513,33 @@
         .border {
             border: 1px solid #999;
         }
+        
 
+        #chartdivprogressgraphs {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+             "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+                width: 600px;
+                height: 400px;
+            }
+            #chartdiv_FinancialprogressCost{
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+             "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+                width: 1000px;
+                height: 400px;
+            }
+            #chartdiv_FinancialprogressReleases{
+
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+             "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+                width: 1000px;
+                height: 400px;
+            }
+            #chartFinancialProgressagainstallocation{
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+             "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+                width: 1000px;
+                height: 400px;
+            }
 
         @media print {
             @page {
@@ -455,6 +554,7 @@
             }
 
             body {
+                background:white;
                 margin: 10% !important;
             }
 
@@ -504,6 +604,103 @@
             .redTxt {
                 color: red
             }
+             .rem{
+            height: 20px ;
+            width: 20px;
+            background:#a64c4c;
+            display:inline-block;
+            vertical-align: middle;
+        }
+        .fcost{
+            margin-left: 5%;
+            height: 20px;
+            width: 20px;
+            background:#8bc34a;
+            display:inline-block;
+            vertical-align: middle;
+        }
+        .planned{
+            height: 20px;
+            width: 20px;
+            background:#f44336;
+            display:inline-block;
+            vertical-align: middle;
+        }
+        .achieved{
+            margin-left: 5%;
+            height: 20px;
+            width: 20px;
+            background:#e91e63;
+            display:inline-block;
+            vertical-align: middle;
+        }
+        .variance{
+            margin-left: 5%;
+            height: 20px;
+            width: 20px;
+            background:#9c27b0;
+            display:inline-block;
+            vertical-align: middle;
+        }
+        .approvedPC1Cost{
+             /* margin-left: 5%; */
+            height: 20px;
+            width: 20px;
+            background:#5075e5;
+            display:inline-block;
+            vertical-align: middle;
+        }
+        .TU{
+            margin-left: 5%;
+            height: 20px;
+            width: 20px;
+            background:#b366b3;
+            display:inline-block;
+            vertical-align: middle;
+        }
+        .TR{
+            margin-left: 5%;
+            height: 20px;
+            width: 20px;
+            background:#8bc34a;
+            display:inline-block;
+            vertical-align: middle;
+        }
+        .RC{
+           margin-left: 5%;
+            height: 20px;
+            width: 20px;
+            background:#a64c4c;
+            display:inline-block;
+            vertical-align: middle;  
+        }
+             #chartdivprogressgraphs {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+             "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+                width: 600px;
+                height: 400px;
+            }
+            #chartdiv_FinancialprogressCost{
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+             "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+                width: 1000px;
+                height: 400px;
+                
+            }
+            #chartdiv_FinancialprogressReleases{
+
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+             "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+                width: 1000px;
+                height: 400px;
+            }
+            #chartFinancialProgressagainstallocation{
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+             "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+                width: 1000px;
+                height: 400px;
+            }
+            
         }
     </style>
     <script src="{{asset('lightRoom/picturefill.min.js')}}"></script>
@@ -544,6 +741,7 @@ return 'Unknown';
         <button class="topbtns btn btn-md" onclick="window.print()">
             Save as PDF
         </button>
+        {{-- <a class="topbtns btn btn-md" href="{{ route('generatePDF',['download'=>'pdf']) }}">Download PDF</a> --}}
     </div>
     <div class="card" id='exportContent'>
         <!-- myCode start here -->
@@ -569,19 +767,19 @@ return 'Unknown';
                 @endif
                 <h4>
                     <center>
-                        DIRECTORATE GENERAL MONITORING & EVALUATION<br />
-                        PLANNING & DEVELOPMENT DEPARTMENT<br />
+                        DIRECTORATE GENERAL MONITORING & EVALUATION <br>
+                        PLANNING & DEVELOPMENT DEPARTMENT<br>
                         GOVERNMENT OF THE PUNJAB
                     </center>
                 </h4>
                 <h4 class="text-capitalize">
                     <center>
-                        octuber , 2018
+                        October , 2018
                     </center>
                 </h4>
                 <div class="fullwidthprint">
                     <center>
-                        <h4 class="text-capitalize printborder col-md-8 offset-md-2">
+                        <h4 class="text-capitalize printborder ">
                             DGM&E, 65-Trade center Block, M.A Johar Town, Lahore – Punjab
                         </h4>
                     </center>
@@ -675,13 +873,22 @@ return 'Unknown';
             </h4>
             <b>
                 Overall Physical progress against Planned Progress with respect to time and over all project approved PC-I cost;<br /><br /><br />
-                <center class="graphHeader">
-                    Over all physical progress of the project aginst allocated scope or work
-                </center>
-                <center class="graphHeader">
-                    <graph>graph here</graph>
-                </center>
             </b>
+            <div class="row">
+                 <div class="col-md-12">
+                 <center class="">
+                   <b>  Over all physical progress of the project aginst allocated scope or work</b>
+                </center>
+                <center>
+                    <span class="planned"></span> Planned Progress
+                    <span class="achieved"> </span> Achieved Progress
+                    <span class="Variance"> </span> Variance
+                </center> 
+                <center class="">
+                   <div id="chartdivprogressgraphs"></div>
+                </center>
+                 </div>
+            </div>
             <table class="col-md-12">
                 <tr>
                     <th>Planned Start Date as per PC-I</th>
@@ -768,13 +975,37 @@ return 'Unknown';
             </div>
             <b>
                 Overall Physical progress against Planned Progress with respect to time and over all project approved PC-I cost;<br /><br /><br />
-                <center class="graphHeader">
-                    Over all physical progress of the project aginst allocated scope or work
-                </center>
-                <center class="graphHeader">
-                    <graph>graph here</graph>
-                </center>
             </b>
+            <div class="row">
+                <div class="col-md-12">
+                <center >
+                    <b>Financial Progress Chart Against Overall Project Approved Cost</b>
+                     <br>
+                </center>
+                {{-- <center>
+                    <span class="rem"></span> Remaining Cost
+                    <span class="fcost"> </span> Financial Cost 
+                </center>  --}}
+                    <div class="">
+                    <div id="chartdiv_FinancialprogressCost"></div>
+                    </div>
+                </div>
+            </div>
+             <hr style="border: transparent;">
+            <div class="row">
+                <div class="col-md-12">
+                    <center class="text-center">
+                         <b>Financial Progress Chart Against Releases</b>  <br>
+                    </center> 
+                    {{-- <center>
+                        <span class="rem"></span> Remaining Cost
+                        <span class="fcost"></span> Financial Cost
+                    </center> --}}
+                    <div class="">
+                    <div id="chartdiv_FinancialprogressReleases"></div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="clearfix breakpage ">
             <h4 class="redTxt">
@@ -938,13 +1169,23 @@ return 'Unknown';
 
             <b>
                 Up till now total expenditure of Rs. ____ Million has been incurred against the total release of Rs.<br /><br /><br />
-                <center class="graphHeader">
-                    Financial progress chart against allocations by sponsoring agency (2014 to 2018)
-                </center>
-                <center class="graphHeader">
-                    <graph>graph here</graph>
-                </center>
             </b>
+            <div class="row">
+                <div class="col-md-12">
+                    <center class="">
+                    <b> Financial progress chart against allocations by sponsoring agency (2014 to 2018)</b>
+                    </center>
+                    <center id="legends">
+                        {{-- <span class="approvedPC1Cost"></span> Approved PC-1 Cost 
+                        <span class="TR"></span> Total Release
+                        <span class="TU"></span> Total Utilization 
+                        <span class="RC"></span> Remaining Cost --}}
+                    </center>
+                <center class="">
+                    <div id="chartFinancialProgressagainstallocation"></div>
+                </center>
+                </div>
+            </div>
             <table class="col-md-12">
                 <tr>
                     <th>Year</th>
@@ -1003,141 +1244,393 @@ return 'Unknown';
     <div>
         <!-- <button class="btn btn-success" type="button" onclick="save_report_data()">SAVE Report Data</button> -->
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
-    <script>
-        $(document).ready(function() {
-            var first_val = $("#planned_start_date").text();
-            var second_val = $("#planned_end_date").text();
-            var first = first_val.split('-');
-            var second = second_val.split('-');
-            var year = second[0] - first[0];
-            var month = Math.abs(second[1] - first[1]);
-            var days = Math.abs(second[2] - first[2]);
-            $("td.gestation_period_column").text(year + " Years " + month + " Months " + days + " Days");
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            var first_val = $("#planned_start_date").text();
-            var second_val = $("#planned_end_date").text();
-            var first = first_val.split('-');
-            var second = second_val.split('-');
-            var year = second[0] - first[0];
-            var month = Math.abs(second[1] - first[1]);
-            var days = Math.abs(second[2] - first[2]);
-            $("td.gestation_period_column").text(year + " Years " + month + " Months " + days + " Days");
-        });
-        CKEDITOR.inlineAll();
-        CKEDITOR.instances.block1.on('blur', function(evt) {
-            // getData() returns CKEditor's HTML content.
-            axios.post('/save_report_data', {
-                    block: 'block1',
-                    project: project_id,
-                    data: evt.editor.getData()
-                })
-                .then(function(response) {
-                    console.log(response);
-                })
-                .catch(function(error) {
-                    console.log(error);
-                })
-            // console.log(evt.editor.getData());
-        });
-        CKEDITOR.instances.block2.on('blur', function(evt) {
-            // getData() returns CKEditor's HTML content.
-            axios.post('/save_report_data', {
-                    block: 'block2',
-                    project: project_id,
-                    data: evt.editor.getData()
-                })
-                .then(function(response) {
-                    console.log(response);
-                })
-                .catch(function(error) {
-                    console.log(error);
-                })
-        });
-        CKEDITOR.instances.block3.on('blur', function(evt) {
-            // getData() returns CKEditor's HTML content.
-            axios.post('/save_report_data', {
-                    block: 'block3',
-                    project: project_id,
-                    data: evt.editor.getData()
-                })
-                .then(function(response) {
-                    console.log(response);
-                })
-                .catch(function(error) {
-                    console.log(error);
-                })
-        });
-        CKEDITOR.instances.block4.on('blur', function(evt) {
-            // getData() returns CKEditor's HTML content.
-            axios.post('/save_report_data', {
-                    block: 'block4',
-                    project: project_id,
-                    data: evt.editor.getData()
-                })
-                .then(function(response) {
-                    console.log(response);
-                })
-                .catch(function(error) {
-                    console.log(error);
-                })
-        });
-        CKEDITOR.instances.block5.on('blur', function(evt) {
-            // getData() returns CKEditor's HTML content.
-            axios.post('/save_report_data', {
-                    block: 'block5',
-                    project: project_id,
-                    data: evt.editor.getData()
-                })
-                .then(function(response) {
-                    console.log(response);
-                })
-                .catch(function(error) {
-                    console.log(error);
-                })
-        });
-    </script>
-    <script>
-        function Export2Doc(element, filename = '') {
-            var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
-            var postHtml = "</body></html>";
-            var html = preHtml + document.getElementById(element).innerHTML + postHtml;
-
-            var blob = new Blob(['\ufeff', html], {
-                type: 'application/msword'
-            });
-
-            // Specify link url
-            var url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
-
-            // Specify file name
-            filename = filename ? filename + '.doc' : 'document.doc';
-
-            // Create download link element
-            var downloadLink = document.createElement("a");
-
-            document.body.appendChild(downloadLink);
-
-            if (navigator.msSaveOrOpenBlob) {
-                navigator.msSaveOrOpenBlob(blob, filename);
-            } else {
-                // Create a link to the file
-                downloadLink.href = url;
-
-                // Setting the file name
-                downloadLink.download = filename;
-
-                //triggering the function
-                downloadLink.click();
-            }
-
-            document.body.removeChild(downloadLink);
-
-        }
-    </script>
+   
 </body>
+<script src="{{asset('js/charts/amcharts.js')}}"></script>
+<script src="{{asset('js/charts/serial.js')}}"></script>
+<script src="{{asset('js/charts/light.js')}}"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>
+<script>
 
+    var chart = AmCharts.makeChart( "chartFinancialProgressagainstallocation", {
+    "type": "serial",
+    "theme": "light",
+    "dataProvider": [{
+    "Type": "Approved PC-1 Cost",
+    "value": 1700,
+    //  "color": "#5075e5"
+     
+    }, {
+    "Type": "Total Release",
+    "value": 500,
+     "color": "#8bc34a"
+    }, {
+    "Type": "Total Utilization",
+    "value": 600,
+     "color": "#b366b3"
+    }, {
+    "Type": "Remaining Cost",
+    "value": 1322,
+     "color": "#a64c4c"
+    }],
+      
+      "legend": {
+    "position": "bottom",
+    "marginRight": 100,
+    "autoMargins": false,
+    
+  }
+    ,
+    "valueAxes": [ {
+      "title" : "Allocation In Millions",
+      "gridColor": "#FFFFFF",
+      "gridAlpha": 0.2,
+      "dashLength": 0
+    } ],
+    "gridAboveGraphs": true,
+    "startDuration": 1,
+    "graphs": [ {
+      "balloonText": "[[category]]: <b>[[value]] Millions</b>",
+      "fillAlphas": 0.8,
+      "lineAlpha": 0.2,
+      "type": "column",
+      "labelText": "[[value]] Millions",
+      "fillColorsField": "color",
+      "valueField": "value",
+      "opacity":1,  
+    } ],
+    "chartCursor": {
+      "categoryBalloonEnabled": false,
+      "cursorAlpha": 0,
+      "zoomable": false
+    },
+    "categoryField": "Type",
+    "categoryAxis": {
+      "title" : "Financial Status",
+      "gridPosition": "middle",
+      "gridAlpha": 0,
+      "tickPosition": "middle",
+      "tickLength": 5,
+    //   "labelRotation":30,
+      // "ignoreAxisWidth": true,
+      "autoWrap": false
+    },
+    "export": {
+      "enabled": true
+    }
+  } );
+</script>
+
+<script>
+    var chart = AmCharts.makeChart("chartdiv_FinancialprogressReleases", {
+    "type": "pie",
+    "theme": "light",
+     "legend": {
+    "position": "right",
+    "marginRight": 100,
+    "autoMargins": false
+  },
+    "dataProvider": [{
+        "financial_status": "Financial Cost",
+        "value": 30,
+         "color": "#8bc34a"
+    }, {
+        "financial_status": "Remainig Cost",
+        "value": 71,
+        "color": "#a64c4c"
+    }],
+    "valueField": "value",
+    "titleField": "financial_status",
+    "colorField": "color",
+    "balloon": {
+        "fixedPosition": true
+    }
+    });
+</script>
+<script>
+    var chart = AmCharts.makeChart("chartdiv_FinancialprogressCost", {
+  "type": "pie",
+    "theme": "light",
+     "legend": {
+    "position": "right",
+    "marginRight": 100,
+    "autoMargins": false
+  },
+    "dataProvider": [{
+        "financial_status": "Financial Cost",
+        "value": 30,
+        "color": "#8bc34a"
+    }, {
+        "financial_status": "Remainig Cost",
+        "value": 70,
+       "color": "#a64c4c"
+    }],
+    "valueField": "value",
+    "titleField": "financial_status",
+    "colorField": "color",
+    "balloon": {
+        "fixedPosition": true
+    }
+    });
+    // chart.legend = new AmCharts.Legend();
+</script>
+{{-- <script>
+
+    var chart = AmCharts.makeChart( "chartdivprogressgraphs", {
+    "type": "serial",
+    "theme": "light",
+    "dataProvider": [{
+    "Type": "Planned Progress",
+    "value": 1700,
+     "color": "#3498db"
+     
+    }, {
+    "Type": "Achieved Progress",
+    "value": 500,
+     "color": "#8bc34a"
+    }, {
+    "Type": "Variance",
+    "value": -600,
+     "color": "#f1c40f"
+    }]
+    ,
+    "valueAxes": [ {
+      "title" : "Progress in %",
+      "gridColor": "#FFFFFF",
+      "gridAlpha": 0.2,
+      "dashLength": 0
+    } ],
+    "gridAboveGraphs": true,
+    "startDuration": 1,
+    "graphs": [ {
+      "balloonText": "[[category]]: <b>[[value]] Millions</b>",
+      "fillAlphas": 0.8,
+      "lineAlpha": 0.2,
+      "type": "column",
+      "labelText": "[[value]] Millions",
+      "fillColorsField": "color",
+      "valueField": "value",
+      "opacity":1,  
+    } ],
+    "chartCursor": {
+      "categoryBalloonEnabled": false,
+      "cursorAlpha": 0,
+      "zoomable": false
+    },
+    "categoryField": "Type",
+    "categoryAxis": {
+      "title" : "Progresses",
+      "gridPosition": "middle",
+      "gridAlpha": 0,
+      "tickPosition": "middle",
+      "tickLength": 5,
+    //   "labelRotation":30,
+      // "ignoreAxisWidth": true,
+      "autoWrap": false
+    },
+    "export": {
+      "enabled": true
+    }
+  } );
+</script> --}}
+
+<script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/material.js"></script>
+   
+<script>
+
+    // Themes begin
+    am4core.useTheme(am4themes_material);
+    // Themes end
+
+    var chart = am4core.create("chartdivprogressgraphs", am4charts.XYChart);
+    chart.hiddenState.properties.opacity = 0; // this makes initial fade in effect
+
+    chart.data = [{
+    "progress": "Planned",
+    "value": 3025
+    }, {
+    "progress": "Achieved",
+    "value": 1882
+    }, {
+    "progress": "Variance",
+    "value": -1809
+    }];
+
+        var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+        categoryAxis.renderer.grid.template.location = 0;
+        categoryAxis.dataFields.category = "progress";
+        categoryAxis.renderer.minGridDistance = 40;
+
+        var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+
+        var series = chart.series.push(new am4charts.ColumnSeries());
+        series.dataFields.categoryX = "progress";
+        series.dataFields.valueY = "value";
+        series.tooltipText = "{valueY.value}"
+        series.columns.template.strokeOpacity = 0;
+        series.columns.template.tension = 1;
+
+        series.columns.template.fillOpacity = 0.75;
+
+        var hoverState = series.columns.template.states.create("hover");
+        hoverState.properties.fillOpacity = 1;
+        hoverState.properties.tension = 0.8;
+
+        chart.cursor = new am4charts.XYCursor();
+
+        // Add distinctive colors for each column using adapter
+        series.columns.template.adapter.add("fill", function(fill, target) {
+        return chart.colors.getIndex(target.dataItem.index);
+        });
+
+        // chart.scrollbarX = new am4core.Scrollbar();
+        // chart.scrollbarY = new am4core.Scrollbar();
+
+</script> 
+
+ 
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+<script>
+    $(document).ready(function() {
+        var first_val = $("#planned_start_date").text();
+        var second_val = $("#planned_end_date").text();
+        var first = first_val.split('-');
+        var second = second_val.split('-');
+        var year = second[0] - first[0];
+        var month = Math.abs(second[1] - first[1]);
+        var days = Math.abs(second[2] - first[2]);
+        $("td.gestation_period_column").text(year + " Years " + month + " Months " + days + " Days");
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        var first_val = $("#planned_start_date").text();
+        var second_val = $("#planned_end_date").text();
+        var first = first_val.split('-');
+        var second = second_val.split('-');
+        var year = second[0] - first[0];
+        var month = Math.abs(second[1] - first[1]);
+        var days = Math.abs(second[2] - first[2]);
+        $("td.gestation_period_column").text(year + " Years " + month + " Months " + days + " Days");
+    });
+    CKEDITOR.inlineAll();
+    CKEDITOR.instances.block1.on('blur', function(evt) {
+        // getData() returns CKEditor's HTML content.
+        axios.post('/save_report_data', {
+                block: 'block1',
+                project: project_id,
+                data: evt.editor.getData()
+            })
+            .then(function(response) {
+                console.log(response);
+            })
+            .catch(function(error) {
+                console.log(error);
+            })
+        // console.log(evt.editor.getData());
+    });
+    CKEDITOR.instances.block2.on('blur', function(evt) {
+        // getData() returns CKEditor's HTML content.
+        axios.post('/save_report_data', {
+                block: 'block2',
+                project: project_id,
+                data: evt.editor.getData()
+            })
+            .then(function(response) {
+                console.log(response);
+            })
+            .catch(function(error) {
+                console.log(error);
+            })
+    });
+    CKEDITOR.instances.block3.on('blur', function(evt) {
+        // getData() returns CKEditor's HTML content.
+        axios.post('/save_report_data', {
+                block: 'block3',
+                project: project_id,
+                data: evt.editor.getData()
+            })
+            .then(function(response) {
+                console.log(response);
+            })
+            .catch(function(error) {
+                console.log(error);
+            })
+    });
+    CKEDITOR.instances.block4.on('blur', function(evt) {
+        // getData() returns CKEditor's HTML content.
+        axios.post('/save_report_data', {
+                block: 'block4',
+                project: project_id,
+                data: evt.editor.getData()
+            })
+            .then(function(response) {
+                console.log(response);
+            })
+            .catch(function(error) {
+                console.log(error);
+            })
+    });
+    CKEDITOR.instances.block5.on('blur', function(evt) {
+        // getData() returns CKEditor's HTML content.
+        axios.post('/save_report_data', {
+                block: 'block5',
+                project: project_id,
+                data: evt.editor.getData()
+            })
+            .then(function(response) {
+                console.log(response);
+            })
+            .catch(function(error) {
+                console.log(error);
+            })
+    });
+</script>
+<script>
+    function Export2Doc(element, filename = '') {
+        var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
+        var postHtml = "</body></html>";
+        var html = preHtml + document.getElementById(element).innerHTML + postHtml;
+
+        var blob = new Blob(['\ufeff', html], {
+            type: 'application/msword'
+        });
+
+        // Specify link url
+        var url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
+
+        // Specify file name
+        filename = filename ? filename + '.doc' : 'document.doc';
+
+        // Create download link element
+        var downloadLink = document.createElement("a");
+
+        document.body.appendChild(downloadLink);
+
+        if (navigator.msSaveOrOpenBlob) {
+            navigator.msSaveOrOpenBlob(blob, filename);
+        } else {
+            // Create a link to the file
+            downloadLink.href = url;
+
+            // Setting the file name
+            downloadLink.download = filename;
+
+            //triggering the function
+            downloadLink.click();
+        }
+
+        document.body.removeChild(downloadLink);
+
+    }
+</script>
 </html>
+@section("js_scripts")
+
+
+@endsection
