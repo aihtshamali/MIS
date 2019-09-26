@@ -2,32 +2,28 @@
 @section('styletags')
   {{-- <link rel="stylesheet" href="{{asset('css/AdminLTE/dataTables.bootstrap.min.css')}}"> --}}
   <style media="screen">
-      div.box-body1{
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 3px;
-        border-bottom-left-radius: 3px;
-        padding: 10px;
-      }
-      div.box1{
-        position: relative;
-        border-radius: 3px;
-        background: #ffffff;
-        border-top: 3px solid #d2d6de;
-        margin-bottom: 20px;
-        width: 100%;
-        box-shadow: 0 1px 1px rgba(0,0,0,0.1)
-      }
-      ul{
+      
+          ul{
          padding-left: 0px !important;
+           margin-bottom: 0px !important;
       }
       ul>li{
         list-style-type: none;
-       
+      
       }
       .table.dataTable td, .table.dataTable th {
          text-align:LEFT !important;
     font-size: 14px !important;
+    }
+    hr{
+          margin-top: 8px !important;
+    margin-bottom: 2px !important ;
+    border-top: 1px solid #ccc !important;
+    }
+    .highlight_sector{
+       background:lightblue; 
+       padding : 5px;
+
     }
   </style>
 @endsection
@@ -98,7 +94,7 @@
                   </select>
                 </div>
               </div>
-              <div class="row" style="margin-top:10px">
+              {{-- <div class="row" style="margin-top:10px">
                 <div class="col-md-6">
                   <div class="col-md-6">
                     <label for="">Starting Cost in Million</label>
@@ -109,21 +105,20 @@
                     <input class="form-control" type="number" name="ending_cost" value="">
                   </div>
                 </div>
-              </div>
+              </div> --}}
 
               <div class="row" style="margin-top:10px">
                 <div class="col-md-6">
                   <button  class="btn btn-success pull-right" type="submit" name="button">Search</button>
                 </div>
               </div>
-            </form>
+             </form>
             </div>
           </div>
         </div>
       </div>
-  </section>
-  <div>
-    <section class="content">
+
+ 
         <div class="row">
           <div class="col-md-12">
             
@@ -137,7 +132,7 @@
               </div>
                 </div>
               <div class="box-body">
-                <table id="example1"  data-page-length="100" class="table table-bordered table-striped ">
+                <table id="example1"  data-page-length="100" class="table table-bordered table-hover ">
                   <thead>
                     <tr>
                       <th>Project #</th>
@@ -145,8 +140,8 @@
                       <th style="width:20% !important;">Project Name</th>
                       <th style="width:12% !important;">Team Members</th>
                       <th>SNE</th>
-                      <th >Subsector(s)</th>
-                      <th>Priority</th>
+                      <th  style="width:12% !important;">Departments</th>
+                      <th >Priority</th>
                       <th>Score</th>
                       <th>Assigned Duration</th>
                       <th>Progress</th>
@@ -157,7 +152,7 @@
                                       <tr>
   
                                         <td>{{$assigned->project->project_no}}</td>
-                                        <td> {{$assigned->project->financial_year}}/{{$assigned->project->ADP}}</td>
+                                        <td> {{$assigned->project->financial_year}} ({{$assigned->project->ADP}})</td>
                                         <td>{{$assigned->project->title}}</td>
                                         <td>
                                           <ul>
@@ -177,6 +172,12 @@
                                         </td>
                                         <td>{{$assigned->project->ProjectDetail->sne}}</td>
                                       <td>
+                                       <span class="">
+                                            @foreach ($assigned->project->AssignedSubSectors as $item)
+                                          <b>{{$item->SubSector->sector->name}}</b>
+                                          @endforeach
+                                       </span>
+                                      <hr>
                                       <ul>
                                         @foreach ($assigned->project->AssignedSubSectors as $item)
                                             <li>{{$item->SubSector->name}}</li> 
@@ -220,7 +221,7 @@
             </div>
             <!-- /.box -->
         </div>
-      </div>
+  
     </section>
   </div>
 
@@ -228,8 +229,8 @@
 @endsection
 @section('scripttags')
 
-  <script type="text/javascript" src="{!! asset('js/AdminLTE/moment.js') !!}"></script>
-  <script type="text/javascript" src="{!! asset('js/AdminLTE/moment.min.js') !!}"></script>
+  {{-- <script type="text/javascript" src="{!! asset('js/AdminLTE/moment.js') !!}"></script> --}}
+  {{-- <script type="text/javascript" src="{!! asset('js/AdminLTE/moment.min.js') !!}"></script> --}}
   {{-- <script type="text/javascript" src="{!! asset('js/AdminLTE/daterangepicker.js') !!}"></script>   --}}
    
   <script type="text/javascript">

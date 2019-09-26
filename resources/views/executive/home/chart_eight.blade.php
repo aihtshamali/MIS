@@ -113,6 +113,7 @@
 <script src="{{asset('js/charts/chalk.js')}}"></script>
 <script src="{{asset('js/charts/light.js')}}"></script>
 <script src="{{asset('js/charts/patterns.js')}}"></script>
+
 <script>
         var st = [];
           $i = 0;
@@ -123,7 +124,7 @@
               "Assigned Projects": assignedprojects_wrt_sectors[$i][0].eachproject,
               "Inprogress Projects": inprogressprojects_wrt_sectors[$i][0].eachinprogressproject,
               "Completed Projects": completedprojects_wrt_sectors[$i][0].eachcompletedproject,
-             
+               
             });
             $i++;
           });

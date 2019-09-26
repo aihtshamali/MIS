@@ -142,7 +142,6 @@ class DirectorEvaluationController extends Controller
          ->where('projects.status',1)
          ->where('complete',0)
         ->where('stopped',0)
-         ->where('stopped',false)
          ->get();
 
          $stoppedProjects=AssignedProject::select('assigned_projects.*')
@@ -179,7 +178,8 @@ class DirectorEvaluationController extends Controller
          return view('Director.Evaluation.Evaluation_projects.completed',compact('projects'));
       }
 
-      public function searchOfficer(Request $request){
+      public function searchOfficer(Request $request)
+      {
         // dd($request->all());
         $assigned = Collection::make(new AssignedProject);
         if(isset($request->officer_id)){
