@@ -300,17 +300,17 @@
                         <a href="javascript:void(0)">
 
                             <span class="pcoded-micon"><i class="zmdi zmdi-car"></i></span>
-                            <span class="pcoded-mtext">Assign Projects</span>
+                            <span class="pcoded-mtext">Send Projects</span>
                         </a>
                         <ul class="pcoded-submenu">
                             <li class=" ">
                                 <a href="{{route('MonitoringAssignToDC')}}">
-                                    <span class="pcoded-mtext">Assign to Executive</span>
+                                    <span class="pcoded-mtext">Push to Executive</span>
                                 </a>
                             </li>
                             <li class=" ">
                                 <a href="{{route('MonitoringAssignedToDC')}}">
-                                    <span class="pcoded-mtext">Assigned to Executive</span>
+                                    <span class="pcoded-mtext">Pushed to Executive</span>
                                 </a>
                             </li>
                         </ul>

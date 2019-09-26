@@ -531,7 +531,7 @@ class ExecutiveController extends Controller
       ->where('projects.status',1)
       ->count();
       
-      $total_assigned_projects = $actual_total_assigned_projects->count();
+      $total_unassigned_projects = $actual_total_assigned_projects->count();
       $model = new User();
       $officers = $model->hydrate(
         DB::select(
@@ -544,14 +544,15 @@ class ExecutiveController extends Controller
         'actual_total_projects' => $actual_total_projects,
         'total_projects' => $total_projects,
         'stopped_projects'=>$stopped_projects,
-        'total_assigned_projects' => $total_assigned_projects,
+        'total_unassigned_projects' => $total_unassigned_projects,
         'actual_total_assigned_projects' => $actual_total_assigned_projects,
         'inprogress_projects' => $inprogress_projects,
         'completed_projects' => $completed_projects,
         'officers' => $officers,
 
         ]);
-      return view('executive.home.chart_one',['stopped_projects'=>$stopped_projects,'actual_total_assigned_projects' => $actual_total_assigned_projects,'total_projects'=>$actual_total_projects ,'total_assigned_projects'=>$total_assigned_projects ,'inprogress_projects'=>$inprogress_projects ,'completed_projects'=>$completed_projects]);
+        // dd($total_projects);
+      return view('executive.home.chart_one',['stopped_projects'=>$stopped_projects,'actual_total_assigned_projects' => $actual_total_assigned_projects,'total_projects'=>$actual_total_projects ,'total_unassigned_projects'=>$total_unassigned_projects ,'inprogress_projects'=>$inprogress_projects ,'completed_projects'=>$completed_projects]);
     }
     // chart2
     public function chart_two()
@@ -592,6 +593,7 @@ class ExecutiveController extends Controller
           array_push($team_lead,count($team_l));
           array_push($individual_projects,count($individual));
         }
+        // dd($actual_assigned_projects);
         // dd($actual_assigned_projects);
       \JavaScript::put([
         'officers' => $officers,
@@ -841,7 +843,9 @@ class ExecutiveController extends Controller
         'completedprojects_wrt_sectors'=>$completedprojects_wrt_sectors,
         // 'stoppedProjects_wrt_sectors'=>$sectors_data_stoppedProjects
         ]);
-      return view('executive.home.chart_eight' ,['sectors'=> $sectors, 'assignedprojects_wrt_sectors'=>$assignedprojects_wrt_sectors,  'inprogressprojects_wrt_sectors'=>$inprogressprojects_wrt_sectors,
+      return view('executive.home.chart_eight' ,['sectors'=> $sectors,
+      'assignedprojects_wrt_sectors'=>$assignedprojects_wrt_sectors,
+      'inprogressprojects_wrt_sectors'=>$inprogressprojects_wrt_sectors,
       'totalprojects_wrt_sectors'=>$totalprojects_wrt_sectors,
       'completedprojects_wrt_sectors'=>$completedprojects_wrt_sectors
       ]);
@@ -1257,6 +1261,7 @@ class ExecutiveController extends Controller
       $data = DB::select(
         'getOfficersInProgressAs'.$request->status.'ProjectsById'.' '.$request->user
       );
+      // $data->with('AssignedProjectTeam')
       return response()->json($data);
     }
 
