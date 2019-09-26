@@ -141,7 +141,7 @@
                       <th style="width:12% !important;">Team Members</th>
                       <th>SNE</th>
                       <th  style="width:12% !important;">Departments</th>
-                      <th>Priority</th>
+                      <th >Priority</th>
                       <th>Score</th>
                       <th>Assigned Duration</th>
                       <th>Progress</th>
@@ -172,9 +172,9 @@
                                         </td>
                                         <td>{{$assigned->project->ProjectDetail->sne}}</td>
                                       <td>
-                                       <span class="highlight_sector">
+                                       <span class="">
                                             @foreach ($assigned->project->AssignedSubSectors as $item)
-                                          {{$item->SubSector->sector->name}}
+                                          <b>{{$item->SubSector->sector->name}}</b>
                                           @endforeach
                                        </span>
                                       <hr>

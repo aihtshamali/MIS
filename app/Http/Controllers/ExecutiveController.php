@@ -843,7 +843,9 @@ class ExecutiveController extends Controller
         'completedprojects_wrt_sectors'=>$completedprojects_wrt_sectors,
         // 'stoppedProjects_wrt_sectors'=>$sectors_data_stoppedProjects
         ]);
-      return view('executive.home.chart_eight' ,['sectors'=> $sectors, 'assignedprojects_wrt_sectors'=>$assignedprojects_wrt_sectors,  'inprogressprojects_wrt_sectors'=>$inprogressprojects_wrt_sectors,
+      return view('executive.home.chart_eight' ,['sectors'=> $sectors,
+      'assignedprojects_wrt_sectors'=>$assignedprojects_wrt_sectors,
+      'inprogressprojects_wrt_sectors'=>$inprogressprojects_wrt_sectors,
       'totalprojects_wrt_sectors'=>$totalprojects_wrt_sectors,
       'completedprojects_wrt_sectors'=>$completedprojects_wrt_sectors
       ]);

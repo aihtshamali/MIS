@@ -134,7 +134,7 @@
                       <th style="width:20% !important;">Project Name</th>
                       <th style="width:12% !important;">Team Members</th>
                       <th>SNE</th>
-                      <th style="width:15% !important;">Departments</th>
+                      <th style="width:12% !important; ">Departments</th>
                       <th>Priority</th>
                       <th>Score</th>
                       <th>Assigned Duration</th>
@@ -170,9 +170,9 @@
                                         </td>
                                         <td>{{$assigned->project->ProjectDetail->sne}}</td>
                                       <td>
-                                       <span style="background:lightblue; padding:3px; ">
+                                       <span >
                                             @foreach ($assigned->project->AssignedSubSectors as $item)
-                                          {{$item->SubSector->sector->name}}
+                                         <b style="text-align:center;"> {{$item->SubSector->sector->name}}</b>
                                           @endforeach
                                        </span>
                                       <hr>
