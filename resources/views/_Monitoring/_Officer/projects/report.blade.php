@@ -673,7 +673,6 @@ return 'Unknown';
         <button class="topbtns btn btn-md" onclick="window.print()">
             Save as PDF
         </button>
-        {{-- <a class="topbtns btn btn-md" href="{{ route('generatePDF',['download'=>'pdf']) }}">Download PDF</a> --}}
     </div>
     <div class="card" id='exportContent'>
         <!-- myCode start here -->

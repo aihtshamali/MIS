@@ -1807,16 +1807,7 @@ class OfficerController extends Controller
           return view('_Monitoring._Officer.projects.report',compact('project','report_data','mPlanKpiComponents'));
      }
 
-     public function generatePDF(Request $request)
-     {
-       dd($request->all());
-        //  $data = ['title' => 'Welcome to HDTuto.com'];
-         if($request->has('download')){
-            $pdf = PDF::loadView('_Monitoring._Officer.projects.report');
-            return $pdf->download('report.pdf');
-        }
-           return view('_Monitoring._Officer.projects.report');
-     }
+    //  
      //saving report Data
      public function save_report_data(Request $request)
      {
