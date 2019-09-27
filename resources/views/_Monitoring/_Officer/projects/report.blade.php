@@ -16,10 +16,32 @@
     <link href="{{asset('lightRoom/lightgallery.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
     <style>
-        body{
-             
-                background:white;
+        body {
+
+            background: white;
         }
+
+        .border-right {
+            border-right: 1px solid #000
+        }
+
+        .noborder {
+            border: none !important;
+        }
+
+        .border-left {
+            border-left: 1px solid #000
+        }
+
+        .nopading {
+            padding: 0% !important
+        }
+
+        .nopading .col-md-6,
+        .nopading .col-md-5 {
+            padding: 1% !important
+        }
+
         .skin-blue .main-header .navbar {
             position: fixed !important;
             width: 100% !important;
@@ -431,76 +453,86 @@
             margin: auto;
             padding: 1% 0.5%;
         }
-        .rem{
+
+        .rem {
             height: 20px;
             width: 20px;
-            background:#a64c4c;
-            display:inline-block;
+            background: #a64c4c;
+            display: inline-block;
             vertical-align: middle;
         }
-        .fcost{
+
+        .fcost {
             margin-left: 5%;
             height: 20px;
             width: 20px;
-            background:#8bc34a;
-            display:inline-block;
+            background: #8bc34a;
+            display: inline-block;
             vertical-align: middle;
         }
-        .planned{
+
+        .planned {
             height: 20px;
             width: 20px;
-            background:#f44336;
-            display:inline-block;
+            background: #f44336;
+            display: inline-block;
             vertical-align: middle;
         }
-        .achieved{
+
+        .achieved {
             margin-left: 5%;
             height: 20px;
             width: 20px;
-            background:#e91e63;
-            display:inline-block;
+            background: #e91e63;
+            display: inline-block;
             vertical-align: middle;
         }
-        .variance{
+
+        .variance {
             margin-left: 5%;
             height: 20px;
             width: 20px;
-            background:#9c27b0;
-            display:inline-block;
+            background: #9c27b0;
+            display: inline-block;
             vertical-align: middle;
         }
-        .approvedPC1Cost{
-             /* margin-left: 5%; */
+
+        .approvedPC1Cost {
+            /* margin-left: 5%; */
             height: 20px;
             width: 20px;
-            background:#5075e5;
-            display:inline-block;
+            background: #5075e5;
+            display: inline-block;
             vertical-align: middle;
         }
-        .TU{
+
+        .TU {
             margin-left: 5%;
             height: 20px;
             width: 20px;
-            background:#b366b3;
-            display:inline-block;
+            background: #b366b3;
+            display: inline-block;
             vertical-align: middle;
         }
-        .TR{
+
+        .TR {
             margin-left: 5%;
             height: 20px;
             width: 20px;
-            background:#8bc34a;
-            display:inline-block;
+            background: #8bc34a;
+            display: inline-block;
             vertical-align: middle;
         }
-        .RC{
-           margin-left: 5%;
+
+        .RC {
+            margin-left: 5%;
             height: 20px;
             width: 20px;
-            background:#a64c4c;
-            display:inline-block;
-            vertical-align: middle;  
+            background: #a64c4c;
+            display: inline-block;
+            vertical-align: middle;
         }
+
         table {
             margin-top: 3%;
         }
@@ -513,33 +545,36 @@
         .border {
             border: 1px solid #999;
         }
-        
+
 
         #chartdivprogressgraphs {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
-             "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-                width: 600px;
-                height: 400px;
-            }
-            #chartdiv_FinancialprogressCost{
+                "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            width: 600px;
+            height: 400px;
+        }
+
+        #chartdiv_FinancialprogressCost {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
-             "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-                width: 1000px;
-                height: 400px;
-            }
-            #chartdiv_FinancialprogressReleases{
+                "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            width: 1000px;
+            height: 400px;
+        }
+
+        #chartdiv_FinancialprogressReleases {
 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
-             "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-                width: 1000px;
-                height: 400px;
-            }
-            #chartFinancialProgressagainstallocation{
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
-             "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-                width: 800px;
-                height: 400px;
-            }
+                "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            width: 1000px;
+            height: 400px;
+        }
+
+        #chartFinancialProgressagainstallocation {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+                "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            width: 800px;
+            height: 400px;
+        }
 
         @media print {
             @page {
@@ -553,9 +588,20 @@
                 }
             }
 
+
+            .paddingmainpage {
+                padding-top: 10% !important;
+            }
+
             body {
-                background:white;
+                background: white;
                 margin: 10% !important;
+            }
+
+            .mainpageborderprint {
+                border: 1px solid #000;
+                height: 100% !important;
+                padding-top: 7%;
             }
 
             .fullwidthprint img,
@@ -602,35 +648,39 @@
             }
 
             .redTxt {
-                color: red
+                color: #000;
             }
-           
-             #chartdivprogressgraphs {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
-             "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+            #chartdivprogressgraphs {
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+                    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
                 width: 600px;
                 height: 400px;
             }
-            #chartdiv_FinancialprogressCost{
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
-             "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-                width: 1000px;
-                height: 400px;
-                
-            }
-            #chartdiv_FinancialprogressReleases{
 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
-             "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            #chartdiv_FinancialprogressCost {
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+                    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+                width: 1000px;
+                height: 400px;
+
+            }
+
+            #chartdiv_FinancialprogressReleases {
+
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+                    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
                 width: 1000px;
                 height: 400px;
             }
-            #chartFinancialProgressagainstallocation{
+
+            #chartFinancialProgressagainstallocation {
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
-             "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+                    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
                 width: 1050px;
                 height: 400px;
             }
+<<<<<<< HEAD
             .borderprint{
                 border:2px solid #000;
             }
@@ -646,6 +696,10 @@
            table tr td{padding: 3% !important;width: 45% !important;}
            .paddingtopprint{padding-top:2%;}
             
+=======
+
+
+>>>>>>> 4dae3f6f8113aaaa59da3bfd1a1e2730a7185c6c
         }
     </style>
     <script src="{{asset('lightRoom/picturefill.min.js')}}"></script>
@@ -686,11 +740,14 @@ return 'Unknown';
         <button class="topbtns btn btn-md" onclick="window.print()">
             Save as PDF
         </button>
-        {{-- <a class="topbtns btn btn-md" href="{{ route('generatePDF',['download'=>'pdf']) }}">Download PDF</a> --}}
     </div>
     <div class="card" id='exportContent'>
         <!-- myCode start here -->
+<<<<<<< HEAD
         <div class="mainpage col-md-12 fullheightprint borderprint paddingtopprint">
+=======
+        <div class="mainpage col-md-12 mainpageborderprint">
+>>>>>>> 4dae3f6f8113aaaa59da3bfd1a1e2730a7185c6c
             <div class="headerNew col-md-12">
                 <div class="clearfix headerLogoNew">
                     <center>
@@ -707,22 +764,35 @@ return 'Unknown';
                 </div>
                 @if (count($project->ReportImage->where('title_image',1)))
                 <div class="col-md-12 fullwidthprint">
-                    <img src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$project->id.'/'.$project->ReportImage->where('title_image',1)->first()->MAppAttachment->project_attachement}}" alt="title image" class="mainpageimg pdtop1p" style="width: 90% !important;margin-left: 5% !important;max-height: 500px;">
+                    <!-- <img src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$project->id.'/'.$project->ReportImage->where('title_image',1)->first()->MAppAttachment->project_attachement}}" alt="title image" class="mainpageimg pdtop1p" style="width: 90% !important;margin-left: 5% !important;max-height: 500px;"> -->
+                    <img src="{{asset('storage/uploads/monitoring/'.$project->id.'/'.$project->ReportImage->where('title_image',1)->first()->MAppAttachment->project_attachement)}}" alt="title image" class="mainpageimg pdtop1p" style="width: 90% !important;margin-left: 5% !important;max-height: 500px;">
                 </div>
                 @endif
+<<<<<<< HEAD
                 <h4 class="margtopprintmain">
+=======
+                <h4 class=" paddingmainpage">
+>>>>>>> 4dae3f6f8113aaaa59da3bfd1a1e2730a7185c6c
                     <center>
                         DIRECTORATE GENERAL MONITORING & EVALUATION <br>
                         PLANNING & DEVELOPMENT DEPARTMENT<br>
                         GOVERNMENT OF THE PUNJAB
                     </center>
                 </h4>
+<<<<<<< HEAD
                 <h4 class="text-capitalize margtopprintmain">
+=======
+                <h4 class="text-capitalize paddingmainpage">
+>>>>>>> 4dae3f6f8113aaaa59da3bfd1a1e2730a7185c6c
                     <center>
                         October , 2018
                     </center>
                 </h4>
+<<<<<<< HEAD
                 <div class="fullwidthprint margtopprintmain bggradient">
+=======
+                <div class="fullwidthprint paddingmainpage">
+>>>>>>> 4dae3f6f8113aaaa59da3bfd1a1e2730a7185c6c
                     <center>
                         <h4 class="text-capitalize printborder ">
                             DGM&E, 65-Trade center Block, M.A Johar Town, Lahore – Punjab
@@ -743,6 +813,7 @@ return 'Unknown';
             <h4 class="redTxt">
                 2. PROJECT DATA (Sheet (12pt font size, Justified, Time new )
             </h4>
+<<<<<<< HEAD
             <div class="table-responsive">
                   <table id="" dclass="table table-bordered ">
                       {{-- <thead>
@@ -825,87 +896,98 @@ return 'Unknown';
                 <div class="col-md-12 row">
                     <div class="col-md-4 prolable"><b>1. Project Title :</b></div>
                     <div class="col-md-8">{{$project->AssignedProject->Project->title}}</div>
+=======
+            <div class="row col-md-12 fullwidthprint">
+                <div class="col-md-12 row nopading noborder">
+                    <div class="col-md-5 prolable border"><b>1. Project Title :</b></div>
+                    <div class="col-md-6 border-left">{{$project->AssignedProject->Project->title}}</div>
+>>>>>>> 4dae3f6f8113aaaa59da3bfd1a1e2730a7185c6c
                 </div>
-                <div class="col-md-12 row">
-                    <div class="col-md-4 row">
-                        <div class="col-md-4 prolable"><b>Project GS.No:</b></div>
-                        <div class="col-md-8">{{$project->AssignedProject->Project->ADP}}</div>
-                    </div>
-                    <div class="col-md-4 row">
-                        <div class="col-md-4 prolable"><b>Sector :</b></div>
-                        <div class="col-md-8"></div>
-                    </div>
-                    <div class="col-md-4 row">
-                        <div class="col-md-4 prolable"><b>Sub-Sector:</b></div>
-                        <div class="col-md-8"></div>
-                    </div>
+                <div class="col-md-12 row nopading noborder">
+                    <div class="col-md-5 prolable border"><b>2. Project GS.No</b></div>
+                    <div class="col-md-6 border-left"></div>
                 </div>
-                <div class="col-md-12 row">
-                    <div class="col-md-4 prolable"><b>2. Sponsoring Agency/Department:</b></div>
-                    <div class="col-md-8"></div>
+                <div class="col-md-12 row nopading noborder">
+                    <div class="col-md-5 prolable border"><b>3. Sector</b></div>
+                    <div class="col-md-6 border-left"></div>
                 </div>
-                <div class="col-md-12 row">
-                    <div class="col-md-4 prolable"><b>3. Executing Agency/Department:</b></div>
-                    <div class="col-md-8"></div>
+                <div class="col-md-12 row nopading noborder">
+                    <div class="col-md-5 prolable border"><b>4. Sub Sector</b></div>
+                    <div class="col-md-6 border-left"></div>
                 </div>
-                <div class="col-md-12 row">
-                    <div class="col-md-4 prolable"><b>4. O&M Agency/Department:</b></div>
-                    <div class="col-md-8"></div>
+                <div class="col-md-12 row nopading noborder">
+                    <div class="col-md-5 prolable border"><b>5. Sponsoring Agency/Department:</b></div>
+                    <div class="col-md-6 border-left"></div>
                 </div>
-                <div class="col-md-12 row">
-                    <div class="col-md-4 prolable"><b>5. Project Location:</b></div>
-                    <div class="col-md-8">
+                <div class="col-md-12 row nopading noborder">
+                    <div class="col-md-5 prolable border"><b>6. Executing Agency/Department:</b></div>
+                    <div class="col-md-6 border-left"></div>
+                </div>
+                <div class="col-md-12 row nopading noborder">
+                    <div class="col-md-5 prolable border"><b>7. O&M Agency/Department:</b></div>
+                    <div class="col-md-6 border-left"></div>
+                </div>
+                <div class="col-md-12 row nopading noborder">
+                    <div class="col-md-5 prolable border"><b>8. Project Location:</b></div>
+                    <div class="col-md-6 border-left">
                         @foreach ($project->AssignedProject->Project->AssignedDistricts as $district)
                         {{$district->District->name}},
                         @endforeach
                     </div>
                 </div>
-                <div class="col-md-12 row">
-                    <div class="col-md-4 prolable"><b>6. Status of Project with respect to Actual progress against Financial Progress:</b></div>
-                    <div class="col-md-8">
+                <div class="col-md-12 row nopading noborder">
+                    <div class="col-md-5 prolable border"><b>9. Status of Project with respect to Actual progress against Financial Progress:</b></div>
+                    <div class="col-md-6 border-left">
                     </div>
                 </div>
-                <div class="col-md-12 row">
-                    <div class="col-md-4 prolable"><b>7. Status of Project with respect to Actual Vs Planned Progress:</b></div>
-                    <div class="col-md-8">
+                <div class="col-md-12 row nopading noborder">
+                    <div class="col-md-5 prolable border"><b>10. Status of Project with respect to Actual Vs Planned Progress:</b></div>
+                    <div class="col-md-6 border-left">
                     </div>
                 </div>
-                <div class="col-md-12 row">
-                    <div class="col-md-4">
-                        <div class="col-md-4 prolable"><b>8. Approval Date:</b></div>
-                        <div class="col-md-8">
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="col-md-4 prolable"><b> No. of Revisions:</b></div>
-                        <div class="col-md-8">
-                        </div>
+                <div class="col-md-12 row nopading noborder">
+                    <div class="col-md-5 prolable border"><b>11. Approval Date</b></div>
+                    <div class="col-md-6 border-left">
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <div class="col-md-4 prolable"><b> Project Gestation Period:</b></div>
-                    <div class="col-md-8">
+                <div class="col-md-12 row nopading noborder">
+                    <div class="col-md-5 prolable border"><b>12. No. of Revisions</b></div>
+                    <div class="col-md-6 border-left">
                     </div>
                 </div>
+                <div class="col-md-12 row nopading noborder">
+                    <div class="col-md-5 prolable border"><b>13. Total Approved Revised Data</b></div>
+                    <div class="col-md-6 border-left">
+                    </div>
+                </div>
+                <div class="col-md-12 row nopading noborder">
+                    <div class="col-md-5 prolable border"><b>14. Project Gestation Period</b></div>
+                    <div class="col-md-6 border-left">
+                    </div>
+                </div>
+<<<<<<< HEAD
 
             </div> --}}
+=======
+            </div>
+>>>>>>> 4dae3f6f8113aaaa59da3bfd1a1e2730a7185c6c
         </div>
         <div class="clearfix breakpage ">
             <h4 class="redTxt">
-                9. PROJECT SCHEDULE DETAIL:
+                3. PROJECT SCHEDULE DETAIL:
             </h4>
             <b>
                 Overall Physical progress against Planned Progress with respect to time and over all project approved PC-I cost;<br /><br /><br />
             </b>
             <div class="row">
-                 <div class="col-md-12">
-                 <center class="">
-                   <b>  Over all physical progress of the project aginst allocated scope or work</b>
-                </center>
-                <center class="">
-                   <div id="chartdivprogressgraphs"></div>
-                </center>
-                 </div>
+                <div class="col-md-12">
+                    <center class="">
+                        <b> Over all physical progress of the project aginst allocated scope or work</b>
+                    </center>
+                    <center class="">
+                        <div id="chartdivprogressgraphs"></div>
+                    </center>
+                </div>
             </div>
             <table class="col-md-12">
                 <tr>
@@ -938,7 +1020,7 @@ return 'Unknown';
         </div>
         <div class="clearfix breakpage ">
             <h4 class="redTxt">
-                10. Project Cost Details:
+                4. Project Cost Details:
             </h4>
             <table class="col-md-12">
                 <tr>
@@ -996,30 +1078,30 @@ return 'Unknown';
             </b>
             <div class="row">
                 <div class="col-md-12">
-                <center >
-                    <b>Financial Progress Chart Against Overall Project Approved Cost</b>
-                     <br>
-                </center>
+                    <center>
+                        <b>Financial Progress Chart Against Overall Project Approved Cost</b>
+                        <br>
+                    </center>
                     <div class="">
-                    <div id="chartdiv_FinancialprogressCost"></div>
+                        <div id="chartdiv_FinancialprogressCost"></div>
                     </div>
                 </div>
             </div>
-             <hr style="border: transparent;">
+            <hr style="border: transparent;">
             <div class="row">
                 <div class="col-md-12">
                     <center class="text-center">
-                         <b>Financial Progress Chart Against Releases</b>  <br>
-                    </center> 
+                        <b>Financial Progress Chart Against Releases</b> <br>
+                    </center>
                     <div class="">
-                    <div id="chartdiv_FinancialprogressReleases"></div>
+                        <div id="chartdiv_FinancialprogressReleases"></div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="clearfix breakpage ">
             <h4 class="redTxt">
-                11. Project Objectives:
+                5. Project Objectives:
             </h4>
             <div class="col-md-12">
                 <table class="col-md-12">
@@ -1049,7 +1131,7 @@ return 'Unknown';
         </div>
         <div class="clearfix breakpage ">
             <h4 class="redTxt">
-                12. Physical Targets and Performance:
+                6. Physical Targets and Performance:
             </h4>
             <div class="col-md-12">
                 <table class="col-md-12">
@@ -1070,7 +1152,7 @@ return 'Unknown';
         </div>
         <div class="clearfix breakpage ">
             <h4 class="redTxt">
-                13. Quality of the Project Activities
+                7. Quality of the Project Activities
             </h4>
             <div class="col-md-12">
                 <table class="col-md-12">
@@ -1115,7 +1197,7 @@ return 'Unknown';
         </div>
         <div class="clearfix breakpage ">
             <h4 class="redTxt">
-                15. Risk and Constraints:
+                8. Risk and Constraints:
             </h4>
             <table class="col-md-12">
                 <tr>
@@ -1132,7 +1214,7 @@ return 'Unknown';
         </div>
         <div class="clearfix breakpage ">
             <h4 class="redTxt">
-                16. Human Resource:
+                9. Human Resource:
             </h4>
             1. Was there any qualified PEC registered engineer at site by the Contractor?<br />
             2. Was the human resource of resident supervision consultant available at project site during visit if DGM&E team? (if yes add team)
@@ -1140,7 +1222,7 @@ return 'Unknown';
         </div>
         <div class="clearfix breakpage ">
             <h4 class="redTxt">
-                17. Project Stakeholders Interviewed:
+                10. Project Stakeholders Interviewed:
             </h4>
             <table class="col-md-12">
                 <tr>
@@ -1159,7 +1241,7 @@ return 'Unknown';
         </div>
         <div class="clearfix breakpage ">
             <h4 class="redTxt">
-                18. Monitoring Team:
+                11. Monitoring Team:
             </h4>
             <table class="col-md-12">
                 <tr>
@@ -1174,7 +1256,7 @@ return 'Unknown';
         </div>
         <div class="clearfix breakpage ">
             <h4 class="redTxt">
-                19. Financial Summary:
+                12. Financial Summary:
             </h4>
 
             <b>
@@ -1183,9 +1265,9 @@ return 'Unknown';
             <div class="row">
                 <div class="col-md-12">
                     <center class="">
-                    <b> Financial progress chart against allocations by sponsoring agency (2014 to 2018)</b>
+                        <b> Financial progress chart against allocations by sponsoring agency (2014 to 2018)</b>
                     </center>
-                    
+
                     <center class="">
                         <div id="chartFinancialProgressagainstallocation"></div>
                     </center>
@@ -1208,7 +1290,7 @@ return 'Unknown';
         </div>
         <div class="clearfix breakpage ">
             <h4 class="redTxt">
-                20. Project Contract Summary:
+                13. Project Contract Summary:
             </h4>
             The detail of project brief is given below;
             <table class="col-md-12">
@@ -1230,7 +1312,7 @@ return 'Unknown';
         </div>
         <div class="clearfix breakpage ">
             <h4 class="redTxt">
-                1. History
+                14. Observation
             </h4>
             <p class="col-md-12 grey">
 
@@ -1238,10 +1320,10 @@ return 'Unknown';
         </div>
         <div class="clearfix breakpage ">
             <h4 class="redTxt">
-                21. RECOMMENDATIONS
+                15. RECOMMENDATIONS
             </h4>
             <p class="col-md-12 grey">
-                 Recomendation       
+                Recomendation
             </p>
         </div>
     </div>
@@ -1249,7 +1331,7 @@ return 'Unknown';
     <div>
         <!-- <button class="btn btn-success" type="button" onclick="save_report_data()">SAVE Report Data</button> -->
     </div>
-   
+
 </body>
 <script src="{{asset('js/charts/amcharts.js')}}"></script>
 <script src="{{asset('js/charts/serial.js')}}"></script>
@@ -1258,57 +1340,57 @@ return 'Unknown';
 
 <script>
     var chart = AmCharts.makeChart("chartdiv_FinancialprogressReleases", {
-    "type": "pie",
-    "theme": "light",
-     "legend": {
-     "position": "absolute",
-    "align":"center",
-    "marginRight": 100,
-    "autoMargins": false
-     },
-    "dataProvider": [{
-        "financial_status": "Financial Cost",
-        "value": 30,
-         "color": "#00bcd4"
-    }, {
-        "financial_status": "Remainig Cost",
-        "value": 71,
-        "color": "#8bc34a"
-    }],
-    "valueField": "value",
-    "titleField": "financial_status",
-    "colorField": "color",
-    "balloon": {
-        "fixedPosition": true
-    }
+        "type": "pie",
+        "theme": "light",
+        "legend": {
+            "position": "absolute",
+            "align": "center",
+            "marginRight": 100,
+            "autoMargins": false
+        },
+        "dataProvider": [{
+            "financial_status": "Financial Cost",
+            "value": 30,
+            "color": "#00bcd4"
+        }, {
+            "financial_status": "Remainig Cost",
+            "value": 71,
+            "color": "#8bc34a"
+        }],
+        "valueField": "value",
+        "titleField": "financial_status",
+        "colorField": "color",
+        "balloon": {
+            "fixedPosition": true
+        }
     });
 </script>
 <script>
     var chart = AmCharts.makeChart("chartdiv_FinancialprogressCost", {
-  "type": "pie",
-    "theme": "light",
-     "legend": {
-    "position": "absolute",
-    "align":"center",
-    "marginRight": 100,
-    "autoMargins": false
-  },
-    "dataProvider": [{
-        "financial_status": "Financial Cost",
-        "value": 30,
-        "color": "#00bcd4"
-    }, {
-        "financial_status": "Remainig Cost",
-        "value": 70,
-       "color": "#8bc34a"
-    }],
-    "valueField": "value",
-    "titleField": "financial_status",
-    "colorField": "color",
-    "balloon": {
-        "fixedPosition": true
-                }
-             
+        "type": "pie",
+        "theme": "light",
+        "legend": {
+            "position": "absolute",
+            "align": "center",
+            "marginRight": 100,
+            "autoMargins": false
+        },
+        "dataProvider": [{
+            "financial_status": "Financial Cost",
+            "value": 30,
+            "color": "#00bcd4"
+        }, {
+            "financial_status": "Remainig Cost",
+            "value": 70,
+            "color": "#8bc34a"
+        }],
+        "valueField": "value",
+        "titleField": "financial_status",
+        "colorField": "color",
+        "balloon": {
+            "fixedPosition": true
+        }
+
 
     });
     // chart.legend = new AmCharts.Legend();
@@ -1319,7 +1401,6 @@ return 'Unknown';
 <script src="https://www.amcharts.com/lib/4/themes/material.js"></script>
 
 <script>
-
     // Themes begin
     am4core.useTheme(am4themes_material);
     // Themes end
@@ -1328,156 +1409,153 @@ return 'Unknown';
     chart.hiddenState.properties.opacity = 0; // this makes initial fade in effect
 
     chart.data = [{
-    "Type": "Approved PC-1 Cost",
-    "value": 1700,
-     "color": "#5075e5"
-     
+        "Type": "Approved PC-1 Cost",
+        "value": 1700,
+        "color": "#5075e5"
+
     }, {
-    "Type": "Total Release",
-    "value": 500,
-     "color": "#8bc34a"
+        "Type": "Total Release",
+        "value": 500,
+        "color": "#8bc34a"
     }, {
-    "Type": "Total Utilization",
-    "value": 600,
-     "color": "#b366b3"
+        "Type": "Total Utilization",
+        "value": 600,
+        "color": "#b366b3"
     }, {
-    "Type": "Remaining Cost",
-    "value": 1322,
-     "color": "#a64c4c"
+        "Type": "Remaining Cost",
+        "value": 1322,
+        "color": "#a64c4c"
     }];
 
-        // X axis
-        var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-        categoryAxis.renderer.grid.template.location = 0;
-        categoryAxis.dataFields.category = "Type";
-        categoryAxis.renderer.minGridDistance = 20;
-        categoryAxis.title.text="[bold]Financial Status"; 
-        
-        // Y axis
-        var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-        valueAxis.title.text = "[bold]Amount In Millions";
-        valueAxis.calculateTotals = true;
-        valueAxis.min = 0;
-        valueAxis.max = 2500;
-        valueAxis.strictMinMax = true;
+    // X axis
+    var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+    categoryAxis.renderer.grid.template.location = 0;
+    categoryAxis.dataFields.category = "Type";
+    categoryAxis.renderer.minGridDistance = 20;
+    categoryAxis.title.text = "[bold]Financial Status";
 
-        // Chart series
-        var series = chart.series.push(new am4charts.ColumnSeries());
-        series.dataFields.categoryX = "Type";
-        series.dataFields.valueY = "value";
-        series.tooltipText = "{valueY.value} Millions";
-        series.columns.template.strokeOpacity = 0;
-        series.columns.template.tension = 1;
-        series.columns.template.width = am4core.percent(40);
-        series.columns.template.fillOpacity = 0.75;
+    // Y axis
+    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.title.text = "[bold]Amount In Millions";
+    valueAxis.calculateTotals = true;
+    valueAxis.min = 0;
+    valueAxis.max = 2500;
+    valueAxis.strictMinMax = true;
 
-        // Hover
-        var hoverState = series.columns.template.states.create("hover");
-        hoverState.properties.fillOpacity = 1;
-        hoverState.properties.tension = 0.8;
+    // Chart series
+    var series = chart.series.push(new am4charts.ColumnSeries());
+    series.dataFields.categoryX = "Type";
+    series.dataFields.valueY = "value";
+    series.tooltipText = "{valueY.value} Millions";
+    series.columns.template.strokeOpacity = 0;
+    series.columns.template.tension = 1;
+    series.columns.template.width = am4core.percent(40);
+    series.columns.template.fillOpacity = 0.75;
 
-        // chart cursor   
-        chart.cursor = new am4charts.XYCursor();
+    // Hover
+    var hoverState = series.columns.template.states.create("hover");
+    hoverState.properties.fillOpacity = 1;
+    hoverState.properties.tension = 0.8;
 
-        // legends
-        var legend = new am4charts.Legend();
-        legend.parent = chart.chartContainer;
-        // legend.background.fill = am4core.color("#000");
-        // legend.background.fillOpacity = 0.05;
-        // legend.width = 120;f44336 ,#e91e63,#9c27b0
-        legend.align = "top";
-        legend.data = [{
-         "name": "Approved PC-1 Cost",
-         "fill":"#00bcd4"
-     
+    // chart cursor   
+    chart.cursor = new am4charts.XYCursor();
+
+    // legends
+    var legend = new am4charts.Legend();
+    legend.parent = chart.chartContainer;
+    // legend.background.fill = am4core.color("#000");
+    // legend.background.fillOpacity = 0.05;
+    // legend.width = 120;f44336 ,#e91e63,#9c27b0
+    legend.align = "top";
+    legend.data = [{
+        "name": "Approved PC-1 Cost",
+        "fill": "#00bcd4"
+
     }, {
-    "name": "Total Release",
-    "fill":"#009688"
-        }, {
+        "name": "Total Release",
+        "fill": "#009688"
+    }, {
         "name": "Total Utilization",
-        "fill":"#4caf50"
-        }, {
+        "fill": "#4caf50"
+    }, {
         "name": "Remaining Cost",
-    "fill":"#8bc34a"
-            }];
+        "fill": "#8bc34a"
+    }];
 
-        // Add distinctive colors for each column using adapter
-        series.columns.template.adapter.add("fill", function(fill, target) {
-        return chart.colors.getIndex(target.dataItem.index+7);
-        });
-        // chart.scrollbarX = new am4core.Scrollbar();
-        // chart.scrollbarY = new am4core.Scrollbar();
-
-</script> 
+    // Add distinctive colors for each column using adapter
+    series.columns.template.adapter.add("fill", function(fill, target) {
+        return chart.colors.getIndex(target.dataItem.index + 7);
+    });
+    // chart.scrollbarX = new am4core.Scrollbar();
+    // chart.scrollbarY = new am4core.Scrollbar();
+</script>
 
 <script>
-
     // Themes begin
     am4core.useTheme(am4themes_material);
     // Themes end
 
     var chart = am4core.create("chartdivprogressgraphs", am4charts.XYChart);
     chart.hiddenState.properties.opacity = 0; // this makes initial fade in effect
-    
+
     chart.data = [{
-    "progress": "Planned Progress",
-    "value": 30.2
+        "progress": "Planned Progress",
+        "value": 30.2
     }, {
-    "progress": "Achieved Progress",
-    "value": 18.5
+        "progress": "Achieved Progress",
+        "value": 18.5
     }, {
-    "progress": "Variance",
-    "value": -18.4
+        "progress": "Variance",
+        "value": -18.4
     }];
 
-        var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-        categoryAxis.renderer.grid.template.location = 0;
-        categoryAxis.dataFields.category = "progress";
-        categoryAxis.renderer.minGridDistance = 40;
-        categoryAxis.title.text="[bold]Progress"
+    var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+    categoryAxis.renderer.grid.template.location = 0;
+    categoryAxis.dataFields.category = "progress";
+    categoryAxis.renderer.minGridDistance = 40;
+    categoryAxis.title.text = "[bold]Progress"
 
-        var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-        valueAxis.title.text="[bold] Progress Percentages"
+    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.title.text = "[bold] Progress Percentages"
 
 
-        var series = chart.series.push(new am4charts.ColumnSeries());
-        series.dataFields.categoryX = "progress";
-        series.dataFields.valueY = "value";
-        series.tooltipText = "{valueY.value}%"
-        series.columns.template.strokeOpacity = 0;
-        series.columns.template.tension = 1;
-        series.columns.template.width = am4core.percent(40);
-        series.columns.template.fillOpacity = 0.75;
+    var series = chart.series.push(new am4charts.ColumnSeries());
+    series.dataFields.categoryX = "progress";
+    series.dataFields.valueY = "value";
+    series.tooltipText = "{valueY.value}%"
+    series.columns.template.strokeOpacity = 0;
+    series.columns.template.tension = 1;
+    series.columns.template.width = am4core.percent(40);
+    series.columns.template.fillOpacity = 0.75;
 
-        var hoverState = series.columns.template.states.create("hover");
-        hoverState.properties.fillOpacity = 1;
-        hoverState.properties.tension = 0.8;
+    var hoverState = series.columns.template.states.create("hover");
+    hoverState.properties.fillOpacity = 1;
+    hoverState.properties.tension = 0.8;
 
-        chart.cursor = new am4charts.XYCursor();
-        var legend = new am4charts.Legend();
-        legend.parent = chart.chartContainer;
-        // legend.background.fill = am4core.color("#000");
-        // legend.background.fillOpacity = 0.05;
-        // legend.width = 120;f44336 ,#e91e63,#9c27b0
-        legend.align = "top";
-        legend.data = [{
+    chart.cursor = new am4charts.XYCursor();
+    var legend = new am4charts.Legend();
+    legend.parent = chart.chartContainer;
+    // legend.background.fill = am4core.color("#000");
+    // legend.background.fillOpacity = 0.05;
+    // legend.width = 120;f44336 ,#e91e63,#9c27b0
+    legend.align = "top";
+    legend.data = [{
         "name": "Planned Progress",
-        "fill":"#f44336"
-        }, {
+        "fill": "#f44336"
+    }, {
         "name": "Achieved Progress",
         "fill": "#e91e63"
-        }, {
+    }, {
         "name": "Variance",
         "fill": "#9c27b0"
-        }];
-        // Add distinctive colors for each column using adapter
-        series.columns.template.adapter.add("fill", function(fill, target) {
+    }];
+    // Add distinctive colors for each column using adapter
+    series.columns.template.adapter.add("fill", function(fill, target) {
         return chart.colors.getIndex(target.dataItem.index);
-        });
-        // chart.scrollbarX = new am4core.Scrollbar();
-        // chart.scrollbarY = new am4core.Scrollbar();
-
-</script> 
+    });
+    // chart.scrollbarX = new am4core.Scrollbar();
+    // chart.scrollbarY = new am4core.Scrollbar();
+</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
 <script>
@@ -1614,6 +1692,7 @@ return 'Unknown';
 
     }
 </script>
+
 </html>
 @section("js_scripts")
 

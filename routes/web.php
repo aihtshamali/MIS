@@ -318,7 +318,6 @@ Route::group(['middleware' => ['role:admin|dataentry|officer|evaluator|monitor|m
 
     //Summary Tab
   Route::get('/generate_monitoring_report','OfficerController@generate_monitoring_report')->name('generate_monitoring_report');
-  Route::get('generate-pdf','OfficerController@generatePDF')->name('generatePDF');
   Route::post('/save_report_data','OfficerController@save_report_data');
 
   // CM DASHBOARD
