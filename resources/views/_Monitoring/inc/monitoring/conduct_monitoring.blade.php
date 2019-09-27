@@ -255,11 +255,11 @@
                         <b style="font-size:11px; font-weight:bold;">Observations</b></a>
                 </li>
                 <li class='nav-item'>
-                    <a class="nav-link FinancialSummary" data-toggle="tab" href="#FinancialSummary" role="tab" aria-expanded="false">
+                    <a class="nav-link FinancialSummary {{isset($innertab) && $innertab=='FinancialSummary' ? 'active' : ''}}" data-toggle="tab" href="#FinancialSummary" role="tab" aria-expanded="false">
                         <b style="font-size:11px; font-weight:bold;">Financial Summary</b></a>
                 </li>
                 <li class='nav-item'>
-                    <a class="nav-link ContactSummary" data-toggle="tab" href="#ContactSummary" role="tab" aria-expanded="false">
+                    <a class="nav-link {{isset($innertab) && $innertab=="ContactSummary" ? "active" : ""}} ContactSummary" data-toggle="tab" href="#ContactSummary" role="tab" aria-expanded="false">
                         <b style="font-size:11px; font-weight:bold;">Contract Summary</b></a>
                 </li>
             </ul>
@@ -1088,23 +1088,17 @@
                 </div>
 
                 <div class='tab-pane {{isset($innertab) && $innertab=="observation" ? "active" : ""}}' id="observations" role="tabpanel" aria-expanded="false">
-                    <form action="{{route('save_m_observations')}}" method="POST" class="border">
+                    <form action="{{route('save_m_observations')}}" method="POST" enctype="multipart/form-data" class="border">
                         {{csrf_field()}}
                         <input type="hidden" name="page_tabs" value="conduct_observation">
                         <input type="hidden" name="m_project_progress_id" value="{{$progresses->id}}">
-                        <h3>Observation</h3>
-                        <textarea name="observation" id="short_desc" rows="10" class="offset-md-1 col-md-10" placeholder="Your Oservation here Here...">
-                                @if(isset($m_observations->observation))
-                                {{$m_observations->observation}}
-                                @else
-                                Type your Observations Here...
-                                @endif
-                        </textarea>
+                        <h3 style="text-align:center">Observation</h3>
                         <hr>
-                        <h3>Recomendation</h3>
-                        <textarea name="recomendation" contenteditable="true" rows="10" id="short_recomend" placeholder="Your Recomendation Here..." tyle="height:200px;" class="offset-md-1 col-md-10">
-                            Type your Recomendation Here...
-                        </textarea>
+                        <textarea name="observation" id="short_desc" rows="10" class="offset-md-1 col-md-10" placeholder="Your Oservation here Here...">@if(isset($m_observations->observation)){{$m_observations->observation}}@endif</textarea>
+                        <hr>
+                        <h3 style="text-align:center">Recommendation </h3>
+                        <hr>
+                        <textarea name="recommendation" contenteditable="true" rows="10" id="short_recomend" placeholder="Your Recommendation Here..." style="height:200px;" class="offset-md-1 col-md-10">@if(isset($m_recommendation->recommendation)){{$m_recommendation->recommendation}}@endif</textarea>
                         <hr>
                         <h3>Pictorial Detail</h3>
                         <table class="col-md-12">
@@ -1118,17 +1112,31 @@
                                 </tr>
                             </thead>
                             <tbody id="addMoreImageHere">
-                               
+                                
+                                @foreach ($pictorial_files as $pictorial_img)
+                                    <tr>
+                                        <input type="hidden" name="pictorial_id[{{$pictorial_img->id}}]" value="{{$pictorial_img->id}}">
+                                        <td> <input type='file' name="stored_file[{{$pictorial_img->id}}]" class="form-control" onchange="readURL(this);" value="{{asset('storage/uploads/monitoring/' . $progresses->id . '/pictorial_detail/'.$pictorial_img->stored_file)}}" /> </td> 
+                                        <td> <img class="blah form-control" src="{{asset('storage/uploads/monitoring/' . $progresses->id . '/pictorial_detail/'.$pictorial_img->stored_file)}}" width="100px" alt ="Observation-Image" /> </td> 
+                                        <td> <input type="text" class="form-control" name="caption[{{$pictorial_img->id}}]" placeholder="Caption" value="{{$pictorial_img->caption}}" > </td> 
+                                        <td> <textarea name="description[{{$pictorial_img->id}}]" class="form-control" id="" placeholder="Description" cols="30" rows="3" >{{$pictorial_img->description}}</textarea></td>
+                                        <td>
+                                            {{-- <button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button> --}}
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
 
                         <button class="btn btn-success float-right mt-5" type="submit">SAVE</button>
                     </form>
                 </div>
-                <div class='tab-pane' id="FinancialSummary" role="tabpanel" aria-expanded="false">
-                    <form action="" class="" method="POST">
+                <div class='tab-pane {{isset($innertab) && $innertab=="FinancialSummary" ? "active" : ""}}' id="FinancialSummary" role="tabpanel" aria-expanded="false">
+                    <form action="{{route('storeFinancialSummary')}}" class="" method="POST">
                         {{ csrf_field() }}
                         <div class="card-block">
+                            <input type="hidden" name="page_tabs" value="conduct_FinancialSummary">
+                            <input type="hidden" name="m_project_progress_id" value="{{$progresses->id}}">
                             <div class="col-md-12">
                                 <div class="table-responsive">
                                     <table class="table  table-bordered nowrap">
@@ -1142,19 +1150,41 @@
                                                 <th><button type="button" name="add[]" class=" form-control btn btn-success " id="addFinancialSummary" style="size:14px;">+</button></th>
                                             </tr>
                                         </thead>
+                                        @php
+                                            $_cls = 'nodisplay';
+                                        @endphp
                                         <tbody id="FinancialSummaryHere">
+                                            @foreach ($financial_summary as $financial)
+                                                <tr>
+                                                <td> <input type = "text" name = "FinancialSummaryYear[]" class="form-control" value="{{$financial->year}}" /></td>
+                                                    <td> <input type = "number" step="0.001" min=0 name = "FinancialSummaryAllocation[]" value="{{$financial->allocation}}" class="form-control" /></td>
+                                                    <td> <input type = "number" step="0.001" min=0 name = "FinancialSummaryReleases[]" value="{{$financial->releases}}" class="form-control" /></td>
+                                                    <td> <input type = "number" step="0.001" min=0 name = "FinancialSummaryExpenditure[]" value="{{$financial->expenditure}}" class="form-control" /></td>
+                                                    <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td>
+                                                </tr>                                                
+                                                @php
+                                                    $_cls = '';   
+                                                @endphp
+                                            @endforeach
                                         </tbody>
 
                                     </table>
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <button type="submit" class="btn btn-success pull-right {{$_cls}} FinancialSummaryBtn">Submit</button>
+                            </div>
+                        </div>
                     </form>
                 </div>
-                <div class='tab-pane' id="ContactSummary" role="tabpanel" aria-expanded="false">
-                    <form action="" class="" method="POST">
+                <div class='tab-pane {{isset($innertab) && $innertab=="ContactSummary" ? "active" : ""}}' id="ContactSummary" role="tabpanel" aria-expanded="false">
+                    <form action="{{route('storeContractSummary')}}" class="" method="POST">
                         {{ csrf_field() }}
                         <div class="card-block">
+                            <input type="hidden" name="page_tabs" value="conduct_ContactSummary">
+                            <input type="hidden" name="m_project_progress_id" value="{{$progresses->id}}">
                             <div class="col-md-12">
                                 <div class="table-responsive">
                                     <table class="table  table-bordered nowrap">
@@ -1163,17 +1193,32 @@
 
                                                 <th>Description Of scope</th>
                                                 <th>Agreement Amount (M)</th>
-                                                <th>Name of Supplier/ Contractor)</th>
+                                                <th>Name of Supplier/ Contractor</th>
                                                 <th>Start Date of work</th>
                                                 <th>Expected Completion Date of work</th>
                                                 <th><button type="button" name="add[]" class=" form-control btn btn-success " id="addContractSummary" style="size:14px;">+</button></th>
                                             </tr>
                                         </thead>
                                         <tbody id="ContractSummaryHere">
+                                            @foreach ($contract_summary as $contract)
+                                                <tr>
+                                                    <td> <input type = "text" name = "description_of_scope[]" class = "form-control" value="{{$contract->description_of_scope}}"/> </td>
+                                                    <td> <input type = "number" step="0.001" min=0 name = "agreement_amount[]" value="{{$contract->agreement_amount}}" class = "form-control"> </td>
+                                                    <td> <input type = "text" name = "name_of_supplier[]" class = "form-control" value="{{$contract->name_of_supplier}}" /> </td>
+                                                    <td> <input type = "date" name = "start_date[]" class = "form-control" value="{{$contract->start_date}}" /> </td>
+                                                    <td> <input type = "date" name = "expected_completion_date[]" class = "form-control" value="{{$contract->expected_completion_date}}" /> </td>
+                                                    <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
 
                                     </table>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <button type="submit" class="btn btn-success pull-right">Submit</button>
                             </div>
                         </div>
                     </form>

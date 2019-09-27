@@ -445,23 +445,41 @@ transform: rotate(90deg);
         </div>
         <div class="tab-pane nodisplay" id="Questionnaire" role="tabpanel">
           <!-- ---------------- start tree vie ------------------ -->
-          <form method="post" action="">
+        <form method="post" action="{{route('saveQuestionnaire')}}">
+          {{ csrf_field() }}
+          <input type="hidden" name="m_project_progress_id" value="{{$projectProgressId->id}}">
             <table class="col-md-12">
               <tr>
-                <td>sr#.</td>
-                <td>Question</td>
+                <td>Sr#.</td>
+                <td>Questions</td>
                 <td>Yes</td>
                 <td>No</td>
                 <td>Reason</td>
               </tr>
+              @php
+                  $i=1;
+              @endphp
+              @foreach ($questionnaire as $ques)
+                  
               <tr>
-                <td>1.</td>
+              <td>{{$i}}.</td>
                 <td>
-                  Are project activities going as per scheduled time?</td>
-                <td class="">
-                  <div class="checkbox-fade fade-in-success m-0">
-                    <label class="">
-                      <input type="radio" class="scheduled_timeyes" name="status[0]" value="1_yes" id="">
+                 {{$ques->question}}
+                </td>
+                  <td class="">
+                    @php
+                        $assign_ques = $assigned_questionnaire->where('m_questionnaire_id',$ques->id)->first();
+                        @endphp
+                    <div class="checkbox-fade fade-in-success m-0">
+                      @if(isset($assign_ques))
+                        <input type="hidden" name="m_assigned_questionnaire[{{$i}}]" value="{{$assign_ques->id}}">
+                      @endif
+                      <label class="">
+                        @if(isset($assign_ques) && $assign_ques->answer == "1")
+                            <input type="radio" class="scheduled_timeyes" checked name="answer[{{$i}}]" value="{{$ques->id}}_yes" id="">
+                        @else
+                          <input type="radio" class="scheduled_timeyes" name="answer[{{$i}}]" value="{{$ques->id}}_yes" id="">
+                        @endif
                       <span class="cr">
                         <i class="cr-icon icofont icofont-ui-check txt-success"></i>
                       </span>
@@ -471,120 +489,34 @@ transform: rotate(90deg);
                 <td class="">
                   <div class="checkbox-fade fade-in-danger m-0 ">
                     <label class="">
-                      <input type="radio" class="scheduled_timeno" name="status[0]" value="1_no" id="">
+                      @if(isset($assign_ques) && $assign_ques->answer == "0")
+                        <input type="radio" class="scheduled_timeno" checked name="answer[{{$i}}]" value="{{$ques->id}}_no" id="">
+                      @else
+                        <input type="radio" class="scheduled_timeno" name="answer[{{$i}}]" value="{{$ques->id}}_no" id="">
+                      @endif
                       <span class="cr">
                         <i class="cr-icon icofont icofont-ui-check txt-danger"></i>
                       </span>
                     </label>
                   </div>
                 </td>
-                <td><textarea name="comments[0]" placeholder="if yes  then type reason..." class="nodisplay" id="scheduled_time" cols="30" rows="2"></textarea></td>
+                <td>
+                  @if(isset($assign_ques) && $assign_ques->remarks)
+                  <textarea name="comments[{{$i}}]" placeholder="Type Reason here..." cols="30" rows="2">{{$assign_ques->remarks}}</textarea>
+                  @else
+                    <textarea name="comments[{{$i}}]" placeholder="Type Reason here..." cols="30" rows="2"></textarea>
+                  @endif
+                </td>
               </tr>
-              <tr>
-                <td>2.</td>
-                <td>
-                  Did the project team provided any approved baseline schedule?</td>
-                <td>
-                  <div class="checkbox-fade fade-in-success m-0">
-                    <label>
-                      <input type="radio" name="status[1]" value="1_yes" id="">
-                      <span class="cr">
-                        <i class="cr-icon icofont icofont-ui-check txt-success"></i>
-                      </span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div class="checkbox-fade fade-in-danger m-0">
-                    <label>
-                      <input type="radio" name="status[1]" value="1_no" id="">
-                      <span class="cr">
-                        <i class="cr-icon icofont icofont-ui-check txt-danger"></i>
-                      </span>
-                    </label>
-                  </div>
-                </td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>3.</td>
-                <td>
-                  Funds released according to the allocation</td>
-                <td>
-                  <div class="checkbox-fade fade-in-success m-0">
-                    <label>
-                      <input type="radio" name="status[2]" value="1_yes" id="">
-                      <span class="cr">
-                        <i class="cr-icon icofont icofont-ui-check txt-success"></i>
-                      </span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div class="checkbox-fade fade-in-danger m-0">
-                    <label>
-                      <input type="radio" name="status[2]" value="1_no" id="">
-                      <span class="cr">
-                        <i class="cr-icon icofont icofont-ui-check txt-danger"></i>
-                      </span>
-                    </label>
-                  </div>
-                </td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>4.</td>
-                <td>
-                  Cost Variation</td>
-                <td>
-                  <div class="checkbox-fade fade-in-success m-0">
-                    <label>
-                      <input type="radio" name="status[3]" value="1_yes" id="">
-                      <span class="cr">
-                        <i class="cr-icon icofont icofont-ui-check txt-success"></i>
-                      </span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div class="checkbox-fade fade-in-danger m-0">
-                    <label>
-                      <input type="radio" name="status[3]" value="1_no" id="">
-                      <span class="cr">
-                        <i class="cr-icon icofont icofont-ui-check txt-danger"></i>
-                      </span>
-                    </label>
-                  </div>
-                </td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>5.</td>
-                <td>
-                  Is escalation being paid to contractor? (in case of Capital only)</td>
-                <td>
-                  <div class="checkbox-fade fade-in-success m-0">
-                    <label>
-                      <input type="radio" name="status[4]" class="escalationYes" value="1_yes" id="">
-                      <span class="cr">
-                        <i class="cr-icon icofont icofont-ui-check txt-success"></i>
-                      </span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div class="checkbox-fade fade-in-danger m-0">
-                    <label>
-                      <input type="radio" name="status[4]" class="escalationNo" value="1_no" id="">
-                      <span class="cr">
-                        <i class="cr-icon icofont icofont-ui-check txt-danger"></i>
-                      </span>
-                    </label>
-                  </div>
-                </td>
-                <td><textarea name="comments[0]" placeholder="If Yes, how much cost escalation has so far been paid?" class="nodisplay" id="escalationYes" cols="30" rows="2"></textarea></td>
-              </tr>
+              @php
+                  $i++;
+              @endphp
+              @endforeach
+            <tr>
+              <td colspan="5"><input type="submit" value="Save Questionnaire" name="submit" style="background-color:green !important" class="btn btn-success pull-right"></td>
+            </tr>
             </table>
+
           </form>
           <!-- ---------------- end tree vie ------------------ -->
         </div>

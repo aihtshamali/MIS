@@ -543,18 +543,18 @@ $(document).ready(function () {
     hideall();
     $("#procu").show();
   });
-  $(".scheduled_timeyes").on("click", function () {
-    $("#scheduled_time").show();
-  });
-  $(".scheduled_timeno").on("click", function () {
-    $("#scheduled_time").hide();
-  });
-  $(".escalationYes").on("click", function () {
-    $("#escalationYes").show();
-  });
-  $(".escalationNo").on("click", function () {
-    $("#escalationYes").hide();
-  });
+  // $(".scheduled_timeyes").on("click", function () {
+  //   $("#scheduled_time").show();
+  // });
+  // $(".scheduled_timeno").on("click", function () {
+  //   $("#scheduled_time").hide();
+  // });
+  // $(".escalationYes").on("click", function () {
+  //   $("#escalationYes").show();
+  // });
+  // $(".escalationNo").on("click", function () {
+  //   $("#escalationYes").hide();
+  // });
   // $('#did').on('click', function () {
   //     hideall();
   //     $('#CostingDiv').show();
@@ -799,26 +799,26 @@ $("button#addmoreexecuting").click(function (e) {
   $("#Executingstakeholders").append(add_stakeholder);
 });
 $("button#addFinancialSummary").click(function (e) {
-  var i=0;
   var add_stakeholder =
     `<tr>
     <td> <input type = "text" name = "FinancialSummaryYear[]" class="form-control" /></td>
-    <td> <input type = "text" name = "FinancialSummaryAllocation[]" class="form-control" /></td>
-    <td> <input type = "text" name = "FinancialSummaryReleases[]" class="form-control" /></td>
-    <td> <input type = "text" name = "FinancialSummaryExpenditure[]" class="form-control" /></td>
+    <td> <input type = "number" step="0.001" min=0 name = "FinancialSummaryAllocation[]" class="form-control" /></td>
+    <td> <input type = "number" step="0.001" min=0 name = "FinancialSummaryReleases[]" class="form-control" /></td>
+    <td> <input type = "number" step="0.001" min=0 name = "FinancialSummaryExpenditure[]" class="form-control" /></td>
     <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td>
     </tr>`;
   $("#FinancialSummaryHere").append(add_stakeholder);
+  $('button.FinancialSummaryBtn').show();
 });
 $("button#addContractSummary").click(function (e) {
   var i=0;
   var add_stakeholder =
     `<tr>
-      <td> <input type = "text" name = "ContractSummaryDescriptionOfScope[]" class = "form-control" / > </td>
-      <td> <input type = "text" name = "ContractSummaryAgreement[]" class = "form-control" / > </td>
-      <td> <input type = "text" name = "ContractSummaryContractor[]" class = "form-control" / > </td>
-      <td> <input type = "date" name = "ContractSummaryStartDate[]" class = "form-control" / > </td>
-      <td> <input type = "date" name = "ContractSummaryExpectedDate[]" class = "form-control" / > </td>
+      <td> <input type = "text" name = "description_of_scope[]" class = "form-control" / > </td>
+      <td> <input type = "number" step="0.001" min=0 name = "agreement_amount[]" class = "form-control" / > </td>
+      <td> <input type = "text" name = "name_of_supplier[]" class = "form-control" / > </td>
+      <td> <input type = "date" name = "start_date[]" class = "form-control" / > </td>
+      <td> <input type = "date" name = "expected_completion_date[]" class = "form-control" / > </td>
       <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td>
     </tr>`;
   $("#ContractSummaryHere").append(add_stakeholder);
@@ -827,14 +827,27 @@ $("button#addMoreImage").click(function (e) {
   var i=0;
   var add_stakeholder =
     `<tr>
-      <td> <input type='file' onchange="readURL(this);" /> </td> 
-      <td> <img class="blah" src="http://placehold.it/180" width="100px" alt ="your image" /> </td> 
-      <td> <input type="text" class="" name="Caption[]" placeholder="Caption" > </td> 
-      <td> <textarea name="" id="" placeholder="Description" cols="30" rows="3" > </textarea></td>
+      <td> <input name="stored_file[]" class="form-control" type='file' onchange="readURL(this);" /> </td> 
+      <td> <img class="blah form-control" src="/img/180.png" width="100px" alt ="Observation-Image" /> </td> 
+      <td> <input type="text" class="form-control" name="caption[]" placeholder="Caption" > </td> 
+      <td> <textarea name="description[]" class="form-control" placeholder="Description" cols="30" rows="3" ></textarea></td>
       <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td>
     </tr>`;
   $("#addMoreImageHere").append(add_stakeholder);
 });
+function readURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    
+    reader.onload = function (e) {
+      $(input).parent().next().children('.blah').attr('src', e.target.result);
+      // $('.blah')
+      //   .attr('src', e.target.result);
+    };
+
+    reader.readAsDataURL(input.files[0]);
+  }
+}
 var Ea = "";
 
 function executingAgencyforCM(agencies) {
