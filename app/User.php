@@ -170,4 +170,13 @@ class User extends Authenticatable implements JWTSubject
     // dd($this);
     return $this->hasMany('App\UserSector');
   }
+  public function MAssignedQuestionnaire(){
+    return $this->hasMany('App\MAssignedQuestionnaire');
+  }
+  public function MProgressRecommendation(){
+    return $this->hasMany('App\MProgressRecommendation');
+  }
+  public function MProgressFinancialSummary(){
+    return $this->hasMany('App\MProgressFinancialSummary');
+  }
 }

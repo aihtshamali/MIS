@@ -354,12 +354,12 @@ $innertab=\Session::get('innertab');
                 <a class="nav-link {{isset($maintab) && $maintab=='plan' ? 'active' : ''}}" data-toggle="tab" href="#p_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">PLAN MONITORING</span></a>
                 <div class="slide"></div>
               </li>
-              <li class="nav-item conductNav  {{isset($maintab) && $maintab=='conduct' ? 'active' : ''}}">
-                <a class="nav-link" data-toggle="tab" href="#c_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">CONDUCT MONITORING</span></a>
+              <li class="nav-item conductNav">
+                <a class="nav-link {{isset($maintab) && $maintab=='conduct' ? 'active' : ''}}" data-toggle="tab" href="#c_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">CONDUCT MONITORING</span></a>
                 <div class="slide"></div>
               </li>
               <li class="nav-item resultNav">
-                <a class="nav-link" data-toggle="tab" href="#r_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">RESULT MONITORING</span></a>
+                <a class="nav-link {{isset($maintab) && $maintab=='result' ? 'active' : ''}}" data-toggle="tab" href="#r_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">RESULT MONITORING</span></a>
                 <div class="slide"></div>
               </li>
               <li class="nav-item summaryNav">
@@ -555,20 +555,6 @@ $innertab=\Session::get('innertab');
       <hr class="mt-1 mb-1" />
     </div>
   </li>
-</script>
-<script>
-  function readURL(input) {
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
-
-      reader.onload = function(e) {
-        $('.blah')
-          .attr('src', e.target.result);
-      };
-
-      reader.readAsDataURL(input.files[0]);
-    }
-  }
 </script>
 <script>
   $(document).ready(function() {

@@ -78,7 +78,13 @@ use App\ReportData;
 use App\PostSne;
 use App\MAssignedKpiLevel2Log;
 use App\MAssignedKpiLevel1Log;
+use App\MAssignedQuestionnaire;
+use App\MProgressContractSummary;
+use App\MProgressFinancialSummary;
 use App\MProgressObservation;
+use App\MProgressPictorialDetail;
+use App\MProgressRecommendation;
+use App\MQuestionnaire;
 
 class OfficerController extends Controller
 {
@@ -815,7 +821,21 @@ class OfficerController extends Controller
         $first_visit_date=MProjectDate::where('m_project_progress_id',$projectProgressId->id)->first();
         
         $m_observations = $projectProgressId->MProgressObservation;
+        $m_recommendation = $projectProgressId->MProgressRecommendation;
         
+        // Questionaire
+        $questionnaire = MQuestionnaire::where('status',1)->get();
+        
+        $assigned_questionnaire = MAssignedQuestionnaire::where('m_project_progress_id', $projectProgressId->id)->get();
+        $pictorial_files = MProgressPictorialDetail::where('m_project_progress_id', $projectProgressId->id)->get();
+
+      //Financial Summary
+       $financial_summary = MProgressFinancialSummary::where('m_project_progress_id', $projectProgressId->id)->get();
+
+      // Contract Summary
+       $contract_summary = MProgressContractSummary::where('m_project_progress_id', $projectProgressId->id)->get();
+
+
         \JavaScript::put([
           'projectWithRevised'=>$projectWithRevised,
          'components'=> $components,
@@ -825,7 +845,12 @@ class OfficerController extends Controller
         ]);
     
         return view('_Monitoring._Officer.projects.inprogressSingle'
-        ,compact('first_visit_date','gestation_period','m_assigned_issues','qualityassesments','B_Stakeholders','sponsoringStakeholders'
+        ,compact('first_visit_date','gestation_period','m_assigned_issues',
+        'questionnaire','assigned_questionnaire',
+        'financial_summary','contract_summary',
+        'm_recommendation',
+        'pictorial_files',
+        'qualityassesments','B_Stakeholders','sponsoringStakeholders'
         ,'executingStakeholders','assignedGeneralFeedbacks',
         'project_documents','result_from_app','org_project','districts','cities',
         'org_projectId','projectProgressId','mPlanKpiComponents','ComponentActivities',
@@ -2159,10 +2184,36 @@ class OfficerController extends Controller
 
     public function save_m_observations(Request $r)
     {
-      // dd($r->all());
       $m_observations = MProgressObservation::updateOrCreate(
         ['m_project_progress_id' => $r->m_project_progress_id],
         ['user_id' => Auth::id(),'observation' => $r->observation]);
+      $m_recommendation = MProgressRecommendation::updateOrCreate(
+        ['m_project_progress_id' => $r->m_project_progress_id],
+        ['user_id' => Auth::id(), 'recommendation' => $r->recommendation]
+      );
+      if($r->hasFile('stored_file')){
+        if (!is_dir('storage/uploads/monitoring/' . $r->m_project_progress_id)) {
+          // dir doesn't exist, make it
+          mkdir('storage/uploads/monitoring/' . $r->m_project_progress_id);
+        }
+        if (!is_dir('storage/uploads/monitoring/'.$r->m_project_progress_id.'/pictorial_detail/')) {
+          // dir doesn't exist, make it
+          mkdir('storage/uploads/monitoring/' . $r->m_project_progress_id . '/pictorial_detail/');
+        }
+        foreach($r->file('stored_file') as $key=>$fil){
+          $pictorial_detail = new MProgressPictorialDetail();
+          if(isset($r->pictorial_id[$key]))
+          $pictorial_detail = MProgressPictorialDetail::find($r->pictorial_id[$key]);
+           $fil->store('public/uploads/monitoring/' . $r->m_project_progress_id . '/pictorial_detail/');
+           $pictorial_detail->stored_file = $fil->hashName();
+           $pictorial_detail->caption = $r->caption[$key];
+           $pictorial_detail->description = $r->description[$key];
+           $pictorial_detail->m_project_progress_id = $r->m_project_progress_id;
+           $pictorial_detail->user_id = Auth::id();
+           $pictorial_detail->save();
+        }
+
+      }
       // $m_observations->user_id = Auth::id();
       // $m_observations->m_project_progress_id = $r->m_project_progress_id;
       // $m_observations->observation = $r->observation;
@@ -2172,4 +2223,63 @@ class OfficerController extends Controller
       $innertab=$tabs[1];
       return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
     }
+
+    //Questionnaire
+    public function storeQuestionnaire(Request $request){
+      //$key is index & $value is the value
+      foreach ($request->answer as $key => $value) {
+        
+        $assignedQuestionnaire = new MAssignedQuestionnaire();
+        if(isset($request->m_assigned_questionnaire[$key])){
+          $assignedQuestionnaire = MAssignedQuestionnaire::find($request->m_assigned_questionnaire[$key]);
+        }
+         $ans = explode("_",$value);
+        $assignedQuestionnaire->m_questionnaire_id =$ans[0];
+        $assignedQuestionnaire->answer = $ans[1] == 'yes' ? 1 : 0;
+        $assignedQuestionnaire->remarks = $request->comments[$key];
+        $assignedQuestionnaire->m_project_progress_id = $request->m_project_progress_id;
+        $assignedQuestionnaire->user_id = Auth::id();
+        $assignedQuestionnaire->save();
+      }
+      return redirect()->route('monitoring_inprogressSingle');
+    }
+    public function storeFinancialSummary(Request $request){
+      if(count(MProgressFinancialSummary::where('m_project_progress_id',$request->m_project_progress_id)->get()) > 0){
+          MProgressFinancialSummary::where('m_project_progress_id', $request->m_project_progress_id)->delete();
+      }
+      foreach($request->FinancialSummaryYear as $key=>$value){
+        $financial_summary = new MProgressFinancialSummary();
+        $financial_summary->m_project_progress_id = $request->m_project_progress_id;
+        $financial_summary->year = $request->FinancialSummaryYear[$key];
+        $financial_summary->allocation = $request->FinancialSummaryAllocation[$key];
+        $financial_summary->releases = $request->FinancialSummaryReleases[$key];
+        $financial_summary->expenditure = $request->FinancialSummaryExpenditure[$key];
+        $financial_summary->user_id = Auth::id();
+        $financial_summary->save();
+      }
+    $tabs = explode("_", $request->page_tabs);
+    $maintab = $tabs[0];
+    $innertab = $tabs[1];
+    return redirect()->back()->with(["maintab" => $maintab, "innertab" => $innertab, 'success' => 'Saved Successfully']);      
+  }
+  public function storeContractSummary(Request $request){
+      if(count(MProgressContractSummary::where('m_project_progress_id',$request->m_project_progress_id)->get()) > 0){
+          MProgressContractSummary::where('m_project_progress_id', $request->m_project_progress_id)->delete();
+      }
+      foreach($request->description_of_scope as $key=>$value){
+        $financial_summary = new MProgressContractSummary();
+        $financial_summary->m_project_progress_id = $request->m_project_progress_id;
+        $financial_summary->description_of_scope = $request->description_of_scope[$key];
+        $financial_summary->agreement_amount = $request->agreement_amount[$key];
+        $financial_summary->name_of_supplier = $request->name_of_supplier[$key];
+        $financial_summary->start_date = $request->start_date[$key];
+        $financial_summary->expected_completion_date = $request->expected_completion_date[$key];
+        $financial_summary->user_id = Auth::id();
+        $financial_summary->save();
+      }
+    $tabs = explode("_", $request->page_tabs);
+    $maintab = $tabs[0];
+    $innertab = $tabs[1];
+    return redirect()->back()->with(["maintab" => $maintab, "innertab" => $innertab, 'success' => 'Saved Successfully']);      
+  }
 }
