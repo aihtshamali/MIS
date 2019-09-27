@@ -765,17 +765,18 @@ class OfficerController extends Controller
         $financial_cost=MProjectCost::where('m_project_progress_id',$projectProgressId->id)->first();
 
        $project_documents= MProjectAttachment::where('m_project_progress_id',$projectProgressId->id)->get();
+      //  dd($project_documents[0]);
         if (!is_dir('storage/uploads/projects/monitoring_attachments')) 
         {
           mkdir('storage/uploads/projects/monitoring_attachments');
         }
-       foreach($project_documents as $p_doc)
-        {
-          if($p_doc->attachment_name)
-          {
-            file_put_contents('storage/uploads/projects/monitoring_attachments/'.$p_doc->attachment_name.'.'.$p_doc->type,base64_decode($p_doc->project_attachment));
-          }
-        }
+      //  foreach($project_documents as $p_doc)
+      //   {
+      //     if($p_doc->attachment_name)
+      //     {
+      //       file_put_contents('storage/uploads/projects/monitoring_attachments/'.$p_doc->attachment_name.'.'.$p_doc->type,base64_decode($p_doc->project_attachment));
+      //     }
+      //   }
         $icons = [
           'pdf' => 'pdf',
           'doc' => 'word',
@@ -1656,15 +1657,15 @@ class OfficerController extends Controller
       }
       public function saveMonitoringAttachments(Request $request)
       {
-        // return response()->json($request->all());
-        // dd($request->all());
+        
         if($request->hasFile('planmonitoringfile')){
           $file_path = $request->file('planmonitoringfile')->path();
           $file_extension = $request->file('planmonitoringfile')->getClientOriginalExtension();
-
           $data =new MProjectAttachment();
-          $data->project_attachement=base64_encode(file_get_contents($file_path));
-          
+          $planmonitoringfile = $request->file('planmonitoringfile');
+          $planmonitoringfile->store('public/uploads/monitoring/'.$request->m_project_progress_id.'/');
+          $data->project_attachement= $planmonitoringfile->hashName();
+
           $data->m_project_progress_id=$request->m_project_progress_id;
           $data->type = $file_extension;
           $data->user_id = Auth::id();
