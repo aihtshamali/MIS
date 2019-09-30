@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class MAssignedQuestionnaire extends Model
 {
     public function MQuestionnaire(){
-        return $this->belongsTo('App\MAssignedQuestionnaire');
+        return $this->belongsTo('App\MQuestionnaire');
     }
     public function User()
     {

@@ -541,11 +541,18 @@
         td {
             border: 1px solid #999;
         }
-
+        .table td, .table th {
+            padding:5px !important;
+                /* text-align:Center !important; */
+            font-size: 14px !important;
+            }
+     
         .border {
             border: 1px solid #999;
         }
-
+            .highlight{
+                background:chartreuse !important;
+            }
 
         #chartdivprogressgraphs {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
@@ -576,6 +583,9 @@
             height: 400px;
         }
 
+        .notadded{
+            color:Red;
+        }
         @media print {
             @page {
                 counter-increment: page;
@@ -680,26 +690,8 @@
                 width: 1050px;
                 height: 400px;
             }
-<<<<<<< HEAD
-            .borderprint{
-                border:2px solid #000;
-            }
-            .fullheightprint{
-                height: 100% !important;
-            }
-            .margtopprintmain{
-                margin-top:12% !important;
-            }
-            .noprintborder{border:none !important;}
-            .bggradient{background:#418641 !improtant;background-image: linear-gradient(to right, #418641, #418641, #fff) !important;color:#fff}
-            /* .absolutebottom{position: absolute;bottom: :0 !important;width:100% !important;} */
-           table tr td{padding: 3% !important;width: 45% !important;}
-           .paddingtopprint{padding-top:2%;}
-            
-=======
 
 
->>>>>>> 4dae3f6f8113aaaa59da3bfd1a1e2730a7185c6c
         }
     </style>
     <script src="{{asset('lightRoom/picturefill.min.js')}}"></script>
@@ -743,11 +735,7 @@ return 'Unknown';
     </div>
     <div class="card" id='exportContent'>
         <!-- myCode start here -->
-<<<<<<< HEAD
-        <div class="mainpage col-md-12 fullheightprint borderprint paddingtopprint">
-=======
         <div class="mainpage col-md-12 mainpageborderprint">
->>>>>>> 4dae3f6f8113aaaa59da3bfd1a1e2730a7185c6c
             <div class="headerNew col-md-12">
                 <div class="clearfix headerLogoNew">
                     <center>
@@ -768,31 +756,19 @@ return 'Unknown';
                     <img src="{{asset('storage/uploads/monitoring/'.$project->id.'/'.$project->ReportImage->where('title_image',1)->first()->MAppAttachment->project_attachement)}}" alt="title image" class="mainpageimg pdtop1p" style="width: 90% !important;margin-left: 5% !important;max-height: 500px;">
                 </div>
                 @endif
-<<<<<<< HEAD
-                <h4 class="margtopprintmain">
-=======
                 <h4 class=" paddingmainpage">
->>>>>>> 4dae3f6f8113aaaa59da3bfd1a1e2730a7185c6c
                     <center>
                         DIRECTORATE GENERAL MONITORING & EVALUATION <br>
                         PLANNING & DEVELOPMENT DEPARTMENT<br>
                         GOVERNMENT OF THE PUNJAB
                     </center>
                 </h4>
-<<<<<<< HEAD
-                <h4 class="text-capitalize margtopprintmain">
-=======
                 <h4 class="text-capitalize paddingmainpage">
->>>>>>> 4dae3f6f8113aaaa59da3bfd1a1e2730a7185c6c
                     <center>
                         October , 2018
                     </center>
                 </h4>
-<<<<<<< HEAD
-                <div class="fullwidthprint margtopprintmain bggradient">
-=======
                 <div class="fullwidthprint paddingmainpage">
->>>>>>> 4dae3f6f8113aaaa59da3bfd1a1e2730a7185c6c
                     <center>
                         <h4 class="text-capitalize printborder ">
                             DGM&E, 65-Trade center Block, M.A Johar Town, Lahore – Punjab
@@ -813,134 +789,76 @@ return 'Unknown';
             <h4 class="redTxt">
                 2. PROJECT DATA (Sheet (12pt font size, Justified, Time new )
             </h4>
-<<<<<<< HEAD
-            <div class="table-responsive">
-                  <table id="" dclass="table table-bordered ">
-                      {{-- <thead>
-                            <tr>
-                                <th></th>
-                                <th>Project Title</th>
-                                <th>Project GS.No</th>
-                                <th>Department</th>
-                                <th>Sponsoring Agency/Department</th>
-                                <th>Executing Agency/Department</th>
-                                <th>O&M Agency/Department</th>
-                                <th>Project Location</th>
-                                <th>Status of Project w.r.t. Actual progress against Financial Progress</th>
-                                <th> Status of Project w.r.t. Actual Vs Planned Progress</th>
-                                <th>Approval Date </th>
-                                <th>No. of Revisions</th>
-                                <th>Project Gestation Period</th>
-                            </tr>
-                      </thead> --}}
-                      <tbody>
-                            <tr>
-                                <td>Sr</td>
-                                <td>1</td>
-                            </tr>
-                            <tr> 
-                                <td>Project Title</td>
-                                <td>{{$project->AssignedProject->Project->title}}</td>
-                            </tr>
-                             <tr>
-                                <td>ADP Number</td> 
-                                <td>{{$project->AssignedProject->Project->ADP}}</td>
-                            </tr>
-                              <tr>
-                                  <td>Department</td>
-                                   <td>Not implemented</td>
-                                </tr>
-                               <tr>
-                                   <td>Sponsoring Agency/Department</td>
-                                    <td>Not implemented</td>
-                                </tr>
-                                <tr>
-                                    <td>Executing Agency/Department</td>
-                                     <td>Not implemented</td>
-                                </tr>
-                                 <tr>
-                                     <td>O&M Agency/Department</td>
-                                     <td>Not implemented</td>
-                                </tr>
-                                <tr> 
-                                     <td>Project Location</td>
-                                    <td>  @foreach ($project->AssignedProject->Project->AssignedDistricts as $district)
-                                        {{$district->District->name}}
-                                    @endforeach</td>
-                                </tr>
-                                <tr>
-                                  <td>Status of Project w.r.t. Actual progress against Financial Progress</td>
-                                   <td>Not implemented</td>
-                                </tr>
-                               <tr>
-                                   <td>Status of Project w.r.t. Actual Vs Planned Progress</td>
-                                    <td>Not implemented</td>
-                                </tr>
-                                <tr>
-                                    <td>Approval Date</td>
-                                     <td>Not implemented</td>
-                                </tr>
-                                 <tr>
-                                     <td>No. of Revisions</td>
-                                     <td>Not implemented</td>
-                                </tr>
-                                  <tr>
-                                     <td>Gestation Period</td>
-                                     <td>Not implemented</td>
-                                </tr>
-                      </tbody>
-                    </table>
-            </div>
-
-            {{-- <div class="row col-md-12 fullwidthprint">
-                <div class="col-md-12 row">
-                    <div class="col-md-4 prolable"><b>1. Project Title :</b></div>
-                    <div class="col-md-8">{{$project->AssignedProject->Project->title}}</div>
-=======
             <div class="row col-md-12 fullwidthprint">
                 <div class="col-md-12 row nopading noborder">
                     <div class="col-md-5 prolable border"><b>1. Project Title :</b></div>
-                    <div class="col-md-6 border-left">{{$project->AssignedProject->Project->title}}</div>
->>>>>>> 4dae3f6f8113aaaa59da3bfd1a1e2730a7185c6c
+                    <div class="col-md-6 border-left">
+                        {{$project->AssignedProject->Project->title}}
+                    </div>
                 </div>
                 <div class="col-md-12 row nopading noborder">
                     <div class="col-md-5 prolable border"><b>2. Project GS.No</b></div>
-                    <div class="col-md-6 border-left"></div>
+                    <div class="col-md-6 border-left">
+                        {{$project->AssignedProject->Project->ADP}} / {{$project->AssignedProject->Project->financial_year}}
+                    </div>
                 </div>
                 <div class="col-md-12 row nopading noborder">
                     <div class="col-md-5 prolable border"><b>3. Sector</b></div>
-                    <div class="col-md-6 border-left"></div>
+                    <div class="col-md-6 border-left">
+                         @foreach ($project->AssignedProject->Project->AssignedSubSectors as $item)
+                            {{$item->SubSector->sector->name}}
+                            @endforeach
+                    </div>
                 </div>
                 <div class="col-md-12 row nopading noborder">
                     <div class="col-md-5 prolable border"><b>4. Sub Sector</b></div>
-                    <div class="col-md-6 border-left"></div>
+                    <div class="col-md-6 border-left">
+                        @foreach ($project->AssignedProject->Project->AssignedSubSectors as $item)
+                            {{$item->SubSector->name}}
+                            @endforeach
+                    </div>
                 </div>
                 <div class="col-md-12 row nopading noborder">
                     <div class="col-md-5 prolable border"><b>5. Sponsoring Agency/Department:</b></div>
-                    <div class="col-md-6 border-left"></div>
+                    <div class="col-md-6 border-left">
+                         @foreach ($project->AssignedProject->Project->AssignedSponsoringAgencies as $item)
+                            {{$item->SponsoringAgency->name}}
+                            @endforeach
+                    </div>
                 </div>
                 <div class="col-md-12 row nopading noborder">
                     <div class="col-md-5 prolable border"><b>6. Executing Agency/Department:</b></div>
-                    <div class="col-md-6 border-left"></div>
+                    <div class="col-md-6 border-left">
+                         @foreach ($project->AssignedProject->Project->AssignedExecutingAgencies as $item)
+                            {{$item->ExecutingAgency->name}}
+                            @endforeach
+                    </div>
                 </div>
                 <div class="col-md-12 row nopading noborder">
-                    <div class="col-md-5 prolable border"><b>7. O&M Agency/Department:</b></div>
-                    <div class="col-md-6 border-left"></div>
+                    <div class="col-md-5 prolable border"><b>7. O&M Department & Contractor Or Supplier (If Any):</b></div>
+                    <div class="col-md-6 border-left">
+                        
+                        {{$project->MProjectOrganization->operation_and_management}}
+                        @if($project->MProjectOrganization->contractor_or_supplier)
+                            {{$project->MProjectOrganization->contractor_or_supplier}}
+                        @endif
+                         
+                    </div>
                 </div>
                 <div class="col-md-12 row nopading noborder">
                     <div class="col-md-5 prolable border"><b>8. Project Location:</b></div>
                     <div class="col-md-6 border-left">
                         @foreach ($project->AssignedProject->Project->AssignedDistricts as $district)
-                        {{$district->District->name}},
+                         {{$district->District->name}}<br>
                         @endforeach
                     </div>
                 </div>
-                <div class="col-md-12 row nopading noborder">
-                    <div class="col-md-5 prolable border"><b>9. Status of Project with respect to Actual progress against Financial Progress:</b></div>
+                <div class="col-md-12 row nopading noborder highlight">
+                    <div class="col-md-5 prolable border "><b>9. Status of Project with respect to Actual progress against Financial Progress:</b></div>
                     <div class="col-md-6 border-left">
                     </div>
                 </div>
-                <div class="col-md-12 row nopading noborder">
+                <div class="col-md-12 row nopading noborder highlight">
                     <div class="col-md-5 prolable border"><b>10. Status of Project with respect to Actual Vs Planned Progress:</b></div>
                     <div class="col-md-6 border-left">
                     </div>
@@ -948,29 +866,31 @@ return 'Unknown';
                 <div class="col-md-12 row nopading noborder">
                     <div class="col-md-5 prolable border"><b>11. Approval Date</b></div>
                     <div class="col-md-6 border-left">
+                      {{ date('d-M-y',strtotime($project->MProjectDate->project_approval_date)) }}
                     </div>
                 </div>
                 <div class="col-md-12 row nopading noborder">
                     <div class="col-md-5 prolable border"><b>12. No. of Revisions</b></div>
                     <div class="col-md-6 border-left">
+                        {{$revisions->count()}}
                     </div>
                 </div>
                 <div class="col-md-12 row nopading noborder">
-                    <div class="col-md-5 prolable border"><b>13. Total Approved Revised Data</b></div>
+                    <div class="col-md-5 prolable border"><b>13. Total Approved Revised Cost</b></div>
                     <div class="col-md-6 border-left">
+                        @foreach ($revisions as $revision)
+                             {{$revision->cost}}
+                        @endforeach
+                       
                     </div>
                 </div>
                 <div class="col-md-12 row nopading noborder">
                     <div class="col-md-5 prolable border"><b>14. Project Gestation Period</b></div>
                     <div class="col-md-6 border-left">
+                        {{$gestation_period}}
                     </div>
                 </div>
-<<<<<<< HEAD
-
-            </div> --}}
-=======
             </div>
->>>>>>> 4dae3f6f8113aaaa59da3bfd1a1e2730a7185c6c
         </div>
         <div class="clearfix breakpage ">
             <h4 class="redTxt">
@@ -997,27 +917,72 @@ return 'Unknown';
                     <th>Date of Visit</th>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                <td>
+                      @if($project->AssignedProject->Project->ProjectDetail->planned_start_date)
+                      {{ date('d-M-y',strtotime($project->AssignedProject->Project->ProjectDetail->planned_start_date)) }}
+                         @else
+                            <span class="notadded"><b>Not Added</b></span>
+                         @endif
+                </td>
+                    <td>
+                          @if($project->AssignedProject->Project->ProjectDetail->planned_end_date)
+                       {{ date('d-M-y',strtotime($project->AssignedProject->Project->ProjectDetail->planned_end_date)) }}
+                         @else
+                            <span class="notadded"><b>Not Added</b></span>
+                         @endif
+
+                    </td>
+                    <td>
+                        @if($project->MProjectDate->actual_start_date)
+                        {{ date('d-M-y',strtotime($project->MProjectDate->actual_start_date)) }}
+                         @else
+                            <span class="notadded"><b>Not Added</b></span>
+                         @endif
+                    </td>
+                    <td>
+                        @if($project->MProjectDate->first_visit_date)
+                          {{ date('d-M-y',strtotime($project->MProjectDate->first_visit_date)) }}
+                         @else
+                            <span class="notadded"><b>Not Added</b></span>
+                         @endif
+                    </td>
                 </tr>
             </table>
-            <div class="clearfix row col-md-12">
-                <div class="col-md-5 border">
-                    Are project activities going as per scheduled time?
-                    Yes or No
-                </div>
-                <div class="col-md-6">
-                    If yes (Reasons for any deviation in timeline from original time)
-                </div>
-            </div>
-            <div class="clearfix row col-md-12">
-                <div class="col-md-12 border">
-                    Did the project team provided any approved baseline schedule?
-                </div>
-            </div>
-        </div>
+            <table class="col-md-12">
+              <thead>
+                  <tr>
+                      <th></th>
+                      <th>Questions</th>
+                      <th>Action</th>
+                      <th>Reason</th>
+
+                  </tr>
+              </thead>
+              <tbody>
+                  @php
+                   $i=0;   
+                  @endphp
+                  @foreach ($project->MAssignedQuestionnaire as $item)
+                  <tr>
+                    <td>
+                        @php
+                     echo ++$i;    
+                    @endphp
+                    </td>
+                    <td>{{$item->MQuestionnaire->question}}</td>
+                    <td>{{$item->answer}}</td>
+                    <td>
+                         @if($item->remarks)
+                         {{$item->remarks}}
+                         @else
+                         <span class="notadded"><b>Not Added</b></span>
+                         @endif 
+                    </td>
+                  </tr>
+                  @endforeach
+                 
+              </tbody>
+            </table>
         <div class="clearfix breakpage ">
             <h4 class="redTxt">
                 4. Project Cost Details:
@@ -1028,48 +993,55 @@ return 'Unknown';
                     <th>Final Revised Cost (If any)</th>
                     <th>Funds Released</th>
                     <th>Funds Utilized</th>
-                    <th>% Financial Utilization (With Respect to Releases)</th>
-                    <th>% Financial Utilization (With Respect to PC-I Cost)</th>
+                    <th class="highlight">% Financial Utilization (With Respect to Releases)</th>
+                    <th class="highlight">% Financial Utilization (With Respect to PC-I Cost)</th>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                        @if($project->AssignedProject->Project->ProjectDetail->orignal_cost)
+                            {{ round($project->AssignedProject->Project->ProjectDetail->orignal_cost,3) }}
+                         @else
+                            <span class="notadded"><b>Not Added</b></span>
+                         @endif
+                         <br>
+                           <small>Million PKR</small>
+                    </td>
+                    <td>
+                        @if($project->AssignedProject->Project->RevisedApprovedCost->last())
+                            {{round($project->AssignedProject->Project->RevisedApprovedCost->last()->cost,3)}}
+                        @else
+                            0
+                        @endif
+                        <br>
+                            <small>Million PKR</small>
+                    </td>
+                    <td>
+                        @if($project->MProjectCost->total_release_to_date)
+                        {{round($project->MProjectCost->total_release_to_date,3,PHP_ROUND_HALF_UP) }}
+                           @else
+                            0
+                        @endif
+                        <br>
+                          <small>Million PKR</small>
+                    </td>
+                    <td>
+                         @if($project->MProjectCost->utilization_against_releases)
+                        {{round($project->MProjectCost->utilization_against_releases,3,PHP_ROUND_HALF_UP) }}
+                           @else
+                            0
+                        @endif
+                        <br>
+                          <small>Million PKR</small>
+                    </td>
+                    <td>
+                        Formula Required
+                    </td>
+                    <td>
+                        Formula Required
+                    </td>
                 </tr>
             </table>
-            <div class="clearfix row col-md-12">
-                <div class="col-md-5 border">
-                    Funds released according to the allocation
-                </div>
-                <div class="col-md-6">
-                    Yes or No
-                </div>
-            </div>
-            <div class="clearfix row col-md-12">
-                <div class="col-md-5 border">
-                    Cost Variation
-                </div>
-                <div class="col-md-6">
-                    Yes or No
-                </div>
-            </div>
-            <div class="clearfix row col-md-12">
-                <div class="col-md-5 border">
-                    Is escalation being paid to contractor? (in case of Capital only)
-                </div>
-                <div class="col-md-6">
-                    Yes or No
-                </div>
-            </div>
-            <div class="clearfix row col-md-12 border">
-                <div class="col-md-5 border">
-                    If Yes, how much cost escalation has so far been paid?
-                </div>
-                <div class="col-md-6">
-
-                </div>
-            </div>
+            
             <div class="col-md-12">
                 Based on the data provided, [% Financial Utilization (With Respect to PC-I Cost] project budget has been utilized against the total project cost, whereas the Rs [Funds Utilized] Million were utilized in the project against release of Rs. [Funds Released] Million starting form [ Planned Start Date]
             </div>
@@ -1104,28 +1076,36 @@ return 'Unknown';
                 5. Project Objectives:
             </h4>
             <div class="col-md-12">
-                <table class="col-md-12">
+                <table class="col-md-12 table table-striped">
                     <tr>
-                        <th>Overall Project Objectives</th>
-                        <th colspan="4">Achieved (100%) Partially Achieved (50%) Not Achieved ('<'50%)</th> </tr> <tr>
-                        <th></th>
-                        <th colspan="3">Results</th>
-                        <th>Justification</th>
+                        <th rowspan="3" style="width:50% !important;">Overall Project Objectives</th>
+                        <th colspan="4">Achieved (100%) - Partially Achieved (50%) - Not Achieved ('<'50%)</th> </tr> <tr>
+                        {{-- <th></th> --}}
+                        <th class="highlight" colspan="3">Results</th>
+                        <th class="highlight">Justification</th>
                     </tr>
                     <tr>
-                        <th></th>
                         <th>A</th>
                         <th>PA</th>
                         <th>NA</th>
                         <th></th>
                     </tr>
-                    <tr>
-                        <td></td>
+                    @foreach ($project->MPlanObjective as $item)
+                        <tr>
+                        <td>
+                            @if($item->objective)
+                            {{$item->objective}}
+                            @else
+                            <span  class="notadded"><b>Not Added</b></span>
+                            @endif
+                        </td>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
                     </tr>
+                    @endforeach
+                    
                 </table>
             </div>
         </div>
@@ -1141,12 +1121,16 @@ return 'Unknown';
                         <th>Physical Progress (%)</th>
                         <th>Remarks</th>
                     </tr>
+                    @forelse ($project->MAssignedUserLocation as $sites)
                     <tr>
                         <td>A</td>
-                        <td>Overall Progress</td>
-                        <td>Out of 100%</td>
-                        <td></td>
+                        <td>
+                            {{$sites->District->name}} / {{$sites->site_name}}
+                        </td>
+                        <td class="highlight">Not Implemented</td>
+                        <td class="highlight">Not Implemented</td>
                     </tr>
+                   @endforeach
                 </table>
             </div>
         </div>
@@ -1154,111 +1138,246 @@ return 'Unknown';
             <h4 class="redTxt">
                 7. Quality of the Project Activities
             </h4>
-            <div class="col-md-12">
-                <table class="col-md-12">
-                    <tr>
-                        <th colspan="3">Quality of Procurement (if any) (NA)</th>
-                    </tr>
-                    <tr>
-                        <th>poor:</th>
-                        <th>Good:</th>
-                        <th>Excellent:</th>
-                    </tr>
+            <div class="col-md-12 highlight">
+                <table class="col-md-12 table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Sr.</th>
+                            <th width="50% !important;">Quality of Project Activities</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1 </td>
+                            <td>Quality of Procurement (if any)</td>
+                            <td>Poor</td>
+
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Quality of operation and project implementation</td>
+                            <td> Good</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Quality of Civil Works (if any)</td>
+                            <td>Excellent</td>
+                        </tr>
+                    </tbody>
                 </table>
-                <table class="col-md-12">
-                    <tr>
-                        <th colspan="4">Quality of Civil Works (if any)</th>
-                    </tr>
-                    <tr>
-                        <th>poor:</th>
-                        <th>Average:</th>
-                        <th>Good:</th>
-                        <th>Excellent:</th>
-                    </tr>
-                </table>
-                <table class="col-md-12">
-                    <tr>
-                        <th colspan="4">Quality of operation and project implementation (NA)</th>
-                    </tr>
-                    <tr>
-                        <th>poor:</th>
-                        <th>Average:</th>
-                        <th>Good:</th>
-                        <th>Excellent:</th>
-                    </tr>
-                </table>
+              
             </div>
 
-            <div class="col-md-12 row">
-                <div class="col-md-4 prolable"><b>14. Project Beneficiaries:</b></div>
-                <div class="col-md-8">
-                </div>
+             <h4 class="redTxt">
+               8. Project Beneficiaries
+            </h4>
+
+            <div class="col-md-12">
+              <table class="col-md-12 table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Sr.</th>
+                            <th>Beneficiary Title</th>
+                            <th>Name</th>
+                            <th>Designation</th>
+                            <th>Email</th>
+                            <th>Contact #</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php
+                         $i=0;   
+                        @endphp
+                        @if($project->MBeneficiaryStakeholder)
+                        @foreach ($project->MBeneficiaryStakeholder as $item)
+                        <tr>
+                            <td>   @php
+                         echo ++$i;   
+                        @endphp   </td>
+                            <td> {{$item->Beneficiary}} </td>
+                            <td>  {{$item->name}} </td>
+                            <td>  {{$item->designation}} </td>
+                            <td>  {{$item->email}} </td>
+                            <td>  {{$item->contactNo}} </td>
+                        </tr>
+                        @endforeach
+                        @endif
+                    </tbody>
+              </table>  
             </div>
         </div>
         <div class="clearfix breakpage ">
             <h4 class="redTxt">
-                8. Risk and Constraints:
+                9. Risk and Constraints:
             </h4>
-            <table class="col-md-12">
-                <tr>
+            <table class="col-md-12 highlight" >
+               <thead>
+                    <tr>
                     <th>Risks and Constraints</th>
                     <th>Impact<small>(Low, Medium, High)</small>:</th>
                     <th>Probable Results</th>
                 </tr>
-                <tr>
+               </thead>
+                <tbody>
+                    <tr>
                     <td></td>
                     <td></td>
                     <td></td>
                 </tr>
+                </tbody>
             </table>
         </div>
         <div class="clearfix breakpage ">
             <h4 class="redTxt">
-                9. Human Resource:
+                9. Issues and Observations
             </h4>
-            1. Was there any qualified PEC registered engineer at site by the Contractor?<br />
-            2. Was the human resource of resident supervision consultant available at project site during visit if DGM&E team? (if yes add team)
-
+            <table class="col-md-12 table table-striped" >
+                @php
+                    $i=0;   
+                @endphp
+                <thead>
+                    <tr>
+                        <th>Sr.</th>
+                        <th style="width:40%;">Issues</th>
+                        <th>Issue Type</th>
+                        <th>Severity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($project->MAssignedProjectIssue as $item)
+                    <tr>
+                        <td> 
+                              @php
+                            echo ++$i;   
+                            @endphp   
+                        </td>
+                    <td> {{$item->issue}}</td>
+                        <td>{{$item->MIssueType->name}}</td>
+                        <td>
+                            @if(isset($item->severity))
+                                @if($item->severity == 1)
+                                Very High
+                                @elseif($item->severity == 2)
+                                High
+                                @elseif($item->severity == 3)
+                                Medium
+                                @elseif($item->severity == 4)
+                                Low
+                                @elseif($item->severity == 5)
+                                Very Low
+                                @endif
+                                @else
+                                <p style="color:red"> Not Added</p>
+                            @endif
+                        </td>
+                    </tr>
+                    @endforeach
+                 
+                </tbody>
+            </table>
+        </div>
+        <div class="clearfix breakpage highlight">
+            <h4 class="redTxt">
+                10. Human Resource:
+            </h4>
+            <div class="col-md-12">
+                <table class="col-md-12 table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Sr.</th>
+                            <th style="width:40%;">HR Activity</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td> 1.</td>
+                            <td>
+                                Was there any qualified PEC registered engineer at site by the Contractor?<br />
+                            </td>
+                            <td> Yes</td>
+                        </tr>
+                         <tr>
+                            <td>2.</td>
+                            <td>
+                                Was the human resource of resident supervision consultant available at project site during visit if DGM&E team? (if yes add team)
+                            </td>
+                            <td>Yes</td>
+                         </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="clearfix breakpage ">
             <h4 class="redTxt">
-                10. Project Stakeholders Interviewed:
+                11. Project Stakeholders Interviewed:
             </h4>
-            <table class="col-md-12">
-                <tr>
-                    <th>Project Stakeholders Interviewed: Name</th>
+            <table class="col-md-12 table table-striped ">
+                <thead>
+                    <tr>
+                    <th>Project Stakeholders</th>
+                    <th>Name</th>
                     <th>Designation</th>
-                    <th>Department</th>
                     <th>Contact No.</th>
                 </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+                </thead>
+                <tbody>
+                      @foreach ($project->MSponsoringStakeholder as $item)
+                        <tr>
+                            <td>
+                           <b>Sponsoring Agency </b> - {{$item->AssignedSponsoringAgency->SponsoringAgency->name}}
+                            </td>
+                            <td> {{$item->name}}</td>
+                            <td>{{$item->designation}}</td>
+                            <td>{{$item->contactNo}}</td>
+                        </tr>
+                    @endforeach
+                     @foreach ($project->MExecutingStakeholder as $item)
+                        <tr>
+                            <td>
+                           <b>Executing Agency </b> - {{$item->AssignedExecutingAgency->ExecutingAgency->name}}
+                            </td>
+                            <td> {{$item->name}}</td>
+                            <td>{{$item->designation}}</td>
+                            <td>{{$item->contactNo}}</td>
+                        </tr>
+                    @endforeach
+                    
+                </tbody>
             </table>
         </div>
         <div class="clearfix breakpage ">
             <h4 class="redTxt">
-                11. Monitoring Team:
+                12. Monitoring Team
             </h4>
             <table class="col-md-12">
-                <tr>
-                    <th>NAme</th>
-                    <th>Designation.</th>
+               <thead>
+                    <tr>
+                    <th>Name</th>
+                    <th>Designation</th>
                 </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                </tr>
+               </thead>
+                <tbody>
+                    @foreach ($project->AssignedProject->AssignedProjectTeam as $team)
+                     <tr>
+                        <td style="text-align:center;">
+                            @if ($team->team_lead==1)
+                                <span >{{$team->user->first_name}}  {{$team->user->last_name}}</span>
+                            @else
+                               {{$team->user->first_name}} {{$team->user->last_name}}</span>
+                            @endif
+                        </td>
+                        <td style="text-align:center;">{{$team->user->designation}}</td>
+                     </tr>
+                    @endforeach
+                </tbody>
             </table>
         </div>
         <div class="clearfix breakpage ">
             <h4 class="redTxt">
-                12. Financial Summary:
+                13. Financial Summary
             </h4>
-
             <b>
                 Up till now total expenditure of Rs. ____ Million has been incurred against the total release of Rs.<br /><br /><br />
             </b>
@@ -1273,54 +1392,113 @@ return 'Unknown';
                     </center>
                 </div>
             </div>
-            <table class="col-md-12">
-                <tr>
+            <table class="col-md-12 highlight">
+                <thead>
+                    <tr>
                     <th>Year</th>
                     <th>Allocation (M)</th>
                     <th>Releases (M)</th>
                     <th>Expenditure (M)</th>
                 </tr>
-                <tr>
+                </thead>
+               <tbody>
+                    <tr>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
                 </tr>
+               </tbody>
             </table>
         </div>
         <div class="clearfix breakpage ">
             <h4 class="redTxt">
-                13. Project Contract Summary:
+                14. Project Contract Summary
             </h4>
             The detail of project brief is given below;
-            <table class="col-md-12">
-                <tr>
+            <table class="col-md-12 highlight">
+               <thead>
+                    <tr>
                     <th>Description</th>
                     <th>Agreement Amount(M)</th>
                     <th>Name of Supplier/ Contractor</th>
                     <th>Start Date of work</th>
                     <th>Expected Completion Date of work</th>
                 </tr>
-                <tr>
+               </thead>
+                <tbody>
+                    <tr>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
                 </tr>
+                </tbody>
             </table>
         </div>
         <div class="clearfix breakpage ">
             <h4 class="redTxt">
-                14. Observation
+                15. Textual Observation
             </h4>
-            <p class="col-md-12 grey">
+               @php $i=0;@endphp
+            <div class="col-md-12">
+                 @if(isset($project->MProgressObservation->observation))
+                <table class="col-md-12 table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width:17%; "></th>
+                            <th>Observation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="text-align:center;"><b>Observation # @php echo ++$i;@endphp </b></td>
+                        <td>
+                            @if(isset($project->MProgressObservation->observation))
+                            {{$project->MProgressObservation->observation }}
+                           @endif
+                        </td>
+                        </tr>
+                    </tbody>
+                </table>
+                @else
+                <center class="notadded"> Not Added</center>
+                @endif
+            </div>
 
-            </p>
+             <h4 class="redTxt">
+                16. Pictorial Observation
+            </h4>
+            <div class="col-md-12">
+              @if(isset($project->MProgressPictorialDetail) || $project->MProgressPictorialDetail!=null )
+                <table class="col-md-12 ">
+                 
+                      @foreach ($project->MProgressPictorialDetail as $item)
+                            <tr>
+                            <th rowspan="2">Observation # @php echo ++$i;@endphp </th>
+                            <td>{{$item->description}} </td>
+                            
+                        </tr>
+                        <tr>
+                        <td>{{$item->caption}}</td>
+                        </tr>
+                        <tr>
+                            <tr>
+                            <tr>
+                            <td colspan="2"><img src="{{asset('storage/uploads/monitoring/'.$project->id.'/pictorial_detail/'.$item->stored_file)}}" width="100%" alt=""></td>
+                        </tr>
+                      @endforeach
+                 </table>
+              @else
+                <center class="notadded"> Not Added</center>
+              @endif
+            </div>
+            
         </div>
         <div class="clearfix breakpage ">
             <h4 class="redTxt">
-                15. RECOMMENDATIONS
+                17. RECOMMENDATIONS
             </h4>
             <p class="col-md-12 grey">
                 Recomendation

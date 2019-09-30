@@ -68,6 +68,7 @@ use App\DispatchLetterPriority;
 use App\DispatchLetter;
 use App\DispatchLetterCc;
 use App\AssignedProjectTeam;
+use App\RevisedApprovedCost;
 use Illuminate\Support\Facades\Redirect;
 use DB;
 use App\MProjectLevel1Kpi;
@@ -715,7 +716,7 @@ class OfficerController extends Controller
 
         $dates = null;
         $dates = $progresses->MProjectDate;
-
+        // dd($dates);
         $sectors  = Sector::where('status','1')->get();
         $sub_sectors = SubSector::where('status','1')->get();
         // $maintab = 'review';
@@ -1819,18 +1820,26 @@ class OfficerController extends Controller
 
      public function generate_monitoring_report(Request $request)
      {
-        $project=MProjectProgress::where('assigned_project_id',$request->project_id)->orderBy('created_at','desc')->first();
-        $report_data = ReportData::where('m_project_progress_id',$project->id)->first();
-        
+        $original_project=AssignedProject::where('id',$request->project_id)->orderBy('created_at','desc')->first();
+        $revisions=RevisedApprovedCost::where('project_id',$original_project->project_id)->get();
+        // dd($revisions);
+
+       $project=MProjectProgress::where('assigned_project_id',$request->project_id)->orderBy('created_at','desc')->first();
+       $report_data = ReportData::where('m_project_progress_id',$project->id)->first();
+      
+        $start_Date=date_create($original_project->Project->ProjectDetail->planned_start_date);
+        $end_date=date_create($original_project->Project->ProjectDetail->planned_end_date);
+        $interval_period=date_diff($start_Date,$end_date);
+        $gestation_period=$interval_period->format('%y Year , %m month , %d days');
+        // dd($project->id);
+        // dd($project->MPlanObjective);
+        // dd($project->MProgressPictorialDetail);
+        // dd($project->MAssignedQuestionnaire);
         $mPlanKpiComponents=$project->MPlanKpicomponentMapping->groupBy('m_project_kpi_id');
-        // dd($MPlanKpicomponentMapping);  
-        // dd($project->MAssignedProjectHealthSafety[0]->MHealthSafety);
-        //  dd($project->MPlanComponentActivitiesMapping[0]->MPlanComponentactivityDetailMapping);
-        // dd($project->MProjectAttachment);
         \JavaScript::put([
           'project_id'=>$project->id
         ]);
-          return view('_Monitoring._Officer.projects.report',compact('project','report_data','mPlanKpiComponents'));
+          return view('_Monitoring._Officer.projects.report',compact('project','gestation_period','revisions','report_data','mPlanKpiComponents'));
      }
 
     //  

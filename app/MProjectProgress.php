@@ -135,5 +135,8 @@ class MProjectProgress extends Model
     {
       return $this->hasMany('App\MProgressFinancialSummary');
     }
-
+    public function MProgressPictorialDetail()
+    {
+        return $this->hasMany('App\MProgressPictorialDetail');
+    }
 }
