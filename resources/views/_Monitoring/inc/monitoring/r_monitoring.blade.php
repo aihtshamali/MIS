@@ -259,6 +259,9 @@ transform: rotate(90deg);
       <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#profile1" id="btnprofile1" role="tab">WBS</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#Questionnaire" id="btnQuestionnaire" role="tab">Questionnaire</a>
+      </li>
     </ul>
     <div class="container r_monitoringDivv">
       <div class="tab-content tabs card-block">
@@ -438,6 +441,151 @@ transform: rotate(90deg);
             <p>No KPI Selected</p>
             @endforelse
           </div>
+          <!-- ---------------- end tree vie ------------------ -->
+        </div>
+        <div class="tab-pane nodisplay" id="Questionnaire" role="tabpanel">
+          <!-- ---------------- start tree vie ------------------ -->
+          <form method="post" action="">
+            <table class="col-md-12">
+              <tr>
+                <td>sr#.</td>
+                <td>Question</td>
+                <td>Yes</td>
+                <td>No</td>
+                <td>Reason</td>
+              </tr>
+              <tr>
+                <td>1.</td>
+                <td>
+                  Are project activities going as per scheduled time?</td>
+                <td class="">
+                  <div class="checkbox-fade fade-in-success m-0">
+                    <label class="">
+                      <input type="radio" class="scheduled_timeyes" name="status[0]" value="1_yes" id="">
+                      <span class="cr">
+                        <i class="cr-icon icofont icofont-ui-check txt-success"></i>
+                      </span>
+                    </label>
+                  </div>
+                </td>
+                <td class="">
+                  <div class="checkbox-fade fade-in-danger m-0 ">
+                    <label class="">
+                      <input type="radio" class="scheduled_timeno" name="status[0]" value="1_no" id="">
+                      <span class="cr">
+                        <i class="cr-icon icofont icofont-ui-check txt-danger"></i>
+                      </span>
+                    </label>
+                  </div>
+                </td>
+                <td><textarea name="comments[0]" placeholder="if yes  then type reason..." class="nodisplay" id="scheduled_time" cols="30" rows="2"></textarea></td>
+              </tr>
+              <tr>
+                <td>2.</td>
+                <td>
+                  Did the project team provided any approved baseline schedule?</td>
+                <td>
+                  <div class="checkbox-fade fade-in-success m-0">
+                    <label>
+                      <input type="radio" name="status[1]" value="1_yes" id="">
+                      <span class="cr">
+                        <i class="cr-icon icofont icofont-ui-check txt-success"></i>
+                      </span>
+                    </label>
+                  </div>
+                </td>
+                <td>
+                  <div class="checkbox-fade fade-in-danger m-0">
+                    <label>
+                      <input type="radio" name="status[1]" value="1_no" id="">
+                      <span class="cr">
+                        <i class="cr-icon icofont icofont-ui-check txt-danger"></i>
+                      </span>
+                    </label>
+                  </div>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>3.</td>
+                <td>
+                  Funds released according to the allocation</td>
+                <td>
+                  <div class="checkbox-fade fade-in-success m-0">
+                    <label>
+                      <input type="radio" name="status[2]" value="1_yes" id="">
+                      <span class="cr">
+                        <i class="cr-icon icofont icofont-ui-check txt-success"></i>
+                      </span>
+                    </label>
+                  </div>
+                </td>
+                <td>
+                  <div class="checkbox-fade fade-in-danger m-0">
+                    <label>
+                      <input type="radio" name="status[2]" value="1_no" id="">
+                      <span class="cr">
+                        <i class="cr-icon icofont icofont-ui-check txt-danger"></i>
+                      </span>
+                    </label>
+                  </div>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>4.</td>
+                <td>
+                  Cost Variation</td>
+                <td>
+                  <div class="checkbox-fade fade-in-success m-0">
+                    <label>
+                      <input type="radio" name="status[3]" value="1_yes" id="">
+                      <span class="cr">
+                        <i class="cr-icon icofont icofont-ui-check txt-success"></i>
+                      </span>
+                    </label>
+                  </div>
+                </td>
+                <td>
+                  <div class="checkbox-fade fade-in-danger m-0">
+                    <label>
+                      <input type="radio" name="status[3]" value="1_no" id="">
+                      <span class="cr">
+                        <i class="cr-icon icofont icofont-ui-check txt-danger"></i>
+                      </span>
+                    </label>
+                  </div>
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>5.</td>
+                <td>
+                  Is escalation being paid to contractor? (in case of Capital only)</td>
+                <td>
+                  <div class="checkbox-fade fade-in-success m-0">
+                    <label>
+                      <input type="radio" name="status[4]" class="escalationYes" value="1_yes" id="">
+                      <span class="cr">
+                        <i class="cr-icon icofont icofont-ui-check txt-success"></i>
+                      </span>
+                    </label>
+                  </div>
+                </td>
+                <td>
+                  <div class="checkbox-fade fade-in-danger m-0">
+                    <label>
+                      <input type="radio" name="status[4]" class="escalationNo" value="1_no" id="">
+                      <span class="cr">
+                        <i class="cr-icon icofont icofont-ui-check txt-danger"></i>
+                      </span>
+                    </label>
+                  </div>
+                </td>
+                <td><textarea name="comments[0]" placeholder="If Yes, how much cost escalation has so far been paid?" class="nodisplay" id="escalationYes" cols="30" rows="2"></textarea></td>
+              </tr>
+            </table>
+          </form>
           <!-- ---------------- end tree vie ------------------ -->
         </div>
       </div>

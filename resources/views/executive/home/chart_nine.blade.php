@@ -84,6 +84,7 @@
 <script src="{{asset('js/charts/chalk.js')}}"></script>
 <script src="{{asset('js/charts/light.js')}}"></script>
 <script src="{{asset('js/charts/patterns.js')}}"></script>
+
 <script>
     var st = [];
     $i = 0;

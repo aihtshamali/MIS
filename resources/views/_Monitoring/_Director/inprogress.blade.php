@@ -61,8 +61,8 @@
                                 <th>Project Name</th>
                                 <th>Assigned To</th>
                                 <th>Departments</th>
-                                <th>Cost</th>
-                                 <th>Project Score</th>
+                                  <th>Cost</th>
+                                <th>Project Score</th>
                                <th>Assigning Forum</th>
                                 <th>Project Type</th>
                                 {{-- <th>Action</th> --}}
@@ -209,7 +209,8 @@
 @section('js_scripts')
 <script src="{{asset('_monitoring/js/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
-
+<script src="{{asset('_monitoring/js/datatables.net/js/jszip.min.js')}}"></script>
+<script src="{{asset('_monitoring/js/datatables.net/js/pdfmake.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
@@ -228,5 +229,11 @@
         
     } );
 </script>
+@endsection
+<script>
+  $(document).ready(function() {
+    $('.assignExecBtn').click(function() {
+
+<script>
 
 @endsection

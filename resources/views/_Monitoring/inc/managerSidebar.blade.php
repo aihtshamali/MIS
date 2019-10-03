@@ -66,17 +66,17 @@
                         <a href="javascript:void(0)">
 
                             <span class="pcoded-micon"><i class="zmdi zmdi-car"></i></span>
-                            <span class="pcoded-mtext">Assign Projects</span>
+                            <span class="pcoded-mtext">Send Projects</span>
                         </a>
                         <ul class="pcoded-submenu">
                             <li class=" ">
                                 <a href="{{route('AssignedToExecutive')}}">
-                                    <span class="pcoded-mtext">Assigned To Executive</span>
+                                    <span class="pcoded-mtext">Push To Executive</span>
                                 </a>
                             </li>
                             <li class=" ">
                                 <a href="{{route('AssignedToChairman')}}">
-                                    <span class="pcoded-mtext">Assigned To Chairman</span>
+                                    <span class="pcoded-mtext">Pushed To Chairman</span>
                                 </a>
                             </li>
                         </ul>

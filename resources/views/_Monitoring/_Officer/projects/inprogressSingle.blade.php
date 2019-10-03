@@ -33,7 +33,7 @@ Monitoring | DGME
 
 {{-- This is dgme custom css for this page only ,write here any css you want to Ok!!! --}}
 <link rel="stylesheet" href="{{asset('_monitoring/css/css/_dgme/DGME_officer_inprogressSingle.css')}}" />
-<link href="{{asset('lightRoom/lightgallery.css')}}" rel="stylesheet" /> 
+<link href="{{asset('lightRoom/lightgallery.css')}}" rel="stylesheet" />
 @endsection
 @section('content')
 {{-- frozen panel for plan and conduct monitoring  --}}
@@ -491,6 +491,7 @@ $innertab=\Session::get('innertab');
 <script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>
 <script>
   CKEDITOR.inline('short_desc');
+  CKEDITOR.inline('short_recomend');
 </script>
 <script src="{{asset('_monitoring/js/select2/js/select2.full.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/bootstrap-multiselect/js/bootstrap-multiselect.js')}}"></script>
@@ -555,7 +556,20 @@ $innertab=\Session::get('innertab');
     </div>
   </li>
 </script>
+<script>
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
 
+      reader.onload = function(e) {
+        $('.blah')
+          .attr('src', e.target.result);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>
 <script>
   $(document).ready(function() {
 

@@ -453,6 +453,9 @@ $(document).ready(function () {
     $(".resultNavBar").hide();
     $("#profile1").hide();
     $("#observations").hide();
+    $("#Questionnaire").hide();
+    $("#FinancialSummary").hide();
+    $("#ContactSummary").hide();
     $("#home1").hide();
   }
 
@@ -507,6 +510,17 @@ $(document).ready(function () {
     hideall();
     $("#CostingDiv").show();
   });
+  $("#btnQuestionnaire").on("click", function () {
+    hideall();
+    $("#profile1").hide();
+    $(".r_monitoringDivv").show();
+    $("#r_monitoring").show();
+    $(".resultNavBar").show();
+    $("#home1").hide();
+    $("#Questionnaire").show();
+    $("#home1").removeClass("active");
+    $("#profile1").removeClass("active");
+  });
   $("#btnprofile1").on("click", function () {
     hideall();
     $("#profile1").show();
@@ -528,6 +542,18 @@ $(document).ready(function () {
   $(".procurement").on("click", function () {
     hideall();
     $("#procu").show();
+  });
+  $(".scheduled_timeyes").on("click", function () {
+    $("#scheduled_time").show();
+  });
+  $(".scheduled_timeno").on("click", function () {
+    $("#scheduled_time").hide();
+  });
+  $(".escalationYes").on("click", function () {
+    $("#escalationYes").show();
+  });
+  $(".escalationNo").on("click", function () {
+    $("#escalationYes").hide();
   });
   // $('#did').on('click', function () {
   //     hideall();
@@ -691,6 +717,16 @@ $(document).ready(function () {
     hideall();
     $("#observations").show();
   });
+  $(".FinancialSummary").on("click", function () {
+    hideallmaintabs();
+    hideall();
+    $("#FinancialSummary").show();
+  });
+  $(".ContactSummary").on("click", function () {
+    hideallmaintabs();
+    hideall();
+    $("#ContactSummary").show();
+  });
 });
 
 // document.querySelector('.alert-success-msg').onclick = function(){
@@ -761,6 +797,43 @@ $("button#addmoreexecuting").click(function (e) {
     class="form-control" /></td>
                     <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td></tr>`;
   $("#Executingstakeholders").append(add_stakeholder);
+});
+$("button#addFinancialSummary").click(function (e) {
+  var i=0;
+  var add_stakeholder =
+    `<tr>
+    <td> <input type = "text" name = "FinancialSummaryYear[]" class="form-control" /></td>
+    <td> <input type = "text" name = "FinancialSummaryAllocation[]" class="form-control" /></td>
+    <td> <input type = "text" name = "FinancialSummaryReleases[]" class="form-control" /></td>
+    <td> <input type = "text" name = "FinancialSummaryExpenditure[]" class="form-control" /></td>
+    <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td>
+    </tr>`;
+  $("#FinancialSummaryHere").append(add_stakeholder);
+});
+$("button#addContractSummary").click(function (e) {
+  var i=0;
+  var add_stakeholder =
+    `<tr>
+      <td> <input type = "text" name = "ContractSummaryDescriptionOfScope[]" class = "form-control" / > </td>
+      <td> <input type = "text" name = "ContractSummaryAgreement[]" class = "form-control" / > </td>
+      <td> <input type = "text" name = "ContractSummaryContractor[]" class = "form-control" / > </td>
+      <td> <input type = "date" name = "ContractSummaryStartDate[]" class = "form-control" / > </td>
+      <td> <input type = "date" name = "ContractSummaryExpectedDate[]" class = "form-control" / > </td>
+      <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td>
+    </tr>`;
+  $("#ContractSummaryHere").append(add_stakeholder);
+});
+$("button#addMoreImage").click(function (e) {
+  var i=0;
+  var add_stakeholder =
+    `<tr>
+      <td> <input type='file' onchange="readURL(this);" /> </td> 
+      <td> <img class="blah" src="http://placehold.it/180" width="100px" alt ="your image" /> </td> 
+      <td> <input type="text" class="" name="Caption[]" placeholder="Caption" > </td> 
+      <td> <textarea name="" id="" placeholder="Description" cols="30" rows="3" > </textarea></td>
+      <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td>
+    </tr>`;
+  $("#addMoreImageHere").append(add_stakeholder);
 });
 var Ea = "";
 

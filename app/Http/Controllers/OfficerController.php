@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\User;
 use Auth;
+use PDF;
 use App\Sector;
 use App\SubSector;
 use App\AssignedProjectManager;
@@ -1806,6 +1807,7 @@ class OfficerController extends Controller
           return view('_Monitoring._Officer.projects.report',compact('project','report_data','mPlanKpiComponents'));
      }
 
+    //  
      //saving report Data
      public function save_report_data(Request $request)
      {

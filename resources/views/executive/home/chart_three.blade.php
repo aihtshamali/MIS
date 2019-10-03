@@ -1,6 +1,5 @@
 @extends('layouts.uppernav')
 @section('styletag')
-
 <link rel="stylesheet" href="{{asset('css/charts/export.css')}}" type="text/css" media="all" />
 <style>
 #chartdiv3 {
@@ -63,7 +62,7 @@
 
     <section class="content-header">
         <h1>
-        InProgress Projects
+        <b>Total & InProgress Projects of Individual Officer</b>
 
         </h1>
         <ol class="breadcrumb">
@@ -85,11 +84,11 @@
                         <div class="card-footer" >
                           <div style="padding:5px;display:inline-block;">
                             <span class="lightblue">-</span>
-                            <label style="vertical-align:-webkit-baseline-middle;">Total Assigned Projects</label>
+                            <label style="vertical-align:-webkit-baseline-middle;"><b>Total Assigned Projects</b></label>
                         </div>
                         <div style="padding:5px;display:inline-block;">
                           <span class="yellow">-</span>
-                          <label style="vertical-align:-webkit-baseline-middle;">In Progress/Acknowledged Projects</label>
+                          <label style="vertical-align:-webkit-baseline-middle;"><b>In Progress Projects</b></label>
                       </div>
                         </div>
                       </div>
@@ -102,44 +101,34 @@
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title"></h4>
+                    <h4><b  class="modal-title" ></b></h4>
                   </div>
                   <div class="modal-body">
-                              <div class="box">
-                                <div class="box-header">
-                                  <h3 class="box-title"></h3>
-                                </div>
-                                <!-- /.box-header -->
-                                <div class="box-body">
-                                  <table id="example" class="table table-bordered table-striped">
-                                    <thead>
-                                    <tr>
-                                      <th>SR #</th>
-                                      <th>Project No</th>
-                                      <th>GS #</th>
-                                      <th>Name</th>
-                                        <th>Cost</th>
-                                    <th>Assigned Date</th>
-                                    <th>Progress</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="tbody">
-                                        <tr v-for="(row,index) in d">
-                                          <td>@{{index+1}}</td>
-                                        <td>@{{row.project_no }}</td>
-                                          <td style="width:120px">@{{row.financial_year}} / @{{row.ADP}}</td>
-                                          <td>@{{row.title }}</td>
-                                          <td>@{{(Number(row.orignal_cost).toFixed(2))}} Million</td>
-                                          <td>@{{row.assigned_date}}</td>
-                                          <td>@{{(Number(row.progress).toFixed(2))}}%</td>
-                                        
-                                        </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
-                                <!-- /.box-body -->
-                              </div>
-                              <!-- /.box -->
+                      <table id="chart1" data-page-length="100" class="table table-bordered table-hover officer_projects">
+                          <thead>
+                          <tr>
+                            <th>SR #</th>
+                            <th>Project No</th>
+                            <th>GS #</th>
+                            <th>Name</th>
+                              <th>Cost</th>
+                          <th>Assigned Date</th>
+                          <th>Progress</th>
+                          </tr>
+                          </thead>
+                          <tbody id="tbody">
+                              <tr v-for="(row,index) in d">
+                                <td>@{{index+1}}</td>
+                              <td>@{{row.project_no }}</td>
+                                <td style="width:120px">@{{row.financial_year}} / @{{row.ADP}}</td>
+                                <td>@{{row.title }}</td>
+                                <td>@{{(Number(row.orignal_cost).toFixed(2))}} Million</td>
+                                <td>@{{row.assigned_date}}</td>
+                                <td>@{{(Number(row.progress).toFixed(2))}}%</td>
+                              
+                              </tr>
+                          </tbody>
+                        </table>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
@@ -168,8 +157,18 @@
 <script src="{{asset('js/charts/chalk.js')}}"></script>
 <script src="{{asset('js/charts/light.js')}}"></script>
 <script src="{{asset('js/charts/patterns.js')}}"></script>
+<script>
+$('#chart1').DataTable( {
+       dom: 'Bfrtip',
+        buttons: [
+           'pageLength', 'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+        
+    } );
+</script>
 <script type="text/javascript">
 // $('#example').DataTable();
+
 var VueModal = new Vue({
 
   el:"#Modal",

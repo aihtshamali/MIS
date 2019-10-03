@@ -1,6 +1,6 @@
 @extends('layouts.uppernav')
 @section('styletag')
-<link rel="stylesheet" href="{{asset('css/AdminLTE/dataTables.bootstrap.min.css')}}">
+{{-- <link rel="stylesheet" href="{{asset('css/AdminLTE/dataTables.bootstrap.min.css')}}"> --}}
 <link rel="stylesheet" href="{{asset('css/charts/export.css')}}" type="text/css" media="all" />
 <style>
     #chartdiv2 {
@@ -81,8 +81,7 @@
 
     <section class="content-header">
         <h1>
-          Assigned Projects
-
+         <b>ASSIGNED EVALUATION PROJECTS</b>
         </h1>
         <ol class="breadcrumb">
         <li><a href="{{route('Exec_pems_tab')}}"><i class="fa fa-backward" ></i>Back</a></li>
@@ -111,13 +110,11 @@
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">Projects</h4>
+                     <h4 class="modal-title"><b>TOTAL EVALUATION ASSIGNED PROJECTS</b>
+                  </h4>
                   </div>
                   <div class="modal-body">
-                    <div class="box">
-                      <!-- /.box-header -->
-                      <div class="box-body">
-                        <table class="table table-bordered table-striped officer_projects">
+                        <table id="chart1" data-page-length="100" class="table table-bordered table-hover officer_projects">
                           <thead>
                           <tr>
                             <th>SR #</th>
@@ -126,28 +123,34 @@
                             <th>Name</th>
                             <th>Cost</th>
                             <th>Officer</th>
-                            <th>Assigned Date</th>
+                            <th>Duration</th>
                             <th>Progress</th>
                           </tr>
                           </thead>
                           <tbody>
                             <tr v-for="(officer_project,index) in officer_projects">
+                              {{-- @{{dump(officer_project)}} --}}
                               <td>
                                 @{{index+1}}
                               </td>
                               <td>@{{officer_project.project_no}}</td>
-                              <td>@{{officer_project.financial_year}} / @{{officer_project.ADP}}</td>
-                              <td>@{{officer_project.title}}</td>
+                              <td >@{{officer_project.financial_year}} (@{{officer_project.ADP}})</td>
+                              <td  style="text-align:LEFT !important;width:25% !important; ">@{{officer_project.title}}</td>
                               <td>@{{(Number(officer_project.orignal_cost).toFixed(2))}} Million</td>
-                              <td>@{{officer_name}}</td>
-                              <td>@{{officer_project.assigned_date}}</td>
-                              <td>@{{(Number(officer_project.progress).toFixed(2))}}%</td>
+                              <td  style="text-align:LEFT !important;width:17% !important; ">@{{officer_name}}</td>
+                              <td>
+                                 <b>Start Date :</b>@{{officer_project.assigned_date}}
+                                 <br>
+                                 <b>Last Modified :</b>@{{officer_project.updated_at}}
+                              </td>
+                              <td>
+                               
+                                @{{(Number(officer_project.progress).toFixed(2))}}%
+                              
+                               </td>
                             </tr>
                           </tbody>
                         </table>
-                      </div>
-                    </div>
-                              <!-- /.box -->
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
@@ -163,8 +166,9 @@
 </div>
 @endsection
 @section('scripttags')
-<script src="{{asset('js/AdminLTE/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('js/AdminLTE/dataTables.bootstrap.min.js')}}"></script>
+
+  <script type="text/javascript" src="{!! asset('js/AdminLTE/moment.js') !!}"></script>
+  <script type="text/javascript" src="{!! asset('js/AdminLTE/moment.min.js') !!}"></script>
 <script src="{{asset('js/charts/amcharts.js')}}"></script>
 <script src="{{asset('js/charts/serial.js')}}"></script>
 <script src="{{asset('js/charts/fabric.min.js')}}"></script>
@@ -177,15 +181,15 @@
 <script src="{{asset('js/charts/chalk.js')}}"></script>
 <script src="{{asset('js/charts/light.js')}}"></script>
 <script src="{{asset('js/charts/patterns.js')}}"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js" type="text/javascript"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
-
-
+<script>
+$('#chart1').DataTable( {
+       dom: 'Bfrtip',
+        buttons: [
+           'pageLength', 'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+        
+    } );
+</script>
 
 <script>
   function loadDataTable(){
@@ -244,12 +248,13 @@ var temp=new Vue({
            this.officer_projects=data
            this.officer_name=name
            loadDataTable()      
+
          }
        },
      })
-
 // Create series
-function createSeries(field, name,color="#67b7dc") {
+function createSeries(field, name,color="#67b7dc") 
+{
 
   // Set up series
   let series = chart.series.push(new am4charts.ColumnSeries());

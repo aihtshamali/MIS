@@ -303,20 +303,25 @@ box-shadow: 11px 15px 42px 19px rgba(169,200,217,1);
     "theme": "light",
     "dataProvider": [ {
       "Type": "Total\nProjects",
-      "Number of Projects": total_projects
+      "Number of Projects": total_projects,
+       "color": "#333",
     }, {
       "Type": "UnAssigned\nProjects",
-      "Number of Projects": total_assigned_projects
+      "Number of Projects": total_assigned_projects,
+       "color": "#5982ff"
     }, {
       "Type": "Inprogress\nProjects",
-      "Number of Projects": inprogress_projects
+      "Number of Projects": inprogress_projects,
+       "color": "#ffbf59"
     }, {
       "Type": "Completed\nProjects",
-      "Number of Projects": completed_projects
+      "Number of Projects": completed_projects,
+      "color": "#70dc70"
     } ,
     {
       "Type":"Stopped\nProjects",
-      "Number of Projects":stopped_projects
+      "Number of Projects":stopped_projects,
+        "color": "#ff4f5a"
     }],
     "valueAxes": [ {
       "gridColor": "#FFFFFF",
