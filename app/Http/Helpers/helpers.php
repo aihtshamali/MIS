@@ -20,6 +20,21 @@ if (! function_exists('calculateMFinancialProgress')) {
     }
 
   }
+if (! function_exists('calculateMFinancialProgressWithPc1Cost')) {
+     function calculateMFinancialProgressWithPc1Cost($m_project_progress_id)
+    {
+        $financial_cost=App\MProjectCost::where('m_project_progress_id',$m_project_progress_id)->orderBy('created_at','desc')->first();
+        $financial_progress=0.0;
+        if(isset($financial_cost->MProjectProgress->AssignedProject->Project->ProjectDetail->orignal_cost) && ($financial_cost->MProjectProgress->AssignedProject->Project->ProjectDetail->orignal_cost==null || $financial_cost->MProjectProgress->AssignedProject->Project->ProjectDetail->orignal_cost < 1))
+        return 0;
+        if($financial_cost && $financial_cost->MProjectProgress->AssignedProject->Project->ProjectDetail->orignal_cost>0)
+            $financial_progress=($financial_cost->utilization_against_releases/$financial_cost->MProjectProgress->AssignedProject->Project->ProjectDetail->orignal_cost)*100;
+        else
+          return 0;
+        return $financial_progress;
+    }
+
+  }
 if (! function_exists('calculateMPhysicalProgress')) {
    function calculateMPhysicalProgress($m_project_progress_id){
     //  dd($cost);
