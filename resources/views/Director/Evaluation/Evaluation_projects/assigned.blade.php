@@ -193,7 +193,7 @@
   
                                         <td>
                                           @php
-                                            $interval = date_diff(date_create(date('Y-m-d h:i:s',strtotime($assigned->created_at))), date_create(date('Y-m-d h:i:s')))->format('%m Month %d Day %h Hours');
+                                            $interval = date_diff(date_create(date('Y-m-d h:i:s',strtotime($assigned->created_at))), date_create(date('Y-m-d h:i:s')))->format('%y Year %m Month %d Day %h Hours');
                                             // $duration=$interval->format();
                                           @endphp
                                           {{-- {{$assigned->created_at}} --}}
