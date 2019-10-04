@@ -25,12 +25,15 @@
   <!-- Content Header (Page header) -->
     <div class="box box-primary">
     <div class="box-header">
-    <h3>Evaluation Projects</h3>
+    <h3>Evaluation Projects <span style="color:red">
+     <button class="btn btn-danger" style="color:white;font-weight:bold font-size:20px;">@if(isset($projects)){{$projects->count()}}@endif</button>
+    
     <hr>
     </div>
     <div class="box-body">
     <table id="example1"   data-page-length="100" class="table table-hovered table-bordered compact">
       <thead>
+        <th>Sr.</th>
         <th>Project #</th>
         <th style="width:28% !important;" >Title</th>
         <th style="width:10% !important;">Project Type</th>
@@ -40,9 +43,17 @@
         <th>File</th>
       </thead>
       <tbody>
+      @php
+      $i=0;
+      @endphp
         @foreach ($projects as $project)
           {{-- {{dd($project->project_details)}} --}}
           <tr>
+          <td>
+          @php
+      echo ++$i;
+      @endphp
+          </td>
           <td>{{$project->project_no}}</td>
             <td><a href="{{route('projects.show',$project->id)}}">{{$project->title}}</a></td>
             @if (isset($project->ProjectType))
