@@ -144,6 +144,22 @@
         .float-none {
             float: none !important
         }
+        .graphs{
+            -ms-flex: 0 0 100%;
+            flex: 0 0 60%;
+            max-width: 100%;
+            padding: 1%;
+    border: 1px solid #999;
+        }
+         .labelgraphs{
+            -ms-flex: 0 0 100%;
+            flex: 0 0 60%;
+            max-width: 100%;
+            /* padding: 1%;
+    border: 1px solid #999; */
+        }
+
+        }
 
         /* gallery */
 
@@ -430,7 +446,10 @@
         .pdt3p {
             padding-top: 3% !important;
         }
-
+        .breakpage{
+              margin-top: 5%;
+                margin-bottom:5%; 
+        }
         .breakpage p {
             border: 1px solid #777 !important;
             padding: 1%;
@@ -537,14 +556,23 @@
             margin-top: 3%;
         }
 
+        th{
+            background:lightgrey;
+        }
         th,
         td {
             border: 1px solid #999;
+             padding-bottom: 1% !important;
+            padding-top: 1% !important;
+            padding-left: 0.5% !important;
+            vertical-align: middle !important;
+            
         }
         .table td, .table th {
-            padding:5px !important;
+            /* padding:5px !important; */
                 /* text-align:Center !important; */
-            font-size: 14px !important;
+           
+           
             }
      
         .border {
@@ -564,7 +592,7 @@
         #chartdiv_FinancialprogressCost {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
                 "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-            width: 1000px;
+            /* width: 1000px; */
             height: 400px;
         }
 
@@ -572,14 +600,14 @@
 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
                 "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-            width: 1000px;
+            /* width: 1000px; */
             height: 400px;
         }
 
         #chartFinancialProgressagainstallocation {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
                 "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-            width: 800px;
+            /* width: 800px; */
             height: 400px;
         }
 
@@ -649,6 +677,7 @@
                 page-break-before: always !important;
                 padding: 1%;
                 height: 100%;
+              
             }
 
             .breakpage p {
@@ -660,11 +689,12 @@
             .redTxt {
                 color: #000;
             }
+        
 
             #chartdivprogressgraphs {
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
                     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-                width: 600px;
+                width: 1000px;
                 height: 400px;
             }
 
@@ -687,8 +717,13 @@
             #chartFinancialProgressagainstallocation {
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
                     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-                width: 1050px;
+                width: 800px;
                 height: 400px;
+            }
+            .labelgraphs{
+               width: 800px; 
+                padding: 1%;
+    border: 1px solid #999;
             }
             ul {
                 padding-left:4%;
@@ -746,7 +781,7 @@ return 'Unknown';
                 <div class="clearfix headerLogoNew">
                     <center>
                         <img src="{{asset('dgme.png')}}" id="dgmelogo" class="report-logo" alt="">
-                        <h4>
+                        <h3>
                             <i>
                                 Monitoring Report on the Project
                             </i>
@@ -784,18 +819,17 @@ return 'Unknown';
             </div>
         </div>
         <div class="clearfix breakpage ">
-            <h4 class="redTxt">
+            <h3 class="redTxt">
                 1. History
-            </h4>
+            </h3>
             <p class="textarea col-md-12 grey" contenteditable="true">
-
             </p>
         </div>
         <div class="clearfix breakpage ">
-            <h4 class="redTxt">
+            <h3 class="redTxt">
                 2. PROJECT DATA (Sheet (12pt font size, Justified, Time new )
-            </h4>
-            <div class="row col-md-12 fullwidthprint">
+            </h3>
+            {{-- <div class="row col-md-12 fullwidthprint">
                 <div class="col-md-12 row nopading noborder">
                     <div class="col-md-5 prolable border"><b>1. Project Title :</b></div>
                     <div class="col-md-6 border-left">
@@ -896,20 +930,111 @@ return 'Unknown';
                         {{$gestation_period}}
                     </div>
                 </div>
-            </div>
+            </div> --}}
+             <table class="col-md-12">
+                 <tr>
+                     <th style="width:30% !important;">Project Title</th>
+                     <td> {{$project->AssignedProject->Project->title}}</td>
+                 </tr>
+                  <tr>
+                     <th>Project GS.No</th>
+                     <td>
+                        {{$project->AssignedProject->Project->ADP}} / {{$project->AssignedProject->Project->financial_year}}
+                     </td>
+                 </tr>
+                  <tr>
+                     <th> Sector & Sub Sector </th>
+                     <td>
+                            @foreach ($project->AssignedProject->Project->AssignedSubSectors as $item)
+                        {{$item->SubSector->sector->name}}
+                        @endforeach 
+                        <b>-</b>
+                             @foreach ($project->AssignedProject->Project->AssignedSubSectors as $item)
+                            {{$item->SubSector->name}}
+                            @endforeach
+                     </td>
+                     
+                 </tr>
+                  <tr>
+                     <th>Sponsoring Agency/Department</th>
+                     <td>
+                               @foreach ($project->AssignedProject->Project->AssignedSponsoringAgencies as $item)
+                            {{$item->SponsoringAgency->name}}
+                            @endforeach
+                     </td>
+                 </tr>
+                  <tr>
+                     <th>Executing Agency/Department</th>
+                     <td> @foreach ($project->AssignedProject->Project->AssignedExecutingAgencies as $item)
+                            {{$item->ExecutingAgency->name}}
+                            @endforeach</td>
+                 </tr>
+                  <tr>
+                     <th>O&M Department & Contractor Or Supplier (If Any)</th>
+                     <td>   
+                        {{$project->MProjectOrganization->operation_and_management}}
+                        @if($project->MProjectOrganization->contractor_or_supplier)
+                            {{$project->MProjectOrganization->contractor_or_supplier}}
+                        @endif</td>
+                 </tr>
+                  <tr>
+                     <th>Project Location</th>
+                     <td>  @foreach ($project->AssignedProject->Project->AssignedDistricts as $district)
+                         {{$district->District->name}}<br>
+                        @endforeach</td>
+                 </tr>
+                  <tr>
+                     <th>Status of Project with respect to Actual progress against Financial Progress</th>
+                     <td></td>
+                 </tr>
+                  <tr>
+                     <th>Status of Project with respect to Actual Vs Planned Progress</th>
+                     <td></td>
+                 </tr>
+                  <tr>
+                     <th>Approval Date</th>
+                     <td>  {{ date('d-M-y',strtotime($project->MProjectDate->project_approval_date)) }}</td>
+                 </tr>
+                  <tr>
+                     <th>No. of Revisions</th>
+                     <td>  {{$revisions->count()}}</td>
+                 </tr>
+                  <tr>
+                     <th>Total Approved Cost & Revised Cost (if any)</th>
+                     <td>  
+                          {{round($project->AssignedProject->Project->ProjectDetail->orignal_cost,3)}}
+                        @if($revisions->count())
+                        @foreach ($revisions as $revision)
+                             {{$revision->cost}}
+                        @endforeach
+                        @else
+                           <b>- Cost is not revised</b>
+                        @endif
+                    </td>
+                 </tr>
+                  <tr>
+                     <th>Project Gestation Period</th>
+                     <td>   {{$gestation_period}}</td>
+                 </tr>
+             </table>
         </div>
         <div class="clearfix breakpage ">
-            <h4 class="redTxt">
+            <h3 class="redTxt">
                 3. PROJECT SCHEDULE DETAIL:
-            </h4>
+            </h3>
             <b>
                 Overall Physical progress against Planned Progress with respect to time and over all project approved PC-I cost;<br /><br /><br />
             </b>
-            <div class="row">
-                <div class="col-md-12">
-                    <center class="">
+             <div class="">
+                <div class="col-md-12 labelgraphs">
+             <center class="">
                         <b> Over all physical progress of the project aginst allocated scope or work</b>
                     </center>
+                </div>
+             </div>
+             <br>
+            <div class="row">
+                <div class="col-md-8 offset-md-2 graphs">
                     <center class="">
                         <div id="chartdivprogressgraphs"></div>
                     </center>
@@ -917,10 +1042,10 @@ return 'Unknown';
             </div>
             <table class="col-md-12">
                 <tr>
-                    <th>Planned Start Date as per PC-I</th>
-                    <th>Planned End Date as per Latest PC-I</th>
-                    <th>Actual Start Date (Award of contract)</th>
-                    <th>Date of Visit</th>
+                    <th style="width:14% !important ;" >Planned Start Date as per PC-I</th>
+                    <th style="width:10% !important ;">Planned End Date as per Latest PC-I</th>
+                    <th style="width:10% !important ;">Actual Start Date (Award of contract)</th>
+                    <th style="width:10% !important ;">Date of Visit</th>
                 </tr>
                 <tr>
                 <td>
@@ -953,13 +1078,52 @@ return 'Unknown';
                          @endif
                     </td>
                 </tr>
-            </table>
-            <table class="col-md-12">
+                <tr><th colspan="4" style="background:lightgrey;">Questions Related to Project Schedule Details</th></tr>
+                 @foreach ($project->MAssignedQuestionnaire as $item)
+                   @if($item->MQuestionnaire->question_type_id == '1')
+                    <tr>
+                        <td>{{$item->MQuestionnaire->question}}</td>
+                        <td  style="text-align: center !important; vertical-align:middle !imporatnt;">
+                            {{-- {{$item->answer}} --}}
+                            <div class="checkbox-fade fade-in-success m-0">
+                            <input type="hidden" name="" value="">
+                                <label class="">
+                                    YES <input type="radio" class="scheduled_timeyes" checked name="" value="" id="">
+                                    <span class="cr">
+                                        <i class="cr-icon icofont icofont-ui-check txt-success"></i>
+                                    </span>
+                                </label>
+                            </div>
+                        </td>
+                        <td  style="text-align: center !important; vertical-align:middle !imporatnt;">
+                            <div class="checkbox-fade fade-in-danger m-0">
+                            <input type="hidden" name="" value="">
+                                <label class="">
+                                NO <input type="radio" class="scheduled_timeyes" checked name="" value="" id="">
+                                    <span class="cr">
+                                        <i class="cr-icon icofont icofont-ui-check txt-danger"></i>
+                                    </span>
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            @if($item->remarks)
+                                {{$item->remarks}}
+                                @else
+                                <span class="notadded"><b>Not Added</b></span>
+                            @endif 
+                        </td>
+                    </tr>
+                  @endif
+                  @endforeach
+           
+                </table>
+            {{-- <table class="col-md-12">
               <thead>
                   <tr>
-                      <th></th>
                       <th>Questions</th>
-                      <th>Action</th>
+                      <th>Yes</th>
+                      <th>No</th>
                       <th>Reason</th>
 
                   </tr>
@@ -970,13 +1134,30 @@ return 'Unknown';
                   @endphp
                   @foreach ($project->MAssignedQuestionnaire as $item)
                   <tr>
-                    <td>
-                        @php
-                     echo ++$i;    
-                    @endphp
-                    </td>
+                   
                     <td>{{$item->MQuestionnaire->question}}</td>
-                    <td>{{$item->answer}}</td>
+                    <td  style="text-align: center !important; vertical-align:middle !imporatnt;">
+                         <div class="checkbox-fade fade-in-success m-0">
+                           <input type="hidden" name="" value="">
+                            <label class="">
+                                <input type="radio" class="scheduled_timeyes" checked name="" value="" id="">
+                                <span class="cr">
+                                    <i class="cr-icon icofont icofont-ui-check txt-success"></i>
+                                </span>
+                            </label>
+                         </div>
+                    </td>
+                    <td  style="text-align: center !important; vertical-align:middle !imporatnt;">
+                         <div class="checkbox-fade fade-in-danger m-0">
+                           <input type="hidden" name="" value="">
+                            <label class="">
+                                <input type="radio" class="scheduled_timeyes" checked name="" value="" id="">
+                                <span class="cr">
+                                    <i class="cr-icon icofont icofont-ui-check txt-danger"></i>
+                                </span>
+                            </label>
+                         </div>
+                    </td>
                     <td>
                          @if($item->remarks)
                          {{$item->remarks}}
@@ -988,19 +1169,21 @@ return 'Unknown';
                   @endforeach
                  
               </tbody>
-            </table>
+            </table> --}}
+           
+        </div>
         <div class="clearfix breakpage ">
-            <h4 class="redTxt">
+            <h3 class="redTxt">
                 4. Project Cost Details:
-            </h4>
+            </h3>
             <table class="col-md-12">
                 <tr>
-                    <th>PC-1 Original Cost</th>
-                    <th>Final Revised Cost (If any)</th>
-                    <th>Funds Released</th>
-                    <th>Funds Utilized</th>
-                    <th>% Financial Utilization (With Respect to Releases)</th>
-                    <th>% Financial Utilization (With Respect to PC-I Cost)</th>
+                    <th style="width:13% !important ;" >PC-1 Original Cost</th>
+                    <th style="width:10% !important" >Final Revised Cost <br>(If any)</th>
+                    <th style="width:10% !important" >Funds Released</th>
+                    <th style="width:10% !important" >Funds Utilized</th>
+                    <th style="width:10% !important;">% Financial Utilization (With Respect to Releases)</th>
+                    <th style="width:10% !important">% Financial Utilization (With Respect to PC-I Cost)</th>
                 </tr>
                 <tr>
                     <td>
@@ -1046,43 +1229,102 @@ return 'Unknown';
                         {{round(calculateMFinancialProgressWithPc1Cost($project->id),2)}}
                     </td>
                 </tr>
+                <tr><th colspan="6" style="background:lightgrey;">Questions Related to Project Cost Details</th></tr>
+                 @foreach ($project->MAssignedQuestionnaire as $item)
+                 @if($item->MQuestionnaire->question_type_id == '2')
+                 <tr>
+                    {{-- <td>
+                        @php
+                     echo ++$i;    
+                    @endphp
+                    </td> --}}
+                    <td colspan="2"> {{$item->MQuestionnaire->question}}</td>
+                    <td  style="text-align: center !important; vertical-align:middle !imporatnt;">
+                        {{-- {{$item->answer}} --}}
+                         <div class="checkbox-fade fade-in-success m-0">
+                           <input type="hidden" name="" value="">
+                            <label class="">
+                                YES <input type="radio" class="scheduled_timeyes" checked name="" value="" id="">
+                                <span class="cr">
+                                    <i class="cr-icon icofont icofont-ui-check txt-success"></i>
+                                </span>
+                            </label>
+                         </div>
+                    </td>
+                    <td  style="text-align: center !important; vertical-align:middle !imporatnt;">
+                         <div class="checkbox-fade fade-in-danger m-0">
+                           <input type="hidden" name="" value="">
+                            <label class="">
+                               NO <input type="radio" class="scheduled_timeyes" checked name="" value="" id="">
+                                <span class="cr">
+                                    <i class="cr-icon icofont icofont-ui-check txt-danger"></i>
+                                </span>
+                            </label>
+                         </div>
+                    </td>
+                    <td colspan="3">
+                         @if($item->remarks)
+                            {{$item->remarks}}
+                            @else
+                            <span class="notadded"><b>No Reason Added</b></span>
+                         @endif 
+                    </td>
+                  </tr>
+                  @endif
+                @endforeach
             </table>
-            
-            <div class="col-md-12">
-                Based on the data provided, {{round(calculateMFinancialProgressWithPc1Cost($project->id),2)}}% project budget has been utilized against the total project cost, whereas the Rs {{isset($project->MProjectCost->utilization_against_releases) ? round($project->MProjectCost->utilization_against_releases,3,PHP_ROUND_HALF_UP)  : '0'}} Million were utilized in the project against release of Rs. {{isset($project->MProjectCost->total_release_to_date) ? round($project->MProjectCost->total_release_to_date,3,PHP_ROUND_HALF_UP) : '0'}} 
-                Million starting form {{isset($project->AssignedProject->Project->ProjectDetail->planned_start_date) ?
-                       date('d-M-y',strtotime($project->AssignedProject->Project->ProjectDetail->planned_start_date)) : 'N-A'}}
-            </div>
-            <b>
-                Overall Physical progress against Planned Progress with respect to time and over all project approved PC-I cost;<br /><br /><br />
-            </b>
-            <div class="row">
+        </div>
+        <div  class="clearfix breakpage ">
                 <div class="col-md-12">
-                    <center>
-                        <b>Financial Progress Chart Against Overall Project Approved Cost</b>
-                        <br>
-                    </center>
+                    Based on the data provided, <b>{{round(calculateMFinancialProgressWithPc1Cost($project->id),2)}}%</b> project budget
+                    has been utilized against the total project cost, whereas the <b>Rs. {{isset($project->MProjectCost->utilization_against_releases) ? round($project->MProjectCost->utilization_against_releases,3,PHP_ROUND_HALF_UP)  : '0'}} </b>
+                    Million were utilized in the project against release of <b>Rs. {{isset($project->MProjectCost->total_release_to_date) ? round($project->MProjectCost->total_release_to_date,3,PHP_ROUND_HALF_UP) : '0'}} </b>
+                    Million starting form <b>{{isset($project->AssignedProject->Project->ProjectDetail->planned_start_date) ?
+                    date('d-M-y',strtotime($project->AssignedProject->Project->ProjectDetail->planned_start_date)) : 'N-A'}}</b>           
+                </div>
+            <br>
+            <hr style="border: transparent;">
+            
+            <div class="">
+                <div class="col-md-12 labelgraphs">  
+                <center class="text-center">
+                    <b>Financial Progress Chart Against Overall Project Approved Cost</b>
+                </center>
+                </div>
+                <div class="col-md-2"></div>
+            <div>
+          <br>
+            <div class="row">
+                <div class="col-md-8 offset-md-2 graphs">
                     <div class="">
                         <div id="chartdiv_FinancialprogressCost"></div>
                     </div>
                 </div>
+                 <div class="col-md-2"></div>
             </div>
             <hr style="border: transparent;">
+            <div class="">
+                    <div class="col-md-12 labelgraphs">  
+                <center class="text-center">
+                    <b>Financial Progress Chart Against Releases</b> 
+                </center>
+                </div>
+                 <div class="col-md-2"></div>
+            </div>
+            <br>
             <div class="row">
-                <div class="col-md-12">
-                    <center class="text-center">
-                        <b>Financial Progress Chart Against Releases</b> <br>
-                    </center>
+                <div class="col-md-8 offset-md-2 graphs">  
                     <div class="">
                         <div id="chartdiv_FinancialprogressReleases"></div>
                     </div>
                 </div>
+                 <div class="col-md-2"></div>
             </div>
         </div>
         <div class="clearfix breakpage ">
-            <h4 class="redTxt">
+            <h3 class="redTxt">
                 5. Project Objectives:
-            </h4>
+            </h3>
             <div class="col-md-12">
                 <table class="col-md-12 table table-striped">
                     <tr>
@@ -1118,9 +1360,9 @@ return 'Unknown';
             </div>
         </div>
         <div class="clearfix breakpage ">
-            <h4 class="redTxt">
+            <h3 class="redTxt">
                 6. Physical Targets and Performance:
-            </h4>
+            </h3>
             <div class="col-md-12">
                 <table class="col-md-12">
                     <tr>
@@ -1143,9 +1385,9 @@ return 'Unknown';
             </div>
         </div>
         <div class="clearfix breakpage ">
-            <h4 class="redTxt">
+            <h3 class="redTxt">
                 7. Quality of the Project Activities
-            </h4>
+            </h3>
             <div class="col-md-12 highlight">
                 <table class="col-md-12 table table-striped">
                     <thead>
@@ -1176,10 +1418,10 @@ return 'Unknown';
                 </table>
               
             </div>
-
-             <h4 class="redTxt">
+            <br>
+             <h3 class="redTxt">
                8. Project Beneficiaries
-            </h4>
+            </h3>
 
             <div class="col-md-12">
               <table class="col-md-12 table table-striped">
@@ -1216,9 +1458,9 @@ return 'Unknown';
             </div>
         </div>
         <div class="clearfix breakpage ">
-            <h4 class="redTxt">
+            <h3 class="redTxt">
                 9. Risk and Constraints:
-            </h4>
+            </h3>
             <table class="col-md-12 highlight" >
                <thead>
                     <tr>
@@ -1237,9 +1479,9 @@ return 'Unknown';
             </table>
         </div>
         <div class="clearfix breakpage ">
-            <h4 class="redTxt">
+            <h3 class="redTxt">
                 9. Issues and Observations
-            </h4>
+            </h3>
             <table class="col-md-12 table table-striped" >
                 @php
                     $i=0;   
@@ -1286,9 +1528,9 @@ return 'Unknown';
             </table>
         </div>
         <div class="clearfix breakpage highlight">
-            <h4 class="redTxt">
+            <h3 class="redTxt">
                 10. Human Resource:
-            </h4>
+            </h3>
             <div class="col-md-12">
                 <table class="col-md-12 table table-striped">
                     <thead>
@@ -1318,9 +1560,9 @@ return 'Unknown';
             </div>
         </div>
         <div class="clearfix breakpage ">
-            <h4 class="redTxt">
+            <h3 class="redTxt">
                 11. Project Stakeholders Interviewed:
-            </h4>
+            </h3>
             <table class="col-md-12 table table-striped ">
                 <thead>
                     <tr>
@@ -1356,9 +1598,9 @@ return 'Unknown';
             </table>
         </div>
         <div class="clearfix breakpage ">
-            <h4 class="redTxt">
+            <h3 class="redTxt">
                 12. Monitoring Team
-            </h4>
+            </h3>
             <table class="col-md-12">
                <thead>
                     <tr>
@@ -1383,18 +1625,22 @@ return 'Unknown';
             </table>
         </div>
         <div class="clearfix breakpage ">
-            <h4 class="redTxt">
+            <h3 class="redTxt">
                 13. Financial Summary
-            </h4>
-            <b>
-                Up till now total expenditure of Rs. {{$project->MProjectCost->utilization_against_releases}} Million has been incurred against the total release of Rs.{{$project->MProjectCost->release_to_date_of_fiscal_year}}<br/><br/><br/>
-            </b>
-            <div class="row">
+            </h3>
                 <div class="col-md-12">
-                    <center class="">
-                        <b> Financial progress chart against allocations by sponsoring agency (2014 to 2018)</b>
+                    Up till now total expenditure of <b>Rs.{{$project->MProjectCost->utilization_against_releases}}</b> Million has been incurred against the total release of<b>Rs.{{$project->MProjectCost->release_to_date_of_fiscal_year}}</b>Million.<br/><br/><br/>
+                </div>
+                    <div class="">
+                <div class="col-md-12 labelgraphs" >
+                     <center class="">
+                <b> Financial progress chart against allocations by sponsoring agency (2014 to 2018)</b>
                     </center>
-
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-8 offset-md-2 graphs">
                     <center class="">
                         <div id="chartFinancialProgressagainstallocation"></div>
                     </center>
@@ -1422,9 +1668,9 @@ return 'Unknown';
             </table>
         </div>
         <div class="clearfix breakpage ">
-            <h4 class="redTxt">
+            <h3 class="redTxt">
                 14. Project Contract Summary
-            </h4>
+            </h3>
             The detail of project brief is given below;
             <table class="col-md-12">
                <thead>
@@ -1450,9 +1696,9 @@ return 'Unknown';
             </table>
         </div>
         <div class="clearfix breakpage ">
-            <h4 class="redTxt">
+            <h3 class="redTxt">
                 15. Textual Observation
-            </h4>
+            </h3>
                @php $i=0;@endphp
             <div class="col-md-12">
                  @if(isset($project->MProgressObservation->observation))
@@ -1479,9 +1725,9 @@ return 'Unknown';
                 @endif
             </div>
 
-             <h4 class="redTxt">
+             <h3 class="redTxt">
                 16. Pictorial Observation
-            </h4>
+            </h3>
             <div class="col-md-12">
               @if(isset($project->MProgressPictorialDetail) || $project->MProgressPictorialDetail!=null )
                 <table class="col-md-12 ">
@@ -1509,9 +1755,9 @@ return 'Unknown';
             
         </div>
         <div class="clearfix breakpage highlight">
-            <h4 class="redTxt">
+            <h3 class="redTxt">
                 17. RECOMMENDATIONS
-            </h4>
+            </h3>
             <p class="col-md-12 grey">
                 RECOMMENDATIONS
             </p>

@@ -512,9 +512,9 @@ transform: rotate(90deg);
                   $i++;
               @endphp
               @endforeach
-            <tr>
-              <td colspan="5"><input type="submit" value="Save Questionnaire" name="submit" style="background-color:green !important" class="btn btn-success pull-right"></td>
-            </tr>
+              <tr>
+                <td colspan="5"><input type="submit" value="Save Questionnaire" name="submit" style="background-color:green !important" class="btn btn-success pull-right"></td>
+              </tr>
             </table>
 
           </form>
