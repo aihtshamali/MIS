@@ -212,7 +212,10 @@
         }
 
         .cke_editable {
-            height: 125px !important;
+            min-height: 125px !important;
+        }
+        .cke_textarea_inline  > ul {
+            padding-left:4%;
         }
     </style>
 
@@ -1096,7 +1099,7 @@
                         <hr>
                         <textarea name="observation" id="short_desc" rows="10" class="offset-md-1 col-md-10" placeholder="Your Oservation here Here...">@if(isset($m_observations->observation)){{$m_observations->observation}}@endif</textarea>
                         <hr>
-                        <h3 style="text-align:center">Recommendation </h3>
+                        <h3 style="text-align:center" contenteditable="false">Recommendation </h3>
                         <hr>
                         <textarea name="recommendation" contenteditable="true" rows="10" id="short_recomend" placeholder="Your Recommendation Here..." style="height:200px;" class="offset-md-1 col-md-10">@if(isset($m_recommendation->recommendation)){{$m_recommendation->recommendation}}@endif</textarea>
                         <hr>

@@ -690,9 +690,15 @@
                 width: 1050px;
                 height: 400px;
             }
+            ul {
+                padding-left:4%;
+            }
 
 
         }
+        ul {
+                padding-left:4%;
+            }
     </style>
     <script src="{{asset('lightRoom/picturefill.min.js')}}"></script>
     <script src="{{asset('lightRoom/lightgallery-all.min.js')}}"></script>
@@ -993,8 +999,8 @@ return 'Unknown';
                     <th>Final Revised Cost (If any)</th>
                     <th>Funds Released</th>
                     <th>Funds Utilized</th>
-                    <th class="highlight">% Financial Utilization (With Respect to Releases)</th>
-                    <th class="highlight">% Financial Utilization (With Respect to PC-I Cost)</th>
+                    <th>% Financial Utilization (With Respect to Releases)</th>
+                    <th>% Financial Utilization (With Respect to PC-I Cost)</th>
                 </tr>
                 <tr>
                     <td>
@@ -1034,16 +1040,18 @@ return 'Unknown';
                           <small>Million PKR</small>
                     </td>
                     <td>
-                        Formula Required
+                        {{round(calculateMFinancialProgress($project->id),2)}}
                     </td>
                     <td>
-                        Formula Required
+                        {{round(calculateMFinancialProgressWithPc1Cost($project->id),2)}}
                     </td>
                 </tr>
             </table>
             
             <div class="col-md-12">
-                Based on the data provided, [% Financial Utilization (With Respect to PC-I Cost] project budget has been utilized against the total project cost, whereas the Rs [Funds Utilized] Million were utilized in the project against release of Rs. [Funds Released] Million starting form [ Planned Start Date]
+                Based on the data provided, {{round(calculateMFinancialProgressWithPc1Cost($project->id),2)}}% project budget has been utilized against the total project cost, whereas the Rs {{isset($project->MProjectCost->utilization_against_releases) ? round($project->MProjectCost->utilization_against_releases,3,PHP_ROUND_HALF_UP)  : '0'}} Million were utilized in the project against release of Rs. {{isset($project->MProjectCost->total_release_to_date) ? round($project->MProjectCost->total_release_to_date,3,PHP_ROUND_HALF_UP) : '0'}} 
+                Million starting form {{isset($project->AssignedProject->Project->ProjectDetail->planned_start_date) ?
+                       date('d-M-y',strtotime($project->AssignedProject->Project->ProjectDetail->planned_start_date)) : 'N-A'}}
             </div>
             <b>
                 Overall Physical progress against Planned Progress with respect to time and over all project approved PC-I cost;<br /><br /><br />
@@ -1379,7 +1387,7 @@ return 'Unknown';
                 13. Financial Summary
             </h4>
             <b>
-                Up till now total expenditure of Rs. ____ Million has been incurred against the total release of Rs.<br /><br /><br />
+                Up till now total expenditure of Rs. {{$project->MProjectCost->utilization_against_releases}} Million has been incurred against the total release of Rs.{{$project->MProjectCost->release_to_date_of_fiscal_year}}<br/><br/><br/>
             </b>
             <div class="row">
                 <div class="col-md-12">
@@ -1392,7 +1400,7 @@ return 'Unknown';
                     </center>
                 </div>
             </div>
-            <table class="col-md-12 highlight">
+            <table class="col-md-12">
                 <thead>
                     <tr>
                     <th>Year</th>
@@ -1402,12 +1410,14 @@ return 'Unknown';
                 </tr>
                 </thead>
                <tbody>
-                    <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+                   @foreach ($project->MProgressFinancialSummary as $financial)    
+                        <tr style="text-align:center">
+                            <td>{{$financial->year}}</td>
+                            <td>{{$financial->allocation}}</td>
+                            <td>{{$financial->releases}}</td>
+                            <td>{{$financial->expenditure}}</td>
+                        </tr>
+                    @endforeach
                </tbody>
             </table>
         </div>
@@ -1416,7 +1426,7 @@ return 'Unknown';
                 14. Project Contract Summary
             </h4>
             The detail of project brief is given below;
-            <table class="col-md-12 highlight">
+            <table class="col-md-12">
                <thead>
                     <tr>
                     <th>Description</th>
@@ -1427,13 +1437,15 @@ return 'Unknown';
                 </tr>
                </thead>
                 <tbody>
-                    <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+                    @foreach ($project->MProgressContractSummary as $contract_summary)    
+                        <tr style="text-align:center">
+                            <td>{{$contract_summary->description_of_scope}}</td>
+                            <td>{{$contract_summary->agreement_amount}}</td>
+                            <td>{{$contract_summary->name_of_supplier}}</td>
+                            <td>{{$contract_summary->start_date}}</td>
+                            <td>{{$contract_summary->expected_completion_date}}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -1456,7 +1468,7 @@ return 'Unknown';
                             <td style="text-align:center;"><b>Observation # @php echo ++$i;@endphp </b></td>
                         <td>
                             @if(isset($project->MProgressObservation->observation))
-                            {{$project->MProgressObservation->observation }}
+                            {!! $project->MProgressObservation->observation !!}
                            @endif
                         </td>
                         </tr>
@@ -1496,12 +1508,12 @@ return 'Unknown';
             </div>
             
         </div>
-        <div class="clearfix breakpage ">
+        <div class="clearfix breakpage highlight">
             <h4 class="redTxt">
                 17. RECOMMENDATIONS
             </h4>
             <p class="col-md-12 grey">
-                Recomendation
+                RECOMMENDATIONS
             </p>
         </div>
     </div>
@@ -1528,11 +1540,11 @@ return 'Unknown';
         },
         "dataProvider": [{
             "financial_status": "Financial Cost",
-            "value": 30,
+            "value": {{$project->MProjectCost->total_release_to_date}},
             "color": "#00bcd4"
         }, {
             "financial_status": "Remainig Cost",
-            "value": 71,
+            "value": {{($project->AssignedProject->Project->ProjectDetail->orignal_cost-$project->MProjectCost->total_release_to_date)}},
             "color": "#8bc34a"
         }],
         "valueField": "value",
@@ -1555,11 +1567,11 @@ return 'Unknown';
         },
         "dataProvider": [{
             "financial_status": "Financial Cost",
-            "value": 30,
+            "value": {{$project->AssignedProject->Project->ProjectDetail->orignal_cost}},
             "color": "#00bcd4"
         }, {
             "financial_status": "Remainig Cost",
-            "value": 70,
+            "value": {{($project->AssignedProject->Project->ProjectDetail->orignal_cost - $project->MProjectCost->total_release_to_date)}},
             "color": "#8bc34a"
         }],
         "valueField": "value",
@@ -1588,20 +1600,20 @@ return 'Unknown';
 
     chart.data = [{
         "Type": "Approved PC-1 Cost",
-        "value": 1700,
+        "value": {{$project->AssignedProject->Project->ProjectDetail->orignal_cost}},
         "color": "#5075e5"
 
     }, {
         "Type": "Total Release",
-        "value": 500,
+        "value": {{ isset($project->MProjectCost->total_release_to_date) ? $project->MProjectCost->total_release_to_date : 0}},
         "color": "#8bc34a"
     }, {
         "Type": "Total Utilization",
-        "value": 600,
+        "value": {{isset($project->MProjectCost->utilization_against_releases) ? $project->MProjectCost->utilization_against_releases : 0}},
         "color": "#b366b3"
     }, {
         "Type": "Remaining Cost",
-        "value": 1322,
+        "value": {{($project->AssignedProject->Project->ProjectDetail->orignal_cost - (isset($project->MProjectCost->total_release_to_date) ? $project->MProjectCost->total_release_to_date : 0))}},
         "color": "#a64c4c"
     }];
 
@@ -1678,13 +1690,13 @@ return 'Unknown';
 
     chart.data = [{
         "progress": "Planned Progress",
-        "value": 30.2
+        "value": {{round(calculatePlannedProgress($project->id),2)}}
     }, {
         "progress": "Achieved Progress",
-        "value": 18.5
+        "value": {{round(calculateMPhysicalProgress($project->id),2)}}
     }, {
         "progress": "Variance",
-        "value": -18.4
+        "value": 0
     }];
 
     var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
@@ -1735,7 +1747,7 @@ return 'Unknown';
     // chart.scrollbarY = new am4core.Scrollbar();
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+<script src="{{asset('js/app.js')}}"></script>
 <script>
     $(document).ready(function() {
         var first_val = $("#planned_start_date").text();
@@ -1872,7 +1884,3 @@ return 'Unknown';
 </script>
 
 </html>
-@section("js_scripts")
-
-
-@endsection
