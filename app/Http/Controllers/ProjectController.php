@@ -53,10 +53,9 @@ class ProjectController extends Controller
     {
       // $projects = Project::status('projects.status',1)->get();
 
-        $projects=Project::where('user_id',Auth::id())
-        ->where('projects.status',1)
+        $projects=Project::where('projects.status',1)
         ->where('projects.project_type_id',1)
-        ->orderBy('projects.created_at') 
+        ->orderBy('projects.created_at','DESC') 
         ->get();
         return view('projects.index',compact('projects'));
     }

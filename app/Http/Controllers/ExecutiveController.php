@@ -504,7 +504,7 @@ class ExecutiveController extends Controller
       $inprogress_projects = AssignedProject::select('assigned_projects.*')
       ->leftJoin('projects','projects.id','assigned_projects.project_id')
       ->where('project_type_id',1)
-      ->where('stopped',false)
+      ->where('assigned_projects.stopped',0)
       ->where('projects.status',1)
       ->where('complete',0)->count();
 
