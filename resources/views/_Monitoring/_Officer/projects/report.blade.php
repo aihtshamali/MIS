@@ -734,6 +734,24 @@
         ul {
                 padding-left:4%;
             }
+        .wbs-table > tbody > tr > td:first-child{
+                 text-align: left;
+        }
+        .pd-l-30{
+            padding-left:30px !important;
+        }
+        .pd-l-50{
+            padding-left:50px !important;
+        }
+        .pd-l-70{
+            padding-left:70px !important;
+        }
+        .pd-l-90{
+            padding-left:90px !important;
+        }
+        .pd-l-110{
+            padding-left:110px !important;
+        }
     </style>
     <script src="{{asset('lightRoom/picturefill.min.js')}}"></script>
     <script src="{{asset('lightRoom/lightgallery-all.min.js')}}"></script>
@@ -822,8 +840,7 @@ return 'Unknown';
             <h3 class="redTxt">
                 1. History
             </h3>
-            <p class="textarea col-md-12 grey" contenteditable="true">
-            </p>
+            <p class="textarea col-md-12 grey" contenteditable="true" id="block1">@if($report_data && $report_data->block1){!!html_entity_decode($report_data->block1)!!}@endif</p>
         </div>
         <div class="clearfix breakpage ">
             <h3 class="redTxt">
@@ -1080,15 +1097,14 @@ return 'Unknown';
                 </tr>
                 <tr><th colspan="4" style="background:lightgrey;">Questions Related to Project Schedule Details</th></tr>
                  @foreach ($project->MAssignedQuestionnaire as $item)
-                   @if($item->MQuestionnaire->question_type_id == '1')
+                    @if($item->MQuestionnaire->QuestionType->name == "cost")
                     <tr>
                         <td>{{$item->MQuestionnaire->question}}</td>
                         <td  style="text-align: center !important; vertical-align:middle !imporatnt;">
                             {{-- {{$item->answer}} --}}
                             <div class="checkbox-fade fade-in-success m-0">
-                            <input type="hidden" name="" value="">
-                                <label class="">
-                                    YES <input type="radio" class="scheduled_timeyes" checked name="" value="" id="">
+                                <label class="" >
+                                    YES <input {{$item->answer ? 'checked' : ''}} type="radio" class="scheduled_timeyes" >
                                     <span class="cr">
                                         <i class="cr-icon icofont icofont-ui-check txt-success"></i>
                                     </span>
@@ -1097,9 +1113,8 @@ return 'Unknown';
                         </td>
                         <td  style="text-align: center !important; vertical-align:middle !imporatnt;">
                             <div class="checkbox-fade fade-in-danger m-0">
-                            <input type="hidden" name="" value="">
                                 <label class="">
-                                NO <input type="radio" class="scheduled_timeyes" checked name="" value="" id="">
+                                NO <input type="radio" class="scheduled_timeyes" {{$item->answer ? '' : 'checked'}}>
                                     <span class="cr">
                                         <i class="cr-icon icofont icofont-ui-check txt-danger"></i>
                                     </span>
@@ -1231,7 +1246,7 @@ return 'Unknown';
                 </tr>
                 <tr><th colspan="6" style="background:lightgrey;">Questions Related to Project Cost Details</th></tr>
                  @foreach ($project->MAssignedQuestionnaire as $item)
-                 @if($item->MQuestionnaire->question_type_id == '2')
+                @if($item->MQuestionnaire->QuestionType->name == "date")
                  <tr>
                     {{-- <td>
                         @php
@@ -1363,57 +1378,108 @@ return 'Unknown';
             <h3 class="redTxt">
                 6. Physical Targets and Performance:
             </h3>
-            <div class="col-md-12">
-                <table class="col-md-12">
+            <div class="col-md-12 ">
+            <table class="table wbs-table table-bordered w-auto ">
+              <thead>
+                <th>WBS</th>
+                <th style="width:5%">Physical Progress (%)</th>
+                <th>Remarks</th>
+              </thead>
+              <tbody>
+                @php
+                    $i=0;
+                @endphp
+                  @forelse ($project->MAssignedUserLocation as $sites)
                     <tr>
-                        <th>Sr. No</th>
-                        <th>WBS Component</th>
-                        <th>Physical Progress (%)</th>
-                        <th>Remarks</th>
+                      <td colspan="3"> - {{$sites->District->name}} / {{$sites->site_name}}</td>
                     </tr>
-                    @forelse ($project->MAssignedUserLocation as $sites)
-                    <tr>
-                        <td>A</td>
-                        <td>
-                            {{$sites->District->name}} / {{$sites->site_name}}
-                        </td>
-                        <td class="highlight">Not Implemented</td>
-                        <td class="highlight">Not Implemented</td>
-                    </tr>
-                   @endforeach
-                </table>
+                    @foreach ($sites->MAssignedUserKpi as $assigned_kpi)
+                    @php
+                    $padding=30;   
+                    @endphp
+                      <tr class="collapseThisTr" data-class="tr_{{++$i}}">
+                      <td colspan="3" class="pd-l-{{$padding}}" style="cursor:pointer;background-color:#f2f2f2">{{$i}} - {{$assigned_kpi->MProjectKpi->name}}</td>
+                      </tr>
+                      @foreach ($assigned_kpi->MAssignedKpi as $kpi)
+                        @php
+                        $j=1;   // for level 1
+                        @endphp
+                        @foreach ($kpi->MAssignedKpiLevel1 as $kpilev1)
+                        @php
+                          $padding = 50;$k =1; //for level 2
+                        @endphp
+                        <tr class="tr_{{$i}}">
+                          <td class="pd-l-{{$padding}}">{{numberToRoman($j++)}} - {{$kpilev1->MProjectLevel1Kpi->name}}</td>
+                          <td>{{$kpilev1->current_weightage}}</td>
+                          <td>{{$kpilev1->remarks !='null' ? $kpilev1->remarks : ''}}</td>
+                        </tr>
+                        @foreach ($kpilev1->MAssignedKpiLevel2 as $kpilev2)
+                        @php
+                          $padding = 70;$l = 1; //for level 3
+                        @endphp
+                          <tr class="tr_{{$i}}">
+                            <td class="pd-l-{{$padding}}">{{$k++}} - {{$kpilev2->MProjectLevel2Kpi->name}}</td>
+                            <td>{{$kpilev2->current_weightage}}</td>
+                            <td>{{$kpilev2->remarks !='null' ? $kpilev2->remarks : ''}}</td>
+                          </tr>
+                          @foreach ($kpilev2->MAssignedKpiLevel3 as $kpilev3)
+                          @php
+                            $padding = 90;$m = 1; //for level 4
+                          @endphp
+                          <tr class="tr_{{$i}}">
+                            <td class="pd-l-{{$padding}}">{{numberToRoman($l++)}} {{$kpilev3->MProjectLevel3Kpi->name}}</td>
+                            <td>{{$kpilev3->current_weightage}}</td>
+                            <td>{{$kpilev3->remarks !='null' ? $kpilev3->remarks : ''}}</td>
+                          </tr>
+                          @foreach ($kpilev3->MAssignedKpiLevel4 as $kpilev4)
+                          @php
+                            $padding = 110
+                          @endphp
+                          <tr class="tr_{{$i}}">
+                            <td class="pd-l-{{$padding}}"> {{$m++}} - {{$kpilev4->MProjectLevel4Kpi->name}}</td>
+                            <td>{{$kpilev4->current_weightage}}</td>
+                            <td>{{$kpilev4->remarks !='null' ? $kpilev4->remarks : ''}}</td>
+                          </tr>
+                          @endforeach
+                          @endforeach
+                          @endforeach
+                        @endforeach
+                      @endforeach
+                    @endforeach
+                  @empty
+                    <tr><td colspan="3">No WBS Selected</td></tr>
+                  @endforelse
+                  
+              </tbody>
+            </table>
+               
             </div>
         </div>
         <div class="clearfix breakpage ">
             <h3 class="redTxt">
                 7. Quality of the Project Activities
             </h3>
-            <div class="col-md-12 highlight">
+            <div class="col-md-12">
                 <table class="col-md-12 table table-striped">
                     <thead>
                         <tr>
-                            <th>Sr.</th>
-                            <th width="50% !important;">Quality of Project Activities</th>
+                            <th style="width:6%">Sr.</th>
+                            <th width="75% !important;">Quality of Project Activities</th>
                             <th>Score</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1 </td>
-                            <td>Quality of Procurement (if any)</td>
-                            <td>Poor</td>
-
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Quality of operation and project implementation</td>
-                            <td> Good</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Quality of Civil Works (if any)</td>
-                            <td>Excellent</td>
-                        </tr>
+                        @php
+                            $i=1;
+                        @endphp
+                        @foreach ($project->MConductQualityassesment as $quality)                            
+                            <tr>
+                                <td style="width:6%">{{$i++}}</td>
+                                <td>{{$quality->MPlanComponent->component}}</td>
+                                <td>{{$quality->assesment}}</td>
+                                
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
               
@@ -1427,7 +1493,7 @@ return 'Unknown';
               <table class="col-md-12 table table-striped">
                     <thead>
                         <tr>
-                            <th>Sr.</th>
+                            <th style="width:6%">Sr.</th>
                             <th>Beneficiary Title</th>
                             <th>Name</th>
                             <th>Designation</th>
@@ -1461,7 +1527,7 @@ return 'Unknown';
             <h3 class="redTxt">
                 9. Risk and Constraints:
             </h3>
-            <table class="col-md-12 highlight" >
+            <table class="col-md-12" >
                <thead>
                     <tr>
                     <th>Risks and Constraints</th>
@@ -1470,11 +1536,15 @@ return 'Unknown';
                 </tr>
                </thead>
                 <tbody>
-                    <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+                    @forelse ($project->MProjectProgressRisk as $risk)
+                        <tr>
+                            <td>{{$risk->risk_and_constraint}}</td>
+                            <td>{{getImapct($risk->impact)}}</td>
+                            <td>{{$risk->probable_results}}</td>
+                        </tr>
+                    @empty
+                        <tr><td colspan="3">There is no Risk</td></tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
@@ -1488,8 +1558,8 @@ return 'Unknown';
                 @endphp
                 <thead>
                     <tr>
-                        <th>Sr.</th>
-                        <th style="width:40%;">Issues</th>
+                        <th style="width:6%">Sr.</th>
+                        <th style="width:60%;">Issues</th>
                         <th>Issue Type</th>
                         <th>Severity</th>
                     </tr>
@@ -1527,7 +1597,7 @@ return 'Unknown';
                 </tbody>
             </table>
         </div>
-        <div class="clearfix breakpage highlight">
+        <div class="clearfix breakpage">
             <h3 class="redTxt">
                 10. Human Resource:
             </h3>
@@ -1535,26 +1605,29 @@ return 'Unknown';
                 <table class="col-md-12 table table-striped">
                     <thead>
                         <tr>
-                            <th>Sr.</th>
-                            <th style="width:40%;">HR Activity</th>
+                            <th style="width:6%">Sr.</th>
+                            <th style="width:75%;">HR Activity</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td> 1.</td>
-                            <td>
-                                Was there any qualified PEC registered engineer at site by the Contractor?<br />
-                            </td>
-                            <td> Yes</td>
-                        </tr>
-                         <tr>
-                            <td>2.</td>
-                            <td>
-                                Was the human resource of resident supervision consultant available at project site during visit if DGM&E team? (if yes add team)
-                            </td>
-                            <td>Yes</td>
-                         </tr>
+                        @php
+                            $i=1;   
+                        @endphp
+
+                        @forelse ($project->MAssignedQuestionnaire as $question)
+                            @if($question->MQuestionnaire->QuestionType->name == "hr")
+                                <tr>
+                                    <td>{{$i++}}</td>
+                                    <td>{{$question->MQuestionnaire->question}}</td>
+                                    <td>{{$question->answer ? 'Yes' : 'No'}}</td>
+                                </tr>
+                            @endif
+                        @empty
+                            <tr>
+                                <td colspan="3">There is no Question</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
@@ -1629,7 +1702,7 @@ return 'Unknown';
                 13. Financial Summary
             </h3>
                 <div class="col-md-12">
-                    Up till now total expenditure of <b>Rs.{{$project->MProjectCost->utilization_against_releases}}</b> Million has been incurred against the total release of<b>Rs.{{$project->MProjectCost->release_to_date_of_fiscal_year}}</b>Million.<br/><br/><br/>
+                    Up till now total expenditure of <b>Rs.{{$project->MProjectCost->utilization_against_releases}}</b> Million has been incurred against the total release of <b> Rs.{{$project->MProjectCost->release_to_date_of_fiscal_year}}</b> Million.<br/><br/><br/>
                 </div>
                     <div class="">
                 <div class="col-md-12 labelgraphs" >
@@ -1697,7 +1770,7 @@ return 'Unknown';
         </div>
         <div class="clearfix breakpage ">
             <h3 class="redTxt">
-                15. Textual Observation
+                15. Observation
             </h3>
                @php $i=0;@endphp
             <div class="col-md-12">
@@ -1754,18 +1827,20 @@ return 'Unknown';
             </div>
             
         </div>
-        <div class="clearfix breakpage highlight">
+        <div class="clearfix breakpage">
             <h3 class="redTxt">
                 17. RECOMMENDATIONS
             </h3>
             <p class="col-md-12 grey">
-                RECOMMENDATIONS
+                 @if(isset($project->MProgressRecommendation->recommendation))
+                    {!! $project->MProgressRecommendation->recommendation !!}
+                @endif
             </p>
         </div>
     </div>
 
     <div>
-        <!-- <button class="btn btn-success" type="button" onclick="save_report_data()">SAVE Report Data</button> -->
+        {{-- <button class="btn btn-success" type="button" onclick="save_report_data()">SAVE Report Data</button>  --}}
     </div>
 
 </body>
@@ -1785,12 +1860,12 @@ return 'Unknown';
             "autoMargins": false
         },
         "dataProvider": [{
-            "financial_status": "Financial Cost",
-            "value": {{$project->MProjectCost->total_release_to_date}},
+            "financial_status": "Financial Progress",
+            "value": {{round(calculateMFinancialProgress($project->id),2)}},
             "color": "#00bcd4"
         }, {
             "financial_status": "Remainig Cost",
-            "value": {{($project->AssignedProject->Project->ProjectDetail->orignal_cost-$project->MProjectCost->total_release_to_date)}},
+            "value": {{(100-round(calculateMFinancialProgress($project->id),2))}},
             "color": "#8bc34a"
         }],
         "valueField": "value",
@@ -1812,12 +1887,12 @@ return 'Unknown';
             "autoMargins": false
         },
         "dataProvider": [{
-            "financial_status": "Financial Cost",
-            "value": {{$project->AssignedProject->Project->ProjectDetail->orignal_cost}},
+            "financial_status": "Financial Utilization ({{ isset($project->MProjectCost->utilization_against_releases) ? round($project->MProjectCost->utilization_against_releases,3,PHP_ROUND_HALF_UP) : '0' }} M)",
+            "value": {{round(calculateMFinancialProgressWithPc1Cost($project->id),2)}},
             "color": "#00bcd4"
         }, {
-            "financial_status": "Remainig Cost",
-            "value": {{($project->AssignedProject->Project->ProjectDetail->orignal_cost - $project->MProjectCost->total_release_to_date)}},
+            "financial_status": "Remainig Cost ({{ isset($project->MProjectCost->utilization_against_releases) ? ($project->AssignedProject->Project->ProjectDetail->orignal_cost - round($project->MProjectCost->utilization_against_releases,3,PHP_ROUND_HALF_UP) ) : '0' }} M)",
+            "value": {{(100-round(calculateMFinancialProgressWithPc1Cost($project->id),2))}},
             "color": "#8bc34a"
         }],
         "valueField": "value",
@@ -1942,7 +2017,7 @@ return 'Unknown';
         "value": {{round(calculateMPhysicalProgress($project->id),2)}}
     }, {
         "progress": "Variance",
-        "value": 0
+        "value": {{round(calculateMPhysicalProgress($project->id),2) - round(calculatePlannedProgress($project->id),2)}}
     }];
 
     var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());

@@ -282,7 +282,10 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
   Route::post('/getAssignedExecutingAgency','OfficerController@getAssignedExecutingAgency')->name('getAssignedExecutingAgency');
   Route::post('/saveManualImages','OfficerController@saveManualImages')->name('saveManualImages');
   Route::post('/saveQuestionnaire','OfficerController@storeQuestionnaire')->name('saveQuestionnaire');
+  Route::post('/saveRisks', 'OfficerController@saveRisks')->name('saveRisks');
 
+  //Result Monitoring Tab
+  Route::post('/saveWbsRemarks','OfficerController@saveWbsRemarks')->name('saveWbsRemarks');
 });
 
  // Monitoring group

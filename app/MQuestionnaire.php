@@ -9,4 +9,7 @@ class MQuestionnaire extends Model
     public function MAssignedQuestionnaire(){
         return $this->hasMany('App\MAssignedQuestionnaire');
     }
+    public function QuestionType(){
+        return $this->belongsTo('App\QuestionType');
+    }
 }
