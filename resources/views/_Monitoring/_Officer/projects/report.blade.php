@@ -675,7 +675,7 @@
             }
 
             .breakpage {
-                page-break-before: always !important;
+                page-break-after: always !important;
                 padding: 1%;
                 height: 100%;
               
@@ -844,11 +844,13 @@ return 'Unknown';
             <h3 class="redTxt">
                 1. History
             </h3>
-            <p class="textarea col-md-12 grey" contenteditable="true" id="block1">@if($report_data && $report_data->block1){!!html_entity_decode($report_data->block1)!!}@endif</p>
+            <p class="textarea col-md-12 grey" contenteditable="true" id="block1">
+                @if($report_data && $report_data->block1){!!html_entity_decode($report_data->block1)!!}@endif
+            </p>
         </div>
         <div class="clearfix breakpage ">
             <h3 class="redTxt">
-                2. PROJECT DATA (Sheet (12pt font size, Justified, Time new )
+                2. PROJECT DATA 
             </h3>
             {{-- <div class="row col-md-12 fullwidthprint">
                 <div class="col-md-12 row nopading noborder">
@@ -1340,7 +1342,7 @@ return 'Unknown';
                  <div class="col-md-2"></div>
             </div>
         </div>
-        <div class="clearfix breakpage ">
+        <div class="clearfix breakpage " style="page-break-before: always !important;">
             <h3 class="redTxt">
                 5. Project Objectives:
             </h3>
@@ -1385,9 +1387,9 @@ return 'Unknown';
             <div class="col-md-12 ">
             <table class="table wbs-table table-bordered w-auto ">
               <thead>
-                <th>WBS</th>
+                <th style="width:35%">WBS</th>
                 <th style="width:5%">Physical Progress (%)</th>
-                <th>Remarks</th>
+                <th style="width:10%">Remarks</th>
               </thead>
               <tbody>
                 @php
@@ -1467,9 +1469,9 @@ return 'Unknown';
                 <table class="col-md-12 table table-striped">
                     <thead>
                         <tr>
-                            <th style="width:6%">Sr.</th>
-                            <th width="75% !important;">Quality of Project Activities</th>
-                            <th>Score</th>
+                            <th style="width:5%">Sr.</th>
+                            <th style="width:30% !important;">Quality of Project Activities</th>
+                            <th  style="width:10% !important;">Score</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -1653,7 +1655,7 @@ return 'Unknown';
                       @foreach ($project->MSponsoringStakeholder as $item)
                         <tr>
                             <td>
-                           <b>Sponsoring Agency </b> - {{$item->AssignedSponsoringAgency->SponsoringAgency->name}}
+                           <b>Sponsoring Agency </b> <br> {{$item->AssignedSponsoringAgency->SponsoringAgency->name}}
                             </td>
                             <td> {{$item->name}}</td>
                             <td>{{$item->designation}}</td>
@@ -1663,7 +1665,7 @@ return 'Unknown';
                      @foreach ($project->MExecutingStakeholder as $item)
                         <tr>
                             <td>
-                           <b>Executing Agency </b> - {{$item->AssignedExecutingAgency->ExecutingAgency->name}}
+                           <b>Executing Agency </b> <br> {{$item->AssignedExecutingAgency->ExecutingAgency->name}}
                             </td>
                             <td> {{$item->name}}</td>
                             <td>{{$item->designation}}</td>
@@ -1752,7 +1754,7 @@ return 'Unknown';
             <table class="col-md-12">
                <thead>
                     <tr>
-                    <th>Description</th>
+                    <th style="width:20% !important;">Description</th>
                     <th>Agreement Amount(M)</th>
                     <th>Name of Supplier/ Contractor</th>
                     <th>Start Date of work</th>
