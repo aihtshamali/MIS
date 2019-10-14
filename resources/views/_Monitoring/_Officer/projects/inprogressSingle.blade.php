@@ -487,7 +487,7 @@ $innertab=\Session::get('innertab');
 @endsection
 @section("js_scripts")
 <!-- Multiselect js -->
-<!-- <script src="{{asset('js/app.js')}}"></script> -->
+ <script src="{{asset('js/app.js')}}"></script>
 <script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>
 <script>
   CKEDITOR.inline('short_desc');
@@ -532,7 +532,7 @@ $innertab=\Session::get('innertab');
 <script src="{{asset('_monitoring/js/demo-ui.js')}}"></script>
 <script src="{{asset('_monitoring/js/demo-config.js')}}"></script>
 {{-- end js for file upload  --}}
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+{{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script> --}}
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.3/js/jquery.orgchart.js"></script>
 <script src="{{asset('_monitoring/js/_dgme/DGME_officer_inprogressSingle.js')}}"></script>
 

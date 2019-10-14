@@ -2,6 +2,54 @@
 var oc = 1;
 var compopt = "";
 $(document).ready(function () {
+
+  // Save/Update Remarks to DB
+
+  $('textarea[name="remarks"]').on('change',function(){
+    axios.post('/Monitorofficer/saveWbsRemarks',{
+      'id': $(this).data('id'),
+      'remarks':$(this).val(),
+      'level':$(this).data('level')
+    }).then((response)=>{
+      if(response.data){
+        toast({
+          type: 'success',
+          title: 'Remarks has been saved!'
+        })
+      }else{
+        toast({
+          type: 'error',
+          title: 'Something went wrong!'
+        })
+      }
+      console.log(response)
+    }).catch(function(error){
+      console.log('Error: ',error)
+      toast({
+        type: 'error',
+        title: error
+      })
+    })
+  })
+
+
+//collapse WBS Table in result Monitoring
+  $(".collapseThisTr").click(function () {
+    var accor_id = $(this).data('class');
+    var accor_elm = '';
+    accor_elm = "." + accor_id;
+    if ($(accor_elm).is(':visible')) {
+      $(accor_elm).hide('300');
+    } else {
+      $(accor_elm).toggle('slow');
+      $(".accrdn_class").not(accor_elm).hide('300');
+    }
+  });
+
+$('.caret').click(function (e) {$(this).siblings('ul.nested').toggle() });
+
+
+
   $('[data-toggle="popover"]').popover();
 
   // $(".planNav").click(function () {
@@ -948,45 +996,19 @@ $("button#add-more-issues").click(function (e) {
   // $(".select2-hidden-accessible").last().css("display", "none");
 });
 $("button#add-more").click(function (e) {
-  var add_risks = `<tr>
-                <td><input type="text" class="form-control"></td>'
-                <td>
-                  <select class="form-control form-control-primary">
-                    <option value="" selected="" disabled="">Activity</option>
-                    <option value="1">Activity 1</option>
-                    <option value="2">Activity 2</option>
-                    <option value="3">Activity 3</option>
-                    <option value="4">Activity 4</option>
-                    <option value="5">Activity 5</option>
-                  </select>
-                </td>
-                <td><input type="text"  class="form-control"></td>'
-                <td><input type="text" class="form-control"></td>'
-                <td><input type="text" class="form-control"></td>'
-                <td>
-                  <select class="form-control form-control-primary">
-                    <option value="" selected="" disabled="">Probability</option>
-                    <option value="1">Probability 1</option>
-                    <option value="2">Probability 2</option>
-                    <option value="3">Probability 3</option>
-                    <option value="4">Probability 4</option>
-                    <option value="5">Probability 5</option>
-                  </select>
-                </td>
-                <td>
-                  <select class="form-control form-control-primary">
-                    <option value="" selected="" disabled="">Impact</option>
-                    <option value="1">Impact 1</option>
-                    <option value="2">Impact 2</option>
-                    <option value="3">Impact 3</option>
-                    <option value="4">Impact 4</option>
-                    <option value="5">Impact 5</option>
-                  </select>
-                </td>
-                <td><input type="text" class="form-control"></td>'
-                <td><input type="text" class="form-control"></td>'
-                <td><button class="btn btn-sm btn-danger" id="remove" onclick="removerow(this)" name="remove[]" type="button">-</button></td>'
-                </tr>`;
+var add_risks = `<tr>
+                  <td><textarea name="risk_constraint[]" id="" cols="30" rows="1"></textarea></td>
+                  <td>
+                      <select name="impact[]" class="form-control form-control-primary">
+                          <option value="" selected disabled="">Select Impact</option>
+                          <option value="1">Low</option>
+                          <option value="2">Medium</option>
+                          <option value="3">High</option>
+                      </select>
+                  </td>
+                  <td><textarea name="results[]" id="" cols="30" rows="1"></textarea></td>
+                  <td><button class="btn btn-sm btn-danger" onClick="removerow(this)" type="button">-</button></td>
+              </tr>`;
   $("#riskmatrix").append(add_risks);
 });
 var countactivity = 0;

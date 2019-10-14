@@ -179,4 +179,7 @@ class User extends Authenticatable implements JWTSubject
   public function MProgressFinancialSummary(){
     return $this->hasMany('App\MProgressFinancialSummary');
   }
+  public function MProjectProgressRisk(){
+    return $this->hasMany('App\MProjectProgressRisk');
+  }
 }

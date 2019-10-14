@@ -304,4 +304,50 @@ function ProjectProgressAcctoDate($project_id){
   $planned_progress=100/date_diff(date_create($start_date),date_create())->format('%Y');
   return ["planned_progress"=>$planned_progress,"actual_progress"=>$actual_progress];
 }
+
+//convert integer to roman
+function numberToRoman($num)
+{
+  // Be sure to convert the given parameter into an integer
+  $n = intval($num);
+  $result = '';
+
+  // Declare a lookup array that we will use to traverse the number: 
+  $lookup = array(
+    //'m' => 1000, 'cm' => 900, 'D' => 500, 'CD' => 400,
+    'c' => 100, 'xc' => 90, 'l' => 50, 'xl' => 40,
+    'x' => 10, 'ix' => 9, 'v' => 5, 'iv' => 4, 'i' => 1
+  );
+
+  foreach ($lookup as $roman => $value) {
+    // Look for number of matches
+    $matches = intval($n / $value);
+
+    // Concatenate characters
+    $result .= str_repeat($roman, $matches);
+
+    // Substract that from the number 
+    $n = $n % $value;
+  }
+
+  return $result.')';
+} 
+
+function getImapct($impact){
+  switch ($impact) {
+    case 1:
+        return 'Low';
+      break;
+    case 2:
+        return 'Medium';
+      break;
+    case 3:
+        return 'High';
+      break;
+    
+    default:
+    
+      break;
+  }
+}
 ?>

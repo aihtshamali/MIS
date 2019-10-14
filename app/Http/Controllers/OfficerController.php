@@ -85,6 +85,7 @@ use App\MProgressFinancialSummary;
 use App\MProgressObservation;
 use App\MProgressPictorialDetail;
 use App\MProgressRecommendation;
+use App\MProjectProgressRisk;
 use App\MQuestionnaire;
 
 class OfficerController extends Controller
@@ -1817,7 +1818,22 @@ class OfficerController extends Controller
        $innertab=$tabs[1];
        return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
      }
-
+     public function saveRisks(Request $request){
+       MProjectProgressRisk::where('m_project_progress_id',$request->m_project_progress_id)->delete();
+       foreach ($request->risk_constraint as $key => $value) {
+         $risk = new MProjectProgressRisk();
+         $risk->risk_and_constraint = $value;
+         $risk->impact = $request->impact[$key];
+         $risk->probable_results = $request->results[$key];
+         $risk->m_project_progress_id = $request->m_project_progress_id;
+         $risk->user_id = Auth::id();
+         $risk->save();
+       }
+      $tabs = explode("_", $request->page_tabs);
+      $maintab = $tabs[0];
+      $innertab = $tabs[1];
+      return redirect()->back()->with(["maintab" => $maintab, "innertab" => $innertab, 'success' => 'Saved Successfully']);
+     }
      public function generate_monitoring_report(Request $request)
      {
         $original_project=AssignedProject::where('id',$request->project_id)->orderBy('created_at','desc')->first();
@@ -2291,5 +2307,38 @@ class OfficerController extends Controller
     $maintab = $tabs[0];
     $innertab = $tabs[1];
     return redirect()->back()->with(["maintab" => $maintab, "innertab" => $innertab, 'success' => 'Saved Successfully']);      
+  }
+
+  //Result Monitoring Tab
+
+  function saveWbsRemarks(Request $request){
+    switch($request->level){
+      case '1':
+      $kpi = MAssignedKpiLevel1::findOrFail($request->id);
+      $kpi->remarks = $request->remarks;
+      return response()->json($kpi->update());
+        break;
+
+      case '2':
+        $kpi = MAssignedKpiLevel2::findOrFail($request->id);
+        $kpi->remarks = $request->remarks;
+        return response()->json($kpi->update());
+        break;
+
+      case '3':
+        $kpi = MAssignedKpiLevel3::findOrFail($request->id);
+        $kpi->remarks = $request->remarks;
+        return response()->json($kpi->update());
+        break;
+
+      case '4':
+        $kpi = MAssignedKpiLevel4::findOrFail($request->id);
+        $kpi->remarks = $request->remarks;
+        return response()->json($kpi->update());
+        break;
+      default:
+        return false;
+    }
+    return false;
   }
 }
