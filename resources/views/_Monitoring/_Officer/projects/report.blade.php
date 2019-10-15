@@ -752,6 +752,15 @@
         .pd-l-110{
             padding-left:110px !important;
         }
+        .Critical{
+            background-color: red;
+        }
+        .Need,.Consideration{
+            background-color: yellow;
+        }
+        .Within,.Defined,.Limits{
+            background-color: green;
+        }
     </style>
     <script src="{{asset('lightRoom/picturefill.min.js')}}"></script>
     <script src="{{asset('lightRoom/lightgallery-all.min.js')}}"></script>
@@ -780,6 +789,17 @@ return 'Very Low';
 default :
 return 'Unknown';
 }
+}
+function getProjectStatus($progress){
+    if($progress < -20){
+        return "Critical";
+    }
+    else if(-10 > $progress && $progress > -20){
+        return "Need Consideration";
+    }
+    else if(-10 < $progress){
+        return "Within Defined Limits";
+    }
 }
 @endphp
 
@@ -1001,12 +1021,18 @@ return 'Unknown';
                         @endforeach</td>
                  </tr>
                   <tr>
+                      @php
+                          $status1 = getProjectStatus(calculateProjectStatus($project->id));
+                      @endphp
                      <th>Status of Project with respect to Actual progress against Financial Progress</th>
-                     <td></td>
+                     <td class="{{$status1}}">{{$status1}}</td>
                  </tr>
                   <tr>
+                      @php
+                          $status2 = getProjectStatus(calculateProjectStatusWRTActual($project->id))
+                      @endphp
                      <th>Status of Project with respect to Actual Vs Planned Progress</th>
-                     <td></td>
+                     <td class="{{$status2}}">{{$status2}}</td>
                  </tr>
                   <tr>
                      <th>Approval Date</th>
@@ -1934,7 +1960,7 @@ return 'Unknown';
         "color": "#b366b3"
     }, {
         "Type": "Remaining Cost",
-        "value": {{($project->AssignedProject->Project->ProjectDetail->orignal_cost - (isset($project->MProjectCost->total_release_to_date) ? $project->MProjectCost->total_release_to_date : 0))}},
+        "value": {{($project->AssignedProject->Project->ProjectDetail->orignal_cost - (isset($project->MProjectCost->utilization_against_releases) ? $project->MProjectCost->utilization_against_releases : 0))}},
         "color": "#a64c4c"
     }];
 
