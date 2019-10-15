@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Monitoring Report | DGME</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{asset('dgme.png')}}" type="image/x-icon" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('_monitoring/css/icon/feather/css/feather.css')}}" />
@@ -13,7 +14,7 @@
     <link rel="stylesheet" href="{{ asset('_monitoring/css/css/style.css')}}" />
     <link rel="stylesheet" href="{{ asset('_monitoring/css/css/jquery.mCustomScrollbar.css')}}" />
     <link rel="stylesheet" href="{{ asset('_monitoring/css/icon/material-design/css/material-design-iconic-font.min.css')}}" />
-    <link href="{{asset('lightRoom/lightgallery.css')}}" rel="stylesheet">
+    {{-- <link href="{{asset('lightRoom/lightgallery.css')}}" rel="stylesheet"> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
     <style>
         body {
@@ -462,12 +463,17 @@
             min-height: 100px;
         }
 
-            {
+            /* {
             background: #999;
+<<<<<<< HEAD
         }
         figcaption{
            text-align: center;
         }
+=======
+        } */
+
+>>>>>>> ca2e04a45c80a00df11114dedda58527b244ac35
         .row .col-md-6,
         .row .col-md-12 {
             padding: 1%;
@@ -698,7 +704,20 @@
                 padding: 1%;
                 height: -webkit-fill-available;
             }
-
+            table {
+            page-break-after: auto !important;
+            }
+            tr{
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+             td{
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+            thead{
+                display: table-header-group;
+            }
             .redTxt {
                 color: #000;
             }
@@ -765,9 +784,18 @@
         .pd-l-110{
             padding-left:110px !important;
         }
+        .Critical{
+            background-color: red;
+        }
+        .Need,.Consideration{
+            background-color: yellow;
+        }
+        .Within,.Defined,.Limits{
+            background-color: green;
+        }
     </style>
     <script src="{{asset('lightRoom/picturefill.min.js')}}"></script>
-    <script src="{{asset('lightRoom/lightgallery-all.min.js')}}"></script>
+    {{-- <script src="{{asset('lightRoom/lightgallery-all.min.js')}}"></script> --}}
     <script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>
     <script src="{{asset('_monitoring/js/jquery/js/jquery.min.js')}}"></script>
     <script src="{{asset('_monitoring/js/jquery-ui/js/jquery-ui.min.js')}}"></script>
@@ -793,6 +821,17 @@ return 'Very Low';
 default :
 return 'Unknown';
 }
+}
+function getProjectStatus($progress){
+    if($progress < -20){
+        return "Critical";
+    }
+    else if(-10 > $progress && $progress > -20){
+        return "Need Consideration";
+    }
+    else if(-10 < $progress){
+        return "Within Defined Limits";
+    }
 }
 @endphp
 
@@ -853,13 +892,11 @@ return 'Unknown';
             <h3 class="redTxt">
                 1. History
             </h3>
-            <p class="textarea col-md-12 grey" contenteditable="true" id="block1">
-                @if($report_data && $report_data->block1){!!html_entity_decode($report_data->block1)!!}@endif
-            </p>
+            <p class="textarea col-md-12 grey" contenteditable="true" id="block1">@if($report_data && $report_data->block1){!!html_entity_decode($report_data->block1)!!}@endif</p>
         </div>
-        <div class="clearfix breakpage ">
+        <div class="clearfix breakpage " >
             <h3 class="redTxt">
-                2. PROJECT DATA 
+                2. PROJECT DATA (Sheet (12pt font size, Justified, Time new )
             </h3>
              <table class="col-md-12">
                  <tr>
@@ -914,12 +951,18 @@ return 'Unknown';
                         @endforeach</td>
                  </tr>
                   <tr>
+                      @php
+                          $status1 = getProjectStatus(calculateProjectStatus($project->id));
+                      @endphp
                      <th>Status of Project with respect to Actual progress against Financial Progress</th>
-                     <td></td>
+                     <td class="{{$status1}}">{{$status1}}</td>
                  </tr>
                   <tr>
+                      @php
+                          $status2 = getProjectStatus(calculateProjectStatusWRTActual($project->id))
+                      @endphp
                      <th>Status of Project with respect to Actual Vs Planned Progress</th>
-                     <td></td>
+                     <td class="{{$status2}}">{{$status2}}</td>
                  </tr>
                   <tr>
                      <th>Approval Date</th>
@@ -1256,8 +1299,12 @@ return 'Unknown';
                  <div class="col-md-2"></div>
             </div>
         </div>
+<<<<<<< HEAD
 
         <div class="clearfix   " style="page-break-after: always !important; " >
+=======
+        <div class="clearfix breakpage ">
+>>>>>>> ca2e04a45c80a00df11114dedda58527b244ac35
             <h3 class="redTxt">
                 5. Project Objectives:
             </h3>
@@ -1298,16 +1345,25 @@ return 'Unknown';
                 </table>
             </div>
         </div>
+<<<<<<< HEAD
         <div class="clearfix " style="page-break-after: always !important;" >
             <h3 class="redTxt">
                 6. Physical Targets and Performance:
             </h3>
             <div class="col-md-12 "  >
             <table class="table wbs-table table-bordered w-auto " >
+=======
+        <div class="clearfix breakpage " >
+            <h3 class="redTxt" >
+                6. Physical Targets and Performance:
+            </h3>
+            <div class="col-md-12 "  >
+            <table class="table wbs-table table-bordered w-auto  ">
+>>>>>>> ca2e04a45c80a00df11114dedda58527b244ac35
               <thead>
-                <th style="width:35%">WBS</th>
+                <th>WBS</th>
                 <th style="width:5%">Physical Progress (%)</th>
-                <th style="width:10%">Remarks</th>
+                <th>Remarks</th>
               </thead>
               <tbody>
                 @php
@@ -1375,8 +1431,7 @@ return 'Unknown';
                   @endforelse
                   
               </tbody>
-            </table>
-               
+            </table>  
             </div>
         </div>
         <div class="clearfix  " style=" page-break-before: always !important; ">
@@ -1387,9 +1442,9 @@ return 'Unknown';
                 <table class="col-md-12 table table-striped">
                     <thead>
                         <tr>
-                            <th style="width:5%">Sr.</th>
-                            <th style="width:30% !important;">Quality of Project Activities</th>
-                            <th  style="width:10% !important;">Score</th>
+                            <th style="width:6%">Sr.</th>
+                            <th width="75% !important;">Quality of Project Activities</th>
+                            <th>Score</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -1572,7 +1627,7 @@ return 'Unknown';
                       @foreach ($project->MSponsoringStakeholder as $item)
                         <tr>
                             <td>
-                           <b>Sponsoring Agency </b> <br> {{$item->AssignedSponsoringAgency->SponsoringAgency->name}}
+                           <b>Sponsoring Agency </b> - {{$item->AssignedSponsoringAgency->SponsoringAgency->name}}
                             </td>
                             <td> {{$item->name}}</td>
                             <td>{{$item->designation}}</td>
@@ -1582,7 +1637,7 @@ return 'Unknown';
                      @foreach ($project->MExecutingStakeholder as $item)
                         <tr>
                             <td>
-                           <b>Executing Agency </b> <br> {{$item->AssignedExecutingAgency->ExecutingAgency->name}}
+                           <b>Executing Agency </b> - {{$item->AssignedExecutingAgency->ExecutingAgency->name}}
                             </td>
                             <td> {{$item->name}}</td>
                             <td>{{$item->designation}}</td>
@@ -1671,7 +1726,7 @@ return 'Unknown';
             <table class="col-md-12">
                <thead>
                     <tr>
-                    <th style="width:20% !important;">Description</th>
+                    <th>Description</th>
                     <th>Agreement Amount(M)</th>
                     <th>Name of Supplier/ Contractor</th>
                     <th>Start Date of work</th>
@@ -1857,7 +1912,7 @@ return 'Unknown';
         "color": "#b366b3"
     }, {
         "Type": "Remaining Cost",
-        "value": {{($project->AssignedProject->Project->ProjectDetail->orignal_cost - (isset($project->MProjectCost->total_release_to_date) ? $project->MProjectCost->total_release_to_date : 0))}},
+        "value": {{($project->AssignedProject->Project->ProjectDetail->orignal_cost - (isset($project->MProjectCost->utilization_against_releases) ? $project->MProjectCost->utilization_against_releases : 0))}},
         "color": "#a64c4c"
     }];
 
@@ -2031,7 +2086,6 @@ valueLabel.label.dy = -8;
     });
     CKEDITOR.inlineAll();
     CKEDITOR.instances.block1.on('blur', function(evt) {
-        // getData() returns CKEditor's HTML content.
         axios.post('/save_report_data', {
                 block: 'block1',
                 project: project_id,

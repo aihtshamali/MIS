@@ -5,6 +5,27 @@
 // use App\Http\Controllers\Controller;
 // use App\MProjectProgress;
 
+//With respect to Actual against Financial
+if (! function_exists('calculateProjectStatus')) {
+     function calculateProjectStatus($m_project_progress_id)
+    {
+        //calculate Variance = Achieved - Planned
+        // x < -20 = Critical , -10 < x < -20 = Need Consideration, > -10 = Within Defined Limits        
+        $variance = calculateMPhysicalProgress($m_project_progress_id) - calculatePlannedProgress($m_project_progress_id);
+        return round($variance,3);
+    }
+
+  }
+if (! function_exists('calculateProjectStatusWRTActual')) {
+     function calculateProjectStatusWRTActual($m_project_progress_id)
+    {
+        //calculate Variance = Achieved - Planned
+        // x < -20 = Critical , -10 < x < -20 = Need Consideration, > -10 = Within Defined Limits        
+        $variance = calculateTotalMPhysicalProgress($m_project_progress_id) - calculatePlannedProgress($m_project_progress_id);
+        return round($variance,3);
+    }
+
+  }
 if (! function_exists('calculateMFinancialProgress')) {
      function calculateMFinancialProgress($m_project_progress_id)
     {
