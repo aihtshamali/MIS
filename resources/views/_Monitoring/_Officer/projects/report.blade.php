@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Monitoring Report | DGME</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{asset('dgme.png')}}" type="image/x-icon" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('_monitoring/css/icon/feather/css/feather.css')}}" />
@@ -13,7 +14,7 @@
     <link rel="stylesheet" href="{{ asset('_monitoring/css/css/style.css')}}" />
     <link rel="stylesheet" href="{{ asset('_monitoring/css/css/jquery.mCustomScrollbar.css')}}" />
     <link rel="stylesheet" href="{{ asset('_monitoring/css/icon/material-design/css/material-design-iconic-font.min.css')}}" />
-    <link href="{{asset('lightRoom/lightgallery.css')}}" rel="stylesheet">
+    {{-- <link href="{{asset('lightRoom/lightgallery.css')}}" rel="stylesheet"> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
     <style>
         body {
@@ -456,9 +457,9 @@
             min-height: 100px;
         }
 
-            {
+            /* {
             background: #999;
-        }
+        } */
 
         .row .col-md-6,
         .row .col-md-12 {
@@ -685,7 +686,20 @@
                 padding: 1%;
                 height: -webkit-fill-available;
             }
-
+            table {
+            page-break-after: auto !important;
+            }
+            tr{
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+             td{
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+            thead{
+                display: table-header-group;
+            }
             .redTxt {
                 color: #000;
             }
@@ -763,7 +777,7 @@
         }
     </style>
     <script src="{{asset('lightRoom/picturefill.min.js')}}"></script>
-    <script src="{{asset('lightRoom/lightgallery-all.min.js')}}"></script>
+    {{-- <script src="{{asset('lightRoom/lightgallery-all.min.js')}}"></script> --}}
     <script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>
     <script src="{{asset('_monitoring/js/jquery/js/jquery.min.js')}}"></script>
     <script src="{{asset('_monitoring/js/jquery-ui/js/jquery-ui.min.js')}}"></script>
@@ -862,7 +876,7 @@ function getProjectStatus($progress){
             </h3>
             <p class="textarea col-md-12 grey" contenteditable="true" id="block1">@if($report_data && $report_data->block1){!!html_entity_decode($report_data->block1)!!}@endif</p>
         </div>
-        <div class="clearfix breakpage ">
+        <div class="clearfix breakpage " >
             <h3 class="redTxt">
                 2. PROJECT DATA (Sheet (12pt font size, Justified, Time new )
             </h3>
@@ -1400,12 +1414,12 @@ function getProjectStatus($progress){
                 </table>
             </div>
         </div>
-        <div class="clearfix breakpage ">
-            <h3 class="redTxt">
+        <div class="clearfix breakpage " >
+            <h3 class="redTxt" >
                 6. Physical Targets and Performance:
             </h3>
-            <div class="col-md-12 ">
-            <table class="table wbs-table table-bordered w-auto ">
+            <div class="col-md-12 "  >
+            <table class="table wbs-table table-bordered w-auto  ">
               <thead>
                 <th>WBS</th>
                 <th style="width:5%">Physical Progress (%)</th>
@@ -1477,8 +1491,7 @@ function getProjectStatus($progress){
                   @endforelse
                   
               </tbody>
-            </table>
-               
+            </table>  
             </div>
         </div>
         <div class="clearfix breakpage ">
@@ -2120,7 +2133,6 @@ function getProjectStatus($progress){
     });
     CKEDITOR.inlineAll();
     CKEDITOR.instances.block1.on('blur', function(evt) {
-        // getData() returns CKEditor's HTML content.
         axios.post('/save_report_data', {
                 block: 'block1',
                 project: project_id,
