@@ -20,7 +20,13 @@
 
             background: white;
         }
-
+    .card {
+    border-radius: 5px;
+    -webkit-box-shadow:none !important;
+    box-shadow:none !important;
+    border: none;
+    margin-bottom: 30px;
+}
         .border-right {
             border-right: 1px solid #000
         }
@@ -451,7 +457,7 @@
                 margin-bottom:5%; 
         }
         .breakpage p {
-            border: 1px solid #777 !important;
+            /* border: 1px solid #777 !important; */
             padding: 1%;
             min-height: 100px;
         }
@@ -459,7 +465,9 @@
             {
             background: #999;
         }
-
+        figcaption{
+           text-align: center;
+        }
         .row .col-md-6,
         .row .col-md-12 {
             padding: 1%;
@@ -563,7 +571,8 @@
         td {
             border: 1px solid #999;
              padding-bottom: 1% !important;
-            padding-top: 1% !important;
+            padding-top: 2% !important;
+            padding-bottom: 2% !important;
             padding-left: 0.5% !important;
             vertical-align: middle !important;
             
@@ -619,28 +628,32 @@
                 counter-increment: page;
                 counter-reset: page 1;
                 size: auto;
-                margin: 10% !important;
+                margin: 2% !important;
 
                 @top-right {
                     content: "Page "counter(page) " of "counter(pages);
                 }
             }
 
-
-            .paddingmainpage {
-                padding-top: 10% !important;
-            }
-
+            table { page-break-after:auto }
+            tr    { page-break-inside:avoid; page-break-after:auto }
+            td    { page-break-inside:avoid; page-break-after:auto }
+            thead { display:table-header-group }
+            tfoot { display:table-footer-group }
+            
             body {
                 background: white;
                 margin: 10% !important;
             }
-
+            
             .mainpageborderprint {
                 border: 1px solid #000;
                 height: 100% !important;
-                padding-top: 7%;
+                padding-top: 1%;
             }
+                                .paddingmainpage {
+                                    padding-top: 4% !important;
+                                }
 
             .fullwidthprint img,
             .auto img {
@@ -674,7 +687,7 @@
             }
 
             .breakpage {
-                page-break-after: always !important;
+                page-break-before: always !important;
                 padding: 1%;
                 height: 100%;
               
@@ -694,14 +707,14 @@
             #chartdivprogressgraphs {
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
                     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-                width: 1000px;
+                width: 800px;
                 height: 400px;
             }
 
             #chartdiv_FinancialprogressCost {
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
                     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-                width: 1000px;
+               width: 800px;
                 height: 400px;
 
             }
@@ -710,14 +723,14 @@
 
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
                     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-                width: 1000px;
+            width: 800px;
                 height: 400px;
             }
 
             #chartFinancialProgressagainstallocation {
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
                     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-                width: 800px;
+              width: 1000px;
                 height: 400px;
             }
             .labelgraphs{
@@ -810,10 +823,10 @@ return 'Unknown';
                     </center>
                 </div>
                 @if (count($project->ReportImage->where('title_image',1)))
-                <div class="col-md-12 fullwidthprint">
-                    <!-- <img src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$project->id.'/'.$project->ReportImage->where('title_image',1)->first()->MAppAttachment->project_attachement}}" alt="title image" class="mainpageimg pdtop1p" style="width: 90% !important;margin-left: 5% !important;max-height: 500px;"> -->
-                    <img src="{{asset('storage/uploads/monitoring/'.$project->id.'/'.$project->ReportImage->where('title_image',1)->first()->MAppAttachment->project_attachement)}}" alt="title image" class="mainpageimg pdtop1p" style="width: 90% !important;margin-left: 5% !important;max-height: 500px;">
-                </div>
+                <center>
+                   {{-- <img src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$project->id.'/'.$project->ReportImage->where('title_image',1)->first()->MAppAttachment->project_attachement}}" alt="title image" class="mainpageimg pdtop1p" style="width: 90% !important;max-height: 500px;"> --}}
+                    <img src="{{asset('storage/uploads/monitoring/'.$project->id.'/'.$project->ReportImage->where('title_image',1)->first()->MAppAttachment->project_attachement)}}" alt="title image" class="mainpageimg pdtop1p" style="width: 90% !important; max-height: 500px;">
+                </center>
                 @endif
                 <h4 class=" paddingmainpage">
                     <center>
@@ -848,108 +861,6 @@ return 'Unknown';
             <h3 class="redTxt">
                 2. PROJECT DATA 
             </h3>
-            {{-- <div class="row col-md-12 fullwidthprint">
-                <div class="col-md-12 row nopading noborder">
-                    <div class="col-md-5 prolable border"><b>1. Project Title :</b></div>
-                    <div class="col-md-6 border-left">
-                        {{$project->AssignedProject->Project->title}}
-                    </div>
-                </div>
-                <div class="col-md-12 row nopading noborder">
-                    <div class="col-md-5 prolable border"><b>2. Project GS.No</b></div>
-                    <div class="col-md-6 border-left">
-                        {{$project->AssignedProject->Project->ADP}} / {{$project->AssignedProject->Project->financial_year}}
-                    </div>
-                </div>
-                <div class="col-md-12 row nopading noborder">
-                    <div class="col-md-5 prolable border"><b>3. Sector</b></div>
-                    <div class="col-md-6 border-left">
-                         @foreach ($project->AssignedProject->Project->AssignedSubSectors as $item)
-                            {{$item->SubSector->sector->name}}
-                            @endforeach
-                    </div>
-                </div>
-                <div class="col-md-12 row nopading noborder">
-                    <div class="col-md-5 prolable border"><b>4. Sub Sector</b></div>
-                    <div class="col-md-6 border-left">
-                        @foreach ($project->AssignedProject->Project->AssignedSubSectors as $item)
-                            {{$item->SubSector->name}}
-                            @endforeach
-                    </div>
-                </div>
-                <div class="col-md-12 row nopading noborder">
-                    <div class="col-md-5 prolable border"><b>5. Sponsoring Agency/Department:</b></div>
-                    <div class="col-md-6 border-left">
-                         @foreach ($project->AssignedProject->Project->AssignedSponsoringAgencies as $item)
-                            {{$item->SponsoringAgency->name}}
-                            @endforeach
-                    </div>
-                </div>
-                <div class="col-md-12 row nopading noborder">
-                    <div class="col-md-5 prolable border"><b>6. Executing Agency/Department:</b></div>
-                    <div class="col-md-6 border-left">
-                         @foreach ($project->AssignedProject->Project->AssignedExecutingAgencies as $item)
-                            {{$item->ExecutingAgency->name}}
-                            @endforeach
-                    </div>
-                </div>
-                <div class="col-md-12 row nopading noborder">
-                    <div class="col-md-5 prolable border"><b>7. O&M Department & Contractor Or Supplier (If Any):</b></div>
-                    <div class="col-md-6 border-left">
-                        
-                        {{$project->MProjectOrganization->operation_and_management}}
-                        @if($project->MProjectOrganization->contractor_or_supplier)
-                            {{$project->MProjectOrganization->contractor_or_supplier}}
-                        @endif
-                         
-                    </div>
-                </div>
-                <div class="col-md-12 row nopading noborder">
-                    <div class="col-md-5 prolable border"><b>8. Project Location:</b></div>
-                    <div class="col-md-6 border-left">
-                        @foreach ($project->AssignedProject->Project->AssignedDistricts as $district)
-                         {{$district->District->name}}<br>
-                        @endforeach
-                    </div>
-                </div>
-                <div class="col-md-12 row nopading noborder highlight">
-                    <div class="col-md-5 prolable border "><b>9. Status of Project with respect to Actual progress against Financial Progress:</b></div>
-                    <div class="col-md-6 border-left">
-                    </div>
-                </div>
-                <div class="col-md-12 row nopading noborder highlight">
-                    <div class="col-md-5 prolable border"><b>10. Status of Project with respect to Actual Vs Planned Progress:</b></div>
-                    <div class="col-md-6 border-left">
-                    </div>
-                </div>
-                <div class="col-md-12 row nopading noborder">
-                    <div class="col-md-5 prolable border"><b>11. Approval Date</b></div>
-                    <div class="col-md-6 border-left">
-                      {{ date('d-M-y',strtotime($project->MProjectDate->project_approval_date)) }}
-                    </div>
-                </div>
-                <div class="col-md-12 row nopading noborder">
-                    <div class="col-md-5 prolable border"><b>12. No. of Revisions</b></div>
-                    <div class="col-md-6 border-left">
-                        {{$revisions->count()}}
-                    </div>
-                </div>
-                <div class="col-md-12 row nopading noborder">
-                    <div class="col-md-5 prolable border"><b>13. Total Approved Revised Cost</b></div>
-                    <div class="col-md-6 border-left">
-                        @foreach ($revisions as $revision)
-                             {{$revision->cost}}
-                        @endforeach
-                       
-                    </div>
-                </div>
-                <div class="col-md-12 row nopading noborder">
-                    <div class="col-md-5 prolable border"><b>14. Project Gestation Period</b></div>
-                    <div class="col-md-6 border-left">
-                        {{$gestation_period}}
-                    </div>
-                </div>
-            </div> --}}
              <table class="col-md-12">
                  <tr>
                      <th style="width:30% !important;">Project Title</th>
@@ -1019,15 +930,18 @@ return 'Unknown';
                      <td>  {{$revisions->count()}}</td>
                  </tr>
                   <tr>
-                     <th>Total Approved Cost & Revised Cost (if any)</th>
+                     <th>Total Approved Cost <br> Revised Cost (if any)</th>
                      <td>  
-                          {{round($project->AssignedProject->Project->ProjectDetail->orignal_cost,3)}}
+                          {{round($project->AssignedProject->Project->ProjectDetail->orignal_cost,3)}} <small>Million PKR</small>
+                          <br>
                         @if($revisions->count())
                         @foreach ($revisions as $revision)
-                             {{$revision->cost}}
+                             <span style="color: Blue; ">
+                            {{round($revision->cost,3)}} <small>Million PKR</small> ( Revised Cost ) <br>
+                             </span>
                         @endforeach
                         @else
-                           <b>- Cost is not revised</b>
+                           <b style="color:red;">Cost is not revised</b>
                         @endif
                     </td>
                  </tr>
@@ -1098,9 +1012,11 @@ return 'Unknown';
                     </td>
                 </tr>
                 <tr><th colspan="4" style="background:lightgrey;">Questions Related to Project Schedule Details</th></tr>
-                 @foreach ($project->MAssignedQuestionnaire as $item)
-                    @if($item->MQuestionnaire->QuestionType->name == "cost")
+                {{-- {{dd($project->MAssignedQuestionnaire[0]->MQuestionnaire->QuestionType->name)}} --}}
+                @foreach ($project->MAssignedQuestionnaire as $item)
+                    @if($item->MQuestionnaire->QuestionType->name == "PROJECT SCHEDULE DETAIL")
                     <tr>
+                        {{-- {{dd($item->MQuestionnaire)}} --}}
                         <td>{{$item->MQuestionnaire->question}}</td>
                         <td  style="text-align: center !important; vertical-align:middle !imporatnt;">
                             {{-- {{$item->answer}} --}}
@@ -1248,7 +1164,7 @@ return 'Unknown';
                 </tr>
                 <tr><th colspan="6" style="background:lightgrey;">Questions Related to Project Cost Details</th></tr>
                  @foreach ($project->MAssignedQuestionnaire as $item)
-                @if($item->MQuestionnaire->QuestionType->name == "date")
+                @if($item->MQuestionnaire->QuestionType->name == "PROJECT COST DETAIL")
                  <tr>
                     {{-- <td>
                         @php
@@ -1291,7 +1207,7 @@ return 'Unknown';
                 @endforeach
             </table>
         </div>
-        <div  class="clearfix breakpage ">
+        <div  class="clearfix breakpage  ">
                 <div class="col-md-12">
                     Based on the data provided, <b>{{round(calculateMFinancialProgressWithPc1Cost($project->id),2)}}%</b> project budget
                     has been utilized against the total project cost, whereas the <b>Rs. {{isset($project->MProjectCost->utilization_against_releases) ? round($project->MProjectCost->utilization_against_releases,3,PHP_ROUND_HALF_UP)  : '0'}} </b>
@@ -1319,7 +1235,9 @@ return 'Unknown';
                 </div>
                  <div class="col-md-2"></div>
             </div>
+           <br>
             <hr style="border: transparent;">
+          
             <div class="">
                     <div class="col-md-12 labelgraphs">  
                 <center class="text-center">
@@ -1329,7 +1247,7 @@ return 'Unknown';
                  <div class="col-md-2"></div>
             </div>
             <br>
-            <div class="row">
+            <div class="row" style="page-break-after: always !important;">
                 <div class="col-md-8 offset-md-2 graphs">  
                     <div class="">
                         <div id="chartdiv_FinancialprogressReleases"></div>
@@ -1338,50 +1256,54 @@ return 'Unknown';
                  <div class="col-md-2"></div>
             </div>
         </div>
-        <div class="clearfix breakpage " style="page-break-before: always !important;">
+
+        <div class="clearfix   " style="page-break-after: always !important; " >
             <h3 class="redTxt">
                 5. Project Objectives:
             </h3>
             <div class="col-md-12">
                 <table class="col-md-12 table table-striped">
-                    <tr>
-                        <th rowspan="3" style="width:50% !important;">Overall Project Objectives</th>
-                        <th colspan="4">Achieved (100%) - Partially Achieved (50%) - Not Achieved ('<'50%)</th> </tr> <tr>
-                        {{-- <th></th> --}}
-                        <th class="highlight" colspan="3">Results</th>
-                        <th class="highlight">Justification</th>
-                    </tr>
-                    <tr>
-                        <th>A</th>
-                        <th>PA</th>
-                        <th>NA</th>
-                        <th></th>
-                    </tr>
-                    @foreach ($project->MPlanObjective as $item)
+                    <thead>
                         <tr>
-                        <td>
-                            @if($item->objective)
-                            {{$item->objective}}
-                            @else
-                            <span  class="notadded"><b>Not Added</b></span>
-                            @endif
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    @endforeach
-                    
+                            <th rowspan="3" style="width:50% !important;">Overall Project Objectives</th>
+                            <th colspan="4">Achieved (100%) - Partially Achieved (50%) - Not Achieved ('<'50%)</th> </tr> <tr>
+                            {{-- <th></th> --}}
+                            <th class="highlight" colspan="3">Results</th>
+                            <th class="highlight">Justification</th>
+                        </tr>
+                        <tr>
+                            <th>A</th>
+                            <th>PA</th>
+                            <th>NA</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                                @foreach ($project->MPlanObjective as $item)
+                                <tr>
+                                    <td>
+                                @if($item->objective)
+                                {{$item->objective}}
+                                @else
+                                <span  class="notadded"><b>Not Added</b></span>
+                                @endif
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        @endforeach
+                    </tbody>                    
                 </table>
             </div>
         </div>
-        <div class="clearfix breakpage ">
+        <div class="clearfix " style="page-break-after: always !important;" >
             <h3 class="redTxt">
                 6. Physical Targets and Performance:
             </h3>
-            <div class="col-md-12 ">
-            <table class="table wbs-table table-bordered w-auto ">
+            <div class="col-md-12 "  >
+            <table class="table wbs-table table-bordered w-auto " >
               <thead>
                 <th style="width:35%">WBS</th>
                 <th style="width:5%">Physical Progress (%)</th>
@@ -1457,7 +1379,7 @@ return 'Unknown';
                
             </div>
         </div>
-        <div class="clearfix breakpage ">
+        <div class="clearfix  " style=" page-break-before: always !important; ">
             <h3 class="redTxt">
                 7. Quality of the Project Activities
             </h3>
@@ -1490,7 +1412,6 @@ return 'Unknown';
              <h3 class="redTxt">
                8. Project Beneficiaries
             </h3>
-
             <div class="col-md-12">
               <table class="col-md-12 table table-striped">
                     <thead>
@@ -1704,7 +1625,7 @@ return 'Unknown';
                 13. Financial Summary
             </h3>
                 <div class="col-md-12">
-                    Up till now total expenditure of <b>Rs.{{$project->MProjectCost->utilization_against_releases}}</b> Million has been incurred against the total release of <b> Rs.{{$project->MProjectCost->release_to_date_of_fiscal_year}}</b> Million.<br/><br/><br/>
+                    Up till now total expenditure of <b>Rs.{{round($project->MProjectCost->utilization_against_releases,3)}}</b> Million has been incurred against the total release of <b> Rs.{{round($project->MProjectCost->release_to_date_of_fiscal_year,3)}}</b> Million.<br/><br/><br/>
                 </div>
                     <div class="">
                 <div class="col-md-12 labelgraphs" >
@@ -1742,7 +1663,7 @@ return 'Unknown';
                </tbody>
             </table>
         </div>
-        <div class="clearfix breakpage ">
+        <div class="clearfix breakpage " style=" page-break-after: always !important; ">
             <h3 class="redTxt">
                 14. Project Contract Summary
             </h3>
@@ -1770,23 +1691,21 @@ return 'Unknown';
                 </tbody>
             </table>
         </div>
-        <div class="clearfix breakpage ">
+        <div class="clearfix  " style=" page-break-after: always !important; ">
             <h3 class="redTxt">
                 15. Observation
             </h3>
                @php $i=0;@endphp
-            <div class="col-md-12">
+            <div class="col-md-12 ">
                  @if(isset($project->MProgressObservation->observation))
-                <table class="col-md-12 table table-striped">
+                <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th style="width:17%; "></th>
-                            <th>Observation</th>
+                            <th>Textual Observation  # @php echo ++$i;@endphp</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td style="text-align:center;"><b>Observation # @php echo ++$i;@endphp </b></td>
                         <td>
                             @if(isset($project->MProgressObservation->observation))
                             {!! $project->MProgressObservation->observation !!}
@@ -1799,28 +1718,28 @@ return 'Unknown';
                 <center class="notadded"> Not Added</center>
                 @endif
             </div>
-
-             <h3 class="redTxt">
-                16. Pictorial Observation
-            </h3>
-            <div class="col-md-12">
+            <br>
+             
+            <div class="col-md-12" >
               @if(isset($project->MProgressPictorialDetail) || $project->MProgressPictorialDetail!=null )
-                <table class="col-md-12 ">
-                 
+                 @php $j=0;@endphp
+              <table class="table">
                       @foreach ($project->MProgressPictorialDetail as $item)
-                            <tr>
-                            <th rowspan="2">Observation # @php echo ++$i;@endphp </th>
+                      <tr>
+                     <th >Pictorial Observation # @php echo ++$j;@endphp </th>
+                        </tr>  
+                      <tr>
                             <td>{{$item->description}} </td>
-                            
                         </tr>
                         <tr>
-                        <td>{{$item->caption}}</td>
+                            <td colspan="2">
+                                <figure>
+                                    <img src="{{asset('storage/uploads/monitoring/'.$project->id.'/pictorial_detail/'.$item->stored_file)}}" width="100%" height="40%" alt="">
+                                    <figcaption style="margin-top:1%;"><b><small>Fig @php echo $j ;@endphp </small>:</b>{{$item->caption}}</figcaption>
+                                </figure>
+                            </td>
                         </tr>
-                        <tr>
-                            <tr>
-                            <tr>
-                            <td colspan="2"><img src="{{asset('storage/uploads/monitoring/'.$project->id.'/pictorial_detail/'.$item->stored_file)}}" width="100%" alt=""></td>
-                        </tr>
+                        
                       @endforeach
                  </table>
               @else
@@ -1829,14 +1748,15 @@ return 'Unknown';
             </div>
             
         </div>
-        <div class="clearfix breakpage">
+        <div class="clearfix" style=" page-break-after: always !important; ">
             <h3 class="redTxt">
                 17. RECOMMENDATIONS
             </h3>
             <p class="col-md-12 grey">
-                 @if(isset($project->MProgressRecommendation->recommendation))
+                 {{-- @if(isset($project->MProgressRecommendation->recommendation))
                     {!! $project->MProgressRecommendation->recommendation !!}
-                @endif
+                @endif --}}
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique illum iusto ipsam repellendus cupiditate ut odio nisi temporibus ab, beatae perferendis fuga repudiandae in qui amet itaque. Eligendi, perspiciatis ratione.
             </p>
         </div>
     </div>
@@ -1859,7 +1779,7 @@ return 'Unknown';
             "position": "absolute",
             "align": "center",
             "marginRight": 100,
-            "autoMargins": false
+            "autoMargins": true
         },
         "dataProvider": [{
             "financial_status": "Financial Progress",
@@ -1886,7 +1806,7 @@ return 'Unknown';
             "position": "absolute",
             "align": "center",
             "marginRight": 100,
-            "autoMargins": false
+            "autoMargins": true
         },
         "dataProvider": [{
             "financial_status": "Financial Utilization ({{ isset($project->MProjectCost->utilization_against_releases) ? round($project->MProjectCost->utilization_against_releases,3,PHP_ROUND_HALF_UP) : '0' }} M)",
@@ -1894,11 +1814,12 @@ return 'Unknown';
             "color": "#00bcd4"
         }, {
             "financial_status": "Remainig Cost ({{ isset($project->MProjectCost->utilization_against_releases) ? ($project->AssignedProject->Project->ProjectDetail->orignal_cost - round($project->MProjectCost->utilization_against_releases,3,PHP_ROUND_HALF_UP) ) : '0' }} M)",
-            "value": {{(100-round(calculateMFinancialProgressWithPc1Cost($project->id),2))}},
+            "value": {{(100-round(calculateMFinancialProgressWithPc1Cost($project->id),2))}} ,
             "color": "#8bc34a"
         }],
         "valueField": "value",
         "titleField": "financial_status",
+      
         "colorField": "color",
         "balloon": {
             "fixedPosition": true
@@ -1960,11 +1881,18 @@ return 'Unknown';
     series.dataFields.categoryX = "Type";
     series.dataFields.valueY = "value";
     series.tooltipText = "{valueY.value} Millions";
+    
     series.columns.template.strokeOpacity = 0;
     series.columns.template.tension = 1;
     series.columns.template.width = am4core.percent(40);
     series.columns.template.fillOpacity = 0.75;
 
+var valueLabel = series.bullets.push(new am4charts.LabelBullet());
+valueLabel.label.text = "[bold]{valueY} Millions";
+valueLabel.label.fontSize = 12 ;
+valueLabel.label.truncate = false;
+valueLabel.label.hideOversized = false;
+valueLabel.label.dy = -8;
     // Hover
     var hoverState = series.columns.template.states.create("hover");
     hoverState.properties.fillOpacity = 1;
@@ -2040,6 +1968,13 @@ return 'Unknown';
     series.columns.template.tension = 1;
     series.columns.template.width = am4core.percent(40);
     series.columns.template.fillOpacity = 0.75;
+
+    var valueLabel = series.bullets.push(new am4charts.LabelBullet());
+    valueLabel.label.text = "[bold]{valueY} %";
+    valueLabel.label.fontSize = 12 ;
+    valueLabel.label.truncate = false;
+    valueLabel.label.hideOversized = false;
+    valueLabel.label.dy = -8;
 
     var hoverState = series.columns.template.states.create("hover");
     hoverState.properties.fillOpacity = 1;
