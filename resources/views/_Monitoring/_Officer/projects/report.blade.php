@@ -202,10 +202,7 @@
             width: 100%;
         }
 
-        /* .demo-gallery > ul > li a:hover > img {
-        -webkit-transform: scale3d(1.1, 1.1, 1.1);
-        transform: scale3d(1.1, 1.1, 1.1);
-        } */
+      
         .demo-gallery>ul>li a:hover .demo-gallery-poster>img {
             opacity: 1;
         }
@@ -454,30 +451,32 @@
             padding-top: 3% !important;
         }
         .breakpage{
+             page-break-after: always !important; 
               margin-top: 5%;
                 margin-bottom:5%; 
+        }
+        .para{
+            border: 1px solid #999 !important;
         }
         .breakpage p {
             /* border: 1px solid #777 !important; */
             padding: 1%;
-            min-height: 100px;
+            /* min-height: 100px; */
         }
 
-            /* {
-            background: #999;
-<<<<<<< HEAD
-        }
         figcaption{
-           text-align: center;
+            text-align: center;
         }
-=======
-        } */
 
->>>>>>> ca2e04a45c80a00df11114dedda58527b244ac35
         .row .col-md-6,
         .row .col-md-12 {
             padding: 1%;
             border: 1px solid #999;
+        }
+        .spacer{
+              display: block;
+                                    padding-top: 0.1% !important;
+                                    padding-bottom: 0.1% !important;
         }
 
         .graphHeader {
@@ -583,19 +582,14 @@
             vertical-align: middle !important;
             
         }
-        .table td, .table th {
-            /* padding:5px !important; */
-                /* text-align:Center !important; */
-           
-           
-            }
+      
      
         .border {
             border: 1px solid #999;
         }
-            .highlight{
-                background:chartreuse !important;
-            }
+        .highlight{
+            background:chartreuse !important;
+        }
 
         #chartdivprogressgraphs {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
@@ -657,9 +651,9 @@
                 height: 100% !important;
                 padding-top: 1%;
             }
-                                .paddingmainpage {
-                                    padding-top: 4% !important;
-                                }
+            .paddingmainpage {
+                padding-top: 4% !important;
+            }
 
             .fullwidthprint img,
             .auto img {
@@ -691,16 +685,27 @@
                 /* height: -webkit-fill-available; */
                 /* border: 1px solid #777; */
             }
-
+            .breakauto{
+                page-break-inside: auto !important;
+                /* padding: 1%;
+                height: 100%; */
+            }
+            .breakpageBefore{
+                 page-break-before: always !important;
+                padding: 1%;
+                height: 100%;
+            }
             .breakpage {
-                page-break-before: always !important;
+                page-break-after: always !important;
                 padding: 1%;
                 height: 100%;
               
             }
-
+            .para{
+                 border: none ! !important;
+            }
             .breakpage p {
-                border: none ! !important;
+                /* border: none ! !important; */
                 padding: 1%;
                 height: -webkit-fill-available;
             }
@@ -708,10 +713,12 @@
             page-break-after: auto !important;
             }
             tr{
+                margin-top:1% !important;
                 page-break-inside: avoid;
                 page-break-after: auto;
             }
              td{
+                 
                 page-break-inside: avoid;
                 page-break-after: auto;
             }
@@ -755,7 +762,7 @@
             .labelgraphs{
                width: 800px; 
                 padding: 1%;
-    border: 1px solid #999;
+              border: 1px solid #999;
             }
             ul {
                 padding-left:4%;
@@ -1299,12 +1306,8 @@ function getProjectStatus($progress){
                  <div class="col-md-2"></div>
             </div>
         </div>
-<<<<<<< HEAD
 
-        <div class="clearfix   " style="page-break-after: always !important; " >
-=======
-        <div class="clearfix breakpage ">
->>>>>>> ca2e04a45c80a00df11114dedda58527b244ac35
+        <div class="clearfix  breakpage  "  >
             <h3 class="redTxt">
                 5. Project Objectives:
             </h3>
@@ -1345,21 +1348,12 @@ function getProjectStatus($progress){
                 </table>
             </div>
         </div>
-<<<<<<< HEAD
-        <div class="clearfix " style="page-break-after: always !important;" >
+        <div class="clearfix breakauto " >
             <h3 class="redTxt">
                 6. Physical Targets and Performance:
             </h3>
             <div class="col-md-12 "  >
             <table class="table wbs-table table-bordered w-auto " >
-=======
-        <div class="clearfix breakpage " >
-            <h3 class="redTxt" >
-                6. Physical Targets and Performance:
-            </h3>
-            <div class="col-md-12 "  >
-            <table class="table wbs-table table-bordered w-auto  ">
->>>>>>> ca2e04a45c80a00df11114dedda58527b244ac35
               <thead>
                 <th>WBS</th>
                 <th style="width:5%">Physical Progress (%)</th>
@@ -1434,7 +1428,7 @@ function getProjectStatus($progress){
             </table>  
             </div>
         </div>
-        <div class="clearfix  " style=" page-break-before: always !important; ">
+        <div class="clearfix breakauto " >
             <h3 class="redTxt">
                 7. Quality of the Project Activities
             </h3>
@@ -1501,7 +1495,7 @@ function getProjectStatus($progress){
               </table>  
             </div>
         </div>
-        <div class="clearfix breakpage ">
+        <div class="clearfix breakauto ">
             <h3 class="redTxt">
                 9. Risk and Constraints:
             </h3>
@@ -1526,9 +1520,9 @@ function getProjectStatus($progress){
                 </tbody>
             </table>
         </div>
-        <div class="clearfix breakpage ">
+        <div class="clearfix breakauto ">
             <h3 class="redTxt">
-                9. Issues and Observations
+                10. Issues and Observations
             </h3>
             <table class="col-md-12 table table-striped" >
                 @php
@@ -1575,12 +1569,12 @@ function getProjectStatus($progress){
                 </tbody>
             </table>
         </div>
-        <div class="clearfix breakpage">
+        <div class="clearfix breakauto">
             <h3 class="redTxt">
-                10. Human Resource:
+                11. Human Resource:
             </h3>
             <div class="col-md-12">
-                <table class="col-md-12 table table-striped">
+                <table >
                     <thead>
                         <tr>
                             <th style="width:6%">Sr.</th>
@@ -1610,11 +1604,12 @@ function getProjectStatus($progress){
                 </table>
             </div>
         </div>
-        <div class="clearfix breakpage ">
+        <div class="clearfix breakauto ">
             <h3 class="redTxt">
-                11. Project Stakeholders Interviewed:
+                12. Project Stakeholders Interviewed:
             </h3>
-            <table class="col-md-12 table table-striped ">
+            <div class="col-md-12 ">
+                 <table   cellspacing=5>
                 <thead>
                     <tr>
                     <th>Project Stakeholders</th>
@@ -1647,12 +1642,15 @@ function getProjectStatus($progress){
                     
                 </tbody>
             </table>
+            </div>
+           
         </div>
-        <div class="clearfix breakpage ">
+        <div class="clearfix breakauto" >
             <h3 class="redTxt">
-                12. Monitoring Team
+                13. Monitoring Team
             </h3>
-            <table class="col-md-12">
+           <div class="col-md-12">
+                <table class=""  cellspacing=5>
                <thead>
                     <tr>
                     <th>Name</th>
@@ -1674,10 +1672,11 @@ function getProjectStatus($progress){
                     @endforeach
                 </tbody>
             </table>
+           </div>
         </div>
-        <div class="clearfix breakpage ">
+        <div class="clearfix  breakpageBefore" >
             <h3 class="redTxt">
-                13. Financial Summary
+                14. Financial Summary
             </h3>
                 <div class="col-md-12">
                     Up till now total expenditure of <b>Rs.{{round($project->MProjectCost->utilization_against_releases,3)}}</b> Million has been incurred against the total release of <b> Rs.{{round($project->MProjectCost->release_to_date_of_fiscal_year,3)}}</b> Million.<br/><br/><br/>
@@ -1718,19 +1717,20 @@ function getProjectStatus($progress){
                </tbody>
             </table>
         </div>
-        <div class="clearfix breakpage " style=" page-break-after: always !important; ">
+        <div class="clearfix breakpageBefore breakpage">
             <h3 class="redTxt">
-                14. Project Contract Summary
+                15. Project Contract Summary
             </h3>
             The detail of project brief is given below;
-            <table class="col-md-12">
+           <div class="col-md-12">
+                <table class="" cellspacing=5>
                <thead>
                     <tr>
-                    <th>Description</th>
-                    <th>Agreement Amount(M)</th>
-                    <th>Name of Supplier/ Contractor</th>
-                    <th>Start Date of work</th>
-                    <th>Expected Completion Date of work</th>
+                    <th style="width:13%; margin-right:2%;">Description</th>
+                    <th style="width:13%;" >Agreement Amount(M)</th>
+                    <th style="width:13%;">Supplier or Contractor</th>
+                    <th style="width:13%;">Start Date <br> of Work</th>
+                    <th style="width:13%;">Expected Completion Date of Work</th>
                 </tr>
                </thead>
                 <tbody>
@@ -1745,23 +1745,26 @@ function getProjectStatus($progress){
                     @endforeach
                 </tbody>
             </table>
+           </div>
         </div>
-        <div class="clearfix  " style=" page-break-after: always !important; ">
+        <div class="clearfix  ">
             <h3 class="redTxt">
-                15. Observation
+                16. Observation
             </h3>
                @php $i=0;@endphp
             <div class="col-md-12 ">
                  @if(isset($project->MProgressObservation->observation))
-                <table class="table table-striped">
+                <table class="">
                     <thead>
                         <tr>
                             <th>Textual Observation  # @php echo ++$i;@endphp</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <tr class="spacer">
+                        </tr>
                         <tr>
-                        <td>
+                        <td class="para">
                             @if(isset($project->MProgressObservation->observation))
                             {!! $project->MProgressObservation->observation !!}
                            @endif
@@ -1773,46 +1776,46 @@ function getProjectStatus($progress){
                 <center class="notadded"> Not Added</center>
                 @endif
             </div>
-            <br>
-             
             <div class="col-md-12" >
               @if(isset($project->MProgressPictorialDetail) || $project->MProgressPictorialDetail!=null )
                  @php $j=0;@endphp
-              <table class="table">
-                      @foreach ($project->MProgressPictorialDetail as $item)
-                      <tr>
-                     <th >Pictorial Observation # @php echo ++$j;@endphp </th>
+                 @foreach ($project->MProgressPictorialDetail as $item)
+                    <table class="">
+                        <tr>
+                           <th >Pictorial Observation # @php echo ++$j;@endphp </th>
                         </tr>  
-                      <tr>
-                            <td>{{$item->description}} </td>
+                        <tr class="spacer"></tr>
+                        <tr>
+                           <td>{{$item->description}} </td>
                         </tr>
+                           <tr class="spacer"></tr>
                         <tr>
                             <td colspan="2">
                                 <figure>
-                                    <img src="{{asset('storage/uploads/monitoring/'.$project->id.'/pictorial_detail/'.$item->stored_file)}}" width="100%" height="40%" alt="">
+                                    <img src="{{asset('storage/uploads/monitoring/'.$project->id.'/pictorial_detail/'.$item->stored_file)}}" width="100%" height="30%"  alt="">
                                     <figcaption style="margin-top:1%;"><b><small>Fig @php echo $j ;@endphp </small>:</b>{{$item->caption}}</figcaption>
                                 </figure>
                             </td>
                         </tr>
-                        
-                      @endforeach
-                 </table>
+                    </table>
+                    <br>
+                    @endforeach
               @else
                 <center class="notadded"> Not Added</center>
               @endif
             </div>
             
         </div>
-        <div class="clearfix" style=" page-break-after: always !important; ">
+        <div class="clearfix breakpageBefore">
             <h3 class="redTxt">
                 17. RECOMMENDATIONS
             </h3>
-            <p class="col-md-12 grey">
-                 {{-- @if(isset($project->MProgressRecommendation->recommendation))
+            <div class="col-md-12 para">
+                 @if(isset($project->MProgressRecommendation->recommendation))
                     {!! $project->MProgressRecommendation->recommendation !!}
-                @endif --}}
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique illum iusto ipsam repellendus cupiditate ut odio nisi temporibus ab, beatae perferendis fuga repudiandae in qui amet itaque. Eligendi, perspiciatis ratione.
-            </p>
+                @endif
+                {{-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique illum iusto ipsam repellendus cupiditate ut odio nisi temporibus ab, beatae perferendis fuga repudiandae in qui amet itaque. Eligendi, perspiciatis ratione. --}}
+            </div>
         </div>
     </div>
 

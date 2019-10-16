@@ -1089,11 +1089,11 @@
                         <table class="col-md-12">
                             <thead>
                                 <tr>
-                                    <th>Select Image</th>
-                                    <th>Selected Image</th>
-                                    <th>Caption</th>
-                                    <th>Description Of Observation</th>
-                                    <th><button type="button" name="add[]" class=" form-control btn btn-success " id="addMoreImage" style="size:14px;">+</button></th>
+                                    <th style="width:13% !important;">Select Image</th>
+                                    <th style="width:13% !important;">Selected Image</th>
+                                    <th style="width:13% !important;">Caption</th>
+                                    <th style="width:13% !important;">Description Of Observation</th>
+                                    <th style="width:5% !important; padding:2%;"  ><button type="button" name="add[]" class=" form-control btn-sm btn-success " id="addMoreImage" >+</button></th>
                                 </tr>
                             </thead>
                             <tbody id="addMoreImageHere">
