@@ -364,7 +364,7 @@
                           $counter = 1;
                         @endphp
                         @foreach ($total_projects as $total_project)
-                          @if($total_project->AssignedProject && $total_project->AssignedProject->complete == 0)
+                          @if($total_project->AssignedProject && $total_project->AssignedProject->complete == 0 && $total_project->AssignedProject->stopped == 0)
                           <tr>
                             <td>{{$counter++ }}</td>
                             <td >{{$total_project->project_no}}</td>
