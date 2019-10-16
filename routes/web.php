@@ -39,6 +39,7 @@ Route::group(['middleware' => ['auth']],function(){
   // monitoring_dashboard
   Route::get('/monitoring_dashboard','HomeController@monitoringDashboard')->name('monitoring_dashboard');
   Route::get('/summarytable','HomeController@summarytable')->name('summarytable');
+  // Manager & Directors & Chairman & Member & Chief
   Route::middleware('role:manager|directorevaluation|directormonitoring|chairman|member|chief') ->group(function () {
     Route::get('/summarytableMonitoring','HomeController@summarytableMonitoring')->name('summarytableMonitoring');
     Route::get('/summarytableEvaluation','HomeController@summarytableEvaluation')->name('summarytableEvaluation');
@@ -120,7 +121,7 @@ Route::prefix('manager')->middleware('role:manager|directorevaluation')->group(f
 });
 
 
-
+//For only Managers
   Route::prefix('manager')->middleware('role:manager')->group(function () {
     Route::get('/pmms_tab','ExecutiveController@pmms_index')->name('Exec_pmms_tab');
     Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
@@ -199,7 +200,7 @@ Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSecto
 
 
 
-//Evaluator officers
+//Evaluator & officers & TransportOfficer
 Route::prefix('Evaluatorofficer')->middleware('role:evaluator|officer|transportofficer')->group(function () {
   // Evaluation Module Routes
   Route::post('/save_percentage','OfficerController@save_percentage')->name('save_percentage');
@@ -272,14 +273,19 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
   Route::post('/saveGeneralFeedBack','OfficerController@saveGeneralFeedBack')->name('saveGeneralFeedBack');
   Route::post('/saveMissues','OfficerController@saveMissues')->name('saveMissues');
   Route::post('/savehealthsafety','OfficerController@savehealthsafety')->name('savehealthsafety');
+  Route::post('/storeFinancialSummary', 'OfficerController@storeFinancialSummary')->name('storeFinancialSummary');
+  Route::post('/storeContractSummary', 'OfficerController@storeContractSummary')->name('storeContractSummary');
 
   Route::post('/m_observations','OfficerController@save_m_observations')->name('save_m_observations');
   Route::post('/stakeholders','OfficerController@savestakeholders')->name('savestakeholders');
   Route::post('/getAssignedSponsoringAgency','OfficerController@getAssignedSponsoringAgency')->name('getAssignedSponsoringAgency');
   Route::post('/getAssignedExecutingAgency','OfficerController@getAssignedExecutingAgency')->name('getAssignedExecutingAgency');
   Route::post('/saveManualImages','OfficerController@saveManualImages')->name('saveManualImages');
+  Route::post('/saveQuestionnaire','OfficerController@storeQuestionnaire')->name('saveQuestionnaire');
+  Route::post('/saveRisks', 'OfficerController@saveRisks')->name('saveRisks');
 
-
+  //Result Monitoring Tab
+  Route::post('/saveWbsRemarks','OfficerController@saveWbsRemarks')->name('saveWbsRemarks');
 });
 
  // Monitoring group
@@ -318,7 +324,6 @@ Route::group(['middleware' => ['role:admin|dataentry|officer|evaluator|monitor|m
 
     //Summary Tab
   Route::get('/generate_monitoring_report','OfficerController@generate_monitoring_report')->name('generate_monitoring_report');
-  Route::get('generate-pdf','OfficerController@generatePDF')->name('generatePDF');
   Route::post('/save_report_data','OfficerController@save_report_data');
 
   // CM DASHBOARD

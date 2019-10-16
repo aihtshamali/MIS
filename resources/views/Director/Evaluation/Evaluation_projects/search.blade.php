@@ -28,7 +28,8 @@
 
   <section class="content-header">
     <h1>
-    ASSIGNED EVALUATION PROJECTS <button class="btn btn-danger" style="color:white;font-weight:bold font-size:20px;">@if(isset($assigned)){{$assigned->count()}}@endif</button>
+    ASSIGNED EVALUATION PROJECTS
+     <button class="btn btn-danger" style="color:white;font-weight:bold font-size:20px;">@if(isset($assigned)){{$assigned->count()}}@endif</button>
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-backward" ></i>Back</a></li>
@@ -191,7 +192,7 @@
   
                                         <td>
                                           @php
-                                            $interval = date_diff(date_create(date('Y-m-d h:i:s',strtotime($assigned->created_at))), date_create(date('Y-m-d h:i:s')))->format('%m Month %d Day %h Hours');
+                                            $interval = date_diff(date_create(date('Y-m-d h:i:s',strtotime($assigned->created_at))), date_create(date('Y-m-d h:i:s')))->format('%y Year %m Month %d Day %h Hours');
                                           @endphp
                                           {{$interval}}
                                           {{-- {{dd($interval)}} --}}

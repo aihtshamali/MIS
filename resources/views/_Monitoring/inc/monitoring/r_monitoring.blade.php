@@ -249,6 +249,9 @@ transform: rotate(90deg);
   .home .demo-gallery {
     padding-bottom: 80px;
   }
+  .wbs-table > tbody > tr > td:first-child{
+    text-align: left;
+  }
 </style>
 <div class="tab-pane" id="r_monitoring" role="tabpanel" style="display:none;">
   <div class="col-md-12">
@@ -397,71 +400,122 @@ transform: rotate(90deg);
           <!-- ----------------------- end video Gallery ---------------- -->
         </div>
         <div class="tab-pane nodisplay" id="profile1" role="tabpanel">
-          <!-- ---------------- start tree vie ------------------ -->
           <div class="pdlfrt2">
             <h2 class="txtdecundlin pointer">WBS</h2>
-            @forelse ($progresses->MAssignedUserLocation as $sites)
-            <ul id="myUL">
-              <li><span class="caret caret-right">{{$sites->District->name}} / {{$sites->site_name}}</span>
-                @foreach ($sites->MAssignedUserKpi as $assigned_kpi)
-                <ul class="nested nodisplay">
-                  <li><span class="caret caret-right">{{$assigned_kpi->MProjectKpi->name}}</span>
-                    <ul class="nested nodisplay">
+          
+            <table class="table wbs-table table-bordered ">
+              <thead>
+                <th>WBS</th>
+                <th>Physical Progress (%)</th>
+                <th>Remarks</th>
+              </thead>
+              <tbody>
+                @php
+                    $i=0;
+                @endphp
+                  @forelse ($progresses->MAssignedUserLocation as $sites)
+                    <tr>
+                      <td colspan="3"> - {{$sites->District->name}} / {{$sites->site_name}}</td>
+                    </tr>
+                    @foreach ($sites->MAssignedUserKpi as $assigned_kpi)
+                    @php
+                    $padding=30;   
+                    @endphp
+                      <tr class="collapseThisTr" data-class="tr_{{++$i}}">
+                        <td colspan="3" style="cursor:pointer;padding-left:{{$padding}}px;background-color:#f2f2f2">{{$i}} - {{$assigned_kpi->MProjectKpi->name}}</td>
+                      </tr>
                       @foreach ($assigned_kpi->MAssignedKpi as $kpi)
-                      @foreach ($kpi->MAssignedKpiLevel1 as $kpilev1)
-                      <li><span class="caret caret-right">{{$kpilev1->MProjectLevel1Kpi->name}} - Weightage Given ({{$kpilev1->current_weightage}})</span>
-                        <ul class="nested nodisplay">
-                          @foreach ($kpilev1->MAssignedKpiLevel2 as $kpilev2)
-                          <li>
-                            <span class="{{isset($kpilev2->MAssignedKpiLevel3) && count($kpilev2->MAssignedKpiLevel3)>0 ? 'caret caret-right' : ''}}">{{$kpilev2->MProjectLevel2Kpi->name}} - Weightage Given ({{$kpilev2->current_weightage}})</span>
-                            <ul class="nested nodisplay">
-                              @foreach ($kpilev2->MAssignedKpiLevel3 as $kpilev3)
-                              <li><span class="{{isset($kpilev3->MAssignedKpiLevel4) && count($kpilev3->MAssignedKpiLevel4)>0 ? 'caret caret-right' : ''}}">{{$kpilev3->MProjectLevel3Kpi->name}} - Weightage Given ({{$kpilev3->current_weightage}})</span>
-
-                                <ul class="nested nodisplay">
-                                  @foreach ($kpilev3->MAssignedKpiLevel4 as $kpilev4)
-                                  <li>{{$kpilev4->MProjectLevel4Kpi->name}} - Weightage Given ({{$kpilev4->current_weightage}})</li>
-                                  @endforeach
-                                </ul>
-                              </li>
-                              @endforeach
-                            </ul>
-                          </li>
+                        @php
+                        $j=1;   // for level 1
+                        @endphp
+                        @foreach ($kpi->MAssignedKpiLevel1 as $kpilev1)
+                        @php
+                          $padding = 50;$k =1; //for level 2
+                        @endphp
+                        <tr class="tr_{{$i}}">
+                          <td style="padding-left:{{$padding}}px">{{numberToRoman($j++)}} - {{$kpilev1->MProjectLevel1Kpi->name}}</td>
+                          <td>{{$kpilev1->current_weightage}}</td>
+                        <td><textarea name="remarks" data-id="{{$kpilev1->id}}" data-level="1" id="{{$kpilev1->id}}" cols="30" rows="1">{{$kpilev1->remarks !='null' ? $kpilev1->remarks : ''}}</textarea></td>
+                        </tr>
+                        @foreach ($kpilev1->MAssignedKpiLevel2 as $kpilev2)
+                        @php
+                          $padding = 70;$l = 1; //for level 3
+                        @endphp
+                          <tr class="tr_{{$i}}">
+                            <td style="padding-left:{{$padding}}px">{{$k++}} - {{$kpilev2->MProjectLevel2Kpi->name}}</td>
+                            <td>{{$kpilev2->current_weightage}}</td>
+                            <td><textarea name="remarks" data-id="{{$kpilev2->id}}" data-level="2" id="{{$kpilev2->id}}" cols="30" rows="1">{{$kpilev2->remarks !='null' ? $kpilev2->remarks : ''}}</textarea></td>
+                          </tr>
+                          @foreach ($kpilev2->MAssignedKpiLevel3 as $kpilev3)
+                          @php
+                            $padding = 90;$m = 1; //for level 4
+                          @endphp
+                          <tr class="tr_{{$i}}">
+                            <td style="padding-left:{{$padding}}px">{{numberToRoman($l++)}} {{$kpilev3->MProjectLevel3Kpi->name}}</td>
+                            <td>{{$kpilev3->current_weightage}}</td>
+                            <td><textarea name="remarks" data-id="{{$kpilev3->id}}" data-level="3" id="{{$kpilev3->id}}" cols="30" rows="1">{{$kpilev3->remarks !='null' ? $kpilev3->remarks : ''}}</textarea></td>
+                          </tr>
+                          @foreach ($kpilev3->MAssignedKpiLevel4 as $kpilev4)
+                          @php
+                            $padding = 110
+                          @endphp
+                          <tr class="tr_{{$i}}">
+                            <td style="padding-left:{{$padding}}px"> {{$m++}} - {{$kpilev4->MProjectLevel4Kpi->name}}</td>
+                            <td>{{$kpilev4->current_weightage}}</td>
+                            <td><textarea name="remarks" data-id="{{$kpilev4->id}}" data-level="4" id="{{$kpilev4->id}}" cols="30" rows="1">{{$kpilev4->remarks !='null' ? $kpilev4->remarks : ''}}</textarea></td>
+                          </tr>
                           @endforeach
-                        </ul>
+                          @endforeach
+                          @endforeach
                         @endforeach
-                        @endforeach
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              @endforeach
-            </ul>
-            @empty
-            <p>No KPI Selected</p>
-            @endforelse
+                      @endforeach
+                    @endforeach
+                  @empty
+                    <tr><td colspan="3">No KPI Selected</td></tr>
+                  @endforelse
+                  
+              </tbody>
+            </table>
           </div>
           <!-- ---------------- end tree vie ------------------ -->
         </div>
         <div class="tab-pane nodisplay" id="Questionnaire" role="tabpanel">
           <!-- ---------------- start tree vie ------------------ -->
-          <form method="post" action="">
+        <form method="post" action="{{route('saveQuestionnaire')}}">
+          {{ csrf_field() }}
+          <input type="hidden" name="m_project_progress_id" value="{{$projectProgressId->id}}">
             <table class="col-md-12">
               <tr>
-                <td>sr#.</td>
-                <td>Question</td>
+                <td>Sr#.</td>
+                <td>Questions</td>
                 <td>Yes</td>
                 <td>No</td>
                 <td>Reason</td>
               </tr>
+              @php
+                  $i=1;
+              @endphp
+              @foreach ($questionnaire as $ques)
+                  
               <tr>
-                <td>1.</td>
+              <td>{{$i}}.</td>
                 <td>
-                  Are project activities going as per scheduled time?</td>
-                <td class="">
-                  <div class="checkbox-fade fade-in-success m-0">
-                    <label class="">
-                      <input type="radio" class="scheduled_timeyes" name="status[0]" value="1_yes" id="">
+                 {{$ques->question}}
+                </td>
+                  <td class="">
+                    @php
+                        $assign_ques = $assigned_questionnaire->where('m_questionnaire_id',$ques->id)->first();
+                        @endphp
+                    <div class="checkbox-fade fade-in-success m-0">
+                      @if(isset($assign_ques))
+                        <input type="hidden" name="m_assigned_questionnaire[{{$i}}]" value="{{$assign_ques->id}}">
+                      @endif
+                      <label class="">
+                        @if(isset($assign_ques) && $assign_ques->answer == "1")
+                            <input type="radio" class="scheduled_timeyes" checked name="answer[{{$i}}]" value="{{$ques->id}}_yes" id="">
+                        @else
+                          <input type="radio" class="scheduled_timeyes" name="answer[{{$i}}]" value="{{$ques->id}}_yes" id="">
+                        @endif
                       <span class="cr">
                         <i class="cr-icon icofont icofont-ui-check txt-success"></i>
                       </span>
@@ -471,120 +525,34 @@ transform: rotate(90deg);
                 <td class="">
                   <div class="checkbox-fade fade-in-danger m-0 ">
                     <label class="">
-                      <input type="radio" class="scheduled_timeno" name="status[0]" value="1_no" id="">
+                      @if(isset($assign_ques) && $assign_ques->answer == "0")
+                        <input type="radio" class="scheduled_timeno" checked name="answer[{{$i}}]" value="{{$ques->id}}_no" id="">
+                      @else
+                        <input type="radio" class="scheduled_timeno" name="answer[{{$i}}]" value="{{$ques->id}}_no" id="">
+                      @endif
                       <span class="cr">
                         <i class="cr-icon icofont icofont-ui-check txt-danger"></i>
                       </span>
                     </label>
                   </div>
                 </td>
-                <td><textarea name="comments[0]" placeholder="if yes  then type reason..." class="nodisplay" id="scheduled_time" cols="30" rows="2"></textarea></td>
+                <td>
+                  @if(isset($assign_ques) && $assign_ques->remarks)
+                  <textarea name="comments[{{$i}}]" placeholder="Type Reason here..." cols="30" rows="2">{{$assign_ques->remarks}}</textarea>
+                  @else
+                    <textarea name="comments[{{$i}}]" placeholder="Type Reason here..." cols="30" rows="2"></textarea>
+                  @endif
+                </td>
               </tr>
+              @php
+                  $i++;
+              @endphp
+              @endforeach
               <tr>
-                <td>2.</td>
-                <td>
-                  Did the project team provided any approved baseline schedule?</td>
-                <td>
-                  <div class="checkbox-fade fade-in-success m-0">
-                    <label>
-                      <input type="radio" name="status[1]" value="1_yes" id="">
-                      <span class="cr">
-                        <i class="cr-icon icofont icofont-ui-check txt-success"></i>
-                      </span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div class="checkbox-fade fade-in-danger m-0">
-                    <label>
-                      <input type="radio" name="status[1]" value="1_no" id="">
-                      <span class="cr">
-                        <i class="cr-icon icofont icofont-ui-check txt-danger"></i>
-                      </span>
-                    </label>
-                  </div>
-                </td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>3.</td>
-                <td>
-                  Funds released according to the allocation</td>
-                <td>
-                  <div class="checkbox-fade fade-in-success m-0">
-                    <label>
-                      <input type="radio" name="status[2]" value="1_yes" id="">
-                      <span class="cr">
-                        <i class="cr-icon icofont icofont-ui-check txt-success"></i>
-                      </span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div class="checkbox-fade fade-in-danger m-0">
-                    <label>
-                      <input type="radio" name="status[2]" value="1_no" id="">
-                      <span class="cr">
-                        <i class="cr-icon icofont icofont-ui-check txt-danger"></i>
-                      </span>
-                    </label>
-                  </div>
-                </td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>4.</td>
-                <td>
-                  Cost Variation</td>
-                <td>
-                  <div class="checkbox-fade fade-in-success m-0">
-                    <label>
-                      <input type="radio" name="status[3]" value="1_yes" id="">
-                      <span class="cr">
-                        <i class="cr-icon icofont icofont-ui-check txt-success"></i>
-                      </span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div class="checkbox-fade fade-in-danger m-0">
-                    <label>
-                      <input type="radio" name="status[3]" value="1_no" id="">
-                      <span class="cr">
-                        <i class="cr-icon icofont icofont-ui-check txt-danger"></i>
-                      </span>
-                    </label>
-                  </div>
-                </td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>5.</td>
-                <td>
-                  Is escalation being paid to contractor? (in case of Capital only)</td>
-                <td>
-                  <div class="checkbox-fade fade-in-success m-0">
-                    <label>
-                      <input type="radio" name="status[4]" class="escalationYes" value="1_yes" id="">
-                      <span class="cr">
-                        <i class="cr-icon icofont icofont-ui-check txt-success"></i>
-                      </span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div class="checkbox-fade fade-in-danger m-0">
-                    <label>
-                      <input type="radio" name="status[4]" class="escalationNo" value="1_no" id="">
-                      <span class="cr">
-                        <i class="cr-icon icofont icofont-ui-check txt-danger"></i>
-                      </span>
-                    </label>
-                  </div>
-                </td>
-                <td><textarea name="comments[0]" placeholder="If Yes, how much cost escalation has so far been paid?" class="nodisplay" id="escalationYes" cols="30" rows="2"></textarea></td>
+                <td colspan="5"><input type="submit" value="Save Questionnaire" name="submit" style="background-color:green !important" class="btn btn-success pull-right"></td>
               </tr>
             </table>
+
           </form>
           <!-- ---------------- end tree vie ------------------ -->
         </div>
