@@ -354,12 +354,12 @@ $innertab=\Session::get('innertab');
                 <a class="nav-link {{isset($maintab) && $maintab=='plan' ? 'active' : ''}}" data-toggle="tab" href="#p_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">PLAN MONITORING</span></a>
                 <div class="slide"></div>
               </li>
-              <li class="nav-item conductNav  {{isset($maintab) && $maintab=='conduct' ? 'active' : ''}}">
-                <a class="nav-link" data-toggle="tab" href="#c_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">CONDUCT MONITORING</span></a>
+              <li class="nav-item conductNav">
+                <a class="nav-link {{isset($maintab) && $maintab=='conduct' ? 'active' : ''}}" data-toggle="tab" href="#c_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">CONDUCT MONITORING</span></a>
                 <div class="slide"></div>
               </li>
               <li class="nav-item resultNav">
-                <a class="nav-link" data-toggle="tab" href="#r_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">RESULT MONITORING</span></a>
+                <a class="nav-link {{isset($maintab) && $maintab=='result' ? 'active' : ''}}" data-toggle="tab" href="#r_monitoring" role="tab"><span style="font-size:14px; font-weight:bold;">RESULT MONITORING</span></a>
                 <div class="slide"></div>
               </li>
               <li class="nav-item summaryNav">
@@ -487,7 +487,7 @@ $innertab=\Session::get('innertab');
 @endsection
 @section("js_scripts")
 <!-- Multiselect js -->
-<!-- <script src="{{asset('js/app.js')}}"></script> -->
+ <script src="{{asset('js/app.js')}}"></script>
 <script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>
 <script>
   CKEDITOR.inline('short_desc');
@@ -532,7 +532,7 @@ $innertab=\Session::get('innertab');
 <script src="{{asset('_monitoring/js/demo-ui.js')}}"></script>
 <script src="{{asset('_monitoring/js/demo-config.js')}}"></script>
 {{-- end js for file upload  --}}
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+{{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script> --}}
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.3/js/jquery.orgchart.js"></script>
 <script src="{{asset('_monitoring/js/_dgme/DGME_officer_inprogressSingle.js')}}"></script>
 
@@ -555,20 +555,6 @@ $innertab=\Session::get('innertab');
       <hr class="mt-1 mb-1" />
     </div>
   </li>
-</script>
-<script>
-  function readURL(input) {
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
-
-      reader.onload = function(e) {
-        $('.blah')
-          .attr('src', e.target.result);
-      };
-
-      reader.readAsDataURL(input.files[0]);
-    }
-  }
 </script>
 <script>
   $(document).ready(function() {

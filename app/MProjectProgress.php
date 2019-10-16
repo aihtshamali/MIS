@@ -121,10 +121,30 @@ class MProjectProgress extends Model
     public function MProgressObservation(){
       return $this->hasOne('App\MProgressObservation');
     }
+    public function MProgressRecommendation(){
+      return $this->hasOne('App\MProgressRecommendation');
+    }
     public function MChairmanPendingProject(){
       return $this->hasMany('App\MChairmanPendingProject');
     }
 
-
-
+    public function MAssignedQuestionnaire(){
+      return $this->hasMany('App\MAssignedQuestionnaire');
+    }
+    public function MProgressFinancialSummary()
+    {
+      return $this->hasMany('App\MProgressFinancialSummary');
+    }
+    public function MProgressPictorialDetail()
+    {
+        return $this->hasMany('App\MProgressPictorialDetail');
+    }
+    public function MProgressContractSummary()
+    {
+        return $this->hasMany('App\MProgressContractSummary');
+    }
+    public function MProjectProgressRisk()
+    {
+        return $this->hasMany('App\MProjectProgressRisk');
+    }
 }
