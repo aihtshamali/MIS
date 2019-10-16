@@ -436,7 +436,10 @@ class ExecutiveController extends Controller
           }
           // Chart 12
 
-          $projects=Project::where('project_type_id',1)->where('status',1)->get();
+          $projects=Project::select('projects.*')
+            ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+            ->where('assigned_projects.stopped',0)
+            ->where('project_type_id',1)->where('status',1)->get();
           $categories=array();
           array_push($categories,'NOT SET');
           array_push($categories,'NO');
@@ -1017,7 +1020,10 @@ class ExecutiveController extends Controller
     //chart 12
     public function SneWiseChart()
     {
-      $projects=Project::where('project_type_id',1)->where('status',1)->get();
+      $projects=Project::select('projects.*')
+      ->leftJoin('assigned_projects','assigned_projects.project_id','projects.id')
+      ->where('assigned_projects.stopped',0)
+      ->where('project_type_id',1)->where('status',1)->get();
       $categories=array();
       array_push($categories,'NOT SET');
       array_push($categories,'NO');
