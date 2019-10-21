@@ -25,7 +25,7 @@
   <!-- Content Header (Page header) -->
     <div class="box box-primary">
     <div class="box-header">
-    <h3>Evaluation Projects <span style="color:red">
+    <h3>Evaluation Projects
      <button class="btn btn-danger" style="color:white;font-weight:bold font-size:20px;">@if(isset($projects)){{$projects->count()}}@endif</button>
     
     <hr>

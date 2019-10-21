@@ -5,6 +5,27 @@
 // use App\Http\Controllers\Controller;
 // use App\MProjectProgress;
 
+//With respect to Actual against Financial
+if (! function_exists('calculateProjectStatus')) {
+     function calculateProjectStatus($m_project_progress_id)
+    {
+        //calculate Variance = Achieved - Planned
+        // x < -20 = Critical , -10 < x < -20 = Need Consideration, > -10 = Within Defined Limits        
+        $variance = calculateMPhysicalProgress($m_project_progress_id) - calculatePlannedProgress($m_project_progress_id);
+        return round($variance,3);
+    }
+
+  }
+if (! function_exists('calculateProjectStatusWRTActual')) {
+     function calculateProjectStatusWRTActual($m_project_progress_id)
+    {
+        //calculate Variance = Achieved - Planned
+        // x < -20 = Critical , -10 < x < -20 = Need Consideration, > -10 = Within Defined Limits        
+        $variance = calculateTotalMPhysicalProgress($m_project_progress_id) - calculatePlannedProgress($m_project_progress_id);
+        return round($variance,3);
+    }
+
+  }
 if (! function_exists('calculateMFinancialProgress')) {
      function calculateMFinancialProgress($m_project_progress_id)
     {
@@ -14,6 +35,21 @@ if (! function_exists('calculateMFinancialProgress')) {
         return 0;
         if($financial_cost && $financial_cost->total_release_to_date>0)
             $financial_progress=($financial_cost->utilization_against_releases/$financial_cost->total_release_to_date)*100;
+        else
+          return 0;
+        return $financial_progress;
+    }
+
+  }
+if (! function_exists('calculateMFinancialProgressWithPc1Cost')) {
+     function calculateMFinancialProgressWithPc1Cost($m_project_progress_id)
+    {
+        $financial_cost=App\MProjectCost::where('m_project_progress_id',$m_project_progress_id)->orderBy('created_at','desc')->first();
+        $financial_progress=0.0;
+        if(isset($financial_cost->MProjectProgress->AssignedProject->Project->ProjectDetail->orignal_cost) && ($financial_cost->MProjectProgress->AssignedProject->Project->ProjectDetail->orignal_cost==null || $financial_cost->MProjectProgress->AssignedProject->Project->ProjectDetail->orignal_cost < 1))
+        return 0;
+        if($financial_cost && $financial_cost->MProjectProgress->AssignedProject->Project->ProjectDetail->orignal_cost>0)
+            $financial_progress=($financial_cost->utilization_against_releases/$financial_cost->MProjectProgress->AssignedProject->Project->ProjectDetail->orignal_cost)*100;
         else
           return 0;
         return $financial_progress;
@@ -288,5 +324,51 @@ function ProjectProgressAcctoDate($project_id){
   $actual_progress=100/date_diff(date_create($start_date),date_create($end_date))->format('%Y');
   $planned_progress=100/date_diff(date_create($start_date),date_create())->format('%Y');
   return ["planned_progress"=>$planned_progress,"actual_progress"=>$actual_progress];
+}
+
+//convert integer to roman
+function numberToRoman($num)
+{
+  // Be sure to convert the given parameter into an integer
+  $n = intval($num);
+  $result = '';
+
+  // Declare a lookup array that we will use to traverse the number: 
+  $lookup = array(
+    //'m' => 1000, 'cm' => 900, 'D' => 500, 'CD' => 400,
+    'c' => 100, 'xc' => 90, 'l' => 50, 'xl' => 40,
+    'x' => 10, 'ix' => 9, 'v' => 5, 'iv' => 4, 'i' => 1
+  );
+
+  foreach ($lookup as $roman => $value) {
+    // Look for number of matches
+    $matches = intval($n / $value);
+
+    // Concatenate characters
+    $result .= str_repeat($roman, $matches);
+
+    // Substract that from the number 
+    $n = $n % $value;
+  }
+
+  return $result.')';
+} 
+
+function getImapct($impact){
+  switch ($impact) {
+    case 1:
+        return 'Low';
+      break;
+    case 2:
+        return 'Medium';
+      break;
+    case 3:
+        return 'High';
+      break;
+    
+    default:
+    
+      break;
+  }
 }
 ?>

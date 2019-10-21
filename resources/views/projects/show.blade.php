@@ -127,7 +127,7 @@
                                         <hr/>
                                         <div class="row" >
                                                 <div style="text-align: center;"><h3><b>COST</b></h3></div> </br>
-                                                <div class="col-md-4"> <b>Original Approved Cost(Million): </b>{{round($project->ProjectDetail->orignal_cost,3,PHP_ROUND_HALF_UP)}} -/{{$project->ProjectDetail->currency}}</div>
+                                                <div class="col-md-4"> <b>Original Approved Cost(Million): </b>{{round($project->ProjectDetail->orignal_cost,3,PHP_ROUND_HALF_UP)}} -/{{$project->ProjectDetail->currency}} </div>
                                                 <div class="col-md-4">   <b>Revised Original Cost(Million) : </b>
                                                   @foreach ($project->RevisedApprovedCost as $revised_cost)
                                                     {{round($revised_cost->cost,3,PHP_ROUND_HALF_UP)}}
@@ -140,11 +140,14 @@
                                         <hr/>
                                         <div class="row" >
                                                 <div style="text-align: center;"><h3><b>TIME</b></h3></div> </br>
-                                                <div class="col-md-4" id="planned_start_date"><b>Planned Start Date : </b><label>{{$project->ProjectDetail->planned_start_date}}</label> </div>
-                                                <div class="col-md-4" id="planned_end_date"> <b>Planned End Date : </b><label>{{$project->ProjectDetail->planned_end_date}}</label></div>
+                                                <div class="col-md-4" id="planned_start_date"><b>Planned Start Date : </b>
+                                                  <label>{{$project->ProjectDetail->planned_start_date}}</label> </div>
+                                                <div class="col-md-4" id="planned_end_date"> <b>Planned End Date : </b><label>
+                                                  {{$project->ProjectDetail->planned_end_date}}</label></div>
                                                 <div class="col-md-4" id="gestation_period"> <b>Gestation period : </b> </div>        </br>
                                                 <hr/>
-                                                <div class="col-md-4" id="revised_start_date"><b>Revised Start Date : </b><label>{{$project->ProjectDetail->revised_start_date}}</label></div>
+                                                <div class="col-md-4" id="revised_start_date"><b>Revised Start Date : </b>
+                                                  <label>{{$project->ProjectDetail->revised_start_date}}</label></div>
                                                 <div class="col-md-4"> <b>Revised End Date : </b>
                                                   @foreach ($project->RevisedEndDate as $revised_date)
                                                     {{$revised_date->end_date}}

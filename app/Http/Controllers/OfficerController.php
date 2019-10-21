@@ -68,6 +68,7 @@ use App\DispatchLetterPriority;
 use App\DispatchLetter;
 use App\DispatchLetterCc;
 use App\AssignedProjectTeam;
+use App\RevisedApprovedCost;
 use Illuminate\Support\Facades\Redirect;
 use DB;
 use App\MProjectLevel1Kpi;
@@ -78,7 +79,14 @@ use App\ReportData;
 use App\PostSne;
 use App\MAssignedKpiLevel2Log;
 use App\MAssignedKpiLevel1Log;
+use App\MAssignedQuestionnaire;
+use App\MProgressContractSummary;
+use App\MProgressFinancialSummary;
 use App\MProgressObservation;
+use App\MProgressPictorialDetail;
+use App\MProgressRecommendation;
+use App\MProjectProgressRisk;
+use App\MQuestionnaire;
 
 class OfficerController extends Controller
 {
@@ -709,7 +717,7 @@ class OfficerController extends Controller
 
         $dates = null;
         $dates = $progresses->MProjectDate;
-
+        // dd($dates);
         $sectors  = Sector::where('status','1')->get();
         $sub_sectors = SubSector::where('status','1')->get();
         // $maintab = 'review';
@@ -765,17 +773,18 @@ class OfficerController extends Controller
         $financial_cost=MProjectCost::where('m_project_progress_id',$projectProgressId->id)->first();
 
        $project_documents= MProjectAttachment::where('m_project_progress_id',$projectProgressId->id)->get();
+      //  dd($project_documents[0]);
         if (!is_dir('storage/uploads/projects/monitoring_attachments')) 
         {
           mkdir('storage/uploads/projects/monitoring_attachments');
         }
-       foreach($project_documents as $p_doc)
-        {
-          if($p_doc->attachment_name)
-          {
-            file_put_contents('storage/uploads/projects/monitoring_attachments/'.$p_doc->attachment_name.'.'.$p_doc->type,base64_decode($p_doc->project_attachment));
-          }
-        }
+      //  foreach($project_documents as $p_doc)
+      //   {
+      //     if($p_doc->attachment_name)
+      //     {
+      //       file_put_contents('storage/uploads/projects/monitoring_attachments/'.$p_doc->attachment_name.'.'.$p_doc->type,base64_decode($p_doc->project_attachment));
+      //     }
+      //   }
         $icons = [
           'pdf' => 'pdf',
           'doc' => 'word',
@@ -815,7 +824,21 @@ class OfficerController extends Controller
         $first_visit_date=MProjectDate::where('m_project_progress_id',$projectProgressId->id)->first();
         
         $m_observations = $projectProgressId->MProgressObservation;
+        $m_recommendation = $projectProgressId->MProgressRecommendation;
         
+        // Questionaire
+        $questionnaire = MQuestionnaire::where('status',1)->get();
+        
+        $assigned_questionnaire = MAssignedQuestionnaire::where('m_project_progress_id', $projectProgressId->id)->get();
+        $pictorial_files = MProgressPictorialDetail::where('m_project_progress_id', $projectProgressId->id)->get();
+
+      //Financial Summary
+       $financial_summary = MProgressFinancialSummary::where('m_project_progress_id', $projectProgressId->id)->get();
+
+      // Contract Summary
+       $contract_summary = MProgressContractSummary::where('m_project_progress_id', $projectProgressId->id)->get();
+
+
         \JavaScript::put([
           'projectWithRevised'=>$projectWithRevised,
          'components'=> $components,
@@ -825,7 +848,12 @@ class OfficerController extends Controller
         ]);
     
         return view('_Monitoring._Officer.projects.inprogressSingle'
-        ,compact('first_visit_date','gestation_period','m_assigned_issues','qualityassesments','B_Stakeholders','sponsoringStakeholders'
+        ,compact('first_visit_date','gestation_period','m_assigned_issues',
+        'questionnaire','assigned_questionnaire',
+        'financial_summary','contract_summary',
+        'm_recommendation',
+        'pictorial_files',
+        'qualityassesments','B_Stakeholders','sponsoringStakeholders'
         ,'executingStakeholders','assignedGeneralFeedbacks',
         'project_documents','result_from_app','org_project','districts','cities',
         'org_projectId','projectProgressId','mPlanKpiComponents','ComponentActivities',
@@ -1656,15 +1684,15 @@ class OfficerController extends Controller
       }
       public function saveMonitoringAttachments(Request $request)
       {
-        // return response()->json($request->all());
-        // dd($request->all());
+        
         if($request->hasFile('planmonitoringfile')){
           $file_path = $request->file('planmonitoringfile')->path();
           $file_extension = $request->file('planmonitoringfile')->getClientOriginalExtension();
-
           $data =new MProjectAttachment();
-          $data->project_attachement=base64_encode(file_get_contents($file_path));
-          
+          $planmonitoringfile = $request->file('planmonitoringfile');
+          $planmonitoringfile->store('public/uploads/monitoring/'.$request->m_project_progress_id.'/');
+          $data->project_attachement= $planmonitoringfile->hashName();
+
           $data->m_project_progress_id=$request->m_project_progress_id;
           $data->type = $file_extension;
           $data->user_id = Auth::id();
@@ -1790,21 +1818,44 @@ class OfficerController extends Controller
        $innertab=$tabs[1];
        return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
      }
-
+     public function saveRisks(Request $request){
+       MProjectProgressRisk::where('m_project_progress_id',$request->m_project_progress_id)->delete();
+       foreach ($request->risk_constraint as $key => $value) {
+         $risk = new MProjectProgressRisk();
+         $risk->risk_and_constraint = $value;
+         $risk->impact = $request->impact[$key];
+         $risk->probable_results = $request->results[$key];
+         $risk->m_project_progress_id = $request->m_project_progress_id;
+         $risk->user_id = Auth::id();
+         $risk->save();
+       }
+      $tabs = explode("_", $request->page_tabs);
+      $maintab = $tabs[0];
+      $innertab = $tabs[1];
+      return redirect()->back()->with(["maintab" => $maintab, "innertab" => $innertab, 'success' => 'Saved Successfully']);
+     }
      public function generate_monitoring_report(Request $request)
      {
-        $project=MProjectProgress::where('assigned_project_id',$request->project_id)->orderBy('created_at','desc')->first();
-        $report_data = ReportData::where('m_project_progress_id',$project->id)->first();
-        
+        $original_project=AssignedProject::where('id',$request->project_id)->orderBy('created_at','desc')->first();
+        $revisions=RevisedApprovedCost::where('project_id',$original_project->project_id)->get();
+        // dd($revisions);
+
+       $project=MProjectProgress::where('assigned_project_id',$request->project_id)->orderBy('created_at','desc')->first();
+       $report_data = ReportData::where('m_project_progress_id',$project->id)->first();
+      
+        $start_Date=date_create($original_project->Project->ProjectDetail->planned_start_date);
+        $end_date=date_create($original_project->Project->ProjectDetail->planned_end_date);
+        $interval_period=date_diff($start_Date,$end_date);
+        $gestation_period=$interval_period->format('%y Year , %m month , %d days');
+        // dd($project->id);
+        // dd($project->MPlanObjective);
+        // dd($project->MProgressPictorialDetail);
+        // dd($project->MAssignedQuestionnaire);
         $mPlanKpiComponents=$project->MPlanKpicomponentMapping->groupBy('m_project_kpi_id');
-        // dd($MPlanKpicomponentMapping);  
-        // dd($project->MAssignedProjectHealthSafety[0]->MHealthSafety);
-        //  dd($project->MPlanComponentActivitiesMapping[0]->MPlanComponentactivityDetailMapping);
-        // dd($project->MProjectAttachment);
         \JavaScript::put([
           'project_id'=>$project->id
         ]);
-          return view('_Monitoring._Officer.projects.report',compact('project','report_data','mPlanKpiComponents'));
+          return view('_Monitoring._Officer.projects.report',compact('project','gestation_period','revisions','report_data','mPlanKpiComponents'));
      }
 
     //  
@@ -2159,10 +2210,36 @@ class OfficerController extends Controller
 
     public function save_m_observations(Request $r)
     {
-      // dd($r->all());
       $m_observations = MProgressObservation::updateOrCreate(
         ['m_project_progress_id' => $r->m_project_progress_id],
         ['user_id' => Auth::id(),'observation' => $r->observation]);
+      $m_recommendation = MProgressRecommendation::updateOrCreate(
+        ['m_project_progress_id' => $r->m_project_progress_id],
+        ['user_id' => Auth::id(), 'recommendation' => $r->recommendation]
+      );
+      if($r->hasFile('stored_file')){
+        if (!is_dir('storage/uploads/monitoring/' . $r->m_project_progress_id)) {
+          // dir doesn't exist, make it
+          mkdir('storage/uploads/monitoring/' . $r->m_project_progress_id);
+        }
+        if (!is_dir('storage/uploads/monitoring/'.$r->m_project_progress_id.'/pictorial_detail/')) {
+          // dir doesn't exist, make it
+          mkdir('storage/uploads/monitoring/' . $r->m_project_progress_id . '/pictorial_detail/');
+        }
+        foreach($r->file('stored_file') as $key=>$fil){
+          $pictorial_detail = new MProgressPictorialDetail();
+          if(isset($r->pictorial_id[$key]))
+          $pictorial_detail = MProgressPictorialDetail::find($r->pictorial_id[$key]);
+           $fil->store('public/uploads/monitoring/' . $r->m_project_progress_id . '/pictorial_detail/');
+           $pictorial_detail->stored_file = $fil->hashName();
+           $pictorial_detail->caption = $r->caption[$key];
+           $pictorial_detail->description = $r->description[$key];
+           $pictorial_detail->m_project_progress_id = $r->m_project_progress_id;
+           $pictorial_detail->user_id = Auth::id();
+           $pictorial_detail->save();
+        }
+
+      }
       // $m_observations->user_id = Auth::id();
       // $m_observations->m_project_progress_id = $r->m_project_progress_id;
       // $m_observations->observation = $r->observation;
@@ -2172,4 +2249,96 @@ class OfficerController extends Controller
       $innertab=$tabs[1];
       return redirect()->back()->with(["maintab"=>$maintab,"innertab"=>$innertab,'success'=>'Saved Successfully']);
     }
+
+    //Questionnaire
+    public function storeQuestionnaire(Request $request){
+      //$key is index & $value is the value
+      foreach ($request->answer as $key => $value) {
+        
+        $assignedQuestionnaire = new MAssignedQuestionnaire();
+        if(isset($request->m_assigned_questionnaire[$key])){
+          $assignedQuestionnaire = MAssignedQuestionnaire::find($request->m_assigned_questionnaire[$key]);
+        }
+         $ans = explode("_",$value);
+        $assignedQuestionnaire->m_questionnaire_id =$ans[0];
+        $assignedQuestionnaire->answer = $ans[1] == 'yes' ? 1 : 0;
+        $assignedQuestionnaire->remarks = $request->comments[$key];
+        $assignedQuestionnaire->m_project_progress_id = $request->m_project_progress_id;
+        $assignedQuestionnaire->user_id = Auth::id();
+        $assignedQuestionnaire->save();
+      }
+      return redirect()->route('monitoring_inprogressSingle');
+    }
+    public function storeFinancialSummary(Request $request){
+      if(count(MProgressFinancialSummary::where('m_project_progress_id',$request->m_project_progress_id)->get()) > 0){
+          MProgressFinancialSummary::where('m_project_progress_id', $request->m_project_progress_id)->delete();
+      }
+      foreach($request->FinancialSummaryYear as $key=>$value){
+        $financial_summary = new MProgressFinancialSummary();
+        $financial_summary->m_project_progress_id = $request->m_project_progress_id;
+        $financial_summary->year = $request->FinancialSummaryYear[$key];
+        $financial_summary->allocation = $request->FinancialSummaryAllocation[$key];
+        $financial_summary->releases = $request->FinancialSummaryReleases[$key];
+        $financial_summary->expenditure = $request->FinancialSummaryExpenditure[$key];
+        $financial_summary->user_id = Auth::id();
+        $financial_summary->save();
+      }
+    $tabs = explode("_", $request->page_tabs);
+    $maintab = $tabs[0];
+    $innertab = $tabs[1];
+    return redirect()->back()->with(["maintab" => $maintab, "innertab" => $innertab, 'success' => 'Saved Successfully']);      
+  }
+  public function storeContractSummary(Request $request){
+      if(count(MProgressContractSummary::where('m_project_progress_id',$request->m_project_progress_id)->get()) > 0){
+          MProgressContractSummary::where('m_project_progress_id', $request->m_project_progress_id)->delete();
+      }
+      foreach($request->description_of_scope as $key=>$value){
+        $financial_summary = new MProgressContractSummary();
+        $financial_summary->m_project_progress_id = $request->m_project_progress_id;
+        $financial_summary->description_of_scope = $request->description_of_scope[$key];
+        $financial_summary->agreement_amount = $request->agreement_amount[$key];
+        $financial_summary->name_of_supplier = $request->name_of_supplier[$key];
+        $financial_summary->start_date = $request->start_date[$key];
+        $financial_summary->expected_completion_date = $request->expected_completion_date[$key];
+        $financial_summary->user_id = Auth::id();
+        $financial_summary->save();
+      }
+    $tabs = explode("_", $request->page_tabs);
+    $maintab = $tabs[0];
+    $innertab = $tabs[1];
+    return redirect()->back()->with(["maintab" => $maintab, "innertab" => $innertab, 'success' => 'Saved Successfully']);      
+  }
+
+  //Result Monitoring Tab
+
+  function saveWbsRemarks(Request $request){
+    switch($request->level){
+      case '1':
+      $kpi = MAssignedKpiLevel1::findOrFail($request->id);
+      $kpi->remarks = $request->remarks;
+      return response()->json($kpi->update());
+        break;
+
+      case '2':
+        $kpi = MAssignedKpiLevel2::findOrFail($request->id);
+        $kpi->remarks = $request->remarks;
+        return response()->json($kpi->update());
+        break;
+
+      case '3':
+        $kpi = MAssignedKpiLevel3::findOrFail($request->id);
+        $kpi->remarks = $request->remarks;
+        return response()->json($kpi->update());
+        break;
+
+      case '4':
+        $kpi = MAssignedKpiLevel4::findOrFail($request->id);
+        $kpi->remarks = $request->remarks;
+        return response()->json($kpi->update());
+        break;
+      default:
+        return false;
+    }
+    return false;
+  }
 }

@@ -212,7 +212,10 @@
         }
 
         .cke_editable {
-            height: 125px !important;
+            min-height: 125px !important;
+        }
+        .cke_textarea_inline  > ul {
+            padding-left:4%;
         }
     </style>
 
@@ -255,11 +258,11 @@
                         <b style="font-size:11px; font-weight:bold;">Observations</b></a>
                 </li>
                 <li class='nav-item'>
-                    <a class="nav-link FinancialSummary" data-toggle="tab" href="#FinancialSummary" role="tab" aria-expanded="false">
+                    <a class="nav-link FinancialSummary {{isset($innertab) && $innertab=='FinancialSummary' ? 'active' : ''}}" data-toggle="tab" href="#FinancialSummary" role="tab" aria-expanded="false">
                         <b style="font-size:11px; font-weight:bold;">Financial Summary</b></a>
                 </li>
                 <li class='nav-item'>
-                    <a class="nav-link ContactSummary" data-toggle="tab" href="#ContactSummary" role="tab" aria-expanded="false">
+                    <a class="nav-link {{isset($innertab) && $innertab=="ContactSummary" ? "active" : ""}} ContactSummary" data-toggle="tab" href="#ContactSummary" role="tab" aria-expanded="false">
                         <b style="font-size:11px; font-weight:bold;">Contract Summary</b></a>
                 </li>
             </ul>
@@ -642,7 +645,7 @@
                             <form action="{{route('saveMissues')}}" method="POST" class="serializeform">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="m_project_progress_id" value="{{$progresses->id}}">
-                                <input type="hidden" name="page_tabs" value="conduct_issue">
+                                <input type="hidden" name="page_tabs" value="conduct_risks">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered nowrap">
                                         <thead>
@@ -790,145 +793,127 @@
                             quam repellendus adipisci. Repellat sapiente asperiores
                             numquam beatae at distinctio quaerat reiciendis
                             repudiandae. -->
-                            <div class="progress clearfix mt2 clrornge" style="margin: 3% 0% 0%;">
+                            {{-- <div class="progress clearfix mt2 clrornge" style="margin: 3% 0% 0%;">
                                 <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span class="persontagetiQ" style="color:#fff !important;padding:0px !important;margin:0px !important;">25%</span></div>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="card-block">
                             <div class="col-md-12">
-                                <div class="dt-responsive table-responsive">
-                                    <style scoped media="screen">
-                                        .bg_sky {
-                                            background: #8abdd6e6;
-                                        }
+                                <form action="{{route('saveRisks')}}" method="Post">
+                                    {{ csrf_field() }}
+                                    <div class="dt-responsive table-responsive">
+                                        <input type="hidden" name="m_project_progress_id" value="{{$progresses->id}}">
+                                        <input type="hidden" name="page_tabs" value="conduct_HSE">
+                                        <style scoped media="screen">
+                                            .bg_sky {
+                                                background: #8abdd6e6;
+                                            }
 
-                                        .bg_yel {
-                                            background: #ffc110;
-                                        }
+                                            .bg_yel {
+                                                background: #ffc110;
+                                            }
 
-                                        .bg_br {
-                                            background: #7d641da6;
-                                        }
+                                            .bg_br {
+                                                background: #7d641da6;
+                                            }
 
-                                        .bg_bl {
-                                            background: #2f779ae6;
-                                        }
+                                            .bg_bl {
+                                                background: #2f779ae6;
+                                            }
 
-                                        .bg_gr {
-                                            background: #349634;
-                                        }
+                                            .bg_gr {
+                                                background: #349634;
+                                            }
 
-                                        .text_center {
-                                            text-align: center;
-                                        }
+                                            .text_center {
+                                                text-align: center;
+                                            }
 
-                                        th {
-                                            border: 1px solid #00000014;
-                                            padding: 1% 0%;
-                                            text-align: center;
-                                            text-transform: capitalize;
-                                        }
+                                            th {
+                                                border: 1px solid #00000014;
+                                                padding: 1% 0%;
+                                                text-align: center;
+                                                text-transform: capitalize;
+                                            }
 
-                                        td {
-                                            border: 1px solid #00000014;
-                                        }
+                                            td {
+                                                border: 1px solid #00000014;
+                                            }
 
-                                        .nobortop {
-                                            border-top: none !important;
-                                        }
+                                            .nobortop {
+                                                border-top: none !important;
+                                            }
 
-                                        .noborbottom {
-                                            border-bottom: none !important;
-                                        }
+                                            .noborbottom {
+                                                border-bottom: none !important;
+                                            }
 
-                                        .white {
-                                            color: #fff !important;
-                                        }
+                                            .white {
+                                                color: #fff !important;
+                                            }
 
-                                        .black {
-                                            color: #000 !important;
-                                        }
+                                            .black {
+                                                color: #000 !important;
+                                            }
 
-                                        .red {
-                                            color: red !important;
-                                        }
+                                            .red {
+                                                color: red !important;
+                                            }
 
-                                        select.form-control:not([size]):not([multiple]) {
-                                            padding: 0% !important;
-                                        }
-                                    </style>
-                                    <table class="col-md-12">
-                                        <thead>
-                                            <tr>
-                                                <th class="bg_sky noborbottom wd-5p" rowspan="2" colspan="1">
-                                                    SR#.
-                                                </th>
-                                                <th class="bg_sky noborbottom" rowspan="2" colspan="1">
-                                                    Activity
-                                                </th>
-                                                <th class="bg_sky noborbottom" rowspan="2" colspan="1">
-                                                    Risk event
-                                                </th>
-                                                <th class="bg_sky noborbottom" rowspan="2" colspan="1">
-                                                    Risk Type
-                                                </th>
-                                                <th class="bg_sky noborbottom" rowspan="2" colspan="1">
-                                                    Cost
-                                                </th>
-                                                <th class="bg_sky noborbottom" rowspan="2" colspan="1">
-                                                    probability
-                                                </th>
-                                                <th class="bg_sky noborbottom" rowspan="2">Impact</th>
-                                                <th class="bg_sky noborbottom" rowspan="2">Score</th>
-                                                <th class="bg_sky noborbottom" rowspan="2">
-                                                    Rating
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="riskmatrix">
-                                            <tr>
-                                                <td><input type="text" class="form-control"></td>
-                                                <td>
-                                                    <select class="form-control form-control-primary">
-                                                        <option value="" selected="" disabled="">Activity</option>
-                                                        <option value="1">Activity 1</option>
-                                                        <option value="2">Activity 2</option>
-                                                        <option value="3">Activity 3</option>
-                                                        <option value="4">Activity 4</option>
-                                                        <option value="5">Activity 5</option>
-                                                    </select>
-                                                </td>
-                                                <td><input type="text" class="form-control"></td>
-                                                <td><input type="text" class="form-control"></td>
-                                                <td><input type="text" class="form-control"></td>
-                                                <td>
-                                                    <select class="form-control form-control-primary">
-                                                        <option value="" selected="" disabled="">Probability</option>
-                                                        <option value="1">Probability 1</option>
-                                                        <option value="2">Probability 2</option>
-                                                        <option value="3">Probability 3</option>
-                                                        <option value="4">Probability 4</option>
-                                                        <option value="5">Probability 5</option>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <select class="form-control form-control-primary">
-                                                        <option value="" selected="" disabled="">Impact</option>
-                                                        <option value="1">Impact 1</option>
-                                                        <option value="2">Impact 2</option>
-                                                        <option value="3">Impact 3</option>
-                                                        <option value="4">Impact 4</option>
-                                                        <option value="5">Impact 5</option>
-                                                    </select>
-                                                </td>
-                                                <td><input type="text" class="form-control"></td>
-                                                <td><input type="text" class="form-control"></td>
-                                                <td><button class="btn btn-sm btn-success" type="button" id="add-more">+</button></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                            select.form-control:not([size]):not([multiple]) {
+                                                padding: 0% !important;
+                                            }
+                                        </style>
+                                        <table class="col-md-12">
+                                            <thead>
+                                                <tr>
+                                                    <th class="bg_sky noborbottom">
+                                                        Risk and Constraint
+                                                    </th>
+                                                    <th class="bg_sky noborbottom" >Impact</th>
+                                                    <th class="bg_sky noborbottom" >Probable Results</th>
+                                                    {{-- <th class="bg_sky noborbottom" rowspan="2">
+                                                        Rating
+                                                    </th> --}}
+                                                </tr>
+                                            </thead>
+                                            <tbody id="riskmatrix">
+                                                @foreach ($progresses->MProjectProgressRisk as $risks)
+                                                    <tr>
+                                                        <td><textarea name="risk_constraint[]" id="" cols="30" rows="1">{{$risks->risk_and_constraint}}</textarea></td>
+                                                        <td>
+                                                            <select name="impact[]" class="form-control form-control-primary">
+                                                                <option value="" disabled="">Select Impact</option>
+                                                                <option value="1" {{$risks->impact == "1" ? 'selected' :  ''}}>Low</option>
+                                                                <option value="2" {{$risks->impact == "2" ? 'selected' :  ''}}>Medium</option>
+                                                                <option value="3" {{$risks->impact == "3" ? 'selected' :  ''}}>High</option>
+                                                            </select>
+                                                        </td>
+                                                        <td><textarea name="results[]" id="" cols="30" rows="1">{{$risks->probable_results}}</textarea></td>
+                                                        <td><button class="btn btn-sm btn-danger" type="button" onClick="removerow(this)" >-</button></td>
+                                                    </tr>
+                                                @endforeach
+                                                <tr>
+                                                    <td><textarea name="risk_constraint[]" id="" cols="30" rows="1"></textarea></td>
+                                                    <td>
+                                                        <select name="impact[]" class="form-control form-control-primary">
+                                                            <option value="" selected disabled="">Select Impact</option>
+                                                            <option value="1">Low</option>
+                                                            <option value="2">Medium</option>
+                                                            <option value="3">High</option>
+                                                        </select>
+                                                    </td>
+                                                    <td><textarea name="results[]" id="" cols="30" rows="1"></textarea></td>
+                                                    <td><button class="btn btn-sm btn-success" type="button" id="add-more">+</button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
 
-                                </div>
+                                        <button class="btn pull-right" type="submit">Save Risks</button>
+                                    </div>
+                                    <div class="row">
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -1088,47 +1073,55 @@
                 </div>
 
                 <div class='tab-pane {{isset($innertab) && $innertab=="observation" ? "active" : ""}}' id="observations" role="tabpanel" aria-expanded="false">
-                    <form action="{{route('save_m_observations')}}" method="POST" class="border">
+                    <form action="{{route('save_m_observations')}}" method="POST" enctype="multipart/form-data" class="border">
                         {{csrf_field()}}
                         <input type="hidden" name="page_tabs" value="conduct_observation">
                         <input type="hidden" name="m_project_progress_id" value="{{$progresses->id}}">
-                        <h3>Observation</h3>
-                        <textarea name="observation" id="short_desc" rows="10" class="offset-md-1 col-md-10" placeholder="Your Oservation here Here...">
-                                @if(isset($m_observations->observation))
-                                {{$m_observations->observation}}
-                                @else
-                                Type your Observations Here...
-                                @endif
-                        </textarea>
+                        <h3 style="text-align:center">Observation</h3>
                         <hr>
-                        <h3>Recomendation</h3>
-                        <textarea name="recomendation" contenteditable="true" rows="10" id="short_recomend" placeholder="Your Recomendation Here..." tyle="height:200px;" class="offset-md-1 col-md-10">
-                            Type your Recomendation Here...
-                        </textarea>
+                        <textarea name="observation" id="short_desc" rows="10" class="offset-md-1 col-md-10" placeholder="Your Oservation here Here...">@if(isset($m_observations->observation)){{$m_observations->observation}}@endif</textarea>
+                        <hr>
+                        <h3 style="text-align:center" contenteditable="false">Recommendation </h3>
+                        <hr>
+                        <textarea name="recommendation" contenteditable="true" rows="10" id="short_recomend" placeholder="Your Recommendation Here..." style="height:200px;" class="offset-md-1 col-md-10">@if(isset($m_recommendation->recommendation)){{$m_recommendation->recommendation}}@endif</textarea>
                         <hr>
                         <h3>Pictorial Detail</h3>
                         <table class="col-md-12">
                             <thead>
                                 <tr>
-                                    <th>Select Image</th>
-                                    <th>Selected Image</th>
-                                    <th>Caption</th>
-                                    <th>Description Of Observation</th>
-                                    <th><button type="button" name="add[]" class=" form-control btn btn-success " id="addMoreImage" style="size:14px;">+</button></th>
+                                    <th style="width:13% !important;">Select Image</th>
+                                    <th style="width:13% !important;">Selected Image</th>
+                                    <th style="width:13% !important;">Caption</th>
+                                    <th style="width:13% !important;">Description Of Observation</th>
+                                    <th style="width:5% !important; padding:2%;"  ><button type="button" name="add[]" class=" form-control btn-sm btn-success " id="addMoreImage" >+</button></th>
                                 </tr>
                             </thead>
                             <tbody id="addMoreImageHere">
-                               
+                                
+                                @foreach ($pictorial_files as $pictorial_img)
+                                    <tr>
+                                        <input type="hidden" name="pictorial_id[{{$pictorial_img->id}}]" value="{{$pictorial_img->id}}">
+                                        <td> <input type='file' name="stored_file[{{$pictorial_img->id}}]" class="form-control" onchange="readURL(this);" value="{{asset('storage/uploads/monitoring/' . $progresses->id . '/pictorial_detail/'.$pictorial_img->stored_file)}}" /> </td> 
+                                        <td> <img class="blah form-control" src="{{asset('storage/uploads/monitoring/' . $progresses->id . '/pictorial_detail/'.$pictorial_img->stored_file)}}" width="100px" alt ="Observation-Image" /> </td> 
+                                        <td> <input type="text" class="form-control" name="caption[{{$pictorial_img->id}}]" placeholder="Caption" value="{{$pictorial_img->caption}}" > </td> 
+                                        <td> <textarea name="description[{{$pictorial_img->id}}]" class="form-control" id="" placeholder="Description" cols="30" rows="3" >{{$pictorial_img->description}}</textarea></td>
+                                        <td>
+                                            {{-- <button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button> --}}
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
 
                         <button class="btn btn-success float-right mt-5" type="submit">SAVE</button>
                     </form>
                 </div>
-                <div class='tab-pane' id="FinancialSummary" role="tabpanel" aria-expanded="false">
-                    <form action="" class="" method="POST">
+                <div class='tab-pane {{isset($innertab) && $innertab=="FinancialSummary" ? "active" : ""}}' id="FinancialSummary" role="tabpanel" aria-expanded="false">
+                    <form action="{{route('storeFinancialSummary')}}" class="" method="POST">
                         {{ csrf_field() }}
                         <div class="card-block">
+                            <input type="hidden" name="page_tabs" value="conduct_FinancialSummary">
+                            <input type="hidden" name="m_project_progress_id" value="{{$progresses->id}}">
                             <div class="col-md-12">
                                 <div class="table-responsive">
                                     <table class="table  table-bordered nowrap">
@@ -1142,19 +1135,41 @@
                                                 <th><button type="button" name="add[]" class=" form-control btn btn-success " id="addFinancialSummary" style="size:14px;">+</button></th>
                                             </tr>
                                         </thead>
+                                        @php
+                                            $_cls = 'nodisplay';
+                                        @endphp
                                         <tbody id="FinancialSummaryHere">
+                                            @foreach ($financial_summary as $financial)
+                                                <tr>
+                                                <td> <input type = "text" name = "FinancialSummaryYear[]" class="form-control" value="{{$financial->year}}" /></td>
+                                                    <td> <input type = "number" step="0.001" min=0 name = "FinancialSummaryAllocation[]" value="{{$financial->allocation}}" class="form-control" /></td>
+                                                    <td> <input type = "number" step="0.001" min=0 name = "FinancialSummaryReleases[]" value="{{$financial->releases}}" class="form-control" /></td>
+                                                    <td> <input type = "number" step="0.001" min=0 name = "FinancialSummaryExpenditure[]" value="{{$financial->expenditure}}" class="form-control" /></td>
+                                                    <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td>
+                                                </tr>                                                
+                                                @php
+                                                    $_cls = '';   
+                                                @endphp
+                                            @endforeach
                                         </tbody>
 
                                     </table>
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <button type="submit" class="btn btn-success pull-right {{$_cls}} FinancialSummaryBtn">Submit</button>
+                            </div>
+                        </div>
                     </form>
                 </div>
-                <div class='tab-pane' id="ContactSummary" role="tabpanel" aria-expanded="false">
-                    <form action="" class="" method="POST">
+                <div class='tab-pane {{isset($innertab) && $innertab=="ContactSummary" ? "active" : ""}}' id="ContactSummary" role="tabpanel" aria-expanded="false">
+                    <form action="{{route('storeContractSummary')}}" class="" method="POST">
                         {{ csrf_field() }}
                         <div class="card-block">
+                            <input type="hidden" name="page_tabs" value="conduct_ContactSummary">
+                            <input type="hidden" name="m_project_progress_id" value="{{$progresses->id}}">
                             <div class="col-md-12">
                                 <div class="table-responsive">
                                     <table class="table  table-bordered nowrap">
@@ -1163,17 +1178,32 @@
 
                                                 <th>Description Of scope</th>
                                                 <th>Agreement Amount (M)</th>
-                                                <th>Name of Supplier/ Contractor)</th>
+                                                <th>Name of Supplier/ Contractor</th>
                                                 <th>Start Date of work</th>
                                                 <th>Expected Completion Date of work</th>
                                                 <th><button type="button" name="add[]" class=" form-control btn btn-success " id="addContractSummary" style="size:14px;">+</button></th>
                                             </tr>
                                         </thead>
                                         <tbody id="ContractSummaryHere">
+                                            @foreach ($contract_summary as $contract)
+                                                <tr>
+                                                    <td> <input type = "text" name = "description_of_scope[]" class = "form-control" value="{{$contract->description_of_scope}}"/> </td>
+                                                    <td> <input type = "number" step="0.001" min=0 name = "agreement_amount[]" value="{{$contract->agreement_amount}}" class = "form-control"> </td>
+                                                    <td> <input type = "text" name = "name_of_supplier[]" class = "form-control" value="{{$contract->name_of_supplier}}" /> </td>
+                                                    <td> <input type = "date" name = "start_date[]" class = "form-control" value="{{$contract->start_date}}" /> </td>
+                                                    <td> <input type = "date" name = "expected_completion_date[]" class = "form-control" value="{{$contract->expected_completion_date}}" /> </td>
+                                                    <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
 
                                     </table>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <button type="submit" class="btn btn-success pull-right">Submit</button>
                             </div>
                         </div>
                     </form>
