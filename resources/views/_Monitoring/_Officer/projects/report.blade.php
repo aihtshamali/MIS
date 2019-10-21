@@ -1885,7 +1885,7 @@ function getProjectStatus($progress){
 
 
     });
-    // chart.legend = new AmCharts.Legend();
+    // chart.legend = new Am8+000harts.Legend();
 </script>
 
 <script src="https://www.amcharts.com/lib/4/core.js"></script>
