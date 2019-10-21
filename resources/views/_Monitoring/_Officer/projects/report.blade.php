@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="{{ asset('_monitoring/css/css/style.css')}}" />
     <link rel="stylesheet" href="{{ asset('_monitoring/css/css/jquery.mCustomScrollbar.css')}}" />
     <link rel="stylesheet" href="{{ asset('_monitoring/css/icon/material-design/css/material-design-iconic-font.min.css')}}" />
-    {{-- <link href="{{asset('lightRoom/lightgallery.css')}}" rel="stylesheet"> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
     <style>
         body {
@@ -729,7 +728,20 @@
                 color: #000;
             }
         
+        .Critical{
+           color: red;
+           font-weight: bold;
+        }
+        .Need,.Consideration{
+            background-color: yellow;
+           font-weight: bold;
 
+        }
+        .Within,.Defined,.Limits{
+            background-color: green;
+           font-weight: bold;
+
+        }
             #chartdivprogressgraphs {
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
                     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -802,15 +814,10 @@
         }
     </style>
     <script src="{{asset('lightRoom/picturefill.min.js')}}"></script>
-    {{-- <script src="{{asset('lightRoom/lightgallery-all.min.js')}}"></script> --}}
     <script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>
     <script src="{{asset('_monitoring/js/jquery/js/jquery.min.js')}}"></script>
     <script src="{{asset('_monitoring/js/jquery-ui/js/jquery-ui.min.js')}}"></script>
-    <script>
-        $(document).ready(function() {
-            $('#lightgallery').lightGallery();
-        });
-    </script>
+    
 </head>
 @php
 function getSeverity($num){
@@ -986,7 +993,7 @@ function getProjectStatus($progress){
                           <br>
                         @if($revisions->count())
                         @foreach ($revisions as $revision)
-                             <span style="color: Blue; ">
+                             <span style="color: Blue; font-weight:bold; ">
                             {{round($revision->cost,3)}} <small>Million PKR</small> ( Revised Cost ) <br>
                              </span>
                         @endforeach
@@ -1067,27 +1074,13 @@ function getProjectStatus($progress){
                     @if($item->MQuestionnaire->QuestionType->name == "PROJECT SCHEDULE DETAIL")
                     <tr>
                         {{-- {{dd($item->MQuestionnaire)}} --}}
-                        <td>{{$item->MQuestionnaire->question}}</td>
+                        <td colspan="2">{{$item->MQuestionnaire->question}}</td>
                         <td  style="text-align: center !important; vertical-align:middle !imporatnt;">
-                            {{-- {{$item->answer}} --}}
-                            <div class="checkbox-fade fade-in-success m-0">
-                                <label class="" >
-                                    YES <input {{$item->answer ? 'checked' : ''}} type="radio" class="scheduled_timeyes" >
-                                    <span class="cr">
-                                        <i class="cr-icon icofont icofont-ui-check txt-success"></i>
-                                    </span>
-                                </label>
-                            </div>
-                        </td>
-                        <td  style="text-align: center !important; vertical-align:middle !imporatnt;">
-                            <div class="checkbox-fade fade-in-danger m-0">
-                                <label class="">
-                                NO <input type="radio" class="scheduled_timeyes" {{$item->answer ? '' : 'checked'}}>
-                                    <span class="cr">
-                                        <i class="cr-icon icofont icofont-ui-check txt-danger"></i>
-                                    </span>
-                                </label>
-                            </div>
+                             @if($item->answer == "1")
+                        <span style="font-weight:bold; color:green;"> Yes</span>
+                        @elseif($item->answer == "0")
+                        <span style="font-weight:bold; color:red;"> No</span>
+                        @endif
                         </td>
                         <td>
                             @if($item->remarks)
@@ -1216,35 +1209,16 @@ function getProjectStatus($progress){
                  @foreach ($project->MAssignedQuestionnaire as $item)
                 @if($item->MQuestionnaire->QuestionType->name == "PROJECT COST DETAIL")
                  <tr>
-                    {{-- <td>
-                        @php
-                     echo ++$i;    
-                    @endphp
-                    </td> --}}
+                    
                     <td colspan="2"> {{$item->MQuestionnaire->question}}</td>
-                    <td  style="text-align: center !important; vertical-align:middle !imporatnt;">
-                        {{-- {{$item->answer}} --}}
-                         <div class="checkbox-fade fade-in-success m-0">
-                           <input type="hidden" name="" value="">
-                            <label class="">
-                                YES <input type="radio" class="scheduled_timeyes" checked name="" value="" id="">
-                                <span class="cr">
-                                    <i class="cr-icon icofont icofont-ui-check txt-success"></i>
-                                </span>
-                            </label>
-                         </div>
+                    <td style="text-align: center !important; vertical-align:middle !imporatnt;"> 
+                        @if($item->answer == "1")
+                          <span style="font-weight:bold; color:green;"> Yes</span>
+                        @elseif($item->answer == "0")
+                        <span style="font-weight:bold; color:red;"> No</span>
+                        @endif
                     </td>
-                    <td  style="text-align: center !important; vertical-align:middle !imporatnt;">
-                         <div class="checkbox-fade fade-in-danger m-0">
-                           <input type="hidden" name="" value="">
-                            <label class="">
-                               NO <input type="radio" class="scheduled_timeyes" checked name="" value="" id="">
-                                <span class="cr">
-                                    <i class="cr-icon icofont icofont-ui-check txt-danger"></i>
-                                </span>
-                            </label>
-                         </div>
-                    </td>
+                  
                     <td colspan="3">
                          @if($item->remarks)
                             {{$item->remarks}}
@@ -1815,6 +1789,32 @@ function getProjectStatus($progress){
                     {!! $project->MProgressRecommendation->recommendation !!}
                 @endif
                 {{-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique illum iusto ipsam repellendus cupiditate ut odio nisi temporibus ab, beatae perferendis fuga repudiandae in qui amet itaque. Eligendi, perspiciatis ratione. --}}
+            </div>
+        </div>
+        <div class="clearfix breakpageBefore">
+            <h3 class="redTxt">
+                18. IMAGES
+            </h3>
+            <div class="row">
+               <div class="col-md-4">
+                    <figure>
+                        <img src="{{asset('storage/uploads/monitoring/'.$project->id.'/pictorial_detail/'.$item->stored_file)}}" width="100%" height="20%"  alt="">
+                        <figcaption style="margin-top:1%;"><b><small>Fig @php echo $j ;@endphp </small>:</b>{{$item->caption}}</figcaption>
+                    </figure>
+               </div>
+                  <div class="col-md-4 ">
+                    <figure>
+                        <img src="{{asset('storage/uploads/monitoring/'.$project->id.'/pictorial_detail/'.$item->stored_file)}}" width="100%" height="20%"  alt="">
+                        <figcaption style="margin-top:1%;"><b><small>Fig @php echo $j ;@endphp </small>:</b>{{$item->caption}}</figcaption>
+                    </figure>
+               </div>
+                <div class="col-md-4 ">
+                    <figure>
+                        <img src="{{asset('storage/uploads/monitoring/'.$project->id.'/pictorial_detail/'.$item->stored_file)}}" width="100%" height="20%"  alt="">
+                        <figcaption style="margin-top:1%;"><b><small>Fig @php echo $j ;@endphp </small>:</b>{{$item->caption}}</figcaption>
+                    </figure>
+               </div>
+
             </div>
         </div>
     </div>
