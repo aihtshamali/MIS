@@ -600,7 +600,7 @@
         #chartdiv_FinancialprogressCost {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
                 "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-            /* width: 1000px; */
+            width: 800px;
             height: 400px;
         }
 
@@ -608,7 +608,7 @@
 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
                 "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-            /* width: 1000px; */
+            width: 800px;
             height: 400px;
         }
 
@@ -745,7 +745,7 @@
             #chartdivprogressgraphs {
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
                     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-                width: 800px;
+                width: 1000px;
                 height: 400px;
             }
 
@@ -768,7 +768,7 @@
             #chartFinancialProgressagainstallocation {
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
                     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-              width: 1000px;
+              width: 800px;
                 height: 400px;
             }
             .labelgraphs{
@@ -877,8 +877,8 @@ function getProjectStatus($progress){
                 </div>
                 @if (count($project->ReportImage->where('title_image',1)))
                 <center>
-                   {{-- <img src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$project->id.'/'.$project->ReportImage->where('title_image',1)->first()->MAppAttachment->project_attachement}}" alt="title image" class="mainpageimg pdtop1p" style="width: 90% !important;max-height: 500px;"> --}}
-                    <img src="{{asset('storage/uploads/monitoring/'.$project->id.'/'.$project->ReportImage->where('title_image',1)->first()->MAppAttachment->project_attachement)}}" alt="title image" class="mainpageimg pdtop1p" style="width: 90% !important; max-height: 500px;">
+                   <img src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$project->id.'/'.$project->ReportImage->where('title_image',1)->first()->MAppAttachment->project_attachement}}" alt="title image" class="mainpageimg pdtop1p" style="width: 90% !important;max-height: 500px;">
+                    {{-- <img src="{{asset('storage/uploads/monitoring/'.$project->id.'/'.$project->ReportImage->where('title_image',1)->first()->MAppAttachment->project_attachement)}}" alt="title image" class="mainpageimg pdtop1p" style="width: 90% !important; max-height: 500px;"> --}}
                 </center>
                 @endif
                 <h4 class=" paddingmainpage">
@@ -1068,7 +1068,7 @@ function getProjectStatus($progress){
                          @endif
                     </td>
                 </tr>
-                <tr><th colspan="4" style="background:lightgrey;">Questions Related to Project Schedule Details</th></tr>
+                {{-- <tr><th colspan="4" style="background:lightgrey;">Questions Related to Project Schedule Details</th></tr> --}}
                 {{-- {{dd($project->MAssignedQuestionnaire[0]->MQuestionnaire->QuestionType->name)}} --}}
                 @foreach ($project->MAssignedQuestionnaire as $item)
                     @if($item->MQuestionnaire->QuestionType->name == "PROJECT SCHEDULE DETAIL")
@@ -1094,58 +1094,7 @@ function getProjectStatus($progress){
                   @endforeach
            
                 </table>
-            {{-- <table class="col-md-12">
-              <thead>
-                  <tr>
-                      <th>Questions</th>
-                      <th>Yes</th>
-                      <th>No</th>
-                      <th>Reason</th>
-
-                  </tr>
-              </thead>
-              <tbody>
-                  @php
-                   $i=0;   
-                  @endphp
-                  @foreach ($project->MAssignedQuestionnaire as $item)
-                  <tr>
-                   
-                    <td>{{$item->MQuestionnaire->question}}</td>
-                    <td  style="text-align: center !important; vertical-align:middle !imporatnt;">
-                         <div class="checkbox-fade fade-in-success m-0">
-                           <input type="hidden" name="" value="">
-                            <label class="">
-                                <input type="radio" class="scheduled_timeyes" checked name="" value="" id="">
-                                <span class="cr">
-                                    <i class="cr-icon icofont icofont-ui-check txt-success"></i>
-                                </span>
-                            </label>
-                         </div>
-                    </td>
-                    <td  style="text-align: center !important; vertical-align:middle !imporatnt;">
-                         <div class="checkbox-fade fade-in-danger m-0">
-                           <input type="hidden" name="" value="">
-                            <label class="">
-                                <input type="radio" class="scheduled_timeyes" checked name="" value="" id="">
-                                <span class="cr">
-                                    <i class="cr-icon icofont icofont-ui-check txt-danger"></i>
-                                </span>
-                            </label>
-                         </div>
-                    </td>
-                    <td>
-                         @if($item->remarks)
-                         {{$item->remarks}}
-                         @else
-                         <span class="notadded"><b>Not Added</b></span>
-                         @endif 
-                    </td>
-                  </tr>
-                  @endforeach
-                 
-              </tbody>
-            </table> --}}
+     
            
         </div>
         <div class="clearfix breakpage ">
@@ -1205,7 +1154,9 @@ function getProjectStatus($progress){
                         {{round(calculateMFinancialProgressWithPc1Cost($project->id),2)}}
                     </td>
                 </tr>
-                <tr><th colspan="6" style="background:lightgrey;">Questions Related to Project Cost Details</th></tr>
+                {{-- <tr>
+                    <th colspan="6" style="background:lightgrey;">Questions Related to Project Cost Details</th>
+                </tr> --}}
                  @foreach ($project->MAssignedQuestionnaire as $item)
                 @if($item->MQuestionnaire->QuestionType->name == "PROJECT COST DETAIL")
                  <tr>
@@ -1330,7 +1281,7 @@ function getProjectStatus($progress){
             <table class="table wbs-table table-bordered w-auto " >
               <thead>
                 <th>WBS</th>
-                <th style="width:5%">Physical Progress (%)</th>
+                <th style="width:10%">Physical Progress (%)</th>
                 <th>Remarks</th>
               </thead>
               <tbody>
@@ -1766,7 +1717,7 @@ function getProjectStatus($progress){
                         <tr>
                             <td colspan="2">
                                 <figure>
-                                    <img src="{{asset('storage/uploads/monitoring/'.$project->id.'/pictorial_detail/'.$item->stored_file)}}" width="100%" height="30%"  alt="">
+                                    <img src="{{asset('http://172.16.10.14/storage/uploads/monitoring/'.$project->id.'/pictorial_detail/'.$item->stored_file)}}" width="100%" height="30%"  alt="">
                                     <figcaption style="margin-top:1%;"><b><small>Fig @php echo $j ;@endphp </small>:</b>{{$item->caption}}</figcaption>
                                 </figure>
                             </td>
@@ -1795,27 +1746,28 @@ function getProjectStatus($progress){
             <h3 class="redTxt">
                 18. IMAGES
             </h3>
-            <div class="row">
+            <div class="col-md-12">
+                 <ul>
+        <?php $i = 1; ?>
+        @foreach ($project->ReportImage->where('title_image',0) as $attachment)
+        <li class="col-xs-6 col-sm-4 col-md-3" data-responsive="" data-src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->MAppAttachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" data-sub-html="<h1>Date</h1><p>{{date('d M Y',strtotime($attachment->created_at))}} </p>">
+            <a href="">
+                <b class="float-left">#: {{$i++}}</b>
+                <img class="img-responsive" width="1000px" height="10%" src="{{'http://172.16.10.14/storage/uploads/monitoring/'.$attachment->m_project_progress_id.'/'.$attachment->MAppAttachment->project_attachement}}?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
+                <b class="float-right" style="padding:0% 10%">Date: {{date('d M Y H:i:s',strtotime($attachment->created_at))}}<br> Location: ({{$attachment->MAppAttachment->longitude}},{{$attachment->MAppAttachment->latitude}})</b>
+            </a>
+        </li>
+        @endforeach
+    </ul>
+            </div>
+            {{-- <div class="row">
                <div class="col-md-4">
                     <figure>
-                        <img src="{{asset('storage/uploads/monitoring/'.$project->id.'/pictorial_detail/'.$item->stored_file)}}" width="100%" height="20%"  alt="">
+                        <img src="{{asset('http://172.16.10.14/storage/uploads/monitoring/'.$project->id.'/pictorial_detail/'.$item->stored_file)}}" width="100%" height="20%"  alt="">
                         <figcaption style="margin-top:1%;"><b><small>Fig @php echo $j ;@endphp </small>:</b>{{$item->caption}}</figcaption>
                     </figure>
                </div>
-                  <div class="col-md-4 ">
-                    <figure>
-                        <img src="{{asset('storage/uploads/monitoring/'.$project->id.'/pictorial_detail/'.$item->stored_file)}}" width="100%" height="20%"  alt="">
-                        <figcaption style="margin-top:1%;"><b><small>Fig @php echo $j ;@endphp </small>:</b>{{$item->caption}}</figcaption>
-                    </figure>
-               </div>
-                <div class="col-md-4 ">
-                    <figure>
-                        <img src="{{asset('storage/uploads/monitoring/'.$project->id.'/pictorial_detail/'.$item->stored_file)}}" width="100%" height="20%"  alt="">
-                        <figcaption style="margin-top:1%;"><b><small>Fig @php echo $j ;@endphp </small>:</b>{{$item->caption}}</figcaption>
-                    </figure>
-               </div>
-
-            </div>
+            </div> --}}
         </div>
     </div>
 
