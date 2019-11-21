@@ -2144,6 +2144,10 @@ class OfficerController extends Controller
           // dir doesn't exist, make it
           mkdir('storage/uploads/monitoring/');
         }
+        if (!is_dir('storage/uploads/monitoring/'.$request->m_project_progress_id.'/')) {
+          // dir doesn't exist, make it
+          mkdir('storage/uploads/monitoring/'.$request->m_project_progress_id.'/');
+        }
         $imgs->store('public/uploads/monitoring/'.$request->m_project_progress_id.'/');
           $data->project_attachement=$imgs->hashName();
           // $data->project_attachement=base64_encode(file_get_contents($file_path));
