@@ -49,7 +49,7 @@
                             <th style="width:25% !important;">Project Name</th>
                             <th>Project Officers</th>
                             <th>SNE</th>
-                            <th style="width:15% !important;">Subsectors</th>
+                            <th style="width:12% !important;">Subsectors</th>
                             <th>Date Start</th>
                             <th>Date End</th>
                             <th>Score</th>

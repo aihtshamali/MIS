@@ -114,9 +114,11 @@
                                                     </td>
                                                     <td>{{$p_doc->attachment_name}}</td>
                                                     <td>
-                                                        <a href="{{asset('storage/uploads/projects/monitoring_attachments/'.$p_doc->attachment_name.'.'.$p_doc->type)}}" download> 
-                                                            <i class="fa fa-file-{{$icons[$p_doc->type]}}-o fa-1x text-center" title="{{$p_doc->attachment_name }}" /></i>    
-                                                        </a>
+                                                        
+
+                                                        <a href="{{asset('storage/uploads/monitoring/'.$monitoringProjectId.'/'.$p_doc->project_attachement)}}" download> 
+                                                            <i class="fa fa-file-{{$icons[$p_doc->type]}}-o fa-1x text-center" title="{{$p_doc->attachment_name }}" ></i>    
+                                                    </a>
                                                     </td>
                                                     <td>{{date('d-F-Y | H:i:s', strtotime($p_doc->created_at))}}</td>
                                                 </tr>
@@ -684,15 +686,9 @@
                                         <div class="col-md-4">
                                             <input name="cost[]" id="" class="col-md-11 float-right form-control" placeholder="Cost" type="text" style="text-align:center;border: 1px solid #807d7d8a !important;padding: 3.5% 0% !important;" value="">
                                         </div>
-<<<<<<< HEAD
-                                        {{-- <div class="col-md-2">
-                                            <input name="weightage[]" id="" type="number" class="col-md-11 float-right form-control" placeholder="Weightage" style="text-align:center;border: 1px solid #807d7d8a !important;padding: 7% 0% 7% 0% !important;" value="">
-                                        </div> --}}
-=======
                                         <!-- <div class="col-md-2">
                                             <input name="weightage[]" id="" type="number" class="col-md-11 float-right form-control" placeholder="Weightage" style="text-align:center;border: 1px solid #807d7d8a !important;padding: 7% 0% 7% 0% !important;" value="">
                                         </div> -->
->>>>>>> ba3a3faabe2e4e6586015671798892fd424c1e08
                                     </div>
                                     <div class="col-sm-1 text_center">
                                         <button class="btn btn-sm btn-info" type="button" id="CloneUserKPI">+</button>

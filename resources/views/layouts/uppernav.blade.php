@@ -363,23 +363,25 @@
     // })
 </script>
 
-<script>
-    $(document).ready(function() {
-        $('#example1').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                'pageLength', 'copy', 'csv', 'excel', 'pdf', 'print'
-            ]
-
-        });
-        $('#example2').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                'pageLength', 'copy', 'csv', 'excel', 'pdf', 'print'
-            ]
-
-        });
-    });
+<script> 
+   $(document).ready(function() 
+   {
+    $('#example1').DataTable( {
+       dom: 'Bfrtip',
+        buttons: [
+           'pageLength', 'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+          "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+    } );
+     $('#example2').DataTable( {
+       dom: 'Bfrtip',
+        buttons: [
+           'pageLength', 'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+          "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+        
+    } );
+} );
 </script>
 
 </html>

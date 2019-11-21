@@ -2,6 +2,54 @@
 var oc = 1;
 var compopt = "";
 $(document).ready(function () {
+
+  // Save/Update Remarks to DB
+
+  $('textarea[name="remarks"]').on('change',function(){
+    axios.post('/Monitorofficer/saveWbsRemarks',{
+      'id': $(this).data('id'),
+      'remarks':$(this).val(),
+      'level':$(this).data('level')
+    }).then((response)=>{
+      if(response.data){
+        toast({
+          type: 'success',
+          title: 'Remarks has been saved!'
+        })
+      }else{
+        toast({
+          type: 'error',
+          title: 'Something went wrong!'
+        })
+      }
+      console.log(response)
+    }).catch(function(error){
+      console.log('Error: ',error)
+      toast({
+        type: 'error',
+        title: error
+      })
+    })
+  })
+
+
+//collapse WBS Table in result Monitoring
+  $(".collapseThisTr").click(function () {
+    var accor_id = $(this).data('class');
+    var accor_elm = '';
+    accor_elm = "." + accor_id;
+    if ($(accor_elm).is(':visible')) {
+      $(accor_elm).hide('300');
+    } else {
+      $(accor_elm).toggle('slow');
+      $(".accrdn_class").not(accor_elm).hide('300');
+    }
+  });
+
+$('.caret').click(function (e) {$(this).siblings('ul.nested').toggle() });
+
+
+
   $('[data-toggle="popover"]').popover();
 
   // $(".planNav").click(function () {
@@ -453,6 +501,9 @@ $(document).ready(function () {
     $(".resultNavBar").hide();
     $("#profile1").hide();
     $("#observations").hide();
+    $("#Questionnaire").hide();
+    $("#FinancialSummary").hide();
+    $("#ContactSummary").hide();
     $("#home1").hide();
   }
 
@@ -507,6 +558,17 @@ $(document).ready(function () {
     hideall();
     $("#CostingDiv").show();
   });
+  $("#btnQuestionnaire").on("click", function () {
+    hideall();
+    $("#profile1").hide();
+    $(".r_monitoringDivv").show();
+    $("#r_monitoring").show();
+    $(".resultNavBar").show();
+    $("#home1").hide();
+    $("#Questionnaire").show();
+    $("#home1").removeClass("active");
+    $("#profile1").removeClass("active");
+  });
   $("#btnprofile1").on("click", function () {
     hideall();
     $("#profile1").show();
@@ -529,6 +591,18 @@ $(document).ready(function () {
     hideall();
     $("#procu").show();
   });
+  // $(".scheduled_timeyes").on("click", function () {
+  //   $("#scheduled_time").show();
+  // });
+  // $(".scheduled_timeno").on("click", function () {
+  //   $("#scheduled_time").hide();
+  // });
+  // $(".escalationYes").on("click", function () {
+  //   $("#escalationYes").show();
+  // });
+  // $(".escalationNo").on("click", function () {
+  //   $("#escalationYes").hide();
+  // });
   // $('#did').on('click', function () {
   //     hideall();
   //     $('#CostingDiv').show();
@@ -691,6 +765,16 @@ $(document).ready(function () {
     hideall();
     $("#observations").show();
   });
+  $(".FinancialSummary").on("click", function () {
+    hideallmaintabs();
+    hideall();
+    $("#FinancialSummary").show();
+  });
+  $(".ContactSummary").on("click", function () {
+    hideallmaintabs();
+    hideall();
+    $("#ContactSummary").show();
+  });
 });
 
 // document.querySelector('.alert-success-msg').onclick = function(){
@@ -762,6 +846,56 @@ $("button#addmoreexecuting").click(function (e) {
                     <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td></tr>`;
   $("#Executingstakeholders").append(add_stakeholder);
 });
+$("button#addFinancialSummary").click(function (e) {
+  var add_stakeholder =
+    `<tr>
+    <td> <input type = "text" name = "FinancialSummaryYear[]" class="form-control" /></td>
+    <td> <input type = "number" step="0.001" min=0 name = "FinancialSummaryAllocation[]" class="form-control" /></td>
+    <td> <input type = "number" step="0.001" min=0 name = "FinancialSummaryReleases[]" class="form-control" /></td>
+    <td> <input type = "number" step="0.001" min=0 name = "FinancialSummaryExpenditure[]" class="form-control" /></td>
+    <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td>
+    </tr>`;
+  $("#FinancialSummaryHere").append(add_stakeholder);
+  $('button.FinancialSummaryBtn').show();
+});
+$("button#addContractSummary").click(function (e) {
+  var i=0;
+  var add_stakeholder =
+    `<tr>
+      <td> <input type = "text" name = "description_of_scope[]" class = "form-control" / > </td>
+      <td> <input type = "number" step="0.001" min=0 name = "agreement_amount[]" class = "form-control" / > </td>
+      <td> <input type = "text" name = "name_of_supplier[]" class = "form-control" / > </td>
+      <td> <input type = "date" name = "start_date[]" class = "form-control" / > </td>
+      <td> <input type = "date" name = "expected_completion_date[]" class = "form-control" / > </td>
+      <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td>
+    </tr>`;
+  $("#ContractSummaryHere").append(add_stakeholder);
+});
+$("button#addMoreImage").click(function (e) {
+  var i=0;
+  var add_stakeholder =
+    `<tr>
+      <td> <input name="stored_file[]" class="form-control" type='file' onchange="readURL(this);" /> </td> 
+      <td> <img class="blah form-control" src="/img/180.png" width="100px" alt ="Observation-Image" /> </td> 
+      <td> <input type="text" class="form-control" name="caption[]" placeholder="Caption" > </td> 
+      <td> <textarea name="description[]" class="form-control" placeholder="Description" cols="30" rows="3" ></textarea></td>
+      <td><button type="button" class=" form-control btn btn-danger btn-outline-danger" onclick="removerow(this)" name="remove[]" style="size:14px;">-</button></td>
+    </tr>`;
+  $("#addMoreImageHere").append(add_stakeholder);
+});
+function readURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    
+    reader.onload = function (e) {
+      $(input).parent().next().children('.blah').attr('src', e.target.result);
+      // $('.blah')
+      //   .attr('src', e.target.result);
+    };
+
+    reader.readAsDataURL(input.files[0]);
+  }
+}
 var Ea = "";
 
 function executingAgencyforCM(agencies) {
@@ -862,45 +996,19 @@ $("button#add-more-issues").click(function (e) {
   // $(".select2-hidden-accessible").last().css("display", "none");
 });
 $("button#add-more").click(function (e) {
-  var add_risks = `<tr>
-                <td><input type="text" class="form-control"></td>'
-                <td>
-                  <select class="form-control form-control-primary">
-                    <option value="" selected="" disabled="">Activity</option>
-                    <option value="1">Activity 1</option>
-                    <option value="2">Activity 2</option>
-                    <option value="3">Activity 3</option>
-                    <option value="4">Activity 4</option>
-                    <option value="5">Activity 5</option>
-                  </select>
-                </td>
-                <td><input type="text"  class="form-control"></td>'
-                <td><input type="text" class="form-control"></td>'
-                <td><input type="text" class="form-control"></td>'
-                <td>
-                  <select class="form-control form-control-primary">
-                    <option value="" selected="" disabled="">Probability</option>
-                    <option value="1">Probability 1</option>
-                    <option value="2">Probability 2</option>
-                    <option value="3">Probability 3</option>
-                    <option value="4">Probability 4</option>
-                    <option value="5">Probability 5</option>
-                  </select>
-                </td>
-                <td>
-                  <select class="form-control form-control-primary">
-                    <option value="" selected="" disabled="">Impact</option>
-                    <option value="1">Impact 1</option>
-                    <option value="2">Impact 2</option>
-                    <option value="3">Impact 3</option>
-                    <option value="4">Impact 4</option>
-                    <option value="5">Impact 5</option>
-                  </select>
-                </td>
-                <td><input type="text" class="form-control"></td>'
-                <td><input type="text" class="form-control"></td>'
-                <td><button class="btn btn-sm btn-danger" id="remove" onclick="removerow(this)" name="remove[]" type="button">-</button></td>'
-                </tr>`;
+var add_risks = `<tr>
+                  <td><textarea name="risk_constraint[]" id="" cols="30" rows="1"></textarea></td>
+                  <td>
+                      <select name="impact[]" class="form-control form-control-primary">
+                          <option value="" selected disabled="">Select Impact</option>
+                          <option value="1">Low</option>
+                          <option value="2">Medium</option>
+                          <option value="3">High</option>
+                      </select>
+                  </td>
+                  <td><textarea name="results[]" id="" cols="30" rows="1"></textarea></td>
+                  <td><button class="btn btn-sm btn-danger" onClick="removerow(this)" type="button">-</button></td>
+              </tr>`;
   $("#riskmatrix").append(add_risks);
 });
 var countactivity = 0;

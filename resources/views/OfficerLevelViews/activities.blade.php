@@ -96,6 +96,21 @@
     margin-top: 10px;
     height: 30px;
   }
+  .detailTab{
+    
+margin-top: 2%;
+  }
+  .detailTab th,.detailTab td {
+     
+        vertical-align: middle !important;
+        text-align:left;
+         /* border: 1px solid #999; */
+            
+        /* width:20% !important; */
+            padding:-2% !important;
+            margin:-2% !important;
+        }
+
   .fileprogress{display: none}
   .bar { background-color: #B4F5B4; width:0%; height:20px; border-radius: 3px; }
   .percent { position:absolute; display:inline-block; top:3px; left:48%; }
@@ -158,30 +173,120 @@
           <div class="box1 box-warning">
 
             <div class="box-header with-border">
-              <p>
-                Project Number : <b> {{$project_data->Project->project_no}} </b><br>
-              </p>
-              <p >
-                Project Name :<b> {{$project_data->Project->title}}  </b><br>
-              </p>
-              <p>
-                Project Score :<b> {{ round($project_data->Project->score,2,PHP_ROUND_HALF_UP) }}</b>
-              </p>
+              <table class="table table-borderd compact detailTab col-md-12">
+                
+                <tr>
+                  <th style="width:10%;">Project #</th>
+                  <td style="width:15%;" >{{$project_data->Project->project_no}}</td>
+                  <th style="width:10%;">Project Title</th>
+                  <td style="width:30%;">{{$project_data->Project->title}}</td>
+                  <th>Project Members</th>
+                   <td>
+                        @foreach ($project_data->AssignedProjectTeam as $team)
+                        @if ($team->team_lead==1)
+                          <span ><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}" style="font-weight:bold; color:red">{{$team->user->first_name}}  {{$team->user->last_name}}</a></span>
+                        @else
+                          <span class=""><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}">{{$team->user->first_name}} {{$team->user->last_name}}</a></span>
+                        @endif
+                      @endforeach
+                </td>
+                </tr>
+                <tr>
+                    <th>GS/ADP #</th>
+                    <td >
+                      {{$project_data->Project->ADP}} / {{$project_data->Project->financial_year}}
+                    </td>
+                    <th>Location</th>
+                    <td>
+                      @foreach ($project_data->Project->AssignedDistricts as $district)
+                          {{$district->District->name}}<br>
+                          @endforeach
+                    </td>               
+                    <th>SNE</th>
+                    <td> {{ $project_data->Project->ProjectDetail->sne }}</td>
+                </tr>
+                <tr>
+                  <th>Sector(s) & Subsector(s)</th>
+                  <td>
+                    @foreach ($project_data->Project->AssignedSubSectors as $subsct)
+                      {{$subsct->SubSector->Sector->name}}
+                    @endforeach
+                    -
+                     @foreach ($project_data->Project->AssignedSubSectors as $subsct)
+                      {{$subsct->SubSector->name}} <br>
+                    @endforeach
+                  </td>
+                  <th>Sponsoring Department</th>
+                  <td> 
+                    @foreach ($project_data->Project->AssignedSponsoringAgencies as $SponsoringAgency)
+                        {{$SponsoringAgency->SponsoringAgency->name}}<br>
+                      @endforeach
+                  </td>
+                  <th>Executing Department</th>
+                  <td>
+                      @foreach ($project_data->Project->AssignedExecutingAgencies as $ExecutingAgency)
+                        {{$ExecutingAgency->ExecutingAgency->name}}<br>
+                      @endforeach
+                  </td>
+                 
+                </tr>
+                <tr>
+                   <th>
+                    Approving Forum 
+                  </th>
+                  <td>
+                       {{$project_data->Project->ProjectDetail->ApprovingForum->name}}
+                  </td>
+                  <th>Original Cost</th>
+                  <td>
+                    {{round($project_data->Project->ProjectDetail->orignal_cost,3,PHP_ROUND_HALF_UP)}} Million PKR
+                  </td>
+                  <th>Revised Cost <br> (if any)</th>
+                  <td>
+                     @foreach ($project_data->Project->RevisedApprovedCost as $revised_cost)
+                        {{round($revised_cost->cost,3,PHP_ROUND_HALF_UP)}}
+                        @if(last($project_data->Project->RevisedApprovedCost->toArray())['id'] != $revised_cost->id)
+                          -
+                        @endif
+                      @endforeach
+                  </td>
+                </tr>
+                <tr>
+                  <th>Planned Dates & Gestation Period</th>
+                  <td>{{date('d-M-y',strtotime($project_data->Project->ProjectDetail->planned_start_date))}} 
+                  <b style="margin-left: 4%;margin-right: 4%;">To</b>  {{date('d-M-y',strtotime($project_data->Project->ProjectDetail->planned_end_date))}}
+                <br>
+                 @php
+                      $interval = date_diff(date_create(date('d-M-y',strtotime($project_data->Project->ProjectDetail->planned_start_date))), 
+                                            date_create(date('d-M-y',strtotime($project_data->Project->ProjectDetail->planned_end_date))))->format('%y Year %m Month %d Day ');
+                      // $duration=$interval->format();
+                    @endphp
+                   <span style="background:aquamarine; padding-left:3%; padding-right:3%;"> {{$interval}}</span>
+                </td>
+                 
+                  <th>Revised Dates</th>
+                  <td>
+                   {{date('d-M-y',strtotime($project_data->Project->ProjectDetail->revised_start_date))}}
+                  <b style="margin-left: 4%;margin-right: 4%;">To</b>
+                    @foreach ($project_data->Project->RevisedEndDate as $revised_date)
+                      {{date('d-M-y',strtotime($revised_date->end_date))}}
+                      @if(last($project_data->Project->RevisedEndDate->toArray())['id'] != $revised_date->id)
+                        -
+                      @endif
+                    @endforeach
+                  </td>
+                 
+                </tr>
+                {{-- <tr>
+                  <th></th>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th></th>
+                  <td></td>
+                </tr> --}}
 
-              <p>
-                Project Members :
-                <b>
-                  @foreach ($project_data->AssignedProjectTeam as $member)
-                    {{$member->User->first_name}} {{$member->User->last_name}},
-                  @endforeach
-                </b>
-              <br>
-            </p>
-            <p style="background:red;color:white">
-              SNE : <b>
-                {{ $project_data->Project->ProjectDetail->sne }}
-              </b>
-            </p>
+              </table>
             <div class="box-tools pull-right">
               {{-- <button  href="#" type="button" class="btn btn-xs btn-primary"> EDIT</button> --}}
               <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
