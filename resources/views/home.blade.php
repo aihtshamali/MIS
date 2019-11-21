@@ -294,6 +294,7 @@ Home Page | DGME MIS
                         <p>Visit Evaluation</p>
                     </a>
                 </div>
+                
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
                     <a href="{{route('dispatchLetterViews')}}" class="tile purple">
                         <h3 class="title">Dispatch Letter(s)</h3>
@@ -301,7 +302,7 @@ Home Page | DGME MIS
                         <p>Visit Dispatch Letter</p>
                     </a>
                 </div>
-                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.7s">
+                <!-- <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.7s">
                     <a href="" class="tile green">
                         <h3 class="title">TPV(s)</h3>
                         <hr />
@@ -314,7 +315,7 @@ Home Page | DGME MIS
                         <hr />
                         <p>Visit Inquires</p>
                     </a>
-                </div>
+                </div> -->
                 <!-- <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.9s">
                     <a href="{route('trip.create')}}" class="tile orange">
                         <h3 class="title">Plan My Trip</h3>
@@ -373,36 +374,32 @@ Home Page | DGME MIS
                   </a>
                 </div> -->
                 @endrole
-                @role('transportofficer')
-                <!-- <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.0s">
-                    <a href="http://vmis.dgme.gov.pk:8081/" class="tile green">
-                        <h3 class="title">Vehicle Management System</h3>
-                        <hr />
-                        <p>visit VMIS</p>
-                    </a>
-                </div> -->
-                @endrole
-                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.6s">
-                    <a href="{{route('evaluation_dashboard')}}" class="tile orange">
-                        <h3 class="title">Dashboard</h3>
-                        <hr />
-                        <p>Visit Dashboard</p>
-                    </a>
-                </div>
-                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.2s">
+                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.7s">
                     <a href="" class="tile green">
-                        <h3 class="title">My Profile</h3>
-                        <hr />
-                        <p>check Profile</p>
+                        <p>
+                        <!-- @if(isset ($Intime) && $Intime=="09:15 AM" )
+                         You are On Time <br>
+                         @elseif(isset ($Intime) && $Intime >"09:15 AM")
+                         You are late <br>
+                        @endif -->
+                        <span>
+                        {{Date('d-M-y')}} [ {{Date('D')}} ]
+                        </span>
+                        <br>
+                        Check- In :
+                        <span >
+                         @if(isset ($Intime)) {{$Intime}} @else <span style="padding:2px 4px; background:tomato;">Not Marked Yet</span>  @endif 
+                         </span>
+                        <br> 
+                        Checked-Out : 
+                        <span >
+                         @if(isset ($Outtime))  {{$Outtime}} @else <span style="padding:2px 4px; background:tomato;">Not Marked Yet</span> @endif
+                        </span>
+                        </p>
+                        
                     </a>
                 </div>
-                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.3s">
-                    <a href="" class="tile purple">
-                        <h3 class="title">New Announcement</h3>
-                        <hr />
-                        <p>Check Announcements</p>
-                    </a>
-                </div>
+               
             </div>
         </div>
     </div>
