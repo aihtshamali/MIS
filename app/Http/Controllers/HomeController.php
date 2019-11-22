@@ -28,6 +28,7 @@ use App\MAssignedKpiLevel2Log;
 use App\MAssignedKpiLevel3Log;
 use App\MAssignedKpiLevel4Log;
 use DB;
+use Carbon;
 use Symfony\Component\HttpFoundation\Session\Session;
 use App\MAssignedChairmanProject;
 use App\MChairmanProjectSubSector;
@@ -216,7 +217,30 @@ class HomeController extends Controller
 
     public function index()
     {
-
+      $Intime = null;$Outtime = null;
+      if(Auth::id()){
+        $date = date('Y-m-d');
+        $db_ext = \DB::connection('sqlsrv2');
+       
+        $user=DB::select('exec hr_attendance.dbo.getTodaysAttendanceMachineData1 "' . $date . '", '.Auth::id());
+        $user = $user ? $user : DB::select('exec hr_attendance.dbo.getTodaysAttendanceMachineData2"' . $date . '", '.Auth::id());
+        $checkin=null;
+        $checkout=null;
+        for($i=0 ; $i < count($user); $i++)
+        {
+          if($user[$i]->type=="Check-In" && $checkin== null)
+          {
+            $checkin=$user[$i];
+            $Intime=date('h:i:s A', strtotime($checkin->time));
+            }
+            elseif($user[$i]->type=="Check-Out" )
+            {
+              $checkout=$user[$i];
+              $Outtime=date('h:i:s A', strtotime($checkout->time));
+            }
+        }
+      }
+        return view('home',["Intime"=>$Intime,"Outtime"=>$Outtime]);
       // dd($_SERVER['DOCUMENT_ROOT'].'\Original.xlsx');
             // $activities = AssignedProjectActivity::all();
       // foreach ($activities as $activity) {
@@ -323,8 +347,6 @@ class HomeController extends Controller
 
         //Monitoring Project Deletion Code
         
-     
-        return view('home');
 
     }
 
@@ -631,7 +653,6 @@ class HomeController extends Controller
   {
     if(Auth::user()->hasRole('chairman|manager'))
       $sectors = Sector::where('status',1)->get();
-    
     else if(Auth::user()->hasRole('member|chief'))
     {
       $sec = collect();
