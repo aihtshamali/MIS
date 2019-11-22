@@ -53,15 +53,15 @@
             <li><a href="{{route('roles.index')}}"><i class="fa fa-circle-o"></i>View</a></li>
           </ul>
         </li>
-        <li class="">
-          <a href="{{route('register')}}">
+        <li class="treeview">
+          <a href="">
             <i class="fa fa-files-o"></i>
             <span>User</span>
 
           </a>
           <ul class="treeview-menu">
-            {{-- <li><a href="{{route('register')}}"><i class="fa fa-circle-o"></i>Create</a></li> --}}
-            {{-- <li><a href="{{route('roles.index')}}"><i class="fa fa-circle-o"></i>View</a></li> --}}
+            <li><a href="{{route('register')}}"><i class="fa fa-circle-o"></i>Create</a></li>
+            <li><a href="{{route('userslist')}}"><i class="fa fa-circle-o"></i>View</a></li>
           </ul>
         </li>
         <li class="treeview">

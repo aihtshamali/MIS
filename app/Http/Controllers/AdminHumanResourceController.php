@@ -27,6 +27,7 @@ use JavaScript;
 use App\HrMomAttachment;
 class AdminHumanResourceController extends Controller
 {
+ 
     /**
      * Display a listing of the resource.
      *

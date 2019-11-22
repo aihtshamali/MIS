@@ -143,7 +143,7 @@ Home Page | DGME MIS
         <div class="container">
             <div class="hero-content app-hero-content text-center">
                 <div class="row justify-content-md-center">
-                    <div class="col-md-10">
+                    <div class="col-md-12">
                         <h1 class="wow fadeInUp" data-wow-delay="0s">
                             DIRECTORATE GENERAL MONITORING & EVALUATION
                         </h1>
@@ -151,12 +151,12 @@ Home Page | DGME MIS
 
                         </h4>
                         <p class="wow fadeInUp" data-wow-delay="0.2s">
-                            <span style="font-size: 18px;font-weight: 700;">
+                          
+                            Welcome   <span style="font-size: 18px;font-weight: 700;">
                                 @auth
                                 {{Auth::user()->first_name}} {{Auth::user()->last_name}} ,
                                 @endauth
-                            </span>
-                            Welcome to the official INTRANET website of Directorate General Monitoring & Evaluation, Punjab. We invite you to get to know our organization by exploring this site on which you will learn about our mission, vision and objectives. The site also provides information about different projects and provides access to valuable statistics. We hope…
+                            </span> to the official INTRANET website of Directorate General Monitoring & Evaluation, Punjab. We invite you to get to know our organization by exploring this site on which you will learn about our mission, vision and objectives. The site also provides information about different projects and provides access to valuable statistics. We hope…
                         </p>
 
                     </div>
@@ -261,6 +261,15 @@ Home Page | DGME MIS
                 </div>
 
                 @endrole
+                @role('admin')
+                   <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.3s">
+                    <a href="{{route('evaluation_dashboard')}}" class="tile purple">
+                        <h3 class="title">Dashborad</h3>
+                        <hr />
+                        <p>Visit Admin Dashboard</p>
+                    </a>
+                </div>
+                @endrole
                 @role('manager')
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
                     <a href="http://hris.dgmepunjab.gov.pk" class="tile purple">
@@ -294,6 +303,7 @@ Home Page | DGME MIS
                         <p>Visit Evaluation</p>
                     </a>
                 </div>
+             
                 <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.5s">
                     <a href="{{route('dispatchLetterViews')}}" class="tile purple">
                         <h3 class="title">Dispatch Letter(s)</h3>
@@ -301,20 +311,13 @@ Home Page | DGME MIS
                         <p>Visit Dispatch Letter</p>
                     </a>
                 </div>
-                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.7s">
-                    <a href="" class="tile green">
-                        <h3 class="title">TPV(s)</h3>
-                        <hr />
-                        <p>Visit TPV(s)</p>
-                    </a>
-                </div>
-                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.8s">
+                {{-- <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.8s">
                     <a href="" class="tile green">
                         <h3 class="title">Inquires</h3>
                         <hr />
                         <p>Visit Inquires</p>
                     </a>
-                </div>
+                </div> --}}
                 <!-- <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.9s">
                     <a href="{route('trip.create')}}" class="tile orange">
                         <h3 class="title">Plan My Trip</h3>
@@ -329,6 +332,18 @@ Home Page | DGME MIS
                         <h3 class="title">Monitoring App</h3>
                         <hr />
                         <p>Download Monitoring App</p>
+                    </a>
+                </div>
+                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.7s">
+                    <a href="" class="tile green">
+                        <p>
+                        <span>
+                        {{Date('d-M-y')}} [ {{Date('D')}} ]
+                        </span>
+                        <br> <span style="padding:1px; background:red;">Check- In : 9:00 am   </span>
+                        <br> <span style="padding:1px; background:red;">Checked-Out : 5:00 pm</p></span>
+                        <hr />
+                        <p>Check Attendence</p>
                     </a>
                 </div>
                     
@@ -382,27 +397,27 @@ Home Page | DGME MIS
                     </a>
                 </div> -->
                 @endrole
-                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.6s">
+                {{-- <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="0.6s">
                     <a href="{{route('evaluation_dashboard')}}" class="tile orange">
                         <h3 class="title">Dashboard</h3>
                         <hr />
                         <p>Visit Dashboard</p>
                     </a>
-                </div>
-                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.2s">
+                </div> --}}
+                {{-- <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.2s">
                     <a href="" class="tile green">
                         <h3 class="title">My Profile</h3>
                         <hr />
                         <p>check Profile</p>
                     </a>
-                </div>
-                <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.3s">
+                </div> --}}
+                {{-- <div class="col-sm-3 wow fadeInUp maraut" data-wow-delay="1.3s">
                     <a href="" class="tile purple">
                         <h3 class="title">New Announcement</h3>
                         <hr />
                         <p>Check Announcements</p>
                     </a>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

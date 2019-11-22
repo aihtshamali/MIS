@@ -7,6 +7,12 @@ use App\User;
 
 class AccountRequestController extends Controller
 {
+     public function userslist()
+     {
+       $users=User::all();
+    //    dd($users);
+       return view('profile.allusers')->with('users',$users);
+  }
     /**
      * Display a listing of the resource.
      *

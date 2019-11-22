@@ -322,6 +322,8 @@ class HomeController extends Controller
         // return view('home',['tripcountsFordg'=> $tripcountsFordg ,'tripcounts'=>$tripcounts]);
 
         //Monitoring Project Deletion Code
+        
+     
         return view('home');
 
     }
