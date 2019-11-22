@@ -68,7 +68,7 @@
 
     </div>
 
-  <form class="form-horizontal" id="form_send" action="{{route('admin.store')}}" method="POST" enctype="multipart/form-data">
+  <form class="form-horizontal form" id="form_send" action="{{route('admin.store')}}" method="POST" enctype="multipart/form-data">
         {{csrf_field()}}
         <input type="hidden" name="agenda_type_items[]" id="agenda_type_items" value="">
       <section id="section1">
@@ -87,7 +87,7 @@
               <div id="inner_items" class="col-md-6">
                 <div class="form-group">
                   <label>Type of Meeting</label>
-                  <select id="type_of_meetings" required name="type_of_meeting" class="form-control select2" style="width: 100%;margin-bottom:10px;">
+                  <select id="type_of_meetings" required name="type_of_meeting" class="form-control select2 meetingtype" style="width: 100%;margin-bottom:10px;">
                     <option >Select Meeting Type</option>
                     @foreach ($meeting_types as $meeting_type)
                       <option value="{{$meeting_type->id}}">{{$meeting_type->meeting_name}}</option>
@@ -95,7 +95,7 @@
                   </select>
                   <div id="meeting">
                     <label for="ex1">Meeting Number</label>
-                    <input class="form-control" name="meeting_no" id="ex1" type="text">
+                    <input class="form-control"  name="meeting_no" id="ex1" type="text">
                   </div>
                   <div class="datess" style="display:none;">
                     <label class="control-label">Date</label>
@@ -130,7 +130,7 @@
                   <div class="form-group row" style="margin-left:20px;margin-right:20px" id="main">
                       <div>
                           <label for="">Agenda Type</label>
-                          <select class="form-control required select2 " name="agenda_type" id="agenda_type">
+                          <select class="form-control required select2 agendatype " required name="agenda_type" id="agenda_type">
                             <option value="0">Select Agenda Type</option>
                             @foreach ($agenda_types as $agenda_type)
                                 <option value="{{$agenda_type->id}}">{{$agenda_type->name}}</option>
@@ -169,11 +169,11 @@
     var section1 = `<section id="first_section" style="display:none;">
                       <div>
                         <label for="ex1">Agenda item</label>
-                      <input class="form-control" value="'count1++'" style="text-align:center;" name="agenda_item[]" id="ex1" type="number">
+                      <input class="form-control" required value="'count1++'" style="text-align:center;" name="agenda_item[]" id="ex1" type="number">
                       </div>
                       <div>
                           <label for="">Agenda Status</label>
-                          <select class="form-control required select2 " name="agenda_status[]" id="agenda_status">
+                          <select class="form-control agenda_status select2 " required name="agenda_status[]" id="agenda_status">
                             <option value="">Select Agenda Status</option>
                             @foreach ($agenda_statuses as $agenda_status)
                                 <option value="{{$agenda_status->id}}">{{$agenda_status->projecttypename}}</option>
@@ -206,7 +206,7 @@
                         <label for="" style="font-size:25px">/</label>
                       </div>
                       <div class="col-md-4" style="padding:0 !important">
-                          <select class="form-control  select2 " name="adp_no[]" id="adp">
+                          <select class="form-control  select2 " required name="adp_no[]" id="adp">
                               <option value="" selected>Select GS #</option>
                               <?php $counting = 0?>
                               @foreach ($adp as $a)
@@ -219,11 +219,11 @@
                       </div>
                       <div>
                         <label for="name_of_scheme">Name Of the Scheme</label>
-                        <input class="form-control" id="name_of_scheme" name="name_of_scheme[]" type="text"style="text-align:center;">
+                        <input class="form-control" id="name_of_scheme"  required name="name_of_scheme[]" type="text"style="text-align:center;">
                       </div>
                       <div>
                           <label >Sector</label>
-                          <select  name="sector[]" class="form-control select2" style="text-align: center !important" id="sector_val">
+                          <select  name="sector[]" class="form-control sector select2" required style="text-align: center !important" id="sector_val">
                               <option value="">Select Sector</option>
                               @foreach ($sectors as $sector)
                             <option value="{{$sector->id}}">{{$sector->name}}</option>
@@ -232,15 +232,15 @@
                       </div>
                       <div>
                         <label for="estimated_cost">Estimated Cost</label>
-                        <input class="form-control" id="estimated_cost" name="estimated_cost[]" type="number" step = "0.01" style="text-align:center;">
+                        <input class="form-control" id="estimated_cost" required name="estimated_cost[]" type="number" step = "0.01" style="text-align:center;">
                       </div>
                       <div>
                         <label for="adp_allocation">ADP Allocation</label>
-                        <input class="form-control" id="adp_allocation" name="adp_allocation[]" type="number" step = "0.01"style="text-align:center;">
+                        <input class="form-control" id="adp_allocation" required name="adp_allocation[]" type="number" step = "0.01"style="text-align:center;">
                       </div>
                       <div class="form-group" id="datepick" style="margin-top:10px">
                         <label for="">Time</label>
-                        <select  name="my_time[]" class="form-control select2" style="text-align: center !important" id="">
+                        <select  name="my_time[]" class="form-control time select2" required style="text-align: center !important" id="">
                             <option value="">Select Time</option>
                             @for ($i = 9; $i < 12; $i++)
                               @for($j = 0; $j <= 45; $j+=15)
@@ -285,7 +285,7 @@
                         <div>
                         <div>
                             <label for="">Agenda Status</label>
-                            <select class="form-control required select2 " name="section2_agenda_status[]" id="agenda_status">
+                            <select class="form-control agenda_status select2 " required name="section2_agenda_status[]" id="agenda_status">
                               <option value="0">Select Agenda Status</option>
                               @foreach ($agenda_statuses as $agenda_status)
                                   <option value="{{$agenda_status->id}}">{{$agenda_status->projecttypename}}</option>
@@ -458,7 +458,8 @@ $(document).on('click','.add-more',function(e){
      }
     });
 
-    $('#type_of_meetings').on('change',function(){
+    $('#type_of_meetings').on('change',function()
+    {
       // console.log();
       if($(this).val() == 2){
       $('#meeting').show('slow');
@@ -471,16 +472,28 @@ $(document).on('click','.add-more',function(e){
 
     });
 
-    $('#next').on('click',function(){
-      if ($("input:invalid").length) {
-        alert('Enter Date');
-      }
+    $('#next').on('click',function()
+    {
+       if($('#type_of_meetings').val()== "Select Meeting Type" || $("input:invalid").length )
+      {
+        alert ( "Enter Required Data")
+        }
+      // if ($("input:invalid").length) {
+      //   var msg = 'Enter '+$("input:invalid")[0].name;
+      //   msg = msg.replace("[]","")
+      //   msg = msg.replace("_"," ")
+      //   msg = msg.toUpperCase(msg)
+      //   alert(msg)
+      //}
+    
       else{
       $('#section1').hide('slow');
       $('#section2').show('slow');
       $('.yewali_'+next).find("#ex1").val(""+next);
       }
     });
+
+ 
 
     $('#my_date').datetimepicker({
                 viewMode: 'years',
@@ -494,16 +507,48 @@ $(document).on('click','.add-more',function(e){
                 viewMode: 'months',
                 format: "HH:MM"
   });
+    
+   
 
   $('#finish_btn').on('click',function(e){
     e.preventDefault();
-    items.push($('#agenda_type').val());
-      attachments.push($('#attachment').val());
-      console.log(items);
+      
+      if($("#agenda_type").val()=="0")
+      {
+        alert ( "Please select agenda!");
+        return false;
+      }
+      if($(".agenda_status").val()=="")
+      {
+        alert ( "Please select agenda status!");
+        return false;
+      }
+      if($(".sector").val()=="")
+      {
+        alert ( "Please select sector!");
+        return false;
+      }
+        if($(".time").val()=="")
+      {
+        alert ( "Please select time!");
+        return false;
+      }
+      
+    if ($("input:invalid").length) 
+    {
+        var msg = 'Enter '+$("input:invalid")[0].name;
+        msg = msg.replace("[]","")
+        msg = msg.toUpperCase(msg.replace("_"," "))
+        alert(msg);
+    }
+    else{
+      items.push($('#agenda_type').val());
+        attachments.push($('#attachment').val());
+        console.log(items);
 
-    $("#agenda_type_items").val(items);
-    // $("#attachment").val(attachments);
-    $("#form_send").submit();
+      $("#agenda_type_items").val(items);
+      $("#form_send").submit();
+    }
   });
 
         $(document).on('change', '#type_of_meetings', function() {
