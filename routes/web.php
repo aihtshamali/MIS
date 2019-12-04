@@ -347,9 +347,12 @@ Route::prefix('hr')->middleware('role:adminhr|manager|directormonitoring|directo
   Route::get('/dispatch_form','AdminHumanResourceController@dispatch_form')->name('dispatch_form');
   Route::post('/dispatchLetterCreated','AdminHumanResourceController@dispatchLetterCreated')->name('dispatchLetterCreated');
   Route::get('/dispatchLetterIndex','AdminHumanResourceController@dispatchLetterIndex')->name('dispatchLetterIndex');
+  Route::get('/misc_minutes_create','AdminHumanResourceController@misc_minutes_create')->name('misc_minutes_create');
+  Route::get('/view_misc_minutes','AdminHumanResourceController@view_misc_minutes')->name('view_misc_minutes');
+  
+  Route::post('/store_misc_moms','AdminHumanResourceController@store_misc_moms')->name('store_misc_moms');
+  Route::post('/removeMiscMom','AdminHumanResourceController@removeMiscMom')->name('removeMiscMom');
 
-  // Route::get('/search_agendas','AdminHumanResourceController@search_agendas')->name('search_agendas');
-  // Route::get('/','inHumanResourceController@index')->name('index_meeting');
 });
 Route::group(['middleware'=>['permission:can.chat']],function(){
   Route::get('/conversations/{id}', 'ChatController@show');
