@@ -19,12 +19,15 @@ use App\DispatchLetterCc;
 use App\AgendaType;
 use App\HrProjectType;
 use App\User;
+use App\Financialyear;
 use App\UserDetail;
+use App\MiscMom;
 use Auth;
 use Carbon;
 use App\AdpProject;
 use JavaScript;
 use App\HrMomAttachment;
+
 class AdminHumanResourceController extends Controller
 {
     /**
@@ -32,7 +35,58 @@ class AdminHumanResourceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function misc_minutes_create(){
+
+      $financial_year=Financialyear::all();
+      return view('admin_hr.meeting.misc_minutes_create',['financial_year'=>$financial_year]);
+    }
+
+    public function view_misc_minutes()
+    {
+       $viewMoms=MiscMom::where('status',true)->get();
+        return view('admin_hr.meeting.view_misc_minutes',['viewMoms'=>$viewMoms]);
+     
+  }
+
+  public function removeMiscMom(Request $request)
+  {
+    $deleteMom=MiscMom::find($request->mom_id);
+    $deleteMom->status=false;
+    $deleteMom->save();
+      return redirect()->back()->with('error','M-O-Ms has been deleted.');
+  }
     
+    public function store_misc_moms(Request $request)
+    {
+        $i=0;
+      foreach($request->financial_year_id as $item)
+      {
+       
+        if($request->hasFile('misc_mom_file'))
+        {
+          if (!is_dir('storage/uploads/projects/misc_meetings_mom/')) {
+              mkdir('storage/uploads/projects/misc_meetings_mom/');
+          }
+          if (!is_dir('storage/uploads/projects/misc_meetings_mom/'.$request->misc_mom_name[$i].'/')) {
+              mkdir('storage/uploads/projects/misc_meetings_mom/'.$request->misc_mom_name[$i].'/');
+          }
+    
+          $store_misc_moms=new MiscMom();
+          $store_misc_moms->financialyear_id=$item;
+          $store_misc_moms->meeting_num=$request->misc_mom_name[$i];
+          $document=$request->file('misc_mom_file')[$i];
+          $document->store('public/storage/uploads/projects/misc_meetings_mom/'.$store_misc_moms->meeting_num);
+          $store_misc_moms->mom_attachment_file =$document->hashName();
+          $store_misc_moms->status=true;
+          $store_misc_moms->save();
+          $i++;
+        }
+
+      }
+
+      return redirect()->back()->with('success','M-O-Ms has been saved.');
+    }
      public function dispatch_form()
      {
        $doctypes=DispatchLetterDoctype::all();
@@ -141,6 +195,7 @@ class AdminHumanResourceController extends Controller
         // dd($data);
         return view('admin_hr.meeting.index',compact('meetings','agendas','data'));
     }
+   
 
     /**
      * Show the form for creating a new resource.
