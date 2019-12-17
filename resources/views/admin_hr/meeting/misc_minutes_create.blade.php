@@ -13,7 +13,9 @@
                 
          <h3><b>Add Minutes of Meetings</b></h3>
              <a href="{{route('view_misc_minutes')}}" class="btn btn-md btn-primary pull-right">View All Meeting</a>
-           
+           <a class="btn btn-success pull-left" href="hassan:" onclick="stop(this)" >Single Scan Document</a>
+        <a class="btn btn-success pull-left" href="hassanduplex:" onclick="stop(this)">Duplex Scan</a>
+
         </div>
         <div class="box-body moms">
            <div class="row">
