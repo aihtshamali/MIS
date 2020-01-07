@@ -53,6 +53,7 @@
 @endsection
 
 @section('content')
+dd($agendas[0])}}
 <div class="content-wrapper">
 
     @if (\Session::has('error'))
@@ -75,9 +76,8 @@
   <section class="content" style=" margin-top: 27px;">
         <div class="box box-body box-primary col-md-12">
             <h4>
-              {{-- {{dd($agendas[0]->HrMeetingPDWP)}} --}}
                 <b>
-                  <span  style="background:#3c8dbc; padding:5px; margin:2px; color:white" > Meeting No {{$agendas[0]->HrMeetingPDWP->id}} </span>  
+                  <span  style="background:#3c8dbc; padding:5px; margin:2px; color:white" > @if(isset($agendas[0]->HrMeetingPDWP->id)) Meeting No {{$agendas[0]->HrMeetingPDWP->id}} @else No Agendas Added @endif </span>  
                 </b>
                 <b class="pull-right">
                   <span>
