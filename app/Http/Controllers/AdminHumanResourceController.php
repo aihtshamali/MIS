@@ -151,7 +151,15 @@ class AdminHumanResourceController extends Controller
       }
        return view('admin_hr.dispatch.index',compact('letters'));
      }
-     
+     public function getfile($id)
+     {
+         $meeting = HrMeetingPDWP::find($id);
+        if($meeting->attachment){
+            file_put_contents('storage/uploads/projects/pdwp_meeting/'.$meeting->attachment,base64_decode($meeting->attachment_file));
+          }
+
+         return response()->download('storage/uploads/projects/pdwp_meeting/'.$meeting->attachment);
+     }
     public function index()
     {
         $meetings = HrMeetingPDWP::all();
@@ -334,15 +342,22 @@ class AdminHumanResourceController extends Controller
      */
     public function show($id)
     {
-        $meeting = HrMeetingPDWP::find($id);
+      $meeting = HrMeetingPDWP::find($id);
+       if($meeting->attachment)
+       {
+          file_put_contents('storage/uploads/projects/pdwp_meeting/'.$meeting->attachment,base64_decode($meeting->attachment_file));
+        }
         $agendas = $meeting->HrAgenda;
-        foreach($agendas as $agenda){
+        foreach($agendas as $agenda)
+        {
             if($agenda->HrMomAttachment)
             file_put_contents('storage/uploads/projects/meetings_mom/'.$agenda->HrMomAttachment->attachment,base64_decode($agenda->HrMomAttachment->attachment_file));
             if($agenda->HrAttachment){
               file_put_contents('storage/uploads/projects/project_agendas/'.$agenda->HrAttachment->attachments,base64_decode($agenda->HrAttachment->attachment_file));
             }
+           
         }
+       
         $agenda_statuses = HrProjectType::all();
         $adp = AdpProject::where('financial_year','2017-18')->orderBy('gs_no')->get();
         $sectors = HrSector::all();

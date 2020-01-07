@@ -192,8 +192,9 @@
                             {{date('d-m-Y',strtotime($v->scheduled_date))}}
                         </td>
                         <td>
-                            <a href="{{asset('storage/uploads/projects/pdwp_meeting/'.$v->attachment)}}" download>{{$v->attachment}}</a>
-
+                          <a href="{{route('getFile',$v->id)}}" class="btn btn-md btn-info">{{$v->attachment}}</a>
+                        
+                            <!-- <a href="{{asset('storage/uploads/projects/pdwp_meeting/'.$v->attachment)}}" download class="btn btn-md btn-info">{{$v->attachment}}</a> -->
                         </td>
                         <td>
                             <a href="{{ route('admin.edit',$v->id) }} " class="btn btn-success">EDIT</a>

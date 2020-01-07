@@ -343,7 +343,7 @@ Route::prefix('hr')->middleware('role:adminhr|manager|directormonitoring|directo
   Route::resource('admin','AdminHumanResourceController');
   Route::post('/save_agendax','AdminHumanResourceController@save_agendax')->name('agendax');
   Route::post('/descisionAgendax','AdminHumanResourceController@DescisionAgenda')->name('DescisionAgenda');
-  
+  Route::get('/getfile/{id}','AdminHumanResourceController@getFile')->name('getFile');
   Route::get('/dispatch_form','AdminHumanResourceController@dispatch_form')->name('dispatch_form');
   Route::post('/dispatchLetterCreated','AdminHumanResourceController@dispatchLetterCreated')->name('dispatchLetterCreated');
   Route::get('/dispatchLetterIndex','AdminHumanResourceController@dispatchLetterIndex')->name('dispatchLetterIndex');
