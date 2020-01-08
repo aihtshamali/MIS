@@ -1,5 +1,11 @@
 @extends('layouts.uppernav')
 @section('styletag')
+<style>
+.width {
+    width :30% !important;
+    text-align:left;
+}
+</style>
 @endsection
 
 @section('content')
@@ -15,8 +21,9 @@
             <table class="table table-bordered" data-page-lebght="100" id="misctable">
              <thead>
                 <tr>
-                    <th>Financial Year</th>
+                    <th >Financial Year/ADP</th>
                     <th>Meeting Number</th>
+                     <th >Scheme Name</th>
                     <th>Attachment</th>
                     <th></th>
 
@@ -25,8 +32,9 @@
              <tbody>
              @foreach($viewMoms as $vm)
                 <tr>
-                    <td>{{$vm->Financialyear->year}}</td>
+                    <td>{{$vm->Financialyear->year}}/{{$vm->adp}}</td>
                     <td>{{$vm->meeting_num}}</td>
+                    <td>{{$vm->schemeName}}</td>
                     <td>
                      <a href="{{asset('storage/storage/uploads/projects/misc_meetings_mom/'.$vm->meeting_num.'/'.$vm->mom_attachment_file)}}" download >Download File</a>
                     </td>

@@ -39,7 +39,13 @@ class AdminHumanResourceController extends Controller
     public function misc_minutes_create(){
 
       $financial_year=Financialyear::all();
-      return view('admin_hr.meeting.misc_minutes_create',['financial_year'=>$financial_year]);
+      $current_year='2019-20';
+      $adp = AdpProject::where('financial_year',$current_year)->orderBy('gs_no')->get();
+      $sectors = HrSector::all();
+        \JavaScript::put([
+            'projects' => $adp
+        ]);
+      return view('admin_hr.meeting.misc_minutes_create', compact('financial_year','current_year','adp','sectors','meeting_types'));
     }
 
     public function view_misc_minutes()
@@ -59,6 +65,7 @@ class AdminHumanResourceController extends Controller
     
     public function store_misc_moms(Request $request)
     {
+      
         $i=0;
       foreach($request->financial_year_id as $item)
       {
@@ -78,7 +85,9 @@ class AdminHumanResourceController extends Controller
           $document=$request->file('misc_mom_file')[$i];
           $document->store('public/storage/uploads/projects/misc_meetings_mom/'.$store_misc_moms->meeting_num);
           $store_misc_moms->mom_attachment_file =$document->hashName();
-          $store_misc_moms->status=true;
+          $store_misc_moms->status='1';
+          $store_misc_moms->adp=$request->adp_no[$i];
+          $store_misc_moms->schemeName=$request->name_of_scheme[$i];
           $store_misc_moms->save();
           $i++;
         }
