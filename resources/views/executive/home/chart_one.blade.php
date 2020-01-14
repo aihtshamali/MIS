@@ -640,7 +640,7 @@
 <script src="{{asset('js/charts/fabric.min.js')}}"></script>
 <script src="{{asset('js/charts/FileSaver.min.js')}}"></script>
 <script src="{{asset('js/charts/jszip.min.js')}}"></script>
-<script src="{{asset('js/charts/pdfmake.min.js')}}"></script>
+<script src="{{asset('datatableevaluation/pdfmake.min.js')}}"></script>
 <script src="{{asset('js/charts/export.min.js')}}"></script>
 <script src="{{asset('js/charts/dark.js')}}"></script>
 <script src="{{asset('js/charts/black.js')}}"></script>

@@ -130,7 +130,7 @@
             <select name="agenda_name" class="form-control select2 searchAgenda" style="text-align: center !important" id="agenda_name">
                 <option value="">Enter Scheme Name to Search...</option>
                 @foreach ($agendas as $agenda)
-                <option value="{{$agenda->HrMeetingPDWP->id}}">{{$agenda->scheme_name}} / <b>{{$agenda->financial_year}}</b></option>
+                <option value="{{$agenda->HrMeetingPDWP->id}}">{{$agenda->scheme_name}} / <b> {{$agenda->financial_year}} / {{explode('-',$agenda->HrMeetingPDWP->meeting_no)[0]}} </b>   </option>
                 @endforeach
             </select>
         </div>
