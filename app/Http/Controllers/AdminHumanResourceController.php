@@ -45,14 +45,14 @@ class AdminHumanResourceController extends Controller
         \JavaScript::put([
             'projects' => $adp
         ]);
-      return view('admin_hr.meeting.misc_minutes_create', compact('financial_year','current_year','adp','sectors','meeting_types'));
+      return view('admin_hr.meeting.misc_minutes_create', compact('financial_year','current_year','adp','sectors'));
     }
 
     public function view_misc_minutes()
     {
        $viewMoms=MiscMom::where('status',true)->get();
         return view('admin_hr.meeting.view_misc_minutes',['viewMoms'=>$viewMoms]);
-     
+
   }
 
   public function removeMiscMom(Request $request)
@@ -62,15 +62,15 @@ class AdminHumanResourceController extends Controller
     $deleteMom->save();
       return redirect()->back()->with('error','M-O-Ms has been deleted.');
   }
-    
+
     public function store_misc_moms(Request $request)
     {
 
-      
+
         $i=0;
       foreach($request->financial_year_id as $item)
       {
-       
+
         if($request->hasFile('misc_mom_file'))
         {
           if (!is_dir('storage/uploads/projects/misc_meetings_mom/')) {
@@ -79,7 +79,7 @@ class AdminHumanResourceController extends Controller
           if (!is_dir('storage/uploads/projects/misc_meetings_mom/'.$request->misc_mom_name[$i].'/')) {
               mkdir('storage/uploads/projects/misc_meetings_mom/'.$request->misc_mom_name[$i].'/');
           }
-    
+
           $store_misc_moms=new MiscMom();
           $store_misc_moms->financialyear_id=$item;
           $store_misc_moms->meeting_num=$request->misc_mom_name[$i];
@@ -144,18 +144,18 @@ class AdminHumanResourceController extends Controller
         $newDispatch_letter_cc->dispatch_letter_id=$newDispatch_letter->id;
         $newDispatch_letter_cc->user_id=$cc;
         $newDispatch_letter_cc->save();
-      }  
-            
+      }
+
        return redirect()->back();
      }
-  
+
      public function dispatchLetterIndex()
      {
        $letters=DispatchLetter::all();
        foreach($letters as $letter)
        {
         if($letter->document_name)
-        { 
+        {
           file_put_contents('storage/uploads/projects/dispatch_letters/'.$letter->document_name,base64_decode($letter->scan_document));
         }
       }
@@ -204,7 +204,7 @@ class AdminHumanResourceController extends Controller
               ];
             }
           }
-    
+
         }
         \JavaScript::put([
             'meetings_data' => $data
@@ -213,7 +213,7 @@ class AdminHumanResourceController extends Controller
         // dd($data);
         return view('admin_hr.meeting.index',compact('meetings','agendas','data'));
     }
-   
+
 
     /**
      * Show the form for creating a new resource.
@@ -234,7 +234,7 @@ class AdminHumanResourceController extends Controller
 
         return view('admin_hr.meeting.create',compact('sectors','meeting_types','agenda_types','agenda_statuses','adp'));
     }
- 
+
     public function saveMoms(Request $request)
     {
       if($request->hasFile('attach_moms'))
@@ -365,9 +365,9 @@ class AdminHumanResourceController extends Controller
             if($agenda->HrAttachment){
               file_put_contents('storage/uploads/projects/project_agendas/'.$agenda->HrAttachment->attachments,base64_decode($agenda->HrAttachment->attachment_file));
             }
-           
+
         }
-       
+
         $agenda_statuses = HrProjectType::all();
         $adp = AdpProject::where('financial_year','2017-18')->orderBy('gs_no')->get();
         $sectors = HrSector::all();
@@ -394,9 +394,9 @@ class AdminHumanResourceController extends Controller
        }
        else
        {
-        return redirect()->back()->with('error', 'Meeting Not Attended'); 
+        return redirect()->back()->with('error', 'Meeting Not Attended');
        }
-      
+
    }
     public function save_agendax(Request $request)
     {
@@ -512,7 +512,7 @@ class AdminHumanResourceController extends Controller
         $agenda->save();
 
         if($request->hasFile('attach_moms')){
-          $HRamiG= HrMomAttachment::where('hr_agenda_id',$request->hr_agenda_id)->first() 
+          $HRamiG= HrMomAttachment::where('hr_agenda_id',$request->hr_agenda_id)->first()
           ? HrMomAttachment::where('hr_agenda_id',$request->hr_agenda_id)->first() : new HrMomAttachment();
           $HRamiG->hr_agenda_id=$request->hr_agenda_id;
           $meeting_filename = "PDWP-MOM-".$request->hr_agenda_id;
@@ -536,7 +536,7 @@ class AdminHumanResourceController extends Controller
           $agendaDecision->comments_user_id=Auth::id();
           $agendaDecision->save();
          }
-         
+
         return redirect()->back();
     }
 

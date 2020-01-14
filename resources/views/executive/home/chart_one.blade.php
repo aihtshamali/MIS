@@ -96,13 +96,13 @@
         color:white;
   }
    .table.dataTable td, .table.dataTable th {
-         
+
     font-size: 14px !important;
     vertical-align: middle !important;
     /* text-align: center !important; */
     }
      .highlight{
-       background:#eccd93; 
+       background:#eccd93;
        /* margin-top:5%; */
        padding-top : 3px;
         padding-bottom : 3px;
@@ -200,14 +200,14 @@
                               @foreach ($total_project->AssignedSubSectors as $sub_sectors)
                                 {{ $sub_sectors->SubSector->name }} <br>
                               @endforeach
-                              
+
                             <td>{{round($total_project->ProjectDetail->orignal_cost,2,PHP_ROUND_HALF_UP)}} <br> Millions</td>
                             </td>
                             <td>{{$total_project->ProjectDetail->sne}}</td>
                             <td style="text-align:LEFT !important; ">
                               @if($total_project->AssignedProject)
                                 @foreach ($total_project->AssignedProject->AssignedProjectTeam as $team)
-                                  @if ($team->team_lead==1) 
+                                  @if ($team->team_lead==1)
                                   <span style="color:red;">
                                 <b> {{$team->user->first_name}} {{$team->user->last_name}}</b><br>
                                   </span>
@@ -225,17 +225,17 @@
                                   @if ($total_project->AssignedProject->complete == 0 && $total_project->AssignedProject->stopped == 0)
                                     <span class="inprogress">
                                       InProgress
-                                    </span>  
+                                    </span>
                                     @elseif($total_project->AssignedProject->stopped == 1)
                                         <span class="stopped">
-                                          Stopped</span> 
+                                          Stopped</span>
                                     @elseif($total_project->AssignedProject->complete == 1 && $total_project->AssignedProject->stopped == 0)
                                       <span class="completed">
                                         Completed</span>
                                       @endif
                                   @else
                                     <span class="notAssigned">
-                                    Not Assigned 
+                                    Not Assigned
                                     </span>
                                     @endif
                                 </td>
@@ -294,14 +294,14 @@
                               @foreach ($total_project->AssignedSubSectors as $sub_sectors)
                                 {{ $sub_sectors->SubSector->name }} <br>
                               @endforeach
-                              
+
                             <td>{{round($total_project->ProjectDetail->orignal_cost,2,PHP_ROUND_HALF_UP)}} <br> Millions</td>
                             </td>
                             <td>{{$total_project->ProjectDetail->sne}}</td>
                             <td style="text-align:LEFT !important; ">
                               @if($total_project->AssignedProject)
                                 @foreach ($total_project->AssignedProject->AssignedProjectTeam as $team)
-                                  @if ($team->team_lead==1) 
+                                  @if ($team->team_lead==1)
                                   <span style="color:red;">
                                 <b> {{$team->user->first_name}} {{$team->user->last_name}}</b><br>
                                   </span>
@@ -340,7 +340,7 @@
                   <span aria-hidden="true">×</span></button>
                 <h4 class="modal-title"><b>TOTAL EVALUATION INPROGRESS PROJECTS</b>
                     <button class="btn btn-sm btn-primary" style="color:white;font-weight:bold font-size:20px;">@if(isset($inprogress_projects)){{$inprogress_projects}}@endif</button>
-                
+
                 </h4>
               </div>
               <div class="modal-body">
@@ -375,14 +375,14 @@
                               @foreach ($total_project->AssignedSubSectors as $sub_sectors)
                                 {{ $sub_sectors->SubSector->name }} <br>
                               @endforeach
-                              
+
                             <td>{{round($total_project->ProjectDetail->orignal_cost,2,PHP_ROUND_HALF_UP)}} <br> Millions</td>
                             </td>
                             <td>{{$total_project->ProjectDetail->sne}}</td>
                             <td style="text-align:LEFT !important; ">
                               @if($total_project->AssignedProject)
                                 @foreach ($total_project->AssignedProject->AssignedProjectTeam as $team)
-                                  @if ($team->team_lead==1) 
+                                  @if ($team->team_lead==1)
                                   <span style="color:red;">
                                 <b> {{$team->user->first_name}} {{$team->user->last_name}}</b><br>
                                   </span>
@@ -408,17 +408,17 @@
                                <span class="completed">
                                 {{round($total_project->AssignedProject->progress,2,PHP_ROUND_HALF_UP)}}%
                               </span>
-                              @endif 
-                              
+                              @endif
+
                             </td>
                             <td style="width:15% !important;">
-                                <b>Start Date :</b> 
-                                {{date('d-M-y',strtotime($total_project->AssignedProject->assigned_date))}} 
+                                <b>Start Date :</b>
+                                {{date('d-M-y',strtotime($total_project->AssignedProject->assigned_date))}}
                                 <br>
-                                <b>Last Modified :</b> 
+                                <b>Last Modified :</b>
                                 {{date('d-M-y',strtotime($total_project->AssignedProject->updated_at))}}
                               <br>
-                             
+
                            <span class="highlight" >
                               @php
                             $first_date = new DateTime(date('Y-m-d',strtotime($total_project->AssignedProject->assigned_date)));
@@ -493,14 +493,14 @@
                               @foreach ($total_project->AssignedSubSectors as $sub_sectors)
                                 {{ $sub_sectors->SubSector->name }} <br>
                               @endforeach
-                              
+
                             <td>{{round($total_project->ProjectDetail->orignal_cost,2,PHP_ROUND_HALF_UP)}} <br> Millions</td>
                             </td>
                             <td>{{$total_project->ProjectDetail->sne}}</td>
                             <td style="text-align:LEFT !important; ">
                               @if($total_project->AssignedProject)
                                 @foreach ($total_project->AssignedProject->AssignedProjectTeam as $team)
-                                  @if ($team->team_lead==1) 
+                                  @if ($team->team_lead==1)
                                   <span style="color:red;">
                                 <b> {{$team->user->first_name}} {{$team->user->last_name}}</b><br>
                                   </span>
@@ -583,15 +583,15 @@
                               @foreach ($total_project->AssignedSubSectors as $sub_sectors)
                                 {{ $sub_sectors->SubSector->name }} <br>
                               @endforeach
-                              
+
                             <td>{{round($total_project->ProjectDetail->orignal_cost,2,PHP_ROUND_HALF_UP)}} <br> Millions</td>
                             </td>
                             <td>{{$total_project->ProjectDetail->sne}}</td>
-                            
+
                             <td style="text-align:LEFT !important; ">
                               @if($total_project->AssignedProject)
                                 @foreach ($total_project->AssignedProject->AssignedProjectTeam as $team)
-                                  @if ($team->team_lead==1) 
+                                  @if ($team->team_lead==1)
                                   <span style="color:red;">
                                 <b> {{$team->user->first_name}} {{$team->user->last_name}}</b><br>
                                   </span>
@@ -609,7 +609,7 @@
                                 @if($total_project->AssignedProject->stopped!=null && $total_project->AssignedProject->stopped =1)
                                 <span class="stopped">
                                    <b> Stopped</b>
-                                  </span> 
+                                  </span>
                                 @endif
                                 @endif
                             </td>
@@ -633,14 +633,14 @@
 </div>
 @endsection
 @section('scripttags')
-{{-- <script src="{{asset('js/AdminLTE/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('js/AdminLTE/dataTables.bootstrap.min.js')}}"></script> --}}
+<!-- {{-- <script src="{{asset('js/AdminLTE/jquery.dataTables.min.js')}}"></script> -->
+<!-- <script src="{{asset('js/AdminLTE/dataTables.bootstrap.min.js')}}"></script> --}} -->
 <script src="{{asset('js/charts/amcharts.js')}}"></script>
 <script src="{{asset('js/charts/serial.js')}}"></script>
 <script src="{{asset('js/charts/fabric.min.js')}}"></script>
 <script src="{{asset('js/charts/FileSaver.min.js')}}"></script>
 <script src="{{asset('js/charts/jszip.min.js')}}"></script>
-<script src="{{asset('js/charts/pdfmake.min.js')}}"></script>
+<!-- <script src="{{asset('datatableevaluation/pdfmake.min.js')}}"></script> -->
 <script src="{{asset('js/charts/export.min.js')}}"></script>
 <script src="{{asset('js/charts/dark.js')}}"></script>
 <script src="{{asset('js/charts/black.js')}}"></script>
@@ -654,7 +654,7 @@ $('#chart1,#chart2,#chart3,#chart4,#chart5').DataTable( {
         buttons: [
            'pageLength', 'copy', 'csv', 'excel', 'pdf', 'print'
         ]
-        
+
     } );
 
 
@@ -683,7 +683,7 @@ $('#chart1,#chart2,#chart3,#chart4,#chart5').DataTable( {
       "Type": "Stopped\nProjects\n({{$stopped_projects}})",
       "Number of Projects": (stopped_projects/total_projects*100).toFixed(2) < 1 && (stopped_projects/total_projects*100).toFixed(2) > 0 ? 1 : (stopped_projects/total_projects*100).toFixed(2),
       "color": "#ff4f5a"
-    } 
+    }
      ],
     "valueAxes": [ {
       "title" : "Percentage",
@@ -725,7 +725,7 @@ $('#chart1,#chart2,#chart3,#chart4,#chart5').DataTable( {
 </script>
 <script type="text/javascript">
 $(document).on('click','g',function(){
-  var data=$(this).attr('aria-label').split('\n')[0];  
+  var data=$(this).attr('aria-label').split('\n')[0];
   if(data === " Total")
     $('#myModal').modal('show');
   else if(data === " UnAssigned")
