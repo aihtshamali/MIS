@@ -16,6 +16,7 @@
         @role('directorevaluation')
 
         <p>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</p>
+
         @endrole
         @role('directormonitoring')
 
@@ -38,6 +39,14 @@
         <a href="{{route('Evaluation_home')}}">
           <i class="fa fa-home"></i>
           <span>Home</span>
+        </a>
+
+      </li>
+      <li class="">
+
+        <a href="{{route('adpProject_1819')}}">
+          <i class="fa fa-file"></i>
+          <span>2018-2019 ADP Projects</span>
         </a>
 
       </li>
@@ -93,6 +102,7 @@
               </span></a></li>
         </ul>
       </li>
+
       @endrole
 
 
