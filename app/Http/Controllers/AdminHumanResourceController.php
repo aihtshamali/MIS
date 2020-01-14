@@ -65,6 +65,7 @@ class AdminHumanResourceController extends Controller
     
     public function store_misc_moms(Request $request)
     {
+
       
         $i=0;
       foreach($request->financial_year_id as $item)
@@ -86,7 +87,7 @@ class AdminHumanResourceController extends Controller
           $document->store('public/storage/uploads/projects/misc_meetings_mom/'.$store_misc_moms->meeting_num);
           $store_misc_moms->mom_attachment_file =$document->hashName();
           $store_misc_moms->status='1';
-          $store_misc_moms->adp=$request->adp_no[$i];
+          $store_misc_moms->adp=explode(',',$request->adp_no[$i])[$i];
           $store_misc_moms->schemeName=$request->name_of_scheme[$i];
           $store_misc_moms->save();
           $i++;

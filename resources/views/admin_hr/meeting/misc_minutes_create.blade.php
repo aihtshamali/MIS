@@ -41,7 +41,7 @@
                             <option value="" selected>Select GS #</option>
                             <?php $counting = 0?>
                             @foreach ($adp as $a)
-                                <option value="{{$a->gs_no}}">{{$a->gs_no}}</option>
+                                <option value="{{$a->gs_no}} ,<?php echo $counting?>" >{{$a->gs_no}}</option>
                                 <?php $counting += 1?>
                             @endforeach
                        </select>
@@ -84,10 +84,10 @@
 <script>
 
      function adp(e){
-        var arr = $(e).val();
-          console.log(projects);
-          console.log(projects[arr],arr);
-                      $(e).parent().next().children().next().val(projects[arr].name_of_scheme);
+       var arr = $(e).val().split(',');
+        console.log(arr);
+          console.log(projects[arr[1]]);
+                      $(e).parent().next().children().next().val(projects[arr[1]].name_of_scheme);
 
           }
 
@@ -114,7 +114,7 @@
                             <option value="" selected>Select GS #</option>
                             <?php $counting = 0?>
                             @foreach ($adp as $a)
-                                <option value="{{$a->gs_no}}">{{$a->gs_no}}</option>
+                                <option value="{{$a->gs_no}},<?php echo $counting?>">{{$a->gs_no}}</option>
                                 <?php $counting += 1?>
                             @endforeach
                        </select>
