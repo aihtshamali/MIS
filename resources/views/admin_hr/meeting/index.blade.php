@@ -123,14 +123,13 @@
 
         </ol>
     </section>
-
     <section class="content">
         <div>
             <label>Search Schemes</label>
             <select name="agenda_name" class="form-control select2 searchAgenda" style="text-align: center !important" id="agenda_name">
                 <option value="">Enter Scheme Name to Search...</option>
                 @foreach ($agendas as $agenda)
-                <option value="{{$agenda->HrMeetingPDWP->id}}">{{$agenda->scheme_name}} / <b> {{$agenda->financial_year}} / {{explode('-',$agenda->HrMeetingPDWP->meeting_no)[0]}} </b>   </option>
+                <option value="{{$agenda->HrMeetingPDWP->id}}">{{$agenda->scheme_name}} /  {{$agenda->financial_year}} / {{explode('-',$agenda->HrMeetingPDWP->meeting_no)[0]}} @if(isset($agenda->HrProjectDecision->HrDecision) && $agenda->HrProjectDecision->HrDecision !=null)/ {{$agenda->HrProjectDecision->HrDecision->name}}@endif </option>
                 @endforeach
             </select>
         </div>

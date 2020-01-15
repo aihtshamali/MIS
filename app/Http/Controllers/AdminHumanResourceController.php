@@ -38,21 +38,31 @@ class AdminHumanResourceController extends Controller
 
     public function misc_minutes_create(){
 
-      $financial_year=Financialyear::all();
+      $financial_year=Financialyear::where('status',true)->get();
       $current_year='2019-20';
-      $adp = AdpProject::where('financial_year',$current_year)->orderBy('gs_no')->get();
+      $adp = AdpProject::all();
       $sectors = HrSector::all();
+      $hr_decisions=HrDecision::where('status',true)->get();
         \JavaScript::put([
             'projects' => $adp
         ]);
-      return view('admin_hr.meeting.misc_minutes_create', compact('financial_year','current_year','adp','sectors','meeting_types'));
+      return view('admin_hr.meeting.misc_minutes_create', compact('hr_decisions','financial_year','current_year','adp','sectors','meeting_types'));
     }
 
     public function view_misc_minutes()
     {
        $viewMoms=MiscMom::where('status',true)->get();
-        return view('admin_hr.meeting.view_misc_minutes',['viewMoms'=>$viewMoms]);
+        $hr_decisions=HrDecision::where('status',true)->get();
+        return view('admin_hr.meeting.view_misc_minutes',['viewMoms'=>$viewMoms,'hr_decisions'=>$hr_decisions]);
      
+  }
+   
+  public function addDescisioninMiscmom(Request $request)
+  {
+    $UpdateDecision=MiscMom::find($request->mom_id);
+    $UpdateDecision->hr_decision_id=$request->agenda_decision;
+    $UpdateDecision->save();
+      return redirect()->back()->with('success','Decision has been updated.');
   }
 
   public function removeMiscMom(Request $request)
@@ -65,8 +75,7 @@ class AdminHumanResourceController extends Controller
     
     public function store_misc_moms(Request $request)
     {
-
-      
+      // dd($request->all());
         $i=0;
       foreach($request->financial_year_id as $item)
       {
@@ -89,6 +98,7 @@ class AdminHumanResourceController extends Controller
           $store_misc_moms->status='1';
           $store_misc_moms->adp=explode(',',$request->adp_no[$i])[$i];
           $store_misc_moms->schemeName=$request->name_of_scheme[$i];
+          $store_misc_moms->hr_decision_id=$request->agenda_decision[$i];
           $store_misc_moms->save();
           $i++;
         }
@@ -210,6 +220,8 @@ class AdminHumanResourceController extends Controller
             'meetings_data' => $data
         ]);
         $agendas=HrAgenda::all();
+        
+
         // dd($data);
         return view('admin_hr.meeting.index',compact('meetings','agendas','data'));
     }
@@ -251,8 +263,9 @@ class AdminHumanResourceController extends Controller
     }
 
     public function financial_year(Request $request)
-    {
-      $adp = AdpProject::where('financial_year',$request->financial_year)->orderBy('gs_no')->get();
+    { 
+      $financial_year=Financialyear::where('id',$request->financial_year_id)->first();
+      $adp = AdpProject::where('financial_year',$financial_year->year)->orderBy('gs_no')->get();
       return $adp;
     }
 

@@ -351,8 +351,9 @@ Route::prefix('hr')->middleware('role:adminhr|manager|directormonitoring|directo
   Route::get('/dispatchLetterIndex','AdminHumanResourceController@dispatchLetterIndex')->name('dispatchLetterIndex');
   Route::get('/misc_minutes_create','AdminHumanResourceController@misc_minutes_create')->name('misc_minutes_create');
   Route::get('/view_misc_minutes','AdminHumanResourceController@view_misc_minutes')->name('view_misc_minutes');
-
   Route::post('/store_misc_moms','AdminHumanResourceController@store_misc_moms')->name('store_misc_moms');
+
+  Route::post('/addDescisioninMiscmom','AdminHumanResourceController@addDescisioninMiscmom')->name('addDescisioninMiscmom');
   Route::post('/removeMiscMom','AdminHumanResourceController@removeMiscMom')->name('removeMiscMom');
 
 });
