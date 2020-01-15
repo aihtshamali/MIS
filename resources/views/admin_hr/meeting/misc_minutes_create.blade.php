@@ -1,6 +1,6 @@
 @extends('layouts.uppernav')
 @section('styletag')
- <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{{asset('bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css')}}" />
   <link rel="stylesheet" href="{{asset('css/AdminLTE/dataTables.bootstrap.min.css')}}">
 @endsection
@@ -25,19 +25,18 @@
              <div class="row">
                 <div class="col-md-3">
                     <label for="">Choose Financial Year</label>
-                    <select name="financial_year_id[]" id="" class="form-control">
+                    <select name="financial_year_id[]" id="" class=" form-control" onchange="financial_year_fetch(this)">
+                            <option value="" selected ><b>Choose One</b></option>
                         @foreach($financial_year as $f_year)
-                        @if($f_year->status=='1')
-                            <option value="{{$f_year->id}}" selected ><b>{{$f_year->year}}</b></option>
-                            @else
-                            <option value="{{$f_year->id}}" ><b>{{$f_year->year}}</b></option>
+                             @if($f_year->status=='1')
+                                <option value="{{$f_year->id}}" ><b>{{$f_year->year}}</b></option>
                             @endif
                         @endforeach
                     </select>
                 </div>
                  <div class="col-md-3" >
                     <label for="">ADP #</label>
-                        <select class="form-control adp select2 " onchange="adp(this)" name="adp_no[]" id="">
+                        <select class="form-control adp select2 " required onchange="adp(this)" name="adp_no[]" id="">
                             <option value="" selected>Select GS #</option>
                             <?php $counting = 0?>
                             @foreach ($adp as $a)
@@ -62,6 +61,15 @@
                 <label for="">Upload Document</label>
                 <input type="file" class="form-control" required name="misc_mom_file[]">
                 </div>
+                <div class="col-md-3">
+                <label for="">Descision</label>
+                <select  name="agenda_decision[]" class="form-control select2" required style="text-align: center !important" id="">
+                        <option value="">Select Decision</option>
+                        @foreach ($hr_decisions as $decision)
+                            <option value="{{$decision->id}}">{{$decision->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="col-md-2">
                     <label for="" style="color:white !important;">Type Meeting Number</label><br>
                     <button class="btn btn-sm btn-info" id="add_more_misc_moms" type="button" name="add_more_misc_moms">+</button>
@@ -82,8 +90,8 @@
   <script type="text/javascript" src="{{asset('bower_components/moment/min/moment.min.js')}}"></script>
   <script type="text/javascript" src="{{asset('bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')}}"></script>
 <script>
-
-     function adp(e){
+     function adp(e)
+     {
        var arr = $(e).val().split(',');
         console.log(arr);
           console.log(projects[arr[1]]);
@@ -98,11 +106,10 @@
              <div class="row">
                 <div class="col-md-3">
                     <label for="">Choose Financial Year</label>
-                    <select name="financial_year_id[]" id="" class="form-control">
+                    <select name="financial_year_id[]" id="" class="form-control" onchange="financial_year_fetch(this)">
+                            <option value="" selected ><b>Choose One</b></option>
                         @foreach($financial_year as $f_year)
                         @if($f_year->status=='1')
-                            <option value="{{$f_year->id}}" selected ><b>{{$f_year->year}}</b></option>
-                            @else
                             <option value="{{$f_year->id}}" ><b>{{$f_year->year}}</b></option>
                             @endif
                         @endforeach
@@ -110,7 +117,7 @@
                 </div>
                  <div class="col-md-3" >
                     <label for="">ADP #</label>
-                        <select class="form-control  adp select2 " name="adp_no[]" onchange="adp(this)">
+                        <select class="form-control  adp select2 " required name="adp_no[]" onchange="adp(this)">
                             <option value="" selected>Select GS #</option>
                             <?php $counting = 0?>
                             @foreach ($adp as $a)
@@ -133,7 +140,16 @@
                 </div>
                 <div class="col-md-3">
                 <label for="">Upload Document</label>
-                <input type="file" class="form-control" name="misc_mom_file[]">
+                <input type="file" required class="form-control" name="misc_mom_file[]">
+                </div>
+                <div class="col-md-3">
+                <label for="">Descision</label>
+                <select  name="agenda_decision[]" class="form-control select2" required style="text-align: center !important" id="">
+                        <option value="">Select Decision</option>
+                        @foreach ($hr_decisions as $decision)
+                            <option value="{{$decision->id}}">{{$decision->name}}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="col-md-2">
                     <label for="" style="color:white !important;">Type Meeting Number</label><br>
@@ -143,16 +159,34 @@
           </div> `;
     $('.moms').append(mom);       
   
-    function remove_misc_momsFunc(e)
+ });
+ 
+     function remove_misc_momsFunc(e)
         {
             $(e).parent().parent().parent().remove();
         }
-  
-        // adplist
+ function financial_year_fetch(e)
+ {
+     console.log($(e).val());
+    axios.post('{{route("fetch_financial_year")}}',
+        {
+            financial_year_id: $(e).val()
+        }).then((response) => 
+        {
+            console.log(response.data)
+          projects = response.data;
+          counter = 0;
+          $('.adp').empty();
+          $('.adp').append('<option value="" selected>Select GS #</option>');
+          $.each(projects,function(key,element){
+            $('.adp').append('<option value='+element.gs_no+','+counter+'>'+element.gs_no+'</option>');
+            counter++;
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+ }
        
-
- });
- 
-   
 </script>
 @endsection
