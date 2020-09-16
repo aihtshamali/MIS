@@ -6,7 +6,7 @@
       }
       ul>li{
         list-style-type: none;
-       
+
       }
       .table.dataTable td, .table.dataTable th {
          text-align: left !important;
@@ -26,7 +26,7 @@
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-backward" ></i>Back</a></li>
       <li style="padding-left:5px;"><a href="#">Forward<i style="padding-left:3px;" class="fa fa-forward"></i></a></li>
-     
+
     </ol> --}}
   </section>
 
@@ -37,9 +37,9 @@
           {{--  Chart 1  --}}
           <div class="box box-warning">
             <div class="box-header with-border">
-              <h3 class="box-title"><b>COMPLETED EVALUATION PROJECTS</b></h3>
+              <h3 class="box-title"><bEVALUATION PROJECTS</b></h3>
                <button class="btn btn-sm btn-success" style="color:white;font-weight:bold font-size:20px;">@if(isset($completed)){{$completed->count()}}@endif</button>
-  
+
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
@@ -74,7 +74,7 @@
                         @if ($team->team_lead==1)
                         <li>
                           <span ><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}" style="font-weight:bold; color:red">{{$team->user->first_name}}  {{$team->user->last_name}}</a></span>
-                        </li>  
+                        </li>
                         @else
                         <li>
                           <span class=""><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}">{{$team->user->first_name}} {{$team->user->last_name}}</a></span>
@@ -87,7 +87,7 @@
                     <td>
                         <ul>
                         @foreach ($project->project->AssignedSubSectors as $item)
-                              <li>{{$item->SubSector->name}}</li> 
+                              <li>{{$item->SubSector->name}}</li>
                         @endforeach
                         </ul>
                     </td>
@@ -107,7 +107,7 @@
                                       {{round($project->progress, 0, PHP_ROUND_HALF_UP) }}% Complete
                                         </div>
 
-                                      </div> 
+                                      </div>
                     </td>
                     </tr>
                     @endforeach

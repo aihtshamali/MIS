@@ -123,14 +123,13 @@
 
         </ol>
     </section>
-
     <section class="content">
         <div>
             <label>Search Schemes</label>
             <select name="agenda_name" class="form-control select2 searchAgenda" style="text-align: center !important" id="agenda_name">
                 <option value="">Enter Scheme Name to Search...</option>
                 @foreach ($agendas as $agenda)
-                <option value="{{$agenda->HrMeetingPDWP->id}}">{{$agenda->scheme_name}} / <b>{{$agenda->financial_year}}</b></option>
+                <option value="{{$agenda->HrMeetingPDWP->id}}">{{$agenda->scheme_name}} /  {{$agenda->financial_year}} / {{explode('-',$agenda->HrMeetingPDWP->meeting_no)[0]}} @if(isset($agenda->HrProjectDecision->HrDecision) && $agenda->HrProjectDecision->HrDecision !=null)/ {{$agenda->HrProjectDecision->HrDecision->name}}@endif </option>
                 @endforeach
             </select>
         </div>
@@ -192,8 +191,9 @@
                             {{date('d-m-Y',strtotime($v->scheduled_date))}}
                         </td>
                         <td>
-                            <a href="{{asset('storage/uploads/projects/pdwp_meeting/'.$v->attachment)}}" download>{{$v->attachment}}</a>
+                          <a href="{{route('getFile',$v->id)}}" class="btn btn-md btn-info">{{$v->attachment}}</a>
 
+                            <!-- <a href="{{asset('storage/uploads/projects/pdwp_meeting/'.$v->attachment)}}" download class="btn btn-md btn-info">{{$v->attachment}}</a> -->
                         </td>
                         <td>
                             <a href="{{ route('admin.edit',$v->id) }} " class="btn btn-success">EDIT</a>
@@ -203,7 +203,7 @@
                     {{-- @endforeach --}}
                     @endforeach
                 </tbody>
-               
+
             </table>
             </div>
         @endforeach
@@ -238,7 +238,7 @@
     var table = $('.example1').DataTable();
     table.columns().every( function () {
         var that = this;
- 
+
         $( 'input', this.header() ).on( 'keyup change', function () {
             if ( that.search() !== this.value ) {
                 that
@@ -248,4 +248,4 @@
         } );
     } );
 </script>
-@endsection 
+@endsection

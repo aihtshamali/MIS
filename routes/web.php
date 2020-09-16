@@ -77,7 +77,7 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::resource('district','DistrictController');
     Route::resource('assigning_forum','AssigningForumController');
     Route::resource('approving_forum','ApprovingForumController');
-   
+
     // Monitoring m_project_kpis
     Route::resource('/mprojectkpis','MonitoringProjectKpiController');
 
@@ -135,7 +135,7 @@ Route::prefix('manager')->middleware('role:manager|directorevaluation')->group(f
     Route::resource('assignproject','ProjectAssignController');
     Route::get('/evaluation_reviewed','ExecutiveController@reviewed_projects');
 
-    
+
     // MONITORING MODULE
     Route::get('/m_unassignedprojects','ExecutiveController@monitoring_unassigned')->name('monitoring_unassigned');
     Route::get('/m_assigntoconsultant','ProjectAssignController@assignToConsultant')->name('assign_To_consultant');
@@ -174,6 +174,8 @@ Route::prefix('manager')->middleware('role:manager|directorevaluation')->group(f
     Route::get('/projects_assigned','DirectorEvaluationController@totalProjectAssigned')->name('totalProjectAssignedtoOfficers');
     Route::post('/stopAssignedProject','DirectorEvaluationController@stopAssignedProject')->name('stopAssignedProject');
 
+    Route::get('/adpProject_1819','DirectorEvaluationController@adpProject_1819')->name('adpProject_1819');
+
   });
 
   //for Monitoring Director
@@ -191,11 +193,11 @@ Route::prefix('manager')->middleware('role:manager|directorevaluation')->group(f
     Route::get('/monitoring_complete','DirectorMonitoringController@monitoring_completeprojects')->name('Monitoring_complete_projects');
     Route::get('/monitoring_assigntoconsultant','ProjectAssignController@DPM_AssignToConsultant')->name('Monitoring_assignToconsultant');
     Route::post('/monitoring_assigntoconsultant','ProjectAssignController@store_from_Mdirector')->name('store_from_Mdirector');
-    
+
 
 
 });
-Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
+    Route::get('/getSectorWise','ExecutiveController@getSectorWise')->name('getSectorWise');
 
 
 
@@ -237,9 +239,9 @@ Route::prefix('Monitorofficer')->middleware('role:monitor|officer')->group(funct
   Route::get('/monitoring_inprogressAssignment','OfficerController@monitoring_inprogressAssignments')->name('Monitoring_inprogressAssignments');
   Route::post('/monitoring_inprogress_costs_saved','OfficerController@monitoring_inprogress_costs_saved')->name('Monitoring_inprogressCostSaved');
   Route::post('/monitoring_inprogress_dates_saved','OfficerController@monitoring_inprogress_dates_saved')->name('Monitoring_inprogressDateSaved');
-  
+
   Route::post('/Monitoring_PlannedDates','OfficerController@Monitoring_PlannedDates')->name('Monitoring_PlannedDates');
-  
+
   Route::post('/monitoring_inprogress_organizations_saved','OfficerController@monitoring_inrogress_organizations_saved')->name('Monitoring_inprogressOrganizationSaved');
   Route::post('/monitoring_inprogress_location_saved','OfficerController@monitoring_inprogress_location_saved')->name('Monitoring_inprogressLocationSaved');
   Route::get('/monitoring_completedAssignment','OfficerController@monitoring_completedAssignments')->name('Monitoring_completedAssignments');
@@ -344,13 +346,17 @@ Route::prefix('hr')->middleware('role:adminhr|manager|directormonitoring|directo
   Route::resource('admin','AdminHumanResourceController');
   Route::post('/save_agendax','AdminHumanResourceController@save_agendax')->name('agendax');
   Route::post('/descisionAgendax','AdminHumanResourceController@DescisionAgenda')->name('DescisionAgenda');
-  
+  Route::get('/getfile/{id}','AdminHumanResourceController@getFile')->name('getFile');
   Route::get('/dispatch_form','AdminHumanResourceController@dispatch_form')->name('dispatch_form');
   Route::post('/dispatchLetterCreated','AdminHumanResourceController@dispatchLetterCreated')->name('dispatchLetterCreated');
   Route::get('/dispatchLetterIndex','AdminHumanResourceController@dispatchLetterIndex')->name('dispatchLetterIndex');
+  Route::get('/misc_minutes_create','AdminHumanResourceController@misc_minutes_create')->name('misc_minutes_create');
+  Route::get('/view_misc_minutes','AdminHumanResourceController@view_misc_minutes')->name('view_misc_minutes');
+  Route::post('/store_misc_moms','AdminHumanResourceController@store_misc_moms')->name('store_misc_moms');
 
-  // Route::get('/search_agendas','AdminHumanResourceController@search_agendas')->name('search_agendas');
-  // Route::get('/','inHumanResourceController@index')->name('index_meeting');
+  Route::post('/addDescisioninMiscmom','AdminHumanResourceController@addDescisioninMiscmom')->name('addDescisioninMiscmom');
+  Route::post('/removeMiscMom','AdminHumanResourceController@removeMiscMom')->name('removeMiscMom');
+
 });
 Route::group(['middleware'=>['permission:can.chat']],function(){
   Route::get('/conversations/{id}', 'ChatController@show');

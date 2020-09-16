@@ -19,12 +19,15 @@ use App\DispatchLetterCc;
 use App\AgendaType;
 use App\HrProjectType;
 use App\User;
+use App\Financialyear;
 use App\UserDetail;
+use App\MiscMom;
 use Auth;
 use Carbon;
 use App\AdpProject;
 use JavaScript;
 use App\HrMomAttachment;
+
 class AdminHumanResourceController extends Controller
 {
  
@@ -33,7 +36,78 @@ class AdminHumanResourceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+
+    public function misc_minutes_create(){
+
+      $financial_year=Financialyear::where('status',true)->get();
+      $current_year='2019-20';
+      $adp = AdpProject::all();
+      $sectors = HrSector::all();
+      $hr_decisions=HrDecision::where('status',true)->get();
+        \JavaScript::put([
+            'projects' => $adp
+        ]);
+      return view('admin_hr.meeting.misc_minutes_create', compact('hr_decisions','financial_year','current_year','adp','sectors'));
+    }
+
+    public function view_misc_minutes()
+    {
+       $viewMoms=MiscMom::where('status',true)->get();
+        $hr_decisions=HrDecision::where('status',true)->get();
+        return view('admin_hr.meeting.view_misc_minutes',['viewMoms'=>$viewMoms,'hr_decisions'=>$hr_decisions]);
+
+  }
+
+  public function addDescisioninMiscmom(Request $request)
+  {
+    $UpdateDecision=MiscMom::find($request->mom_id);
+    $UpdateDecision->hr_decision_id=$request->agenda_decision;
+    $UpdateDecision->save();
+      return redirect()->back()->with('success','Decision has been updated.');
+  }
+
+  public function removeMiscMom(Request $request)
+  {
+    $deleteMom=MiscMom::find($request->mom_id);
+    $deleteMom->status=false;
+    $deleteMom->save();
+      return redirect()->back()->with('error','M-O-Ms has been deleted.');
+  }
+
+    public function store_misc_moms(Request $request)
+    {
+      // dd($request->all());
+        $i=0;
+      foreach($request->financial_year_id as $item)
+      {
+
+        if($request->hasFile('misc_mom_file'))
+        {
+          if (!is_dir('storage/uploads/projects/misc_meetings_mom/')) {
+              mkdir('storage/uploads/projects/misc_meetings_mom/');
+          }
+          if (!is_dir('storage/uploads/projects/misc_meetings_mom/'.$request->misc_mom_name[$i].'/')) {
+              mkdir('storage/uploads/projects/misc_meetings_mom/'.$request->misc_mom_name[$i].'/');
+          }
+
+          $store_misc_moms=new MiscMom();
+          $store_misc_moms->financialyear_id=$item;
+          $store_misc_moms->meeting_num=$request->misc_mom_name[$i];
+          $document=$request->file('misc_mom_file')[$i];
+          $document->store('public/storage/uploads/projects/misc_meetings_mom/'.$store_misc_moms->meeting_num);
+          $store_misc_moms->mom_attachment_file =$document->hashName();
+          $store_misc_moms->status='1';
+          $store_misc_moms->adp=explode(',',$request->adp_no[$i])[$i];
+          $store_misc_moms->schemeName=$request->name_of_scheme[$i];
+          $store_misc_moms->hr_decision_id=$request->agenda_decision[$i];
+          $store_misc_moms->save();
+          $i++;
+        }
+
+      }
+
+      return redirect()->back()->with('success','M-O-Ms has been saved.');
+    }
      public function dispatch_form()
      {
        $doctypes=DispatchLetterDoctype::all();
@@ -81,24 +155,32 @@ class AdminHumanResourceController extends Controller
         $newDispatch_letter_cc->dispatch_letter_id=$newDispatch_letter->id;
         $newDispatch_letter_cc->user_id=$cc;
         $newDispatch_letter_cc->save();
-      }  
-            
+      }
+
        return redirect()->back();
      }
-  
+
      public function dispatchLetterIndex()
      {
        $letters=DispatchLetter::all();
        foreach($letters as $letter)
        {
         if($letter->document_name)
-        { 
+        {
           file_put_contents('storage/uploads/projects/dispatch_letters/'.$letter->document_name,base64_decode($letter->scan_document));
         }
       }
        return view('admin_hr.dispatch.index',compact('letters'));
      }
-     
+     public function getfile($id)
+     {
+         $meeting = HrMeetingPDWP::find($id);
+        if($meeting->attachment){
+            file_put_contents('storage/uploads/projects/pdwp_meeting/'.$meeting->attachment,base64_decode($meeting->attachment_file));
+          }
+
+         return response()->download('storage/uploads/projects/pdwp_meeting/'.$meeting->attachment);
+     }
     public function index()
     {
         $meetings = HrMeetingPDWP::all();
@@ -133,15 +215,18 @@ class AdminHumanResourceController extends Controller
               ];
             }
           }
-    
+
         }
         \JavaScript::put([
             'meetings_data' => $data
         ]);
         $agendas=HrAgenda::all();
+
+
         // dd($data);
         return view('admin_hr.meeting.index',compact('meetings','agendas','data'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -162,7 +247,7 @@ class AdminHumanResourceController extends Controller
 
         return view('admin_hr.meeting.create',compact('sectors','meeting_types','agenda_types','agenda_statuses','adp'));
     }
- 
+
     public function saveMoms(Request $request)
     {
       if($request->hasFile('attach_moms'))
@@ -180,7 +265,8 @@ class AdminHumanResourceController extends Controller
 
     public function financial_year(Request $request)
     {
-      $adp = AdpProject::where('financial_year',$request->financial_year)->orderBy('gs_no')->get();
+      $financial_year=Financialyear::where('id',$request->financial_year_id)->first();
+      $adp = AdpProject::where('financial_year',$financial_year->year)->orderBy('gs_no')->get();
       return $adp;
     }
 
@@ -280,15 +366,22 @@ class AdminHumanResourceController extends Controller
      */
     public function show($id)
     {
-        $meeting = HrMeetingPDWP::find($id);
+      $meeting = HrMeetingPDWP::find($id);
+       if($meeting->attachment)
+       {
+          file_put_contents('storage/uploads/projects/pdwp_meeting/'.$meeting->attachment,base64_decode($meeting->attachment_file));
+        }
         $agendas = $meeting->HrAgenda;
-        foreach($agendas as $agenda){
+        foreach($agendas as $agenda)
+        {
             if($agenda->HrMomAttachment)
             file_put_contents('storage/uploads/projects/meetings_mom/'.$agenda->HrMomAttachment->attachment,base64_decode($agenda->HrMomAttachment->attachment_file));
             if($agenda->HrAttachment){
               file_put_contents('storage/uploads/projects/project_agendas/'.$agenda->HrAttachment->attachments,base64_decode($agenda->HrAttachment->attachment_file));
             }
+
         }
+
         $agenda_statuses = HrProjectType::all();
         $adp = AdpProject::where('financial_year','2017-18')->orderBy('gs_no')->get();
         $sectors = HrSector::all();
@@ -315,9 +408,9 @@ class AdminHumanResourceController extends Controller
        }
        else
        {
-        return redirect()->back()->with('error', 'Meeting Not Attended'); 
+        return redirect()->back()->with('error', 'Meeting Not Attended');
        }
-      
+
    }
     public function save_agendax(Request $request)
     {
@@ -433,7 +526,7 @@ class AdminHumanResourceController extends Controller
         $agenda->save();
 
         if($request->hasFile('attach_moms')){
-          $HRamiG= HrMomAttachment::where('hr_agenda_id',$request->hr_agenda_id)->first() 
+          $HRamiG= HrMomAttachment::where('hr_agenda_id',$request->hr_agenda_id)->first()
           ? HrMomAttachment::where('hr_agenda_id',$request->hr_agenda_id)->first() : new HrMomAttachment();
           $HRamiG->hr_agenda_id=$request->hr_agenda_id;
           $meeting_filename = "PDWP-MOM-".$request->hr_agenda_id;
@@ -457,7 +550,7 @@ class AdminHumanResourceController extends Controller
           $agendaDecision->comments_user_id=Auth::id();
           $agendaDecision->save();
          }
-         
+
         return redirect()->back();
     }
 

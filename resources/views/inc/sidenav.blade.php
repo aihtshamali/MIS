@@ -225,6 +225,16 @@
             <li><a href="{{route('admin.index')}}"><i class="fa fa-circle-o"></i>View All </a></li>
           </ul>
         </li>
+          <li class="treeview">
+          <a href="#">
+            <i class="fa fa-book"></i>
+            <span>Miscellaneous PDWP Minutes</span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{route('misc_minutes_create')}}"><i class="fa fa-circle-o"></i>Add New Minutes</a></li>
+            <li><a href="{{route('view_misc_minutes')}}"><i class="fa fa-circle-o"></i>View All </a></li>
+          </ul>
+        </li>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>

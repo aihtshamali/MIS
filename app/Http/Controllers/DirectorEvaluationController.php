@@ -30,6 +30,19 @@ class DirectorEvaluationController extends Controller
         return view('Director.Evaluation.home.index');
 
     }
+
+    public function adpProject_1819()
+    {
+      $projects = AssignedProject::select('assigned_projects.*')
+      ->leftJoin('projects','projects.id','assigned_projects.project_id')
+      ->where('project_type_id',1)
+      ->where('assigned_projects.stopped',0)
+      ->where('projects.status',1)
+      ->where('projects.financial_year','2018-19')
+      ->get();
+      return view ('Director.Evaluation.Evaluation_projects.adpProject_1819',['projects'=>$projects]);
+
+    }
     public function pems_index(){
       $total_assigned_projects = count(AssignedProject::all());
       $inprogress_projects = count(AssignedProject::where('acknowledge',1)->get());
@@ -62,7 +75,8 @@ class DirectorEvaluationController extends Controller
       //   ]);
 
 
-      return view('Director.Evaluation.home.pems_tab',['officers' => $officers,'assigned_projects' => $assigned_projects,'assigned_completed_projects'=>$assigned_completed_projects]);
+      return view('Director.Evaluation.home.pems_tab',
+      ['officers' => $officers,'assigned_projects' => $assigned_projects,'assigned_completed_projects'=>$assigned_completed_projects]);
       }
 
       public function pmms_index(){
@@ -156,24 +170,25 @@ class DirectorEvaluationController extends Controller
          $projects = $assigned;
          $sectors = Sector::where('status',1)->get();
          return view('Director.Evaluation.Evaluation_projects.assigned',compact('stoppedProjects','assigned','officers','projects','sectors'));
-      } 
+      }
 
       public function stopAssignedProject(Request $request)
       {
-          
+
           $assigned_project=AssignedProject::find($request->assigned_project_id);
           $assigned_project->stopped=true;
           $assigned_project->save();
           $StoppedProject=new StoppedProject();
-         
+
           $StoppedProject->assigned_project_id=$assigned_project->id;
           $StoppedProject->user_id=Auth::id();
           $StoppedProject->remarks=$request->remarks;
           $StoppedProject->save();
           return redirect()->back();
-      } 
+      }
 
       public function evaluation_Completedprojects(){
+
          $projects = AssignedProject::where('complete',1)->get();
          return view('Director.Evaluation.Evaluation_projects.completed',compact('projects'));
       }
@@ -253,6 +268,7 @@ class DirectorEvaluationController extends Controller
 
         return response($projects);
     }
+
     public function getCompletedProjects(Request $request){
 
       $projects = DB::select(
@@ -262,42 +278,42 @@ class DirectorEvaluationController extends Controller
     }
       // projects asigned to officers
       public function totalProjectAssigned()
-      {
-      $total_assigned_projects = count(AssignedProject::all());
-      $inprogress_projects = count(AssignedProject::where('acknowledge',1)->get());
-      $completed_projects = count(AssignedProject::where('complete',1)->get());
-      $model = new User();
-      $officers = $model->hydrate(
-        DB::select(
-          'getAllOfficers'
-        )
-        );
-        $assigned_completed_projects = [];
-        $assigned_projects = [];
-        foreach($officers as $officer){
-
-          $data = DB::select(
-            'getOfficersAssignedProjectById' .' '.$officer->id
+       {
+        $total_assigned_projects = count(AssignedProject::all());
+        $inprogress_projects = count(AssignedProject::where('acknowledge',1)->get());
+        $completed_projects = count(AssignedProject::where('complete',1)->get());
+        $model = new User();
+        $officers = $model->hydrate(
+          DB::select(
+            'getAllOfficers'
+          )
           );
-          $data_3 = DB::select(
-            'getOfficersCompletedProjectsById' .' '.$officer->id
+          $assigned_completed_projects = [];
+          $assigned_projects = [];
+          foreach($officers as $officer){
+
+            $data = DB::select(
+              'getOfficersAssignedProjectById' .' '.$officer->id
             );
-          array_push($assigned_projects,count($data));
-          array_push($assigned_completed_projects,count($data_3));
-        }
+            $data_3 = DB::select(
+              'getOfficersCompletedProjectsById' .' '.$officer->id
+              );
+            array_push($assigned_projects,count($data));
+            array_push($assigned_completed_projects,count($data_3));
+          }
 
-      \JavaScript::put([
-        'officers' => $officers,
-        'assigned_projects' => $assigned_projects,
+        \JavaScript::put([
+          'officers' => $officers,
+          'assigned_projects' => $assigned_projects,
+          'assigned_completed_projects'=>$assigned_completed_projects
+
+          ]);
+
+        // dd($assigned_projects);
+
+        return view('Director.Evaluation.home.pems_tab',['officers' => $officers,'assigned_projects' => $assigned_projects,
         'assigned_completed_projects'=>$assigned_completed_projects
-
         ]);
-
-      // dd($assigned_projects);
-
-      return view('Director.Evaluation.home.pems_tab',['officers' => $officers,'assigned_projects' => $assigned_projects,
-      'assigned_completed_projects'=>$assigned_completed_projects
-      ]);
       }
     /**
      * Show the form for creating a new resource.

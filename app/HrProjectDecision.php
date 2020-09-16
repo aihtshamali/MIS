@@ -11,7 +11,7 @@ class HrProjectDecision extends Model
         return $this->belongsTo('App\HrAgenda');
     }
     public function HrDecision(){
-        return $this->belongsTo('App\HrDecision');
+        return $this->belongsTo('App\HrDecision','hr_decision_id');
     }
     public function HrMeetingPDWP(){
         return $this->belongsTo('App\HrMeetingPDWP');

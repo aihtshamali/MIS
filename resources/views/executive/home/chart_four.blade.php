@@ -101,7 +101,7 @@
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">×</span></button>
-                    <h4><b class="modal-title"></b></h4>
+                    <h4><b class="modal-title">@{{name}}</b></h4>
                   </div>
                   <div class="modal-body">
                         <table id="chart1" data-page-length="100" class="table table-bordered table-hover">
@@ -124,8 +124,44 @@
                                 <td>@{{row.title }}</td>
                                 <td>@{{(Number(row.orignal_cost).toFixed(2))}} Million</td>
                                 <td>@{{row.assigned_date}}</td>
-                                <td v-if="row.status==1">Completed</td>                                  
+                                <td v-if="row.status==1">Completed</td>
                               </tr>
+                          </tbody>
+                        </table>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                    {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+                  </div>
+                </div>
+                <!-- /.modal-content -->
+              </div>
+              <!-- /.modal-dialog -->
+            </div>
+
+            <div class="modal fade in" id="Modal1" style="display: block; padding-right: 17px;display:none">
+              <div class="modal-dialog" style="width:90%">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span></button>
+                    <h4><b class="modal-title modal-title-text"></b></h4>
+                  </div>
+                  <div class="modal-body">
+                        <table id="chart4" data-page-length="100" class="table table-bordered table-hover">
+                          <thead>
+                          <tr>
+                            <th>SR #</th>
+                            <th>Project No</th>
+                            <th>GS #</th>
+                            <th>Name</th>
+                            <th>Cost</th>
+                          <th>Assigned Date</th>
+                          <th>Status</th>
+                          </tr>
+                          </thead>
+                          <tbody id="tbody">
+
                           </tbody>
                         </table>
                   </div>
@@ -148,7 +184,7 @@
 <script src="{{asset('js/charts/fabric.min.js')}}"></script>
 <script src="{{asset('js/charts/FileSaver.min.js')}}"></script>
 <script src="{{asset('js/charts/jszip.min.js')}}"></script>
-<script src="{{asset('js/charts/pdfmake.min.js')}}"></script>
+<!-- <script src="{{asset('datatableevaluation/pdfmake.min.js')}}"></script> -->
 <script src="{{asset('js/charts/export.min.js')}}"></script>
 <script src="{{asset('js/charts/dark.js')}}"></script>
 <script src="{{asset('js/charts/black.js')}}"></script>
@@ -156,40 +192,47 @@
 <script src="{{asset('js/charts/light.js')}}"></script>
 <script src="{{asset('js/charts/patterns.js')}}"></script>
 <script>
-$('#chart1').DataTable( {
-       dom: 'Bfrtip',
-        buttons: [
-           'pageLength', 'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
-        
-    } );
+
+var t = $('#chart4').DataTable( {
+  dom: 'Bfrtip',
+  buttons: [
+    'pageLength', 'copy', 'csv', 'excel', 'pdf', 'print'
+  ]
+
+});
 </script>
 <script type="text/javascript">
   // $('#example').DataTable();
   var VueModal = new Vue({
-  
+
     el:"#Modal",
     data : {
       title : "Projects",
       name: "",
       field: "",
       d:[],
+      final_Data : []
     },
     methods:{
       rows: function(event){
-          
-          this.name = event.item.category;
-          this.d=total_assigned_completed_projects[event.index];
-          console.log(this.d);
+        this.final_Data = []
+          // WIll refresh table by removing Elements
+        t.clear().draw(false);
 
-                $('#Modal').modal('show');
-  
+          this.name = event.item.category;
+          $('.modal-title-text').text(this.name)
+          this.d=total_assigned_completed_projects[event.index];
+          this.d.forEach(function(val,index){
+            t.row.add([index+1,val.project_no,val.financial_year+ "/"+ val.ADP,val.title,Number(val.orignal_cost).toFixed(2),val.assigned_date,val.status]).draw(false);
+          })
+
+        $('#Modal1').modal('show');
       }
     }
-  
+
   });
 </script>
-  
+
 <script>
   var st = [];
     $i = 0;
@@ -197,7 +240,7 @@ $('#chart1').DataTable( {
       st.push ({
         "Name":element.first_name + " "+ element.last_name,
         "Number of Projects": assigned_completed_projects[$i]
-      
+
       });
       $i++;
     });

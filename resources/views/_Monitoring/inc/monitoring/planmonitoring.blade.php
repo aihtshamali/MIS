@@ -17,7 +17,7 @@
             <!-- Nav tabs -->
             <ul class="nav nav-tabs tabs p_tabs" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link {{isset($innertab) && $innertab=='documents' ? 'active' : ''}} 
+                    <a class="nav-link {{isset($innertab) && $innertab=='documents' ? 'active' : ''}}
                     PlanDoc" data-toggle="tab" href="#PlanDocDiv" role="tab" aria-expanded="false">
                     <b style="font-size:14px; font-weight:bold;">Documents</b></a>
                 </li>
@@ -40,7 +40,7 @@
                 <li class="nav-item">
                     <a class='nav-link {{isset($innertab) && $innertab=="uderKPI" ? "active" : ""}} userKPITab' data-toggle="tab" href="#userKPIDiv" id="" role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">User WBS</b></a>
                 </li>
-               
+
                 <li class="nav-item">
                     <a class='nav-link {{isset($innertab) && $innertab=="task" ? "active" : ""}} activities' data-toggle="tab" href="#activities" id="tali" role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Tasks</b></a>
                 </li>
@@ -50,17 +50,17 @@
                 <li class="nav-item">
                     <a class='nav-link {{isset($innertab) && $innertab=="Costing" ? "active" : ""}} CostingTab' data-toggle="tab" href="#CostingDiv" id="cosli" role="tab" aria-expanded="false"><b style="font-size:14px; font-weight:bold;">Costing</b></a>
                 </li>
-             
+
             </ul>
 
             <div class="tab-content tabs card-block {{isset($maintab) && $maintab=='plan' ? 'active' : ''}}">
-                
-                <div class="tab-pane {{isset($innertab) && $innertab=='documents' ? 'active' : ''}}" 
-                         id="PlanDocDiv" role="tabpanel" aria-expanded="true"> 
+
+                <div class="tab-pane {{isset($innertab) && $innertab=='documents' ? 'active' : ''}}"
+                         id="PlanDocDiv" role="tabpanel" aria-expanded="true">
                     <div class="card">
                         <div class="card-header"> <h4><b>Documents & Images</b></h4></div>
                         <div class="card-block">
-                            <form class="serializeform" action="{{route('saveMonitoringAttachments')}}" 
+                            <form class="serializeform" action="{{route('saveMonitoringAttachments')}}"
                             method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <div class="row">
@@ -79,17 +79,17 @@
                                         <button type="submit" class="btn btn-sm btn-success pull-right" name="submit">Submit</button>
                                     </div>
                                 </div>
-                                    
+
                             </form>
                         </div>
                     </div>
 
                     <div class="card">
                         <div class="card-header">  <h4><b>Uploaded Attachments</b></h4> </div>
-                        <div class="card-block"> 
+                        <div class="card-block">
                             @if($project_documents ->count())
-                             <div class="row" style="margin-top:5%; margin-bottom: 10%;">   
-                                <div class="offset-md-3">   
+                             <div class="row" style="margin-top:5%; margin-bottom: 10%;">
+                                <div class="offset-md-3">
                                 <div class="table table-stripped ">
                                     <table >
                                         <thead>
@@ -101,23 +101,23 @@
                                         <tbody>
                                             @foreach ($project_documents as $p_doc)
                                                 <tr>
-                                                    <td>  
+                                                    <td>
                                                         <form action="{{route('deleteAttachment')}}" method="POST" enctype="multipart/form-data">
                                                         {{ csrf_field() }}
                                                           <input type="hidden" name="page_tabs" value="plan_documents">
                                                         <input type="hidden" name="document_id" value="{{$p_doc->id}}">
                                                         <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
-                                                        <button class="btn btn-sm btn-danger deleteObjective"  
-                                                        onclick="return confirm('Are you sure?')" type="submit" id="" > 
+                                                        <button class="btn btn-sm btn-danger deleteObjective"
+                                                        onclick="return confirm('Are you sure?')" type="submit" id="" >
                                                         <i class="fa fa-trash"></i> </button>
                                                          </form>
                                                     </td>
                                                     <td>{{$p_doc->attachment_name}}</td>
                                                     <td>
-                                                        
 
-                                                        <a href="{{asset('storage/uploads/monitoring/'.$monitoringProjectId.'/'.$p_doc->project_attachement)}}" download> 
-                                                            <i class="fa fa-file-{{$icons[$p_doc->type]}}-o fa-1x text-center" title="{{$p_doc->attachment_name }}" ></i>    
+
+                                                        <a href="{{asset('storage/uploads/monitoring/'.$monitoringProjectId.'/'.$p_doc->project_attachement)}}" download>
+                                                            <i class="fa fa-file-{{$icons[$p_doc->type]}}-o fa-1x text-center" title="{{$p_doc->attachment_name }}" ></i>
                                                     </a>
                                                     </td>
                                                     <td>{{date('d-F-Y | H:i:s', strtotime($p_doc->created_at))}}</td>
@@ -125,7 +125,7 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-                                   
+
                                 </div>
                                 </div>
                             </div>
@@ -175,10 +175,10 @@
                                     <button class="btn aho col-md-2 offset-md-10" type="submit" id="saveObjComp">Save & Proceed</button>
                                     </div>
                                 </form>
-                        
+
                         </div>
                     </div>
-            
+
                     <div class="card">
                         <div class="card-header"><h4><b>Summary Of Objectives</b></h4></div>
                         <div class="card-block">
@@ -190,7 +190,7 @@
                                                 <th></th>
                                                 <th>Objectives</th>
                                             </tr>
-                                            @foreach($objectives as $obj)                       
+                                            @foreach($objectives as $obj)
                                             <tr>
                                                 <td>
                                                     <form action="{{route('deleteObjective')}}" method="POST" enctype="multipart/form-data">
@@ -200,21 +200,21 @@
                                                         <button class="btn btn-sm btn-danger deleteObjective"  onclick="return confirm('Deletion of objective will lead to delete all the mappings of this objective.Are you sure?')" type="submit" id="deleteObjective" > <i class="fa fa-trash"></i> </button>
                                                     </form>
                                                 </td>
-                                                <td> 
+                                                <td>
                                                     {{$obj->objective}}
                                                 </td>
                                             </tr>
                                             @endforeach
                                         </table>
-                                    </div>  
-                                    @else  
+                                    </div>
+                                    @else
                                     <div class="col-sm-3">
                                         No Objectives Entered
                                     </div>
                                 @endif
                             </div>
-                        </div>    
-                    </div> 
+                        </div>
+                    </div>
 
                     <div class="card">
                             <div class="card-header"><h4><b>Summary Of Components</b></h4></div>
@@ -229,12 +229,12 @@
                                     <tr>
                                         <td>
                                                 <form action="{{route('deleteComponent')}}"  method="POST"  enctype="multipart/form-data">
-                                
+
                                                     {{ csrf_field() }}
                                                     <input type="hidden" name="page_tabs" value="plan_projectdesign">
                                                     <input type="hidden" name="CompNo" value="{{$comp->id}}">
                                                     <button class="btn btn-sm btn-danger deleteComp" onclick="return confirm('Deletion of component will lead to delete this respective component from all mapped places.Are you sure?')"  type="submit" id="deleteComp" > <i class="fa fa-trash"></i>  </button>
-                                                </form>        
+                                                </form>
                                         </td>
                                         <td>
                                                 {{$comp->component}}
@@ -244,7 +244,7 @@
                                 </table>
                             </div>
                         </div></div>
-                    </div> 
+                    </div>
                 </div>
 
                 <div class="tab-pane" id="financial" role="tabpanel" aria-expanded="false">
@@ -311,13 +311,13 @@
                                     <input type="hidden" name="progress_id" value="{{$projectProgressId->id}}">
                                     <input type="hidden" name="counts" value="1" id="counts_user_location">
                                     <input type="hidden" name="page_tabs" value="plan_userLoc">
-                    
+
                                     <div class="row col-md-12">
                                         <style media="screen" scoped>
                                             .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
                                                 padding: 1% !important
                                             }
-                    
+
                                             ;
                                         </style>
                                         <div class="col-md-11" id="CloneThisUserLoc" style="margin-bottom:1% !important;display: inline-flex;">
@@ -354,7 +354,7 @@
                                                     <input type="date" placeholder="" name="site_end_1" class="site_end form-control" style="padding: 0.6rem 0rem !important;" />
                                                 </div>
                                             </div>
-                    
+
                                         </div>
                                         <div class="col-sm-1 text_center">
                                             <button class="btn btn-sm btn-info " title="Add" type="button" id="CloneUserLoc">+</button>
@@ -369,7 +369,7 @@
                                 </form>
                         </div>
                     </div>
-                    
+
                     @if($projectProgressId->MAssignedKpi)
                     <div class="card">
                         <div class="card-header"><h4><b>Summary of Assigned User Locations</b></h4></div>
@@ -399,9 +399,9 @@
                                                     <form action="{{route('deleteUserLoc')}}" method="POST" >
                                                         {{ csrf_field() }}
                                                         <input type="hidden" name="userloc_id" value="{{$userloc->id   }}">
-                                                    <input type="hidden" name="page_tabs" value="plan_userLoc">                                                    
+                                                    <input type="hidden" name="page_tabs" value="plan_userLoc">
                                                         <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
-                                                        <button class="btn btn-sm btn-danger deleteKpi"  
+                                                        <button class="btn btn-sm btn-danger deleteKpi"
                                                         onclick="return confirm('Are you sure ?')" type="submit" id="deleteKpi" > <i class="fa fa-trash"></i> </button>
                                                     </form>
                                                 </td>
@@ -418,7 +418,7 @@
                                                 <td>{{$userloc->site_start_date ? $userloc->site_start_date : '-'}}</td>
                                                 <td>{{$userloc->site_end_date ? $userloc->site_end_date : '-'}}</td>
                                                 <td>{{$userloc->updated_at ? date('d-F-Y | H:i:s', strtotime($userloc->updated_at)) : '-'}}
-                                                        
+
                                                     </td>
                                             </tr>
                                             @endforeach
@@ -429,7 +429,7 @@
                         </div>
                     </div>
                     @endif
-                
+
                 </div>
 
                 <div class='tab-pane {{isset($innertab) && $innertab=="Mapping" ? "active" : ""}}' id="MOBdiv" role="tabpanel" aria-expanded="false">
@@ -477,7 +477,7 @@
                                     <button class="btn aho col-md-1 btn btn-primary pull-right" type="submit" id="saveCompagainstObj">Save </button>
                                     </div>
                                     <div class=" col-md-8 offset-md-2 SumObjComp nodisplay">
-                    
+
                                     </div>
                                 </div>
                         </form>
@@ -511,7 +511,7 @@
                                                 <div class="col-sm-4 ml-3" style="margin-top: -2%;">
                                                     <label for="">Components <span style="color:red">*</span></label>
                                                     <select name="component_mapped[]" required="required" class="select2" multiple="multiple"> <span style="color:red">*</span>
-                                                        <option value="" disabled>Choose Components</option> 
+                                                        <option value="" disabled>Choose Components</option>
                                                         @foreach ($components as $item)
                                                             <option value="{{$item->id}}">{{$item->component}}</option>
                                                         @endforeach
@@ -581,7 +581,7 @@
                             </div>
                         </form>
                     </div>
-                    
+
                     <div class="card">
                         <div class="card-header"><h4><b>Summary Of Saved WBS </b></h4></div>
                         <div class="card-block">
@@ -601,7 +601,7 @@
                                                             <input type="hidden" name="page_tabs" value="plan_KPI">
                                                             <input type="hidden" name="kpi_id" value="{{App\MProjectKpi::find($key)->id}}">
                                                             <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
-                                                            <button class="btn btn-sm btn-danger deleteKpi"  
+                                                            <button class="btn btn-sm btn-danger deleteKpi"
                                                             onclick="return confirm('KPI : {{App\MProjectKpi::find($key)->name}}\n1: All mapped components with this Custom/Default WBS will also be deleted. \n2: After visiting respective Project Site, One must not delete the Custom/Default Wbs.It will lead to miscalculations of progresses. \n Are you sure ?')" type="submit" id="deleteKpi" > <i class="fa fa-trash"></i> </button>
                                                        </form>
                                                 </td>
@@ -631,7 +631,7 @@
                                 <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
                                 <input type="hidden" name="page_tabs" value="plan_uderKPI">
                                 <input type="hidden" name="counts" id="counts_user_location_id" value="1+">
-                                
+
                                 <div class="row col-md-12">
                                     <div class="col-md-4 text-center">
                                         <div class="col-md-10 offset-md-1">
@@ -658,9 +658,9 @@
                                             <div class="col-md-10 offset-md-1 delLastChild">
                                                 @php $kpicount=1; @endphp
                                                 <select class="form-control select2" id="" name="user_location_id[]">
-                
+
                                                     @foreach ($projectProgressId->MAssignedUserLocation as $mUserLocation)
-                
+
                                                     <option value="{{$mUserLocation->id}}">{{$kpicount++}} - {{$mUserLocation->User->first_name}} {{$mUserLocation->User->last_name}} - {{$mUserLocation->District->name}} -{{$mUserLocation->site_name}}</option>
                                                     @endforeach
                                                 </select>
@@ -702,7 +702,7 @@
                                     </div>
                                 </div>
                                 <!-- end user Location content -->
-                
+
                             </form></div>
                     </div>
 
@@ -734,14 +734,14 @@
                                                             <input type="hidden" name="kpi_id" value="{{$userkpi->MAssignedUserKpi->MProjectKpi->id}}">
                                                             <input type="hidden" name="m_project_progress_id" value="{{$monitoringProjectId}}">
                                                             <input type="hidden" name="page_tabs" value="plan_uderKPI">
-                                                            <button class="btn btn-sm btn-danger deleteKpi"  
+                                                            <button class="btn btn-sm btn-danger deleteKpi"
                                                             onclick="return confirm('Deleting {{$userkpi->MAssignedUserKpi->MProjectKpi->name }} .... \n Deleting respective WBS will delete the assigned cost to it, but mapping will not be deleted from here.You can assign it again.\n Are you sure?')" type="submit" id="deleteKpi" > <i class="fa fa-trash"></i> </button>
                                                         </form>
                                                     </td>
                                                     <td>{{$i++}}</td>
                                                     <td>
                                                         {{$userkpi->MAssignedUserKpi->MAssignedUserLocation->User->first_name}} {{$userkpi->MAssignedUserKpi->MAssignedUserLocation->User->last_name}} - {{$userkpi->MAssignedUserKpi->MAssignedUserLocation->District->name}} -{{$userkpi->MAssignedUserKpi->MAssignedUserLocation->site_name}}
-                                                    </td>                                                  
+                                                    </td>
                                                     <td>
                                                         @if(isset($userkpi->MAssignedUserKpi->MProjectKpi->id))
                                                         {{$userkpi->MAssignedUserKpi->MProjectKpi->id}}
@@ -767,9 +767,9 @@
                                     </div>
                                 </div>
                                 @endif</div>
-                    </div>         
+                    </div>
                 </div>
-             
+
                 <div class='tab-pane {{isset($innertab) && $innertab=="task" ? "active" : ""}}' id="activities" role="tabpanel" aria-expanded="false" style="display:none;">
                     <form class="serializeform" action="{{route('componentActivities')}}" method="post">
                         {{ csrf_field() }}
@@ -855,7 +855,7 @@
                         </div>
                     </form>
                 </div>
-                
+
                 <div class='tab-pane {{isset($innertab) && $innertab=="costing" ? "active" : ""}}' id="CostingDiv" role="tabpanel" aria-expanded="false" style="">
                     <form class="serializeform" action="{{route('Costing')}}" method="post">
                         {{ csrf_field() }}
@@ -903,15 +903,3 @@
         </div>
     </div>
 </div>
- <script type="text/javascript">
-
-    function confSubmit(form) {
-    if (confirm("Are you sure you want to submit the form?")) {
-          form.submit();
-        }
-        
-    else {
-          alert("You decided to not submit the form!");
-        }
-        }
-</script>

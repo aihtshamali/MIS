@@ -147,6 +147,7 @@ class OfficerController extends Controller
         ->leftjoin('projects','projects.id','assigned_projects.project_id')
         ->where('project_type_id',1)
         ->where('projects.status',1)
+        ->where('assigned_projects.stopped',0)
         ->where('assigned_project_teams.user_id',Auth::id())
         ->where('acknowledge','0')
         ->count();
@@ -155,6 +156,7 @@ class OfficerController extends Controller
         ->leftjoin('projects','projects.id','assigned_projects.project_id')
         ->where('projects.status',1)
         ->where('project_type_id',1)
+              ->where('assigned_projects.stopped',0)
         ->where('assigned_project_teams.user_id',Auth::id())
         ->where('acknowledge','1')
         ->count();
@@ -163,6 +165,7 @@ class OfficerController extends Controller
         ->leftjoin('projects','projects.id','assigned_projects.project_id')
         ->where('project_type_id',1)
         ->where('projects.status',1)
+              ->where('assigned_projects.stopped',0)
         ->where('assigned_project_teams.user_id',Auth::id())
         ->where('acknowledge','0')
         ->get();

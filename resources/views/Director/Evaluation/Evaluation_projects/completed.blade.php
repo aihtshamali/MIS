@@ -7,7 +7,7 @@
       }
       ul>li{
         list-style-type: none;
-       
+
       }
        .table.dataTable td, .table.dataTable th {
          text-align:LEFT !important;
@@ -21,7 +21,7 @@
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
 
-  
+
 
   <section class="content">
       {{--  sekect consulatants  --}}
@@ -68,7 +68,7 @@
                         @if ($team->team_lead==1)
                         <li>
                           <span ><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}" style="font-weight:bold; color:red">{{$team->user->first_name}}  {{$team->user->last_name}}</a></span>
-                        </li>  
+                        </li>
                         @else
                         <li>
                           <span class=""><a href="{{route('ViewAsOfficerNewAssignments',$team->user->id)}}">{{$team->user->first_name}} {{$team->user->last_name}}</a></span>
@@ -81,7 +81,7 @@
                     <td>
                         <ul>
                         @foreach ($project->project->AssignedSubSectors as $item)
-                              <li>{{$item->SubSector->name}}</li> 
+                              <li>{{$item->SubSector->name}}</li>
                         @endforeach
                         </ul>
                     </td>
