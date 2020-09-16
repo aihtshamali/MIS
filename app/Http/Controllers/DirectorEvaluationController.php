@@ -188,6 +188,7 @@ class DirectorEvaluationController extends Controller
       }
 
       public function evaluation_Completedprojects(){
+
          $projects = AssignedProject::where('complete',1)->get();
          return view('Director.Evaluation.Evaluation_projects.completed',compact('projects'));
       }

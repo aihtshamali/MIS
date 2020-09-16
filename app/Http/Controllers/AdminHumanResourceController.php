@@ -46,7 +46,7 @@ class AdminHumanResourceController extends Controller
         \JavaScript::put([
             'projects' => $adp
         ]);
-      return view('admin_hr.meeting.misc_minutes_create', compact('hr_decisions','financial_year','current_year','adp','sectors','meeting_types'));
+      return view('admin_hr.meeting.misc_minutes_create', compact('hr_decisions','financial_year','current_year','adp','sectors'));
     }
 
     public function view_misc_minutes()
